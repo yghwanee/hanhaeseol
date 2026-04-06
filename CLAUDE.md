@@ -2,7 +2,7 @@
 
 ## 프로젝트 개요
 
-여러 스포츠 중계 플랫폼(SPOTV, 쿠팡플레이, 티빙 등)의 편성표를 한곳에 모아 보여주는 웹 서비스.
+여러 스포츠 중계 플랫폼의 편성표를 한곳에 모아 보여주는 웹 서비스.
 **핵심 기능**: 각 경기의 [한국어해설] 여부를 명확하게 표시하여, 사용자가 한국어 해설이 있는 중계를 쉽게 찾을 수 있도록 한다.
 
 ## 기술 스택
@@ -11,58 +11,86 @@
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Directory**: `src/` 디렉토리 구조 사용
+- **자동화**: GitHub Actions (하루 5회 크롤링)
 
 ## 프로젝트 구조
 
 ```
 src/
 ├── app/
-│   ├── layout.tsx       # 루트 레이아웃 (다크모드 기본, lang="ko")
-│   ├── page.tsx         # 메인 페이지 (클라이언트 컴포넌트)
-│   ├── globals.css      # 글로벌 스타일
-│   └── fonts/           # Geist 폰트
+│   ├── layout.tsx           # 루트 레이아웃 (다크모드 기본, lang="ko")
+│   ├── page.tsx             # 메인 페이지 (클라이언트 컴포넌트)
+│   ├── globals.css          # 글로벌 스타일
+│   └── fonts/               # Geist 폰트
 ├── data/
-│   └── schedule.json    # 경기 편성 데이터 (빌드타임 import)
+│   └── schedule.json        # 크롤러가 생성하는 편성 데이터
+├── lib/
+│   └── crawlers/
+│       ├── index.ts         # 크롤러 통�� + 필터링
+│       ├── parsers.ts       # 제목 파싱, 리그명 정규화, 종목 감지
+│       ├── spotv-now.ts     # SPOTV NOW API 크롤러
+│       ├── spotv-tv.ts      # SPOTV/SPOTV2 TV 채널 크롤러
+│       ├── mbc-sports.ts    # MBC SPORTS+ 크롤러
+│       └── tvn-sports.ts    # tvN SPORTS 크롤러
+├── scripts/
+│   └── crawl.ts             # 크롤링 실행 스크립트
 └── types/
-    └── schedule.ts      # Schedule, ScheduleData 타입 정의
+    └── schedule.ts          # Schedule, ScheduleData, Sport, Platform 타입
 ```
 
-## 주요 도메인 개념
+## 플랫폼 (10개)
 
-- **플랫폼(Platform)**: 중계를 제공하는 서비스 (SPOTV, 쿠팡플레이, 티빙 등)
-- **경기(Match)**: 스포츠 경기 정보 (종목, 팀, 시간 등)
-- **편성(Schedule)**: 특정 플랫폼에서 특정 경기를 중계하는 일정
-- **한국어해설(Korean Commentary)**: `true`(한국어해설) / `false`(현지해설) / `"unknown"`(확인중)
+| 구분 | 플랫폼 | 크롤러 상태 |
+|------|--------|------------|
+| OTT | SPOTV NOW | 구현 완료 (API, 한국어해설 자동 판별) |
+| OTT | 쿠팡플레이 | 미구현 (403 차단) |
+| OTT | 티빙 | 미구현 (로그인 필요) |
+| OTT | Apple TV+ | 미구현 (비공개 API) |
+| TV | SPOTV | 구현 완료 (JSON) |
+| TV | SPOTV2 | 구현 완료 (JSON) |
+| TV | tvN SPORTS | 구현 완료 (HTML 파싱) |
+| TV | KBS N SPORTS | 미구현 (접근 차단) |
+| TV | MBC SPORTS+ | 구현 완료 (POST API) |
+| TV | SBS Sports | 미구현 (JS 렌더링) |
+
+## 종목
+
+축구, 야구, 농구, 배구 (4개만)
 
 ## 메인 페이지 기능
 
-- **날짜 탭**: 이번 주 월~일, 오늘 날짜 기본 선택
-- **필터**: 종목(전체/축구/야구), 플랫폼(전체/SPOTV/쿠팡플레이/티빙), 해설(전체/한국어해설만)
-- **경기 카드**: 시간, 리그, 홈 VS 원정, 플랫폼 뱃지, 한국어해설 뱃지
-- **한국어해설 뱃지**: 초록(한국어해설) / 회색(현지해설) / 노란(확인중)
-- 모바일 퍼스트 반응형, 다크모드 기본
+- **날짜 탭**: 오늘부터 7일간, 오늘 기본 선택
+- **필터**: 종목(5개), 플랫폼(11개, 좌우 화살표 스크롤), 해설(전체/한국어해설만)
+- **경기 카드**: 시간, 리그, 홈 VS 원정, 플랫폼 뱃지, 상태 뱃지
+- **상태 뱃지**: 초록(한국어해설) / 빨강(현지해설) / 노랑(확인중) / 회색(경기 종료)
+- **경기 종료 판단**: 종목별 예상 시간 (축구 2.5h, 야구 4.5h, 농구 3h, 배구 3h)
+- **한국어해설 자동 판별**: SPOTV NOW language 필드 + 국내 리그 자동 true
 
-## 데이터
+## 크롤링
 
-- `src/data/schedule.json`에서 빌드타임에 import (fetch 아님)
-- 데이터 수정 시 `schedule.json` 직접 편집
+- `npm run crawl` → 오늘부터 7일치 크롤링 → `schedule.json` 갱신
+- GitHub Actions: KST 01시, 05시, 11시, 17시, 22시 자동 실행
+- 비경��� 콘텐츠(하이라이트, 시상식, 스포타임 등) 자�� 제외
+- SPOTV TV는 LIVE만 수집 (녹화 본방송 제외)
 
 ## 작업 진행 상황
 
 ### 완료된 작업
-1. **프로젝트 초기 설정** - Next.js 14 + TypeScript + Tailwind CSS 기반 프로젝트 생성
-2. **타입 정의** - `Schedule`, `ScheduleData` 타입 정의 (`src/types/schedule.ts`)
-3. **샘플 데이터** - 경기 편성 데이터 JSON 구성 (`src/data/schedule.json`)
-4. **메인 페이지 구현** - 편성표 필터링 및 경기 카드 UI 완성 (`src/app/page.tsx`)
-   - 날짜 탭 (이번 주 월~일, 오늘 기본 선택)
-   - 종목/플랫폼/해설 필터
-   - 경기 카드 (시간, 리그, 팀, 플랫폼 뱃지, 한국어해설 뱃지)
-   - 다크모드 기본, 모바일 퍼스트 반응형 디자인
+1. 프로젝트 초기 설정 (Next.js 14 + TypeScript + Tailwind CSS)
+2. 타입 정의 (Sport, Platform, Schedule, ScheduleData)
+3. 메인 페이지 UI (필���링, 경기 카드, 다크모드, 반응형)
+4. 크롤러 4개 구현 (SPOTV NOW, SPOTV/SPOTV2, MBC SPORTS+, tvN SPORTS)
+5. 리그명/팀명 파싱 정규화
+6. 경기 종료 표시 (종목별 예상 ��간)
+7. GitHub Actions 자동화 설정
+8. hydration 버그 수정
 
 ### 다음 작업 (예정)
-- 실제 편성 데이터 수집/업데이트 방식 결정
-- 플랫폼별 크롤링 또는 API 연동
-- 배포 설정
+- 쿠팡플레이, 티빙 크롤러 (Playwright 또는 API 분석 필요)
+- SBS Sports, KBS N SPORTS 크롤러
+- Apple TV+ 크롤러
+- Vercel 배포 설정
+- UI 개선 (모바일 최적화 등)
 
 ## 개발 명령어
 
@@ -71,4 +99,5 @@ npm run dev      # 개발 서버 (http://localhost:3000)
 npm run build    # 프로덕션 빌드
 npm run start    # 프로덕션 서버
 npm run lint     # ESLint 검사
+npm run crawl    # 크롤링 실행 (7일치)
 ```
