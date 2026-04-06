@@ -84,6 +84,9 @@ src/
 6. 경기 종료 표시 (종목별 예상 ��간)
 7. GitHub Actions 자동화 설정
 8. hydration 버그 수정
+9. GitHub Actions 워크플로우 수정 (push 권한, actions v6 업그레이드, pull --rebase 추가)
+10. 헤더 UI 개선 (한해설 + 한국어 해설 편성표 한 줄 배치, 텍스트 크기 확대, 여백 조정)
+11. 날짜 탭 UI 개선 (grid 균등 분할, 라운드 테두리, 토/일 색상 점 표시)
 
 ### 다음 작업 (예정)
 - 쿠팡플레이, 티빙 크롤러 (Playwright 또는 API 분석 필요)

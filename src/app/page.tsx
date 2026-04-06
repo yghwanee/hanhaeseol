@@ -197,32 +197,34 @@ export default function Home() {
   }, [selectedDate, sport, platform, koreanOnly]);
 
   return (
-    <div className="mx-auto min-h-screen max-w-2xl px-4 pb-12 pt-6">
+    <div className="mx-auto min-h-screen max-w-2xl px-4 pb-12 pt-10">
       {/* Header */}
-      <header className="mb-6">
-        <h1 className="text-2xl font-bold text-zinc-100">
-          한해설
+      <header className="mb-10">
+        <h1 className="text-5xl font-bold text-zinc-100">
+          한해설 <span className="ml-3 text-lg font-normal text-zinc-500">한국어 해설 편성표</span>
         </h1>
-        <p className="mt-1 text-sm text-zinc-500">
-          한국어 해설 편성표
-        </p>
       </header>
 
       {/* Date Tabs */}
-      <div className="mb-4 flex gap-1.5 overflow-x-auto pb-2 scrollbar-hide">
-        {weekDates.map((d) => (
-          <button
-            key={d.value}
+      <div className="mb-6 grid grid-cols-7 gap-2">
+        {weekDates.map((d) => {
+          const day = new Date(d.value + "T00:00:00").getDay();
+          return (
+          <div key={d.value} className="flex flex-col items-center gap-2">
+            {day === 6 ? <span className="h-1.5 w-1.5 rounded-full bg-blue-500" /> : day === 0 ? <span className="h-1.5 w-1.5 rounded-full bg-red-500" /> : <span className="h-1.5 w-1.5" />}
+            <button
             onClick={() => setSelectedDate(d.value)}
-            className={`shrink-0 rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+            className={`w-full rounded-lg border border-zinc-700 py-2 text-sm font-medium transition-colors ${
               selectedDate === d.value
                 ? "bg-zinc-100 text-zinc-900"
                 : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
             }`}
           >
             {d.label}
-          </button>
-        ))}
+            </button>
+          </div>
+          );
+        })}
       </div>
 
       {/* Filters */}
