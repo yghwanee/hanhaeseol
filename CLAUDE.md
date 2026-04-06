@@ -47,6 +47,23 @@ src/
 - `src/data/schedule.json`에서 빌드타임에 import (fetch 아님)
 - 데이터 수정 시 `schedule.json` 직접 편집
 
+## 작업 진행 상황
+
+### 완료된 작업
+1. **프로젝트 초기 설정** - Next.js 14 + TypeScript + Tailwind CSS 기반 프로젝트 생성
+2. **타입 정의** - `Schedule`, `ScheduleData` 타입 정의 (`src/types/schedule.ts`)
+3. **샘플 데이터** - 경기 편성 데이터 JSON 구성 (`src/data/schedule.json`)
+4. **메인 페이지 구현** - 편성표 필터링 및 경기 카드 UI 완성 (`src/app/page.tsx`)
+   - 날짜 탭 (이번 주 월~일, 오늘 기본 선택)
+   - 종목/플랫폼/해설 필터
+   - 경기 카드 (시간, 리그, 팀, 플랫폼 뱃지, 한국어해설 뱃지)
+   - 다크모드 기본, 모바일 퍼스트 반응형 디자인
+
+### 다음 작업 (예정)
+- 실제 편성 데이터 수집/업데이트 방식 결정
+- 플랫폼별 크롤링 또는 API 연동
+- 배포 설정
+
 ## 개발 명령어
 
 ```bash
