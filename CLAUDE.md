@@ -12,12 +12,40 @@
 - **Styling**: Tailwind CSS
 - **Directory**: `src/` 디렉토리 구조 사용
 
+## 프로젝트 구조
+
+```
+src/
+├── app/
+│   ├── layout.tsx       # 루트 레이아웃 (다크모드 기본, lang="ko")
+│   ├── page.tsx         # 메인 페이지 (클라이언트 컴포넌트)
+│   ├── globals.css      # 글로벌 스타일
+│   └── fonts/           # Geist 폰트
+├── data/
+│   └── schedule.json    # 경기 편성 데이터 (빌드타임 import)
+└── types/
+    └── schedule.ts      # Schedule, ScheduleData 타입 정의
+```
+
 ## 주요 도메인 개념
 
 - **플랫폼(Platform)**: 중계를 제공하는 서비스 (SPOTV, 쿠팡플레이, 티빙 등)
 - **경기(Match)**: 스포츠 경기 정보 (종목, 팀, 시간 등)
 - **편성(Schedule)**: 특정 플랫폼에서 특정 경기를 중계하는 일정
-- **한국어해설(Korean Commentary)**: 해당 중계에 한국어 해설이 포함되는지 여부
+- **한국어해설(Korean Commentary)**: `true`(한국어해설) / `false`(현지해설) / `"unknown"`(확인중)
+
+## 메인 페이지 기능
+
+- **날짜 탭**: 이번 주 월~일, 오늘 날짜 기본 선택
+- **필터**: 종목(전체/축구/야구), 플랫폼(전체/SPOTV/쿠팡플레이/티빙), 해설(전체/한국어해설만)
+- **경기 카드**: 시간, 리그, 홈 VS 원정, 플랫폼 뱃지, 한국어해설 뱃지
+- **한국어해설 뱃지**: 초록(한국어해설) / 회색(현지해설) / 노란(확인중)
+- 모바일 퍼스트 반응형, 다크모드 기본
+
+## 데이터
+
+- `src/data/schedule.json`에서 빌드타임에 import (fetch 아님)
+- 데이터 수정 시 `schedule.json` 직접 편집
 
 ## 개발 명령어
 
