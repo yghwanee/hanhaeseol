@@ -1,32 +1,32 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useState, useMemo, useRef } from "react";
 import { Schedule, ScheduleData } from "@/types/schedule";
 import scheduleJson from "@/data/schedule.json";
 
-const SPORTS = ["전체", "축구", "야구"] as const;
-const PLATFORMS = ["전체", "SPOTV", "쿠팡플레이", "티빙"] as const;
+const data = scheduleJson as ScheduleData;
 
-function getWeekDates(): { label: string; value: string }[] {
+const SPORTS = ["전체", "축구", "야구", "농구", "배구"] as const;
+const PLATFORMS = [
+  "전체", "SPOTV NOW", "SPOTV", "SPOTV2",
+  "쿠팡플레이", "티빙", "tvN SPORTS",
+  "KBS N SPORTS", "MBC SPORTS+", "SBS Sports", "Apple TV+",
+] as const;
+
+function getUpcomingDates(): { label: string; value: string }[] {
   const dates: { label: string; value: string }[] = [];
   const today = new Date();
-  const dayOfWeek = today.getDay();
-  const monday = new Date(today);
-  monday.setDate(today.getDate() - ((dayOfWeek + 6) % 7));
+  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
   for (let i = 0; i < 7; i++) {
-    const d = new Date(monday);
-    d.setDate(monday.getDate() + i);
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
     const yyyy = d.getFullYear();
     const mm = String(d.getMonth() + 1).padStart(2, "0");
     const dd = String(d.getDate()).padStart(2, "0");
     const value = `${yyyy}-${mm}-${dd}`;
-
-    const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
-    const isToday = d.toDateString() === today.toDateString();
-    const label = `${Number(mm)}/${Number(dd)}(${dayNames[d.getDay()]})`;
-
-    dates.push({ label: isToday ? `오늘` : label, value });
+    const label = i === 0 ? "오늘" : `${Number(mm)}/${Number(dd)}(${dayNames[d.getDay()]})`;
+    dates.push({ label, value });
   }
   return dates;
 }
@@ -39,11 +39,35 @@ function getTodayString(): string {
   return `${yyyy}-${mm}-${dd}`;
 }
 
-function CommentaryBadge({
+const GAME_DURATION_HOURS: Record<string, number> = {
+  "축구": 2.5,
+  "야구": 4.5,
+  "농구": 3,
+  "배구": 3,
+};
+
+function isGameFinished(date: string, time: string, sport: string): boolean {
+  const [hh, mm] = time.split(":").map(Number);
+  const gameStart = new Date(`${date}T${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}:00+09:00`);
+  const duration = (GAME_DURATION_HOURS[sport] ?? 3) * 60 * 60 * 1000;
+  return Date.now() > gameStart.getTime() + duration;
+}
+
+function StatusBadge({
   status,
+  finished,
 }: {
   status: boolean | "unknown";
+  finished: boolean;
 }) {
+  if (finished) {
+    return (
+      <span className="inline-flex items-center gap-1 rounded-full bg-zinc-500/20 px-2.5 py-0.5 text-xs font-semibold text-zinc-400 ring-1 ring-zinc-500/30">
+        <span className="h-1.5 w-1.5 rounded-full bg-zinc-400" />
+        경기 종료
+      </span>
+    );
+  }
   if (status === true) {
     return (
       <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-xs font-semibold text-emerald-400 ring-1 ring-emerald-500/30">
@@ -54,8 +78,8 @@ function CommentaryBadge({
   }
   if (status === false) {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-zinc-500/20 px-2.5 py-0.5 text-xs font-semibold text-zinc-400 ring-1 ring-zinc-500/30">
-        <span className="h-1.5 w-1.5 rounded-full bg-zinc-400" />
+      <span className="inline-flex items-center gap-1 rounded-full bg-rose-500/20 px-2.5 py-0.5 text-xs font-semibold text-rose-400 ring-1 ring-rose-500/30">
+        <span className="h-1.5 w-1.5 rounded-full bg-rose-400" />
         현지해설
       </span>
     );
@@ -70,9 +94,16 @@ function CommentaryBadge({
 
 function PlatformBadge({ platform }: { platform: string }) {
   const styles: Record<string, string> = {
+    "SPOTV NOW": "bg-red-500/15 text-red-400 ring-red-500/30",
     SPOTV: "bg-red-500/15 text-red-400 ring-red-500/30",
+    SPOTV2: "bg-orange-500/15 text-orange-400 ring-orange-500/30",
     쿠팡플레이: "bg-blue-500/15 text-blue-400 ring-blue-500/30",
     티빙: "bg-purple-500/15 text-purple-400 ring-purple-500/30",
+    "tvN SPORTS": "bg-emerald-500/15 text-emerald-400 ring-emerald-500/30",
+    "KBS N SPORTS": "bg-sky-500/15 text-sky-400 ring-sky-500/30",
+    "MBC SPORTS+": "bg-amber-500/15 text-amber-400 ring-amber-500/30",
+    "SBS Sports": "bg-indigo-500/15 text-indigo-400 ring-indigo-500/30",
+    "Apple TV+": "bg-gray-500/15 text-gray-300 ring-gray-500/30",
   };
   return (
     <span
@@ -94,18 +125,27 @@ function ScheduleCard({ schedule }: { schedule: Schedule }) {
           <span className="text-zinc-600">|</span>
           <span>{schedule.league}</span>
         </div>
-        <CommentaryBadge status={schedule.koreanCommentary} />
+        <StatusBadge
+          status={schedule.koreanCommentary}
+          finished={isGameFinished(schedule.date, schedule.time, schedule.sport)}
+        />
       </div>
 
-      <div className="mt-3 flex items-center justify-center gap-3 text-base">
-        <span className="flex-1 text-right font-semibold text-zinc-100 truncate">
+      {schedule.awayTeam ? (
+        <div className="mt-3 flex items-center justify-center gap-3 text-base">
+          <span className="flex-1 text-right font-semibold text-zinc-100 truncate">
+            {schedule.homeTeam}
+          </span>
+          <span className="shrink-0 text-xs font-bold text-zinc-500">VS</span>
+          <span className="flex-1 text-left font-semibold text-zinc-100 truncate">
+            {schedule.awayTeam}
+          </span>
+        </div>
+      ) : (
+        <div className="mt-3 text-center text-base font-semibold text-zinc-100 truncate">
           {schedule.homeTeam}
-        </span>
-        <span className="shrink-0 text-xs font-bold text-zinc-500">VS</span>
-        <span className="flex-1 text-left font-semibold text-zinc-100 truncate">
-          {schedule.awayTeam}
-        </span>
-      </div>
+        </div>
+      )}
 
       <div className="mt-3 flex items-center justify-between">
         <PlatformBadge platform={schedule.platform} />
@@ -139,27 +179,22 @@ function FilterButton({
 }
 
 export default function Home() {
-  const [data, setData] = useState<ScheduleData | null>(null);
   const [selectedDate, setSelectedDate] = useState(getTodayString());
   const [sport, setSport] = useState("전체");
   const [platform, setPlatform] = useState("전체");
   const [koreanOnly, setKoreanOnly] = useState(false);
+  const platformScrollRef = useRef<HTMLDivElement>(null);
 
-  const weekDates = useMemo(() => getWeekDates(), []);
-
-  useEffect(() => {
-    setData(scheduleJson as ScheduleData);
-  }, []);
+  const weekDates = useMemo(() => getUpcomingDates(), []);
 
   const filtered = useMemo(() => {
-    if (!data) return [];
     return data.schedules
       .filter((s) => s.date === selectedDate)
       .filter((s) => sport === "전체" || s.sport === sport)
       .filter((s) => platform === "전체" || s.platform === platform)
       .filter((s) => !koreanOnly || s.koreanCommentary === true)
       .sort((a, b) => a.time.localeCompare(b.time));
-  }, [data, selectedDate, sport, platform, koreanOnly]);
+  }, [selectedDate, sport, platform, koreanOnly]);
 
   return (
     <div className="mx-auto min-h-screen max-w-2xl px-4 pb-12 pt-6">
@@ -214,8 +249,27 @@ export default function Home() {
           <span className="w-12 shrink-0 text-xs font-medium text-zinc-500">
             플랫폼
           </span>
-          <div className="flex gap-1.5 overflow-x-auto">
-            {PLATFORMS.map((p) => (
+          <FilterButton
+            label="전체"
+            active={platform === "전체"}
+            onClick={() => setPlatform("전체")}
+          />
+          <button
+            onClick={() => {
+              platformScrollRef.current?.scrollBy({ left: -150, behavior: "smooth" });
+            }}
+            className="shrink-0 rounded-md p-1 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300"
+            aria-label="이전"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+              <path fillRule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clipRule="evenodd" />
+            </svg>
+          </button>
+          <div
+            ref={platformScrollRef}
+            className="flex min-w-0 gap-1.5 overflow-x-auto scrollbar-hide"
+          >
+            {PLATFORMS.filter((p) => p !== "전체").map((p) => (
               <FilterButton
                 key={p}
                 label={p}
@@ -224,6 +278,17 @@ export default function Home() {
               />
             ))}
           </div>
+          <button
+            onClick={() => {
+              platformScrollRef.current?.scrollBy({ left: 150, behavior: "smooth" });
+            }}
+            className="shrink-0 rounded-md p-1 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300"
+            aria-label="다음"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
+              <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
+            </svg>
+          </button>
         </div>
 
         {/* Korean Commentary Toggle */}
@@ -245,11 +310,7 @@ export default function Home() {
       </div>
 
       {/* Schedule List */}
-      {!data ? (
-        <div className="flex items-center justify-center py-20 text-zinc-500">
-          불러오는 중...
-        </div>
-      ) : filtered.length === 0 ? (
+      {filtered.length === 0 ? (
         <div className="flex flex-col items-center justify-center py-20 text-zinc-500">
           <span className="text-3xl">📭</span>
           <p className="mt-3 text-sm">해당 조건의 편성이 없습니다</p>
@@ -266,11 +327,9 @@ export default function Home() {
       )}
 
       {/* Footer */}
-      {data && (
-        <footer className="mt-8 text-center text-xs text-zinc-600">
-          마지막 업데이트: {new Date(data.lastUpdated).toLocaleString("ko-KR")}
-        </footer>
-      )}
+      <footer className="mt-8 text-center text-xs text-zinc-600" suppressHydrationWarning>
+        마지막 업데이트: {new Date(data.lastUpdated).toLocaleString("ko-KR")}
+      </footer>
     </div>
   );
 }
