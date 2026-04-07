@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
 
@@ -8,11 +8,44 @@ const geistSans = localFont({
   weight: "100 900",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
+};
+
 export const metadata: Metadata = {
-  title: "한해설 - 한국어 해설 편성표",
+  title: "한해설 - 스포츠 한국어 해설 편성표",
   description:
-    "SPOTV, 쿠팡플레이, 티빙 등 스포츠 중계 편성표를 한눈에. 한국어 해설 여부를 확인하세요.",
-  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+    "축구, 야구, 농구, 배구 한국어 해설 중계 편성표. SPOTV, 쿠팡플레이, 티빙, Apple TV+ 등 10개 플랫폼의 스포츠 중계를 한눈에 확인하세요.",
+  keywords: [
+    "한국어 해설", "한국어 중계", "스포츠 중계 편성표", "스포츠 편성표",
+    "해외축구 한국어 해설", "해외축구 중계", "EPL 중계", "라리가 중계",
+    "MLB 중계", "NBA 중계", "KBO 중계", "K리그 중계",
+    "SPOTV", "쿠팡플레이", "티빙", "한해설",
+  ],
+  openGraph: {
+    title: "한해설 - 스포츠 한국어 해설 편성표",
+    description:
+      "축구, 야구, 농구, 배구 한국어 해설 중계 편성표. 10개 플랫폼의 스포츠 중계를 한눈에.",
+    url: "https://중계.kro.kr",
+    siteName: "한해설",
+    locale: "ko_KR",
+    type: "website",
+  },
+  twitter: {
+    card: "summary",
+    title: "한해설 - 스포츠 한국어 해설 편성표",
+    description:
+      "축구, 야구, 농구, 배구 한국어 해설 중계 편성표. 10개 플랫폼의 스포츠 중계를 한눈에.",
+  },
+  alternates: {
+    canonical: "https://중계.kro.kr",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
   icons: {
     icon: "/favicon.svg",
   },
