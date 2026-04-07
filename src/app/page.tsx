@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useRef } from "react";
+import { useState, useMemo } from "react";
 import { Schedule, ScheduleData } from "@/types/schedule";
 import scheduleJson from "@/data/schedule.json";
 
@@ -62,7 +62,7 @@ function StatusBadge({
 }) {
   if (finished) {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-zinc-500/20 px-2.5 py-0.5 text-xs font-semibold text-zinc-400 ring-1 ring-zinc-500/30">
+      <span className="inline-flex items-center gap-1 rounded-full bg-zinc-500/20 px-2 py-0.5 text-[11px] sm:text-xs font-semibold text-zinc-400 ring-1 ring-zinc-500/30">
         <span className="h-1.5 w-1.5 rounded-full bg-zinc-400" />
         경기 종료
       </span>
@@ -70,7 +70,7 @@ function StatusBadge({
   }
   if (status === true) {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 px-2.5 py-0.5 text-xs font-semibold text-emerald-400 ring-1 ring-emerald-500/30">
+      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 px-2 py-0.5 text-[11px] sm:text-xs font-semibold text-emerald-400 ring-1 ring-emerald-500/30">
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
         한국어해설
       </span>
@@ -78,14 +78,14 @@ function StatusBadge({
   }
   if (status === false) {
     return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-rose-500/20 px-2.5 py-0.5 text-xs font-semibold text-rose-400 ring-1 ring-rose-500/30">
+      <span className="inline-flex items-center gap-1 rounded-full bg-rose-500/20 px-2 py-0.5 text-[11px] sm:text-xs font-semibold text-rose-400 ring-1 ring-rose-500/30">
         <span className="h-1.5 w-1.5 rounded-full bg-rose-400" />
         현지해설
       </span>
     );
   }
   return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-yellow-500/20 px-2.5 py-0.5 text-xs font-semibold text-yellow-400 ring-1 ring-yellow-500/30">
+    <span className="inline-flex items-center gap-1 rounded-full bg-yellow-500/20 px-2 py-0.5 text-[11px] sm:text-xs font-semibold text-yellow-400 ring-1 ring-yellow-500/30">
       <span className="h-1.5 w-1.5 rounded-full bg-yellow-400" />
       확인중
     </span>
@@ -107,7 +107,7 @@ function PlatformBadge({ platform }: { platform: string }) {
   };
   return (
     <span
-      className={`inline-flex rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ${styles[platform] ?? "bg-zinc-500/15 text-zinc-400 ring-zinc-500/30"}`}
+      className={`inline-flex rounded-full px-2 sm:px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold ring-1 ${styles[platform] ?? "bg-zinc-500/15 text-zinc-400 ring-zinc-500/30"}`}
     >
       {platform}
     </span>
@@ -116,14 +116,14 @@ function PlatformBadge({ platform }: { platform: string }) {
 
 function ScheduleCard({ schedule }: { schedule: Schedule }) {
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/80 p-4 transition-colors hover:border-zinc-700 hover:bg-zinc-900">
+    <div className="rounded-xl border border-zinc-800 bg-zinc-900/80 p-3 sm:p-4 transition-colors hover:border-zinc-700 hover:bg-zinc-900">
       <div className="flex items-start justify-between gap-2">
-        <div className="flex items-center gap-2 text-sm text-zinc-400">
+        <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-zinc-400">
           <span className="font-mono font-semibold text-zinc-200">
             {schedule.time}
           </span>
           <span className="text-zinc-600">|</span>
-          <span>{schedule.league}</span>
+          <span className="truncate">{schedule.league}</span>
         </div>
         <StatusBadge
           status={schedule.koreanCommentary}
@@ -132,24 +132,24 @@ function ScheduleCard({ schedule }: { schedule: Schedule }) {
       </div>
 
       {schedule.awayTeam ? (
-        <div className="mt-3 flex items-center justify-center gap-3 text-base">
+        <div className="mt-2.5 sm:mt-3 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base">
           <span className="flex-1 text-right font-semibold text-zinc-100 truncate">
             {schedule.homeTeam}
           </span>
-          <span className="shrink-0 text-xs font-bold text-zinc-500">VS</span>
+          <span className="shrink-0 text-[10px] sm:text-xs font-bold text-zinc-500">VS</span>
           <span className="flex-1 text-left font-semibold text-zinc-100 truncate">
             {schedule.awayTeam}
           </span>
         </div>
       ) : (
-        <div className="mt-3 text-center text-base font-semibold text-zinc-100 truncate">
+        <div className="mt-2.5 sm:mt-3 text-center text-sm sm:text-base font-semibold text-zinc-100 truncate">
           {schedule.homeTeam}
         </div>
       )}
 
-      <div className="mt-3 flex items-center justify-between">
+      <div className="mt-2.5 sm:mt-3 flex items-center justify-between">
         <PlatformBadge platform={schedule.platform} />
-        <span className="text-xs text-zinc-500">{schedule.sport}</span>
+        <span className="text-[11px] sm:text-xs text-zinc-500">{schedule.sport}</span>
       </div>
     </div>
   );
@@ -167,7 +167,7 @@ function FilterButton({
   return (
     <button
       onClick={onClick}
-      className={`shrink-0 rounded-lg px-3 py-1.5 text-sm font-medium transition-colors ${
+      className={`shrink-0 rounded-lg px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium transition-colors ${
         active
           ? "bg-zinc-100 text-zinc-900"
           : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
@@ -182,8 +182,8 @@ export default function Home() {
   const [selectedDate, setSelectedDate] = useState(getTodayString());
   const [sport, setSport] = useState("전체");
   const [platform, setPlatform] = useState("전체");
-  const [koreanOnly, setKoreanOnly] = useState(false);
-  const platformScrollRef = useRef<HTMLDivElement>(null);
+  const [commentaryFilter, setCommentaryFilter] = useState<"all" | "korean" | "foreign">("all");
+  const [platformExpanded, setPlatformExpanded] = useState(false);
 
   const weekDates = useMemo(() => getUpcomingDates(), []);
 
@@ -192,49 +192,33 @@ export default function Home() {
       .filter((s) => s.date === selectedDate)
       .filter((s) => sport === "전체" || s.sport === sport)
       .filter((s) => platform === "전체" || s.platform === platform)
-      .filter((s) => !koreanOnly || s.koreanCommentary === true)
+      .filter((s) => {
+        if (commentaryFilter === "korean") return s.koreanCommentary === true;
+        if (commentaryFilter === "foreign") return s.koreanCommentary === false;
+        return true;
+      })
       .sort((a, b) => a.time.localeCompare(b.time));
-  }, [selectedDate, sport, platform, koreanOnly]);
+  }, [selectedDate, sport, platform, commentaryFilter]);
 
   return (
-    <div className="mx-auto min-h-screen max-w-2xl px-4 pb-12 pt-10">
+    <div className="mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10">
       {/* Header */}
-      <header className="mb-10">
-        <h1 className="text-5xl font-bold text-zinc-100">
-          한해설 <span className="ml-3 text-lg font-normal text-zinc-500">한국어 해설 편성표</span>
+      <header className="mb-6 sm:mb-10">
+        <h1 className="flex items-end">
+          <img src="/icon.png" alt="한해설 아이콘" className="h-6 sm:h-8 self-center" />
+          <img src="/logo.png" alt="한해설" className="h-8 sm:h-12" />
+          <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어 해설 편성표</span>
         </h1>
       </header>
 
-      {/* Date Tabs */}
-      <div className="mb-6 grid grid-cols-7 gap-2">
-        {weekDates.map((d) => {
-          const day = new Date(d.value + "T00:00:00").getDay();
-          return (
-          <div key={d.value} className="flex flex-col items-center gap-2">
-            {day === 6 ? <span className="h-1.5 w-1.5 rounded-full bg-blue-500" /> : day === 0 ? <span className="h-1.5 w-1.5 rounded-full bg-red-500" /> : <span className="h-1.5 w-1.5" />}
-            <button
-            onClick={() => setSelectedDate(d.value)}
-            className={`w-full rounded-lg border border-zinc-700 py-2 text-sm font-medium transition-colors ${
-              selectedDate === d.value
-                ? "bg-zinc-100 text-zinc-900"
-                : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
-            }`}
-          >
-            {d.label}
-            </button>
-          </div>
-          );
-        })}
-      </div>
-
       {/* Filters */}
-      <div className="mb-6 space-y-3">
+      <div className="mb-6 sm:mb-10 space-y-2.5 sm:space-y-3">
         {/* Sport Filter */}
-        <div className="flex items-center gap-2">
-          <span className="w-12 shrink-0 text-xs font-medium text-zinc-500">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-zinc-300">
             종목
           </span>
-          <div className="flex gap-1.5 overflow-x-auto">
+          <div className="flex gap-1 sm:gap-1.5 overflow-x-auto scrollbar-hide">
             {SPORTS.map((s) => (
               <FilterButton
                 key={s}
@@ -246,32 +230,29 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Platform Filter */}
-        <div className="flex items-center gap-2">
-          <span className="w-12 shrink-0 text-xs font-medium text-zinc-500">
+        {/* Platform Filter - Mobile */}
+        <div className="sm:hidden relative flex items-start gap-1.5 pr-8">
+          <span className="w-14 shrink-0 pt-1 text-[11px] font-medium text-zinc-300">
             플랫폼
           </span>
-          <FilterButton
-            label="전체"
-            active={platform === "전체"}
-            onClick={() => setPlatform("전체")}
-          />
-          <button
-            onClick={() => {
-              platformScrollRef.current?.scrollBy({ left: -150, behavior: "smooth" });
-            }}
-            className="shrink-0 rounded-md p-1 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300"
-            aria-label="이전"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
-              <path fillRule="evenodd" d="M12.79 5.23a.75.75 0 01-.02 1.06L8.832 10l3.938 3.71a.75.75 0 11-1.04 1.08l-4.5-4.25a.75.75 0 010-1.08l4.5-4.25a.75.75 0 011.06.02z" clipRule="evenodd" />
-            </svg>
-          </button>
-          <div
-            ref={platformScrollRef}
-            className="flex min-w-0 gap-1.5 overflow-x-auto scrollbar-hide"
-          >
-            {PLATFORMS.filter((p) => p !== "전체").map((p) => (
+          <div className="flex flex-wrap gap-1">
+            <FilterButton
+              label="전체"
+              active={platform === "전체"}
+              onClick={() => setPlatform("전체")}
+            />
+            {["쿠팡플레이", "티빙", "Apple", "SPOTV", "SPOTV2", "SPOTV NOW"].map((p) => {
+              const platformKey = p === "Apple" ? "Apple TV+" : p;
+              return (
+              <FilterButton
+                key={platformKey}
+                label={p}
+                active={platform === platformKey}
+                onClick={() => setPlatform(platformKey)}
+              />
+            );
+            })}
+            {platformExpanded && ["tvN SPORTS", "KBS N SPORTS", "MBC SPORTS+", "SBS Sports"].map((p) => (
               <FilterButton
                 key={p}
                 label={p}
@@ -281,47 +262,143 @@ export default function Home() {
             ))}
           </div>
           <button
-            onClick={() => {
-              platformScrollRef.current?.scrollBy({ left: 150, behavior: "smooth" });
-            }}
-            className="shrink-0 rounded-md p-1 text-zinc-500 hover:bg-zinc-800 hover:text-zinc-300"
-            aria-label="다음"
+            onClick={() => setPlatformExpanded(!platformExpanded)}
+            className="absolute right-0 top-1 rounded-md border border-zinc-700 bg-zinc-800 p-1 text-zinc-300"
+            aria-label={platformExpanded ? "접기" : "펼치기"}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="h-4 w-4">
-              <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={`h-4 w-4 transition-transform ${platformExpanded ? "rotate-180" : ""}`}>
+              <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
             </svg>
           </button>
         </div>
 
+        {/* Platform Filter - Desktop */}
+        <div className="hidden sm:block">
+          <div className="relative flex items-start gap-2 pr-8">
+            <span className="w-12 shrink-0 pt-1.5 text-xs font-medium text-zinc-300">
+              플랫폼
+            </span>
+            <FilterButton
+              label="전체"
+              active={platform === "전체"}
+              onClick={() => setPlatform("전체")}
+            />
+            <div className="flex flex-wrap gap-1.5">
+              {["쿠팡플레이", "티빙", "Apple TV+", "SPOTV", "SPOTV2", "SPOTV NOW"].map((p) => {
+                const displayLabel = p === "Apple TV+" ? "Apple" : p;
+                return (
+                <FilterButton
+                  key={p}
+                  label={displayLabel}
+                  active={platform === p}
+                  onClick={() => setPlatform(p)}
+                />
+              );
+              })}
+              {platformExpanded && ["tvN SPORTS", "KBS N SPORTS", "MBC SPORTS+", "SBS Sports"].map((p) => (
+                <FilterButton
+                  key={p}
+                  label={p}
+                  active={platform === p}
+                  onClick={() => setPlatform(p)}
+                />
+              ))}
+            </div>
+            <button
+              onClick={() => setPlatformExpanded(!platformExpanded)}
+              className="absolute right-0 top-1 rounded-md border border-zinc-700 bg-zinc-800 p-1 text-zinc-300"
+              aria-label={platformExpanded ? "접기" : "펼치기"}
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className={`h-4 w-4 transition-transform ${platformExpanded ? "rotate-180" : ""}`}>
+                <path fillRule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clipRule="evenodd" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
         {/* Korean Commentary Toggle */}
-        <div className="flex items-center gap-2">
-          <span className="w-12 shrink-0 text-xs font-medium text-zinc-500">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-zinc-300">
             해설
           </span>
           <FilterButton
             label="전체"
-            active={!koreanOnly}
-            onClick={() => setKoreanOnly(false)}
+            active={commentaryFilter === "all"}
+            onClick={() => setCommentaryFilter("all")}
           />
           <FilterButton
-            label="한국어해설만"
-            active={koreanOnly}
-            onClick={() => setKoreanOnly(true)}
+            label="한국어 해설"
+            active={commentaryFilter === "korean"}
+            onClick={() => setCommentaryFilter("korean")}
           />
+          <FilterButton
+            label="현지 해설"
+            active={commentaryFilter === "foreign"}
+            onClick={() => setCommentaryFilter("foreign")}
+          />
+        </div>
+      </div>
+
+      {/* Date Tabs */}
+      <div className="mb-6 sm:mb-10">
+        {/* Mobile: scrollable row */}
+        <div className="flex gap-1.5 overflow-x-auto scrollbar-hide sm:hidden">
+          {weekDates.map((d) => {
+            const day = new Date(d.value + "T00:00:00").getDay();
+            return (
+              <div key={d.value} className="flex shrink-0 flex-col items-center gap-1.5">
+                {day === 6 ? <span className="h-1.5 w-1.5 rounded-full bg-blue-500" /> : day === 0 ? <span className="h-1.5 w-1.5 rounded-full bg-red-500" /> : <span className="h-1.5 w-1.5" />}
+                <button
+                  onClick={() => setSelectedDate(d.value)}
+                  className={`rounded-lg border border-zinc-700 px-3 py-1.5 text-xs font-medium transition-colors ${
+                    selectedDate === d.value
+                      ? "bg-zinc-100 text-zinc-900"
+                      : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+                  }`}
+                >
+                  {d.label}
+                </button>
+              </div>
+            );
+          })}
+        </div>
+        {/* Desktop: grid */}
+        <div className="hidden sm:grid grid-cols-7 gap-2">
+          {weekDates.map((d) => {
+            const day = new Date(d.value + "T00:00:00").getDay();
+            return (
+              <div key={d.value} className="flex flex-col items-center gap-2">
+                {day === 6 ? <span className="h-1.5 w-1.5 rounded-full bg-blue-500" /> : day === 0 ? <span className="h-1.5 w-1.5 rounded-full bg-red-500" /> : <span className="h-1.5 w-1.5" />}
+                <button
+                  onClick={() => setSelectedDate(d.value)}
+                  className={`w-full rounded-lg border border-zinc-700 py-2 text-sm font-medium transition-colors ${
+                    selectedDate === d.value
+                      ? "bg-zinc-100 text-zinc-900"
+                      : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
+                  }`}
+                >
+                  {d.label}
+                </button>
+              </div>
+            );
+          })}
         </div>
       </div>
 
       {/* Schedule List */}
       {filtered.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-20 text-zinc-500">
-          <span className="text-3xl">📭</span>
-          <p className="mt-3 text-sm">해당 조건의 편성이 없습니다</p>
+        <div className="flex flex-col items-center justify-center py-16 sm:py-20 text-zinc-500">
+          <span className="text-2xl sm:text-3xl">📭</span>
+          <p className="mt-3 text-xs sm:text-sm">해당 조건의 편성이 없습니다</p>
         </div>
       ) : (
-        <div className="space-y-3">
-          <p className="text-xs text-zinc-500">
-            {filtered.length}개 경기
-          </p>
+        <div className="space-y-2.5 sm:space-y-3">
+          <div className="flex items-center justify-end gap-2 text-xs sm:text-sm text-zinc-300">
+            <span>
+              {sport === "전체" ? "⚽ 🏀 ⚾ 🏐" : sport === "축구" ? "⚽" : sport === "농구" ? "🏀" : sport === "야구" ? "⚾" : "🏐"}
+            </span>
+            <span className="font-medium">{filtered.length}개 경기</span>
+          </div>
           {filtered.map((schedule) => (
             <ScheduleCard key={schedule.id} schedule={schedule} />
           ))}
@@ -329,7 +406,7 @@ export default function Home() {
       )}
 
       {/* Footer */}
-      <footer className="mt-8 text-center text-xs text-zinc-600" suppressHydrationWarning>
+      <footer className="mt-6 sm:mt-8 text-center text-[11px] sm:text-xs text-zinc-600" suppressHydrationWarning>
         마지막 업데이트: {new Date(data.lastUpdated).toLocaleString("ko-KR")}
       </footer>
     </div>

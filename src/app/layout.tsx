@@ -12,6 +12,10 @@ export const metadata: Metadata = {
   title: "한해설 - 한국어 해설 편성표",
   description:
     "SPOTV, 쿠팡플레이, 티빙 등 스포츠 중계 편성표를 한눈에. 한국어 해설 여부를 확인하세요.",
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
+  icons: {
+    icon: "/icon.png",
+  },
 };
 
 export default function RootLayout({
