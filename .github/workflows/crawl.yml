@@ -4,7 +4,7 @@ on:
   schedule:
     # KST 08:18 = UTC 23:18 (하루 1회)
     - cron: '18 23 * * *'
-  workflow_dispatch: {} # 수동 트리거
+  workflow_dispatch: {}  # 수동 트리거
 
 permissions:
   contents: write
