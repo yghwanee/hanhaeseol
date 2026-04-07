@@ -70,7 +70,7 @@ src/
 ## 크롤링
 
 - `npm run crawl` → 오늘부터 7일치 크롤링 → `schedule.json` 갱신
-- GitHub Actions: KST 01시, 05시, 11시, 17시, 22시 자동 실행
+- GitHub Actions: KST 01:07, 05:07, 11:07, 17:07, 22:07 자동 실행 (정각 회피)
 - 비경��� 콘텐츠(하이라이트, 시상식, 스포타임 등) 자�� 제외
 - SPOTV TV는 LIVE만 수집 (녹화 본방송 제외)
 
@@ -80,7 +80,7 @@ src/
 1. 프로젝트 초기 설정 (Next.js 14 + TypeScript + Tailwind CSS)
 2. 타입 정의 (Sport, Platform, Schedule, ScheduleData)
 3. 메인 페이지 UI (필���링, 경기 카드, 다크모드, 반응형)
-4. 크롤러 4개 구현 (SPOTV NOW, SPOTV/SPOTV2, MBC SPORTS+, tvN SPORTS)
+4. 크롤러 5개 구현 (SPOTV NOW, SPOTV/SPOTV2, MBC SPORTS+, tvN SPORTS, SBS Sports)
 5. 리그명/팀명 파싱 정규화
 6. 경기 종료 표시 (종목별 예상 ��간)
 7. GitHub Actions 자동화 설정
@@ -88,13 +88,22 @@ src/
 9. GitHub Actions 워크플로우 수정 (push 권한, actions v6 업그레이드, pull --rebase 추가)
 10. 헤더 UI 개선 (한해설 + 한국어 해설 편성표 한 줄 배치, 텍스트 크기 확대, 여백 조정)
 11. 날짜 탭 UI 개선 (grid 균등 분할, 라운드 테두리, 토/일 색상 점 표시)
+12. 필터 UI 리팩토링 (필터 → 날짜 탭 순서 변경, 종목/플랫폼/해설 라벨 가시성 개선)
+13. 플랫폼 필터 펼침/접힘 방식으로 변경 (PC/모바일 분리 구현)
+14. 해설 필터 3분할 (전체 / 한국어 해설 / 현지 해설)
+15. 종목별 아이콘 표시 및 경기 수 오른쪽 정렬
+16. 반응형 레이아웃 적용 (모바일: 가로 스크롤 날짜 탭, 축소된 폰트/패딩, 플랫폼 flex-wrap)
+17. 로고/아이콘/파비콘 추가 (public/logo.png, icon.png)
+18. 안내 모달 추가 (i 버튼 → 편성표 출처 안내)
+19. SBS Sports 크롤러 구현 (정적 JSON API: static.cloud.sbs.co.kr)
+20. AFC 대회명 파싱 개선 (parsers.ts)
+21. GitHub Actions 크론 정각 회피 (00분 → 07분)
 
 ### 다음 작업 (예정)
 - 쿠팡플레이, 티빙 크롤러 (Playwright 또는 API 분석 필요)
 - KBS N SPORTS 크롤러
 - Apple TV+ 크롤러
 - Vercel 배포 설정
-- UI 개선 (모바일 최적화 등)
 
 ## 개발 명령어
 
