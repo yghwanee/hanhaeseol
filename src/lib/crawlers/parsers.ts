@@ -20,11 +20,11 @@ const LEAGUE_SPORT_MAP: Record<string, Sport> = {
   MLS: "축구", "J리그": "축구", "에레디비시": "축구",
   // 야구
   KBO: "야구", MLB: "야구", NPB: "야구",
-  "퓨처스리그": "야구", "스프링캠프": "야구", "메이저리그": "야구",
+  "퓨처스리그": "야구", "스프링캠프": "야구", "메이저리그": "야구", "고교야구": "야구",
   // 농구
   NBA: "농구", KBL: "농구", "프로농구": "농구", WNBA: "농구",
   // 배구
-  "V리그": "배구", "프로배구": "배구",
+  "V리그": "배구", "V-리그": "배구", "프로배구": "배구",
 };
 
 export function detectSport(text: string): Sport | null {
@@ -37,7 +37,7 @@ export function detectSport(text: string): Sport | null {
 const NON_MATCH_KEYWORDS = [
   "하이라이트", "시상식", "스포타임", "골모음", "랭킹쇼",
   "스페셜", "다시보기", "명장면", "프리뷰", "리뷰",
-  "BEST", "베스트", "주간", "명승부",
+  "BEST", "베스트", "주간", "명승부", "UFC",
 ];
 
 export function isActualMatch(title: string): boolean {
@@ -46,7 +46,7 @@ export function isActualMatch(title: string): boolean {
 
 const DOMESTIC_LEAGUE_KEYWORDS = [
   "KBO", "K리그", "K리그1", "K리그2", "프로농구", "KBL",
-  "V리그", "프로배구", "퓨처스리그",
+  "V리그", "프로배구", "퓨처스리그", "고교야구",
 ];
 
 export function detectKoreanCommentary(text: string): boolean | "unknown" {
@@ -65,7 +65,7 @@ const LEAGUE_NORMALIZE: [RegExp, string][] = [
   [/메이저리그/, "MLB"],
   [/MLB/, "MLB"],
   [/프로배구/, "프로배구"],
-  [/V리그/, "V리그"],
+  [/V-?리그/, "V리그"],
   [/K리그2/, "K리그2"],
   [/K리그1?(?!2)/, "K리그"],
   [/고교야구/, "고교야구"],
@@ -90,7 +90,13 @@ export function parseMatchTitle(title: string): {
   sport: Sport | null;
 } {
   // 대괄호 선수명/태그 제거: [손흥민], [이정후 오늘 경기] 등
-  const cleaned = title.replace(/\[.*?\]\s*/g, "").trim();
+  // 꺾쇠 대회 부가정보 제거: <2026 신세계 이마트배 8강> 등
+  // "시리즈" 등 불필요 수식어 제거
+  const cleaned = title
+    .replace(/\[.*?\]\s*/g, "")
+    .replace(/<[^>]*>\s*/g, "")
+    .replace(/시리즈\s*/g, "")
+    .trim();
 
   // 팀명 정리: "삼성_4/6 19:00" → "삼성"
   const cleanTeam = (name: string) =>
@@ -124,7 +130,7 @@ export function parseMatchTitle(title: string): {
       };
     }
     // "여자프로농구 플레이오프 3차전 우리은행" → league="여자프로농구", home="우리은행"
-    const prefixMatch = home.match(/^(.*?프로농구|.*?프로배구)\s+(?:.*?전\s+)?(.+)$/);
+    const prefixMatch = home.match(/^(.*?프로농구|.*?프로배구)\s+(?:플레이오프\s*)?(?:.*?전[,\s]+)?(.+)$/);
     if (prefixMatch) {
       return {
         league: normalizeLeague(prefixMatch[1]),
@@ -149,11 +155,13 @@ export function parseMatchTitle(title: string): {
     const away = cleanTeam(colonMatch[3]);
     // "2026" + "KBO리그 한화" → league="KBO", home="한화"
     const fullText = `${league} ${home}`;
-    const leagueInHome = fullText.match(/^.*?(KBO리그\d?|K리그\d?|MLB|MLS|NBA|NPB|메이저리그|프로농구|여자프로농구|프로배구|V리그|신한\s*SOL\s*KBO리그|AFC\s+[\w\-]+(?:\s+여자)?\s+아시안컵|AFC\s+챔피언스리그|ACL)\s+(.+)$/);
+    const leagueInHome = fullText.match(/^.*?(KBO리그\d?|K리그\d?|MLB|MLS|NBA|NPB|메이저리그|프로농구|여자프로농구|프로배구|V-?리그|신한\s*SOL\s*KBO리그|AFC\s+[\w\-]+(?:\s+여자)?\s+아시안컵|AFC\s+챔피언스리그|ACL|고교야구)\s+(.+)$/);
     if (leagueInHome) {
+      const homeRaw = leagueInHome[2].trim()
+        .replace(/^(?:포스트시즌\s*)?(?:남자부\s*|여자부\s*)?(?:챔피언결정전\s*)?(?:플레이오프\s*)?(?:\d+차\s*)?(?:\d+차전\s*)?/, "").trim();
       return {
         league: normalizeLeague(leagueInHome[1]),
-        homeTeam: leagueInHome[2].trim(),
+        homeTeam: homeRaw,
         awayTeam: away,
         sport: detectSport(fullText) ?? detectSport(title),
       };

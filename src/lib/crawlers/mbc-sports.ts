@@ -34,9 +34,13 @@ export async function crawlMbcSports(date: string): Promise<Schedule[]> {
   const schedules: Schedule[] = [];
 
   for (const item of items) {
-    // 본방 또는 생방송만, 비경기 콘텐츠 제외
-    if (item.broadType !== "Y" && item.liveYn !== "Y") continue;
-    const fullTitle = `${item.pgmName} ${item.pgmTitle ?? ""}`.trim();
+    // 생방송만 수집 (녹화 본방송 제외)
+    if (item.liveYn !== "Y") continue;
+    // pgmTitle: "1차전,KB스타즈 : 우리은행" → "KB스타즈 vs 우리은행"
+    const subtitle = (item.pgmTitle ?? "")
+      .replace(/^\d+차전[,\s]*/g, "")
+      .replace(/\s*:\s*/g, " vs ");
+    const fullTitle = `${item.pgmName} ${subtitle}`.trim();
     if (!isActualMatch(fullTitle)) continue;
 
     const hh = item.frhms.slice(0, 2);
