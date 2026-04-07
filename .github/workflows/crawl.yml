@@ -2,8 +2,8 @@ name: Crawl Schedules
 
 on:
   schedule:
-    # KST 01시, 05시, 11시, 17시, 22시 = UTC 16, 20, 02, 08, 13시 (정각 회피)
-    - cron: '7 16,20,2,8,13 * * *'
+    # KST 16:40 = UTC 07:40 (하루 1회)
+    - cron: '40 7 * * *'
   workflow_dispatch: {} # 수동 트리거
 
 permissions:
@@ -22,6 +22,12 @@ jobs:
       - run: npm ci
 
       - run: npm run crawl
+        env:
+          COUPANG_CT_LSID: ${{ secrets.COUPANG_CT_LSID }}
+          COUPANG_DEVICE_ID: ${{ secrets.COUPANG_DEVICE_ID }}
+          COUPANG_MEMBER_SRL: ${{ secrets.COUPANG_MEMBER_SRL }}
+          COUPANG_PROFILE_ID: ${{ secrets.COUPANG_PROFILE_ID }}
+          COUPANG_TOKEN: ${{ secrets.COUPANG_TOKEN }}
 
       - name: Commit & Push
         run: |
