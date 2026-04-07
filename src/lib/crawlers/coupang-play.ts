@@ -46,10 +46,9 @@ async function refreshPAT(): Promise<string | null> {
     signal: AbortSignal.timeout(10000),
   });
 
-  for (const [k, v] of r2.headers.entries()) {
-    if (k === "set-cookie" && v.startsWith("P_AT=")) {
-      return v.split(";")[0].replace("P_AT=", "");
-    }
+  const setCookie = r2.headers.get("set-cookie");
+  if (setCookie && setCookie.startsWith("P_AT=")) {
+    return setCookie.split(";")[0].replace("P_AT=", "");
   }
 
   return null;

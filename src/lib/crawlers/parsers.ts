@@ -102,7 +102,7 @@ export function parseMatchTitle(title: string): {
   // 패턴2: 홈 vs 원정
   const vsMatch = cleaned.match(/(.+?)\s*(?:vs|VS|v)\s*(.+)/);
   if (vsMatch) {
-    let home = vsMatch[1].trim();
+    const home = vsMatch[1].trim();
     const away = cleanTeam(vsMatch[2]);
     // "KBO리그 한화" → league="KBO", home="한화"
     const leagueInHome = home.match(/^(.+?리그\d?|NBA|MLB|MLS|KBO|NPB)\s+(.+)$/);
@@ -135,8 +135,8 @@ export function parseMatchTitle(title: string): {
   // 패턴3: "리그명 홈팀:원정팀" (SPOTV TV 스타일)
   const colonMatch = cleaned.match(/^(.+?)\s+(.+?)\s*[:]\s*(.+?)(?:\s*\(.*\))?$/);
   if (colonMatch) {
-    let league = colonMatch[1].trim();
-    let home = colonMatch[2].trim();
+    const league = colonMatch[1].trim();
+    const home = colonMatch[2].trim();
     const away = cleanTeam(colonMatch[3]);
     // "2026" + "KBO리그 한화" → league="KBO", home="한화"
     const fullText = `${league} ${home}`;

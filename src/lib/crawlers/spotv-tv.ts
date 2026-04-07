@@ -39,7 +39,7 @@ async function fetchChannel(channel: "SPOTV" | "SPOTV2", date: string): Promise<
       id: `${channel.toLowerCase()}-${date}-${time}-${item.title.slice(0, 20)}`,
       date,
       time,
-      sport: parsed.sport,
+      sport: parsed.sport ?? "축구",
       league: parsed.league,
       homeTeam: parsed.homeTeam,
       awayTeam: parsed.awayTeam,

@@ -47,7 +47,7 @@ export async function crawlKbsSports(date: string): Promise<Schedule[]> {
       id: `kbs-sports-${date}-${time}-${title.slice(0, 20)}`,
       date,
       time,
-      sport: parsed.sport,
+      sport: parsed.sport ?? "축구",
       league: parsed.league,
       homeTeam: parsed.homeTeam,
       awayTeam: parsed.awayTeam,

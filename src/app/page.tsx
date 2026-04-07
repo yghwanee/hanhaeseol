@@ -7,12 +7,6 @@ import scheduleJson from "@/data/schedule.json";
 const data = scheduleJson as ScheduleData;
 
 const SPORTS = ["전체", "축구", "야구", "농구", "배구"] as const;
-const PLATFORMS = [
-  "전체", "SPOTV NOW", "SPOTV", "SPOTV2",
-  "쿠팡플레이", "티빙", "tvN SPORTS",
-  "KBS N SPORTS", "MBC SPORTS+", "SBS Sports", "Apple TV+",
-] as const;
-
 function getUpcomingDates(): { label: string; value: string }[] {
   const dates: { label: string; value: string }[] = [];
   const today = new Date();
