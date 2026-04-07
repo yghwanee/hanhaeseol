@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "crawl": "tsx src/scripts/crawl.ts",
-    "coupang-login": "tsx src/scripts/coupang-login.ts"
+    "crawl:coupang": "tsx src/scripts/crawl-coupang.ts"
   },
   "dependencies": {
     "next": "14.2.35",

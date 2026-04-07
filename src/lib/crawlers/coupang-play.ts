@@ -33,12 +33,11 @@ async function refreshPAT(): Promise<string | null> {
   const ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
 
   // Step 1: /oauth2/login → 307 /home
-  const r1 = await fetch("https://www.coupangplay.com/oauth2/login?rtnUrl=https%3A%2F%2Fwww.coupangplay.com%2Fhome", {
+  await fetch("https://www.coupangplay.com/oauth2/login?rtnUrl=https%3A%2F%2Fwww.coupangplay.com%2Fhome", {
     headers: { Cookie: cookies, "User-Agent": ua },
     redirect: "manual",
     signal: AbortSignal.timeout(10000),
   });
-  console.error(`쿠팡 Step1: ${r1.status} → ${r1.headers.get("location") || "no redirect"}`);
 
   // Step 2: /home → P_AT in Set-Cookie
   const r2 = await fetch("https://www.coupangplay.com/home", {
@@ -46,15 +45,12 @@ async function refreshPAT(): Promise<string | null> {
     redirect: "manual",
     signal: AbortSignal.timeout(10000),
   });
-  console.error(`쿠팡 Step2: ${r2.status}`);
-  const allHeaders: string[] = [];
+
   for (const [k, v] of r2.headers.entries()) {
-    if (k === "set-cookie") allHeaders.push(v.substring(0, 50));
     if (k === "set-cookie" && v.startsWith("P_AT=")) {
       return v.split(";")[0].replace("P_AT=", "");
     }
   }
-  console.error(`쿠팡 Set-Cookie: ${allHeaders.length}개 → ${allHeaders.join(" | ")}`);
 
   return null;
 }
