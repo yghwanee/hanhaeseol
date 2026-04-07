@@ -184,6 +184,7 @@ export default function Home() {
   const [platform, setPlatform] = useState("전체");
   const [commentaryFilter, setCommentaryFilter] = useState<"all" | "korean" | "foreign">("all");
   const [platformExpanded, setPlatformExpanded] = useState(false);
+  const [showInfo, setShowInfo] = useState(false);
 
   const weekDates = useMemo(() => getUpcomingDates(), []);
 
@@ -393,15 +394,39 @@ export default function Home() {
         </div>
       ) : (
         <div className="space-y-2.5 sm:space-y-3">
-          <div className="flex items-center justify-end gap-2 text-xs sm:text-sm text-zinc-300">
-            <span>
-              {sport === "전체" ? "⚽ 🏀 ⚾ 🏐" : sport === "축구" ? "⚽" : sport === "농구" ? "🏀" : sport === "야구" ? "⚾" : "🏐"}
-            </span>
-            <span className="font-medium">{filtered.length}개 경기</span>
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-zinc-300">
+            <button
+              onClick={() => setShowInfo(true)}
+              className="rounded-full border border-zinc-700 w-5 h-5 flex items-center justify-center text-[11px] font-bold text-zinc-400 hover:text-zinc-200 hover:border-zinc-500"
+              aria-label="안내"
+            >
+              i
+            </button>
+            <div className="ml-auto flex items-center gap-2">
+              <span>
+                {sport === "전체" ? "⚽ 🏀 ⚾ 🏐" : sport === "축구" ? "⚽" : sport === "농구" ? "🏀" : sport === "야구" ? "⚾" : "🏐"}
+              </span>
+              <span className="font-medium">{filtered.length}개 경기</span>
+            </div>
           </div>
           {filtered.map((schedule) => (
             <ScheduleCard key={schedule.id} schedule={schedule} />
           ))}
+        </div>
+      )}
+
+      {/* Info Modal */}
+      {showInfo && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={() => setShowInfo(false)}>
+          <div className="mx-4 max-w-md rounded-xl border border-zinc-700 bg-zinc-900 p-5 sm:p-6" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-end mb-2">
+              <button onClick={() => setShowInfo(false)} className="text-zinc-500 hover:text-zinc-300 text-3xl leading-none -mt-1">&times;</button>
+            </div>
+            <div className="text-xs sm:text-sm leading-relaxed text-zinc-400 space-y-3">
+              <p>● 본 서비스에서 제공하는 중계 일정 및 한국어해설 정보는 쿠팡플레이, 티빙, SPOTV NOW, Apple TV+, SPOTV, SPOTV2, tvN SPORTS, KBS N SPORTS, MBC SPORTS+, SBS Sports의 공식 편성표를 바탕으로 재구성되었습니다.</p>
+              <p>● 실시간 중계 사정에 따라 실제 편성 현황과 일부 차이가 있을 수 있으므로 정확한 내용은 각 중계 플랫폼의 공지사항을 확인해 주시기 바랍니다.</p>
+            </div>
+          </div>
         </div>
       )}
 

@@ -2,8 +2,8 @@ name: Crawl Schedules
 
 on:
   schedule:
-    # KST 01시, 05시, 11시, 17시, 22시 = UTC 16, 20, 02, 08, 13시
-    - cron: '0 16,20,2,8,13 * * *'
+    # KST 01시, 05시, 11시, 17시, 22시 = UTC 16, 20, 02, 08, 13시 (정각 회피)
+    - cron: '7 16,20,2,8,13 * * *'
   workflow_dispatch: {} # 수동 트리거
 
 permissions:

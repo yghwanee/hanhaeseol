@@ -60,6 +60,9 @@ const LEAGUE_NORMALIZE: [RegExp, string][] = [
   [/K리그2/, "K리그2"],
   [/K리그1?(?!2)/, "K리그"],
   [/고교야구/, "고교야구"],
+  [/AFC\s+U-\d+\s+여자\s+아시안컵/, "AFC U-20 여자 아시안컵"],
+  [/AFC\s+U-\d+\s+아시안컵/, "AFC U-20 아시안컵"],
+  [/AFC\s+챔피언스리그|ACL/, "ACL"],
 ];
 
 export function normalizeLeague(raw: string): string {
@@ -137,7 +140,7 @@ export function parseMatchTitle(title: string): {
     const away = cleanTeam(colonMatch[3]);
     // "2026" + "KBO리그 한화" → league="KBO", home="한화"
     const fullText = `${league} ${home}`;
-    const leagueInHome = fullText.match(/^.*?(KBO리그\d?|K리그\d?|MLB|MLS|NBA|NPB|메이저리그|프로농구|여자프로농구|프로배구|V리그|신한\s*SOL\s*KBO리그)\s+(.+)$/);
+    const leagueInHome = fullText.match(/^.*?(KBO리그\d?|K리그\d?|MLB|MLS|NBA|NPB|메이저리그|프로농구|여자프로농구|프로배구|V리그|신한\s*SOL\s*KBO리그|AFC\s+[\w\-]+(?:\s+여자)?\s+아시안컵|AFC\s+챔피언스리그|ACL)\s+(.+)$/);
     if (leagueInHome) {
       return {
         league: normalizeLeague(leagueInHome[1]),

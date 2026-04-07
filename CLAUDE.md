@@ -31,7 +31,8 @@ src/
 │       ├── spotv-now.ts     # SPOTV NOW API 크롤러
 │       ├── spotv-tv.ts      # SPOTV/SPOTV2 TV 채널 크롤러
 │       ├── mbc-sports.ts    # MBC SPORTS+ 크롤러
-│       └── tvn-sports.ts    # tvN SPORTS 크롤러
+│       ├── tvn-sports.ts    # tvN SPORTS 크롤러
+│       └── sbs-sports.ts    # SBS Sports 크롤러
 ├── scripts/
 │   └── crawl.ts             # 크롤링 실행 스크립트
 └── types/
@@ -51,7 +52,7 @@ src/
 | TV | tvN SPORTS | 구현 완료 (HTML 파싱) |
 | TV | KBS N SPORTS | 미구현 (접근 차단) |
 | TV | MBC SPORTS+ | 구현 완료 (POST API) |
-| TV | SBS Sports | 미구현 (JS 렌더링) |
+| TV | SBS Sports | 구현 완료 (정적 JSON API) |
 
 ## 종목
 
@@ -90,7 +91,7 @@ src/
 
 ### 다음 작업 (예정)
 - 쿠팡플레이, 티빙 크롤러 (Playwright 또는 API 분석 필요)
-- SBS Sports, KBS N SPORTS 크롤러
+- KBS N SPORTS 크롤러
 - Apple TV+ 크롤러
 - Vercel 배포 설정
 - UI 개선 (모바일 최적화 등)
