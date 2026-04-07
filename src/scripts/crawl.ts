@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { crawlDateRange } from "../lib/crawlers";
 import fs from "fs/promises";
 import path from "path";

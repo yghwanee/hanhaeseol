@@ -396,7 +396,15 @@ export default function Home() {
             </button>
             <div className="ml-auto flex items-center gap-2">
               <span>
-                {sport === "전체" ? "⚽ 🏀 ⚾ 🏐" : sport === "축구" ? "⚽" : sport === "농구" ? "🏀" : sport === "야구" ? "⚾" : "🏐"}
+                {(() => {
+                  const sports = new Set(filtered.map(s => s.sport));
+                  const icons: string[] = [];
+                  if (sports.has("축구")) icons.push("⚽");
+                  if (sports.has("농구")) icons.push("🏀");
+                  if (sports.has("야구")) icons.push("⚾");
+                  if (sports.has("배구")) icons.push("🏐");
+                  return icons.join(" ");
+                })()}
               </span>
               <span className="font-medium">{filtered.length}개 경기</span>
             </div>

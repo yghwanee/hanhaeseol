@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "crawl": "tsx src/scripts/crawl.ts"
+    "crawl": "tsx src/scripts/crawl.ts",
+    "coupang-login": "tsx src/scripts/coupang-login.ts"
   },
   "dependencies": {
     "next": "14.2.35",
@@ -18,8 +19,10 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "dotenv": "^17.4.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.35",
+    "playwright": "^1.59.1",
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "tsx": "^4.21.0",
