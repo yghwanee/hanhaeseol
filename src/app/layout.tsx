@@ -59,6 +59,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko" className="dark">
+      <head>
+        <meta name="google-adsense-account" content="ca-pub-3233121387897003" />
+      </head>
       <body className={`${geistSans.variable} antialiased`}>{children}</body>
     </html>
   );
