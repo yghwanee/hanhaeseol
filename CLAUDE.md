@@ -35,7 +35,8 @@ src/
 │       ├── sbs-sports.ts    # SBS Sports 크롤러
 │       ├── kbs-sports.ts    # KBS N SPORTS 크롤러
 │       ├── apple-tv.ts     # Apple TV+ 크롤러
-│       └── coupang-play.ts # 쿠팡플레이 크롤러
+│       ├── coupang-play.ts # 쿠팡플레이 크롤러
+│       └── tving.ts        # 티빙 크롤러
 ├── scripts/
 │   └── crawl.ts             # 크롤링 실행 스크립트
 └── types/
@@ -48,7 +49,7 @@ src/
 |------|--------|------------|
 | OTT | SPOTV NOW | 구현 완료 (API, 한국어해설 자동 판별) |
 | OTT | 쿠팡플레이 | 구현 완료 (API, CT_LSID 토큰 자동 갱신) |
-| OTT | 티빙 | 미구현 (로그인 필요) |
+| OTT | 티빙 | 구현 완료 (공개 API, 인증 불필요) |
 | OTT | Apple TV+ | 구현 완료 (UTS API, 현지해설만) |
 | TV | SPOTV | 구현 완료 (JSON) |
 | TV | SPOTV2 | 구현 완료 (JSON) |
@@ -83,7 +84,7 @@ src/
 1. 프로젝트 초기 설정 (Next.js 14 + TypeScript + Tailwind CSS)
 2. 타입 정의 (Sport, Platform, Schedule, ScheduleData)
 3. 메인 페이지 UI (필���링, 경기 카드, 다크모드, 반응형)
-4. 크롤러 8개 구현 (SPOTV NOW, SPOTV/SPOTV2, MBC SPORTS+, tvN SPORTS, SBS Sports, KBS N SPORTS, Apple TV+, 쿠팡플레이)
+4. 크롤러 9개 구현 (SPOTV NOW, SPOTV/SPOTV2, MBC SPORTS+, tvN SPORTS, SBS Sports, KBS N SPORTS, Apple TV+, 쿠팡플레이, 티빙)
 5. 리그명/팀명 파싱 정규화
 6. 경기 종료 표시 (종목별 예상 ��간)
 7. GitHub Actions 자동화 설정
@@ -105,9 +106,10 @@ src/
 23. Apple TV+ 크롤러 구현 (UTS API: tv.apple.com, JWT 토큰 자동 추출)
 24. 쿠팡플레이 크롤러 구현 (api-discover API, CT_LSID 기반 P_AT 토큰 자동 갱신)
 25. 종목별 아이콘 동적 표시 (필터링된 경기에 포함된 종목만 표시)
+26. 티빙 크롤러 구현 (공개 API: api.tving.com, 인증 불필요)
 
 ### 다음 작업 (예정)
-- 티빙 크롤러 (로그인 필요)
+- Vercel 배포 설정
 - Vercel 배포 설정
 
 ## 개발 명령어

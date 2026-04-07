@@ -9,6 +9,7 @@ import { crawlSbsSports } from "./sbs-sports";
 import { crawlKbsSports } from "./kbs-sports";
 import { crawlAppleTv } from "./apple-tv";
 import { crawlCoupangPlay } from "./coupang-play";
+import { crawlTving } from "./tving";
 
 export async function crawlAll(date: string): Promise<Schedule[]> {
   const results = await Promise.allSettled([
@@ -20,9 +21,10 @@ export async function crawlAll(date: string): Promise<Schedule[]> {
     crawlKbsSports(date),
     crawlAppleTv(date),
     crawlCoupangPlay(date),
+    crawlTving(date),
   ]);
 
-  const labels = ["SPOTV NOW", "SPOTV/SPOTV2", "MBC SPORTS+", "tvN SPORTS", "SBS Sports", "KBS N SPORTS", "Apple TV+", "쿠팡플레이"];
+  const labels = ["SPOTV NOW", "SPOTV/SPOTV2", "MBC SPORTS+", "tvN SPORTS", "SBS Sports", "KBS N SPORTS", "Apple TV+", "쿠팡플레이", "티빙"];
   const allSchedules: Schedule[] = [];
 
   results.forEach((result, i) => {
