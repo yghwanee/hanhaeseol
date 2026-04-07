@@ -1,5 +1,5 @@
 import { Schedule, Platform } from "@/types/schedule";
-import { parseMatchTitle, detectKoreanCommentary, isActualMatch } from "./parsers";
+import { parseMatchTitle, detectKoreanCommentary, isActualMatch, decodeHtmlEntities } from "./parsers";
 
 interface SpotvTvItem {
   kind: string;       // "LIVE", "본방송", "재방송"
@@ -29,14 +29,15 @@ async function fetchChannel(channel: "SPOTV" | "SPOTV2", date: string): Promise<
   for (const item of items) {
     // LIVE만 (본방송은 녹화중계 포함이라 제외)
     if (item.kind !== "LIVE") continue;
-    if (!isActualMatch(item.title)) continue;
+    const title = decodeHtmlEntities(item.title);
+    if (!isActualMatch(title)) continue;
 
     const time = `${String(item.sch_hour).padStart(2, "0")}:${item.sch_min.padStart(2, "0")}`;
-    const parsed = parseMatchTitle(item.title);
-    const commentary = detectKoreanCommentary(item.title);
+    const parsed = parseMatchTitle(title);
+    const commentary = detectKoreanCommentary(title);
 
     schedules.push({
-      id: `${channel.toLowerCase()}-${date}-${time}-${item.title.slice(0, 20)}`,
+      id: `${channel.toLowerCase()}-${date}-${time}-${title.slice(0, 20)}`,
       date,
       time,
       sport: parsed.sport ?? "축구",

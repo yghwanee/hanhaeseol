@@ -1,5 +1,14 @@
 import { Sport } from "@/types/schedule";
 
+const HTML_ENTITIES: Record<string, string> = {
+  "&amp;": "&", "&lt;": "<", "&gt;": ">",
+  "&quot;": '"', "&#39;": "'", "&apos;": "'",
+};
+
+export function decodeHtmlEntities(text: string): string {
+  return text.replace(/&(?:amp|lt|gt|quot|#39|apos);/g, (m) => HTML_ENTITIES[m] || m);
+}
+
 const LEAGUE_SPORT_MAP: Record<string, Sport> = {
   // 축구
   EPL: "축구", "프리미어리그": "축구", "라리가": "축구", "세리에A": "축구",
