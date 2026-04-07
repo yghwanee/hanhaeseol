@@ -74,7 +74,7 @@ src/
 ## 크롤링
 
 - `npm run crawl` → 오늘부터 7일치 크롤링 → `schedule.json` 갱신
-- GitHub Actions: KST 01:07, 05:07, 11:07, 17:07, 22:07 자동 실행 (정각 회피)
+- GitHub Actions: KST 08:18 하루 1회 자동 실행 + 텔레그램 알림
 - 비경��� 콘텐츠(하이라이트, 시상식, 스포타임 등) 자�� 제외
 - SPOTV TV는 LIVE만 수집 (녹화 본방송 제외)
 
@@ -106,10 +106,11 @@ src/
 23. Apple TV+ 크롤러 구현 (UTS API: tv.apple.com, JWT 토큰 자동 추출)
 24. 쿠팡플레이 크롤러 구현 (api-discover API, CT_LSID 기반 P_AT 토큰 자동 갱신)
 25. 종목별 아이콘 동적 표시 (필터링된 경기에 포함된 종목만 표시)
-26. 티빙 크롤러 구현 (공개 API: api.tving.com, 인증 불필요)
+26. 티빙 크롤러 구현 (BFF API: gw.tving.com, KBO+KBL, 인증 불필요)
+27. GitHub Actions 스케줄러 수정 (KST 08:18 하루 1회)
+28. 텔레그램 알림 연동 (편성표 업데이트 시 자동 알림)
 
 ### 다음 작업 (예정)
-- Vercel 배포 설정
 - Vercel 배포 설정
 
 ## 개발 명령어
