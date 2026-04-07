@@ -32,7 +32,8 @@ src/
 │       ├── spotv-tv.ts      # SPOTV/SPOTV2 TV 채널 크롤러
 │       ├── mbc-sports.ts    # MBC SPORTS+ 크롤러
 │       ├── tvn-sports.ts    # tvN SPORTS 크롤러
-│       └── sbs-sports.ts    # SBS Sports 크롤러
+│       ├── sbs-sports.ts    # SBS Sports 크롤러
+│       └── kbs-sports.ts    # KBS N SPORTS 크롤러
 ├── scripts/
 │   └── crawl.ts             # 크롤링 실행 스크립트
 └── types/
@@ -50,7 +51,7 @@ src/
 | TV | SPOTV | 구현 완료 (JSON) |
 | TV | SPOTV2 | 구현 완료 (JSON) |
 | TV | tvN SPORTS | 구현 완료 (HTML 파싱) |
-| TV | KBS N SPORTS | 미구현 (접근 차단) |
+| TV | KBS N SPORTS | 구현 완료 (HTML 파싱) |
 | TV | MBC SPORTS+ | 구현 완료 (POST API) |
 | TV | SBS Sports | 구현 완료 (정적 JSON API) |
 
@@ -80,7 +81,7 @@ src/
 1. 프로젝트 초기 설정 (Next.js 14 + TypeScript + Tailwind CSS)
 2. 타입 정의 (Sport, Platform, Schedule, ScheduleData)
 3. 메인 페이지 UI (필���링, 경기 카드, 다크모드, 반응형)
-4. 크롤러 5개 구현 (SPOTV NOW, SPOTV/SPOTV2, MBC SPORTS+, tvN SPORTS, SBS Sports)
+4. 크롤러 6개 구현 (SPOTV NOW, SPOTV/SPOTV2, MBC SPORTS+, tvN SPORTS, SBS Sports, KBS N SPORTS)
 5. 리그명/팀명 파싱 정규화
 6. 경기 종료 표시 (종목별 예상 ��간)
 7. GitHub Actions 자동화 설정
@@ -98,10 +99,10 @@ src/
 19. SBS Sports 크롤러 구현 (정적 JSON API: static.cloud.sbs.co.kr)
 20. AFC 대회명 파싱 개선 (parsers.ts)
 21. GitHub Actions 크론 정각 회피 (00분 → 07분)
+22. KBS N SPORTS 크롤러 구현 (HTML 파싱: kbsn.co.kr/schedule)
 
 ### 다음 작업 (예정)
 - 쿠팡플레이, 티빙 크롤러 (Playwright 또는 API 분석 필요)
-- KBS N SPORTS 크롤러
 - Apple TV+ 크롤러
 - Vercel 배포 설정
 

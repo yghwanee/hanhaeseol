@@ -236,13 +236,13 @@ export default function Home() {
           <span className="w-14 shrink-0 pt-1 text-[11px] font-medium text-zinc-300">
             플랫폼
           </span>
-          <div className="flex flex-wrap gap-1">
+          <div className={`flex flex-wrap gap-1 ${platformExpanded ? "" : "max-h-[30px] overflow-hidden"}`}>
             <FilterButton
               label="전체"
               active={platform === "전체"}
               onClick={() => setPlatform("전체")}
             />
-            {["쿠팡플레이", "티빙", "Apple", "SPOTV", "SPOTV2", "SPOTV NOW"].map((p) => {
+            {["쿠팡플레이", "티빙", "Apple", "SPOTV", "SPOTV2", "SPOTV NOW", "tvN SPORTS", "KBS N SPORTS", "MBC SPORTS+", "SBS Sports"].map((p) => {
               const platformKey = p === "Apple" ? "Apple TV+" : p;
               return (
               <FilterButton
@@ -253,14 +253,6 @@ export default function Home() {
               />
             );
             })}
-            {platformExpanded && ["tvN SPORTS", "KBS N SPORTS", "MBC SPORTS+", "SBS Sports"].map((p) => (
-              <FilterButton
-                key={p}
-                label={p}
-                active={platform === p}
-                onClick={() => setPlatform(p)}
-              />
-            ))}
           </div>
           <button
             onClick={() => setPlatformExpanded(!platformExpanded)}
@@ -418,11 +410,11 @@ export default function Home() {
       {/* Info Modal */}
       {showInfo && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={() => setShowInfo(false)}>
-          <div className="mx-4 max-w-md rounded-xl border border-zinc-700 bg-zinc-900 p-5 sm:p-6" onClick={(e) => e.stopPropagation()}>
-            <div className="flex justify-end mb-2">
-              <button onClick={() => setShowInfo(false)} className="text-zinc-500 hover:text-zinc-300 text-3xl leading-none -mt-1">&times;</button>
+          <div className="mx-4 max-w-md rounded-xl border border-zinc-700 bg-zinc-900 px-5 sm:px-6 pt-5 sm:pt-6 pb-8 sm:pb-9" onClick={(e) => e.stopPropagation()}>
+            <div className="flex justify-end">
+              <button onClick={() => setShowInfo(false)} className="text-zinc-500 hover:text-zinc-300 text-3xl leading-none">&times;</button>
             </div>
-            <div className="text-xs sm:text-sm leading-relaxed text-zinc-400 space-y-3">
+            <div className="mt-3 text-xs sm:text-sm leading-relaxed text-zinc-400 space-y-3">
               <p>● 본 서비스에서 제공하는 중계 일정 및 한국어해설 정보는 쿠팡플레이, 티빙, SPOTV NOW, Apple TV+, SPOTV, SPOTV2, tvN SPORTS, KBS N SPORTS, MBC SPORTS+, SBS Sports의 공식 편성표를 바탕으로 재구성되었습니다.</p>
               <p>● 실시간 중계 사정에 따라 실제 편성 현황과 일부 차이가 있을 수 있으므로 정확한 내용은 각 중계 플랫폼의 공지사항을 확인해 주시기 바랍니다.</p>
             </div>
