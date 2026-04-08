@@ -33,11 +33,12 @@ async function refreshPAT(): Promise<string | null> {
   const ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
 
   // Step 1: /oauth2/login → 307 /home
-  await fetch("https://www.coupangplay.com/oauth2/login?rtnUrl=https%3A%2F%2Fwww.coupangplay.com%2Fhome", {
+  const r1 = await fetch("https://www.coupangplay.com/oauth2/login?rtnUrl=https%3A%2F%2Fwww.coupangplay.com%2Fhome", {
     headers: { Cookie: cookies, "User-Agent": ua },
     redirect: "manual",
     signal: AbortSignal.timeout(10000),
   });
+  console.error(`쿠팡플레이 debug: Step1 status=${r1.status}, location=${r1.headers.get("location")}`);
 
   // Step 2: /home → P_AT in Set-Cookie
   const r2 = await fetch("https://www.coupangplay.com/home", {
@@ -45,9 +46,12 @@ async function refreshPAT(): Promise<string | null> {
     redirect: "manual",
     signal: AbortSignal.timeout(10000),
   });
+  console.error(`쿠팡플레이 debug: Step2 status=${r2.status}`);
 
   // getSetCookie()로 개별 쿠키 헤더를 정확히 파싱
   const setCookies = r2.headers.getSetCookie?.() ?? [];
+  console.error(`쿠팡플레이 debug: SetCookie 수=${setCookies.length}, names=${setCookies.map(c => c.split("=")[0]).join(",")}`);
+
   for (const v of setCookies) {
     if (v.startsWith("P_AT=")) {
       return v.split(";")[0].replace("P_AT=", "");
@@ -62,7 +66,7 @@ async function refreshPAT(): Promise<string | null> {
     }
   }
 
-  console.error("쿠팡플레이: P_AT를 찾을 수 없음 (status:", r2.status, ")");
+  console.error("쿠팡플레이: P_AT를 찾을 수 없음");
   return null;
 }
 
