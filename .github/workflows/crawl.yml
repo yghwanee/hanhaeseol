@@ -63,22 +63,23 @@ jobs:
       - name: Telegram 알림 (쿠팡플레이 토큰 만료)
         if: steps.crawl.outputs.coupang_failed == 'true'
         run: |
-          TEXT="🚨 <b>쿠팡플레이 토큰이 만료되었습니다</b>
+          TEXT="🚨 쿠팡플레이 토큰 만료
 
-          기존 데이터로 유지 중이지만, 새 경기 정보를 가져오지 못합니다.
+기존 데이터로 유지 중이지만, 새 경기 정보를 가져오지 못합니다.
 
-          <b>🔧 토큰 갱신 방법:</b>
-          1. 브라우저에서 coupangplay.com 로그인
-          2. F12 → Application → Cookies
-          3. 아래 2개 값을 복사
+토큰 갱신 방법
+1. coupangplay.com 로그인
+2. F12 → Application → Cookies
+3. CT_LSID 값 복사
+4. token 값 복사
 
-          <b>📋 GitHub Secrets 업데이트:</b>
-          https://github.com/yghwanee/hanhaeseol/settings/secrets/actions
+📋 GitHub Secrets 업데이트:
+https://github.com/yghwanee/hanhaeseol/settings/secrets/actions
 
-          • <code>COUPANG_CT_LSID</code> → CT_LSID 쿠키 값
-          • <code>COUPANG_TOKEN</code> → token 쿠키 값
+• COUPANG_CT_LSID → CT_LSID 쿠키 값
+• COUPANG_TOKEN → token 쿠키 값
 
-          업데이트 후 Actions에서 Run workflow로 수동 실행해주세요."
+업데이트 후 Actions에서 Run workflow로 수동 실행해주세요."
 
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
