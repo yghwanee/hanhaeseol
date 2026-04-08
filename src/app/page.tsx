@@ -424,6 +424,14 @@ export default function Home() {
         </div>
       )}
 
+      {/* SEO Content */}
+      <section className="mt-8 sm:mt-10 border-t border-zinc-800 pt-6 sm:pt-8">
+        <h2 className="text-xs sm:text-sm font-semibold text-zinc-500 mb-2">스포츠 한국어 해설 중계 편성표</h2>
+        <p className="text-[11px] sm:text-xs leading-relaxed text-zinc-600">
+          한해설은 축구, 야구, 농구, 배구 한국어 해설 중계 편성표를 제공합니다. SPOTV NOW, 쿠팡플레이, 티빙, Apple TV+, SPOTV, SPOTV2, tvN SPORTS, KBS N SPORTS, MBC SPORTS+, SBS Sports 등 10개 플랫폼의 스포츠 중계 일정을 한눈에 확인하세요. 프리미어리그, 라리가, 세리에A, 분데스리가, 챔피언스리그, KBO, K리그, NBA, MLB 등 주요 리그의 한국어 해설 여부를 실시간으로 확인할 수 있습니다.
+        </p>
+      </section>
+
       {/* Footer */}
       <footer className="mt-6 sm:mt-8 text-center text-[11px] sm:text-xs text-zinc-600" suppressHydrationWarning>
         마지막 업데이트: {new Date(data.lastUpdated).toLocaleString("ko-KR")}
