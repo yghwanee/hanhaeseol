@@ -199,8 +199,8 @@ export default function Home() {
     <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10 xl:max-w-none xl:px-[200px]">
       {/* PC 양옆 광고 */}
       <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10">
-        <a href="https://link.coupang.com/a/ekvwiR" target="_blank" referrerPolicy="unsafe-url">
-          <img src="https://ads-partners.coupang.com/banners/979110?subId=&traceId=V0-301-c1744fa69c93f626-I979110&w=200&h=200" alt="" />
+        <a href="https://link.coupang.com/a/ekvA9y" target="_blank" referrerPolicy="unsafe-url">
+          <img src="https://ads-partners.coupang.com/banners/979115?subId=&traceId=V0-301-371ae01f4226dec2-I979115&w=200&h=200" alt="" />
         </a>
       </div>
       <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10">
