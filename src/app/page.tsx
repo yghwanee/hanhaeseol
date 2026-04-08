@@ -347,8 +347,8 @@ export default function Home() {
       </div>
       {/* PC 광고 */}
       <div className="hidden sm:flex justify-center mb-6">
-        <div className="rounded-lg overflow-hidden">
-          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979114&template=banner&trackingCode=AF2259406&subId=&width=728&height=90" width="728" height="90" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+        <div className="rounded-lg overflow-hidden w-full max-w-2xl">
+          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979114&template=banner&trackingCode=AF2259406&subId=&width=728&height=90" className="w-full h-[90px] border-0" scrolling="no" referrerPolicy="unsafe-url" />
         </div>
       </div>
 
