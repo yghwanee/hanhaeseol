@@ -197,6 +197,16 @@ export default function Home() {
 
   return (
     <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10 xl:max-w-none xl:px-[200px]">
+      {/* PC 왼쪽 광고 */}
+      <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10">
+        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979121&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+      </div>
+
+      {/* PC 오른쪽 광고 */}
+      <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10">
+        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979133&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+      </div>
+
       <div className="mx-auto max-w-2xl">
       {/* Header */}
       <header className="mb-6 sm:mb-10">
