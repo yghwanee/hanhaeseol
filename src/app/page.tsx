@@ -198,12 +198,12 @@ export default function Home() {
   return (
     <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10 xl:max-w-none xl:px-[200px]">
       {/* PC 왼쪽 광고 */}
-      <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10">
+      <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
         <iframe src="https://ads-partners.coupang.com/widgets.html?id=979121&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
       </div>
 
       {/* PC 오른쪽 광고 */}
-      <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10">
+      <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
         <iframe src="https://ads-partners.coupang.com/widgets.html?id=979133&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
       </div>
 
@@ -341,11 +341,15 @@ export default function Home() {
 
       {/* 모바일 광고 */}
       <div className="sm:hidden flex justify-center mb-4">
-        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979135&template=carousel&trackingCode=AF2259406&subId=&width=320&height=100&tsource=" width="320" height="100" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+        <div className="rounded-lg overflow-hidden">
+          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979135&template=carousel&trackingCode=AF2259406&subId=&width=320&height=100&tsource=" width="320" height="100" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+        </div>
       </div>
       {/* PC 광고 */}
       <div className="hidden sm:flex justify-center mb-6">
-        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979114&template=banner&trackingCode=AF2259406&subId=&width=728&height=90" width="728" height="90" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+        <div className="rounded-lg overflow-hidden">
+          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979114&template=banner&trackingCode=AF2259406&subId=&width=728&height=90" width="728" height="90" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+        </div>
       </div>
 
       {/* Date Tabs */}
