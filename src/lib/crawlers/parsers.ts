@@ -61,6 +61,7 @@ const LEAGUE_NORMALIZE: [RegExp, string][] = [
   [/프로농구/, "프로농구"],
   [/여자프로농구/, "여자프로농구"],
   [/일본\s?프로농구/, "일본프로농구"],
+  [/퓨처스리그/, "퓨처스리그"],
   [/KBO/, "KBO"],
   [/메이저리그/, "MLB"],
   [/MLB/, "MLB"],
@@ -155,7 +156,7 @@ export function parseMatchTitle(title: string): {
     const away = cleanTeam(colonMatch[3]);
     // "2026" + "KBO리그 한화" → league="KBO", home="한화"
     const fullText = `${league} ${home}`;
-    const leagueInHome = fullText.match(/^.*?(KBO리그\d?|K리그\d?|MLB|MLS|NBA|NPB|메이저리그|프로농구|여자프로농구|프로배구|V-?리그|신한\s*SOL\s*KBO리그|AFC\s+[\w\-]+(?:\s+여자)?\s+아시안컵|AFC\s+챔피언스리그|ACL|고교야구)\s+(.+)$/);
+    const leagueInHome = fullText.match(/^.*?(퓨처스리그|KBO리그\d?|K리그\d?|MLB|MLS|NBA|NPB|메이저리그|프로농구|여자프로농구|프로배구|V-?리그|신한\s*SOL\s*KBO리그|AFC\s+[\w\-]+(?:\s+여자)?\s+아시안컵|AFC\s+챔피언스리그|ACL|고교야구)\s+(.+)$/);
     if (leagueInHome) {
       const homeRaw = leagueInHome[2].trim()
         .replace(/^(?:포스트시즌\s*)?(?:남자부\s*|여자부\s*)?(?:챔피언결정전\s*)?(?:플레이오프\s*)?(?:\d+차\s*)?(?:\d+차전\s*)?/, "").trim();
