@@ -212,7 +212,7 @@ export default function Home() {
       <header className="mb-6 sm:mb-10">
         <h1 className="flex items-end">
           <img src="/icon.png" alt="한해설 아이콘" className="h-6 sm:h-8 self-center" />
-          <img src="/logo.png" alt="한해설" className="h-8 sm:h-12" />
+          <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
           <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어 해설 편성표</span>
         </h1>
       </header>
