@@ -71,8 +71,8 @@ async function captureToken() {
       const r = await fetch("/api/sports/schedule");
       const text = await r.text();
       return { status: r.status, body: text.substring(0, 500) };
-    } catch (e: any) {
-      return { error: e.message };
+    } catch (e: unknown) {
+      return { error: e instanceof Error ? e.message : String(e) };
     }
   });
 

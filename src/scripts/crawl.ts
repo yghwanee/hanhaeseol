@@ -1,5 +1,6 @@
 import "dotenv/config";
 import { crawlDateRange } from "../lib/crawlers";
+import { ScheduleData } from "../types/schedule";
 import fs from "fs/promises";
 import path from "path";
 
@@ -15,12 +16,21 @@ async function main() {
     dates.push(`${yyyy}-${mm}-${dd}`);
   }
 
+  // 기존 데이터 로드 (실패한 플랫폼 데이터 보존용)
+  const outPath = path.join(process.cwd(), "src/data/schedule.json");
+  let existing: ScheduleData | null = null;
+  try {
+    const raw = await fs.readFile(outPath, "utf-8");
+    existing = JSON.parse(raw);
+  } catch {
+    // 파일 없으면 무시
+  }
+
   console.log(`크롤링 시작: ${dates[0]} ~ ${dates[dates.length - 1]}`);
   console.log("---");
 
-  const data = await crawlDateRange(dates);
+  const data = await crawlDateRange(dates, existing);
 
-  const outPath = path.join(process.cwd(), "src/data/schedule.json");
   await fs.writeFile(outPath, JSON.stringify(data, null, 2), "utf-8");
 
   console.log("---");
