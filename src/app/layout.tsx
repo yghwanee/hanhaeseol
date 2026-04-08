@@ -39,6 +39,12 @@ export const metadata: Metadata = {
     siteName: "한해설",
     locale: "ko_KR",
     type: "website",
+    images: [
+      {
+        url: "https://중계.kro.kr/logo.png",
+        alt: "한해설 로고",
+      },
+    ],
   },
   twitter: {
     card: "summary",
