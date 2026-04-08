@@ -196,7 +196,16 @@ export default function Home() {
   }, [selectedDate, sport, platform, commentaryFilter]);
 
   return (
-    <div className="mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10">
+    <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10 xl:max-w-none xl:px-[200px]">
+      {/* PC 양옆 광고 */}
+      <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10">
+        <iframe src="https://coupa.ng/cmh9ky" width="120" height="240" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+      </div>
+      <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10">
+        <iframe src="https://coupa.ng/cmh9ky" width="120" height="240" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+      </div>
+
+      <div className="mx-auto max-w-2xl">
       {/* Header */}
       <header className="mb-6 sm:mb-10">
         <h1 className="flex items-end">
@@ -432,10 +441,16 @@ export default function Home() {
         </p>
       </section>
 
+      {/* 모바일 하단 광고 */}
+      <div className="xl:hidden flex justify-center mt-6 sm:mt-8">
+        <iframe src="https://coupa.ng/cmh9ky" width="120" height="240" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+      </div>
+
       {/* Footer */}
       <footer className="mt-6 sm:mt-8 text-center text-[11px] sm:text-xs text-zinc-600" suppressHydrationWarning>
         마지막 업데이트: {new Date(data.lastUpdated).toLocaleString("ko-KR")}
       </footer>
+      </div>{/* max-w-2xl wrapper end */}
     </div>
   );
 }
