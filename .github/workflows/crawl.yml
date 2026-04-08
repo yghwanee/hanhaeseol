@@ -66,27 +66,25 @@ jobs:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
-          cat <<'MSGEOF' > /tmp/telegram_msg.txt
-🚨 쿠팡플레이 토큰 만료
-
-기존 데이터로 유지 중이지만, 새 경기 정보를 가져오지 못합니다.
-
-토큰 갱신 방법
-1. coupangplay.com 로그인
-2. F12 → Application → Cookies
-3. 아래 5개 값 복사
-
-📋 GitHub Secrets 업데이트:
-https://github.com/yghwanee/hanhaeseol/settings/secrets/actions
-
-• COUPANG_CT_LSID → CT_LSID 쿠키 값
-• COUPANG_TOKEN → token 쿠키 값
-• COUPANG_DEVICE_ID → device_id 쿠키 값
-• COUPANG_MEMBER_SRL → member_srl 쿠키 값
-• COUPANG_PROFILE_ID → 변경 없으면 생략 가능
-
-업데이트 후 Actions에서 Run workflow로 수동 실행해주세요.
-MSGEOF
+          MSG=$(printf '%s\n' \
+            "🚨 쿠팡플레이 토큰 만료" \
+            "" \
+            "기존 데이터로 유지 중이지만, 새 경기 정보를 가져오지 못합니다." \
+            "" \
+            "토큰 갱신 방법" \
+            "1. coupangplay.com 로그인" \
+            "2. F12 → Application → Cookies" \
+            "3. 아래 4개 값 복사" \
+            "" \
+            "GitHub Secrets 업데이트" \
+            "https://github.com/yghwanee/hanhaeseol/settings/secrets/actions" \
+            "" \
+            "COUPANG_CT_LSID → CT_LSID 쿠키 값" \
+            "COUPANG_TOKEN → token 쿠키 값" \
+            "COUPANG_DEVICE_ID → device_id 쿠키 값" \
+            "COUPANG_MEMBER_SRL → member_srl 쿠키 값" \
+            "" \
+            "업데이트 후 Actions에서 Run workflow로 수동 실행해주세요.")
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d chat_id="${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text@/tmp/telegram_msg.txt"
+            --data-urlencode "text=${MSG}"
