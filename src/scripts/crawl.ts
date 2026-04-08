@@ -31,7 +31,12 @@ async function main() {
 
   const data = await crawlDateRange(dates, existing);
 
-  await fs.writeFile(outPath, JSON.stringify(data, null, 2), "utf-8");
+  const jsonStr = JSON.stringify(data, null, 2);
+  await fs.writeFile(outPath, jsonStr, "utf-8");
+
+  // public/schedule.json에도 저장 (클라이언트 fetch용)
+  const publicPath = path.join(process.cwd(), "public/schedule.json");
+  await fs.writeFile(publicPath, jsonStr, "utf-8");
 
   console.log("---");
   console.log(`완료: 총 ${data.schedules.length}건 → ${outPath}`);

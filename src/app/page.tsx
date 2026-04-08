@@ -1,11 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { Schedule, ScheduleData } from "@/types/schedule";
-import scheduleJson from "@/data/schedule.json";
-
-const data = scheduleJson as ScheduleData;
 
 const SPORTS = ["전체", "축구", "야구", "농구", "배구"] as const;
 function getUpcomingDates(): { label: string; value: string }[] {
@@ -191,6 +188,7 @@ function FilterButton({
 }
 
 export default function Home() {
+  const [data, setData] = useState<ScheduleData | null>(null);
   const [selectedDate, setSelectedDate] = useState(getTodayString());
   const [sport, setSport] = useState("전체");
   const [platform, setPlatform] = useState("전체");
@@ -199,9 +197,16 @@ export default function Home() {
   const [platformExpanded, setPlatformExpanded] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
 
+  useEffect(() => {
+    fetch("/schedule.json")
+      .then((res) => res.json())
+      .then((json) => setData(json as ScheduleData));
+  }, []);
+
   const weekDates = useMemo(() => getUpcomingDates(), []);
 
   const filtered = useMemo(() => {
+    if (!data) return [];
     return data.schedules
       .filter((s) => s.date === selectedDate)
       .filter((s) => sport === "전체" || s.sport === sport)
@@ -227,12 +232,12 @@ export default function Home() {
     <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10 xl:max-w-none xl:px-[200px]">
       {/* PC 왼쪽 광고 */}
       <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
-        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979121&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979121&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
       </div>
 
       {/* PC 오른쪽 광고 */}
       <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
-        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979133&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979133&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
       </div>
 
       <div className="mx-auto max-w-2xl">
@@ -372,7 +377,7 @@ export default function Home() {
       {/* 모바일 광고 */}
       <div className="sm:hidden flex justify-center mb-4">
         <div className="rounded-lg overflow-hidden">
-          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979135&template=carousel&trackingCode=AF2259406&subId=&width=320&height=100&tsource=" width="320" height="100" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979135&template=carousel&trackingCode=AF2259406&subId=&width=320&height=100&tsource=" width="320" height="100" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
         </div>
       </div>
       {/* PC 광고 */}
@@ -509,7 +514,7 @@ export default function Home() {
 
       {/* Footer */}
       <footer className="mt-6 sm:mt-8 text-center text-[11px] sm:text-xs text-zinc-600" suppressHydrationWarning>
-        마지막 업데이트: {new Date(data.lastUpdated).toLocaleString("ko-KR")}
+        마지막 업데이트: {data ? new Date(data.lastUpdated).toLocaleString("ko-KR") : "로딩 중..."}
       </footer>
       </div>{/* max-w-2xl wrapper end */}
     </div>
