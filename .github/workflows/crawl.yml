@@ -21,7 +21,15 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run crawl
+      - name: Run crawl
+        id: crawl
+        run: |
+          npm run crawl 2>&1 | tee crawl.log
+          if grep -q "쿠팡플레이: 토큰 갱신 실패" crawl.log; then
+            echo "coupang_failed=true" >> $GITHUB_OUTPUT
+          else
+            echo "coupang_failed=false" >> $GITHUB_OUTPUT
+          fi
         env:
           COUPANG_CT_LSID: ${{ secrets.COUPANG_CT_LSID }}
           COUPANG_DEVICE_ID: ${{ secrets.COUPANG_DEVICE_ID }}
@@ -44,10 +52,35 @@ jobs:
             echo "updated=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Telegram 알림
-        if: steps.commit.outputs.updated == 'true'
+      - name: Telegram 알림 (성공)
+        if: steps.commit.outputs.updated == 'true' && steps.crawl.outputs.coupang_failed == 'false'
         run: |
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
             -d text="✅ 한해설 편성표가 업데이트되었습니다." \
+            -d parse_mode=HTML
+
+      - name: Telegram 알림 (쿠팡플레이 토큰 만료)
+        if: steps.crawl.outputs.coupang_failed == 'true'
+        run: |
+          TEXT="🚨 <b>쿠팡플레이 토큰이 만료되었습니다</b>
+
+          기존 데이터로 유지 중이지만, 새 경기 정보를 가져오지 못합니다.
+
+          <b>🔧 토큰 갱신 방법:</b>
+          1. 브라우저에서 coupangplay.com 로그인
+          2. F12 → Application → Cookies
+          3. 아래 2개 값을 복사
+
+          <b>📋 GitHub Secrets 업데이트:</b>
+          https://github.com/yghwanee/hanhaeseol/settings/secrets/actions
+
+          • <code>COUPANG_CT_LSID</code> → CT_LSID 쿠키 값
+          • <code>COUPANG_TOKEN</code> → token 쿠키 값
+
+          업데이트 후 Actions에서 Run workflow로 수동 실행해주세요."
+
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            --data-urlencode "text=$TEXT" \
             -d parse_mode=HTML
