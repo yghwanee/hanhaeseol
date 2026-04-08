@@ -339,6 +339,11 @@ export default function Home() {
         </div>
       </div>
 
+      {/* 모바일 광고 */}
+      <div className="sm:hidden flex justify-center mb-4">
+        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979135&template=carousel&trackingCode=AF2259406&subId=&width=320&height=100&tsource=" width="320" height="100" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+      </div>
+
       {/* Date Tabs */}
       <div className="mb-6 sm:mb-10">
         {/* Mobile: scrollable row */}
