@@ -46,12 +46,23 @@ async function refreshPAT(): Promise<string | null> {
     signal: AbortSignal.timeout(10000),
   });
 
-  for (const [k, v] of r2.headers.entries()) {
-    if (k === "set-cookie" && v.startsWith("P_AT=")) {
+  // getSetCookie()로 개별 쿠키 헤더를 정확히 파싱
+  const setCookies = r2.headers.getSetCookie?.() ?? [];
+  for (const v of setCookies) {
+    if (v.startsWith("P_AT=")) {
       return v.split(";")[0].replace("P_AT=", "");
     }
   }
 
+  // fallback: entries()로도 시도
+  for (const [k, v] of r2.headers.entries()) {
+    if (k === "set-cookie" && v.includes("P_AT=")) {
+      const match = v.match(/P_AT=([^;,]+)/);
+      if (match) return match[1];
+    }
+  }
+
+  console.error("쿠팡플레이: P_AT를 찾을 수 없음 (status:", r2.status, ")");
   return null;
 }
 
