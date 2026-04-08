@@ -116,7 +116,7 @@ function Highlight({ text, query }: { text: string; query: string }) {
     <>
       {parts.map((part, i) =>
         regex.test(part) ? (
-          <mark key={i} className="bg-yellow-500/30 text-yellow-300 rounded-sm px-0.5">{part}</mark>
+          <span key={i} className="text-white underline underline-offset-2 decoration-emerald-400">{part}</span>
         ) : (
           <span key={i}>{part}</span>
         )
@@ -216,8 +216,7 @@ export default function Home() {
         return (
           s.homeTeam.toLowerCase().includes(q) ||
           s.awayTeam.toLowerCase().includes(q) ||
-          s.league.toLowerCase().includes(q) ||
-          s.platform.toLowerCase().includes(q)
+          s.league.toLowerCase().includes(q)
         );
       })
       .sort((a, b) => a.time.localeCompare(b.time));
@@ -434,7 +433,7 @@ export default function Home() {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="팀, 리그, 플랫폼 검색"
+          placeholder="팀, 리그 검색"
           className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-zinc-200 placeholder-zinc-500 focus:border-zinc-500 focus:outline-none"
         />
         {searchQuery && (
