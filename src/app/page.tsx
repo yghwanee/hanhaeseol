@@ -201,8 +201,11 @@ export default function Home() {
       <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10">
         <iframe src="https://coupa.ng/cmh9ky" width="120" height="240" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
       </div>
-      <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10">
+      <div className="hidden xl:flex fixed right-4 top-1/2 -translate-y-1/2 z-10 flex-col items-center gap-4">
         <iframe src="https://coupa.ng/cmh9ky" width="120" height="240" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+        <a href="https://link.coupang.com/a/ekvdYY" target="_blank" referrerPolicy="unsafe-url">
+          <img src="https://ads-partners.coupang.com/banners/979107?subId=&traceId=V0-301-c1744fa69c93f626-I979107&w=728&h=90" alt="" className="max-w-[120px] h-auto" />
+        </a>
       </div>
 
       <div className="mx-auto max-w-2xl">
