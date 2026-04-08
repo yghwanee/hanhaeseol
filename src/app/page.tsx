@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import { Schedule, ScheduleData } from "@/types/schedule";
 
@@ -376,14 +376,14 @@ export default function Home() {
 
       {/* 모바일 광고 */}
       <div className="sm:hidden flex justify-center mb-4">
-        <div className="rounded-lg overflow-hidden">
-          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979135&template=carousel&trackingCode=AF2259406&subId=&width=320&height=100&tsource=" width="320" height="100" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
-        </div>
+        <a href="https://link.coupang.com/a/ekC6YT" target="_blank" referrerPolicy="unsafe-url">
+          <img src="https://ads-partners.coupang.com/banners/979237?subId=&traceId=V0-301-371ae01f4226dec2-I979237&w=320&h=50" alt="" style={{ width: 400, height: "auto" }} />
+        </a>
       </div>
       {/* PC 광고 */}
       <div className="hidden sm:flex justify-center mb-6">
-        <div className="rounded-lg overflow-hidden w-full max-w-2xl">
-          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979114&template=banner&trackingCode=AF2259406&subId=&width=728&height=90" className="w-full h-[90px] border-0" scrolling="no" referrerPolicy="unsafe-url" />
+        <div className="rounded-xl overflow-hidden w-full max-w-2xl">
+          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979114&template=banner&trackingCode=AF2259406&subId=&width=728&height=90" className="w-full h-[90px] border-0 rounded-xl" scrolling="no" referrerPolicy="unsafe-url" />
         </div>
       </div>
 
@@ -483,9 +483,36 @@ export default function Home() {
               <span className="font-medium">{filtered.length}개 경기</span>
             </div>
           </div>
-          {filtered.map((schedule) => (
-            <ScheduleCard key={schedule.id} schedule={schedule} query={searchQuery} />
-          ))}
+          {filtered.map((schedule, idx) => {
+            const prev = idx > 0 ? filtered[idx - 1] : null;
+            const prevHour = prev ? parseInt(prev.time.split(":")[0], 10) : -1;
+            const currHour = parseInt(schedule.time.split(":")[0], 10);
+            const showMidBanner = prev && prevHour < 12 && currHour >= 12;
+            return (
+              <React.Fragment key={schedule.id}>
+                {showMidBanner && (
+                  <>
+                    <div className="flex items-center gap-3 py-1">
+                      <div className="h-px flex-1 bg-zinc-700/60" />
+                      <span className="text-[11px] sm:text-xs font-medium text-zinc-500">오후 경기</span>
+                      <div className="h-px flex-1 bg-zinc-700/60" />
+                    </div>
+                    <div className="sm:hidden flex justify-center">
+                      <div className="rounded-lg overflow-hidden">
+                        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979232&template=carousel&trackingCode=AF2259406&subId=&width=320&height=100&tsource=" width="320" height="100" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+                      </div>
+                    </div>
+                    <div className="hidden sm:flex justify-center">
+                      <div className="rounded-lg overflow-hidden w-full max-w-2xl">
+                        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979239&template=carousel&trackingCode=AF2259406&subId=&width=680&height=140&tsource=" width="680" height="140" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" className="w-full h-[140px] border-0" />
+                      </div>
+                    </div>
+                  </>
+                )}
+                <ScheduleCard schedule={schedule} query={searchQuery} />
+              </React.Fragment>
+            );
+          })}
         </div>
       )}
 
