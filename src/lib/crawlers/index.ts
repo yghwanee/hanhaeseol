@@ -77,6 +77,7 @@ export async function crawlAll(date: string, existingSchedules: Schedule[]): Pro
   return allSchedules
     .filter((s) => ALLOWED_SPORTS.has(s.sport))
     .filter((s) => s.homeTeam && s.awayTeam)
+    .filter((s) => s.homeTeam !== "미정" && s.awayTeam !== "미정")
     .sort((a, b) => a.time.localeCompare(b.time));
 }
 
