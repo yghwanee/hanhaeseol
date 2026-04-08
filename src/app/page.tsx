@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { Schedule, ScheduleData } from "@/types/schedule";
 import scheduleJson from "@/data/schedule.json";
 
@@ -31,6 +31,30 @@ function getTodayString(): string {
   const mm = String(d.getMonth() + 1).padStart(2, "0");
   const dd = String(d.getDate()).padStart(2, "0");
   return `${yyyy}-${mm}-${dd}`;
+}
+
+function CoupangAd({ position }: { position: "left" | "right" }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!containerRef.current) return;
+    const script = document.createElement("script");
+    script.src = "https://ads-partners.coupang.com/g.js";
+    script.async = true;
+    script.onload = () => {
+      const initScript = document.createElement("script");
+      initScript.textContent = `new PartnersCoupang.G({"id":979121,"template":"carousel","trackingCode":"AF2259406","width":"160","height":"600","tsource":""});`;
+      containerRef.current?.appendChild(initScript);
+    };
+    containerRef.current.appendChild(script);
+  }, []);
+
+  return (
+    <div
+      ref={containerRef}
+      className={`hidden xl:block fixed ${position === "left" ? "left-4" : "right-4"} top-1/2 -translate-y-1/2 z-10`}
+    />
+  );
 }
 
 const GAME_DURATION_HOURS: Record<string, number> = {
@@ -198,16 +222,8 @@ export default function Home() {
   return (
     <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10 xl:max-w-none xl:px-[200px]">
       {/* PC 양옆 광고 */}
-      <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10" dangerouslySetInnerHTML={{ __html: `
-        <div id="coupang-ad-left"></div>
-        <script src="https://ads-partners.coupang.com/g.js"></script>
-        <script>new PartnersCoupang.G({"id":979121,"template":"carousel","trackingCode":"AF2259406","width":"160","height":"600","tsource":""});</script>
-      `}} />
-      <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10" dangerouslySetInnerHTML={{ __html: `
-        <div id="coupang-ad-right"></div>
-        <script src="https://ads-partners.coupang.com/g.js"></script>
-        <script>new PartnersCoupang.G({"id":979121,"template":"carousel","trackingCode":"AF2259406","width":"160","height":"600","tsource":""});</script>
-      `}} />
+      <CoupangAd position="left" />
+      <CoupangAd position="right" />
 
       <div className="mx-auto max-w-2xl">
       {/* Header */}
