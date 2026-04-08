@@ -376,8 +376,8 @@ export default function Home() {
 
       {/* 모바일 광고 */}
       <div className="sm:hidden flex justify-center mb-4">
-        <a href="https://link.coupang.com/a/ekC6YT" target="_blank" referrerPolicy="unsafe-url">
-          <img src="https://ads-partners.coupang.com/banners/979237?subId=&traceId=V0-301-371ae01f4226dec2-I979237&w=320&h=50" alt="" style={{ width: 400, height: "auto" }} />
+        <a href="https://link.coupang.com/a/ekC6YT" target="_blank" referrerPolicy="unsafe-url" className="w-full">
+          <img src="https://ads-partners.coupang.com/banners/979237?subId=&traceId=V0-301-371ae01f4226dec2-I979237&w=320&h=50" alt="" className="w-full h-auto" />
         </a>
       </div>
       {/* PC 광고 */}
@@ -497,9 +497,9 @@ export default function Home() {
                       <span className="text-[11px] sm:text-xs font-medium text-zinc-500">오후 경기</span>
                       <div className="h-px flex-1 bg-zinc-700/60" />
                     </div>
-                    <div className="sm:hidden flex justify-center">
+                    <div className="sm:hidden w-full">
                       <div className="rounded-lg overflow-hidden">
-                        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979232&template=carousel&trackingCode=AF2259406&subId=&width=320&height=100&tsource=" width="320" height="100" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+                        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979232&template=carousel&trackingCode=AF2259406&subId=&width=320&height=100&tsource=" className="w-full h-[100px] border-0" scrolling="no" referrerPolicy="unsafe-url" />
                       </div>
                     </div>
                     <div className="hidden sm:flex justify-center">
