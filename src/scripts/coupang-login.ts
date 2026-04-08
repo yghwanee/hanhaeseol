@@ -13,48 +13,44 @@ async function captureToken() {
   });
   const page = await context.newPage();
 
-  await page.goto("https://www.coupangplay.com/", {
+  // 로그인 페이지로 이동
+  await page.goto("https://www.coupangplay.com/oauth2/login?rtnUrl=https%3A%2F%2Fwww.coupangplay.com%2Fhome", {
     waitUntil: "domcontentloaded",
     timeout: 15000,
   });
 
-  // 로그인 완료 대기 (sports 페이지 접근 가능해질 때까지)
-  console.log("브라우저에서 로그인해주세요...");
-  console.log("로그인 후 자동으로 스포츠 페이지로 이동합니다.\n");
+  console.log("브라우저에서 쿠팡 계정으로 로그인해주세요...");
+  console.log("로그인 완료되면 자동으로 토큰을 추출합니다.\n");
 
-  // 로그인 완료 감지: URL이 coupangplay.com으로 돌아오고 쿠키에 토큰이 있을 때
+  // 로그인 완료 대기: member_srl 쿠키가 생길 때까지
   while (true) {
     await page.waitForTimeout(2000);
     const cookies = await context.cookies();
-    const hasAuth = cookies.some(
-      (c) =>
-        c.name.includes("token") ||
-        c.name.includes("Token") ||
-        c.name.includes("auth") ||
-        c.name.includes("sid")
-    );
-    const url = page.url();
-    if (hasAuth || url.includes("/browse") || url.includes("/sports")) {
+    const hasMemberSrl = cookies.some((c) => c.name === "member_srl");
+    const hasToken = cookies.some((c) => c.name === "token");
+    if (hasMemberSrl || hasToken) {
       break;
     }
-    // 메인 페이지에 돌아왔는지 확인
-    if (
-      url === "https://www.coupangplay.com/" ||
-      url === "https://www.coupangplay.com"
-    ) {
-      const bodyText = await page.textContent("body").catch(() => "");
-      if (bodyText?.includes("마이페이지") || bodyText?.includes("프로필")) {
-        break;
-      }
+    // /home으로 리다이렉트되면 로그인 완료
+    const url = page.url();
+    if (url.includes("/home") || url.includes("/browse")) {
+      break;
     }
   }
 
-  console.log("로그인 감지됨! 토큰 추출 중...\n");
+  console.log("로그인 감지됨! 쿠키 추출 중...\n");
 
-  // 스포츠 스케줄 API 호출해서 동작 확인
-  await page.goto("https://www.coupangplay.com/sports", {
-    waitUntil: "domcontentloaded",
-    timeout: 15000,
+  // /home 으로 이동하여 P_AT 등 추가 쿠키 획득
+  await page.goto("https://www.coupangplay.com/home", {
+    waitUntil: "networkidle",
+    timeout: 20000,
+  });
+  await page.waitForTimeout(3000);
+
+  // 스포츠 스케줄 페이지로 이동하여 추가 쿠키 획득
+  await page.goto("https://www.coupangplay.com/schedule", {
+    waitUntil: "networkidle",
+    timeout: 20000,
   });
   await page.waitForTimeout(3000);
 
@@ -62,19 +58,36 @@ async function captureToken() {
   const cookies = await context.cookies();
   const cookiePath = join(process.cwd(), ".coupang-cookies.json");
   writeFileSync(cookiePath, JSON.stringify(cookies, null, 2));
+
   console.log(`쿠키 저장 완료: ${cookiePath}`);
   console.log(`쿠키 수: ${cookies.length}개\n`);
 
-  // API 테스트
-  const apiResult = await page.evaluate(async () => {
+  // 핵심 토큰 확인
+  const keyNames = ["CT_LSID", "member_srl", "token", "device_id", "P_AT", "PCID"];
+  console.log("=== 핵심 토큰 ===");
+  for (const name of keyNames) {
+    const c = cookies.find((c) => c.name === name);
+    if (c) {
+      console.log(`  ✓ ${name}: ${c.value.substring(0, 20)}...`);
+    } else {
+      console.log(`  ✗ ${name}: 없음`);
+    }
+  }
+  console.log("");
+
+  // 실제 API 테스트
+  const today = new Date().toISOString().split("T")[0];
+  const apiResult = await page.evaluate(async (date: string) => {
     try {
-      const r = await fetch("/api/sports/schedule");
-      const text = await r.text();
-      return { status: r.status, body: text.substring(0, 500) };
+      const r = await fetch(
+        `/api-discover/v1/sports/curated-schedule/events?base_date=${date}&unit=day&locale=ko&region=KR&scope=all&includeHighlights=false&includeSportsChannelContents=true`
+      );
+      const json = await r.json();
+      return { status: r.status, count: json.data?.length ?? 0, sample: json.data?.[0] };
     } catch (e: unknown) {
       return { error: e instanceof Error ? e.message : String(e) };
     }
-  });
+  }, today);
 
   console.log("API 테스트 결과:", JSON.stringify(apiResult, null, 2));
 
