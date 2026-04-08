@@ -199,12 +199,13 @@ export default function Home() {
     <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10 xl:max-w-none xl:px-[200px]">
       {/* PC 양옆 광고 */}
       <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10">
-        <iframe src="https://coupa.ng/cmh9ky" width="120" height="240" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+        <a href="https://link.coupang.com/a/ekvqug" target="_blank" referrerPolicy="unsafe-url">
+          <img src="https://ads-partners.coupang.com/banners/979109?subId=&traceId=V0-301-c1744fa69c93f626-I979109&w=300&h=250" alt="" />
+        </a>
       </div>
-      <div className="hidden xl:flex fixed right-4 top-1/2 -translate-y-1/2 z-10 flex-col items-center gap-4">
-        <iframe src="https://coupa.ng/cmh9ky" width="120" height="240" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
-        <a href="https://link.coupang.com/a/ekvdYY" target="_blank" referrerPolicy="unsafe-url">
-          <img src="https://ads-partners.coupang.com/banners/979107?subId=&traceId=V0-301-c1744fa69c93f626-I979107&w=728&h=90" alt="" className="max-w-[120px] h-auto" />
+      <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10">
+        <a href="https://link.coupang.com/a/ekvqug" target="_blank" referrerPolicy="unsafe-url">
+          <img src="https://ads-partners.coupang.com/banners/979109?subId=&traceId=V0-301-c1744fa69c93f626-I979109&w=300&h=250" alt="" />
         </a>
       </div>
 
