@@ -75,11 +75,14 @@ jobs:
             "토큰 갱신 방법" \
             "1. coupangplay.com 로그인" \
             "2. F12 → Application → Cookies" \
-            "3. 아래 4개 값 복사" \
+            "3. 아래 값 복사" \
             "" \
-            "GitHub Secrets 업데이트" \
+            "GitHub Secrets 업데이트 (필수)" \
             "https://github.com/yghwanee/hanhaeseol/settings/secrets/actions" \
             "" \
+            "COUPANG_P_AT → P_AT 쿠키 값 (4시간 수명)" \
+            "" \
+            "아래는 변경된 경우에만 업데이트" \
             "COUPANG_CT_LSID → CT_LSID 쿠키 값" \
             "COUPANG_TOKEN → token 쿠키 값" \
             "COUPANG_DEVICE_ID → device_id 쿠키 값" \
