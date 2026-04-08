@@ -36,6 +36,7 @@ jobs:
           COUPANG_MEMBER_SRL: ${{ secrets.COUPANG_MEMBER_SRL }}
           COUPANG_PROFILE_ID: ${{ secrets.COUPANG_PROFILE_ID }}
           COUPANG_TOKEN: ${{ secrets.COUPANG_TOKEN }}
+          COUPANG_P_AT: ${{ secrets.COUPANG_P_AT }}
 
       - name: Commit & Push
         id: commit

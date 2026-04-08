@@ -80,7 +80,11 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
     return [];
   }
 
-  const pAt = await refreshPAT();
+  // P_AT: 직접 제공된 값 우선, 없으면 갱신 시도
+  let pAt = process.env.COUPANG_P_AT || null;
+  if (!pAt) {
+    pAt = await refreshPAT();
+  }
   if (!pAt) {
     console.error("쿠팡플레이: 토큰 갱신 실패");
     return [];
