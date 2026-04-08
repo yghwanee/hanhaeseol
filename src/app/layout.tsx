@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -76,15 +77,13 @@ export default function RootLayout({
   return (
     <html lang="ko" className="dark">
       <head>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-F1MX6S0SGW" />
-        <script
-          dangerouslySetInnerHTML={{
-            __html: `window.dataLayer = window.dataLayer || [];
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-F1MX6S0SGW" strategy="afterInteractive" />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
-gtag('config', 'G-F1MX6S0SGW');`,
-          }}
-        />
+gtag('config', 'G-F1MX6S0SGW');`}
+        </Script>
         <meta name="msvalidate.01" content="BAF456457E39D2FDB1A54BF8674FA2C6" />
         <meta name="google-site-verification" content="qe2Z2hjBEFJqqq_nEcLigG8aEiQdotP4_6jouBXE5aE" />
         <meta name="naver-site-verification" content="811aafee6d2d5ad9a70897014beead430df91ade" />

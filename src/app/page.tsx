@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import Image from "next/image";
 import { Schedule, ScheduleData } from "@/types/schedule";
 import scheduleJson from "@/data/schedule.json";
 
@@ -238,7 +239,7 @@ export default function Home() {
       {/* Header */}
       <header className="mb-6 sm:mb-10">
         <h1 className="flex items-end">
-          <img src="/icon.png" alt="한해설 아이콘" className="h-6 sm:h-8 self-center" />
+          <Image src="/icon.png" alt="한해설 아이콘" width={32} height={32} className="h-6 w-6 sm:h-8 sm:w-8 self-center" />
           <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
           <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어 해설 편성표</span>
         </h1>
