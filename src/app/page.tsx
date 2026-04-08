@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo } from "react";
 import { Schedule, ScheduleData } from "@/types/schedule";
 import scheduleJson from "@/data/schedule.json";
 
@@ -31,30 +31,6 @@ function getTodayString(): string {
   const mm = String(d.getMonth() + 1).padStart(2, "0");
   const dd = String(d.getDate()).padStart(2, "0");
   return `${yyyy}-${mm}-${dd}`;
-}
-
-function CoupangAd({ position }: { position: "left" | "right" }) {
-  const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-    const script = document.createElement("script");
-    script.src = "https://ads-partners.coupang.com/g.js";
-    script.async = true;
-    script.onload = () => {
-      const initScript = document.createElement("script");
-      initScript.textContent = `new PartnersCoupang.G({"id":979121,"template":"carousel","trackingCode":"AF2259406","width":"160","height":"600","tsource":""});`;
-      containerRef.current?.appendChild(initScript);
-    };
-    containerRef.current.appendChild(script);
-  }, []);
-
-  return (
-    <div
-      ref={containerRef}
-      className={`hidden xl:block fixed ${position === "left" ? "left-4" : "right-4"} top-1/2 -translate-y-1/2 z-10`}
-    />
-  );
 }
 
 const GAME_DURATION_HOURS: Record<string, number> = {
@@ -221,10 +197,6 @@ export default function Home() {
 
   return (
     <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10 xl:max-w-none xl:px-[200px]">
-      {/* PC 양옆 광고 */}
-      <CoupangAd position="left" />
-      <CoupangAd position="right" />
-
       <div className="mx-auto max-w-2xl">
       {/* Header */}
       <header className="mb-6 sm:mb-10">
@@ -460,11 +432,6 @@ export default function Home() {
           한해설은 축구, 야구, 농구, 배구 한국어 해설 중계 편성표를 제공합니다. SPOTV NOW, 쿠팡플레이, 티빙, Apple TV+, SPOTV, SPOTV2, tvN SPORTS, KBS N SPORTS, MBC SPORTS+, SBS Sports 등 10개 플랫폼의 스포츠 중계 일정을 한눈에 확인하세요. 프리미어리그, 라리가, 세리에A, 분데스리가, 챔피언스리그, KBO, K리그, NBA, MLB 등 주요 리그의 한국어 해설 여부를 실시간으로 확인할 수 있습니다.
         </p>
       </section>
-
-      {/* 모바일 하단 광고 */}
-      <div className="xl:hidden flex justify-center mt-6 sm:mt-8">
-        <iframe src="https://coupa.ng/cmh9ky" width="120" height="240" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
-      </div>
 
       {/* Footer */}
       <footer className="mt-6 sm:mt-8 text-center text-[11px] sm:text-xs text-zinc-600" suppressHydrationWarning>
