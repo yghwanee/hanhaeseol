@@ -226,7 +226,7 @@ export default function Home() {
         );
       })
       .sort((a, b) => a.time.localeCompare(b.time));
-  }, [selectedDate, sport, platform, commentaryFilter, searchQuery]);
+  }, [data, selectedDate, sport, platform, commentaryFilter, searchQuery]);
 
   return (
     <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10 xl:max-w-none xl:px-[200px]">
