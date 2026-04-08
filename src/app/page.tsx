@@ -343,6 +343,10 @@ export default function Home() {
       <div className="sm:hidden flex justify-center mb-4">
         <iframe src="https://ads-partners.coupang.com/widgets.html?id=979135&template=carousel&trackingCode=AF2259406&subId=&width=320&height=100&tsource=" width="320" height="100" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
       </div>
+      {/* PC 광고 */}
+      <div className="hidden sm:flex justify-center mb-6">
+        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979114&template=banner&trackingCode=AF2259406&subId=&width=728&height=90" width="728" height="90" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" />
+      </div>
 
       {/* Date Tabs */}
       <div className="mb-6 sm:mb-10">
