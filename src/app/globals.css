@@ -12,6 +12,24 @@
   }
 }
 
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    rgb(39 39 42 / 0.5) 0%,
+    rgb(63 63 70 / 0.4) 40%,
+    rgb(82 82 91 / 0.3) 50%,
+    rgb(63 63 70 / 0.4) 60%,
+    rgb(39 39 42 / 0.5) 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out infinite;
+}
+
 body {
   color: #ededed;
   background: #0a0a0a;

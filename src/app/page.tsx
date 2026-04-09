@@ -86,7 +86,7 @@ function StatusBadge({
 
 function AdSkeleton({ className }: { className?: string }) {
   return (
-    <div className={`animate-pulse rounded-xl bg-zinc-800/60 ${className ?? ""}`} />
+    <div className={`skeleton-shimmer rounded-xl ${className ?? ""}`} />
   );
 }
 
