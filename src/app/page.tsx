@@ -84,6 +84,12 @@ function StatusBadge({
   );
 }
 
+function AdSkeleton({ className }: { className?: string }) {
+  return (
+    <div className={`animate-pulse rounded-xl bg-zinc-800/60 ${className ?? ""}`} />
+  );
+}
+
 function PlatformBadge({ platform }: { platform: string }) {
   const styles: Record<string, string> = {
     "SPOTV NOW": "bg-red-500/15 text-red-400 ring-red-500/30",
@@ -237,18 +243,22 @@ export default function Home() {
   return (
     <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10 xl:max-w-none xl:px-[200px]">
       {/* PC 왼쪽 광고 */}
-      {showAds && (
-        <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
+      <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
+        {showAds ? (
           <iframe src="https://ads-partners.coupang.com/widgets.html?id=979121&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
-        </div>
-      )}
+        ) : (
+          <AdSkeleton className="w-[160px] h-[600px]" />
+        )}
+      </div>
 
       {/* PC 오른쪽 광고 */}
-      {showAds && (
-        <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
+      <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
+        {showAds ? (
           <iframe src="https://ads-partners.coupang.com/widgets.html?id=979133&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
-        </div>
-      )}
+        ) : (
+          <AdSkeleton className="w-[160px] h-[600px]" />
+        )}
+      </div>
 
       <div className="mx-auto max-w-2xl">
       {/* Header */}
@@ -385,21 +395,25 @@ export default function Home() {
       </div>
 
       {/* 모바일 광고 */}
-      {showAds && (
-        <div className="sm:hidden flex justify-center mb-4">
+      <div className="sm:hidden flex justify-center mb-4">
+        {showAds ? (
           <a href="https://link.coupang.com/a/ekC6YT" target="_blank" referrerPolicy="unsafe-url" className="w-full">
             <img src="https://ads-partners.coupang.com/banners/979237?subId=&traceId=V0-301-371ae01f4226dec2-I979237&w=320&h=50" alt="" className="w-full h-auto" loading="lazy" />
           </a>
-        </div>
-      )}
+        ) : (
+          <AdSkeleton className="w-full h-[50px]" />
+        )}
+      </div>
       {/* PC 광고 */}
-      {showAds && (
-        <div className="hidden sm:flex justify-center mb-6">
-          <div className="rounded-xl overflow-hidden w-full max-w-2xl">
+      <div className="hidden sm:flex justify-center mb-6">
+        <div className="rounded-xl overflow-hidden w-full max-w-2xl">
+          {showAds ? (
             <iframe src="https://ads-partners.coupang.com/widgets.html?id=979114&template=banner&trackingCode=AF2259406&subId=&width=728&height=90" className="w-full h-[90px] border-0 rounded-xl" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
-          </div>
+          ) : (
+            <AdSkeleton className="w-full h-[90px] rounded-xl" />
+          )}
         </div>
-      )}
+      </div>
 
       {/* Date Tabs */}
       <div className="mb-6 sm:mb-10">
@@ -511,20 +525,24 @@ export default function Home() {
                       <span className="text-[11px] sm:text-xs font-medium text-zinc-500">오후 경기</span>
                       <div className="h-px flex-1 bg-zinc-700/60" />
                     </div>
-                    {showAds && (
-                      <div className="sm:hidden w-full">
-                        <div className="rounded-lg overflow-hidden">
+                    <div className="sm:hidden w-full">
+                      <div className="rounded-lg overflow-hidden">
+                        {showAds ? (
                           <iframe src="https://ads-partners.coupang.com/widgets.html?id=979232&template=carousel&trackingCode=AF2259406&subId=&width=320&height=100&tsource=" className="w-full h-[100px] border-0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
-                        </div>
+                        ) : (
+                          <AdSkeleton className="w-full h-[100px]" />
+                        )}
                       </div>
-                    )}
-                    {showAds && (
-                      <div className="hidden sm:flex justify-center">
-                        <div className="rounded-lg overflow-hidden w-full max-w-2xl">
+                    </div>
+                    <div className="hidden sm:flex justify-center">
+                      <div className="rounded-lg overflow-hidden w-full max-w-2xl">
+                        {showAds ? (
                           <iframe src="https://ads-partners.coupang.com/widgets.html?id=979239&template=carousel&trackingCode=AF2259406&subId=&width=680&height=140&tsource=" width="680" height="140" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" className="w-full h-[140px] border-0" />
-                        </div>
+                        ) : (
+                          <AdSkeleton className="w-full h-[140px]" />
+                        )}
                       </div>
-                    )}
+                    </div>
                   </>
                 )}
                 <ScheduleCard schedule={schedule} query={searchQuery} />
