@@ -196,11 +196,17 @@ export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [platformExpanded, setPlatformExpanded] = useState(false);
   const [showInfo, setShowInfo] = useState(false);
+  const [showAds, setShowAds] = useState(false);
 
   useEffect(() => {
     fetch("/schedule.json")
       .then((res) => res.json())
       .then((json) => setData(json as ScheduleData));
+  }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setShowAds(true), 1500);
+    return () => clearTimeout(timer);
   }, []);
 
   const weekDates = useMemo(() => getUpcomingDates(), []);
@@ -231,14 +237,18 @@ export default function Home() {
   return (
     <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10 xl:max-w-none xl:px-[200px]">
       {/* PC 왼쪽 광고 */}
-      <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
-        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979121&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
-      </div>
+      {showAds && (
+        <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
+          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979121&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
+        </div>
+      )}
 
       {/* PC 오른쪽 광고 */}
-      <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
-        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979133&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
-      </div>
+      {showAds && (
+        <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
+          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979133&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
+        </div>
+      )}
 
       <div className="mx-auto max-w-2xl">
       {/* Header */}
@@ -375,17 +385,21 @@ export default function Home() {
       </div>
 
       {/* 모바일 광고 */}
-      <div className="sm:hidden flex justify-center mb-4">
-        <a href="https://link.coupang.com/a/ekC6YT" target="_blank" referrerPolicy="unsafe-url" className="w-full">
-          <img src="https://ads-partners.coupang.com/banners/979237?subId=&traceId=V0-301-371ae01f4226dec2-I979237&w=320&h=50" alt="" className="w-full h-auto" />
-        </a>
-      </div>
-      {/* PC 광고 */}
-      <div className="hidden sm:flex justify-center mb-6">
-        <div className="rounded-xl overflow-hidden w-full max-w-2xl">
-          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979114&template=banner&trackingCode=AF2259406&subId=&width=728&height=90" className="w-full h-[90px] border-0 rounded-xl" scrolling="no" referrerPolicy="unsafe-url" />
+      {showAds && (
+        <div className="sm:hidden flex justify-center mb-4">
+          <a href="https://link.coupang.com/a/ekC6YT" target="_blank" referrerPolicy="unsafe-url" className="w-full">
+            <img src="https://ads-partners.coupang.com/banners/979237?subId=&traceId=V0-301-371ae01f4226dec2-I979237&w=320&h=50" alt="" className="w-full h-auto" loading="lazy" />
+          </a>
         </div>
-      </div>
+      )}
+      {/* PC 광고 */}
+      {showAds && (
+        <div className="hidden sm:flex justify-center mb-6">
+          <div className="rounded-xl overflow-hidden w-full max-w-2xl">
+            <iframe src="https://ads-partners.coupang.com/widgets.html?id=979114&template=banner&trackingCode=AF2259406&subId=&width=728&height=90" className="w-full h-[90px] border-0 rounded-xl" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
+          </div>
+        </div>
+      )}
 
       {/* Date Tabs */}
       <div className="mb-6 sm:mb-10">
@@ -497,16 +511,20 @@ export default function Home() {
                       <span className="text-[11px] sm:text-xs font-medium text-zinc-500">오후 경기</span>
                       <div className="h-px flex-1 bg-zinc-700/60" />
                     </div>
-                    <div className="sm:hidden w-full">
-                      <div className="rounded-lg overflow-hidden">
-                        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979232&template=carousel&trackingCode=AF2259406&subId=&width=320&height=100&tsource=" className="w-full h-[100px] border-0" scrolling="no" referrerPolicy="unsafe-url" />
+                    {showAds && (
+                      <div className="sm:hidden w-full">
+                        <div className="rounded-lg overflow-hidden">
+                          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979232&template=carousel&trackingCode=AF2259406&subId=&width=320&height=100&tsource=" className="w-full h-[100px] border-0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
+                        </div>
                       </div>
-                    </div>
-                    <div className="hidden sm:flex justify-center">
-                      <div className="rounded-lg overflow-hidden w-full max-w-2xl">
-                        <iframe src="https://ads-partners.coupang.com/widgets.html?id=979239&template=carousel&trackingCode=AF2259406&subId=&width=680&height=140&tsource=" width="680" height="140" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" className="w-full h-[140px] border-0" />
+                    )}
+                    {showAds && (
+                      <div className="hidden sm:flex justify-center">
+                        <div className="rounded-lg overflow-hidden w-full max-w-2xl">
+                          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979239&template=carousel&trackingCode=AF2259406&subId=&width=680&height=140&tsource=" width="680" height="140" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" className="w-full h-[140px] border-0" />
+                        </div>
                       </div>
-                    </div>
+                    )}
                   </>
                 )}
                 <ScheduleCard schedule={schedule} query={searchQuery} />
