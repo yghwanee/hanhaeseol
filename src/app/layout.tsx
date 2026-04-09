@@ -16,26 +16,27 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "한해설 - 스포츠 한국어 해설 편성표",
+  title: "한해설 - 스포츠 한국어중계 편성표 | 한국어 해설 중계 일정",
   description:
-    "축구, 야구, 농구, 배구 한국어 해설 중계 편성표. SPOTV, 쿠팡플레이, 티빙, Apple TV+ 등 10개 플랫폼의 스포츠 중계를 한눈에 확인하세요.",
+    "축구, 야구, 농구, 배구 한국어중계 편성표. 10개 플랫폼의 한국어 해설 중계 일정을 한눈에 확인하세요.",
   keywords: [
-    "한국어 해설", "한국어 중계", "스포츠 중계 편성표", "스포츠 편성표",
-    "해외축구 한국어 해설", "해외축구 중계", "EPL 중계", "라리가 중계",
-    "프리미어리그 중계", "챔피언스리그 중계", "세리에A 중계", "분데스리가 중계",
+    "한국어중계", "한국어 중계", "한국어 해설", "한국어해설", "스포츠 중계 편성표", "스포츠 편성표",
+    "해외축구 한국어중계", "해외축구 한국어 해설", "해외축구 중계", "EPL 중계", "EPL 한국어중계", "라리가 중계",
+    "프리미어리그 중계", "프리미어리그 한국어중계", "챔피언스리그 중계", "세리에A 중계", "분데스리가 중계",
     "MLB 중계", "NBA 중계", "KBO 중계", "K리그 중계",
     "KBO 중계 편성표", "K리그 중계 편성표",
     "오늘 축구 중계", "오늘 야구 중계", "오늘 농구 중계", "오늘 배구 중계",
+    "오늘 한국어중계", "축구 한국어중계", "야구 한국어중계",
     "스포츠 채널 편성표", "TV 스포츠 편성표",
     "SPOTV", "SPOTV NOW 편성표", "쿠팡플레이", "쿠팡플레이 편성표",
     "티빙", "티빙 스포츠", "Apple TV+ 스포츠", "한해설",
     "tvN SPORTS 편성표", "KBS N SPORTS 편성표", "MBC SPORTS+ 편성표", "SBS Sports 편성표",
-    "실시간 중계", "무료 축구", "무료 중계", "스포츠 무료 중계", "스포츠 중계",
+    "실시간 중계", "스포츠 중계",
   ],
   openGraph: {
-    title: "한해설 - 스포츠 한국어 해설 편성표",
+    title: "한해설 - 스포츠 한국어중계 편성표",
     description:
-      "축구, 야구, 농구, 배구 한국어 해설 중계 편성표. 10개 플랫폼의 스포츠 중계를 한눈에.",
+      "축구, 야구, 농구, 배구 한국어중계 편성표. 10개 플랫폼의 한국어 해설 중계를 한눈에.",
     url: "https://중계.kro.kr",
     siteName: "한해설",
     locale: "ko_KR",
@@ -49,9 +50,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary",
-    title: "한해설 - 스포츠 한국어 해설 편성표",
+    title: "한해설 - 스포츠 한국어중계 편성표",
     description:
-      "축구, 야구, 농구, 배구 한국어 해설 중계 편성표. 10개 플랫폼의 스포츠 중계를 한눈에.",
+      "축구, 야구, 농구, 배구 한국어중계 편성표. 10개 플랫폼의 한국어 해설 중계를 한눈에.",
   },
   alternates: {
     canonical: "https://중계.kro.kr",
@@ -63,6 +64,9 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon-48x48.png", sizes: "48x48", type: "image/png" },
+      { url: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/favicon-512x512.png", sizes: "512x512", type: "image/png" },
       { url: "/favicon.svg", type: "image/svg+xml" },
     ],
     apple: "/apple-touch-icon.png",
@@ -99,7 +103,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
                   "name": "한해설",
                   "alternateName": "한국어 해설 편성표",
                   "url": "https://중계.kro.kr",
-                  "description": "축구, 야구, 농구, 배구 한국어 해설 중계 편성표. 10개 플랫폼의 스포츠 중계를 한눈에 확인하세요.",
+                  "description": "축구, 야구, 농구, 배구 한국어중계 편성표. 10개 플랫폼의 한국어 해설 중계를 한눈에 확인하세요.",
                   "inLanguage": "ko",
                 },
                 {
