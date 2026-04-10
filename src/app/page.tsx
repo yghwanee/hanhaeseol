@@ -237,6 +237,7 @@ export default function Home() {
           s.league.toLowerCase().includes(q)
         );
       })
+      .filter((s) => !isGameFinished(s.date, s.time, s.sport))
       .sort((a, b) => a.time.localeCompare(b.time));
   }, [data, selectedDate, sport, platform, commentaryFilter, searchQuery]);
 
