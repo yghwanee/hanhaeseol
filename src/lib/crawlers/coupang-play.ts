@@ -103,7 +103,7 @@ async function fetchCommentaryInfo(
   eventId: string,
   cookies: string,
   headers: Record<string, string>,
-): Promise<boolean | null> {
+): Promise<boolean | "unknown"> {
   try {
     const res = await fetch(
       `https://www.coupangplay.com/api/v1.1/personalize/events?id=${eventId}`,
@@ -113,13 +113,13 @@ async function fetchCommentaryInfo(
       }
     );
     const text = await res.text();
-    if (!text.startsWith("{")) return null;
+    if (!text.startsWith("{")) return "unknown";
     const detail = JSON.parse(text);
     const desc: string = detail?.data?.description || "";
     const isLocal = desc.includes("현지 해설") || desc.includes("현지해설");
     return !isLocal;
   } catch {
-    return null;
+    return "unknown";
   }
 }
 
@@ -212,7 +212,7 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
   }
 
   // 각 이벤트의 해설 정보를 병렬로 조회 (CT_AT 있을 때만)
-  let commentaryResults: (boolean | null)[];
+  let commentaryResults: (boolean | "unknown")[];
   if (ctAt) {
     commentaryResults = await Promise.all(
       validEvents.map(({ event }) =>
@@ -220,7 +220,7 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
       )
     );
   } else {
-    commentaryResults = validEvents.map(() => null);
+    commentaryResults = validEvents.map(() => "unknown" as const);
   }
 
   for (let i = 0; i < validEvents.length; i++) {
