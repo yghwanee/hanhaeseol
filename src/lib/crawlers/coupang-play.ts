@@ -120,9 +120,31 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
   const events = data.data || [];
   const schedules: Schedule[] = [];
 
-  // [DEBUG] 첫 3개 이벤트의 전체 필드 로깅
-  for (const ev of events.slice(0, 3)) {
-    console.log(`[쿠팡플레이 DEBUG] ${ev.title}:`, JSON.stringify(ev, null, 2));
+  // [DEBUG] 첫 5개 이벤트의 상세 API 호출하여 해설 필드 확인
+  const debugHeaders = {
+    Cookie: `NEXT_LOCALE=ko; P_AT=${pAt}; device_id=${deviceId}; member_srl=${memberSrl}`,
+    "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15",
+    accept: "application/json",
+    "x-device-id": deviceId,
+    "x-membersrl": memberSrl,
+    "x-profileid": profileId,
+    "x-platform": "WEBCLIENT",
+  };
+  for (const ev of events.slice(0, 5)) {
+    try {
+      const detailRes = await fetch(
+        `https://www.coupangplay.com/api/v1.1/personalize/events?id=${ev.event_id}`,
+        { headers: debugHeaders, signal: AbortSignal.timeout(10000) }
+      );
+      if (detailRes.ok) {
+        const detail = await detailRes.json();
+        console.log(`[쿠팡플레이 DETAIL] ${ev.title}:`, JSON.stringify(detail, null, 2));
+      } else {
+        console.log(`[쿠팡플레이 DETAIL] ${ev.title}: HTTP ${detailRes.status}`);
+      }
+    } catch (e) {
+      console.log(`[쿠팡플레이 DETAIL] ${ev.title}: 에러`, e);
+    }
   }
 
   for (const event of events) {
