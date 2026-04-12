@@ -120,34 +120,28 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
   const events = data.data || [];
   const schedules: Schedule[] = [];
 
-  // [DEBUG] 첫 5개 이벤트의 상세 API 호출하여 해설 필드 확인
-  const detailHeaders = {
-    Cookie: `NEXT_LOCALE=ko; P_AT=${pAt}; device_id=${deviceId}; member_srl=${memberSrl}; PCID=17755361609406080915557`,
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-    accept: "application/json",
-    "content-type": "application/json",
-    "x-app-version": "1.72.6",
-    "x-device-id": deviceId,
-    "x-device-os-version": "146",
-    "x-membersrl": memberSrl,
-    "x-pcid": "17755361609406080915557",
-    "x-platform": "WEBCLIENT",
-    "x-profileid": profileId,
-    "x-profiletype": "standard",
-    Referer: "https://www.coupangplay.com/schedule",
-  };
+  // [DEBUG] 상세 페이지 HTML에서 해설 정보 추출 테스트
   for (const ev of events.slice(0, 5)) {
     try {
       const detailRes = await fetch(
-        `https://www.coupangplay.com/api/v1.1/personalize/events?id=${ev.event_id}`,
-        { headers: detailHeaders, signal: AbortSignal.timeout(10000) }
+        `https://www.coupangplay.com/content/events/${ev.event_id}`,
+        {
+          headers: {
+            Cookie: `NEXT_LOCALE=ko; P_AT=${pAt}; device_id=${deviceId}; member_srl=${memberSrl}; PCID=17755361609406080915557`,
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+          },
+          signal: AbortSignal.timeout(10000),
+        }
       );
-      const rawText = await detailRes.text();
-      if (rawText.startsWith("{")) {
-        console.log(`[쿠팡플레이 DETAIL] ${ev.title}:`, rawText.slice(0, 2000));
-      } else {
-        console.log(`[쿠팡플레이 DETAIL] ${ev.title}: HTTP ${detailRes.status}, HTML 응답 (${rawText.length}자)`);
-      }
+      const html = await detailRes.text();
+      // "현지 해설" 또는 "캐스터" 주변 텍스트 추출
+      const idx1 = html.indexOf("현지 해설");
+      const idx2 = html.indexOf("캐스터");
+      const idx3 = html.indexOf("현지해설");
+      console.log(`[쿠팡플레이 DETAIL] ${ev.title}: 현지해설=${idx1 >= 0 || idx3 >= 0}, 캐스터=${idx2 >= 0}`);
+      if (idx1 >= 0) console.log(`  주변: ...${html.slice(Math.max(0, idx1 - 100), idx1 + 100)}...`);
+      if (idx2 >= 0) console.log(`  주변: ...${html.slice(Math.max(0, idx2 - 100), idx2 + 100)}...`);
+      if (idx3 >= 0) console.log(`  주변: ...${html.slice(Math.max(0, idx3 - 100), idx3 + 100)}...`);
     } catch (e: any) {
       console.log(`[쿠팡플레이 DETAIL] ${ev.title}: 에러 ${e.message}`);
     }
