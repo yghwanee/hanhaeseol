@@ -121,29 +121,35 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
   const schedules: Schedule[] = [];
 
   // [DEBUG] 첫 5개 이벤트의 상세 API 호출하여 해설 필드 확인
-  const debugHeaders = {
-    Cookie: `NEXT_LOCALE=ko; P_AT=${pAt}; device_id=${deviceId}; member_srl=${memberSrl}`,
-    "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_5 like Mac OS X) AppleWebKit/605.1.15",
+  const detailHeaders = {
+    Cookie: `NEXT_LOCALE=ko; P_AT=${pAt}; device_id=${deviceId}; member_srl=${memberSrl}; PCID=17755361609406080915557`,
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
     accept: "application/json",
+    "content-type": "application/json",
+    "x-app-version": "1.72.6",
     "x-device-id": deviceId,
+    "x-device-os-version": "146",
     "x-membersrl": memberSrl,
-    "x-profileid": profileId,
+    "x-pcid": "17755361609406080915557",
     "x-platform": "WEBCLIENT",
+    "x-profileid": profileId,
+    "x-profiletype": "standard",
+    Referer: "https://www.coupangplay.com/schedule",
   };
   for (const ev of events.slice(0, 5)) {
     try {
       const detailRes = await fetch(
         `https://www.coupangplay.com/api/v1.1/personalize/events?id=${ev.event_id}`,
-        { headers: debugHeaders, signal: AbortSignal.timeout(10000) }
+        { headers: detailHeaders, signal: AbortSignal.timeout(10000) }
       );
-      if (detailRes.ok) {
-        const detail = await detailRes.json();
-        console.log(`[쿠팡플레이 DETAIL] ${ev.title}:`, JSON.stringify(detail, null, 2));
+      const rawText = await detailRes.text();
+      if (rawText.startsWith("{")) {
+        console.log(`[쿠팡플레이 DETAIL] ${ev.title}:`, rawText.slice(0, 2000));
       } else {
-        console.log(`[쿠팡플레이 DETAIL] ${ev.title}: HTTP ${detailRes.status}`);
+        console.log(`[쿠팡플레이 DETAIL] ${ev.title}: HTTP ${detailRes.status}, HTML 응답 (${rawText.length}자)`);
       }
-    } catch (e) {
-      console.log(`[쿠팡플레이 DETAIL] ${ev.title}: 에러`, e);
+    } catch (e: any) {
+      console.log(`[쿠팡플레이 DETAIL] ${ev.title}: 에러 ${e.message}`);
     }
   }
 
