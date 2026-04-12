@@ -80,10 +80,10 @@ export default function PrivacyPage() {
           <h2 className="text-xl font-semibold mb-3">7. 문의</h2>
           <p className="text-gray-300">
             개인정보 관련 문의는{" "}
-            <a href="https://github.com/yghwanee/hanhaeseol/issues" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-              GitHub Issues
+            <a href="mailto:yghwanee@gmail.com" className="text-blue-400 hover:underline">
+              yghwanee@gmail.com
             </a>
-            를 이용해 주세요.
+            으로 연락해 주세요.
           </p>
         </section>
       </div>

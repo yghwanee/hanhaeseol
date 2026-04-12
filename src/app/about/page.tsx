@@ -88,10 +88,10 @@ export default function AboutPage() {
           <h2 className="text-xl font-semibold mb-3">문의</h2>
           <p className="text-gray-300">
             오류 제보나 문의 사항은{" "}
-            <a href="https://github.com/yghwanee/hanhaeseol/issues" target="_blank" rel="noopener noreferrer" className="text-blue-400 hover:underline">
-              GitHub Issues
+            <a href="mailto:yghwanee@gmail.com" className="text-blue-400 hover:underline">
+              yghwanee@gmail.com
             </a>
-            를 이용해 주세요.
+            으로 연락해 주세요.
           </p>
         </section>
       </div>
