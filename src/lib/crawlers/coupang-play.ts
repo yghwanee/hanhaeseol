@@ -120,37 +120,38 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
   const events = data.data || [];
   const schedules: Schedule[] = [];
 
-  // [DEBUG] __NEXT_DATA__에서 이벤트 데이터 추출
-  for (const ev of events.slice(0, 2)) {
+  // [DEBUG] 상세 API에서 description(해설 정보) 가져오기 테스트
+  const ctLsid = process.env.COUPANG_CT_LSID || "";
+  const token = process.env.COUPANG_TOKEN || "";
+  const fullCookie = `NEXT_LOCALE=ko; P_AT=${pAt}; CT_LSID=${ctLsid}; token=${token}; device_id=${deviceId}; member_srl=${memberSrl}; PCID=17755361609406080915557`;
+  for (const ev of events.slice(0, 5)) {
     try {
       const detailRes = await fetch(
-        `https://www.coupangplay.com/content/events/${ev.event_id}`,
+        `https://www.coupangplay.com/api/v1.1/personalize/events?id=${ev.event_id}`,
         {
           headers: {
-            Cookie: `NEXT_LOCALE=ko; P_AT=${pAt}; device_id=${deviceId}; member_srl=${memberSrl}; PCID=17755361609406080915557`,
+            Cookie: fullCookie,
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+            accept: "application/json",
+            "x-device-id": deviceId,
+            "x-membersrl": memberSrl,
+            "x-profileid": profileId,
+            "x-platform": "WEBCLIENT",
+            Referer: `https://www.coupangplay.com/content/events/${ev.event_id}`,
           },
           signal: AbortSignal.timeout(10000),
         }
       );
-      const html = await detailRes.text();
-      const nextDataMatch = html.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
-      if (nextDataMatch) {
-        const nextData = JSON.parse(nextDataMatch[1]);
-        // pageProps에서 이벤트 데이터 찾기
-        const pageProps = nextData?.props?.pageProps;
-        if (pageProps) {
-          // i18n 번역 데이터 제외하고 나머지 키 출력
-          const keys = Object.keys(pageProps).filter(k => k !== "__namespaces" && k !== "_nextI18Next");
-          console.log(`[쿠팡플레이 PROPS] ${ev.title}: pageProps 키=${JSON.stringify(keys)}`);
-          for (const key of keys) {
-            const val = JSON.stringify(pageProps[key]);
-            console.log(`[쿠팡플레이 PROPS] ${ev.title} [${key}]: ${val.slice(0, 1500)}`);
-          }
-        }
+      const rawText = await detailRes.text();
+      if (rawText.startsWith("{")) {
+        const detail = JSON.parse(rawText);
+        const desc = detail?.data?.description || "(없음)";
+        console.log(`[쿠팡플레이 해설] ${ev.title}: description="${desc}"`);
+      } else {
+        console.log(`[쿠팡플레이 해설] ${ev.title}: HTML 응답 (인증 실패)`);
       }
     } catch (e: any) {
-      console.log(`[쿠팡플레이 DETAIL] ${ev.title}: 에러 ${e.message}`);
+      console.log(`[쿠팡플레이 해설] ${ev.title}: 에러 ${e.message}`);
     }
   }
 
