@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Script from "next/script";
+import scheduleData from "@/data/schedule.json";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -105,6 +106,8 @@ gtag('config', 'G-F1MX6S0SGW');`}
                   "url": "https://중계.kro.kr",
                   "description": "축구, 야구, 농구, 배구 한국어중계 편성표. 10개 플랫폼의 한국어 해설 중계를 한눈에 확인하세요.",
                   "inLanguage": "ko",
+                  "datePublished": "2026-02-01T00:00:00+09:00",
+                  "dateModified": scheduleData.lastUpdated,
                 },
                 {
                   "@type": "Organization",
