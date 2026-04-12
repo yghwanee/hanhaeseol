@@ -106,7 +106,7 @@ async function fetchCommentaryInfo(
 ): Promise<boolean | "unknown"> {
   try {
     const res = await fetch(
-      `https://www.coupangplay.com/api/v1.1/personalize/events?id=${eventId}`,
+      `https://www.coupangplay.com/api-discover/v1/events/${eventId}`,
       {
         headers: { ...headers, Cookie: cookies },
         signal: AbortSignal.timeout(10000),
@@ -136,8 +136,6 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
   // 항상 토큰 갱신 시도하여 P_AT + CT_AT 모두 확보
   const tokens = await refreshTokens();
   const pAt = tokens?.pAt || process.env.COUPANG_P_AT || null;
-  const ctAt = tokens?.ctAt || null;
-
   if (!pAt) {
     console.error("쿠팡플레이: 토큰 갱신 실패");
     return [];
@@ -183,10 +181,8 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
   const events = data.data || [];
   const schedules: Schedule[] = [];
 
-  // 상세 API용 쿠키 (CT_AT 포함)
-  const ctLsid = process.env.COUPANG_CT_LSID || "";
-  const token = process.env.COUPANG_TOKEN || "";
-  const detailCookies = `NEXT_LOCALE=ko; P_AT=${pAt}; CT_AT=${ctAt || ""}; CT_LSID=${ctLsid}; token=${token}; device_id=${deviceId}; member_srl=${memberSrl}; PCID=17755361609406080915557; core_token_exist=true`;
+  // 상세 API용 쿠키 (api-discover는 P_AT만 필요)
+  const detailCookies = scheduleCookies;
 
   // 해당 날짜의 유효 이벤트만 필터
   const validEvents: { event: CoupangEvent; time: string }[] = [];
@@ -211,17 +207,12 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
     validEvents.push({ event, time: `${hh}:${min}` });
   }
 
-  // 각 이벤트의 해설 정보를 병렬로 조회 (CT_AT 있을 때만)
-  let commentaryResults: (boolean | "unknown")[];
-  if (ctAt) {
-    commentaryResults = await Promise.all(
-      validEvents.map(({ event }) =>
-        fetchCommentaryInfo(event.event_id, detailCookies, commonHeaders)
-      )
-    );
-  } else {
-    commentaryResults = validEvents.map(() => "unknown" as const);
-  }
+  // 각 이벤트의 해설 정보를 병렬로 조회
+  const commentaryResults = await Promise.all(
+    validEvents.map(({ event }) =>
+      fetchCommentaryInfo(event.event_id, detailCookies, commonHeaders)
+    )
+  );
 
   for (let i = 0; i < validEvents.length; i++) {
     const { event, time } = validEvents[i];
