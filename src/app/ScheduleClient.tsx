@@ -458,12 +458,16 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
 
       {/* Search */}
       <div className="mb-6 sm:mb-8 relative">
+        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8" strokeWidth="2" />
+          <path strokeLinecap="round" strokeWidth="2" d="m21 21-4.35-4.35" />
+        </svg>
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="팀, 리그 검색"
-          className="w-full rounded-lg border border-zinc-700 bg-zinc-900 px-3 sm:px-4 py-2 sm:py-2.5 text-xs sm:text-sm text-zinc-200 placeholder-zinc-500 focus:border-zinc-500 focus:outline-none"
+          className="w-full rounded-lg border border-zinc-700 bg-zinc-900 pl-9 pr-3 sm:pl-10 sm:pr-4 py-2 sm:py-2.5 text-xs sm:text-sm text-zinc-200 placeholder-zinc-500 focus:border-zinc-500 focus:outline-none"
         />
         {searchQuery && (
           <button

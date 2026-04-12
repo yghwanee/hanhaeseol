@@ -97,6 +97,7 @@ export function parseMatchTitle(title: string): {
     .replace(/\[.*?\]\s*/g, "")
     .replace(/<[^>]*>\s*/g, "")
     .replace(/시리즈\s*/g, "")
+    .replace(/^.+?종료\s*후\s*/g, "")
     .trim();
 
   // 팀명 정리: "삼성_4/6 19:00" → "삼성", "8강전 대한민국" → "대한민국"
@@ -168,7 +169,7 @@ export function parseMatchTitle(title: string): {
     const leagueInHome = fullText.match(/^.*?(퓨처스리그|KBO리그\d?|K리그\d?|MLB|MLS|NBA|NPB|메이저리그|프로농구|여자프로농구|프로배구|V-?리그|신한\s*SOL\s*KBO리그|AFC\s+[\w\-]+(?:\s+여자)?\s+아시안컵|AFC\s+챔피언스리그|ACL|고교야구)\s+(.+)$/);
     if (leagueInHome) {
       const homeRaw = cleanTeam(leagueInHome[2].trim()
-        .replace(/^(?:포스트시즌\s*)?(?:남자부\s*|여자부\s*)?(?:챔피언결정전\s*)?(?:플레이오프\s*)?(?:\d+차\s*)?(?:\d+차전\s*)?/, "").trim());
+        .replace(/^(?:포스트시즌\s*)?(?:남자부\s*|여자부\s*)?(?:챔피언결정전\s*)?(?:플레이오프\s*)?(?:\d+차전\s*)?(?:\d+차\s*)?/, "").trim());
       return {
         league: normalizeLeague(leagueInHome[1]),
         homeTeam: homeRaw,
