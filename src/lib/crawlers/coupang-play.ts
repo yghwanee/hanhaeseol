@@ -34,52 +34,69 @@ async function refreshTokens(): Promise<CoupangTokens | null> {
 
   if (!ctLsid || !deviceId || !memberSrl || !token) return null;
 
-  const cookies = `CT_LSID=${ctLsid}; device_id=${deviceId}; member_srl=${memberSrl}; token=${token}; NEXT_LOCALE=ko`;
+  const baseCookies = `CT_LSID=${ctLsid}; device_id=${deviceId}; member_srl=${memberSrl}; token=${token}; NEXT_LOCALE=ko`;
   const ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36";
 
-  // Step 1: /oauth2/login → 307 /home
-  const r1 = await fetch("https://www.coupangplay.com/oauth2/login?rtnUrl=https%3A%2F%2Fwww.coupangplay.com%2Fhome", {
-    headers: { Cookie: cookies, "User-Agent": ua },
-    redirect: "manual",
-    signal: AbortSignal.timeout(10000),
-  });
-
-  // Step 2: /home → P_AT, CT_AT in Set-Cookie
-  const r2 = await fetch("https://www.coupangplay.com/home", {
-    headers: { Cookie: cookies, "User-Agent": ua },
-    redirect: "manual",
-    signal: AbortSignal.timeout(10000),
-  });
-
-  // 모든 Set-Cookie에서 P_AT, CT_AT 추출
   let pAt: string | null = null;
   let ctAt: string | null = null;
+  const collectedCookies: Record<string, string> = {};
 
-  const extractFromCookies = (headers: Headers) => {
+  const extractCookies = (headers: Headers) => {
     const setCookies = headers.getSetCookie?.() ?? [];
     for (const v of setCookies) {
-      if (v.startsWith("P_AT=")) pAt = v.split(";")[0].replace("P_AT=", "");
-      if (v.startsWith("CT_AT=")) ctAt = v.split(";")[0].replace("CT_AT=", "");
+      const [nameVal] = v.split(";");
+      const eqIdx = nameVal.indexOf("=");
+      if (eqIdx > 0) {
+        const name = nameVal.slice(0, eqIdx);
+        const val = nameVal.slice(eqIdx + 1);
+        collectedCookies[name] = val;
+        if (name === "P_AT") pAt = val;
+        if (name === "CT_AT") ctAt = val;
+      }
     }
+    // fallback for environments where getSetCookie is unavailable
     for (const [k, v] of headers.entries()) {
       if (k === "set-cookie") {
-        if (!pAt && v.includes("P_AT=")) {
-          const match = v.match(/P_AT=([^;,]+)/);
-          if (match) pAt = match[1];
+        if (v.includes("P_AT=") && !pAt) {
+          const m = v.match(/P_AT=([^;,]+)/);
+          if (m) { pAt = m[1]; collectedCookies["P_AT"] = m[1]; }
         }
-        if (!ctAt && v.includes("CT_AT=")) {
-          const match = v.match(/CT_AT=([^;,]+)/);
-          if (match) ctAt = match[1];
+        if (v.includes("CT_AT=") && !ctAt) {
+          const m = v.match(/CT_AT=([^;,]+)/);
+          if (m) { ctAt = m[1]; collectedCookies["CT_AT"] = m[1]; }
         }
       }
     }
   };
 
-  extractFromCookies(r1.headers);
-  extractFromCookies(r2.headers);
+  // 리다이렉트 체인을 수동으로 따라가며 모든 쿠키 수집
+  let currentUrl = "https://www.coupangplay.com/oauth2/login?rtnUrl=https%3A%2F%2Fwww.coupangplay.com%2Fhome";
+  let currentCookies = baseCookies;
+
+  for (let step = 0; step < 10; step++) {
+    const res = await fetch(currentUrl, {
+      headers: { Cookie: currentCookies, "User-Agent": ua },
+      redirect: "manual",
+      signal: AbortSignal.timeout(10000),
+    });
+
+    extractCookies(res.headers);
+    console.log(`  [토큰갱신] step${step}: ${res.status} ${currentUrl.slice(0, 80)}`);
+
+    // 리다이렉트 따라가기
+    const location = res.headers.get("location");
+    if (location && (res.status === 301 || res.status === 302 || res.status === 307 || res.status === 308)) {
+      currentUrl = location.startsWith("http") ? location : `https://www.coupangplay.com${location}`;
+      // 수집된 쿠키를 다음 요청에 포함
+      const extraCookies = Object.entries(collectedCookies).map(([k, v]) => `${k}=${v}`).join("; ");
+      currentCookies = `${baseCookies}; ${extraCookies}`;
+      continue;
+    }
+    break;
+  }
 
   if (pAt) {
-    console.log(`  쿠팡플레이: 토큰 갱신 성공 (P_AT=${pAt.slice(0, 20)}..., CT_AT=${ctAt ? ctAt.slice(0, 20) + "..." : "없음"})`);
+    console.log(`  쿠팡플레이: 토큰 갱신 성공 (P_AT=${pAt.slice(0, 20)}..., CT_AT=${ctAt ? "있음" : "없음"})`);
     return { pAt, ctAt };
   }
 
