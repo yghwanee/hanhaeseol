@@ -2,6 +2,11 @@ import * as fs from "fs";
 import * as path from "path";
 import { crawlFreesupertips } from "../lib/crawlers/freesupertips";
 import { crawlTipstrike } from "../lib/crawlers/tipstrike";
+import { crawlSportytrader } from "../lib/crawlers/sportytrader";
+import { crawlFootballpredictions } from "../lib/crawlers/footballpredictions";
+import { crawlFootballpredictionsNet } from "../lib/crawlers/footballpredictions-net";
+import { crawlDimers } from "../lib/crawlers/dimers";
+import { crawlApwin } from "../lib/crawlers/apwin";
 import { AnalysisData } from "../types/analysis";
 import { ScheduleData } from "../types/schedule";
 
@@ -45,9 +50,24 @@ async function main() {
     console.log(`✓ freesupertips: ${fstArticles.length}건 수집`);
 
     const tsArticles = await crawlTipstrike(dateStr, scheduleData.schedules);
-    console.log(`✓ tipstrike: ${tsArticles.length}건 수집\n`);
+    console.log(`✓ tipstrike: ${tsArticles.length}건 수집`);
 
-    newArticles.push(...fstArticles, ...tsArticles);
+    const stArticles = await crawlSportytrader(dateStr, scheduleData.schedules);
+    console.log(`✓ sportytrader: ${stArticles.length}건 수집`);
+
+    const fpArticles = await crawlFootballpredictions(dateStr, scheduleData.schedules);
+    console.log(`✓ footballpredictions: ${fpArticles.length}건 수집`);
+
+    const fpnArticles = await crawlFootballpredictionsNet(dateStr, scheduleData.schedules);
+    console.log(`✓ footballpredictions.net: ${fpnArticles.length}건 수집`);
+
+    const dmArticles = await crawlDimers(dateStr, scheduleData.schedules);
+    console.log(`✓ dimers: ${dmArticles.length}건 수집`);
+
+    const awArticles = await crawlApwin(dateStr, scheduleData.schedules);
+    console.log(`✓ apwin: ${awArticles.length}건 수집\n`);
+
+    newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles, ...awArticles);
   }
 
   // 기존 데이터와 병합 (크롤링한 날짜만 교체, 나머지는 전부 유지)

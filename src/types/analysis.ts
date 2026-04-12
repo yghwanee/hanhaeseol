@@ -2,6 +2,7 @@ export interface AnalysisArticle {
   id: string;
   date: string;
   time: string;
+  sport: string;
   league: string;
   homeTeam: string;
   awayTeam: string;

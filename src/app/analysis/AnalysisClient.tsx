@@ -18,6 +18,9 @@ const LEAGUE_FLAG: Record<string, string> = {
   "K리그": "kr",
   "K리그1": "kr",
   "K리그2": "kr",
+  "NBA": "us",
+  "MLB": "us",
+  "MLS": "us",
 };
 
 function FlagIcon({ code }: { code: string }) {
@@ -28,6 +31,7 @@ function FlagIcon({ code }: { code: string }) {
 type MatchGroup = {
   homeTeam: string;
   awayTeam: string;
+  sport: string;
   league: string;
   time: string;
   articles: AnalysisArticle[];
@@ -48,6 +52,7 @@ function groupByDate(articles: AnalysisArticle[]): Record<string, MatchGroup[]> 
       byDate[a.date].push({
         homeTeam: a.homeTeam,
         awayTeam: a.awayTeam,
+        sport: a.sport || "축구",
         league: a.league,
         time: a.time || "99:99",
         articles: [a],
@@ -74,7 +79,6 @@ export default function AnalysisClient({ articles, lastUpdated }: { articles: An
   const today = getToday();
   const [selectedDate, setSelectedDate] = useState(today && byDate[today] ? today : sortedDates[sortedDates.length - 1] || "");
   const scrollRef = useRef<HTMLDivElement>(null);
-  const todayRef = useRef<HTMLButtonElement>(null);
 
   // 초기 로드 시 스크롤을 맨 오른쪽으로 (최신 날짜가 오른쪽 끝에 보이도록)
   useEffect(() => {
@@ -107,7 +111,6 @@ export default function AnalysisClient({ articles, lastUpdated }: { articles: An
             <div key={date} className="flex-shrink-0 flex flex-col items-center">
               <span className={`text-[9px] font-bold mb-1 ${isToday ? "text-blue-400" : "invisible"}`}>TODAY</span>
               <button
-                ref={isToday ? todayRef : undefined}
                 onClick={() => setSelectedDate(date)}
                 className={`flex items-center justify-between min-w-[100px] px-3 py-2 rounded-lg border transition-colors ${
                   isSelected
@@ -132,7 +135,7 @@ export default function AnalysisClient({ articles, lastUpdated }: { articles: An
             key={`${group.homeTeam}-${group.awayTeam}`}
             className="rounded-lg border border-zinc-800 bg-zinc-900/50 px-4 py-3"
           >
-            <div className="flex items-center justify-between mb-1.5">
+            <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
                 <span className="text-[10px] sm:text-xs px-1.5 py-0.5 rounded bg-zinc-800 text-zinc-400 font-medium">
                   {LEAGUE_FLAG[group.league] && (
@@ -145,28 +148,26 @@ export default function AnalysisClient({ articles, lastUpdated }: { articles: An
                 )}
               </div>
             </div>
-            <div className="flex items-center justify-between">
-              <p className="text-sm sm:text-base font-medium text-zinc-100">
-                {group.homeTeam} vs {group.awayTeam}
-              </p>
-              <div className="flex flex-wrap gap-1.5">
-                {group.articles.map((article) => {
-                  const source = article.id.includes("tipstrike") ? "TipStrike" : "FreeSuperTips";
-                  return (
-                    <Link
-                      key={article.id}
-                      href={`/analysis/${article.id}`}
-                      className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs px-2.5 py-1 rounded-full border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors"
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full bg-green-500" />
-                      {source}
-                      <svg className="w-3 h-3 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </Link>
-                  );
-                })}
-              </div>
+            <p className="text-sm sm:text-base font-medium text-zinc-100 mb-3">
+              {group.homeTeam} vs {group.awayTeam}
+            </p>
+            <div className="flex flex-wrap gap-1.5">
+              {group.articles.map((article) => {
+                const source = article.id.includes("tipstrike") ? "TipStrike" : article.id.includes("sporty") ? "SportyTrader" : article.id.includes("-fpnet-") ? "FPredictions.net" : article.id.includes("dimers") ? "Dimers" : article.id.includes("apwin") ? "APWin" : article.id.includes("-fp-") ? "FPredictions" : "FreeSuperTips";
+                return (
+                  <Link
+                    key={article.id}
+                    href={`/analysis/${article.id}`}
+                    className="inline-flex items-center gap-1.5 text-[10px] sm:text-xs px-2 py-1 rounded-full border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors"
+                  >
+                    <span className="w-1.5 h-1.5 rounded-full bg-green-500 flex-shrink-0" />
+                    {source}
+                    <svg className="w-3 h-3 text-zinc-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </Link>
+                );
+              })}
             </div>
           </div>
         ))}
