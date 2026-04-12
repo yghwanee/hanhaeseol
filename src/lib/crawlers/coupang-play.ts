@@ -120,8 +120,8 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
   const events = data.data || [];
   const schedules: Schedule[] = [];
 
-  // [DEBUG] 상세 페이지 HTML에서 해설 정보 추출 테스트
-  for (const ev of events.slice(0, 5)) {
+  // [DEBUG] 상세 페이지 HTML에서 __NEXT_DATA__ 또는 해설 관련 JSON 추출
+  for (const ev of events.slice(0, 2)) {
     try {
       const detailRes = await fetch(
         `https://www.coupangplay.com/content/events/${ev.event_id}`,
@@ -134,14 +134,30 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
         }
       );
       const html = await detailRes.text();
-      // "현지 해설" 또는 "캐스터" 주변 텍스트 추출
-      const idx1 = html.indexOf("현지 해설");
-      const idx2 = html.indexOf("캐스터");
-      const idx3 = html.indexOf("현지해설");
-      console.log(`[쿠팡플레이 DETAIL] ${ev.title}: 현지해설=${idx1 >= 0 || idx3 >= 0}, 캐스터=${idx2 >= 0}`);
-      if (idx1 >= 0) console.log(`  주변: ...${html.slice(Math.max(0, idx1 - 100), idx1 + 100)}...`);
-      if (idx2 >= 0) console.log(`  주변: ...${html.slice(Math.max(0, idx2 - 100), idx2 + 100)}...`);
-      if (idx3 >= 0) console.log(`  주변: ...${html.slice(Math.max(0, idx3 - 100), idx3 + 100)}...`);
+      // __NEXT_DATA__ 찾기
+      const nextDataMatch = html.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
+      if (nextDataMatch) {
+        const jsonStr = nextDataMatch[1];
+        // commentary, 해설, 현지, caster 관련 키워드 검색
+        for (const keyword of ["commentary", "해설", "현지", "caster", "audio", "language"]) {
+          const idx = jsonStr.indexOf(keyword);
+          if (idx >= 0) {
+            console.log(`[쿠팡플레이 NEXT_DATA] ${ev.title} [${keyword}]: ...${jsonStr.slice(Math.max(0, idx - 80), idx + 120)}...`);
+          }
+        }
+        console.log(`[쿠팡플레이 NEXT_DATA] ${ev.title}: 전체 길이=${jsonStr.length}`);
+      } else {
+        // __NEXT_DATA__ 없으면 script 태그에 JSON 데이터 있는지 확인
+        const scripts = html.match(/<script[^>]*>[\s\S]*?<\/script>/g) || [];
+        console.log(`[쿠팡플레이 DETAIL] ${ev.title}: __NEXT_DATA__ 없음, script 태그 ${scripts.length}개`);
+        // event_id가 포함된 script 찾기
+        for (const script of scripts) {
+          if (script.includes(ev.event_id)) {
+            console.log(`[쿠팡플레이 DETAIL] ${ev.title}: event_id 포함 script 발견 (${script.length}자):`);
+            console.log(script.slice(0, 2000));
+          }
+        }
+      }
     } catch (e: any) {
       console.log(`[쿠팡플레이 DETAIL] ${ev.title}: 에러 ${e.message}`);
     }
