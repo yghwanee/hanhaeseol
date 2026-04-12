@@ -18,8 +18,8 @@ export default function AboutPage() {
           <h2 className="text-xl font-semibold mb-3">한해설이란?</h2>
           <p className="text-gray-300 leading-relaxed">
             한해설은 <strong>스포츠 한국어 해설 중계 편성표</strong>를 한곳에 모아 보여주는 서비스입니다.
-            여러 OTT와 TV 채널에 흩어져 있는 스포츠 중계 일정을 한 번에 확인하고,
-            특히 <strong>한국어 해설이 제공되는 경기</strong>를 쉽게 찾을 수 있습니다.
+            <br className="hidden sm:inline" />여러 OTT와 TV 채널에 흩어져 있는 스포츠 중계 일정을 한 번에 확인하고,
+            <br className="hidden sm:inline" />특히 <strong>한국어 해설이 제공되는 경기</strong>를 쉽게 찾을 수 있습니다.
           </p>
         </section>
 
@@ -80,7 +80,7 @@ export default function AboutPage() {
           <h2 className="text-xl font-semibold mb-3">데이터 업데이트</h2>
           <p className="text-gray-300 leading-relaxed">
             편성표 데이터는 매일 자동으로 수집되며, 오늘부터 7일간의 일정을 제공합니다.
-            각 플랫폼의 공식 편성표를 기반으로 하며, 실시간 변경 사항은 반영이 지연될 수 있습니다.
+            <br className="hidden sm:inline" />각 플랫폼의 공식 편성표를 기반으로 하며, 실시간 변경 사항은 반영이 지연될 수 있습니다.
           </p>
         </section>
 
