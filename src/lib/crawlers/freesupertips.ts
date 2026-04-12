@@ -118,61 +118,35 @@ export async function crawlFreesupertips(
   );
   console.log(`  freesupertips: 한국어해설 축구 ${koreanFootball.length}개 경기에서 분석글 탐색...`);
 
-  const articles: AnalysisArticle[] = [];
+  // 매칭 가능한 경기만 사전 필터
+  const targets = koreanFootball
+    .map((s) => ({ schedule: s, homeEn: findEnglishTeamName(s.homeTeam), awayEn: findEnglishTeamName(s.awayTeam) }))
+    .filter((t): t is typeof t & { homeEn: string; awayEn: string } => !!t.homeEn && !!t.awayEn);
 
-  for (const schedule of koreanFootball) {
-    const homeEn = findEnglishTeamName(schedule.homeTeam);
-    const awayEn = findEnglishTeamName(schedule.awayTeam);
-
-    if (!homeEn || !awayEn) continue;
-
-    // freesupertips URL 패턴: /predictions/team1-vs-team2-predictions-betting-tips-match-previews
+  // 병렬 fetch
+  const results = await Promise.allSettled(targets.map(async ({ schedule, homeEn, awayEn }) => {
     const url = `https://www.freesupertips.com/predictions/${toSlug(homeEn)}-vs-${toSlug(awayEn)}-predictions-betting-tips-match-previews/`;
-
-    const result = await fetchArticle(url);
+    let result = await fetchArticle(url);
+    let sourceUrl = url;
     if (!result) {
-      // 홈/원정 반대로도 시도
-      const reverseUrl = `https://www.freesupertips.com/predictions/${toSlug(awayEn)}-vs-${toSlug(homeEn)}-predictions-betting-tips-match-previews/`;
-      const reverseResult = await fetchArticle(reverseUrl);
-      if (!reverseResult) continue;
-
-      console.log(`  ✓ ${homeEn} vs ${awayEn} (reverse)`);
-
-      articles.push({
-        id: `${date}-fst-${toSlug(homeEn)}-vs-${toSlug(awayEn)}`,
-        date,
-        time: schedule.time,
-        sport: schedule.sport,
-        league: schedule.league,
-        homeTeam: schedule.homeTeam,
-        awayTeam: schedule.awayTeam,
-        homeTeamEn: homeEn,
-        awayTeamEn: awayEn,
-        sourceUrl: reverseUrl,
-        prediction: reverseResult.prediction,
-        content: reverseResult.content,
-        crawledAt: new Date().toISOString(),
-      });
-      continue;
+      sourceUrl = `https://www.freesupertips.com/predictions/${toSlug(awayEn)}-vs-${toSlug(homeEn)}-predictions-betting-tips-match-previews/`;
+      result = await fetchArticle(sourceUrl);
     }
-
+    if (!result) return null;
     console.log(`  ✓ ${homeEn} vs ${awayEn}`);
-
-    articles.push({
+    return {
       id: `${date}-fst-${toSlug(homeEn)}-vs-${toSlug(awayEn)}`,
-      date,
-      time: schedule.time,
-      sport: schedule.sport,
-      league: schedule.league,
-      homeTeam: schedule.homeTeam,
-      awayTeam: schedule.awayTeam,
-      homeTeamEn: homeEn,
-      awayTeamEn: awayEn,
-      sourceUrl: url,
-      prediction: result.prediction,
-      content: result.content,
+      date, time: schedule.time, sport: schedule.sport, league: schedule.league,
+      homeTeam: schedule.homeTeam, awayTeam: schedule.awayTeam,
+      homeTeamEn: homeEn, awayTeamEn: awayEn, sourceUrl,
+      prediction: result.prediction, content: result.content,
       crawledAt: new Date().toISOString(),
-    });
+    };
+  }));
+
+  const articles: AnalysisArticle[] = [];
+  for (const r of results) {
+    if (r.status === "fulfilled" && r.value) articles.push(r.value);
   }
 
   console.log(`  freesupertips: ${articles.length}건 수집`);

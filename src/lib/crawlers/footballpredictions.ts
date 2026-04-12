@@ -83,61 +83,34 @@ export async function crawlFootballpredictions(
   console.log(`  footballpredictions: 한국어해설 축구 ${koreanFootball.length}개 경기에서 분석글 탐색...`);
 
   const dateSlug = toDateSlug(date);
-  const articles: AnalysisArticle[] = [];
 
-  for (const schedule of koreanFootball) {
-    const leaguePath = LEAGUE_PATH[schedule.league];
-    if (!leaguePath) continue;
+  const targets = koreanFootball
+    .map((s) => ({ schedule: s, leaguePath: LEAGUE_PATH[s.league], homeEn: findEnglishTeamName(s.homeTeam), awayEn: findEnglishTeamName(s.awayTeam) }))
+    .filter((t): t is typeof t & { leaguePath: string; homeEn: string; awayEn: string } => !!t.leaguePath && !!t.homeEn && !!t.awayEn);
 
-    const homeEn = findEnglishTeamName(schedule.homeTeam);
-    const awayEn = findEnglishTeamName(schedule.awayTeam);
-    if (!homeEn || !awayEn) continue;
-
-    // URL: /footballpredictions/리그/팀1-vs-팀2-prediction-DD-MM-YYYY/
+  const results = await Promise.allSettled(targets.map(async ({ schedule, leaguePath, homeEn, awayEn }) => {
     const url = `https://footballpredictions.com/footballpredictions/${leaguePath}/${toSlug(homeEn)}-vs-${toSlug(awayEn)}-prediction-${dateSlug}/`;
-
-    const result = await fetchArticle(url);
+    let result = await fetchArticle(url);
+    let sourceUrl = url;
     if (!result) {
-      // 홈/원정 반대로도 시도
-      const reverseUrl = `https://footballpredictions.com/footballpredictions/${leaguePath}/${toSlug(awayEn)}-vs-${toSlug(homeEn)}-prediction-${dateSlug}/`;
-      const reverseResult = await fetchArticle(reverseUrl);
-      if (!reverseResult) continue;
-
-      console.log(`  ✓ ${homeEn} vs ${awayEn} (reverse)`);
-      articles.push({
-        id: `${date}-fp-${toSlug(homeEn)}-vs-${toSlug(awayEn)}`,
-        date,
-        time: schedule.time,
-        sport: schedule.sport,
-        league: schedule.league,
-        homeTeam: schedule.homeTeam,
-        awayTeam: schedule.awayTeam,
-        homeTeamEn: homeEn,
-        awayTeamEn: awayEn,
-        sourceUrl: reverseUrl,
-        prediction: reverseResult.prediction,
-        content: reverseResult.content,
-        crawledAt: new Date().toISOString(),
-      });
-      continue;
+      sourceUrl = `https://footballpredictions.com/footballpredictions/${leaguePath}/${toSlug(awayEn)}-vs-${toSlug(homeEn)}-prediction-${dateSlug}/`;
+      result = await fetchArticle(sourceUrl);
     }
-
+    if (!result) return null;
     console.log(`  ✓ ${homeEn} vs ${awayEn}`);
-    articles.push({
+    return {
       id: `${date}-fp-${toSlug(homeEn)}-vs-${toSlug(awayEn)}`,
-      date,
-      time: schedule.time,
-      sport: schedule.sport,
-      league: schedule.league,
-      homeTeam: schedule.homeTeam,
-      awayTeam: schedule.awayTeam,
-      homeTeamEn: homeEn,
-      awayTeamEn: awayEn,
-      sourceUrl: url,
-      prediction: result.prediction,
-      content: result.content,
+      date, time: schedule.time, sport: schedule.sport, league: schedule.league,
+      homeTeam: schedule.homeTeam, awayTeam: schedule.awayTeam,
+      homeTeamEn: homeEn, awayTeamEn: awayEn, sourceUrl,
+      prediction: result.prediction, content: result.content,
       crawledAt: new Date().toISOString(),
-    });
+    };
+  }));
+
+  const articles: AnalysisArticle[] = [];
+  for (const r of results) {
+    if (r.status === "fulfilled" && r.value) articles.push(r.value);
   }
 
   console.log(`  footballpredictions: ${articles.length}건 수집`);

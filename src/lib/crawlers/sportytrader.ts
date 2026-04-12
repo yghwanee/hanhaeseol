@@ -5,7 +5,6 @@ import { execSync } from "child_process";
 
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
-// curl로 페이지 가져오기 (Cloudflare 우회)
 function curlFetch(url: string): string | null {
   try {
     const html = execSync(
@@ -43,7 +42,6 @@ function fetchPredictionsList(): MatchPreview[] {
     while ((match = linkPattern.exec(html)) !== null) {
       const slug = match[1];
       const url = `https://www.sportytrader.com/en/betting-tips/${slug}/`;
-
       if (!matches.some((m) => m.url === url)) {
         matches.push({ slug, url });
       }
@@ -53,7 +51,6 @@ function fetchPredictionsList(): MatchPreview[] {
   return matches;
 }
 
-// 개별 분석글에서 팀명과 본문 추출
 function fetchArticle(url: string): {
   homeTeamEn: string;
   awayTeamEn: string;
@@ -63,7 +60,6 @@ function fetchArticle(url: string): {
   const html = curlFetch(url);
   if (!html) return null;
 
-  // 팀명 추출: <title>에서
   const titleMatch = html.match(/<title>([^<]+)<\/title>/);
   let homeTeamEn = "";
   let awayTeamEn = "";
@@ -75,29 +71,20 @@ function fetchArticle(url: string): {
       awayTeamEn = vsMatch[2].trim();
     }
   }
-
   if (!homeTeamEn || !awayTeamEn) return null;
 
-  // 예측 추출
   let prediction = "";
   const predMatch = html.match(/text-center text-xl font-semibold[^>]*>([^<]+)/);
   if (predMatch) prediction = predMatch[1].trim();
 
-  // 본문 추출: 클래스 없는 순수 <p> 태그만 (분석 본문)
   const paragraphs: string[] = [];
   const pPattern = new RegExp("<p>([^<]{40,})</p>", "g");
   let pMatch;
   while ((pMatch = pPattern.exec(html)) !== null) {
-    const text = pMatch[1]
-      .replace(/&nbsp;/g, " ")
-      .replace(/&amp;/g, "&")
-      .replace(/&#\d+;/g, "")
-      .trim();
+    const text = pMatch[1].replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&#\d+;/g, "").trim();
     if (
-      !text.includes("1xbet") &&
-      !text.includes("Probabilities according") &&
-      !text.includes("Our prediction for the") &&
-      !text.includes("Fair odds")
+      !text.includes("1xbet") && !text.includes("Probabilities according") &&
+      !text.includes("Our prediction for the") && !text.includes("Fair odds")
     ) {
       paragraphs.push(text);
     }
@@ -114,15 +101,12 @@ function cleanContent(text: string): string {
     "Sign Up", "GambleAware", "responsible gambling", "You must be 18",
     "Bet responsibly", "cookie", "Terms and Conditions",
   ];
-
   const lines = text.split("\n\n");
   const cleaned: string[] = [];
-
   for (const line of lines) {
     if (cutoffPhrases.some((p) => line.includes(p))) break;
     cleaned.push(line);
   }
-
   return cleaned.join("\n\n").trim();
 }
 
@@ -134,14 +118,15 @@ export async function crawlSportytrader(
   date: string,
   schedules: Schedule[]
 ): Promise<AnalysisArticle[]> {
-  console.log("  sportytrader: 분석글 목록 가져오는 중...");
-  const previews = fetchPredictionsList();
-  console.log(`  sportytrader: ${previews.length}개 링크 발견`);
-
   const koreanMatches = schedules.filter(
     (s) => s.date === date && s.koreanCommentary === true &&
       (s.sport === "축구" || s.sport === "농구")
   );
+  if (koreanMatches.length === 0) return [];
+
+  console.log("  sportytrader: 분석글 목록 가져오는 중...");
+  const previews = fetchPredictionsList();
+  console.log(`  sportytrader: ${previews.length}개 링크 발견`);
 
   const articles: AnalysisArticle[] = [];
 
