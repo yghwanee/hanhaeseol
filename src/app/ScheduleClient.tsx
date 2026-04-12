@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { Schedule, ScheduleData } from "@/types/schedule";
 
 const SPORTS = ["전체", "축구", "야구", "농구", "배구"] as const;
@@ -257,12 +258,15 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
 
       <div className="mx-auto max-w-2xl">
       {/* Header */}
-      <header className="mb-6 sm:mb-10">
+      <header className="mb-6 sm:mb-10 flex items-center justify-between">
         <h1 className="flex items-end">
           <Image src="/icon.png" alt="한해설 아이콘" width={32} height={32} className="h-6 w-6 sm:h-8 sm:w-8 self-center" />
           <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
           <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
         </h1>
+        <Link href="/analysis" className="border-glow text-[11px] sm:text-xs px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg text-zinc-200 font-medium hover:text-white transition-colors whitespace-nowrap">
+          해외 픽스터 분석글
+        </Link>
       </header>
 
       <div className="mb-6 sm:mb-10 rounded-lg border border-zinc-700/50 bg-zinc-800/30 px-3 py-2 text-center">

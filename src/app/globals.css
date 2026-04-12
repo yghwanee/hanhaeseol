@@ -30,6 +30,26 @@
   animation: shimmer 2s ease-in-out infinite;
 }
 
+@keyframes border-rotate {
+  0% { --border-angle: 0deg; }
+  100% { --border-angle: 360deg; }
+}
+
+@property --border-angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+.border-glow {
+  --border-angle: 0deg;
+  border: 1.5px solid transparent;
+  background:
+    linear-gradient(#0a0a0a, #0a0a0a) padding-box,
+    conic-gradient(from var(--border-angle), #a855f7, #ec4899, #f97316, #a855f7) border-box;
+  animation: border-rotate 3s linear infinite;
+}
+
 body {
   color: #ededed;
   background: #0a0a0a;
