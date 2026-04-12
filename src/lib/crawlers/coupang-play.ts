@@ -63,6 +63,30 @@ async function refreshPAT(): Promise<string | null> {
   return null;
 }
 
+async function fetchCommentaryInfo(
+  eventId: string,
+  cookies: string,
+  headers: Record<string, string>,
+): Promise<boolean | null> {
+  try {
+    const res = await fetch(
+      `https://www.coupangplay.com/api/v1.1/personalize/events?id=${eventId}`,
+      {
+        headers: { ...headers, Cookie: cookies },
+        signal: AbortSignal.timeout(10000),
+      }
+    );
+    const text = await res.text();
+    if (!text.startsWith("{")) return null; // HTML 응답 = 인증 실패
+    const detail = JSON.parse(text);
+    const desc: string = detail?.data?.description || "";
+    if (desc.includes("현지 해설") || desc.includes("현지해설")) return false;
+    return true; // 캐스터/해설 이름이 있거나 description 없으면 한국어해설
+  } catch {
+    return null;
+  }
+}
+
 export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
   const deviceId = process.env.COUPANG_DEVICE_ID;
   const memberSrl = process.env.COUPANG_MEMBER_SRL;
@@ -120,6 +144,22 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
   const events = data.data || [];
   const schedules: Schedule[] = [];
 
+  // 상세 API용 쿠키 및 헤더
+  const ctLsid = process.env.COUPANG_CT_LSID || "";
+  const token = process.env.COUPANG_TOKEN || "";
+  const detailCookies = `NEXT_LOCALE=ko; P_AT=${pAt}; CT_LSID=${ctLsid}; token=${token}; device_id=${deviceId}; member_srl=${memberSrl}; PCID=17755361609406080915557`;
+  const detailHeaders = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
+    accept: "application/json",
+    "x-device-id": deviceId,
+    "x-membersrl": memberSrl,
+    "x-profileid": profileId,
+    "x-platform": "WEBCLIENT",
+    Referer: "https://www.coupangplay.com/schedule",
+  };
+
+  // 해당 날짜의 유효 이벤트만 필터
+  const validEvents: { event: CoupangEvent; time: string }[] = [];
   for (const event of events) {
     if (event.type !== "LIVE") continue;
     if (event.teams.length < 2) continue;
@@ -127,7 +167,6 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
     const sport = SPORT_MAP[event.league.sportTypeName];
     if (!sport) continue;
 
-    // UTC → KST
     const kst = new Date(event.start_at);
     const yyyy = kst.toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul", year: "numeric" }).replace(/[^0-9]/g, "");
     const mm = String(kst.toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul", month: "numeric" }).replace(/[^0-9]/g, "")).padStart(2, "0");
@@ -138,7 +177,20 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
 
     const hh = String(kst.toLocaleString("ko-KR", { timeZone: "Asia/Seoul", hour: "numeric", hour12: false }).replace(/[^0-9]/g, "")).padStart(2, "0");
     const min = String(kst.toLocaleString("ko-KR", { timeZone: "Asia/Seoul", minute: "numeric" }).replace(/[^0-9]/g, "")).padStart(2, "0");
-    const time = `${hh}:${min}`;
+    validEvents.push({ event, time: `${hh}:${min}` });
+  }
+
+  // 각 이벤트의 해설 정보를 병렬로 조회
+  const commentaryResults = await Promise.all(
+    validEvents.map(({ event }) =>
+      fetchCommentaryInfo(event.event_id, detailCookies, detailHeaders)
+    )
+  );
+
+  for (let i = 0; i < validEvents.length; i++) {
+    const { event, time } = validEvents[i];
+    const sport = SPORT_MAP[event.league.sportTypeName];
+    if (!sport) continue;
 
     schedules.push({
       id: `coupang-${date}-${time}-${event.league.shortName}-${event.teams[0].name}-${event.teams[1].name}`,
@@ -149,7 +201,7 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
       homeTeam: event.teams[0].name,
       awayTeam: event.teams[1].name,
       platform: "쿠팡플레이",
-      koreanCommentary: null,
+      koreanCommentary: commentaryResults[i],
     });
   }
 
