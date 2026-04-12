@@ -120,6 +120,11 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
   const events = data.data || [];
   const schedules: Schedule[] = [];
 
+  // [DEBUG] 첫 3개 이벤트의 전체 필드 로깅
+  for (const ev of events.slice(0, 3)) {
+    console.log(`[쿠팡플레이 DEBUG] ${ev.title}:`, JSON.stringify(ev, null, 2));
+  }
+
   for (const event of events) {
     if (event.type !== "LIVE") continue;
     if (event.teams.length < 2) continue;
