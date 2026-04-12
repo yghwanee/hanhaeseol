@@ -81,7 +81,6 @@ async function refreshTokens(): Promise<CoupangTokens | null> {
     });
 
     extractCookies(res.headers);
-    console.log(`  [토큰갱신] step${step}: ${res.status} ${currentUrl.slice(0, 80)}`);
 
     // 리다이렉트 따라가기
     const location = res.headers.get("location");
@@ -95,10 +94,7 @@ async function refreshTokens(): Promise<CoupangTokens | null> {
     break;
   }
 
-  if (pAt) {
-    console.log(`  쿠팡플레이: 토큰 갱신 성공 (P_AT=${pAt.slice(0, 20)}..., CT_AT=${ctAt ? "있음" : "없음"})`);
-    return { pAt, ctAt };
-  }
+  if (pAt) return { pAt, ctAt };
 
   return null;
 }
@@ -121,7 +117,6 @@ async function fetchCommentaryInfo(
     const detail = JSON.parse(text);
     const desc: string = detail?.data?.description || "";
     const isLocal = desc.includes("현지 해설") || desc.includes("현지해설");
-    console.log(`  [해설] description="${desc}" → ${isLocal ? "현지해설" : "한국어해설"}`);
     return !isLocal;
   } catch {
     return null;
@@ -225,7 +220,6 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
       )
     );
   } else {
-    console.log("  쿠팡플레이: CT_AT 없음 → 해설 판별 스킵 (전부 확인중)");
     commentaryResults = validEvents.map(() => null);
   }
 
