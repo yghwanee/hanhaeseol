@@ -120,7 +120,7 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
   const events = data.data || [];
   const schedules: Schedule[] = [];
 
-  // [DEBUG] 상세 페이지 HTML에서 __NEXT_DATA__ 또는 해설 관련 JSON 추출
+  // [DEBUG] __NEXT_DATA__에서 이벤트 데이터 추출
   for (const ev of events.slice(0, 2)) {
     try {
       const detailRes = await fetch(
@@ -134,27 +134,18 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
         }
       );
       const html = await detailRes.text();
-      // __NEXT_DATA__ 찾기
       const nextDataMatch = html.match(/<script id="__NEXT_DATA__"[^>]*>([\s\S]*?)<\/script>/);
       if (nextDataMatch) {
-        const jsonStr = nextDataMatch[1];
-        // commentary, 해설, 현지, caster 관련 키워드 검색
-        for (const keyword of ["commentary", "해설", "현지", "caster", "audio", "language"]) {
-          const idx = jsonStr.indexOf(keyword);
-          if (idx >= 0) {
-            console.log(`[쿠팡플레이 NEXT_DATA] ${ev.title} [${keyword}]: ...${jsonStr.slice(Math.max(0, idx - 80), idx + 120)}...`);
-          }
-        }
-        console.log(`[쿠팡플레이 NEXT_DATA] ${ev.title}: 전체 길이=${jsonStr.length}`);
-      } else {
-        // __NEXT_DATA__ 없으면 script 태그에 JSON 데이터 있는지 확인
-        const scripts = html.match(/<script[^>]*>[\s\S]*?<\/script>/g) || [];
-        console.log(`[쿠팡플레이 DETAIL] ${ev.title}: __NEXT_DATA__ 없음, script 태그 ${scripts.length}개`);
-        // event_id가 포함된 script 찾기
-        for (const script of scripts) {
-          if (script.includes(ev.event_id)) {
-            console.log(`[쿠팡플레이 DETAIL] ${ev.title}: event_id 포함 script 발견 (${script.length}자):`);
-            console.log(script.slice(0, 2000));
+        const nextData = JSON.parse(nextDataMatch[1]);
+        // pageProps에서 이벤트 데이터 찾기
+        const pageProps = nextData?.props?.pageProps;
+        if (pageProps) {
+          // i18n 번역 데이터 제외하고 나머지 키 출력
+          const keys = Object.keys(pageProps).filter(k => k !== "__namespaces" && k !== "_nextI18Next");
+          console.log(`[쿠팡플레이 PROPS] ${ev.title}: pageProps 키=${JSON.stringify(keys)}`);
+          for (const key of keys) {
+            const val = JSON.stringify(pageProps[key]);
+            console.log(`[쿠팡플레이 PROPS] ${ev.title} [${key}]: ${val.slice(0, 1500)}`);
           }
         }
       }
