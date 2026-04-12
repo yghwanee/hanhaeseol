@@ -98,7 +98,8 @@ export default function AnalysisClient({ articles, lastUpdated }: { articles: An
   return (
     <>
       {/* 날짜 탭 */}
-      <div ref={scrollRef} className="flex gap-1.5 mb-6 overflow-x-auto scrollbar-hide pb-1 justify-center">
+      <div ref={scrollRef} className="flex gap-1.5 mb-6 overflow-x-auto scrollbar-hide pb-1">
+        <div className="flex-shrink-0 flex-grow pointer-events-none" />
         {sortedDates.map((date) => {
           const dateObj = new Date(date + "T00:00:00");
           const month = dateObj.getMonth() + 1;
