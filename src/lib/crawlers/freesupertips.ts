@@ -124,7 +124,7 @@ async function fetchArticle(url: string): Promise<{ prediction: string; content:
   // __NEXT_DATA__에서 못 찾으면 HTML에서 <p> 태그 추출
   if (!content) {
     const paragraphs: string[] = [];
-    const pPattern = /<p[^>]*>(.*?)<\/p>/gs;
+    const pPattern = new RegExp("<p[^>]*>(.*?)</p>", "gs");
     let pMatch;
     while ((pMatch = pPattern.exec(html)) !== null) {
       const text = pMatch[1]
