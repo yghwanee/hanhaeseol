@@ -99,9 +99,11 @@ export function parseMatchTitle(title: string): {
     .replace(/시리즈\s*/g, "")
     .trim();
 
-  // 팀명 정리: "삼성_4/6 19:00" → "삼성"
+  // 팀명 정리: "삼성_4/6 19:00" → "삼성", "8강전 대한민국" → "대한민국"
   const cleanTeam = (name: string) =>
-    name.replace(/[_]\d+\/\d+.*$/, "").replace(/\(.+?\)/g, "").replace(/[,、].*$/, "").trim();
+    name.replace(/[_]\d+\/\d+.*$/, "").replace(/\(.+?\)/g, "").replace(/[,、].*$/, "")
+      .replace(/^(?:8강전|4강전|준결승전?|결승전?|조별리그|조별예선|16강전?|32강전?|3[·.]?4위전?)\s*/g, "")
+      .trim();
 
   // 패턴1: [리그] 홈 vs 원정
   const bracketMatch = title.match(/\[(.+?)\]\s*(.+?)\s*(?:vs|VS|v)\s*(.+)/);
@@ -140,9 +142,16 @@ export function parseMatchTitle(title: string): {
         sport: detectSport(title),
       };
     }
+    const league = normalizeLeague(title);
+    // 리그명을 homeTeam에서 제거: "2026 AFC U-20 여자 아시안컵 8강전 대한민국" → "대한민국"
+    let homeClean = home;
+    const leagueIdx = homeClean.indexOf(league);
+    if (leagueIdx >= 0) {
+      homeClean = homeClean.slice(leagueIdx + league.length).trim();
+    }
     return {
-      league: normalizeLeague(title),
-      homeTeam: home,
+      league,
+      homeTeam: cleanTeam(homeClean),
       awayTeam: away,
       sport: detectSport(title),
     };
@@ -158,8 +167,8 @@ export function parseMatchTitle(title: string): {
     const fullText = `${league} ${home}`;
     const leagueInHome = fullText.match(/^.*?(퓨처스리그|KBO리그\d?|K리그\d?|MLB|MLS|NBA|NPB|메이저리그|프로농구|여자프로농구|프로배구|V-?리그|신한\s*SOL\s*KBO리그|AFC\s+[\w\-]+(?:\s+여자)?\s+아시안컵|AFC\s+챔피언스리그|ACL|고교야구)\s+(.+)$/);
     if (leagueInHome) {
-      const homeRaw = leagueInHome[2].trim()
-        .replace(/^(?:포스트시즌\s*)?(?:남자부\s*|여자부\s*)?(?:챔피언결정전\s*)?(?:플레이오프\s*)?(?:\d+차\s*)?(?:\d+차전\s*)?/, "").trim();
+      const homeRaw = cleanTeam(leagueInHome[2].trim()
+        .replace(/^(?:포스트시즌\s*)?(?:남자부\s*|여자부\s*)?(?:챔피언결정전\s*)?(?:플레이오프\s*)?(?:\d+차\s*)?(?:\d+차전\s*)?/, "").trim());
       return {
         league: normalizeLeague(leagueInHome[1]),
         homeTeam: homeRaw,
