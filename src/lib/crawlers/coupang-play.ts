@@ -77,12 +77,17 @@ async function fetchCommentaryInfo(
       }
     );
     const text = await res.text();
-    if (!text.startsWith("{")) return null; // HTML 응답 = 인증 실패
+    if (!text.startsWith("{")) {
+      console.log(`  [해설API] ${eventId}: 인증 실패 (HTML 응답)`);
+      return null;
+    }
     const detail = JSON.parse(text);
     const desc: string = detail?.data?.description || "";
-    if (desc.includes("현지 해설") || desc.includes("현지해설")) return false;
-    return true; // 캐스터/해설 이름이 있거나 description 없으면 한국어해설
-  } catch {
+    const isLocal = desc.includes("현지 해설") || desc.includes("현지해설");
+    console.log(`  [해설API] description="${desc}" → ${isLocal ? "현지해설" : "한국어해설"}`);
+    return !isLocal;
+  } catch (e: any) {
+    console.log(`  [해설API] ${eventId}: 에러 ${e.message}`);
     return null;
   }
 }
