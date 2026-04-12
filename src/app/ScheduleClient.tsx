@@ -568,7 +568,8 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
         <div className="text-[11px] sm:text-xs leading-[1.8] sm:leading-relaxed text-zinc-600">
           <p>
             한해설은 축구, 야구, 농구, 배구
-            <br className="sm:hidden" />{" "}한국어중계 편성표를 제공합니다.
+            <br className="sm:hidden" />{" "}한국어 해설 중계를 쉽게 찾을 수 있는
+            <br className="sm:hidden" />{" "}스포츠 편성표입니다.
           </p>
           <p className="mt-2 sm:mt-1.5">
             SPOTV NOW, 쿠팡플레이, 티빙, Apple TV+,
