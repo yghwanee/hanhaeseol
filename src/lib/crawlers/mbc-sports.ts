@@ -48,13 +48,14 @@ export async function crawlMbcSports(date: string): Promise<Schedule[]> {
     const time = `${hh}:${mm}`;
 
     const parsed = parseMatchTitle(fullTitle);
+    if (!parsed.sport) continue;
     const commentary = detectKoreanCommentary(fullTitle);
 
     schedules.push({
       id: `mbc-${date}-${time}-${item.pgmName.slice(0, 20)}`,
       date,
       time,
-      sport: parsed.sport ?? "축구",
+      sport: parsed.sport,
       league: parsed.league,
       homeTeam: parsed.homeTeam,
       awayTeam: parsed.awayTeam,

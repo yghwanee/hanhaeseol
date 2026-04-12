@@ -41,13 +41,14 @@ export async function crawlKbsSports(date: string): Promise<Schedule[]> {
     if (!isActualMatch(title)) continue;
 
     const parsed = parseMatchTitle(title);
+    if (!parsed.sport) continue;
     const commentary = detectKoreanCommentary(title);
 
     schedules.push({
       id: `kbs-sports-${date}-${time}-${title.slice(0, 20)}`,
       date,
       time,
-      sport: parsed.sport ?? "축구",
+      sport: parsed.sport,
       league: parsed.league,
       homeTeam: parsed.homeTeam,
       awayTeam: parsed.awayTeam,

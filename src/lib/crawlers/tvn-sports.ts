@@ -52,13 +52,14 @@ export async function crawlTvnSports(date: string): Promise<Schedule[]> {
 
     const time = item.bdStrTtm;
     const parsed = parseMatchTitle(fullTitle);
+    if (!parsed.sport) continue; // 4종목(축구/야구/농구/배구) 외 제외
     const commentary = detectKoreanCommentary(fullTitle);
 
     schedules.push({
       id: `tvn-${date}-${time}-${item.pgmNm.slice(0, 20)}`,
       date,
       time,
-      sport: parsed.sport ?? "축구",
+      sport: parsed.sport,
       league: parsed.league,
       homeTeam: parsed.homeTeam,
       awayTeam: parsed.awayTeam,

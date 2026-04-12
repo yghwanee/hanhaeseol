@@ -34,13 +34,14 @@ async function fetchChannel(channel: "SPOTV" | "SPOTV2", date: string): Promise<
 
     const time = `${String(item.sch_hour).padStart(2, "0")}:${item.sch_min.padStart(2, "0")}`;
     const parsed = parseMatchTitle(title);
+    if (!parsed.sport) continue;
     const commentary = detectKoreanCommentary(title);
 
     schedules.push({
       id: `${channel.toLowerCase()}-${date}-${time}-${title.slice(0, 20)}`,
       date,
       time,
-      sport: parsed.sport ?? "축구",
+      sport: parsed.sport,
       league: parsed.league,
       homeTeam: parsed.homeTeam,
       awayTeam: parsed.awayTeam,
