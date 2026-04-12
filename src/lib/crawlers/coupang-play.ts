@@ -120,32 +120,6 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
   const events = data.data || [];
   const schedules: Schedule[] = [];
 
-  // [DEBUG] /titles/ 페이지에서 "현지 해설" 텍스트 검색
-  for (const ev of events.slice(0, 5)) {
-    try {
-      const pageRes = await fetch(
-        `https://www.coupangplay.com/titles/${ev.event_id}?type=LIVE&live=true`,
-        {
-          headers: {
-            Cookie: `NEXT_LOCALE=ko; P_AT=${pAt}; device_id=${deviceId}; member_srl=${memberSrl}; PCID=17755361609406080915557`,
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-          },
-          signal: AbortSignal.timeout(10000),
-        }
-      );
-      const html = await pageRes.text();
-      const has현지 = html.includes("현지 해설") || html.includes("현지해설");
-      const has캐스터 = html.includes("캐스터");
-      console.log(`[쿠팡플레이 해설] ${ev.title}: 현지해설=${has현지}, 캐스터=${has캐스터}, HTML길이=${html.length}`);
-      if (has현지) {
-        const idx = html.indexOf("현지 해설") >= 0 ? html.indexOf("현지 해설") : html.indexOf("현지해설");
-        console.log(`  주변: ...${html.slice(Math.max(0, idx - 200), idx + 200)}...`);
-      }
-    } catch (e: any) {
-      console.log(`[쿠팡플레이 해설] ${ev.title}: 에러 ${e.message}`);
-    }
-  }
-
   for (const event of events) {
     if (event.type !== "LIVE") continue;
     if (event.teams.length < 2) continue;
@@ -175,7 +149,7 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
       homeTeam: event.teams[0].name,
       awayTeam: event.teams[1].name,
       platform: "쿠팡플레이",
-      koreanCommentary: true,
+      koreanCommentary: null,
     });
   }
 
