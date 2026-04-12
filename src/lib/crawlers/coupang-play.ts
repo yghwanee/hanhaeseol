@@ -120,35 +120,26 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
   const events = data.data || [];
   const schedules: Schedule[] = [];
 
-  // [DEBUG] 상세 API에서 description(해설 정보) 가져오기 테스트
-  const ctLsid = process.env.COUPANG_CT_LSID || "";
-  const token = process.env.COUPANG_TOKEN || "";
-  const fullCookie = `NEXT_LOCALE=ko; P_AT=${pAt}; CT_LSID=${ctLsid}; token=${token}; device_id=${deviceId}; member_srl=${memberSrl}; PCID=17755361609406080915557`;
+  // [DEBUG] /titles/ 페이지에서 "현지 해설" 텍스트 검색
   for (const ev of events.slice(0, 5)) {
     try {
-      const detailRes = await fetch(
-        `https://www.coupangplay.com/api/v1.1/personalize/events?id=${ev.event_id}`,
+      const pageRes = await fetch(
+        `https://www.coupangplay.com/titles/${ev.event_id}?type=LIVE&live=true`,
         {
           headers: {
-            Cookie: fullCookie,
+            Cookie: `NEXT_LOCALE=ko; P_AT=${pAt}; device_id=${deviceId}; member_srl=${memberSrl}; PCID=17755361609406080915557`,
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36",
-            accept: "application/json",
-            "x-device-id": deviceId,
-            "x-membersrl": memberSrl,
-            "x-profileid": profileId,
-            "x-platform": "WEBCLIENT",
-            Referer: `https://www.coupangplay.com/content/events/${ev.event_id}`,
           },
           signal: AbortSignal.timeout(10000),
         }
       );
-      const rawText = await detailRes.text();
-      if (rawText.startsWith("{")) {
-        const detail = JSON.parse(rawText);
-        const desc = detail?.data?.description || "(없음)";
-        console.log(`[쿠팡플레이 해설] ${ev.title}: description="${desc}"`);
-      } else {
-        console.log(`[쿠팡플레이 해설] ${ev.title}: HTML 응답 (인증 실패)`);
+      const html = await pageRes.text();
+      const has현지 = html.includes("현지 해설") || html.includes("현지해설");
+      const has캐스터 = html.includes("캐스터");
+      console.log(`[쿠팡플레이 해설] ${ev.title}: 현지해설=${has현지}, 캐스터=${has캐스터}, HTML길이=${html.length}`);
+      if (has현지) {
+        const idx = html.indexOf("현지 해설") >= 0 ? html.indexOf("현지 해설") : html.indexOf("현지해설");
+        console.log(`  주변: ...${html.slice(Math.max(0, idx - 200), idx + 200)}...`);
       }
     } catch (e: any) {
       console.log(`[쿠팡플레이 해설] ${ev.title}: 에러 ${e.message}`);
