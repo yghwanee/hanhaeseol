@@ -38,12 +38,15 @@ jobs:
           COUPANG_TOKEN: ${{ secrets.COUPANG_TOKEN }}
           COUPANG_P_AT: ${{ secrets.COUPANG_P_AT }}
 
+      - name: Run analysis crawl
+        run: npm run crawl:analysis
+
       - name: Commit & Push
         id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/data/schedule.json public/schedule.json
+          git add src/data/schedule.json public/schedule.json src/data/analysis.json public/analysis.json
           if git diff --staged --quiet; then
             echo "updated=false" >> $GITHUB_OUTPUT
           else

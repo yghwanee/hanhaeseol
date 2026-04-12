@@ -1,6 +1,7 @@
 export interface AnalysisArticle {
   id: string;
   date: string;
+  time: string;
   league: string;
   homeTeam: string;
   awayTeam: string;

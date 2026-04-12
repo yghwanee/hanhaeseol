@@ -131,6 +131,38 @@ export const TEAM_NAME_MAP: Record<string, string> = {
   "Stockport": "스톡포트",
   "Luton": "루턴",
 
+  // === K리그1 ===
+  "Ulsan HD": "울산",
+  "Ulsan Hyundai": "울산",
+  "Jeonbuk Hyundai Motors": "전북",
+  "Jeonbuk": "전북",
+  "FC Seoul": "서울",
+  "Seoul": "서울",
+  "Daejeon Citizen": "대전",
+  "Gangwon FC": "강원",
+  "Gangwon": "강원",
+  "Gwangju FC": "광주",
+  "Incheon United": "인천",
+  "Jeju United": "제주",
+  "Pohang Steelers": "포항",
+  "Suwon FC": "수원FC",
+  "Gimcheon Sangmu": "김천",
+  "Daegu FC": "대구",
+
+  // === K리그2 ===
+  "Suwon Samsung Bluewings": "수원",
+  "Anyang": "안양",
+  "Chungnam Asan": "충남아산",
+  "Gimhae FC": "김해",
+  "Seongnam FC": "성남",
+  "Ansan Greeners": "안산",
+  "Cheonan City": "천안",
+  "Cheongju FC": "충북청주",
+  "Bucheon FC 1995": "부천",
+  "Kimpo FC": "김포",
+  "Busan IPark": "부산",
+  "Gyeongnam FC": "경남",
+
   // === 챔피언스리그 등 추가 ===
   "PSG": "파리 생제르망",
   "Paris Saint-Germain": "파리 생제르망",
@@ -155,6 +187,9 @@ export const LEAGUE_NAME_MAP: Record<string, string> = {
   "UEFA Champions League": "챔피언스리그",
   "Europa League": "유로파리그",
   "Conference League": "컨퍼런스리그",
+  "K League 1": "K리그",
+  "K-League": "K리그",
+  "K League 2": "K리그2",
 };
 
 // 영어 팀명으로 한국어 팀명 찾기 (부분 매칭 지원)

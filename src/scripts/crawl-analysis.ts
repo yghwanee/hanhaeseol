@@ -1,14 +1,25 @@
 import * as fs from "fs";
 import * as path from "path";
 import { crawlFreesupertips } from "../lib/crawlers/freesupertips";
+import { crawlTipstrike } from "../lib/crawlers/tipstrike";
 import { AnalysisData } from "../types/analysis";
 import { ScheduleData } from "../types/schedule";
 
 async function main() {
   const today = new Date();
-  const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, "0")}-${String(today.getDate()).padStart(2, "0")}`;
 
-  console.log(`\n=== 분석글 크롤링 시작 (${dateStr}) ===\n`);
+  const toDateStr = (d: Date) =>
+    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+
+  // 오늘 ~ +2일 (3일치, 과거 데이터는 기존 것 유지)
+  const dates: string[] = [];
+  for (let i = 0; i <= 2; i++) {
+    const d = new Date(today);
+    d.setDate(d.getDate() + i);
+    dates.push(toDateStr(d));
+  }
+
+  console.log(`\n=== 분석글 크롤링 시작 (${dates.join(", ")}) ===\n`);
 
   // schedule.json 로드
   const schedulePath = path.resolve(__dirname, "../data/schedule.json");
@@ -25,17 +36,23 @@ async function main() {
     // 파일 없으면 새로 생성
   }
 
-  // freesupertips 크롤링
-  const newArticles = await crawlFreesupertips(dateStr, scheduleData.schedules);
-  console.log(`\n✓ freesupertips: ${newArticles.length}건 수집`);
+  const newArticles = [];
 
-  // 기존 데이터와 병합 (최근 3일만 유지, 같은 날짜는 교체)
-  const threeDaysAgo = new Date(today);
-  threeDaysAgo.setDate(threeDaysAgo.getDate() - 3);
-  const cutoffDate = `${threeDaysAgo.getFullYear()}-${String(threeDaysAgo.getMonth() + 1).padStart(2, "0")}-${String(threeDaysAgo.getDate()).padStart(2, "0")}`;
+  for (const dateStr of dates) {
+    console.log(`--- ${dateStr} ---`);
 
+    const fstArticles = await crawlFreesupertips(dateStr, scheduleData.schedules);
+    console.log(`✓ freesupertips: ${fstArticles.length}건 수집`);
+
+    const tsArticles = await crawlTipstrike(dateStr, scheduleData.schedules);
+    console.log(`✓ tipstrike: ${tsArticles.length}건 수집\n`);
+
+    newArticles.push(...fstArticles, ...tsArticles);
+  }
+
+  // 기존 데이터와 병합 (크롤링한 날짜만 교체, 나머지는 전부 유지)
   const keptArticles = existingData.articles.filter(
-    (a) => a.date !== dateStr && a.date >= cutoffDate
+    (a) => !dates.includes(a.date)
   );
 
   const result: AnalysisData = {

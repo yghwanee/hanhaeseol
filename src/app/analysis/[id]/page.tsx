@@ -4,6 +4,28 @@ import fs from "fs";
 import path from "path";
 import { AnalysisData } from "@/types/analysis";
 
+const LEAGUE_FLAG: Record<string, string> = {
+  "프리미어리그": "GB",
+  "EFL 챔피언십": "GB",
+  "라리가": "ES",
+  "세리에A": "IT",
+  "분데스리가": "DE",
+  "리그1": "FR",
+  "리그 1": "FR",
+  "챔피언스리그": "EU",
+  "유로파리그": "EU",
+  "컨퍼런스리그": "EU",
+  "K리그": "KR",
+  "K리그1": "KR",
+  "K리그2": "KR",
+};
+
+function FlagIcon({ code }: { code: string }) {
+  const src = `https://flagcdn.com/16x12/${code.toLowerCase()}.png`;
+  // eslint-disable-next-line @next/next/no-img-element
+  return <img src={src} alt={code} width={16} height={12} className="inline-block" />;
+}
+
 function loadAnalysisData(): AnalysisData {
   try {
     const filePath = path.join(process.cwd(), "src/data/analysis.json");
@@ -39,7 +61,7 @@ export default async function AnalysisDetailPage({ params }: { params: Promise<{
   return (
     <main className="min-h-screen text-gray-100">
       <div className="max-w-2xl mx-auto px-3 sm:px-4 py-8 sm:py-12">
-        <Link href="/analysis" className="text-blue-400 hover:underline text-sm mb-6 inline-block">
+        <Link href="/analysis" className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 mb-6 rounded-lg border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors">
           ← 분석글 목록
         </Link>
 
@@ -47,7 +69,7 @@ export default async function AnalysisDetailPage({ params }: { params: Promise<{
         <div className="mb-6">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xs px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 font-medium">
-              {article.league}
+              {LEAGUE_FLAG[article.league] && <span className="mr-1.5 align-middle"><FlagIcon code={LEAGUE_FLAG[article.league]} /></span>}{article.league}
             </span>
             <span className="text-xs text-zinc-600">{dateLabel}</span>
           </div>
