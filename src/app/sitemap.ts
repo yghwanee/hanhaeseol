@@ -9,5 +9,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 1,
     },
+    {
+      url: "https://xn--989ar05c.kro.kr/about",
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+    {
+      url: "https://xn--989ar05c.kro.kr/privacy",
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
+    {
+      url: "https://xn--989ar05c.kro.kr/terms",
+      changeFrequency: "yearly",
+      priority: 0.3,
+    },
   ];
 }
