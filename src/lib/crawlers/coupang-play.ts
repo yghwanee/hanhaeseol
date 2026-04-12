@@ -210,8 +210,9 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
 
     if (itemDate !== date) continue;
 
-    const hh = String(kst.toLocaleString("ko-KR", { timeZone: "Asia/Seoul", hour: "numeric", hour12: false }).replace(/[^0-9]/g, "")).padStart(2, "0");
-    const min = String(kst.toLocaleString("ko-KR", { timeZone: "Asia/Seoul", minute: "numeric" }).replace(/[^0-9]/g, "")).padStart(2, "0");
+    const hour = kst.toLocaleString("en-US", { timeZone: "Asia/Seoul", hour: "numeric", hour12: false }).replace(/[^0-9]/g, "");
+    const hh = String(Number(hour) % 24).padStart(2, "0");
+    const min = String(kst.toLocaleString("en-US", { timeZone: "Asia/Seoul", minute: "numeric" }).replace(/[^0-9]/g, "")).padStart(2, "0");
     validEvents.push({ event, time: `${hh}:${min}` });
   }
 
