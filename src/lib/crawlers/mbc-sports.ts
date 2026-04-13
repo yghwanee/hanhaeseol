@@ -37,6 +37,7 @@ export async function crawlMbcSports(date: string): Promise<Schedule[]> {
     // 생방송만 수집 (녹화 본방송 제외)
     if (item.liveYn !== "Y") continue;
     // pgmTitle: "1차전,KB스타즈 : 우리은행" → "KB스타즈 vs 우리은행"
+    if (item.realYmd !== dateCompact) continue;
     const subtitle = (item.pgmTitle ?? "")
       .replace(/^\d+차전[,\s]*/g, "")
       .replace(/\s*:\s*/g, " vs ");

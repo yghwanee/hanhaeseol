@@ -29,6 +29,7 @@ async function fetchChannel(channel: "SPOTV" | "SPOTV2", date: string): Promise<
   for (const item of items) {
     // LIVE만 (본방송은 녹화중계 포함이라 제외)
     if (item.kind !== "LIVE") continue;
+    if (item.sch_date !== date) continue;
     const title = decodeHtmlEntities(item.title);
     if (!isActualMatch(title)) continue;
 

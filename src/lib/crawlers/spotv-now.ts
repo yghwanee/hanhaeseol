@@ -54,7 +54,8 @@ export async function crawlSpotvNow(date: string): Promise<Schedule[]> {
     if (!sport) continue;
 
     for (const live of game.lives) {
-      const time = game.beginDate.split(" ")[1]; // "HH:mm"
+      const [actualDate, time] = game.beginDate.split(" "); // "YYYY-MM-DD", "HH:mm"
+      if (actualDate !== date) continue;
       schedules.push({
         id: `spotvnow-${date}-${live.id}`,
         date,
