@@ -346,10 +346,26 @@ export function findKoreanTeamName(englishName: string): string | null {
   return null;
 }
 
+// 한국어 별칭 → TEAM_NAME_MAP의 한국어명 (플랫폼마다 팀명이 다를 때)
+const KOREAN_ALIAS: Record<string, string> = {
+  "아틀레티코 마드리드": "AT.마드리드",
+  "아틀레티코": "AT.마드리드",
+  "FC 바르셀로나": "바르셀로나",
+};
+
 // 한국어 팀명으로 영어 팀명 찾기
 export function findEnglishTeamName(koreanName: string): string | null {
+  const normalized = KOREAN_ALIAS[koreanName] || koreanName;
+
+  // 정확한 매칭
   for (const [en, ko] of Object.entries(TEAM_NAME_MAP)) {
-    if (ko === koreanName) return en;
+    if (ko === normalized) return en;
   }
+
+  // 부분 매칭 (한국어 팀명이 포함되거나 포함하는 경우)
+  for (const [en, ko] of Object.entries(TEAM_NAME_MAP)) {
+    if (normalized.includes(ko) || ko.includes(normalized)) return en;
+  }
+
   return null;
 }
