@@ -79,9 +79,11 @@ export default async function AnalysisDetailPage({ params }: { params: Promise<{
           <h1 className="text-xl sm:text-2xl font-bold">
             {article.homeTeam} vs {article.awayTeam}
           </h1>
-          <p className="text-xs text-zinc-600 mt-1">
-            {article.homeTeamEn} vs {article.awayTeamEn}
-          </p>
+          {article.homeTeamEn && article.awayTeamEn && (
+            <p className="text-xs text-zinc-600 mt-1">
+              {article.homeTeamEn} vs {article.awayTeamEn}
+            </p>
+          )}
         </div>
 
         {/* 예측 */}
@@ -109,7 +111,7 @@ export default async function AnalysisDetailPage({ params }: { params: Promise<{
             rel="noopener noreferrer"
             className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
           >
-            원문 보기 (freesupertips.com) →
+            원문 보기 ({new URL(article.sourceUrl).hostname}) →
           </a>
           <p className="text-[10px] text-zinc-600">
             {new Date(article.crawledAt).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })}

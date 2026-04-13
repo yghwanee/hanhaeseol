@@ -6,6 +6,7 @@ import { crawlSportytrader } from "../lib/crawlers/sportytrader";
 import { crawlFootballpredictions } from "../lib/crawlers/footballpredictions";
 import { crawlFootballpredictionsNet } from "../lib/crawlers/footballpredictions-net";
 import { crawlDimers } from "../lib/crawlers/dimers";
+import { crawl7M } from "../lib/crawlers/7m";
 import { AnalysisData, AnalysisArticle } from "../types/analysis";
 import { ScheduleData } from "../types/schedule";
 import { translateText } from "../lib/translate";
@@ -64,13 +65,17 @@ async function main() {
     const dmArticles = await crawlDimers(dateStr, scheduleData.schedules);
     console.log(`✓ dimers: ${dmArticles.length}건 수집`);
 
-    newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles);
+    const smArticles = await crawl7M(dateStr, scheduleData.schedules);
+    console.log(`✓ 7M: ${smArticles.length}건 수집\n`);
+
+    newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles, ...smArticles);
   }
 
-  // 번역 (content, prediction)
-  console.log(`\n=== 번역 시작 (${newArticles.length}건) ===\n`);
-  for (let i = 0; i < newArticles.length; i++) {
-    const article = newArticles[i] as AnalysisArticle;
+  // 번역 (content, prediction) - 7M은 이미 한국어이므로 제외
+  const toTranslate = newArticles.filter((a) => !a.id.includes("-7m-"));
+  console.log(`\n=== 번역 시작 (${toTranslate.length}건, 7M ${newArticles.length - toTranslate.length}건 제외) ===\n`);
+  for (let i = 0; i < toTranslate.length; i++) {
+    const article = toTranslate[i] as AnalysisArticle;
     try {
       if (article.content) {
         article.content = await translateText(article.content);
@@ -78,12 +83,12 @@ async function main() {
       if (article.prediction) {
         article.prediction = await translateText(article.prediction);
       }
-      console.log(`  ✓ [${i + 1}/${newArticles.length}] ${article.homeTeam} vs ${article.awayTeam}`);
+      console.log(`  ✓ [${i + 1}/${toTranslate.length}] ${article.homeTeam} vs ${article.awayTeam}`);
     } catch (e) {
-      console.error(`  ✗ [${i + 1}/${newArticles.length}] ${article.homeTeam} vs ${article.awayTeam}: ${e}`);
+      console.error(`  ✗ [${i + 1}/${toTranslate.length}] ${article.homeTeam} vs ${article.awayTeam}: ${e}`);
     }
     // 요청 간 딜레이
-    if (i < newArticles.length - 1) {
+    if (i < toTranslate.length - 1) {
       await new Promise((r) => setTimeout(r, 1000));
     }
   }
