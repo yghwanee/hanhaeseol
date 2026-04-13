@@ -38,13 +38,13 @@ export const metadata: Metadata = {
     title: "한해설 - 스포츠 한국어중계 편성표",
     description:
       "축구, 야구, 농구, 배구 한국어중계 편성표. 10개 플랫폼의 한국어 해설 중계를 한눈에.",
-    url: "https://중계.kro.kr",
+    url: "https://haeseol.com",
     siteName: "한해설",
     locale: "ko_KR",
     type: "website",
     images: [
       {
-        url: "https://중계.kro.kr/logo.png",
+        url: "https://haeseol.com/logo.png",
         alt: "한해설 로고",
       },
     ],
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
       "축구, 야구, 농구, 배구 한국어중계 편성표. 10개 플랫폼의 한국어 해설 중계를 한눈에.",
   },
   alternates: {
-    canonical: "https://중계.kro.kr",
+    canonical: "https://haeseol.com",
   },
   robots: {
     index: true,
@@ -103,7 +103,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
                   "@type": "WebSite",
                   "name": "한해설",
                   "alternateName": "한국어 해설 편성표",
-                  "url": "https://중계.kro.kr",
+                  "url": "https://haeseol.com",
                   "description": "축구, 야구, 농구, 배구 한국어중계 편성표. 10개 플랫폼의 한국어 해설 중계를 한눈에 확인하세요.",
                   "inLanguage": "ko",
                   "datePublished": "2026-02-01T00:00:00+09:00",
@@ -112,8 +112,8 @@ gtag('config', 'G-F1MX6S0SGW');`}
                 {
                   "@type": "Organization",
                   "name": "한해설",
-                  "url": "https://중계.kro.kr",
-                  "logo": "https://중계.kro.kr/icon.png",
+                  "url": "https://haeseol.com",
+                  "logo": "https://haeseol.com/icon.png",
                 },
               ],
             }),

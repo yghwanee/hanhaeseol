@@ -4,23 +4,29 @@ import scheduleData from "@/data/schedule.json";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     {
-      url: "https://xn--989ar05c.kro.kr",
+      url: "https://haeseol.com",
       lastModified: new Date(scheduleData.lastUpdated),
       changeFrequency: "daily",
       priority: 1,
     },
     {
-      url: "https://xn--989ar05c.kro.kr/about",
+      url: "https://haeseol.com/analysis",
+      lastModified: new Date(scheduleData.lastUpdated),
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: "https://haeseol.com/about",
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
-      url: "https://xn--989ar05c.kro.kr/privacy",
+      url: "https://haeseol.com/privacy",
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
-      url: "https://xn--989ar05c.kro.kr/terms",
+      url: "https://haeseol.com/terms",
       changeFrequency: "yearly",
       priority: 0.3,
     },
