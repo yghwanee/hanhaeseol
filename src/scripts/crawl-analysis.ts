@@ -7,8 +7,9 @@ import { crawlFootballpredictions } from "../lib/crawlers/footballpredictions";
 import { crawlFootballpredictionsNet } from "../lib/crawlers/footballpredictions-net";
 import { crawlDimers } from "../lib/crawlers/dimers";
 import { crawlApwin } from "../lib/crawlers/apwin";
-import { AnalysisData } from "../types/analysis";
+import { AnalysisData, AnalysisArticle } from "../types/analysis";
 import { ScheduleData } from "../types/schedule";
+import { translateText } from "../lib/translate";
 
 async function main() {
   const today = new Date();
@@ -69,6 +70,28 @@ async function main() {
 
     newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles, ...awArticles);
   }
+
+  // 번역 (content, prediction)
+  console.log(`\n=== 번역 시작 (${newArticles.length}건) ===\n`);
+  for (let i = 0; i < newArticles.length; i++) {
+    const article = newArticles[i] as AnalysisArticle;
+    try {
+      if (article.content) {
+        article.content = await translateText(article.content);
+      }
+      if (article.prediction) {
+        article.prediction = await translateText(article.prediction);
+      }
+      console.log(`  ✓ [${i + 1}/${newArticles.length}] ${article.homeTeam} vs ${article.awayTeam}`);
+    } catch (e) {
+      console.error(`  ✗ [${i + 1}/${newArticles.length}] ${article.homeTeam} vs ${article.awayTeam}: ${e}`);
+    }
+    // 요청 간 딜레이
+    if (i < newArticles.length - 1) {
+      await new Promise((r) => setTimeout(r, 1000));
+    }
+  }
+  console.log();
 
   // 기존 데이터와 병합 (크롤링한 날짜만 교체, 나머지는 전부 유지)
   const keptArticles = existingData.articles.filter(
