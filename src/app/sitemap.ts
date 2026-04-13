@@ -1,32 +1,57 @@
 import { MetadataRoute } from "next";
 import scheduleData from "@/data/schedule.json";
 
+const BASE = "https://haeseol.com";
+
+function getNext7Dates(): string[] {
+  const dates: string[] = [];
+  const today = new Date();
+  for (let i = 0; i < 7; i++) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + i);
+    const yyyy = d.getFullYear();
+    const mm = String(d.getMonth() + 1).padStart(2, "0");
+    const dd = String(d.getDate()).padStart(2, "0");
+    dates.push(`${yyyy}-${mm}-${dd}`);
+  }
+  return dates;
+}
+
 export default function sitemap(): MetadataRoute.Sitemap {
+  const lastModified = new Date(scheduleData.lastUpdated);
+  const dateUrls = getNext7Dates().map((d) => ({
+    url: `${BASE}/?date=${d}`,
+    lastModified,
+    changeFrequency: "daily" as const,
+    priority: 0.9,
+  }));
+
   return [
     {
-      url: "https://haeseol.com",
-      lastModified: new Date(scheduleData.lastUpdated),
-      changeFrequency: "daily",
+      url: BASE,
+      lastModified,
+      changeFrequency: "hourly",
       priority: 1,
     },
+    ...dateUrls,
     {
-      url: "https://haeseol.com/analysis",
-      lastModified: new Date(scheduleData.lastUpdated),
+      url: `${BASE}/analysis`,
+      lastModified,
       changeFrequency: "daily",
       priority: 0.8,
     },
     {
-      url: "https://haeseol.com/about",
+      url: `${BASE}/about`,
       changeFrequency: "monthly",
       priority: 0.5,
     },
     {
-      url: "https://haeseol.com/privacy",
+      url: `${BASE}/privacy`,
       changeFrequency: "yearly",
       priority: 0.3,
     },
     {
-      url: "https://haeseol.com/terms",
+      url: `${BASE}/terms`,
       changeFrequency: "yearly",
       priority: 0.3,
     },

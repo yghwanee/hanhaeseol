@@ -17,6 +17,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://haeseol.com"),
   title: "한해설 - 스포츠 한국어중계 편성표 | 한국어 해설 중계 일정",
   description:
     "축구, 야구, 농구, 배구 한국어중계 편성표. 10개 플랫폼의 한국어 해설 중계 일정을 한눈에 확인하세요.",
@@ -93,6 +94,8 @@ gtag('config', 'G-F1MX6S0SGW');`}
         <meta name="google-site-verification" content="qe2Z2hjBEFJqqq_nEcLigG8aEiQdotP4_6jouBXE5aE" />
         <meta name="naver-site-verification" content="811aafee6d2d5ad9a70897014beead430df91ade" />
         <meta name="google-adsense-account" content="ca-pub-3233121387897003" />
+        {/* TODO: 다음(Daum) 검색등록 후 verification 값 입력 */}
+        {/* <meta name="daum-site-verification" content="" /> */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

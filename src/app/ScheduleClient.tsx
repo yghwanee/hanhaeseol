@@ -397,7 +397,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
       <div className="sm:hidden flex justify-center mb-4">
         {showAds ? (
           <a href="https://link.coupang.com/a/ekC6YT" target="_blank" referrerPolicy="unsafe-url" className="w-full">
-            <img src="https://ads-partners.coupang.com/banners/979237?subId=&traceId=V0-301-371ae01f4226dec2-I979237&w=320&h=50" alt="" className="w-full h-auto" loading="lazy" />
+            <img src="https://ads-partners.coupang.com/banners/979237?subId=&traceId=V0-301-371ae01f4226dec2-I979237&w=320&h=50" alt="쿠팡플레이 스포츠 중계 배너" className="w-full h-auto" loading="lazy" />
           </a>
         ) : (
           <AdSkeleton className="w-full h-[50px]" />
