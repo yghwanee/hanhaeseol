@@ -102,6 +102,7 @@ function cleanContent(text: string): string {
   for (const line of lines) {
     if (cutoffPhrases.some((p) => line.includes(p))) break;
     if (line.includes("Select Fixture") || line.includes("설비 선택")) continue;
+    if (/^Published on\s/i.test(line) || /^게시일[:\s]/i.test(line)) continue;
     cleaned.push(line);
   }
 

@@ -23,10 +23,7 @@ async function fetchArticle(url: string): Promise<{ prediction: string; content:
   // 실제 분석 페이지인지 확인 (팀명이 포함된 콘텐츠가 있어야 함)
   if (!html.includes("prediction") && !html.includes("Prediction")) return null;
 
-  // 예측 추출
-  let prediction = "";
-  const predMatch = html.match(/(?:prediction|tip|pick)[^<]*<[^>]*>([^<]{5,})/i);
-  if (predMatch) prediction = predMatch[1].trim();
+  const prediction = "";
 
   // 본문 추출: <p> 태그에서 의미 있는 텍스트
   const paragraphs: string[] = [];
@@ -72,12 +69,24 @@ function cleanContent(text: string): string {
     "You must be 18",
     "Bet responsibly",
     "cookie",
+    "Cookie",
     "Terms and Conditions",
     "Privacy Policy",
+    "cross-site request forgery",
+    "Google Analytics",
+    "navigation session",
+    "Here are the best betting tips",
     "무료 주간",
     "도박에 대한",
     "18세 이상",
     "책임감 있게",
+    "쿠키 정책",
+    "사용자 탐색 세션",
+    "교차 사이트 요청 위조",
+    "세션 상태를 유지",
+    "요청 속도를 조절",
+    "시간대를 저장",
+    "최고의 베팅 팁과 예측",
   ];
 
   const lines = text.split("\n\n");

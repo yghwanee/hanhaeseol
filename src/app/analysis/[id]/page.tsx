@@ -94,7 +94,6 @@ export default async function AnalysisDetailPage({ params }: { params: Promise<{
 
         {/* 분석 본문 */}
         <div className="space-y-4">
-          <h2 className="text-xs font-semibold text-zinc-400">분석</h2>
           {article.content.split("\n\n").map((paragraph, i) => (
             <p key={i} className="text-sm sm:text-[15px] leading-relaxed text-zinc-300">
               {paragraph}
