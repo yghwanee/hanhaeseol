@@ -100,11 +100,24 @@ function cleanContent(text: string): string {
   const cutoffPhrases = [
     "Sign Up", "GambleAware", "responsible gambling", "You must be 18",
     "Bet responsibly", "cookie", "Terms and Conditions",
+    // 베팅 광고
+    "Bet365", "bet365", "free bet", "promo code", "STYVIP", "welcome package",
+    "betting credit", "opening an account", "promotional code",
+    // 번역된 베팅 광고
+    "무료 베팅", "프로모션 코드", "계정을 개설", "환영 패키지", "베팅 크레딧",
+    "행운을 시험", "적격 베팅",
+  ];
+  const skipPhrases = [
+    // 경기 정보 반복 (영어)
+    "will be played on", "will be broadcast", "takes place at", "kicks off at",
+    // 경기 정보 반복 (번역)
+    "에서 열린다", "에서 열립니다", "중계된다", "중계됩니다", "에 열린다", "에 열립니다",
   ];
   const lines = text.split("\n\n");
   const cleaned: string[] = [];
   for (const line of lines) {
     if (cutoffPhrases.some((p) => line.includes(p))) break;
+    if (skipPhrases.some((p) => line.includes(p))) continue;
     cleaned.push(line);
   }
   return cleaned.join("\n\n").trim();

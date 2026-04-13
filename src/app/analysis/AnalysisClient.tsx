@@ -154,7 +154,7 @@ export default function AnalysisClient({ articles, lastUpdated }: { articles: An
             </p>
             <div className="flex flex-wrap gap-1.5">
               {group.articles.map((article) => {
-                const source = article.id.includes("tipstrike") ? "TipStrike" : article.id.includes("sporty") ? "SportyTrader" : article.id.includes("-fpnet-") ? "FPredictions.net" : article.id.includes("dimers") ? "Dimers" : article.id.includes("apwin") ? "APWin" : article.id.includes("-fp-") ? "FPredictions" : "FreeSuperTips";
+                const source = article.id.includes("tipstrike") ? "TipStrike" : article.id.includes("sporty") ? "SportyTrader" : article.id.includes("-fpnet-") ? "FPredictions.net" : article.id.includes("dimers") ? "Dimers" : article.id.includes("-fp-") ? "FPredictions" : "FreeSuperTips";
                 return (
                   <Link
                     key={article.id}

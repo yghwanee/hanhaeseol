@@ -61,16 +61,7 @@ async function fetchArticle(url: string): Promise<{ prediction: string; content:
 
   if (paragraphs.length === 0) return null;
 
-  // 예측 추출: 마지막 분석 문단에서 "we predict" 찾기
-  let prediction = "";
-  for (const p of paragraphs) {
-    if (p.includes("predict") || p.includes("tempted to place")) {
-      prediction = p;
-      break;
-    }
-  }
-
-  return { prediction, content: paragraphs.join("\n\n") };
+  return { prediction: "", content: paragraphs.join("\n\n") };
 }
 
 export async function crawlFootballpredictions(

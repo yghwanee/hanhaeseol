@@ -6,7 +6,6 @@ import { crawlSportytrader } from "../lib/crawlers/sportytrader";
 import { crawlFootballpredictions } from "../lib/crawlers/footballpredictions";
 import { crawlFootballpredictionsNet } from "../lib/crawlers/footballpredictions-net";
 import { crawlDimers } from "../lib/crawlers/dimers";
-import { crawlApwin } from "../lib/crawlers/apwin";
 import { AnalysisData, AnalysisArticle } from "../types/analysis";
 import { ScheduleData } from "../types/schedule";
 import { translateText } from "../lib/translate";
@@ -65,10 +64,7 @@ async function main() {
     const dmArticles = await crawlDimers(dateStr, scheduleData.schedules);
     console.log(`✓ dimers: ${dmArticles.length}건 수집`);
 
-    const awArticles = await crawlApwin(dateStr, scheduleData.schedules);
-    console.log(`✓ apwin: ${awArticles.length}건 수집\n`);
-
-    newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles, ...awArticles);
+    newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles);
   }
 
   // 번역 (content, prediction)
