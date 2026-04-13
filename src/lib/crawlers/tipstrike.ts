@@ -25,7 +25,18 @@ async function fetchArticle(url: string): Promise<{ prediction: string; content:
 
   const prediction = "";
 
-  // 본문 추출: <p> 태그에서 의미 있는 텍스트
+  // 본문 추출: <p> 태그에서 의미 있는 텍스트 (쿠키/광고 문구 제외)
+  const skipPhrases = [
+    "cookie", "Cookie", "cookies", "Cookies",
+    "bet now", "Sign up", "Bet responsibly", "18+",
+    "XSRF", "Google Analytics", "browsing session",
+    "cross-site request forgery", "throttle the request rate",
+    "consent preferences", "time zone so we can",
+    "user experience", "improve the service",
+    "top betting tips and predictions for the match",
+    "See below all the main information",
+  ];
+
   const paragraphs: string[] = [];
   const pPattern = new RegExp("<p[^>]*>(.*?)</p>", "gs");
   let pMatch;
@@ -37,16 +48,12 @@ async function fetchArticle(url: string): Promise<{ prediction: string; content:
       .replace(/&#8217;/g, "'")
       .replace(/&#8216;/g, "'")
       .replace(/&#8211;/g, "–")
+      .replace(/&#039;/g, "'")
       .replace(/&#\d+;/g, "")
       .trim();
     if (
-      text.length > 30 &&
-      !text.includes("bet now") &&
-      !text.includes("Sign up") &&
-      !text.includes("cookie") &&
-      !text.includes("odds") &&
-      !text.includes("Bet responsibly") &&
-      !text.includes("18+")
+      text.length > 50 &&
+      !skipPhrases.some((p) => text.includes(p))
     ) {
       paragraphs.push(text);
     }
