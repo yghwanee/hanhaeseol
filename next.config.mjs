@@ -20,19 +20,13 @@ const nextConfig = {
     return [
       {
         source: "/:path*",
-        has: [{ type: "host", value: "xn--cg4b1bx49g.kro.kr" }],
+        has: [{ type: "host", value: "xn--989ar05c.kro.kr" }],
         destination: "https://haeseol.com/:path*",
         permanent: true,
       },
       {
         source: "/:path*",
         has: [{ type: "host", value: "중계.kro.kr" }],
-        destination: "https://haeseol.com/:path*",
-        permanent: true,
-      },
-      {
-        source: "/:path*",
-        has: [{ type: "host", value: "www.haeseol.com" }],
         destination: "https://haeseol.com/:path*",
         permanent: true,
       },
