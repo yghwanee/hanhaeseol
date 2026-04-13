@@ -41,7 +41,10 @@ export async function crawlTving(date: string): Promise<Schedule[]> {
         if (game.status === "CANCEL") continue;
 
         const dt = String(game.dateTime);
+        const actualDate = `${dt.substring(0, 4)}-${dt.substring(4, 6)}-${dt.substring(6, 8)}`;
         const time = `${dt.substring(8, 10)}:${dt.substring(10, 12)}`;
+
+        if (actualDate !== date) continue;
 
         schedules.push({
           id: `tving-${date}-${time}-${league}-${game.away.name}-${game.home.name}`,
