@@ -7,6 +7,7 @@ import { crawlFootballpredictions } from "../lib/crawlers/footballpredictions";
 import { crawlFootballpredictionsNet } from "../lib/crawlers/footballpredictions-net";
 import { crawlDimers } from "../lib/crawlers/dimers";
 import { crawl7M } from "../lib/crawlers/7m";
+import { crawlLiveman } from "../lib/crawlers/liveman";
 import { AnalysisData, AnalysisArticle } from "../types/analysis";
 import { ScheduleData } from "../types/schedule";
 import { translateText } from "../lib/translate";
@@ -68,11 +69,14 @@ async function main() {
     const smArticles = await crawl7M(dateStr, scheduleData.schedules);
     console.log(`✓ 7M: ${smArticles.length}건 수집\n`);
 
-    newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles, ...smArticles);
+    const lmArticles = await crawlLiveman(dateStr, scheduleData.schedules);
+    console.log(`✓ liveman: ${lmArticles.length}건 수집\n`);
+
+    newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles, ...smArticles, ...lmArticles);
   }
 
   // 번역 (content, prediction) - 7M은 이미 한국어이므로 제외
-  const toTranslate = newArticles.filter((a) => !a.id.includes("-7m-"));
+  const toTranslate = newArticles.filter((a) => !a.id.includes("-7m-") && !a.id.includes("-liveman-"));
   console.log(`\n=== 번역 시작 (${toTranslate.length}건, 7M ${newArticles.length - toTranslate.length}건 제외) ===\n`);
   for (let i = 0; i < toTranslate.length; i++) {
     const article = toTranslate[i] as AnalysisArticle;
