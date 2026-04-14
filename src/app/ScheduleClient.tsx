@@ -241,7 +241,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
       {/* PC 왼쪽 광고 */}
       <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
         {showAds ? (
-          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979121&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
+          <iframe title="쿠팡 파트너스 광고 (좌측 사이드)" src="https://ads-partners.coupang.com/widgets.html?id=979121&template=carousel&trackingCode=AF2259406&subId=sidebar-left&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
         ) : (
           <AdSkeleton className="w-[160px] h-[600px]" />
         )}
@@ -250,7 +250,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
       {/* PC 오른쪽 광고 */}
       <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
         {showAds ? (
-          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979133&template=carousel&trackingCode=AF2259406&subId=&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
+          <iframe title="쿠팡 파트너스 광고 (우측 사이드)" src="https://ads-partners.coupang.com/widgets.html?id=979133&template=carousel&trackingCode=AF2259406&subId=sidebar-right&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
         ) : (
           <AdSkeleton className="w-[160px] h-[600px]" />
         )}
@@ -396,8 +396,8 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
       {/* 모바일 광고 */}
       <div className="sm:hidden flex justify-center mb-4">
         {showAds ? (
-          <a href="https://link.coupang.com/a/ekC6YT" target="_blank" referrerPolicy="unsafe-url" className="w-full">
-            <img src="https://ads-partners.coupang.com/banners/979237?subId=&traceId=V0-301-371ae01f4226dec2-I979237&w=320&h=50" alt="쿠팡플레이 스포츠 중계 배너" className="w-full h-auto" loading="lazy" />
+          <a href="https://link.coupang.com/a/ekC6YT" target="_blank" rel="nofollow sponsored noopener" referrerPolicy="unsafe-url" className="w-full">
+            <img src="https://ads-partners.coupang.com/banners/979237?subId=mobile-top&traceId=V0-301-371ae01f4226dec2-I979237&w=320&h=50" alt="쿠팡플레이 스포츠 중계 배너" className="w-full h-auto" loading="lazy" />
           </a>
         ) : (
           <AdSkeleton className="w-full h-[50px]" />
@@ -407,7 +407,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
       <div className="hidden sm:flex justify-center mb-6">
         <div className="rounded-xl overflow-hidden w-full max-w-2xl">
           {showAds ? (
-            <iframe src="https://ads-partners.coupang.com/widgets.html?id=979114&template=banner&trackingCode=AF2259406&subId=&width=728&height=90" className="w-full h-[90px] border-0 rounded-xl" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
+            <iframe title="쿠팡 파트너스 광고 (PC 상단)" src="https://ads-partners.coupang.com/widgets.html?id=979114&template=banner&trackingCode=AF2259406&subId=pc-top&width=728&height=90" className="w-full h-[90px] border-0 rounded-xl" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
           ) : (
             <AdSkeleton className="w-full h-[90px] rounded-xl" />
           )}
@@ -531,7 +531,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
                     <div className="sm:hidden w-full">
                       <div className="rounded-lg overflow-hidden">
                         {showAds ? (
-                          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979232&template=carousel&trackingCode=AF2259406&subId=&width=320&height=100&tsource=" className="w-full h-[100px] border-0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
+                          <iframe title="쿠팡 파트너스 광고 (모바일 인라인)" src="https://ads-partners.coupang.com/widgets.html?id=979232&template=carousel&trackingCode=AF2259406&subId=mobile-inline&width=320&height=100&tsource=" className="w-full h-[100px] border-0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
                         ) : (
                           <AdSkeleton className="w-full h-[100px]" />
                         )}
@@ -540,7 +540,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
                     <div className="hidden sm:flex justify-center">
                       <div className="rounded-lg overflow-hidden w-full max-w-2xl">
                         {showAds ? (
-                          <iframe src="https://ads-partners.coupang.com/widgets.html?id=979239&template=carousel&trackingCode=AF2259406&subId=&width=680&height=140&tsource=" width="680" height="140" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" className="w-full h-[140px] border-0" />
+                          <iframe title="쿠팡 파트너스 광고 (PC 인라인)" src="https://ads-partners.coupang.com/widgets.html?id=979239&template=carousel&trackingCode=AF2259406&subId=pc-inline&width=680&height=140&tsource=" width="680" height="140" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" className="w-full h-[140px] border-0" />
                         ) : (
                           <AdSkeleton className="w-full h-[140px]" />
                         )}
