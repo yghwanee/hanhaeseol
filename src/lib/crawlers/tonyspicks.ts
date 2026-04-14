@@ -1,23 +1,7 @@
 import { AnalysisArticle } from "@/types/analysis";
 import { Schedule } from "@/types/schedule";
 import { findKoreanTeamName } from "@/data/team-names";
-import { execSync } from "child_process";
-
-const UA =
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
-
-function curlFetch(url: string): string | null {
-  try {
-    const html = execSync(`curl -sL -A "${UA}" --max-time 20 "${url}"`, {
-      timeout: 25000,
-      maxBuffer: 10 * 1024 * 1024,
-    }).toString();
-    if (html.length < 1000) return null;
-    return html;
-  } catch {
-    return null;
-  }
-}
+import { curlFetch, toSlug, stripTags, pLimit } from "./_utils";
 
 type PostType = "baseballBasketball" | "soccer";
 
@@ -84,21 +68,6 @@ function fetchPostUrls(t: LeagueTarget, targetUsDate: string): string[] {
     if (slugToUsDate(url) === targetUsDate) set.add(url);
   }
   return [...set];
-}
-
-function stripTags(s: string): string {
-  return s
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&#x27;|&apos;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/&#8217;/g, "'")
-    .replace(/&#8216;/g, "'")
-    .replace(/&#8220;|&#8221;/g, '"')
-    .replace(/&#\d+;/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
 }
 
 interface GameSection {
@@ -205,13 +174,6 @@ function parseSoccer(html: string): GameSection[] {
   return games;
 }
 
-function toSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
-}
-
 export async function crawlTonyspicks(
   date: string,
   schedules: Schedule[]
@@ -232,11 +194,17 @@ export async function crawlTonyspicks(
     const urls = fetchPostUrls(t, usDate);
     console.log(`  tonyspicks(${t.sport}): ${urls.length}개 포스트 (us=${usDate})`);
 
-    for (const url of urls) {
+    const fetched = await pLimit(urls, 3, async (url) => {
       const html = curlFetch(url);
-      if (!html) continue;
+      if (!html) return null;
       const games =
         t.postType === "soccer" ? parseSoccer(html) : parseBaseballBasketball(html);
+      return { url, games };
+    });
+
+    for (const entry of fetched) {
+      if (!entry) continue;
+      const { url, games } = entry;
 
       for (const g of games) {
         const awayEn = g.aIsAway ? g.teamA : g.teamB;

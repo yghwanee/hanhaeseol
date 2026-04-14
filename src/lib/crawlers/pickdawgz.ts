@@ -1,23 +1,7 @@
 import { AnalysisArticle } from "@/types/analysis";
 import { Schedule } from "@/types/schedule";
 import { findKoreanTeamName } from "@/data/team-names";
-import { execSync } from "child_process";
-
-const UA =
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
-
-function curlFetch(url: string): string | null {
-  try {
-    const html = execSync(`curl -sL -A "${UA}" --max-time 20 "${url}"`, {
-      timeout: 25000,
-      maxBuffer: 10 * 1024 * 1024,
-    }).toString();
-    if (html.length < 1000) return null;
-    return html;
-  } catch {
-    return null;
-  }
-}
+import { curlFetch, toSlug, stripTags, pLimit } from "./_utils";
 
 interface LeagueTarget {
   listingUrl: string;
@@ -46,21 +30,6 @@ interface ParsedDetail {
   timeKst: string;
   prediction: string;
   content: string;
-}
-
-function stripTags(s: string): string {
-  return s
-    .replace(/<[^>]+>/g, " ")
-    .replace(/&nbsp;/g, " ")
-    .replace(/&amp;/g, "&")
-    .replace(/&#x27;|&apos;/g, "'")
-    .replace(/&quot;/g, '"')
-    .replace(/&#8217;/g, "'")
-    .replace(/&#8216;/g, "'")
-    .replace(/&#8220;|&#8221;/g, '"')
-    .replace(/&#\d+;/g, "")
-    .replace(/\s+/g, " ")
-    .trim();
 }
 
 function parseDetail(html: string): ParsedDetail | null {
@@ -125,20 +94,11 @@ function parseDetail(html: string): ParsedDetail | null {
   return { homeTeamEn, awayTeamEn, dateKst, timeKst, prediction, content };
 }
 
-function toSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
-}
-
 export async function crawlPickdawgz(
   date: string,
   schedules: Schedule[]
 ): Promise<AnalysisArticle[]> {
-  const koreanMatches = schedules.filter(
-    (s) => s.date === date 
-  );
+  const koreanMatches = schedules.filter((s) => s.date === date);
   if (koreanMatches.length === 0) return [];
 
   const articles: AnalysisArticle[] = [];
@@ -147,15 +107,20 @@ export async function crawlPickdawgz(
     const urls = fetchDetailUrls(t.listingUrl);
     console.log(`  pickdawgz(${t.sport}): ${urls.length}개 링크`);
 
-    for (const url of urls) {
+    const parsed = await pLimit(urls, 5, async (url) => {
       const html = curlFetch(url);
-      if (!html) continue;
-      const parsed = parseDetail(html);
-      if (!parsed) continue;
-      if (parsed.dateKst !== date) continue;
+      if (!html) return null;
+      const p = parseDetail(html);
+      return p ? { url, p } : null;
+    });
 
-      const homeKo = findKoreanTeamName(parsed.homeTeamEn);
-      const awayKo = findKoreanTeamName(parsed.awayTeamEn);
+    for (const entry of parsed) {
+      if (!entry) continue;
+      const { url, p } = entry;
+      if (p.dateKst !== date) continue;
+
+      const homeKo = findKoreanTeamName(p.homeTeamEn);
+      const awayKo = findKoreanTeamName(p.awayTeamEn);
       if (!homeKo || !awayKo) continue;
 
       const matched = koreanMatches.find(
@@ -167,22 +132,22 @@ export async function crawlPickdawgz(
       if (!matched) continue;
 
       console.log(
-        `  ✓ ${parsed.awayTeamEn} at ${parsed.homeTeamEn} → ${awayKo} vs ${homeKo}`
+        `  ✓ ${p.awayTeamEn} at ${p.homeTeamEn} → ${awayKo} vs ${homeKo}`
       );
 
       articles.push({
-        id: `${date}-pickdawgz-${toSlug(parsed.awayTeamEn)}-vs-${toSlug(parsed.homeTeamEn)}`,
+        id: `${date}-pickdawgz-${toSlug(p.awayTeamEn)}-vs-${toSlug(p.homeTeamEn)}`,
         date,
         time: matched.time,
         sport: matched.sport,
         league: matched.league,
         homeTeam: matched.homeTeam,
         awayTeam: matched.awayTeam,
-        homeTeamEn: parsed.homeTeamEn,
-        awayTeamEn: parsed.awayTeamEn,
+        homeTeamEn: p.homeTeamEn,
+        awayTeamEn: p.awayTeamEn,
         sourceUrl: url,
-        prediction: parsed.prediction,
-        content: parsed.content,
+        prediction: p.prediction,
+        content: p.content,
         crawledAt: new Date().toISOString(),
       });
     }

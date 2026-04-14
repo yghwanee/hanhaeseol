@@ -1,23 +1,7 @@
 import { AnalysisArticle } from "@/types/analysis";
 import { Schedule } from "@/types/schedule";
 import { findKoreanTeamName } from "@/data/team-names";
-import { execSync } from "child_process";
-
-const UA =
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
-
-function curlFetch(url: string): string | null {
-  try {
-    const html = execSync(`curl -sL -A "${UA}" --max-time 20 "${url}"`, {
-      timeout: 25000,
-      maxBuffer: 10 * 1024 * 1024,
-    }).toString();
-    if (html.length < 1000) return null;
-    return html;
-  } catch {
-    return null;
-  }
-}
+import { curlFetch, toSlug } from "./_utils";
 
 interface MatchPreview {
   url: string;
@@ -110,12 +94,6 @@ function fetchArticle(url: string): {
   return { homeTeamEn, awayTeamEn, prediction, content };
 }
 
-function toSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
-}
 
 export async function crawlScores24(
   date: string,

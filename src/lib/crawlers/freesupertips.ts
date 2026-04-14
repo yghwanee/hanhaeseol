@@ -1,11 +1,7 @@
 import { AnalysisArticle } from "@/types/analysis";
 import { Schedule } from "@/types/schedule";
 import { findEnglishTeamName } from "@/data/team-names";
-
-// 팀명을 URL slug로 변환: "Crystal Palace" → "crystal-palace"
-function toSlug(name: string): string {
-  return name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
-}
+import { toSlug } from "./_utils";
 
 // 개별 분석글 크롤링
 async function fetchArticle(url: string): Promise<{ prediction: string; content: string } | null> {

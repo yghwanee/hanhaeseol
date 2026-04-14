@@ -2,8 +2,7 @@ import { AnalysisArticle } from "@/types/analysis";
 import { Schedule } from "@/types/schedule";
 import { findKoreanTeamName } from "@/data/team-names";
 import { execSync } from "child_process";
-
-const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
+import { toSlug, CRAWLER_UA as UA } from "./_utils";
 
 function curlFetch(url: string): string | null {
   try {
@@ -124,10 +123,6 @@ function cleanContent(text: string): string {
     cleaned.push(line);
   }
   return cleaned.join("\n\n").trim();
-}
-
-function toSlug(name: string): string {
-  return name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 }
 
 export async function crawlSportytrader(

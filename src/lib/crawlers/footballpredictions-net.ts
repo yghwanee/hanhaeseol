@@ -1,8 +1,7 @@
 import { AnalysisArticle } from "@/types/analysis";
 import { Schedule } from "@/types/schedule";
 import { findKoreanTeamName } from "@/data/team-names";
-
-const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36";
+import { toSlug, CRAWLER_UA as UA } from "./_utils";
 
 interface MatchPreview {
   homeTeamEn: string;
@@ -84,10 +83,6 @@ async function fetchArticle(url: string): Promise<{ prediction: string; content:
   }
 
   return { prediction, content: paragraphs.join("\n\n") };
-}
-
-function toSlug(name: string): string {
-  return name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
 }
 
 export async function crawlFootballpredictionsNet(

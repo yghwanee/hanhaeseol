@@ -1,8 +1,7 @@
 import { AnalysisArticle } from "@/types/analysis";
 import { Schedule } from "@/types/schedule";
 import { findEnglishTeamName } from "@/data/team-names";
-
-const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36";
+import { toSlug, CRAWLER_UA as UA } from "./_utils";
 
 // schedule.json 리그명 → footballpredictions.com URL 경로
 const LEAGUE_PATH: Record<string, string> = {
@@ -17,10 +16,6 @@ const LEAGUE_PATH: Record<string, string> = {
   "컨퍼런스리그": "europa-conference-league-predictions",
   "EFL 챔피언십": "championshippredictions",
 };
-
-function toSlug(name: string): string {
-  return name.toLowerCase().replace(/\s+/g, "-").replace(/[^a-z0-9-]/g, "");
-}
 
 // 날짜를 DD-MM-YYYY로 변환
 function toDateSlug(date: string): string {

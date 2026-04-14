@@ -1,23 +1,7 @@
 import { AnalysisArticle } from "@/types/analysis";
 import { Schedule } from "@/types/schedule";
 import { findKoreanTeamName } from "@/data/team-names";
-import { execSync } from "child_process";
-
-const UA =
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
-
-function curlFetch(url: string): string | null {
-  try {
-    const html = execSync(`curl -sL -A "${UA}" --max-time 20 "${url}"`, {
-      timeout: 25000,
-      maxBuffer: 10 * 1024 * 1024,
-    }).toString();
-    if (html.length < 1000) return null;
-    return html;
-  } catch {
-    return null;
-  }
-}
+import { curlFetch, toSlug, pLimit } from "./_utils";
 
 interface LeagueTarget {
   listingUrl: string;
@@ -140,12 +124,6 @@ function parseDetail(html: string): ParsedDetail | null {
   };
 }
 
-function toSlug(name: string): string {
-  return name
-    .toLowerCase()
-    .replace(/\s+/g, "-")
-    .replace(/[^a-z0-9-]/g, "");
-}
 
 export async function crawlCovers(
   date: string,
@@ -162,16 +140,21 @@ export async function crawlCovers(
     const ids = fetchMatchupIds(t);
     console.log(`  covers(${t.league}): ${ids.length}개 매치업`);
 
-    for (const id of ids) {
+    const parsed = await pLimit(ids, 5, async (id) => {
       const url = `https://www.covers.com${t.matchupPrefix}${id}`;
       const html = curlFetch(url);
-      if (!html) continue;
-      const parsed = parseDetail(html);
-      if (!parsed) continue;
-      if (parsed.dateKst !== date) continue;
+      if (!html) return null;
+      const p = parseDetail(html);
+      return p ? { url, p } : null;
+    });
 
-      const homeKo = findKoreanTeamName(parsed.homeTeamEn);
-      const awayKo = findKoreanTeamName(parsed.awayTeamEn);
+    for (const entry of parsed) {
+      if (!entry) continue;
+      const { url, p } = entry;
+      if (p.dateKst !== date) continue;
+
+      const homeKo = findKoreanTeamName(p.homeTeamEn);
+      const awayKo = findKoreanTeamName(p.awayTeamEn);
       if (!homeKo || !awayKo) continue;
 
       const matched = koreanMatches.find(
@@ -183,22 +166,22 @@ export async function crawlCovers(
       if (!matched) continue;
 
       console.log(
-        `  ✓ ${parsed.awayTeamEn} at ${parsed.homeTeamEn} → ${awayKo} vs ${homeKo}`
+        `  ✓ ${p.awayTeamEn} at ${p.homeTeamEn} → ${awayKo} vs ${homeKo}`
       );
 
       articles.push({
-        id: `${date}-${t.idTag}-${toSlug(parsed.awayTeamEn)}-vs-${toSlug(parsed.homeTeamEn)}`,
+        id: `${date}-${t.idTag}-${toSlug(p.awayTeamEn)}-vs-${toSlug(p.homeTeamEn)}`,
         date,
         time: matched.time,
         sport: matched.sport,
         league: matched.league,
         homeTeam: matched.homeTeam,
         awayTeam: matched.awayTeam,
-        homeTeamEn: parsed.homeTeamEn,
-        awayTeamEn: parsed.awayTeamEn,
+        homeTeamEn: p.homeTeamEn,
+        awayTeamEn: p.awayTeamEn,
         sourceUrl: url,
-        prediction: parsed.prediction,
-        content: parsed.content,
+        prediction: p.prediction,
+        content: p.content,
         crawledAt: new Date().toISOString(),
       });
     }

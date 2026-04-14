@@ -6,36 +6,7 @@ import { AnalysisData } from "@/types/analysis";
 import { getTeamLogo } from "@/data/team-logos";
 import { TeamLogo } from "./TeamLogo";
 import { StickyHeader } from "../../_components/StickyHeader";
-
-const LEAGUE_FLAG: Record<string, string> = {
-  "프리미어리그": "GB",
-  "EFL 챔피언십": "GB",
-  "라리가": "ES",
-  "세리에A": "IT",
-  "분데스리가": "DE",
-  "리그1": "FR",
-  "리그 1": "FR",
-  "챔피언스리그": "EU",
-  "유로파리그": "EU",
-  "컨퍼런스리그": "EU",
-  "K리그": "KR",
-  "K리그1": "KR",
-  "K리그2": "KR",
-  "KBO": "KR",
-  "WKBL": "KR",
-  "KBL": "KR",
-  "일본프로농구": "JP",
-  "NPB": "JP",
-  "NBA": "US",
-  "MLB": "US",
-  "MLS": "US",
-};
-
-function FlagIcon({ code }: { code: string }) {
-  const src = `https://flagcdn.com/16x12/${code.toLowerCase()}.png`;
-  // eslint-disable-next-line @next/next/no-img-element
-  return <img src={src} alt={code} width={16} height={12} className="inline-block" />;
-}
+import { LEAGUE_FLAG, FlagIcon } from "../_flags";
 
 function loadAnalysisData(): AnalysisData {
   try {

@@ -99,27 +99,30 @@ async function main() {
   const stripEmoji = (s: string) =>
     s.replace(emojiRe, "").replace(/\s+/g, " ").trim();
 
-  // 번역 (content, prediction) - 7M은 이미 한국어이므로 제외
+  // 번역 (content, prediction) - 7M/라이브맨은 이미 한국어이므로 제외
   const toTranslate = newArticles.filter((a) => !a.id.includes("-7m-") && !a.id.includes("-liveman-"));
-  console.log(`\n=== 번역 시작 (${toTranslate.length}건, 7M ${newArticles.length - toTranslate.length}건 제외) ===\n`);
-  for (let i = 0; i < toTranslate.length; i++) {
-    const article = toTranslate[i] as AnalysisArticle;
-    try {
-      if (article.content) {
-        article.content = await translateText(article.content);
+  console.log(`\n=== 번역 시작 (${toTranslate.length}건, 7M/라이브맨 ${newArticles.length - toTranslate.length}건 제외) ===\n`);
+
+  // 동시 5건 병렬 번역 (API rate limit 고려한 상한)
+  const CONCURRENCY = 5;
+  let done = 0;
+  async function worker() {
+    while (true) {
+      const i = done++;
+      if (i >= toTranslate.length) return;
+      const article = toTranslate[i] as AnalysisArticle;
+      try {
+        if (article.content) article.content = await translateText(article.content);
+        if (article.prediction) article.prediction = await translateText(article.prediction);
+        console.log(`  ✓ [${i + 1}/${toTranslate.length}] ${article.homeTeam} vs ${article.awayTeam}`);
+      } catch (e) {
+        console.error(`  ✗ [${i + 1}/${toTranslate.length}] ${article.homeTeam} vs ${article.awayTeam}: ${e}`);
       }
-      if (article.prediction) {
-        article.prediction = await translateText(article.prediction);
-      }
-      console.log(`  ✓ [${i + 1}/${toTranslate.length}] ${article.homeTeam} vs ${article.awayTeam}`);
-    } catch (e) {
-      console.error(`  ✗ [${i + 1}/${toTranslate.length}] ${article.homeTeam} vs ${article.awayTeam}: ${e}`);
-    }
-    // 요청 간 딜레이
-    if (i < toTranslate.length - 1) {
-      await new Promise((r) => setTimeout(r, 1000));
     }
   }
+  await Promise.all(
+    Array.from({ length: Math.min(CONCURRENCY, toTranslate.length) }, () => worker())
+  );
   console.log();
 
   // 이모지 제거 (번역 결과 + 7M/라이브맨 원문 포함 전체)
