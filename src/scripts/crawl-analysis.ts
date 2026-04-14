@@ -9,6 +9,9 @@ import { crawlDimers } from "../lib/crawlers/dimers";
 import { crawl7M } from "../lib/crawlers/7m";
 import { crawlLiveman } from "../lib/crawlers/liveman";
 import { crawlScores24 } from "../lib/crawlers/scores24";
+import { crawlCovers } from "../lib/crawlers/covers";
+import { crawlPickdawgz } from "../lib/crawlers/pickdawgz";
+import { crawlTonyspicks } from "../lib/crawlers/tonyspicks";
 import { AnalysisData, AnalysisArticle } from "../types/analysis";
 import { ScheduleData } from "../types/schedule";
 import { translateText } from "../lib/translate";
@@ -76,7 +79,16 @@ async function main() {
     const s24Articles = await crawlScores24(dateStr, scheduleData.schedules);
     console.log(`✓ scores24: ${s24Articles.length}건 수집\n`);
 
-    newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles, ...smArticles, ...lmArticles, ...s24Articles);
+    const cvArticles = await crawlCovers(dateStr, scheduleData.schedules);
+    console.log(`✓ covers: ${cvArticles.length}건 수집\n`);
+
+    const pdArticles = await crawlPickdawgz(dateStr, scheduleData.schedules);
+    console.log(`✓ pickdawgz: ${pdArticles.length}건 수집\n`);
+
+    const tpArticles = await crawlTonyspicks(dateStr, scheduleData.schedules);
+    console.log(`✓ tonyspicks: ${tpArticles.length}건 수집\n`);
+
+    newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles, ...smArticles, ...lmArticles, ...s24Articles, ...cvArticles, ...pdArticles, ...tpArticles);
   }
 
   // 번역 (content, prediction) - 7M은 이미 한국어이므로 제외
