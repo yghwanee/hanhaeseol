@@ -107,7 +107,7 @@ export async function crawl7M(
   schedules: Schedule[]
 ): Promise<AnalysisArticle[]> {
   const koreanFootball = schedules.filter(
-    (s) => s.date === date && s.sport === "축구" && s.koreanCommentary === true
+    (s) => s.date === date && s.sport === "축구" 
   );
   if (koreanFootball.length === 0) return [];
 

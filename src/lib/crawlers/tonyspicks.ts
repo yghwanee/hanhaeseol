@@ -19,31 +19,57 @@ function curlFetch(url: string): string | null {
   }
 }
 
+type PostType = "baseballBasketball" | "soccer";
+
 interface LeagueTarget {
   listingUrl: string;
-  sport: string; // 야구 | 농구
-  keyword: string; // used to filter category posts (must be in slug)
+  sport: string; // 야구 | 농구 | 축구
+  // URL이 이 문자열 중 하나라도 포함하면 대상 포스트
+  keywords: string[];
+  postType: PostType;
 }
 
 const TARGETS: LeagueTarget[] = [
   {
     listingUrl: "https://www.tonyspicks.com/category/freepicks/free-mlb-picks/",
     sport: "야구",
-    keyword: "free-mlb-picks-for-today",
+    keywords: ["free-mlb-picks-for-today"],
+    postType: "baseballBasketball",
   },
   {
     listingUrl: "https://www.tonyspicks.com/category/free-nba-picks/",
     sport: "농구",
-    keyword: "free-nba-picks-for-today",
+    keywords: ["free-nba-picks-for-today"],
+    postType: "baseballBasketball",
+  },
+  {
+    listingUrl: "https://www.tonyspicks.com/category/free-soccer-picks/",
+    sport: "축구",
+    keywords: ["-soccer-picks", "-soccer-prediction"],
+    postType: "soccer",
   },
 ];
 
-// slug 끝의 M-D-YYYY → ISO date (US)
+const MONTHS: Record<string, string> = {
+  january: "01", february: "02", march: "03", april: "04",
+  may: "05", june: "06", july: "07", august: "08",
+  september: "09", october: "10", november: "11", december: "12",
+};
+
+// slug에서 ISO US date 추출 (숫자 M-D-YYYY 또는 텍스트 month-D-YYYY)
 function slugToUsDate(url: string): string | null {
-  const m = url.match(/-(\d{1,2})-(\d{1,2})-(\d{4})(?:-\d+)?\/$/);
-  if (!m) return null;
-  const [, mm, dd, yyyy] = m;
-  return `${yyyy}-${mm.padStart(2, "0")}-${dd.padStart(2, "0")}`;
+  const textMatch = url.match(/-(january|february|march|april|may|june|july|august|september|october|november|december)-(\d{1,2})-(\d{4})/i);
+  if (textMatch) {
+    const mm = MONTHS[textMatch[1].toLowerCase()];
+    const dd = textMatch[2].padStart(2, "0");
+    return `${textMatch[3]}-${mm}-${dd}`;
+  }
+  const numMatch = url.match(/-(\d{1,2})-(\d{1,2})-(\d{4})(?:-\d+)?\/$/);
+  if (numMatch) {
+    const [, mm, dd, yyyy] = numMatch;
+    return `${yyyy}-${mm.padStart(2, "0")}-${dd.padStart(2, "0")}`;
+  }
+  return null;
 }
 
 function fetchPostUrls(t: LeagueTarget, targetUsDate: string): string[] {
@@ -53,8 +79,9 @@ function fetchPostUrls(t: LeagueTarget, targetUsDate: string): string[] {
   const set = new Set<string>();
   let m;
   while ((m = re.exec(html)) !== null) {
-    if (!m[1].includes(t.keyword)) continue;
-    if (slugToUsDate(m[1]) === targetUsDate) set.add(m[1]);
+    const url = m[1];
+    if (!t.keywords.some((k) => url.includes(k))) continue;
+    if (slugToUsDate(url) === targetUsDate) set.add(url);
   }
   return [...set];
 }
@@ -75,21 +102,23 @@ function stripTags(s: string): string {
 }
 
 interface GameSection {
-  awayTeamEn: string;
-  homeTeamEn: string;
+  // soccer: homeTeam은 h2의 첫 팀 (home vs away)
+  // baseball/basketball: 첫 팀이 away (away at home)
+  teamA: string;
+  teamB: string;
+  aIsAway: boolean; // true = teamA가 away (MLB/NBA), false = teamA가 home (soccer)
   content: string;
   prediction: string;
 }
 
-function parsePost(html: string): GameSection[] {
-  // <h2>Team A vs. Team B SPORT Pick Prediction</h2> 로 분할
+function parseBaseballBasketball(html: string): GameSection[] {
   const sectionRe =
     /<h2[^>]*>([^<]+?)\s+vs\.?\s+([^<]+?)\s+(?:MLB|NBA)\s+Pick\s+Prediction<\/h2>([\s\S]*?)(?=<h2|<footer|<\/article|<div class="entry-footer)/gi;
   const games: GameSection[] = [];
   let m;
   while ((m = sectionRe.exec(html)) !== null) {
-    const away = stripTags(m[1]);
-    const home = stripTags(m[2]);
+    const teamA = stripTags(m[1]);
+    const teamB = stripTags(m[2]);
     const body = m[3];
 
     const paragraphs: string[] = [];
@@ -98,7 +127,6 @@ function parsePost(html: string): GameSection[] {
     while ((pm = pRe.exec(body)) !== null) {
       const inner = pm[1].trim();
       const text = stripTags(inner);
-      // 본문 <a>만 있는 단락(예: "More MLB Picks..." 링크) 제외
       const isLinkOnly = /^<a\b[^>]*>[\s\S]*?<\/a>$/i.test(inner);
       if (
         text.length >= 30 &&
@@ -111,14 +139,61 @@ function parsePost(html: string): GameSection[] {
     }
     if (paragraphs.length === 0) continue;
 
-    // 마지막 단락이 실제 Pick
-    const prediction = paragraphs[paragraphs.length - 1];
-    const content = paragraphs.join("\n\n");
+    games.push({
+      teamA,
+      teamB,
+      aIsAway: true,
+      content: paragraphs.join("\n\n"),
+      prediction: paragraphs[paragraphs.length - 1],
+    });
+  }
+  return games;
+}
+
+function parseSoccer(html: string): GameSection[] {
+  // <h2>[<b>]X vs Y Best Bets[</b>]</h2> 다음 분석 <p>, 그리고 "Free Pick:" h2
+  const sectionRe =
+    /<h2[^>]*>\s*(?:<b>)?\s*([^<]+?)\s+vs\.?\s+([^<]+?)\s+Best\s+Bets\s*(?:<\/b>)?\s*<\/h2>([\s\S]*?)(?=<h2[^>]*>\s*(?:<b>)?[^<]+?\s+vs\.?\s+[^<]+?\s+Best\s+Bets|<footer|<\/article|<div class="entry-footer)/gi;
+  const games: GameSection[] = [];
+  let m;
+  while ((m = sectionRe.exec(html)) !== null) {
+    const teamA = stripTags(m[1]);
+    const teamB = stripTags(m[2]);
+    const body = m[3];
+
+    const paragraphs: string[] = [];
+    const pRe = /<p[^>]*>([\s\S]*?)<\/p>/g;
+    let pm;
+    while ((pm = pRe.exec(body)) !== null) {
+      const inner = pm[1].trim();
+      const text = stripTags(inner);
+      const isLinkOnly = /^<a\b[^>]*>[\s\S]*?<\/a>$/i.test(inner);
+      if (text.length >= 30 && !isLinkOnly && !/youtube|rll-youtube/i.test(inner)) {
+        paragraphs.push(text);
+      }
+    }
+
+    // "Free Pick:" 섹션 (h2 내부)
+    const pickH2 = body.match(/<h2[^>]*>([\s\S]*?Free\s+Pick[\s\S]*?)<\/h2>/i);
+    let prediction = "";
+    if (pickH2) {
+      prediction = stripTags(pickH2[1]);
+    } else if (paragraphs.length > 0) {
+      prediction = paragraphs[paragraphs.length - 1];
+    } else {
+      continue;
+    }
+
+    if (paragraphs.length === 0 && !prediction) continue;
+
+    const contentParts = [...paragraphs];
+    if (prediction) contentParts.push(prediction);
 
     games.push({
-      awayTeamEn: away,
-      homeTeamEn: home,
-      content,
+      teamA,
+      teamB,
+      aIsAway: false, // soccer: teamA = home
+      content: contentParts.join("\n\n"),
       prediction,
     });
   }
@@ -136,14 +211,12 @@ export async function crawlTonyspicks(
   date: string,
   schedules: Schedule[]
 ): Promise<AnalysisArticle[]> {
-  const koreanMatches = schedules.filter(
-    (s) => s.date === date && s.koreanCommentary === true
-  );
-  if (koreanMatches.length === 0) return [];
+  const dateMatches = schedules.filter((s) => s.date === date);
+  if (dateMatches.length === 0) return [];
 
   const articles: AnalysisArticle[] = [];
 
-  // MLB/NBA는 ET 저녁 경기 = KST 다음날. 포스트 slug 날짜는 경기의 US 현지 날짜.
+  // MLB/NBA/축구 저녁 경기 대부분 slug US date = KST date - 1
   const usDate = (() => {
     const d = new Date(`${date}T00:00:00Z`);
     d.setUTCDate(d.getUTCDate() - 1);
@@ -157,14 +230,17 @@ export async function crawlTonyspicks(
     for (const url of urls) {
       const html = curlFetch(url);
       if (!html) continue;
-      const games = parsePost(html);
+      const games =
+        t.postType === "soccer" ? parseSoccer(html) : parseBaseballBasketball(html);
 
       for (const g of games) {
-        const homeKo = findKoreanTeamName(g.homeTeamEn);
-        const awayKo = findKoreanTeamName(g.awayTeamEn);
+        const awayEn = g.aIsAway ? g.teamA : g.teamB;
+        const homeEn = g.aIsAway ? g.teamB : g.teamA;
+        const homeKo = findKoreanTeamName(homeEn);
+        const awayKo = findKoreanTeamName(awayEn);
         if (!homeKo || !awayKo) continue;
 
-        const matched = koreanMatches.find(
+        const matched = dateMatches.find(
           (s) =>
             s.sport === t.sport &&
             ((s.homeTeam.includes(homeKo) && s.awayTeam.includes(awayKo)) ||
@@ -172,12 +248,11 @@ export async function crawlTonyspicks(
         );
         if (!matched) continue;
 
-        // 중복 방지
-        const id = `${date}-tonyspicks-${toSlug(g.awayTeamEn)}-vs-${toSlug(g.homeTeamEn)}`;
+        const id = `${date}-tonyspicks-${toSlug(awayEn)}-vs-${toSlug(homeEn)}`;
         if (articles.some((a) => a.id === id)) continue;
 
         console.log(
-          `  ✓ ${g.awayTeamEn} at ${g.homeTeamEn} → ${awayKo} vs ${homeKo}`
+          `  ✓ ${awayEn} at ${homeEn} → ${awayKo} vs ${homeKo}`
         );
 
         articles.push({
@@ -188,8 +263,8 @@ export async function crawlTonyspicks(
           league: matched.league,
           homeTeam: matched.homeTeam,
           awayTeam: matched.awayTeam,
-          homeTeamEn: g.homeTeamEn,
-          awayTeamEn: g.awayTeamEn,
+          homeTeamEn: homeEn,
+          awayTeamEn: awayEn,
           sourceUrl: url,
           prediction: g.prediction,
           content: g.content,

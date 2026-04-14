@@ -115,7 +115,7 @@ export async function crawlFreesupertips(
   schedules: Schedule[]
 ): Promise<AnalysisArticle[]> {
   const koreanFootball = schedules.filter(
-    (s) => s.date === date && s.sport === "축구" && s.koreanCommentary === true
+    (s) => s.date === date && s.sport === "축구" 
   );
   console.log(`  freesupertips: 한국어해설 축구 ${koreanFootball.length}개 경기에서 분석글 탐색...`);
 

@@ -152,7 +152,7 @@ export async function crawlCovers(
   schedules: Schedule[]
 ): Promise<AnalysisArticle[]> {
   const koreanMatches = schedules.filter(
-    (s) => s.date === date && s.koreanCommentary === true
+    (s) => s.date === date 
   );
   if (koreanMatches.length === 0) return [];
 

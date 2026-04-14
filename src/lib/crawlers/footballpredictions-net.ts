@@ -99,7 +99,7 @@ export async function crawlFootballpredictionsNet(
   console.log(`  footballpredictions.net: ${previews.length}개 경기 발견`);
 
   const koreanFootball = schedules.filter(
-    (s) => s.date === date && s.sport === "축구" && s.koreanCommentary === true
+    (s) => s.date === date && s.sport === "축구" 
   );
 
   const articles: AnalysisArticle[] = [];

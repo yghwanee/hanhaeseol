@@ -58,9 +58,9 @@ export function detectKoreanCommentary(text: string): boolean | "unknown" {
 
 // 리그명 정규화: "2025-2026 LG전자 프로농구" → "프로농구"
 const LEAGUE_NORMALIZE: [RegExp, string][] = [
-  [/프로농구/, "프로농구"],
-  [/여자프로농구/, "여자프로농구"],
+  [/여자\s?프로농구|WKBL/, "WKBL"],
   [/일본\s?프로농구/, "일본프로농구"],
+  [/프로농구/, "프로농구"],
   [/퓨처스리그/, "퓨처스리그"],
   [/KBO/, "KBO"],
   [/메이저리그/, "MLB"],

@@ -96,7 +96,7 @@ export async function crawlDimers(
   schedules: Schedule[]
 ): Promise<AnalysisArticle[]> {
   const koreanMatches = schedules.filter(
-    (s) => s.date === date && s.koreanCommentary === true &&
+    (s) => s.date === date  &&
       (s.sport === "축구" || s.sport === "농구" || s.sport === "야구")
   );
   if (koreanMatches.length === 0) return [];
