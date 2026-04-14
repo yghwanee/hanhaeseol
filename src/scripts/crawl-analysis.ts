@@ -91,6 +91,14 @@ async function main() {
     newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles, ...smArticles, ...lmArticles, ...s24Articles, ...cvArticles, ...pdArticles, ...tpArticles);
   }
 
+  // 이모지 제거 (모든 기사의 content/prediction)
+  const emojiRe = new RegExp(
+    "[\\u{1F300}-\\u{1FAFF}\\u{2600}-\\u{27BF}\\u{1F000}-\\u{1F02F}]",
+    "gu"
+  );
+  const stripEmoji = (s: string) =>
+    s.replace(emojiRe, "").replace(/\s+/g, " ").trim();
+
   // 번역 (content, prediction) - 7M은 이미 한국어이므로 제외
   const toTranslate = newArticles.filter((a) => !a.id.includes("-7m-") && !a.id.includes("-liveman-"));
   console.log(`\n=== 번역 시작 (${toTranslate.length}건, 7M ${newArticles.length - toTranslate.length}건 제외) ===\n`);
@@ -113,6 +121,12 @@ async function main() {
     }
   }
   console.log();
+
+  // 이모지 제거 (번역 결과 + 7M/라이브맨 원문 포함 전체)
+  newArticles.forEach((a) => {
+    if (a.content) a.content = stripEmoji(a.content);
+    if (a.prediction) a.prediction = stripEmoji(a.prediction);
+  });
 
   // 기존 데이터와 병합 (크롤링한 날짜만 교체, 나머지는 전부 유지)
   const keptArticles = existingData.articles.filter(
