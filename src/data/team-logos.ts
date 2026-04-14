@@ -84,9 +84,22 @@ export const TEAM_LOGOS: Record<string, string> = {
   // AFC
   "감바 오사카": SOC(6733),
   "방콕 유나이티드": SOC(18603),
+  "알 사드": "https://www.thesportsdb.com/images/media/team/badge/908a011774579337.png",
   "알 와흐다": SOC(7059),
   "알 이티하드": SOC(2276),
   "알 힐랄": SOC(929),
+
+  // K리그1
+  "서울": "https://r2.thesportsdb.com/images/media/team/badge/31z1zf1579473186.png",
+  "울산": "https://r2.thesportsdb.com/images/media/team/badge/0wooic1706533767.png",
+
+  // KBL
+  "원주 DB": "https://r2.thesportsdb.com/images/media/team/badge/ykuvm71742844633.png",
+  "부산 KCC": "https://r2.thesportsdb.com/images/media/team/badge/9h9fqx1637980679.png",
+
+  // WKBL (프로농구)
+  "삼성생명 블루밍스": "https://www.wkbl.or.kr/static/images/team/teamlogo_03.png",
+  "하나은행": "https://www.wkbl.or.kr/static/images/team/teamlogo_09.png",
 };
 
 export function getTeamLogo(name: string): string | null {
