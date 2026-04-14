@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import scheduleData from "@/data/schedule.json";
+import { LEAGUE_SEO, PLATFORM_SEO } from "@/lib/slugs";
 
 const BASE = "https://haeseol.com";
 
@@ -19,11 +20,26 @@ function getNext7Dates(): string[] {
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date(scheduleData.lastUpdated);
+
   const dateUrls = getNext7Dates().map((d) => ({
     url: `${BASE}/?date=${d}`,
     lastModified,
     changeFrequency: "daily" as const,
     priority: 0.9,
+  }));
+
+  const leagueUrls = LEAGUE_SEO.map((l) => ({
+    url: `${BASE}/league/${l.slug}`,
+    lastModified,
+    changeFrequency: "daily" as const,
+    priority: 0.85,
+  }));
+
+  const platformUrls = PLATFORM_SEO.map((p) => ({
+    url: `${BASE}/platform/${p.slug}`,
+    lastModified,
+    changeFrequency: "daily" as const,
+    priority: 0.85,
   }));
 
   return [
@@ -34,6 +50,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 1,
     },
     ...dateUrls,
+    ...leagueUrls,
+    ...platformUrls,
     {
       url: `${BASE}/analysis`,
       lastModified,
