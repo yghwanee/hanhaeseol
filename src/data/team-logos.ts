@@ -19,6 +19,23 @@ export const TEAM_LOGOS: Record<string, string> = {
   "탬파베이 레이스": MLB("tb"),
   "텍사스 레인저스": MLB("tex"),
   "피츠버그 파이리츠": MLB("pit"),
+  "애리조나 다이아몬드백스": MLB("ari"),
+  "애슬레틱스": MLB("oak"),
+  "오클랜드 애슬레틱스": MLB("oak"),
+  "미네소타 트윈스": MLB("min"),
+  "보스턴 레드삭스": MLB("bos"),
+  "필라델피아 필리스": MLB("phi"),
+  "시카고 컵스": MLB("chc"),
+  "시카고 화이트삭스": MLB("chw"),
+  "마이애미 말린스": MLB("mia"),
+  "애틀랜타 브레이브스": MLB("atl"),
+  "휴스턴 애스트로스": MLB("hou"),
+  "세인트루이스 카디널스": MLB("stl"),
+  "클리블랜드 가디언스": MLB("cle"),
+  "밀워키 브루어스": MLB("mil"),
+  "토론토 블루제이스": MLB("tor"),
+  "디트로이트 타이거스": MLB("det"),
+  "캔자스시티 로열스": MLB("kc"),
 
   // NBA
   "LA 레이커스": NBA("lal"),
@@ -47,12 +64,16 @@ export const TEAM_LOGOS: Record<string, string> = {
   "FC 바르셀로나": SOC(83),
   "세비야": SOC(243),
   "에스파뇰": SOC(88),
+  "헤타페": SOC(2922),
+  "레반테": SOC(1538),
 
   // 세리에A
   "아탈란타": SOC(105),
   "유벤투스": SOC(111),
   "인터 밀란": SOC(110),
   "코모 1907": SOC(2572),
+  "피오렌티나": SOC(109),
+  "라치오": SOC(112),
 
   // 분데스리가
   "바이에른 뮌헨": SOC(132),
@@ -67,6 +88,12 @@ export const TEAM_LOGOS: Record<string, string> = {
   "스포르팅 CP": SOC(498),
   "아스날": SOC(359),
   "파리 생제르망": SOC(160),
+
+  // MLS
+  "LA 갤럭시": SOC(187),
+
+  // LigaMX
+  "톨루카": SOC(223),
 
   // KBO
   "KIA": KBO_LOGO("HT"),
