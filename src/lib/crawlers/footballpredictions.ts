@@ -71,21 +71,30 @@ export async function crawlFootballpredictions(
   const koreanFootball = schedules.filter(
     (s) => s.date === date && s.sport === "축구" 
   );
-  console.log(`  footballpredictions: 한국어해설 축구 ${koreanFootball.length}개 경기에서 분석글 탐색...`);
+  console.log(`  footballpredictions: 축구 ${koreanFootball.length}개 경기에서 분석글 탐색...`);
 
-  const dateSlug = toDateSlug(date);
+  // fp.com은 UK/유럽 현지 날짜 기준 (대부분 저녁 경기 = KST 다음날). 원 date와 -1일 둘 다 시도.
+  const prevDate = (() => {
+    const d = new Date(`${date}T00:00:00Z`);
+    d.setUTCDate(d.getUTCDate() - 1);
+    return d.toISOString().slice(0, 10);
+  })();
+  const dateSlugs = [toDateSlug(date), toDateSlug(prevDate)];
 
   const targets = koreanFootball
     .map((s) => ({ schedule: s, leaguePath: LEAGUE_PATH[s.league], homeEn: findEnglishTeamName(s.homeTeam), awayEn: findEnglishTeamName(s.awayTeam) }))
     .filter((t): t is typeof t & { leaguePath: string; homeEn: string; awayEn: string } => !!t.leaguePath && !!t.homeEn && !!t.awayEn);
 
   const results = await Promise.allSettled(targets.map(async ({ schedule, leaguePath, homeEn, awayEn }) => {
-    const url = `https://footballpredictions.com/footballpredictions/${leaguePath}/${toSlug(homeEn)}-vs-${toSlug(awayEn)}-prediction-${dateSlug}/`;
-    let result = await fetchArticle(url);
-    let sourceUrl = url;
-    if (!result) {
-      sourceUrl = `https://footballpredictions.com/footballpredictions/${leaguePath}/${toSlug(awayEn)}-vs-${toSlug(homeEn)}-prediction-${dateSlug}/`;
-      result = await fetchArticle(sourceUrl);
+    let result: Awaited<ReturnType<typeof fetchArticle>> = null;
+    let sourceUrl = "";
+    for (const ds of dateSlugs) {
+      for (const [a, b] of [[homeEn, awayEn], [awayEn, homeEn]]) {
+        const url = `https://footballpredictions.com/footballpredictions/${leaguePath}/${toSlug(a)}-vs-${toSlug(b)}-prediction-${ds}/`;
+        const r = await fetchArticle(url);
+        if (r) { result = r; sourceUrl = url; break; }
+      }
+      if (result) break;
     }
     if (!result) return null;
     console.log(`  ✓ ${homeEn} vs ${awayEn}`);

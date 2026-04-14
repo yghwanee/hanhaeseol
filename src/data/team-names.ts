@@ -312,6 +312,7 @@ export const TEAM_NAME_MAP: Record<string, string> = {
   // === 챔피언스리그 등 추가 ===
   "PSG": "파리 생제르망",
   "Paris Saint-Germain": "파리 생제르망",
+  "Paris Saint Germain": "파리 생제르망",
   "Porto": "FC 포르투",
   "FC Porto": "FC 포르투",
   "Sporting CP": "스포르팅 CP",
