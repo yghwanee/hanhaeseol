@@ -5,6 +5,7 @@ import path from "path";
 import { AnalysisData } from "@/types/analysis";
 import { getTeamLogo } from "@/data/team-logos";
 import { TeamLogo } from "./TeamLogo";
+import { StickyHeader } from "../../_components/StickyHeader";
 
 const LEAGUE_FLAG: Record<string, string> = {
   "프리미어리그": "GB",
@@ -65,13 +66,20 @@ export default async function AnalysisDetailPage({ params }: { params: Promise<{
 
   return (
     <main className="min-h-screen text-gray-100">
-      <div className="max-w-2xl mx-auto px-3 sm:px-4 py-8 sm:py-12">
-        <Link href="/analysis" className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 mb-6 rounded-lg border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors">
-          ← 분석글 목록
-        </Link>
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 pb-8 sm:pb-12">
+        <StickyHeader>
+          <div className="flex items-center gap-3">
+            <Link href="/analysis" className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-lg border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors whitespace-nowrap">
+              ← 분석글 목록
+            </Link>
+            <h2 className="text-sm font-medium text-zinc-300 truncate">
+              {article.homeTeam} vs {article.awayTeam}
+            </h2>
+          </div>
+        </StickyHeader>
 
         {/* 경기 헤더 */}
-        <div className="mb-6">
+        <div className="mt-4 sm:mt-6 mb-6">
           <div className="flex items-center gap-2 mb-2">
             <span className="text-xs px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 font-medium">
               {LEAGUE_FLAG[article.league] && <span className="mr-1.5 align-middle"><FlagIcon code={LEAGUE_FLAG[article.league]} /></span>}{article.league}

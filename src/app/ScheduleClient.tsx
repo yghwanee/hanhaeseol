@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Schedule, ScheduleData } from "@/types/schedule";
+import { StickyHeader } from "./_components/StickyHeader";
 
 const SPORTS = ["전체", "축구", "야구", "농구", "배구"] as const;
 function getUpcomingDates(): { label: string; value: string }[] {
@@ -236,7 +237,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
   }, [data, selectedDate, sport, platform, commentaryFilter, searchQuery]);
 
   return (
-    <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 pt-6 sm:pt-10 xl:max-w-none xl:px-[200px]">
+    <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 xl:max-w-none xl:px-[200px]">
       {/* PC 왼쪽 광고 */}
       <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
         {showAds ? (
@@ -257,18 +258,20 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
 
       <div className="mx-auto max-w-2xl">
       {/* Header */}
-      <header className="mb-6 sm:mb-10 flex items-center justify-between">
-        <h1 className="flex items-end">
-          <Image src="/icon.png" alt="한해설 아이콘" width={32} height={32} className="h-6 w-6 sm:h-8 sm:w-8 self-center" />
-          <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
-          <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
-        </h1>
-        <Link href="/analysis" className="border-glow text-[11px] sm:text-xs px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg text-zinc-200 font-medium hover:text-white transition-colors whitespace-nowrap">
-          🎯 해외 픽스터 분석글
-        </Link>
-      </header>
+      <StickyHeader fullBleedXl>
+        <header className="flex items-center justify-between">
+          <h1 className="flex items-end">
+            <Image src="/icon.png" alt="한해설 아이콘" width={32} height={32} className="h-6 w-6 sm:h-8 sm:w-8 self-center" />
+            <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
+            <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
+          </h1>
+          <Link href="/analysis" className="border-glow text-[11px] sm:text-xs px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg text-zinc-200 font-medium hover:text-white transition-colors whitespace-nowrap">
+            🎯 해외 픽스터 분석글
+          </Link>
+        </header>
+      </StickyHeader>
 
-      <div className="mb-6 sm:mb-10 rounded-lg border border-zinc-700/50 bg-zinc-800/30 px-3 py-2 text-center">
+      <div className="mt-4 sm:mt-6 mb-6 sm:mb-10 rounded-lg border border-zinc-700/50 bg-zinc-800/30 px-3 py-2 text-center">
         <p className="text-[11px] sm:text-xs text-zinc-400">이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br className="sm:hidden" /> 이에 따른 일정액의 수수료를 제공받습니다.</p>
       </div>
 
