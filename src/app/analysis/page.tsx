@@ -37,7 +37,7 @@ export default function AnalysisPage() {
         </StickyHeader>
 
         <p className="text-zinc-500 text-xs sm:text-sm mt-4 sm:mt-6 mb-6">
-          해외 유명 스포츠 분석가들의 경기 분석을 제공합니다. <span className="text-zinc-600">(한국어 해설이 제공되는 경기에 한함)</span>
+          해외 유명 스포츠 분석가들의 경기 분석을 제공합니다.
         </p>
 
         <AnalysisClient articles={data.articles} lastUpdated={data.lastUpdated} />

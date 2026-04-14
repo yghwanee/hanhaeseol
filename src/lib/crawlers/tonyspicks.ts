@@ -134,7 +134,12 @@ function parseBaseballBasketball(html: string): GameSection[] {
         !/youtube|rll-youtube/i.test(inner) &&
         text.toLowerCase() !== "the pick:"
       ) {
-        paragraphs.push(text);
+        // "Team at Team 6:35PM ET— " 서두 제거
+        const cleaned = text.replace(
+          /^[A-Z][A-Za-z.\s]+?\s+at\s+[A-Z][A-Za-z.\s]+?\s+\d{1,2}:\d{2}\s?(?:AM|PM)?\s*ET\s*[—–-]+\s*/,
+          ""
+        );
+        paragraphs.push(cleaned);
       }
     }
     if (paragraphs.length === 0) continue;

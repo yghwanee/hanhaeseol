@@ -118,14 +118,6 @@ export default async function AnalysisDetailPage({ params }: { params: Promise<{
           </div>
         </div>
 
-        {/* 예측 */}
-        {article.prediction && (
-          <div className="mb-6 p-3 sm:p-4 rounded-lg bg-zinc-900 border border-zinc-800">
-            <h2 className="text-xs font-semibold text-zinc-400 mb-2">예측</h2>
-            <p className="text-sm text-zinc-200 whitespace-pre-line">{article.prediction}</p>
-          </div>
-        )}
-
         {/* 분석 본문 */}
         <div className="space-y-4">
           {article.content.split("\n\n").map((paragraph, i) => (
