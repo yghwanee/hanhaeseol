@@ -62,7 +62,7 @@ async function fetchArticle(url: string): Promise<{
   const pPattern = new RegExp("<p[^>]*>([^<]{40,})</p>", "g");
   let pMatch;
   while ((pMatch = pPattern.exec(html)) !== null) {
-    const text = pMatch[1].replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&#\d+;/g, "").trim();
+    let text = pMatch[1].replace(/&nbsp;/g, " ").replace(/&amp;/g, "&").replace(/&#\d+;/g, "").trim();
     if (
       !text.includes("1-800-GAMBLER") && !text.includes("responsible gambling") &&
       !text.includes("bet responsibly") && !text.includes("financial limits") &&
@@ -70,7 +70,8 @@ async function fetchArticle(url: string): Promise<{
       !text.includes("referral fee") && !text.includes("promo code") &&
       !text.includes("welcome package") && !text.includes("broadcast on Sky")
     ) {
-      paragraphs.push(text);
+      text = text.replace(/\s*(?:Find|Check|See|Get)[^.]*?(?:spread|moneyline|odds)[^.]*\.\s*/gi, " ").trim();
+      if (text) paragraphs.push(text);
     }
   }
   if (paragraphs.length === 0) return null;
