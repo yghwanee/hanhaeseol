@@ -13,16 +13,16 @@ import { ScheduleData } from "../types/schedule";
 import { translateText } from "../lib/translate";
 
 async function main() {
-  const today = new Date();
+  // KST 기준 오늘 ~ +2일 (GitHub Actions UTC 환경 보정)
+  const todayKst = new Date(Date.now() + 9 * 60 * 60 * 1000);
 
   const toDateStr = (d: Date) =>
-    `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+    `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, "0")}-${String(d.getUTCDate()).padStart(2, "0")}`;
 
-  // 오늘 ~ +2일 (3일치, 과거 데이터는 기존 것 유지)
   const dates: string[] = [];
   for (let i = 0; i <= 2; i++) {
-    const d = new Date(today);
-    d.setDate(d.getDate() + i);
+    const d = new Date(todayKst);
+    d.setUTCDate(todayKst.getUTCDate() + i);
     dates.push(toDateStr(d));
   }
 
