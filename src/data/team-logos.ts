@@ -52,6 +52,8 @@ export const TEAM_LOGOS: Record<string, string> = {
   "첼시": SOC(363),
   "토트넘": SOC(367),
   "풀럼": SOC(370),
+  "아스톤 빌라": SOC(362),
+  "크리스탈 팰리스": SOC(384),
 
   // EFL 챔피언십
   "렉섬": SOC(358),
@@ -74,6 +76,7 @@ export const TEAM_LOGOS: Record<string, string> = {
   "코모 1907": SOC(2572),
   "피오렌티나": SOC(109),
   "라치오": SOC(112),
+  "볼로냐": SOC(107),
 
   // 분데스리가
   "바이에른 뮌헨": SOC(132),
@@ -94,6 +97,12 @@ export const TEAM_LOGOS: Record<string, string> = {
 
   // LigaMX
   "톨루카": SOC(223),
+
+  // UEFA Youth League (U19) - 모기업 로고 사용
+  "벤피카 U19": SOC(1929),
+  "클뤼프 브뤼헤 U19": SOC(570),
+  "파리 생제르망 U19": SOC(160),
+  "레알 마드리드 U19": SOC(86),
 
   // KBO
   "KIA": KBO_LOGO("HT"),
