@@ -1,7 +1,7 @@
 import { AnalysisArticle } from "@/types/analysis";
 import { Schedule } from "@/types/schedule";
 import { findKoreanTeamName } from "@/data/team-names";
-import { toSlug, CRAWLER_UA as UA } from "./_utils";
+import { toSlug, pLimit, CRAWLER_UA as UA } from "./_utils";
 
 interface MatchPreview {
   homeTeamEn: string;
@@ -97,25 +97,32 @@ export async function crawlFootballpredictionsNet(
     (s) => s.date === date && s.sport === "축구" 
   );
 
+  // 1차 필터: 스케줄 매칭되는 preview만 남김
+  const targets = previews
+    .map((p) => {
+      const homeKo = findKoreanTeamName(p.homeTeamEn);
+      const awayKo = findKoreanTeamName(p.awayTeamEn);
+      if (!homeKo || !awayKo) return null;
+      const matched = koreanFootball.find(
+        (s) =>
+          (s.homeTeam.includes(homeKo) && s.awayTeam.includes(awayKo)) ||
+          (s.homeTeam.includes(awayKo) && s.awayTeam.includes(homeKo))
+      );
+      return matched ? { preview: p, homeKo, awayKo, matched } : null;
+    })
+    .filter((t): t is NonNullable<typeof t> => !!t);
+
+  // 2차: 병렬 article fetch
+  const fetched = await pLimit(targets, 5, async (t) => {
+    const result = await fetchArticle(t.preview.url);
+    return result ? { ...t, result } : null;
+  });
+
   const articles: AnalysisArticle[] = [];
-
-  for (const preview of previews) {
-    const homeKo = findKoreanTeamName(preview.homeTeamEn);
-    const awayKo = findKoreanTeamName(preview.awayTeamEn);
-    if (!homeKo || !awayKo) continue;
-
-    const matched = koreanFootball.find(
-      (s) =>
-        (s.homeTeam.includes(homeKo) && s.awayTeam.includes(awayKo)) ||
-        (s.homeTeam.includes(awayKo) && s.awayTeam.includes(homeKo))
-    );
-    if (!matched) continue;
-
+  for (const entry of fetched) {
+    if (!entry) continue;
+    const { preview, homeKo, awayKo, matched, result } = entry;
     console.log(`  ✓ ${preview.homeTeamEn} vs ${preview.awayTeamEn} → ${homeKo} vs ${awayKo}`);
-
-    const result = await fetchArticle(preview.url);
-    if (!result) continue;
-
     articles.push({
       id: `${date}-fpnet-${toSlug(homeKo)}-vs-${toSlug(awayKo)}`,
       date,

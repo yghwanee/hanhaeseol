@@ -2,7 +2,7 @@ import { AnalysisArticle } from "@/types/analysis";
 import { Schedule } from "@/types/schedule";
 import { findKoreanTeamName } from "@/data/team-names";
 import { execSync } from "child_process";
-import { toSlug, CRAWLER_UA as UA } from "./_utils";
+import { toSlug, pLimit, CRAWLER_UA as UA } from "./_utils";
 
 function curlFetch(url: string): string | null {
   try {
@@ -140,9 +140,14 @@ export async function crawlSportytrader(
 
   const articles: AnalysisArticle[] = [];
 
-  for (const preview of previews) {
+  const fetched = await pLimit(previews, 5, async (preview) => {
     const result = fetchArticle(preview.url);
-    if (!result) continue;
+    return result ? { preview, result } : null;
+  });
+
+  for (const entry of fetched) {
+    if (!entry) continue;
+    const { preview, result } = entry;
 
     const homeKo = findKoreanTeamName(result.homeTeamEn);
     const awayKo = findKoreanTeamName(result.awayTeamEn);

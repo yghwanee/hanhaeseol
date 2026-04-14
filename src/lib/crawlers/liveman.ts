@@ -1,5 +1,6 @@
 import { AnalysisArticle } from "@/types/analysis";
 import { Schedule, Sport } from "@/types/schedule";
+import { pLimit } from "./_utils";
 
 const UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36";
 
@@ -175,15 +176,13 @@ export async function crawlLiveman(
 
   console.log("  liveman: 글 목록 가져오는 중...");
 
-  // 모든 게시판에서 글 수집
+  // 모든 게시판에서 병렬로 글 수집
+  const boardResults = await Promise.allSettled(
+    BOARDS.map((b) => fetchPostList(b.table, b.path, b.sport))
+  );
   const allPosts: LivemanPost[] = [];
-  for (const board of BOARDS) {
-    try {
-      const posts = await fetchPostList(board.table, board.path, board.sport);
-      allPosts.push(...posts);
-    } catch {
-      // 개별 게시판 실패 무시
-    }
+  for (const r of boardResults) {
+    if (r.status === "fulfilled") allPosts.push(...r.value);
   }
   console.log(`  liveman: ${allPosts.length}개 글 발견`);
 
@@ -194,23 +193,30 @@ export async function crawlLiveman(
 
   if (datePosts.length === 0) return [];
 
-  // schedule 매칭
-  const articles: AnalysisArticle[] = [];
+  // schedule 매칭 (상세 fetch 전에 먼저 필터링)
+  const matchedPosts = datePosts
+    .map((post) => {
+      const matched = koreanMatches.find(
+        (s) =>
+          s.sport === post.sport &&
+          ((matchTeam(post.homeTeam, s.homeTeam) && matchTeam(post.awayTeam, s.awayTeam)) ||
+            (matchTeam(post.homeTeam, s.awayTeam) && matchTeam(post.awayTeam, s.homeTeam)))
+      );
+      return matched ? { post, matched } : null;
+    })
+    .filter((m): m is NonNullable<typeof m> => !!m);
 
-  for (const post of datePosts) {
-    const matched = koreanMatches.find(
-      (s) =>
-        s.sport === post.sport &&
-        ((matchTeam(post.homeTeam, s.homeTeam) && matchTeam(post.awayTeam, s.awayTeam)) ||
-         (matchTeam(post.homeTeam, s.awayTeam) && matchTeam(post.awayTeam, s.homeTeam)))
-    );
-    if (!matched) continue;
-
+  // 본문 병렬 fetch
+  const fetched = await pLimit(matchedPosts, 5, async ({ post, matched }) => {
     const content = await fetchArticleContent(post.url);
-    if (!content) continue;
+    return content ? { post, matched, content } : null;
+  });
 
+  const articles: AnalysisArticle[] = [];
+  for (const entry of fetched) {
+    if (!entry) continue;
+    const { post, matched, content } = entry;
     console.log(`  ✓ ${post.homeTeam} vs ${post.awayTeam} (${post.sport})`);
-
     const postId = post.url.match(/\/(\d+)$/)?.[1] || "";
     articles.push({
       id: `${date}-liveman-${postId}`,
