@@ -3,6 +3,8 @@ import Link from "next/link";
 import fs from "fs";
 import path from "path";
 import { AnalysisData } from "@/types/analysis";
+import { getTeamLogo } from "@/data/team-logos";
+import { TeamLogo } from "./TeamLogo";
 
 const LEAGUE_FLAG: Record<string, string> = {
   "프리미어리그": "GB",
@@ -84,6 +86,23 @@ export default async function AnalysisDetailPage({ params }: { params: Promise<{
               {article.homeTeamEn} vs {article.awayTeamEn}
             </p>
           )}
+
+          {/* 팀 앰블럼 */}
+          <div className="mt-5 flex items-center justify-center gap-4 sm:gap-8 py-4 rounded-xl bg-zinc-900/60 border border-zinc-800">
+            <div className="flex flex-col items-center gap-2 flex-1 min-w-0">
+              <TeamLogo name={article.homeTeam} src={getTeamLogo(article.homeTeam)} size={64} />
+              <span className="text-xs sm:text-sm font-medium text-zinc-200 text-center truncate max-w-full">
+                {article.homeTeam}
+              </span>
+            </div>
+            <span className="text-zinc-500 text-sm font-semibold shrink-0">VS</span>
+            <div className="flex flex-col items-center gap-2 flex-1 min-w-0">
+              <TeamLogo name={article.awayTeam} src={getTeamLogo(article.awayTeam)} size={64} />
+              <span className="text-xs sm:text-sm font-medium text-zinc-200 text-center truncate max-w-full">
+                {article.awayTeam}
+              </span>
+            </div>
+          </div>
         </div>
 
         {/* 예측 */}
