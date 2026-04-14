@@ -128,8 +128,14 @@ export async function crawlScores24(
 
   console.log("  scores24: 분석글 목록 가져오는 중...");
   const previews = fetchPredictionsList();
-  const todays = previews.filter((p) => p.dateISO === date);
-  console.log(`  scores24: ${previews.length}개 링크, ${date} 기준 ${todays.length}개`);
+  // scores24 slug는 유럽 현지 날짜 기준이라 KST로는 ±1일 차이가 날 수 있음
+  const prevDay = (() => {
+    const d = new Date(`${date}T00:00:00Z`);
+    d.setUTCDate(d.getUTCDate() - 1);
+    return d.toISOString().slice(0, 10);
+  })();
+  const todays = previews.filter((p) => p.dateISO === date || p.dateISO === prevDay);
+  console.log(`  scores24: ${previews.length}개 링크, ${date}(±1) 기준 ${todays.length}개`);
 
   const articles: AnalysisArticle[] = [];
 

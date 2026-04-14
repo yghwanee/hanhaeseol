@@ -1,8 +1,7 @@
 const MLB = (abbr: string) => `https://a.espncdn.com/i/teamlogos/mlb/500/${abbr}.png`;
 const NBA = (abbr: string) => `https://a.espncdn.com/i/teamlogos/nba/500/${abbr}.png`;
 const SOC = (id: number) => `https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png`;
-const KBO_LOGO = (code: string) =>
-  `https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/emblem/regular/2026/initial_${code}.png`;
+const KBO_LOGO = (code: string) => `/logos/kbo/${code}.png`;
 
 export const TEAM_LOGOS: Record<string, string> = {
   // MLB
