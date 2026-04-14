@@ -5,14 +5,16 @@ import fs from "fs/promises";
 import path from "path";
 
 async function main() {
-  // 오늘부터 7일치 크롤링
+  // 오늘(KST)부터 7일치 크롤링
+  // GitHub Actions는 UTC로 동작하므로 KST(UTC+9) 기준 날짜를 계산해야 한다.
   const dates: string[] = [];
+  const nowKst = new Date(Date.now() + 9 * 60 * 60 * 1000);
   for (let i = 0; i < 7; i++) {
-    const d = new Date();
-    d.setDate(d.getDate() + i);
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, "0");
-    const dd = String(d.getDate()).padStart(2, "0");
+    const d = new Date(nowKst);
+    d.setUTCDate(nowKst.getUTCDate() + i);
+    const yyyy = d.getUTCFullYear();
+    const mm = String(d.getUTCMonth() + 1).padStart(2, "0");
+    const dd = String(d.getUTCDate()).padStart(2, "0");
     dates.push(`${yyyy}-${mm}-${dd}`);
   }
 
