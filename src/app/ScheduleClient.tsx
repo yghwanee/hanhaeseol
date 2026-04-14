@@ -232,7 +232,6 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
           s.league.toLowerCase().includes(q)
         );
       })
-      .filter((s) => !isGameFinished(s.date, s.time, s.sport))
       .sort((a, b) => a.time.localeCompare(b.time));
   }, [data, selectedDate, sport, platform, commentaryFilter, searchQuery]);
 

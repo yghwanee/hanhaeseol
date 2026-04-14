@@ -16,7 +16,10 @@ function isGameFinished(date: string, time: string, sport: string): boolean {
   return Date.now() > gameStart.getTime() + duration;
 }
 
-function StatusPill({ kc }: { kc: boolean | "unknown" }) {
+function StatusPill({ kc, finished }: { kc: boolean | "unknown"; finished: boolean }) {
+  if (finished) {
+    return <span className="inline-flex items-center rounded-full bg-zinc-500/20 px-2 py-0.5 text-[11px] font-semibold text-zinc-400 ring-1 ring-zinc-500/30">경기 종료</span>;
+  }
   if (kc === true) {
     return <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-2 py-0.5 text-[11px] font-semibold text-emerald-400 ring-1 ring-emerald-500/30">한국어해설</span>;
   }
@@ -43,7 +46,6 @@ function formatDateHeader(isoDate: string): string {
 export default function FilteredScheduleView({ meta, kind, schedules }: Props) {
   const filtered = schedules
     .filter((s) => meta.match.includes(kind === "league" ? s.league : s.platform))
-    .filter((s) => !isGameFinished(s.date, s.time, s.sport))
     .sort((a, b) => (a.date === b.date ? a.time.localeCompare(b.time) : a.date.localeCompare(b.date)));
 
   const grouped = filtered.reduce<Record<string, Schedule[]>>((acc, s) => {
@@ -106,7 +108,7 @@ export default function FilteredScheduleView({ meta, kind, schedules }: Props) {
                           <span className="text-zinc-600">|</span>
                           <span className="truncate">{s.league}</span>
                         </div>
-                        <StatusPill kc={s.koreanCommentary} />
+                        <StatusPill kc={s.koreanCommentary} finished={isGameFinished(s.date, s.time, s.sport)} />
                       </div>
                         {s.awayTeam ? (
                           <div className="mt-2.5 flex items-center justify-center gap-2 text-sm sm:text-base">
