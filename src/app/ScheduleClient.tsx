@@ -264,7 +264,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
           <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
         </h1>
         <Link href="/analysis" className="border-glow text-[11px] sm:text-xs px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg text-zinc-200 font-medium hover:text-white transition-colors whitespace-nowrap">
-          해외 픽스터 분석글
+          🎯 해외 픽스터 분석글
         </Link>
       </header>
 
