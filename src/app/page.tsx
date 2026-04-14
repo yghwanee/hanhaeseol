@@ -4,6 +4,13 @@ import Link from "next/link";
 import { ScheduleData, Schedule } from "@/types/schedule";
 import ScheduleClient from "./ScheduleClient";
 
+const SPORT_DURATION_HOURS: Record<string, number> = {
+  "축구": 2.5,
+  "야구": 4.5,
+  "농구": 3,
+  "배구": 3,
+};
+
 function buildSportsEventsJsonLd(schedules: Schedule[]) {
   const todayStr = new Date().toISOString().slice(0, 10);
   const upcoming = schedules
@@ -14,30 +21,46 @@ function buildSportsEventsJsonLd(schedules: Schedule[]) {
     "@context": "https://schema.org",
     "@graph": upcoming.map((s) => {
       const [hh, mm] = s.time.split(":");
-      const startDate = `${s.date}T${hh}:${mm}:00+09:00`;
+      const start = new Date(`${s.date}T${hh}:${mm}:00+09:00`);
+      const durationMs = (SPORT_DURATION_HOURS[s.sport] ?? 3) * 60 * 60 * 1000;
+      const end = new Date(start.getTime() + durationMs);
+      const lang = s.koreanCommentary === true ? "ko" : s.koreanCommentary === false ? "en" : "ko";
+
       return {
         "@type": "SportsEvent",
-        "name": `${s.homeTeam} vs ${s.awayTeam}`,
-        "startDate": startDate,
-        "sport": s.sport,
+        "name": `${s.league} ${s.homeTeam} vs ${s.awayTeam}`,
+        "startDate": start.toISOString(),
+        "endDate": end.toISOString(),
         "eventStatus": "https://schema.org/EventScheduled",
         "eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
         "location": {
           "@type": "VirtualLocation",
           "url": "https://haeseol.com",
         },
+        "image": ["https://haeseol.com/logo.png"],
+        "description": `${s.league} ${s.homeTeam} vs ${s.awayTeam} ${s.platform} 중계${s.koreanCommentary === true ? " (한국어해설)" : ""}`,
+        "sport": s.sport,
+        "inLanguage": lang,
         "competitor": [
           { "@type": "SportsTeam", "name": s.homeTeam },
           { "@type": "SportsTeam", "name": s.awayTeam },
         ],
-        "superEvent": { "@type": "SportsEvent", "name": s.league },
-        "broadcastOfEvent": {
-          "@type": "BroadcastEvent",
-          "name": s.platform,
-          "isLiveBroadcast": true,
-          "inLanguage": s.koreanCommentary === true ? "ko" : s.koreanCommentary === false ? "en" : "ko",
+        "performer": [
+          { "@type": "SportsTeam", "name": s.homeTeam },
+          { "@type": "SportsTeam", "name": s.awayTeam },
+        ],
+        "organizer": {
+          "@type": "Organization",
+          "name": s.league,
         },
-        "description": `${s.league} ${s.homeTeam} vs ${s.awayTeam} ${s.platform} 중계${s.koreanCommentary === true ? " (한국어해설)" : ""}`,
+        "offers": {
+          "@type": "Offer",
+          "url": "https://haeseol.com",
+          "availability": "https://schema.org/InStock",
+          "price": "0",
+          "priceCurrency": "KRW",
+          "validFrom": new Date(s.date).toISOString(),
+        },
       };
     }),
   };
