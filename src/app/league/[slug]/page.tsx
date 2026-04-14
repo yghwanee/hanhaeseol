@@ -6,6 +6,8 @@ import { ScheduleData, Schedule } from "@/types/schedule";
 import { LEAGUE_SEO, findLeagueBySlug } from "@/lib/slugs";
 import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
 
+export const revalidate = 600;
+
 export function generateStaticParams() {
   return LEAGUE_SEO.map((l) => ({ slug: l.slug }));
 }

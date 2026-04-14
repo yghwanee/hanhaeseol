@@ -6,6 +6,8 @@ import { ScheduleData, Schedule } from "@/types/schedule";
 import { PLATFORM_SEO, findPlatformBySlug } from "@/lib/slugs";
 import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
 
+export const revalidate = 600;
+
 export function generateStaticParams() {
   return PLATFORM_SEO.map((p) => ({ slug: p.slug }));
 }
