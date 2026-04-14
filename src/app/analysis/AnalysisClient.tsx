@@ -18,6 +18,7 @@ const LEAGUE_FLAG: Record<string, string> = {
   "K리그": "kr",
   "K리그1": "kr",
   "K리그2": "kr",
+  "KBO": "kr",
   "NBA": "us",
   "MLB": "us",
   "MLS": "us",
