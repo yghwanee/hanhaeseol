@@ -1,6 +1,8 @@
 const MLB = (abbr: string) => `https://a.espncdn.com/i/teamlogos/mlb/500/${abbr}.png`;
 const NBA = (abbr: string) => `https://a.espncdn.com/i/teamlogos/nba/500/${abbr}.png`;
 const SOC = (id: number) => `https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png`;
+const KBO_LOGO = (code: string) =>
+  `https://6ptotvmi5753.edge.naverncp.com/KBO_IMAGE/emblem/regular/2026/initial_${code}.png`;
 
 export const TEAM_LOGOS: Record<string, string> = {
   // MLB
@@ -66,6 +68,18 @@ export const TEAM_LOGOS: Record<string, string> = {
   "스포르팅 CP": SOC(498),
   "아스날": SOC(359),
   "파리 생제르망": SOC(160),
+
+  // KBO
+  "KIA": KBO_LOGO("HT"),
+  "KT": KBO_LOGO("KT"),
+  "LG": KBO_LOGO("LG"),
+  "NC": KBO_LOGO("NC"),
+  "SSG": KBO_LOGO("SK"),
+  "두산": KBO_LOGO("OB"),
+  "롯데": KBO_LOGO("LT"),
+  "삼성": KBO_LOGO("SS"),
+  "키움": KBO_LOGO("WO"),
+  "한화": KBO_LOGO("HH"),
 
   // AFC
   "감바 오사카": SOC(6733),
