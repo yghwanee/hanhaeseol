@@ -28,6 +28,7 @@ function fetchPredictionsList(): MatchPreview[] {
   const pages = [
     "https://www.sportytrader.com/en/",
     "https://www.sportytrader.com/en/betting-tips/basketball/usa/nba-306/",
+    "https://www.sportytrader.com/us/picks/",
   ];
 
   const matches: MatchPreview[] = [];
@@ -36,12 +37,13 @@ function fetchPredictionsList(): MatchPreview[] {
     const html = curlFetch(pageUrl);
     if (!html) continue;
 
-    const linkPattern = /betting-tips\/([a-z0-9][a-z0-9-]*-\d+)\//g;
+    const linkPattern = /\/(?:en\/betting-tips|us\/picks)\/([a-z0-9][a-z0-9-]*-\d+)\//g;
     let match;
 
     while ((match = linkPattern.exec(html)) !== null) {
+      const section = match[0].includes("/us/picks/") ? "us/picks" : "en/betting-tips";
       const slug = match[1];
-      const url = `https://www.sportytrader.com/en/betting-tips/${slug}/`;
+      const url = `https://www.sportytrader.com/${section}/${slug}/`;
       if (!matches.some((m) => m.url === url)) {
         matches.push({ slug, url });
       }
@@ -65,7 +67,8 @@ function fetchArticle(url: string): {
   let awayTeamEn = "";
 
   if (titleMatch) {
-    const vsMatch = titleMatch[1].match(/(.+?)\s+vs\s+(.+?)\s+(?:Prediction|Betting|Tips)/i);
+    const decoded = titleMatch[1].replace(/&amp;/g, "&").replace(/&#\d+;/g, "");
+    const vsMatch = decoded.match(/(.+?)\s+vs\s+(.+?)\s+(?:Prediction|Picks|Betting|Tips)/i);
     if (vsMatch) {
       homeTeamEn = vsMatch[1].trim();
       awayTeamEn = vsMatch[2].trim();
@@ -132,8 +135,7 @@ export async function crawlSportytrader(
   schedules: Schedule[]
 ): Promise<AnalysisArticle[]> {
   const koreanMatches = schedules.filter(
-    (s) => s.date === date && s.koreanCommentary === true &&
-      (s.sport === "축구" || s.sport === "농구")
+    (s) => s.date === date && s.koreanCommentary === true
   );
   if (koreanMatches.length === 0) return [];
 
