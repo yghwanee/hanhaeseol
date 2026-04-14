@@ -8,6 +8,7 @@ import { crawlFootballpredictionsNet } from "../lib/crawlers/footballpredictions
 import { crawlDimers } from "../lib/crawlers/dimers";
 import { crawl7M } from "../lib/crawlers/7m";
 import { crawlLiveman } from "../lib/crawlers/liveman";
+import { crawlScores24 } from "../lib/crawlers/scores24";
 import { AnalysisData, AnalysisArticle } from "../types/analysis";
 import { ScheduleData } from "../types/schedule";
 import { translateText } from "../lib/translate";
@@ -72,7 +73,10 @@ async function main() {
     const lmArticles = await crawlLiveman(dateStr, scheduleData.schedules);
     console.log(`✓ liveman: ${lmArticles.length}건 수집\n`);
 
-    newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles, ...smArticles, ...lmArticles);
+    const s24Articles = await crawlScores24(dateStr, scheduleData.schedules);
+    console.log(`✓ scores24: ${s24Articles.length}건 수집\n`);
+
+    newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles, ...smArticles, ...lmArticles, ...s24Articles);
   }
 
   // 번역 (content, prediction) - 7M은 이미 한국어이므로 제외

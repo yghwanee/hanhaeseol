@@ -152,6 +152,19 @@ export const TEAM_NAME_MAP: Record<string, string> = {
 
   // === K리그2 ===
   "Suwon Samsung Bluewings": "수원",
+
+  // === KBO (10팀) ===
+  "KIA Tigers": "KIA",
+  "Kia Tigers": "KIA",
+  "KT Wiz": "KT",
+  "LG Twins": "LG",
+  "NC Dinos": "NC",
+  "SSG Landers": "SSG",
+  "Doosan Bears": "두산",
+  "Lotte Giants": "롯데",
+  "Samsung Lions": "삼성",
+  "Kiwoom Heroes": "키움",
+  "Hanwha Eagles": "한화",
   "Anyang": "안양",
   "Fc Anyang": "안양",
   "Chungnam Asan": "충남아산",
