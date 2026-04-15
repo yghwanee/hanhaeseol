@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CoupangTopBanner } from "../_components/CoupangBanners";
 
 export const metadata: Metadata = {
   title: "이용약관 - 한해설",
@@ -15,6 +16,8 @@ export default function TermsPage() {
         <h1 className="text-3xl font-bold mb-8">이용약관</h1>
 
         <p className="text-gray-400 text-sm mb-8">시행일: 2026년 2월 1일</p>
+
+        <CoupangTopBanner />
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">제1조 (목적)</h2>

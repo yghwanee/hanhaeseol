@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Schedule } from "@/types/schedule";
 import { LEAGUE_SEO, PLATFORM_SEO, SeoMeta } from "@/lib/slugs";
+import { CoupangTopBanner } from "@/app/_components/CoupangBanners";
 
 const GAME_DURATION_HOURS: Record<string, number> = {
   "축구": 2.5,
@@ -72,6 +73,8 @@ export default function FilteredScheduleView({ meta, kind, schedules }: Props) {
         </h1>
         <p className="mt-3 text-sm text-zinc-400 leading-relaxed">{meta.intro}</p>
       </header>
+
+      <CoupangTopBanner />
 
       <section className="mb-8">
         <div className="flex items-center justify-between mb-3">

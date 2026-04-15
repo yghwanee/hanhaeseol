@@ -238,24 +238,6 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
 
   return (
     <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 xl:max-w-none xl:px-[200px]">
-      {/* PC 왼쪽 광고 */}
-      <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
-        {showAds ? (
-          <iframe title="쿠팡 파트너스 광고 (좌측 사이드)" src="https://ads-partners.coupang.com/widgets.html?id=979121&template=carousel&trackingCode=AF2259406&subId=sidebar-left&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
-        ) : (
-          <AdSkeleton className="w-[160px] h-[600px]" />
-        )}
-      </div>
-
-      {/* PC 오른쪽 광고 */}
-      <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
-        {showAds ? (
-          <iframe title="쿠팡 파트너스 광고 (우측 사이드)" src="https://ads-partners.coupang.com/widgets.html?id=979133&template=carousel&trackingCode=AF2259406&subId=sidebar-right&width=160&height=600&tsource=" width="160" height="600" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
-        ) : (
-          <AdSkeleton className="w-[160px] h-[600px]" />
-        )}
-      </div>
-
       <div className="mx-auto max-w-2xl">
       {/* Header */}
       <StickyHeader fullBleedXl>

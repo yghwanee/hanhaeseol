@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CoupangTopBanner } from "../_components/CoupangBanners";
 
 export const metadata: Metadata = {
   title: "한해설 소개 - 스포츠 한국어 해설 편성표",
@@ -13,6 +14,8 @@ export default function AboutPage() {
         <Link href="/" className="text-blue-400 hover:underline text-sm mb-8 inline-block">← 편성표로 돌아가기</Link>
 
         <h1 className="text-3xl font-bold mb-8">한해설 소개</h1>
+
+        <CoupangTopBanner />
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">한해설이란?</h2>

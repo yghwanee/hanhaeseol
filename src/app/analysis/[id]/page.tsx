@@ -6,6 +6,7 @@ import { AnalysisData } from "@/types/analysis";
 import { getTeamLogo } from "@/data/team-logos";
 import { TeamLogo } from "./TeamLogo";
 import { StickyHeader } from "../../_components/StickyHeader";
+import { CoupangTopBanner } from "../../_components/CoupangBanners";
 import { LEAGUE_FLAG, FlagIcon } from "../_flags";
 
 function loadAnalysisData(): AnalysisData {
@@ -88,6 +89,8 @@ export default async function AnalysisDetailPage({ params }: { params: Promise<{
             </div>
           </div>
         </div>
+
+        <CoupangTopBanner />
 
         {/* 분석 본문 */}
         <div className="space-y-4">

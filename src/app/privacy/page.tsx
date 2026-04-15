@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { CoupangTopBanner } from "../_components/CoupangBanners";
 
 export const metadata: Metadata = {
   title: "개인정보처리방침 - 한해설",
@@ -15,6 +16,8 @@ export default function PrivacyPage() {
         <h1 className="text-3xl font-bold mb-8">개인정보처리방침</h1>
 
         <p className="text-gray-400 text-sm mb-8">시행일: 2026년 2월 1일</p>
+
+        <CoupangTopBanner />
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">1. 개인정보의 수집 및 이용</h2>
