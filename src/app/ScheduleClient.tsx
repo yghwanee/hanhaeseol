@@ -19,8 +19,8 @@ const PLATFORM_LIST = [
   { key: "Apple TV+", label: "Apple TV+" },
   { key: "tvN SPORTS", label: "tvN" },
   { key: "KBS N SPORTS", label: "KBS N" },
-  { key: "MBC SPORTS+", label: "MBC" },
-  { key: "SBS Sports", label: "SBS" },
+  { key: "MBC SPORTS+", label: "MBC SPORTS" },
+  { key: "SBS Sports", label: "SBS SPORTS" },
 ] as const;
 
 const PLATFORM_ICON_MAP: Record<string, string> = {
@@ -47,14 +47,14 @@ function PlatformIcon({ platformKey }: { platformKey: string }) {
         alt={platformKey}
         width={36}
         height={36}
-        className="rounded-md object-contain w-8 h-8 sm:w-[19px] sm:h-[19px]"
+        className="rounded-md object-contain w-8 h-8"
       />
     );
   }
 
   if (platformKey === "전체") {
     return (
-      <span className="text-sm sm:text-xs font-bold" style={{ color: "#18181B" }}>ALL</span>
+      <span className="text-sm font-bold" style={{ color: "#18181B" }}>ALL</span>
     );
   }
 
@@ -422,7 +422,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
                   style={{ width: 75 }}
                 >
                   <div
-                    className={`flex h-14 w-14 sm:h-9 sm:w-9 items-center justify-center rounded-full transition-all duration-200 ${
+                    className={`flex h-14 w-14 items-center justify-center rounded-full transition-all duration-200 ${
                       key === "전체"
                         ? `bg-white ${isActive ? "ring-2 ring-zinc-400 scale-105" : "group-hover:scale-105"}`
                         : isActive
