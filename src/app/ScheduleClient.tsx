@@ -13,138 +13,57 @@ const PLATFORM_LIST = [
   { key: "전체", label: "전체" },
   { key: "쿠팡플레이", label: "쿠팡플레이" },
   { key: "티빙", label: "티빙" },
-  { key: "Apple TV+", label: "Apple TV+" },
   { key: "SPOTV NOW", label: "SPOTV NOW" },
   { key: "SPOTV", label: "SPOTV" },
   { key: "SPOTV2", label: "SPOTV2" },
+  { key: "Apple TV+", label: "Apple TV+" },
   { key: "tvN SPORTS", label: "tvN" },
   { key: "KBS N SPORTS", label: "KBS N" },
   { key: "MBC SPORTS+", label: "MBC" },
   { key: "SBS Sports", label: "SBS" },
 ] as const;
 
+const PLATFORM_ICON_MAP: Record<string, string> = {
+  "쿠팡플레이": "/platforms/coupangplay.png",
+  "티빙": "/platforms/tving.png",
+  "Apple TV+": "/platforms/appletv.png",
+  "SPOTV NOW": "/platforms/spotvnow.png",
+  "SPOTV": "/platforms/spotv.png",
+  "SPOTV2": "/platforms/spotv.png",
+  "tvN SPORTS": "/platforms/tvn.webp",
+  "KBS N SPORTS": "/platforms/kbs.jpg",
+  "MBC SPORTS+": "/platforms/mbc.png",
+  "SBS Sports": "/platforms/sbs.png",
+};
+
 function PlatformIcon({ platformKey }: { platformKey: string }) {
-  const s = 28;
-  switch (platformKey) {
-    case "전체":
-      return (
-        <svg width={s} height={s} viewBox="0 0 36 36" fill="none">
-          <rect x="4" y="10" width="28" height="16" rx="4" fill="#6366f1" />
-          <rect x="4" y="10" width="28" height="8" rx="4" fill="#818cf8" />
-          <text x="18" y="22" textAnchor="middle" fontSize="11" fontWeight="800" fill="#ffffff" fontFamily="sans-serif" letterSpacing="1">ALL</text>
-        </svg>
-      );
-    case "쿠팡플레이":
-      return (
-        <svg width={s} height={s} viewBox="0 0 36 36" fill="none">
-          <rect x="4" y="6" width="28" height="20" rx="4" fill="#2563eb" />
-          <rect x="4" y="6" width="28" height="10" rx="4" fill="#3b82f6" />
-          <polygon points="15,11 15,21 24,16" fill="#ffffff" />
-          <rect x="11" y="28" width="14" height="2.5" rx="1.25" fill="#93c5fd" />
-        </svg>
-      );
-    case "티빙":
-      return (
-        <svg width={s} height={s} viewBox="0 0 36 36" fill="none">
-          <rect x="3" y="6" width="30" height="20" rx="3.5" fill="#7c3aed" />
-          <rect x="3" y="6" width="30" height="10" rx="3.5" fill="#8b5cf6" />
-          <rect x="6" y="9" width="24" height="14" rx="2" fill="#1e1b4b" />
-          <text x="18" y="20" textAnchor="middle" fontSize="9" fontWeight="bold" fill="#c4b5fd">T</text>
-          <rect x="14" y="26" width="8" height="2" rx="1" fill="#a78bfa" />
-          <rect x="11" y="28.5" width="14" height="2" rx="1" fill="#c4b5fd" />
-        </svg>
-      );
-    case "Apple TV+":
-      return (
-        <svg width={s} height={s} viewBox="0 0 36 36" fill="none">
-          <path d="M18 7c-1.2 0-2.2-.3-2.8-1.2.8-.1 2-.4 2.8-1.8.7 1.4 2 1.7 2.8 1.8-.6.9-1.6 1.2-2.8 1.2z" fill="#4b5563" />
-          <path d="M18 8c-3 0-5.5 2.5-5.5 5.5 0 5.5 5.5 11 5.5 11s5.5-5.5 5.5-11C23.5 10.5 21 8 18 8z" fill="#374151" />
-          <text x="18" y="32" textAnchor="middle" fontSize="7.5" fontWeight="bold" fill="#6b7280">TV+</text>
-        </svg>
-      );
-    case "SPOTV NOW":
-      return (
-        <svg width={s} height={s} viewBox="0 0 36 36" fill="none">
-          <circle cx="18" cy="16" r="11" fill="#dc2626" />
-          <circle cx="18" cy="16" r="11" fill="url(#sn-grad)" />
-          <polygon points="15,11 15,21 24,16" fill="#ffffff" />
-          <circle cx="27" cy="8" r="4" fill="#22c55e" />
-          <text x="18" y="32" textAnchor="middle" fontSize="6" fontWeight="bold" fill="#f87171">NOW</text>
-          <defs><radialGradient id="sn-grad"><stop offset="0%" stopColor="#ef4444" /><stop offset="100%" stopColor="#b91c1c" /></radialGradient></defs>
-        </svg>
-      );
-    case "SPOTV":
-      return (
-        <svg width={s} height={s} viewBox="0 0 36 36" fill="none">
-          <rect x="4" y="5" width="28" height="22" rx="4" fill="#dc2626" />
-          <rect x="4" y="5" width="28" height="11" rx="4" fill="#ef4444" />
-          <text x="18" y="20" textAnchor="middle" fontSize="10" fontWeight="900" fill="#ffffff" fontFamily="sans-serif">SP</text>
-          <rect x="10" y="29" width="16" height="2.5" rx="1.25" fill="#fca5a5" />
-        </svg>
-      );
-    case "SPOTV2":
-      return (
-        <svg width={s} height={s} viewBox="0 0 36 36" fill="none">
-          <rect x="4" y="5" width="28" height="22" rx="4" fill="#ea580c" />
-          <rect x="4" y="5" width="28" height="11" rx="4" fill="#f97316" />
-          <text x="15" y="20" textAnchor="middle" fontSize="10" fontWeight="900" fill="#ffffff" fontFamily="sans-serif">SP</text>
-          <circle cx="27" cy="10" r="5" fill="#fbbf24" />
-          <text x="27" y="13" textAnchor="middle" fontSize="8" fontWeight="900" fill="#ffffff">2</text>
-          <rect x="10" y="29" width="16" height="2.5" rx="1.25" fill="#fdba74" />
-        </svg>
-      );
-    case "tvN SPORTS":
-      return (
-        <svg width={s} height={s} viewBox="0 0 36 36" fill="none">
-          <rect x="4" y="7" width="28" height="19" rx="4" fill="#059669" />
-          <rect x="4" y="7" width="28" height="9.5" rx="4" fill="#10b981" />
-          <text x="18" y="20.5" textAnchor="middle" fontSize="9" fontWeight="800" fill="#ffffff" fontFamily="sans-serif">tvN</text>
-          <circle cx="7" cy="31" r="2.5" fill="#6ee7b7" />
-          <circle cx="18" cy="31" r="2.5" fill="#34d399" />
-          <circle cx="29" cy="31" r="2.5" fill="#6ee7b7" />
-        </svg>
-      );
-    case "KBS N SPORTS":
-      return (
-        <svg width={s} height={s} viewBox="0 0 36 36" fill="none">
-          <rect x="6" y="10" width="24" height="16" rx="3" fill="#0284c7" />
-          <rect x="6" y="10" width="24" height="8" rx="3" fill="#0ea5e9" />
-          <text x="18" y="22" textAnchor="middle" fontSize="7.5" fontWeight="800" fill="#ffffff" fontFamily="sans-serif">KBS</text>
-          <path d="M18 4 L16 9 L20 9 Z" fill="#38bdf8" />
-          <line x1="18" y1="4" x2="18" y2="10" stroke="#7dd3fc" strokeWidth="1.5" />
-          <circle cx="12" cy="8" r="1.5" fill="#bae6fd" opacity="0.6" />
-          <circle cx="24" cy="7" r="1.5" fill="#bae6fd" opacity="0.6" />
-          <rect x="12" y="29" width="12" height="2" rx="1" fill="#7dd3fc" />
-        </svg>
-      );
-    case "MBC SPORTS+":
-      return (
-        <svg width={s} height={s} viewBox="0 0 36 36" fill="none">
-          <rect x="5" y="8" width="26" height="18" rx="4" fill="#d97706" />
-          <rect x="5" y="8" width="26" height="9" rx="4" fill="#f59e0b" />
-          <text x="18" y="21" textAnchor="middle" fontSize="7" fontWeight="800" fill="#ffffff" fontFamily="sans-serif">MBC</text>
-          <circle cx="29" cy="9" r="4.5" fill="#fbbf24" />
-          <text x="29" y="11.5" textAnchor="middle" fontSize="7" fontWeight="900" fill="#ffffff">+</text>
-          <rect x="12" y="29" width="12" height="2.5" rx="1.25" fill="#fcd34d" />
-        </svg>
-      );
-    case "SBS Sports":
-      return (
-        <svg width={s} height={s} viewBox="0 0 36 36" fill="none">
-          <rect x="5" y="8" width="26" height="18" rx="4" fill="#4338ca" />
-          <rect x="5" y="8" width="26" height="9" rx="4" fill="#6366f1" />
-          <text x="18" y="21" textAnchor="middle" fontSize="8" fontWeight="800" fill="#ffffff" fontFamily="sans-serif">SBS</text>
-          <path d="M8 30 Q12 27 18 30 Q24 33 28 30" stroke="#818cf8" strokeWidth="2" fill="none" strokeLinecap="round" />
-        </svg>
-      );
-    default:
-      return (
-        <svg width={s} height={s} viewBox="0 0 36 36" fill="none">
-          <circle cx="18" cy="18" r="12" fill="#52525b" />
-          <text x="18" y="22" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#ffffff">?</text>
-        </svg>
-      );
+  const s = 19;
+  const iconSrc = PLATFORM_ICON_MAP[platformKey];
+
+  if (iconSrc) {
+    return (
+      <Image
+        src={iconSrc}
+        alt={platformKey}
+        width={s}
+        height={s}
+        className="rounded-md object-contain"
+      />
+    );
   }
+
+  if (platformKey === "전체") {
+    return (
+      <span className="text-[10px] sm:text-xs font-bold" style={{ color: "#18181B" }}>ALL</span>
+    );
+  }
+
+  return (
+    <svg width={s} height={s} viewBox="0 0 36 36" fill="none">
+      <circle cx="18" cy="18" r="12" fill="#52525b" />
+      <text x="18" y="22" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#ffffff">?</text>
+    </svg>
+  );
 }
 function getUpcomingDates(): { label: string; value: string }[] {
   const dates: { label: string; value: string }[] = [];
@@ -354,13 +273,46 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
   const [showAds, setShowAds] = useState(false);
 
   const platformRef = useRef<HTMLDivElement>(null);
-  const [platformScrolled, setPlatformScrolled] = useState(false);
-  const scrollPlatformTo = (end: boolean) => {
+  const [platformScrollRatio, setPlatformScrollRatio] = useState(0);
+  const isDragging = useRef(false);
+  const dragStartX = useRef(0);
+  const dragScrollLeft = useRef(0);
+
+  useEffect(() => {
     const el = platformRef.current;
     if (!el) return;
-    el.scrollTo({ left: end ? el.scrollWidth : 0, behavior: "smooth" });
-    setPlatformScrolled(end);
-  };
+    const onScroll = () => {
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      setPlatformScrollRatio(maxScroll > 0 ? el.scrollLeft / maxScroll : 0);
+    };
+    const onMouseDown = (e: MouseEvent) => {
+      isDragging.current = true;
+      dragStartX.current = e.pageX - el.offsetLeft;
+      dragScrollLeft.current = el.scrollLeft;
+      el.style.cursor = "grabbing";
+    };
+    const onMouseMove = (e: MouseEvent) => {
+      if (!isDragging.current) return;
+      e.preventDefault();
+      const x = e.pageX - el.offsetLeft;
+      el.scrollLeft = dragScrollLeft.current - (x - dragStartX.current);
+    };
+    const onMouseUp = () => {
+      isDragging.current = false;
+      el.style.cursor = "grab";
+    };
+    el.style.cursor = "grab";
+    el.addEventListener("scroll", onScroll, { passive: true });
+    el.addEventListener("mousedown", onMouseDown);
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mouseup", onMouseUp);
+    return () => {
+      el.removeEventListener("scroll", onScroll);
+      el.removeEventListener("mousedown", onMouseDown);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mouseup", onMouseUp);
+    };
+  }, []);
 
   useEffect(() => {
     const timer = setTimeout(() => setShowAds(true), 1500);
@@ -455,10 +407,10 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
         </div>
 
         {/* Platform Filter - Circle Icons */}
-        <div className="flex items-center gap-2 pt-2">
+        <div className="pt-2 -ml-[21px]">
           <div
             ref={platformRef}
-            className="flex-1 min-w-0 flex gap-4 sm:gap-5 overflow-x-auto scrollbar-hide pb-1 pt-1 pl-1 -mt-1"
+            className="flex overflow-x-auto overflow-y-hidden scrollbar-hide pb-1 pt-1 -mt-1"
           >
             {PLATFORM_LIST.map(({ key, label }) => {
               const isActive = platform === key;
@@ -467,12 +419,15 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
                   key={key}
                   onClick={() => setPlatform(key)}
                   className="flex shrink-0 flex-col items-center gap-1.5 group"
+                  style={{ width: 75 }}
                 >
                   <div
-                    className={`flex h-11 w-11 sm:h-12 sm:w-12 items-center justify-center rounded-full transition-all duration-200 ${
-                      isActive
-                        ? "bg-zinc-200 ring-2 ring-zinc-400 scale-105"
-                        : "bg-zinc-800/80 group-hover:bg-zinc-700/80 group-hover:scale-105"
+                    className={`flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full transition-all duration-200 ${
+                      key === "전체"
+                        ? `bg-white ${isActive ? "ring-2 ring-zinc-400 scale-105" : "group-hover:scale-105"}`
+                        : isActive
+                          ? "bg-zinc-200 ring-2 ring-zinc-400 scale-105"
+                          : "bg-zinc-800/80 group-hover:bg-zinc-700/80 group-hover:scale-105"
                     }`}
                   >
                     <PlatformIcon platformKey={key} />
@@ -485,17 +440,15 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
                 </button>
               );
             })}
+            <div className="shrink-0 w-4" />
           </div>
-          {/* Arrow button - PC only */}
-          <button
-            onClick={() => scrollPlatformTo(!platformScrolled)}
-            className="hidden sm:flex shrink-0 h-8 w-8 items-center justify-center rounded-full bg-zinc-800 border border-zinc-700 text-zinc-300 hover:bg-zinc-700 hover:text-white transition-colors"
-            aria-label={platformScrolled ? "처음으로" : "더보기"}
-          >
-            <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor" className={`transition-transform ${platformScrolled ? "rotate-180" : ""}`}>
-              <path fillRule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L10.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clipRule="evenodd" />
-            </svg>
-          </button>
+          {/* Scroll indicator bar */}
+          <div className="mt-3 mx-auto w-28 sm:w-32 h-[3px] rounded-full bg-zinc-800/60">
+            <div
+              className="h-full rounded-full bg-zinc-500/80 transition-transform duration-200 ease-out"
+              style={{ width: "35%", transform: `translateX(${platformScrollRatio * 186}%)` }}
+            />
+          </div>
         </div>
       </div>
 
