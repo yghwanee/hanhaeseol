@@ -278,3 +278,7 @@ export function findLeagueBySlug(slug: string): SeoMeta | undefined {
 export function findPlatformBySlug(slug: string): SeoMeta | undefined {
   return PLATFORM_SEO.find((p) => p.slug === slug);
 }
+
+export function findPlatformSlugByName(name: string): string | undefined {
+  return PLATFORM_SEO.find((p) => p.match.includes(name))?.slug;
+}

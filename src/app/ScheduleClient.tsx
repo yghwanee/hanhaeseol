@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Schedule, ScheduleData } from "@/types/schedule";
+import { findPlatformSlugByName } from "@/lib/slugs";
 import { StickyHeader } from "./_components/StickyHeader";
 
 const SPORTS = ["전체", "축구", "야구", "농구", "배구"] as const;
@@ -93,6 +94,7 @@ function AdSkeleton({ className }: { className?: string }) {
 }
 
 function PlatformBadge({ platform }: { platform: string }) {
+  const slug = findPlatformSlugByName(platform);
   const styles: Record<string, string> = {
     "SPOTV NOW": "bg-red-500/15 text-red-400 ring-red-500/30",
     SPOTV: "bg-red-500/15 text-red-400 ring-red-500/30",
@@ -105,12 +107,20 @@ function PlatformBadge({ platform }: { platform: string }) {
     "SBS Sports": "bg-indigo-500/15 text-indigo-400 ring-indigo-500/30",
     "Apple TV+": "bg-gray-500/15 text-gray-300 ring-gray-500/30",
   };
+  if (!slug) {
+    return (
+      <span
+        className={`inline-flex rounded-full px-2 sm:px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold ring-1 ${styles[platform] ?? "bg-zinc-500/15 text-zinc-400 ring-zinc-500/30"}`}
+      >
+        {platform}
+      </span>
+    );
+  }
   return (
-    <span
-      className={`inline-flex rounded-full px-2 sm:px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold ring-1 ${styles[platform] ?? "bg-zinc-500/15 text-zinc-400 ring-zinc-500/30"}`}
-    >
+    <Link href={`/platform/${slug}`} className={`inline-flex items-center gap-1 rounded-full px-2 sm:px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold ring-1 hover:brightness-125 transition-all ${styles[platform] ?? "bg-zinc-500/15 text-zinc-400 ring-zinc-500/30"}`}>
       {platform}
-    </span>
+      <span className="text-sm ml-0.5 opacity-60">›</span>
+    </Link>
   );
 }
 

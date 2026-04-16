@@ -4,7 +4,9 @@ import path from "path";
 import type { Metadata } from "next";
 import { ScheduleData, Schedule } from "@/types/schedule";
 import { PLATFORM_SEO, findPlatformBySlug } from "@/lib/slugs";
+import { PLATFORM_GUIDES } from "@/lib/platform-guides";
 import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
+import PlatformGuideSection from "@/app/_components/PlatformGuideSection";
 
 export const revalidate = 600;
 
@@ -54,6 +56,14 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
   const meta = findPlatformBySlug(params.slug);
   if (!meta) notFound();
 
+  const guide = PLATFORM_GUIDES[params.slug];
   const schedules = loadSchedules();
-  return <FilteredScheduleView meta={meta} kind="platform" schedules={schedules} />;
+  return (
+    <FilteredScheduleView
+      meta={meta}
+      kind="platform"
+      schedules={schedules}
+      guideSlot={guide ? <PlatformGuideSection guide={guide} display={meta.display} /> : undefined}
+    />
+  );
 }
