@@ -66,32 +66,27 @@ export function CoupangTopBanner() {
         </p>
       </div>
       <div className="sm:hidden flex justify-center mb-4">
-        {showAds ? (
-          <a
-            href="https://link.coupang.com/a/ekC6YT"
-            target="_blank"
-            rel="nofollow sponsored noopener"
-            referrerPolicy="unsafe-url"
-            className="w-full"
-          >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src="https://ads-partners.coupang.com/banners/979237?subId=mobile-top&traceId=V0-301-371ae01f4226dec2-I979237&w=320&h=50"
-              alt="쿠팡플레이 스포츠 중계 배너"
-              className="w-full h-auto"
+        <div className="rounded-xl overflow-hidden w-full">
+          {showAds ? (
+            <iframe
+              title="쿠팡 파트너스 광고 (모바일 상단)"
+              src="https://ads-partners.coupang.com/widgets.html?id=979107&template=banner&trackingCode=AF2259406&subId=mobile-top&width=728&height=90"
+              className="w-full h-[90px] border-0 rounded-xl"
+              scrolling="no"
+              referrerPolicy="unsafe-url"
               loading="lazy"
             />
-          </a>
-        ) : (
-          <AdSkeleton className="w-full h-[50px]" />
-        )}
+          ) : (
+            <AdSkeleton className="w-full h-[90px] rounded-xl" />
+          )}
+        </div>
       </div>
       <div className="hidden sm:flex justify-center mb-6">
         <div className="rounded-xl overflow-hidden w-full max-w-2xl">
           {showAds ? (
             <iframe
               title="쿠팡 파트너스 광고 (PC 상단)"
-              src="https://ads-partners.coupang.com/widgets.html?id=979114&template=banner&trackingCode=AF2259406&subId=pc-top&width=728&height=90"
+              src="https://ads-partners.coupang.com/widgets.html?id=979107&template=banner&trackingCode=AF2259406&subId=pc-top&width=728&height=90"
               className="w-full h-[90px] border-0 rounded-xl"
               scrolling="no"
               referrerPolicy="unsafe-url"
