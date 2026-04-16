@@ -30,7 +30,7 @@ const PLATFORM_ICON_MAP: Record<string, string> = {
   "SPOTV NOW": "/platforms/spotvnow.png",
   "SPOTV": "/platforms/spotv.png",
   "SPOTV2": "/platforms/spotv.png",
-  "tvN SPORTS": "/platforms/tvn.webp",
+  "tvN SPORTS": "/platforms/tvn.png",
   "KBS N SPORTS": "/platforms/kbs.jpg",
   "MBC SPORTS+": "/platforms/mbc.png",
   "SBS Sports": "/platforms/sbs.png",
@@ -274,9 +274,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
 
   const platformRef = useRef<HTMLDivElement>(null);
   const [platformScrollRatio, setPlatformScrollRatio] = useState(0);
-  const isDragging = useRef(false);
-  const dragStartX = useRef(0);
-  const dragScrollLeft = useRef(0);
+  const dragState = useRef({ isDown: false, isDragging: false, startX: 0, scrollLeft: 0 });
 
   useEffect(() => {
     const el = platformRef.current;
@@ -285,32 +283,36 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
       const maxScroll = el.scrollWidth - el.clientWidth;
       setPlatformScrollRatio(maxScroll > 0 ? el.scrollLeft / maxScroll : 0);
     };
+    const stopDrag = () => {
+      dragState.current.isDown = false;
+      dragState.current.isDragging = false;
+      el.style.cursor = "";
+      el.style.userSelect = "";
+    };
     const onMouseDown = (e: MouseEvent) => {
-      isDragging.current = true;
-      dragStartX.current = e.pageX - el.offsetLeft;
-      dragScrollLeft.current = el.scrollLeft;
-      el.style.cursor = "grabbing";
+      e.preventDefault();
+      dragState.current.isDown = true;
+      dragState.current.isDragging = false;
+      dragState.current.startX = e.clientX;
+      dragState.current.scrollLeft = el.scrollLeft;
     };
     const onMouseMove = (e: MouseEvent) => {
-      if (!isDragging.current) return;
-      e.preventDefault();
-      const x = e.pageX - el.offsetLeft;
-      el.scrollLeft = dragScrollLeft.current - (x - dragStartX.current);
+      if (!dragState.current.isDown) return;
+      const dx = e.clientX - dragState.current.startX;
+      if (!dragState.current.isDragging && Math.abs(dx) < 5) return;
+      dragState.current.isDragging = true;
+      el.style.cursor = "grabbing";
+      el.scrollLeft = dragState.current.scrollLeft - dx;
     };
-    const onMouseUp = () => {
-      isDragging.current = false;
-      el.style.cursor = "grab";
-    };
-    el.style.cursor = "grab";
     el.addEventListener("scroll", onScroll, { passive: true });
     el.addEventListener("mousedown", onMouseDown);
-    window.addEventListener("mousemove", onMouseMove);
-    window.addEventListener("mouseup", onMouseUp);
+    document.addEventListener("mousemove", onMouseMove, true);
+    document.addEventListener("mouseup", stopDrag, true);
     return () => {
       el.removeEventListener("scroll", onScroll);
       el.removeEventListener("mousedown", onMouseDown);
-      window.removeEventListener("mousemove", onMouseMove);
-      window.removeEventListener("mouseup", onMouseUp);
+      document.removeEventListener("mousemove", onMouseMove, true);
+      document.removeEventListener("mouseup", stopDrag, true);
     };
   }, []);
 
