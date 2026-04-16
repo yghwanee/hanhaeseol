@@ -2,7 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Schedule } from "@/types/schedule";
 import { LEAGUE_SEO, PLATFORM_SEO, SeoMeta } from "@/lib/slugs";
-import { CoupangTopBanner } from "@/app/_components/CoupangBanners";
+import { CoupangTopBannerOnly } from "@/app/_components/CoupangBanners";
 import { StickyHeader } from "@/app/_components/StickyHeader";
 
 const GAME_DURATION_HOURS: Record<string, number> = {
@@ -69,8 +69,8 @@ export default function FilteredScheduleView({ meta, kind, schedules, guideSlot 
             <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
             <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
           </Link>
-          <Link href="/" className="text-[11px] sm:text-xs px-4 py-1.5 sm:px-5 sm:py-1.5 rounded-lg border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors whitespace-nowrap">
-            ← 편성표
+          <Link href="/" className="text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-lg border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors whitespace-nowrap">
+            ← &ensp;편성표
           </Link>
         </header>
       </StickyHeader>
@@ -84,16 +84,13 @@ export default function FilteredScheduleView({ meta, kind, schedules, guideSlot 
 
       {guideSlot}
 
-      <CoupangTopBanner />
+      <CoupangTopBannerOnly />
 
       <section className="mb-8">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-base sm:text-lg font-semibold text-zinc-200">
             예정 경기 ({filtered.length}건)
           </h2>
-          <Link href="/" className="text-xs text-zinc-400 hover:text-zinc-200 underline underline-offset-2">
-            전체 편성표 보기 →
-          </Link>
         </div>
 
         {dates.length === 0 ? (
@@ -164,9 +161,6 @@ export default function FilteredScheduleView({ meta, kind, schedules, guideSlot 
         </div>
       </section>
 
-      <footer className="border-t border-zinc-800 pt-6 text-center text-xs text-zinc-500">
-        <Link href="/" className="text-zinc-300 hover:text-white">← 메인으로 돌아가기</Link>
-      </footer>
     </main>
   );
 }

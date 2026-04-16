@@ -5,8 +5,8 @@ import fs from "fs";
 import path from "path";
 import { AnalysisData } from "@/types/analysis";
 import AnalysisClient from "./AnalysisClient";
+import { CoupangTopBannerOnly } from "../_components/CoupangBanners";
 import { StickyHeader } from "../_components/StickyHeader";
-import { CoupangTopBanner } from "../_components/CoupangBanners";
 
 export const metadata: Metadata = {
   title: "해외 픽스터 분석글 - 한해설",
@@ -35,8 +35,8 @@ export default function AnalysisPage() {
               <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
               <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
             </Link>
-            <Link href="/" className="text-[11px] sm:text-xs px-4 py-1.5 sm:px-5 sm:py-1.5 rounded-lg border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors whitespace-nowrap">
-              ← 편성표
+            <Link href="/" className="text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-lg border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors whitespace-nowrap">
+              ← &ensp;편성표
             </Link>
           </header>
         </StickyHeader>
@@ -46,7 +46,7 @@ export default function AnalysisPage() {
           <p className="mt-2 text-sm text-zinc-400 leading-relaxed">해외 유명 스포츠 분석가들의 경기 분석을 제공합니다.</p>
         </div>
 
-        <CoupangTopBanner />
+        <CoupangTopBannerOnly />
 
         <AnalysisClient articles={data.articles} lastUpdated={data.lastUpdated} />
       </div>

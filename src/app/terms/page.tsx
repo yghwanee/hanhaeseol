@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import { CoupangTopBanner } from "../_components/CoupangBanners";
+import { CoupangTopBannerOnly } from "../_components/CoupangBanners";
 import { StickyHeader } from "../_components/StickyHeader";
 
 export const metadata: Metadata = {
@@ -20,17 +20,18 @@ export default function TermsPage() {
               <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
               <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
             </Link>
-            <Link href="/" className="text-[11px] sm:text-xs px-4 py-1.5 sm:px-5 sm:py-1.5 rounded-lg border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors whitespace-nowrap">
-              ← 편성표
+            <Link href="/" className="text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-lg border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors whitespace-nowrap">
+              ← &ensp;편성표
             </Link>
           </header>
         </StickyHeader>
 
         <h1 className="text-2xl sm:text-3xl font-bold mt-4 sm:mt-6 mb-8">이용약관</h1>
 
+        <CoupangTopBannerOnly />
+
         <p className="text-gray-400 text-sm mb-8">시행일: 2026년 2월 1일</p>
 
-        <CoupangTopBanner />
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">제1조 (목적)</h2>

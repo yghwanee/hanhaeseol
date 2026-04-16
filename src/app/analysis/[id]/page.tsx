@@ -6,8 +6,8 @@ import path from "path";
 import { AnalysisData } from "@/types/analysis";
 import { getTeamLogo } from "@/data/team-logos";
 import { TeamLogo } from "./TeamLogo";
+import { CoupangTopBannerOnly } from "../../_components/CoupangBanners";
 import { StickyHeader } from "../../_components/StickyHeader";
-import { CoupangTopBanner } from "../../_components/CoupangBanners";
 import { LEAGUE_FLAG, FlagIcon } from "../_flags";
 
 function loadAnalysisData(): AnalysisData {
@@ -52,11 +52,13 @@ export default async function AnalysisDetailPage({ params }: { params: Promise<{
               <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
               <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
             </Link>
-            <Link href="/analysis" className="text-[11px] sm:text-xs px-4 py-1.5 sm:px-5 sm:py-1.5 rounded-lg border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors whitespace-nowrap">
-              ← 분석글 목록
+            <Link href="/analysis" className="text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-lg border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors whitespace-nowrap">
+              ← &ensp;분석글 목록
             </Link>
           </header>
         </StickyHeader>
+
+        <CoupangTopBannerOnly />
 
         {/* 경기 헤더 */}
         <div className="mt-4 sm:mt-6 mb-6">
@@ -93,7 +95,6 @@ export default async function AnalysisDetailPage({ params }: { params: Promise<{
           </div>
         </div>
 
-        <CoupangTopBanner />
 
         {/* 분석 본문 */}
         <div className="space-y-4">

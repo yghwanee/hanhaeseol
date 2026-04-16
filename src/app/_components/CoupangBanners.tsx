@@ -55,6 +55,46 @@ export function CoupangSideBanners() {
   );
 }
 
+export function CoupangTopBannerOnly() {
+  const showAds = useShowAds();
+  return (
+    <>
+      <div className="sm:hidden flex justify-center mb-4">
+        <div className="rounded-xl overflow-hidden w-full" style={{ aspectRatio: "728/90" }}>
+          {showAds ? (
+            <iframe
+              title="쿠팡 파트너스 광고 (모바일 상단)"
+              src="https://ads-partners.coupang.com/widgets.html?id=979107&template=banner&trackingCode=AF2259406&subId=mobile-top&width=728&height=90"
+              className="w-full h-full border-0 rounded-xl"
+              scrolling="no"
+              referrerPolicy="unsafe-url"
+              loading="lazy"
+            />
+          ) : (
+            <AdSkeleton className="w-full h-full rounded-xl" />
+          )}
+        </div>
+      </div>
+      <div className="hidden sm:flex justify-center mb-6">
+        <div className="rounded-xl overflow-hidden w-full max-w-2xl">
+          {showAds ? (
+            <iframe
+              title="쿠팡 파트너스 광고 (PC 상단)"
+              src="https://ads-partners.coupang.com/widgets.html?id=979107&template=banner&trackingCode=AF2259406&subId=pc-top&width=728&height=90"
+              className="w-full h-[90px] border-0 rounded-xl"
+              scrolling="no"
+              referrerPolicy="unsafe-url"
+              loading="lazy"
+            />
+          ) : (
+            <AdSkeleton className="w-full h-[90px] rounded-xl" />
+          )}
+        </div>
+      </div>
+    </>
+  );
+}
+
 export function CoupangTopBanner() {
   const showAds = useShowAds();
   return (
@@ -66,18 +106,18 @@ export function CoupangTopBanner() {
         </p>
       </div>
       <div className="sm:hidden flex justify-center mb-4">
-        <div className="rounded-xl overflow-hidden w-full">
+        <div className="rounded-xl overflow-hidden w-full" style={{ aspectRatio: "728/90" }}>
           {showAds ? (
             <iframe
               title="쿠팡 파트너스 광고 (모바일 상단)"
               src="https://ads-partners.coupang.com/widgets.html?id=979107&template=banner&trackingCode=AF2259406&subId=mobile-top&width=728&height=90"
-              className="w-full h-[90px] border-0 rounded-xl"
+              className="w-full h-full border-0 rounded-xl"
               scrolling="no"
               referrerPolicy="unsafe-url"
               loading="lazy"
             />
           ) : (
-            <AdSkeleton className="w-full h-[90px] rounded-xl" />
+            <AdSkeleton className="w-full h-full rounded-xl" />
           )}
         </div>
       </div>
