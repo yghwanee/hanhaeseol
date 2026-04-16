@@ -273,15 +273,22 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
   const [showAds, setShowAds] = useState(false);
 
   const platformRef = useRef<HTMLDivElement>(null);
-  const [platformScrollRatio, setPlatformScrollRatio] = useState(0);
+  const indicatorRef = useRef<HTMLDivElement>(null);
   const dragState = useRef({ isDown: false, isDragging: false, startX: 0, scrollLeft: 0 });
 
   useEffect(() => {
     const el = platformRef.current;
-    if (!el) return;
+    const bar = indicatorRef.current;
+    if (!el || !bar) return;
+    let rafId = 0;
     const onScroll = () => {
-      const maxScroll = el.scrollWidth - el.clientWidth;
-      setPlatformScrollRatio(maxScroll > 0 ? el.scrollLeft / maxScroll : 0);
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        const maxScroll = el.scrollWidth - el.clientWidth;
+        const ratio = maxScroll > 0 ? el.scrollLeft / maxScroll : 0;
+        bar.style.transform = `translateX(${ratio * 186}%)`;
+      });
     };
     const stopDrag = () => {
       dragState.current.isDown = false;
@@ -309,6 +316,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
     document.addEventListener("mousemove", onMouseMove, true);
     document.addEventListener("mouseup", stopDrag, true);
     return () => {
+      if (rafId) cancelAnimationFrame(rafId);
       el.removeEventListener("scroll", onScroll);
       el.removeEventListener("mousedown", onMouseDown);
       document.removeEventListener("mousemove", onMouseMove, true);
@@ -449,8 +457,9 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
           {/* Scroll indicator bar */}
           <div className="mt-3 mx-auto w-28 sm:w-32 h-[3px] rounded-full bg-zinc-800/60">
             <div
-              className="h-full rounded-full bg-zinc-500/80 transition-transform duration-200 ease-out"
-              style={{ width: "35%", transform: `translateX(${platformScrollRatio * 186}%)` }}
+              ref={indicatorRef}
+              className="h-full rounded-full bg-zinc-500/80"
+              style={{ width: "35%", transform: "translateX(0%)", willChange: "transform" }}
             />
           </div>
         </div>
