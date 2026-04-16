@@ -389,11 +389,11 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
 
       {/* 모바일 광고 */}
       <div className="sm:hidden flex justify-center mb-4">
-        <div className="rounded-xl overflow-hidden w-full">
+        <div className="rounded-xl overflow-hidden w-full" style={{ aspectRatio: "728/90" }}>
           {showAds ? (
-            <iframe title="쿠팡 파트너스 광고 (모바일 상단)" src="https://ads-partners.coupang.com/widgets.html?id=979107&template=banner&trackingCode=AF2259406&subId=mobile-top&width=728&height=90" className="w-full h-[90px] border-0 rounded-xl" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
+            <iframe title="쿠팡 파트너스 광고 (모바일 상단)" src="https://ads-partners.coupang.com/widgets.html?id=979107&template=banner&trackingCode=AF2259406&subId=mobile-top&width=728&height=90" className="w-full h-full border-0 rounded-xl" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
           ) : (
-            <AdSkeleton className="w-full h-[90px] rounded-xl" />
+            <AdSkeleton className="w-full h-full rounded-xl" />
           )}
         </div>
       </div>
@@ -523,11 +523,11 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
                       <div className="h-px flex-1 bg-zinc-700/60" />
                     </div>
                     <div className="sm:hidden w-full">
-                      <div className="rounded-lg overflow-hidden">
+                      <div className="rounded-lg overflow-hidden" style={{ aspectRatio: "320/100" }}>
                         {showAds ? (
-                          <iframe title="쿠팡 파트너스 광고 (모바일 인라인)" src="https://ads-partners.coupang.com/widgets.html?id=979232&template=carousel&trackingCode=AF2259406&subId=mobile-inline&width=320&height=100&tsource=" className="w-full h-[100px] border-0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
+                          <iframe title="쿠팡 파트너스 광고 (모바일 인라인)" src="https://ads-partners.coupang.com/widgets.html?id=979232&template=carousel&trackingCode=AF2259406&subId=mobile-inline&width=320&height=100&tsource=" className="w-full h-full border-0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
                         ) : (
-                          <AdSkeleton className="w-full h-[100px]" />
+                          <AdSkeleton className="w-full h-full" />
                         )}
                       </div>
                     </div>
