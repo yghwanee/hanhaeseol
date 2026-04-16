@@ -54,7 +54,7 @@ function PlatformIcon({ platformKey }: { platformKey: string }) {
 
   if (platformKey === "전체") {
     return (
-      <span className="text-sm font-bold" style={{ color: "#18181B" }}>ALL</span>
+      <span className="text-sm font-bold text-current">ALL</span>
     );
   }
 
@@ -426,7 +426,9 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
                   <div
                     className={`flex h-14 w-14 items-center justify-center rounded-full transition-all duration-200 ${
                       key === "전체"
-                        ? `bg-white ${isActive ? "ring-2 ring-zinc-400 scale-105" : "group-hover:scale-105"}`
+                        ? isActive
+                          ? "bg-white text-zinc-900 ring-2 ring-zinc-400 scale-105"
+                          : "bg-transparent text-zinc-400 ring-1 ring-zinc-600 group-hover:ring-zinc-400 group-hover:scale-105"
                         : isActive
                           ? "bg-zinc-200 ring-2 ring-zinc-400 scale-105"
                           : "bg-zinc-800/80 group-hover:bg-zinc-700/80 group-hover:scale-105"
