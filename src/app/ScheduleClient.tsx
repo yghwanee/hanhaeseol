@@ -45,16 +45,16 @@ function PlatformIcon({ platformKey }: { platformKey: string }) {
       <Image
         src={iconSrc}
         alt={platformKey}
-        width={s}
-        height={s}
-        className="rounded-md object-contain"
+        width={36}
+        height={36}
+        className="rounded-md object-contain w-8 h-8 sm:w-[19px] sm:h-[19px]"
       />
     );
   }
 
   if (platformKey === "전체") {
     return (
-      <span className="text-[10px] sm:text-xs font-bold" style={{ color: "#18181B" }}>ALL</span>
+      <span className="text-sm sm:text-xs font-bold" style={{ color: "#18181B" }}>ALL</span>
     );
   }
 
@@ -407,7 +407,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
         </div>
 
         {/* Platform Filter - Circle Icons */}
-        <div className="pt-2 -ml-[21px]">
+        <div className="pt-2 sm:-ml-[21px]">
           <div
             ref={platformRef}
             className="flex overflow-x-auto overflow-y-hidden scrollbar-hide pb-1 pt-1 -mt-1"
@@ -422,7 +422,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
                   style={{ width: 75 }}
                 >
                   <div
-                    className={`flex h-8 w-8 sm:h-9 sm:w-9 items-center justify-center rounded-full transition-all duration-200 ${
+                    className={`flex h-14 w-14 sm:h-9 sm:w-9 items-center justify-center rounded-full transition-all duration-200 ${
                       key === "전체"
                         ? `bg-white ${isActive ? "ring-2 ring-zinc-400 scale-105" : "group-hover:scale-105"}`
                         : isActive
