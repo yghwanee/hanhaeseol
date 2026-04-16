@@ -1,10 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-
-function AdSkeleton({ className }: { className?: string }) {
-  return <div className={`skeleton-shimmer rounded-xl ${className ?? ""}`} />;
-}
+import { AdSkeleton } from "./AdSkeleton";
 
 function useShowAds() {
   const [showAds, setShowAds] = useState(false);

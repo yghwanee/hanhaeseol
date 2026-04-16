@@ -1,266 +1,16 @@
 "use client";
 
-import React, { useState, useMemo, useEffect, useRef } from "react";
+import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { Schedule, ScheduleData } from "@/types/schedule";
-import { findPlatformSlugByName } from "@/lib/slugs";
+import { ScheduleData } from "@/types/schedule";
+import { getUpcomingDates, getTodayString } from "@/lib/schedule-utils";
 import { StickyHeader } from "./_components/StickyHeader";
-
-const SPORTS = ["전체", "축구", "야구", "농구", "배구"] as const;
-
-const PLATFORM_LIST = [
-  { key: "전체", label: "전체" },
-  { key: "쿠팡플레이", label: "쿠팡플레이" },
-  { key: "티빙", label: "티빙" },
-  { key: "SPOTV NOW", label: "SPOTV NOW" },
-  { key: "SPOTV", label: "SPOTV" },
-  { key: "SPOTV2", label: "SPOTV2" },
-  { key: "Apple TV+", label: "Apple TV+" },
-  { key: "tvN SPORTS", label: "tvN" },
-  { key: "KBS N SPORTS", label: "KBS N" },
-  { key: "MBC SPORTS+", label: "MBC SPORTS" },
-  { key: "SBS Sports", label: "SBS SPORTS" },
-] as const;
-
-const PLATFORM_ICON_MAP: Record<string, string> = {
-  "쿠팡플레이": "/platforms/coupangplay.png",
-  "티빙": "/platforms/tving.png",
-  "Apple TV+": "/platforms/appletv.png",
-  "SPOTV NOW": "/platforms/spotvnow.png",
-  "SPOTV": "/platforms/spotv.png",
-  "SPOTV2": "/platforms/spotv.png",
-  "tvN SPORTS": "/platforms/tvn.png",
-  "KBS N SPORTS": "/platforms/kbs.jpg",
-  "MBC SPORTS+": "/platforms/mbc.png",
-  "SBS Sports": "/platforms/sbs.png",
-};
-
-function PlatformIcon({ platformKey }: { platformKey: string }) {
-  const s = 19;
-  const iconSrc = PLATFORM_ICON_MAP[platformKey];
-
-  if (iconSrc) {
-    return (
-      <Image
-        src={iconSrc}
-        alt={platformKey}
-        width={36}
-        height={36}
-        className="rounded-md object-contain w-8 h-8"
-      />
-    );
-  }
-
-  if (platformKey === "전체") {
-    return (
-      <span className="text-sm font-bold text-current">ALL</span>
-    );
-  }
-
-  return (
-    <svg width={s} height={s} viewBox="0 0 36 36" fill="none">
-      <circle cx="18" cy="18" r="12" fill="#52525b" />
-      <text x="18" y="22" textAnchor="middle" fontSize="10" fontWeight="bold" fill="#ffffff">?</text>
-    </svg>
-  );
-}
-function getUpcomingDates(): { label: string; value: string }[] {
-  const dates: { label: string; value: string }[] = [];
-  const today = new Date();
-  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
-
-  for (let i = 0; i < 7; i++) {
-    const d = new Date(today);
-    d.setDate(today.getDate() + i);
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, "0");
-    const dd = String(d.getDate()).padStart(2, "0");
-    const value = `${yyyy}-${mm}-${dd}`;
-    const label = i === 0 ? "오늘" : `${Number(mm)}/${Number(dd)}(${dayNames[d.getDay()]})`;
-    dates.push({ label, value });
-  }
-  return dates;
-}
-
-function getTodayString(): string {
-  const d = new Date();
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const dd = String(d.getDate()).padStart(2, "0");
-  return `${yyyy}-${mm}-${dd}`;
-}
-
-const GAME_DURATION_HOURS: Record<string, number> = {
-  "축구": 2.5,
-  "야구": 4.5,
-  "농구": 3,
-  "배구": 3,
-};
-
-function isGameFinished(date: string, time: string, sport: string): boolean {
-  const [hh, mm] = time.split(":").map(Number);
-  const gameStart = new Date(`${date}T${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}:00+09:00`);
-  const duration = (GAME_DURATION_HOURS[sport] ?? 3) * 60 * 60 * 1000;
-  return Date.now() > gameStart.getTime() + duration;
-}
-
-function StatusBadge({
-  status,
-  finished,
-}: {
-  status: boolean | "unknown";
-  finished: boolean;
-}) {
-  if (finished) {
-    return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-zinc-500/20 px-2 py-0.5 text-[11px] sm:text-xs font-semibold text-zinc-400 ring-1 ring-zinc-500/30">
-        <span className="h-1.5 w-1.5 rounded-full bg-zinc-400" />
-        경기 종료
-      </span>
-    );
-  }
-  if (status === true) {
-    return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-emerald-500/20 px-2 py-0.5 text-[11px] sm:text-xs font-semibold text-emerald-400 ring-1 ring-emerald-500/30">
-        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-        한국어해설
-      </span>
-    );
-  }
-  if (status === false) {
-    return (
-      <span className="inline-flex items-center gap-1 rounded-full bg-rose-500/20 px-2 py-0.5 text-[11px] sm:text-xs font-semibold text-rose-400 ring-1 ring-rose-500/30">
-        <span className="h-1.5 w-1.5 rounded-full bg-rose-400" />
-        현지해설
-      </span>
-    );
-  }
-  return (
-    <span className="inline-flex items-center gap-1 rounded-full bg-yellow-500/20 px-2 py-0.5 text-[11px] sm:text-xs font-semibold text-yellow-400 ring-1 ring-yellow-500/30">
-      <span className="h-1.5 w-1.5 rounded-full bg-yellow-400" />
-      확인중
-    </span>
-  );
-}
-
-function AdSkeleton({ className }: { className?: string }) {
-  return (
-    <div className={`skeleton-shimmer rounded-xl ${className ?? ""}`} />
-  );
-}
-
-function PlatformBadge({ platform }: { platform: string }) {
-  const slug = findPlatformSlugByName(platform);
-  const styles: Record<string, string> = {
-    "SPOTV NOW": "bg-red-500/15 text-red-400 ring-red-500/30",
-    SPOTV: "bg-red-500/15 text-red-400 ring-red-500/30",
-    SPOTV2: "bg-orange-500/15 text-orange-400 ring-orange-500/30",
-    쿠팡플레이: "bg-blue-500/15 text-blue-400 ring-blue-500/30",
-    티빙: "bg-purple-500/15 text-purple-400 ring-purple-500/30",
-    "tvN SPORTS": "bg-emerald-500/15 text-emerald-400 ring-emerald-500/30",
-    "KBS N SPORTS": "bg-sky-500/15 text-sky-400 ring-sky-500/30",
-    "MBC SPORTS+": "bg-amber-500/15 text-amber-400 ring-amber-500/30",
-    "SBS Sports": "bg-indigo-500/15 text-indigo-400 ring-indigo-500/30",
-    "Apple TV+": "bg-gray-500/15 text-gray-300 ring-gray-500/30",
-  };
-  if (!slug) {
-    return (
-      <span
-        className={`inline-flex rounded-full px-2 sm:px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold ring-1 ${styles[platform] ?? "bg-zinc-500/15 text-zinc-400 ring-zinc-500/30"}`}
-      >
-        {platform}
-      </span>
-    );
-  }
-  return (
-    <Link href={`/platform/${slug}`} className={`inline-flex items-center gap-1 rounded-full px-2 sm:px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold ring-1 hover:brightness-125 transition-all ${styles[platform] ?? "bg-zinc-500/15 text-zinc-400 ring-zinc-500/30"}`}>
-      {platform}
-      <span className="text-sm ml-0.5 opacity-60">›</span>
-    </Link>
-  );
-}
-
-function Highlight({ text, query }: { text: string; query: string }) {
-  if (!query.trim()) return <>{text}</>;
-  const regex = new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`, "gi");
-  const parts = text.split(regex);
-  return (
-    <>
-      {parts.map((part, i) =>
-        regex.test(part) ? (
-          <span key={i} className="text-white underline underline-offset-2 decoration-blue-400">{part}</span>
-        ) : (
-          <span key={i}>{part}</span>
-        )
-      )}
-    </>
-  );
-}
-
-function ScheduleCard({ schedule, query }: { schedule: Schedule; query: string }) {
-  return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/80 p-3 sm:p-4 transition-colors hover:border-zinc-700 hover:bg-zinc-900">
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-zinc-400">
-          <span className="font-mono font-semibold text-zinc-200">
-            {schedule.time}
-          </span>
-          <span className="text-zinc-600">|</span>
-          <span className="truncate"><Highlight text={schedule.league} query={query} /></span>
-        </div>
-        <StatusBadge
-          status={schedule.koreanCommentary}
-          finished={isGameFinished(schedule.date, schedule.time, schedule.sport)}
-        />
-      </div>
-
-      {schedule.awayTeam ? (
-        <div className="mt-2.5 sm:mt-3 flex items-center justify-center gap-2 sm:gap-3 text-sm sm:text-base">
-          <span className="flex-1 text-right font-semibold text-zinc-100 truncate">
-            <Highlight text={schedule.homeTeam} query={query} />
-          </span>
-          <span className="shrink-0 text-[10px] sm:text-xs font-bold text-zinc-500">VS</span>
-          <span className="flex-1 text-left font-semibold text-zinc-100 truncate">
-            <Highlight text={schedule.awayTeam} query={query} />
-          </span>
-        </div>
-      ) : (
-        <div className="mt-2.5 sm:mt-3 text-center text-sm sm:text-base font-semibold text-zinc-100 truncate">
-          <Highlight text={schedule.homeTeam} query={query} />
-        </div>
-      )}
-
-      <div className="mt-2.5 sm:mt-3 flex items-center justify-between">
-        <PlatformBadge platform={schedule.platform} />
-        <span className="text-[11px] sm:text-xs text-zinc-500">{schedule.sport}</span>
-      </div>
-    </div>
-  );
-}
-
-function FilterButton({
-  label,
-  active,
-  onClick,
-}: {
-  label: string;
-  active: boolean;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={`shrink-0 rounded-lg px-2.5 sm:px-3 py-1 sm:py-1.5 text-xs sm:text-sm font-medium transition-colors ${
-        active
-          ? "bg-zinc-100 text-zinc-900"
-          : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
-      }`}
-    >
-      {label}
-    </button>
-  );
-}
+import { SPORTS, PLATFORM_LIST } from "./_components/constants";
+import { PlatformIcon } from "./_components/PlatformIcon";
+import { FilterButton } from "./_components/FilterButton";
+import { ScheduleCard } from "./_components/ScheduleCard";
+import { AdSkeleton } from "./_components/AdSkeleton";
 
 export default function ScheduleClient({ initialData }: { initialData: ScheduleData }) {
   const [data] = useState<ScheduleData>(initialData);
@@ -333,6 +83,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
 
   const filtered = useMemo(() => {
     if (!data) return [];
+    const q = searchQuery.trim().toLowerCase();
     return data.schedules
       .filter((s) => s.date === selectedDate)
       .filter((s) => sport === "전체" || s.sport === sport)
@@ -343,8 +94,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
         return true;
       })
       .filter((s) => {
-        if (!searchQuery.trim()) return true;
-        const q = searchQuery.trim().toLowerCase();
+        if (!q) return true;
         return (
           s.homeTeam.toLowerCase().includes(q) ||
           s.awayTeam.toLowerCase().includes(q) ||
@@ -353,6 +103,19 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
       })
       .sort((a, b) => a.time.localeCompare(b.time));
   }, [data, selectedDate, sport, platform, commentaryFilter, searchQuery]);
+
+  const sportIcons = useMemo(() => {
+    const sports = new Set(filtered.map((s) => s.sport));
+    const icons: string[] = [];
+    if (sports.has("축구")) icons.push("⚽");
+    if (sports.has("농구")) icons.push("🏀");
+    if (sports.has("야구")) icons.push("⚾");
+    if (sports.has("배구")) icons.push("🏐");
+    return icons.join(" ");
+  }, [filtered]);
+
+  const handleSelectSport = useCallback((s: string) => setSport(s), []);
+  const handleSelectPlatform = useCallback((p: string) => setPlatform(p), []);
 
   return (
     <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 xl:max-w-none xl:px-[200px]">
@@ -388,7 +151,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
                 key={s}
                 label={s}
                 active={sport === s}
-                onClick={() => setSport(s)}
+                onClick={() => handleSelectSport(s)}
               />
             ))}
           </div>
@@ -427,7 +190,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
               return (
                 <button
                   key={key}
-                  onClick={() => setPlatform(key)}
+                  onClick={() => handleSelectPlatform(key)}
                   className="flex shrink-0 flex-col items-center gap-1.5 group"
                   style={{ width: 75 }}
                 >
@@ -572,17 +335,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
               i
             </button>
             <div className="ml-auto flex items-center gap-2">
-              <span>
-                {(() => {
-                  const sports = new Set(filtered.map(s => s.sport));
-                  const icons: string[] = [];
-                  if (sports.has("축구")) icons.push("⚽");
-                  if (sports.has("농구")) icons.push("🏀");
-                  if (sports.has("야구")) icons.push("⚾");
-                  if (sports.has("배구")) icons.push("🏐");
-                  return icons.join(" ");
-                })()}
-              </span>
+              <span>{sportIcons}</span>
               <span className="font-medium">{filtered.length}개 경기</span>
             </div>
           </div>
