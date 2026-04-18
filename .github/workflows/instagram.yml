@@ -21,6 +21,9 @@ jobs:
 
       - run: npm ci
 
+      - name: ffmpeg 설치
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+
       - name: 토큰 헬스체크
         env:
           IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
