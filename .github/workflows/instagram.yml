@@ -67,6 +67,13 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: npm run post:reel
 
+      - name: Telegram 성공 알림
+        if: success()
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d text="✅ 인스타 게시 완료 (캐러셀 + 릴스)"
+
       - name: Telegram 실패 알림 + 카드 전송
         if: failure()
         env:
