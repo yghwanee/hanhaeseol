@@ -15,6 +15,9 @@ jobs:
     env:
       IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
       IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
+      YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+      YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+      YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
       TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
       TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
       GITHUB_REPOSITORY: ${{ github.repository }}
@@ -68,12 +71,15 @@ jobs:
       - name: 스토리 게시
         run: npm run post:story
 
+      - name: 유튜브 쇼츠 업로드
+        run: npm run post:youtube
+
       - name: Telegram 성공 알림
         if: success()
         run: |
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d chat_id="${TELEGRAM_CHAT_ID}" \
-            -d text="✅ 인스타 게시 완료 (캐러셀 + 릴스 + 스토리)"
+            -d text="✅ 인스타 + 유튜브 쇼츠 게시 완료"
 
       - name: Telegram 실패 알림 + 카드 전송
         if: failure()

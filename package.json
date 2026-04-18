@@ -24,6 +24,9 @@
     "story:make": "tsx src/scripts/make-story.ts",
     "ig:setup": "tsx src/scripts/instagram-setup.ts",
     "ig:check": "tsx src/scripts/check-ig-token.ts",
+    "yt:setup": "tsx src/scripts/get-youtube-token.ts",
+    "yt:check": "tsx src/scripts/check-youtube-token.ts",
+    "post:youtube": "tsx src/scripts/post-youtube-shorts.ts",
     "telegram:failure": "tsx src/scripts/telegram-failure.ts"
   },
   "dependencies": {

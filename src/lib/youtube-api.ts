@@ -1,0 +1,139 @@
+import fs from "node:fs";
+
+const OAUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
+const YOUTUBE_UPLOAD_URL =
+  "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status";
+const YOUTUBE_API = "https://www.googleapis.com/youtube/v3";
+
+export const YOUTUBE_SCOPES = ["https://www.googleapis.com/auth/youtube.upload"];
+
+function env(key: string): string {
+  const v = process.env[key];
+  if (!v) throw new Error(`${key} 환경변수가 필요합니다.`);
+  return v;
+}
+
+export function ytEnv() {
+  return {
+    clientId: env("YOUTUBE_CLIENT_ID"),
+    clientSecret: env("YOUTUBE_CLIENT_SECRET"),
+    refreshToken: env("YOUTUBE_REFRESH_TOKEN"),
+  };
+}
+
+export async function getAccessToken(): Promise<string> {
+  const { clientId, clientSecret, refreshToken } = ytEnv();
+  const body = new URLSearchParams({
+    client_id: clientId,
+    client_secret: clientSecret,
+    refresh_token: refreshToken,
+    grant_type: "refresh_token",
+  });
+  const res = await fetch(OAUTH_TOKEN_URL, {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body,
+  });
+  const data = (await res.json()) as { access_token?: string; error?: string; error_description?: string };
+  if (!res.ok || !data.access_token) {
+    throw new Error(`YouTube access_token 갱신 실패: ${JSON.stringify(data)}`);
+  }
+  return data.access_token;
+}
+
+export interface UploadShortsParams {
+  filePath: string;
+  title: string;
+  description: string;
+  tags?: string[];
+  categoryId?: string;    // 17 = Sports
+  privacyStatus?: "public" | "unlisted" | "private";
+  madeForKids?: boolean;
+}
+
+export async function uploadShorts(p: UploadShortsParams): Promise<string> {
+  const accessToken = await getAccessToken();
+
+  const stat = fs.statSync(p.filePath);
+  const size = stat.size;
+
+  const metadata = {
+    snippet: {
+      title: p.title,
+      description: p.description,
+      tags: p.tags ?? [],
+      categoryId: p.categoryId ?? "17",
+    },
+    status: {
+      privacyStatus: p.privacyStatus ?? "public",
+      selfDeclaredMadeForKids: p.madeForKids ?? false,
+    },
+  };
+
+  // 1. resumable 업로드 세션 시작
+  const initRes = await fetch(YOUTUBE_UPLOAD_URL, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json; charset=UTF-8",
+      "X-Upload-Content-Type": "video/mp4",
+      "X-Upload-Content-Length": String(size),
+    },
+    body: JSON.stringify(metadata),
+  });
+  if (!initRes.ok) {
+    throw new Error(`업로드 세션 생성 실패: ${initRes.status} ${await initRes.text()}`);
+  }
+  const uploadUrl = initRes.headers.get("location");
+  if (!uploadUrl) throw new Error("업로드 URL(Location 헤더) 없음");
+
+  // 2. 파일 바이너리 업로드
+  const buf = fs.readFileSync(p.filePath);
+  const putRes = await fetch(uploadUrl, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "video/mp4",
+      "Content-Length": String(size),
+    },
+    body: new Uint8Array(buf),
+  });
+  const putData = (await putRes.json()) as { id?: string; error?: unknown };
+  if (!putRes.ok || !putData.id) {
+    throw new Error(`업로드 실패: ${putRes.status} ${JSON.stringify(putData)}`);
+  }
+  return putData.id;
+}
+
+export async function getChannelInfo(): Promise<{ id: string; title: string }> {
+  const accessToken = await getAccessToken();
+  const res = await fetch(`${YOUTUBE_API}/channels?part=snippet&mine=true`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+  const data = (await res.json()) as {
+    items?: Array<{ id: string; snippet: { title: string } }>;
+    error?: unknown;
+  };
+  if (!res.ok || !data.items?.[0]) {
+    throw new Error(`채널 정보 조회 실패: ${JSON.stringify(data)}`);
+  }
+  return { id: data.items[0].id, title: data.items[0].snippet.title };
+}
+
+export function buildShortsMeta(mm: string, dd: string) {
+  const title = `📺 ${mm}/${dd} 오늘의 한국어 중계 편성표 #Shorts`;
+  const description = [
+    `${mm}/${dd} 한국어 해설이 있는 모든 경기를 한곳에.`,
+    ``,
+    `⚽️ 축구  ⚾️ 야구  🏀 농구  🏐 배구`,
+    ``,
+    `👉 https://haeseol.com/`,
+    ``,
+    `#Shorts #한해설 #한국어해설 #한국어중계 #스포츠중계 #편성표 #축구중계 #야구중계 #농구중계 #배구중계 #스포티비 #쿠팡플레이 #티빙 #EPL #KBO #MLB`,
+  ].join("\n");
+  const tags = [
+    "한해설", "한국어해설", "한국어중계", "스포츠중계", "편성표",
+    "축구중계", "야구중계", "농구중계", "배구중계",
+    "스포티비", "쿠팡플레이", "티빙", "EPL", "KBO", "MLB",
+  ];
+  return { title, description, tags };
+}
