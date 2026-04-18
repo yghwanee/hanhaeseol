@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { sendTelegramMediaGroup, type MediaItem } from "@/lib/instagram";
+import { MANIFEST_PATH, OUT_DIR, readManifest } from "@/lib/manifest";
 
 const FAIL_TEXT = "❌ 인스타 카드 생성/게시 실패. GitHub Actions 로그 확인.";
 const FAIL_CAPTION = "❌ 인스타 게시 실패. 아래 카드를 수동으로 업로드해주세요.";
@@ -19,22 +20,19 @@ async function sendText(text: string) {
 }
 
 async function main() {
-  const outDir = path.resolve("generated/instagram");
-  const manifestPath = path.join(outDir, "manifest.json");
-
-  if (!fs.existsSync(manifestPath)) {
+  if (!fs.existsSync(MANIFEST_PATH)) {
     await sendText(FAIL_TEXT);
     return;
   }
 
-  const { files } = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as { files: string[] };
+  const { files } = readManifest();
   if (files.length === 0) {
     await sendText(FAIL_TEXT);
     return;
   }
 
   const items: MediaItem[] = files.map((filename, i) => ({
-    buf: fs.readFileSync(path.join(outDir, filename)),
+    buf: fs.readFileSync(path.join(OUT_DIR, filename)),
     filename,
     caption: i === 0 ? FAIL_CAPTION : undefined,
   }));

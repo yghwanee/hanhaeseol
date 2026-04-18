@@ -1,24 +1,17 @@
-import fs from "node:fs";
-import path from "node:path";
-import { mediaBaseUrl, postMedia, publish, waitForFinished } from "@/lib/instagram-api";
+import { mediaBaseUrl, publishSingleMedia } from "@/lib/instagram-api";
+import { readManifest } from "@/lib/manifest";
 
 async function main() {
-  const manifestPath = path.resolve("generated/instagram/manifest.json");
-  if (!fs.existsSync(manifestPath)) throw new Error("매니페스트 없음");
-
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as { story?: string };
+  const manifest = readManifest();
   if (!manifest.story) throw new Error("매니페스트에 story 필드 없음 — 먼저 story:make 실행 필요");
 
   const imageUrl = `${mediaBaseUrl()}/${manifest.story}`;
   console.log(`📱 스토리 게시 시작: ${imageUrl}`);
 
-  const storyId = await postMedia({
+  const mediaId = await publishSingleMedia({
     media_type: "STORIES",
     image_url: imageUrl,
   });
-  await waitForFinished(storyId);
-
-  const mediaId = await publish(storyId);
   console.log(`✅ 스토리 게시 완료. Media ID: ${mediaId}`);
 }
 

@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { execSync } from "node:child_process";
+import { OUT_DIR, patchManifest, readManifest } from "@/lib/manifest";
 
 const DURATION = 2.5;      // 카드 1장 노출 시간(초)
 const XFADE = 0.6;         // 크로스페이드 길이(초)
@@ -10,11 +11,7 @@ const OUTPUT = "reel.mp4";
 const BGM_REL = "assets/bgm.mp3";
 
 function main() {
-  const outDir = path.resolve("generated/instagram");
-  const manifestPath = path.join(outDir, "manifest.json");
-  if (!fs.existsSync(manifestPath)) throw new Error("manifest.json 없음 — 먼저 post:all 실행 필요");
-
-  const { files } = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as { files: string[] };
+  const { files } = readManifest();
   if (files.length === 0) throw new Error("카드 없음");
 
   const bgmPath = path.resolve(BGM_REL);
@@ -23,14 +20,12 @@ function main() {
   const n = files.length;
   const videoLen = n * DURATION - (n - 1) * XFADE;
 
-  // 각 이미지 스케일/패딩
   const scaleFilter =
     `scale=${WIDTH}:${HEIGHT}:force_original_aspect_ratio=decrease,` +
     `pad=${WIDTH}:${HEIGHT}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=30`;
 
   const scaled = files.map((_, i) => `[${i}:v]${scaleFilter}[v${i}]`);
 
-  // xfade 체인
   const transitions: string[] = [];
   let prev = "v0";
   for (let i = 1; i < n; i++) {
@@ -61,14 +56,12 @@ function main() {
 
   console.log(`🎬 릴스 생성 중... (${n}장 × ${DURATION}s, 전환 ${XFADE}s, BGM 포함)`);
   console.log(`   영상 길이: ${videoLen.toFixed(1)}s`);
-  execSync(cmd, { stdio: "inherit", cwd: outDir });
+  execSync(cmd, { stdio: "inherit", cwd: OUT_DIR });
 
-  const stat = fs.statSync(path.join(outDir, OUTPUT));
+  const stat = fs.statSync(path.join(OUT_DIR, OUTPUT));
   console.log(`✅ ${OUTPUT} 생성 완료 (${(stat.size / 1024 / 1024).toFixed(2)} MB)`);
 
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8"));
-  manifest.reel = OUTPUT;
-  fs.writeFileSync(manifestPath, JSON.stringify(manifest, null, 2));
+  patchManifest({ reel: OUTPUT });
 }
 
 main();

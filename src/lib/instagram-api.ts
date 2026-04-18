@@ -61,3 +61,13 @@ export function mediaBaseUrl() {
   const repo = process.env.GITHUB_REPOSITORY || "yghwanee/hanhaeseol";
   return `https://raw.githubusercontent.com/${repo}/insta-media`;
 }
+
+/** 단일 미디어(릴스/스토리) 컨테이너 생성 → 대기 → 게시 */
+export async function publishSingleMedia(
+  params: Record<string, string>,
+  waitMaxAttempts = 20,
+): Promise<string> {
+  const containerId = await postMedia(params);
+  await waitForFinished(containerId, waitMaxAttempts);
+  return publish(containerId);
+}

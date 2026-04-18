@@ -1,15 +1,11 @@
-import fs from "node:fs";
-import path from "node:path";
 import { getKstToday } from "@/lib/instagram";
 import { buildCaption, mediaBaseUrl, postMedia, publish, waitForFinished } from "@/lib/instagram-api";
+import { readManifest } from "@/lib/manifest";
 
 const MAX_CAROUSEL = 10;
 
 async function main() {
-  const manifestPath = path.resolve("generated/instagram/manifest.json");
-  if (!fs.existsSync(manifestPath)) throw new Error("매니페스트 없음: 먼저 npm run post:all 실행 필요");
-
-  const { files } = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as { files: string[] };
+  const { files } = readManifest();
   if (files.length === 0) throw new Error("매니페스트에 파일이 없습니다.");
 
   const selected = files.length > MAX_CAROUSEL

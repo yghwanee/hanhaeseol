@@ -12,6 +12,12 @@ permissions:
 jobs:
   instagram:
     runs-on: ubuntu-latest
+    env:
+      IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+      IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+      GITHUB_REPOSITORY: ${{ github.repository }}
     steps:
       - uses: actions/checkout@v6
 
@@ -25,15 +31,12 @@ jobs:
         run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
 
       - name: 토큰 헬스체크
-        env:
-          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
-          IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
         run: npm run ig:check
 
-      - name: 카드 생성 (텔레그램 전송 생략)
+      - name: 카드 생성
         run: npm run post:all -- --no-send
 
-      - name: 릴스 영상 생성 (ffmpeg)
+      - name: 릴스 영상 생성
         run: npm run reel:make
 
       - name: 스토리 이미지 생성
@@ -56,37 +59,22 @@ jobs:
       - name: raw.githubusercontent CDN 반영 대기
         run: sleep 10
 
-      - name: 인스타그램 캐러셀 게시
-        env:
-          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
-          IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
+      - name: 캐러셀 게시
         run: npm run post:ig
 
-      - name: 인스타그램 릴스 게시
-        env:
-          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
-          IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
+      - name: 릴스 게시
         run: npm run post:reel
 
-      - name: 인스타그램 스토리 게시
-        env:
-          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
-          IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
-          GITHUB_REPOSITORY: ${{ github.repository }}
+      - name: 스토리 게시
         run: npm run post:story
 
       - name: Telegram 성공 알림
         if: success()
         run: |
-          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
-            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" \
             -d text="✅ 인스타 게시 완료 (캐러셀 + 릴스 + 스토리)"
 
       - name: Telegram 실패 알림 + 카드 전송
         if: failure()
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: npm run telegram:failure

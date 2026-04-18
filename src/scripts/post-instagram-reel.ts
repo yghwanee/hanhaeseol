@@ -1,32 +1,25 @@
-import fs from "node:fs";
-import path from "node:path";
 import { getKstToday } from "@/lib/instagram";
-import { buildCaption, mediaBaseUrl, postMedia, publish, waitForFinished } from "@/lib/instagram-api";
+import { buildCaption, mediaBaseUrl, publishSingleMedia } from "@/lib/instagram-api";
+import { readManifest } from "@/lib/manifest";
 
 async function main() {
-  const manifestPath = path.resolve("generated/instagram/manifest.json");
-  if (!fs.existsSync(manifestPath)) throw new Error("매니페스트 없음");
-
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as { reel?: string };
+  const manifest = readManifest();
   if (!manifest.reel) throw new Error("매니페스트에 reel 필드 없음 — 먼저 reel:make 실행 필요");
 
-  const videoUrl = `${mediaBaseUrl()}/${manifest.reel}`;
   const { mm, dd } = getKstToday();
-
+  const videoUrl = `${mediaBaseUrl()}/${manifest.reel}`;
   console.log(`🎬 릴스 게시 시작: ${videoUrl}`);
 
-  const reelId = await postMedia({
-    media_type: "REELS",
-    video_url: videoUrl,
-    caption: buildCaption(mm, dd),
-    share_to_feed: "false",
-  });
-  console.log(`  컨테이너 생성: ${reelId}`);
-
-  // 비디오는 트랜스코딩 시간이 길어 넉넉히 대기 (최대 ~3분)
-  await waitForFinished(reelId, 60, 3000);
-
-  const mediaId = await publish(reelId);
+  // 비디오 트랜스코딩 대기는 최대 ~3분
+  const mediaId = await publishSingleMedia(
+    {
+      media_type: "REELS",
+      video_url: videoUrl,
+      caption: buildCaption(mm, dd),
+      share_to_feed: "false",
+    },
+    60,
+  );
   console.log(`✅ 릴스 게시 완료. Media ID: ${mediaId}`);
 }
 
