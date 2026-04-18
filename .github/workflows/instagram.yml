@@ -1,7 +1,10 @@
 name: Generate Instagram Cards
 
 on:
-  workflow_dispatch: {}  # 수동 트리거 전용
+  schedule:
+    # KST 06:00 = UTC 21:00 (전날)
+    - cron: '0 21 * * *'
+  workflow_dispatch: {}  # 수동 트리거
 
 jobs:
   instagram:
