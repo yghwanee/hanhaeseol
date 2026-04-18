@@ -16,7 +16,7 @@
     "post:basketball": "tsx src/scripts/post-instagram-sport.ts basketball",
     "post:volleyball": "tsx src/scripts/post-instagram-sport.ts volleyball",
     "post:outro": "tsx src/scripts/post-instagram-outro.ts",
-    "post:all": "npm run post:main && npm run post:soccer && npm run post:baseball && npm run post:basketball && npm run post:volleyball && npm run post:outro"
+    "post:all": "tsx src/scripts/post-instagram-all.ts"
   },
   "dependencies": {
     "@napi-rs/canvas": "^0.1.98",
