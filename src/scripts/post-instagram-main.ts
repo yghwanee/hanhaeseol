@@ -3,7 +3,7 @@ import fs from "fs";
 import path from "path";
 import "dotenv/config";
 
-// 텍스트 위치/크기 — 필요시 여기만 조정
+// 날짜 텍스트 위치/크기 — 필요시 여기만 조정
 const DATE_CONFIG = {
   fontSize: 260,
   x: 85,
@@ -30,6 +30,7 @@ async function generateImage(mm: string, dd: string): Promise<{ buf: Buffer; out
   const ctx = canvas.getContext("2d");
 
   ctx.drawImage(template, 0, 0);
+
   ctx.fillStyle = DATE_CONFIG.color;
   ctx.font = `${DATE_CONFIG.fontSize}px Anton`;
   ctx.textBaseline = "alphabetic";
