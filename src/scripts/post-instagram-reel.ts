@@ -19,7 +19,7 @@ async function main() {
     media_type: "REELS",
     video_url: videoUrl,
     caption: buildCaption(mm, dd),
-    share_to_feed: "true",
+    share_to_feed: "false",
   });
   console.log(`  컨테이너 생성: ${reelId}`);
 
