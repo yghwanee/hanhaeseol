@@ -1,4 +1,5 @@
 import { Schedule, Sport } from "@/types/schedule";
+import { normalizeLeague } from "./parsers";
 
 interface CoupangEvent {
   event_id: string;
@@ -224,7 +225,7 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
       date,
       time,
       sport,
-      league: event.league.name,
+      league: normalizeLeague(event.league.name),
       homeTeam: event.teams[0].name,
       awayTeam: event.teams[1].name,
       platform: "쿠팡플레이",

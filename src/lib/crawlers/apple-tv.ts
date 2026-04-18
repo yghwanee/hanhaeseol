@@ -1,4 +1,5 @@
 import { Schedule, Sport } from "@/types/schedule";
+import { normalizeLeague } from "./parsers";
 
 interface AppleTvCompetitor {
   name: string;
@@ -104,7 +105,7 @@ export async function crawlAppleTv(date: string): Promise<Schedule[]> {
       date,
       time,
       sport,
-      league: item.leagueName,
+      league: normalizeLeague(item.leagueName),
       homeTeam: home?.name ?? "",
       awayTeam: away?.name ?? "",
       platform: "Apple TV+",
