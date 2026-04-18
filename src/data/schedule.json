@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-18T16:44:15.104Z",
+  "lastUpdated": "2026-04-18T23:51:46.698Z",
   "schedules": [
     {
       "id": "spotvnow-2026-04-19-38138",
@@ -43,17 +43,6 @@
       "homeTeam": "프랑크푸르트",
       "awayTeam": "라이프치히",
       "platform": "쿠팡플레이",
-      "koreanCommentary": false
-    },
-    {
-      "id": "apple-tv-2026-04-19-02:00-MLS-ATX-TOR",
-      "date": "2026-04-19",
-      "time": "02:00",
-      "sport": "축구",
-      "league": "MLS",
-      "homeTeam": "토론토 FC",
-      "awayTeam": "오스틴 FC",
-      "platform": "Apple TV+",
       "koreanCommentary": false
     },
     {
@@ -125,7 +114,7 @@
     {
       "id": "spotvnow-2026-04-19-38292",
       "date": "2026-04-19",
-      "time": "05:05",
+      "time": "04:30",
       "sport": "야구",
       "league": "MLB",
       "homeTeam": "탬파베이 레이스",
@@ -156,17 +145,6 @@
       "koreanCommentary": false
     },
     {
-      "id": "apple-tv-2026-04-19-05:30-MLS-MIA-COL",
-      "date": "2026-04-19",
-      "time": "05:30",
-      "sport": "축구",
-      "league": "MLS",
-      "homeTeam": "콜로라도 래피즈",
-      "awayTeam": "인터 마이애미 CF",
-      "platform": "Apple TV+",
-      "koreanCommentary": false
-    },
-    {
       "id": "spotv2-2026-04-19-08:00-2026 메이저리그 애틀랜타:필라델피",
       "date": "2026-04-19",
       "time": "08:00",
@@ -187,6 +165,17 @@
       "awayTeam": "필라델피아 필리스",
       "platform": "SPOTV NOW",
       "koreanCommentary": true
+    },
+    {
+      "id": "apple-tv-2026-04-19-08:30-MLS-CLT-NYC",
+      "date": "2026-04-19",
+      "time": "08:30",
+      "sport": "축구",
+      "league": "MLS",
+      "homeTeam": "뉴욕 시티 FC",
+      "awayTeam": "샬럿 FC",
+      "platform": "Apple TV+",
+      "koreanCommentary": false
     },
     {
       "id": "spotvnow-2026-04-19-38368",
@@ -220,6 +209,17 @@
       "awayTeam": "LA 레이커스",
       "platform": "쿠팡플레이",
       "koreanCommentary": true
+    },
+    {
+      "id": "apple-tv-2026-04-19-10:30-MLS-STL-SEA",
+      "date": "2026-04-19",
+      "time": "10:30",
+      "sport": "축구",
+      "league": "MLS",
+      "homeTeam": "시애틀 사운더스 FC",
+      "awayTeam": "세인트루이스 시티 FC",
+      "platform": "Apple TV+",
+      "koreanCommentary": false
     },
     {
       "id": "apple-tv-2026-04-19-10:30-MLS-SD-RSL",
@@ -2433,17 +2433,6 @@
       "koreanCommentary": true
     },
     {
-      "id": "coupang-2026-04-25-22:30-분데스리가-쾰른-레버쿠젠",
-      "date": "2026-04-25",
-      "time": "22:30",
-      "sport": "축구",
-      "league": "분데스리가",
-      "homeTeam": "쾰른",
-      "awayTeam": "레버쿠젠",
-      "platform": "쿠팡플레이",
-      "koreanCommentary": false
-    },
-    {
       "id": "coupang-2026-04-25-22:30-분데스리가-볼프스부르크-묀헨글라트바흐",
       "date": "2026-04-25",
       "time": "22:30",
@@ -2451,6 +2440,17 @@
       "league": "분데스리가",
       "homeTeam": "볼프스부르크",
       "awayTeam": "묀헨글라트바흐",
+      "platform": "쿠팡플레이",
+      "koreanCommentary": false
+    },
+    {
+      "id": "coupang-2026-04-25-22:30-분데스리가-쾰른-레버쿠젠",
+      "date": "2026-04-25",
+      "time": "22:30",
+      "sport": "축구",
+      "league": "분데스리가",
+      "homeTeam": "쾰른",
+      "awayTeam": "레버쿠젠",
       "platform": "쿠팡플레이",
       "koreanCommentary": false
     },
