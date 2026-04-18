@@ -128,7 +128,7 @@ export function buildShortsMeta(mm: string, dd: string) {
     ``,
     `👉 https://haeseol.com/`,
     ``,
-    `#Shorts #한해설 #한국어해설 #한국어중계 #스포츠중계 #편성표 #축구중계 #야구중계 #농구중계 #배구중계 #스포티비 #쿠팡플레이 #티빙 #EPL #KBO #MLB`,
+    `#Shorts #한해설 #한국어해설 #한국어중계 #스포츠중계 #편성표 #축구중계 #야구중계 #농구중계 #배구중계 #프리미어리그 #국야 #믈브 #월드컵`,
   ].join("\n");
   const tags = [
     "한해설", "한국어해설", "한국어중계", "스포츠중계", "편성표",
