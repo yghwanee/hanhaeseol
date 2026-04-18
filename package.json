@@ -16,7 +16,10 @@
     "post:basketball": "tsx src/scripts/post-instagram-sport.ts basketball",
     "post:volleyball": "tsx src/scripts/post-instagram-sport.ts volleyball",
     "post:outro": "tsx src/scripts/post-instagram-outro.ts",
-    "post:all": "tsx src/scripts/post-instagram-all.ts"
+    "post:all": "tsx src/scripts/post-instagram-all.ts",
+    "post:ig": "tsx src/scripts/post-instagram-ig.ts",
+    "ig:setup": "tsx src/scripts/instagram-setup.ts",
+    "ig:check": "tsx src/scripts/check-ig-token.ts"
   },
   "dependencies": {
     "@napi-rs/canvas": "^0.1.98",

@@ -62,6 +62,12 @@ async function main() {
 
   console.log(`\n총 ${items.length}장 생성 완료`);
 
+  const manifest = {
+    date: `${mm}${dd}`,
+    files: items.map((it) => it.filename),
+  };
+  fs.writeFileSync(path.join(outDir, "manifest.json"), JSON.stringify(manifest, null, 2));
+
   if (process.argv.includes("--no-send")) {
     console.log("📭 --no-send 옵션으로 텔레그램 전송 생략");
     return;

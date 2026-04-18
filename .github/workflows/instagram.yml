@@ -6,6 +6,9 @@ on:
     - cron: '0 21 * * *'
   workflow_dispatch: {}  # 수동 트리거
 
+permissions:
+  contents: write
+
 jobs:
   instagram:
     runs-on: ubuntu-latest
@@ -18,15 +21,45 @@ jobs:
 
       - run: npm ci
 
-      - name: Generate & send all cards
+      - name: 토큰 헬스체크
+        env:
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
+        run: npm run ig:check
+
+      - name: 카드 생성 + 텔레그램 전송
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: npm run post:all
+
+      - name: 이미지를 insta-media 브랜치에 푸시
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          cd generated/instagram
+          git init -q
+          git checkout -q -b insta-media
+          git add -A
+          git -c user.email="github-actions[bot]@users.noreply.github.com" \
+              -c user.name="github-actions[bot]" \
+              commit -q -m "update $(date -u +%F)"
+          git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:insta-media
+          echo "✅ insta-media 브랜치 업데이트 완료"
+
+      - name: raw.githubusercontent CDN 반영 대기
+        run: sleep 10
+
+      - name: 인스타그램 게시
+        env:
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: npm run post:ig
 
       - name: Telegram 알림 (실패)
         if: failure()
         run: |
           curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-            -d text="❌ 인스타 카드 생성 실패. GitHub Actions 로그 확인."
+            -d text="❌ 인스타 카드 생성/게시 실패. GitHub Actions 로그 확인."
