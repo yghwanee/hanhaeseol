@@ -9,9 +9,11 @@
     "lint": "next lint",
     "crawl": "tsx src/scripts/crawl.ts",
     "crawl:coupang": "tsx src/scripts/crawl-coupang.ts",
-    "crawl:analysis": "tsx src/scripts/crawl-analysis.ts"
+    "crawl:analysis": "tsx src/scripts/crawl-analysis.ts",
+    "post:main": "tsx src/scripts/post-instagram-main.ts"
   },
   "dependencies": {
+    "@napi-rs/canvas": "^0.1.98",
     "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18"
