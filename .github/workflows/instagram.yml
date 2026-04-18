@@ -30,7 +30,10 @@ jobs:
       - name: 카드 생성 (텔레그램 전송 생략)
         run: npm run post:all -- --no-send
 
-      - name: 이미지를 insta-media 브랜치에 푸시
+      - name: 릴스 영상 생성 (ffmpeg)
+        run: npm run reel:make
+
+      - name: 이미지/영상을 insta-media 브랜치에 푸시
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -47,12 +50,19 @@ jobs:
       - name: raw.githubusercontent CDN 반영 대기
         run: sleep 10
 
-      - name: 인스타그램 게시
+      - name: 인스타그램 캐러셀 게시
         env:
           IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
           IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
           GITHUB_REPOSITORY: ${{ github.repository }}
         run: npm run post:ig
+
+      - name: 인스타그램 릴스 게시
+        env:
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: npm run post:reel
 
       - name: Telegram 실패 알림 + 카드 전송
         if: failure()

@@ -18,6 +18,8 @@
     "post:outro": "tsx src/scripts/post-instagram-outro.ts",
     "post:all": "tsx src/scripts/post-instagram-all.ts",
     "post:ig": "tsx src/scripts/post-instagram-ig.ts",
+    "post:reel": "tsx src/scripts/post-instagram-reel.ts",
+    "reel:make": "tsx src/scripts/make-reel.ts",
     "ig:setup": "tsx src/scripts/instagram-setup.ts",
     "ig:check": "tsx src/scripts/check-ig-token.ts",
     "telegram:failure": "tsx src/scripts/telegram-failure.ts"
