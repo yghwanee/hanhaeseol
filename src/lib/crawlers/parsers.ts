@@ -70,8 +70,8 @@ const LEAGUE_NORMALIZE: [RegExp, string][] = [
   [/K리그2/, "K리그2"],
   [/K리그1?(?!2)/, "K리그"],
   [/고교야구/, "고교야구"],
-  [/AFC\s+U-\d+\s+여자\s+아시안컵/, "AFC U-20 여자 아시안컵"],
-  [/AFC\s+U-\d+\s+아시안컵/, "AFC U-20 아시안컵"],
+  [/AFC\s+U-?\d+\s+여자\s+아시안컵/, "AFC U-20 여자 아시안컵"],
+  [/AFC\s+U-?\d+\s+아시안컵/, "AFC U-20 아시안컵"],
   [/AFC\s+챔피언스리그|ACL/, "ACL"],
 ];
 
@@ -149,6 +149,22 @@ export function parseMatchTitle(title: string): {
     const leagueIdx = homeClean.indexOf(league);
     if (leagueIdx >= 0) {
       homeClean = homeClean.slice(leagueIdx + league.length).trim();
+    } else {
+      // 정규화 전 원본 패턴으로 재탐색 (예: "U20" vs 정규화된 "U-20" 불일치)
+      for (const [pattern] of LEAGUE_NORMALIZE) {
+        const m = homeClean.match(pattern);
+        if (m && m.index !== undefined) {
+          homeClean = homeClean.slice(m.index + m[0].length).trim();
+          break;
+        }
+      }
+    }
+    // 단계명 + 쉼표 + 팀명 형태 처리: "결승, 일본" → "일본"
+    const stageCommaMatch = homeClean.match(
+      /^(?:결승전?|준결승전?|8강전?|4강전?|16강전?|32강전?|조별리그|조별예선|3[·.]?4위전?)[,\s]+(.+)$/,
+    );
+    if (stageCommaMatch) {
+      homeClean = stageCommaMatch[1];
     }
     return {
       league,

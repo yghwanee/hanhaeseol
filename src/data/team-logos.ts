@@ -42,6 +42,7 @@ export const TEAM_LOGOS: Record<string, string> = {
   "덴버": NBA("den"),
   "샌안토니오": NBA("sa"),
   "유타": NBA("utah"),
+  "휴스턴": NBA("hou"),
 
   // EPL
   "리버풀": SOC(364),
@@ -59,6 +60,7 @@ export const TEAM_LOGOS: Record<string, string> = {
   "브렌트포드": SOC(337),
   "노팅엄 포레스트": SOC(393),
   "울버햄튼": SOC(380),
+  "에버턴": SOC(368),
 
   // EFL 챔피언십
   "렉섬": SOC(358),
@@ -79,6 +81,7 @@ export const TEAM_LOGOS: Record<string, string> = {
   "라요 바예카노": SOC(101),
   "셀타 비고": SOC(85),
   "레알 베티스": SOC(244),
+  "레알 소시에다드": SOC(89),
 
   // 세리에A
   "아탈란타": SOC(105),
@@ -92,6 +95,12 @@ export const TEAM_LOGOS: Record<string, string> = {
   "우디네세 칼초": SOC(118),
   "칼리아리 칼초": SOC(2925),
   "파르마 칼초": SOC(115),
+  "나폴리": SOC(114),
+  "AS 로마": SOC(104),
+  "AC 밀란": SOC(103),
+  "헬라스 베로나": SOC(119),
+  "피사": SOC(3956),
+  "제노아": SOC(3263),
 
   // 분데스리가
   "바이에른 뮌헨": SOC(132),
@@ -107,6 +116,12 @@ export const TEAM_LOGOS: Record<string, string> = {
   "마인츠": SOC(2950),
   "함부르크": SOC(127),
   "SC 프라이부르크": SOC(126),
+  "프라이부르크": SOC(126),
+  "프랑크푸르트": SOC(125),
+  "라이프치히": SOC(11420),
+  "하이덴하임": SOC(6418),
+  "슈투트가르트": SOC(134),
+  "묀헨글라트바흐": SOC(268),
 
   // 리그 1
   "로리앙": SOC(273),
@@ -115,6 +130,19 @@ export const TEAM_LOGOS: Record<string, string> = {
   "랑스": SOC(175),
   "툴루즈": SOC(179),
   "RC 스트라스부르": SOC(180),
+  "스트라스부르": SOC(180),
+  "릴": SOC(166),
+  "니스": SOC(2502),
+  "모나코": SOC(174),
+  "오세르": SOC(172),
+  "앙제": SOC(7868),
+  "르 아브르": SOC(3236),
+  "스타드 렌": SOC(169),
+  "낭트": SOC(165),
+  "브레스트": SOC(6997),
+  "메스": SOC(177),
+  "파리 FC": SOC(6851),
+  "PSG": SOC(160),
 
   // UCL / UEL (clubs covered above; extras below)
   "레알 마드리드": SOC(86),
@@ -160,14 +188,26 @@ export const TEAM_LOGOS: Record<string, string> = {
   "알 와흐다": SOC(7059),
   "알 이티하드": SOC(2276),
   "알 힐랄": SOC(929),
+  "마치다": SOC(22167),
+  "고베": SOC(7477),
+  "부리람": SOC(7138),
+  "샤바브 알 아흘리": SOC(790),
 
   // K리그1
   "서울": "https://r2.thesportsdb.com/images/media/team/badge/31z1zf1579473186.png",
   "울산": "https://r2.thesportsdb.com/images/media/team/badge/0wooic1706533767.png",
+  "대전": "https://r2.thesportsdb.com/images/media/team/badge/o9z6eq1589558557.png",
+  "부천": "https://r2.thesportsdb.com/images/media/team/badge/mhcuwe1589557777.png",
+  "인천": "https://r2.thesportsdb.com/images/media/team/badge/2no9nq1579473100.png",
+  "제주": "https://r2.thesportsdb.com/images/media/team/badge/hna7ae1736207131.png",
+  "김천": "https://r2.thesportsdb.com/images/media/team/badge/g4cjyk1609536787.png",
+  "광주": "https://r2.thesportsdb.com/images/media/team/badge/uuzr4x1579473084.png",
 
   // KBL
   "원주 DB": "https://r2.thesportsdb.com/images/media/team/badge/ykuvm71742844633.png",
   "부산 KCC": "https://r2.thesportsdb.com/images/media/team/badge/9h9fqx1637980679.png",
+  "고양 소노": "https://r2.thesportsdb.com/images/media/team/badge/l2qn7d1742844779.png",
+  "서울 SK": "https://r2.thesportsdb.com/images/media/team/badge/qkd9sv1593415101.png",
 
   // WKBL (프로농구)
   "삼성생명 블루밍스": "https://www.wkbl.or.kr/static/images/team/teamlogo_03.png",
