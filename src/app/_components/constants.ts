@@ -8,10 +8,10 @@ export const PLATFORM_LIST = [
   { key: "SPOTV", label: "SPOTV" },
   { key: "SPOTV2", label: "SPOTV2" },
   { key: "Apple TV+", label: "Apple TV+" },
-  { key: "tvN SPORTS", label: "tvN" },
-  { key: "KBS N SPORTS", label: "KBS N" },
-  { key: "MBC SPORTS+", label: "MBC SPORTS" },
-  { key: "SBS Sports", label: "SBS SPORTS" },
+  { key: "tvN SPORTS", label: "tvN Sports" },
+  { key: "KBS N SPORTS", label: "KBS Sports" },
+  { key: "MBC SPORTS+", label: "MBC Sports" },
+  { key: "SBS Sports", label: "SBS Sports" },
 ] as const;
 
 export const PLATFORM_ICON_MAP: Record<string, string> = {
