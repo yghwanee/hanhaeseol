@@ -19,7 +19,8 @@
     "post:all": "tsx src/scripts/post-instagram-all.ts",
     "post:ig": "tsx src/scripts/post-instagram-ig.ts",
     "ig:setup": "tsx src/scripts/instagram-setup.ts",
-    "ig:check": "tsx src/scripts/check-ig-token.ts"
+    "ig:check": "tsx src/scripts/check-ig-token.ts",
+    "telegram:failure": "tsx src/scripts/telegram-failure.ts"
   },
   "dependencies": {
     "@napi-rs/canvas": "^0.1.98",
