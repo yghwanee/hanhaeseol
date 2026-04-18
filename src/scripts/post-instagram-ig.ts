@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { getKstToday } from "@/lib/instagram";
 
 const IG_API = "https://graph.facebook.com/v21.0";
 const IG_ID = process.env.IG_BUSINESS_ACCOUNT_ID!;
@@ -8,16 +9,7 @@ const REPO = process.env.GITHUB_REPOSITORY || "yghwanee/hanhaeseol";
 const BRANCH = "insta-media";
 const MAX_CAROUSEL = 10;
 
-function sleep(ms: number) {
-  return new Promise((r) => setTimeout(r, ms));
-}
-
-function kstToday() {
-  const now = new Date(Date.now() + 9 * 60 * 60 * 1000);
-  const mm = String(now.getUTCMonth() + 1).padStart(2, "0");
-  const dd = String(now.getUTCDate()).padStart(2, "0");
-  return { mm, dd };
-}
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 function buildCaption(mm: string, dd: string) {
   return [
@@ -32,29 +24,17 @@ function buildCaption(mm: string, dd: string) {
   ].join("\n");
 }
 
-async function createItemContainer(imageUrl: string, isCarousel: boolean) {
-  const params = new URLSearchParams({
-    image_url: imageUrl,
-    access_token: TOKEN,
-  });
-  if (isCarousel) params.set("is_carousel_item", "true");
-
-  const res = await fetch(`${IG_API}/${IG_ID}/media`, {
-    method: "POST",
-    body: params,
-  });
+async function postMedia(params: Record<string, string>): Promise<string> {
+  const body = new URLSearchParams({ ...params, access_token: TOKEN });
+  const res = await fetch(`${IG_API}/${IG_ID}/media`, { method: "POST", body });
   const data = await res.json();
-  if (!res.ok || !data.id) {
-    throw new Error(`아이템 컨테이너 생성 실패: ${JSON.stringify(data)}`);
-  }
+  if (!res.ok || !data.id) throw new Error(`미디어 생성 실패: ${JSON.stringify(data)}`);
   return data.id as string;
 }
 
 async function waitForFinished(containerId: string) {
   for (let i = 0; i < 15; i++) {
-    const res = await fetch(
-      `${IG_API}/${containerId}?fields=status_code&access_token=${TOKEN}`,
-    );
+    const res = await fetch(`${IG_API}/${containerId}?fields=status_code&access_token=${TOKEN}`);
     const data = await res.json();
     if (data.status_code === "FINISHED") return;
     if (data.status_code === "ERROR" || data.status_code === "EXPIRED") {
@@ -65,89 +45,51 @@ async function waitForFinished(containerId: string) {
   throw new Error(`컨테이너 ${containerId} 처리 시간 초과`);
 }
 
-async function createCarouselContainer(childrenIds: string[], caption: string) {
-  const params = new URLSearchParams({
-    media_type: "CAROUSEL",
-    children: childrenIds.join(","),
-    caption,
-    access_token: TOKEN,
-  });
-  const res = await fetch(`${IG_API}/${IG_ID}/media`, {
-    method: "POST",
-    body: params,
-  });
+async function publish(creationId: string): Promise<string> {
+  const body = new URLSearchParams({ creation_id: creationId, access_token: TOKEN });
+  const res = await fetch(`${IG_API}/${IG_ID}/media_publish`, { method: "POST", body });
   const data = await res.json();
-  if (!res.ok || !data.id) {
-    throw new Error(`캐러셀 컨테이너 생성 실패: ${JSON.stringify(data)}`);
-  }
-  return data.id as string;
-}
-
-async function publish(creationId: string) {
-  const params = new URLSearchParams({
-    creation_id: creationId,
-    access_token: TOKEN,
-  });
-  const res = await fetch(`${IG_API}/${IG_ID}/media_publish`, {
-    method: "POST",
-    body: params,
-  });
-  const data = await res.json();
-  if (!res.ok || !data.id) {
-    throw new Error(`게시 실패: ${JSON.stringify(data)}`);
-  }
+  if (!res.ok || !data.id) throw new Error(`게시 실패: ${JSON.stringify(data)}`);
   return data.id as string;
 }
 
 async function main() {
-  if (!IG_ID || !TOKEN) {
-    throw new Error("IG_BUSINESS_ACCOUNT_ID, IG_PAGE_ACCESS_TOKEN 환경변수가 필요합니다.");
-  }
+  if (!IG_ID || !TOKEN) throw new Error("IG_BUSINESS_ACCOUNT_ID, IG_PAGE_ACCESS_TOKEN 환경변수 필요");
 
   const manifestPath = path.resolve("generated/instagram/manifest.json");
   if (!fs.existsSync(manifestPath)) {
-    throw new Error(`매니페스트 없음: ${manifestPath} — 먼저 npm run post:all 실행 필요`);
+    throw new Error(`매니페스트 없음: 먼저 npm run post:all 실행 필요`);
   }
-  const manifest = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as {
-    date: string;
-    files: string[];
-  };
-
-  let files = manifest.files;
+  const { files } = JSON.parse(fs.readFileSync(manifestPath, "utf8")) as { files: string[] };
   if (files.length === 0) throw new Error("매니페스트에 파일이 없습니다.");
 
-  if (files.length > MAX_CAROUSEL) {
-    console.warn(`⚠️  ${files.length}장 → 인스타 캐러셀 최대 ${MAX_CAROUSEL}장으로 잘라서 업로드`);
-    files = files.slice(0, MAX_CAROUSEL);
-  }
+  const selected = files.length > MAX_CAROUSEL
+    ? (console.warn(`⚠️  ${files.length}장 → 최대 ${MAX_CAROUSEL}장으로 자름`), files.slice(0, MAX_CAROUSEL))
+    : files;
 
   const baseUrl = `https://raw.githubusercontent.com/${REPO}/${BRANCH}`;
-  const urls = files.map((f) => `${baseUrl}/${f}`);
+  const urls = selected.map((f) => `${baseUrl}/${f}`);
 
   console.log(`📸 ${urls.length}장 게시 시작`);
-  urls.forEach((u, i) => console.log(`  ${i + 1}. ${u}`));
 
-  console.log(`\n🔄 1/3 각 이미지 컨테이너 생성`);
-  const itemIds: string[] = [];
-  for (const url of urls) {
-    const id = await createItemContainer(url, true);
-    itemIds.push(id);
-    console.log(`  ✅ ${id}`);
-  }
+  const itemIds = await Promise.all(
+    urls.map((image_url) => postMedia({ image_url, is_carousel_item: "true" })),
+  );
+  console.log(`✅ 아이템 컨테이너 ${itemIds.length}개 생성`);
 
-  console.log(`\n🔄 2/3 각 컨테이너 FINISHED 대기`);
-  for (const id of itemIds) {
-    await waitForFinished(id);
-    console.log(`  ✅ ${id}`);
-  }
+  await Promise.all(itemIds.map(waitForFinished));
+  console.log(`✅ 모든 아이템 FINISHED`);
 
-  console.log(`\n🔄 3/3 캐러셀 생성 & 게시`);
-  const { mm, dd } = kstToday();
-  const carouselId = await createCarouselContainer(itemIds, buildCaption(mm, dd));
-  console.log(`  캐러셀 컨테이너: ${carouselId}`);
+  const { mm, dd } = getKstToday();
+  const carouselId = await postMedia({
+    media_type: "CAROUSEL",
+    children: itemIds.join(","),
+    caption: buildCaption(mm, dd),
+  });
   await waitForFinished(carouselId);
+
   const mediaId = await publish(carouselId);
-  console.log(`\n✅ 게시 완료. Media ID: ${mediaId}`);
+  console.log(`✅ 게시 완료. Media ID: ${mediaId}`);
 }
 
 main().catch((e) => {
