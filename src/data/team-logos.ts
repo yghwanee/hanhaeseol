@@ -43,6 +43,13 @@ export const TEAM_LOGOS: Record<string, string> = {
   "샌안토니오": NBA("sa"),
   "유타": NBA("utah"),
   "휴스턴": NBA("hou"),
+  "필라델피아": NBA("phi"),
+  "보스턴": NBA("bos"),
+  "피닉스": NBA("phx"),
+  "오클라호마시티": NBA("okc"),
+  "올랜도": NBA("orl"),
+  "디트로이트": NBA("det"),
+  "포틀랜드": NBA("por"),
 
   // EPL
   "리버풀": SOC(364),
@@ -61,6 +68,7 @@ export const TEAM_LOGOS: Record<string, string> = {
   "노팅엄 포레스트": SOC(393),
   "울버햄튼": SOC(380),
   "에버턴": SOC(368),
+  "웨스트햄": SOC(371),
 
   // EFL 챔피언십
   "렉섬": SOC(358),
@@ -101,6 +109,7 @@ export const TEAM_LOGOS: Record<string, string> = {
   "헬라스 베로나": SOC(119),
   "피사": SOC(3956),
   "제노아": SOC(3263),
+  "레체": SOC(113),
 
   // 분데스리가
   "바이에른 뮌헨": SOC(132),
@@ -159,6 +168,8 @@ export const TEAM_LOGOS: Record<string, string> = {
   "LA 갤럭시": SOC(187),
   "스포팅 캔자스시티": SOC(186),
   "밴쿠버 화이트캡스 FC": SOC(9727),
+  "로스앤젤레스 FC": SOC(18966),
+  "산호세 어스퀘이크스": SOC(191),
 
   // LigaMX
   "톨루카": SOC(223),
