@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <main className="min-h-screen text-gray-100">
-      <div className="max-w-2xl mx-auto px-3 sm:px-4 pb-8 sm:pb-12">
+      <div className="max-w-2xl mx-auto px-3 sm:px-4 pb-8 sm:pb-12 text-[14px]">
         <StickyHeader>
           <header className="flex items-center justify-between">
             <Link href="/" className="flex items-end">
