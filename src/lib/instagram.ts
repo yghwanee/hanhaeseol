@@ -150,6 +150,27 @@ export function readOutroCard(): Buffer {
   return fs.readFileSync(path.resolve("templates/instagram/outro.png"));
 }
 
+export async function sendTelegramDocument(
+  buf: Buffer,
+  filename: string,
+  caption?: string,
+) {
+  const token = process.env.TELEGRAM_BOT_TOKEN;
+  const chatId = process.env.TELEGRAM_CHAT_ID;
+  if (!token || !chatId) throw new Error("TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID 가 .env 에 없습니다");
+
+  const form = new FormData();
+  form.append("chat_id", chatId);
+  if (caption) form.append("caption", caption);
+  form.append("document", new Blob([new Uint8Array(buf)]), filename);
+
+  const res = await fetch(`https://api.telegram.org/bot${token}/sendDocument`, {
+    method: "POST",
+    body: form,
+  });
+  if (!res.ok) throw new Error(`Telegram Document 전송 실패: ${res.status} ${await res.text()}`);
+}
+
 export async function sendTelegramPhoto(buf: Buffer, caption: string, filename: string) {
   const token = process.env.TELEGRAM_BOT_TOKEN;
   const chatId = process.env.TELEGRAM_CHAT_ID;

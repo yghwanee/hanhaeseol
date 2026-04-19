@@ -1,6 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
-import { sendTelegramMediaGroup, type MediaItem } from "@/lib/instagram";
+import {
+  sendTelegramDocument,
+  sendTelegramMediaGroup,
+  type MediaItem,
+} from "@/lib/instagram";
 import { MANIFEST_PATH, OUT_DIR, readManifest } from "@/lib/manifest";
 
 const FAIL_TEXT = "❌ 인스타 카드 생성/게시 실패. GitHub Actions 로그 확인.";
@@ -25,7 +29,8 @@ async function main() {
     return;
   }
 
-  const { files } = readManifest();
+  const manifest = readManifest();
+  const { files, reel, story } = manifest;
   if (files.length === 0) {
     await sendText(FAIL_TEXT);
     return;
@@ -38,7 +43,24 @@ async function main() {
   }));
 
   await sendTelegramMediaGroup(items);
-  console.log(`✅ 실패 알림 + 카드 ${items.length}장 텔레그램 전송 완료`);
+  console.log(`✅ 카드 ${items.length}장 전송 완료`);
+
+  if (reel) {
+    const reelPath = path.join(OUT_DIR, reel);
+    if (fs.existsSync(reelPath)) {
+      // 원본 품질 보존을 위해 document로 전송 (sendVideo는 Telegram이 재압축함)
+      await sendTelegramDocument(fs.readFileSync(reelPath), reel, "🎬 릴스 영상 (원본)");
+      console.log(`✅ 릴스 ${reel} 전송 완료`);
+    }
+  }
+
+  if (story) {
+    const storyPath = path.join(OUT_DIR, story);
+    if (fs.existsSync(storyPath)) {
+      await sendTelegramDocument(fs.readFileSync(storyPath), story, "📱 스토리 이미지 (원본)");
+      console.log(`✅ 스토리 ${story} 전송 완료`);
+    }
+  }
 }
 
 main().catch((e) => {
