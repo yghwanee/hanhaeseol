@@ -1,4 +1,5 @@
 import fs from "node:fs";
+import sharp from "sharp";
 
 const OAUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
 const YOUTUBE_UPLOAD_URL =
@@ -104,12 +105,21 @@ export async function uploadShorts(p: UploadShortsParams): Promise<string> {
   return putData.id;
 }
 
+const THUMB_MAX_BYTES = 2 * 1024 * 1024;
+
+async function compressForThumbnail(filePath: string): Promise<Buffer> {
+  // YouTube 썸네일 2MB 제한에 맞춰 JPEG 품질을 낮춰가며 인코딩
+  const src = sharp(filePath);
+  for (const quality of [90, 82, 74, 66, 58, 50]) {
+    const out = await src.clone().jpeg({ quality, mozjpeg: true }).toBuffer();
+    if (out.length <= THUMB_MAX_BYTES) return out;
+  }
+  throw new Error("썸네일 2MB 이하로 압축 실패");
+}
+
 export async function setThumbnail(videoId: string, filePath: string): Promise<void> {
   const accessToken = await getAccessToken();
-  const buf = fs.readFileSync(filePath);
-  const ext = filePath.toLowerCase().split(".").pop();
-  const contentType =
-    ext === "jpg" || ext === "jpeg" ? "image/jpeg" : ext === "gif" ? "image/gif" : "image/png";
+  const buf = await compressForThumbnail(filePath);
 
   const res = await fetch(
     `https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=${videoId}&uploadType=media`,
@@ -117,7 +127,7 @@ export async function setThumbnail(videoId: string, filePath: string): Promise<v
       method: "POST",
       headers: {
         Authorization: `Bearer ${accessToken}`,
-        "Content-Type": contentType,
+        "Content-Type": "image/jpeg",
         "Content-Length": String(buf.length),
       },
       body: new Uint8Array(buf),
