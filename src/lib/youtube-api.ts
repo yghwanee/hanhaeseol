@@ -104,6 +104,30 @@ export async function uploadShorts(p: UploadShortsParams): Promise<string> {
   return putData.id;
 }
 
+export async function setThumbnail(videoId: string, filePath: string): Promise<void> {
+  const accessToken = await getAccessToken();
+  const buf = fs.readFileSync(filePath);
+  const ext = filePath.toLowerCase().split(".").pop();
+  const contentType =
+    ext === "jpg" || ext === "jpeg" ? "image/jpeg" : ext === "gif" ? "image/gif" : "image/png";
+
+  const res = await fetch(
+    `https://www.googleapis.com/upload/youtube/v3/thumbnails/set?videoId=${videoId}&uploadType=media`,
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": contentType,
+        "Content-Length": String(buf.length),
+      },
+      body: new Uint8Array(buf),
+    },
+  );
+  if (!res.ok) {
+    throw new Error(`썸네일 업로드 실패: ${res.status} ${await res.text()}`);
+  }
+}
+
 export async function getChannelInfo(): Promise<{ id: string; title: string }> {
   const accessToken = await getAccessToken();
   const res = await fetch(`${YOUTUBE_API}/channels?part=snippet&mine=true`, {
@@ -120,8 +144,10 @@ export async function getChannelInfo(): Promise<{ id: string; title: string }> {
 }
 
 function getKstWeekday(): string {
+  // 내일 편성 미리보기용으로 내일의 요일을 반환합니다.
   const kstStr = new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" });
   const d = new Date(kstStr);
+  d.setDate(d.getDate() + 1);
   return ["일", "월", "화", "수", "목", "금", "토"][d.getDay()];
 }
 
@@ -133,7 +159,7 @@ export function buildShortsMeta(mm: string, dd: string) {
   const description = [
     `${mNum}/${dNum}(${wd}) 한국어 해설 스포츠 중계 편성표 ⚽️⚾️🏀🏐`,
     `🌐 전체 편성표: https://haeseol.com`,
-    `📢 매일 아침 업데이트 · 구독 + 🔔 알림 설정 권장`,
+    `📢 매일 저녁 10시 업데이트 · 구독 + 🔔 알림 설정 권장`,
     ``,
     `축구 · 야구 · 농구 · 배구`,
     `한국어 해설이 있는 모든 경기를 한곳에.`,

@@ -1,7 +1,7 @@
 import path from "node:path";
 import fs from "node:fs";
 import { getKstToday } from "@/lib/instagram";
-import { buildShortsMeta, uploadShorts } from "@/lib/youtube-api";
+import { buildShortsMeta, setThumbnail, uploadShorts } from "@/lib/youtube-api";
 import { OUT_DIR, readManifest } from "@/lib/manifest";
 
 async function main() {
@@ -10,6 +10,11 @@ async function main() {
 
   const filePath = path.join(OUT_DIR, manifest.reel);
   if (!fs.existsSync(filePath)) throw new Error(`영상 파일 없음: ${filePath}`);
+
+  const thumbFile = manifest.files[0];
+  if (!thumbFile) throw new Error("매니페스트 files[0] 없음 — 썸네일 생성 불가");
+  const thumbPath = path.join(OUT_DIR, thumbFile);
+  if (!fs.existsSync(thumbPath)) throw new Error(`썸네일 파일 없음: ${thumbPath}`);
 
   const { mm, dd } = getKstToday();
   const meta = buildShortsMeta(mm, dd);
@@ -28,6 +33,10 @@ async function main() {
   });
 
   console.log(`✅ 유튜브 쇼츠 업로드 완료: https://youtube.com/shorts/${videoId}`);
+
+  console.log(`🖼  썸네일 설정 중... (${thumbFile})`);
+  await setThumbnail(videoId, thumbPath);
+  console.log(`✅ 썸네일 설정 완료`);
 }
 
 main().catch((e) => {
