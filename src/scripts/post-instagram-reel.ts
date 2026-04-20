@@ -1,6 +1,7 @@
 import { getKstToday } from "@/lib/instagram";
-import { buildCaption, mediaBaseUrl, publishSingleMedia } from "@/lib/instagram-api";
+import { buildCaption, comment, mediaBaseUrl, publishSingleMedia } from "@/lib/instagram-api";
 import { readManifest } from "@/lib/manifest";
+import { FIXED_COMMENT } from "@/lib/social-comment";
 
 async function main() {
   const manifest = readManifest();
@@ -21,6 +22,9 @@ async function main() {
     60,
   );
   console.log(`✅ 릴스 게시 완료. Media ID: ${mediaId}`);
+
+  await comment(mediaId, FIXED_COMMENT);
+  console.log(`💬 댓글 작성 완료`);
 }
 
 main().catch((e) => {

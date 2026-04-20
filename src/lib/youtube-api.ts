@@ -6,7 +6,10 @@ const YOUTUBE_UPLOAD_URL =
   "https://www.googleapis.com/upload/youtube/v3/videos?uploadType=resumable&part=snippet,status";
 const YOUTUBE_API = "https://www.googleapis.com/youtube/v3";
 
-export const YOUTUBE_SCOPES = ["https://www.googleapis.com/auth/youtube.upload"];
+export const YOUTUBE_SCOPES = [
+  "https://www.googleapis.com/auth/youtube.upload",
+  "https://www.googleapis.com/auth/youtube.force-ssl",
+];
 
 function env(key: string): string {
   const v = process.env[key];
@@ -136,6 +139,27 @@ export async function setThumbnail(videoId: string, filePath: string): Promise<v
   if (!res.ok) {
     throw new Error(`썸네일 업로드 실패: ${res.status} ${await res.text()}`);
   }
+}
+
+export async function addComment(videoId: string, text: string): Promise<string> {
+  const accessToken = await getAccessToken();
+  const body = {
+    snippet: {
+      videoId,
+      topLevelComment: { snippet: { textOriginal: text } },
+    },
+  };
+  const res = await fetch(`${YOUTUBE_API}/commentThreads?part=snippet`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json; charset=UTF-8",
+    },
+    body: JSON.stringify(body),
+  });
+  const data = (await res.json()) as { id?: string; error?: unknown };
+  if (!res.ok || !data.id) throw new Error(`댓글 작성 실패: ${JSON.stringify(data)}`);
+  return data.id;
 }
 
 export async function getChannelInfo(): Promise<{ id: string; title: string }> {

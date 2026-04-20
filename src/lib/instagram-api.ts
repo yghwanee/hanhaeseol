@@ -71,3 +71,12 @@ export async function publishSingleMedia(
   await waitForFinished(containerId, waitMaxAttempts);
   return publish(containerId);
 }
+
+export async function comment(mediaId: string, message: string): Promise<string> {
+  const { token } = igEnv();
+  const body = new URLSearchParams({ message, access_token: token });
+  const res = await fetch(`${IG_API}/${mediaId}/comments`, { method: "POST", body });
+  const data = await res.json();
+  if (!res.ok || !data.id) throw new Error(`댓글 작성 실패: ${JSON.stringify(data)}`);
+  return data.id as string;
+}

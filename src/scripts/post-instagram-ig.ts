@@ -1,6 +1,7 @@
 import { getKstToday } from "@/lib/instagram";
-import { buildCaption, mediaBaseUrl, postMedia, publish, waitForFinished } from "@/lib/instagram-api";
+import { buildCaption, comment, mediaBaseUrl, postMedia, publish, waitForFinished } from "@/lib/instagram-api";
 import { readManifest } from "@/lib/manifest";
+import { FIXED_COMMENT } from "@/lib/social-comment";
 
 const MAX_CAROUSEL = 10;
 
@@ -32,6 +33,9 @@ async function main() {
 
   const mediaId = await publish(carouselId);
   console.log(`✅ 캐러셀 게시 완료. Media ID: ${mediaId}`);
+
+  await comment(mediaId, FIXED_COMMENT);
+  console.log(`💬 댓글 작성 완료`);
 }
 
 main().catch((e) => {
