@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { AnalysisArticle } from "@/types/analysis";
 import { LEAGUE_FLAG, FlagIcon } from "./_flags";
@@ -51,20 +51,10 @@ function getToday() {
 
 export default function AnalysisClient({ articles, lastUpdated }: { articles: AnalysisArticle[]; lastUpdated: string }) {
   const byDate = groupByDate(articles);
-  // 오래된 날짜 → 최신 날짜 (왼쪽 → 오른쪽)
-  const sortedDates = Object.keys(byDate).sort((a, b) => a.localeCompare(b));
+  // 최신 날짜 → 과거 날짜 (왼쪽 → 오른쪽). 오늘/최신이 바로 보이고, 과거는 오른쪽으로 스크롤.
+  const sortedDates = Object.keys(byDate).sort((a, b) => b.localeCompare(a));
   const today = getToday();
-  const [selectedDate, setSelectedDate] = useState(today && byDate[today] ? today : sortedDates[sortedDates.length - 1] || "");
-  const scrollRef = useRef<HTMLDivElement>(null);
-
-  // 초기 로드 시 스크롤을 맨 오른쪽으로 (최신 날짜가 오른쪽 끝에 보이도록)
-  useEffect(() => {
-    requestAnimationFrame(() => {
-      if (scrollRef.current) {
-        scrollRef.current.scrollLeft = scrollRef.current.scrollWidth;
-      }
-    });
-  }, []);
+  const [selectedDate, setSelectedDate] = useState(today && byDate[today] ? today : sortedDates[0] || "");
 
   if (articles.length === 0) {
     return <p className="text-zinc-500 text-sm">아직 등록된 분석글이 없습니다.</p>;
@@ -75,8 +65,7 @@ export default function AnalysisClient({ articles, lastUpdated }: { articles: An
   return (
     <>
       {/* 날짜 탭 */}
-      <div ref={scrollRef} className="flex gap-1.5 mb-6 overflow-x-auto scrollbar-hide pb-1">
-        <div className="flex-shrink-0 flex-grow pointer-events-none" />
+      <div className="flex gap-1.5 mb-6 overflow-x-auto scrollbar-hide pb-1">
         {sortedDates.map((date) => {
           const dateObj = new Date(date + "T00:00:00");
           const month = dateObj.getMonth() + 1;
