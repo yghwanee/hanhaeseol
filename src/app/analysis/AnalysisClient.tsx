@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
 import { AnalysisArticle } from "@/types/analysis";
 import { LEAGUE_FLAG, FlagIcon } from "./_flags";
@@ -55,6 +55,22 @@ export default function AnalysisClient({ articles, lastUpdated }: { articles: An
   const sortedDates = Object.keys(byDate).sort((a, b) => b.localeCompare(a));
   const today = getToday();
   const [selectedDate, setSelectedDate] = useState(today && byDate[today] ? today : sortedDates[0] || "");
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  // PC에선 세로 휠을 가로 스크롤로 변환. passive:false로 preventDefault 가능하게.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      if (e.deltaY === 0) return;
+      // 탭이 실제로 가로 overflow 상태일 때만 개입
+      if (el.scrollWidth <= el.clientWidth) return;
+      e.preventDefault();
+      el.scrollLeft += e.deltaY;
+    };
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, []);
 
   if (articles.length === 0) {
     return <p className="text-zinc-500 text-sm">아직 등록된 분석글이 없습니다.</p>;
@@ -65,7 +81,7 @@ export default function AnalysisClient({ articles, lastUpdated }: { articles: An
   return (
     <>
       {/* 날짜 탭 */}
-      <div className="flex gap-1.5 mb-6 overflow-x-auto scrollbar-hide pb-1">
+      <div ref={scrollRef} className="flex gap-1.5 mb-6 overflow-x-auto scrollbar-hide pb-1">
         {sortedDates.map((date) => {
           const dateObj = new Date(date + "T00:00:00");
           const month = dateObj.getMonth() + 1;
