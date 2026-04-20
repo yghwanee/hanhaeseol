@@ -38,25 +38,50 @@ jobs:
           COUPANG_TOKEN: ${{ secrets.COUPANG_TOKEN }}
           COUPANG_P_AT: ${{ secrets.COUPANG_P_AT }}
 
-      - name: Install curl-impersonate (Chrome TLS fingerprint for Cloudflare bypass)
+      - name: Install curl-impersonate and pick working profile
+        id: ci
         run: |
-          set -euxo pipefail
+          set -eo pipefail
           curl -sL -o /tmp/ci.tgz https://github.com/lexiforest/curl-impersonate/releases/download/v1.5.5/curl-impersonate-v1.5.5.x86_64-linux-gnu.tar.gz
           sudo tar -xzf /tmp/ci.tgz -C /usr/local/bin/
           sudo chmod +x /usr/local/bin/curl-impersonate /usr/local/bin/curl_chrome* /usr/local/bin/curl_firefox* /usr/local/bin/curl_safari* /usr/local/bin/curl_edge*
-          which curl_chrome131
-          curl_chrome131 --version || true
-          # Cloudflare 실제 대상으로 smoke test (example.com은 CF 없어서 무의미)
-          code=$(curl_chrome131 -sL -o /dev/null -w "%{http_code}" --max-time 20 https://www.sportytrader.com/en/)
-          echo "smoke sportytrader: HTTP $code"
-          test "$code" = "200"
-          code2=$(curl_chrome131 -sL -o /dev/null -w "%{http_code}" --max-time 20 https://footballpredictions.net/)
-          echo "smoke fpnet: HTTP $code2"
-          test "$code2" = "200"
+
+          # 여러 TLS fingerprint 프로파일로 차단 사이트 접근 테스트
+          # 하나라도 200 받으면 그 프로파일을 이후 크롤 스텝에서 사용
+          TARGETS=(
+            "https://www.sportytrader.com/en/"
+            "https://footballpredictions.net/"
+            "https://scores24.live/en/predictions"
+            "https://www.tonyspicks.com/category/freepicks/free-mlb-picks/"
+          )
+          PROFILES=(curl_chrome146 curl_chrome142 curl_chrome131 curl_firefox147 curl_safari260 curl_safari184)
+          BEST=""
+          BEST_SCORE=-1
+          for prof in "${PROFILES[@]}"; do
+            score=0
+            line="[$prof]"
+            for url in "${TARGETS[@]}"; do
+              code=$($prof -sL -o /dev/null -w "%{http_code}" --max-time 20 "$url" 2>/dev/null || echo "err")
+              line="$line $(echo "$url" | awk -F/ '{print $3}')=$code"
+              if [ "$code" = "200" ]; then score=$((score+1)); fi
+            done
+            echo "$line score=$score/4"
+            if [ $score -gt $BEST_SCORE ]; then
+              BEST="$prof"
+              BEST_SCORE=$score
+            fi
+          done
+          echo "선택된 프로파일: $BEST (score=$BEST_SCORE/4)"
+          if [ "$BEST_SCORE" -gt 0 ]; then
+            echo "picked_profile=$BEST" >> "$GITHUB_OUTPUT"
+          else
+            echo "모든 프로파일 실패. impersonate 없이 기본 curl로 진행(대부분 여전히 0건 예상)"
+            echo "picked_profile=" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Run analysis crawl
         env:
-          CRAWLER_IMPERSONATE_CMD: curl_chrome131
+          CRAWLER_IMPERSONATE_CMD: ${{ steps.ci.outputs.picked_profile }}
           CRAWLER_DEBUG: "1"
         run: npm run crawl:analysis
 
