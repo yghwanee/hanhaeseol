@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       skip_instagram:
-        description: '인스타 게시 스킵 (유튜브 쇼츠만 테스트)'
+        description: '인스타 게시 SKIP (only Youtube)'
         type: boolean
         default: false
 
