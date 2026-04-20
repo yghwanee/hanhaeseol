@@ -191,12 +191,11 @@ export function buildShortsMeta(mm: string, dd: string) {
   const wd = getKstWeekday();
   const title = `📺 ${mNum}/${dNum}(${wd}) 오늘의 한국어 중계 편성표 #Shorts`;
   const description = [
-    `${mNum}/${dNum}(${wd}) 한국어 해설 스포츠 중계 편성표 ⚽️⚾️🏀🏐`,
-    `🌐 전체 편성표: https://haeseol.com`,
-    `📢 매일 저녁 9시 업데이트 · 구독 + 🔔 알림 설정 권장`,
+    `${mm}/${dd} 한국어 해설이 있는 모든 경기를 한곳에.`,
     ``,
-    `축구 · 야구 · 농구 · 배구`,
-    `한국어 해설이 있는 모든 경기를 한곳에.`,
+    `⚽️ 축구  ⚾️ 야구  🏀 농구  🏐 배구`,
+    ``,
+    `👉 https://haeseol.com/`,
     ``,
     `#Shorts #한해설 #한국어해설 #한국어중계 #스포츠중계 #편성표 #축구중계 #야구중계 #농구중계 #배구중계 #프리미어리그 #국야 #믈브 #월드컵`,
   ].join("\n");
