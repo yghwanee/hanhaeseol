@@ -3,13 +3,14 @@ import { execSync } from "child_process";
 export const CRAWLER_UA =
   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
 
-/** curl 기반 동기 fetch (스크래퍼용) */
+/** curl 기반 동기 fetch (스크래퍼용). CRAWLER_IMPERSONATE_CMD 환경변수가 있으면 curl-impersonate 바이너리를 사용해 Cloudflare TLS fingerprint 차단을 우회한다. */
 export function curlFetch(url: string, minBytes = 1000): string | null {
+  const impersonate = process.env.CRAWLER_IMPERSONATE_CMD;
+  const cmd = impersonate
+    ? `${impersonate} -sL --max-time 20 "${url}"`
+    : `curl -sL -A "${CRAWLER_UA}" --max-time 20 "${url}"`;
   try {
-    const html = execSync(
-      `curl -sL -A "${CRAWLER_UA}" --max-time 20 "${url}"`,
-      { timeout: 25000, maxBuffer: 10 * 1024 * 1024 }
-    ).toString();
+    const html = execSync(cmd, { timeout: 25000, maxBuffer: 10 * 1024 * 1024 }).toString();
     if (html.length < minBytes) return null;
     return html;
   } catch {

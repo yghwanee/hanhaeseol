@@ -38,7 +38,16 @@ jobs:
           COUPANG_TOKEN: ${{ secrets.COUPANG_TOKEN }}
           COUPANG_P_AT: ${{ secrets.COUPANG_P_AT }}
 
+      - name: Install curl-impersonate (Chrome TLS fingerprint for Cloudflare bypass)
+        run: |
+          curl -sL -o /tmp/ci.tgz https://github.com/lexiforest/curl-impersonate/releases/download/v1.5.5/curl-impersonate-v1.5.5.x86_64-linux-gnu.tar.gz
+          sudo tar -xzf /tmp/ci.tgz -C /usr/local/bin/
+          sudo chmod +x /usr/local/bin/curl-impersonate /usr/local/bin/curl_chrome* /usr/local/bin/curl_firefox* /usr/local/bin/curl_safari* /usr/local/bin/curl_edge*
+          curl_chrome131 -sL -o /dev/null -w "smoke test: %{http_code}\n" https://example.com/
+
       - name: Run analysis crawl
+        env:
+          CRAWLER_IMPERSONATE_CMD: curl_chrome131
         run: npm run crawl:analysis
 
       - name: Commit & Push

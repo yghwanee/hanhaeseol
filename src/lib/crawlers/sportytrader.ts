@@ -1,21 +1,7 @@
 import { AnalysisArticle } from "@/types/analysis";
 import { Schedule } from "@/types/schedule";
 import { findKoreanTeamName } from "@/data/team-names";
-import { execSync } from "child_process";
-import { toSlug, pLimit, CRAWLER_UA as UA } from "./_utils";
-
-function curlFetch(url: string): string | null {
-  try {
-    const html = execSync(
-      `curl -s -A "${UA}" "${url}"`,
-      { timeout: 15000, maxBuffer: 5 * 1024 * 1024 }
-    ).toString();
-    if (html.includes("403") && html.length < 1000) return null;
-    return html;
-  } catch {
-    return null;
-  }
-}
+import { curlFetch, toSlug, pLimit } from "./_utils";
 
 interface MatchPreview {
   slug: string;
