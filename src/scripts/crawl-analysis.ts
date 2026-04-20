@@ -8,7 +8,6 @@ import { crawlFootballpredictionsNet } from "../lib/crawlers/footballpredictions
 import { crawlDimers } from "../lib/crawlers/dimers";
 import { crawl7M } from "../lib/crawlers/7m";
 import { crawlLiveman } from "../lib/crawlers/liveman";
-import { crawlScores24 } from "../lib/crawlers/scores24";
 import { crawlCovers } from "../lib/crawlers/covers";
 import { crawlPickdawgz } from "../lib/crawlers/pickdawgz";
 import { crawlTonyspicks } from "../lib/crawlers/tonyspicks";
@@ -76,9 +75,6 @@ async function main() {
     const lmArticles = await crawlLiveman(dateStr, scheduleData.schedules);
     console.log(`✓ liveman: ${lmArticles.length}건 수집\n`);
 
-    const s24Articles = await crawlScores24(dateStr, scheduleData.schedules);
-    console.log(`✓ scores24: ${s24Articles.length}건 수집\n`);
-
     const cvArticles = await crawlCovers(dateStr, scheduleData.schedules);
     console.log(`✓ covers: ${cvArticles.length}건 수집\n`);
 
@@ -88,7 +84,7 @@ async function main() {
     const tpArticles = await crawlTonyspicks(dateStr, scheduleData.schedules);
     console.log(`✓ tonyspicks: ${tpArticles.length}건 수집\n`);
 
-    newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles, ...smArticles, ...lmArticles, ...s24Articles, ...cvArticles, ...pdArticles, ...tpArticles);
+    newArticles.push(...fstArticles, ...tsArticles, ...stArticles, ...fpArticles, ...fpnArticles, ...dmArticles, ...smArticles, ...lmArticles, ...cvArticles, ...pdArticles, ...tpArticles);
   }
 
   // 이모지 제거 (모든 기사의 content/prediction)
