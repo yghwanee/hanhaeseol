@@ -193,7 +193,7 @@ export function buildShortsMeta(mm: string, dd: string) {
   const description = [
     `${mNum}/${dNum}(${wd}) 한국어 해설 스포츠 중계 편성표 ⚽️⚾️🏀🏐`,
     `🌐 전체 편성표: https://haeseol.com`,
-    `📢 매일 저녁 10시 업데이트 · 구독 + 🔔 알림 설정 권장`,
+    `📢 매일 저녁 9시 업데이트 · 구독 + 🔔 알림 설정 권장`,
     ``,
     `축구 · 야구 · 농구 · 배구`,
     `한국어 해설이 있는 모든 경기를 한곳에.`,

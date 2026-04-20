@@ -45,7 +45,7 @@ export function registerFonts() {
 }
 
 export function getKstToday() {
-  // KST 22:00에 내일 편성 미리보기를 올리는 구조라 "내일" 날짜를 반환합니다.
+  // KST 21:00에 내일 편성 미리보기를 올리는 구조라 "내일" 날짜를 반환합니다.
   const kstStr = new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" });
   const d = new Date(kstStr);
   d.setDate(d.getDate() + 1);

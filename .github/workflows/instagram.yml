@@ -2,8 +2,8 @@ name: Generate insta & youtube
 
 on:
   schedule:
-    # KST 22:00 = UTC 13:00 (전날)
-    - cron: '0 13 * * *'
+    # KST 21:00 = UTC 12:00 (전날)
+    - cron: '0 12 * * *'
   workflow_dispatch:
     inputs:
       skip_instagram:
