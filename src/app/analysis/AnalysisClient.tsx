@@ -56,20 +56,41 @@ export default function AnalysisClient({ articles, lastUpdated }: { articles: An
   const today = getToday();
   const [selectedDate, setSelectedDate] = useState(today && byDate[today] ? today : sortedDates[0] || "");
   const scrollRef = useRef<HTMLDivElement>(null);
+  const dragState = useRef({ isDown: false, isDragging: false, startX: 0, scrollLeft: 0 });
 
-  // PC에선 세로 휠을 가로 스크롤로 변환. passive:false로 preventDefault 가능하게.
+  // PC 마우스 드래그로 가로 스크롤 (편성표 플랫폼 필터와 동일 방식)
   useEffect(() => {
     const el = scrollRef.current;
     if (!el) return;
-    const onWheel = (e: WheelEvent) => {
-      if (e.deltaY === 0) return;
-      // 탭이 실제로 가로 overflow 상태일 때만 개입
-      if (el.scrollWidth <= el.clientWidth) return;
-      e.preventDefault();
-      el.scrollLeft += e.deltaY;
+    const stopDrag = () => {
+      dragState.current.isDown = false;
+      dragState.current.isDragging = false;
+      el.style.cursor = "";
+      el.style.userSelect = "";
     };
-    el.addEventListener("wheel", onWheel, { passive: false });
-    return () => el.removeEventListener("wheel", onWheel);
+    const onMouseDown = (e: MouseEvent) => {
+      e.preventDefault();
+      dragState.current.isDown = true;
+      dragState.current.isDragging = false;
+      dragState.current.startX = e.clientX;
+      dragState.current.scrollLeft = el.scrollLeft;
+    };
+    const onMouseMove = (e: MouseEvent) => {
+      if (!dragState.current.isDown) return;
+      const dx = e.clientX - dragState.current.startX;
+      if (!dragState.current.isDragging && Math.abs(dx) < 5) return;
+      dragState.current.isDragging = true;
+      el.style.cursor = "grabbing";
+      el.scrollLeft = dragState.current.scrollLeft - dx;
+    };
+    el.addEventListener("mousedown", onMouseDown);
+    document.addEventListener("mousemove", onMouseMove, true);
+    document.addEventListener("mouseup", stopDrag, true);
+    return () => {
+      el.removeEventListener("mousedown", onMouseDown);
+      document.removeEventListener("mousemove", onMouseMove, true);
+      document.removeEventListener("mouseup", stopDrag, true);
+    };
   }, []);
 
   if (articles.length === 0) {
