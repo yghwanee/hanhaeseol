@@ -4,7 +4,12 @@ on:
   schedule:
     # KST 22:00 = UTC 13:00 (전날)
     - cron: '0 13 * * *'
-  workflow_dispatch: {}  # 수동 트리거
+  workflow_dispatch:
+    inputs:
+      skip_instagram:
+        description: '인스타 게시 스킵 (유튜브 쇼츠만 테스트)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -65,15 +70,19 @@ jobs:
         run: sleep 10
 
       - name: 캐러셀 게시
+        if: ${{ inputs.skip_instagram != true }}
         run: npm run post:ig
 
       - name: 릴스 게시
+        if: ${{ always() && inputs.skip_instagram != true }}
         run: npm run post:reel
 
       - name: 스토리 게시
+        if: ${{ always() && inputs.skip_instagram != true }}
         run: npm run post:story
 
       - name: 유튜브 쇼츠 업로드
+        if: always()
         run: npm run post:youtube
 
       - name: Telegram 성공 알림
