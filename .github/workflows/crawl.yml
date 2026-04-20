@@ -40,14 +40,24 @@ jobs:
 
       - name: Install curl-impersonate (Chrome TLS fingerprint for Cloudflare bypass)
         run: |
+          set -euxo pipefail
           curl -sL -o /tmp/ci.tgz https://github.com/lexiforest/curl-impersonate/releases/download/v1.5.5/curl-impersonate-v1.5.5.x86_64-linux-gnu.tar.gz
           sudo tar -xzf /tmp/ci.tgz -C /usr/local/bin/
           sudo chmod +x /usr/local/bin/curl-impersonate /usr/local/bin/curl_chrome* /usr/local/bin/curl_firefox* /usr/local/bin/curl_safari* /usr/local/bin/curl_edge*
-          curl_chrome131 -sL -o /dev/null -w "smoke test: %{http_code}\n" https://example.com/
+          which curl_chrome131
+          curl_chrome131 --version || true
+          # Cloudflare 실제 대상으로 smoke test (example.com은 CF 없어서 무의미)
+          code=$(curl_chrome131 -sL -o /dev/null -w "%{http_code}" --max-time 20 https://www.sportytrader.com/en/)
+          echo "smoke sportytrader: HTTP $code"
+          test "$code" = "200"
+          code2=$(curl_chrome131 -sL -o /dev/null -w "%{http_code}" --max-time 20 https://footballpredictions.net/)
+          echo "smoke fpnet: HTTP $code2"
+          test "$code2" = "200"
 
       - name: Run analysis crawl
         env:
           CRAWLER_IMPERSONATE_CMD: curl_chrome131
+          CRAWLER_DEBUG: "1"
         run: npm run crawl:analysis
 
       - name: Commit & Push

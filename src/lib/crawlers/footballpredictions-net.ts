@@ -1,7 +1,7 @@
 import { AnalysisArticle } from "@/types/analysis";
 import { Schedule } from "@/types/schedule";
 import { findKoreanTeamName } from "@/data/team-names";
-import { toSlug, pLimit, CRAWLER_UA as UA } from "./_utils";
+import { curlFetch, toSlug, pLimit } from "./_utils";
 
 interface MatchPreview {
   homeTeamEn: string;
@@ -9,19 +9,14 @@ interface MatchPreview {
   url: string;
 }
 
-// 메인 페이지에서 경기 링크 수집
+// 메인 페이지에서 경기 링크 수집 (Cloudflare 차단 회피 위해 curl-impersonate 경로 사용)
 async function fetchPredictionsList(): Promise<MatchPreview[]> {
-  const res = await fetch("https://footballpredictions.net/", {
-    headers: { "User-Agent": UA },
-    signal: AbortSignal.timeout(15000),
-  });
-
-  if (!res.ok) {
-    console.error(`  footballpredictions.net 목록: HTTP ${res.status}`);
+  const html = curlFetch("https://footballpredictions.net/");
+  if (!html) {
+    console.error(`  footballpredictions.net 목록: fetch 실패`);
     return [];
   }
 
-  const html = await res.text();
   const matches: MatchPreview[] = [];
 
   // /팀1-v-팀2-predictions-betting-tips 패턴
@@ -42,14 +37,8 @@ async function fetchPredictionsList(): Promise<MatchPreview[]> {
 }
 
 async function fetchArticle(url: string): Promise<{ prediction: string; content: string } | null> {
-  const res = await fetch(url, {
-    headers: { "User-Agent": UA },
-    signal: AbortSignal.timeout(10000),
-  });
-
-  if (!res.ok) return null;
-
-  const html = await res.text();
+  const html = curlFetch(url);
+  if (!html) return null;
 
   // 본문 추출: 순수 <p> 태그
   const paragraphs: string[] = [];
