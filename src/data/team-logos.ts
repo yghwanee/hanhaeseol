@@ -1,6 +1,7 @@
 const MLB = (abbr: string) => `https://a.espncdn.com/i/teamlogos/mlb/500/${abbr}.png`;
 const NBA = (abbr: string) => `https://a.espncdn.com/i/teamlogos/nba/500/${abbr}.png`;
 const SOC = (id: number) => `https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png`;
+const SDB = (slug: string) => `https://r2.thesportsdb.com/images/media/team/badge/${slug}.png`;
 const KBO_LOGO = (code: string) => `/logos/kbo/${code}.png`;
 
 export const TEAM_LOGOS: Record<string, string> = {
@@ -36,6 +37,11 @@ export const TEAM_LOGOS: Record<string, string> = {
   "토론토 블루제이스": MLB("tor"),
   "디트로이트 타이거스": MLB("det"),
   "캔자스시티 로열스": MLB("kc"),
+  "로스앤젤레스 다저스": MLB("lad"),
+
+  // MLB 마이너리그 (Triple-A)
+  "리노 에이시스": SDB("8fjsl91625355786"),
+  "엘패소 치와와스": SDB("31m48v1655402710"),
 
   // NBA
   "LA 레이커스": NBA("lal"),
@@ -50,6 +56,11 @@ export const TEAM_LOGOS: Record<string, string> = {
   "올랜도": NBA("orl"),
   "디트로이트": NBA("det"),
   "포틀랜드": NBA("por"),
+  "미네소타": NBA("min"),
+  "애틀랜타": NBA("atl"),
+  "뉴욕": NBA("ny"),
+  "토론토": NBA("tor"),
+  "클리블랜드": NBA("cle"),
 
   // EPL
   "리버풀": SOC(364),
@@ -69,6 +80,10 @@ export const TEAM_LOGOS: Record<string, string> = {
   "울버햄튼": SOC(380),
   "에버턴": SOC(368),
   "웨스트햄": SOC(371),
+  "번리": SOC(379),
+  "브라이튼": SOC(331),
+  "사우스햄튼": SOC(376),
+  "노팅엄": SOC(393),
 
   // EFL 챔피언십
   "렉섬": SOC(358),
@@ -90,6 +105,16 @@ export const TEAM_LOGOS: Record<string, string> = {
   "셀타 비고": SOC(85),
   "레알 베티스": SOC(244),
   "레알 소시에다드": SOC(89),
+  "지로나": SOC(9812),
+  "마요르카": SOC(84),
+  "발렌시아": SOC(94),
+  "아틀레틱": SOC(93),
+  "아틀레틱 빌바오": SOC(93),
+  "오사수나": SOC(97),
+  "알라베스": SOC(96),
+  "엘체": SOC(3751),
+  "비야레알": SOC(102),
+  "레알 오비에도": SOC(92),
 
   // 세리에A
   "아탈란타": SOC(105),
@@ -110,6 +135,8 @@ export const TEAM_LOGOS: Record<string, string> = {
   "피사": SOC(3956),
   "제노아": SOC(3263),
   "레체": SOC(113),
+  "크레모네세": SOC(4050),
+  "토리노": SOC(239),
 
   // 분데스리가
   "바이에른 뮌헨": SOC(132),
@@ -131,6 +158,14 @@ export const TEAM_LOGOS: Record<string, string> = {
   "하이덴하임": SOC(6418),
   "슈투트가르트": SOC(134),
   "묀헨글라트바흐": SOC(268),
+
+  // 2. Bundesliga
+  "카를스루어": SOC(4471),
+  "하노버": SOC(2428),
+
+  // Eredivisie (네덜란드)
+  "페예노르트": SOC(142),
+  "흐로닝언": SOC(145),
 
   // 리그 1
   "로리앙": SOC(273),
@@ -169,7 +204,21 @@ export const TEAM_LOGOS: Record<string, string> = {
   "스포팅 캔자스시티": SOC(186),
   "밴쿠버 화이트캡스 FC": SOC(9727),
   "로스앤젤레스 FC": SOC(18966),
+  "LAFC": SOC(18966),
   "산호세 어스퀘이크스": SOC(191),
+  "산호세": SOC(191),
+  "뉴욕 시티 FC": SOC(17606),
+  "인터 마이애미 CF": SOC(20232),
+  "샌디에이고 FC": SOC(22529),
+  "샬럿 FC": SOC(21300),
+  "콜럼버스 크루": SOC(183),
+  "미네소타 유나이티드": SOC(17362),
+  "뉴잉글랜드 레볼루션": SOC(189),
+  "FC 신시내티": SOC(18267),
+  "레알 솔트레이크": SOC(4771),
+  "포틀랜드 팀버스": SOC(9723),
+  "콜로라도 래피즈": SOC(184),
+  "콜로라도": SOC(184),
 
   // LigaMX
   "톨루카": SOC(223),
@@ -192,36 +241,70 @@ export const TEAM_LOGOS: Record<string, string> = {
   "키움": KBO_LOGO("WO"),
   "한화": KBO_LOGO("HH"),
 
-  // AFC
+  // AFC / 사우디 / UAE
   "감바 오사카": SOC(6733),
   "방콕 유나이티드": SOC(18603),
   "알 사드": "https://www.thesportsdb.com/images/media/team/badge/908a011774579337.png",
   "알 와흐다": SOC(7059),
   "알 이티하드": SOC(2276),
   "알 힐랄": SOC(929),
+  "알 아흘리 SFC": SOC(8346),
+  "알 나스르": SOC(817),
+  "알 와슬": SDB("s3o3ew1578859398"),
   "마치다": SOC(22167),
   "고베": SOC(7477),
   "부리람": SOC(7138),
   "샤바브 알 아흘리": SOC(790),
 
   // K리그1
-  "서울": "https://r2.thesportsdb.com/images/media/team/badge/31z1zf1579473186.png",
-  "울산": "https://r2.thesportsdb.com/images/media/team/badge/0wooic1706533767.png",
-  "대전": "https://r2.thesportsdb.com/images/media/team/badge/o9z6eq1589558557.png",
-  "부천": "https://r2.thesportsdb.com/images/media/team/badge/mhcuwe1589557777.png",
-  "인천": "https://r2.thesportsdb.com/images/media/team/badge/2no9nq1579473100.png",
-  "제주": "https://r2.thesportsdb.com/images/media/team/badge/hna7ae1736207131.png",
-  "김천": "https://r2.thesportsdb.com/images/media/team/badge/g4cjyk1609536787.png",
-  "광주": "https://r2.thesportsdb.com/images/media/team/badge/uuzr4x1579473084.png",
+  "서울": SDB("31z1zf1579473186"),
+  "울산": SDB("0wooic1706533767"),
+  "대전": SDB("o9z6eq1589558557"),
+  "부천": SDB("mhcuwe1589557777"),
+  "인천": SDB("2no9nq1579473100"),
+  "제주": SDB("hna7ae1736207131"),
+  "김천": SDB("g4cjyk1609536787"),
+  "광주": SDB("uuzr4x1579473084"),
+  "포항": SDB("63jst01769097748"),
+  "안양": SDB("0tens91589557588"),
+  "전북": SDB("8jif3b1747853225"),
+  "강원": SDB("c4igx71579729617"),
+
+  // K리그2
+  "서울E": SDB("arwcqk1589559335"),
+  "수원FC": SDB("x39pm41589559443"),
+  "수원": SDB("ym5u611579473171"),
+  "부산": SDB("rc0vie1579473061"),
+  "경남": SDB("nzy70n1581348710"),
+  "안산": SDB("gexjp81589557325"),
+  "전남": SDB("fgmush1643552285"),
+  "천안": SDB("k53cdm1675284630"),
+  "성남": SDB("cjt4z31769097634"),
+  "화성": SDB("fej1mc1736208077"),
+  "김포": SDB("wz3j6u1643554653"),
+  "김해": SDB("hhi8821771815980"),
+  "용인": SDB("x832pl1769097491"),
+  "충북청주": SDB("mfbqxb1675284633"),
+  "충남아산": SDB("1tyyd81589558128"),
 
   // KBL
-  "원주 DB": "https://r2.thesportsdb.com/images/media/team/badge/ykuvm71742844633.png",
-  "부산 KCC": "https://r2.thesportsdb.com/images/media/team/badge/9h9fqx1637980679.png",
-  "고양 소노": "https://r2.thesportsdb.com/images/media/team/badge/l2qn7d1742844779.png",
-  "서울 SK": "https://r2.thesportsdb.com/images/media/team/badge/qkd9sv1593415101.png",
+  "원주 DB": SDB("ykuvm71742844633"),
+  "부산 KCC": SDB("9h9fqx1637980679"),
+  "고양 소노": SDB("l2qn7d1742844779"),
+  "서울 SK": SDB("qkd9sv1593415101"),
+  "창원 LG": SDB("hukrtk1637980666"),
+  "안양 정관장": SDB("5ndb1l1637980660"),
+
+  // B.League (일본프로농구)
+  "나가사키 벨카": SDB("dlywny1713956438"),
+  "시마네 스사노오 매직": SDB("db6kqq1621545848"),
+  "이바라키 로보츠": SDB("nscmq91642097142"),
+  "파이팅 이글스 나고야": SDB("b0rwjq1659455177"),
+  "알티리 치바": SDB("3mfjwn1759500326"),
 
   // WKBL (프로농구)
   "삼성생명 블루밍스": "https://www.wkbl.or.kr/static/images/team/teamlogo_03.png",
+  "삼성생명": "https://www.wkbl.or.kr/static/images/team/teamlogo_03.png",
   "하나은행": "https://www.wkbl.or.kr/static/images/team/teamlogo_09.png",
 };
 
