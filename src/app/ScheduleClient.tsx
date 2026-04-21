@@ -418,7 +418,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
 
       {/* Footer */}
       <footer className="mt-6 sm:mt-8 text-center text-[11px] sm:text-xs text-zinc-600" suppressHydrationWarning>
-        마지막 업데이트: {data ? new Date(data.lastUpdated).toLocaleString("ko-KR") : "로딩 중..."}
+        마지막 업데이트: {data ? new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" }) : "로딩 중..."}
       </footer>
       </div>{/* max-w-2xl wrapper end */}
     </div>
