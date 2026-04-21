@@ -2,8 +2,8 @@ name: Generate insta & youtube
 
 on:
   schedule:
-    # KST 21:00 = UTC 12:00 (전날)
-    - cron: '0 12 * * *'
+    # KST 21:23 = UTC 12:23 (전날). UTC 정각은 GitHub Actions 지연 잦아서 회피.
+    - cron: '23 12 * * *'
   workflow_dispatch:
     inputs:
       skip_instagram:
