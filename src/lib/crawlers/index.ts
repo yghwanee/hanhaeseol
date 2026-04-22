@@ -74,11 +74,45 @@ export async function crawlAll(date: string, existingSchedules: Schedule[]): Pro
   }
 
   // 4종목만 + 팀 대 팀 경기만 + 시간순 정렬
-  return allSchedules
+  const filtered = allSchedules
     .filter((s) => ALLOWED_SPORTS.has(s.sport))
     .filter((s) => s.homeTeam && s.awayTeam)
-    .filter((s) => s.homeTeam !== "미정" && s.awayTeam !== "미정")
-    .sort((a, b) => a.time.localeCompare(b.time));
+    .filter((s) => s.homeTeam !== "미정" && s.awayTeam !== "미정");
+
+  return filterLateJoinBroadcasts(filtered).sort((a, b) => a.time.localeCompare(b.time));
+}
+
+// 중간 투입 중계(경기 시작 후 한참 지나서 편성된 생중계) 제거
+// 예: KBS가 KBL 끝난 뒤 21:00부터 18:30 시작한 KBO 경기를 이어받아 "생방송"으로 편성
+// 같은 매치의 가장 이른 시작 시각과 60분 이상 차이 나는 항목은 제외
+function filterLateJoinBroadcasts(schedules: Schedule[]): Schedule[] {
+  const matchKey = (s: Schedule) =>
+    `${s.date}|${s.sport}|${s.league}|${[s.homeTeam, s.awayTeam].sort().join("|")}`;
+
+  const toMinutes = (time: string) => {
+    const [h, m] = time.split(":").map(Number);
+    return h * 60 + m;
+  };
+
+  const earliestByMatch = new Map<string, number>();
+  for (const s of schedules) {
+    const key = matchKey(s);
+    const minutes = toMinutes(s.time);
+    const prev = earliestByMatch.get(key);
+    if (prev === undefined || minutes < prev) {
+      earliestByMatch.set(key, minutes);
+    }
+  }
+
+  return schedules.filter((s) => {
+    const earliest = earliestByMatch.get(matchKey(s))!;
+    const diff = toMinutes(s.time) - earliest;
+    if (diff >= 60) {
+      console.log(`  ⊘ 중간 투입 중계 제외: ${s.platform} ${s.date} ${s.time} ${s.homeTeam} vs ${s.awayTeam} (earliest ${Math.floor(earliest / 60)}:${String(earliest % 60).padStart(2, "0")})`);
+      return false;
+    }
+    return true;
+  });
 }
 
 export async function crawlDateRange(dates: string[], existing: ScheduleData | null): Promise<ScheduleData> {
