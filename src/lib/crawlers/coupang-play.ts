@@ -1,5 +1,6 @@
 import { Schedule, Sport } from "@/types/schedule";
 import { normalizeLeague } from "./parsers";
+import { toKstDateTime } from "./_utils";
 
 interface CoupangEvent {
   event_id: string;
@@ -194,18 +195,10 @@ export async function crawlCoupangPlay(date: string): Promise<Schedule[]> {
     const sport = SPORT_MAP[event.league.sportTypeName];
     if (!sport) continue;
 
-    const kst = new Date(event.start_at);
-    const yyyy = kst.toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul", year: "numeric" }).replace(/[^0-9]/g, "");
-    const mm = String(kst.toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul", month: "numeric" }).replace(/[^0-9]/g, "")).padStart(2, "0");
-    const dd = String(kst.toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul", day: "numeric" }).replace(/[^0-9]/g, "")).padStart(2, "0");
-    const itemDate = `${yyyy}-${mm}-${dd}`;
-
+    const { date: itemDate, time } = toKstDateTime(event.start_at);
     if (itemDate !== date) continue;
 
-    const hour = kst.toLocaleString("en-US", { timeZone: "Asia/Seoul", hour: "numeric", hour12: false }).replace(/[^0-9]/g, "");
-    const hh = String(Number(hour) % 24).padStart(2, "0");
-    const min = String(kst.toLocaleString("en-US", { timeZone: "Asia/Seoul", minute: "numeric" }).replace(/[^0-9]/g, "")).padStart(2, "0");
-    validEvents.push({ event, time: `${hh}:${min}` });
+    validEvents.push({ event, time });
   }
 
   // 각 이벤트의 해설 정보를 병렬로 조회

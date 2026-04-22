@@ -30,12 +30,12 @@
     "telegram:failure": "tsx src/scripts/telegram-failure.ts"
   },
   "dependencies": {
-    "@napi-rs/canvas": "^0.1.98",
     "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
+    "@napi-rs/canvas": "^0.1.98",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

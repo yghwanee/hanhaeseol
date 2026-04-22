@@ -1,5 +1,6 @@
 import { Schedule, Sport } from "@/types/schedule";
 import { normalizeLeague } from "./parsers";
+import { toKstDateTime } from "./_utils";
 
 interface AppleTvCompetitor {
   name: string;
@@ -76,22 +77,13 @@ export async function crawlAppleTv(date: string): Promise<Schedule[]> {
     const kickoff = item.eventTime?.gameKickOffStartTime;
     if (!kickoff) continue;
 
-    // KST 기준 날짜/시간 계산
-    const kstDate = new Date(kickoff);
-    const yyyy = kstDate.toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul", year: "numeric" }).replace(/[^0-9]/g, "");
-    const mm = String(kstDate.toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul", month: "numeric" }).replace(/[^0-9]/g, "")).padStart(2, "0");
-    const dd = String(kstDate.toLocaleDateString("ko-KR", { timeZone: "Asia/Seoul", day: "numeric" }).replace(/[^0-9]/g, "")).padStart(2, "0");
-    const itemDate = `${yyyy}-${mm}-${dd}`;
+    const { date: itemDate, time } = toKstDateTime(kickoff);
 
     // 요청한 날짜만 필터
     if (itemDate !== date) continue;
 
     const sport = SPORT_MAP[item.sportName];
     if (!sport) continue;
-
-    const hh = String(kstDate.toLocaleString("ko-KR", { timeZone: "Asia/Seoul", hour: "numeric", hour12: false }).replace(/[^0-9]/g, "")).padStart(2, "0");
-    const min = String(kstDate.toLocaleString("ko-KR", { timeZone: "Asia/Seoul", minute: "numeric" }).replace(/[^0-9]/g, "")).padStart(2, "0");
-    const time = `${hh}:${min}`;
 
     const home = item.competitors.find((c) => c.isHome);
     const away = item.competitors.find((c) => !c.isHome);
