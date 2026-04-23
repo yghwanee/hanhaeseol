@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import fs from "fs";
 import path from "path";
+import { Suspense } from "react";
 import { AnalysisData } from "@/types/analysis";
 import AnalysisClient from "./AnalysisClient";
 import { CoupangTopBannerOnly } from "../_components/CoupangBanners";
@@ -48,7 +49,9 @@ export default function AnalysisPage() {
 
         <CoupangTopBannerOnly />
 
-        <AnalysisClient articles={data.articles} lastUpdated={data.lastUpdated} />
+        <Suspense fallback={null}>
+          <AnalysisClient articles={data.articles} lastUpdated={data.lastUpdated} />
+        </Suspense>
       </div>
     </main>
   );

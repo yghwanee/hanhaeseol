@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useMemo } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { AnalysisArticle } from "@/types/analysis";
 import { LEAGUE_FLAG, FlagIcon } from "./_flags";
 
@@ -65,10 +66,17 @@ function buildMonthGrid(year: number, month: number) {
 }
 
 export default function AnalysisClient({ articles, lastUpdated }: { articles: AnalysisArticle[]; lastUpdated: string }) {
+  const searchParams = useSearchParams();
+  const dateParam = searchParams.get("date");
   const byDate = groupByDate(articles);
   const sortedDates = Object.keys(byDate).sort((a, b) => b.localeCompare(a));
   const today = getToday();
-  const [selectedDate, setSelectedDate] = useState(today && byDate[today] ? today : sortedDates[0] || "");
+  const initialDate = dateParam && byDate[dateParam]
+    ? dateParam
+    : today && byDate[today]
+    ? today
+    : sortedDates[0] || "";
+  const [selectedDate, setSelectedDate] = useState(initialDate);
   const [showCalendar, setShowCalendar] = useState(false);
   const [viewMonth, setViewMonth] = useState(() => {
     const base = selectedDate ? new Date(selectedDate + "T00:00:00") : new Date();
