@@ -3,6 +3,7 @@ import path from "path";
 import Link from "next/link";
 import { ScheduleData, Schedule } from "@/types/schedule";
 import ScheduleClient from "./ScheduleClient";
+import { HomeAboutSection } from "./_components/HomeAboutSection";
 
 const SPORT_DURATION_HOURS: Record<string, number> = {
   "축구": 2.5,
@@ -80,8 +81,9 @@ export default function Home() {
       />
       <main>
         <ScheduleClient initialData={data} />
+        <HomeAboutSection />
       </main>
-      <footer className="border-t border-zinc-800 py-6 px-4 text-center text-xs text-gray-500">
+      <footer className="mt-8 border-t border-zinc-800 py-6 px-4 text-center text-xs text-gray-500">
         <div className="flex justify-center gap-4 mb-2">
           <Link href="/about" className="hover:text-gray-300">한해설 소개</Link>
           <Link href="/privacy" className="hover:text-gray-300">개인정보처리방침</Link>

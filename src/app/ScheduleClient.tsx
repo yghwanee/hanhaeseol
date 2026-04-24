@@ -380,6 +380,10 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
         </div>
       )}
 
+      <p className="mt-6 sm:mt-8 text-center text-[11px] sm:text-xs text-zinc-600" suppressHydrationWarning>
+        마지막 업데이트: {data ? new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" }) : "로딩 중..."}
+      </p>
+
       {/* Info Modal */}
       {showInfo && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={() => setShowInfo(false)}>
@@ -395,31 +399,6 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
         </div>
       )}
 
-      {/* SEO Content */}
-      <section className="mt-8 sm:mt-10 border-t border-zinc-800 pt-6 sm:pt-8">
-        <h2 className="text-xs sm:text-sm font-semibold text-zinc-500 mb-2">스포츠 한국어중계 편성표</h2>
-        <div className="text-[11px] sm:text-xs leading-relaxed text-zinc-600">
-          <p>
-            한해설은 축구, 야구, 농구, 배구 한국어 해설 중계를 쉽게 찾을 수 있는 스포츠 편성표입니다.
-          </p>
-          <p className="mt-2 sm:mt-1.5">
-            SPOTV NOW, 쿠팡플레이, 티빙, Apple TV+, SPOTV, SPOTV2, tvN SPORTS, KBS N SPORTS, MBC SPORTS+, SBS Sports
-            <br className="hidden sm:inline" />{" "}등 10개 플랫폼의 한국어 해설 중계 일정을 한눈에 확인하세요.
-          </p>
-          <p className="mt-2 sm:mt-1.5">
-            프리미어리그, 라리가, 세리에A, 분데스리가, 챔피언스리그 한국어중계부터
-            <br className="hidden sm:inline" />{" "}KBO, K리그, NBA, MLB 등 주요 리그의 한국어중계 여부를 실시간으로 확인할 수 있습니다.
-          </p>
-          <p className="mt-2 sm:mt-1.5">
-            오늘 한국어중계가 있는 경기를 한눈에 찾아보세요.
-          </p>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="mt-6 sm:mt-8 text-center text-[11px] sm:text-xs text-zinc-600" suppressHydrationWarning>
-        마지막 업데이트: {data ? new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" }) : "로딩 중..."}
-      </footer>
       </div>{/* max-w-2xl wrapper end */}
     </div>
   );
