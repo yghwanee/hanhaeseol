@@ -17,8 +17,8 @@ async function main() {
   const thumbPath = path.join(OUT_DIR, thumbFile);
   if (!fs.existsSync(thumbPath)) throw new Error(`썸네일 파일 없음: ${thumbPath}`);
 
-  const { mm, dd } = getKstToday();
-  const meta = buildShortsMeta(mm, dd);
+  const { today, mm, dd } = getKstToday();
+  const meta = buildShortsMeta(mm, dd, today);
   const sizeMb = (fs.statSync(filePath).size / 1024 / 1024).toFixed(2);
 
   console.log(`📺 유튜브 쇼츠 업로드 시작 (${sizeMb} MB)`);
