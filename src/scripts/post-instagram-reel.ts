@@ -7,7 +7,7 @@ async function main() {
   const manifest = readManifest();
   if (!manifest.reel) throw new Error("매니페스트에 reel 필드 없음 — 먼저 reel:make 실행 필요");
 
-  const { mm, dd } = getKstToday();
+  const { today, mm, dd } = getKstToday();
   const videoUrl = `${mediaBaseUrl()}/${manifest.reel}`;
   console.log(`🎬 릴스 게시 시작: ${videoUrl}`);
 
@@ -16,7 +16,7 @@ async function main() {
     {
       media_type: "REELS",
       video_url: videoUrl,
-      caption: buildCaption(mm, dd),
+      caption: buildCaption(mm, dd, today),
       share_to_feed: "false",
     },
     60,

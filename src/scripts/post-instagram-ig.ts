@@ -23,11 +23,11 @@ async function main() {
   );
   await Promise.all(itemIds.map((id) => waitForFinished(id)));
 
-  const { mm, dd } = getKstToday();
+  const { today, mm, dd } = getKstToday();
   const carouselId = await postMedia({
     media_type: "CAROUSEL",
     children: itemIds.join(","),
-    caption: buildCaption(mm, dd),
+    caption: buildCaption(mm, dd, today),
   });
   await waitForFinished(carouselId);
 

@@ -1,3 +1,5 @@
+import { getDynamicLeagueTags } from "./hashtags";
+
 const IG_API = "https://graph.facebook.com/v21.0";
 
 function env(key: string): string {
@@ -12,7 +14,10 @@ export function igEnv() {
 
 export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-export function buildCaption(mm: string, dd: string) {
+export function buildCaption(mm: string, dd: string, today: string) {
+  const fixedHashtags = ["#한해설", "#한국어해설", "#스포츠중계", "#편성표", "#중계편성표"];
+  const dynamicHashtags = getDynamicLeagueTags(today, 3);
+  const hashtagLine = [...fixedHashtags, ...dynamicHashtags].join(" ");
   return [
     `📺 ${mm}/${dd} 오늘의 한국어 중계 편성표`,
     ``,
@@ -21,7 +26,7 @@ export function buildCaption(mm: string, dd: string) {
     ``,
     `https://haeseol.com/`,
     ``,
-    `#한해설 #한국어해설 #한국어중계 #스포츠 #스포츠중계 #편성표 #중계편성표 #축구중계 #야구중계 #농구중계 #배구중계 #스포티비 #쿠팡플레이 #티빙 #MBC #SBS #KBS #애플티비 #tvN #EPL #프리미어리그 #KBO #국야 #MLB #믈브 #분데스리가 #라리가 #월드컵 #프로야구`,
+    hashtagLine,
   ].join("\n");
 }
 
