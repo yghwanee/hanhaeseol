@@ -1,4 +1,4 @@
-import { getDynamicLeagueTags } from "./hashtags";
+import { getHierarchicalTags, getMainHighlight } from "./hashtags";
 
 const IG_API = "https://graph.facebook.com/v21.0";
 
@@ -15,11 +15,10 @@ export function igEnv() {
 export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export function buildCaption(mm: string, dd: string, today: string) {
-  const fixedHashtags = ["#한해설", "#한국어해설", "#스포츠중계", "#편성표", "#중계편성표"];
-  const dynamicHashtags = getDynamicLeagueTags(today, 3);
-  const hashtagLine = [...fixedHashtags, ...dynamicHashtags].join(" ");
+  const highlight = getMainHighlight(today);
+  const hashtagLine = getHierarchicalTags(today).tags.join(" ");
   return [
-    `📺 ${mm}/${dd} 오늘의 한국어 중계 편성표`,
+    `📺 ${mm}/${dd} ${highlight}`,
     ``,
     `⚽️ 축구  ⚾️ 야구  🏀 농구  🏐 배구`,
     `한국어 해설이 있는 모든 경기를 한곳에.`,
