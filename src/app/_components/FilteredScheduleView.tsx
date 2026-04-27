@@ -142,22 +142,41 @@ export default function FilteredScheduleView({ meta, kind, schedules, guideSlot 
         )}
       </section>
 
-      <section className="mb-8 rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
-        <h2 className="mb-3 text-sm font-semibold text-zinc-200">
-          다른 {kind === "league" ? "리그" : "플랫폼"} 보기
-        </h2>
-        <div className="flex flex-wrap gap-1.5">
-          {related
-            .filter((r) => r.slug !== meta.slug)
-            .map((r) => (
+      <section className="mb-8 space-y-4">
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+          <h2 className="mb-3 text-sm font-semibold text-zinc-200">
+            다른 {kind === "league" ? "리그" : "플랫폼"} 보기
+          </h2>
+          <div className="flex flex-wrap gap-1.5">
+            {related
+              .filter((r) => r.slug !== meta.slug)
+              .map((r) => (
+                <Link
+                  key={r.slug}
+                  href={`/${kind}/${r.slug}`}
+                  className="inline-flex items-center rounded-lg border border-zinc-700 bg-zinc-800/60 px-2.5 py-1 text-xs text-zinc-300 hover:bg-zinc-700/60 hover:text-white"
+                >
+                  {r.display}
+                </Link>
+              ))}
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+          <h2 className="mb-3 text-sm font-semibold text-zinc-200">
+            {kind === "league" ? "플랫폼별" : "리그별"} 편성표 보기
+          </h2>
+          <div className="flex flex-wrap gap-1.5">
+            {(kind === "league" ? PLATFORM_SEO : LEAGUE_SEO).map((r) => (
               <Link
                 key={r.slug}
-                href={`/${kind}/${r.slug}`}
+                href={`/${kind === "league" ? "platform" : "league"}/${r.slug}`}
                 className="inline-flex items-center rounded-lg border border-zinc-700 bg-zinc-800/60 px-2.5 py-1 text-xs text-zinc-300 hover:bg-zinc-700/60 hover:text-white"
               >
                 {r.display}
               </Link>
             ))}
+          </div>
         </div>
       </section>
 

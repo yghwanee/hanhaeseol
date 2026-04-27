@@ -1,4 +1,14 @@
+import Link from "next/link";
+import { LEAGUE_SEO, PLATFORM_SEO } from "@/lib/slugs";
 import { StatusBadge } from "./StatusBadge";
+
+const OTT_SLUGS = ["spotv-now", "coupang-play", "tving", "apple-tv"];
+const TV_SLUGS = ["spotv", "spotv2", "tvn-sports", "kbs-n-sports", "mbc-sports-plus", "sbs-sports"];
+const SPORT_GROUPS: { sport: string; icon: string }[] = [
+  { sport: "축구", icon: "⚽" },
+  { sport: "야구", icon: "⚾" },
+  { sport: "농구", icon: "🏀" },
+];
 
 const FAQS: { q: string; a: string }[] = [
   {
@@ -83,22 +93,64 @@ export function HomeAboutSection() {
             <div>
               <p className="text-xs text-zinc-500 mb-1">OTT</p>
               <ul className="space-y-1">
-                <li>SPOTV NOW</li>
-                <li>쿠팡플레이</li>
-                <li>티빙</li>
-                <li>Apple TV+</li>
+                {PLATFORM_SEO.filter((p) => OTT_SLUGS.includes(p.slug)).map((p) => (
+                  <li key={p.slug}>
+                    <Link
+                      href={`/platform/${p.slug}`}
+                      className="text-zinc-200 hover:text-white hover:underline underline-offset-2"
+                    >
+                      {p.display}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
             <div>
               <p className="text-xs text-zinc-500 mb-1">TV 채널</p>
               <ul className="space-y-1">
-                <li>SPOTV / SPOTV2</li>
-                <li>tvN SPORTS</li>
-                <li>KBS N SPORTS</li>
-                <li>MBC SPORTS+</li>
-                <li>SBS Sports</li>
+                {PLATFORM_SEO.filter((p) => TV_SLUGS.includes(p.slug)).map((p) => (
+                  <li key={p.slug}>
+                    <Link
+                      href={`/platform/${p.slug}`}
+                      className="text-zinc-200 hover:text-white hover:underline underline-offset-2"
+                    >
+                      {p.display}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
+          </div>
+        </div>
+
+        <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-5">
+          <h2 className="text-base sm:text-lg font-semibold text-white">리그별 편성표</h2>
+          <p className="mt-2 text-xs text-zinc-500">
+            관심 있는 리그의 한국어 해설 중계 일정만 모아보세요.
+          </p>
+          <div className="mt-4 space-y-3">
+            {SPORT_GROUPS.map(({ sport, icon }) => {
+              const leagues = LEAGUE_SEO.filter((l) => l.sport === sport);
+              if (leagues.length === 0) return null;
+              return (
+                <div key={sport}>
+                  <p className="text-xs text-zinc-500 mb-1.5">
+                    {icon} {sport}
+                  </p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {leagues.map((l) => (
+                      <Link
+                        key={l.slug}
+                        href={`/league/${l.slug}`}
+                        className="inline-flex items-center rounded-lg border border-zinc-700 bg-zinc-800/60 px-2.5 py-1 text-xs text-zinc-300 hover:bg-zinc-700/60 hover:text-white transition-colors"
+                      >
+                        {l.display}
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
