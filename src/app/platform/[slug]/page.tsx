@@ -5,8 +5,10 @@ import type { Metadata } from "next";
 import { ScheduleData, Schedule } from "@/types/schedule";
 import { PLATFORM_SEO, findPlatformBySlug } from "@/lib/slugs";
 import { PLATFORM_GUIDES } from "@/lib/platform-guides";
+import { PLATFORM_FAQS } from "@/lib/platform-faqs";
 import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
 import PlatformGuideSection from "@/app/_components/PlatformGuideSection";
+import FaqSection from "@/app/_components/FaqSection";
 
 export const revalidate = 600;
 
@@ -57,13 +59,22 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
   if (!meta) notFound();
 
   const guide = PLATFORM_GUIDES[params.slug];
+  const faqs = PLATFORM_FAQS[params.slug];
   const schedules = loadSchedules();
+
   return (
     <FilteredScheduleView
       meta={meta}
       kind="platform"
       schedules={schedules}
-      guideSlot={guide ? <PlatformGuideSection guide={guide} display={meta.display} /> : undefined}
+      guideSlot={
+        guide ? <PlatformGuideSection guide={guide} display={meta.display} /> : undefined
+      }
+      faqSlot={
+        faqs ? (
+          <FaqSection title={`${meta.display} 자주 묻는 질문`} faqs={faqs} />
+        ) : undefined
+      }
     />
   );
 }

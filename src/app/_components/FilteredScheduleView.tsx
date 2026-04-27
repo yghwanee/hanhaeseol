@@ -37,6 +37,7 @@ type Props = {
   kind: "league" | "platform";
   schedules: Schedule[];
   guideSlot?: React.ReactNode;
+  faqSlot?: React.ReactNode;
 };
 
 const DAY_NAMES = ["일", "월", "화", "수", "목", "금", "토"];
@@ -47,7 +48,7 @@ function formatDateHeader(isoDate: string): string {
   return `${m}월 ${d}일 (${DAY_NAMES[dt.getUTCDay()]})`;
 }
 
-export default function FilteredScheduleView({ meta, kind, schedules, guideSlot }: Props) {
+export default function FilteredScheduleView({ meta, kind, schedules, guideSlot, faqSlot }: Props) {
   const filtered = schedules
     .filter((s) => meta.match.includes(kind === "league" ? s.league : s.platform))
     .sort((a, b) => (a.date === b.date ? a.time.localeCompare(b.time) : a.date.localeCompare(b.date)));
@@ -141,6 +142,8 @@ export default function FilteredScheduleView({ meta, kind, schedules, guideSlot 
           </div>
         )}
       </section>
+
+      {faqSlot}
 
       <section className="mb-8 space-y-4">
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
