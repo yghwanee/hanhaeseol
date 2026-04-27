@@ -1,16 +1,21 @@
 User-agent: *
 Allow: /
+Disallow: /analysis
 
 User-agent: Yeti
 Allow: /
+Disallow: /analysis
 
 User-agent: Daumoa
 Allow: /
+Disallow: /analysis
 
 User-agent: Googlebot
 Allow: /
+Disallow: /analysis
 
 User-agent: bingbot
 Allow: /
+Disallow: /analysis
 
 Sitemap: https://haeseol.com/sitemap.xml

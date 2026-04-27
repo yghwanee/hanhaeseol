@@ -31,12 +31,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...leagueUrls,
     ...platformUrls,
     {
-      url: `${BASE}/analysis`,
-      lastModified,
-      changeFrequency: "daily",
-      priority: 0.8,
-    },
-    {
       url: `${BASE}/about`,
       changeFrequency: "monthly",
       priority: 0.5,

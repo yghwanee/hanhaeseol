@@ -12,6 +12,7 @@ import { StickyHeader } from "../_components/StickyHeader";
 export const metadata: Metadata = {
   title: "해외 픽스터 분석글 - 한해설",
   description: "해외 스포츠 픽스터들의 경기 분석글을 번역하여 제공합니다.",
+  robots: { index: false, follow: false },
 };
 
 function loadAnalysisData(): AnalysisData {

@@ -2,7 +2,6 @@
 
 import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
-import Link from "next/link";
 import { ScheduleData } from "@/types/schedule";
 import { getUpcomingDates, getTodayString } from "@/lib/schedule-utils";
 import { StickyHeader } from "./_components/StickyHeader";
@@ -128,9 +127,7 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
             <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
             <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
           </h1>
-          <Link href="/analysis" className="border-glow text-[11px] sm:text-xs px-2.5 py-1.5 sm:px-3 sm:py-1.5 rounded-lg text-zinc-200 font-medium hover:text-white transition-colors whitespace-nowrap">
-            🎯 해외 픽스터 분석글
-          </Link>
+          {/* AdSense 재심사 동안 분석글 링크 임시 숨김 */}
         </header>
       </StickyHeader>
 
