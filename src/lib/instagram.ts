@@ -479,6 +479,140 @@ export function readOutroCard(): Buffer {
   return fs.readFileSync(path.resolve("templates/instagram/outro.png"));
 }
 
+export async function renderOutroCard(): Promise<Buffer> {
+  const W = MAIN_CARD_SIZE.width;
+  const H = MAIN_CARD_SIZE.height;
+  const PAD = 80;
+  const ACCENT = "#8fff3d";
+  const TEXT_PRIMARY = "#ffffff";
+  const TEXT_DIM = "#9e9eb3";
+  const TEXT_SUBTLE = "#5e5e74";
+
+  const canvas = createCanvas(W, H);
+  const ctx = canvas.getContext("2d");
+
+  // 1. 배경 다크 그라데이션 (메인 카드와 동일)
+  const bg = ctx.createLinearGradient(0, 0, 0, H);
+  bg.addColorStop(0, "#08080d");
+  bg.addColorStop(0.6, "#11111e");
+  bg.addColorStop(1, "#1a1a2e");
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // 2. 우상단 형광 글로우
+  const glow = ctx.createRadialGradient(W * 0.85, H * 0.15, 0, W * 0.85, H * 0.15, 600);
+  glow.addColorStop(0, "rgba(143, 255, 61, 0.18)");
+  glow.addColorStop(1, "rgba(143, 255, 61, 0)");
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+
+  // 3. 상단 형광 라인 + 라벨
+  ctx.fillStyle = ACCENT;
+  ctx.fillRect(0, 0, W, 6);
+
+  ctx.textBaseline = "alphabetic";
+  ctx.textAlign = "left";
+
+  ctx.fillStyle = ACCENT;
+  ctx.fillRect(PAD, 70, 6, 32);
+
+  ctx.fillStyle = ACCENT;
+  ctx.font = "800 30px Pretendard";
+  ctx.fillText("HAESEOL", PAD + 22, 95);
+  const haeseolWidth = ctx.measureText("HAESEOL").width;
+
+  ctx.fillStyle = TEXT_DIM;
+  ctx.font = "500 28px Pretendard";
+  ctx.fillText("   한국어 해설 편성표", PAD + 22 + haeseolWidth, 95);
+
+  // 4. 거대 브랜드 영역 (중앙)
+  ctx.textAlign = "center";
+
+  ctx.fillStyle = TEXT_PRIMARY;
+  ctx.font = "900 220px Pretendard";
+  ctx.fillText("한해설", W / 2, 360);
+
+  ctx.fillStyle = ACCENT;
+  ctx.fillRect(W / 2 - 80, 400, 160, 4);
+
+  ctx.fillStyle = TEXT_DIM;
+  ctx.font = "600 38px Pretendard";
+  ctx.fillText("한국어 해설 편성표", W / 2, 470);
+
+  ctx.fillStyle = TEXT_SUBTLE;
+  ctx.font = "500 28px Pretendard";
+  ctx.fillText("축구 · 야구 · 농구 · 배구  /  10개 플랫폼 통합", W / 2, 520);
+
+  ctx.textAlign = "left";
+
+  // 5. 플랫폼 2열 리스트
+  ctx.fillStyle = TEXT_DIM;
+  ctx.font = "700 28px Pretendard";
+  ctx.fillText("OTT", PAD + 60, 620);
+  ctx.fillText("TV 채널", W / 2 + 60, 620);
+
+  ctx.fillStyle = TEXT_PRIMARY;
+  ctx.font = "600 32px Pretendard";
+
+  const ottList = ["SPOTV NOW", "쿠팡플레이", "티빙", "Apple TV+"];
+  const tvList = [
+    "SPOTV / SPOTV2",
+    "tvN SPORTS",
+    "KBS N SPORTS",
+    "MBC SPORTS+",
+    "SBS Sports",
+  ];
+
+  ottList.forEach((p, i) => {
+    const y = 680 + i * 50;
+    ctx.fillStyle = ACCENT;
+    ctx.beginPath();
+    ctx.arc(PAD + 60 + 5, y - 12, 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = TEXT_PRIMARY;
+    ctx.fillText(p, PAD + 60 + 22, y);
+  });
+
+  tvList.forEach((p, i) => {
+    const y = 680 + i * 50;
+    ctx.fillStyle = ACCENT;
+    ctx.beginPath();
+    ctx.arc(W / 2 + 60 + 5, y - 12, 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillStyle = TEXT_PRIMARY;
+    ctx.fillText(p, W / 2 + 60 + 22, y);
+  });
+
+  // 6. 하단 CTA 박스
+  const ctaY = H - 280;
+  const ctaBoxH = 130;
+
+  // 박스 (형광 테두리)
+  ctx.strokeStyle = ACCENT;
+  ctx.lineWidth = 3;
+  ctx.strokeRect(PAD, ctaY, W - PAD * 2, ctaBoxH);
+
+  ctx.textAlign = "center";
+
+  ctx.fillStyle = ACCENT;
+  ctx.font = "900 64px Pretendard";
+  ctx.fillText("haeseol.com  →", W / 2, ctaY + ctaBoxH / 2 + 22);
+
+  ctx.textAlign = "left";
+
+  // 7. 하단 footer
+  ctx.fillStyle = TEXT_SUBTLE;
+  ctx.fillRect(PAD, H - 110, W - PAD * 2, 2);
+
+  ctx.fillStyle = TEXT_DIM;
+  ctx.font = "500 26px Pretendard";
+  ctx.textAlign = "center";
+  ctx.fillText("매일 자동 업데이트  ·  한국어 해설 여부 표시", W / 2, H - 60);
+  ctx.textAlign = "left";
+
+  return canvas.toBuffer("image/png");
+}
+
 export async function sendTelegramDocument(
   buf: Buffer,
   filename: string,

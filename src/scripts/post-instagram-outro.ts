@@ -1,9 +1,15 @@
 import "dotenv/config";
-import { readOutroCard, sendTelegramPhoto } from "@/lib/instagram";
+import fs from "fs";
+import path from "path";
+import { registerFonts, renderOutroCard, sendTelegramPhoto } from "@/lib/instagram";
 
 async function main() {
-  const buf = readOutroCard();
-  console.log("✅ 아웃트로 이미지 로드");
+  registerFonts();
+  const buf = await renderOutroCard();
+  const outDir = path.resolve("generated/instagram");
+  fs.mkdirSync(outDir, { recursive: true });
+  fs.writeFileSync(path.join(outDir, "outro.png"), buf);
+  console.log("✅ 아웃트로 이미지 생성");
 
   if (process.argv.includes("--no-send")) {
     console.log("📭 --no-send 옵션으로 텔레그램 전송 생략");

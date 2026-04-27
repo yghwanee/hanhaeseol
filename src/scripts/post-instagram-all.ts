@@ -7,7 +7,7 @@ import {
   loadTodayMatches,
   renderMainCard,
   renderSportCard,
-  readOutroCard,
+  renderOutroCard,
   sendTelegramMediaGroup,
   chunk,
   LAYOUT,
@@ -53,7 +53,7 @@ async function main() {
 
   // 3) 아웃트로
   {
-    const buf = readOutroCard();
+    const buf = await renderOutroCard();
     const filename = "outro.png";
     fs.writeFileSync(path.join(outDir, filename), buf);
     items.push({ buf, filename });
