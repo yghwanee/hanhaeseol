@@ -1,7 +1,25 @@
-import { createCanvas, loadImage, GlobalFonts, type SKRSContext2D } from "@napi-rs/canvas";
+import { createCanvas, loadImage, GlobalFonts, type SKRSContext2D, type Image } from "@napi-rs/canvas";
 import fs from "fs";
 import path from "path";
 import type { Schedule, ScheduleData, Sport } from "@/types/schedule";
+import { getTeamLogo } from "@/data/team-logos";
+
+async function fetchTeamLogoImage(name: string): Promise<Image | null> {
+  const url = getTeamLogo(name);
+  if (!url) return null;
+  try {
+    if (url.startsWith("http")) {
+      const res = await fetch(url);
+      if (!res.ok) return null;
+      const buf = Buffer.from(await res.arrayBuffer());
+      return await loadImage(buf);
+    }
+    const localPath = path.resolve("public", url.replace(/^\//, ""));
+    return await loadImage(localPath);
+  } catch {
+    return null;
+  }
+}
 
 export const LAYOUT = {
   startX: 85,
@@ -20,6 +38,30 @@ export const MAIN_DATE_CONFIG = {
   y: 1015,
   color: "#ffffff",
 };
+
+export const MAIN_CARD_SIZE = { width: 1080, height: 1350 };
+
+const HERO_LEAGUE_PRIORITY = [
+  "프리미어리그",
+  "챔피언스리그",
+  "유로파리그",
+  "라리가",
+  "분데스리가",
+  "세리에A",
+  "리그 1",
+  "MLB",
+  "K리그",
+  "K리그2",
+  "ACL",
+  "KBO",
+  "MLS",
+  "NBA",
+  "KBL",
+  "WKBL",
+  "잉글랜드 FA컵",
+  "EFL 챔피언십",
+  "컨퍼런스리그",
+];
 
 export const SPORT_META: Record<Sport, { emoji: string; template: string; filePrefix: string }> = {
   축구: { emoji: "⚽", template: "soccer-base.png", filePrefix: "soccer" },
@@ -103,17 +145,304 @@ function drawMatchBlock(ctx: SKRSContext2D, match: Schedule, yTop: number) {
   ctx.fillText(awayText, x, y2);
 }
 
-export async function renderMainCard(mm: string, dd: string): Promise<Buffer> {
-  const template = await loadImage(path.resolve("templates/instagram/main-base.png"));
-  const canvas = createCanvas(template.width, template.height);
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(template, 0, 0);
+function loadKoreanMatchesAll(today: string): Schedule[] {
+  try {
+    const data: ScheduleData = JSON.parse(
+      fs.readFileSync(path.resolve("public/schedule.json"), "utf-8"),
+    );
+    return data.schedules
+      .filter((s) => s.date === today && s.koreanCommentary === true)
+      .sort((a, b) => a.time.localeCompare(b.time));
+  } catch {
+    return [];
+  }
+}
 
-  ctx.fillStyle = MAIN_DATE_CONFIG.color;
-  ctx.font = `${MAIN_DATE_CONFIG.fontSize}px Anton`;
+function loadAllMatchesForDate(today: string): Schedule[] {
+  try {
+    const data: ScheduleData = JSON.parse(
+      fs.readFileSync(path.resolve("public/schedule.json"), "utf-8"),
+    );
+    return data.schedules
+      .filter((s) => s.date === today)
+      .sort((a, b) => a.time.localeCompare(b.time));
+  } catch {
+    return [];
+  }
+}
+
+function pickHeroMatch(matches: Schedule[]): Schedule | null {
+  if (matches.length === 0) return null;
+  for (const lg of HERO_LEAGUE_PRIORITY) {
+    const found = matches.find((m) => m.league === lg);
+    if (found) return found;
+  }
+  return matches[0];
+}
+
+function fitText(
+  ctx: SKRSContext2D,
+  text: string,
+  maxWidth: number,
+  baseSize: number,
+  weight: string,
+  fontFamily: string,
+  minSize: number,
+): number {
+  let size = baseSize;
+  ctx.font = `${weight} ${size}px ${fontFamily}`;
+  while (ctx.measureText(text).width > maxWidth && size > minSize) {
+    size -= 4;
+    ctx.font = `${weight} ${size}px ${fontFamily}`;
+  }
+  return size;
+}
+
+const KST_DOW = ["일", "월", "화", "수", "목", "금", "토"];
+
+function dayOfWeekKr(today: string): string {
+  const [y, m, d] = today.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  return KST_DOW[dt.getUTCDay()];
+}
+
+export async function renderMainCard(
+  mm: string,
+  dd: string,
+  today: string,
+): Promise<Buffer> {
+  const W = MAIN_CARD_SIZE.width;
+  const H = MAIN_CARD_SIZE.height;
+  const PAD = 80;
+  const ACCENT = "#8fff3d";
+  const TEXT_PRIMARY = "#ffffff";
+  const TEXT_DIM = "#9e9eb3";
+  const TEXT_SUBTLE = "#5e5e74";
+
+  const canvas = createCanvas(W, H);
+  const ctx = canvas.getContext("2d");
+
+  // 1. 배경 — 깊은 다크 그라데이션
+  const bg = ctx.createLinearGradient(0, 0, 0, H);
+  bg.addColorStop(0, "#08080d");
+  bg.addColorStop(0.6, "#11111e");
+  bg.addColorStop(1, "#1a1a2e");
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // 2. 우상단 형광 그라데이션 글로우 (방사형)
+  const glow = ctx.createRadialGradient(W * 0.85, H * 0.15, 0, W * 0.85, H * 0.15, 600);
+  glow.addColorStop(0, "rgba(143, 255, 61, 0.18)");
+  glow.addColorStop(1, "rgba(143, 255, 61, 0)");
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+
+  // 3. 상단 형광 라인 + 라벨
+  ctx.fillStyle = ACCENT;
+  ctx.fillRect(0, 0, W, 6);
+
   ctx.textBaseline = "alphabetic";
   ctx.textAlign = "left";
-  ctx.fillText(`${mm} / ${dd}`, MAIN_DATE_CONFIG.x, MAIN_DATE_CONFIG.y);
+
+  // 형광 막대 액센트
+  ctx.fillStyle = ACCENT;
+  ctx.fillRect(PAD, 70, 6, 32);
+
+  ctx.fillStyle = ACCENT;
+  ctx.font = "800 30px Pretendard";
+  ctx.fillText("HAESEOL", PAD + 22, 95);
+  const haeseolWidth = ctx.measureText("HAESEOL").width;
+
+  ctx.fillStyle = TEXT_DIM;
+  ctx.font = "500 28px Pretendard";
+  ctx.fillText("   오늘의 한국어 중계 편성표", PAD + 22 + haeseolWidth, 95);
+
+  // 4. 거대한 날짜 (MM / DD) + 요일 옆에
+  const DATE_BASELINE = 510;
+
+  ctx.fillStyle = TEXT_PRIMARY;
+  ctx.font = "320px Anton";
+  ctx.fillText(mm, PAD, DATE_BASELINE);
+  const mmWidth = ctx.measureText(mm).width;
+
+  ctx.fillStyle = ACCENT;
+  ctx.font = "320px Anton";
+  ctx.fillText("/", PAD + mmWidth + 20, DATE_BASELINE);
+  const slashWidth = ctx.measureText("/").width;
+
+  ctx.fillStyle = TEXT_PRIMARY;
+  ctx.font = "320px Anton";
+  ctx.fillText(dd, PAD + mmWidth + 20 + slashWidth + 20, DATE_BASELINE);
+  const ddWidth = ctx.measureText(dd).width;
+  const dateEndX = PAD + mmWidth + 20 + slashWidth + 20 + ddWidth;
+
+  // 요일 — 날짜 옆 (날짜 베이스라인과 정렬)
+  const dow = dayOfWeekKr(today);
+  ctx.fillStyle = TEXT_DIM;
+  const dowSize = fitText(
+    ctx,
+    `${dow}요일`,
+    W - PAD - dateEndX - 40,
+    78,
+    "700",
+    "Pretendard",
+    48,
+  );
+  ctx.font = `700 ${dowSize}px Pretendard`;
+  ctx.fillText(`${dow}요일`, dateEndX + 32, DATE_BASELINE);
+
+  // 5. 가로 디바이더
+  ctx.fillStyle = TEXT_SUBTLE;
+  ctx.fillRect(PAD, 605, W - PAD * 2, 2);
+
+  // 6. 오늘의 빅매치 섹션
+  // 한국어 해설 경기 중에서 우선 픽 → 없으면 그날 전체 경기 중에서 폴백
+  const koreanMatches = loadKoreanMatchesAll(today);
+  let hero = pickHeroMatch(koreanMatches);
+  if (!hero) {
+    const allMatches = loadAllMatchesForDate(today);
+    hero = pickHeroMatch(allMatches);
+  }
+  const matches = koreanMatches;
+
+  let yCursor = 680;
+
+  // 형광 막대 액센트
+  ctx.fillStyle = ACCENT;
+  ctx.fillRect(PAD, yCursor - 28, 6, 32);
+
+  ctx.fillStyle = ACCENT;
+  ctx.font = "800 34px Pretendard";
+  ctx.fillText("오늘의 빅매치", PAD + 22, yCursor);
+
+  if (hero) {
+    yCursor += 70;
+
+    // 리그 + 시간/플랫폼 (한 줄)
+    ctx.fillStyle = TEXT_DIM;
+    ctx.font = "600 36px Pretendard";
+    const leagueText = hero.league.toUpperCase();
+    ctx.fillText(leagueText, PAD, yCursor);
+    const leagueW = ctx.measureText(leagueText).width;
+
+    ctx.fillStyle = TEXT_DIM;
+    ctx.font = "500 30px Pretendard";
+    const timePlatform = `${hero.time}  ·  ${hero.platform}`;
+    ctx.fillText(timePlatform, PAD + leagueW + 28, yCursor);
+
+    yCursor += 100;
+
+    // 팀 로고 사전 로드
+    const [homeLogo, awayLogo] = await Promise.all([
+      fetchTeamLogoImage(hero.homeTeam),
+      hero.awayTeam ? fetchTeamLogoImage(hero.awayTeam) : Promise.resolve(null),
+    ]);
+
+    // 팀 매치업 (HOME vs AWAY) — 3등분으로 나눠 그려서 각 팀 위치를 추적
+    if (hero.awayTeam) {
+      const homeText = hero.homeTeam;
+      const vsText = "  vs  ";
+      const awayText = hero.awayTeam;
+      const fullText = homeText + vsText + awayText;
+
+      const matchSize = fitText(ctx, fullText, W - PAD * 2, 90, "800", "Pretendard", 56);
+      ctx.font = `800 ${matchSize}px Pretendard`;
+      const homeW = ctx.measureText(homeText).width;
+      const vsW = ctx.measureText(vsText).width;
+      const awayW = ctx.measureText(awayText).width;
+
+      ctx.fillStyle = TEXT_PRIMARY;
+      ctx.fillText(homeText, PAD, yCursor);
+      ctx.fillStyle = TEXT_DIM;
+      ctx.fillText(vsText, PAD + homeW, yCursor);
+      ctx.fillStyle = TEXT_PRIMARY;
+      ctx.fillText(awayText, PAD + homeW + vsW, yCursor);
+
+      // 각 팀 이름 밑에 로고 그리기
+      const logoSize = 100;
+      const logoY = yCursor + 30;
+      const homeCenterX = PAD + homeW / 2;
+      const awayCenterX = PAD + homeW + vsW + awayW / 2;
+
+      if (homeLogo) {
+        ctx.drawImage(homeLogo, homeCenterX - logoSize / 2, logoY, logoSize, logoSize);
+      }
+      if (awayLogo) {
+        ctx.drawImage(awayLogo, awayCenterX - logoSize / 2, logoY, logoSize, logoSize);
+      }
+
+      yCursor += 30 + logoSize;
+    } else {
+      const matchSize = fitText(ctx, hero.homeTeam, W - PAD * 2, 90, "800", "Pretendard", 56);
+      ctx.fillStyle = TEXT_PRIMARY;
+      ctx.font = `800 ${matchSize}px Pretendard`;
+      ctx.fillText(hero.homeTeam, PAD, yCursor);
+
+      // 단일 팀 로고
+      if (homeLogo) {
+        const logoSize = 100;
+        const logoY = yCursor + 30;
+        const homeCenterX = PAD + ctx.measureText(hero.homeTeam).width / 2;
+        ctx.drawImage(homeLogo, homeCenterX - logoSize / 2, logoY, logoSize, logoSize);
+        yCursor += 30 + logoSize;
+      } else {
+        yCursor += 30;
+      }
+    }
+  } else {
+    yCursor += 70;
+    ctx.fillStyle = TEXT_DIM;
+    ctx.font = "500 38px Pretendard";
+    ctx.fillText("이날 한국어 해설 경기가 없어요", PAD, yCursor);
+  }
+
+  // 7. 추가 경기 카운트 (한국어 해설 기준)
+  const heroIsKorean = hero ? matches.some((m) => m.id === hero.id) : false;
+  const remainingKorean = heroIsKorean ? matches.length - 1 : matches.length;
+
+  if (remainingKorean > 0) {
+    yCursor += 90;
+    ctx.fillStyle = ACCENT;
+    ctx.font = "700 38px Pretendard";
+    ctx.fillText(`+ ${remainingKorean}`, PAD, yCursor);
+    const plusWidth = ctx.measureText(`+ ${remainingKorean}`).width;
+
+    ctx.fillStyle = TEXT_DIM;
+    ctx.font = "500 36px Pretendard";
+    ctx.fillText("  경기 더보기", PAD + plusWidth, yCursor);
+  }
+
+  // 8. 하단 CTA 영역
+  const bottomBlockY = H - 200;
+  ctx.fillStyle = TEXT_SUBTLE;
+  ctx.fillRect(PAD, bottomBlockY, W - PAD * 2, 2);
+
+  // 종목 행: 작은 점 + 텍스트
+  ctx.fillStyle = TEXT_DIM;
+  ctx.font = "600 28px Pretendard";
+  const sportLabels = ["축구", "야구", "농구", "배구"];
+  let sx = PAD;
+  for (let i = 0; i < sportLabels.length; i++) {
+    // 작은 형광 점
+    ctx.fillStyle = ACCENT;
+    ctx.beginPath();
+    ctx.arc(sx + 8, bottomBlockY + 56, 5, 0, Math.PI * 2);
+    ctx.fill();
+
+    ctx.fillStyle = TEXT_DIM;
+    ctx.fillText(sportLabels[i], sx + 22, bottomBlockY + 65);
+    sx += ctx.measureText(sportLabels[i]).width + 70;
+  }
+
+  // haeseol.com  →
+  ctx.fillStyle = ACCENT;
+  ctx.font = "800 56px Pretendard";
+  ctx.fillText("haeseol.com", PAD, bottomBlockY + 145);
+  const cta = ctx.measureText("haeseol.com").width;
+
+  ctx.fillStyle = TEXT_PRIMARY;
+  ctx.font = "800 56px Pretendard";
+  ctx.fillText("  →", PAD + cta, bottomBlockY + 145);
 
   return canvas.toBuffer("image/png");
 }

@@ -26,7 +26,7 @@ async function main() {
 
   // 1) 메인
   {
-    const buf = await renderMainCard(mm, dd);
+    const buf = await renderMainCard(mm, dd, today);
     const filename = `main-${mm}${dd}.png`;
     fs.writeFileSync(path.join(outDir, filename), buf);
     items.push({ buf, filename, caption: `${mm}/${dd} 한해설 한국어 중계 편성표` });

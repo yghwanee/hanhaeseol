@@ -10,8 +10,8 @@ import {
 
 async function main() {
   registerFonts();
-  const { mm, dd } = getKstToday();
-  const buf = await renderMainCard(mm, dd);
+  const { today, mm, dd } = getKstToday();
+  const buf = await renderMainCard(mm, dd, today);
 
   const outDir = path.resolve("generated/instagram");
   fs.mkdirSync(outDir, { recursive: true });
