@@ -1,17 +1,9 @@
-import fs from "fs";
-import path from "path";
 import Link from "next/link";
-import { ScheduleData, Schedule } from "@/types/schedule";
-import { TeamRecordsData } from "@/types/team-record";
+import { Schedule } from "@/types/schedule";
+import { GAME_DURATION_HOURS } from "@/lib/schedule-utils";
+import { loadScheduleData, loadTeamRecords } from "@/lib/server-data";
 import ScheduleClient from "./ScheduleClient";
 import { HomeAboutSection } from "./_components/HomeAboutSection";
-
-const SPORT_DURATION_HOURS: Record<string, number> = {
-  "축구": 2.5,
-  "야구": 4.5,
-  "농구": 3,
-  "배구": 3,
-};
 
 function buildSportsEventsJsonLd(schedules: Schedule[]) {
   const todayStr = new Date().toISOString().slice(0, 10);
@@ -24,7 +16,7 @@ function buildSportsEventsJsonLd(schedules: Schedule[]) {
     "@graph": upcoming.map((s) => {
       const [hh, mm] = s.time.split(":");
       const start = new Date(`${s.date}T${hh}:${mm}:00+09:00`);
-      const durationMs = (SPORT_DURATION_HOURS[s.sport] ?? 3) * 60 * 60 * 1000;
+      const durationMs = (GAME_DURATION_HOURS[s.sport] ?? 3) * 60 * 60 * 1000;
       const end = new Date(start.getTime() + durationMs);
       const lang = s.koreanCommentary === true ? "ko" : s.koreanCommentary === false ? "en" : "ko";
 
@@ -68,21 +60,9 @@ function buildSportsEventsJsonLd(schedules: Schedule[]) {
   };
 }
 
-function loadTeamRecords(): TeamRecordsData {
-  try {
-    const filePath = path.join(process.cwd(), "public", "team-records.json");
-    const raw = fs.readFileSync(filePath, "utf-8");
-    return JSON.parse(raw) as TeamRecordsData;
-  } catch {
-    return { lastUpdated: "", records: {} };
-  }
-}
-
 export default function Home() {
-  const filePath = path.join(process.cwd(), "public", "schedule.json");
-  const raw = fs.readFileSync(filePath, "utf-8");
-  const data: ScheduleData = JSON.parse(raw);
-  const records = loadTeamRecords();
+  const data = loadScheduleData();
+  const teamRecords = loadTeamRecords();
   const sportsEventsJsonLd = buildSportsEventsJsonLd(data.schedules);
 
   return (
@@ -92,7 +72,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(sportsEventsJsonLd) }}
       />
       <main>
-        <ScheduleClient initialData={data} teamRecords={records.records} />
+        <ScheduleClient initialData={data} teamRecords={teamRecords} />
         <HomeAboutSection />
       </main>
       <footer className="mt-8 border-t border-zinc-800 py-6 px-4 text-center text-xs text-gray-500">

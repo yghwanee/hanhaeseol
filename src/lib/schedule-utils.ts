@@ -1,14 +1,21 @@
-const GAME_DURATION_HOURS: Record<string, number> = {
+export const GAME_DURATION_HOURS: Record<string, number> = {
   "축구": 2.5,
   "야구": 4.5,
   "농구": 3,
   "배구": 3,
 };
 
+export const DAY_NAMES = ["일", "월", "화", "수", "목", "금", "토"];
+
+export function formatDateHeader(isoDate: string): string {
+  const [y, m, d] = isoDate.split("-").map(Number);
+  const dt = new Date(Date.UTC(y, m - 1, d));
+  return `${m}월 ${d}일 (${DAY_NAMES[dt.getUTCDay()]})`;
+}
+
 export function getUpcomingDates(): { label: string; value: string }[] {
   const dates: { label: string; value: string }[] = [];
   const today = new Date();
-  const dayNames = ["일", "월", "화", "수", "목", "금", "토"];
 
   for (let i = 0; i < 7; i++) {
     const d = new Date(today);
@@ -17,7 +24,7 @@ export function getUpcomingDates(): { label: string; value: string }[] {
     const mm = String(d.getMonth() + 1).padStart(2, "0");
     const dd = String(d.getDate()).padStart(2, "0");
     const value = `${yyyy}-${mm}-${dd}`;
-    const label = i === 0 ? "오늘" : `${Number(mm)}/${Number(dd)}(${dayNames[d.getDay()]})`;
+    const label = i === 0 ? "오늘" : `${Number(mm)}/${Number(dd)}(${DAY_NAMES[d.getDay()]})`;
     dates.push({ label, value });
   }
   return dates;

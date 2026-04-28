@@ -3,23 +3,10 @@ import Image from "next/image";
 import { Schedule } from "@/types/schedule";
 import { TeamRecordsMap } from "@/types/team-record";
 import { LEAGUE_SEO, PLATFORM_SEO, SeoMeta } from "@/lib/slugs";
+import { isGameFinished, formatDateHeader } from "@/lib/schedule-utils";
 import { CoupangTopBannerOnly } from "@/app/_components/CoupangBanners";
 import { StickyHeader } from "@/app/_components/StickyHeader";
 import { LastFiveBadges } from "@/app/_components/LastFiveBadges";
-
-const GAME_DURATION_HOURS: Record<string, number> = {
-  "축구": 2.5,
-  "야구": 4.5,
-  "농구": 3,
-  "배구": 3,
-};
-
-function isGameFinished(date: string, time: string, sport: string): boolean {
-  const [hh, mm] = time.split(":").map(Number);
-  const gameStart = new Date(`${date}T${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}:00+09:00`);
-  const duration = (GAME_DURATION_HOURS[sport] ?? 3) * 60 * 60 * 1000;
-  return Date.now() > gameStart.getTime() + duration;
-}
 
 function StatusPill({ kc, finished }: { kc: boolean | "unknown"; finished: boolean }) {
   if (finished) {
@@ -42,14 +29,6 @@ type Props = {
   guideSlot?: React.ReactNode;
   faqSlot?: React.ReactNode;
 };
-
-const DAY_NAMES = ["일", "월", "화", "수", "목", "금", "토"];
-
-function formatDateHeader(isoDate: string): string {
-  const [y, m, d] = isoDate.split("-").map(Number);
-  const dt = new Date(Date.UTC(y, m - 1, d));
-  return `${m}월 ${d}일 (${DAY_NAMES[dt.getUTCDay()]})`;
-}
 
 export default function FilteredScheduleView({ meta, kind, schedules, teamRecords = {}, guideSlot, faqSlot }: Props) {
   const filtered = schedules

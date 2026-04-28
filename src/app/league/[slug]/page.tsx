@@ -1,12 +1,9 @@
 import { notFound } from "next/navigation";
-import fs from "fs";
-import path from "path";
 import type { Metadata } from "next";
-import { ScheduleData, Schedule } from "@/types/schedule";
-import { TeamRecordsData, TeamRecordsMap } from "@/types/team-record";
 import { LEAGUE_SEO, findLeagueBySlug } from "@/lib/slugs";
 import { LEAGUE_GUIDES } from "@/lib/league-guides";
 import { LEAGUE_FAQS } from "@/lib/league-faqs";
+import { loadScheduleData, loadTeamRecords } from "@/lib/server-data";
 import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
 import LeagueGuideSection from "@/app/_components/LeagueGuideSection";
 import FaqSection from "@/app/_components/FaqSection";
@@ -48,30 +45,13 @@ export async function generateMetadata({
   };
 }
 
-function loadSchedules(): Schedule[] {
-  const filePath = path.join(process.cwd(), "public", "schedule.json");
-  const raw = fs.readFileSync(filePath, "utf-8");
-  const data: ScheduleData = JSON.parse(raw);
-  return data.schedules;
-}
-
-function loadTeamRecords(): TeamRecordsMap {
-  try {
-    const filePath = path.join(process.cwd(), "public", "team-records.json");
-    const raw = fs.readFileSync(filePath, "utf-8");
-    return (JSON.parse(raw) as TeamRecordsData).records;
-  } catch {
-    return {};
-  }
-}
-
 export default function LeaguePage({ params }: { params: { slug: string } }) {
   const meta = findLeagueBySlug(params.slug);
   if (!meta) notFound();
 
   const guide = LEAGUE_GUIDES[params.slug];
   const faqs = LEAGUE_FAQS[params.slug];
-  const schedules = loadSchedules();
+  const schedules = loadScheduleData().schedules;
   const teamRecords = loadTeamRecords();
 
   return (
