@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import type { Metadata } from "next";
 import { ScheduleData, Schedule } from "@/types/schedule";
+import { TeamRecordsData, TeamRecordsMap } from "@/types/team-record";
 import { PLATFORM_SEO, findPlatformBySlug } from "@/lib/slugs";
 import { PLATFORM_GUIDES } from "@/lib/platform-guides";
 import { PLATFORM_FAQS } from "@/lib/platform-faqs";
@@ -54,6 +55,16 @@ function loadSchedules(): Schedule[] {
   return data.schedules;
 }
 
+function loadTeamRecords(): TeamRecordsMap {
+  try {
+    const filePath = path.join(process.cwd(), "public", "team-records.json");
+    const raw = fs.readFileSync(filePath, "utf-8");
+    return (JSON.parse(raw) as TeamRecordsData).records;
+  } catch {
+    return {};
+  }
+}
+
 export default function PlatformPage({ params }: { params: { slug: string } }) {
   const meta = findPlatformBySlug(params.slug);
   if (!meta) notFound();
@@ -61,12 +72,14 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
   const guide = PLATFORM_GUIDES[params.slug];
   const faqs = PLATFORM_FAQS[params.slug];
   const schedules = loadSchedules();
+  const teamRecords = loadTeamRecords();
 
   return (
     <FilteredScheduleView
       meta={meta}
       kind="platform"
       schedules={schedules}
+      teamRecords={teamRecords}
       guideSlot={
         guide ? <PlatformGuideSection guide={guide} display={meta.display} /> : undefined
       }

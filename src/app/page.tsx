@@ -2,6 +2,7 @@ import fs from "fs";
 import path from "path";
 import Link from "next/link";
 import { ScheduleData, Schedule } from "@/types/schedule";
+import { TeamRecordsData } from "@/types/team-record";
 import ScheduleClient from "./ScheduleClient";
 import { HomeAboutSection } from "./_components/HomeAboutSection";
 
@@ -67,10 +68,21 @@ function buildSportsEventsJsonLd(schedules: Schedule[]) {
   };
 }
 
+function loadTeamRecords(): TeamRecordsData {
+  try {
+    const filePath = path.join(process.cwd(), "public", "team-records.json");
+    const raw = fs.readFileSync(filePath, "utf-8");
+    return JSON.parse(raw) as TeamRecordsData;
+  } catch {
+    return { lastUpdated: "", records: {} };
+  }
+}
+
 export default function Home() {
   const filePath = path.join(process.cwd(), "public", "schedule.json");
   const raw = fs.readFileSync(filePath, "utf-8");
   const data: ScheduleData = JSON.parse(raw);
+  const records = loadTeamRecords();
   const sportsEventsJsonLd = buildSportsEventsJsonLd(data.schedules);
 
   return (
@@ -80,7 +92,7 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(sportsEventsJsonLd) }}
       />
       <main>
-        <ScheduleClient initialData={data} />
+        <ScheduleClient initialData={data} teamRecords={records.records} />
         <HomeAboutSection />
       </main>
       <footer className="mt-8 border-t border-zinc-800 py-6 px-4 text-center text-xs text-gray-500">

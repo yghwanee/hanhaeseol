@@ -3,6 +3,7 @@
 import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { ScheduleData } from "@/types/schedule";
+import { TeamRecordsMap } from "@/types/team-record";
 import { getUpcomingDates, getTodayString } from "@/lib/schedule-utils";
 import { StickyHeader } from "./_components/StickyHeader";
 import { SPORTS, PLATFORM_LIST } from "./_components/constants";
@@ -11,7 +12,13 @@ import { FilterButton } from "./_components/FilterButton";
 import { ScheduleCard } from "./_components/ScheduleCard";
 import { AdSkeleton } from "./_components/AdSkeleton";
 
-export default function ScheduleClient({ initialData }: { initialData: ScheduleData }) {
+export default function ScheduleClient({
+  initialData,
+  teamRecords = {},
+}: {
+  initialData: ScheduleData;
+  teamRecords?: TeamRecordsMap;
+}) {
   const [data] = useState<ScheduleData>(initialData);
   const [selectedDate, setSelectedDate] = useState(getTodayString());
   const [sport, setSport] = useState("전체");
@@ -370,7 +377,12 @@ export default function ScheduleClient({ initialData }: { initialData: ScheduleD
                     </div>
                   </>
                 )}
-                <ScheduleCard schedule={schedule} query={searchQuery} />
+                <ScheduleCard
+                  schedule={schedule}
+                  query={searchQuery}
+                  homeRecord={teamRecords[schedule.league]?.[schedule.homeTeam]}
+                  awayRecord={teamRecords[schedule.league]?.[schedule.awayTeam]}
+                />
               </React.Fragment>
             );
           })}

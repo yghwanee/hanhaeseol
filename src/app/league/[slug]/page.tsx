@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import type { Metadata } from "next";
 import { ScheduleData, Schedule } from "@/types/schedule";
+import { TeamRecordsData, TeamRecordsMap } from "@/types/team-record";
 import { LEAGUE_SEO, findLeagueBySlug } from "@/lib/slugs";
 import { LEAGUE_GUIDES } from "@/lib/league-guides";
 import { LEAGUE_FAQS } from "@/lib/league-faqs";
@@ -54,6 +55,16 @@ function loadSchedules(): Schedule[] {
   return data.schedules;
 }
 
+function loadTeamRecords(): TeamRecordsMap {
+  try {
+    const filePath = path.join(process.cwd(), "public", "team-records.json");
+    const raw = fs.readFileSync(filePath, "utf-8");
+    return (JSON.parse(raw) as TeamRecordsData).records;
+  } catch {
+    return {};
+  }
+}
+
 export default function LeaguePage({ params }: { params: { slug: string } }) {
   const meta = findLeagueBySlug(params.slug);
   if (!meta) notFound();
@@ -61,12 +72,14 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
   const guide = LEAGUE_GUIDES[params.slug];
   const faqs = LEAGUE_FAQS[params.slug];
   const schedules = loadSchedules();
+  const teamRecords = loadTeamRecords();
 
   return (
     <FilteredScheduleView
       meta={meta}
       kind="league"
       schedules={schedules}
+      teamRecords={teamRecords}
       guideSlot={
         guide ? <LeagueGuideSection guide={guide} display={meta.display} /> : undefined
       }

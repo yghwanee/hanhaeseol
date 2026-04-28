@@ -1,9 +1,11 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Schedule } from "@/types/schedule";
+import { TeamRecordsMap } from "@/types/team-record";
 import { LEAGUE_SEO, PLATFORM_SEO, SeoMeta } from "@/lib/slugs";
 import { CoupangTopBannerOnly } from "@/app/_components/CoupangBanners";
 import { StickyHeader } from "@/app/_components/StickyHeader";
+import { LastFiveBadges } from "@/app/_components/LastFiveBadges";
 
 const GAME_DURATION_HOURS: Record<string, number> = {
   "축구": 2.5,
@@ -36,6 +38,7 @@ type Props = {
   meta: SeoMeta;
   kind: "league" | "platform";
   schedules: Schedule[];
+  teamRecords?: TeamRecordsMap;
   guideSlot?: React.ReactNode;
   faqSlot?: React.ReactNode;
 };
@@ -48,7 +51,7 @@ function formatDateHeader(isoDate: string): string {
   return `${m}월 ${d}일 (${DAY_NAMES[dt.getUTCDay()]})`;
 }
 
-export default function FilteredScheduleView({ meta, kind, schedules, guideSlot, faqSlot }: Props) {
+export default function FilteredScheduleView({ meta, kind, schedules, teamRecords = {}, guideSlot, faqSlot }: Props) {
   const filtered = schedules
     .filter((s) => meta.match.includes(kind === "league" ? s.league : s.platform))
     .sort((a, b) => (a.date === b.date ? a.time.localeCompare(b.time) : a.date.localeCompare(b.date)));
@@ -108,7 +111,10 @@ export default function FilteredScheduleView({ meta, kind, schedules, guideSlot,
               <div key={date}>
                 <h3 className="mb-2 text-sm font-semibold text-zinc-300">{formatDateHeader(date)}</h3>
                 <div className="space-y-2">
-                  {grouped[date].map((s) => (
+                  {grouped[date].map((s) => {
+                    const homeRec = teamRecords[s.league]?.[s.homeTeam];
+                    const awayRec = teamRecords[s.league]?.[s.awayTeam];
+                    return (
                     <article
                       key={s.id}
                       className="rounded-xl border border-zinc-800 bg-zinc-900/80 p-3 sm:p-4"
@@ -122,10 +128,16 @@ export default function FilteredScheduleView({ meta, kind, schedules, guideSlot,
                         <StatusPill kc={s.koreanCommentary} finished={isGameFinished(s.date, s.time, s.sport)} />
                       </div>
                         {s.awayTeam ? (
-                          <div className="mt-2.5 flex items-center justify-center gap-2 text-sm sm:text-base">
-                            <span className="flex-1 text-right font-semibold text-zinc-100 truncate">{s.homeTeam}</span>
-                            <span className="shrink-0 text-[10px] font-bold text-zinc-500">VS</span>
-                            <span className="flex-1 text-left font-semibold text-zinc-100 truncate">{s.awayTeam}</span>
+                          <div className="mt-2.5 flex items-start justify-center gap-2 text-sm sm:text-base">
+                            <div className="flex-1 min-w-0 flex flex-col items-end gap-1">
+                              <span className="w-full text-right font-semibold text-zinc-100 truncate">{s.homeTeam}</span>
+                              {homeRec?.last5 && <LastFiveBadges form={homeRec.last5} mirror />}
+                            </div>
+                            <span className="shrink-0 mt-1 text-[10px] font-bold text-zinc-500">VS</span>
+                            <div className="flex-1 min-w-0 flex flex-col items-start gap-1">
+                              <span className="w-full text-left font-semibold text-zinc-100 truncate">{s.awayTeam}</span>
+                              {awayRec?.last5 && <LastFiveBadges form={awayRec.last5} />}
+                            </div>
                           </div>
                         ) : (
                           <div className="mt-2.5 text-center text-sm sm:text-base font-semibold text-zinc-100 truncate">{s.homeTeam}</div>
@@ -135,7 +147,8 @@ export default function FilteredScheduleView({ meta, kind, schedules, guideSlot,
                           <span className="text-zinc-500">{s.sport}</span>
                         </div>
                     </article>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
             ))}
