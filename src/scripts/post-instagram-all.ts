@@ -5,7 +5,6 @@ import {
   registerFonts,
   getKstToday,
   loadTodayMatches,
-  renderMainCard,
   renderSportCard,
   renderOutroCard,
   sendTelegramMediaGroup,
@@ -15,6 +14,7 @@ import {
   SPORTS_ORDER,
   type MediaItem,
 } from "@/lib/instagram";
+import { pickHookImage, renderHookV7 } from "@/lib/hook-card";
 
 async function main() {
   registerFonts();
@@ -24,13 +24,14 @@ async function main() {
   const outDir = path.resolve("generated/instagram");
   fs.mkdirSync(outDir, { recursive: true });
 
-  // 1) 메인
+  // 1) 메인 (V7 후킹 카드 + 매일 다른 AI 이미지)
   {
-    const buf = await renderMainCard(mm, dd, today);
+    const hookImg = pickHookImage(today);
+    const buf = await renderHookV7(hookImg, mm, dd, today);
     const filename = `main-${mm}${dd}.png`;
     fs.writeFileSync(path.join(outDir, filename), buf);
     items.push({ buf, filename, caption: `${mm}/${dd} 한해설 한국어 중계 편성표` });
-    console.log(`✅ 메인`);
+    console.log(`✅ 메인 (V7)`);
   }
 
   // 2) 종목별 (축구 → 야구 → 농구 → 배구)

@@ -4,7 +4,7 @@ import path from "path";
 import type { Schedule, ScheduleData, Sport } from "@/types/schedule";
 import { getTeamLogo } from "@/data/team-logos";
 
-async function fetchTeamLogoImage(name: string): Promise<Image | null> {
+export async function fetchTeamLogoImage(name: string): Promise<Image | null> {
   const url = getTeamLogo(name);
   if (!url) return null;
   try {
@@ -145,7 +145,7 @@ function drawMatchBlock(ctx: SKRSContext2D, match: Schedule, yTop: number) {
   ctx.fillText(awayText, x, y2);
 }
 
-function loadKoreanMatchesAll(today: string): Schedule[] {
+export function loadKoreanMatchesAll(today: string): Schedule[] {
   try {
     const data: ScheduleData = JSON.parse(
       fs.readFileSync(path.resolve("public/schedule.json"), "utf-8"),
@@ -158,7 +158,7 @@ function loadKoreanMatchesAll(today: string): Schedule[] {
   }
 }
 
-function loadAllMatchesForDate(today: string): Schedule[] {
+export function loadAllMatchesForDate(today: string): Schedule[] {
   try {
     const data: ScheduleData = JSON.parse(
       fs.readFileSync(path.resolve("public/schedule.json"), "utf-8"),
@@ -171,7 +171,7 @@ function loadAllMatchesForDate(today: string): Schedule[] {
   }
 }
 
-function pickHeroMatch(matches: Schedule[]): Schedule | null {
+export function pickHeroMatch(matches: Schedule[]): Schedule | null {
   if (matches.length === 0) return null;
   for (const lg of HERO_LEAGUE_PRIORITY) {
     const found = matches.find((m) => m.league === lg);
@@ -180,7 +180,7 @@ function pickHeroMatch(matches: Schedule[]): Schedule | null {
   return matches[0];
 }
 
-function fitText(
+export function fitText(
   ctx: SKRSContext2D,
   text: string,
   maxWidth: number,
@@ -473,10 +473,6 @@ export async function renderSportCard(
   }
 
   return canvas.toBuffer("image/png");
-}
-
-export function readOutroCard(): Buffer {
-  return fs.readFileSync(path.resolve("templates/instagram/outro.png"));
 }
 
 export async function renderOutroCard(): Promise<Buffer> {
