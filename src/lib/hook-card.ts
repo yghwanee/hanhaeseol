@@ -215,8 +215,10 @@ export async function renderHookV6(imagePath: string, mm: string, dd: string, to
   return canvas.toBuffer("image/png");
 }
 
-/** V7: 좌측 다크 패널 + 빅매치 결합 — 운영중인 메인 카드 */
-export async function renderHookV7(imagePath: string, mm: string, dd: string, today: string): Promise<Buffer> {
+/** V7: 좌측 다크 패널 + 빅매치 결합 — 운영중인 메인 카드.
+ *  pad: 좌측 패널 내부 여백. 피드/스토리는 50(기본, 텍스트 가독성↑),
+ *  릴스/쇼츠는 85(영상 세이프존 회피). */
+export async function renderHookV7(imagePath: string, mm: string, dd: string, today: string, pad = 50): Promise<Buffer> {
   const W = MAIN_CARD_SIZE.width;
   const H = MAIN_CARD_SIZE.height;
   const TEXT_PRIMARY = "#ffffff";
@@ -227,7 +229,7 @@ export async function renderHookV7(imagePath: string, mm: string, dd: string, to
   const ctx = canvas.getContext("2d");
 
   const splitX = Math.round(W * 0.42);
-  const PAD = 85;
+  const PAD = pad;
   const contentW = splitX - PAD * 2;
   const centerX = PAD + contentW / 2;
 

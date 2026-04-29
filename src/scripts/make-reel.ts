@@ -17,14 +17,22 @@ function main() {
   const bgmPath = path.resolve(BGM_REL);
   if (!fs.existsSync(bgmPath)) throw new Error(`BGM 없음: ${bgmPath}`);
 
-  const n = files.length;
+  // 첫 번째 파일이 main-MMDD.png 면, 영상 세이프존용 main-reel-MMDD.png
+  // (PAD=85)이 같은 폴더에 있으면 그걸 첫 프레임으로 쓴다. 없으면 fallback.
+  const reelFiles = files.map((f, i) => {
+    if (i !== 0) return f;
+    const reelVariant = f.replace(/^main-/, "main-reel-");
+    return fs.existsSync(path.join(OUT_DIR, reelVariant)) ? reelVariant : f;
+  });
+
+  const n = reelFiles.length;
   const videoLen = n * DURATION - (n - 1) * XFADE;
 
   const scaleFilter =
     `scale=${WIDTH}:${HEIGHT}:force_original_aspect_ratio=decrease,` +
     `pad=${WIDTH}:${HEIGHT}:(ow-iw)/2:(oh-ih)/2:black,setsar=1,fps=30`;
 
-  const scaled = files.map((_, i) => `[${i}:v]${scaleFilter}[v${i}]`);
+  const scaled = reelFiles.map((_, i) => `[${i}:v]${scaleFilter}[v${i}]`);
 
   const transitions: string[] = [];
   let prev = "v0";
@@ -42,7 +50,7 @@ function main() {
 
   const cmd = [
     "ffmpeg -y -hide_banner -loglevel error",
-    ...files.map((f) => `-loop 1 -t ${DURATION} -i "${f}"`),
+    ...reelFiles.map((f) => `-loop 1 -t ${DURATION} -i "${f}"`),
     `-i "${bgmPath}"`,
     `-filter_complex "${filterComplex}"`,
     `-map "[vout]" -map ${n}:a`,

@@ -25,13 +25,19 @@ async function main() {
   fs.mkdirSync(outDir, { recursive: true });
 
   // 1) 메인 (V7 후킹 카드 + 매일 다른 AI 이미지)
+  //    피드/스토리용은 PAD=50 (텍스트 크게), 릴스/쇼츠 첫 프레임은 PAD=85
+  //    (영상 좌측 세이프존 회피). 두 파일 모두 디스크에 저장하되 캐러셀에는
+  //    피드용만 포함. make-reel은 main-reel-* 을 골라 쓴다.
   {
     const hookImg = pickHookImage(today);
     const buf = await renderHookV7(hookImg, mm, dd, today);
     const filename = `main-${mm}${dd}.png`;
     fs.writeFileSync(path.join(outDir, filename), buf);
     items.push({ buf, filename, caption: `${mm}/${dd} 한해설 한국어 중계 편성표` });
-    console.log(`✅ 메인 (V7)`);
+
+    const reelBuf = await renderHookV7(hookImg, mm, dd, today, 85);
+    fs.writeFileSync(path.join(outDir, `main-reel-${mm}${dd}.png`), reelBuf);
+    console.log(`✅ 메인 (V7) — 피드용 + 릴스용`);
   }
 
   // 2) 종목별 (축구 → 야구 → 농구 → 배구)
