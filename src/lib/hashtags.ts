@@ -228,29 +228,48 @@ function pickMainLeague(games: ScheduleEntry[], sport: Sport): string | null {
   return null;
 }
 
+function dateHash(today: string): number {
+  let hash = 0;
+  for (let i = 0; i < today.length; i++) {
+    hash = ((hash << 5) - hash) + today.charCodeAt(i);
+    hash |= 0;
+  }
+  return Math.abs(hash);
+}
+
 function pickMainTeam(
   games: ScheduleEntry[],
   league: string,
+  today: string,
 ): { team: string; player?: string } | null {
   const inLeague = games.filter((g) => g.league === league);
   if (inLeague.length === 0) return null;
 
-  // 1. 한국 선수 소속 팀 우선
+  // 후보 풀 수집 — 한국 선수 소속 팀 + 매핑된 빅클럽 (중복 제거)
+  const candidates: { team: string; player?: string }[] = [];
+  const seen = new Set<string>();
+
   for (const p of KOREAN_PLAYERS) {
-    for (const g of inLeague) {
-      if (g.homeTeam === p.team || g.awayTeam === p.team) {
-        return { team: p.team, player: p.name };
+    if (seen.has(p.team)) continue;
+    if (inLeague.some((g) => g.homeTeam === p.team || g.awayTeam === p.team)) {
+      candidates.push({ team: p.team, player: p.name });
+      seen.add(p.team);
+    }
+  }
+
+  for (const g of inLeague) {
+    for (const t of [g.homeTeam, g.awayTeam]) {
+      if (TEAM_HASHTAGS[t] && !seen.has(t)) {
+        candidates.push({ team: t });
+        seen.add(t);
       }
     }
   }
 
-  // 2. TEAM_HASHTAGS에 매핑된 빅클럽
-  for (const g of inLeague) {
-    if (TEAM_HASHTAGS[g.homeTeam]) return { team: g.homeTeam };
-    if (TEAM_HASHTAGS[g.awayTeam]) return { team: g.awayTeam };
-  }
+  if (candidates.length === 0) return null;
 
-  return null;
+  // 날짜 해시 기반 회전 — 같은 리그가 매일 메인이어도 팀 슬롯은 매일 다른 후보로
+  return candidates[dateHash(today) % candidates.length];
 }
 
 const LEAGUE_SHORT_NAME: Record<string, string> = {
@@ -305,7 +324,7 @@ export function getHierarchicalTags(today: string): HierarchicalTagsResult {
   const league = sport ? pickMainLeague(games, sport) : null;
   const leagueTag = league ? LEAGUE_HASHTAGS[league] : undefined;
 
-  const teamPick = league ? pickMainTeam(games, league) : null;
+  const teamPick = league ? pickMainTeam(games, league, today) : null;
   const teamTag = teamPick ? TEAM_HASHTAGS[teamPick.team] : undefined;
 
   const tags = [sportTag, leagueTag, teamTag, "#한국어중계", "#한해설"].filter(
