@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import sharp from "sharp";
-import { getHierarchicalTags, getMainHighlight } from "./hashtags";
+import { getHierarchicalTags } from "./hashtags";
 
 const OAUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
 const YOUTUBE_UPLOAD_URL =
@@ -190,9 +190,8 @@ export function buildShortsMeta(mm: string, dd: string, today: string) {
   const mNum = parseInt(mm, 10);
   const dNum = parseInt(dd, 10);
   const wd = getKstWeekday();
-  const highlight = getMainHighlight(today);
-  // 제목: 감정/구체화형 + 메타태그(#Shorts) 박음. 설명에선 #Shorts 생략.
-  const title = `📺 ${mNum}/${dNum}(${wd}) ${highlight} #Shorts`;
+  // 제목: 고정 문구 + 메타태그(#Shorts) 박음. 설명에선 #Shorts 생략.
+  const title = `📺 ${mNum}/${dNum}(${wd}) 오늘의 한국어 중계 편성표 #Shorts`;
   const hashtagLine = getHierarchicalTags(today).tags.join(" ");
   const description = [
     `${mm}/${dd} 한국어 해설이 있는 모든 경기를 한곳에.`,
