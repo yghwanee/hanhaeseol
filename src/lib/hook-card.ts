@@ -12,7 +12,6 @@ import {
 import { findEnglishTeamName } from "@/data/team-names";
 
 const ACCENT = "#8fff3d";
-const DARK_BG = "#08080d";
 const KST_DOW = ["일", "월", "화", "수", "목", "금", "토"];
 
 function dayOfWeekKr(today: string): string {
@@ -60,247 +59,7 @@ function drawTextWithShadow(
   ctx.restore();
 }
 
-function drawBrandMark(
-  ctx: SKRSContext2D,
-  x: number,
-  y: number,
-  color = "#ffffff",
-  size = 28,
-) {
-  ctx.save();
-  ctx.textBaseline = "alphabetic";
-  ctx.textAlign = "left";
-  ctx.fillStyle = ACCENT;
-  ctx.fillRect(x, y - size + 2, 4, size);
-  ctx.fillStyle = color;
-  ctx.font = `800 ${size}px Pretendard`;
-  ctx.fillText("HAESEOL", x + 14, y);
-  ctx.restore();
-}
-
-/** V1: 좌측 빈공간에 거대 화이트 날짜 + 그림자 (이미지 자연 톤 유지) */
-export async function renderHookV1(imagePath: string, mm: string, dd: string, today: string): Promise<Buffer> {
-  const W = MAIN_CARD_SIZE.width;
-  const H = MAIN_CARD_SIZE.height;
-  const canvas = createCanvas(W, H);
-  const ctx = canvas.getContext("2d");
-
-  const img = await loadImage(imagePath);
-  drawCover(ctx, img, 0, 0, W, H, 0.35);
-
-  ctx.textBaseline = "alphabetic";
-  ctx.textAlign = "left";
-
-  ctx.fillStyle = "#ffffff";
-  ctx.font = "260px Anton";
-  drawTextWithShadow(ctx, mm, 70, 360, 22, 0.35);
-  ctx.fillStyle = ACCENT;
-  drawTextWithShadow(ctx, "/", 70, 590, 22, 0.35);
-  ctx.fillStyle = "#ffffff";
-  drawTextWithShadow(ctx, dd, 70, 820, 22, 0.35);
-
-  ctx.fillStyle = "rgba(255,255,255,0.85)";
-  ctx.font = "700 38px Pretendard";
-  drawTextWithShadow(ctx, `${dayOfWeekKr(today)}요일`, 70, 880, 12, 0.35);
-
-  drawBrandMark(ctx, 70, 100, "#ffffff", 30);
-
-  ctx.fillStyle = "rgba(255,255,255,0.9)";
-  ctx.font = "800 36px Pretendard";
-  drawTextWithShadow(ctx, "haeseol.com →", 70, H - 70, 14, 0.4);
-
-  return canvas.toBuffer("image/png");
-}
-
-/** V2: 하단 다크 글래스 페이드 + 거대 날짜 가로 배치 */
-export async function renderHookV2(imagePath: string, mm: string, dd: string, today: string): Promise<Buffer> {
-  const W = MAIN_CARD_SIZE.width;
-  const H = MAIN_CARD_SIZE.height;
-  const canvas = createCanvas(W, H);
-  const ctx = canvas.getContext("2d");
-
-  const img = await loadImage(imagePath);
-  drawCover(ctx, img, 0, 0, W, H, 0.3);
-
-  const fadeStart = 720;
-  const fade = ctx.createLinearGradient(0, fadeStart, 0, H);
-  fade.addColorStop(0, "rgba(8,8,13,0)");
-  fade.addColorStop(0.4, "rgba(8,8,13,0.65)");
-  fade.addColorStop(1, "rgba(8,8,13,0.96)");
-  ctx.fillStyle = fade;
-  ctx.fillRect(0, fadeStart, W, H - fadeStart);
-
-  ctx.textBaseline = "alphabetic";
-  ctx.textAlign = "left";
-
-  drawBrandMark(ctx, 70, 100, "#ffffff", 30);
-
-  ctx.fillStyle = "#ffffff";
-  ctx.font = "240px Anton";
-  ctx.fillText(mm, 70, 1170);
-  const mmW = ctx.measureText(mm).width;
-  ctx.fillStyle = ACCENT;
-  ctx.fillText("/", 70 + mmW + 16, 1170);
-  const slashW = ctx.measureText("/").width;
-  ctx.fillStyle = "#ffffff";
-  ctx.fillText(dd, 70 + mmW + 16 + slashW + 16, 1170);
-
-  ctx.fillStyle = "rgba(255,255,255,0.7)";
-  ctx.font = "600 32px Pretendard";
-  ctx.fillText(`${dayOfWeekKr(today)}요일`, 70, 1015);
-
-  ctx.fillStyle = ACCENT;
-  ctx.font = "800 38px Pretendard";
-  ctx.fillText("haeseol.com →", 70, H - 60);
-
-  return canvas.toBuffer("image/png");
-}
-
-/** V3: 좌측 35% 다크 사이드 패널 (정보) + 우측 65% 이미지 */
-export async function renderHookV3(imagePath: string, mm: string, dd: string, today: string): Promise<Buffer> {
-  const W = MAIN_CARD_SIZE.width;
-  const H = MAIN_CARD_SIZE.height;
-  const canvas = createCanvas(W, H);
-  const ctx = canvas.getContext("2d");
-
-  const splitX = Math.round(W * 0.38);
-
-  const img = await loadImage(imagePath);
-  drawCover(ctx, img, splitX, 0, W - splitX, H, 0.35);
-
-  const bg = ctx.createLinearGradient(0, 0, 0, H);
-  bg.addColorStop(0, "#08080d");
-  bg.addColorStop(0.6, "#11111e");
-  bg.addColorStop(1, "#1a1a2e");
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, 0, splitX, H);
-
-  ctx.fillStyle = ACCENT;
-  ctx.fillRect(splitX - 4, 0, 4, H);
-
-  ctx.textBaseline = "alphabetic";
-  ctx.textAlign = "left";
-
-  drawBrandMark(ctx, 60, 100, "#ffffff", 28);
-
-  ctx.fillStyle = "#ffffff";
-  ctx.font = "180px Anton";
-  ctx.fillText(mm, 60, 480);
-  ctx.fillStyle = ACCENT;
-  ctx.fillText("/", 60, 660);
-  ctx.fillStyle = "#ffffff";
-  ctx.fillText(dd, 60, 840);
-
-  ctx.fillStyle = "rgba(255,255,255,0.7)";
-  ctx.font = "700 36px Pretendard";
-  ctx.fillText(`${dayOfWeekKr(today)}요일`, 60, 900);
-
-  ctx.fillStyle = ACCENT;
-  ctx.fillRect(60, H - 180, 60, 4);
-
-  ctx.fillStyle = "#ffffff";
-  ctx.font = "800 30px Pretendard";
-  ctx.fillText("haeseol", 60, H - 110);
-  ctx.fillStyle = ACCENT;
-  ctx.fillText(".com →", 60 + ctx.measureText("haeseol").width, H - 110);
-
-  return canvas.toBuffer("image/png");
-}
-
-/** V4: 상단 70% 이미지 + 하단 30% 다크 정보 패널 */
-export async function renderHookV4(imagePath: string, mm: string, dd: string, today: string): Promise<Buffer> {
-  const W = MAIN_CARD_SIZE.width;
-  const H = MAIN_CARD_SIZE.height;
-  const canvas = createCanvas(W, H);
-  const ctx = canvas.getContext("2d");
-
-  const splitY = Math.round(H * 0.68);
-
-  const img = await loadImage(imagePath);
-  drawCover(ctx, img, 0, 0, W, splitY, 0.25);
-
-  const bg = ctx.createLinearGradient(0, splitY, 0, H);
-  bg.addColorStop(0, "#08080d");
-  bg.addColorStop(1, "#1a1a2e");
-  ctx.fillStyle = bg;
-  ctx.fillRect(0, splitY, W, H - splitY);
-
-  ctx.fillStyle = ACCENT;
-  ctx.fillRect(0, splitY - 4, W, 4);
-
-  ctx.textBaseline = "alphabetic";
-  ctx.textAlign = "left";
-
-  drawBrandMark(ctx, 70, 100, "#ffffff", 30);
-
-  const dateY = splitY + 200;
-  ctx.fillStyle = "#ffffff";
-  ctx.font = "200px Anton";
-  ctx.fillText(mm, 70, dateY);
-  const mmW = ctx.measureText(mm).width;
-  ctx.fillStyle = ACCENT;
-  ctx.fillText("/", 70 + mmW + 14, dateY);
-  const slashW = ctx.measureText("/").width;
-  ctx.fillStyle = "#ffffff";
-  ctx.fillText(dd, 70 + mmW + 14 + slashW + 14, dateY);
-
-  ctx.fillStyle = "rgba(255,255,255,0.65)";
-  ctx.font = "600 32px Pretendard";
-  ctx.fillText(`${dayOfWeekKr(today)}요일`, 70, splitY + 70);
-
-  ctx.fillStyle = ACCENT;
-  ctx.font = "800 38px Pretendard";
-  ctx.textAlign = "right";
-  ctx.fillText("haeseol.com →", W - 70, dateY);
-  ctx.textAlign = "left";
-
-  return canvas.toBuffer("image/png");
-}
-
-/** V5: 풀이미지 + 좌상단 형광 그린 라벨에 날짜 (광고 스티커 느낌) */
-export async function renderHookV5(imagePath: string, mm: string, dd: string, today: string): Promise<Buffer> {
-  const W = MAIN_CARD_SIZE.width;
-  const H = MAIN_CARD_SIZE.height;
-  const canvas = createCanvas(W, H);
-  const ctx = canvas.getContext("2d");
-
-  const img = await loadImage(imagePath);
-  drawCover(ctx, img, 0, 0, W, H, 0.35);
-
-  const labelX = 60;
-  const labelY = 60;
-  const labelW = 360;
-  const labelH = 200;
-
-  ctx.fillStyle = ACCENT;
-  ctx.fillRect(labelX, labelY, labelW, labelH);
-  ctx.fillStyle = DARK_BG;
-  ctx.fillRect(labelX, labelY, labelW, 6);
-
-  ctx.fillStyle = DARK_BG;
-  ctx.textBaseline = "alphabetic";
-  ctx.textAlign = "center";
-  ctx.font = "140px Anton";
-  ctx.fillText(`${mm}/${dd}`, labelX + labelW / 2, labelY + 145);
-
-  ctx.font = "700 26px Pretendard";
-  ctx.fillText(`${dayOfWeekKr(today)}요일`, labelX + labelW / 2, labelY + 185);
-
-  ctx.textAlign = "left";
-
-  ctx.save();
-  ctx.shadowColor = "rgba(0,0,0,0.5)";
-  ctx.shadowBlur = 14;
-  ctx.shadowOffsetY = 3;
-  ctx.fillStyle = "#ffffff";
-  ctx.font = "800 34px Pretendard";
-  ctx.fillText("haeseol.com →", 70, H - 70);
-  ctx.restore();
-
-  return canvas.toBuffer("image/png");
-}
-
-/** V6: 풀이미지 + 하단 다크 오버레이에 빅매치 한 줄 결합 (1번 사진 대체용 후보) */
+/** V6: 풀이미지 + 하단 다크 오버레이에 빅매치 한 줄 결합 (예비 후보 — 운영중인 V7과 교체 가능) */
 export async function renderHookV6(imagePath: string, mm: string, dd: string, today: string): Promise<Buffer> {
   const W = MAIN_CARD_SIZE.width;
   const H = MAIN_CARD_SIZE.height;
@@ -456,7 +215,7 @@ export async function renderHookV6(imagePath: string, mm: string, dd: string, to
   return canvas.toBuffer("image/png");
 }
 
-/** V7: V3 좌측 다크 패널 + 빅매치 결합 (메인 카드 대체 후보, 검정 솔리드 유지) */
+/** V7: 좌측 다크 패널 + 빅매치 결합 — 운영중인 메인 카드 */
 export async function renderHookV7(imagePath: string, mm: string, dd: string, today: string): Promise<Buffer> {
   const W = MAIN_CARD_SIZE.width;
   const H = MAIN_CARD_SIZE.height;
@@ -636,11 +395,6 @@ export function pickHookImage(today: string): string {
 }
 
 export const HOOK_VARIANTS = [
-  { name: "V1", label: "좌측 거대 날짜 (이미지 자연 톤)", fn: renderHookV1 },
-  { name: "V2", label: "하단 다크 페이드 + 가로 날짜", fn: renderHookV2 },
-  { name: "V3", label: "좌측 다크 사이드 패널", fn: renderHookV3 },
-  { name: "V4", label: "상하 분할 (이미지+다크 정보)", fn: renderHookV4 },
-  { name: "V5", label: "풀이미지 + 형광 라벨 스티커", fn: renderHookV5 },
-  { name: "V6", label: "V2 상단 + 빅매치 결합 (메인 카드 대체 후보)", fn: renderHookV6 },
-  { name: "V7", label: "V3 좌측 다크 패널 + 빅매치 결합", fn: renderHookV7 },
+  { name: "V6", label: "풀이미지 다크 오버레이 (예비)", fn: renderHookV6 },
+  { name: "V7", label: "좌측 다크 패널 (운영중)", fn: renderHookV7 },
 ] as const;
