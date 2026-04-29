@@ -366,11 +366,28 @@ export async function renderHookV7(imagePath: string, mm: string, dd: string, to
 
 export const HOOKS_DIR = path.resolve("templates/instagram/hooks");
 
+/** 특정 날짜에 강제로 사용할 이미지 — 자동 픽보다 우선. 사용 후 라인 제거. */
+const DATE_OVERRIDES: Record<string, string> = {
+  "2026-04-30": "ChatGPT Image 2026년 4월 29일 오후 04_23_18.png",
+};
+
 /** 날짜 기반 결정적 픽 — 같은 날 재실행 시 같은 이미지 반환 */
 export function pickHookImage(today: string): string {
   if (!fs.existsSync(HOOKS_DIR)) {
     throw new Error(`후킹 이미지 폴더 없음: ${HOOKS_DIR}`);
   }
+
+  const override = DATE_OVERRIDES[today];
+  if (override) {
+    const overridePath = path.join(HOOKS_DIR, override);
+    if (fs.existsSync(overridePath)) {
+      const sizeKB = fs.statSync(overridePath).size / 1024;
+      console.log(`🎯 후킹 이미지 (${today} 지정): ${override} (${sizeKB.toFixed(0)}KB)`);
+      return overridePath;
+    }
+    console.warn(`⚠️ ${today} 지정 이미지 없음 (${override}) — 자동 픽으로 fallback`);
+  }
+
   const files = fs.readdirSync(HOOKS_DIR)
     .filter((f) => /\.(jpe?g|png|webp)$/i.test(f))
     .sort();
