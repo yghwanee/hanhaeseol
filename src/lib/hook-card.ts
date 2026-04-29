@@ -227,7 +227,7 @@ export async function renderHookV7(imagePath: string, mm: string, dd: string, to
   const ctx = canvas.getContext("2d");
 
   const splitX = Math.round(W * 0.42);
-  const PAD = 50;
+  const PAD = 85;
   const contentW = splitX - PAD * 2;
   const centerX = PAD + contentW / 2;
 
