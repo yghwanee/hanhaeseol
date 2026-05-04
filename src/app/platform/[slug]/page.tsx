@@ -7,6 +7,7 @@ import { loadScheduleData, loadTeamRecords } from "@/lib/server-data";
 import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
 import PlatformGuideSection from "@/app/_components/PlatformGuideSection";
 import FaqSection from "@/app/_components/FaqSection";
+import WeekHighlights from "@/app/_components/WeekHighlights";
 
 export const revalidate = 600;
 
@@ -62,6 +63,16 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
       teamRecords={teamRecords}
       guideSlot={
         guide ? <PlatformGuideSection guide={guide} display={meta.display} /> : undefined
+      }
+      highlightsSlot={
+        <WeekHighlights
+          title={`이번 주 ${meta.display} 추천 매치`}
+          intro={`이번 주 ${meta.display}에서 시청 가능한 한국어 해설 우선 매치업입니다. 매일 자동으로 갱신됩니다.`}
+          schedules={schedules}
+          platform={meta.match}
+          max={5}
+          emptyText={`이번 주 예정된 ${meta.display} 중계가 없습니다.`}
+        />
       }
       faqSlot={
         faqs ? (

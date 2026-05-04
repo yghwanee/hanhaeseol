@@ -27,10 +27,11 @@ type Props = {
   schedules: Schedule[];
   teamRecords?: TeamRecordsMap;
   guideSlot?: React.ReactNode;
+  highlightsSlot?: React.ReactNode;
   faqSlot?: React.ReactNode;
 };
 
-export default function FilteredScheduleView({ meta, kind, schedules, teamRecords = {}, guideSlot, faqSlot }: Props) {
+export default function FilteredScheduleView({ meta, kind, schedules, teamRecords = {}, guideSlot, highlightsSlot, faqSlot }: Props) {
   const filtered = schedules
     .filter((s) => meta.match.includes(kind === "league" ? s.league : s.platform))
     .sort((a, b) => (a.date === b.date ? a.time.localeCompare(b.time) : a.date.localeCompare(b.date)));
@@ -66,6 +67,8 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
       </div>
 
       {guideSlot}
+
+      {highlightsSlot}
 
       <CoupangTopBannerOnly />
 

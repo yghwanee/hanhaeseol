@@ -4,6 +4,7 @@ import { GAME_DURATION_HOURS } from "@/lib/schedule-utils";
 import { loadScheduleData, loadTeamRecords } from "@/lib/server-data";
 import ScheduleClient from "./ScheduleClient";
 import { HomeAboutSection } from "./_components/HomeAboutSection";
+import WeekHighlights from "./_components/WeekHighlights";
 
 function buildSportsEventsJsonLd(schedules: Schedule[]) {
   const todayStr = new Date().toISOString().slice(0, 10);
@@ -73,6 +74,15 @@ export default function Home() {
       />
       <main>
         <ScheduleClient initialData={data} teamRecords={teamRecords} />
+        <section className="mx-auto mt-4 sm:mt-6 max-w-2xl px-3 sm:px-4">
+          <WeekHighlights
+            title="이번 주 한국어 해설 추천 매치"
+            intro="이번 주(오늘부터 7일 이내) 한국어 해설로 시청 가능한 주요 경기 미리보기입니다. 편성표 데이터에서 매일 자동 갱신되며, 종료된 경기는 제외됩니다."
+            schedules={data.schedules}
+            max={7}
+            emptyText="이번 주 한국어 해설 매치 정보가 아직 갱신되지 않았습니다."
+          />
+        </section>
         <HomeAboutSection />
       </main>
       <footer className="mt-8 border-t border-zinc-800 py-6 px-4 text-center text-xs text-gray-500">
