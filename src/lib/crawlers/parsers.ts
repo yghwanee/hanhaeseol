@@ -107,14 +107,16 @@ export function parseMatchTitle(title: string): {
       .trim();
 
   // 패턴1: [리그] 홈 vs 원정
+  // 대괄호 안이 단계명/회차(챔결1차, 8강1, 결승, 플레이오프 N차 등)이면 리그가 아니므로 스킵 → 패턴2로
+  const STAGE_RE = /^(?:챔결|챔피언결정|결승|준결승|\d+강|\d+차전?|\d+회차|플레이오프|PO|조별|예선)/;
   const bracketMatch = title.match(/\[(.+?)\]\s*(.+?)\s*(?:vs|VS|v)\s*(.+)/);
-  if (bracketMatch) {
+  if (bracketMatch && !STAGE_RE.test(bracketMatch[1].trim())) {
     const league = bracketMatch[1].trim();
     return {
       league: normalizeLeague(league),
       homeTeam: cleanTeam(bracketMatch[2]),
       awayTeam: cleanTeam(bracketMatch[3]),
-      sport: detectSport(league),
+      sport: detectSport(league) ?? detectSport(title),
     };
   }
 
