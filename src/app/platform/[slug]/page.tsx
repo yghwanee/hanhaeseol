@@ -4,6 +4,7 @@ import { PLATFORM_SEO, findPlatformBySlug } from "@/lib/slugs";
 import { PLATFORM_GUIDES } from "@/lib/platform-guides";
 import { PLATFORM_FAQS } from "@/lib/platform-faqs";
 import { loadScheduleData, loadTeamRecords } from "@/lib/server-data";
+import { buildSportsEventLd } from "@/lib/structured-data";
 import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
 import PlatformGuideSection from "@/app/_components/PlatformGuideSection";
 import FaqSection from "@/app/_components/FaqSection";
@@ -55,30 +56,42 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
   const schedules = loadScheduleData().schedules;
   const teamRecords = loadTeamRecords();
 
+  const pageUrl = `https://haeseol.com/platform/${meta.slug}`;
+  const matched = schedules.filter((s) => meta.match.includes(s.platform));
+  const sportsEventLd = buildSportsEventLd(matched, pageUrl);
+
   return (
-    <FilteredScheduleView
-      meta={meta}
-      kind="platform"
-      schedules={schedules}
-      teamRecords={teamRecords}
-      guideSlot={
-        guide ? <PlatformGuideSection guide={guide} display={meta.display} /> : undefined
-      }
-      highlightsSlot={
-        <WeekHighlights
-          title={`이번 주 ${meta.display} 추천 매치`}
-          intro={`이번 주 ${meta.display}에서 시청 가능한 한국어 해설 우선 매치업입니다. 매일 자동으로 갱신됩니다.`}
-          schedules={schedules}
-          platform={meta.match}
-          max={5}
-          emptyText={`이번 주 예정된 ${meta.display} 중계가 없습니다.`}
+    <>
+      {sportsEventLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: sportsEventLd }}
         />
-      }
-      faqSlot={
-        faqs ? (
-          <FaqSection title={`${meta.display} 자주 묻는 질문`} faqs={faqs} />
-        ) : undefined
-      }
-    />
+      )}
+      <FilteredScheduleView
+        meta={meta}
+        kind="platform"
+        schedules={schedules}
+        teamRecords={teamRecords}
+        guideSlot={
+          guide ? <PlatformGuideSection guide={guide} display={meta.display} /> : undefined
+        }
+        highlightsSlot={
+          <WeekHighlights
+            title={`이번 주 ${meta.display} 추천 매치`}
+            intro={`이번 주 ${meta.display}에서 시청 가능한 한국어 해설 우선 매치업입니다. 매일 자동으로 갱신됩니다.`}
+            schedules={schedules}
+            platform={meta.match}
+            max={5}
+            emptyText={`이번 주 예정된 ${meta.display} 중계가 없습니다.`}
+          />
+        }
+        faqSlot={
+          faqs ? (
+            <FaqSection title={`${meta.display} 자주 묻는 질문`} faqs={faqs} />
+          ) : undefined
+        }
+      />
+    </>
   );
 }

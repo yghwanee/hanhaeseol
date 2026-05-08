@@ -4,6 +4,7 @@ import { LEAGUE_SEO, findLeagueBySlug } from "@/lib/slugs";
 import { LEAGUE_GUIDES } from "@/lib/league-guides";
 import { LEAGUE_FAQS } from "@/lib/league-faqs";
 import { loadScheduleData, loadTeamRecords } from "@/lib/server-data";
+import { buildSportsEventLd } from "@/lib/structured-data";
 import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
 import LeagueGuideSection from "@/app/_components/LeagueGuideSection";
 import FaqSection from "@/app/_components/FaqSection";
@@ -55,30 +56,42 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
   const schedules = loadScheduleData().schedules;
   const teamRecords = loadTeamRecords();
 
+  const pageUrl = `https://haeseol.com/league/${meta.slug}`;
+  const matched = schedules.filter((s) => meta.match.includes(s.league));
+  const sportsEventLd = buildSportsEventLd(matched, pageUrl);
+
   return (
-    <FilteredScheduleView
-      meta={meta}
-      kind="league"
-      schedules={schedules}
-      teamRecords={teamRecords}
-      guideSlot={
-        guide ? <LeagueGuideSection guide={guide} display={meta.display} /> : undefined
-      }
-      highlightsSlot={
-        <WeekHighlights
-          title={`이번 주 ${meta.display} 미리보기`}
-          intro={`이번 주 ${meta.display} 한국어 해설 우선 추천 매치업입니다. 매일 자동으로 갱신되며, 종료된 경기는 제외됩니다.`}
-          schedules={schedules}
-          league={meta.match}
-          max={5}
-          emptyText={`이번 주 예정된 ${meta.display} 경기가 없습니다.`}
+    <>
+      {sportsEventLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: sportsEventLd }}
         />
-      }
-      faqSlot={
-        faqs ? (
-          <FaqSection title={`${meta.display} 자주 묻는 질문`} faqs={faqs} />
-        ) : undefined
-      }
-    />
+      )}
+      <FilteredScheduleView
+        meta={meta}
+        kind="league"
+        schedules={schedules}
+        teamRecords={teamRecords}
+        guideSlot={
+          guide ? <LeagueGuideSection guide={guide} display={meta.display} /> : undefined
+        }
+        highlightsSlot={
+          <WeekHighlights
+            title={`이번 주 ${meta.display} 미리보기`}
+            intro={`이번 주 ${meta.display} 한국어 해설 우선 추천 매치업입니다. 매일 자동으로 갱신되며, 종료된 경기는 제외됩니다.`}
+            schedules={schedules}
+            league={meta.match}
+            max={5}
+            emptyText={`이번 주 예정된 ${meta.display} 경기가 없습니다.`}
+          />
+        }
+        faqSlot={
+          faqs ? (
+            <FaqSection title={`${meta.display} 자주 묻는 질문`} faqs={faqs} />
+          ) : undefined
+        }
+      />
+    </>
   );
 }
