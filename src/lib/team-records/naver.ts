@@ -4,14 +4,16 @@ import { NAVER_TO_SCHEDULE_TEAM_NAME } from "./team-name-aliases";
 interface NaverSeasonTeamStat {
   teamName: string;
   lastFiveGames?: string | null;
-  // 야구/축구 필드
+  // 야구(KBO/MLB) 필드
   winGameCount?: number;
   loseGameCount?: number;
   drawnGameCount?: number;
   wra?: number;
-  // 농구/배구 필드
+  // 축구(EPL/라리가/세리에A/분데스리가/리그1/MLS/K리그/챔스/유로파/에레디비시) 및
+  // 농구(KBL/NBA)·배구(V리그) 공용 필드. 축구만 draws를 채워주고 농구/배구는 무승부 없음.
   wins?: number;
   losses?: number;
+  draws?: number;
   winRate?: number;
 }
 
@@ -91,15 +93,19 @@ export async function fetchNaverTeamRecords(
   const out: Record<string, TeamRecord> = {};
   for (const t of stats) {
     if (!t.teamName) continue;
-    // 종목별 필드 차이 흡수: 야구/축구는 winGameCount, 농구/배구는 wins.
+    // 종목별 필드 차이 흡수.
+    // - 야구(KBO/MLB): winGameCount/loseGameCount/drawnGameCount/wra
+    // - 축구(EPL 등): wins/losses/draws (wra 없음)
+    // - 농구/배구: wins/losses, 무승부 없음, winRate
     const win = t.winGameCount ?? t.wins ?? 0;
     const lose = t.loseGameCount ?? t.losses ?? 0;
+    const draw = t.drawnGameCount ?? t.draws;
     const wra = t.wra ?? t.winRate;
     const record: TeamRecord = {
       last5: t.lastFiveGames ?? "",
       win,
       lose,
-      ...(t.drawnGameCount ? { draw: t.drawnGameCount } : {}),
+      ...(typeof draw === "number" ? { draw } : {}),
       ...(typeof wra === "number" ? { wra } : {}),
     };
     // 네이버 원본 이름과 매핑된 schedule 이름을 모두 키로 등록.

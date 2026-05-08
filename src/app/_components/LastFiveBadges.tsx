@@ -2,11 +2,11 @@ import React from "react";
 
 function LastFiveBadgesInner({ form, mirror = false }: { form: string; mirror?: boolean }) {
   if (!form) return null;
-  // API 응답은 오래된→최근 순.
-  // mirror=false (원정/기본): 네이버 기본처럼 왼쪽=최근으로 뒤집어 표시.
-  // mirror=true (홈팀): VS 쪽으로 최근이 가도록 오른쪽=최근으로 표시 (뒤집지 않음).
+  // 네이버 lastFiveGames는 최근→오래된 순(검증됨: ESPN 결과와 1:1 매칭).
+  // mirror=false (원정/기본): 왼쪽=최근으로 그대로 표시.
+  // mirror=true (홈팀): VS 쪽(오른쪽)으로 최근이 가도록 뒤집어 표시.
   const sliced = form.slice(0, 5).split("");
-  const chars = mirror ? sliced : sliced.reverse();
+  const chars = mirror ? sliced.reverse() : sliced;
   const latestIdx = mirror ? chars.length - 1 : 0;
   return (
     <div
