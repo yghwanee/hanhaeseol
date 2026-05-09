@@ -90,6 +90,10 @@ export async function fetchNaverTeamRecords(
   const stats = r.seasonTeamStats ?? [];
 
   const aliasMap = NAVER_TO_SCHEDULE_TEAM_NAME[league] ?? {};
+  // 네이버 lastFiveGames 방향: 야구(KBO/MLB)는 [오래된→최근], 그 외는 [최근→오래된].
+  // continuousGameResult와 lastFiveGames의 끝/첫 글자를 교차검증한 결과(KBO 8/8, MLB 13/13, K리그 6/7).
+  // 소비측(LastFiveBadges)은 "첫 글자=최근"을 가정하므로 야구는 여기서 reverse해 통일한다.
+  const reverseLast5 = league === "KBO" || league === "MLB";
   const out: Record<string, TeamRecord> = {};
   for (const t of stats) {
     if (!t.teamName) continue;
@@ -101,8 +105,10 @@ export async function fetchNaverTeamRecords(
     const lose = t.loseGameCount ?? t.losses ?? 0;
     const draw = t.drawnGameCount ?? t.draws;
     const wra = t.wra ?? t.winRate;
+    const last5Raw = t.lastFiveGames ?? "";
+    const last5 = reverseLast5 ? last5Raw.split("").reverse().join("") : last5Raw;
     const record: TeamRecord = {
-      last5: t.lastFiveGames ?? "",
+      last5,
       win,
       lose,
       ...(typeof draw === "number" ? { draw } : {}),
