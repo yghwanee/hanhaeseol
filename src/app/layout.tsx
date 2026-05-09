@@ -93,6 +93,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
         <meta name="msvalidate.01" content="BAF456457E39D2FDB1A54BF8674FA2C6" />
         <meta name="google-site-verification" content="qe2Z2hjBEFJqqq_nEcLigG8aEiQdotP4_6jouBXE5aE" />
         <meta name="naver-site-verification" content="d9be7cb662b83910f698f22aea4b0267c91e53f4" />
+        <meta name="tiktok-developers-site-verification" content="xpOtjasZsbcE5xcNGtMBNq4AvaZoOgAp" />
         <meta name="google-adsense-account" content="ca-pub-3233121387897003" />
         {/* TODO: 다음(Daum) 검색등록 후 verification 값 입력 */}
         {/* <meta name="daum-site-verification" content="" /> */}
