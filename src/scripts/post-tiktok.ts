@@ -1,7 +1,7 @@
 // src/scripts/post-tiktok.ts
 import path from "node:path";
 import fs from "node:fs";
-import { execSync } from "node:child_process";
+import { execFileSync } from "node:child_process";
 import { getKstToday } from "@/lib/instagram";
 import { buildCaption } from "@/lib/instagram-api";
 import { OUT_DIR, readManifest } from "@/lib/manifest";
@@ -40,14 +40,14 @@ function persistRotatedRefreshToken(oldToken: string, newToken: string) {
     return;
   }
   try {
-    execSync(`gh secret set TIKTOK_REFRESH_TOKEN --body "${newToken}"`, {
+    execFileSync("gh", ["secret", "set", "TIKTOK_REFRESH_TOKEN", "--body", newToken], {
       stdio: "inherit",
       env: { ...process.env, GH_TOKEN: ghPat },
     });
     console.log(`🔁 refresh token 회전 → GitHub Secret 자동 갱신 완료`);
   } catch (e) {
     console.error(`❌ Secret 갱신 실패. 수동 갱신 필요:`, (e as Error).message);
-    console.error(`   새 TIKTOK_REFRESH_TOKEN: ${newToken}`);
+    console.error(`   (새 토큰 값은 보안상 로그에 출력 안 함 — workflow run logs 보호)`);
   }
 }
 
