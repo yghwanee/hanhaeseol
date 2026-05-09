@@ -36,7 +36,8 @@
 |------|------|
 | `src/lib/tiktok-api.ts` | OAuth 토큰 갱신, 영상 청크 업로드, 게시 상태 폴링 |
 | `src/scripts/post-tiktok.ts` | 게시 진입점 (`generated/instagram/reel.mp4` 읽어서 업로드) |
-| `src/scripts/get-tiktok-token.ts` | 1회용 OAuth 인증 헬퍼 (브라우저 로그인 → refresh_token 추출) |
+| `src/scripts/get-tiktok-token.ts` | 1회용 OAuth 인증 헬퍼 (authorize URL 출력 → 사용자가 콜백 페이지에서 복사한 code를 stdin으로 입력 → refresh_token 발급) |
+| `src/app/api/tiktok/callback/route.ts` | OAuth 콜백 페이지. `code` 쿼리 파라미터를 받아 화면에 크게 표시 (사용자가 복사해서 로컬 setup 스크립트에 입력). client_secret은 Vercel에 두지 않음 |
 | `src/scripts/check-tiktok-token.ts` | 토큰 헬스체크 (워크플로우에서 호출, 만료 임박 시 텔레그램 알림) |
 
 ### 수정되는 파일
@@ -124,15 +125,19 @@ TikTok은 `refresh_token` 사용 시 새 refresh_token을 발급하고 기존 �
 
 기존 `post-instagram-reel.ts`와 동일한 에러 패턴 (`process.exit(1)`).
 
-### `src/scripts/get-tiktok-token.ts`
+### `src/scripts/get-tiktok-token.ts` + `src/app/api/tiktok/callback/route.ts`
 
-1회용 로컬 스크립트. 사용자가 `npm run tiktok:setup` 실행하면:
-1. 콘솔에 OAuth authorize URL 출력 (state 파라미터 포함, redirect_uri는 `http://localhost:8080/callback`)
-2. 로컬 HTTP 서버 띄워서 callback 수신
-3. authorization code 받으면 `oauth/token/` POST해서 refresh_token 받음
-4. 콘솔에 `TIKTOK_REFRESH_TOKEN=<token>` 형태로 출력 → 사용자가 수동으로 GitHub Secrets에 등록
+TikTok이 redirect URI에 https만 허용하므로, 로컬 HTTP 서버 대신 **사이트 도메인의 API 라우트**를 콜백으로 사용. client_secret은 Vercel에 두지 않고 로컬에만 둠.
 
-`get-youtube-token.ts`와 같은 패턴.
+흐름:
+1. 사용자가 `npm run tiktok:setup` 실행
+2. 스크립트가 콘솔에 OAuth authorize URL 출력 (redirect_uri=`https://haeseol.com/api/tiktok/callback`, state 포함)
+3. 사용자가 브라우저로 URL 열고 TikTok 로그인 + "Authorize" 클릭
+4. TikTok이 `https://haeseol.com/api/tiktok/callback?code=...&state=...`로 리다이렉트
+5. 콜백 라우트가 페이지에 `code` 값을 크게 표시 (state 검증은 클라이언트 측에서 시각적으로)
+6. 사용자가 code를 복사해 터미널의 setup 스크립트에 stdin으로 붙여넣기
+7. 스크립트가 로컬에서 `oauth/token/` POST → refresh_token 발급
+8. 콘솔에 `TIKTOK_REFRESH_TOKEN=<token>` 출력 → 사용자가 수동으로 GitHub Secrets에 등록
 
 ### `src/scripts/check-tiktok-token.ts`
 
