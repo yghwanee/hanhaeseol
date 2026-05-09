@@ -59,3 +59,38 @@ export async function getAccessToken(): Promise<TokenResponse> {
     expiresIn: data.expires_in ?? 86400,
   };
 }
+
+export interface CreatorInfo {
+  creatorUsername?: string;
+  creatorNickname?: string;
+  privacyLevelOptions: string[];
+  maxVideoPostDurationSec: number;
+}
+
+export async function getCreatorInfo(accessToken: string): Promise<CreatorInfo> {
+  const res = await fetch(`${TIKTOK_API}/v2/post/publish/creator_info/query/`, {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${accessToken}`,
+      "Content-Type": "application/json; charset=UTF-8",
+    },
+  });
+  const data = (await res.json()) as {
+    data?: {
+      creator_username?: string;
+      creator_nickname?: string;
+      privacy_level_options?: string[];
+      max_video_post_duration_sec?: number;
+    };
+    error?: { code?: string; message?: string };
+  };
+  if (!res.ok || !data.data) {
+    throw new Error(`creator_info 조회 실패: ${JSON.stringify(data)}`);
+  }
+  return {
+    creatorUsername: data.data.creator_username,
+    creatorNickname: data.data.creator_nickname,
+    privacyLevelOptions: data.data.privacy_level_options ?? [],
+    maxVideoPostDurationSec: data.data.max_video_post_duration_sec ?? 60,
+  };
+}
