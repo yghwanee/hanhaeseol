@@ -37,10 +37,12 @@ export async function crawlMbcSports(date: string): Promise<Schedule[]> {
     // 생방송만 수집 (녹화 본방송 제외)
     if (item.liveYn !== "Y") continue;
     // pgmTitle: "1차전,KB스타즈 : 우리은행" → "KB스타즈 vs 우리은행"
+    // 단, 야구는 KBO 관례상 "원정 : 홈, 홈구장" (예: "삼성 : NC, 창원") 표기라
+    // 콜론을 그대로 두고 parseMatchTitle 패턴3에서 swap 처리하도록 한다.
     if (item.realYmd !== dateCompact) continue;
-    const subtitle = (item.pgmTitle ?? "")
-      .replace(/^\d+차전[,\s]*/g, "")
-      .replace(/\s*:\s*/g, " vs ");
+    const isBaseball = /KBO|MLB|메이저리그|퓨처스|고교야구|야구/.test(item.pgmName ?? "");
+    const subtitleRaw = (item.pgmTitle ?? "").replace(/^\d+차전[,\s]*/g, "");
+    const subtitle = isBaseball ? subtitleRaw : subtitleRaw.replace(/\s*:\s*/g, " vs ");
     const fullTitle = `${item.pgmName} ${subtitle}`.trim();
     if (!isActualMatch(fullTitle)) continue;
 

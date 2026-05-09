@@ -176,30 +176,36 @@ export function parseMatchTitle(title: string): {
     };
   }
 
-  // 패턴3: "리그명 홈팀:원정팀" (SPOTV TV 스타일)
+  // 패턴3: "리그명 X:Y" — 야구는 한국 방송 표기 관례상 "원정:홈"이라 swap.
+  // 검증: SPOTV 23/23, SPOTV2 25/26 venue 단서로 우측=홈 확정 (예: "KT:키움(고척)" → 고척=키움홈).
+  // 농구/배구/축구는 콜론 표기 사례 자체가 드물고 검증 미확정이라 좌=홈으로 그대로 둠.
   const colonMatch = cleaned.match(/^(.+?)\s+(.+?)\s*[:]\s*(.+?)(?:\s*\(.*\))?$/);
   if (colonMatch) {
     const league = colonMatch[1].trim();
-    const home = colonMatch[2].trim();
-    const away = cleanTeam(colonMatch[3]);
-    // "2026" + "KBO리그 한화" → league="KBO", home="한화"
-    const fullText = `${league} ${home}`;
+    const left = colonMatch[2].trim();
+    const right = cleanTeam(colonMatch[3]);
+    // "2026" + "KBO리그 한화" → league="KBO", 좌측에서 리그명 제거 → "한화"
+    const fullText = `${league} ${left}`;
     const leagueInHome = fullText.match(/^.*?(퓨처스리그|KBO리그\d?|K리그\d?|MLB|MLS|NBA|NPB|메이저리그|프로농구|여자프로농구|프로배구|V-?리그|신한\s*SOL\s*KBO리그|AFC\s+[\w\-]+(?:\s+여자)?\s+아시안컵|AFC\s+챔피언스리그|ACL|고교야구)\s+(.+)$/);
     if (leagueInHome) {
-      const homeRaw = cleanTeam(leagueInHome[2].trim()
+      const leftTeam = cleanTeam(leagueInHome[2].trim()
         .replace(/^(?:포스트시즌\s*)?(?:남자부\s*|여자부\s*)?(?:챔피언결정전\s*)?(?:플레이오프\s*)?(?:\d+차전\s*)?(?:\d+차\s*)?/, "").trim());
+      const sport = detectSport(fullText) ?? detectSport(title);
+      const swap = sport === "야구";
       return {
         league: normalizeLeague(leagueInHome[1]),
-        homeTeam: homeRaw,
-        awayTeam: away,
-        sport: detectSport(fullText) ?? detectSport(title),
+        homeTeam: swap ? right : leftTeam,
+        awayTeam: swap ? leftTeam : right,
+        sport,
       };
     }
+    const sport = detectSport(league) ?? detectSport(title);
+    const swap = sport === "야구";
     return {
       league: normalizeLeague(league),
-      homeTeam: home,
-      awayTeam: away,
-      sport: detectSport(league) ?? detectSport(title),
+      homeTeam: swap ? right : left,
+      awayTeam: swap ? left : right,
+      sport,
     };
   }
 
