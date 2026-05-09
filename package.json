@@ -29,7 +29,10 @@
     "yt:setup": "tsx src/scripts/get-youtube-token.ts",
     "yt:check": "tsx src/scripts/check-youtube-token.ts",
     "post:youtube": "tsx src/scripts/post-youtube-shorts.ts",
-    "telegram:failure": "tsx src/scripts/telegram-failure.ts"
+    "telegram:failure": "tsx src/scripts/telegram-failure.ts",
+    "tiktok:setup": "tsx src/scripts/get-tiktok-token.ts",
+    "tiktok:check": "tsx src/scripts/check-tiktok-token.ts",
+    "post:tiktok": "tsx src/scripts/post-tiktok.ts"
   },
   "dependencies": {
     "next": "14.2.35",
