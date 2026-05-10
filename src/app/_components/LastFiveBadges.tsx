@@ -48,10 +48,10 @@ function LastFiveBadgesInner({
     <span
       aria-label={`${streak.count}${streak.approx ? "경기 이상 " : ""}${streak.type === "W" ? "연승" : "연패"}`}
       title={streak.approx ? "최근 5경기 기준 추정값 (실제로는 더 길 수 있음)" : undefined}
-      className={`inline-flex h-3 sm:h-3.5 items-center justify-center rounded-[3px] px-1 text-[8px] sm:text-[9px] font-bold leading-none ring-1 ${
+      className={`inline-flex items-center rounded-[3px] px-1 py-0.5 text-[10px] sm:text-[11px] font-bold leading-none ring-1 ${
         streak.type === "W"
-          ? "bg-emerald-500/15 text-emerald-300 ring-emerald-500/30"
-          : "bg-rose-500/15 text-rose-300 ring-rose-500/30"
+          ? "text-emerald-400 ring-emerald-500/40"
+          : "text-rose-400 ring-rose-500/40"
       }`}
     >
       {streak.count}
