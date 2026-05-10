@@ -4,6 +4,8 @@ import { NAVER_TO_SCHEDULE_TEAM_NAME } from "./team-name-aliases";
 interface NaverSeasonTeamStat {
   teamName: string;
   lastFiveGames?: string | null;
+  /** 정확한 연속 결과. "6승"/"3패"/"1무" 형식. KBO/MLB/K리그(1·2)에만 채워지고 그 외 리그는 null. */
+  continuousGameResult?: string | null;
   // 야구(KBO/MLB) 필드
   winGameCount?: number;
   loseGameCount?: number;
@@ -15,6 +17,17 @@ interface NaverSeasonTeamStat {
   losses?: number;
   draws?: number;
   winRate?: number;
+}
+
+/** "6승"/"3패"/"1무" → { count, type }. 파싱 실패하거나 null이면 undefined. */
+function parseContinuousGameResult(
+  raw?: string | null,
+): TeamRecord["streak"] | undefined {
+  if (!raw) return undefined;
+  const m = raw.match(/^(\d+)(승|패|무)$/);
+  if (!m) return undefined;
+  const type = m[2] === "승" ? "W" : m[2] === "패" ? "L" : "D";
+  return { count: parseInt(m[1], 10), type };
 }
 
 interface NaverApiResponse<T> {
@@ -107,12 +120,14 @@ export async function fetchNaverTeamRecords(
     const wra = t.wra ?? t.winRate;
     const last5Raw = t.lastFiveGames ?? "";
     const last5 = reverseLast5 ? last5Raw.split("").reverse().join("") : last5Raw;
+    const streak = parseContinuousGameResult(t.continuousGameResult);
     const record: TeamRecord = {
       last5,
       win,
       lose,
       ...(typeof draw === "number" ? { draw } : {}),
       ...(typeof wra === "number" ? { wra } : {}),
+      ...(streak ? { streak } : {}),
     };
     // 네이버 원본 이름과 매핑된 schedule 이름을 모두 키로 등록.
     // schedule.json이 같은 팀을 여러 표기로 쓰는 경우(예: "AT.마드리드"와 "아틀레티코 마드리드")를 모두 커버.

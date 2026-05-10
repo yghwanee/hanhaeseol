@@ -113,12 +113,16 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                           <div className="mt-2.5 flex items-start justify-center gap-2 text-sm sm:text-base">
                             <div className="flex-1 min-w-0 flex flex-col items-end gap-1">
                               <span className="w-full text-right font-semibold text-zinc-100 truncate">{s.homeTeam}</span>
-                              {homeRec?.last5 && <LastFiveBadges form={homeRec.last5} mirror />}
+                              {homeRec?.last5 && (
+                                <LastFiveBadges form={homeRec.last5} streak={homeRec.streak} mirror />
+                              )}
                             </div>
                             <span className="shrink-0 mt-1 text-[10px] font-bold text-zinc-500">VS</span>
                             <div className="flex-1 min-w-0 flex flex-col items-start gap-1">
                               <span className="w-full text-left font-semibold text-zinc-100 truncate">{s.awayTeam}</span>
-                              {awayRec?.last5 && <LastFiveBadges form={awayRec.last5} />}
+                              {awayRec?.last5 && (
+                                <LastFiveBadges form={awayRec.last5} streak={awayRec.streak} />
+                              )}
                             </div>
                           </div>
                         ) : (

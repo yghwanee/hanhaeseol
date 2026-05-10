@@ -40,14 +40,18 @@ function ScheduleCardInner({
             <span className="w-full text-right font-semibold text-zinc-100 truncate">
               <Highlight text={schedule.homeTeam} query={query} />
             </span>
-            {homeRecord?.last5 && <LastFiveBadges form={homeRecord.last5} mirror />}
+            {homeRecord?.last5 && (
+              <LastFiveBadges form={homeRecord.last5} streak={homeRecord.streak} mirror />
+            )}
           </div>
           <span className="shrink-0 mt-1 text-[10px] sm:text-xs font-bold text-zinc-500">VS</span>
           <div className="flex-1 min-w-0 flex flex-col items-start gap-1">
             <span className="w-full text-left font-semibold text-zinc-100 truncate">
               <Highlight text={schedule.awayTeam} query={query} />
             </span>
-            {awayRecord?.last5 && <LastFiveBadges form={awayRecord.last5} />}
+            {awayRecord?.last5 && (
+              <LastFiveBadges form={awayRecord.last5} streak={awayRecord.streak} />
+            )}
           </div>
         </div>
       ) : (

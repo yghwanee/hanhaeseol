@@ -9,6 +9,8 @@ export interface TeamRecord {
   draw?: number;
   /** 승률 (예: 0.68) */
   wra?: number;
+  /** 정확한 연속 결과. 네이버 continuousGameResult에서 파싱 (KBO/MLB/K리그만 채워짐). 없으면 last5에서 추정. */
+  streak?: { count: number; type: "W" | "L" | "D" };
 }
 
 /** 리그명 → (팀명 → 기록). 팀명은 schedule.json과 같은 한국어 표기를 사용한다. */
