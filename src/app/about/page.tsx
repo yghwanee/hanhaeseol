@@ -7,6 +7,7 @@ import { StickyHeader } from "../_components/StickyHeader";
 export const metadata: Metadata = {
   title: "한해설 소개 - 스포츠 한국어 해설 편성표",
   description: "한해설은 10개 스포츠 중계 플랫폼의 편성표를 모아 한국어 해설 여부를 한눈에 확인할 수 있는 서비스입니다.",
+  alternates: { canonical: "https://haeseol.com/about" },
 };
 
 export default function AboutPage() {

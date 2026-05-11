@@ -7,6 +7,7 @@ import { StickyHeader } from "../_components/StickyHeader";
 export const metadata: Metadata = {
   title: "이용약관 - 한해설",
   description: "한해설 서비스 이용약관",
+  alternates: { canonical: "https://haeseol.com/terms" },
 };
 
 export default function TermsPage() {

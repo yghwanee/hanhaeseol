@@ -7,6 +7,7 @@ import { StickyHeader } from "../_components/StickyHeader";
 export const metadata: Metadata = {
   title: "개인정보처리방침 - 한해설",
   description: "한해설 개인정보처리방침",
+  alternates: { canonical: "https://haeseol.com/privacy" },
 };
 
 export default function PrivacyPage() {
