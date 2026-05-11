@@ -3,7 +3,35 @@ import fs from "fs/promises";
 import path from "path";
 import { fetchNaverTeamRecords, CATEGORY_ID } from "../lib/team-records/naver";
 import { fetchEspnNbaRecords } from "../lib/team-records/espn-nba";
+import { lookupTeamRecord } from "../lib/team-records/lookup";
+import scheduleData from "../data/schedule.json";
 import type { TeamRecord, TeamRecordsData, TeamRecordsMap } from "../types/team-record";
+
+/** schedule.json의 모든 팀명을 records 키와 대조해 매핑이 누락된 팀을 로그로 남긴다.
+ *  알림이 아닌 흔적용 — 다음 유지보수 때 GitHub Actions 로그에서 발견하기 위함. */
+function reportMissingMappings(records: TeamRecordsMap) {
+  const supported = new Set(Object.keys(records));
+  const today = new Date().toISOString().slice(0, 10);
+  const missing: Record<string, Set<string>> = {};
+  for (const s of scheduleData.schedules as { date: string; league: string; homeTeam: string; awayTeam: string }[]) {
+    if (s.date < today) continue;
+    if (!supported.has(s.league)) continue;
+    for (const t of [s.homeTeam, s.awayTeam]) {
+      if (!lookupTeamRecord(records, s.league, t)) {
+        (missing[s.league] = missing[s.league] ?? new Set()).add(t);
+      }
+    }
+  }
+  const total = Object.values(missing).reduce((a, s) => a + s.size, 0);
+  if (total === 0) {
+    console.log("매핑 검증: 누락 없음");
+    return;
+  }
+  console.warn(`[경고] 매핑 누락 ${total}건 — team-name-aliases.ts에 추가 필요:`);
+  for (const [lg, set] of Object.entries(missing)) {
+    console.warn(`  ${lg}: ${[...set].join(", ")}`);
+  }
+}
 
 /** 네이버 NBA team-rank가 정규시즌 종료 후엔 비어있으므로(플레이오프 미지원),
  *  네이버 응답을 ESPN 응답으로 보강한다. ESPN 키(한국어 풀명)와 네이버 키(있다면)를
@@ -51,6 +79,8 @@ async function main() {
     lastUpdated: new Date().toISOString(),
     records,
   };
+
+  reportMissingMappings(records);
 
   const jsonStr = JSON.stringify(data, null, 2);
   const outPath = path.join(process.cwd(), "src/data/team-records.json");

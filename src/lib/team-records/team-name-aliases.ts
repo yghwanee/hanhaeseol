@@ -63,6 +63,7 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   },
 
   세리에A: {
+    "로마": "AS 로마",
     "밀란": "AC 밀란",
     "베로나": "헬라스 베로나",
     "사수올로": "사수올로 칼초",
@@ -95,13 +96,18 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   MLS: {
     "로스앤젤레스 FC": "LAFC",
     "샌디에고 FC": ["샌디에이고 FC", "샌디에이고"],
-    "세인트루이스 시티": "세인트루이스 시티 FC",
+    "세인트루이스 시티": ["세인트루이스 시티 FC", "세인트루이스"],
     "올랜도 시티": "올랜도 시티 SC",
     "인터 마이애미": "인터 마이애미 CF",
     "리얼 솔트 레이크": "레알 솔트레이크",
     "콜롬버스 크루": "콜럼버스 크루",
     "스포팅 KC": "스포팅 캔자스시티",
     "밴쿠버 화이트캡스": "밴쿠버 화이트캡스 FC",
+    "휴스턴 디나모": ["휴스턴", "휴스턴 다이너모 FC"],
+    "내쉬빌 SC": "내슈빌 SC",
+    "시애틀 사운더스": "시애틀 사운더스 FC",
+    "SJ 어스퀘이크": "산호세 어스퀘이크스",
+    "뉴욕 레드 불스": "레드불 뉴욕",
   },
 
   K리그: {},
@@ -135,6 +141,7 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
 
   에레디비시: {
     "포르투나 시타르트": "포르튀나",
+    "PEC 즈볼레": "즈볼러",
   },
 
   KBL: {},

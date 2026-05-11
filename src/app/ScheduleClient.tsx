@@ -4,6 +4,7 @@ import React, { useState, useMemo, useEffect, useRef, useCallback } from "react"
 import Image from "next/image";
 import { ScheduleData } from "@/types/schedule";
 import { TeamRecordsMap } from "@/types/team-record";
+import { lookupTeamRecord } from "@/lib/team-records/lookup";
 import { getUpcomingDates, getTodayString } from "@/lib/schedule-utils";
 import { StickyHeader } from "./_components/StickyHeader";
 import { SPORTS, PLATFORM_LIST } from "./_components/constants";
@@ -380,8 +381,8 @@ export default function ScheduleClient({
                 <ScheduleCard
                   schedule={schedule}
                   query={searchQuery}
-                  homeRecord={teamRecords[schedule.league]?.[schedule.homeTeam]}
-                  awayRecord={teamRecords[schedule.league]?.[schedule.awayTeam]}
+                  homeRecord={lookupTeamRecord(teamRecords, schedule.league, schedule.homeTeam)}
+                  awayRecord={lookupTeamRecord(teamRecords, schedule.league, schedule.awayTeam)}
                 />
               </React.Fragment>
             );

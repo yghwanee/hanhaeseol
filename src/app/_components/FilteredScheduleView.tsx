@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Schedule } from "@/types/schedule";
 import { TeamRecordsMap } from "@/types/team-record";
+import { lookupTeamRecord } from "@/lib/team-records/lookup";
 import { LEAGUE_SEO, PLATFORM_SEO, SeoMeta } from "@/lib/slugs";
 import { isGameFinished, formatDateHeader } from "@/lib/schedule-utils";
 import { CoupangTopBannerOnly } from "@/app/_components/CoupangBanners";
@@ -94,8 +95,8 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                 <h3 className="mb-2 text-sm font-semibold text-zinc-300">{formatDateHeader(date)}</h3>
                 <div className="space-y-2">
                   {grouped[date].map((s) => {
-                    const homeRec = teamRecords[s.league]?.[s.homeTeam];
-                    const awayRec = teamRecords[s.league]?.[s.awayTeam];
+                    const homeRec = lookupTeamRecord(teamRecords, s.league, s.homeTeam);
+                    const awayRec = lookupTeamRecord(teamRecords, s.league, s.awayTeam);
                     return (
                     <article
                       key={s.id}
