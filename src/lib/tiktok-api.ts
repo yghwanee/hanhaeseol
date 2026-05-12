@@ -126,6 +126,9 @@ async function initFileUpload(
       disable_duet: p.disableDuet ?? false,
       disable_comment: p.disableComment ?? false,
       disable_stitch: p.disableStitch ?? false,
+      // AI 합성 이미지(ChatGPT 생성 후킹 컷)가 영상에 포함됨.
+      // 게시 후 변경 불가. 미부착 상태에서 자동 감지되면 정책 위반.
+      is_aigc: true,
     },
     source_info: {
       source: "FILE_UPLOAD",

@@ -73,6 +73,9 @@ export async function uploadShorts(p: UploadShortsParams): Promise<string> {
     status: {
       privacyStatus: p.privacyStatus ?? "public",
       selfDeclaredMadeForKids: p.madeForKids ?? false,
+      // AI 합성 이미지(ChatGPT 생성 후킹 컷)가 영상에 포함됨.
+      // 2024-10-30 YouTube Data API v3에 도입된 필드. 미부착 시 정책 위반.
+      containsSyntheticMedia: true,
     },
   };
 
