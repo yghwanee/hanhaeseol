@@ -173,8 +173,12 @@ export function StandingsView({ data }: { data: StandingsData }) {
           })}
           <div className="shrink-0 w-4" />
         </div>
-        {/* Scroll indicator bar */}
-        <div className="mt-3 mx-auto w-28 sm:w-32 h-[3px] rounded-full bg-zinc-800/60">
+        {/* Scroll indicator bar — 야구는 리그가 2개라 스크롤 자체가 안 생겨서 숨김 */}
+        <div
+          className={`mt-3 mx-auto w-28 sm:w-32 h-[3px] rounded-full bg-zinc-800/60 ${
+            sport === "baseball" ? "hidden" : ""
+          }`}
+        >
           <div
             ref={indicatorRef}
             className="h-full rounded-full bg-zinc-500/80"
