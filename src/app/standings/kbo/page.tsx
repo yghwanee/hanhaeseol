@@ -3,10 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import standingsData from "@/data/standings.json";
 import type { StandingsData } from "@/types/standings";
-import { KboTable } from "../_components/KboTable";
+import { BaseballTable } from "../_components/BaseballTable";
 import { StickyHeader } from "../../_components/StickyHeader";
 
-const data = standingsData as StandingsData;
+const data = standingsData as unknown as StandingsData;
 
 export const metadata: Metadata = {
   title: "KBO 순위 - 한국 프로야구 팀 순위표 | 한해설",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
 };
 
 export default function KboStandingsPage() {
-  const kbo = data.kbo;
+  const kbo = data.baseball.find((l) => l.id === "kbo") ?? null;
 
   return (
     <main className="min-h-screen text-gray-100">
@@ -104,7 +104,7 @@ export default function KboStandingsPage() {
           {!kbo || kbo.teams.length === 0 ? (
             <p className="text-zinc-400">KBO 순위 데이터를 불러오지 못했습니다.</p>
           ) : (
-            <KboTable teams={kbo.teams} />
+            <BaseballTable teams={kbo.teams} />
           )}
         </div>
 

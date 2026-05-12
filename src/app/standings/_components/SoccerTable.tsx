@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import type { EplStanding } from "@/types/standings";
+import type { SoccerStanding } from "@/types/standings";
 import { Last5Dots } from "./Last5Dots";
 import { StreakChip } from "./StreakChip";
 import { rankStatusStyle, uniqueRankStatuses } from "./rankStatus";
@@ -36,7 +36,7 @@ const COLS: Col[] = [
   { key: "points", label: "승점" },
 ];
 
-export function EplTable({ teams }: { teams: EplStanding[] }) {
+export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
   const [sortKey, setSortKey] = useState<SortKey>("rank");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
 

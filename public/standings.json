@@ -1,553 +1,5405 @@
 {
-  "epl": {
-    "season": "lji9",
-    "teams": [
-      {
-        "rank": 1,
-        "teamName": "아스널",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/1006.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 24,
-        "draws": 7,
-        "losses": 5,
-        "goals": 68,
-        "goalsConceded": 26,
-        "goalsDifference": 42,
-        "points": 79,
-        "lastFive": "WWWLL",
-        "streak": {
-          "type": "W",
-          "count": 3
+  "soccer": [
+    {
+      "id": "epl",
+      "name": "프리미어리그",
+      "scheduleSlug": "epl",
+      "season": "lji9",
+      "teams": [
+        {
+          "rank": 1,
+          "teamName": "아스널",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/1006.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 24,
+          "draws": 7,
+          "losses": 5,
+          "goals": 68,
+          "goalsConceded": 26,
+          "goalsDifference": 42,
+          "points": 79,
+          "lastFive": "WWWLL",
+          "streak": {
+            "type": "W",
+            "count": 3
+          },
+          "rankStatus": "UEFA Champions League"
         },
-        "rankStatus": "UEFA Champions League"
-      },
-      {
-        "rank": 2,
-        "teamName": "맨체스터 시티",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/11.png?type=f92_88",
-        "matchesPlayed": 35,
-        "wins": 22,
-        "draws": 8,
-        "losses": 5,
-        "goals": 72,
-        "goalsConceded": 32,
-        "goalsDifference": 40,
-        "points": 74,
-        "lastFive": "WDWWW",
-        "streak": {
-          "type": "W",
-          "count": 1
+        {
+          "rank": 2,
+          "teamName": "맨체스터 시티",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/11.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 22,
+          "draws": 8,
+          "losses": 5,
+          "goals": 72,
+          "goalsConceded": 32,
+          "goalsDifference": 40,
+          "points": 74,
+          "lastFive": "WDWWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
         },
-        "rankStatus": "UEFA Champions League"
-      },
-      {
-        "rank": 3,
-        "teamName": "맨체스터 유나이티드",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/12.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 18,
-        "draws": 11,
-        "losses": 7,
-        "goals": 63,
-        "goalsConceded": 48,
-        "goalsDifference": 15,
-        "points": 65,
-        "lastFive": "DWWWL",
-        "streak": {
-          "type": "D",
-          "count": 1
+        {
+          "rank": 3,
+          "teamName": "맨체스터 유나이티드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/12.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 18,
+          "draws": 11,
+          "losses": 7,
+          "goals": 63,
+          "goalsConceded": 48,
+          "goalsDifference": 15,
+          "points": 65,
+          "lastFive": "DWWWL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
         },
-        "rankStatus": "UEFA Champions League"
-      },
-      {
-        "rank": 4,
-        "teamName": "리버풀",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/9.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 17,
-        "draws": 8,
-        "losses": 11,
-        "goals": 60,
-        "goalsConceded": 48,
-        "goalsDifference": 12,
-        "points": 59,
-        "lastFive": "DLWWW",
-        "streak": {
-          "type": "D",
-          "count": 1
+        {
+          "rank": 4,
+          "teamName": "리버풀",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/9.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 17,
+          "draws": 8,
+          "losses": 11,
+          "goals": 60,
+          "goalsConceded": 48,
+          "goalsDifference": 12,
+          "points": 59,
+          "lastFive": "DLWWW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
         },
-        "rankStatus": "UEFA Champions League"
-      },
-      {
-        "rank": 5,
-        "teamName": "애스턴 빌라",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/2.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 17,
-        "draws": 8,
-        "losses": 11,
-        "goals": 50,
-        "goalsConceded": 46,
-        "goalsDifference": 4,
-        "points": 59,
-        "lastFive": "DLLWD",
-        "streak": {
-          "type": "D",
-          "count": 1
+        {
+          "rank": 5,
+          "teamName": "애스턴 빌라",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/2.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 17,
+          "draws": 8,
+          "losses": 11,
+          "goals": 50,
+          "goalsConceded": 46,
+          "goalsDifference": 4,
+          "points": 59,
+          "lastFive": "DLLWD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
         },
-        "rankStatus": "UEFA Champions League"
-      },
-      {
-        "rank": 6,
-        "teamName": "본머스",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/23.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 13,
-        "draws": 16,
-        "losses": 7,
-        "goals": 56,
-        "goalsConceded": 52,
-        "goalsDifference": 4,
-        "points": 55,
-        "lastFive": "WWDWW",
-        "streak": {
-          "type": "W",
-          "count": 2
+        {
+          "rank": 6,
+          "teamName": "본머스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/23.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 13,
+          "draws": 16,
+          "losses": 7,
+          "goals": 56,
+          "goalsConceded": 52,
+          "goalsDifference": 4,
+          "points": 55,
+          "lastFive": "WWDWW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": "UEFA Europa League"
         },
-        "rankStatus": "UEFA Europa League"
-      },
-      {
-        "rank": 7,
-        "teamName": "브라이턴 앤 호브",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/6795.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 14,
-        "draws": 11,
-        "losses": 11,
-        "goals": 52,
-        "goalsConceded": 42,
-        "goalsDifference": 10,
-        "points": 53,
-        "lastFive": "WLWDW",
-        "streak": {
-          "type": "W",
-          "count": 1
+        {
+          "rank": 7,
+          "teamName": "브라이턴 앤 호브",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/6795.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 14,
+          "draws": 11,
+          "losses": 11,
+          "goals": 52,
+          "goalsConceded": 42,
+          "goalsDifference": 10,
+          "points": 53,
+          "lastFive": "WLWDW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
         },
-        "rankStatus": null
-      },
-      {
-        "rank": 8,
-        "teamName": "브렌트퍼드",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/48.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 14,
-        "draws": 9,
-        "losses": 13,
-        "goals": 52,
-        "goalsConceded": 49,
-        "goalsDifference": 3,
-        "points": 51,
-        "lastFive": "LWLDD",
-        "streak": {
-          "type": "L",
-          "count": 1
+        {
+          "rank": 8,
+          "teamName": "브렌트퍼드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/48.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 14,
+          "draws": 9,
+          "losses": 13,
+          "goals": 52,
+          "goalsConceded": 49,
+          "goalsDifference": 3,
+          "points": 51,
+          "lastFive": "LWLDD",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
         },
-        "rankStatus": null
-      },
-      {
-        "rank": 9,
-        "teamName": "첼시",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/4.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 13,
-        "draws": 10,
-        "losses": 13,
-        "goals": 55,
-        "goalsConceded": 49,
-        "goalsDifference": 6,
-        "points": 49,
-        "lastFive": "DLLLL",
-        "streak": {
-          "type": "D",
-          "count": 1
+        {
+          "rank": 9,
+          "teamName": "첼시",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/4.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 13,
+          "draws": 10,
+          "losses": 13,
+          "goals": 55,
+          "goalsConceded": 49,
+          "goalsDifference": 6,
+          "points": 49,
+          "lastFive": "DLLLL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
         },
-        "rankStatus": null
-      },
-      {
-        "rank": 10,
-        "teamName": "에버턴",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/8.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 13,
-        "draws": 10,
-        "losses": 13,
-        "goals": 46,
-        "goalsConceded": 46,
-        "goalsDifference": 0,
-        "points": 49,
-        "lastFive": "DDLLD",
-        "streak": {
-          "type": "D",
-          "count": 2
+        {
+          "rank": 10,
+          "teamName": "에버턴",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/8.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 13,
+          "draws": 10,
+          "losses": 13,
+          "goals": 46,
+          "goalsConceded": 46,
+          "goalsDifference": 0,
+          "points": 49,
+          "lastFive": "DDLLD",
+          "streak": {
+            "type": "D",
+            "count": 2
+          },
+          "rankStatus": null
         },
-        "rankStatus": null
-      },
-      {
-        "rank": 11,
-        "teamName": "풀럼",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/55.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 14,
-        "draws": 6,
-        "losses": 16,
-        "goals": 44,
-        "goalsConceded": 50,
-        "goalsDifference": -6,
-        "points": 48,
-        "lastFive": "LLWDL",
-        "streak": {
-          "type": "L",
-          "count": 2
+        {
+          "rank": 11,
+          "teamName": "풀럼",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/55.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 14,
+          "draws": 6,
+          "losses": 16,
+          "goals": 44,
+          "goalsConceded": 50,
+          "goalsDifference": -6,
+          "points": 48,
+          "lastFive": "LLWDL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": null
         },
-        "rankStatus": null
-      },
-      {
-        "rank": 12,
-        "teamName": "선덜랜드",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/TTwjJb.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 12,
-        "draws": 12,
-        "losses": 12,
-        "goals": 37,
-        "goalsConceded": 46,
-        "goalsDifference": -9,
-        "points": 48,
-        "lastFive": "DDLLW",
-        "streak": {
-          "type": "D",
-          "count": 2
+        {
+          "rank": 12,
+          "teamName": "선덜랜드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/TTwjJb.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 12,
+          "draws": 12,
+          "losses": 12,
+          "goals": 37,
+          "goalsConceded": 46,
+          "goalsDifference": -9,
+          "points": 48,
+          "lastFive": "DDLLW",
+          "streak": {
+            "type": "D",
+            "count": 2
+          },
+          "rankStatus": null
         },
-        "rankStatus": null
-      },
-      {
-        "rank": 13,
-        "teamName": "뉴캐슬 유나이티드",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/31.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 13,
-        "draws": 7,
-        "losses": 16,
-        "goals": 50,
-        "goalsConceded": 52,
-        "goalsDifference": -2,
-        "points": 46,
-        "lastFive": "DWLLL",
-        "streak": {
-          "type": "D",
-          "count": 1
+        {
+          "rank": 13,
+          "teamName": "뉴캐슬 유나이티드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/31.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 13,
+          "draws": 7,
+          "losses": 16,
+          "goals": 50,
+          "goalsConceded": 52,
+          "goalsDifference": -2,
+          "points": 46,
+          "lastFive": "DWLLL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
         },
-        "rankStatus": null
-      },
-      {
-        "rank": 14,
-        "teamName": "리즈 유나이티드",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/Sa0VaD.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 10,
-        "draws": 14,
-        "losses": 12,
-        "goals": 48,
-        "goalsConceded": 53,
-        "goalsDifference": -5,
-        "points": 44,
-        "lastFive": "DWDWW",
-        "streak": {
-          "type": "D",
-          "count": 1
+        {
+          "rank": 14,
+          "teamName": "리즈 유나이티드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/Sa0VaD.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 10,
+          "draws": 14,
+          "losses": 12,
+          "goals": 48,
+          "goalsConceded": 53,
+          "goalsDifference": -5,
+          "points": 44,
+          "lastFive": "DWDWW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
         },
-        "rankStatus": null
-      },
-      {
-        "rank": 15,
-        "teamName": "크리스털 팰리스",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/5.png?type=f92_88",
-        "matchesPlayed": 35,
-        "wins": 11,
-        "draws": 11,
-        "losses": 13,
-        "goals": 38,
-        "goalsConceded": 44,
-        "goalsDifference": -6,
-        "points": 44,
-        "lastFive": "DLLDW",
-        "streak": {
-          "type": "D",
-          "count": 1
+        {
+          "rank": 15,
+          "teamName": "크리스털 팰리스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/5.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 11,
+          "draws": 11,
+          "losses": 13,
+          "goals": 38,
+          "goalsConceded": 44,
+          "goalsDifference": -6,
+          "points": 44,
+          "lastFive": "DLLDW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
         },
-        "rankStatus": null
-      },
-      {
-        "rank": 16,
-        "teamName": "노팅엄 포레스트",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/15.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 11,
-        "draws": 10,
-        "losses": 15,
-        "goals": 45,
-        "goalsConceded": 47,
-        "goalsDifference": -2,
-        "points": 43,
-        "lastFive": "DWWWD",
-        "streak": {
-          "type": "D",
-          "count": 1
+        {
+          "rank": 16,
+          "teamName": "노팅엄 포레스트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/15.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 11,
+          "draws": 10,
+          "losses": 15,
+          "goals": 45,
+          "goalsConceded": 47,
+          "goalsDifference": -2,
+          "points": 43,
+          "lastFive": "DWWWD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
         },
-        "rankStatus": null
-      },
-      {
-        "rank": 17,
-        "teamName": "토트넘 홋스퍼",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/19.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 9,
-        "draws": 11,
-        "losses": 16,
-        "goals": 46,
-        "goalsConceded": 55,
-        "goalsDifference": -9,
-        "points": 38,
-        "lastFive": "DWWDL",
-        "streak": {
-          "type": "D",
-          "count": 1
+        {
+          "rank": 17,
+          "teamName": "토트넘 홋스퍼",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/19.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 9,
+          "draws": 11,
+          "losses": 16,
+          "goals": 46,
+          "goalsConceded": 55,
+          "goalsDifference": -9,
+          "points": 38,
+          "lastFive": "DWWDL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
         },
-        "rankStatus": null
-      },
-      {
-        "rank": 18,
-        "teamName": "웨스트햄 유나이티드",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/43.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 9,
-        "draws": 9,
-        "losses": 18,
-        "goals": 42,
-        "goalsConceded": 62,
-        "goalsDifference": -20,
-        "points": 36,
-        "lastFive": "LLWDW",
-        "streak": {
-          "type": "L",
-          "count": 2
+        {
+          "rank": 18,
+          "teamName": "웨스트햄 유나이티드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/43.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 9,
+          "draws": 9,
+          "losses": 18,
+          "goals": 42,
+          "goalsConceded": 62,
+          "goalsDifference": -20,
+          "points": 36,
+          "lastFive": "LLWDW",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": "Relegation"
         },
-        "rankStatus": "Relegation"
-      },
-      {
-        "rank": 19,
-        "teamName": "번리",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/QqFyIw.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 4,
-        "draws": 9,
-        "losses": 23,
-        "goals": 37,
-        "goalsConceded": 73,
-        "goalsDifference": -36,
-        "points": 21,
-        "lastFive": "DLLLL",
-        "streak": {
-          "type": "D",
-          "count": 1
+        {
+          "rank": 19,
+          "teamName": "번리",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/QqFyIw.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 4,
+          "draws": 9,
+          "losses": 23,
+          "goals": 37,
+          "goalsConceded": 73,
+          "goalsDifference": -36,
+          "points": 21,
+          "lastFive": "DLLLL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Relegation"
         },
-        "rankStatus": "Relegation"
-      },
-      {
-        "rank": 20,
-        "teamName": "울버햄튼 원더러스",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/44.png?type=f92_88",
-        "matchesPlayed": 36,
-        "wins": 3,
-        "draws": 9,
-        "losses": 24,
-        "goals": 25,
-        "goalsConceded": 66,
-        "goalsDifference": -41,
-        "points": 18,
-        "lastFive": "LDLLL",
-        "streak": {
-          "type": "L",
-          "count": 1
-        },
-        "rankStatus": "Relegation"
-      }
-    ]
-  },
-  "kbo": {
-    "season": "2026",
-    "teams": [
-      {
-        "rank": 1,
-        "teamName": "KT",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/KT.png?type=f92_88",
-        "gameCount": 36,
-        "win": 23,
-        "draw": 1,
-        "lose": 12,
-        "winRate": 0.657,
-        "gameBehind": 0,
-        "lastFive": "LDWLW",
-        "streak": {
-          "type": "L",
-          "count": 1
+        {
+          "rank": 20,
+          "teamName": "울버햄튼 원더러스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/44.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 3,
+          "draws": 9,
+          "losses": 24,
+          "goals": 25,
+          "goalsConceded": 66,
+          "goalsDifference": -41,
+          "points": 18,
+          "lastFive": "LDLLL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Relegation"
         }
-      },
-      {
-        "rank": 2,
-        "teamName": "LG",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/LG.png?type=f92_88",
-        "gameCount": 36,
-        "win": 22,
-        "draw": 0,
-        "lose": 14,
-        "winRate": 0.611,
-        "gameBehind": 1.5,
-        "lastFive": "LLWLW",
-        "streak": {
-          "type": "L",
-          "count": 2
+      ]
+    },
+    {
+      "id": "primera",
+      "name": "라리가",
+      "scheduleSlug": "laliga",
+      "season": "Igrb",
+      "teams": [
+        {
+          "rank": 1,
+          "teamName": "바르셀로나",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26300.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 30,
+          "draws": 1,
+          "losses": 4,
+          "goals": 91,
+          "goalsConceded": 31,
+          "goalsDifference": 60,
+          "points": 91,
+          "lastFive": "WWWWW",
+          "streak": {
+            "type": "W",
+            "count": 5
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 2,
+          "teamName": "레알 마드리드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26303.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 24,
+          "draws": 5,
+          "losses": 6,
+          "goals": 70,
+          "goalsConceded": 33,
+          "goalsDifference": 37,
+          "points": 77,
+          "lastFive": "LWDWD",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 3,
+          "teamName": "비야레알",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/38295.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 21,
+          "draws": 6,
+          "losses": 8,
+          "goals": 65,
+          "goalsConceded": 40,
+          "goalsDifference": 25,
+          "points": 69,
+          "lastFive": "DWWDW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 4,
+          "teamName": "아틀레티코 마드리드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26305.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 19,
+          "draws": 6,
+          "losses": 10,
+          "goals": 58,
+          "goalsConceded": 38,
+          "goalsDifference": 20,
+          "points": 63,
+          "lastFive": "LWWLL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 5,
+          "teamName": "레알 베티스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26314.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 13,
+          "draws": 15,
+          "losses": 7,
+          "goals": 54,
+          "goalsConceded": 43,
+          "goalsDifference": 11,
+          "points": 54,
+          "lastFive": "DWDWD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 6,
+          "teamName": "셀타 데 비고",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26302.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 13,
+          "draws": 11,
+          "losses": 11,
+          "goals": 49,
+          "goalsConceded": 44,
+          "goalsDifference": 5,
+          "points": 50,
+          "lastFive": "WWLLL",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": "UEFA Europa League"
+        },
+        {
+          "rank": 7,
+          "teamName": "헤타페",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/37459.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 13,
+          "draws": 6,
+          "losses": 16,
+          "goals": 28,
+          "goalsConceded": 36,
+          "goalsDifference": -8,
+          "points": 45,
+          "lastFive": "DLLWL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "UEFA Conference League Qualifiers"
+        },
+        {
+          "rank": 8,
+          "teamName": "레알 소시에다드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26308.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 11,
+          "draws": 11,
+          "losses": 13,
+          "goals": 54,
+          "goalsConceded": 55,
+          "goalsDifference": -1,
+          "points": 44,
+          "lastFive": "DLDLD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 9,
+          "teamName": "아틀레틱 빌바오",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26313.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 13,
+          "draws": 5,
+          "losses": 17,
+          "goals": 40,
+          "goalsConceded": 51,
+          "goalsDifference": -11,
+          "points": 44,
+          "lastFive": "LWLWL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 10,
+          "teamName": "바예카노",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/35724.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 10,
+          "draws": 13,
+          "losses": 12,
+          "goals": 36,
+          "goalsConceded": 42,
+          "goalsDifference": -6,
+          "points": 43,
+          "lastFive": "DWDWL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 11,
+          "teamName": "오사수나",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/27152.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 11,
+          "draws": 9,
+          "losses": 15,
+          "goals": 42,
+          "goalsConceded": 45,
+          "goalsDifference": -3,
+          "points": 42,
+          "lastFive": "LLWLD",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 12,
+          "teamName": "발렌시아",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26316.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 11,
+          "draws": 9,
+          "losses": 15,
+          "goals": 38,
+          "goalsConceded": 50,
+          "goalsDifference": -12,
+          "points": 42,
+          "lastFive": "WLWDL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 13,
+          "teamName": "세비야",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/27821.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 11,
+          "draws": 7,
+          "losses": 17,
+          "goals": 43,
+          "goalsConceded": 56,
+          "goalsDifference": -13,
+          "points": 40,
+          "lastFive": "WWLLW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 14,
+          "teamName": "엘체",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/PJvJvW.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 9,
+          "draws": 12,
+          "losses": 14,
+          "goals": 46,
+          "goalsConceded": 54,
+          "goalsDifference": -8,
+          "points": 39,
+          "lastFive": "DLWWW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 15,
+          "teamName": "마요르카",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26301.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 10,
+          "draws": 9,
+          "losses": 16,
+          "goals": 43,
+          "goalsConceded": 52,
+          "goalsDifference": -9,
+          "points": 39,
+          "lastFive": "DWLDW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 16,
+          "teamName": "에스파뇰",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26306.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 10,
+          "draws": 9,
+          "losses": 16,
+          "goals": 38,
+          "goalsConceded": 53,
+          "goalsDifference": -15,
+          "points": 39,
+          "lastFive": "LLDLL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 17,
+          "teamName": "지로나",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/27832.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 9,
+          "draws": 12,
+          "losses": 14,
+          "goals": 37,
+          "goalsConceded": 52,
+          "goalsDifference": -15,
+          "points": 39,
+          "lastFive": "DLLLD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 18,
+          "teamName": "알라베스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26476.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 9,
+          "draws": 10,
+          "losses": 16,
+          "goals": 41,
+          "goalsConceded": 54,
+          "goalsDifference": -13,
+          "points": 37,
+          "lastFive": "DLWLD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Relegation"
+        },
+        {
+          "rank": 19,
+          "teamName": "레반테",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/F9avdb.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 9,
+          "draws": 9,
+          "losses": 17,
+          "goals": 41,
+          "goalsConceded": 57,
+          "goalsDifference": -16,
+          "points": 36,
+          "lastFive": "WLDWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Relegation"
+        },
+        {
+          "rank": 20,
+          "teamName": "오비에도",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/t3tw1O.png?type=f92_88",
+          "matchesPlayed": 35,
+          "wins": 6,
+          "draws": 11,
+          "losses": 18,
+          "goals": 26,
+          "goalsConceded": 54,
+          "goalsDifference": -28,
+          "points": 29,
+          "lastFive": "DLLDW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Relegation"
         }
-      },
-      {
-        "rank": 3,
-        "teamName": "삼성",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/SS.png?type=f92_88",
-        "gameCount": 36,
-        "win": 21,
-        "draw": 1,
-        "lose": 14,
-        "winRate": 0.6,
-        "gameBehind": 2,
-        "lastFive": "WWWWW",
-        "streak": {
-          "type": "W",
-          "count": 7
+      ]
+    },
+    {
+      "id": "bundesliga",
+      "name": "분데스리가",
+      "scheduleSlug": "bundesliga",
+      "season": "lvYe",
+      "teams": [
+        {
+          "rank": 1,
+          "teamName": "바이에른 뮌헨",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26247.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 27,
+          "draws": 5,
+          "losses": 1,
+          "goals": 117,
+          "goalsConceded": 35,
+          "goalsDifference": 82,
+          "points": 86,
+          "lastFive": "WDWWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 2,
+          "teamName": "보루시아 도르트문트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26261.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 21,
+          "draws": 7,
+          "losses": 5,
+          "goals": 68,
+          "goalsConceded": 34,
+          "goalsDifference": 34,
+          "points": 70,
+          "lastFive": "WLWLL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 3,
+          "teamName": "RB 라이프치히",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/61019.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 20,
+          "draws": 5,
+          "losses": 8,
+          "goals": 65,
+          "goalsConceded": 43,
+          "goalsDifference": 22,
+          "points": 65,
+          "lastFive": "WLWWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 4,
+          "teamName": "슈투트가르트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26250.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 18,
+          "draws": 7,
+          "losses": 8,
+          "goals": 69,
+          "goalsConceded": 47,
+          "goalsDifference": 22,
+          "points": 61,
+          "lastFive": "WDDLW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 5,
+          "teamName": "TSG 호펜하임",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/48490.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 18,
+          "draws": 7,
+          "losses": 8,
+          "goals": 65,
+          "goalsConceded": 48,
+          "goalsDifference": 17,
+          "points": 61,
+          "lastFive": "WDWWD",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Europa League"
+        },
+        {
+          "rank": 6,
+          "teamName": "바이엘 레버쿠젠",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26256.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 17,
+          "draws": 7,
+          "losses": 9,
+          "goals": 67,
+          "goalsConceded": 46,
+          "goalsDifference": 21,
+          "points": 58,
+          "lastFive": "LWWLW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "UEFA Conference League Qualifiers"
+        },
+        {
+          "rank": 7,
+          "teamName": "프라이부르크",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26461.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 12,
+          "draws": 8,
+          "losses": 13,
+          "goals": 47,
+          "goalsConceded": 56,
+          "goalsDifference": -9,
+          "points": 44,
+          "lastFive": "LDLWW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 8,
+          "teamName": "프랑크푸르트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26460.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 11,
+          "draws": 10,
+          "losses": 12,
+          "goals": 59,
+          "goalsConceded": 63,
+          "goalsDifference": -4,
+          "points": 43,
+          "lastFive": "LLDLW",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 9,
+          "teamName": "아우크스부르크",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/32656.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 12,
+          "draws": 7,
+          "losses": 14,
+          "goals": 45,
+          "goalsConceded": 57,
+          "goalsDifference": -12,
+          "points": 43,
+          "lastFive": "WWDWD",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 10,
+          "teamName": "마인츠 05",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/32676.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 9,
+          "draws": 10,
+          "losses": 14,
+          "goals": 42,
+          "goalsConceded": 53,
+          "goalsDifference": -11,
+          "points": 37,
+          "lastFive": "LWLDL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 11,
+          "teamName": "함부르크 SV",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/P8CoGy.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 9,
+          "draws": 10,
+          "losses": 14,
+          "goals": 39,
+          "goalsConceded": 53,
+          "goalsDifference": -14,
+          "points": 37,
+          "lastFive": "WWLLL",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 12,
+          "teamName": "우니온 베를린",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/2547.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 9,
+          "draws": 9,
+          "losses": 15,
+          "goals": 40,
+          "goalsConceded": 58,
+          "goalsDifference": -18,
+          "points": 36,
+          "lastFive": "WDLLL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 13,
+          "teamName": "보루시아 글라트바흐",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26259.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 8,
+          "draws": 11,
+          "losses": 14,
+          "goals": 38,
+          "goalsConceded": 53,
+          "goalsDifference": -15,
+          "points": 35,
+          "lastFive": "LWDDL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 14,
+          "teamName": "FC 쾰른",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/NukIPN.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 7,
+          "draws": 11,
+          "losses": 15,
+          "goals": 48,
+          "goalsConceded": 58,
+          "goalsDifference": -10,
+          "points": 32,
+          "lastFive": "LDLDW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 15,
+          "teamName": "베르더 브레멘",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26252.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 8,
+          "draws": 8,
+          "losses": 17,
+          "goals": 37,
+          "goalsConceded": 58,
+          "goalsDifference": -21,
+          "points": 32,
+          "lastFive": "LLDWL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 16,
+          "teamName": "볼프스부르크",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26257.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 6,
+          "draws": 8,
+          "losses": 19,
+          "goals": 42,
+          "goalsConceded": 68,
+          "goalsDifference": -26,
+          "points": 26,
+          "lastFive": "LDDWL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Relegation Play-off"
+        },
+        {
+          "rank": 17,
+          "teamName": "하이덴하임",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/5885.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 6,
+          "draws": 8,
+          "losses": 19,
+          "goals": 41,
+          "goalsConceded": 70,
+          "goalsDifference": -29,
+          "points": 26,
+          "lastFive": "WDWLW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Relegation"
+        },
+        {
+          "rank": 18,
+          "teamName": "상 파울리",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/2526.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 6,
+          "draws": 8,
+          "losses": 19,
+          "goals": 28,
+          "goalsConceded": 57,
+          "goalsDifference": -29,
+          "points": 26,
+          "lastFive": "LLLDL",
+          "streak": {
+            "type": "L",
+            "count": 3
+          },
+          "rankStatus": "Relegation"
         }
-      },
-      {
-        "rank": 4,
-        "teamName": "SSG",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/SK.png?type=f92_88",
-        "gameCount": 36,
-        "win": 19,
-        "draw": 1,
-        "lose": 16,
-        "winRate": 0.543,
-        "gameBehind": 4,
-        "lastFive": "LLWLW",
-        "streak": {
-          "type": "L",
-          "count": 2
+      ]
+    },
+    {
+      "id": "seria",
+      "name": "세리에A",
+      "scheduleSlug": "serie-a",
+      "season": "hDj5",
+      "teams": [
+        {
+          "rank": 1,
+          "teamName": "인테르 밀라노",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/6136.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 27,
+          "draws": 4,
+          "losses": 5,
+          "goals": 85,
+          "goalsConceded": 31,
+          "goalsDifference": 54,
+          "points": 85,
+          "lastFive": "WWDWW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 2,
+          "teamName": "나폴리",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26370.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 21,
+          "draws": 7,
+          "losses": 8,
+          "goals": 54,
+          "goalsConceded": 36,
+          "goalsDifference": 18,
+          "points": 70,
+          "lastFive": "LDWLD",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 3,
+          "teamName": "유벤투스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26359.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 19,
+          "draws": 11,
+          "losses": 6,
+          "goals": 59,
+          "goalsConceded": 30,
+          "goalsDifference": 29,
+          "points": 68,
+          "lastFive": "WDDWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 4,
+          "teamName": "밀란",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26368.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 19,
+          "draws": 10,
+          "losses": 7,
+          "goals": 50,
+          "goalsConceded": 32,
+          "goalsDifference": 18,
+          "points": 67,
+          "lastFive": "LLDWL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 5,
+          "teamName": "로마",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26357.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 21,
+          "draws": 4,
+          "losses": 11,
+          "goals": 55,
+          "goalsConceded": 31,
+          "goalsDifference": 24,
+          "points": 67,
+          "lastFive": "WWWDW",
+          "streak": {
+            "type": "W",
+            "count": 3
+          },
+          "rankStatus": "UEFA Europa League"
+        },
+        {
+          "rank": 6,
+          "teamName": "코모",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/2704.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 18,
+          "draws": 11,
+          "losses": 7,
+          "goals": 60,
+          "goalsConceded": 28,
+          "goalsDifference": 32,
+          "points": 65,
+          "lastFive": "WDWLL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Conference League Qualifiers"
+        },
+        {
+          "rank": 7,
+          "teamName": "아탈란타",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26364.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 15,
+          "draws": 13,
+          "losses": 8,
+          "goals": 50,
+          "goalsConceded": 34,
+          "goalsDifference": 16,
+          "points": 58,
+          "lastFive": "WDLDL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 8,
+          "teamName": "볼로냐",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26371.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 15,
+          "draws": 7,
+          "losses": 14,
+          "goals": 45,
+          "goalsConceded": 43,
+          "goalsDifference": 2,
+          "points": 52,
+          "lastFive": "WDLLW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 9,
+          "teamName": "라치오",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26362.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 13,
+          "draws": 12,
+          "losses": 11,
+          "goals": 39,
+          "goalsConceded": 37,
+          "goalsDifference": 2,
+          "points": 51,
+          "lastFive": "LWDWL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 10,
+          "teamName": "우디네세",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26360.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 14,
+          "draws": 8,
+          "losses": 14,
+          "goals": 45,
+          "goalsConceded": 46,
+          "goalsDifference": -1,
+          "points": 50,
+          "lastFive": "WWDLW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 11,
+          "teamName": "사수올로",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/2JRINF.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 14,
+          "draws": 7,
+          "losses": 15,
+          "goals": 44,
+          "goalsConceded": 46,
+          "goalsDifference": -2,
+          "points": 49,
+          "lastFive": "LWDWL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 12,
+          "teamName": "토리노",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/27038.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 12,
+          "draws": 8,
+          "losses": 16,
+          "goals": 41,
+          "goalsConceded": 59,
+          "goalsDifference": -18,
+          "points": 44,
+          "lastFive": "WLDDW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 13,
+          "teamName": "파르마",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26358.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 10,
+          "draws": 12,
+          "losses": 14,
+          "goals": 27,
+          "goalsConceded": 45,
+          "goalsDifference": -18,
+          "points": 42,
+          "lastFive": "LLWWD",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 14,
+          "teamName": "제노아",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/6894.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 10,
+          "draws": 11,
+          "losses": 15,
+          "goals": 40,
+          "goalsConceded": 48,
+          "goalsDifference": -8,
+          "points": 41,
+          "lastFive": "DDLWW",
+          "streak": {
+            "type": "D",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 15,
+          "teamName": "피오렌티나",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26366.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 8,
+          "draws": 14,
+          "losses": 14,
+          "goals": 38,
+          "goalsConceded": 49,
+          "goalsDifference": -11,
+          "points": 38,
+          "lastFive": "DLDDW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 16,
+          "teamName": "칼리아리",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26474.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 9,
+          "draws": 10,
+          "losses": 17,
+          "goals": 36,
+          "goalsConceded": 51,
+          "goalsDifference": -15,
+          "points": 37,
+          "lastFive": "LDWLW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 17,
+          "teamName": "레체",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/35801.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 8,
+          "draws": 8,
+          "losses": 20,
+          "goals": 24,
+          "goalsConceded": 48,
+          "goalsDifference": -24,
+          "points": 32,
+          "lastFive": "LWDDL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 18,
+          "teamName": "크레모네세",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/ODnOf2.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 7,
+          "draws": 10,
+          "losses": 19,
+          "goals": 30,
+          "goalsConceded": 53,
+          "goalsDifference": -23,
+          "points": 31,
+          "lastFive": "WLLDL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Relegation"
+        },
+        {
+          "rank": 19,
+          "teamName": "베로나",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/27648.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 3,
+          "draws": 11,
+          "losses": 22,
+          "goals": 24,
+          "goalsConceded": 58,
+          "goalsDifference": -34,
+          "points": 20,
+          "lastFive": "LDDLL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Relegation"
+        },
+        {
+          "rank": 20,
+          "teamName": "피사",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/aa6dTB.png?type=f92_88",
+          "matchesPlayed": 36,
+          "wins": 2,
+          "draws": 12,
+          "losses": 22,
+          "goals": 25,
+          "goalsConceded": 66,
+          "goalsDifference": -41,
+          "points": 18,
+          "lastFive": "LLLLL",
+          "streak": {
+            "type": "L",
+            "count": 5
+          },
+          "rankStatus": "Relegation"
         }
-      },
-      {
-        "rank": 5,
-        "teamName": "KIA",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/HT.png?type=f92_88",
-        "gameCount": 37,
-        "win": 17,
-        "draw": 1,
-        "lose": 19,
-        "winRate": 0.472,
-        "gameBehind": 6.5,
-        "lastFive": "LWWLL",
-        "streak": {
-          "type": "L",
-          "count": 1
+      ]
+    },
+    {
+      "id": "ligue1",
+      "name": "리그앙",
+      "scheduleSlug": "ligue-1",
+      "season": "eJUK",
+      "teams": [
+        {
+          "rank": 1,
+          "teamName": "파리 생제르맹",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26339.png?type=f92_88",
+          "matchesPlayed": 32,
+          "wins": 23,
+          "draws": 4,
+          "losses": 5,
+          "goals": 71,
+          "goalsConceded": 27,
+          "goalsDifference": 44,
+          "points": 73,
+          "lastFive": "WDWWL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 2,
+          "teamName": "랑스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26342.png?type=f92_88",
+          "matchesPlayed": 32,
+          "wins": 21,
+          "draws": 4,
+          "losses": 7,
+          "goals": 62,
+          "goalsConceded": 33,
+          "goalsDifference": 29,
+          "points": 67,
+          "lastFive": "WDDWL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 3,
+          "teamName": "릴",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/27372.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 18,
+          "draws": 7,
+          "losses": 8,
+          "goals": 52,
+          "goalsConceded": 35,
+          "goalsDifference": 17,
+          "points": 61,
+          "lastFive": "WDWDW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 4,
+          "teamName": "올랭피크 리옹",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26345.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 18,
+          "draws": 6,
+          "losses": 9,
+          "goals": 53,
+          "goalsConceded": 36,
+          "goalsDifference": 17,
+          "points": 60,
+          "lastFive": "LWWWW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League Qualifiers"
+        },
+        {
+          "rank": 5,
+          "teamName": "렌",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26349.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 17,
+          "draws": 8,
+          "losses": 8,
+          "goals": 58,
+          "goalsConceded": 47,
+          "goalsDifference": 11,
+          "points": 59,
+          "lastFive": "WLWWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Europa League"
+        },
+        {
+          "rank": 6,
+          "teamName": "올림피크 마르세유",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26344.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 17,
+          "draws": 5,
+          "losses": 11,
+          "goals": 60,
+          "goalsConceded": 44,
+          "goalsDifference": 16,
+          "points": 56,
+          "lastFive": "WLDLW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Conference League Qualifiers"
+        },
+        {
+          "rank": 7,
+          "teamName": "모나코",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26343.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 16,
+          "draws": 6,
+          "losses": 11,
+          "goals": 56,
+          "goalsConceded": 49,
+          "goalsDifference": 7,
+          "points": 54,
+          "lastFive": "LWDDL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 8,
+          "teamName": "스트라스부르",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26354.png?type=f92_88",
+          "matchesPlayed": 32,
+          "wins": 13,
+          "draws": 8,
+          "losses": 11,
+          "goals": 51,
+          "goalsConceded": 42,
+          "goalsDifference": 9,
+          "points": 47,
+          "lastFive": "DLWLW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 9,
+          "teamName": "로리앙",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/Fj5Bdj.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 11,
+          "draws": 12,
+          "losses": 10,
+          "goals": 48,
+          "goalsConceded": 49,
+          "goalsDifference": -1,
+          "points": 45,
+          "lastFive": "WDLWL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 10,
+          "teamName": "툴루즈",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26346.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 12,
+          "draws": 8,
+          "losses": 13,
+          "goals": 47,
+          "goalsConceded": 46,
+          "goalsDifference": 1,
+          "points": 44,
+          "lastFive": "WWDLL",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 11,
+          "teamName": "파리 FC",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/mSRVhp.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 10,
+          "draws": 11,
+          "losses": 12,
+          "goals": 45,
+          "goalsConceded": 49,
+          "goalsDifference": -4,
+          "points": 41,
+          "lastFive": "LWLWW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 12,
+          "teamName": "브레스트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/27099.png?type=f92_88",
+          "matchesPlayed": 32,
+          "wins": 10,
+          "draws": 8,
+          "losses": 14,
+          "goals": 41,
+          "goalsConceded": 52,
+          "goalsDifference": -11,
+          "points": 38,
+          "lastFive": "LLDDL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 13,
+          "teamName": "앙제",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/32839.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 9,
+          "draws": 8,
+          "losses": 16,
+          "goals": 28,
+          "goalsConceded": 47,
+          "goalsDifference": -19,
+          "points": 35,
+          "lastFive": "DLLDL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 14,
+          "teamName": "르 아브르",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/1662.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 6,
+          "draws": 14,
+          "losses": 13,
+          "goals": 30,
+          "goalsConceded": 44,
+          "goalsDifference": -14,
+          "points": 32,
+          "lastFive": "LDDDD",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 15,
+          "teamName": "오세르",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26348.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 7,
+          "draws": 10,
+          "losses": 16,
+          "goals": 32,
+          "goalsConceded": 44,
+          "goalsDifference": -12,
+          "points": 31,
+          "lastFive": "WWLDD",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 16,
+          "teamName": "니스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/27462.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 7,
+          "draws": 10,
+          "losses": 16,
+          "goals": 37,
+          "goalsConceded": 60,
+          "goalsDifference": -23,
+          "points": 31,
+          "lastFive": "LDDDD",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Relegation Play-off"
+        },
+        {
+          "rank": 17,
+          "teamName": "낭트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26350.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 5,
+          "draws": 8,
+          "losses": 20,
+          "goals": 29,
+          "goalsConceded": 52,
+          "goalsDifference": -23,
+          "points": 23,
+          "lastFive": "LWLLD",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Relegation"
+        },
+        {
+          "rank": 18,
+          "teamName": "메스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/0eosAf.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 3,
+          "draws": 7,
+          "losses": 23,
+          "goals": 32,
+          "goalsConceded": 76,
+          "goalsDifference": -44,
+          "points": 16,
+          "lastFive": "LLDLL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": "Relegation"
         }
-      },
-      {
-        "rank": 5,
-        "teamName": "두산",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/OB.png?type=f92_88",
-        "gameCount": 37,
-        "win": 17,
-        "draw": 1,
-        "lose": 19,
-        "winRate": 0.472,
-        "gameBehind": 6.5,
-        "lastFive": "WWLWL",
-        "streak": {
-          "type": "W",
-          "count": 2
+      ]
+    },
+    {
+      "id": "champs",
+      "name": "챔피언스리그",
+      "scheduleSlug": "ucl",
+      "season": "gNcH",
+      "teams": [
+        {
+          "rank": 1,
+          "teamName": "아스널",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/1006.png?type=f92_88",
+          "matchesPlayed": 14,
+          "wins": 8,
+          "draws": 0,
+          "losses": 0,
+          "goals": 29,
+          "goalsConceded": 6,
+          "goalsDifference": 23,
+          "points": 24,
+          "lastFive": "WWWWW",
+          "streak": {
+            "type": "W",
+            "count": 5
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 2,
+          "teamName": "바이에른 뮌헨",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26247.png?type=f92_88",
+          "matchesPlayed": 14,
+          "wins": 7,
+          "draws": 0,
+          "losses": 1,
+          "goals": 43,
+          "goalsConceded": 20,
+          "goalsDifference": 23,
+          "points": 21,
+          "lastFive": "WWWLW",
+          "streak": {
+            "type": "W",
+            "count": 3
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 3,
+          "teamName": "리버풀",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/9.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 6,
+          "draws": 0,
+          "losses": 2,
+          "goals": 24,
+          "goalsConceded": 13,
+          "goalsDifference": 11,
+          "points": 18,
+          "lastFive": "WWWLW",
+          "streak": {
+            "type": "W",
+            "count": 3
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 4,
+          "teamName": "토트넘 홋스퍼",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/19.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 5,
+          "draws": 2,
+          "losses": 1,
+          "goals": 22,
+          "goalsConceded": 14,
+          "goalsDifference": 8,
+          "points": 17,
+          "lastFive": "WWWLW",
+          "streak": {
+            "type": "W",
+            "count": 3
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 5,
+          "teamName": "바르셀로나",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26300.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 5,
+          "draws": 1,
+          "losses": 2,
+          "goals": 32,
+          "goalsConceded": 20,
+          "goalsDifference": 12,
+          "points": 16,
+          "lastFive": "WWWLD",
+          "streak": {
+            "type": "W",
+            "count": 3
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 6,
+          "teamName": "첼시",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/4.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 5,
+          "draws": 1,
+          "losses": 2,
+          "goals": 19,
+          "goalsConceded": 18,
+          "goalsDifference": 1,
+          "points": 16,
+          "lastFive": "WWLWD",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 7,
+          "teamName": "스포르팅 CP",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26268.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 5,
+          "draws": 1,
+          "losses": 2,
+          "goals": 22,
+          "goalsConceded": 15,
+          "goalsDifference": 7,
+          "points": 16,
+          "lastFive": "WWLWD",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 8,
+          "teamName": "맨체스터 시티",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/11.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 5,
+          "draws": 1,
+          "losses": 2,
+          "goals": 16,
+          "goalsConceded": 14,
+          "goalsDifference": 2,
+          "points": 16,
+          "lastFive": "WLWLW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 9,
+          "teamName": "레알 마드리드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26303.png?type=f92_88",
+          "matchesPlayed": 14,
+          "wins": 5,
+          "draws": 0,
+          "losses": 3,
+          "goals": 33,
+          "goalsConceded": 20,
+          "goalsDifference": 13,
+          "points": 15,
+          "lastFive": "LWLWL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 10,
+          "teamName": "인테르 밀라노",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/6136.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 5,
+          "draws": 0,
+          "losses": 3,
+          "goals": 17,
+          "goalsConceded": 12,
+          "goalsDifference": 5,
+          "points": 15,
+          "lastFive": "WLLLW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 11,
+          "teamName": "파리 생제르맹",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26339.png?type=f92_88",
+          "matchesPlayed": 16,
+          "wins": 4,
+          "draws": 2,
+          "losses": 2,
+          "goals": 44,
+          "goalsConceded": 22,
+          "goalsDifference": 22,
+          "points": 14,
+          "lastFive": "DLDWL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 12,
+          "teamName": "뉴캐슬 유나이티드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/31.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 4,
+          "draws": 2,
+          "losses": 2,
+          "goals": 29,
+          "goalsConceded": 18,
+          "goalsDifference": 11,
+          "points": 14,
+          "lastFive": "DWDLW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 13,
+          "teamName": "유벤투스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26359.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 4,
+          "losses": 1,
+          "goals": 19,
+          "goalsConceded": 17,
+          "goalsDifference": 2,
+          "points": 13,
+          "lastFive": "DWWWD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 14,
+          "teamName": "아틀레티코 마드리드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26305.png?type=f92_88",
+          "matchesPlayed": 16,
+          "wins": 4,
+          "draws": 1,
+          "losses": 3,
+          "goals": 35,
+          "goalsConceded": 28,
+          "goalsDifference": 7,
+          "points": 13,
+          "lastFive": "LDWWW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 15,
+          "teamName": "아탈란타",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26364.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 4,
+          "draws": 1,
+          "losses": 3,
+          "goals": 16,
+          "goalsConceded": 23,
+          "goalsDifference": -7,
+          "points": 13,
+          "lastFive": "LLWWW",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 16,
+          "teamName": "바이엘 레버쿠젠",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26256.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 3,
+          "draws": 3,
+          "losses": 2,
+          "goals": 16,
+          "goalsConceded": 17,
+          "goalsDifference": -1,
+          "points": 12,
+          "lastFive": "WLDWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 17,
+          "teamName": "보루시아 도르트문트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26261.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 2,
+          "losses": 3,
+          "goals": 22,
+          "goalsConceded": 21,
+          "goalsDifference": 1,
+          "points": 11,
+          "lastFive": "LLDWL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 18,
+          "teamName": "올림피아코스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/7897.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 2,
+          "losses": 3,
+          "goals": 10,
+          "goalsConceded": 16,
+          "goalsDifference": -6,
+          "points": 11,
+          "lastFive": "WWWLD",
+          "streak": {
+            "type": "W",
+            "count": 3
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 19,
+          "teamName": "클럽 브뤼헤",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26282.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 1,
+          "losses": 4,
+          "goals": 19,
+          "goalsConceded": 24,
+          "goalsDifference": -5,
+          "points": 10,
+          "lastFive": "WWLLD",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 20,
+          "teamName": "갈라타사라이",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26451.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 3,
+          "draws": 1,
+          "losses": 4,
+          "goals": 17,
+          "goalsConceded": 20,
+          "goalsDifference": -3,
+          "points": 10,
+          "lastFive": "LDLLW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 21,
+          "teamName": "모나코",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26343.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 2,
+          "draws": 4,
+          "losses": 2,
+          "goals": 12,
+          "goalsConceded": 19,
+          "goalsDifference": -7,
+          "points": 10,
+          "lastFive": "DLWDW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 22,
+          "teamName": "카라바흐",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/43545.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 1,
+          "losses": 4,
+          "goals": 16,
+          "goalsConceded": 30,
+          "goalsDifference": -14,
+          "points": 10,
+          "lastFive": "LWLLD",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 23,
+          "teamName": "보되 / 글림트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/656.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 2,
+          "draws": 3,
+          "losses": 3,
+          "goals": 22,
+          "goalsConceded": 22,
+          "goalsDifference": 0,
+          "points": 9,
+          "lastFive": "WWDLL",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 24,
+          "teamName": "벤피카",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26274.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 0,
+          "losses": 5,
+          "goals": 11,
+          "goalsConceded": 15,
+          "goalsDifference": -4,
+          "points": 9,
+          "lastFive": "WLWWL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 25,
+          "teamName": "올림피크 마르세유",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26344.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 3,
+          "draws": 0,
+          "losses": 5,
+          "goals": 11,
+          "goalsConceded": 14,
+          "goalsDifference": -3,
+          "points": 9,
+          "lastFive": "LLWWL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 26,
+          "teamName": "파포스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/171626.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 2,
+          "draws": 3,
+          "losses": 3,
+          "goals": 8,
+          "goalsConceded": 11,
+          "goalsDifference": -3,
+          "points": 9,
+          "lastFive": "WLLDW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 27,
+          "teamName": "위니옹 생질루아즈",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/4860.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 3,
+          "draws": 0,
+          "losses": 5,
+          "goals": 8,
+          "goalsConceded": 17,
+          "goalsDifference": -9,
+          "points": 9,
+          "lastFive": "WLLWL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 28,
+          "teamName": "아인트호벤",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/2994.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 2,
+          "draws": 2,
+          "losses": 4,
+          "goals": 16,
+          "goalsConceded": 16,
+          "goalsDifference": 0,
+          "points": 8,
+          "lastFive": "LLLWD",
+          "streak": {
+            "type": "L",
+            "count": 3
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 29,
+          "teamName": "아틀레틱 빌바오",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26313.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 2,
+          "draws": 2,
+          "losses": 4,
+          "goals": 9,
+          "goalsConceded": 14,
+          "goalsDifference": -5,
+          "points": 8,
+          "lastFive": "LWDDL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 30,
+          "teamName": "나폴리",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26370.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 2,
+          "draws": 2,
+          "losses": 4,
+          "goals": 9,
+          "goalsConceded": 15,
+          "goalsDifference": -6,
+          "points": 8,
+          "lastFive": "LDLWD",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 31,
+          "teamName": "코펜하겐",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26412.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 2,
+          "draws": 2,
+          "losses": 4,
+          "goals": 12,
+          "goalsConceded": 21,
+          "goalsDifference": -9,
+          "points": 8,
+          "lastFive": "LDWWL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 32,
+          "teamName": "아약스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26320.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 2,
+          "draws": 0,
+          "losses": 6,
+          "goals": 8,
+          "goalsConceded": 21,
+          "goalsDifference": -13,
+          "points": 6,
+          "lastFive": "LWWLL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 33,
+          "teamName": "프랑크푸르트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26460.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 1,
+          "draws": 1,
+          "losses": 6,
+          "goals": 10,
+          "goalsConceded": 21,
+          "goalsDifference": -11,
+          "points": 4,
+          "lastFive": "LLLLD",
+          "streak": {
+            "type": "L",
+            "count": 4
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 34,
+          "teamName": "슬라비아 프라하",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/7332.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 0,
+          "draws": 3,
+          "losses": 5,
+          "goals": 5,
+          "goalsConceded": 19,
+          "goalsDifference": -14,
+          "points": 3,
+          "lastFive": "LLLDL",
+          "streak": {
+            "type": "L",
+            "count": 3
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 35,
+          "teamName": "비야레알",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/38295.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 0,
+          "draws": 1,
+          "losses": 7,
+          "goals": 5,
+          "goalsConceded": 18,
+          "goalsDifference": -13,
+          "points": 1,
+          "lastFive": "LLLLL",
+          "streak": {
+            "type": "L",
+            "count": 5
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 36,
+          "teamName": "카이라트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/HZYHHN.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 0,
+          "draws": 1,
+          "losses": 7,
+          "goals": 7,
+          "goalsConceded": 22,
+          "goalsDifference": -15,
+          "points": 1,
+          "lastFive": "LLLLL",
+          "streak": {
+            "type": "L",
+            "count": 5
+          },
+          "rankStatus": null
         }
-      },
-      {
-        "rank": 7,
-        "teamName": "한화",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/HH.png?type=f92_88",
-        "gameCount": 36,
-        "win": 16,
-        "draw": 0,
-        "lose": 20,
-        "winRate": 0.444,
-        "gameBehind": 7.5,
-        "lastFive": "WWLWW",
-        "streak": {
-          "type": "W",
-          "count": 2
+      ]
+    },
+    {
+      "id": "europa",
+      "name": "유로파리그",
+      "scheduleSlug": "uel",
+      "season": "rGgy",
+      "teams": [
+        {
+          "rank": 1,
+          "teamName": "올랭피크 리옹",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26345.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 7,
+          "draws": 0,
+          "losses": 1,
+          "goals": 19,
+          "goalsConceded": 8,
+          "goalsDifference": 11,
+          "points": 21,
+          "lastFive": "WWWWL",
+          "streak": {
+            "type": "W",
+            "count": 4
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 2,
+          "teamName": "애스턴 빌라",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/2.png?type=f92_88",
+          "matchesPlayed": 14,
+          "wins": 7,
+          "draws": 0,
+          "losses": 1,
+          "goals": 28,
+          "goalsConceded": 8,
+          "goalsDifference": 20,
+          "points": 21,
+          "lastFive": "WWWWW",
+          "streak": {
+            "type": "W",
+            "count": 5
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 3,
+          "teamName": "미트윌란",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/38415.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 6,
+          "draws": 1,
+          "losses": 1,
+          "goals": 20,
+          "goalsConceded": 10,
+          "goalsDifference": 10,
+          "points": 19,
+          "lastFive": "WDWLW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 4,
+          "teamName": "레알 베티스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26314.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 5,
+          "draws": 2,
+          "losses": 1,
+          "goals": 20,
+          "goalsConceded": 13,
+          "goalsDifference": 7,
+          "points": 17,
+          "lastFive": "WLWWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 5,
+          "teamName": "포르투",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26264.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 5,
+          "draws": 2,
+          "losses": 1,
+          "goals": 18,
+          "goalsConceded": 10,
+          "goalsDifference": 8,
+          "points": 17,
+          "lastFive": "WDWWD",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 6,
+          "teamName": "스포르팅 브라가",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26269.png?type=f92_88",
+          "matchesPlayed": 14,
+          "wins": 5,
+          "draws": 2,
+          "losses": 1,
+          "goals": 23,
+          "goalsConceded": 14,
+          "goalsDifference": 9,
+          "points": 17,
+          "lastFive": "DWWDL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 7,
+          "teamName": "프라이부르크",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26461.png?type=f92_88",
+          "matchesPlayed": 14,
+          "wins": 5,
+          "draws": 2,
+          "losses": 1,
+          "goals": 25,
+          "goalsConceded": 10,
+          "goalsDifference": 15,
+          "points": 17,
+          "lastFive": "LWWDW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 8,
+          "teamName": "로마",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26357.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 5,
+          "draws": 1,
+          "losses": 2,
+          "goals": 17,
+          "goalsConceded": 11,
+          "goalsDifference": 6,
+          "points": 16,
+          "lastFive": "DWWWW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "8th Finals"
+        },
+        {
+          "rank": 9,
+          "teamName": "헹크",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/rrXaIV.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 5,
+          "draws": 1,
+          "losses": 2,
+          "goals": 19,
+          "goalsConceded": 16,
+          "goalsDifference": 3,
+          "points": 16,
+          "lastFive": "WWLWW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 10,
+          "teamName": "볼로냐",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26371.png?type=f92_88",
+          "matchesPlayed": 14,
+          "wins": 4,
+          "draws": 3,
+          "losses": 1,
+          "goals": 22,
+          "goalsConceded": 18,
+          "goalsDifference": 4,
+          "points": 15,
+          "lastFive": "WDWWD",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 11,
+          "teamName": "슈투트가르트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26250.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 5,
+          "draws": 0,
+          "losses": 3,
+          "goals": 20,
+          "goalsConceded": 15,
+          "goalsDifference": 5,
+          "points": 15,
+          "lastFive": "WLWWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 12,
+          "teamName": "페렌츠바로스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/1925.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 4,
+          "draws": 3,
+          "losses": 1,
+          "goals": 17,
+          "goalsConceded": 17,
+          "goalsDifference": 0,
+          "points": 15,
+          "lastFive": "LDWDW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 13,
+          "teamName": "노팅엄 포레스트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/15.png?type=f92_88",
+          "matchesPlayed": 16,
+          "wins": 4,
+          "draws": 2,
+          "losses": 2,
+          "goals": 24,
+          "goalsConceded": 16,
+          "goalsDifference": 8,
+          "points": 14,
+          "lastFive": "WLWWD",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 14,
+          "teamName": "빅토리아 플젠",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/38336.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 5,
+          "losses": 0,
+          "goals": 11,
+          "goalsConceded": 6,
+          "goalsDifference": 5,
+          "points": 14,
+          "lastFive": "WDDDD",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 15,
+          "teamName": "츠르베나 즈베즈다",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/hEqxpL.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 4,
+          "draws": 2,
+          "losses": 2,
+          "goals": 8,
+          "goalsConceded": 8,
+          "goalsDifference": 0,
+          "points": 14,
+          "lastFive": "DWWWW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 16,
+          "teamName": "셀타 데 비고",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26302.png?type=f92_88",
+          "matchesPlayed": 14,
+          "wins": 4,
+          "draws": 1,
+          "losses": 3,
+          "goals": 22,
+          "goalsConceded": 19,
+          "goalsDifference": 3,
+          "points": 13,
+          "lastFive": "DWLLW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 17,
+          "teamName": "PAOK",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/8417.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 3,
+          "losses": 2,
+          "goals": 18,
+          "goalsConceded": 17,
+          "goalsDifference": 1,
+          "points": 12,
+          "lastFive": "LWDDW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 18,
+          "teamName": "릴",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/27372.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 4,
+          "draws": 0,
+          "losses": 4,
+          "goals": 14,
+          "goalsConceded": 13,
+          "goalsDifference": 1,
+          "points": 12,
+          "lastFive": "WLLWL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 19,
+          "teamName": "페네르바체",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26449.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 3,
+          "losses": 2,
+          "goals": 12,
+          "goalsConceded": 11,
+          "goalsDifference": 1,
+          "points": 12,
+          "lastFive": "DLWDD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 20,
+          "teamName": "파나시나이코스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/7013.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 3,
+          "draws": 3,
+          "losses": 2,
+          "goals": 15,
+          "goalsConceded": 16,
+          "goalsDifference": -1,
+          "points": 12,
+          "lastFive": "DDDWW",
+          "streak": {
+            "type": "D",
+            "count": 3
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 21,
+          "teamName": "셀틱",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/94.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 2,
+          "losses": 3,
+          "goals": 15,
+          "goalsConceded": 19,
+          "goalsDifference": -4,
+          "points": 11,
+          "lastFive": "WDLWL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 22,
+          "teamName": "루도고레츠",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/61179.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 1,
+          "losses": 4,
+          "goals": 14,
+          "goalsConceded": 18,
+          "goalsDifference": -4,
+          "points": 10,
+          "lastFive": "WLDWL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 23,
+          "teamName": "디나모 자그레브",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/32166.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 1,
+          "losses": 4,
+          "goals": 16,
+          "goalsConceded": 22,
+          "goalsDifference": -6,
+          "points": 10,
+          "lastFive": "LWLLL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 24,
+          "teamName": "브란",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/P8HAsX.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 2,
+          "draws": 3,
+          "losses": 3,
+          "goals": 9,
+          "goalsConceded": 13,
+          "goalsDifference": -4,
+          "points": 9,
+          "lastFive": "LDLDD",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Play-off"
+        },
+        {
+          "rank": 25,
+          "teamName": "영 보이즈",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26458.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 3,
+          "draws": 0,
+          "losses": 5,
+          "goals": 10,
+          "goalsConceded": 16,
+          "goalsDifference": -6,
+          "points": 9,
+          "lastFive": "LLWLL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 26,
+          "teamName": "스투름 그라츠",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26533.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 2,
+          "draws": 1,
+          "losses": 5,
+          "goals": 5,
+          "goalsConceded": 11,
+          "goalsDifference": -6,
+          "points": 7,
+          "lastFive": "WLLLD",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 27,
+          "teamName": "슈테아우아 부쿠레슈티",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/6901.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 2,
+          "draws": 1,
+          "losses": 5,
+          "goals": 9,
+          "goalsConceded": 16,
+          "goalsDifference": -7,
+          "points": 7,
+          "lastFive": "DLWLL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 28,
+          "teamName": "고 어헤드 이글스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/32934.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 2,
+          "draws": 1,
+          "losses": 5,
+          "goals": 6,
+          "goalsConceded": 14,
+          "goalsDifference": -8,
+          "points": 7,
+          "lastFive": "DLLLL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 29,
+          "teamName": "페예노르트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26323.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 2,
+          "draws": 0,
+          "losses": 6,
+          "goals": 11,
+          "goalsConceded": 15,
+          "goalsDifference": -4,
+          "points": 6,
+          "lastFive": "LWLLL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 30,
+          "teamName": "바젤",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/EMpDBi.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 2,
+          "draws": 0,
+          "losses": 6,
+          "goals": 9,
+          "goalsConceded": 13,
+          "goalsDifference": -4,
+          "points": 6,
+          "lastFive": "LLLLW",
+          "streak": {
+            "type": "L",
+            "count": 4
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 31,
+          "teamName": "잘츠부르크",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26404.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 2,
+          "draws": 0,
+          "losses": 6,
+          "goals": 10,
+          "goalsConceded": 15,
+          "goalsDifference": -5,
+          "points": 6,
+          "lastFive": "LWLLW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 32,
+          "teamName": "레인저스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/101.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 1,
+          "draws": 1,
+          "losses": 6,
+          "goals": 5,
+          "goalsConceded": 14,
+          "goalsDifference": -9,
+          "points": 4,
+          "lastFive": "LWLDL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 33,
+          "teamName": "니스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/27462.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 1,
+          "draws": 0,
+          "losses": 7,
+          "goals": 7,
+          "goalsConceded": 15,
+          "goalsDifference": -8,
+          "points": 3,
+          "lastFive": "LWLLL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 34,
+          "teamName": "위트레흐트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/ZoFmtg.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 0,
+          "draws": 1,
+          "losses": 7,
+          "goals": 5,
+          "goalsConceded": 15,
+          "goalsDifference": -10,
+          "points": 1,
+          "lastFive": "LLLLD",
+          "streak": {
+            "type": "L",
+            "count": 4
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 35,
+          "teamName": "말뫼 FF",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26237.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 0,
+          "draws": 1,
+          "losses": 7,
+          "goals": 4,
+          "goalsConceded": 15,
+          "goalsDifference": -11,
+          "points": 1,
+          "lastFive": "LLLLL",
+          "streak": {
+            "type": "L",
+            "count": 5
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 36,
+          "teamName": "마카비 텔아비브",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/43368.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 0,
+          "draws": 1,
+          "losses": 7,
+          "goals": 2,
+          "goalsConceded": 22,
+          "goalsDifference": -20,
+          "points": 1,
+          "lastFive": "LLLLL",
+          "streak": {
+            "type": "L",
+            "count": 5
+          },
+          "rankStatus": null
         }
-      },
-      {
-        "rank": 8,
-        "teamName": "NC",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/NC.png?type=f92_88",
-        "gameCount": 36,
-        "win": 15,
-        "draw": 1,
-        "lose": 20,
-        "winRate": 0.429,
-        "gameBehind": 8,
-        "lastFive": "LLLWL",
-        "streak": {
-          "type": "L",
-          "count": 3
+      ]
+    },
+    {
+      "id": "mls",
+      "name": "MLS",
+      "scheduleSlug": "mls",
+      "season": "kFAV",
+      "teams": [
+        {
+          "rank": 1,
+          "teamName": "SJ 어스퀘이크",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/kSUI40.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 9,
+          "draws": 2,
+          "losses": 1,
+          "goals": 27,
+          "goalsConceded": 8,
+          "goalsDifference": 19,
+          "points": 29,
+          "lastFive": "DDWWW",
+          "streak": {
+            "type": "D",
+            "count": 2
+          },
+          "rankStatus": "Final Series"
+        },
+        {
+          "rank": 1,
+          "teamName": "내쉬빌 SC",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/TnvnFc.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 7,
+          "draws": 3,
+          "losses": 1,
+          "goals": 23,
+          "goalsConceded": 8,
+          "goalsDifference": 15,
+          "points": 24,
+          "lastFive": "DDWWW",
+          "streak": {
+            "type": "D",
+            "count": 2
+          },
+          "rankStatus": "Final Series"
+        },
+        {
+          "rank": 2,
+          "teamName": "뉴잉글랜드 레볼루션",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/dunbVb.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 7,
+          "draws": 1,
+          "losses": 3,
+          "goals": 20,
+          "goalsConceded": 13,
+          "goalsDifference": 7,
+          "points": 22,
+          "lastFive": "WWDWW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": "Final Series"
+        },
+        {
+          "rank": 2,
+          "teamName": "밴쿠버 화이트캡스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/VAvVBL.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 8,
+          "draws": 2,
+          "losses": 1,
+          "goals": 27,
+          "goalsConceded": 7,
+          "goalsDifference": 20,
+          "points": 26,
+          "lastFive": "DDWWW",
+          "streak": {
+            "type": "D",
+            "count": 2
+          },
+          "rankStatus": "Final Series"
+        },
+        {
+          "rank": 3,
+          "teamName": "인터 마이애미",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/mbRTCw.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 6,
+          "draws": 4,
+          "losses": 2,
+          "goals": 26,
+          "goalsConceded": 21,
+          "goalsDifference": 5,
+          "points": 22,
+          "lastFive": "WLDWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Final Series"
+        },
+        {
+          "rank": 3,
+          "teamName": "로스앤젤레스 FC",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/tH3qGF.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 6,
+          "draws": 3,
+          "losses": 3,
+          "goals": 20,
+          "goalsConceded": 12,
+          "goalsDifference": 8,
+          "points": 21,
+          "lastFive": "LDWDL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Final Series"
+        },
+        {
+          "rank": 4,
+          "teamName": "시카고 파이어",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/Wrr0W0.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 5,
+          "draws": 2,
+          "losses": 4,
+          "goals": 20,
+          "goalsConceded": 14,
+          "goalsDifference": 6,
+          "points": 17,
+          "lastFive": "LLWDW",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": "Final Series"
+        },
+        {
+          "rank": 4,
+          "teamName": "시애틀 사운더스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/xF0vEB.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 6,
+          "draws": 3,
+          "losses": 1,
+          "goals": 14,
+          "goalsConceded": 6,
+          "goalsDifference": 8,
+          "points": 21,
+          "lastFive": "DDWWW",
+          "streak": {
+            "type": "D",
+            "count": 2
+          },
+          "rankStatus": "Final Series"
+        },
+        {
+          "rank": 5,
+          "teamName": "미네소타 유나이티드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/gVj5fJ.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 6,
+          "draws": 3,
+          "losses": 3,
+          "goals": 16,
+          "goalsConceded": 18,
+          "goalsDifference": -2,
+          "points": 21,
+          "lastFive": "DWLWW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Final Series"
+        },
+        {
+          "rank": 5,
+          "teamName": "DC 유나이티드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/ULhONo.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 4,
+          "draws": 4,
+          "losses": 4,
+          "goals": 15,
+          "goalsConceded": 17,
+          "goalsDifference": -2,
+          "points": 16,
+          "lastFive": "DWWDD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Final Series"
+        },
+        {
+          "rank": 6,
+          "teamName": "FC 신시내티",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/FLGtHa.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 4,
+          "draws": 4,
+          "losses": 4,
+          "goals": 24,
+          "goalsConceded": 27,
+          "goalsDifference": -3,
+          "points": 16,
+          "lastFive": "DWWDD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Final Series"
+        },
+        {
+          "rank": 6,
+          "teamName": "리얼 솔트 레이크",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/iSzTbZ.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 6,
+          "draws": 1,
+          "losses": 4,
+          "goals": 20,
+          "goalsConceded": 17,
+          "goalsDifference": 3,
+          "points": 19,
+          "lastFive": "LWLLW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "Final Series"
+        },
+        {
+          "rank": 7,
+          "teamName": "FC 댈러스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/UloXn1.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 5,
+          "draws": 4,
+          "losses": 3,
+          "goals": 23,
+          "goalsConceded": 16,
+          "goalsDifference": 7,
+          "points": 19,
+          "lastFive": "WWLLD",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": "Final Series"
+        },
+        {
+          "rank": 7,
+          "teamName": "뉴욕 시티 FC",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/WHo4fO.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 4,
+          "draws": 3,
+          "losses": 5,
+          "goals": 22,
+          "goalsConceded": 18,
+          "goalsDifference": 4,
+          "points": 15,
+          "lastFive": "WLLDL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Final Series"
+        },
+        {
+          "rank": 8,
+          "teamName": "샬럿 FC",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/Q3PQ0g.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 4,
+          "draws": 3,
+          "losses": 5,
+          "goals": 20,
+          "goalsConceded": 21,
+          "goalsDifference": -1,
+          "points": 15,
+          "lastFive": "DLLLW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Final Series Play-offs"
+        },
+        {
+          "rank": 8,
+          "teamName": "휴스턴 디나모",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/t7AL2q.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 6,
+          "draws": 0,
+          "losses": 5,
+          "goals": 17,
+          "goalsConceded": 19,
+          "goalsDifference": -2,
+          "points": 18,
+          "lastFive": "WWLWW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": "Final Series Play-offs"
+        },
+        {
+          "rank": 9,
+          "teamName": "LA 갤럭시",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/D452O9.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 4,
+          "draws": 4,
+          "losses": 4,
+          "goals": 18,
+          "goalsConceded": 18,
+          "goalsDifference": 0,
+          "points": 16,
+          "lastFive": "WDWLD",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Final Series Play-offs"
+        },
+        {
+          "rank": 9,
+          "teamName": "뉴욕 레드 불스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/RrK1Q1.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 4,
+          "draws": 3,
+          "losses": 5,
+          "goals": 19,
+          "goalsConceded": 28,
+          "goalsDifference": -9,
+          "points": 15,
+          "lastFive": "WLLDL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Final Series Play-offs"
+        },
+        {
+          "rank": 10,
+          "teamName": "오스틴 FC",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/cHnfEO.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 3,
+          "draws": 5,
+          "losses": 4,
+          "goals": 18,
+          "goalsConceded": 21,
+          "goalsDifference": -3,
+          "points": 14,
+          "lastFive": "DWWLD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 10,
+          "teamName": "토론토 FC",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/lfuNlS.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 3,
+          "draws": 5,
+          "losses": 4,
+          "goals": 20,
+          "goalsConceded": 24,
+          "goalsDifference": -4,
+          "points": 14,
+          "lastFive": "LDLDD",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 11,
+          "teamName": "몬트리얼 임팩트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/7pIEEz.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 4,
+          "draws": 0,
+          "losses": 7,
+          "goals": 16,
+          "goalsConceded": 23,
+          "goalsDifference": -7,
+          "points": 12,
+          "lastFive": "WLWWL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 11,
+          "teamName": "콜로라도 라피즈",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/jJ4Kxx.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 4,
+          "draws": 1,
+          "losses": 7,
+          "goals": 22,
+          "goalsConceded": 20,
+          "goalsDifference": 2,
+          "points": 13,
+          "lastFive": "LLLDL",
+          "streak": {
+            "type": "L",
+            "count": 3
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 12,
+          "teamName": "포틀랜드 팀버스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/8LoELO.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 4,
+          "draws": 1,
+          "losses": 6,
+          "goals": 19,
+          "goalsConceded": 21,
+          "goalsDifference": -2,
+          "points": 13,
+          "lastFive": "WLWLW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 12,
+          "teamName": "콜롬버스 크루",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/BFqKYT.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 3,
+          "draws": 3,
+          "losses": 6,
+          "goals": 16,
+          "goalsConceded": 19,
+          "goalsDifference": -3,
+          "points": 12,
+          "lastFive": "LLWWL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 13,
+          "teamName": "샌디에고 FC",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/blCiIZ.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 3,
+          "draws": 4,
+          "losses": 5,
+          "goals": 20,
+          "goalsConceded": 20,
+          "goalsDifference": 0,
+          "points": 13,
+          "lastFive": "DDLLL",
+          "streak": {
+            "type": "D",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 13,
+          "teamName": "애틀란타 유나이티드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/r8MTjB.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 3,
+          "draws": 1,
+          "losses": 8,
+          "goals": 13,
+          "goalsConceded": 20,
+          "goalsDifference": -7,
+          "points": 10,
+          "lastFive": "LWWLL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 14,
+          "teamName": "올랜도 시티",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/D0YqrJ.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 3,
+          "draws": 1,
+          "losses": 8,
+          "goals": 16,
+          "goalsConceded": 34,
+          "goalsDifference": -18,
+          "points": 10,
+          "lastFive": "LWLWL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 14,
+          "teamName": "세인트루이스 시티",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/k6JjBd.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 2,
+          "draws": 3,
+          "losses": 6,
+          "goals": 10,
+          "goalsConceded": 18,
+          "goalsDifference": -8,
+          "points": 9,
+          "lastFive": "WLLLD",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 15,
+          "teamName": "스포팅 KC",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/15Cvd0.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 1,
+          "draws": 2,
+          "losses": 8,
+          "goals": 8,
+          "goalsConceded": 32,
+          "goalsDifference": -24,
+          "points": 5,
+          "lastFive": "LDLLL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 15,
+          "teamName": "필라델피아 유니언",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/T9LIwi.png?type=f92_88",
+          "matchesPlayed": 12,
+          "wins": 1,
+          "draws": 3,
+          "losses": 8,
+          "goals": 10,
+          "goalsConceded": 19,
+          "goalsDifference": -9,
+          "points": 6,
+          "lastFive": "LDLDD",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
         }
-      },
-      {
-        "rank": 9,
-        "teamName": "롯데",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/LT.png?type=f92_88",
-        "gameCount": 35,
-        "win": 14,
-        "draw": 1,
-        "lose": 20,
-        "winRate": 0.412,
-        "gameBehind": 8.5,
-        "lastFive": "WLLWL",
-        "streak": {
-          "type": "W",
-          "count": 1
+      ]
+    },
+    {
+      "id": "kleague",
+      "name": "K리그",
+      "scheduleSlug": "k-league-1",
+      "season": "2026",
+      "teams": [
+        {
+          "rank": 1,
+          "teamName": "서울",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/09.png?type=f92_88",
+          "matchesPlayed": 13,
+          "wins": 8,
+          "draws": 2,
+          "losses": 3,
+          "goals": 24,
+          "goalsConceded": 11,
+          "goalsDifference": 13,
+          "points": 26,
+          "lastFive": "LDLWW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 2,
+          "teamName": "울산",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/01.png?type=f92_88",
+          "matchesPlayed": 13,
+          "wins": 7,
+          "draws": 2,
+          "losses": 4,
+          "goals": 20,
+          "goalsConceded": 17,
+          "goalsDifference": 3,
+          "points": 23,
+          "lastFive": "WWLLD",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 3,
+          "teamName": "전북",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/05.png?type=f92_88",
+          "matchesPlayed": 13,
+          "wins": 6,
+          "draws": 4,
+          "losses": 3,
+          "goals": 20,
+          "goalsConceded": 12,
+          "goalsDifference": 8,
+          "points": 22,
+          "lastFive": "DWWWL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 4,
+          "teamName": "포항",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/03.png?type=f92_88",
+          "matchesPlayed": 13,
+          "wins": 5,
+          "draws": 4,
+          "losses": 4,
+          "goals": 11,
+          "goalsConceded": 10,
+          "goalsDifference": 1,
+          "points": 19,
+          "lastFive": "WDWLW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 5,
+          "teamName": "인천",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/18.png?type=f92_88",
+          "matchesPlayed": 13,
+          "wins": 5,
+          "draws": 3,
+          "losses": 5,
+          "goals": 17,
+          "goalsConceded": 16,
+          "goalsDifference": 1,
+          "points": 18,
+          "lastFive": "WDLWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 6,
+          "teamName": "강원",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/21.png?type=f92_88",
+          "matchesPlayed": 13,
+          "wins": 4,
+          "draws": 6,
+          "losses": 3,
+          "goals": 15,
+          "goalsConceded": 10,
+          "goalsDifference": 5,
+          "points": 18,
+          "lastFive": "DDWLW",
+          "streak": {
+            "type": "D",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 7,
+          "teamName": "제주",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/04.png?type=f92_88",
+          "matchesPlayed": 13,
+          "wins": 5,
+          "draws": 3,
+          "losses": 5,
+          "goals": 11,
+          "goalsConceded": 12,
+          "goalsDifference": -1,
+          "points": 18,
+          "lastFive": "WWLLW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 8,
+          "teamName": "대전",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/10.png?type=f92_88",
+          "matchesPlayed": 13,
+          "wins": 4,
+          "draws": 4,
+          "losses": 5,
+          "goals": 16,
+          "goalsConceded": 12,
+          "goalsDifference": 4,
+          "points": 16,
+          "lastFive": "LDWWL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 9,
+          "teamName": "안양",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/27.png?type=f92_88",
+          "matchesPlayed": 13,
+          "wins": 3,
+          "draws": 7,
+          "losses": 3,
+          "goals": 15,
+          "goalsConceded": 13,
+          "goalsDifference": 2,
+          "points": 16,
+          "lastFive": "DDLWD",
+          "streak": {
+            "type": "D",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 10,
+          "teamName": "김천",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/35.png?type=f92_88",
+          "matchesPlayed": 13,
+          "wins": 2,
+          "draws": 7,
+          "losses": 4,
+          "goals": 13,
+          "goalsConceded": 18,
+          "goalsDifference": -5,
+          "points": 13,
+          "lastFive": "LLWWL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 11,
+          "teamName": "부천",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/26.png?type=f92_88",
+          "matchesPlayed": 13,
+          "wins": 3,
+          "draws": 4,
+          "losses": 6,
+          "goals": 9,
+          "goalsConceded": 15,
+          "goalsDifference": -6,
+          "points": 13,
+          "lastFive": "LLWLL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 12,
+          "teamName": "광주",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/22.png?type=f92_88",
+          "matchesPlayed": 13,
+          "wins": 1,
+          "draws": 4,
+          "losses": 8,
+          "goals": 7,
+          "goalsConceded": 32,
+          "goalsDifference": -25,
+          "points": 7,
+          "lastFive": "DLLLL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
         }
-      },
-      {
-        "rank": 10,
-        "teamName": "키움",
-        "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/WO.png?type=f92_88",
-        "gameCount": 37,
-        "win": 13,
-        "draw": 1,
-        "lose": 23,
-        "winRate": 0.361,
-        "gameBehind": 10.5,
-        "lastFive": "WDLLL",
-        "streak": {
-          "type": "W",
-          "count": 1
+      ]
+    },
+    {
+      "id": "kleague2",
+      "name": "K리그2",
+      "scheduleSlug": "k-league-2",
+      "season": "2026",
+      "teams": [
+        {
+          "rank": 1,
+          "teamName": "부산",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/06.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 9,
+          "draws": 1,
+          "losses": 1,
+          "goals": 22,
+          "goalsConceded": 11,
+          "goalsDifference": 11,
+          "points": 28,
+          "lastFive": "WWLWW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 2,
+          "teamName": "수원",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/02.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 7,
+          "draws": 2,
+          "losses": 2,
+          "goals": 14,
+          "goalsConceded": 7,
+          "goalsDifference": 7,
+          "points": 23,
+          "lastFive": "DLWWL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 3,
+          "teamName": "서울E",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague2/default/31.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 6,
+          "draws": 1,
+          "losses": 4,
+          "goals": 18,
+          "goalsConceded": 13,
+          "goalsDifference": 5,
+          "points": 19,
+          "lastFive": "LWLWW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 4,
+          "teamName": "수원FC",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/29.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 5,
+          "draws": 3,
+          "losses": 2,
+          "goals": 19,
+          "goalsConceded": 14,
+          "goalsDifference": 5,
+          "points": 18,
+          "lastFive": "DWDLD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 5,
+          "teamName": "화성",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague2/default/39.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 4,
+          "draws": 4,
+          "losses": 3,
+          "goals": 13,
+          "goalsConceded": 11,
+          "goalsDifference": 2,
+          "points": 16,
+          "lastFive": "DWWDW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 6,
+          "teamName": "대구",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/17.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 4,
+          "draws": 3,
+          "losses": 3,
+          "goals": 18,
+          "goalsConceded": 17,
+          "goalsDifference": 1,
+          "points": 15,
+          "lastFive": "DWLDD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 7,
+          "teamName": "충남아산",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague2/default/34.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 4,
+          "draws": 3,
+          "losses": 3,
+          "goals": 16,
+          "goalsConceded": 12,
+          "goalsDifference": 4,
+          "points": 15,
+          "lastFive": "WLDDD",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 8,
+          "teamName": "김포",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague2/default/36.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 5,
+          "losses": 2,
+          "goals": 13,
+          "goalsConceded": 11,
+          "goalsDifference": 2,
+          "points": 14,
+          "lastFive": "DLDDW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 9,
+          "teamName": "성남",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/08.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 5,
+          "losses": 2,
+          "goals": 11,
+          "goalsConceded": 9,
+          "goalsDifference": 2,
+          "points": 14,
+          "lastFive": "DWDLL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 10,
+          "teamName": "천안",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague2/default/38.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 5,
+          "losses": 2,
+          "goals": 11,
+          "goalsConceded": 10,
+          "goalsDifference": 1,
+          "points": 14,
+          "lastFive": "LWDWD",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 11,
+          "teamName": "파주",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague2/default/40.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 4,
+          "draws": 1,
+          "losses": 5,
+          "goals": 14,
+          "goalsConceded": 14,
+          "goalsDifference": 0,
+          "points": 13,
+          "lastFive": "DLWLW",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 12,
+          "teamName": "안산",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague2/default/32.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 3,
+          "draws": 2,
+          "losses": 6,
+          "goals": 13,
+          "goalsConceded": 18,
+          "goalsDifference": -5,
+          "points": 11,
+          "lastFive": "LLWLW",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 13,
+          "teamName": "경남",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/20.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 3,
+          "draws": 2,
+          "losses": 5,
+          "goals": 11,
+          "goalsConceded": 16,
+          "goalsDifference": -5,
+          "points": 11,
+          "lastFive": "WLWLL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 14,
+          "teamName": "용인",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague2/default/42.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 2,
+          "draws": 3,
+          "losses": 5,
+          "goals": 13,
+          "goalsConceded": 17,
+          "goalsDifference": -4,
+          "points": 9,
+          "lastFive": "WLWLD",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 15,
+          "teamName": "충북청주",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague2/default/37.png?type=f92_88",
+          "matchesPlayed": 11,
+          "wins": 0,
+          "draws": 9,
+          "losses": 2,
+          "goals": 11,
+          "goalsConceded": 15,
+          "goalsDifference": -4,
+          "points": 9,
+          "lastFive": "DDDDD",
+          "streak": {
+            "type": "D",
+            "count": 5
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 16,
+          "teamName": "전남",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague/default/07.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 1,
+          "draws": 3,
+          "losses": 6,
+          "goals": 11,
+          "goalsConceded": 17,
+          "goalsDifference": -6,
+          "points": 6,
+          "lastFive": "DLDLD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 17,
+          "teamName": "김해",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kleague2/default/41.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 0,
+          "draws": 2,
+          "losses": 8,
+          "goals": 7,
+          "goalsConceded": 23,
+          "goalsDifference": -16,
+          "points": 2,
+          "lastFive": "LLLDD",
+          "streak": {
+            "type": "L",
+            "count": 3
+          },
+          "rankStatus": null
         }
-      }
-    ]
-  },
-  "lastUpdated": "2026-05-12T04:48:57.312Z"
+      ]
+    },
+    {
+      "id": "eredivisie",
+      "name": "에레디비시",
+      "season": "VJ3l",
+      "teams": [
+        {
+          "rank": 1,
+          "teamName": "아인트호벤",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/2994.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 26,
+          "draws": 3,
+          "losses": 4,
+          "goals": 96,
+          "goalsConceded": 44,
+          "goalsDifference": 52,
+          "points": 81,
+          "lastFive": "WDWWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 2,
+          "teamName": "페예노르트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26323.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 18,
+          "draws": 8,
+          "losses": 7,
+          "goals": 68,
+          "goalsConceded": 44,
+          "goalsDifference": 24,
+          "points": 62,
+          "lastFive": "DWWDD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 3,
+          "teamName": "트벤터",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26322.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 15,
+          "draws": 13,
+          "losses": 5,
+          "goals": 58,
+          "goalsConceded": 35,
+          "goalsDifference": 23,
+          "points": 58,
+          "lastFive": "WDDWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Champions League Qualifiers"
+        },
+        {
+          "rank": 4,
+          "teamName": "NEC 네이메헌",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/drCgJw.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 15,
+          "draws": 11,
+          "losses": 7,
+          "goals": 75,
+          "goalsConceded": 52,
+          "goalsDifference": 23,
+          "points": 56,
+          "lastFive": "LDDDW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "UEFA Europa League Qualifiers"
+        },
+        {
+          "rank": 5,
+          "teamName": "아약스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26320.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 14,
+          "draws": 13,
+          "losses": 6,
+          "goals": 62,
+          "goalsConceded": 41,
+          "goalsDifference": 21,
+          "points": 55,
+          "lastFive": "LDWWL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "UEFA Conference League Play-offs"
+        },
+        {
+          "rank": 6,
+          "teamName": "알크마르",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26464.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 14,
+          "draws": 9,
+          "losses": 10,
+          "goals": 55,
+          "goalsConceded": 48,
+          "goalsDifference": 7,
+          "points": 51,
+          "lastFive": "DDDWW",
+          "streak": {
+            "type": "D",
+            "count": 3
+          },
+          "rankStatus": "UEFA Conference League Play-offs"
+        },
+        {
+          "rank": 7,
+          "teamName": "위트레흐트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/ZoFmtg.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 14,
+          "draws": 8,
+          "losses": 11,
+          "goals": 53,
+          "goalsConceded": 42,
+          "goalsDifference": 11,
+          "points": 50,
+          "lastFive": "WWLWL",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": "UEFA Conference League Play-offs"
+        },
+        {
+          "rank": 8,
+          "teamName": "히렌빈",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/jmgVqg.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 14,
+          "draws": 8,
+          "losses": 11,
+          "goals": 57,
+          "goalsConceded": 53,
+          "goalsDifference": 4,
+          "points": 50,
+          "lastFive": "LWWLW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": "UEFA Conference League Play-offs"
+        },
+        {
+          "rank": 9,
+          "teamName": "흐로닝언",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/Az3qbg.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 13,
+          "draws": 6,
+          "losses": 14,
+          "goals": 47,
+          "goalsConceded": 44,
+          "goalsDifference": 3,
+          "points": 45,
+          "lastFive": "WLLDW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 10,
+          "teamName": "스파르타 로테르담",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/egoiml.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 12,
+          "draws": 7,
+          "losses": 14,
+          "goals": 38,
+          "goalsConceded": 59,
+          "goalsDifference": -21,
+          "points": 43,
+          "lastFive": "LDLLD",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 11,
+          "teamName": "포르투나 시타르트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/MKaLml.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 11,
+          "draws": 6,
+          "losses": 16,
+          "goals": 49,
+          "goalsConceded": 61,
+          "goalsDifference": -12,
+          "points": 39,
+          "lastFive": "WLLDL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 12,
+          "teamName": "고 어헤드 이글스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/32934.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 8,
+          "draws": 14,
+          "losses": 11,
+          "goals": 53,
+          "goalsConceded": 51,
+          "goalsDifference": 2,
+          "points": 38,
+          "lastFive": "LDDDW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 13,
+          "teamName": "PEC 즈볼레",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/iXLjQa.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 9,
+          "draws": 10,
+          "losses": 14,
+          "goals": 44,
+          "goalsConceded": 69,
+          "goalsDifference": -25,
+          "points": 37,
+          "lastFive": "LWLDL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 14,
+          "teamName": "엑셀시오르",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/H719Ps.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 9,
+          "draws": 8,
+          "losses": 16,
+          "goals": 40,
+          "goalsConceded": 54,
+          "goalsDifference": -14,
+          "points": 35,
+          "lastFive": "DWWDL",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 15,
+          "teamName": "텔스타",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/Yzxoip.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 8,
+          "draws": 10,
+          "losses": 15,
+          "goals": 47,
+          "goalsConceded": 54,
+          "goalsDifference": -7,
+          "points": 34,
+          "lastFive": "WDWLL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 16,
+          "teamName": "폴렌담",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/P7f2z7.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 8,
+          "draws": 8,
+          "losses": 17,
+          "goals": 34,
+          "goalsConceded": 53,
+          "goalsDifference": -19,
+          "points": 32,
+          "lastFive": "DLWLD",
+          "streak": {
+            "type": "D",
+            "count": 1
+          },
+          "rankStatus": "Relegation Play-off"
+        },
+        {
+          "rank": 17,
+          "teamName": "NAC 브레다",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/dOtU3H.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 6,
+          "draws": 10,
+          "losses": 17,
+          "goals": 32,
+          "goalsConceded": 55,
+          "goalsDifference": -23,
+          "points": 28,
+          "lastFive": "WLLDD",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Relegation"
+        },
+        {
+          "rank": 18,
+          "teamName": "헤라클레스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/r9yYOA.png?type=f92_88",
+          "matchesPlayed": 33,
+          "wins": 5,
+          "draws": 4,
+          "losses": 24,
+          "goals": 34,
+          "goalsConceded": 83,
+          "goalsDifference": -49,
+          "points": 19,
+          "lastFive": "LLLLL",
+          "streak": {
+            "type": "L",
+            "count": 5
+          },
+          "rankStatus": "Relegation"
+        }
+      ]
+    }
+  ],
+  "baseball": [
+    {
+      "id": "kbo",
+      "name": "KBO",
+      "season": "2026",
+      "teams": [
+        {
+          "rank": 1,
+          "teamName": "KT",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/KT.png?type=f92_88",
+          "gameCount": 36,
+          "win": 23,
+          "draw": 1,
+          "lose": 12,
+          "winRate": 0.657,
+          "gameBehind": 0,
+          "lastFive": "LDWLW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          }
+        },
+        {
+          "rank": 2,
+          "teamName": "LG",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/LG.png?type=f92_88",
+          "gameCount": 36,
+          "win": 22,
+          "draw": 0,
+          "lose": 14,
+          "winRate": 0.611,
+          "gameBehind": 1.5,
+          "lastFive": "LLWLW",
+          "streak": {
+            "type": "L",
+            "count": 2
+          }
+        },
+        {
+          "rank": 3,
+          "teamName": "삼성",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/SS.png?type=f92_88",
+          "gameCount": 36,
+          "win": 21,
+          "draw": 1,
+          "lose": 14,
+          "winRate": 0.6,
+          "gameBehind": 2,
+          "lastFive": "WWWWW",
+          "streak": {
+            "type": "W",
+            "count": 7
+          }
+        },
+        {
+          "rank": 4,
+          "teamName": "SSG",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/SK.png?type=f92_88",
+          "gameCount": 36,
+          "win": 19,
+          "draw": 1,
+          "lose": 16,
+          "winRate": 0.543,
+          "gameBehind": 4,
+          "lastFive": "LLWLW",
+          "streak": {
+            "type": "L",
+            "count": 2
+          }
+        },
+        {
+          "rank": 5,
+          "teamName": "KIA",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/HT.png?type=f92_88",
+          "gameCount": 37,
+          "win": 17,
+          "draw": 1,
+          "lose": 19,
+          "winRate": 0.472,
+          "gameBehind": 6.5,
+          "lastFive": "LWWLL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          }
+        },
+        {
+          "rank": 5,
+          "teamName": "두산",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/OB.png?type=f92_88",
+          "gameCount": 37,
+          "win": 17,
+          "draw": 1,
+          "lose": 19,
+          "winRate": 0.472,
+          "gameBehind": 6.5,
+          "lastFive": "WWLWL",
+          "streak": {
+            "type": "W",
+            "count": 2
+          }
+        },
+        {
+          "rank": 7,
+          "teamName": "한화",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/HH.png?type=f92_88",
+          "gameCount": 36,
+          "win": 16,
+          "draw": 0,
+          "lose": 20,
+          "winRate": 0.444,
+          "gameBehind": 7.5,
+          "lastFive": "WWLWW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          }
+        },
+        {
+          "rank": 8,
+          "teamName": "NC",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/NC.png?type=f92_88",
+          "gameCount": 36,
+          "win": 15,
+          "draw": 1,
+          "lose": 20,
+          "winRate": 0.429,
+          "gameBehind": 8,
+          "lastFive": "LLLWL",
+          "streak": {
+            "type": "L",
+            "count": 3
+          }
+        },
+        {
+          "rank": 9,
+          "teamName": "롯데",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/LT.png?type=f92_88",
+          "gameCount": 35,
+          "win": 14,
+          "draw": 1,
+          "lose": 20,
+          "winRate": 0.412,
+          "gameBehind": 8.5,
+          "lastFive": "WLLWL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          }
+        },
+        {
+          "rank": 10,
+          "teamName": "키움",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/WO.png?type=f92_88",
+          "gameCount": 37,
+          "win": 13,
+          "draw": 1,
+          "lose": 23,
+          "winRate": 0.361,
+          "gameBehind": 10.5,
+          "lastFive": "WDLLL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "mlb",
+      "name": "MLB",
+      "scheduleSlug": "mlb",
+      "season": "2026",
+      "teams": [
+        {
+          "rank": 1,
+          "teamName": "애틀랜타",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/AT.png?type=f92_88",
+          "gameCount": 41,
+          "win": 28,
+          "draw": 0,
+          "lose": 13,
+          "winRate": 0.683,
+          "gameBehind": 0,
+          "lastFive": "WWLLW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          }
+        },
+        {
+          "rank": 1,
+          "teamName": "시카고컵스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/CC.png?type=f92_88",
+          "gameCount": 41,
+          "win": 27,
+          "draw": 0,
+          "lose": 14,
+          "winRate": 0.659,
+          "gameBehind": 0,
+          "lastFive": "LLWWW",
+          "streak": {
+            "type": "L",
+            "count": 2
+          }
+        },
+        {
+          "rank": 1,
+          "teamName": "클리블랜드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/CL.png?type=f92_88",
+          "gameCount": 43,
+          "win": 22,
+          "draw": 0,
+          "lose": 21,
+          "winRate": 0.512,
+          "gameBehind": 0,
+          "lastFive": "WLLWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          }
+        },
+        {
+          "rank": 1,
+          "teamName": "애슬레틱스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/OA.png?type=f92_88",
+          "gameCount": 40,
+          "win": 21,
+          "draw": 0,
+          "lose": 19,
+          "winRate": 0.525,
+          "gameBehind": 0,
+          "lastFive": "LWWWL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          }
+        },
+        {
+          "rank": 1,
+          "teamName": "샌디에이고",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/SD.png?type=f92_88",
+          "gameCount": 40,
+          "win": 24,
+          "draw": 0,
+          "lose": 16,
+          "winRate": 0.6,
+          "gameBehind": 0,
+          "lastFive": "WWLLW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          }
+        },
+        {
+          "rank": 1,
+          "teamName": "탬파베이",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/TB.png?type=f92_88",
+          "gameCount": 40,
+          "win": 27,
+          "draw": 0,
+          "lose": 13,
+          "winRate": 0.675,
+          "gameBehind": 0,
+          "lastFive": "WWLWW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          }
+        },
+        {
+          "rank": 2,
+          "teamName": "시카고W",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/CW.png?type=f92_88",
+          "gameCount": 40,
+          "win": 19,
+          "draw": 0,
+          "lose": 21,
+          "winRate": 0.475,
+          "gameBehind": 1.5,
+          "lastFive": "WWLLL",
+          "streak": {
+            "type": "W",
+            "count": 2
+          }
+        },
+        {
+          "rank": 2,
+          "teamName": "마이애미",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/FL.png?type=f92_88",
+          "gameCount": 41,
+          "win": 19,
+          "draw": 0,
+          "lose": 22,
+          "winRate": 0.463,
+          "gameBehind": 9,
+          "lastFive": "WWLWL",
+          "streak": {
+            "type": "W",
+            "count": 2
+          }
+        },
+        {
+          "rank": 2,
+          "teamName": "LA다저스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/LA.png?type=f92_88",
+          "gameCount": 41,
+          "win": 24,
+          "draw": 0,
+          "lose": 17,
+          "winRate": 0.585,
+          "gameBehind": 0.5,
+          "lastFive": "LLLWW",
+          "streak": {
+            "type": "L",
+            "count": 3
+          }
+        },
+        {
+          "rank": 2,
+          "teamName": "밀워키",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/MI.png?type=f92_88",
+          "gameCount": 38,
+          "win": 22,
+          "draw": 0,
+          "lose": 16,
+          "winRate": 0.579,
+          "gameBehind": 3.5,
+          "lastFive": "WWWWL",
+          "streak": {
+            "type": "W",
+            "count": 4
+          }
+        },
+        {
+          "rank": 2,
+          "teamName": "워싱턴",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/MO.png?type=f92_88",
+          "gameCount": 41,
+          "win": 19,
+          "draw": 0,
+          "lose": 22,
+          "winRate": 0.463,
+          "gameBehind": 9,
+          "lastFive": "LLWWW",
+          "streak": {
+            "type": "L",
+            "count": 2
+          }
+        },
+        {
+          "rank": 2,
+          "teamName": "뉴욕양키스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/NY.png?type=f92_88",
+          "gameCount": 42,
+          "win": 26,
+          "draw": 0,
+          "lose": 16,
+          "winRate": 0.619,
+          "gameBehind": 2,
+          "lastFive": "LLLLW",
+          "streak": {
+            "type": "L",
+            "count": 4
+          }
+        },
+        {
+          "rank": 2,
+          "teamName": "필라델피아",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/PH.png?type=f92_88",
+          "gameCount": 41,
+          "win": 19,
+          "draw": 0,
+          "lose": 22,
+          "winRate": 0.463,
+          "gameBehind": 9,
+          "lastFive": "WWLLW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          }
+        },
+        {
+          "rank": 2,
+          "teamName": "시애틀",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/SE.png?type=f92_88",
+          "gameCount": 42,
+          "win": 20,
+          "draw": 0,
+          "lose": 22,
+          "winRate": 0.476,
+          "gameBehind": 2,
+          "lastFive": "WLLWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          }
+        },
+        {
+          "rank": 3,
+          "teamName": "애리조나",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/AZ.png?type=f92_88",
+          "gameCount": 40,
+          "win": 20,
+          "draw": 0,
+          "lose": 20,
+          "winRate": 0.5,
+          "gameBehind": 4,
+          "lastFive": "WWWLL",
+          "streak": {
+            "type": "W",
+            "count": 3
+          }
+        },
+        {
+          "rank": 3,
+          "teamName": "볼티모어",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/BA.png?type=f92_88",
+          "gameCount": 42,
+          "win": 19,
+          "draw": 0,
+          "lose": 23,
+          "winRate": 0.452,
+          "gameBehind": 9,
+          "lastFive": "WWLLL",
+          "streak": {
+            "type": "W",
+            "count": 2
+          }
+        },
+        {
+          "rank": 3,
+          "teamName": "디트로이트",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/DE.png?type=f92_88",
+          "gameCount": 41,
+          "win": 19,
+          "draw": 0,
+          "lose": 22,
+          "winRate": 0.463,
+          "gameBehind": 2,
+          "lastFive": "WLLLL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          }
+        },
+        {
+          "rank": 3,
+          "teamName": "캔자스시티",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/KC.png?type=f92_88",
+          "gameCount": 41,
+          "win": 19,
+          "draw": 0,
+          "lose": 22,
+          "winRate": 0.463,
+          "gameBehind": 2,
+          "lastFive": "LWWLL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          }
+        },
+        {
+          "rank": 3,
+          "teamName": "세인트루이스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/SL.png?type=f92_88",
+          "gameCount": 40,
+          "win": 23,
+          "draw": 0,
+          "lose": 17,
+          "winRate": 0.575,
+          "gameBehind": 3.5,
+          "lastFive": "LLWWL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          }
+        },
+        {
+          "rank": 3,
+          "teamName": "텍사스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/TE.png?type=f92_88",
+          "gameCount": 41,
+          "win": 19,
+          "draw": 0,
+          "lose": 22,
+          "winRate": 0.463,
+          "gameBehind": 2.5,
+          "lastFive": "LWWLL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          }
+        },
+        {
+          "rank": 4,
+          "teamName": "LA에인절스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/AN.png?type=f92_88",
+          "gameCount": 42,
+          "win": 16,
+          "draw": 0,
+          "lose": 26,
+          "winRate": 0.381,
+          "gameBehind": 6,
+          "lastFive": "LWLLW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          }
+        },
+        {
+          "rank": 4,
+          "teamName": "신시내티",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/CI.png?type=f92_88",
+          "gameCount": 41,
+          "win": 22,
+          "draw": 0,
+          "lose": 19,
+          "winRate": 0.537,
+          "gameBehind": 5,
+          "lastFive": "WWLLL",
+          "streak": {
+            "type": "W",
+            "count": 2
+          }
+        },
+        {
+          "rank": 4,
+          "teamName": "휴스턴",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/HO.png?type=f92_88",
+          "gameCount": 42,
+          "win": 16,
+          "draw": 0,
+          "lose": 26,
+          "winRate": 0.381,
+          "gameBehind": 6,
+          "lastFive": "LLLWL",
+          "streak": {
+            "type": "L",
+            "count": 3
+          }
+        },
+        {
+          "rank": 4,
+          "teamName": "피츠버그",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/PI.png?type=f92_88",
+          "gameCount": 41,
+          "win": 22,
+          "draw": 0,
+          "lose": 19,
+          "winRate": 0.537,
+          "gameBehind": 5,
+          "lastFive": "LWLWW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          }
+        },
+        {
+          "rank": 4,
+          "teamName": "샌프란시스코",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/SF.png?type=f92_88",
+          "gameCount": 41,
+          "win": 17,
+          "draw": 0,
+          "lose": 24,
+          "winRate": 0.415,
+          "gameBehind": 7.5,
+          "lastFive": "WWLWL",
+          "streak": {
+            "type": "W",
+            "count": 2
+          }
+        },
+        {
+          "rank": 4,
+          "teamName": "토론토",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/TO.png?type=f92_88",
+          "gameCount": 41,
+          "win": 18,
+          "draw": 0,
+          "lose": 23,
+          "winRate": 0.439,
+          "gameBehind": 9.5,
+          "lastFive": "LLWWL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          }
+        },
+        {
+          "rank": 5,
+          "teamName": "보스턴",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/BO.png?type=f92_88",
+          "gameCount": 40,
+          "win": 17,
+          "draw": 0,
+          "lose": 23,
+          "winRate": 0.425,
+          "gameBehind": 10,
+          "lastFive": "LWLWW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          }
+        },
+        {
+          "rank": 5,
+          "teamName": "콜로라도",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/CO.png?type=f92_88",
+          "gameCount": 41,
+          "win": 16,
+          "draw": 0,
+          "lose": 25,
+          "winRate": 0.39,
+          "gameBehind": 8.5,
+          "lastFive": "LLWWL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          }
+        },
+        {
+          "rank": 5,
+          "teamName": "미네소타",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/MN.png?type=f92_88",
+          "gameCount": 41,
+          "win": 18,
+          "draw": 0,
+          "lose": 23,
+          "winRate": 0.439,
+          "gameBehind": 3,
+          "lastFive": "WWLLL",
+          "streak": {
+            "type": "W",
+            "count": 2
+          }
+        },
+        {
+          "rank": 5,
+          "teamName": "뉴욕메츠",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/NM.png?type=f92_88",
+          "gameCount": 40,
+          "win": 15,
+          "draw": 0,
+          "lose": 25,
+          "winRate": 0.375,
+          "gameBehind": 12.5,
+          "lastFive": "LLWLW",
+          "streak": {
+            "type": "L",
+            "count": 2
+          }
+        }
+      ]
+    }
+  ],
+  "basketball": [],
+  "lastUpdated": "2026-05-12T05:57:55.027Z"
 }

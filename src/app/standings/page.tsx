@@ -4,17 +4,34 @@ import Image from "next/image";
 import standingsData from "@/data/standings.json";
 import type { StandingsData } from "@/types/standings";
 import { StickyHeader } from "../_components/StickyHeader";
+import { StandingsView } from "./_components/StandingsView";
 
-const data = standingsData as StandingsData;
+const data = standingsData as unknown as StandingsData;
 
 export const metadata: Metadata = {
-  title: "EPL · KBO 순위 - 한해설",
+  title: "팀 순위 - EPL · 라리가 · 분데스 · KBO 등 | 한해설",
   description:
-    "프리미어리그(EPL)와 KBO 리그의 실시간 팀 순위표. 승률·게임차·승점·득실차·연속 결과까지 한눈에. 한국어 해설 중계 편성표와 함께 확인하세요.",
+    "프리미어리그·라리가·분데스리가·세리에A·리그앙·챔피언스리그·유로파리그·MLS·K리그·KBO·MLB 팀 순위. 승점·득실·승률·게임차·연속 결과까지 한눈에. 한국어 해설 중계 편성표와 함께.",
+  keywords: [
+    "EPL 순위",
+    "프리미어리그 순위",
+    "라리가 순위",
+    "분데스리가 순위",
+    "세리에A 순위",
+    "리그앙 순위",
+    "챔피언스리그 순위",
+    "유로파리그 순위",
+    "MLS 순위",
+    "K리그 순위",
+    "KBO 순위",
+    "MLB 순위",
+    "프로야구 순위",
+  ],
   alternates: { canonical: "https://haeseol.com/standings" },
   openGraph: {
-    title: "EPL · KBO 순위 - 한해설",
-    description: "프리미어리그·KBO 팀 순위를 한눈에. 한국어 해설 중계 편성표와 함께.",
+    title: "팀 순위 - 한해설",
+    description:
+      "EPL·라리가·분데스·세리에A·KBO·MLB 등 팀 순위. 한국어 해설 중계 편성표와 함께.",
     url: "https://haeseol.com/standings",
     siteName: "한해설",
     locale: "ko_KR",
@@ -30,32 +47,13 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "EPL · KBO 순위 - 한해설",
-    description: "프리미어리그·KBO 팀 순위를 한눈에.",
+    title: "팀 순위 - 한해설",
+    description: "EPL·KBO 등 팀 순위를 한눈에.",
     images: ["https://haeseol.com/og-default.png"],
   },
 };
 
-export default function StandingsLandingPage() {
-  const cards = [
-    {
-      key: "epl",
-      title: "프리미어리그 (EPL)",
-      sub: "잉글랜드 1부 · 20팀",
-      href: "/standings/epl",
-      leader: data.epl?.teams[0]?.teamName,
-      sport: "축구",
-    },
-    {
-      key: "kbo",
-      title: "KBO 리그",
-      sub: "한국 프로야구 · 10팀",
-      href: "/standings/kbo",
-      leader: data.kbo?.teams[0]?.teamName,
-      sport: "야구",
-    },
-  ];
-
+export default function StandingsPage() {
   return (
     <main className="min-h-screen text-gray-100">
       <div className="mx-auto max-w-2xl px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
@@ -83,40 +81,12 @@ export default function StandingsLandingPage() {
           </header>
         </StickyHeader>
 
-        <h1 className="mb-2 mt-4 text-2xl font-bold sm:mt-6 sm:text-3xl">팀 순위</h1>
-        <p className="mb-6 text-zinc-400 sm:mb-8">
-          네이버 스포츠 기준 실시간 순위. 한국어 해설 중계 일정과 함께 확인하세요.
-        </p>
+        <h1 className="mb-6 mt-4 text-2xl font-bold sm:mb-8 sm:mt-6 sm:text-3xl">팀 순위</h1>
 
-        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
-          {cards.map((c) => (
-            <Link
-              key={c.key}
-              href={c.href}
-              className="group block rounded-xl border border-zinc-800/80 bg-zinc-950/50 p-4 transition-all hover:border-zinc-600/80 hover:bg-zinc-900/70 sm:p-5"
-            >
-              <div className="flex items-center justify-between">
-                <span className="rounded-md border border-emerald-500/30 bg-emerald-500/5 px-2 py-0.5 text-xs font-semibold text-emerald-400">
-                  {c.sport}
-                </span>
-                <span className="text-xs text-zinc-500 transition-transform group-hover:translate-x-0.5">
-                  →
-                </span>
-              </div>
-              <h2 className="mt-3 text-lg font-bold text-white sm:mt-4 sm:text-xl">{c.title}</h2>
-              <p className="mt-1 text-sm text-zinc-500">{c.sub}</p>
-              {c.leader && (
-                <p className="mt-3 text-sm text-zinc-400 sm:mt-4">
-                  <span className="text-zinc-500">현재 1위 · </span>
-                  <span className="font-semibold text-zinc-100">{c.leader}</span>
-                </p>
-              )}
-            </Link>
-          ))}
-        </div>
+        <StandingsView data={data} />
 
         <p className="mt-6 text-xs text-zinc-600">
-          데이터 갱신:{" "}
+          데이터 출처: 네이버 스포츠 · 갱신:{" "}
           {new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })} (KST)
         </p>
       </div>

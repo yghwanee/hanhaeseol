@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
-import type { KboStanding } from "@/types/standings";
+import type { BaseballStanding } from "@/types/standings";
 import { Last5Dots } from "./Last5Dots";
 import { StreakChip } from "./StreakChip";
 
@@ -29,7 +29,7 @@ const COLS: Col[] = [
   { key: "gameBehind", label: "게임차" },
 ];
 
-export function KboTable({ teams }: { teams: KboStanding[] }) {
+export function BaseballTable({ teams }: { teams: BaseballStanding[] }) {
   const [sortKey, setSortKey] = useState<SortKey>("rank");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
 

@@ -3,10 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import standingsData from "@/data/standings.json";
 import type { StandingsData } from "@/types/standings";
-import { EplTable } from "../_components/EplTable";
+import { SoccerTable } from "../_components/SoccerTable";
 import { StickyHeader } from "../../_components/StickyHeader";
 
-const data = standingsData as StandingsData;
+const data = standingsData as unknown as StandingsData;
 
 export const metadata: Metadata = {
   title: "EPL 순위 - 프리미어리그 팀 순위표 | 한해설",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
 };
 
 export default function EplStandingsPage() {
-  const epl = data.epl;
+  const epl = data.soccer.find((l) => l.id === "epl") ?? null;
 
   return (
     <main className="min-h-screen text-gray-100">
@@ -103,7 +103,7 @@ export default function EplStandingsPage() {
           {!epl || epl.teams.length === 0 ? (
             <p className="text-zinc-400">EPL 순위 데이터를 불러오지 못했습니다.</p>
           ) : (
-            <EplTable teams={epl.teams} />
+            <SoccerTable teams={epl.teams} />
           )}
         </div>
 

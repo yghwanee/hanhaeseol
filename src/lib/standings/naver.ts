@@ -1,6 +1,10 @@
 import type {
-  EplStanding,
-  KboStanding,
+  BaseballLeagueId,
+  BaseballLeagueStandings,
+  BaseballStanding,
+  SoccerLeagueId,
+  SoccerLeagueStandings,
+  SoccerStanding,
   StreakInfo,
 } from "@/types/standings";
 
@@ -40,7 +44,6 @@ async function fetchCurrentSeasonCode(categoryId: string): Promise<string | null
   return current?.seasonCode ?? seasons[seasons.length - 1].seasonCode;
 }
 
-/** "1패"/"6승"/"3무" → { type, count }. 야구는 네이버가 채워줌. */
 function parseStreak(raw?: string | null): StreakInfo | null {
   if (!raw) return null;
   const m = raw.match(/^(\d+)(승|패|무)$/);
@@ -49,8 +52,6 @@ function parseStreak(raw?: string | null): StreakInfo | null {
   return { type, count: parseInt(m[1], 10) };
 }
 
-/** EPL은 continuousGameResult가 null이라 lastFive에서 직접 계산.
- *  네이버 EPL lastFive는 [최근 → 오래된] 순서. 첫 글자부터 연속 카운트. */
 function streakFromLastFive(lastFive?: string | null): StreakInfo {
   if (!lastFive || lastFive.length === 0) return { type: "W", count: 0 };
   const first = lastFive[0];
@@ -63,7 +64,9 @@ function streakFromLastFive(lastFive?: string | null): StreakInfo {
   return { type, count };
 }
 
-interface NaverEplTeam {
+// ── 축구 ─────────────────────────────────────────────────────────────
+
+interface NaverSoccerTeam {
   teamName: string;
   teamEmblemUrl?: string | null;
   rank: number;
@@ -79,20 +82,44 @@ interface NaverEplTeam {
   lastFiveGames?: string | null;
 }
 
-export async function fetchEplStandings(): Promise<{
-  season: string;
-  teams: EplStanding[];
-} | null> {
-  const seasonCode = await fetchCurrentSeasonCode("epl");
+export interface SoccerLeagueMeta {
+  id: SoccerLeagueId;
+  /** 네이버 categoryId */
+  categoryId: string;
+  /** 사이트 내 표시 이름 */
+  name: string;
+  /** 사이트 내 편성표 슬러그(/league/{slug}) — 있으면 "편성표로 가기" 버튼에서 사용 */
+  scheduleSlug?: string;
+}
+
+/** 사용자에게 보여줄 순서. 시청자 풀 큰 순. */
+export const SOCCER_LEAGUES: SoccerLeagueMeta[] = [
+  { id: "epl", categoryId: "epl", name: "프리미어리그", scheduleSlug: "epl" },
+  { id: "primera", categoryId: "primera", name: "라리가", scheduleSlug: "laliga" },
+  { id: "bundesliga", categoryId: "bundesliga", name: "분데스리가", scheduleSlug: "bundesliga" },
+  { id: "seria", categoryId: "seria", name: "세리에A", scheduleSlug: "serie-a" },
+  { id: "ligue1", categoryId: "ligue1", name: "리그앙", scheduleSlug: "ligue-1" },
+  { id: "champs", categoryId: "champs", name: "챔피언스리그", scheduleSlug: "ucl" },
+  { id: "europa", categoryId: "europa", name: "유로파리그", scheduleSlug: "uel" },
+  { id: "mls", categoryId: "mls", name: "MLS", scheduleSlug: "mls" },
+  { id: "kleague", categoryId: "kleague", name: "K리그", scheduleSlug: "k-league-1" },
+  { id: "kleague2", categoryId: "kleague2", name: "K리그2", scheduleSlug: "k-league-2" },
+  { id: "eredivisie", categoryId: "eredivisie", name: "에레디비시" },
+];
+
+export async function fetchSoccerLeague(
+  meta: SoccerLeagueMeta,
+): Promise<SoccerLeagueStandings | null> {
+  const seasonCode = await fetchCurrentSeasonCode(meta.categoryId);
   if (!seasonCode) return null;
 
-  const r = await naverGet<{ seasonTeamStats?: NaverEplTeam[] }>(
-    `/statistics/categories/epl/seasons/${seasonCode}/teams`,
+  const r = await naverGet<{ seasonTeamStats?: NaverSoccerTeam[] }>(
+    `/statistics/categories/${meta.categoryId}/seasons/${seasonCode}/teams`,
   );
   const stats = r.seasonTeamStats ?? [];
   if (stats.length === 0) return null;
 
-  const teams: EplStanding[] = stats
+  const teams: SoccerStanding[] = stats
     .slice()
     .sort((a, b) => a.rank - b.rank)
     .map((t) => ({
@@ -112,8 +139,16 @@ export async function fetchEplStandings(): Promise<{
       rankStatus: t.rankStatus ?? null,
     }));
 
-  return { season: seasonCode, teams };
+  return {
+    id: meta.id,
+    name: meta.name,
+    scheduleSlug: meta.scheduleSlug,
+    season: seasonCode,
+    teams,
+  };
 }
+
+// ── 야구 ─────────────────────────────────────────────────────────────
 
 interface NaverKboTeam {
   teamName: string;
@@ -129,21 +164,32 @@ interface NaverKboTeam {
   lastFiveGames?: string | null;
 }
 
-export async function fetchKboStandings(): Promise<{
-  season: string;
-  teams: KboStanding[];
-} | null> {
-  const seasonCode = await fetchCurrentSeasonCode("kbo");
+export interface BaseballLeagueMeta {
+  id: BaseballLeagueId;
+  categoryId: string;
+  name: string;
+  scheduleSlug?: string;
+}
+
+export const BASEBALL_LEAGUES: BaseballLeagueMeta[] = [
+  { id: "kbo", categoryId: "kbo", name: "KBO" },
+  { id: "mlb", categoryId: "mlb", name: "MLB", scheduleSlug: "mlb" },
+];
+
+export async function fetchBaseballLeague(
+  meta: BaseballLeagueMeta,
+): Promise<BaseballLeagueStandings | null> {
+  const seasonCode = await fetchCurrentSeasonCode(meta.categoryId);
   if (!seasonCode) return null;
 
   const r = await naverGet<{ seasonTeamStats?: NaverKboTeam[] }>(
-    `/statistics/categories/kbo/seasons/${seasonCode}/teams`,
+    `/statistics/categories/${meta.categoryId}/seasons/${seasonCode}/teams`,
   );
   const stats = r.seasonTeamStats ?? [];
   if (stats.length === 0) return null;
 
-  // 네이버 KBO lastFive는 [오래된 → 최근] 순. UI에서 "최근이 왼쪽"으로 표시하려면 reverse.
-  const teams: KboStanding[] = stats
+  // KBO/MLB 모두 네이버 lastFive는 [오래된→최근] 순서이므로 reverse하여 [최근→오래된]으로 통일.
+  const teams: BaseballStanding[] = stats
     .slice()
     .sort((a, b) => a.ranking - b.ranking)
     .map((t) => {
@@ -164,5 +210,11 @@ export async function fetchKboStandings(): Promise<{
       };
     });
 
-  return { season: seasonCode, teams };
+  return {
+    id: meta.id,
+    name: meta.name,
+    scheduleSlug: meta.scheduleSlug,
+    season: seasonCode,
+    teams,
+  };
 }
