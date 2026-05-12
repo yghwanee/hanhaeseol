@@ -1,4 +1,4 @@
-import { getHierarchicalTags } from "./hashtags";
+import { getHeroMatchLines, getHierarchicalTags, getMainHighlight } from "./hashtags";
 
 const IG_API = "https://graph.facebook.com/v21.0";
 
@@ -16,16 +16,31 @@ export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export function buildCaption(mm: string, dd: string, today: string, link: string) {
   const hashtagLine = getHierarchicalTags(today).tags.join(" ");
-  return [
-    `📺 ${mm}/${dd} 오늘의 한국어 중계 편성표`,
-    ``,
-    `⚽️ 축구  ⚾️ 야구  🏀 농구  🏐 배구`,
-    `한국어 해설이 있는 모든 경기를 한곳에.`,
-    ``,
-    link,
-    ``,
-    hashtagLine,
-  ].join("\n");
+  const highlight = getMainHighlight(today);
+  const { lines: heroLines, totalGames } = getHeroMatchLines(today, 3);
+
+  const body: string[] = [];
+  body.push(`📺 ${mm}/${dd} ${highlight}`);
+  body.push(``);
+
+  if (heroLines.length > 0) {
+    body.push(`🎯 오늘의 빅매치`);
+    for (const line of heroLines) body.push(line);
+    body.push(``);
+    if (totalGames > heroLines.length) {
+      body.push(`+ ${totalGames - heroLines.length}경기 더보기`);
+    } else {
+      body.push(`총 ${totalGames}경기`);
+    }
+  } else {
+    body.push(`오늘은 한국어 해설 편성이 없어요.`);
+  }
+  body.push(``);
+  body.push(link);
+  body.push(``);
+  body.push(hashtagLine);
+
+  return body.join("\n");
 }
 
 export async function postMedia(params: Record<string, string>): Promise<string> {

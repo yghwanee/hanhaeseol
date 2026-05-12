@@ -180,6 +180,24 @@ export function pickHeroMatch(matches: Schedule[]): Schedule | null {
   return matches[0];
 }
 
+// HERO_LEAGUE_PRIORITY 순으로 정렬 후 상위 N개. 같은 리그면 이른 경기 먼저.
+// 캡션/설명용 "빅매치 라인" 생성에서 매일 다양한 매치업을 노출하기 위해 사용.
+export function pickHeroMatchesTop(matches: Schedule[], max: number): Schedule[] {
+  if (matches.length === 0 || max <= 0) return [];
+  const rank = (lg: string) => {
+    const i = HERO_LEAGUE_PRIORITY.indexOf(lg);
+    return i === -1 ? HERO_LEAGUE_PRIORITY.length : i;
+  };
+  return [...matches]
+    .sort((a, b) => {
+      const ra = rank(a.league);
+      const rb = rank(b.league);
+      if (ra !== rb) return ra - rb;
+      return a.time.localeCompare(b.time);
+    })
+    .slice(0, max);
+}
+
 export function fitText(
   ctx: SKRSContext2D,
   text: string,

@@ -1,6 +1,13 @@
 import fs from "node:fs";
 import type { Schedule, ScheduleData, Sport } from "@/types/schedule";
-import { pickHeroMatch } from "./instagram";
+import { pickHeroMatch, pickHeroMatchesTop } from "./instagram";
+
+const SPORT_EMOJI: Record<Sport, string> = {
+  축구: "⚽",
+  야구: "⚾",
+  농구: "🏀",
+  배구: "🏐",
+};
 
 // 종목 → 해시태그 (대분류)
 const SPORT_HASHTAGS: Record<Sport, string> = {
@@ -290,6 +297,42 @@ export function getMainHighlight(today: string): string {
   const leagueShort = leagueShortName(r.mainLeague);
   if (r.mainPlayer) return `${r.mainPlayer} ${leagueShort} 한국어 중계`;
   return `${leagueShort} 빅매치 한국어 중계`;
+}
+
+/**
+ * 캡션/설명용 "오늘의 빅매치 N개" 라인 생성.
+ * 매일 hero 매치업이 달라지므로, 본문이 날짜만 다른 박제 텍스트가 되지 않게 함.
+ *
+ * 예:
+ *   ⚽ EPL  토트넘 vs 리즈  18:30 · 쿠팡플레이
+ *   ⚾ MLB  다저스 vs 자이언츠  11:00 · 티빙
+ */
+export function getHeroMatchLines(today: string, max: number = 3): {
+  lines: string[];
+  totalGames: number;
+} {
+  const games = loadKoreanCommentaryGames(today);
+  const totalGames = games.length;
+  if (totalGames === 0) return { lines: [], totalGames: 0 };
+
+  const heroes = pickHeroMatchesTop(games, max);
+  const lines = heroes.map((m) => {
+    const emoji = SPORT_EMOJI[m.sport];
+    const lg = leagueShortName(m.league);
+    const matchup = m.awayTeam ? `${m.homeTeam} vs ${m.awayTeam}` : m.homeTeam;
+    return `${emoji} ${lg}  ${matchup}  ${m.time} · ${m.platform}`;
+  });
+  return { lines, totalGames };
+}
+
+/**
+ * YouTube tags 필드용 평문 태그(앞에 # 없음).
+ * 동적 hero 기반 태그 + 브랜드 baseline. 매일 hero가 바뀌면 태그도 바뀜.
+ */
+export function getPlainTags(today: string): string[] {
+  const dynamic = getHierarchicalTags(today).tags.map((t) => t.replace(/^#/, ""));
+  const baseline = ["한해설", "한국어해설", "한국어중계", "스포츠중계", "편성표"];
+  return Array.from(new Set([...dynamic, ...baseline]));
 }
 
 /**

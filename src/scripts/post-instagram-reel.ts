@@ -1,7 +1,7 @@
 import { getKstToday } from "@/lib/instagram";
 import { buildCaption, comment, mediaBaseUrl, publishSingleMedia } from "@/lib/instagram-api";
 import { readManifest } from "@/lib/manifest";
-import { FIXED_COMMENT } from "@/lib/social-comment";
+import { buildSocialComment } from "@/lib/social-comment";
 import { UTM_LINKS } from "@/lib/utm";
 
 async function main() {
@@ -24,7 +24,7 @@ async function main() {
   );
   console.log(`✅ 릴스 게시 완료. Media ID: ${mediaId}`);
 
-  await comment(mediaId, FIXED_COMMENT);
+  await comment(mediaId, buildSocialComment(today));
   console.log(`💬 댓글 작성 완료`);
 }
 

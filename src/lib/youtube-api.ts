@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import sharp from "sharp";
-import { getHierarchicalTags } from "./hashtags";
+import { getHeroMatchLines, getHierarchicalTags, getMainHighlight, getPlainTags } from "./hashtags";
 import { UTM_LINKS } from "./utm";
 
 const OAUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
@@ -194,22 +194,38 @@ export function buildShortsMeta(mm: string, dd: string, today: string) {
   const mNum = parseInt(mm, 10);
   const dNum = parseInt(dd, 10);
   const wd = getKstWeekday();
-  // 제목: 고정 문구 + 메타태그(#Shorts) 박음. 설명에선 #Shorts 생략.
-  const title = `📺 ${mNum}/${dNum}(${wd}) 오늘의 한국어 중계 편성표 #Shorts`;
+
+  // 제목: 오늘의 hero 매치 highlight + 날짜. 매일 다른 매치업이라 박제 패턴 피함.
+  // 예) 📺 5/12(월) 양민혁 EPL 한국어 중계 #Shorts
+  //     📺 5/12(월) EPL 빅매치 한국어 중계 #Shorts (한국 선수 매치 없을 때)
+  //     📺 5/12(월) 오늘의 한국어 중계 편성표 #Shorts (한국어해설 0경기 폴백)
+  const highlight = getMainHighlight(today);
+  const title = `📺 ${mNum}/${dNum}(${wd}) ${highlight} #Shorts`;
+
+  const { lines: heroLines, totalGames } = getHeroMatchLines(today, 3);
   const hashtagLine = getHierarchicalTags(today).tags.join(" ");
-  const description = [
-    `${mm}/${dd} 한국어 해설이 있는 모든 경기를 한곳에.`,
-    ``,
-    `⚽️ 축구  ⚾️ 야구  🏀 농구  🏐 배구`,
-    ``,
-    `👉 ${UTM_LINKS.yt_desc}`,
-    ``,
-    hashtagLine,
-  ].join("\n");
-  const tags = [
-    "한해설", "한국어해설", "한국어중계", "스포츠중계", "편성표",
-    "축구중계", "야구중계", "농구중계", "배구중계",
-    "스포티비", "쿠팡플레이", "티빙", "EPL", "KBO", "MLB",
-  ];
+
+  const desc: string[] = [];
+  if (totalGames > 0) {
+    desc.push(`${mm}/${dd} 한국어 해설 ${totalGames}경기 편성표.`);
+  } else {
+    desc.push(`${mm}/${dd} 한국어 해설 편성표.`);
+  }
+  desc.push(``);
+  if (heroLines.length > 0) {
+    desc.push(`🎯 오늘의 빅매치`);
+    for (const line of heroLines) desc.push(line);
+    if (totalGames > heroLines.length) {
+      desc.push(`+ ${totalGames - heroLines.length}경기 더보기`);
+    }
+    desc.push(``);
+  }
+  desc.push(`👉 ${UTM_LINKS.yt_desc}`);
+  desc.push(``);
+  desc.push(hashtagLine);
+
+  const description = desc.join("\n");
+  // tags 필드는 # 없는 평문. getPlainTags가 동적 hero 태그 + brand baseline 반환.
+  const tags = getPlainTags(today);
   return { title, description, tags };
 }

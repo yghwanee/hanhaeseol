@@ -3,7 +3,7 @@ import fs from "node:fs";
 import { getKstToday } from "@/lib/instagram";
 import { addComment, buildShortsMeta, setThumbnail, uploadShorts } from "@/lib/youtube-api";
 import { OUT_DIR, readManifest } from "@/lib/manifest";
-import { FIXED_COMMENT } from "@/lib/social-comment";
+import { buildSocialComment } from "@/lib/social-comment";
 
 async function main() {
   const manifest = readManifest();
@@ -39,7 +39,7 @@ async function main() {
   await setThumbnail(videoId, thumbPath);
   console.log(`✅ 썸네일 설정 완료`);
 
-  await addComment(videoId, FIXED_COMMENT);
+  await addComment(videoId, buildSocialComment(today));
   console.log(`💬 댓글 작성 완료`);
 }
 
