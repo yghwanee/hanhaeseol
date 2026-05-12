@@ -18,16 +18,21 @@ type SortKey =
 interface Col {
   key: SortKey;
   label: string;
+  width: string;
+  hideOnMobile?: boolean;
 }
 
 const COLS: Col[] = [
-  { key: "gameCount", label: "경기" },
-  { key: "win", label: "승" },
-  { key: "draw", label: "무" },
-  { key: "lose", label: "패" },
-  { key: "winRate", label: "승률" },
-  { key: "gameBehind", label: "게임차" },
+  { key: "gameCount", label: "경기", width: "w-10" },
+  { key: "win", label: "승", width: "w-9" },
+  { key: "draw", label: "무", width: "w-9", hideOnMobile: true },
+  { key: "lose", label: "패", width: "w-9" },
+  { key: "winRate", label: "승률", width: "w-14" },
+  { key: "gameBehind", label: "게임차", width: "w-14" },
 ];
+
+const STICKY_BG = "bg-zinc-950";
+const STICKY_BG_HOVER = "group-hover:bg-zinc-900";
 
 export function BaseballTable({ teams }: { teams: BaseballStanding[] }) {
   const [sortKey, setSortKey] = useState<SortKey>("rank");
@@ -50,25 +55,28 @@ export function BaseballTable({ teams }: { teams: BaseballStanding[] }) {
       setSortDir((d) => (d === "asc" ? "desc" : "asc"));
     } else {
       setSortKey(key);
-      // 순위·게임차는 작을수록 좋음 → asc 기본. 그 외는 desc.
       setSortDir(key === "rank" || key === "gameBehind" ? "asc" : "desc");
     }
   };
 
   return (
     <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/50">
-      <div className="-mx-px overflow-x-auto">
-        <table className="min-w-full text-sm text-zinc-200">
-          <thead className="sticky top-0 z-10 bg-zinc-900/95 backdrop-blur">
-            <tr className="border-b border-zinc-800">
+      <div className="overflow-x-auto">
+        <table className="w-full table-fixed text-xs sm:text-sm">
+          <thead>
+            <tr className="border-b border-zinc-800 bg-zinc-900/60">
               <SortableTh
                 label="#"
                 active={sortKey === "rank"}
                 dir={sortDir}
                 onClick={() => onHeaderClick("rank")}
-                className="w-12 text-center"
+                className={`sticky left-0 z-20 w-9 ${STICKY_BG}`}
               />
-              <th className="px-3 py-3 text-left font-semibold text-zinc-400">팀</th>
+              <th
+                className={`sticky left-9 z-20 w-[120px] px-2 py-2.5 text-left text-[11px] font-semibold text-zinc-400 sm:w-[140px] sm:text-xs ${STICKY_BG}`}
+              >
+                팀
+              </th>
               {COLS.map((c) => (
                 <SortableTh
                   key={c.key}
@@ -76,65 +84,69 @@ export function BaseballTable({ teams }: { teams: BaseballStanding[] }) {
                   active={sortKey === c.key}
                   dir={sortDir}
                   onClick={() => onHeaderClick(c.key)}
-                  className="w-16 text-center"
+                  className={`${c.width} ${c.hideOnMobile ? "hidden sm:table-cell" : ""}`}
                 />
               ))}
-              <th className="hidden w-28 px-3 py-3 text-center font-semibold text-zinc-400 sm:table-cell">
+              <th className="hidden w-24 px-2 py-2.5 text-center text-[11px] font-semibold text-zinc-400 sm:table-cell sm:text-xs">
                 최근 5
               </th>
-              <th className="w-20 px-3 py-3 text-center font-semibold text-zinc-400">연속</th>
+              <th className="w-[68px] px-2 py-2.5 text-center text-[11px] font-semibold text-zinc-400 sm:w-20 sm:text-xs">
+                연속
+              </th>
             </tr>
           </thead>
           <tbody>
             {sorted.map((t) => (
               <tr
                 key={t.teamName}
-                className="border-b border-zinc-800/60 transition-colors duration-150 last:border-b-0 hover:bg-zinc-900/60"
+                className="group border-b border-zinc-800/60 transition-colors duration-150 last:border-b-0 hover:bg-zinc-900/60"
               >
-                <td className="w-12 px-2 py-3 text-center">
+                <td
+                  className={`sticky left-0 z-10 w-9 px-1 py-2 text-center ${STICKY_BG} ${STICKY_BG_HOVER}`}
+                >
                   <span className="font-bold tabular-nums text-zinc-100">{t.rank}</span>
                 </td>
-                <td className="px-3 py-3">
-                  <div className="flex items-center gap-2.5">
+                <td
+                  className={`sticky left-9 z-10 w-[120px] px-2 py-2 sm:w-[140px] ${STICKY_BG} ${STICKY_BG_HOVER}`}
+                >
+                  <div className="flex items-center gap-2">
                     {t.teamLogo && (
                       <Image
                         src={t.teamLogo}
                         alt={t.teamName}
-                        width={22}
-                        height={22}
-                        className="h-[22px] w-[22px] object-contain"
+                        width={20}
+                        height={20}
+                        className="h-5 w-5 shrink-0 object-contain"
                         unoptimized
                       />
                     )}
-                    <span className="font-medium text-zinc-100">{t.teamName}</span>
+                    <span className="truncate font-medium text-zinc-100">{t.teamName}</span>
                   </div>
                 </td>
-                <td className="px-2 py-3 text-center tabular-nums text-zinc-300">
+                <td className="w-10 px-1 py-2 text-center tabular-nums text-zinc-300">
                   {t.gameCount}
                 </td>
-                <td className="px-2 py-3 text-center tabular-nums text-zinc-300">{t.win}</td>
-                <td className="px-2 py-3 text-center tabular-nums text-zinc-300">{t.draw}</td>
-                <td className="px-2 py-3 text-center tabular-nums text-zinc-300">{t.lose}</td>
-                <td className="px-2 py-3 text-center font-bold tabular-nums text-white">
+                <td className="w-9 px-1 py-2 text-center tabular-nums text-zinc-300">{t.win}</td>
+                <td className="hidden w-9 px-1 py-2 text-center tabular-nums text-zinc-300 sm:table-cell">
+                  {t.draw}
+                </td>
+                <td className="w-9 px-1 py-2 text-center tabular-nums text-zinc-300">{t.lose}</td>
+                <td className="w-14 px-1 py-2 text-center font-bold tabular-nums text-white">
                   {t.winRate.toFixed(3)}
                 </td>
-                <td className="px-2 py-3 text-center tabular-nums text-zinc-300">
+                <td className="w-14 px-1 py-2 text-center tabular-nums text-zinc-300">
                   {t.gameBehind === 0 ? "—" : t.gameBehind.toFixed(1)}
                 </td>
-                <td className="hidden px-3 py-3 text-center sm:table-cell">
+                <td className="hidden w-24 px-2 py-2 text-center sm:table-cell">
                   <Last5Dots lastFive={t.lastFive} />
                 </td>
-                <td className="px-2 py-3 text-center">
+                <td className="w-[68px] px-1 py-2 text-center sm:w-20">
                   <StreakChip streak={t.streak} />
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-      </div>
-
-      <div className="border-t border-zinc-800/80 px-4 py-3 text-xs text-zinc-500 sm:hidden">
-        ← 가로 스크롤로 더 보기
       </div>
     </div>
   );
@@ -154,7 +166,7 @@ function SortableTh({
   className?: string;
 }) {
   return (
-    <th className={`px-2 py-3 font-semibold ${className ?? ""}`}>
+    <th className={`px-1 py-2.5 text-center text-[11px] font-semibold sm:text-xs ${className ?? ""}`}>
       <button
         type="button"
         onClick={onClick}
@@ -165,7 +177,7 @@ function SortableTh({
         {label}
         <span
           className={`text-[10px] leading-none transition-opacity ${
-            active ? "opacity-100" : "opacity-30"
+            active ? "opacity-100" : "opacity-0"
           }`}
           aria-hidden
         >

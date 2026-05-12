@@ -7,6 +7,7 @@ import type {
   SoccerLeagueStandings,
   StandingsData,
 } from "@/types/standings";
+import { FilterButton } from "../../_components/FilterButton";
 import { SoccerTable } from "./SoccerTable";
 import { BaseballTable } from "./BaseballTable";
 
@@ -67,32 +68,23 @@ export function StandingsView({ data }: { data: StandingsData }) {
 
   return (
     <div>
-      {/* 종목 탭 */}
+      {/* 종목 탭 (메인 페이지 SPORTS 필터와 동일 디자인) */}
       <div className="mb-3 flex items-center gap-1.5 sm:gap-2">
         <span className="w-12 shrink-0 text-[11px] font-medium text-zinc-300 sm:text-xs">
           종목
         </span>
         <div className="flex gap-1 overflow-x-auto scrollbar-hide sm:gap-1.5">
           {(Object.keys(SPORT_LABELS) as SportKey[]).map((s) => {
-            const active = sport === s;
             const disabled =
-              (s === "basketball" && data.basketball.length === 0);
+              s === "basketball" && data.basketball.length === 0;
+            const label = disabled ? `${SPORT_LABELS[s]} 곧` : SPORT_LABELS[s];
             return (
-              <button
+              <FilterButton
                 key={s}
+                label={label}
+                active={sport === s}
                 onClick={() => !disabled && onSportClick(s)}
-                disabled={disabled}
-                className={`whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] font-medium transition-colors sm:text-xs ${
-                  active
-                    ? "bg-zinc-100 text-zinc-900"
-                    : disabled
-                    ? "bg-zinc-900/40 text-zinc-700"
-                    : "bg-zinc-800/60 text-zinc-300 hover:bg-zinc-700/70"
-                }`}
-              >
-                {SPORT_LABELS[s]}
-                {disabled && <span className="ml-1 text-[10px]">곧</span>}
-              </button>
+              />
             );
           })}
         </div>

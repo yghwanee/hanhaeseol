@@ -21,20 +21,24 @@ type SortKey =
 interface Col {
   key: SortKey;
   label: string;
-  /** PC 전용으로 모바일에선 숨길 컬럼 */
+  /** PC 전용으로 모바일에서 숨길 컬럼 */
   hideOnMobile?: boolean;
+  width: string;
 }
 
 const COLS: Col[] = [
-  { key: "matchesPlayed", label: "경기" },
-  { key: "wins", label: "승" },
-  { key: "draws", label: "무" },
-  { key: "losses", label: "패" },
-  { key: "goals", label: "득", hideOnMobile: true },
-  { key: "goalsConceded", label: "실", hideOnMobile: true },
-  { key: "goalsDifference", label: "득실" },
-  { key: "points", label: "승점" },
+  { key: "matchesPlayed", label: "경기", width: "w-10" },
+  { key: "wins", label: "승", width: "w-9" },
+  { key: "draws", label: "무", width: "w-9" },
+  { key: "losses", label: "패", width: "w-9" },
+  { key: "goals", label: "득", hideOnMobile: true, width: "w-10" },
+  { key: "goalsConceded", label: "실", hideOnMobile: true, width: "w-10" },
+  { key: "goalsDifference", label: "득실", width: "w-12" },
+  { key: "points", label: "승점", width: "w-11" },
 ];
+
+const STICKY_BG = "bg-zinc-950";
+const STICKY_BG_HOVER = "group-hover:bg-zinc-900";
 
 export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
   const [sortKey, setSortKey] = useState<SortKey>("rank");
@@ -46,7 +50,6 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
       const av = a[sortKey];
       const bv = b[sortKey];
       const diff = (av as number) - (bv as number);
-      // 같은 값일 땐 rank 오름차순으로 안정 정렬
       if (diff === 0) return a.rank - b.rank;
       return sortDir === "asc" ? diff : -diff;
     });
@@ -58,7 +61,6 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
       setSortDir((d) => (d === "asc" ? "desc" : "asc"));
     } else {
       setSortKey(key);
-      // 순위는 작을수록 좋음 → asc 기본. 그 외 통계는 큰 게 좋으니 desc 기본.
       setSortDir(key === "rank" ? "asc" : "desc");
     }
   };
@@ -67,18 +69,22 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
 
   return (
     <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/50">
-      <div className="-mx-px overflow-x-auto">
-        <table className="min-w-full text-sm text-zinc-200">
-          <thead className="sticky top-0 z-10 bg-zinc-900/95 backdrop-blur">
-            <tr className="border-b border-zinc-800">
+      <div className="overflow-x-auto">
+        <table className="w-full table-fixed text-xs sm:text-sm">
+          <thead>
+            <tr className="border-b border-zinc-800 bg-zinc-900/60">
               <SortableTh
                 label="#"
                 active={sortKey === "rank"}
                 dir={sortDir}
                 onClick={() => onHeaderClick("rank")}
-                className="w-12 text-center"
+                className={`sticky left-0 z-20 w-9 ${STICKY_BG}`}
               />
-              <th className="px-3 py-3 text-left font-semibold text-zinc-400">팀</th>
+              <th
+                className={`sticky left-9 z-20 w-[120px] px-2 py-2.5 text-left text-[11px] font-semibold text-zinc-400 sm:w-[140px] sm:text-xs ${STICKY_BG}`}
+              >
+                팀
+              </th>
               {COLS.map((c) => (
                 <SortableTh
                   key={c.key}
@@ -86,13 +92,15 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
                   active={sortKey === c.key}
                   dir={sortDir}
                   onClick={() => onHeaderClick(c.key)}
-                  className={`w-14 text-center ${c.hideOnMobile ? "hidden sm:table-cell" : ""}`}
+                  className={`${c.width} ${c.hideOnMobile ? "hidden sm:table-cell" : ""}`}
                 />
               ))}
-              <th className="hidden w-28 px-3 py-3 text-center font-semibold text-zinc-400 sm:table-cell">
+              <th className="hidden w-24 px-2 py-2.5 text-center text-[11px] font-semibold text-zinc-400 sm:table-cell sm:text-xs">
                 최근 5
               </th>
-              <th className="w-20 px-3 py-3 text-center font-semibold text-zinc-400">연속</th>
+              <th className="w-[68px] px-2 py-2.5 text-center text-[11px] font-semibold text-zinc-400 sm:w-20 sm:text-xs">
+                연속
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -103,7 +111,9 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
                   key={t.teamName}
                   className="group border-b border-zinc-800/60 transition-colors duration-150 last:border-b-0 hover:bg-zinc-900/60"
                 >
-                  <td className="relative w-12 px-2 py-3 text-center">
+                  <td
+                    className={`sticky left-0 z-10 w-9 px-1 py-2 text-center ${STICKY_BG} ${STICKY_BG_HOVER}`}
+                  >
                     {st && (
                       <span
                         className={`absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r-full ${st.bar}`}
@@ -112,35 +122,37 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
                     )}
                     <span className="font-bold tabular-nums text-zinc-100">{t.rank}</span>
                   </td>
-                  <td className="px-3 py-3">
-                    <div className="flex items-center gap-2.5">
+                  <td
+                    className={`sticky left-9 z-10 w-[120px] px-2 py-2 sm:w-[140px] ${STICKY_BG} ${STICKY_BG_HOVER}`}
+                  >
+                    <div className="flex items-center gap-2">
                       {t.teamLogo && (
                         <Image
                           src={t.teamLogo}
                           alt={t.teamName}
-                          width={22}
-                          height={22}
-                          className="h-[22px] w-[22px] object-contain"
+                          width={20}
+                          height={20}
+                          className="h-5 w-5 shrink-0 object-contain"
                           unoptimized
                         />
                       )}
-                      <span className="font-medium text-zinc-100">{t.teamName}</span>
+                      <span className="truncate font-medium text-zinc-100">{t.teamName}</span>
                     </div>
                   </td>
-                  <td className="px-2 py-3 text-center tabular-nums text-zinc-300">
+                  <td className="w-10 px-1 py-2 text-center tabular-nums text-zinc-300">
                     {t.matchesPlayed}
                   </td>
-                  <td className="px-2 py-3 text-center tabular-nums text-zinc-300">{t.wins}</td>
-                  <td className="px-2 py-3 text-center tabular-nums text-zinc-300">{t.draws}</td>
-                  <td className="px-2 py-3 text-center tabular-nums text-zinc-300">{t.losses}</td>
-                  <td className="hidden px-2 py-3 text-center tabular-nums text-zinc-300 sm:table-cell">
+                  <td className="w-9 px-1 py-2 text-center tabular-nums text-zinc-300">{t.wins}</td>
+                  <td className="w-9 px-1 py-2 text-center tabular-nums text-zinc-300">{t.draws}</td>
+                  <td className="w-9 px-1 py-2 text-center tabular-nums text-zinc-300">{t.losses}</td>
+                  <td className="hidden w-10 px-1 py-2 text-center tabular-nums text-zinc-300 sm:table-cell">
                     {t.goals}
                   </td>
-                  <td className="hidden px-2 py-3 text-center tabular-nums text-zinc-300 sm:table-cell">
+                  <td className="hidden w-10 px-1 py-2 text-center tabular-nums text-zinc-300 sm:table-cell">
                     {t.goalsConceded}
                   </td>
                   <td
-                    className={`px-2 py-3 text-center font-semibold tabular-nums ${
+                    className={`w-12 px-1 py-2 text-center font-semibold tabular-nums ${
                       t.goalsDifference > 0
                         ? "text-emerald-400"
                         : t.goalsDifference < 0
@@ -150,13 +162,13 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
                   >
                     {t.goalsDifference > 0 ? `+${t.goalsDifference}` : t.goalsDifference}
                   </td>
-                  <td className="px-2 py-3 text-center font-bold tabular-nums text-white">
+                  <td className="w-11 px-1 py-2 text-center font-bold tabular-nums text-white">
                     {t.points}
                   </td>
-                  <td className="hidden px-3 py-3 text-center sm:table-cell">
+                  <td className="hidden w-24 px-2 py-2 text-center sm:table-cell">
                     <Last5Dots lastFive={t.lastFive} />
                   </td>
-                  <td className="px-2 py-3 text-center">
+                  <td className="w-[68px] px-1 py-2 text-center sm:w-20">
                     <StreakChip streak={t.streak} />
                   </td>
                 </tr>
@@ -167,16 +179,13 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
       </div>
 
       {legend.length > 0 && (
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-zinc-800/80 px-4 py-3 text-xs text-zinc-400">
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-2 border-t border-zinc-800/80 px-3 py-2.5 text-[11px] text-zinc-400 sm:px-4 sm:py-3 sm:text-xs">
           {legend.map((l) => (
             <span key={l.label} className="inline-flex items-center gap-1.5">
               <span className={`inline-block h-3 w-[3px] rounded-sm ${l.bar}`} />
               {l.label}
             </span>
           ))}
-          <span className="ml-auto text-zinc-500 sm:hidden">
-            ← 가로 스크롤
-          </span>
         </div>
       )}
     </div>
@@ -197,7 +206,7 @@ function SortableTh({
   className?: string;
 }) {
   return (
-    <th className={`px-2 py-3 font-semibold ${className ?? ""}`}>
+    <th className={`px-1 py-2.5 text-center text-[11px] font-semibold sm:text-xs ${className ?? ""}`}>
       <button
         type="button"
         onClick={onClick}
@@ -208,7 +217,7 @@ function SortableTh({
         {label}
         <span
           className={`text-[10px] leading-none transition-opacity ${
-            active ? "opacity-100" : "opacity-0 group-hover:opacity-40"
+            active ? "opacity-100" : "opacity-0"
           }`}
           aria-hidden
         >
