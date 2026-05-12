@@ -7,6 +7,7 @@ import type {
   SoccerStanding,
   StreakInfo,
 } from "@/types/standings";
+import { MLS_CONFERENCE } from "./mls-conferences";
 
 const BASE = "https://api-gw.sports.naver.com";
 const HEADERS = {
@@ -80,6 +81,8 @@ interface NaverSoccerTeam {
   goalsDifference: number;
   points: number;
   lastFiveGames?: string | null;
+  /** MLS만: "EAST" | "WEST" */
+  league?: string | null;
 }
 
 export interface SoccerLeagueMeta {
@@ -122,22 +125,30 @@ export async function fetchSoccerLeague(
   const teams: SoccerStanding[] = stats
     .slice()
     .sort((a, b) => a.rank - b.rank)
-    .map((t) => ({
-      rank: t.rank,
-      teamName: t.teamName,
-      teamLogo: t.teamEmblemUrl ?? null,
-      matchesPlayed: t.matchesPlayed,
-      wins: t.wins,
-      draws: t.draws,
-      losses: t.losses,
-      goals: t.goals,
-      goalsConceded: t.goalsConceded,
-      goalsDifference: t.goalsDifference,
-      points: t.points,
-      lastFive: t.lastFiveGames ?? "",
-      streak: streakFromLastFive(t.lastFiveGames),
-      rankStatus: t.rankStatus ?? null,
-    }));
+    .map((t) => {
+      // MLS는 컨퍼런스(EAST/WEST)별 분리 표시. 네이버 league 필드 우선, 없으면 팀명 매핑.
+      const conference =
+        meta.id === "mls"
+          ? t.league ?? MLS_CONFERENCE[t.teamName] ?? undefined
+          : undefined;
+      return {
+        rank: t.rank,
+        teamName: t.teamName,
+        teamLogo: t.teamEmblemUrl ?? null,
+        matchesPlayed: t.matchesPlayed,
+        wins: t.wins,
+        draws: t.draws,
+        losses: t.losses,
+        goals: t.goals,
+        goalsConceded: t.goalsConceded,
+        goalsDifference: t.goalsDifference,
+        points: t.points,
+        lastFive: t.lastFiveGames ?? "",
+        streak: streakFromLastFive(t.lastFiveGames),
+        rankStatus: t.rankStatus ?? null,
+        ...(conference ? { conference } : {}),
+      };
+    });
 
   return {
     id: meta.id,

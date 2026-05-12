@@ -20,6 +20,8 @@ export interface SoccerStanding {
   streak: StreakInfo;
   /** "UEFA Champions League" / "UEFA Europa League" / "Relegation Zone" 등 */
   rankStatus: string | null;
+  /** MLS만: "EAST" | "WEST" (네이버 league 필드). 다른 리그는 undefined */
+  conference?: string;
 }
 
 export interface BaseballStanding {
