@@ -1,5 +1,7 @@
+import Link from "next/link";
 import type { Schedule } from "@/types/schedule";
 import { describeMatch, pickWeekHighlights } from "@/lib/highlight-summary";
+import { matchToSlug } from "@/lib/match-slug";
 
 type Props = {
   title: string;
@@ -54,7 +56,12 @@ export default function WeekHighlights({
                     : "bg-yellow-400"
               }`}
             />
-            <span>{describeMatch(s)}</span>
+            <Link
+              href={`/match/${matchToSlug(s)}`}
+              className="transition-colors hover:text-white hover:underline underline-offset-2"
+            >
+              {describeMatch(s)}
+            </Link>
           </li>
         ))}
       </ul>

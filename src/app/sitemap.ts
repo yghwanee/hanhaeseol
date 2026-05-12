@@ -2,6 +2,10 @@ import { MetadataRoute } from "next";
 import scheduleData from "@/data/schedule.json";
 import { LEAGUE_SEO, PLATFORM_SEO } from "@/lib/slugs";
 import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
+import { matchToSlug } from "@/lib/match-slug";
+import type { ScheduleData } from "@/types/schedule";
+
+const data = scheduleData as unknown as ScheduleData;
 
 const BASE = "https://haeseol.com";
 
@@ -29,6 +33,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
+  const matchUrls = data.schedules.map((s) => ({
+    url: `${BASE}/match/${matchToSlug(s)}`,
+    lastModified: new Date(s.date),
+    changeFrequency: "daily" as const,
+    priority: 0.7,
+  }));
+
   return [
     {
       url: BASE,
@@ -45,6 +56,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...standingsLeagueUrls,
     ...leagueUrls,
     ...platformUrls,
+    ...matchUrls,
     {
       url: `${BASE}/about`,
       changeFrequency: "monthly",
