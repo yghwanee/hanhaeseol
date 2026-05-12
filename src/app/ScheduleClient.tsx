@@ -140,14 +140,14 @@ export default function ScheduleClient({
           <Link
             href="/standings"
             aria-label="팀 순위"
-            className="group inline-flex items-center gap-1.5 text-sm font-medium text-zinc-300 transition-colors hover:text-white sm:text-base"
+            className="group inline-flex items-center gap-2 rounded-lg border border-zinc-700/70 px-2.5 py-1 text-sm font-medium text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white sm:gap-2.5 sm:px-3 sm:py-1.5 sm:text-base"
           >
             <Image
               src="/icons/standings.png"
               alt=""
               width={28}
               height={28}
-              className="h-6 w-6 transition-transform group-hover:scale-110 sm:h-7 sm:w-7"
+              className="h-5 w-5 transition-transform group-hover:scale-110 sm:h-6 sm:w-6"
               unoptimized
             />
             순위
