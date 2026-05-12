@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import standingsData from "@/data/standings.json";
 import type { StandingsData } from "@/types/standings";
+import { StickyHeader } from "../_components/StickyHeader";
 
 const data = standingsData as StandingsData;
 
@@ -12,8 +14,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://haeseol.com/standings" },
   openGraph: {
     title: "EPL · KBO 순위 - 한해설",
-    description:
-      "프리미어리그·KBO 팀 순위를 한눈에. 한국어 해설 중계 편성표와 함께.",
+    description: "프리미어리그·KBO 팀 순위를 한눈에. 한국어 해설 중계 편성표와 함께.",
     url: "https://haeseol.com/standings",
     siteName: "한해설",
     locale: "ko_KR",
@@ -42,7 +43,6 @@ export default function StandingsLandingPage() {
       title: "프리미어리그 (EPL)",
       sub: "잉글랜드 1부 · 20팀",
       href: "/standings/epl",
-      teams: data.epl?.teams.length ?? 0,
       leader: data.epl?.teams[0]?.teamName,
       sport: "축구",
     },
@@ -51,36 +51,49 @@ export default function StandingsLandingPage() {
       title: "KBO 리그",
       sub: "한국 프로야구 · 10팀",
       href: "/standings/kbo",
-      teams: data.kbo?.teams.length ?? 0,
       leader: data.kbo?.teams[0]?.teamName,
       sport: "야구",
     },
   ];
 
   return (
-    <main className="min-h-screen bg-[#0a0a0a] text-zinc-100">
-      <div className="mx-auto max-w-5xl px-4 py-10 sm:py-14">
-        <header className="mb-8">
-          <Link
-            href="/"
-            className="text-xs text-zinc-500 transition-colors hover:text-zinc-300"
-          >
-            ← 한해설 메인
-          </Link>
-          <h1 className="mt-3 text-3xl font-extrabold tracking-tight sm:text-4xl">
-            팀 순위
-          </h1>
-          <p className="mt-2 text-zinc-400">
-            네이버 스포츠 기준 실시간 순위. 한국어 해설 중계 일정과 함께 확인하세요.
-          </p>
-        </header>
+    <main className="min-h-screen text-gray-100">
+      <div className="mx-auto max-w-2xl px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
+        <StickyHeader>
+          <header className="flex items-center justify-between">
+            <Link href="/" className="flex items-end">
+              <Image
+                src="/icon.png"
+                alt="한해설 아이콘"
+                width={32}
+                height={32}
+                className="h-6 w-6 self-center sm:h-8 sm:w-8"
+              />
+              <span className="ml-1 text-xl font-bold text-white sm:ml-2 sm:text-3xl">한해설</span>
+              <span className="ml-2 text-sm font-normal text-zinc-500 sm:ml-3 sm:text-lg">
+                한국어중계 편성표
+              </span>
+            </Link>
+            <Link
+              href="/"
+              className="whitespace-nowrap rounded-lg border border-zinc-700 px-3 py-1 text-xs text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white sm:px-4 sm:py-1.5 sm:text-sm"
+            >
+              ← &ensp;편성표
+            </Link>
+          </header>
+        </StickyHeader>
 
-        <div className="grid gap-4 sm:grid-cols-2">
+        <h1 className="mb-2 mt-4 text-2xl font-bold sm:mt-6 sm:text-3xl">팀 순위</h1>
+        <p className="mb-6 text-zinc-400 sm:mb-8">
+          네이버 스포츠 기준 실시간 순위. 한국어 해설 중계 일정과 함께 확인하세요.
+        </p>
+
+        <div className="grid gap-3 sm:grid-cols-2 sm:gap-4">
           {cards.map((c) => (
             <Link
               key={c.key}
               href={c.href}
-              className="group block rounded-xl border border-zinc-800/80 bg-zinc-950/50 p-5 transition-all hover:border-zinc-600/80 hover:bg-zinc-900/70"
+              className="group block rounded-xl border border-zinc-800/80 bg-zinc-950/50 p-4 transition-all hover:border-zinc-600/80 hover:bg-zinc-900/70 sm:p-5"
             >
               <div className="flex items-center justify-between">
                 <span className="rounded-md border border-emerald-500/30 bg-emerald-500/5 px-2 py-0.5 text-xs font-semibold text-emerald-400">
@@ -90,10 +103,10 @@ export default function StandingsLandingPage() {
                   →
                 </span>
               </div>
-              <h2 className="mt-4 text-xl font-bold text-white">{c.title}</h2>
+              <h2 className="mt-3 text-lg font-bold text-white sm:mt-4 sm:text-xl">{c.title}</h2>
               <p className="mt-1 text-sm text-zinc-500">{c.sub}</p>
               {c.leader && (
-                <p className="mt-4 text-sm text-zinc-400">
+                <p className="mt-3 text-sm text-zinc-400 sm:mt-4">
                   <span className="text-zinc-500">현재 1위 · </span>
                   <span className="font-semibold text-zinc-100">{c.leader}</span>
                 </p>
@@ -102,8 +115,9 @@ export default function StandingsLandingPage() {
           ))}
         </div>
 
-        <p className="mt-8 text-xs text-zinc-600">
-          데이터 갱신: {new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })} (KST)
+        <p className="mt-6 text-xs text-zinc-600">
+          데이터 갱신:{" "}
+          {new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })} (KST)
         </p>
       </div>
     </main>
