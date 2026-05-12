@@ -46,21 +46,22 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
   const legend = uniqueRankStatuses(teams.map((t) => t.rankStatus));
 
   return (
-    <div className="overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-950/50">
-      <table className="w-full text-[11px] sm:text-sm">
+    <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/50">
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[560px] text-[11px] sm:min-w-[760px] sm:text-sm">
         <colgroup>
           <col className="w-12 sm:w-14" />
-          <col />
-          <col className="w-11 sm:w-12" />
-          <col className="w-11 sm:w-12" />
-          <col className="w-9 sm:w-10" />
-          <col className="w-9 sm:w-10" />
-          <col className="w-9 sm:w-10" />
-          <col className="hidden sm:table-column sm:w-10" />
-          <col className="hidden sm:table-column sm:w-10" />
+          <col className="min-w-[120px] sm:min-w-[150px]" />
+          <col className="w-12 sm:w-14" />
+          <col className="w-12 sm:w-14" />
+          <col className="w-10 sm:w-12" />
+          <col className="w-10 sm:w-12" />
+          <col className="w-10 sm:w-12" />
           <col className="hidden sm:table-column sm:w-12" />
-          <col className="hidden sm:table-column sm:w-24" />
-          <col className="hidden sm:table-column sm:w-16" />
+          <col className="hidden sm:table-column sm:w-12" />
+          <col className="hidden sm:table-column sm:w-14" />
+          <col className="hidden sm:table-column sm:w-28" />
+          <col className="hidden sm:table-column sm:w-20" />
         </colgroup>
         <thead>
           <tr className="border-b border-zinc-800 bg-zinc-900/60">
@@ -70,7 +71,7 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
               dir={sortDir}
               onClick={() => onHeaderClick("rank")}
             />
-            <th className="px-1.5 py-2.5 text-left text-[11px] font-semibold text-zinc-400 sm:px-2 sm:text-xs">
+            <th className="whitespace-nowrap px-1.5 py-2.5 text-left text-[11px] font-semibold text-zinc-400 sm:px-2 sm:text-xs">
               팀
             </th>
             <Th
@@ -145,6 +146,7 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
                         height={22}
                         className="h-[18px] w-[18px] shrink-0 object-contain sm:h-[22px] sm:w-[22px]"
                         unoptimized
+                        referrerPolicy="no-referrer"
                       />
                     ) : (
                       <span className="inline-block h-[18px] w-[18px] shrink-0 rounded-full bg-zinc-800 sm:h-[22px] sm:w-[22px]" />
@@ -188,7 +190,8 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
             );
           })}
         </tbody>
-      </table>
+        </table>
+      </div>
 
       {legend.length > 0 && (
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-zinc-800/80 px-3 py-2.5 text-[10px] text-zinc-400 sm:px-4 sm:text-[11px]">
@@ -221,14 +224,14 @@ function Th({
 }) {
   return (
     <th
-      className={`px-1 py-2.5 text-center text-[11px] font-semibold sm:text-xs ${
+      className={`whitespace-nowrap px-1 py-2.5 text-center text-[11px] font-semibold sm:text-xs ${
         hiddenMobile ? "hidden sm:table-cell" : ""
       }`}
     >
       <button
         type="button"
         onClick={onClick}
-        className={`inline-flex items-center gap-0.5 transition-colors ${
+        className={`inline-flex items-center gap-0.5 whitespace-nowrap transition-colors ${
           active
             ? "text-white"
             : highlight
