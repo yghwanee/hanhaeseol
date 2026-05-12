@@ -18,6 +18,15 @@ type SortKey =
   | "goalsConceded"
   | "goalsDifference";
 
+// 네이버 API가 주는 긴 표기를 셀 너비 초과로 "..." 잘리지 않도록 한국 친숙 표기로 매핑.
+const TEAM_NAME_DISPLAY: Record<string, string> = {
+  "인테르 밀라노": "인터밀란",
+};
+
+function displayTeamName(raw: string): string {
+  return TEAM_NAME_DISPLAY[raw] ?? raw;
+}
+
 export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
   const [sortKey, setSortKey] = useState<SortKey>("rank");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
@@ -181,7 +190,7 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
                         ) : (
                           <span className="inline-block h-[18px] w-[18px] shrink-0 rounded-full bg-zinc-800 sm:h-[22px] sm:w-[22px]" />
                         )}
-                        <span className="truncate font-medium text-zinc-100">{t.teamName}</span>
+                        <span className="truncate font-medium text-zinc-100">{displayTeamName(t.teamName)}</span>
                       </div>
                     </td>
                     <td className="px-1 py-2 text-center font-bold tabular-nums text-emerald-400">
