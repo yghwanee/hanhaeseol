@@ -61,10 +61,21 @@ function buildSportsEventsJsonLd(schedules: Schedule[]) {
   };
 }
 
-export default function Home() {
+export default function Home({
+  searchParams,
+}: {
+  searchParams: {
+    date?: string;
+    sport?: string;
+    platform?: string;
+    comm?: string;
+  };
+}) {
   const data = loadScheduleData();
   const teamRecords = loadTeamRecords();
   const sportsEventsJsonLd = buildSportsEventsJsonLd(data.schedules);
+  const initialCommentary: "all" | "korean" | "foreign" =
+    searchParams.comm === "korean" || searchParams.comm === "foreign" ? searchParams.comm : "all";
 
   return (
     <>
@@ -73,7 +84,14 @@ export default function Home() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(sportsEventsJsonLd) }}
       />
       <main>
-        <ScheduleClient initialData={data} teamRecords={teamRecords} />
+        <ScheduleClient
+          initialData={data}
+          teamRecords={teamRecords}
+          initialDate={searchParams.date}
+          initialSport={searchParams.sport}
+          initialPlatform={searchParams.platform}
+          initialCommentary={initialCommentary}
+        />
         <section className="mx-auto mt-4 sm:mt-6 max-w-2xl px-3 sm:px-4">
           <WeekHighlights
             title="이번 주 한국어 해설 추천 매치"
