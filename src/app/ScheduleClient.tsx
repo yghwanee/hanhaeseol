@@ -136,14 +136,30 @@ export default function ScheduleClient({
             <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
             <span className="ml-2 sm:ml-3 hidden sm:inline text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
           </h1>
-          {/* AdSense 재심사 동안 분석글 링크 임시 숨김 */}
+          {/* AdSense 재심사 동안 분석글 링크 임시 숨김.
+              승인 후 복원할 때 사용할 코드:
+              <Link
+                href="/analysis"
+                className="border-glow group inline-flex items-center gap-2 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[11px] font-medium text-zinc-200 transition-colors hover:text-white sm:gap-2.5 sm:px-3 sm:text-xs"
+              >
+                <Image
+                  src="/icons/analysis.png"
+                  alt=""
+                  width={28}
+                  height={28}
+                  className="h-5 w-5 transition-transform group-hover:scale-110 sm:h-6 sm:w-6"
+                  unoptimized
+                />
+                픽스터 분석
+              </Link>
+          */}
           <Link
             href="/standings"
             aria-label="팀 순위"
             className="border-glow group inline-flex items-center gap-2 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[11px] font-medium text-zinc-200 transition-colors hover:text-white sm:gap-2.5 sm:px-3 sm:text-xs"
           >
             <Image
-              src="/icons/standings.png"
+              src="/icons/trophy.png"
               alt=""
               width={28}
               height={28}
