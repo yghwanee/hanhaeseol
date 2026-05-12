@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import sharp from "sharp";
 import { getHierarchicalTags } from "./hashtags";
+import { UTM_LINKS } from "./utm";
 
 const OAUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
 const YOUTUBE_UPLOAD_URL =
@@ -198,7 +199,7 @@ export function buildShortsMeta(mm: string, dd: string, today: string) {
     ``,
     `⚽️ 축구  ⚾️ 야구  🏀 농구  🏐 배구`,
     ``,
-    `👉 https://haeseol.com/`,
+    `👉 ${UTM_LINKS.yt_desc}`,
     ``,
     hashtagLine,
   ].join("\n");

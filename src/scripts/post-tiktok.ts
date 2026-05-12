@@ -5,6 +5,7 @@ import { execFileSync } from "node:child_process";
 import { getKstToday } from "@/lib/instagram";
 import { buildCaption } from "@/lib/instagram-api";
 import { OUT_DIR, readManifest } from "@/lib/manifest";
+import { UTM_LINKS } from "@/lib/utm";
 import {
   getAccessToken,
   getCreatorInfo,
@@ -63,7 +64,7 @@ async function main() {
 
   const sizeMb = (fs.statSync(filePath).size / 1024 / 1024).toFixed(2);
   const { today, mm, dd } = getKstToday();
-  const caption = `${buildCaption(mm, dd, today)}\n#fyp #포유`;
+  const caption = `${buildCaption(mm, dd, today, UTM_LINKS.tt_caption)}\n#fyp #포유`;
   const privacyLevel = resolvePrivacyLevel();
 
   console.log(`🎵 TikTok 업로드 시작 (${sizeMb} MB)`);

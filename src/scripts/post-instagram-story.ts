@@ -1,7 +1,8 @@
 import { mediaBaseUrl, publishSingleMedia } from "@/lib/instagram-api";
 import { readManifest } from "@/lib/manifest";
+import { UTM_LINKS } from "@/lib/utm";
 
-const STORY_LINK = "https://haeseol.com/";
+const STORY_LINK = UTM_LINKS.ig_story;
 
 async function main() {
   const manifest = readManifest();

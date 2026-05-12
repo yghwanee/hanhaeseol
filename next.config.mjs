@@ -30,6 +30,12 @@ const nextConfig = {
         destination: "https://haeseol.com/:path*",
         permanent: true,
       },
+      { source: "/ig", destination: "/?utm_source=instagram&utm_medium=bio", permanent: false },
+      { source: "/ig/post", destination: "/?utm_source=instagram&utm_medium=post", permanent: false },
+      { source: "/ig/reel", destination: "/?utm_source=instagram&utm_medium=reel", permanent: false },
+      { source: "/ig/story", destination: "/?utm_source=instagram&utm_medium=story", permanent: false },
+      { source: "/yt", destination: "/?utm_source=youtube&utm_medium=desc", permanent: false },
+      { source: "/tt", destination: "/?utm_source=tiktok&utm_medium=caption", permanent: false },
     ];
   },
 };

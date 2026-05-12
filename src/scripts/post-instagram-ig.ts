@@ -2,6 +2,7 @@ import { getKstToday } from "@/lib/instagram";
 import { buildCaption, comment, mediaBaseUrl, postMedia, publish, waitForFinished } from "@/lib/instagram-api";
 import { readManifest } from "@/lib/manifest";
 import { FIXED_COMMENT } from "@/lib/social-comment";
+import { UTM_LINKS } from "@/lib/utm";
 
 const MAX_CAROUSEL = 10;
 
@@ -27,7 +28,7 @@ async function main() {
   const carouselId = await postMedia({
     media_type: "CAROUSEL",
     children: itemIds.join(","),
-    caption: buildCaption(mm, dd, today),
+    caption: buildCaption(mm, dd, today, UTM_LINKS.ig_post),
   });
   await waitForFinished(carouselId);
 

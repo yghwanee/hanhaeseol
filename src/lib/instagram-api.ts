@@ -14,7 +14,7 @@ export function igEnv() {
 
 export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-export function buildCaption(mm: string, dd: string, today: string) {
+export function buildCaption(mm: string, dd: string, today: string, link: string) {
   const hashtagLine = getHierarchicalTags(today).tags.join(" ");
   return [
     `📺 ${mm}/${dd} 오늘의 한국어 중계 편성표`,
@@ -22,7 +22,7 @@ export function buildCaption(mm: string, dd: string, today: string) {
     `⚽️ 축구  ⚾️ 야구  🏀 농구  🏐 배구`,
     `한국어 해설이 있는 모든 경기를 한곳에.`,
     ``,
-    `https://haeseol.com/`,
+    link,
     ``,
     hashtagLine,
   ].join("\n");

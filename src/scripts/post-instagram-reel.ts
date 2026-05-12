@@ -2,6 +2,7 @@ import { getKstToday } from "@/lib/instagram";
 import { buildCaption, comment, mediaBaseUrl, publishSingleMedia } from "@/lib/instagram-api";
 import { readManifest } from "@/lib/manifest";
 import { FIXED_COMMENT } from "@/lib/social-comment";
+import { UTM_LINKS } from "@/lib/utm";
 
 async function main() {
   const manifest = readManifest();
@@ -16,7 +17,7 @@ async function main() {
     {
       media_type: "REELS",
       video_url: videoUrl,
-      caption: buildCaption(mm, dd, today),
+      caption: buildCaption(mm, dd, today, UTM_LINKS.ig_reel),
       share_to_feed: "false",
     },
     60,
