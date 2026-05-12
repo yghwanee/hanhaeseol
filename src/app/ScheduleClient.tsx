@@ -138,9 +138,9 @@ export default function ScheduleClient({
           </h1>
           <Link
             href="/standings"
-            className="rounded-md border border-zinc-700/70 px-2.5 py-1 text-xs font-semibold text-zinc-300 transition-colors hover:border-emerald-500/50 hover:text-emerald-400 sm:text-sm"
+            className="text-sm font-medium text-zinc-400 transition-colors hover:text-white sm:text-base"
           >
-            📊 순위
+            순위
           </Link>
         </header>
       </StickyHeader>
