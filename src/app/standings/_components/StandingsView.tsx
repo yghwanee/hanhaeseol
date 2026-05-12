@@ -19,19 +19,19 @@ const SPORT_LABELS: Record<SportKey, string> = {
   basketball: "농구",
 };
 
-/** 리그 동그라미 안에 표시할 짧은 약자. */
+/** 리그 동그라미 안에 표시할 짧은 약자. 한국 시청자가 즉시 알아보는 표기 우선. */
 const LEAGUE_SHORT: Record<string, string> = {
   epl: "EPL",
-  primera: "LIGA",
-  bundesliga: "분데",
-  seria: "SA",
-  ligue1: "L1",
-  champs: "UCL",
-  europa: "UEL",
+  primera: "라리가",
+  bundesliga: "분데스",
+  seria: "세리에",
+  ligue1: "리그앙",
+  champs: "챔스",
+  europa: "유로파",
   mls: "MLS",
-  kleague: "K1",
-  kleague2: "K2",
-  eredivisie: "ERED",
+  kleague: "K리그",
+  kleague2: "K리그2",
+  eredivisie: "에레디",
   kbo: "KBO",
   mlb: "MLB",
   nba: "NBA",
@@ -110,7 +110,11 @@ export function StandingsView({ data }: { data: StandingsData }) {
                       : "bg-zinc-800/80 text-zinc-200 group-hover:bg-zinc-700/80 group-hover:scale-105"
                   }`}
                 >
-                  <span className="text-[11px] font-bold tracking-tight">
+                  <span
+                    className={`font-bold tracking-tight ${
+                      short.length >= 4 ? "text-[10px]" : "text-[12px]"
+                    }`}
+                  >
                     {short}
                   </span>
                 </div>
