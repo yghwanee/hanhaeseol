@@ -173,7 +173,9 @@ export function StandingsView({ data }: { data: StandingsData }) {
       <div className="pt-2">
         <div
           ref={scrollerRef}
-          className="flex overflow-x-auto overflow-y-hidden scrollbar-hide pb-1 pt-1 -mt-1"
+          className={`flex overflow-x-auto overflow-y-hidden scrollbar-hide pb-1 pt-1 -mt-1 ${
+            sport === "baseball" ? "justify-center" : ""
+          }`}
         >
           {leagues.map((lg) => {
             const active = lg.id === current?.id;
