@@ -37,12 +37,20 @@ export async function generateMetadata({
       siteName: "한해설",
       locale: "ko_KR",
       type: "website",
-      images: [{ url: "https://haeseol.com/logo.png", alt: "한해설" }],
+      images: [
+        {
+          url: "https://haeseol.com/og-default.png",
+          width: 1200,
+          height: 630,
+          alt: "한해설 - 스포츠 한국어해설 편성표",
+        },
+      ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: meta.title,
       description: meta.description,
+      images: ["https://haeseol.com/og-default.png"],
     },
   };
 }

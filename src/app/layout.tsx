@@ -46,16 +46,19 @@ export const metadata: Metadata = {
     type: "website",
     images: [
       {
-        url: "https://haeseol.com/logo.png",
-        alt: "한해설 로고",
+        url: "/og-default.png",
+        width: 1200,
+        height: 630,
+        alt: "한해설 - 스포츠 한국어해설 편성표",
       },
     ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "한해설 - 스포츠 한국어중계 편성표",
     description:
       "축구, 야구, 농구, 배구 한국어중계 편성표. 10개 플랫폼의 한국어 해설 중계를 한눈에.",
+    images: ["/og-default.png"],
   },
   alternates: {
     canonical: "https://haeseol.com",

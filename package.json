@@ -24,6 +24,7 @@
     "post:story": "tsx src/scripts/post-instagram-story.ts",
     "reel:make": "tsx src/scripts/make-reel.ts",
     "story:make": "tsx src/scripts/make-story.ts",
+    "og:make": "tsx src/scripts/make-og.ts",
     "ig:setup": "tsx src/scripts/instagram-setup.ts",
     "ig:check": "tsx src/scripts/check-ig-token.ts",
     "yt:setup": "tsx src/scripts/get-youtube-token.ts",
