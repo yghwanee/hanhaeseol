@@ -30,6 +30,38 @@ export default function ScheduleClient({
   const [showInfo, setShowInfo] = useState(false);
   const [showAds, setShowAds] = useState(false);
 
+  // URL ↔ state 동기화. 마운트 시 query 읽어 초기화, 이후 변경 시 history.replaceState로 동기화.
+  // SSR/CSR hydration mismatch를 피하려고 useState 초기값은 default로 두고 useEffect에서 한 번 적용.
+  const urlHydrated = useRef(false);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const d = params.get("date");
+    const s = params.get("sport");
+    const p = params.get("platform");
+    const c = params.get("comm");
+    if (d) setSelectedDate(d);
+    if (s) setSport(s);
+    if (p) setPlatform(p);
+    if (c === "all" || c === "korean" || c === "foreign") setCommentaryFilter(c);
+    urlHydrated.current = true;
+  }, []);
+
+  useEffect(() => {
+    if (!urlHydrated.current) return;
+    const params = new URLSearchParams(window.location.search);
+    if (selectedDate !== getTodayString()) params.set("date", selectedDate);
+    else params.delete("date");
+    if (sport !== "전체") params.set("sport", sport);
+    else params.delete("sport");
+    if (platform !== "전체") params.set("platform", platform);
+    else params.delete("platform");
+    if (commentaryFilter !== "all") params.set("comm", commentaryFilter);
+    else params.delete("comm");
+    const qs = params.toString();
+    const next = qs ? `?${qs}` : window.location.pathname;
+    window.history.replaceState(null, "", next);
+  }, [selectedDate, sport, platform, commentaryFilter]);
+
   const platformRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
   const dragState = useRef({ isDown: false, isDragging: false, startX: 0, scrollLeft: 0 });
