@@ -42,15 +42,26 @@ export function BaseballTable({ teams }: { teams: BaseballStanding[] }) {
 
   return (
     <div className="overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-950/50">
-      <table className="w-full table-fixed text-[11px] sm:text-sm">
+      <table className="w-full text-[11px] sm:text-sm">
+        <colgroup>
+          <col className="w-12 sm:w-14" />
+          <col />
+          <col className="w-14 sm:w-16" />
+          <col className="w-11 sm:w-12" />
+          <col className="w-9 sm:w-10" />
+          <col className="hidden sm:table-column sm:w-10" />
+          <col className="w-9 sm:w-10" />
+          <col className="w-14 sm:w-14" />
+          <col className="hidden sm:table-column sm:w-24" />
+          <col className="hidden sm:table-column sm:w-16" />
+        </colgroup>
         <thead>
           <tr className="border-b border-zinc-800 bg-zinc-900/60">
             <Th
-              label="#"
+              label="순위"
               active={sortKey === "rank"}
               dir={sortDir}
               onClick={() => onHeaderClick("rank")}
-              className="w-[8%]"
             />
             <th className="px-1.5 py-2.5 text-left text-[11px] font-semibold text-zinc-400 sm:px-2 sm:text-xs">
               팀
@@ -60,7 +71,6 @@ export function BaseballTable({ teams }: { teams: BaseballStanding[] }) {
               active={sortKey === "winRate"}
               dir={sortDir}
               onClick={() => onHeaderClick("winRate")}
-              className="w-[14%]"
               highlight
             />
             <Th
@@ -68,40 +78,26 @@ export function BaseballTable({ teams }: { teams: BaseballStanding[] }) {
               active={sortKey === "gameCount"}
               dir={sortDir}
               onClick={() => onHeaderClick("gameCount")}
-              className="w-[10%]"
             />
-            <Th
-              label="승"
-              active={sortKey === "win"}
-              dir={sortDir}
-              onClick={() => onHeaderClick("win")}
-              className="w-[8%]"
-            />
+            <Th label="승" active={sortKey === "win"} dir={sortDir} onClick={() => onHeaderClick("win")} />
             <Th
               label="무"
               active={sortKey === "draw"}
               dir={sortDir}
               onClick={() => onHeaderClick("draw")}
-              className="hidden sm:table-cell sm:w-[7%]"
+              hiddenMobile
             />
-            <Th
-              label="패"
-              active={sortKey === "lose"}
-              dir={sortDir}
-              onClick={() => onHeaderClick("lose")}
-              className="w-[8%]"
-            />
+            <Th label="패" active={sortKey === "lose"} dir={sortDir} onClick={() => onHeaderClick("lose")} />
             <Th
               label="게임차"
               active={sortKey === "gameBehind"}
               dir={sortDir}
               onClick={() => onHeaderClick("gameBehind")}
-              className="w-[14%]"
             />
-            <th className="hidden px-2 py-2.5 text-center text-[11px] font-semibold text-zinc-400 sm:table-cell sm:w-[12%] sm:text-xs">
+            <th className="hidden px-2 py-2.5 text-center text-xs font-semibold text-zinc-400 sm:table-cell">
               최근 5
             </th>
-            <th className="hidden px-1 py-2.5 text-center text-[11px] font-semibold text-zinc-400 sm:table-cell sm:w-[10%] sm:text-xs">
+            <th className="hidden px-1 py-2.5 text-center text-xs font-semibold text-zinc-400 sm:table-cell">
               연속
             </th>
           </tr>
@@ -117,15 +113,17 @@ export function BaseballTable({ teams }: { teams: BaseballStanding[] }) {
               </td>
               <td className="px-1.5 py-2 sm:px-2">
                 <div className="flex items-center gap-1.5 sm:gap-2">
-                  {t.teamLogo && (
+                  {t.teamLogo ? (
                     <Image
                       src={t.teamLogo}
                       alt={t.teamName}
-                      width={20}
-                      height={20}
-                      className="h-4 w-4 shrink-0 object-contain sm:h-5 sm:w-5"
+                      width={22}
+                      height={22}
+                      className="h-[18px] w-[18px] shrink-0 object-contain sm:h-[22px] sm:w-[22px]"
                       unoptimized
                     />
+                  ) : (
+                    <span className="inline-block h-[18px] w-[18px] shrink-0 rounded-full bg-zinc-800 sm:h-[22px] sm:w-[22px]" />
                   )}
                   <span className="truncate font-medium text-zinc-100">{t.teamName}</span>
                 </div>
@@ -161,18 +159,22 @@ function Th({
   active,
   dir,
   onClick,
-  className,
   highlight = false,
+  hiddenMobile = false,
 }: {
   label: string;
   active: boolean;
   dir: "asc" | "desc";
   onClick: () => void;
-  className?: string;
   highlight?: boolean;
+  hiddenMobile?: boolean;
 }) {
   return (
-    <th className={`px-1 py-2.5 text-center text-[11px] font-semibold sm:text-xs ${className ?? ""}`}>
+    <th
+      className={`px-1 py-2.5 text-center text-[11px] font-semibold sm:text-xs ${
+        hiddenMobile ? "hidden sm:table-cell" : ""
+      }`}
+    >
       <button
         type="button"
         onClick={onClick}
