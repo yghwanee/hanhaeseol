@@ -231,6 +231,10 @@ function Th({
             : "text-zinc-400 hover:text-zinc-200"
         }`}
       >
+        {/* 좌측 invisible spacer: 우측 화살표와 같은 폭을 확보해 라벨을 셀 정중앙으로 */}
+        <span className="text-[10px] leading-none opacity-0" aria-hidden>
+          ▲
+        </span>
         {label}
         <span
           className={`text-[10px] leading-none transition-opacity ${
