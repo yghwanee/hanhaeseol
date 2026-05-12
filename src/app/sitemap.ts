@@ -28,6 +28,24 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "hourly",
       priority: 1,
     },
+    {
+      url: `${BASE}/standings`,
+      lastModified,
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    {
+      url: `${BASE}/standings/epl`,
+      lastModified,
+      changeFrequency: "daily",
+      priority: 0.85,
+    },
+    {
+      url: `${BASE}/standings/kbo`,
+      lastModified,
+      changeFrequency: "daily",
+      priority: 0.85,
+    },
     ...leagueUrls,
     ...platformUrls,
     {

@@ -86,7 +86,8 @@ export default function Home() {
         <HomeAboutSection />
       </main>
       <footer className="mt-8 border-t border-zinc-800 py-6 px-4 text-center text-xs text-gray-500">
-        <div className="flex justify-center gap-4 mb-2">
+        <div className="flex flex-wrap justify-center gap-4 mb-2">
+          <Link href="/standings" className="hover:text-gray-300">팀 순위</Link>
           <Link href="/about" className="hover:text-gray-300">한해설 소개</Link>
           <Link href="/privacy" className="hover:text-gray-300">개인정보처리방침</Link>
           <Link href="/terms" className="hover:text-gray-300">이용약관</Link>
