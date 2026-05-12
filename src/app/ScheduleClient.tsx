@@ -140,7 +140,7 @@ export default function ScheduleClient({
               승인 후 복원할 때 사용할 코드:
               <Link
                 href="/analysis"
-                className="border-glow group inline-flex items-center gap-2 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[11px] font-medium text-zinc-200 transition-colors hover:text-white sm:gap-2.5 sm:px-3 sm:text-xs"
+                className="border-glow group inline-flex items-center gap-2 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm font-medium text-zinc-200 transition-colors hover:text-white sm:gap-2.5 sm:px-3"
               >
                 <Image
                   src="/icons/analysis.png"
@@ -156,7 +156,7 @@ export default function ScheduleClient({
           <Link
             href="/standings"
             aria-label="팀 순위"
-            className="border-glow group inline-flex items-center gap-2 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[11px] font-medium text-zinc-200 transition-colors hover:text-white sm:gap-2.5 sm:px-3 sm:text-xs"
+            className="border-glow group inline-flex items-center gap-2 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm font-medium text-zinc-200 transition-colors hover:text-white sm:gap-2.5 sm:px-3"
           >
             <Image
               src="/icons/trophy.png"
