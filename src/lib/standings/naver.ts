@@ -162,6 +162,10 @@ interface NaverKboTeam {
   gameBehind: number;
   continuousGameResult?: string | null;
   lastFiveGames?: string | null;
+  /** MLB만: "AL" | "NL" */
+  league?: string | null;
+  /** MLB만: "EAST" | "CENTRAL" | "WEST" */
+  division?: string | null;
 }
 
 export interface BaseballLeagueMeta {
@@ -189,6 +193,7 @@ export async function fetchBaseballLeague(
   if (stats.length === 0) return null;
 
   // KBO/MLB 모두 네이버 lastFive는 [오래된→최근] 순서이므로 reverse하여 [최근→오래된]으로 통일.
+  // MLB는 league(AL/NL) + division(EAST/CENTRAL/WEST) 정보가 같이 옴 → 그대로 보존하여 UI에서 지구별로 표시.
   const teams: BaseballStanding[] = stats
     .slice()
     .sort((a, b) => a.ranking - b.ranking)
@@ -207,6 +212,8 @@ export async function fetchBaseballLeague(
         gameBehind: t.gameBehind,
         lastFive,
         streak: parseStreak(t.continuousGameResult) ?? streakFromLastFive(lastFive),
+        ...(t.league ? { league: t.league } : {}),
+        ...(t.division ? { division: t.division } : {}),
       };
     });
 

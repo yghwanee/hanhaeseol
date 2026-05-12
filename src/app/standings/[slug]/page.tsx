@@ -10,6 +10,7 @@ import type {
 } from "@/types/standings";
 import { SoccerTable } from "../_components/SoccerTable";
 import { BaseballTable } from "../_components/BaseballTable";
+import { MlbStandingsTable } from "../_components/MlbStandingsTable";
 import { StickyHeader } from "../../_components/StickyHeader";
 import {
   STANDINGS_LEAGUES,
@@ -188,6 +189,8 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
             <p className="text-zinc-400">순위 데이터를 불러오지 못했습니다.</p>
           ) : meta.sport === "soccer" ? (
             <SoccerTable teams={(league as SoccerLeagueStandings).teams} />
+          ) : meta.dataId === "mlb" ? (
+            <MlbStandingsTable teams={(league as BaseballLeagueStandings).teams} />
           ) : (
             <BaseballTable teams={(league as BaseballLeagueStandings).teams} />
           )}

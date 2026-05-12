@@ -35,6 +35,10 @@ export interface BaseballStanding {
   gameBehind: number;
   lastFive: string;
   streak: StreakInfo;
+  /** MLB만: "AL" | "NL". KBO 등은 undefined */
+  league?: string;
+  /** MLB만: "EAST" | "CENTRAL" | "WEST". KBO 등은 undefined */
+  division?: string;
 }
 
 export interface BasketballStanding {

@@ -10,6 +10,7 @@ import type {
 import { FilterButton } from "../../_components/FilterButton";
 import { SoccerTable } from "./SoccerTable";
 import { BaseballTable } from "./BaseballTable";
+import { MlbStandingsTable } from "./MlbStandingsTable";
 
 type SportKey = "soccer" | "baseball";
 
@@ -207,6 +208,8 @@ export function StandingsView({ data }: { data: StandingsData }) {
           <div className="mt-4">
             {sport === "soccer" ? (
               <SoccerTable teams={(current as SoccerLeagueStandings).teams} />
+            ) : current.id === "mlb" ? (
+              <MlbStandingsTable teams={(current as BaseballLeagueStandings).teams} />
             ) : (
               <BaseballTable teams={(current as BaseballLeagueStandings).teams} />
             )}
