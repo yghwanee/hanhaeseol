@@ -24,11 +24,12 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   const data = loadAnalysisData();
   const article = data.articles.find((a) => a.id === id);
 
-  if (!article) return { title: "분석글을 찾을 수 없습니다 - 한해설" };
+  if (!article) return { title: "분석글을 찾을 수 없습니다 - 한해설", robots: { index: false, follow: false } };
 
   return {
     title: `${article.homeTeam} vs ${article.awayTeam} 경기 분석 - 한해설`,
     description: `${article.league} ${article.homeTeam} vs ${article.awayTeam} 해외 픽스터 분석글`,
+    robots: { index: false, follow: false },
   };
 }
 

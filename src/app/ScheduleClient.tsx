@@ -136,42 +136,35 @@ export default function ScheduleClient({
             <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
             <span className="ml-2 sm:ml-3 hidden sm:inline text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
           </h1>
-          <div className="flex items-center gap-2 sm:gap-3">
-            <Link
-              href="/analysis"
-              className="border-glow whitespace-nowrap rounded-lg px-2.5 py-1.5 text-[11px] font-medium text-zinc-200 transition-colors hover:text-white sm:px-3 sm:text-xs"
-            >
-              🎯 픽스터 분석
-            </Link>
-            <Link
-              href="/standings"
-              aria-label="팀 순위"
-              className="group inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-white sm:text-base"
-            >
-              <span className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-800/70 transition-colors group-hover:bg-amber-500/15 sm:h-8 sm:w-8">
-                <svg
-                  width="14"
-                  height="14"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="text-amber-400/90 sm:h-4 sm:w-4"
-                  aria-hidden
-                >
-                  <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
-                  <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
-                  <path d="M4 22h16" />
-                  <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
-                  <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
-                  <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
-                </svg>
-              </span>
-              순위
-            </Link>
-          </div>
+          {/* AdSense 재심사 동안 분석글 링크 임시 숨김 */}
+          <Link
+            href="/standings"
+            aria-label="팀 순위"
+            className="group inline-flex items-center gap-1.5 text-sm font-medium text-zinc-400 transition-colors hover:text-white sm:text-base"
+          >
+            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-800/70 transition-colors group-hover:bg-amber-500/15 sm:h-8 sm:w-8">
+              <svg
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="text-amber-400/90 sm:h-4 sm:w-4"
+                aria-hidden
+              >
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6" />
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18" />
+                <path d="M4 22h16" />
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22" />
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22" />
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z" />
+              </svg>
+            </span>
+            순위
+          </Link>
         </header>
       </StickyHeader>
 
