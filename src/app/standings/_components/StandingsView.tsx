@@ -191,7 +191,7 @@ export function StandingsView({ data }: { data: StandingsData }) {
                 {current.name} 순위
               </h2>
               <p className="mt-1 text-xs text-zinc-500">
-                {current.teams.length}개 팀 · 시즌 {current.season}
+                {current.teams.length}개 팀
               </p>
             </div>
             {current.scheduleSlug && (
