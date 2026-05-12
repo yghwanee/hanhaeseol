@@ -112,6 +112,17 @@ export default function AnalysisClient({ articles, lastUpdated }: { articles: An
     };
   }, [showCalendar]);
 
+  // selectedDate → URL 동기화 (새로고침해도 같은 날짜 유지)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    if (selectedDate) params.set("date", selectedDate);
+    else params.delete("date");
+    const qs = params.toString();
+    const next = qs ? `?${qs}` : window.location.pathname;
+    window.history.replaceState(null, "", next);
+  }, [selectedDate]);
+
   if (articles.length === 0) {
     return <p className="text-zinc-500 text-sm">아직 등록된 분석글이 없습니다.</p>;
   }

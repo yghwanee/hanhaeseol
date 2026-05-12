@@ -47,6 +47,45 @@ export function StandingsView({ data }: { data: StandingsData }) {
 
   const [leagueId, setLeagueId] = useState<string>(() => leagues[0]?.id ?? "");
 
+  // URL ↔ state 동기화. SSR/CSR hydration mismatch 피하려고 마운트 후 한 번만 query 읽음.
+  const urlHydrated = useRef(false);
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const s = params.get("sport");
+    const lg = params.get("league");
+    if (s === "soccer" || s === "baseball") {
+      setSport(s);
+      const list = s === "soccer" ? data.soccer : data.baseball;
+      if (lg && list.some((l) => l.id === lg)) setLeagueId(lg);
+      else if (list[0]) setLeagueId(list[0].id);
+    } else if (lg) {
+      // sport 미지정인데 league만 있는 경우, league로 sport 추론
+      const inSoccer = data.soccer.some((l) => l.id === lg);
+      const inBaseball = data.baseball.some((l) => l.id === lg);
+      if (inSoccer) {
+        setSport("soccer");
+        setLeagueId(lg);
+      } else if (inBaseball) {
+        setSport("baseball");
+        setLeagueId(lg);
+      }
+    }
+    urlHydrated.current = true;
+  }, [data]);
+
+  useEffect(() => {
+    if (!urlHydrated.current) return;
+    const params = new URLSearchParams(window.location.search);
+    if (sport !== "soccer") params.set("sport", sport);
+    else params.delete("sport");
+    const firstId = (sport === "soccer" ? data.soccer[0]?.id : data.baseball[0]?.id) ?? "";
+    if (leagueId && leagueId !== firstId) params.set("league", leagueId);
+    else params.delete("league");
+    const qs = params.toString();
+    const next = qs ? `?${qs}` : window.location.pathname;
+    window.history.replaceState(null, "", next);
+  }, [sport, leagueId, data]);
+
   const onSportClick = (s: SportKey) => {
     setSport(s);
     const first = s === "soccer" ? data.soccer[0]?.id : data.baseball[0]?.id;
