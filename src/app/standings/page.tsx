@@ -83,7 +83,30 @@ export const metadata: Metadata = {
   },
 };
 
-export default function StandingsPage() {
+export default function StandingsPage({
+  searchParams,
+}: {
+  searchParams: { sport?: string; league?: string };
+}) {
+  // 서버 단에서 query → 초기값 결정. 클라이언트 hydration 시 default → 분데스 깜빡임 방지.
+  const qSport = searchParams.sport;
+  const qLeague = searchParams.league;
+  let initialSport: "soccer" | "baseball" = "soccer";
+  let initialLeague: string = data.soccer[0]?.id ?? "";
+  if (qSport === "soccer" || qSport === "baseball") {
+    initialSport = qSport;
+    const list = qSport === "soccer" ? data.soccer : data.baseball;
+    initialLeague = qLeague && list.some((l) => l.id === qLeague) ? qLeague : list[0]?.id ?? "";
+  } else if (qLeague) {
+    if (data.soccer.some((l) => l.id === qLeague)) {
+      initialSport = "soccer";
+      initialLeague = qLeague;
+    } else if (data.baseball.some((l) => l.id === qLeague)) {
+      initialSport = "baseball";
+      initialLeague = qLeague;
+    }
+  }
+
   return (
     <main className="min-h-screen text-gray-100">
       <script
@@ -116,7 +139,7 @@ export default function StandingsPage() {
         </StickyHeader>
 
         <div className="mt-4 sm:mt-6">
-          <StandingsView data={data} />
+          <StandingsView data={data} initialSport={initialSport} initialLeague={initialLeague} />
         </div>
 
         <p className="mt-6 text-xs text-zinc-600">

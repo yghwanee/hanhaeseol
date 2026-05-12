@@ -17,37 +17,30 @@ import { AdSkeleton } from "./_components/AdSkeleton";
 export default function ScheduleClient({
   initialData,
   teamRecords = {},
+  initialDate,
+  initialSport,
+  initialPlatform,
+  initialCommentary = "all",
 }: {
   initialData: ScheduleData;
   teamRecords?: TeamRecordsMap;
+  initialDate?: string;
+  initialSport?: string;
+  initialPlatform?: string;
+  initialCommentary?: "all" | "korean" | "foreign";
 }) {
   const [data] = useState<ScheduleData>(initialData);
-  const [selectedDate, setSelectedDate] = useState(getTodayString());
-  const [sport, setSport] = useState("전체");
-  const [platform, setPlatform] = useState("전체");
-  const [commentaryFilter, setCommentaryFilter] = useState<"all" | "korean" | "foreign">("all");
+  const [selectedDate, setSelectedDate] = useState(initialDate || getTodayString());
+  const [sport, setSport] = useState(initialSport || "전체");
+  const [platform, setPlatform] = useState(initialPlatform || "전체");
+  const [commentaryFilter, setCommentaryFilter] = useState<"all" | "korean" | "foreign">(initialCommentary);
   const [searchQuery, setSearchQuery] = useState("");
   const [showInfo, setShowInfo] = useState(false);
   const [showAds, setShowAds] = useState(false);
 
-  // URL ↔ state 동기화. 마운트 시 query 읽어 초기화, 이후 변경 시 history.replaceState로 동기화.
-  // SSR/CSR hydration mismatch를 피하려고 useState 초기값은 default로 두고 useEffect에서 한 번 적용.
-  const urlHydrated = useRef(false);
+  // 상태 변경 시 URL 동기화 (history.replaceState로 라우터 재요청 없이).
+  // 초기값은 서버에서 prop으로 받으므로 mount 시 query → state 동기화 단계 없음 (깜빡임 방지).
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const d = params.get("date");
-    const s = params.get("sport");
-    const p = params.get("platform");
-    const c = params.get("comm");
-    if (d) setSelectedDate(d);
-    if (s) setSport(s);
-    if (p) setPlatform(p);
-    if (c === "all" || c === "korean" || c === "foreign") setCommentaryFilter(c);
-    urlHydrated.current = true;
-  }, []);
-
-  useEffect(() => {
-    if (!urlHydrated.current) return;
     const params = new URLSearchParams(window.location.search);
     if (selectedDate !== getTodayString()) params.set("date", selectedDate);
     else params.delete("date");

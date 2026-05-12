@@ -36,8 +36,16 @@ const LEAGUE_SHORT: Record<string, string> = {
   mlb: "MLB",
 };
 
-export function StandingsView({ data }: { data: StandingsData }) {
-  const [sport, setSport] = useState<SportKey>("soccer");
+export function StandingsView({
+  data,
+  initialSport = "soccer",
+  initialLeague = "",
+}: {
+  data: StandingsData;
+  initialSport?: SportKey;
+  initialLeague?: string;
+}) {
+  const [sport, setSport] = useState<SportKey>(initialSport);
 
   const leagues = useMemo<
     Array<SoccerLeagueStandings | BaseballLeagueStandings>
@@ -45,36 +53,13 @@ export function StandingsView({ data }: { data: StandingsData }) {
     return sport === "soccer" ? data.soccer : data.baseball;
   }, [sport, data]);
 
-  const [leagueId, setLeagueId] = useState<string>(() => leagues[0]?.id ?? "");
+  const [leagueId, setLeagueId] = useState<string>(
+    () => initialLeague || leagues[0]?.id || "",
+  );
 
-  // URL ↔ state 동기화. SSR/CSR hydration mismatch 피하려고 마운트 후 한 번만 query 읽음.
-  const urlHydrated = useRef(false);
+  // 상태 변경 시 URL ↔ 동기화 (history.replaceState로 라우터 재요청 없이).
+  // 초기값은 서버에서 prop으로 받았으므로 mount 시 query → state 동기화는 필요 없음 (깜빡임 방지).
   useEffect(() => {
-    const params = new URLSearchParams(window.location.search);
-    const s = params.get("sport");
-    const lg = params.get("league");
-    if (s === "soccer" || s === "baseball") {
-      setSport(s);
-      const list = s === "soccer" ? data.soccer : data.baseball;
-      if (lg && list.some((l) => l.id === lg)) setLeagueId(lg);
-      else if (list[0]) setLeagueId(list[0].id);
-    } else if (lg) {
-      // sport 미지정인데 league만 있는 경우, league로 sport 추론
-      const inSoccer = data.soccer.some((l) => l.id === lg);
-      const inBaseball = data.baseball.some((l) => l.id === lg);
-      if (inSoccer) {
-        setSport("soccer");
-        setLeagueId(lg);
-      } else if (inBaseball) {
-        setSport("baseball");
-        setLeagueId(lg);
-      }
-    }
-    urlHydrated.current = true;
-  }, [data]);
-
-  useEffect(() => {
-    if (!urlHydrated.current) return;
     const params = new URLSearchParams(window.location.search);
     if (sport !== "soccer") params.set("sport", sport);
     else params.delete("sport");
