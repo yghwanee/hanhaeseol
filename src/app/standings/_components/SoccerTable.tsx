@@ -121,10 +121,10 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
     <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/50">
       <div className="relative">
         <div ref={scrollerRef} className="overflow-x-auto scrollbar-hide">
-          <table className="w-full min-w-[640px] text-[12px] sm:text-sm">
+          <table className="w-full min-w-[670px] text-[12px] sm:text-sm">
             <colgroup>
               <col className="w-10 sm:w-12" />
-              <col className="w-[110px] sm:w-[170px]" />
+              <col className="w-[140px] sm:w-[200px]" />
               <col className="w-12" />
               <col className="w-12" />
               <col className="w-10" />
