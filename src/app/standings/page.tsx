@@ -81,9 +81,9 @@ export default function StandingsPage() {
           </header>
         </StickyHeader>
 
-        <h1 className="mb-6 mt-4 text-2xl font-bold sm:mb-8 sm:mt-6 sm:text-3xl">팀 순위</h1>
-
-        <StandingsView data={data} />
+        <div className="mt-4 sm:mt-6">
+          <StandingsView data={data} />
+        </div>
 
         <p className="mt-6 text-xs text-zinc-600">
           데이터 출처: 네이버 스포츠 · 갱신:{" "}
