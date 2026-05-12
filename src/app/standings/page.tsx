@@ -5,8 +5,32 @@ import standingsData from "@/data/standings.json";
 import type { StandingsData } from "@/types/standings";
 import { StickyHeader } from "../_components/StickyHeader";
 import { StandingsView } from "./_components/StandingsView";
+import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
 
 const data = standingsData as unknown as StandingsData;
+
+const STANDINGS_INDEX_JSONLD = {
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, name: "한해설", item: "https://haeseol.com" },
+        { "@type": "ListItem", position: 2, name: "팀 순위", item: "https://haeseol.com/standings" },
+      ],
+    },
+    {
+      "@type": "ItemList",
+      name: "한해설 - 리그별 순위 목록",
+      itemListElement: STANDINGS_LEAGUES.map((l, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        url: `https://haeseol.com/standings/${l.slug}`,
+        name: `${l.display} 순위`,
+      })),
+    },
+  ],
+};
 
 export const metadata: Metadata = {
   title: "팀 순위 - EPL · 라리가 · 분데스 · KBO 등 | 한해설",
@@ -19,10 +43,16 @@ export const metadata: Metadata = {
     "분데스리가 순위",
     "세리에A 순위",
     "리그앙 순위",
+    "리그1 순위",
     "챔피언스리그 순위",
+    "UCL 순위",
     "유로파리그 순위",
+    "UEL 순위",
     "MLS 순위",
     "K리그 순위",
+    "K리그1 순위",
+    "K리그2 순위",
+    "에레디비시 순위",
     "KBO 순위",
     "MLB 순위",
     "프로야구 순위",
@@ -56,6 +86,10 @@ export const metadata: Metadata = {
 export default function StandingsPage() {
   return (
     <main className="min-h-screen text-gray-100">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(STANDINGS_INDEX_JSONLD) }}
+      />
       <div className="mx-auto max-w-2xl px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
         <StickyHeader>
           <header className="flex items-center justify-between">
@@ -89,6 +123,25 @@ export default function StandingsPage() {
           데이터 출처: 네이버 스포츠 · 갱신:{" "}
           {new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })} (KST)
         </p>
+
+        {/* 리그별 순위 진입 카드 — SEO 내부 링크 + 별도 접근 경로 */}
+        <section className="mt-8 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+          <h2 className="text-base font-semibold text-white sm:text-lg">리그별 순위 바로가기</h2>
+          <p className="mt-1 text-xs text-zinc-500 sm:text-sm">
+            각 리그의 상세 순위표·진출권·연속 결과를 별도 페이지에서 확인하세요.
+          </p>
+          <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
+            {STANDINGS_LEAGUES.map((l) => (
+              <Link
+                key={l.slug}
+                href={`/standings/${l.slug}`}
+                className="rounded-lg border border-zinc-700/60 bg-zinc-900/60 px-3 py-2 text-xs text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white sm:text-sm"
+              >
+                {l.display} 순위 →
+              </Link>
+            ))}
+          </div>
+        </section>
       </div>
     </main>
   );

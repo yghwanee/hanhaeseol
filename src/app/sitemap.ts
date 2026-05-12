@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
 import scheduleData from "@/data/schedule.json";
 import { LEAGUE_SEO, PLATFORM_SEO } from "@/lib/slugs";
+import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
 
 const BASE = "https://haeseol.com";
 
@@ -21,6 +22,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
+  const standingsLeagueUrls = STANDINGS_LEAGUES.map((l) => ({
+    url: `${BASE}/standings/${l.slug}`,
+    lastModified,
+    changeFrequency: "daily" as const,
+    priority: 0.85,
+  }));
+
   return [
     {
       url: BASE,
@@ -32,20 +40,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${BASE}/standings`,
       lastModified,
       changeFrequency: "daily",
-      priority: 0.8,
+      priority: 0.9,
     },
-    {
-      url: `${BASE}/standings/epl`,
-      lastModified,
-      changeFrequency: "daily",
-      priority: 0.85,
-    },
-    {
-      url: `${BASE}/standings/kbo`,
-      lastModified,
-      changeFrequency: "daily",
-      priority: 0.85,
-    },
+    ...standingsLeagueUrls,
     ...leagueUrls,
     ...platformUrls,
     {
