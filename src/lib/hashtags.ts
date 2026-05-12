@@ -1,5 +1,6 @@
 import fs from "node:fs";
-import type { Sport } from "@/types/schedule";
+import type { Schedule, ScheduleData, Sport } from "@/types/schedule";
+import { pickHeroMatch } from "./instagram";
 
 // 종목 → 해시태그 (대분류)
 const SPORT_HASHTAGS: Record<Sport, string> = {
@@ -39,31 +40,6 @@ const LEAGUE_HASHTAGS: Record<string, string> = {
   일본프로농구: "#B리그",
 };
 
-// 종목별 리그 우선순위 (시청자 풀 큰 순)
-const LEAGUE_PRIORITY: Record<Sport, string[]> = {
-  축구: [
-    "챔피언스리그",
-    "유로파리그",
-    "컨퍼런스리그",
-    "프리미어리그",
-    "라리가",
-    "분데스리가",
-    "세리에A",
-    "리그 1",
-    "잉글랜드 FA컵",
-    "K리그",
-    "K리그2",
-    "EFL 챔피언십",
-    "ACL",
-    "MLS",
-    "북중미 챔피언스컵",
-    "쉬페르리그",
-  ],
-  야구: ["MLB", "KBO"],
-  농구: ["NBA", "KBL", "WKBL", "일본프로농구"],
-  배구: [],
-};
-
 // 팀 → 해시태그 (소분류 niche)
 // schedule.json의 실제 팀명 표기 기준. 매핑 없으면 빠짐.
 const TEAM_HASHTAGS: Record<string, string> = {
@@ -80,23 +56,42 @@ const TEAM_HASHTAGS: Record<string, string> = {
   브렌트포드: "#브렌트포드",
   웨스트햄: "#웨스트햄",
   "아스톤 빌라": "#아스톤빌라",
+  노팅엄: "#노팅엄",
   "노팅엄 포레스트": "#노팅엄",
+  리즈: "#리즈",
+  선덜랜드: "#선덜랜드",
+  에버턴: "#에버턴",
+  "크리스탈 팰리스": "#크리스탈팰리스",
+  풀럼: "#풀럼",
   // 라리가
   바르셀로나: "#바르셀로나",
   "레알 마드리드": "#레알마드리드",
-  "AT.마드리드": "#아틀레티코마드리드",
-  "아틀레티코 마드리드": "#아틀레티코마드리드",
+  "AT.마드리드": "#아틀레티코",
+  "아틀레티코 마드리드": "#아틀레티코",
   세비야: "#세비야",
   "레알 소시에다드": "#레알소시에다드",
+  "레알 베티스": "#레알베티스",
   비야레알: "#비야레알",
   발렌시아: "#발렌시아",
   지로나: "#지로나",
+  마요르카: "#마요르카",
+  아틀레틱: "#아틀레틱빌바오",
+  셀타: "#셀타비고",
+  "셀타 비고": "#셀타비고",
   // 분데스리가
   "바이에른 뮌헨": "#바이에른뮌헨",
   도르트문트: "#도르트문트",
   슈투트가르트: "#슈투트가르트",
   레버쿠젠: "#레버쿠젠",
   프랑크푸르트: "#프랑크푸르트",
+  라이프치히: "#라이프치히",
+  마인츠: "#마인츠",
+  묀헨글라트바흐: "#글라드바흐",
+  "베르더 브레멘": "#베르더브레멘",
+  볼프스부르크: "#볼프스부르크",
+  "우니온 베를린": "#우니온베를린",
+  호펜하임: "#호펜하임",
+  프라이부르크: "#프라이부르크",
   // 세리에A
   유벤투스: "#유벤투스",
   "인터 밀란": "#인터밀란",
@@ -105,11 +100,17 @@ const TEAM_HASHTAGS: Record<string, string> = {
   "AS 로마": "#AS로마",
   아탈란타: "#아탈란타",
   라치오: "#라치오",
+  볼로냐: "#볼로냐",
+  피오렌티나: "#피오렌티나",
   // 리그 1
   PSG: "#PSG",
   "파리 생제르망": "#PSG",
   마르세유: "#마르세유",
   모나코: "#모나코",
+  리옹: "#리옹",
+  릴: "#릴",
+  니스: "#니스",
+  랑스: "#랑스",
   // K리그
   울산: "#울산현대",
   전북: "#전북현대",
@@ -176,100 +177,21 @@ const KOREAN_PLAYERS: Array<{ name: string; team: string }> = [
   { name: "배지환", team: "피츠버그 파이리츠" },
 ];
 
-interface ScheduleEntry {
-  date: string;
-  sport: string;
-  league: string;
-  homeTeam: string;
-  awayTeam: string;
-  koreanCommentary: boolean | "unknown";
-}
-
-function loadKoreanCommentaryGames(today: string): ScheduleEntry[] {
+function loadKoreanCommentaryGames(today: string): Schedule[] {
   try {
     const raw = fs.readFileSync("public/schedule.json", "utf-8");
-    const data = JSON.parse(raw) as { schedules: ScheduleEntry[] };
-    return data.schedules.filter(
-      (s) => s.date === today && s.koreanCommentary === true,
-    );
+    const data = JSON.parse(raw) as ScheduleData;
+    return data.schedules
+      .filter((s) => s.date === today && s.koreanCommentary === true)
+      .sort((a, b) => a.time.localeCompare(b.time));
   } catch {
     return [];
   }
 }
 
-function pickMainSport(games: ScheduleEntry[]): Sport | null {
-  if (games.length === 0) return null;
-  const counts: Record<string, number> = {};
-  for (const g of games) counts[g.sport] = (counts[g.sport] ?? 0) + 1;
-  const order: Sport[] = ["축구", "야구", "농구", "배구"];
-  let best: Sport | null = null;
-  let bestCount = -1;
-  for (const sport of order) {
-    const c = counts[sport] ?? 0;
-    if (c > bestCount) {
-      best = sport;
-      bestCount = c;
-    }
-  }
-  return bestCount > 0 ? best : null;
-}
-
-function pickMainLeague(games: ScheduleEntry[], sport: Sport): string | null {
-  const inSport = games.filter((g) => g.sport === sport);
-  if (inSport.length === 0) return null;
-  const present = new Set(inSport.map((g) => g.league));
-  for (const lg of LEAGUE_PRIORITY[sport]) {
-    if (present.has(lg) && LEAGUE_HASHTAGS[lg]) return lg;
-  }
-  // 우선순위에 없는 리그라도 매핑 있으면 사용
-  for (const lg of present) {
-    if (LEAGUE_HASHTAGS[lg]) return lg;
-  }
-  return null;
-}
-
-function dateHash(today: string): number {
-  let hash = 0;
-  for (let i = 0; i < today.length; i++) {
-    hash = ((hash << 5) - hash) + today.charCodeAt(i);
-    hash |= 0;
-  }
-  return Math.abs(hash);
-}
-
-function pickMainTeam(
-  games: ScheduleEntry[],
-  league: string,
-  today: string,
-): { team: string; player?: string } | null {
-  const inLeague = games.filter((g) => g.league === league);
-  if (inLeague.length === 0) return null;
-
-  // 후보 풀 수집 — 한국 선수 소속 팀 + 매핑된 빅클럽 (중복 제거)
-  const candidates: { team: string; player?: string }[] = [];
-  const seen = new Set<string>();
-
-  for (const p of KOREAN_PLAYERS) {
-    if (seen.has(p.team)) continue;
-    if (inLeague.some((g) => g.homeTeam === p.team || g.awayTeam === p.team)) {
-      candidates.push({ team: p.team, player: p.name });
-      seen.add(p.team);
-    }
-  }
-
-  for (const g of inLeague) {
-    for (const t of [g.homeTeam, g.awayTeam]) {
-      if (TEAM_HASHTAGS[t] && !seen.has(t)) {
-        candidates.push({ team: t });
-        seen.add(t);
-      }
-    }
-  }
-
-  if (candidates.length === 0) return null;
-
-  // 날짜 해시 기반 회전 — 같은 리그가 매일 메인이어도 팀 슬롯은 매일 다른 후보로
-  return candidates[dateHash(today) % candidates.length];
+function findKoreanPlayerOnTeam(team: string): string | null {
+  const found = KOREAN_PLAYERS.find((p) => p.team === team);
+  return found ? found.name : null;
 }
 
 const LEAGUE_SHORT_NAME: Record<string, string> = {
@@ -299,14 +221,17 @@ export interface HierarchicalTagsResult {
 }
 
 /**
- * 계층적 해시태그 5개 생성:
- *   대분류(종목) + 중분류(리그) + 소분류 A(팀) + #한국어중계 + #한해설
- * 일부 슬롯이 비면 해당 항목만 빠지고 나머지로 진행.
+ * 빅매치(hero) 양 팀 + 한국 선수 + 리그 + 종목을 해시태그로 통일.
+ * 영상 첫 화면(hero)에 등장한 매치와 캡션 해시태그가 항상 일치하도록 보장.
+ *
+ * 출력 예 (5/12 토트넘 vs 리즈, 양민혁 소속):
+ *   #양민혁 #토트넘 #리즈 #프리미어리그 #축구 #한국어중계 #한해설
+ *
+ * 한국어 해설 0경기인 날: 일반 폴백 태그.
  */
 export function getHierarchicalTags(today: string): HierarchicalTagsResult {
   const games = loadKoreanCommentaryGames(today);
 
-  // 한국어 해설 0경기 폴백
   if (games.length === 0) {
     return {
       tags: ["#스포츠", "#한국어중계", "#한해설"],
@@ -318,25 +243,38 @@ export function getHierarchicalTags(today: string): HierarchicalTagsResult {
     };
   }
 
-  const sport = pickMainSport(games);
-  const sportTag = sport ? SPORT_HASHTAGS[sport] : undefined;
+  const hero = pickHeroMatch(games);
+  if (!hero) {
+    return {
+      tags: ["#스포츠", "#한국어중계", "#한해설"],
+      mainSport: null,
+      mainLeague: null,
+      mainTeam: null,
+      mainPlayer: null,
+      totalGames: games.length,
+    };
+  }
 
-  const league = sport ? pickMainLeague(games, sport) : null;
-  const leagueTag = league ? LEAGUE_HASHTAGS[league] : undefined;
+  const sportTag = SPORT_HASHTAGS[hero.sport];
+  const leagueTag = LEAGUE_HASHTAGS[hero.league];
+  const homeTag = TEAM_HASHTAGS[hero.homeTeam];
+  const awayTag = hero.awayTeam ? TEAM_HASHTAGS[hero.awayTeam] : undefined;
 
-  const teamPick = league ? pickMainTeam(games, league, today) : null;
-  const teamTag = teamPick ? TEAM_HASHTAGS[teamPick.team] : undefined;
+  const playerName =
+    findKoreanPlayerOnTeam(hero.homeTeam) ??
+    (hero.awayTeam ? findKoreanPlayerOnTeam(hero.awayTeam) : null);
+  const playerTag = playerName ? `#${playerName}` : undefined;
 
-  const tags = [sportTag, leagueTag, teamTag, "#한국어중계", "#한해설"].filter(
-    (t): t is string => Boolean(t),
-  );
+  // 순서: specific → general (알고리즘 분류는 앞쪽 태그를 우선 참조)
+  const tags = [playerTag, homeTag, awayTag, leagueTag, sportTag, "#한국어중계", "#한해설"]
+    .filter((t): t is string => Boolean(t));
 
   return {
     tags,
-    mainSport: sport,
-    mainLeague: league,
-    mainTeam: teamPick?.team ?? null,
-    mainPlayer: teamPick?.player ?? null,
+    mainSport: hero.sport,
+    mainLeague: hero.league,
+    mainTeam: hero.homeTeam,
+    mainPlayer: playerName,
     totalGames: games.length,
   };
 }
