@@ -19,9 +19,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://haeseol.com"),
-  title: "한해설 - 스포츠 한국어중계 편성표 | 한국어 해설 중계 일정",
+  title: "한국어 해설 중계 편성표 - 오늘 EPL·KBO·MLB·라리가 일정 | 한해설",
   description:
-    "축구, 야구, 농구, 배구 한국어중계 편성표. 10개 플랫폼의 한국어 해설 중계 일정을 한눈에 확인하세요.",
+    "EPL·KBO·MLB·라리가·UCL 등 한국어 해설 중계 일정을 SPOTV NOW·쿠팡플레이·티빙·SPOTV 등 10개 플랫폼에서 한 페이지에. 오늘부터 7일치 편성표, 어디서 시청할지 한눈에.",
   keywords: [
     "한국어중계", "한국어 중계", "한국어 해설", "한국어해설", "스포츠 중계 편성표", "스포츠 편성표",
     "해외축구 한국어중계", "해외축구 한국어 해설", "해외축구 중계", "EPL 중계", "EPL 한국어중계", "라리가 중계",

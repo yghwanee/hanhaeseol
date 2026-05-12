@@ -1,7 +1,9 @@
 import React from "react";
+import Link from "next/link";
 import { Schedule } from "@/types/schedule";
 import { TeamRecord } from "@/types/team-record";
 import { isGameFinished } from "@/lib/schedule-utils";
+import { matchToSlug } from "@/lib/match-slug";
 import { StatusBadge } from "./StatusBadge";
 import { PlatformBadge } from "./PlatformBadge";
 import { Highlight } from "./Highlight";
@@ -19,7 +21,11 @@ function ScheduleCardInner({
   awayRecord?: TeamRecord;
 }) {
   return (
-    <div className="rounded-xl border border-zinc-800 bg-zinc-900/80 p-3 sm:p-4 transition-colors hover:border-zinc-700 hover:bg-zinc-900">
+    <Link
+      href={`/match/${matchToSlug(schedule)}`}
+      className="block rounded-xl border border-zinc-800 bg-zinc-900/80 p-3 sm:p-4 transition-colors hover:border-zinc-700 hover:bg-zinc-900"
+      aria-label={`${schedule.homeTeam} ${schedule.awayTeam ? `vs ${schedule.awayTeam}` : ""} 경기 상세 보기`}
+    >
       <div className="flex items-start justify-between gap-2">
         <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-zinc-400">
           <span className="font-mono font-semibold text-zinc-200">
@@ -61,10 +67,10 @@ function ScheduleCardInner({
       )}
 
       <div className="mt-2.5 sm:mt-3 flex items-center justify-between">
-        <PlatformBadge platform={schedule.platform} />
+        <PlatformBadge platform={schedule.platform} asLink={false} />
         <span className="text-[11px] sm:text-xs text-zinc-500">{schedule.sport}</span>
       </div>
-    </div>
+    </Link>
   );
 }
 

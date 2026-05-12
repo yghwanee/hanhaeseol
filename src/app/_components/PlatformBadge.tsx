@@ -15,11 +15,18 @@ const styles: Record<string, string> = {
   "Apple TV+": "bg-gray-500/15 text-gray-300 ring-gray-500/30",
 };
 
-function PlatformBadgeInner({ platform }: { platform: string }) {
+function PlatformBadgeInner({
+  platform,
+  asLink = true,
+}: {
+  platform: string;
+  /** false면 단순 뱃지(span)로만 렌더. 부모가 이미 Link로 감쌌을 때 nested anchor 방지. */
+  asLink?: boolean;
+}) {
   const slug = findPlatformSlugByName(platform);
   const style = styles[platform] ?? "bg-zinc-500/15 text-zinc-400 ring-zinc-500/30";
 
-  if (!slug) {
+  if (!slug || !asLink) {
     return (
       <span className={`inline-flex rounded-full px-2 sm:px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold ring-1 ${style}`}>
         {platform}
