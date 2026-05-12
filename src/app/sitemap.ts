@@ -33,8 +33,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.85,
   }));
 
+  // sitemap.org 규격은 URL이 RFC 3986 (percent-encoded). 한글 슬러그는 반드시 encodeURIComponent.
+  // 하이픈/숫자/영문은 그대로 통과, 한글만 %xx 형태로 변환됨.
   const matchUrls = data.schedules.map((s) => ({
-    url: `${BASE}/match/${matchToSlug(s)}`,
+    url: `${BASE}/match/${encodeURIComponent(matchToSlug(s))}`,
     lastModified: new Date(s.date),
     changeFrequency: "daily" as const,
     priority: 0.7,
