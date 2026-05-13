@@ -2,8 +2,9 @@ name: Generate insta & youtube
 
 on:
   schedule:
-    # KST 18:18 = UTC 09:18. UTC 정각은 GitHub Actions 지연 잦아서 회피.
-    - cron: '18 9 * * *'
+    # cron은 UTC 10:18 (= KST 19:18). GH Actions 지연 1~2h 고려하면 실제 시작은 KST 20~21시.
+    # 목표 노출 시각은 KST 저녁 골든타임(20:18 근처).
+    - cron: '18 10 * * *'
   workflow_dispatch:
     inputs:
       skip_instagram:
