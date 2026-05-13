@@ -50,13 +50,20 @@ export default function WeekHighlights({
 
 function MiniMatchCard({ schedule: s }: { schedule: Schedule }) {
   const versus = s.awayTeam ? `${s.homeTeam} vs ${s.awayTeam}` : s.homeTeam;
+  const dayOfWeek = new Date(s.date + "T00:00:00").getDay();
+  const dateColor =
+    dayOfWeek === 0
+      ? "text-red-400"
+      : dayOfWeek === 6
+        ? "text-blue-400"
+        : "text-zinc-400";
   return (
     <Link
       href={`/match/${matchToSlug(s)}`}
       className="flex h-full flex-col rounded-lg border border-zinc-800 border-l-2 border-l-emerald-500/50 bg-zinc-900/80 p-3 transition-colors hover:border-zinc-600 hover:border-l-emerald-400 hover:bg-zinc-900 sm:p-3.5"
     >
-      <div className="flex items-baseline gap-1.5 text-xs text-zinc-400">
-        <span>{formatDateHeader(s.date)}</span>
+      <div className="flex items-baseline gap-1.5 text-xs">
+        <span className={dateColor}>{formatDateHeader(s.date)}</span>
         <span className="font-mono font-semibold text-zinc-200">{s.time}</span>
       </div>
       <div className="mt-1.5 truncate text-sm font-semibold text-zinc-100 sm:text-[15px]">
