@@ -2,15 +2,26 @@ import Link from "next/link";
 import Image from "next/image";
 import { Schedule } from "@/types/schedule";
 import { TeamRecordsMap } from "@/types/team-record";
+import { MatchResult, ResultsData } from "@/types/results";
 import { lookupTeamRecord } from "@/lib/team-records/lookup";
+import { findResult } from "@/lib/results/lookup";
 import { LEAGUE_SEO, PLATFORM_SEO, SeoMeta } from "@/lib/slugs";
 import { isGameFinished, formatDateHeader } from "@/lib/schedule-utils";
 import { CoupangTopBannerOnly } from "@/app/_components/CoupangBanners";
 import { StickyHeader } from "@/app/_components/StickyHeader";
 import { LastFiveBadges } from "@/app/_components/LastFiveBadges";
 
-function StatusPill({ kc, finished }: { kc: boolean | "unknown"; finished: boolean }) {
-  if (finished) {
+function StatusPill({ kc, finished, result }: { kc: boolean | "unknown"; finished: boolean; result?: MatchResult }) {
+  if (result?.status === "live") {
+    return <span className="inline-flex items-center gap-1 rounded-full bg-rose-500/20 px-2 py-0.5 text-[11px] font-semibold text-rose-400 ring-1 ring-rose-500/30"><span className="h-1.5 w-1.5 rounded-full bg-rose-400 animate-pulse" />LIVE</span>;
+  }
+  if (result?.status === "canceled") {
+    return <span className="inline-flex items-center rounded-full bg-zinc-500/20 px-2 py-0.5 text-[11px] font-semibold text-zinc-400 ring-1 ring-zinc-500/30">취소</span>;
+  }
+  if (result?.status === "postponed") {
+    return <span className="inline-flex items-center rounded-full bg-amber-500/20 px-2 py-0.5 text-[11px] font-semibold text-amber-400 ring-1 ring-amber-500/30">연기</span>;
+  }
+  if (result?.status === "finished" || finished) {
     return <span className="inline-flex items-center rounded-full bg-zinc-500/20 px-2 py-0.5 text-[11px] font-semibold text-zinc-400 ring-1 ring-zinc-500/30">경기 종료</span>;
   }
   if (kc === true) {
@@ -22,17 +33,22 @@ function StatusPill({ kc, finished }: { kc: boolean | "unknown"; finished: boole
   return <span className="inline-flex items-center rounded-full bg-yellow-500/20 px-2 py-0.5 text-[11px] font-semibold text-yellow-400 ring-1 ring-yellow-500/30">확인중</span>;
 }
 
+function hasScores(r?: MatchResult): r is MatchResult & { homeScore: number; awayScore: number } {
+  return !!r && typeof r.homeScore === "number" && typeof r.awayScore === "number";
+}
+
 type Props = {
   meta: SeoMeta;
   kind: "league" | "platform";
   schedules: Schedule[];
   teamRecords?: TeamRecordsMap;
+  results?: ResultsData | null;
   guideSlot?: React.ReactNode;
   highlightsSlot?: React.ReactNode;
   faqSlot?: React.ReactNode;
 };
 
-export default function FilteredScheduleView({ meta, kind, schedules, teamRecords = {}, guideSlot, highlightsSlot, faqSlot }: Props) {
+export default function FilteredScheduleView({ meta, kind, schedules, teamRecords = {}, results = null, guideSlot, highlightsSlot, faqSlot }: Props) {
   const filtered = schedules
     .filter((s) => meta.match.includes(kind === "league" ? s.league : s.platform))
     .sort((a, b) => (a.date === b.date ? a.time.localeCompare(b.time) : a.date.localeCompare(b.date)));
@@ -97,6 +113,14 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                   {grouped[date].map((s) => {
                     const homeRec = lookupTeamRecord(teamRecords, s.league, s.homeTeam);
                     const awayRec = lookupTeamRecord(teamRecords, s.league, s.awayTeam);
+                    const result = findResult(results, s);
+                    const showScores = hasScores(result);
+                    const home = result?.homeScore;
+                    const away = result?.awayScore;
+                    const winnerSide: "home" | "away" | "draw" | null =
+                      showScores && result?.status === "finished"
+                        ? home! > away! ? "home" : away! > home! ? "away" : "draw"
+                        : null;
                     return (
                     <article
                       key={s.id}
@@ -107,20 +131,34 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                           <span className="font-mono font-semibold text-zinc-200">{s.time}</span>
                           <span className="text-zinc-600">|</span>
                           <span className="truncate">{s.league}</span>
+                          {result?.period && result.status === "live" && (
+                            <>
+                              <span className="text-zinc-600">|</span>
+                              <span className="text-rose-400 font-semibold">{result.period}</span>
+                            </>
+                          )}
                         </div>
-                        <StatusPill kc={s.koreanCommentary} finished={isGameFinished(s.date, s.time, s.sport)} />
+                        <StatusPill kc={s.koreanCommentary} finished={isGameFinished(s.date, s.time, s.sport)} result={result} />
                       </div>
                         {s.awayTeam ? (
                           <div className="mt-2.5 flex items-start justify-center gap-2 text-sm sm:text-base">
                             <div className="flex-1 min-w-0 flex flex-col items-end gap-1">
-                              <span className="w-full text-right font-semibold text-zinc-100 truncate">{s.homeTeam}</span>
+                              <span className={`w-full text-right font-semibold truncate ${winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}`}>{s.homeTeam}</span>
                               {homeRec?.last5 && (
                                 <LastFiveBadges form={homeRec.last5} streak={homeRec.streak} mirror />
                               )}
                             </div>
-                            <span className="shrink-0 mt-1 text-[10px] font-bold text-zinc-500">VS</span>
+                            {showScores ? (
+                              <div className="shrink-0 flex items-center gap-1.5 font-mono font-bold text-base sm:text-lg leading-none mt-0.5">
+                                <span className={winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}>{home}</span>
+                                <span className="text-zinc-600">-</span>
+                                <span className={winnerSide === "home" ? "text-zinc-500" : "text-zinc-100"}>{away}</span>
+                              </div>
+                            ) : (
+                              <span className="shrink-0 mt-1 text-[10px] font-bold text-zinc-500">VS</span>
+                            )}
                             <div className="flex-1 min-w-0 flex flex-col items-start gap-1">
-                              <span className="w-full text-left font-semibold text-zinc-100 truncate">{s.awayTeam}</span>
+                              <span className={`w-full text-left font-semibold truncate ${winnerSide === "home" ? "text-zinc-500" : "text-zinc-100"}`}>{s.awayTeam}</span>
                               {awayRec?.last5 && (
                                 <LastFiveBadges form={awayRec.last5} streak={awayRec.streak} />
                               )}

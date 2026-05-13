@@ -12,6 +12,7 @@
     "crawl:analysis": "tsx src/scripts/crawl-analysis.ts",
     "crawl:records": "tsx src/scripts/crawl-records.ts",
     "crawl:standings": "tsx src/scripts/crawl-standings.ts",
+    "crawl:results": "tsx src/scripts/crawl-results.ts",
     "post:main": "tsx src/scripts/post-instagram-main.ts",
     "post:soccer": "tsx src/scripts/post-instagram-sport.ts soccer",
     "post:baseball": "tsx src/scripts/post-instagram-sport.ts baseball",

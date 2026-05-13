@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { PLATFORM_SEO, findPlatformBySlug } from "@/lib/slugs";
 import { PLATFORM_GUIDES } from "@/lib/platform-guides";
 import { PLATFORM_FAQS } from "@/lib/platform-faqs";
-import { loadScheduleData, loadTeamRecords } from "@/lib/server-data";
+import { loadScheduleData, loadTeamRecords, loadResults } from "@/lib/server-data";
 import { buildSportsEventLd } from "@/lib/structured-data";
 import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
 import PlatformGuideSection from "@/app/_components/PlatformGuideSection";
@@ -63,6 +63,7 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
   const faqs = PLATFORM_FAQS[params.slug];
   const schedules = loadScheduleData().schedules;
   const teamRecords = loadTeamRecords();
+  const results = loadResults();
 
   const pageUrl = `https://haeseol.com/platform/${meta.slug}`;
   const matched = schedules.filter((s) => meta.match.includes(s.platform));
@@ -81,6 +82,7 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
         kind="platform"
         schedules={schedules}
         teamRecords={teamRecords}
+        results={results}
         guideSlot={
           guide ? <PlatformGuideSection guide={guide} display={meta.display} /> : undefined
         }
