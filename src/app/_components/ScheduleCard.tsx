@@ -71,7 +71,7 @@ function ScheduleCardInner({
       </div>
 
       {schedule.awayTeam ? (
-        <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 flex items-start justify-center gap-2 sm:gap-3 text-sm sm:text-base">
+        <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 flex items-baseline justify-center gap-2 sm:gap-3 text-sm sm:text-base">
           <div className="flex-1 min-w-0 flex flex-col items-end gap-1">
             <span className={`w-full text-right font-semibold truncate ${winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}`}>
               <Highlight text={schedule.homeTeam} query={query} />
@@ -81,7 +81,7 @@ function ScheduleCardInner({
             )}
           </div>
           {showScores ? (
-            <div className="shrink-0 flex items-center gap-1.5 sm:gap-2 font-mono font-bold text-base sm:text-lg leading-none mt-0.5">
+            <div className="shrink-0 flex items-baseline gap-1.5 sm:gap-2 font-mono font-bold text-base sm:text-lg leading-none">
               <span className={winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}>{home}</span>
               <span className="text-zinc-600">-</span>
               <span className={winnerSide === "home" ? "text-zinc-500" : "text-zinc-100"}>{away}</span>

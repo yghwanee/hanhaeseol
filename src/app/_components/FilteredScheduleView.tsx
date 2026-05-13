@@ -141,7 +141,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                         <StatusPill kc={s.koreanCommentary} finished={isGameFinished(s.date, s.time, s.sport)} result={result} />
                       </div>
                         {s.awayTeam ? (
-                          <div className="mt-2.5 flex items-start justify-center gap-2 text-sm sm:text-base">
+                          <div className="mt-2.5 flex items-baseline justify-center gap-2 text-sm sm:text-base">
                             <div className="flex-1 min-w-0 flex flex-col items-end gap-1">
                               <span className={`w-full text-right font-semibold truncate ${winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}`}>{s.homeTeam}</span>
                               {homeRec?.last5 && (
@@ -149,7 +149,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                               )}
                             </div>
                             {showScores ? (
-                              <div className="shrink-0 flex items-center gap-1.5 font-mono font-bold text-base sm:text-lg leading-none mt-0.5">
+                              <div className="shrink-0 flex items-baseline gap-1.5 font-mono font-bold text-base sm:text-lg leading-none">
                                 <span className={winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}>{home}</span>
                                 <span className="text-zinc-600">-</span>
                                 <span className={winnerSide === "home" ? "text-zinc-500" : "text-zinc-100"}>{away}</span>
