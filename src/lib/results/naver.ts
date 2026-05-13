@@ -109,13 +109,13 @@ async function naverGet<T>(path: string): Promise<T | null> {
   return json.result;
 }
 
-/** YYYYMMDD 포맷 (KST). */
+/** YYYY-MM-DD 포맷 (KST). 네이버 API가 2026년경 하이픈 포맷만 받도록 바뀜. */
 function toYmd(d: Date): string {
   const kst = new Date(d.getTime() + 9 * 60 * 60 * 1000);
   const y = kst.getUTCFullYear();
   const m = String(kst.getUTCMonth() + 1).padStart(2, "0");
   const day = String(kst.getUTCDate()).padStart(2, "0");
-  return `${y}${m}${day}`;
+  return `${y}-${m}-${day}`;
 }
 
 /** 어제부터 오늘+1일까지 3일치 (KST). 진행 중/끝난 경기 둘 다 잡기 위함. */
@@ -127,34 +127,47 @@ function dateRange(): { from: string; to: string } {
 }
 
 /**
- * 한 종목(upperCategoryId)에 대해 schedule API 호출.
- * upperCategoryId 별 응답이 미묘하게 다를 수 있어 필드는 모두 optional 처리.
+ * 한 리그(categoryId)에 대해 schedule API 호출.
+ * 과거에는 upperCategoryId=baseball 식으로 종목 단위 조회가 가능했으나,
+ * 2026년경 네이버 API 변경으로 upperCategoryId의 baseball/football/basketball/volleyball 값이
+ * 빈 응답을 주게 되어 리그별 categoryId 단위로 조회한다.
  */
-async function fetchSportGames(upperCategoryId: string): Promise<NaverGame[]> {
+async function fetchLeagueGames(categoryId: string): Promise<NaverGame[]> {
   const { from, to } = dateRange();
   const path =
-    `/schedule/games?upperCategoryId=${upperCategoryId}` +
+    `/schedule/games?categoryId=${categoryId}` +
     `&fromDate=${from}&toDate=${to}&size=500`;
   const r = await naverGet<NaverScheduleResult>(path);
   return r?.games ?? [];
 }
 
-const SPORTS: Array<{ upper: string; label: string }> = [
-  { upper: "baseball", label: "야구" },
-  { upper: "football", label: "축구" },
-  { upper: "basketball", label: "농구" },
-  { upper: "volleyball", label: "배구" },
+const LEAGUES: Array<{ categoryId: string; label: string }> = [
+  { categoryId: "kbo", label: "KBO" },
+  { categoryId: "mlb", label: "MLB" },
+  { categoryId: "kbl", label: "KBL" },
+  { categoryId: "nba", label: "NBA" },
+  { categoryId: "epl", label: "EPL" },
+  { categoryId: "primera", label: "라리가" },
+  { categoryId: "seria", label: "세리에A" },
+  { categoryId: "bundesliga", label: "분데스리가" },
+  { categoryId: "ligue1", label: "리그1" },
+  { categoryId: "mls", label: "MLS" },
+  { categoryId: "kleague", label: "K리그1" },
+  { categoryId: "kleague2", label: "K리그2" },
+  { categoryId: "champs", label: "챔스" },
+  { categoryId: "europa", label: "유로파" },
+  { categoryId: "eredivisie", label: "에레디비시" },
 ];
 
 export async function crawlAllResults(): Promise<ResultsData> {
   const allGames: NaverGame[] = [];
-  for (const sp of SPORTS) {
+  for (const lg of LEAGUES) {
     try {
-      const games = await fetchSportGames(sp.upper);
-      console.log(`  [${sp.label}] ${games.length}건`);
+      const games = await fetchLeagueGames(lg.categoryId);
+      console.log(`  [${lg.label}] ${games.length}건`);
       allGames.push(...games);
     } catch (e) {
-      console.error(`  [${sp.label}] ❌ ${(e as Error).message}`);
+      console.error(`  [${lg.label}] ❌ ${(e as Error).message}`);
     }
   }
 
