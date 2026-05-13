@@ -104,15 +104,25 @@ export default function MatchPage({ params }: { params: Params }) {
   const leagueSlug = leagueSlugFor(match.league);
   const platformSlug = findPlatformSlugByName(match.platform);
 
-  // 동일 리그 / 동일 플랫폼의 직후 매치들 (자신 제외)
-  const relatedByLeague = data.schedules
-    .filter((s) => s.league === match.league && matchToSlug(s) !== params.slug)
-    .filter((s) => s.date >= match.date)
-    .slice(0, 6);
-  const relatedByPlatform = data.schedules
-    .filter((s) => s.platform === match.platform && matchToSlug(s) !== params.slug)
-    .filter((s) => s.date >= match.date)
-    .slice(0, 6);
+  // 동일 리그 / 동일 플랫폼의 직후 매치들. 같은 매치업이 여러 플랫폼에서 중계되면
+  // 슬러그가 달라서 슬러그 비교만으론 자기 경기/중복 경기를 못 거른다. 매치업 키
+  // (date|home|away) 단위로 dedupe + 자기 자신 제외.
+  const selfMatchupKey = `${match.date}|${match.homeTeam}|${match.awayTeam}`;
+  const dedupByMatchup = (list: Schedule[]): Schedule[] => {
+    const seen = new Set<string>([selfMatchupKey]);
+    return list.filter((s) => {
+      const k = `${s.date}|${s.homeTeam}|${s.awayTeam}`;
+      if (seen.has(k)) return false;
+      seen.add(k);
+      return true;
+    });
+  };
+  const relatedByLeague = dedupByMatchup(
+    data.schedules.filter((s) => s.league === match.league && s.date >= match.date),
+  ).slice(0, 6);
+  const relatedByPlatform = dedupByMatchup(
+    data.schedules.filter((s) => s.platform === match.platform && s.date >= match.date),
+  ).slice(0, 6);
 
   // SportsEvent JSON-LD
   const [hh, mm] = match.time.split(":");
