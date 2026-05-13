@@ -11,7 +11,10 @@ import { Highlight } from "./Highlight";
 import { LastFiveBadges } from "./LastFiveBadges";
 
 function hasScores(r?: MatchResult): r is MatchResult & { homeScore: number; awayScore: number } {
-  return !!r && typeof r.homeScore === "number" && typeof r.awayScore === "number";
+  if (!r) return false;
+  if (typeof r.homeScore !== "number" || typeof r.awayScore !== "number") return false;
+  // 네이버는 시작 전 매치도 0-0으로 응답. 진짜 결과가 있는 finished/live만 표시.
+  return r.status === "finished" || r.status === "live";
 }
 
 function ScheduleCardInner({
