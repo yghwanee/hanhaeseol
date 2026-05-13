@@ -42,8 +42,12 @@ jobs:
 
       - run: npm ci
 
-      - name: ffmpeg 설치
-        run: sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+      - name: ffmpeg 확인 (사전 설치돼 있으면 skip)
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          fi
+          ffmpeg -version | head -1
 
       - name: 토큰 헬스체크
         run: npm run ig:check && npm run tiktok:check
