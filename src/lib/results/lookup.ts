@@ -26,6 +26,7 @@ export const LEAGUE_TO_CATEGORY: Record<string, string> = {
   챔피언스리그: "champs",
   유로파리그: "europa",
   에레디비시: "eredivisie",
+  수페르리가: "denmark",
   ACL: "acl",
   // 축구 (국내)
   K리그: "kleague",

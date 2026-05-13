@@ -170,6 +170,9 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   },
   "잉글랜드 FA컵": {},
   "코파 이탈리아": {},
+  // 덴마크 1부 Superliga. schedule.json엔 아직 매치 없지만 미래 대비.
+  // 들어올 때 league 표기는 "수페르리가" 가정.
+  수페르리가: {},
   ACL: {},
 
   NBA: {

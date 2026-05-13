@@ -100,6 +100,7 @@ const CATEGORY_TO_LEAGUE_KEYS: Record<string, string[]> = {
   champs: ["챔피언스리그"],
   europa: ["유로파리그"],
   eredivisie: ["에레디비시"],
+  denmark: ["수페르리가"],
   acl: ["ACL"],
 };
 
@@ -172,6 +173,7 @@ const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "champs", label: "챔스" },
   { categoryId: "europa", label: "유로파" },
   { categoryId: "eredivisie", label: "에레디비시" },
+  { categoryId: "denmark", label: "수페르리가" },
   { categoryId: "acl", label: "ACL" },
 ];
 
