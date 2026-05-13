@@ -22,8 +22,11 @@ export function generateStaticParams(): Params[] {
   return data.schedules.map((s) => ({ slug: matchToSlug(s) }));
 }
 
-/** 빌드 시점에 없는 슬러그는 404 (이전 시즌 / 잘못된 URL). */
-export const dynamicParams = false;
+// 빌드 시점에 generateStaticParams가 모든 슬러그를 정적 생성한다.
+// dynamicParams=true(기본값)를 명시: 캐시/빌드 누락 등으로 정적 페이지가 없는 슬러그가
+// 요청되어도 런타임에 schedule.json에서 찾아 SSR로 렌더링한다. 진짜 없는 슬러그만
+// notFound()로 떨어지므로 일반 카드 클릭이 404가 되는 사고를 막는다.
+export const dynamicParams = true;
 
 function matchKoreanLabel(s: Schedule): string {
   if (s.koreanCommentary === true) return "한국어 해설";
