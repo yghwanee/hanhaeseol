@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import type { Schedule, ScheduleData, Sport } from "@/types/schedule";
-import { pickHeroMatch, pickHeroMatchesTop } from "./instagram";
+import { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop } from "./instagram";
 
 const SPORT_EMOJI: Record<Sport, string> = {
   축구: "⚽",
@@ -167,22 +167,6 @@ const TEAM_HASHTAGS: Record<string, string> = {
   "안양 정관장": "#정관장",
   "고양 소노": "#소노",
 };
-
-// 한국 선수 → 소속 팀 (시즌마다 갱신 필요)
-// schedule.json의 팀명 표기와 일치해야 함.
-const KOREAN_PLAYERS: Array<{ name: string; team: string }> = [
-  // 축구 — 유럽
-  { name: "황희찬", team: "울버햄튼" },
-  { name: "이강인", team: "PSG" },
-  { name: "김민재", team: "바이에른 뮌헨" },
-  { name: "양민혁", team: "토트넘" },
-  { name: "정우영", team: "슈투트가르트" },
-  // 야구 — MLB
-  { name: "김혜성", team: "LA 다저스" },
-  { name: "이정후", team: "샌프란시스코 자이언츠" },
-  { name: "김하성", team: "탬파베이 레이스" },
-  { name: "배지환", team: "피츠버그 파이리츠" },
-];
 
 function loadKoreanCommentaryGames(today: string): Schedule[] {
   try {

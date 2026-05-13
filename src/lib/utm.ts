@@ -5,6 +5,6 @@ export const UTM_LINKS = {
   ig_post: `${SITE}/ig/post`,
   ig_reel: `${SITE}/ig/reel`,
   ig_story: `${SITE}/ig/story`,
-  yt_desc: `${SITE}/yt`,
+  yt_desc: SITE,
   tt_caption: `${SITE}/tt`,
 } as const;
