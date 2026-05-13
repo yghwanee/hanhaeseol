@@ -14,7 +14,9 @@ export function matchToSlug(s: Schedule): string {
     findPlatformSlugByName(s.platform) ?? sanitize(s.platform);
   const home = sanitize(s.homeTeam);
   const away = sanitize(s.awayTeam);
-  return `${s.date}-${platformSlug}-${home}-vs-${away}`;
+  // NFC 정규화: Linux Vercel 빌드에서 한글 dynamic segment가 NFD/percent-encoded로
+  // 변형되어 들어와 generateStaticParams의 slug와 page params가 어긋나는 사고를 막는다.
+  return `${s.date}-${platformSlug}-${home}-vs-${away}`.normalize("NFC");
 }
 
 function sanitize(input: string): string {
@@ -29,5 +31,11 @@ export function findMatchBySlug(
   schedules: Schedule[],
   slug: string,
 ): Schedule | undefined {
-  return schedules.find((s) => matchToSlug(s) === slug);
+  let target: string;
+  try {
+    target = decodeURIComponent(slug).normalize("NFC");
+  } catch {
+    target = slug.normalize("NFC");
+  }
+  return schedules.find((s) => matchToSlug(s) === target);
 }
