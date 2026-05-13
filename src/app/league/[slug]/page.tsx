@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { LEAGUE_SEO, findLeagueBySlug } from "@/lib/slugs";
 import { LEAGUE_GUIDES } from "@/lib/league-guides";
 import { LEAGUE_FAQS } from "@/lib/league-faqs";
-import { loadScheduleData, loadTeamRecords } from "@/lib/server-data";
+import { loadScheduleData, loadTeamRecords, loadResults } from "@/lib/server-data";
 import { buildSportsEventLd } from "@/lib/structured-data";
 import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
 import LeagueGuideSection from "@/app/_components/LeagueGuideSection";
@@ -63,6 +63,7 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
   const faqs = LEAGUE_FAQS[params.slug];
   const schedules = loadScheduleData().schedules;
   const teamRecords = loadTeamRecords();
+  const results = loadResults();
 
   const pageUrl = `https://haeseol.com/league/${meta.slug}`;
   const matched = schedules.filter((s) => meta.match.includes(s.league));
@@ -81,6 +82,7 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
         kind="league"
         schedules={schedules}
         teamRecords={teamRecords}
+        results={results}
         guideSlot={
           guide ? <LeagueGuideSection guide={guide} display={meta.display} /> : undefined
         }

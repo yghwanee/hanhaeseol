@@ -2,6 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Schedule } from "@/types/schedule";
 import { TeamRecord } from "@/types/team-record";
+import { MatchResult } from "@/types/results";
 import { isGameFinished } from "@/lib/schedule-utils";
 import { matchToSlug } from "@/lib/match-slug";
 import { StatusBadge } from "./StatusBadge";
@@ -9,17 +10,35 @@ import { PlatformBadge } from "./PlatformBadge";
 import { Highlight } from "./Highlight";
 import { LastFiveBadges } from "./LastFiveBadges";
 
+function hasScores(r?: MatchResult): r is MatchResult & { homeScore: number; awayScore: number } {
+  return !!r && typeof r.homeScore === "number" && typeof r.awayScore === "number";
+}
+
 function ScheduleCardInner({
   schedule,
   query,
   homeRecord,
   awayRecord,
+  result,
 }: {
   schedule: Schedule;
   query: string;
   homeRecord?: TeamRecord;
   awayRecord?: TeamRecord;
+  result?: MatchResult;
 }) {
+  const showScores = hasScores(result);
+  const home = result?.homeScore;
+  const away = result?.awayScore;
+  const winnerSide: "home" | "away" | "draw" | null =
+    showScores && result?.status === "finished"
+      ? home! > away!
+        ? "home"
+        : away! > home!
+          ? "away"
+          : "draw"
+      : null;
+
   return (
     <Link
       href={`/match/${matchToSlug(schedule)}`}
@@ -33,26 +52,41 @@ function ScheduleCardInner({
           </span>
           <span className="text-zinc-600">|</span>
           <span className="truncate"><Highlight text={schedule.league} query={query} /></span>
+          {result?.period && result.status === "live" && (
+            <>
+              <span className="text-zinc-600">|</span>
+              <span className="text-rose-400 font-semibold">{result.period}</span>
+            </>
+          )}
         </div>
         <StatusBadge
           status={schedule.koreanCommentary}
           finished={isGameFinished(schedule.date, schedule.time, schedule.sport)}
+          resultStatus={result?.status}
         />
       </div>
 
       {schedule.awayTeam ? (
         <div className="mt-2.5 sm:mt-3 flex items-start justify-center gap-2 sm:gap-3 text-sm sm:text-base">
           <div className="flex-1 min-w-0 flex flex-col items-end gap-1">
-            <span className="w-full text-right font-semibold text-zinc-100 truncate">
+            <span className={`w-full text-right font-semibold truncate ${winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}`}>
               <Highlight text={schedule.homeTeam} query={query} />
             </span>
             {homeRecord?.last5 && (
               <LastFiveBadges form={homeRecord.last5} streak={homeRecord.streak} mirror />
             )}
           </div>
-          <span className="shrink-0 mt-1 text-[10px] sm:text-xs font-bold text-zinc-500">VS</span>
+          {showScores ? (
+            <div className="shrink-0 flex items-center gap-1.5 sm:gap-2 font-mono font-bold text-base sm:text-lg leading-none mt-0.5">
+              <span className={winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}>{home}</span>
+              <span className="text-zinc-600">-</span>
+              <span className={winnerSide === "home" ? "text-zinc-500" : "text-zinc-100"}>{away}</span>
+            </div>
+          ) : (
+            <span className="shrink-0 mt-1 text-[10px] sm:text-xs font-bold text-zinc-500">VS</span>
+          )}
           <div className="flex-1 min-w-0 flex flex-col items-start gap-1">
-            <span className="w-full text-left font-semibold text-zinc-100 truncate">
+            <span className={`w-full text-left font-semibold truncate ${winnerSide === "home" ? "text-zinc-500" : "text-zinc-100"}`}>
               <Highlight text={schedule.awayTeam} query={query} />
             </span>
             {awayRecord?.last5 && (

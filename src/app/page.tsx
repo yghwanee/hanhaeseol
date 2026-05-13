@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Schedule } from "@/types/schedule";
 import { GAME_DURATION_HOURS } from "@/lib/schedule-utils";
-import { loadScheduleData, loadTeamRecords } from "@/lib/server-data";
+import { loadScheduleData, loadTeamRecords, loadResults } from "@/lib/server-data";
 import ScheduleClient from "./ScheduleClient";
 import { HomeAboutSection } from "./_components/HomeAboutSection";
 import WeekHighlights from "./_components/WeekHighlights";
@@ -73,6 +73,7 @@ export default function Home({
 }) {
   const data = loadScheduleData();
   const teamRecords = loadTeamRecords();
+  const results = loadResults();
   const sportsEventsJsonLd = buildSportsEventsJsonLd(data.schedules);
   const initialCommentary: "all" | "korean" | "foreign" =
     searchParams.comm === "korean" || searchParams.comm === "foreign" ? searchParams.comm : "all";
@@ -87,6 +88,7 @@ export default function Home({
         <ScheduleClient
           initialData={data}
           teamRecords={teamRecords}
+          results={results}
           initialDate={searchParams.date}
           initialSport={searchParams.sport}
           initialPlatform={searchParams.platform}

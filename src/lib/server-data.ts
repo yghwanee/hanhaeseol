@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import type { ScheduleData } from "@/types/schedule";
 import type { TeamRecordsData, TeamRecordsMap } from "@/types/team-record";
+import type { ResultsData } from "@/types/results";
 
 export function loadScheduleData(): ScheduleData {
   const filePath = path.join(process.cwd(), "public", "schedule.json");
@@ -17,5 +18,16 @@ export function loadTeamRecords(): TeamRecordsMap {
     return (JSON.parse(raw) as TeamRecordsData).records;
   } catch {
     return {};
+  }
+}
+
+/** results.json은 1시간마다 갱신되며, 아직 한 번도 안 돈 상태에선 없을 수 있음. */
+export function loadResults(): ResultsData | null {
+  try {
+    const filePath = path.join(process.cwd(), "public", "results.json");
+    const raw = fs.readFileSync(filePath, "utf-8");
+    return JSON.parse(raw) as ResultsData;
+  } catch {
+    return null;
   }
 }

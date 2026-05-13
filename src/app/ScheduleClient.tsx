@@ -5,7 +5,9 @@ import Image from "next/image";
 import Link from "next/link";
 import { ScheduleData } from "@/types/schedule";
 import { TeamRecordsMap } from "@/types/team-record";
+import { ResultsData } from "@/types/results";
 import { lookupTeamRecord } from "@/lib/team-records/lookup";
+import { findResult } from "@/lib/results/lookup";
 import { getUpcomingDates, getTodayString } from "@/lib/schedule-utils";
 import { StickyHeader } from "./_components/StickyHeader";
 import { SPORTS, PLATFORM_LIST } from "./_components/constants";
@@ -17,6 +19,7 @@ import { AdSkeleton } from "./_components/AdSkeleton";
 export default function ScheduleClient({
   initialData,
   teamRecords = {},
+  results = null,
   initialDate,
   initialSport,
   initialPlatform,
@@ -24,6 +27,7 @@ export default function ScheduleClient({
 }: {
   initialData: ScheduleData;
   teamRecords?: TeamRecordsMap;
+  results?: ResultsData | null;
   initialDate?: string;
   initialSport?: string;
   initialPlatform?: string;
@@ -440,6 +444,7 @@ export default function ScheduleClient({
                   query={searchQuery}
                   homeRecord={lookupTeamRecord(teamRecords, schedule.league, schedule.homeTeam)}
                   awayRecord={lookupTeamRecord(teamRecords, schedule.league, schedule.awayTeam)}
+                  result={findResult(results, schedule)}
                 />
               </React.Fragment>
             );

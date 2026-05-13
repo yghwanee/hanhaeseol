@@ -1,0 +1,45 @@
+name: Crawl Results (hourly)
+
+on:
+  schedule:
+    # 매시 7분에 실행 (정각 회피).
+    # 비용 우려는 없음(퍼블릭 리포는 Actions 무제한). 1시간 주기.
+    - cron: '7 * * * *'
+  workflow_dispatch: {}
+
+# 동시 실행 방지: 이전 잡이 끝나기 전에 다음 cron이 트리거되면 큐에 쌓지 않고 스킵.
+concurrency:
+  group: crawl-results
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - run: npm ci
+
+      - name: Run results crawl
+        run: npm run crawl:results
+
+      - name: Commit & Push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/data/results.json public/results.json
+          if git diff --staged --quiet; then
+            echo "변경 없음"
+          else
+            git commit -m "chore: update results data (hourly)"
+            # 동일 시간대에 다른 워크플로가 push했을 가능성 → rebase로 흡수.
+            git pull --rebase origin main
+            git push
+          fi
