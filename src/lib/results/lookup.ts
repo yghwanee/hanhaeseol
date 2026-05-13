@@ -43,6 +43,10 @@ export function resultKey(
  * 편성표 한 건에 매칭되는 결과를 찾는다.
  * schedule.league → categoryId 매핑 + (date, home, away) 정확 일치로 찾음.
  * results.byKey에는 모든 alias 변형이 채워져 있어 schedule의 다양한 표기를 처리할 수 있다.
+ *
+ * 일부 리그(특히 MLB)는 schedule.json과 네이버의 home/away 표기가 반대로 들어온다.
+ * 정방향이 미스면 home/away를 뒤집어 한 번 더 시도하고, 그 경우 score도 함께 스왑해서
+ * schedule 기준(좌=home)으로 일관되게 반환한다.
  */
 export function findResult(
   results: ResultsData | null,
@@ -51,6 +55,23 @@ export function findResult(
   if (!results) return undefined;
   const categoryId = LEAGUE_TO_CATEGORY[schedule.league];
   if (!categoryId) return undefined;
-  const key = resultKey(schedule.date, categoryId, schedule.homeTeam, schedule.awayTeam);
-  return results.byKey[key];
+
+  const direct = results.byKey[
+    resultKey(schedule.date, categoryId, schedule.homeTeam, schedule.awayTeam)
+  ];
+  if (direct) return direct;
+
+  const reversed = results.byKey[
+    resultKey(schedule.date, categoryId, schedule.awayTeam, schedule.homeTeam)
+  ];
+  if (reversed) {
+    return {
+      ...reversed,
+      homeTeam: schedule.homeTeam,
+      awayTeam: schedule.awayTeam,
+      homeScore: reversed.awayScore,
+      awayScore: reversed.homeScore,
+    };
+  }
+  return undefined;
 }

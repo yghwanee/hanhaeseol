@@ -51,6 +51,8 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     "울버햄튼 원더러스": "울버햄튼",
     "웨스트햄 유나이티드": "웨스트햄",
     "크리스털 팰리스": "크리스탈 팰리스",
+    // 2026년경부터 네이버 응답이 짧은 표기로 옴
+    "팰리스": "크리스탈 팰리스",
     "토트넘 홋스퍼": "토트넘",
   },
 
@@ -60,6 +62,10 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     "셀타 데 비고": "셀타 비고",
     "바예카노": "라요 바예카노",
     "오비에도": "레알 오비에도",
+    // 2026년경부터 네이버 응답이 다음 표기로 옴
+    "AT 마드리드": "AT.마드리드",
+    "베티스": "레알 베티스",
+    "빌바오": "아틀레틱",
   },
 
   세리에A: {
@@ -144,7 +150,11 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     "PEC 즈볼레": "즈볼러",
   },
 
-  KBL: {},
+  KBL: {
+    // schedule.json은 짧은 표기, 네이버 응답은 도시명 포함 풀 표기
+    "고양 소노": "소노",
+    "부산 KCC": "KCC",
+  },
 
   NBA: {
     "LA레이커스": "LA 레이커스",
