@@ -51,10 +51,18 @@ function mapStatus(g: NaverGame): GameStatus {
   return "scheduled";
 }
 
-/** "YYYYMMDD" → "YYYY-MM-DD" */
-function formatDate(yyyymmdd: string | undefined): string | null {
-  if (!yyyymmdd || yyyymmdd.length < 8) return null;
-  return `${yyyymmdd.slice(0, 4)}-${yyyymmdd.slice(4, 6)}-${yyyymmdd.slice(6, 8)}`;
+/**
+ * 네이버 gameDate를 "YYYY-MM-DD" 형식으로 정규화.
+ * 2026년경 네이버 API 변경으로 응답이 "YYYY-MM-DD" 하이픈 포함 형식으로 바뀜.
+ * 옛 "YYYYMMDD" 8자 숫자 응답도 들어올 경우를 위해 폴백 변환 유지.
+ */
+function formatDate(input: string | undefined): string | null {
+  if (!input) return null;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(input)) return input;
+  if (/^\d{8}$/.test(input)) {
+    return `${input.slice(0, 4)}-${input.slice(4, 6)}-${input.slice(6, 8)}`;
+  }
+  return null;
 }
 
 /** 네이버 팀명에 대해 schedule.json 표기 alias를 모두 수집 (원본 포함). */
