@@ -1,6 +1,7 @@
 import Link from "next/link";
 import type { Schedule } from "@/types/schedule";
-import { describeMatch, pickWeekHighlights } from "@/lib/highlight-summary";
+import { pickWeekHeroMatches } from "@/lib/highlight-summary";
+import { formatDateHeader } from "@/lib/schedule-utils";
 import { matchToSlug } from "@/lib/match-slug";
 
 type Props = {
@@ -8,9 +9,9 @@ type Props = {
   schedules: Schedule[];
   league?: string[];
   platform?: string[];
-  max?: number;
+  /** 며칠치를 보여줄지 (기본 7). */
+  days?: number;
   emptyText?: string;
-  intro?: string;
 };
 
 export default function WeekHighlights({
@@ -18,11 +19,10 @@ export default function WeekHighlights({
   schedules,
   league,
   platform,
-  max = 5,
+  days = 7,
   emptyText,
-  intro,
 }: Props) {
-  const picks = pickWeekHighlights(schedules, { league, platform, max });
+  const picks = pickWeekHeroMatches(schedules, { league, platform, days });
 
   if (picks.length === 0) {
     if (!emptyText) return null;
@@ -37,34 +37,41 @@ export default function WeekHighlights({
   return (
     <section className="mb-6 rounded-xl border border-zinc-700/50 bg-zinc-900/60 p-4 sm:p-5">
       <h2 className="text-base sm:text-lg font-semibold text-zinc-100 mb-3">{title}</h2>
-      {intro && (
-        <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed mb-3">{intro}</p>
-      )}
-      <ul className="space-y-2">
+      <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2 lg:grid-cols-3">
         {picks.map((s) => (
-          <li
-            key={s.id}
-            className="text-sm text-zinc-300 leading-relaxed flex items-start gap-2"
-          >
-            <span
-              aria-hidden
-              className={`mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full ${
-                s.koreanCommentary === true
-                  ? "bg-emerald-400"
-                  : s.koreanCommentary === false
-                    ? "bg-rose-400"
-                    : "bg-yellow-400"
-              }`}
-            />
-            <Link
-              href={`/match/${matchToSlug(s)}`}
-              className="transition-colors hover:text-white hover:underline underline-offset-2"
-            >
-              {describeMatch(s)}
-            </Link>
+          <li key={s.id}>
+            <MiniMatchCard schedule={s} />
           </li>
         ))}
       </ul>
     </section>
+  );
+}
+
+function MiniMatchCard({ schedule: s }: { schedule: Schedule }) {
+  const versus = s.awayTeam ? `${s.homeTeam} vs ${s.awayTeam}` : s.homeTeam;
+  return (
+    <Link
+      href={`/match/${matchToSlug(s)}`}
+      className="flex h-full flex-col rounded-lg border border-zinc-800 bg-zinc-900/80 p-3 transition-colors hover:border-zinc-600 hover:bg-zinc-900"
+    >
+      <div className="flex items-center justify-between text-[11px] text-zinc-400">
+        <span className="font-mono font-semibold text-zinc-200">
+          {formatDateHeader(s.date)} · {s.time}
+        </span>
+        {s.koreanCommentary === true && (
+          <span className="inline-flex items-center rounded-full bg-emerald-500/15 px-1.5 py-0.5 text-[10px] font-semibold text-emerald-400 ring-1 ring-emerald-500/30">
+            한국어해설
+          </span>
+        )}
+      </div>
+      <div className="mt-1.5 truncate text-sm font-semibold text-zinc-100">
+        {versus}
+      </div>
+      <div className="mt-1 flex items-center justify-between gap-2 text-[11px] text-zinc-500">
+        <span className="truncate">{s.league}</span>
+        <span className="shrink-0">{s.platform}</span>
+      </div>
+    </Link>
   );
 }

@@ -88,11 +88,10 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
         }
         highlightsSlot={
           <WeekHighlights
-            title={`이번 주 ${meta.display} 추천 매치`}
-            intro={`이번 주 ${meta.display}에서 시청 가능한 한국어 해설 우선 매치업입니다. 매일 자동으로 갱신됩니다.`}
+            title={`이번 주 ${meta.display} 빅매치`}
             schedules={schedules}
             platform={meta.match}
-            max={5}
+            days={7}
             emptyText={`이번 주 예정된 ${meta.display} 중계가 없습니다.`}
           />
         }

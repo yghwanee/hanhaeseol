@@ -96,11 +96,10 @@ export default function Home({
         />
         <section className="mx-auto mt-4 sm:mt-6 max-w-2xl px-3 sm:px-4">
           <WeekHighlights
-            title="이번 주 한국어 해설 추천 매치"
-            intro="이번 주(오늘부터 7일 이내) 한국어 해설로 시청 가능한 주요 경기 미리보기입니다. 편성표 데이터에서 매일 자동 갱신되며, 종료된 경기는 제외됩니다."
+            title="이번 주 빅매치"
             schedules={data.schedules}
-            max={7}
-            emptyText="이번 주 한국어 해설 매치 정보가 아직 갱신되지 않았습니다."
+            days={7}
+            emptyText="이번 주 한국어 해설 빅매치 정보가 아직 갱신되지 않았습니다."
           />
         </section>
         <HomeAboutSection />

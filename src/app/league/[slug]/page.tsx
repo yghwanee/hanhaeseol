@@ -88,11 +88,10 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
         }
         highlightsSlot={
           <WeekHighlights
-            title={`이번 주 ${meta.display} 미리보기`}
-            intro={`이번 주 ${meta.display} 한국어 해설 우선 추천 매치업입니다. 매일 자동으로 갱신되며, 종료된 경기는 제외됩니다.`}
+            title={`이번 주 ${meta.display} 빅매치`}
             schedules={schedules}
             league={meta.match}
-            max={5}
+            days={7}
             emptyText={`이번 주 예정된 ${meta.display} 경기가 없습니다.`}
           />
         }
