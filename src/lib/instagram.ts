@@ -218,7 +218,7 @@ export function fitText(
 
 const KST_DOW = ["일", "월", "화", "수", "목", "금", "토"];
 
-function dayOfWeekKr(today: string): string {
+export function dayOfWeekKr(today: string): string {
   const [y, m, d] = today.split("-").map(Number);
   const dt = new Date(Date.UTC(y, m - 1, d));
   return KST_DOW[dt.getUTCDay()];

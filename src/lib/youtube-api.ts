@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import sharp from "sharp";
 import { getHeroMatchLines, getHierarchicalTags, getMainHighlight, getPlainTags } from "./hashtags";
+import { dayOfWeekKr } from "./instagram";
 import { UTM_LINKS } from "./utm";
 
 const OAUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
@@ -182,18 +183,11 @@ export async function getChannelInfo(): Promise<{ id: string; title: string }> {
   return { id: data.items[0].id, title: data.items[0].snippet.title };
 }
 
-function getKstWeekday(): string {
-  // 내일 편성 미리보기용으로 내일의 요일을 반환합니다.
-  const kstStr = new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" });
-  const d = new Date(kstStr);
-  d.setDate(d.getDate() + 1);
-  return ["일", "월", "화", "수", "목", "금", "토"][d.getDay()];
-}
-
 export function buildShortsMeta(mm: string, dd: string, today: string) {
   const mNum = parseInt(mm, 10);
   const dNum = parseInt(dd, 10);
-  const wd = getKstWeekday();
+  // today 인자 기준으로 요일을 파싱. 시계로 다시 계산하면 자정 직전 호출에서 어긋날 수 있음.
+  const wd = dayOfWeekKr(today);
 
   // 제목: 오늘의 hero 매치 highlight + 날짜. 매일 다른 매치업이라 박제 패턴 피함.
   // 예) 📺 5/12(월) 양민혁 EPL 한국어 중계 #Shorts
