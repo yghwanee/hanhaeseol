@@ -122,6 +122,7 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     "마이애미": "인터 마이애미 CF",
     "시애틀": "시애틀 사운더스 FC",
     "어스퀘이크": "산호세 어스퀘이크스",
+    "뉴잉글랜드": "뉴잉글랜드 레볼루션",
   },
 
   K리그: {},
