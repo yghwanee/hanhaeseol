@@ -43,7 +43,7 @@ function ScheduleCardInner({
   // 위해 카드 본체를 div로 두고 absolute Link를 inset-0으로 깐다. PlatformBadge Link는
   // z-index를 더 올려서 위에 떠 있게 두면 클릭 우선순위가 잡힌다.
   return (
-    <div className="relative rounded-xl border border-zinc-800 bg-zinc-900/80 p-3 sm:p-4 transition-colors hover:border-zinc-700 hover:bg-zinc-900">
+    <div className="relative cursor-pointer rounded-xl border border-zinc-800 bg-zinc-900/80 p-3 sm:p-4 transition-colors hover:border-zinc-700 hover:bg-zinc-900">
       <Link
         href={`/match/${matchToSlug(schedule)}`}
         className="absolute inset-0 z-0 rounded-xl"
