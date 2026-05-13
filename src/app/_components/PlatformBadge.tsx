@@ -34,7 +34,7 @@ function PlatformBadgeInner({
     );
   }
   return (
-    <Link href={`/platform/${slug}`} className={`inline-flex items-center gap-1 rounded-full px-2 sm:px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold ring-1 hover:brightness-125 transition-all ${style}`}>
+    <Link href={`/platform/${slug}`} className={`pointer-events-auto inline-flex items-center gap-1 rounded-full px-2 sm:px-2.5 py-0.5 text-[11px] sm:text-xs font-semibold ring-1 hover:brightness-125 transition-all ${style}`}>
       {platform}
       <span className="text-sm ml-0.5 opacity-60">›</span>
     </Link>
