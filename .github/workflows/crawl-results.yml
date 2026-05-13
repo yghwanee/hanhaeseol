@@ -1,4 +1,4 @@
-name: Crawl Results (hourly)
+name: Crawl Results & Records (hourly)
 
 on:
   schedule:
@@ -30,15 +30,20 @@ jobs:
       - name: Run results crawl
         run: npm run crawl:results
 
+      # 스코어와 함께 매시 갱신해 카드의 최근 5경기/연승/연패 표시를 빠르게 반영.
+      # results 실패 시(0건이면 exit 1) records는 다음 cron에 재시도된다.
+      - name: Run team records crawl
+        run: npm run crawl:records
+
       - name: Commit & Push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/data/results.json public/results.json
+          git add src/data/results.json public/results.json src/data/team-records.json public/team-records.json
           if git diff --staged --quiet; then
             echo "변경 없음"
           else
-            git commit -m "chore: update results data (hourly)"
+            git commit -m "chore: update results & team records (hourly)"
             # 동일 시간대에 다른 워크플로가 push했을 가능성 → rebase로 흡수.
             git pull --rebase origin main
             git push
