@@ -165,7 +165,9 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     "부산 KCC": "KCC",
   },
 
-  "EFL 챔피언십": {},
+  "EFL 챔피언십": {
+    "사우샘프턴": "사우스햄튼",
+  },
   "잉글랜드 FA컵": {},
   "코파 이탈리아": {},
   ACL: {},
