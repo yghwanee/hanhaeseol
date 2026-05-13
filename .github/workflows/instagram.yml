@@ -95,16 +95,17 @@ jobs:
         if: always()
         run: npm run post:youtube
 
-      - name: 틱톡 업로드
-        if: always()
-        run: npm run post:tiktok
+      # TikTok audit 통과 후 아래 3줄 + 성공 메시지의 "틱톡(쇼츠)" 복구
+      # - name: 틱톡 업로드
+      #   if: always()
+      #   run: npm run post:tiktok
 
       - name: Telegram 성공 알림
         if: success()
         run: |
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d chat_id="${TELEGRAM_CHAT_ID}" \
-            -d text="✅ 인스타(피드+릴스+스토리), 유튜브(쇼츠), 틱톡 업로드 완료"
+            -d text="✅ 인스타(피드+릴스+스토리), 유튜브(쇼츠) 업로드 완료"
 
       - name: Telegram 실패 알림 + 카드 전송
         if: failure()
