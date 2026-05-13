@@ -87,8 +87,11 @@ const CATEGORY_TO_LEAGUE_KEYS: Record<string, string[]> = {
   kbl: ["KBL"],
   nba: ["NBA"],
   epl: ["프리미어리그"],
+  england2: ["EFL 챔피언십"],
+  facup: ["잉글랜드 FA컵"],
   primera: ["라리가"],
   seria: ["세리에A"],
+  coppaitalia: ["코파 이탈리아"],
   bundesliga: ["분데스리가"],
   ligue1: ["리그 1"],
   mls: ["MLS"],
@@ -97,6 +100,7 @@ const CATEGORY_TO_LEAGUE_KEYS: Record<string, string[]> = {
   champs: ["챔피언스리그"],
   europa: ["유로파리그"],
   eredivisie: ["에레디비시"],
+  acl: ["ACL"],
 };
 
 function findAliasMapByCategory(categoryId: string): Record<string, string | string[]> {
@@ -155,8 +159,11 @@ const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "kbl", label: "KBL" },
   { categoryId: "nba", label: "NBA" },
   { categoryId: "epl", label: "EPL" },
+  { categoryId: "england2", label: "EFL 챔피언십" },
+  { categoryId: "facup", label: "FA컵" },
   { categoryId: "primera", label: "라리가" },
   { categoryId: "seria", label: "세리에A" },
+  { categoryId: "coppaitalia", label: "코파 이탈리아" },
   { categoryId: "bundesliga", label: "분데스리가" },
   { categoryId: "ligue1", label: "리그1" },
   { categoryId: "mls", label: "MLS" },
@@ -165,6 +172,7 @@ const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "champs", label: "챔스" },
   { categoryId: "europa", label: "유로파" },
   { categoryId: "eredivisie", label: "에레디비시" },
+  { categoryId: "acl", label: "ACL" },
 ];
 
 export async function crawlAllResults(): Promise<ResultsData> {

@@ -15,14 +15,18 @@ export const LEAGUE_TO_CATEGORY: Record<string, string> = {
   프로농구: "kbl",
   // 축구 (해외)
   프리미어리그: "epl",
+  "EFL 챔피언십": "england2",
+  "잉글랜드 FA컵": "facup",
   라리가: "primera",
   세리에A: "seria",
+  "코파 이탈리아": "coppaitalia",
   분데스리가: "bundesliga",
   "리그 1": "ligue1",
   MLS: "mls",
   챔피언스리그: "champs",
   유로파리그: "europa",
   에레디비시: "eredivisie",
+  ACL: "acl",
   // 축구 (국내)
   K리그: "kleague",
   K리그1: "kleague",
