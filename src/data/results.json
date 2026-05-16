@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-16T15:05:57.416Z",
+  "lastUpdated": "2026-05-16T16:06:10.182Z",
   "byKey": {
     "2026-05-16|kbo|KT|한화": {
       "date": "2026-05-16",
@@ -728,7 +728,8 @@
       "awayTeam": "캔자스시티 로열스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-05-17|mlb|세인트루이스|캔자스시티 로열스": {
       "date": "2026-05-17",
@@ -737,7 +738,8 @@
       "awayTeam": "캔자스시티 로열스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-05-17|mlb|세인트루이스 카디널스|캔자스시티": {
       "date": "2026-05-17",
@@ -746,7 +748,8 @@
       "awayTeam": "캔자스시티 로열스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-05-17|mlb|세인트루이스 카디널스|캔자스시티 로열스": {
       "date": "2026-05-17",
@@ -755,7 +758,8 @@
       "awayTeam": "캔자스시티 로열스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-05-17|mlb|콜로라도|애리조나": {
       "date": "2026-05-17",
@@ -1865,9 +1869,9 @@
       "homeTeam": "첼시",
       "awayTeam": "맨시티",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-18|primera|레반테|마요르카": {
       "date": "2026-05-18",
@@ -2234,10 +2238,10 @@
       "categoryId": "bundesliga",
       "homeTeam": "바이에른 뮌헨",
       "awayTeam": "쾰른",
-      "homeScore": 4,
+      "homeScore": 5,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 27'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-16|bundesliga|하이덴하임|마인츠": {
       "date": "2026-05-16",
@@ -2246,28 +2250,28 @@
       "awayTeam": "마인츠",
       "homeScore": 0,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 30'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-16|bundesliga|프라이부르크|라이프치히": {
       "date": "2026-05-16",
       "categoryId": "bundesliga",
       "homeTeam": "프라이부르크",
       "awayTeam": "라이프치히",
-      "homeScore": 3,
+      "homeScore": 4,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 29'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-16|bundesliga|우니온 베를린|아우크스부르크": {
       "date": "2026-05-16",
       "categoryId": "bundesliga",
       "homeTeam": "우니온 베를린",
       "awayTeam": "아우크스부르크",
-      "homeScore": 3,
+      "homeScore": 4,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 30'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-16|bundesliga|브레멘|도르트문트": {
       "date": "2026-05-16",
@@ -2275,9 +2279,9 @@
       "homeTeam": "브레멘",
       "awayTeam": "도르트문트",
       "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 31'"
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-16|bundesliga|상 파울리|볼프스부르크": {
       "date": "2026-05-16",
@@ -2285,9 +2289,9 @@
       "homeTeam": "장크트파울리",
       "awayTeam": "볼프스부르크",
       "homeScore": 1,
-      "awayScore": 2,
-      "status": "live",
-      "period": "후반 31'"
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-16|bundesliga|장크트파울리|볼프스부르크": {
       "date": "2026-05-16",
@@ -2295,39 +2299,39 @@
       "homeTeam": "장크트파울리",
       "awayTeam": "볼프스부르크",
       "homeScore": 1,
-      "awayScore": 2,
-      "status": "live",
-      "period": "후반 31'"
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-16|bundesliga|글라트바흐|호펜하임": {
       "date": "2026-05-16",
       "categoryId": "bundesliga",
       "homeTeam": "글라트바흐",
       "awayTeam": "호펜하임",
-      "homeScore": 2,
+      "homeScore": 4,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 31'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-16|bundesliga|프랑크푸르트|슈투트가르트": {
       "date": "2026-05-16",
       "categoryId": "bundesliga",
       "homeTeam": "프랑크푸르트",
       "awayTeam": "슈투트가르트",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 21'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-16|bundesliga|레버쿠젠|함부르크": {
       "date": "2026-05-16",
       "categoryId": "bundesliga",
       "homeTeam": "레버쿠젠",
       "awayTeam": "함부르크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 31'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-18|ligue1|브레스트|앙제": {
       "date": "2026-05-18",
@@ -3238,7 +3242,8 @@
       "awayTeam": "캔자스시티 로열스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-05-17",
@@ -3588,9 +3593,9 @@
       "homeTeam": "첼시",
       "awayTeam": "맨시티",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-05-18",
@@ -3797,10 +3802,10 @@
       "categoryId": "bundesliga",
       "homeTeam": "바이에른 뮌헨",
       "awayTeam": "쾰른",
-      "homeScore": 4,
+      "homeScore": 5,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 27'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-05-16",
@@ -3809,28 +3814,28 @@
       "awayTeam": "마인츠",
       "homeScore": 0,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 30'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-05-16",
       "categoryId": "bundesliga",
       "homeTeam": "프라이부르크",
       "awayTeam": "라이프치히",
-      "homeScore": 3,
+      "homeScore": 4,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 29'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-05-16",
       "categoryId": "bundesliga",
       "homeTeam": "우니온 베를린",
       "awayTeam": "아우크스부르크",
-      "homeScore": 3,
+      "homeScore": 4,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 30'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-05-16",
@@ -3838,9 +3843,9 @@
       "homeTeam": "브레멘",
       "awayTeam": "도르트문트",
       "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 31'"
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-05-16",
@@ -3848,39 +3853,39 @@
       "homeTeam": "장크트파울리",
       "awayTeam": "볼프스부르크",
       "homeScore": 1,
-      "awayScore": 2,
-      "status": "live",
-      "period": "후반 31'"
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-05-16",
       "categoryId": "bundesliga",
       "homeTeam": "글라트바흐",
       "awayTeam": "호펜하임",
-      "homeScore": 2,
+      "homeScore": 4,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 31'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-05-16",
       "categoryId": "bundesliga",
       "homeTeam": "프랑크푸르트",
       "awayTeam": "슈투트가르트",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 21'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-05-16",
       "categoryId": "bundesliga",
       "homeTeam": "레버쿠젠",
       "awayTeam": "함부르크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 31'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-05-18",
