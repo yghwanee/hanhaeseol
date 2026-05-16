@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-16T11:59:23.279Z",
+  "lastUpdated": "2026-05-16T13:51:08.821Z",
   "byKey": {
     "2026-05-15|kbo|KT|한화": {
       "date": "2026-05-15",
@@ -61,16 +61,6 @@
       "status": "finished",
       "period": "9회말"
     },
-    "2026-05-16|kbo|두산|롯데": {
-      "date": "2026-05-16",
-      "categoryId": "kbo",
-      "homeTeam": "두산",
-      "awayTeam": "롯데",
-      "homeScore": 9,
-      "awayScore": 9,
-      "status": "live",
-      "period": "11회초"
-    },
     "2026-05-16|kbo|삼성|KIA": {
       "date": "2026-05-16",
       "categoryId": "kbo",
@@ -90,6 +80,16 @@
       "awayScore": 3,
       "status": "finished",
       "period": "9회말"
+    },
+    "2026-05-16|kbo|두산|롯데": {
+      "date": "2026-05-16",
+      "categoryId": "kbo",
+      "homeTeam": "두산",
+      "awayTeam": "롯데",
+      "homeScore": 10,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "11회말"
     },
     "2026-05-16|kbo|NC|키움": {
       "date": "2026-05-16",
@@ -1978,10 +1978,10 @@
       "categoryId": "bundesliga",
       "homeTeam": "바이에른 뮌헨",
       "awayTeam": "쾰른",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 18'"
     },
     "2026-05-16|bundesliga|하이덴하임|마인츠": {
       "date": "2026-05-16",
@@ -1989,9 +1989,9 @@
       "homeTeam": "하이덴하임",
       "awayTeam": "마인츠",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 21'"
     },
     "2026-05-16|bundesliga|프라이부르크|라이프치히": {
       "date": "2026-05-16",
@@ -2000,18 +2000,18 @@
       "awayTeam": "라이프치히",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 18'"
     },
     "2026-05-16|bundesliga|우니온 베를린|아우크스부르크": {
       "date": "2026-05-16",
       "categoryId": "bundesliga",
       "homeTeam": "우니온 베를린",
       "awayTeam": "아우크스부르크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 20'"
     },
     "2026-05-16|bundesliga|브레멘|도르트문트": {
       "date": "2026-05-16",
@@ -2020,8 +2020,8 @@
       "awayTeam": "도르트문트",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 17'"
     },
     "2026-05-16|bundesliga|상 파울리|볼프스부르크": {
       "date": "2026-05-16",
@@ -2030,8 +2030,8 @@
       "awayTeam": "볼프스부르크",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 20'"
     },
     "2026-05-16|bundesliga|장크트파울리|볼프스부르크": {
       "date": "2026-05-16",
@@ -2040,18 +2040,18 @@
       "awayTeam": "볼프스부르크",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 20'"
     },
     "2026-05-16|bundesliga|글라트바흐|호펜하임": {
       "date": "2026-05-16",
       "categoryId": "bundesliga",
       "homeTeam": "글라트바흐",
       "awayTeam": "호펜하임",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 20'"
     },
     "2026-05-16|bundesliga|프랑크푸르트|슈투트가르트": {
       "date": "2026-05-16",
@@ -2059,9 +2059,9 @@
       "homeTeam": "프랑크푸르트",
       "awayTeam": "슈투트가르트",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 13'"
     },
     "2026-05-16|bundesliga|레버쿠젠|함부르크": {
       "date": "2026-05-16",
@@ -2070,8 +2070,8 @@
       "awayTeam": "함부르크",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 20'"
     },
     "2026-05-17|mls|몬트리얼|시카고": {
       "date": "2026-05-17",
@@ -2370,8 +2370,8 @@
       "awayTeam": "김포",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 48'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-16|kleague2|천안|파주": {
       "date": "2026-05-16",
@@ -2380,8 +2380,8 @@
       "awayTeam": "파주",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반종료"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-17|kleague2|성남|경남": {
       "date": "2026-05-17",
@@ -2608,16 +2608,6 @@
     {
       "date": "2026-05-16",
       "categoryId": "kbo",
-      "homeTeam": "두산",
-      "awayTeam": "롯데",
-      "homeScore": 9,
-      "awayScore": 9,
-      "status": "live",
-      "period": "11회초"
-    },
-    {
-      "date": "2026-05-16",
-      "categoryId": "kbo",
       "homeTeam": "삼성",
       "awayTeam": "KIA",
       "homeScore": 5,
@@ -2634,6 +2624,16 @@
       "awayScore": 3,
       "status": "finished",
       "period": "9회말"
+    },
+    {
+      "date": "2026-05-16",
+      "categoryId": "kbo",
+      "homeTeam": "두산",
+      "awayTeam": "롯데",
+      "homeScore": 10,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "11회말"
     },
     {
       "date": "2026-05-16",
@@ -3275,10 +3275,10 @@
       "categoryId": "bundesliga",
       "homeTeam": "바이에른 뮌헨",
       "awayTeam": "쾰른",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 18'"
     },
     {
       "date": "2026-05-16",
@@ -3286,9 +3286,9 @@
       "homeTeam": "하이덴하임",
       "awayTeam": "마인츠",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 21'"
     },
     {
       "date": "2026-05-16",
@@ -3297,18 +3297,18 @@
       "awayTeam": "라이프치히",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 18'"
     },
     {
       "date": "2026-05-16",
       "categoryId": "bundesliga",
       "homeTeam": "우니온 베를린",
       "awayTeam": "아우크스부르크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 20'"
     },
     {
       "date": "2026-05-16",
@@ -3317,8 +3317,8 @@
       "awayTeam": "도르트문트",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 17'"
     },
     {
       "date": "2026-05-16",
@@ -3327,18 +3327,18 @@
       "awayTeam": "볼프스부르크",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 20'"
     },
     {
       "date": "2026-05-16",
       "categoryId": "bundesliga",
       "homeTeam": "글라트바흐",
       "awayTeam": "호펜하임",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 20'"
     },
     {
       "date": "2026-05-16",
@@ -3346,9 +3346,9 @@
       "homeTeam": "프랑크푸르트",
       "awayTeam": "슈투트가르트",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 13'"
     },
     {
       "date": "2026-05-16",
@@ -3357,8 +3357,8 @@
       "awayTeam": "함부르크",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 20'"
     },
     {
       "date": "2026-05-17",
@@ -3577,8 +3577,8 @@
       "awayTeam": "김포",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 48'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-05-16",
@@ -3587,8 +3587,8 @@
       "awayTeam": "파주",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반종료"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-05-17",
