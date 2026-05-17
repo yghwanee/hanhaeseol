@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-17T04:13:02.525Z",
+  "lastUpdated": "2026-05-17T07:38:31.198Z",
   "byKey": {
     "2026-05-16|kbo|KT|한화": {
       "date": "2026-05-16",
@@ -51,55 +51,55 @@
       "status": "finished",
       "period": "9회초"
     },
-    "2026-05-17|kbo|SSG|LG": {
-      "date": "2026-05-17",
-      "categoryId": "kbo",
-      "homeTeam": "SSG",
-      "awayTeam": "LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
-    },
     "2026-05-17|kbo|KT|한화": {
       "date": "2026-05-17",
       "categoryId": "kbo",
       "homeTeam": "KT",
       "awayTeam": "한화",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 6,
+      "awayScore": 6,
+      "status": "live",
+      "period": "7회말"
     },
     "2026-05-17|kbo|삼성|KIA": {
       "date": "2026-05-17",
       "categoryId": "kbo",
       "homeTeam": "삼성",
       "awayTeam": "KIA",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 6,
+      "awayScore": 12,
+      "status": "live",
+      "period": "6회말"
+    },
+    "2026-05-17|kbo|SSG|LG": {
+      "date": "2026-05-17",
+      "categoryId": "kbo",
+      "homeTeam": "SSG",
+      "awayTeam": "LG",
+      "homeScore": 3,
+      "awayScore": 6,
+      "status": "live",
+      "period": "8회말"
     },
     "2026-05-17|kbo|두산|롯데": {
       "date": "2026-05-17",
       "categoryId": "kbo",
       "homeTeam": "두산",
       "awayTeam": "롯데",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 8,
+      "awayScore": 2,
+      "status": "live",
+      "period": "8회말"
     },
     "2026-05-17|kbo|NC|키움": {
       "date": "2026-05-17",
       "categoryId": "kbo",
       "homeTeam": "NC",
       "awayTeam": "키움",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "live",
+      "period": "9회말"
     },
     "2026-05-16|mlb|피츠버그|필라델피아": {
       "date": "2026-05-16",
@@ -1207,9 +1207,9 @@
       "homeTeam": "LA 에인절스",
       "awayTeam": "LA 다저스",
       "homeScore": 2,
-      "awayScore": 10,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 15,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-05-17|mlb|LA에인절스|LA 다저스": {
       "date": "2026-05-17",
@@ -1217,9 +1217,9 @@
       "homeTeam": "LA 에인절스",
       "awayTeam": "LA 다저스",
       "homeScore": 2,
-      "awayScore": 10,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 15,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-05-17|mlb|LA 에인절스|LA다저스": {
       "date": "2026-05-17",
@@ -1227,9 +1227,9 @@
       "homeTeam": "LA 에인절스",
       "awayTeam": "LA 다저스",
       "homeScore": 2,
-      "awayScore": 10,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 15,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-05-17|mlb|LA 에인절스|LA 다저스": {
       "date": "2026-05-17",
@@ -1237,9 +1237,9 @@
       "homeTeam": "LA 에인절스",
       "awayTeam": "LA 다저스",
       "homeScore": 2,
-      "awayScore": 10,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 15,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-05-17|mlb|애슬레틱스|샌프란시스코": {
       "date": "2026-05-17",
@@ -1248,7 +1248,7 @@
       "awayTeam": "샌프란시스코 자이언츠",
       "homeScore": 4,
       "awayScore": 6,
-      "status": "live",
+      "status": "finished",
       "period": "9회말"
     },
     "2026-05-17|mlb|애슬레틱스|샌프란시스코 자이언츠": {
@@ -1258,7 +1258,7 @@
       "awayTeam": "샌프란시스코 자이언츠",
       "homeScore": 4,
       "awayScore": 6,
-      "status": "live",
+      "status": "finished",
       "period": "9회말"
     },
     "2026-05-18|mlb|탬파베이|마이애미": {
@@ -2687,20 +2687,20 @@
       "categoryId": "mls",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "댈러스",
-      "homeScore": 1,
-      "awayScore": 2,
-      "status": "live",
-      "period": "후반 27'"
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-17|mls|산호세 어스퀘이크스|댈러스": {
       "date": "2026-05-17",
       "categoryId": "mls",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "댈러스",
-      "homeScore": 1,
-      "awayScore": 2,
-      "status": "live",
-      "period": "후반 27'"
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-18|mls|마이애미|포틀랜드": {
       "date": "2026-05-18",
@@ -2769,8 +2769,8 @@
       "awayTeam": "안양",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 8'"
     },
     "2026-05-17|kleague|전북|김천": {
       "date": "2026-05-17",
@@ -2849,8 +2849,8 @@
       "awayTeam": "경남",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 9'"
     },
     "2026-05-17|kleague2|화성|부산": {
       "date": "2026-05-17",
@@ -2859,8 +2859,8 @@
       "awayTeam": "부산",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 9'"
     },
     "2026-05-17|kleague2|김해|대구": {
       "date": "2026-05-17",
@@ -2869,8 +2869,8 @@
       "awayTeam": "대구",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 9'"
     },
     "2026-05-17|kleague2|충남아산|수원FC": {
       "date": "2026-05-17",
@@ -3087,52 +3087,52 @@
     {
       "date": "2026-05-17",
       "categoryId": "kbo",
-      "homeTeam": "SSG",
-      "awayTeam": "LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
-    },
-    {
-      "date": "2026-05-17",
-      "categoryId": "kbo",
       "homeTeam": "KT",
       "awayTeam": "한화",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 6,
+      "awayScore": 6,
+      "status": "live",
+      "period": "7회말"
     },
     {
       "date": "2026-05-17",
       "categoryId": "kbo",
       "homeTeam": "삼성",
       "awayTeam": "KIA",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 6,
+      "awayScore": 12,
+      "status": "live",
+      "period": "6회말"
+    },
+    {
+      "date": "2026-05-17",
+      "categoryId": "kbo",
+      "homeTeam": "SSG",
+      "awayTeam": "LG",
+      "homeScore": 3,
+      "awayScore": 6,
+      "status": "live",
+      "period": "8회말"
     },
     {
       "date": "2026-05-17",
       "categoryId": "kbo",
       "homeTeam": "두산",
       "awayTeam": "롯데",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 8,
+      "awayScore": 2,
+      "status": "live",
+      "period": "8회말"
     },
     {
       "date": "2026-05-17",
       "categoryId": "kbo",
       "homeTeam": "NC",
       "awayTeam": "키움",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "live",
+      "period": "9회말"
     },
     {
       "date": "2026-05-16",
@@ -3420,9 +3420,9 @@
       "homeTeam": "LA 에인절스",
       "awayTeam": "LA 다저스",
       "homeScore": 2,
-      "awayScore": 10,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 15,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-05-17",
@@ -3431,7 +3431,7 @@
       "awayTeam": "샌프란시스코 자이언츠",
       "homeScore": 4,
       "awayScore": 6,
-      "status": "live",
+      "status": "finished",
       "period": "9회말"
     },
     {
@@ -4183,10 +4183,10 @@
       "categoryId": "mls",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "댈러스",
-      "homeScore": 1,
-      "awayScore": 2,
-      "status": "live",
-      "period": "후반 27'"
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-05-18",
@@ -4235,8 +4235,8 @@
       "awayTeam": "안양",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 8'"
     },
     {
       "date": "2026-05-17",
@@ -4315,8 +4315,8 @@
       "awayTeam": "경남",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 9'"
     },
     {
       "date": "2026-05-17",
@@ -4325,8 +4325,8 @@
       "awayTeam": "부산",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 9'"
     },
     {
       "date": "2026-05-17",
@@ -4335,8 +4335,8 @@
       "awayTeam": "대구",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 9'"
     },
     {
       "date": "2026-05-17",
