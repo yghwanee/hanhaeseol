@@ -17,6 +17,9 @@ import {
   STANDINGS_LEAGUES,
   findStandingsBySlug,
 } from "@/lib/standings-seo";
+import { findLeagueBySlug } from "@/lib/slugs";
+import { loadScheduleData } from "@/lib/server-data";
+import UpcomingScheduleForLeague from "../_components/UpcomingScheduleForLeague";
 
 const data = standingsData as unknown as StandingsData;
 
@@ -79,6 +82,10 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
   const scheduleHref = meta.scheduleSlug
     ? `/league/${meta.scheduleSlug}`
     : `/?sport=${meta.sport === "baseball" ? "야구" : "축구"}`;
+
+  // 해당 리그의 schedule 매칭 키 (LEAGUE_SEO.match) — 일정 섹션 노출 여부 결정.
+  const leagueSeo = meta.scheduleSlug ? findLeagueBySlug(meta.scheduleSlug) : undefined;
+  const schedules = leagueSeo ? loadScheduleData().schedules : [];
 
   // JSON-LD: BreadcrumbList + SportsEvent collection (ItemList of teams)
   const jsonLd = {
@@ -205,6 +212,16 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
           데이터 출처: 네이버 스포츠 · 갱신:{" "}
           {new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })} (KST)
         </p>
+
+        {leagueSeo && meta.scheduleSlug && (
+          <UpcomingScheduleForLeague
+            schedules={schedules}
+            display={meta.display}
+            matchKeys={leagueSeo.match}
+            scheduleSlug={meta.scheduleSlug}
+            days={7}
+          />
+        )}
 
         {/* 다른 리그 순위로 이동 — 내부 링크 강화 */}
         <section className="mt-8 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4">
