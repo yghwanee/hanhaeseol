@@ -66,6 +66,7 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     "AT 마드리드": "AT.마드리드",
     "베티스": "레알 베티스",
     "빌바오": "아틀레틱",
+    "소시에다드": "레알 소시에다드",
   },
 
   세리에A: {
@@ -100,6 +101,9 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   },
 
   MLS: {
+    // 네이버는 짧게 "LAFC"로 옴. Apple TV+는 "로스앤젤레스 FC"로,
+    // 쿠팡플레이는 "LAFC"로 와서 schedule에 두 표기가 공존한다.
+    "LAFC": "로스앤젤레스 FC",
     "로스앤젤레스 FC": "LAFC",
     "샌디에고 FC": ["샌디에이고 FC", "샌디에이고"],
     "세인트루이스 시티": ["세인트루이스 시티 FC", "세인트루이스"],
@@ -117,7 +121,8 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     // 2026년경 네이버 응답이 더 짧은 표기로 바뀐 변형들
     "샬럿": "샬럿 FC",
     "NYCFC": "뉴욕 시티 FC",
-    "내쉬빌": "내슈빌 SC",
+    // 쿠팡플레이는 SC 없이 "내슈빌"로, Apple TV+는 "내슈빌 SC"로 옴
+    "내쉬빌": ["내슈빌 SC", "내슈빌"],
     "신시내티": "FC 신시내티",
     "마이애미": "인터 마이애미 CF",
     "시애틀": "시애틀 사운더스 FC",
