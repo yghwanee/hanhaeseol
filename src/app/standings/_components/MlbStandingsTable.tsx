@@ -48,7 +48,7 @@ function DivisionTable({
         <h3 className="text-sm font-semibold text-white sm:text-base">{label}</h3>
       </div>
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[520px] text-[12px] sm:text-sm">
+        <table className="w-full min-w-[520px] table-fixed text-[12px] sm:text-sm">
           <colgroup>
             <col className="w-10 sm:w-12" />
             <col className="w-[110px] sm:w-[160px]" />

@@ -56,7 +56,7 @@ function ConferenceTable({
         <h3 className="text-sm font-semibold text-white sm:text-base">{label}</h3>
       </div>
       <div className="overflow-x-auto scrollbar-hide">
-        <table className="w-full min-w-[670px] text-[12px] sm:text-sm">
+        <table className="w-full min-w-[670px] table-fixed text-[12px] sm:text-sm">
           <colgroup>
             <col className="w-10 sm:w-12" />
             <col className="w-[140px] sm:w-[200px]" />
