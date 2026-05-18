@@ -73,8 +73,8 @@ function ConferenceTable({
           </colgroup>
           <thead>
             <tr className="border-b border-zinc-800 bg-zinc-900/60">
-              <Th label="순위" />
-              <th className="whitespace-nowrap px-1.5 py-2.5 text-left text-[11px] font-semibold text-zinc-400 sm:px-2 sm:text-xs">
+              <Th label="순위" className="sticky left-0 z-20 bg-zinc-900" />
+              <th className="sticky left-10 z-20 whitespace-nowrap bg-zinc-900 px-1.5 py-2.5 text-left text-[11px] font-semibold text-zinc-400 sm:left-12 sm:px-2 sm:text-xs">
                 팀
               </th>
               <Th label="승점" highlight />
@@ -99,9 +99,9 @@ function ConferenceTable({
               return (
                 <tr
                   key={t.teamName}
-                  className="border-b border-zinc-800/60 transition-colors duration-150 last:border-b-0 hover:bg-zinc-900/50"
+                  className="group border-b border-zinc-800/60 transition-colors duration-150 last:border-b-0 hover:bg-zinc-900/50"
                 >
-                  <td className="relative px-1 py-2 text-center">
+                  <td className="sticky left-0 z-10 bg-zinc-950 px-1 py-2 text-center transition-colors group-hover:bg-[#1a1a1d]">
                     {st && (
                       <span
                         className={`absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r-full ${st.bar}`}
@@ -110,7 +110,7 @@ function ConferenceTable({
                     )}
                     <span className="font-bold tabular-nums text-zinc-100">{t.rank}</span>
                   </td>
-                  <td className="px-1.5 py-2 sm:px-2">
+                  <td className="sticky left-10 z-10 bg-zinc-950 px-1.5 py-2 transition-colors group-hover:bg-[#1a1a1d] sm:left-12 sm:px-2">
                     <div className="flex items-center gap-1.5 sm:gap-2">
                       {t.teamLogo ? (
                         <Image
@@ -156,12 +156,20 @@ function ConferenceTable({
   );
 }
 
-function Th({ label, highlight = false }: { label: string; highlight?: boolean }) {
+function Th({
+  label,
+  highlight = false,
+  className = "",
+}: {
+  label: string;
+  highlight?: boolean;
+  className?: string;
+}) {
   return (
     <th
       className={`whitespace-nowrap px-1 py-2.5 text-center align-middle text-[11px] font-semibold sm:text-xs ${
         highlight ? "text-emerald-300" : "text-zinc-400"
-      }`}
+      } ${className}`}
     >
       {label}
     </th>
