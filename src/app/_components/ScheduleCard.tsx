@@ -13,8 +13,9 @@ import { LastFiveBadges } from "./LastFiveBadges";
 function hasScores(r?: MatchResult): r is MatchResult & { homeScore: number; awayScore: number } {
   if (!r) return false;
   if (typeof r.homeScore !== "number" || typeof r.awayScore !== "number") return false;
-  // 네이버는 시작 전 매치도 0-0으로 응답. 진짜 결과가 있는 finished/live만 표시.
-  return r.status === "finished" || r.status === "live";
+  // 네이버는 시작 전·진행 중 매치도 0-0 / 진행 중 스코어로 응답.
+  // 진행 중 스코어는 크롤 타이밍에 따라 실제 현황과 어긋날 수 있어 종료된 경기만 표시.
+  return r.status === "finished";
 }
 
 function ScheduleCardInner({
