@@ -114,78 +114,67 @@ export function IntroAnimation() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // 내부 네비게이션 재진입: 이미 done 으로 시작했으므로 done 이벤트만 한 번 더 쏘고 종료.
-    // CoupangSideBanners 가 mount 시 listener 이미 등록한 상태일 수 있어 즉시 알림.
+    // 내부 SPA 네비게이션 재진입(또는 dev strict mode 두번째 effect 실행): 첫번째
+    // effect 가 시작한 animation 이 그대로 진행 중이므로 mode 를 건드리지 않음.
+    // setMode("done") 을 호출하면 dev strict mode 에서 인트로가 즉시 사라져 미리보기 불가.
+    // CoupangSideBanners 가 mount 시 listener 이미 등록한 상태일 수 있어 done 이벤트는 즉시.
     if (handledInThisSession) {
       markIntroDone();
       return;
     }
     handledInThisSession = true;
 
+    // ↓ 일부러 cleanup 으로 animation 을 취소하지 않음.
+    //   React 18 dev strict mode 가 effect 를 두 번 돌리는데, cleanup 에서 timers/cancelled
+    //   를 끄면 첫번째 effect 가 시작한 타이핑이 첫 sleep 직후 멈춤 ("h" 에서 정지 버그).
+    //   인트로는 세션당 1회만 동작하므로 unmount 시점에 타이머 누락이 큰 문제 X.
+
+    const sleep = (ms: number) =>
+      new Promise<void>((resolve) => setTimeout(resolve, ms));
+
     const hasFlag = sessionStorage.getItem(STORAGE_KEY) === "1";
 
     if (hasFlag) {
       // 새로고침/세션 내 재진입: ripple 잠깐 보여주고 페이드아웃
       setMode("ripple");
-      const t1 = setTimeout(() => setFadingOut(true), 700);
-      const t2 = setTimeout(() => {
+      setTimeout(() => setFadingOut(true), 700);
+      setTimeout(() => {
         setMode("done");
         markIntroDone();
       }, 1200);
-      return () => {
-        clearTimeout(t1);
-        clearTimeout(t2);
-      };
+      return;
     }
 
     // 첫 진입: 풀 인트로
     setMode("intro");
-    let cancelled = false;
-    const timers: ReturnType<typeof setTimeout>[] = [];
-    const sleep = (ms: number) =>
-      new Promise<void>((resolve) => {
-        const id = setTimeout(resolve, ms);
-        timers.push(id);
-      });
 
     async function run() {
       for (let i = 1; i <= DOMAIN.length; i++) {
-        if (cancelled) return;
         setText(DOMAIN.slice(0, i));
         await sleep(70 + Math.random() * 40);
       }
       await sleep(550);
-      if (cancelled) return;
 
       for (let i = DOMAIN.length - 1; i >= 0; i--) {
-        if (cancelled) return;
         setText(DOMAIN.slice(0, i));
         await sleep(22);
       }
       await sleep(180);
-      if (cancelled) return;
 
       for (let i = 1; i <= SUBTITLE.length; i++) {
-        if (cancelled) return;
         setText(SUBTITLE.slice(0, i));
         await sleep(85 + Math.random() * 50);
       }
       await sleep(750);
-      if (cancelled) return;
 
       sessionStorage.setItem(STORAGE_KEY, "1");
       setFadingOut(true);
       await sleep(550);
-      if (cancelled) return;
       setMode("done");
       markIntroDone();
     }
 
     run();
-    return () => {
-      cancelled = true;
-      timers.forEach(clearTimeout);
-    };
   }, []);
 
   if (mode === "done") return null;
