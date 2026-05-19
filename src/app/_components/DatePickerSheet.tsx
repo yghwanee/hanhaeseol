@@ -194,10 +194,10 @@ export function DatePickerSheet({
           aria-modal="true"
           aria-label="날짜 선택"
           onClick={(e) => e.stopPropagation()}
-          className={`pointer-events-auto w-full max-w-sm border-t border-zinc-800 bg-zinc-900 rounded-t-2xl transition-all duration-300 sm:rounded-2xl sm:border ${
+          className={`w-full max-w-sm border-t border-zinc-800 bg-zinc-900 rounded-t-2xl transition-all duration-300 sm:rounded-2xl sm:border ${
             isOpen
-              ? "translate-y-0 opacity-100 sm:scale-100"
-              : "translate-y-full opacity-0 sm:translate-y-0 sm:scale-95"
+              ? "pointer-events-auto translate-y-0 opacity-100 sm:scale-100"
+              : "pointer-events-none translate-y-full opacity-0 sm:translate-y-0 sm:scale-95"
           }`}
         >
           {/* 모바일 핸들 */}
