@@ -173,7 +173,7 @@ export default function ScheduleClient({
 
   // datepicker 버튼 라벨: archive 날짜면 그 날짜를 한국 포맷으로, 아니면 placeholder.
   const datepickerLabel = useMemo(() => {
-    if (!isArchiveDate) return "지난 경기결과";
+    if (!isArchiveDate) return "지난 경기 결과";
     const d = new Date(selectedDate + "T00:00:00");
     const m = d.getMonth() + 1;
     const day = d.getDate();
@@ -393,10 +393,10 @@ export default function ScheduleClient({
       </div>
 
       {/* Search + Datepicker */}
-      {/* PC: 검색 2/3 + datepicker 1/3 한 줄. 모바일: 검색 한 줄, datepicker 한 줄. */}
-      <div className="mb-6 sm:mb-8 grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3">
+      {/* 검색 2/3 + datepicker 1/3 한 줄 (모바일/PC 동일). */}
+      <div className="mb-6 sm:mb-8 grid grid-cols-3 gap-2 sm:gap-3">
         {/* Search */}
-        <div className="relative sm:col-span-2">
+        <div className="relative col-span-2">
           <svg className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <circle cx="11" cy="11" r="8" strokeWidth="2" />
             <path strokeLinecap="round" strokeWidth="2" d="m21 21-4.35-4.35" />
@@ -419,11 +419,11 @@ export default function ScheduleClient({
         </div>
 
         {/* Datepicker 트리거: 과거 경기 조회용. 클릭 시 바텀시트 캘린더 오픈. */}
-        <div className="sm:col-span-1">
+        <div className="col-span-1">
           <button
             type="button"
             onClick={openDatepicker}
-            aria-label={isArchiveDate ? `선택된 날짜 ${datepickerLabel} - 다른 날짜 선택` : "지난 경기결과 보기"}
+            aria-label={isArchiveDate ? `선택된 날짜 ${datepickerLabel} - 다른 날짜 선택` : "지난 경기 결과 보기"}
             className={`flex w-full items-center justify-center gap-2 rounded-lg border bg-zinc-900 py-2 px-3 text-xs transition-colors sm:py-2.5 sm:px-4 sm:text-sm ${
               isArchiveDate
                 ? "border-red-500/60 text-red-300 hover:border-red-400"
