@@ -173,7 +173,7 @@ export default function ScheduleClient({
 
   // datepicker 버튼 라벨: archive 날짜면 그 날짜를 한국 포맷으로, 아니면 placeholder.
   const datepickerLabel = useMemo(() => {
-    if (!isArchiveDate) return "지난 경기 보기";
+    if (!isArchiveDate) return "지난 경기결과";
     const d = new Date(selectedDate + "T00:00:00");
     const m = d.getMonth() + 1;
     const day = d.getDate();
@@ -423,7 +423,7 @@ export default function ScheduleClient({
           <button
             type="button"
             onClick={openDatepicker}
-            aria-label={isArchiveDate ? `선택된 날짜 ${datepickerLabel} - 다른 날짜 선택` : "지난 경기 날짜 선택"}
+            aria-label={isArchiveDate ? `선택된 날짜 ${datepickerLabel} - 다른 날짜 선택` : "지난 경기결과 보기"}
             className={`flex w-full items-center justify-center gap-2 rounded-lg border bg-zinc-900 py-2 px-3 text-xs transition-colors sm:py-2.5 sm:px-4 sm:text-sm ${
               isArchiveDate
                 ? "border-red-500/60 text-red-300 hover:border-red-400"
