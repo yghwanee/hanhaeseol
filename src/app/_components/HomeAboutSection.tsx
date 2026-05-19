@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { LEAGUE_SEO, PLATFORM_SEO } from "@/lib/slugs";
 import { StatusBadge } from "./StatusBadge";
+import { AccordionItem } from "./Accordion";
 
 const OTT_SLUGS = ["spotv-now", "coupang-play", "tving", "apple-tv"];
 const TV_SLUGS = ["spotv", "spotv2", "tvn-sports", "kbs-n-sports", "mbc-sports-plus", "sbs-sports"];
@@ -186,13 +187,9 @@ export function HomeAboutSection() {
         <h2 className="text-base sm:text-lg font-semibold text-white">자주 묻는 질문</h2>
         <div className="mt-4 divide-y divide-zinc-800">
           {FAQS.map(({ q, a }) => (
-            <details key={q} className="group py-3 [&_summary::-webkit-details-marker]:hidden">
-              <summary className="flex cursor-pointer items-start justify-between gap-3 text-sm font-medium text-zinc-100">
-                <span>{q}</span>
-                <span className="mt-0.5 shrink-0 text-zinc-500 transition-transform group-open:rotate-180">⌄</span>
-              </summary>
-              <p className="mt-2 pr-6 text-sm leading-relaxed text-zinc-400">{a}</p>
-            </details>
+            <AccordionItem key={q} question={q}>
+              {a}
+            </AccordionItem>
           ))}
         </div>
       </div>

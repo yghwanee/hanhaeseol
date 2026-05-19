@@ -185,17 +185,9 @@ export default function ScheduleClient({
           <Link
             href="/standings"
             aria-label="팀 순위"
-            className="border-glow group inline-flex items-center gap-2 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm font-medium text-zinc-200 transition-colors hover:text-white sm:gap-2.5 sm:px-3"
+            className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-4 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs"
           >
-            <Image
-              src="/icons/trophy.png"
-              alt=""
-              width={28}
-              height={28}
-              className="h-5 w-5 transition-transform group-hover:scale-110 sm:h-6 sm:w-6"
-              unoptimized
-            />
-            순위
+            순위 +
           </Link>
         </header>
       </StickyHeader>

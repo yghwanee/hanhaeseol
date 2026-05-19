@@ -158,7 +158,7 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
             </Link>
             <Link
               href="/"
-              className="whitespace-nowrap rounded-lg border border-zinc-700 px-3 py-1 text-xs text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white sm:px-4 sm:py-1.5 sm:text-sm"
+              className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-4 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs"
             >
               ← &ensp;편성표
             </Link>

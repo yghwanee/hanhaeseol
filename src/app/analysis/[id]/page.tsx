@@ -53,7 +53,7 @@ export default async function AnalysisDetailPage({ params }: { params: Promise<{
               <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
               <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
             </Link>
-            <Link href={`/analysis?date=${article.date}`} className="text-xs sm:text-sm px-3 py-1 sm:px-4 sm:py-1.5 rounded-lg border border-zinc-700 text-zinc-300 hover:border-zinc-500 hover:text-white transition-colors whitespace-nowrap">
+            <Link href={`/analysis?date=${article.date}`} className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-4 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs">
               ← &ensp;분석글 목록
             </Link>
           </header>
