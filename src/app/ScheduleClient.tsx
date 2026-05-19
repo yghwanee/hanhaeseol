@@ -371,7 +371,7 @@ export default function ScheduleClient({
             return {
               value: d.value,
               label: (
-                <div className="flex flex-col items-center gap-0.5 leading-tight sm:gap-1">
+                <div className="flex flex-col items-center leading-none">
                   <span className={`text-[10px] font-medium sm:text-xs ${dowColor}`}>
                     {KOR_DOW[dow]}
                   </span>
@@ -380,16 +380,17 @@ export default function ScheduleClient({
               ),
             };
           });
-          // 오늘만 작은 빨간 점, 나머지는 같은 크기의 투명 자리표시.
-          // block 으로 display 명시해 빈 span이 0px 로 collapse 되어 라벨 위치가
-          // 위아래로 흔들리는 현상 차단.
-          const dotFor = (value: string) => (
+          // 오늘만 "TODAY" 빨간 라벨, 나머지는 동일 텍스트를 transparent 로
+          // 렌더해 자리만 차지하게 함 (레이아웃 위아래 흔들림 방지).
+          const todayMarker = (value: string) => (
             <span
               aria-hidden
-              className={`block h-1 w-1 rounded-full ${
-                value === todayStr ? "bg-red-500" : ""
+              className={`block text-[9px] font-bold leading-none tracking-wider ${
+                value === todayStr ? "text-red-500" : "text-transparent"
               }`}
-            />
+            >
+              TODAY
+            </span>
           );
           return (
             <>
@@ -401,7 +402,7 @@ export default function ScheduleClient({
                   options={dateOptions}
                   value={selectedDate}
                   onChange={setSelectedDate}
-                  renderAbove={dotFor}
+                  renderAbove={todayMarker}
                   useCapsStripe
                 />
               </div>
@@ -414,7 +415,7 @@ export default function ScheduleClient({
                   options={dateOptions}
                   value={selectedDate}
                   onChange={setSelectedDate}
-                  renderAbove={dotFor}
+                  renderAbove={todayMarker}
                   useCapsStripe
                 />
               </div>
