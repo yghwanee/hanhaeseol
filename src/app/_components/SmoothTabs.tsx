@@ -87,9 +87,9 @@ export function SmoothTabs<T extends string>({
 
   const gap = gapClass ?? "gap-1 sm:gap-1.5";
   // capsStripe(날짜 탭): 점이 박스 밖 sibling 으로 분리되어 박스는 텍스트만
-  // 담음. py 최소화해 박스 시각적으로 짧게.
+  // 담음. 모바일은 py-1 으로 살짝 여유, 데스크탑은 py-0.5 로 컴팩트.
   const sizeCls = useCapsStripe
-    ? "px-6 py-0.5 text-xs sm:px-4 sm:py-0.5 sm:text-sm"
+    ? "px-6 py-1 text-xs sm:px-4 sm:py-0.5 sm:text-sm"
     : "px-2.5 py-1 text-xs sm:px-3 sm:py-1.5 sm:text-sm";
   const borderCls = pillBorderClassName ?? "border-zinc-100";
 
