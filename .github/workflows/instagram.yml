@@ -70,9 +70,13 @@ jobs:
           git init -q
           git checkout -q -b insta-media
           git add -A
+          # commit message 에 [vercel skip] 토큰을 박아 Vercel 이 이 브랜치
+          # push 의 빌드를 자동 스킵하게 함. insta-media 는 미디어 전용 orphan
+          # 브랜치라 Next.js 코드(app/, package.json) 가 없어 빌드 시도 시
+          # "Couldn't find any pages or app directory" 로 100% 실패함.
           git -c user.email="github-actions[bot]@users.noreply.github.com" \
               -c user.name="github-actions[bot]" \
-              commit -q -m "update $(date -u +%F)"
+              commit -q -m "update $(date -u +%F) [vercel skip]"
           git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:insta-media
           echo "✅ insta-media 브랜치 업데이트 완료"
 
