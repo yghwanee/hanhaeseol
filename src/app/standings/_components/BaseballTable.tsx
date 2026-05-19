@@ -118,7 +118,7 @@ export function BaseballTable({ teams }: { teams: BaseballStanding[] }) {
               <col className="w-24 sm:w-28" />
               <col className="w-16 sm:w-20" />
             </colgroup>
-            <thead>
+            <thead className="sticky top-0 z-10 bg-zinc-900/95 backdrop-blur">
               <tr className="border-b border-zinc-800 bg-zinc-900/60">
                 <Th
                   label="순위"

@@ -71,7 +71,7 @@ function ConferenceTable({
             <col className="w-24 sm:w-28" />
             <col className="w-16 sm:w-20" />
           </colgroup>
-          <thead>
+          <thead className="sticky top-0 z-10 bg-zinc-900/95 backdrop-blur">
             <tr className="border-b border-zinc-800 bg-zinc-900/60">
               <Th label="순위" className="sticky left-0 z-20 bg-zinc-900" />
               <th className="sticky left-10 z-20 whitespace-nowrap bg-zinc-900 px-1.5 py-2.5 text-left text-[11px] font-semibold text-zinc-400 sm:left-12 sm:px-2 sm:text-xs">
