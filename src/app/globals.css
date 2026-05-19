@@ -95,6 +95,17 @@
   }
 }
 
+/* 모바일 탭(:active)에도 동일 효과 노출 — 손가락 떼면 자동 해제 */
+.btn-caps-stripe:active {
+  color: rgb(24 24 27);
+}
+.btn-caps-stripe:active::before {
+  inset: -3px;
+}
+.btn-caps-stripe:active::after {
+  clip-path: polygon(0% 0%, 200% 0%, 100% 100%, 0% 100%);
+}
+
 .skeleton-shimmer {
   background: linear-gradient(
     90deg,
