@@ -86,9 +86,9 @@ export function SmoothTabs<T extends string>({
   const { containerRef, pos } = useActiveRect(value, depsKey);
 
   const gap = gapClass ?? "gap-1 sm:gap-1.5";
-  // capsStripe(날짜 탭)는 2단 라벨 + 시그니처 톤이라 더 넓은 패딩 사용.
+  // capsStripe(날짜 탭): 모바일은 가로 넓고 세로 짧은 비율, 데스크탑은 균형.
   const sizeCls = useCapsStripe
-    ? "px-4 py-1.5 text-xs sm:px-4 sm:py-2 sm:text-sm"
+    ? "px-6 py-0.5 text-xs sm:px-4 sm:py-2 sm:text-sm"
     : "px-2.5 py-1 text-xs sm:px-3 sm:py-1.5 sm:text-sm";
   const borderCls = pillBorderClassName ?? "border-zinc-100";
 
@@ -132,7 +132,8 @@ export function SmoothTabs<T extends string>({
             : `text-zinc-400 hover:text-zinc-200 ${inactiveBorder}`;
         // renderAbove 가 있으면 dot 등 보조 요소를 button 내부로 넣어 hit area를
         // 시각 박스 전체로 확장 (이전엔 button 위 sibling이라 dot/gap 영역이 클릭 사각지대였음).
-        const layoutCls = renderAbove ? "inline-flex flex-col items-center gap-1.5 sm:gap-2" : "";
+        // 모바일은 세로 압축, 데스크탑은 여유 있게.
+        const layoutCls = renderAbove ? "inline-flex flex-col items-center gap-0.5 sm:gap-2" : "";
         const buttonInner = (
           <button
             type="button"
