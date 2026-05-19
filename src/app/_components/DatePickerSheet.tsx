@@ -263,7 +263,7 @@ export function DatePickerSheet({
             ))}
           </div>
 
-          {/* 날짜 그리드 */}
+          {/* 날짜 그리드 — 셀 전체가 클릭 영역. 내부 원형 마커가 시각 표시. */}
           <div className="grid grid-cols-7 gap-y-1 px-3 pb-4">
             {grid.map((c, i) => {
               const isSelected = tempSelected === c.iso;
@@ -276,17 +276,23 @@ export function DatePickerSheet({
                   disabled={c.disabled}
                   onClick={() => setTempSelected(c.iso)}
                   aria-label={c.iso}
-                  className={`mx-auto flex h-10 w-10 items-center justify-center rounded-full text-sm transition-colors ${
-                    isSelected
-                      ? "bg-zinc-100 font-semibold text-zinc-900"
-                      : c.disabled
-                      ? "cursor-not-allowed text-zinc-700"
-                      : c.inMonth
-                      ? `${baseColor} hover:bg-zinc-800`
-                      : "text-zinc-600 hover:bg-zinc-800/50"
+                  className={`group flex w-full items-center justify-center py-0.5 ${
+                    c.disabled ? "cursor-not-allowed" : "cursor-pointer"
                   }`}
                 >
-                  {c.day}
+                  <span
+                    className={`flex h-10 w-10 items-center justify-center rounded-full text-sm transition-colors ${
+                      isSelected
+                        ? "bg-zinc-100 font-semibold text-zinc-900"
+                        : c.disabled
+                        ? "text-zinc-700"
+                        : c.inMonth
+                        ? `${baseColor} group-hover:bg-zinc-800`
+                        : "text-zinc-600 group-hover:bg-zinc-800/50"
+                    }`}
+                  >
+                    {c.day}
+                  </span>
                 </button>
               );
             })}

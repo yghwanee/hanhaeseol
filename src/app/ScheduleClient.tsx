@@ -353,38 +353,65 @@ export default function ScheduleClient({
       {/* Date Tabs */}
       <div className="mb-6 sm:mb-10">
         {(() => {
-          const dateOptions = weekDates.map((d) => ({ value: d.value, label: d.label }));
-          const dotFor = (value: string) => {
-            const day = new Date(value + "T00:00:00").getDay();
-            if (day === 6) return <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />;
-            if (day === 0) return <span className="h-1.5 w-1.5 rounded-full bg-red-500" />;
-            return <span className="h-1.5 w-1.5" />;
-          };
+          const KOR_DOW = ["일", "월", "화", "수", "목", "금", "토"];
+          const dateOptions = weekDates.map((d) => {
+            const dt = new Date(d.value + "T00:00:00");
+            const dow = dt.getDay();
+            const dayNum = dt.getDate();
+            const active = d.value === selectedDate;
+            // 활성 상태(caps-stripe-pressed)의 흰 배경 위에서는 zinc-900으로 통일.
+            // 비활성에서는 요일별 색상 유지.
+            const dowColor = active
+              ? "text-zinc-900"
+              : dow === 0
+              ? "text-red-400"
+              : dow === 6
+              ? "text-blue-400"
+              : "text-zinc-500";
+            return {
+              value: d.value,
+              label: (
+                <div className="flex flex-col items-center gap-0.5 leading-tight sm:gap-1">
+                  <span className={`text-[10px] font-medium sm:text-xs ${dowColor}`}>
+                    {KOR_DOW[dow]}
+                  </span>
+                  <span className="text-sm font-bold sm:text-base">{dayNum}</span>
+                </div>
+              ),
+            };
+          });
+          // 오늘만 작은 점으로 표시. 나머지는 자리만 유지(레이아웃 흔들림 방지).
+          const dotFor = (value: string) =>
+            value === todayStr ? (
+              <span className="h-1 w-1 rounded-full bg-red-500" />
+            ) : (
+              <span className="h-1 w-1" />
+            );
           return (
             <>
               {/* Mobile: scrollable row */}
               <div className="overflow-x-auto scrollbar-hide sm:hidden">
                 <SmoothTabs
                   ariaLabel="날짜 선택"
-                  variant="bordered"
                   gapClass="gap-1.5"
                   options={dateOptions}
                   value={selectedDate}
                   onChange={setSelectedDate}
                   renderAbove={dotFor}
+                  useCapsStripe
                 />
               </div>
               {/* Desktop: full-width row */}
               <div className="hidden sm:block">
                 <SmoothTabs
                   ariaLabel="날짜 선택"
-                  variant="bordered"
                   fullWidth
                   gapClass="gap-2"
                   options={dateOptions}
                   value={selectedDate}
                   onChange={setSelectedDate}
                   renderAbove={dotFor}
+                  useCapsStripe
                 />
               </div>
             </>
@@ -410,21 +437,26 @@ export default function ScheduleClient({
           />
           {searchQuery && (
             <button
+              type="button"
               onClick={() => setSearchQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300"
+              aria-label="검색어 지우기"
+              className="absolute right-1 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded text-base leading-none text-zinc-500 hover:text-zinc-300"
             >
               &times;
             </button>
           )}
         </div>
 
-        {/* Datepicker 트리거: 과거 경기 조회용. 클릭 시 바텀시트 캘린더 오픈. */}
-        <div className="col-span-1">
+        {/* Datepicker 트리거: 과거 경기 조회용. 클릭 시 바텀시트 캘린더 오픈.
+            X 버튼은 nested button 회피를 위해 절대 위치의 sibling 으로 둔다. */}
+        <div className="relative col-span-1">
           <button
             type="button"
             onClick={openDatepicker}
             aria-label={isArchiveDate ? `선택된 날짜 ${datepickerLabel} - 다른 날짜 선택` : "지난 경기 결과 보기"}
-            className={`flex w-full items-center justify-center gap-2 rounded-lg border bg-zinc-900 py-2 px-3 text-xs transition-colors sm:py-2.5 sm:px-4 sm:text-sm ${
+            className={`flex w-full items-center justify-center gap-2 rounded-lg border bg-zinc-900 py-2 text-xs transition-colors sm:py-2.5 sm:text-sm ${
+              isArchiveDate ? "pl-3 pr-9 sm:pl-4 sm:pr-10" : "px-3 sm:px-4"
+            } ${
               isArchiveDate
                 ? "border-red-500/60 text-red-300 hover:border-red-400"
                 : "border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-zinc-200"
@@ -435,28 +467,17 @@ export default function ScheduleClient({
               <path strokeLinecap="round" strokeWidth="2" d="M16 2v4M8 2v4M3 10h18" />
             </svg>
             <span className="truncate">{datepickerLabel}</span>
-            {isArchiveDate && (
-              <span
-                role="button"
-                tabIndex={0}
-                aria-label="오늘로 돌아가기"
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setSelectedDate(todayStr);
-                }}
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" || e.key === " ") {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setSelectedDate(todayStr);
-                  }
-                }}
-                className="ml-1 cursor-pointer rounded px-1 text-zinc-400 hover:text-zinc-200"
-              >
-                &times;
-              </span>
-            )}
           </button>
+          {isArchiveDate && (
+            <button
+              type="button"
+              onClick={() => setSelectedDate(todayStr)}
+              aria-label="오늘로 돌아가기"
+              className="absolute right-1 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded text-base leading-none text-zinc-400 hover:text-zinc-200"
+            >
+              &times;
+            </button>
+          )}
         </div>
       </div>
 
@@ -558,7 +579,14 @@ export default function ScheduleClient({
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={() => setShowInfo(false)}>
           <div className="mx-4 max-w-md rounded-xl border border-zinc-700 bg-zinc-900 px-5 sm:px-6 pt-5 sm:pt-6 pb-8 sm:pb-9" onClick={(e) => e.stopPropagation()}>
             <div className="flex justify-end">
-              <button onClick={() => setShowInfo(false)} className="text-zinc-500 hover:text-zinc-300 text-3xl leading-none">&times;</button>
+              <button
+                type="button"
+                onClick={() => setShowInfo(false)}
+                aria-label="안내 닫기"
+                className="-mr-1 -mt-1 flex h-9 w-9 items-center justify-center rounded text-3xl leading-none text-zinc-500 hover:text-zinc-300"
+              >
+                &times;
+              </button>
             </div>
             <div className="mt-3 text-xs sm:text-sm leading-relaxed text-zinc-400 space-y-3">
               <p>● 본 서비스에서 제공하는 중계 일정 및 한국어해설 정보는 쿠팡플레이, 티빙, SPOTV NOW, Apple TV+, SPOTV, SPOTV2, tvN SPORTS, KBS N SPORTS, MBC SPORTS+, SBS Sports의 공식 편성표를 바탕으로 재구성되었습니다.</p>

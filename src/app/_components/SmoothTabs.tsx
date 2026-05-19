@@ -56,6 +56,15 @@ type SmoothTabsProps<T extends string> = {
   /** 버튼 위(세로 정렬)로 추가 요소 렌더링. 예: 요일 색상 점 */
   renderAbove?: (value: T) => ReactNode;
   ariaLabel?: string;
+  /** 활성 pill 배경 클래스. 기본 "bg-zinc-100" */
+  pillClassName?: string;
+  /** bordered variant 의 활성 pill 보더 클래스. 기본은 pillClassName 과 동일 색. */
+  pillBorderClassName?: string;
+  /** 활성 텍스트 클래스. 기본 "text-zinc-900" */
+  activeTextClassName?: string;
+  /** 사이트 시그니처 btn-caps-stripe 효과 사용. 활성 = caps-stripe-pressed.
+   *  슬라이딩 pill 대신 각 버튼에 직접 caps stripe sweep 효과 적용. 모바일에서도 효과 노출. */
+  useCapsStripe?: boolean;
 };
 
 export function SmoothTabs<T extends string>({
@@ -68,12 +77,17 @@ export function SmoothTabs<T extends string>({
   className = "",
   renderAbove,
   ariaLabel,
+  pillClassName = "bg-zinc-100",
+  pillBorderClassName,
+  activeTextClassName = "text-zinc-900",
+  useCapsStripe = false,
 }: SmoothTabsProps<T>) {
   const depsKey = options.map((o) => o.value).join("|");
   const { containerRef, pos } = useActiveRect(value, depsKey);
 
   const gap = gapClass ?? "gap-1 sm:gap-1.5";
   const sizeCls = "px-2.5 py-1 text-xs sm:px-3 sm:py-1.5 sm:text-sm";
+  const borderCls = pillBorderClassName ?? "border-zinc-100";
 
   return (
     <div
@@ -82,19 +96,21 @@ export function SmoothTabs<T extends string>({
       aria-label={ariaLabel}
       className={`relative inline-flex ${fullWidth ? "w-full" : ""} ${gap} ${className}`}
     >
-      {/* Sliding background */}
-      <div
-        aria-hidden
-        className={`pointer-events-none absolute top-0 left-0 rounded-lg bg-zinc-100 transition-[transform,width,height] duration-300 ease-out ${
-          variant === "bordered" ? "border border-zinc-100" : ""
-        }`}
-        style={{
-          transform: `translate3d(${pos.left}px, ${pos.top}px, 0)`,
-          width: pos.width,
-          height: pos.height,
-          opacity: pos.ready ? 1 : 0,
-        }}
-      />
+      {/* Sliding background — capsStripe 모드에서는 사용 안 함 (각 버튼이 직접 효과 처리). */}
+      {!useCapsStripe && (
+        <div
+          aria-hidden
+          className={`pointer-events-none absolute top-0 left-0 rounded-lg ${pillClassName} transition-[transform,width,height] duration-300 ease-out ${
+            variant === "bordered" ? `border ${borderCls}` : ""
+          }`}
+          style={{
+            transform: `translate3d(${pos.left}px, ${pos.top}px, 0)`,
+            width: pos.width,
+            height: pos.height,
+            opacity: pos.ready ? 1 : 0,
+          }}
+        />
+      )}
       {options.map((o) => {
         const active = o.value === value;
         // 베이스에 border-transparent를 깔아둬서 Tailwind preflight 기본값(연한 회색)이
@@ -103,6 +119,14 @@ export function SmoothTabs<T extends string>({
           variant === "bordered"
             ? "border-zinc-700 hover:border-zinc-600"
             : "border-transparent";
+        const baseShape = useCapsStripe
+          ? "" // btn-caps-stripe 자체가 박스 모양/테두리 처리. rounded/border 없음.
+          : "rounded-lg border border-transparent";
+        const stateCls = useCapsStripe
+          ? `btn-caps-stripe caps-stripe-tab${active ? " caps-stripe-pressed" : ""}`
+          : active
+            ? activeTextClassName
+            : `text-zinc-400 hover:text-zinc-200 ${inactiveBorder}`;
         const buttonInner = (
           <button
             type="button"
@@ -110,9 +134,9 @@ export function SmoothTabs<T extends string>({
             role="tab"
             aria-selected={active}
             onClick={() => onChange(o.value)}
-            className={`relative z-10 shrink-0 whitespace-nowrap rounded-lg border border-transparent font-medium outline-none transition-colors focus:outline-none ${sizeCls} ${
-              active ? "text-zinc-900" : `text-zinc-400 hover:text-zinc-200 ${inactiveBorder}`
-            } ${fullWidth ? "w-full" : ""}`}
+            className={`relative z-10 shrink-0 whitespace-nowrap font-medium outline-none focus:outline-none ${
+              useCapsStripe ? "" : "transition-colors "
+            }${sizeCls} ${baseShape} ${stateCls} ${fullWidth ? "w-full" : ""}`}
           >
             {o.label}
           </button>

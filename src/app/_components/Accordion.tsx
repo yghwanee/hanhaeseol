@@ -16,13 +16,13 @@ export function AccordionItem({
   const [open, setOpen] = useState(defaultOpen);
   const id = useId();
   return (
-    <div className="py-3">
+    <div>
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-controls={id}
-        className="flex w-full items-start justify-between gap-3 text-left text-sm font-medium text-zinc-100 outline-none focus:outline-none"
+        className="flex w-full items-start justify-between gap-3 py-3 text-left text-sm font-medium text-zinc-100 outline-none focus:outline-none"
       >
         <span>{question}</span>
         <svg
@@ -50,7 +50,7 @@ export function AccordionItem({
       >
         <div className="overflow-hidden">
           <div
-            className={`pt-2 pr-6 text-sm leading-relaxed text-zinc-400 whitespace-pre-line transition-opacity duration-300 ${
+            className={`pb-3 pr-6 text-sm leading-relaxed text-zinc-400 whitespace-pre-line transition-opacity duration-300 ${
               open ? "opacity-100" : "opacity-0"
             }`}
           >
