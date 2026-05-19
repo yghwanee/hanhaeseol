@@ -104,7 +104,7 @@ export function BaseballTable({ teams }: { teams: BaseballStanding[] }) {
   }, [teams]);
 
   return (
-    <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/50">
+    <div className="overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-950/50">
       <div className="relative">
         <div ref={scrollerRef} className="overflow-x-auto scrollbar-hide">
           <table className="w-full min-w-[560px] table-fixed text-[12px] sm:text-sm">

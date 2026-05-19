@@ -106,7 +106,7 @@ function DivisionTable({
   }, [teams]);
 
   return (
-    <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/50">
+    <div className="overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-950/50">
       <div className="border-b border-zinc-800/80 px-3 py-2 sm:px-4">
         <h3 className="text-sm font-semibold text-white sm:text-base">{label}</h3>
       </div>
