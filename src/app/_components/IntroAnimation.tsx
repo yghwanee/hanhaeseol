@@ -102,6 +102,10 @@ function RippleLoader() {
 
 type Mode = "loading" | "intro" | "ripple" | "done";
 
+/** 같은 SPA 세션(F5 없는 동안) 안에서 인트로/ripple은 한 번만 노출.
+ *  내부 네비게이션으로 메인 페이지에 재진입할 때마다 ripple이 뜨는 걸 방지. */
+let handledInThisSession = false;
+
 export function IntroAnimation() {
   const [mode, setMode] = useState<Mode>("loading");
   const [text, setText] = useState("");
@@ -109,6 +113,13 @@ export function IntroAnimation() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
+    // 내부 네비게이션 재진입: 인트로/ripple 전부 스킵
+    if (handledInThisSession) {
+      setMode("done");
+      return;
+    }
+    handledInThisSession = true;
 
     const hasFlag = sessionStorage.getItem(STORAGE_KEY) === "1";
 
@@ -177,8 +188,8 @@ export function IntroAnimation() {
   return (
     <div
       className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-zinc-950 transition-opacity duration-500 ${
-        fadingOut ? "pointer-events-none opacity-0" : "opacity-100"
-      } ${mode === "ripple" ? "pointer-events-none" : ""}`}
+        fadingOut ? "opacity-0" : "opacity-100"
+      } ${fadingOut || mode !== "intro" ? "pointer-events-none" : ""}`}
       aria-hidden
     >
       {mode === "intro" && (
