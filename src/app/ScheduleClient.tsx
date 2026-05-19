@@ -359,15 +359,15 @@ export default function ScheduleClient({
             const dow = dt.getDay();
             const dayNum = dt.getDate();
             const active = d.value === selectedDate;
-            // 활성 상태(caps-stripe-pressed)의 흰 배경 위에서는 zinc-900으로 통일.
-            // 비활성에서는 요일별 색상 유지.
+            // 활성 상태에서는 sweep 흰 배경 위 가독성을 위해 zinc-900으로 통일.
+            // 비활성에서는 요일별 색상 유지 (평일 zinc-400).
             const dowColor = active
               ? "text-zinc-900"
               : dow === 0
               ? "text-red-400"
               : dow === 6
               ? "text-blue-400"
-              : "text-zinc-500";
+              : "text-zinc-400";
             return {
               value: d.value,
               label: (

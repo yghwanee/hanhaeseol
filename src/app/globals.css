@@ -106,14 +106,10 @@
   clip-path: polygon(0% 0%, 200% 0%, 100% 100%, 0% 100%);
 }
 
-/* 날짜 탭 전용 변형 — 비활성 상태에서는 caps frame(코너 brackets)을 숨겨
- * 작은 셀에서 텍스트 가독성을 확보. 활성(.caps-stripe-pressed) 시 페이드 인. */
-.btn-caps-stripe.caps-stripe-tab::before {
-  opacity: 0;
-  transition: opacity 0.2s, inset 0.25s cubic-bezier(0.25, 0, 0, 1);
-}
-.btn-caps-stripe.caps-stripe-tab.caps-stripe-pressed::before {
-  opacity: 1;
+/* 날짜 탭 전용 변형 — corner brackets/sweep 시그니처 효과는 그대로,
+ * 박스 내부의 대각선 빗금 패턴(base background)만 제거해 텍스트 가독성 확보. */
+.btn-caps-stripe.caps-stripe-tab {
+  background-image: none;
 }
 
 .skeleton-shimmer {

@@ -6,33 +6,33 @@ const STORAGE_KEY = "haeseol-intro-seen";
 const DOMAIN = "haeseol.com";
 const SUBTITLE = "한국어 중계 편성표";
 
-// Naver CDN EPL 로고 + 로컬 KBO 로고
+// 로컬 EPL 로고 (naver CDN은 referer hot-link 차단으로 깨질 수 있음) + 로컬 KBO 로고
 const COL_A = [
-  "https://sports-phinf.pstatic.net/team/wfootball/default/1006.png?type=f92_88",
+  "/logos/naver-football/1006.png",
   "/logos/kbo/HT.png",
-  "https://sports-phinf.pstatic.net/team/wfootball/default/12.png?type=f92_88",
+  "/logos/naver-football/12.png",
   "/logos/kbo/LG.png",
-  "https://sports-phinf.pstatic.net/team/wfootball/default/9.png?type=f92_88",
+  "/logos/naver-football/9.png",
   "/logos/kbo/SS.png",
-  "https://sports-phinf.pstatic.net/team/wfootball/default/4.png?type=f92_88",
+  "/logos/naver-football/4.png",
 ];
 
 const COL_B = [
-  "https://sports-phinf.pstatic.net/team/wfootball/default/11.png?type=f92_88",
+  "/logos/naver-football/11.png",
   "/logos/kbo/KT.png",
-  "https://sports-phinf.pstatic.net/team/wfootball/default/2.png?type=f92_88",
+  "/logos/naver-football/2.png",
   "/logos/kbo/NC.png",
-  "https://sports-phinf.pstatic.net/team/wfootball/default/31.png?type=f92_88",
+  "/logos/naver-football/31.png",
   "/logos/kbo/LT.png",
-  "https://sports-phinf.pstatic.net/team/wfootball/default/8.png?type=f92_88",
+  "/logos/naver-football/8.png",
 ];
 
 const COL_C = [
-  "https://sports-phinf.pstatic.net/team/wfootball/default/23.png?type=f92_88",
+  "/logos/naver-football/23.png",
   "/logos/kbo/SK.png",
-  "https://sports-phinf.pstatic.net/team/wfootball/default/48.png?type=f92_88",
+  "/logos/naver-football/48.png",
   "/logos/kbo/HH.png",
-  "https://sports-phinf.pstatic.net/team/wfootball/default/6795.png?type=f92_88",
+  "/logos/naver-football/6795.png",
   "/logos/kbo/OB.png",
   "/logos/kbo/WO.png",
 ];
@@ -72,6 +72,12 @@ function TickerColumn({
               alt=""
               loading="eager"
               referrerPolicy="no-referrer"
+              onError={(e) => {
+                const img = e.currentTarget;
+                if (img.dataset.fallback === "1") return;
+                img.dataset.fallback = "1";
+                img.src = "/icon.png";
+              }}
               className="max-h-full max-w-full object-contain"
             />
           </div>

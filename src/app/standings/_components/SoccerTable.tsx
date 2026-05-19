@@ -278,11 +278,11 @@ function Th({
   className?: string;
 }) {
   return (
-    <th className={`whitespace-nowrap px-1 py-2.5 text-center align-middle text-[11px] font-semibold sm:text-xs ${className}`}>
+    <th className={`whitespace-nowrap text-center align-middle text-[11px] font-semibold sm:text-xs ${className}`}>
       <button
         type="button"
         onClick={onClick}
-        className={`inline-flex items-center justify-center gap-0.5 whitespace-nowrap transition-colors ${
+        className={`flex w-full items-center justify-center gap-0.5 whitespace-nowrap px-1 py-2.5 transition-colors ${
           active
             ? "text-white"
             : highlight
