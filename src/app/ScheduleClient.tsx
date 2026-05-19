@@ -466,13 +466,13 @@ export default function ScheduleClient({
                   />
                 </div>
                 <div
-                  className={`pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+                  className={`pointer-events-none absolute left-0 top-0 bottom-0 z-20 w-10 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
                     showDateLeftFade ? "opacity-100" : "opacity-0"
                   }`}
                   aria-hidden
                 />
                 <div
-                  className={`pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+                  className={`pointer-events-none absolute right-0 top-0 bottom-0 z-20 w-10 bg-gradient-to-l from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
                     showDateRightFade ? "opacity-100" : "opacity-0"
                   }`}
                   aria-hidden
