@@ -28,6 +28,20 @@
   from { opacity: 0; transform: translateX(32px); }
   to { opacity: 1; transform: translateX(0); }
 }
+
+@keyframes tickerScrollUp {
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
+}
+@keyframes tickerScrollDown {
+  from { transform: translateY(-50%); }
+  to { transform: translateY(0); }
+}
+
+@keyframes rippleScale {
+  0% { transform: scale(0); opacity: 1; }
+  100% { transform: scale(1); opacity: 0; }
+}
 .tab-content-anim {
   animation: tabContentIn 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
