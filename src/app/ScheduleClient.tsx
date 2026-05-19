@@ -380,20 +380,24 @@ export default function ScheduleClient({
               ),
             };
           });
-          // 오늘만 작은 점으로 표시. 나머지는 자리만 유지(레이아웃 흔들림 방지).
-          const dotFor = (value: string) =>
-            value === todayStr ? (
-              <span className="h-1 w-1 rounded-full bg-red-500" />
-            ) : (
-              <span className="h-1 w-1" />
-            );
+          // 오늘만 작은 빨간 점, 나머지는 같은 크기의 투명 자리표시.
+          // block 으로 display 명시해 빈 span이 0px 로 collapse 되어 라벨 위치가
+          // 위아래로 흔들리는 현상 차단.
+          const dotFor = (value: string) => (
+            <span
+              aria-hidden
+              className={`block h-1 w-1 rounded-full ${
+                value === todayStr ? "bg-red-500" : ""
+              }`}
+            />
+          );
           return (
             <>
               {/* Mobile: scrollable row */}
               <div className="overflow-x-auto scrollbar-hide sm:hidden">
                 <SmoothTabs
                   ariaLabel="날짜 선택"
-                  gapClass="gap-1.5"
+                  gapClass="gap-3"
                   options={dateOptions}
                   value={selectedDate}
                   onChange={setSelectedDate}
