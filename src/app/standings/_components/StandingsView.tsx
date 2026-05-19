@@ -83,6 +83,8 @@ export function StandingsView({
   // 메인 페이지 PLATFORM 필터와 동일한 가로 스크롤 + indicator + 드래그
   const scrollerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
+  const [showLeftFade, setShowLeftFade] = useState(false);
+  const [showRightFade, setShowRightFade] = useState(false);
   const dragState = useRef({
     isDown: false,
     isDragging: false,
@@ -95,13 +97,18 @@ export function StandingsView({
     const bar = indicatorRef.current;
     if (!el || !bar) return;
     let rafId = 0;
+    const update = () => {
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      const ratio = maxScroll > 0 ? el.scrollLeft / maxScroll : 0;
+      bar.style.transform = `translateX(${ratio * 186}%)`;
+      setShowLeftFade(maxScroll > 2 && el.scrollLeft > 2);
+      setShowRightFade(maxScroll > 2 && el.scrollLeft < maxScroll - 2);
+    };
     const onScroll = () => {
       if (rafId) return;
       rafId = requestAnimationFrame(() => {
         rafId = 0;
-        const maxScroll = el.scrollWidth - el.clientWidth;
-        const ratio = maxScroll > 0 ? el.scrollLeft / maxScroll : 0;
-        bar.style.transform = `translateX(${ratio * 186}%)`;
+        update();
       });
     };
     const stopDrag = () => {
@@ -125,18 +132,22 @@ export function StandingsView({
       el.style.cursor = "grabbing";
       el.scrollLeft = dragState.current.scrollLeft - dx;
     };
+    update();
     el.addEventListener("scroll", onScroll, { passive: true });
     el.addEventListener("mousedown", onMouseDown);
     document.addEventListener("mousemove", onMouseMove, true);
     document.addEventListener("mouseup", stopDrag, true);
+    const onResize = () => update();
+    window.addEventListener("resize", onResize);
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
       el.removeEventListener("scroll", onScroll);
       el.removeEventListener("mousedown", onMouseDown);
       document.removeEventListener("mousemove", onMouseMove, true);
       document.removeEventListener("mouseup", stopDrag, true);
+      window.removeEventListener("resize", onResize);
     };
-  }, []);
+  }, [sport, leagues.length]);
 
   return (
     <div>
@@ -153,6 +164,7 @@ export function StandingsView({
 
       {/* 리그 가로 스크롤 (메인 PLATFORM 필터와 동일) */}
       <div className="pt-2">
+        <div className="relative">
         <div
           ref={scrollerRef}
           className={`overflow-x-auto overflow-y-hidden scrollbar-hide pb-1 pt-1 -mt-1 ${
@@ -197,6 +209,19 @@ export function StandingsView({
               );
             }}
           />
+        </div>
+        <div
+          className={`pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+            showLeftFade ? "opacity-100" : "opacity-0"
+          }`}
+          aria-hidden
+        />
+        <div
+          className={`pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+            showRightFade ? "opacity-100" : "opacity-0"
+          }`}
+          aria-hidden
+        />
         </div>
         {/* Scroll indicator bar — 야구는 리그가 2개라 스크롤 자체가 안 생겨서 숨김 */}
         <div

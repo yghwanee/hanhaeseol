@@ -86,20 +86,58 @@ export default function ScheduleClient({
 
   const platformRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
+  const [showLeftFade, setShowLeftFade] = useState(false);
+  const [showRightFade, setShowRightFade] = useState(false);
   const dragState = useRef({ isDown: false, isDragging: false, startX: 0, scrollLeft: 0 });
+
+  const dateRef = useRef<HTMLDivElement>(null);
+  const [showDateLeftFade, setShowDateLeftFade] = useState(false);
+  const [showDateRightFade, setShowDateRightFade] = useState(false);
+
+  useEffect(() => {
+    const el = dateRef.current;
+    if (!el) return;
+    let rafId = 0;
+    const update = () => {
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      setShowDateLeftFade(maxScroll > 2 && el.scrollLeft > 2);
+      setShowDateRightFade(maxScroll > 2 && el.scrollLeft < maxScroll - 2);
+    };
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        update();
+      });
+    };
+    update();
+    el.addEventListener("scroll", onScroll, { passive: true });
+    const onResize = () => update();
+    window.addEventListener("resize", onResize);
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      el.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+    };
+  }, []);
 
   useEffect(() => {
     const el = platformRef.current;
     const bar = indicatorRef.current;
     if (!el || !bar) return;
     let rafId = 0;
+    const update = () => {
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      const ratio = maxScroll > 0 ? el.scrollLeft / maxScroll : 0;
+      bar.style.transform = `translateX(${ratio * 186}%)`;
+      setShowLeftFade(maxScroll > 2 && el.scrollLeft > 2);
+      setShowRightFade(maxScroll > 2 && el.scrollLeft < maxScroll - 2);
+    };
     const onScroll = () => {
       if (rafId) return;
       rafId = requestAnimationFrame(() => {
         rafId = 0;
-        const maxScroll = el.scrollWidth - el.clientWidth;
-        const ratio = maxScroll > 0 ? el.scrollLeft / maxScroll : 0;
-        bar.style.transform = `translateX(${ratio * 186}%)`;
+        update();
       });
     };
     const stopDrag = () => {
@@ -123,16 +161,20 @@ export default function ScheduleClient({
       el.style.cursor = "grabbing";
       el.scrollLeft = dragState.current.scrollLeft - dx;
     };
+    update();
     el.addEventListener("scroll", onScroll, { passive: true });
     el.addEventListener("mousedown", onMouseDown);
     document.addEventListener("mousemove", onMouseMove, true);
     document.addEventListener("mouseup", stopDrag, true);
+    const onResize = () => update();
+    window.addEventListener("resize", onResize);
     return () => {
       if (rafId) cancelAnimationFrame(rafId);
       el.removeEventListener("scroll", onScroll);
       el.removeEventListener("mousedown", onMouseDown);
       document.removeEventListener("mousemove", onMouseMove, true);
       document.removeEventListener("mouseup", stopDrag, true);
+      window.removeEventListener("resize", onResize);
     };
   }, []);
 
@@ -275,6 +317,7 @@ export default function ScheduleClient({
 
         {/* Platform Filter - Circle Icons */}
         <div className="pt-2 sm:-ml-[21px]">
+          <div className="relative">
           <div
             ref={platformRef}
             className="overflow-x-auto overflow-y-hidden scrollbar-hide pb-1 pt-1 -mt-1"
@@ -317,6 +360,19 @@ export default function ScheduleClient({
                 );
               }}
             />
+          </div>
+          <div
+            className={`pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+              showLeftFade ? "opacity-100" : "opacity-0"
+            }`}
+            aria-hidden
+          />
+          <div
+            className={`pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+              showRightFade ? "opacity-100" : "opacity-0"
+            }`}
+            aria-hidden
+          />
           </div>
           {/* Scroll indicator bar */}
           <div className="mt-3 mx-auto w-28 sm:w-32 h-[3px] rounded-full bg-zinc-800/60">
@@ -397,15 +453,29 @@ export default function ScheduleClient({
           return (
             <>
               {/* Mobile: scrollable row */}
-              <div className="overflow-x-auto scrollbar-hide sm:hidden">
-                <SmoothTabs
-                  ariaLabel="날짜 선택"
-                  gapClass="gap-3"
-                  options={dateOptions}
-                  value={selectedDate}
-                  onChange={setSelectedDate}
-                  renderAbove={todayMarker}
-                  useCapsStripe
+              <div className="relative sm:hidden">
+                <div ref={dateRef} className="overflow-x-auto scrollbar-hide">
+                  <SmoothTabs
+                    ariaLabel="날짜 선택"
+                    gapClass="gap-3"
+                    options={dateOptions}
+                    value={selectedDate}
+                    onChange={setSelectedDate}
+                    renderAbove={todayMarker}
+                    useCapsStripe
+                  />
+                </div>
+                <div
+                  className={`pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+                    showDateLeftFade ? "opacity-100" : "opacity-0"
+                  }`}
+                  aria-hidden
+                />
+                <div
+                  className={`pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+                    showDateRightFade ? "opacity-100" : "opacity-0"
+                  }`}
+                  aria-hidden
                 />
               </div>
               {/* Desktop: full-width row */}

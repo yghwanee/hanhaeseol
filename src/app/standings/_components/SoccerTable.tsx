@@ -56,6 +56,8 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
 
   const scrollerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
+  const [showLeftFade, setShowLeftFade] = useState(false);
+  const [showRightFade, setShowRightFade] = useState(false);
   const dragState = useRef({ isDown: false, isDragging: false, startX: 0, scrollLeft: 0 });
 
   useEffect(() => {
@@ -67,6 +69,8 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
       const maxScroll = el.scrollWidth - el.clientWidth;
       const ratio = maxScroll > 0 ? el.scrollLeft / maxScroll : 0;
       bar.style.transform = `translateX(${ratio * 186}%)`;
+      setShowLeftFade(maxScroll > 2 && el.scrollLeft > 2);
+      setShowRightFade(maxScroll > 2 && el.scrollLeft < maxScroll - 2);
     };
     const onScroll = () => {
       if (rafId) return;
@@ -221,6 +225,20 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
             </tbody>
           </table>
         </div>
+        {/* Left edge fade — sticky 컬럼(순위+팀) 오른쪽부터 시작해서 sticky 가리지 않음 */}
+        <div
+          className={`pointer-events-none absolute left-[180px] top-0 bottom-0 w-10 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 sm:left-[248px] ${
+            showLeftFade ? "opacity-100" : "opacity-0"
+          }`}
+          aria-hidden
+        />
+        {/* Right edge fade */}
+        <div
+          className={`pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+            showRightFade ? "opacity-100" : "opacity-0"
+          }`}
+          aria-hidden
+        />
       </div>
 
       {/* Scroll indicator bar — same style as league filter */}

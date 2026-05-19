@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import type { BaseballStanding } from "@/types/standings";
 import { Last5Dots } from "./Last5Dots";
@@ -44,6 +44,8 @@ function DivisionTable({
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
+  const [showLeftFade, setShowLeftFade] = useState(false);
+  const [showRightFade, setShowRightFade] = useState(false);
   const dragState = useRef({ isDown: false, isDragging: false, startX: 0, scrollLeft: 0 });
 
   useEffect(() => {
@@ -55,6 +57,8 @@ function DivisionTable({
       const maxScroll = el.scrollWidth - el.clientWidth;
       const ratio = maxScroll > 0 ? el.scrollLeft / maxScroll : 0;
       bar.style.transform = `translateX(${ratio * 186}%)`;
+      setShowLeftFade(maxScroll > 2 && el.scrollLeft > 2);
+      setShowRightFade(maxScroll > 2 && el.scrollLeft < maxScroll - 2);
     };
     const onScroll = () => {
       if (rafId) return;
@@ -188,6 +192,18 @@ function DivisionTable({
           </tbody>
         </table>
         </div>
+        <div
+          className={`pointer-events-none absolute left-[150px] top-0 bottom-0 w-10 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 sm:left-[208px] ${
+            showLeftFade ? "opacity-100" : "opacity-0"
+          }`}
+          aria-hidden
+        />
+        <div
+          className={`pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+            showRightFade ? "opacity-100" : "opacity-0"
+          }`}
+          aria-hidden
+        />
       </div>
       <div className="mx-auto mt-2 mb-2 h-[3px] w-24 rounded-full bg-zinc-800/60 sm:w-28">
         <div
