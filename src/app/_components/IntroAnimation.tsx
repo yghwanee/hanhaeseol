@@ -76,25 +76,25 @@ function RippleLoader() {
   );
 }
 
-type Mode = "loading" | "intro" | "ripple" | "done";
+type Mode = "intro" | "ripple" | "done";
 
 /** 같은 SPA 세션(F5 없는 동안) 안에서 인트로/ripple은 한 번만 노출.
  *  내부 네비게이션으로 메인 페이지에 재진입할 때마다 ripple이 뜨는 걸 방지. */
 let handledInThisSession = false;
 
 export function IntroAnimation() {
-  const [mode, setMode] = useState<Mode>("loading");
+  // SSR 부터 mode="intro" 로 시작해 초기 HTML 에 인트로 구조(티커/커서)
+  // 가 박혀 첫 페인트부터 바로 보임. 내부 SPA 네비 재진입 시에는 lazy
+  // initializer 가 handledInThisSession 을 보고 즉시 "done" 으로 시작.
+  const [mode, setMode] = useState<Mode>(() => (handledInThisSession ? "done" : "intro"));
   const [text, setText] = useState("");
   const [fadingOut, setFadingOut] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // 내부 네비게이션 재진입: 인트로/ripple 전부 스킵
-    if (handledInThisSession) {
-      setMode("done");
-      return;
-    }
+    // 내부 네비게이션 재진입: 이미 done 으로 시작했으므로 useEffect 도 no-op.
+    if (handledInThisSession) return;
     handledInThisSession = true;
 
     const hasFlag = sessionStorage.getItem(STORAGE_KEY) === "1";
