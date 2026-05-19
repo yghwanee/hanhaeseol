@@ -95,14 +95,14 @@
   }
 }
 
-/* 모바일 탭(:active)에도 동일 효과 노출 — 손가락 떼면 자동 해제 */
-.btn-caps-stripe:active {
+/* 모바일 탭 시 JS가 추가하는 클래스 — sweep 끝까지 재생 후 라우팅 */
+.btn-caps-stripe.caps-stripe-pressed {
   color: rgb(24 24 27);
 }
-.btn-caps-stripe:active::before {
+.btn-caps-stripe.caps-stripe-pressed::before {
   inset: -3px;
 }
-.btn-caps-stripe:active::after {
+.btn-caps-stripe.caps-stripe-pressed::after {
   clip-path: polygon(0% 0%, 200% 0%, 100% 100%, 0% 100%);
 }
 

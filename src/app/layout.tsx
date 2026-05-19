@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import Script from "next/script";
 import scheduleData from "@/data/schedule.json";
 import { CoupangSideBanners } from "./_components/CoupangBanners";
+import { CapsStripeClickHandler } from "./_components/CapsStripeClickHandler";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -128,6 +129,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
       </head>
       <body className={`${geistSans.variable} antialiased`}>
         <CoupangSideBanners />
+        <CapsStripeClickHandler />
         {children}
       </body>
     </html>
