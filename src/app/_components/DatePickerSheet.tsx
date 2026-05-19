@@ -41,6 +41,7 @@ export function DatePickerSheet({
   const [viewYear, setViewYear] = useState(initial.year);
   const [viewMonth, setViewMonth] = useState(initial.month0);
   const [tempSelected, setTempSelected] = useState(selectedDate);
+  const [confirmPressing, setConfirmPressing] = useState(false);
 
   // 열릴 때마다 현재 selectedDate 기준으로 view 동기화.
   useEffect(() => {
@@ -48,6 +49,7 @@ export function DatePickerSheet({
     setViewYear(initial.year);
     setViewMonth(initial.month0);
     setTempSelected(selectedDate);
+    setConfirmPressing(false);
   }, [isOpen, selectedDate, initial.year, initial.month0]);
 
   // ESC로 닫기.
@@ -290,17 +292,23 @@ export function DatePickerSheet({
             })}
           </div>
 
-          {/* 확정 버튼 — 사이트 시그니처 btn-caps-stripe 톤. */}
+          {/* 확정 버튼 — 사이트 시그니처 btn-caps-stripe 톤. sweep 효과를 끝까지 재생 후 닫기. */}
           <div className="px-4 pb-5 pt-1">
             <button
               type="button"
               disabled={!canConfirm}
               onClick={() => {
-                onSelect(tempSelected);
-                onClose();
+                if (!canConfirm || confirmPressing) return;
+                setConfirmPressing(true);
+                window.setTimeout(() => {
+                  onSelect(tempSelected);
+                  onClose();
+                }, 380);
               }}
               className={`inline-flex w-full items-center justify-center py-3 text-[14px] font-medium ${
-                canConfirm ? "btn-caps-stripe" : "cursor-not-allowed bg-zinc-800 text-zinc-500"
+                canConfirm
+                  ? `btn-caps-stripe${confirmPressing ? " caps-stripe-pressed" : ""}`
+                  : "cursor-not-allowed bg-zinc-800 text-zinc-500"
               }`}
             >
               {confirmLabel}
