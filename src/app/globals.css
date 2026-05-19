@@ -48,13 +48,19 @@
 
 /* 페이지 라우팅 enter — designus.design 의 Nuxt page transition 패턴 차용.
  * 새 페이지가 위에서 살짝 떨어지듯 들어오는 느낌. App Router 는 leave 를
- * 자연스럽게 못 잡아서 enter 만 적용 (체감상 동일). */
+ * 자연스럽게 못 잡아서 enter 만 적용 (체감상 동일).
+ *
+ * 주의: fill-mode 는 'backwards' 사용 — 'both/forwards' 쓰면 애니 끝나도
+ * translateY(0) 트랜스폼이 남아 그 자식 position:fixed 모달의 containing
+ * block 이 viewport 가 아닌 이 wrapper(문서 전체 높이) 가 되어 모달이
+ * 화면 밖에 뜸. backwards 는 시작 전 from 상태만 유지하고 끝나면 깔끔히
+ * 자연 상태(transform:none) 로 복귀. */
 @keyframes pageEnter {
   from { opacity: 0; transform: translateY(-6px); }
   to   { opacity: 1; transform: translateY(0); }
 }
 .page-enter-anim {
-  animation: pageEnter 300ms cubic-bezier(0, 0.55, 0.45, 1) both;
+  animation: pageEnter 300ms cubic-bezier(0, 0.55, 0.45, 1) backwards;
 }
 
 .btn-caps-stripe {
