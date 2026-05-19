@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
 import type { BaseballStanding } from "@/types/standings";
 import { Last5Dots } from "./Last5Dots";
@@ -42,13 +42,77 @@ function DivisionTable({
   label: string;
   teams: BaseballStanding[];
 }) {
+  const scrollerRef = useRef<HTMLDivElement>(null);
+  const indicatorRef = useRef<HTMLDivElement>(null);
+  const [showLeftFade, setShowLeftFade] = useState(false);
+  const [showRightFade, setShowRightFade] = useState(false);
+  const dragState = useRef({ isDown: false, isDragging: false, startX: 0, scrollLeft: 0 });
+
+  useEffect(() => {
+    const el = scrollerRef.current;
+    const bar = indicatorRef.current;
+    if (!el || !bar) return;
+    let rafId = 0;
+    const update = () => {
+      const maxScroll = el.scrollWidth - el.clientWidth;
+      const ratio = maxScroll > 0 ? el.scrollLeft / maxScroll : 0;
+      bar.style.transform = `translateX(${ratio * 186}%)`;
+      setShowLeftFade(maxScroll > 2 && el.scrollLeft > 2);
+      setShowRightFade(maxScroll > 2 && el.scrollLeft < maxScroll - 2);
+    };
+    const onScroll = () => {
+      if (rafId) return;
+      rafId = requestAnimationFrame(() => {
+        rafId = 0;
+        update();
+      });
+    };
+    const stopDrag = () => {
+      dragState.current.isDown = false;
+      dragState.current.isDragging = false;
+      el.style.cursor = "";
+      el.style.userSelect = "";
+    };
+    const onMouseDown = (e: MouseEvent) => {
+      e.preventDefault();
+      dragState.current.isDown = true;
+      dragState.current.isDragging = false;
+      dragState.current.startX = e.clientX;
+      dragState.current.scrollLeft = el.scrollLeft;
+    };
+    const onMouseMove = (e: MouseEvent) => {
+      if (!dragState.current.isDown) return;
+      const dx = e.clientX - dragState.current.startX;
+      if (!dragState.current.isDragging && Math.abs(dx) < 5) return;
+      dragState.current.isDragging = true;
+      el.style.cursor = "grabbing";
+      el.scrollLeft = dragState.current.scrollLeft - dx;
+    };
+    update();
+    el.addEventListener("scroll", onScroll, { passive: true });
+    el.addEventListener("mousedown", onMouseDown);
+    document.addEventListener("mousemove", onMouseMove, true);
+    document.addEventListener("mouseup", stopDrag, true);
+    const onResize = () => update();
+    window.addEventListener("resize", onResize);
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      el.removeEventListener("scroll", onScroll);
+      el.removeEventListener("mousedown", onMouseDown);
+      document.removeEventListener("mousemove", onMouseMove, true);
+      document.removeEventListener("mouseup", stopDrag, true);
+      window.removeEventListener("resize", onResize);
+    };
+  }, [teams]);
+
   return (
     <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/50">
       <div className="border-b border-zinc-800/80 px-3 py-2 sm:px-4">
         <h3 className="text-sm font-semibold text-white sm:text-base">{label}</h3>
       </div>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[520px] table-fixed text-[12px] sm:text-sm">
+      <div className="relative">
+        <div ref={scrollerRef} className="overflow-x-auto scrollbar-hide">
+          <table className="w-full min-w-[520px] table-fixed text-[12px] sm:text-sm">
           <colgroup>
             <col className="w-10 sm:w-12" />
             <col className="w-[110px] sm:w-[160px]" />
@@ -125,6 +189,26 @@ function DivisionTable({
             ))}
           </tbody>
         </table>
+        </div>
+        <div
+          className={`pointer-events-none absolute left-0 top-0 bottom-0 w-12 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+            showLeftFade ? "opacity-100" : "opacity-0"
+          }`}
+          aria-hidden
+        />
+        <div
+          className={`pointer-events-none absolute right-0 top-0 bottom-0 w-12 bg-gradient-to-l from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+            showRightFade ? "opacity-100" : "opacity-0"
+          }`}
+          aria-hidden
+        />
+      </div>
+      <div className="mx-auto mt-2 mb-2 h-[3px] w-24 rounded-full bg-zinc-800/60 sm:w-28">
+        <div
+          ref={indicatorRef}
+          className="h-full rounded-full bg-zinc-500/80"
+          style={{ width: "35%", transform: "translateX(0%)", willChange: "transform" }}
+        />
       </div>
     </div>
   );

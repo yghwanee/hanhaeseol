@@ -12,7 +12,7 @@ import { getUpcomingDates, getTodayString } from "@/lib/schedule-utils";
 import { StickyHeader } from "./_components/StickyHeader";
 import { SPORTS, PLATFORM_LIST } from "./_components/constants";
 import { PlatformIcon } from "./_components/PlatformIcon";
-import { FilterButton } from "./_components/FilterButton";
+import { SmoothTabs, SmoothCircleTabs } from "./_components/SmoothTabs";
 import { ScheduleCard } from "./_components/ScheduleCard";
 import { AdSkeleton } from "./_components/AdSkeleton";
 
@@ -211,15 +211,13 @@ export default function ScheduleClient({
           <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-zinc-300">
             종목
           </span>
-          <div className="flex gap-1 sm:gap-1.5 overflow-x-auto scrollbar-hide">
-            {SPORTS.map((s) => (
-              <FilterButton
-                key={s}
-                label={s}
-                active={sport === s}
-                onClick={() => handleSelectSport(s)}
-              />
-            ))}
+          <div className="overflow-x-auto scrollbar-hide">
+            <SmoothTabs
+              ariaLabel="종목 필터"
+              options={SPORTS.map((s) => ({ value: s, label: s }))}
+              value={sport as (typeof SPORTS)[number]}
+              onChange={handleSelectSport}
+            />
           </div>
         </div>
 
@@ -228,20 +226,15 @@ export default function ScheduleClient({
           <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-zinc-300">
             해설
           </span>
-          <FilterButton
-            label="전체"
-            active={commentaryFilter === "all"}
-            onClick={() => setCommentaryFilter("all")}
-          />
-          <FilterButton
-            label="한국어 해설"
-            active={commentaryFilter === "korean"}
-            onClick={() => setCommentaryFilter("korean")}
-          />
-          <FilterButton
-            label="현지 해설"
-            active={commentaryFilter === "foreign"}
-            onClick={() => setCommentaryFilter("foreign")}
+          <SmoothTabs<"all" | "korean" | "foreign">
+            ariaLabel="해설 필터"
+            options={[
+              { value: "all", label: "전체" },
+              { value: "korean", label: "한국어 해설" },
+              { value: "foreign", label: "현지 해설" },
+            ]}
+            value={commentaryFilter}
+            onChange={setCommentaryFilter}
           />
         </div>
 
@@ -249,39 +242,46 @@ export default function ScheduleClient({
         <div className="pt-2 sm:-ml-[21px]">
           <div
             ref={platformRef}
-            className="flex overflow-x-auto overflow-y-hidden scrollbar-hide pb-1 pt-1 -mt-1"
+            className="overflow-x-auto overflow-y-hidden scrollbar-hide pb-1 pt-1 -mt-1"
           >
-            {PLATFORM_LIST.map(({ key, label }) => {
-              const isActive = platform === key;
-              return (
-                <button
-                  key={key}
-                  onClick={() => handleSelectPlatform(key)}
-                  className="flex shrink-0 flex-col items-center gap-1.5 group"
-                  style={{ width: 75 }}
-                >
-                  <div
-                    className={`flex h-14 w-14 items-center justify-center rounded-full transition-all duration-200 ${
-                      key === "전체"
-                        ? isActive
-                          ? "bg-white text-zinc-900 ring-2 ring-zinc-400 scale-105"
-                          : "bg-transparent text-zinc-400 ring-1 ring-zinc-600 group-hover:ring-zinc-400 group-hover:scale-105"
-                        : isActive
-                          ? "bg-zinc-200 ring-2 ring-zinc-400 scale-105"
-                          : "bg-zinc-800/80 group-hover:bg-zinc-700/80 group-hover:scale-105"
-                    }`}
-                  >
-                    <PlatformIcon platformKey={key} />
+            <SmoothCircleTabs
+              ariaLabel="플랫폼 필터"
+              options={PLATFORM_LIST.map((p) => p.key)}
+              value={platform as (typeof PLATFORM_LIST)[number]["key"]}
+              onChange={handleSelectPlatform}
+              itemWidth={75}
+              ringSize={56}
+              renderItem={(key, isActive) => {
+                const label = PLATFORM_LIST.find((p) => p.key === key)?.label ?? key;
+                return (
+                  <div className="flex flex-col items-center gap-1.5">
+                    <div
+                      data-circle
+                      className={`flex h-14 w-14 items-center justify-center rounded-full transition-all duration-200 ${
+                        isActive ? "scale-105" : "scale-100"
+                      } ${
+                        key === "전체"
+                          ? isActive
+                            ? "bg-white text-zinc-900"
+                            : "bg-transparent text-zinc-400 ring-1 ring-zinc-600"
+                          : isActive
+                            ? "bg-zinc-200"
+                            : "bg-zinc-800/80"
+                      }`}
+                    >
+                      <PlatformIcon platformKey={key} />
+                    </div>
+                    <span
+                      className={`text-[10px] sm:text-[11px] font-medium transition-colors whitespace-nowrap ${
+                        isActive ? "text-zinc-100" : "text-zinc-500"
+                      }`}
+                    >
+                      {label}
+                    </span>
                   </div>
-                  <span className={`text-[10px] sm:text-[11px] font-medium transition-colors whitespace-nowrap ${
-                    isActive ? "text-zinc-100" : "text-zinc-500 group-hover:text-zinc-300"
-                  }`}>
-                    {label}
-                  </span>
-                </button>
-              );
-            })}
-            <div className="shrink-0 w-4" />
+                );
+              }}
+            />
           </div>
           {/* Scroll indicator bar */}
           <div className="mt-3 mx-auto w-28 sm:w-32 h-[3px] rounded-full bg-zinc-800/60">
@@ -317,48 +317,44 @@ export default function ScheduleClient({
 
       {/* Date Tabs */}
       <div className="mb-6 sm:mb-10">
-        {/* Mobile: scrollable row */}
-        <div className="flex gap-1.5 overflow-x-auto scrollbar-hide sm:hidden">
-          {weekDates.map((d) => {
-            const day = new Date(d.value + "T00:00:00").getDay();
-            return (
-              <div key={d.value} className="flex shrink-0 flex-col items-center gap-1.5">
-                {day === 6 ? <span className="h-1.5 w-1.5 rounded-full bg-blue-500" /> : day === 0 ? <span className="h-1.5 w-1.5 rounded-full bg-red-500" /> : <span className="h-1.5 w-1.5" />}
-                <button
-                  onClick={() => setSelectedDate(d.value)}
-                  className={`rounded-lg border border-zinc-700 px-3 py-1.5 text-xs font-medium transition-colors ${
-                    selectedDate === d.value
-                      ? "bg-zinc-100 text-zinc-900"
-                      : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
-                  }`}
-                >
-                  {d.label}
-                </button>
+        {(() => {
+          const dateOptions = weekDates.map((d) => ({ value: d.value, label: d.label }));
+          const dotFor = (value: string) => {
+            const day = new Date(value + "T00:00:00").getDay();
+            if (day === 6) return <span className="h-1.5 w-1.5 rounded-full bg-blue-500" />;
+            if (day === 0) return <span className="h-1.5 w-1.5 rounded-full bg-red-500" />;
+            return <span className="h-1.5 w-1.5" />;
+          };
+          return (
+            <>
+              {/* Mobile: scrollable row */}
+              <div className="overflow-x-auto scrollbar-hide sm:hidden">
+                <SmoothTabs
+                  ariaLabel="날짜 선택"
+                  variant="bordered"
+                  gapClass="gap-1.5"
+                  options={dateOptions}
+                  value={selectedDate}
+                  onChange={setSelectedDate}
+                  renderAbove={dotFor}
+                />
               </div>
-            );
-          })}
-        </div>
-        {/* Desktop: grid */}
-        <div className="hidden sm:grid grid-cols-7 gap-2">
-          {weekDates.map((d) => {
-            const day = new Date(d.value + "T00:00:00").getDay();
-            return (
-              <div key={d.value} className="flex flex-col items-center gap-2">
-                {day === 6 ? <span className="h-1.5 w-1.5 rounded-full bg-blue-500" /> : day === 0 ? <span className="h-1.5 w-1.5 rounded-full bg-red-500" /> : <span className="h-1.5 w-1.5" />}
-                <button
-                  onClick={() => setSelectedDate(d.value)}
-                  className={`w-full rounded-lg border border-zinc-700 py-2 text-sm font-medium transition-colors ${
-                    selectedDate === d.value
-                      ? "bg-zinc-100 text-zinc-900"
-                      : "text-zinc-400 hover:bg-zinc-800 hover:text-zinc-200"
-                  }`}
-                >
-                  {d.label}
-                </button>
+              {/* Desktop: full-width row */}
+              <div className="hidden sm:block">
+                <SmoothTabs
+                  ariaLabel="날짜 선택"
+                  variant="bordered"
+                  fullWidth
+                  gapClass="gap-2"
+                  options={dateOptions}
+                  value={selectedDate}
+                  onChange={setSelectedDate}
+                  renderAbove={dotFor}
+                />
               </div>
-            );
-          })}
-        </div>
+            </>
+          );
+        })()}
       </div>
 
       {/* Search */}
@@ -386,12 +382,18 @@ export default function ScheduleClient({
 
       {/* Schedule List */}
       {filtered.length === 0 ? (
-        <div className="flex flex-col items-center justify-center py-16 sm:py-20 text-zinc-500">
+        <div
+          key={`empty:${selectedDate}|${sport}|${platform}|${commentaryFilter}`}
+          className="tab-content-anim flex flex-col items-center justify-center py-16 sm:py-20 text-zinc-500"
+        >
           <span className="text-2xl sm:text-3xl">📭</span>
           <p className="mt-3 text-xs sm:text-sm">해당 조건의 편성이 없습니다</p>
         </div>
       ) : (
-        <div className="space-y-2.5 sm:space-y-3">
+        <div
+          key={`list:${selectedDate}|${sport}|${platform}|${commentaryFilter}`}
+          className="tab-content-anim space-y-2.5 sm:space-y-3"
+        >
           <div className="flex items-center gap-2 text-xs sm:text-sm text-zinc-300">
             <button
               onClick={() => setShowInfo(true)}

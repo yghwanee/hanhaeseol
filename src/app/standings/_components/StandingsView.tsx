@@ -7,7 +7,7 @@ import type {
   SoccerLeagueStandings,
   StandingsData,
 } from "@/types/standings";
-import { FilterButton } from "../../_components/FilterButton";
+import { SmoothTabs, SmoothCircleTabs } from "../../_components/SmoothTabs";
 import { SoccerTable } from "./SoccerTable";
 import { BaseballTable } from "./BaseballTable";
 import { MlbStandingsTable } from "./MlbStandingsTable";
@@ -143,62 +143,60 @@ export function StandingsView({
       {/* 페이지 제목 + 종목 탭 (한 줄) */}
       <div className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-2 sm:mb-8">
         <h1 className="text-2xl font-bold text-white sm:text-3xl">팀 순위</h1>
-        <div className="flex gap-1 sm:gap-1.5">
-          {SPORTS.map((s) => (
-            <FilterButton
-              key={s.key}
-              label={s.label}
-              active={sport === s.key}
-              onClick={() => onSportClick(s.key)}
-            />
-          ))}
-        </div>
+        <SmoothTabs<SportKey>
+          ariaLabel="종목 선택"
+          options={SPORTS.map((s) => ({ value: s.key, label: s.label }))}
+          value={sport}
+          onChange={onSportClick}
+        />
       </div>
 
       {/* 리그 가로 스크롤 (메인 PLATFORM 필터와 동일) */}
       <div className="pt-2">
         <div
           ref={scrollerRef}
-          className={`flex overflow-x-auto overflow-y-hidden scrollbar-hide pb-1 pt-1 -mt-1 ${
-            sport === "baseball" ? "justify-center" : ""
+          className={`overflow-x-auto overflow-y-hidden scrollbar-hide pb-1 pt-1 -mt-1 ${
+            sport === "baseball" ? "flex justify-center" : ""
           }`}
         >
-          {leagues.map((lg) => {
-            const active = lg.id === current?.id;
-            const short = LEAGUE_SHORT[lg.id] ?? lg.name.slice(0, 3);
-            return (
-              <button
-                key={lg.id}
-                onClick={() => setLeagueId(lg.id)}
-                className="flex shrink-0 flex-col items-center gap-1.5 group"
-                style={{ width: 75 }}
-              >
-                <div
-                  className={`flex h-14 w-14 items-center justify-center rounded-full transition-all duration-200 ${
-                    active
-                      ? "bg-zinc-200 ring-2 ring-zinc-400 scale-105"
-                      : "bg-zinc-800/80 group-hover:bg-zinc-700/80 group-hover:scale-105"
-                  }`}
-                >
-                  <span
-                    className={`font-bold tracking-tight ${
-                      short.length >= 4 ? "text-[10px]" : "text-[12px]"
-                    } ${active ? "text-zinc-900" : "text-zinc-200"}`}
+          <SmoothCircleTabs
+            ariaLabel="리그 선택"
+            options={leagues.map((lg) => lg.id)}
+            value={current?.id ?? ""}
+            onChange={setLeagueId}
+            itemWidth={75}
+            ringSize={56}
+            renderItem={(id, active) => {
+              const lg = leagues.find((l) => l.id === id);
+              if (!lg) return null;
+              const short = LEAGUE_SHORT[lg.id] ?? lg.name.slice(0, 3);
+              return (
+                <div className="flex flex-col items-center gap-1.5">
+                  <div
+                    data-circle
+                    className={`flex h-14 w-14 items-center justify-center rounded-full transition-all duration-200 ${
+                      active ? "scale-105 bg-zinc-200" : "scale-100 bg-zinc-800/80"
+                    }`}
                   >
-                    {short}
+                    <span
+                      className={`font-bold tracking-tight ${
+                        short.length >= 4 ? "text-[10px]" : "text-[12px]"
+                      } ${active ? "text-zinc-900" : "text-zinc-200"}`}
+                    >
+                      {short}
+                    </span>
+                  </div>
+                  <span
+                    className={`text-[10px] sm:text-[11px] font-medium transition-colors whitespace-nowrap ${
+                      active ? "text-zinc-100" : "text-zinc-500"
+                    }`}
+                  >
+                    {lg.name}
                   </span>
                 </div>
-                <span
-                  className={`text-[10px] sm:text-[11px] font-medium transition-colors whitespace-nowrap ${
-                    active ? "text-zinc-100" : "text-zinc-500 group-hover:text-zinc-300"
-                  }`}
-                >
-                  {lg.name}
-                </span>
-              </button>
-            );
-          })}
-          <div className="shrink-0 w-4" />
+              );
+            }}
+          />
         </div>
         {/* Scroll indicator bar — 야구는 리그가 2개라 스크롤 자체가 안 생겨서 숨김 */}
         <div
@@ -216,7 +214,7 @@ export function StandingsView({
 
       {/* 선택 리그 헤더 + 편성표 진입 */}
       {current && (
-        <>
+        <div key={`${sport}|${current.id}`} className="tab-content-anim">
           <div className="mt-6 flex flex-wrap items-end justify-between gap-3">
             <div>
               <h2 className="text-xl font-bold text-white sm:text-2xl">
@@ -249,7 +247,7 @@ export function StandingsView({
               <BaseballTable teams={(current as BaseballLeagueStandings).teams} />
             )}
           </div>
-        </>
+        </div>
       )}
     </div>
   );

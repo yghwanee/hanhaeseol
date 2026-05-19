@@ -18,11 +18,6 @@ export function IntroAnimation() {
       setVisible(false);
       return;
     }
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      sessionStorage.setItem(STORAGE_KEY, "1");
-      setVisible(false);
-      return;
-    }
 
     let cancelled = false;
     const timers: ReturnType<typeof setTimeout>[] = [];
