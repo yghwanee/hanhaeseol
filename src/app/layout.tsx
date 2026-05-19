@@ -4,6 +4,7 @@ import Script from "next/script";
 import scheduleData from "@/data/schedule.json";
 import { CoupangSideBanners } from "./_components/CoupangBanners";
 import { CapsStripeClickHandler } from "./_components/CapsStripeClickHandler";
+import { PageTransition } from "./_components/PageTransition";
 import { INTRO_EMBLEM_PATHS } from "./_components/intro-emblems";
 import "./globals.css";
 
@@ -136,7 +137,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
       <body className={`${geistSans.variable} antialiased`}>
         <CoupangSideBanners />
         <CapsStripeClickHandler />
-        {children}
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );
