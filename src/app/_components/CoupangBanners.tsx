@@ -2,33 +2,25 @@
 
 import { useEffect, useState } from "react";
 import { AdSkeleton } from "./AdSkeleton";
-import { INTRO_DONE_EVENT } from "./IntroAnimation";
-
-const INTRO_STORAGE_KEY = "haeseol-intro-seen";
+import { INTRO_DONE_EVENT, isIntroDone } from "./IntroAnimation";
 
 /** 인트로(fixed z-[100] bg-zinc-950) 가 끝난 뒤 광고 노출.
  *  사이드 배너(z-10 fixed)가 인트로 fadeout 중 AdSkeleton 깜빡임으로 비치는
- *  문제 방지 + 페이지 본격 노출 시점에 맞춰 광고도 등장. */
+ *  문제 방지. isIntroDone() 글로벌 체크 + INTRO_DONE_EVENT 리스너 조합으로
+ *  React effect 실행 순서(IntroAnimation 의 useEffect 가 먼저 fire 되어
+ *  listener 등록 전에 dispatch 되는 케이스) 해결. */
 function useShowAds() {
   const [showAds, setShowAds] = useState(false);
   useEffect(() => {
     if (typeof window === "undefined") return;
-
-    // 인트로 이미 본 경우(재진입 ripple): 짧은 ripple 끝나면 INTRO_DONE_EVENT 가
-    // 옴. flag 만 보고 즉시 띄우면 ripple 도중 비침. listener 로 통일.
+    // mount 시 이미 인트로가 끝나 있으면 즉시 표시 (race-safe).
+    if (isIntroDone()) {
+      setShowAds(true);
+      return;
+    }
     const reveal = () => setShowAds(true);
-
-    // 이미 done 된 상태(내부 SPA 재진입 등)면 flag 가 있을 거. 그땐 살짝 지연 후
-    // 표시 (이벤트 못 받을 수도 있어 fallback).
-    const fallback = setTimeout(() => {
-      if (sessionStorage.getItem(INTRO_STORAGE_KEY) === "1") setShowAds(true);
-    }, 100);
-
     window.addEventListener(INTRO_DONE_EVENT, reveal);
-    return () => {
-      clearTimeout(fallback);
-      window.removeEventListener(INTRO_DONE_EVENT, reveal);
-    };
+    return () => window.removeEventListener(INTRO_DONE_EVENT, reveal);
   }, []);
   return showAds;
 }
