@@ -5,6 +5,7 @@ import { loadScheduleData, loadTeamRecords, loadResults } from "@/lib/server-dat
 import ScheduleClient from "./ScheduleClient";
 import { HomeAboutSection } from "./_components/HomeAboutSection";
 import WeekHighlights from "./_components/WeekHighlights";
+import { IntroAnimation } from "./_components/IntroAnimation";
 
 function buildSportsEventsJsonLd(schedules: Schedule[]) {
   const todayStr = new Date().toISOString().slice(0, 10);
@@ -84,6 +85,7 @@ export default function Home({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(sportsEventsJsonLd) }}
       />
+      <IntroAnimation />
       <main>
         <ScheduleClient
           initialData={data}
