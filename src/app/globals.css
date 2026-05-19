@@ -46,6 +46,14 @@
   animation: tabContentIn 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* standings 테이블의 sticky 좌측 컬럼(순위/팀)은 freeze pane 역할이라
+ * 그 위에서 가로 swipe 가 스크롤을 트리거하면 의미가 깨짐. 가로 pan 차단,
+ * 세로 pan(페이지 스크롤)만 허용. */
+table th.sticky,
+table td.sticky {
+  touch-action: pan-y;
+}
+
 /* 페이지 라우팅 enter — designus.design 의 Nuxt page transition 패턴 차용.
  * 새 페이지가 위에서 살짝 떨어지듯 들어오는 느낌. App Router 는 leave 를
  * 자연스럽게 못 잡아서 enter 만 적용 (체감상 동일).

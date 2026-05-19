@@ -68,6 +68,8 @@ export function BaseballTable({ teams }: { teams: BaseballStanding[] }) {
       el.style.userSelect = "";
     };
     const onMouseDown = (e: MouseEvent) => {
+      // sticky freeze 컬럼(순위/팀) 위에서 시작한 드래그는 스크롤 트리거 X.
+      if ((e.target as HTMLElement | null)?.closest(".sticky")) return;
       e.preventDefault();
       dragState.current.isDown = true;
       dragState.current.isDragging = false;
