@@ -1,11 +1,13 @@
 import { MetadataRoute } from "next";
 import scheduleData from "@/data/schedule.json";
+import archiveData from "@/data/schedule-archive.json";
 import { LEAGUE_SEO, PLATFORM_SEO } from "@/lib/slugs";
 import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
 import { matchToSlug } from "@/lib/match-slug";
-import type { ScheduleData } from "@/types/schedule";
+import type { Schedule, ScheduleData } from "@/types/schedule";
 
 const data = scheduleData as unknown as ScheduleData;
+const archive = archiveData as unknown as ScheduleData;
 
 const BASE = "https://haeseol.com";
 
@@ -35,11 +37,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   // sitemap.org 규격은 URL이 RFC 3986 (percent-encoded). 한글 슬러그는 반드시 encodeURIComponent.
   // 하이픈/숫자/영문은 그대로 통과, 한글만 %xx 형태로 변환됨.
-  const matchUrls = data.schedules.map((s) => ({
+  //
+  // schedule(현재 7일치) + archive(영구 누적)를 id 기준 dedupe해 사이트맵에 포함.
+  // 과거 경기 URL도 영구 노출 → Google이 영구 색인 가능, 404 누적 차단.
+  const matchById = new Map<string, Schedule>();
+  for (const s of archive.schedules) matchById.set(s.id, s);
+  for (const s of data.schedules) matchById.set(s.id, s); // 최신 우선
+  const matchUrls = [...matchById.values()].map((s) => ({
     url: `${BASE}/match/${encodeURIComponent(matchToSlug(s))}`,
     lastModified: new Date(s.date),
-    changeFrequency: "daily" as const,
-    priority: 0.7,
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
   }));
 
   return [

@@ -1,6 +1,6 @@
 import "dotenv/config";
 import { crawlDateRange } from "../lib/crawlers";
-import { ScheduleData } from "../types/schedule";
+import { Schedule, ScheduleData } from "../types/schedule";
 import fs from "fs/promises";
 import path from "path";
 
@@ -40,8 +40,39 @@ async function main() {
   const publicPath = path.join(process.cwd(), "public/schedule.json");
   await fs.writeFile(publicPath, jsonStr, "utf-8");
 
+  // schedule-archive.json 누적: 현재 schedule.json에 들어간 모든 경기를 archive에
+  // id 기준 merge (새 데이터가 우선). 7일이 지나 schedule.json에서 빠져도 archive에는 영구 보존.
+  // /match/[slug] 페이지가 archive에서 매치를 찾아 404를 막고, SEO 자산으로 유지된다.
+  const archivePath = path.join(process.cwd(), "src/data/schedule-archive.json");
+  const archivePublicPath = path.join(process.cwd(), "public/schedule-archive.json");
+  let archive: ScheduleData = { lastUpdated: "", schedules: [] };
+  try {
+    const raw = await fs.readFile(archivePath, "utf-8");
+    archive = JSON.parse(raw);
+  } catch {
+    // 파일 없으면 새로 시작
+  }
+
+  const byId = new Map<string, Schedule>();
+  for (const s of archive.schedules) byId.set(s.id, s);
+  for (const s of data.schedules) byId.set(s.id, s); // 최신 정보로 덮어쓰기
+
+  const sortedSchedules = [...byId.values()].sort((a, b) => {
+    if (a.date !== b.date) return a.date.localeCompare(b.date);
+    return a.time.localeCompare(b.time);
+  });
+
+  const newArchive: ScheduleData = {
+    lastUpdated: new Date().toISOString(),
+    schedules: sortedSchedules,
+  };
+  const archiveJson = JSON.stringify(newArchive, null, 2);
+  await fs.writeFile(archivePath, archiveJson, "utf-8");
+  await fs.writeFile(archivePublicPath, archiveJson, "utf-8");
+
   console.log("---");
   console.log(`완료: 총 ${data.schedules.length}건 → ${outPath}`);
+  console.log(`archive: 총 ${sortedSchedules.length}건 (${archive.schedules.length} + 신규 ${sortedSchedules.length - archive.schedules.length}건)`);
 }
 
 main().catch((err) => {

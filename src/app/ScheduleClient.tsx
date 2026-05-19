@@ -15,6 +15,7 @@ import { PlatformIcon } from "./_components/PlatformIcon";
 import { SmoothTabs, SmoothCircleTabs } from "./_components/SmoothTabs";
 import { ScheduleCard } from "./_components/ScheduleCard";
 import { AdSkeleton } from "./_components/AdSkeleton";
+import { DatePickerSheet } from "./_components/DatePickerSheet";
 
 export default function ScheduleClient({
   initialData,
@@ -41,6 +42,30 @@ export default function ScheduleClient({
   const [searchQuery, setSearchQuery] = useState("");
   const [showInfo, setShowInfo] = useState(false);
   const [showAds, setShowAds] = useState(false);
+
+  // archive 데이터 (과거 경기들). 사용자가 datepicker로 과거 날짜를 선택하면 그때 lazy fetch.
+  // 영구 누적 데이터라 크기가 크므로 초기 로드에 포함하지 않음.
+  const [archive, setArchive] = useState<ScheduleData | null>(null);
+  const [archiveResults, setArchiveResults] = useState<ResultsData | null>(null);
+  const [archiveLoading, setArchiveLoading] = useState(false);
+  const [datepickerOpen, setDatepickerOpen] = useState(false);
+  const todayStr = useMemo(() => getTodayString(), []);
+  const isArchiveDate = selectedDate < todayStr;
+
+  useEffect(() => {
+    if (!isArchiveDate || archive || archiveLoading) return;
+    setArchiveLoading(true);
+    Promise.all([
+      fetch("/schedule-archive.json").then((r) => (r.ok ? r.json() : null)),
+      fetch("/results-archive.json").then((r) => (r.ok ? r.json() : null)).catch(() => null),
+    ])
+      .then(([sch, res]) => {
+        if (sch) setArchive(sch);
+        if (res) setArchiveResults(res);
+      })
+      .catch((e) => console.error("archive fetch failed", e))
+      .finally(() => setArchiveLoading(false));
+  }, [isArchiveDate, archive, archiveLoading]);
 
   // 상태 변경 시 URL 동기화 (history.replaceState로 라우터 재요청 없이).
   // 초기값은 서버에서 prop으로 받으므로 mount 시 query → state 동기화 단계 없음 (깜빡임 방지).
@@ -119,9 +144,11 @@ export default function ScheduleClient({
   const weekDates = useMemo(() => getUpcomingDates(), []);
 
   const filtered = useMemo(() => {
-    if (!data) return [];
+    // 과거 날짜는 archive에서, 오늘 이후는 schedule.json에서 데이터를 가져온다.
+    const source = isArchiveDate ? archive : data;
+    if (!source) return [];
     const q = searchQuery.trim().toLowerCase();
-    return data.schedules
+    return source.schedules
       .filter((s) => s.date === selectedDate)
       .filter((s) => sport === "전체" || s.sport === sport)
       .filter((s) => platform === "전체" || s.platform === platform)
@@ -139,7 +166,23 @@ export default function ScheduleClient({
         );
       })
       .sort((a, b) => a.time.localeCompare(b.time));
-  }, [data, selectedDate, sport, platform, commentaryFilter, searchQuery]);
+  }, [data, archive, isArchiveDate, selectedDate, sport, platform, commentaryFilter, searchQuery]);
+
+  // 카드 결과 표시: archive 모드는 archiveResults, 그 외는 현재 results.
+  const effectiveResults = isArchiveDate ? archiveResults : results;
+
+  // datepicker 버튼 라벨: archive 날짜면 그 날짜를 한국 포맷으로, 아니면 placeholder.
+  const datepickerLabel = useMemo(() => {
+    if (!isArchiveDate) return "지난 경기 보기";
+    const d = new Date(selectedDate + "T00:00:00");
+    const m = d.getMonth() + 1;
+    const day = d.getDate();
+    const dow = ["일", "월", "화", "수", "목", "금", "토"][d.getDay()];
+    return `${d.getFullYear()}.${m}.${day} (${dow})`;
+  }, [isArchiveDate, selectedDate]);
+
+  const openDatepicker = useCallback(() => setDatepickerOpen(true), []);
+  const closeDatepicker = useCallback(() => setDatepickerOpen(false), []);
 
   const sportIcons = useMemo(() => {
     const sports = new Set(filtered.map((s) => s.sport));
@@ -349,28 +392,88 @@ export default function ScheduleClient({
         })()}
       </div>
 
-      {/* Search */}
-      <div className="mb-6 sm:mb-8 relative">
-        <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <circle cx="11" cy="11" r="8" strokeWidth="2" />
-          <path strokeLinecap="round" strokeWidth="2" d="m21 21-4.35-4.35" />
-        </svg>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="팀, 리그 검색"
-          className="w-full rounded-lg border border-zinc-700 bg-zinc-900 pl-9 pr-3 sm:pl-10 sm:pr-4 py-2 sm:py-2.5 text-xs sm:text-sm text-zinc-200 placeholder-zinc-500 focus:border-zinc-500 focus:outline-none"
-        />
-        {searchQuery && (
+      {/* Search + Datepicker */}
+      {/* PC: 검색 2/3 + datepicker 1/3 한 줄. 모바일: 검색 한 줄, datepicker 한 줄. */}
+      <div className="mb-6 sm:mb-8 grid grid-cols-1 gap-2 sm:grid-cols-3 sm:gap-3">
+        {/* Search */}
+        <div className="relative sm:col-span-2">
+          <svg className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <circle cx="11" cy="11" r="8" strokeWidth="2" />
+            <path strokeLinecap="round" strokeWidth="2" d="m21 21-4.35-4.35" />
+          </svg>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="팀, 리그 검색"
+            className="w-full rounded-lg border border-zinc-700 bg-zinc-900 py-2 pl-9 pr-3 text-xs text-zinc-200 placeholder-zinc-500 focus:border-zinc-500 focus:outline-none sm:py-2.5 sm:pl-10 sm:pr-4 sm:text-sm"
+          />
+          {searchQuery && (
+            <button
+              onClick={() => setSearchQuery("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300"
+            >
+              &times;
+            </button>
+          )}
+        </div>
+
+        {/* Datepicker 트리거: 과거 경기 조회용. 클릭 시 바텀시트 캘린더 오픈. */}
+        <div className="sm:col-span-1">
           <button
-            onClick={() => setSearchQuery("")}
-            className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300"
+            type="button"
+            onClick={openDatepicker}
+            aria-label={isArchiveDate ? `선택된 날짜 ${datepickerLabel} - 다른 날짜 선택` : "지난 경기 날짜 선택"}
+            className={`flex w-full items-center justify-center gap-2 rounded-lg border bg-zinc-900 py-2 px-3 text-xs transition-colors sm:py-2.5 sm:px-4 sm:text-sm ${
+              isArchiveDate
+                ? "border-red-500/60 text-red-300 hover:border-red-400"
+                : "border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-zinc-200"
+            }`}
           >
-            &times;
+            <svg className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <rect x="3" y="4" width="18" height="18" rx="2" strokeWidth="2" />
+              <path strokeLinecap="round" strokeWidth="2" d="M16 2v4M8 2v4M3 10h18" />
+            </svg>
+            <span className="truncate">{datepickerLabel}</span>
+            {isArchiveDate && (
+              <span
+                role="button"
+                tabIndex={0}
+                aria-label="오늘로 돌아가기"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setSelectedDate(todayStr);
+                }}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    setSelectedDate(todayStr);
+                  }
+                }}
+                className="ml-1 cursor-pointer rounded px-1 text-zinc-400 hover:text-zinc-200"
+              >
+                &times;
+              </span>
+            )}
           </button>
-        )}
+        </div>
       </div>
+
+      <DatePickerSheet
+        isOpen={datepickerOpen}
+        onClose={closeDatepicker}
+        selectedDate={selectedDate}
+        onSelect={setSelectedDate}
+        maxDate={todayStr}
+      />
+
+      {/* archive 로딩 중 표시 */}
+      {isArchiveDate && archiveLoading && (
+        <div className="mb-4 text-center text-xs text-zinc-500 sm:text-sm">
+          지난 경기 데이터를 불러오는 중...
+        </div>
+      )}
 
       {/* Schedule List */}
       {filtered.length === 0 ? (
@@ -438,7 +541,7 @@ export default function ScheduleClient({
                   query={searchQuery}
                   homeRecord={lookupTeamRecord(teamRecords, schedule.league, schedule.homeTeam)}
                   awayRecord={lookupTeamRecord(teamRecords, schedule.league, schedule.awayTeam)}
-                  result={findResult(results, schedule)}
+                  result={findResult(effectiveResults, schedule)}
                 />
               </React.Fragment>
             );

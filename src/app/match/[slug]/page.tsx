@@ -3,9 +3,13 @@ import Link from "next/link";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 import scheduleData from "@/data/schedule.json";
+import archiveData from "@/data/schedule-archive.json";
+import resultsArchiveData from "@/data/results-archive.json";
 import type { Schedule, ScheduleData } from "@/types/schedule";
+import type { ResultsData } from "@/types/results";
 import { findPlatformSlugByName, LEAGUE_SEO } from "@/lib/slugs";
 import { matchToSlug, findMatchBySlug } from "@/lib/match-slug";
+import { findResult } from "@/lib/results/lookup";
 import {
   formatDateHeader,
   GAME_DURATION_HOURS,
@@ -14,18 +18,38 @@ import {
 import { StickyHeader } from "../../_components/StickyHeader";
 
 const data = scheduleData as unknown as ScheduleData;
+const archive = archiveData as unknown as ScheduleData;
+const resultsArchive = resultsArchiveData as unknown as ResultsData;
+
+/**
+ * 매치 슬러그 조회: 현재 schedule(7일치) → archive(영구 누적) 순으로 찾는다.
+ * archive에는 schedule.json에 한 번이라도 들어온 모든 경기가 누적되므로,
+ * 7일이 지나 schedule.json에서 빠진 과거 경기도 archive에서 부활시켜 404를 막는다.
+ */
+function findMatchAnywhere(slug: string): Schedule | undefined {
+  return findMatchBySlug(data.schedules, slug) ?? findMatchBySlug(archive.schedules, slug);
+}
+
+// 관련 경기 검색용 통합 목록 (schedule + archive, id 기준 dedupe).
+// archive에 이미 schedule이 포함되어 있지만 초기 배포 시점에 archive가 비어 있을 수 있어 둘 다 merge.
+const allSchedules: Schedule[] = (() => {
+  const byId = new Map<string, Schedule>();
+  for (const s of archive.schedules) byId.set(s.id, s);
+  for (const s of data.schedules) byId.set(s.id, s); // schedule이 최신
+  return [...byId.values()];
+})();
 
 type Params = { slug: string };
 
-/** 빌드 시점에 schedule.json에 있는 모든 매치를 정적 페이지로 생성. */
+/**
+ * 빌드 시점에 schedule.json(7일치)만 정적 생성. archive(영구 누적)는 런타임 SSR로 처리.
+ * archive가 수천 건으로 커지면 빌드 폭발하므로, 정적 생성은 트래픽이 몰리는 현재 7일치에만.
+ */
 export function generateStaticParams(): Params[] {
   return data.schedules.map((s) => ({ slug: matchToSlug(s) }));
 }
 
-// 빌드 시점에 generateStaticParams가 모든 슬러그를 정적 생성한다.
-// dynamicParams=true(기본값)를 명시: 캐시/빌드 누락 등으로 정적 페이지가 없는 슬러그가
-// 요청되어도 런타임에 schedule.json에서 찾아 SSR로 렌더링한다. 진짜 없는 슬러그만
-// notFound()로 떨어지므로 일반 카드 클릭이 404가 되는 사고를 막는다.
+// dynamicParams=true: archive에 있는 과거 경기는 런타임에 SSR로 렌더링.
 export const dynamicParams = true;
 
 function matchKoreanLabel(s: Schedule): string {
@@ -39,7 +63,7 @@ function leagueSlugFor(leagueName: string): string | undefined {
 }
 
 export function generateMetadata({ params }: { params: Params }): Metadata {
-  const match = findMatchBySlug(data.schedules, params.slug);
+  const match = findMatchAnywhere(params.slug);
   if (!match) return { title: "경기 정보 - 한해설" };
 
   const date = formatDateHeader(match.date);
@@ -88,11 +112,15 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
 }
 
 export default function MatchPage({ params }: { params: Params }) {
-  const match = findMatchBySlug(data.schedules, params.slug);
+  const match = findMatchAnywhere(params.slug);
   if (!match) notFound();
 
   const date = formatDateHeader(match.date);
   const finished = isGameFinished(match.date, match.time, match.sport);
+  // 종료된 경기는 결과 archive에서 스코어를 찾아 표시한다. 영구 페이지로 색인 가치를 부여.
+  const result = finished ? findResult(resultsArchive, match) : undefined;
+  const hasScore =
+    !!result && typeof result.homeScore === "number" && typeof result.awayScore === "number";
   const ko = matchKoreanLabel(match);
   const koClass =
     match.koreanCommentary === true
@@ -118,10 +146,10 @@ export default function MatchPage({ params }: { params: Params }) {
     });
   };
   const relatedByLeague = dedupByMatchup(
-    data.schedules.filter((s) => s.league === match.league && s.date >= match.date),
+    allSchedules.filter((s) => s.league === match.league && s.date >= match.date),
   ).slice(0, 6);
   const relatedByPlatform = dedupByMatchup(
-    data.schedules.filter((s) => s.platform === match.platform && s.date >= match.date),
+    allSchedules.filter((s) => s.platform === match.platform && s.date >= match.date),
   ).slice(0, 6);
 
   // SportsEvent JSON-LD
@@ -252,6 +280,55 @@ export default function MatchPage({ params }: { params: Params }) {
             {match.homeTeam}{" "}
             <span className="text-zinc-500">vs</span> {match.awayTeam}
           </h1>
+
+          {hasScore && (
+            <div className="mt-4 rounded-lg border border-emerald-700/40 bg-emerald-900/15 px-4 py-3">
+              <p className="mb-2 text-[11px] font-medium text-emerald-300/80 sm:text-xs">
+                최종 결과
+              </p>
+              <div className="flex items-center justify-center gap-4 sm:gap-6">
+                <div className="flex-1 text-right">
+                  <p className="truncate text-xs text-zinc-300 sm:text-sm">
+                    {match.homeTeam}
+                  </p>
+                  <p
+                    className={`tabular-nums text-3xl font-bold sm:text-4xl ${
+                      result!.homeScore! > result!.awayScore!
+                        ? "text-white"
+                        : result!.homeScore! < result!.awayScore!
+                        ? "text-zinc-500"
+                        : "text-zinc-200"
+                    }`}
+                  >
+                    {result!.homeScore}
+                  </p>
+                </div>
+                <div className="text-2xl text-zinc-600 sm:text-3xl">:</div>
+                <div className="flex-1 text-left">
+                  <p className="truncate text-xs text-zinc-300 sm:text-sm">
+                    {match.awayTeam}
+                  </p>
+                  <p
+                    className={`tabular-nums text-3xl font-bold sm:text-4xl ${
+                      result!.awayScore! > result!.homeScore!
+                        ? "text-white"
+                        : result!.awayScore! < result!.homeScore!
+                        ? "text-zinc-500"
+                        : "text-zinc-200"
+                    }`}
+                  >
+                    {result!.awayScore}
+                  </p>
+                </div>
+              </div>
+              {result!.period && (
+                <p className="mt-2 text-center text-[11px] text-zinc-500 sm:text-xs">
+                  {result!.period}
+                </p>
+              )}
+            </div>
+          )}
+
           <p className="mt-3 text-sm leading-relaxed text-zinc-300">
             {date} {match.time}에 열리는 <strong>{match.league}</strong>{" "}
             <strong>{match.homeTeam}</strong> vs <strong>{match.awayTeam}</strong>{" "}
