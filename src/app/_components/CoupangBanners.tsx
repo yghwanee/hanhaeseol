@@ -27,39 +27,34 @@ function useShowAds() {
 
 export function CoupangSideBanners() {
   const showAds = useShowAds();
+  // 인트로 끝나기 전엔 컨테이너 자체 렌더 안 함. AdSkeleton 도 fixed z-10
+  // 으로 깔려 인트로 fadeout 사이에 비치므로 null 처리가 정답.
+  if (!showAds) return null;
   return (
     <>
       <div className="hidden xl:block fixed left-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
-        {showAds ? (
-          <iframe
-            title="쿠팡 파트너스 광고 (좌측 사이드)"
-            src="https://ads-partners.coupang.com/widgets.html?id=979121&template=carousel&trackingCode=AF2259406&subId=sidebar-left&width=160&height=600&tsource="
-            width="160"
-            height="600"
-            frameBorder="0"
-            scrolling="no"
-            referrerPolicy="unsafe-url"
-            loading="lazy"
-          />
-        ) : (
-          <AdSkeleton className="w-[160px] h-[600px]" />
-        )}
+        <iframe
+          title="쿠팡 파트너스 광고 (좌측 사이드)"
+          src="https://ads-partners.coupang.com/widgets.html?id=979121&template=carousel&trackingCode=AF2259406&subId=sidebar-left&width=160&height=600&tsource="
+          width="160"
+          height="600"
+          frameBorder="0"
+          scrolling="no"
+          referrerPolicy="unsafe-url"
+          loading="lazy"
+        />
       </div>
       <div className="hidden xl:block fixed right-4 top-1/2 -translate-y-1/2 z-10 rounded-xl overflow-hidden shadow-lg shadow-black/20">
-        {showAds ? (
-          <iframe
-            title="쿠팡 파트너스 광고 (우측 사이드)"
-            src="https://ads-partners.coupang.com/widgets.html?id=979133&template=carousel&trackingCode=AF2259406&subId=sidebar-right&width=160&height=600&tsource="
-            width="160"
-            height="600"
-            frameBorder="0"
-            scrolling="no"
-            referrerPolicy="unsafe-url"
-            loading="lazy"
-          />
-        ) : (
-          <AdSkeleton className="w-[160px] h-[600px]" />
-        )}
+        <iframe
+          title="쿠팡 파트너스 광고 (우측 사이드)"
+          src="https://ads-partners.coupang.com/widgets.html?id=979133&template=carousel&trackingCode=AF2259406&subId=sidebar-right&width=160&height=600&tsource="
+          width="160"
+          height="600"
+          frameBorder="0"
+          scrolling="no"
+          referrerPolicy="unsafe-url"
+          loading="lazy"
+        />
       </div>
     </>
   );
