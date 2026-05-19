@@ -145,7 +145,7 @@ export function IntroAnimation() {
       for (let i = DOMAIN.length - 1; i >= 0; i--) {
         if (cancelled) return;
         setText(DOMAIN.slice(0, i));
-        await sleep(35);
+        await sleep(22);
       }
       await sleep(180);
       if (cancelled) return;
@@ -155,6 +155,8 @@ export function IntroAnimation() {
         setText(SUBTITLE.slice(0, i));
         await sleep(85 + Math.random() * 50);
       }
+      await sleep(750);
+      if (cancelled) return;
 
       sessionStorage.setItem(STORAGE_KEY, "1");
       setFadingOut(true);
