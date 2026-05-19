@@ -7,6 +7,16 @@ const STORAGE_KEY = "haeseol-intro-seen";
 const DOMAIN = "haeseol.com";
 const SUBTITLE = "한국어 중계 편성표";
 
+/** 인트로 종료 시점을 다른 컴포넌트(예: CoupangSideBanners)에게 알림.
+ *  사이드 배너의 AdSkeleton 이 인트로 fadeout 중 z-index 차이로 비치는 것을
+ *  방지하기 위해 이 이벤트를 듣고 그때부터 배너 렌더링. */
+export const INTRO_DONE_EVENT = "haeseol:intro-done";
+function dispatchIntroDone() {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event(INTRO_DONE_EVENT));
+  }
+}
+
 function TickerColumn({
   items,
   direction,
@@ -93,8 +103,12 @@ export function IntroAnimation() {
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    // 내부 네비게이션 재진입: 이미 done 으로 시작했으므로 useEffect 도 no-op.
-    if (handledInThisSession) return;
+    // 내부 네비게이션 재진입: 이미 done 으로 시작했으므로 done 이벤트만 한 번 더 쏘고 종료.
+    // CoupangSideBanners 가 mount 시 listener 이미 등록한 상태일 수 있어 즉시 알림.
+    if (handledInThisSession) {
+      dispatchIntroDone();
+      return;
+    }
     handledInThisSession = true;
 
     const hasFlag = sessionStorage.getItem(STORAGE_KEY) === "1";
@@ -103,7 +117,10 @@ export function IntroAnimation() {
       // 새로고침/세션 내 재진입: ripple 잠깐 보여주고 페이드아웃
       setMode("ripple");
       const t1 = setTimeout(() => setFadingOut(true), 700);
-      const t2 = setTimeout(() => setMode("done"), 1200);
+      const t2 = setTimeout(() => {
+        setMode("done");
+        dispatchIntroDone();
+      }, 1200);
       return () => {
         clearTimeout(t1);
         clearTimeout(t2);
@@ -150,6 +167,7 @@ export function IntroAnimation() {
       await sleep(550);
       if (cancelled) return;
       setMode("done");
+      dispatchIntroDone();
     }
 
     run();
