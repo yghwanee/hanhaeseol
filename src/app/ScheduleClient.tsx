@@ -375,7 +375,9 @@ export default function ScheduleClient({
                   <span className={`text-[10px] font-medium sm:text-xs ${dowColor}`}>
                     {KOR_DOW[dow]}
                   </span>
-                  <span className="text-sm font-bold sm:text-base">{dayNum}</span>
+                  <span className="-mt-0.5 text-sm font-bold sm:-mt-1 sm:text-base">
+                    {dayNum}
+                  </span>
                 </div>
               ),
             };
