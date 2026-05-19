@@ -86,9 +86,10 @@ export function SmoothTabs<T extends string>({
   const { containerRef, pos } = useActiveRect(value, depsKey);
 
   const gap = gapClass ?? "gap-1 sm:gap-1.5";
-  // capsStripe(날짜 탭): 모바일도 손가락 hit target 확보 + 시각적으로 약간 컴팩트.
+  // capsStripe(날짜 탭): 점이 박스 밖 sibling 으로 분리되어 박스는 텍스트만
+  // 담음. py 최소화해 박스 시각적으로 짧게.
   const sizeCls = useCapsStripe
-    ? "px-6 py-1.5 text-xs sm:px-4 sm:py-1.5 sm:text-sm"
+    ? "px-6 py-0.5 text-xs sm:px-4 sm:py-0.5 sm:text-sm"
     : "px-2.5 py-1 text-xs sm:px-3 sm:py-1.5 sm:text-sm";
   const borderCls = pillBorderClassName ?? "border-zinc-100";
 
@@ -130,10 +131,9 @@ export function SmoothTabs<T extends string>({
           : active
             ? activeTextClassName
             : `text-zinc-400 hover:text-zinc-200 ${inactiveBorder}`;
-        // renderAbove 가 있으면 dot 등 보조 요소를 button 내부로 넣어 hit area를
-        // 시각 박스 전체로 확장 (이전엔 button 위 sibling이라 dot/gap 영역이 클릭 사각지대였음).
-        // 모바일은 세로 압축, 데스크탑은 여유 있게.
-        const layoutCls = renderAbove ? "inline-flex flex-col items-center gap-0.5 sm:gap-2" : "";
+        // renderAbove (점)는 박스 밖 sibling 으로 배치해 박스가 시각적으로
+        // 짧아 보이게 함. 점은 4px 라서 그 자리만 클릭 사각지대 — 실용상
+        // 무시할 만한 손실.
         const buttonInner = (
           <button
             type="button"
@@ -141,24 +141,34 @@ export function SmoothTabs<T extends string>({
             role="tab"
             aria-selected={active}
             onClick={() => onChange(o.value)}
-            className={`relative z-10 shrink-0 whitespace-nowrap font-medium outline-none focus:outline-none ${layoutCls} ${
+            className={`relative z-10 shrink-0 whitespace-nowrap font-medium outline-none focus:outline-none ${
               useCapsStripe ? "" : "transition-colors "
             }${sizeCls} ${baseShape} ${stateCls} ${fullWidth ? "w-full" : ""}`}
           >
-            {renderAbove ? renderAbove(o.value) : null}
             {o.label}
           </button>
+        );
+
+        const withAbove = renderAbove ? (
+          <div
+            className={`${fullWidth ? "flex w-full" : "inline-flex"} flex-col items-center gap-1`}
+          >
+            {renderAbove(o.value)}
+            {buttonInner}
+          </div>
+        ) : (
+          buttonInner
         );
 
         if (fullWidth) {
           return (
             <div key={o.value} style={{ flex: "1 1 0%" }}>
-              {buttonInner}
+              {withAbove}
             </div>
           );
         }
 
-        return <div key={o.value} className="contents">{buttonInner}</div>;
+        return <div key={o.value} className="contents">{withAbove}</div>;
       })}
     </div>
   );
