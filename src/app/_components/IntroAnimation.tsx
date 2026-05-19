@@ -1,41 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { INTRO_COL_A as COL_A, INTRO_COL_B as COL_B, INTRO_COL_C as COL_C } from "./intro-emblems";
 
 const STORAGE_KEY = "haeseol-intro-seen";
 const DOMAIN = "haeseol.com";
 const SUBTITLE = "한국어 중계 편성표";
-
-// 로컬 EPL 로고 (naver CDN은 referer hot-link 차단으로 깨질 수 있음) + 로컬 KBO 로고
-const COL_A = [
-  "/logos/naver-football/1006.png",
-  "/logos/kbo/HT.png",
-  "/logos/naver-football/12.png",
-  "/logos/kbo/LG.png",
-  "/logos/naver-football/9.png",
-  "/logos/kbo/SS.png",
-  "/logos/naver-football/4.png",
-];
-
-const COL_B = [
-  "/logos/naver-football/11.png",
-  "/logos/kbo/KT.png",
-  "/logos/naver-football/2.png",
-  "/logos/kbo/NC.png",
-  "/logos/naver-football/31.png",
-  "/logos/kbo/LT.png",
-  "/logos/naver-football/8.png",
-];
-
-const COL_C = [
-  "/logos/naver-football/23.png",
-  "/logos/kbo/SK.png",
-  "/logos/naver-football/48.png",
-  "/logos/kbo/HH.png",
-  "/logos/naver-football/6795.png",
-  "/logos/kbo/OB.png",
-  "/logos/kbo/WO.png",
-];
 
 function TickerColumn({
   items,

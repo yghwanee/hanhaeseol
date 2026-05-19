@@ -4,6 +4,7 @@ import Script from "next/script";
 import scheduleData from "@/data/schedule.json";
 import { CoupangSideBanners } from "./_components/CoupangBanners";
 import { CapsStripeClickHandler } from "./_components/CapsStripeClickHandler";
+import { INTRO_EMBLEM_PATHS } from "./_components/intro-emblems";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -94,6 +95,11 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-F1MX6S0SGW');`}
         </Script>
+        {/* 인트로 엠블럼 프리로드 - HTML 파싱 단계에서 이미지 받아두면
+            IntroAnimation 마운트 직후 깜빡임 없이 표시됨. */}
+        {INTRO_EMBLEM_PATHS.map((src) => (
+          <link key={src} rel="preload" as="image" href={src} />
+        ))}
         <meta name="msvalidate.01" content="BAF456457E39D2FDB1A54BF8674FA2C6" />
         <meta name="google-site-verification" content="qe2Z2hjBEFJqqq_nEcLigG8aEiQdotP4_6jouBXE5aE" />
         <meta name="naver-site-verification" content="d9be7cb662b83910f698f22aea4b0267c91e53f4" />

@@ -86,9 +86,9 @@ export function SmoothTabs<T extends string>({
   const { containerRef, pos } = useActiveRect(value, depsKey);
 
   const gap = gapClass ?? "gap-1 sm:gap-1.5";
-  // capsStripe(날짜 탭): 모바일은 가로 넓고 세로 짧은 비율, 데스크탑은 균형.
+  // capsStripe(날짜 탭): 모바일도 손가락 hit target 확보(py 충분히), 데스크탑은 균형.
   const sizeCls = useCapsStripe
-    ? "px-6 py-0.5 text-xs sm:px-4 sm:py-2 sm:text-sm"
+    ? "px-6 py-2 text-xs sm:px-4 sm:py-2 sm:text-sm"
     : "px-2.5 py-1 text-xs sm:px-3 sm:py-1.5 sm:text-sm";
   const borderCls = pillBorderClassName ?? "border-zinc-100";
 
