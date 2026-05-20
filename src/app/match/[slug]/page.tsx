@@ -16,6 +16,8 @@ import {
   isGameFinished,
 } from "@/lib/schedule-utils";
 import { StickyHeader } from "../../_components/StickyHeader";
+import { readInsight } from "@/lib/insights/storage";
+import { MatchInsightSection } from "./_components/MatchInsight";
 
 const data = scheduleData as unknown as ScheduleData;
 const archive = archiveData as unknown as ScheduleData;
@@ -121,6 +123,12 @@ export default function MatchPage({ params }: { params: Params }) {
   const result = finished ? findResult(resultsArchive, match) : undefined;
   const hasScore =
     !!result && typeof result.homeScore === "number" && typeof result.awayScore === "number";
+
+  const insight =
+    process.env.NEXT_PUBLIC_INSIGHTS_ENABLED === "true"
+      ? readInsight(match.id)
+      : null;
+
   const ko = matchKoreanLabel(match);
   const koClass =
     match.koreanCommentary === true
@@ -217,6 +225,33 @@ export default function MatchPage({ params }: { params: Params }) {
           },
         ],
       },
+      ...(insight
+        ? [
+            {
+              "@type": "Article",
+              headline: insight.sections.headline,
+              datePublished: insight.generatedAt,
+              dateModified: insight.generatedAt,
+              author: { "@type": "Organization", name: "한해설" },
+              publisher: {
+                "@type": "Organization",
+                name: "한해설",
+                logo: {
+                  "@type": "ImageObject",
+                  url: "https://haeseol.com/icon.png",
+                },
+              },
+              mainEntityOfPage: {
+                "@type": "WebPage",
+                "@id": `https://haeseol.com/match/${params.slug}`,
+              },
+              about: {
+                "@type": "SportsEvent",
+                name: `${match.league} ${match.homeTeam} vs ${match.awayTeam}`,
+              },
+            },
+          ]
+        : []),
     ],
   };
 
@@ -390,6 +425,8 @@ export default function MatchPage({ params }: { params: Params }) {
             </p>
           )}
         </article>
+
+        {insight && <MatchInsightSection insight={insight} />}
 
         {/* 같은 리그 다른 경기 — 내부 링크 + 사용자 탐색 동선 */}
         {relatedByLeague.length > 0 && (
