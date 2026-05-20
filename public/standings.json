@@ -29,18 +29,18 @@
           "rank": 2,
           "teamName": "맨체스터 시티",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/11.png?type=f92_88",
-          "matchesPlayed": 36,
+          "matchesPlayed": 37,
           "wins": 23,
-          "draws": 8,
+          "draws": 9,
           "losses": 5,
-          "goals": 75,
-          "goalsConceded": 32,
+          "goals": 76,
+          "goalsConceded": 33,
           "goalsDifference": 43,
-          "points": 77,
-          "lastFive": "WWDWW",
+          "points": 78,
+          "lastFive": "DWWDW",
           "streak": {
-            "type": "W",
-            "count": 2
+            "type": "D",
+            "count": 1
           },
           "rankStatus": "UEFA Champions League"
         },
@@ -105,18 +105,18 @@
           "rank": 6,
           "teamName": "본머스",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/23.png?type=f92_88",
-          "matchesPlayed": 36,
+          "matchesPlayed": 37,
           "wins": 13,
-          "draws": 16,
+          "draws": 17,
           "losses": 7,
-          "goals": 56,
-          "goalsConceded": 52,
+          "goals": 57,
+          "goalsConceded": 53,
           "goalsDifference": 4,
-          "points": 55,
-          "lastFive": "WWDWW",
+          "points": 56,
+          "lastFive": "DWWDW",
           "streak": {
-            "type": "W",
-            "count": 2
+            "type": "D",
+            "count": 1
           },
           "rankStatus": "UEFA Europa League"
         },
@@ -141,6 +141,25 @@
         },
         {
           "rank": 8,
+          "teamName": "첼시",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/4.png?type=f92_88",
+          "matchesPlayed": 37,
+          "wins": 14,
+          "draws": 10,
+          "losses": 13,
+          "goals": 57,
+          "goalsConceded": 50,
+          "goalsDifference": 7,
+          "points": 52,
+          "lastFive": "WDLLL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 9,
           "teamName": "브렌트퍼드",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/48.png?type=f92_88",
           "matchesPlayed": 37,
@@ -159,7 +178,7 @@
           "rankStatus": null
         },
         {
-          "rank": 9,
+          "rank": 10,
           "teamName": "선덜랜드",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/TTwjJb.png?type=f92_88",
           "matchesPlayed": 37,
@@ -173,25 +192,6 @@
           "lastFive": "WDDLL",
           "streak": {
             "type": "W",
-            "count": 1
-          },
-          "rankStatus": null
-        },
-        {
-          "rank": 10,
-          "teamName": "첼시",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/4.png?type=f92_88",
-          "matchesPlayed": 36,
-          "wins": 13,
-          "draws": 10,
-          "losses": 13,
-          "goals": 55,
-          "goalsConceded": 49,
-          "goalsDifference": 6,
-          "points": 49,
-          "lastFive": "DLLLL",
-          "streak": {
-            "type": "D",
             "count": 1
           },
           "rankStatus": null
@@ -314,17 +314,17 @@
           "rank": 17,
           "teamName": "토트넘 홋스퍼",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/19.png?type=f92_88",
-          "matchesPlayed": 36,
+          "matchesPlayed": 37,
           "wins": 9,
           "draws": 11,
-          "losses": 16,
-          "goals": 46,
-          "goalsConceded": 55,
-          "goalsDifference": -9,
+          "losses": 17,
+          "goals": 47,
+          "goalsConceded": 57,
+          "goalsDifference": -10,
           "points": 38,
-          "lastFive": "DWWDL",
+          "lastFive": "LDWWD",
           "streak": {
-            "type": "D",
+            "type": "L",
             "count": 1
           },
           "rankStatus": null
@@ -4951,15 +4951,15 @@
           "rank": 1,
           "teamName": "애틀랜타",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/AT.png?type=f92_88",
-          "gameCount": 48,
-          "win": 32,
+          "gameCount": 49,
+          "win": 33,
           "draw": 0,
           "lose": 16,
-          "winRate": 0.667,
+          "winRate": 0.673,
           "gameBehind": 0,
-          "lastFive": "LWLWL",
+          "lastFive": "WLWLW",
           "streak": {
-            "type": "L",
+            "type": "W",
             "count": 1
           },
           "league": "NL",
@@ -5136,7 +5136,7 @@
           "draw": 0,
           "lose": 23,
           "winRate": 0.521,
-          "gameBehind": 7,
+          "gameBehind": 7.5,
           "lastFive": "WWWWW",
           "streak": {
             "type": "W",
@@ -5208,7 +5208,7 @@
           "draw": 0,
           "lose": 25,
           "winRate": 0.479,
-          "gameBehind": 9,
+          "gameBehind": 9.5,
           "lastFive": "LLWWL",
           "streak": {
             "type": "L",
@@ -5311,15 +5311,15 @@
           "rank": 4,
           "teamName": "마이애미",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/FL.png?type=f92_88",
-          "gameCount": 48,
+          "gameCount": 49,
           "win": 22,
           "draw": 0,
-          "lose": 26,
-          "winRate": 0.458,
-          "gameBehind": 10,
-          "lastFive": "WLWLL",
+          "lose": 27,
+          "winRate": 0.449,
+          "gameBehind": 11,
+          "lastFive": "LWLWL",
           "streak": {
-            "type": "W",
+            "type": "L",
             "count": 1
           },
           "league": "NL",
@@ -5478,7 +5478,7 @@
           "draw": 0,
           "lose": 26,
           "winRate": 0.447,
-          "gameBehind": 10.5,
+          "gameBehind": 11,
           "lastFive": "WWWLW",
           "streak": {
             "type": "W",
@@ -5491,5 +5491,5 @@
     }
   ],
   "basketball": [],
-  "lastUpdated": "2026-05-19T18:14:36.079Z"
+  "lastUpdated": "2026-05-20T00:21:04.527Z"
 }
