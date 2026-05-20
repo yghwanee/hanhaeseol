@@ -1,7 +1,7 @@
 import type { MatchInsight } from "@/types/match-insight";
 
 export function MatchInsightSection({ insight }: { insight: MatchInsight }) {
-  const { sections, generatedAt } = insight;
+  const { sections } = insight;
 
   return (
     <section className="caps-stripe-section mt-6 border border-zinc-800/80 bg-zinc-950/40 p-5 sm:p-6">
