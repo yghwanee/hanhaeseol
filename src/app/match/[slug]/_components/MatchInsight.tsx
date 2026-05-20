@@ -4,7 +4,7 @@ export function MatchInsightSection({ insight }: { insight: MatchInsight }) {
   const { sections, generatedAt } = insight;
 
   return (
-    <section className="mt-6 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-5 sm:p-6">
+    <section className="caps-stripe-section mt-6 border border-zinc-800/80 bg-zinc-950/40 p-5 sm:p-6">
       <header className="mb-4 flex items-center gap-2">
         <span className="text-sm">✨</span>
         <h2 className="text-base font-semibold text-white sm:text-lg">
@@ -36,13 +36,6 @@ export function MatchInsightSection({ insight }: { insight: MatchInsight }) {
 
         <Block title="시청 안내" body={sections.viewingInfo} />
       </div>
-
-      <footer className="mt-5 border-t border-zinc-800/60 pt-3 text-[11px] text-zinc-600">
-        AI 보조 작성 · 베팅 추천 아님 · 한국어 해설 안내 목적 ·{" "}
-        <time dateTime={generatedAt}>
-          {new Date(generatedAt).toLocaleDateString("ko-KR")} 생성
-        </time>
-      </footer>
     </section>
   );
 }
