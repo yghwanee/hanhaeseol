@@ -16,6 +16,8 @@ import {
   isGameFinished,
 } from "@/lib/schedule-utils";
 import { StickyHeader } from "../../_components/StickyHeader";
+import { readInsight } from "@/lib/insights/storage";
+import { MatchInsightSection } from "./_components/MatchInsight";
 
 const data = scheduleData as unknown as ScheduleData;
 const archive = archiveData as unknown as ScheduleData;
@@ -66,10 +68,24 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   const match = findMatchAnywhere(params.slug);
   if (!match) return { title: "경기 정보 - 한해설" };
 
+  const insight =
+    process.env.NEXT_PUBLIC_INSIGHTS_ENABLED === "true"
+      ? readInsight(match.id)
+      : null;
+
   const date = formatDateHeader(match.date);
   const ko = matchKoreanLabel(match);
-  const title = `${match.homeTeam} vs ${match.awayTeam} ${ko} 중계 - ${match.platform} ${date} | 한해설`;
-  const description = `${date} ${match.time} ${match.league} ${match.homeTeam} vs ${match.awayTeam} 경기 중계. ${match.platform}에서 ${ko}${match.koreanCommentary === true ? "로" : "으로"} 시청 가능합니다.`;
+
+  // 인사이트가 있으면 headline을 제목에 노출(SEO 강화).
+  // 없으면 기존 패턴 유지.
+  const title = insight
+    ? `${insight.sections.headline} | ${match.homeTeam} vs ${match.awayTeam} 한해설`
+    : `${match.homeTeam} vs ${match.awayTeam} ${ko} 중계 - ${match.platform} ${date} | 한해설`;
+
+  const description = insight
+    ? `${insight.sections.headline} · ${date} ${match.time} ${match.league} ${match.homeTeam} vs ${match.awayTeam} 경기. ${match.platform}에서 ${ko}로 시청 가능.`
+    : `${date} ${match.time} ${match.league} ${match.homeTeam} vs ${match.awayTeam} 경기 중계. ${match.platform}에서 ${ko}${match.koreanCommentary === true ? "로" : "으로"} 시청 가능합니다.`;
+
   const url = `https://haeseol.com/match/${params.slug}`;
 
   return {
@@ -87,7 +103,9 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
     ],
     alternates: { canonical: url },
     openGraph: {
-      title: `${match.homeTeam} vs ${match.awayTeam} - ${match.platform} 중계`,
+      title: insight
+        ? `${insight.sections.headline} - 한해설`
+        : `${match.homeTeam} vs ${match.awayTeam} - ${match.platform} 중계`,
       description,
       url,
       siteName: "한해설",
@@ -104,7 +122,9 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${match.homeTeam} vs ${match.awayTeam} - ${ko}`,
+      title: insight
+        ? `${insight.sections.headline}`
+        : `${match.homeTeam} vs ${match.awayTeam} - ${ko}`,
       description,
       images: ["https://haeseol.com/og-default.png"],
     },
@@ -121,6 +141,12 @@ export default function MatchPage({ params }: { params: Params }) {
   const result = finished ? findResult(resultsArchive, match) : undefined;
   const hasScore =
     !!result && typeof result.homeScore === "number" && typeof result.awayScore === "number";
+
+  const insight =
+    process.env.NEXT_PUBLIC_INSIGHTS_ENABLED === "true"
+      ? readInsight(match.id)
+      : null;
+
   const ko = matchKoreanLabel(match);
   const koClass =
     match.koreanCommentary === true
@@ -217,6 +243,33 @@ export default function MatchPage({ params }: { params: Params }) {
           },
         ],
       },
+      ...(insight
+        ? [
+            {
+              "@type": "Article",
+              headline: insight.sections.headline,
+              datePublished: insight.generatedAt,
+              dateModified: insight.generatedAt,
+              author: { "@type": "Organization", name: "한해설" },
+              publisher: {
+                "@type": "Organization",
+                name: "한해설",
+                logo: {
+                  "@type": "ImageObject",
+                  url: "https://haeseol.com/icon.png",
+                },
+              },
+              mainEntityOfPage: {
+                "@type": "WebPage",
+                "@id": `https://haeseol.com/match/${params.slug}`,
+              },
+              about: {
+                "@type": "SportsEvent",
+                name: `${match.league} ${match.homeTeam} vs ${match.awayTeam}`,
+              },
+            },
+          ]
+        : []),
     ],
   };
 
@@ -390,6 +443,8 @@ export default function MatchPage({ params }: { params: Params }) {
             </p>
           )}
         </article>
+
+        {insight && <MatchInsightSection insight={insight} />}
 
         {/* 같은 리그 다른 경기 — 내부 링크 + 사용자 탐색 동선 */}
         {relatedByLeague.length > 0 && (

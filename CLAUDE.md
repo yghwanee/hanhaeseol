@@ -115,6 +115,7 @@ src/
 26. 티빙 크롤러 구현 (BFF API: gw.tving.com, KBO+KBL, 인증 불필요)
 27. GitHub Actions 스케줄러 수정 (KST 08:18 하루 1회)
 28. 텔레그램 알림 연동 (편성표 업데이트 시 자동 알림)
+29. AI 관전 포인트 (Match Insights) 인프라 구축 — Gemini 2.0 Flash 무료 티어 + GitHub Actions 자동화. /match/[slug]에 인사이트 섹션 + Article JSON-LD. `NEXT_PUBLIC_INSIGHTS_ENABLED` 환경변수로 점진 롤아웃. Phase 1 = 운영자 검수 단계.
 
 ### 다음 작업 (예정)
 - Vercel 배포 설정
