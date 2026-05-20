@@ -21,22 +21,53 @@ import { StickyHeader } from "../../_components/StickyHeader";
 import { readInsight } from "@/lib/insights/storage";
 import { MatchInsightSection } from "./_components/MatchInsight";
 import { TeamLogo } from "../../analysis/[id]/TeamLogo";
+import { NAVER_TO_SCHEDULE_TEAM_NAME } from "@/lib/team-records/team-name-aliases";
 
 const data = scheduleData as unknown as ScheduleData;
 const archive = archiveData as unknown as ScheduleData;
 const standings = standingsData as unknown as StandingsData;
 
-/** standings 모든 sport 그룹에서 팀명 매칭으로 로고 검색. 없으면 null → TeamLogo가 initials 대체. */
-function findTeamLogo(teamName: string): string | null {
-  const allLeagues = [
+/**
+ * standings teamName → logo URL. 모듈 로드 시 1회 평탄화해서 O(1) 조회.
+ * standings 표기는 네이버 원본(예: "맨체스터 시티").
+ */
+const STANDINGS_LOGOS: Map<string, string | null> = (() => {
+  const m = new Map<string, string | null>();
+  const all = [
     ...standings.soccer,
     ...standings.baseball,
     ...standings.basketball,
   ];
-  for (const league of allLeagues) {
+  for (const league of all) {
     for (const team of league.teams) {
-      if (team.teamName === teamName) return team.teamLogo ?? null;
+      m.set(team.teamName, team.teamLogo ?? null);
     }
+  }
+  return m;
+})();
+
+/**
+ * schedule 표기 → standings(네이버) 표기 reverse map.
+ * 원본은 naver→schedule 매핑이라 여기서 뒤집어준다. 한 schedule 이름이
+ * 여러 standings 이름과 매칭될 수 있는 충돌 케이스는 마지막 정의가 wins.
+ */
+const SCHEDULE_TO_STANDINGS_NAME: Map<string, string> = (() => {
+  const m = new Map<string, string>();
+  for (const leagueAliases of Object.values(NAVER_TO_SCHEDULE_TEAM_NAME)) {
+    for (const [naverName, scheduleNames] of Object.entries(leagueAliases)) {
+      const names = Array.isArray(scheduleNames) ? scheduleNames : [scheduleNames];
+      for (const sn of names) m.set(sn, naverName);
+    }
+  }
+  return m;
+})();
+
+/** schedule 표기로 팀 로고 찾기. 직접 매칭 → alias 역매핑 → null 순. */
+function findTeamLogo(teamName: string): string | null {
+  if (STANDINGS_LOGOS.has(teamName)) return STANDINGS_LOGOS.get(teamName) ?? null;
+  const standingsName = SCHEDULE_TO_STANDINGS_NAME.get(teamName);
+  if (standingsName && STANDINGS_LOGOS.has(standingsName)) {
+    return STANDINGS_LOGOS.get(standingsName) ?? null;
   }
   return null;
 }
