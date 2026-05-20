@@ -1,5 +1,5 @@
-// DeepSeek V3 0324 free 모델. OpenRouter 무료 한도: 일 200 req, 분당 10 req.
-const OPENROUTER_MODEL = "deepseek/deepseek-chat-v3-0324:free";
+// DeepSeek V4 Flash free 모델 (V3 free는 deprecate됨). OpenRouter 무료 한도: 일 200 req, 분당 10 req.
+const OPENROUTER_MODEL = "deepseek/deepseek-v4-flash:free";
 const OPENROUTER_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions";
 
 export interface OpenRouterCallOptions {
