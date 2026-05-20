@@ -8,9 +8,8 @@ import type { ResultsData } from "@/types/results";
 import { generateInsightForMatch } from "@/lib/insights/generate";
 
 const DAYS_AHEAD = Number(process.env.INSIGHTS_DAYS_AHEAD ?? "3");
-// Groq Llama 3.3 70B 무료 = 분당 30 req, 분당 12K 토큰. 토큰이 RPM보다 빡빡함.
-// 1건당 ~1.5K 토큰이라 분당 7-8건 안전 → 8초 간격.
-const SLEEP_MS = Number(process.env.INSIGHTS_SLEEP_MS ?? "8000");
+// OpenRouter 무료 한도: 일 200 req, 분당 10 req. 6.5초 간격이면 안전 마진.
+const SLEEP_MS = Number(process.env.INSIGHTS_SLEEP_MS ?? "6500");
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -29,9 +28,9 @@ function inDateRange(date: string, todayKst: Date, daysAhead: number): boolean {
 }
 
 async function main() {
-  const apiKey = process.env.GROQ_API_KEY;
+  const apiKey = process.env.OPENROUTER_API_KEY;
   if (!apiKey) {
-    console.error("GROQ_API_KEY is required");
+    console.error("OPENROUTER_API_KEY is required");
     process.exit(1);
   }
 

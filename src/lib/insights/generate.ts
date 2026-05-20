@@ -1,7 +1,7 @@
 import type { MatchInsight, MatchInsightSections } from "@/types/match-insight";
 import { buildInsightContext, type ContextInputs } from "./build-context";
 import { buildPrompt } from "./prompt";
-import { callGroq, GROQ_MODEL, GroqError } from "./groq-client";
+import { callOpenRouter, OPENROUTER_MODEL, OpenRouterError } from "./openrouter-client";
 import { containsBettingTerms } from "./safety-filter";
 import { writeInsight, readInsight } from "./storage";
 
@@ -28,7 +28,7 @@ export async function generateInsightForMatch(
 
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     try {
-      const raw = await callGroq({ apiKey, prompt });
+      const raw = await callOpenRouter({ apiKey, prompt });
       const sections = parseSections(raw);
       if (!sections) {
         lastError = "json-parse-failed";
@@ -54,15 +54,15 @@ export async function generateInsightForMatch(
       const insight: MatchInsight = {
         matchId: ctx.matchId,
         generatedAt: new Date().toISOString(),
-        model: GROQ_MODEL,
+        model: OPENROUTER_MODEL,
         sections,
       };
       writeInsight(insight);
       return { status: "created", insight };
     } catch (err) {
-      if (err instanceof GroqError) {
-        lastError = `groq-${err.status ?? "err"}`;
-        console.warn(`[groq-error] ${err.message}`);
+      if (err instanceof OpenRouterError) {
+        lastError = `openrouter-${err.status ?? "err"}`;
+        console.warn(`[openrouter-error] ${err.message}`);
       } else {
         lastError = `unexpected-${(err as Error).message ?? "err"}`;
         console.warn(`[unexpected-error] ${(err as Error).message}`);
