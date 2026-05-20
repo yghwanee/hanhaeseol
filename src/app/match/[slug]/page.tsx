@@ -475,11 +475,6 @@ export default function MatchPage({ params }: { params: Params }) {
             )}
           </p>
 
-          {finished && (
-            <p className="mt-4 rounded-md border border-zinc-800 bg-zinc-900/40 px-3 py-2 text-xs text-zinc-500">
-              ※ 이 경기는 예상 종료 시간이 지났습니다. 다음 경기 일정은 아래에서 확인하세요.
-            </p>
-          )}
         </article>
 
         {insight && <MatchInsightSection insight={insight} />}
