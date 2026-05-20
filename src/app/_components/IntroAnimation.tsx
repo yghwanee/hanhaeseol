@@ -199,7 +199,7 @@ export function IntroAnimation() {
           <div className="mt-10 sm:mt-14" style={{ perspective: "1000px" }}>
             <div
               className="flex h-[42vh] gap-3 sm:h-[60vh] sm:gap-5"
-              style={{ transform: "rotateX(20deg)", transformStyle: "preserve-3d" }}
+              style={{ transform: "rotateX(30deg)", transformStyle: "preserve-3d" }}
             >
               <TickerColumn items={COL_A} direction="up" durationSec={22} />
               <TickerColumn items={COL_B} direction="down" durationSec={26} />
