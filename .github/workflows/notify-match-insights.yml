@@ -1,0 +1,44 @@
+name: Notify Match Insights
+
+# 매일 08:00 KST = 23:00 UTC (전날). 04:00 생성 결과를 4시간 뒤에 텔레그램으로 발송.
+on:
+  schedule:
+    - cron: '0 23 * * *'
+  workflow_dispatch: {}
+
+jobs:
+  notify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - name: Send Telegram notification
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          SUMMARY_PATH="src/data/insights-summary.json"
+          if [ ! -f "$SUMMARY_PATH" ]; then
+            MSG="❌ 관전 포인트 요약 파일 없음 (생성 워크플로우가 안 돌았을 수 있음)"
+          else
+            CREATED=$(node -e "console.log(JSON.parse(require('fs').readFileSync('$SUMMARY_PATH','utf8')).created)")
+            SKIPPED=$(node -e "console.log(JSON.parse(require('fs').readFileSync('$SUMMARY_PATH','utf8')).skipped)")
+            TARGETS=$(node -e "console.log(JSON.parse(require('fs').readFileSync('$SUMMARY_PATH','utf8')).targets)")
+            REASONS=$(node -e "console.log(JSON.stringify(JSON.parse(require('fs').readFileSync('$SUMMARY_PATH','utf8')).skipReasons))")
+            TIMESTAMP=$(node -e "console.log(JSON.parse(require('fs').readFileSync('$SUMMARY_PATH','utf8')).timestamp)")
+            MSG=$(printf '%s\n' \
+              "✨ AI 관전 포인트 (오늘)" \
+              "" \
+              "대상 ${TARGETS}경기" \
+              "생성 ${CREATED} · 스킵 ${SKIPPED}" \
+              "스킵 사유: ${REASONS}" \
+              "" \
+              "생성 시각: ${TIMESTAMP}")
+          fi
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MSG}"

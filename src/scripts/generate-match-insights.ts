@@ -97,8 +97,8 @@ async function main() {
     timestamp: new Date().toISOString(),
   };
   fs.writeFileSync(
-    path.join(process.cwd(), "insights-summary.json"),
-    JSON.stringify(summary, null, 2),
+    path.join(process.cwd(), "src/data/insights-summary.json"),
+    JSON.stringify(summary, null, 2) + "\n",
   );
 }
 

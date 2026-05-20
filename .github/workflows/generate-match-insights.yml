@@ -2,9 +2,8 @@ name: Generate Match Insights
 
 on:
   schedule:
-    # 매일 01:30 KST = 16:30 UTC (전날). D-day만 생성 → 전날 경기 결과 반영된 최신 데이터로 작성.
-    # 01:00 정각은 standings crawl과 겹쳐 race condition 우려 → 30분 늦춤.
-    - cron: '30 16 * * *'
+    # 매일 04:00 KST = 19:00 UTC (전날). D-day만 생성.
+    - cron: '0 19 * * *'
   workflow_dispatch:
     inputs:
       days_ahead:
@@ -42,7 +41,7 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git pull --rebase origin main
-          git add src/data/match-insights/
+          git add src/data/match-insights/ src/data/insights-summary.json
           if git diff --staged --quiet; then
             echo "updated=false" >> $GITHUB_OUTPUT
             echo "No insight changes"
@@ -51,27 +50,3 @@ jobs:
             git push
             echo "updated=true" >> $GITHUB_OUTPUT
           fi
-
-      - name: Telegram notification
-        if: always()
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          if [ -f insights-summary.json ]; then
-            CREATED=$(node -e "console.log(JSON.parse(require('fs').readFileSync('insights-summary.json','utf8')).created)")
-            SKIPPED=$(node -e "console.log(JSON.parse(require('fs').readFileSync('insights-summary.json','utf8')).skipped)")
-            TARGETS=$(node -e "console.log(JSON.parse(require('fs').readFileSync('insights-summary.json','utf8')).targets)")
-            REASONS=$(node -e "console.log(JSON.stringify(JSON.parse(require('fs').readFileSync('insights-summary.json','utf8')).skipReasons))")
-            MSG=$(printf '%s\n' \
-              "✨ AI 관전 포인트 생성" \
-              "" \
-              "대상 ${TARGETS}경기" \
-              "생성 ${CREATED} · 스킵 ${SKIPPED}" \
-              "스킵 사유: ${REASONS}")
-          else
-            MSG="❌ 관전 포인트 생성 실패 (요약 파일 없음)"
-          fi
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            -d chat_id="${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text=${MSG}"
