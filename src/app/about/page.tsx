@@ -5,8 +5,20 @@ import { CoupangTopBannerOnly } from "../_components/CoupangBanners";
 import { StickyHeader } from "../_components/StickyHeader";
 
 export const metadata: Metadata = {
-  title: "한해설 소개 - 스포츠 한국어 해설 편성표",
-  description: "한해설은 10개 스포츠 중계 플랫폼의 편성표를 모아 한국어 해설 여부를 한눈에 확인할 수 있는 서비스입니다.",
+  title: "한해설 소개 - 스포츠 한국어 해설·한국어 중계 편성표 서비스",
+  description:
+    "한해설은 SPOTV NOW, 쿠팡플레이, 티빙 등 10개 스포츠 중계 플랫폼의 편성표를 한 페이지에 모아, 한국어 해설 중계와 한국어 중계 편성을 한눈에 확인할 수 있는 무료 편성표 서비스입니다.",
+  keywords: [
+    "한해설",
+    "한해설 소개",
+    "한국어 해설",
+    "한국어해설",
+    "한국어 중계",
+    "한국어중계",
+    "한국어 해설 중계",
+    "스포츠 편성표",
+    "스포츠 중계 편성표",
+  ],
   alternates: { canonical: "https://haeseol.com/about" },
 };
 
@@ -34,10 +46,27 @@ export default function AboutPage() {
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">한해설이란?</h2>
+          <p className="text-gray-300 leading-relaxed mb-3">
+            한해설은 <strong>스포츠 한국어 해설 중계 편성표</strong>를 한곳에 모아 보여주는 무료 서비스입니다.
+            여러 OTT와 TV 채널에 흩어져 있는 스포츠 중계 일정을 한 번에 확인하고,
+            특히 <strong>한국어 해설이 제공되는 경기</strong>를 쉽게 찾을 수 있도록 설계되었습니다.
+          </p>
           <p className="text-gray-300 leading-relaxed">
-            한해설은 <strong>스포츠 한국어 해설 중계 편성표</strong>를 한곳에 모아 보여주는 서비스입니다.
-            <br className="hidden sm:inline" />여러 OTT와 TV 채널에 흩어져 있는 스포츠 중계 일정을 한 번에 확인하고,
-            <br className="hidden sm:inline" />특히 <strong>한국어 해설이 제공되는 경기</strong>를 쉽게 찾을 수 있습니다.
+            EPL·라리가·세리에A·분데스리가·챔피언스리그·MLB·KBO·NBA·K리그 등 주요 스포츠의
+            <strong> 한국어 중계 편성표</strong>를 SPOTV NOW, 쿠팡플레이, 티빙, Apple TV+, SPOTV, SPOTV2,
+            tvN SPORTS, KBS N SPORTS, MBC SPORTS+, SBS Sports 등 10개 플랫폼에서 매일 자동 수집해 정리합니다.
+          </p>
+        </section>
+
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold mb-3">한국어 해설이 왜 중요할까?</h2>
+          <p className="text-gray-300 leading-relaxed mb-3">
+            같은 경기라도 플랫폼에 따라 <strong>한국어 해설 중계</strong>가 있을 수도 있고, 현지 영어·일본어·스페인어 해설만 송출되는 경우도 있습니다.
+            특히 EPL, 라리가, MLB처럼 해외에서 열리는 경기는 어느 채널이 한국어 해설을 붙였는지 사전에 알기 어렵습니다.
+          </p>
+          <p className="text-gray-300 leading-relaxed">
+            한해설은 경기마다 <strong>한국어해설 여부</strong>를 초록·빨강·노랑 뱃지로 명확히 구분해, 한국어 중계가 가능한 경기만 골라보거나
+            여러 플랫폼의 한국어 중계 일정을 비교해 가장 편한 시청 환경을 선택할 수 있게 도와줍니다.
           </p>
         </section>
 
@@ -96,9 +125,14 @@ export default function AboutPage() {
 
         <section className="mb-8">
           <h2 className="text-xl font-semibold mb-3">데이터 업데이트</h2>
+          <p className="text-gray-300 leading-relaxed mb-3">
+            한국어 중계 편성표 데이터는 매일 자동으로 갱신되며, 오늘부터 7일치 일정을 제공합니다.
+            각 플랫폼의 공식 편성표를 기반으로 하며, 실시간 변경(중계 취소, 시간 변경)은 반영이 지연될 수 있어
+            정확한 시청 정보는 각 플랫폼 공지를 함께 확인하시길 권장합니다.
+          </p>
           <p className="text-gray-300 leading-relaxed">
-            편성표 데이터는 매일 자동으로 수집되며, 오늘부터 7일간의 일정을 제공합니다.
-            <br className="hidden sm:inline" />각 플랫폼의 공식 편성표를 기반으로 하며, 실시간 변경 사항은 반영이 지연될 수 있습니다.
+            <Link href="/faq" className="text-blue-400 hover:underline">자주 묻는 질문</Link>에서
+            한국어 해설 중계와 한국어 중계 편성표 이용에 대한 더 자세한 안내를 확인할 수 있습니다.
           </p>
         </section>
 

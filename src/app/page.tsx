@@ -110,6 +110,7 @@ export default function Home({
         <div className="flex flex-wrap justify-center gap-4 mb-2">
           <Link href="/standings" className="hover:text-gray-300">팀 순위</Link>
           <Link href="/about" className="hover:text-gray-300">한해설 소개</Link>
+          <Link href="/faq" className="hover:text-gray-300">자주 묻는 질문</Link>
           <Link href="/privacy" className="hover:text-gray-300">개인정보처리방침</Link>
           <Link href="/terms" className="hover:text-gray-300">이용약관</Link>
         </div>

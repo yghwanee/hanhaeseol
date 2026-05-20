@@ -249,6 +249,8 @@ export default function ScheduleClient({
             <Image src="/icon.png" alt="한해설 아이콘" width={32} height={32} className="h-6 w-6 sm:h-8 sm:w-8 self-center" />
             <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
             <span className="ml-2 sm:ml-3 hidden sm:inline text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
+            {/* 모바일에서도 검색엔진이 풀 키워드를 H1으로 읽도록 sr-only 노출 */}
+            <span className="sr-only">한국어 해설 중계 편성표 · 한국어중계 편성표</span>
           </h1>
           {/* AdSense 재심사 동안 분석글 링크 임시 숨김.
               승인 후 복원할 때 사용할 코드:
@@ -646,6 +648,23 @@ export default function ScheduleClient({
           })}
         </div>
       )}
+
+      {/* SEO 안내 섹션 — 사용자 가독성을 해치지 않는 톤으로 핵심 키워드 자연 노출 */}
+      <section className="mt-10 sm:mt-14 border-t border-zinc-800/60 pt-6 sm:pt-8 text-[12px] sm:text-sm leading-relaxed text-zinc-500">
+        <h2 className="mb-3 text-sm sm:text-base font-medium text-zinc-300">한국어 해설 중계, 한곳에서 확인하세요</h2>
+        <p className="mb-2.5">
+          한해설은 EPL·라리가·세리에A·분데스리가·챔피언스리그·KBO·MLB·NBA·K리그 등 주요 스포츠의
+          <strong className="font-medium text-zinc-300"> 한국어 해설 중계</strong>와
+          <strong className="font-medium text-zinc-300"> 한국어 중계 편성표</strong>를
+          SPOTV NOW, 쿠팡플레이, 티빙, Apple TV+, SPOTV, SPOTV2, tvN SPORTS, KBS N SPORTS, MBC SPORTS+, SBS Sports의
+          공식 편성을 바탕으로 매일 업데이트합니다.
+        </p>
+        <p>
+          각 경기마다 한국어해설 여부를 초록·빨강·노랑 뱃지로 표시해,
+          한국어 중계가 있는 경기만 골라 보거나 종목·플랫폼별로 필터링할 수 있습니다.
+          오늘부터 7일치 한국어해설 편성을 한 페이지에서 확인하세요.
+        </p>
+      </section>
 
       <p className="mt-6 sm:mt-8 text-center text-[11px] sm:text-xs text-zinc-600" suppressHydrationWarning>
         마지막 업데이트: {data ? new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" }) : "로딩 중..."}
