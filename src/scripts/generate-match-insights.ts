@@ -8,6 +8,10 @@ import type { ResultsData } from "@/types/results";
 import { generateInsightForMatch } from "@/lib/insights/generate";
 
 const DAYS_AHEAD = Number(process.env.INSIGHTS_DAYS_AHEAD ?? "3");
+// Gemini 2.0 Flash 무료 티어 = 분당 10 req. 6.5초 간격이면 안전 마진.
+const SLEEP_MS = Number(process.env.INSIGHTS_SLEEP_MS ?? "6500");
+
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 function loadJson<T>(relPath: string): T {
   const full = path.join(process.cwd(), relPath);
@@ -56,7 +60,9 @@ async function main() {
   let skipped = 0;
   const skipReasons: Record<string, number> = {};
 
-  for (const match of targets) {
+  for (let i = 0; i < targets.length; i++) {
+    if (i > 0) await sleep(SLEEP_MS);
+    const match = targets[i];
     const outcome = await generateInsightForMatch(
       {
         schedule: match,
