@@ -1,4 +1,3 @@
-import type { Schedule } from "@/types/schedule";
 import type { MatchInsight, MatchInsightSections } from "@/types/match-insight";
 import { buildInsightContext, type ContextInputs } from "./build-context";
 import { buildPrompt } from "./prompt";

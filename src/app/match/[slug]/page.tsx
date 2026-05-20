@@ -68,10 +68,24 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   const match = findMatchAnywhere(params.slug);
   if (!match) return { title: "경기 정보 - 한해설" };
 
+  const insight =
+    process.env.NEXT_PUBLIC_INSIGHTS_ENABLED === "true"
+      ? readInsight(match.id)
+      : null;
+
   const date = formatDateHeader(match.date);
   const ko = matchKoreanLabel(match);
-  const title = `${match.homeTeam} vs ${match.awayTeam} ${ko} 중계 - ${match.platform} ${date} | 한해설`;
-  const description = `${date} ${match.time} ${match.league} ${match.homeTeam} vs ${match.awayTeam} 경기 중계. ${match.platform}에서 ${ko}${match.koreanCommentary === true ? "로" : "으로"} 시청 가능합니다.`;
+
+  // 인사이트가 있으면 headline을 제목에 노출(SEO 강화).
+  // 없으면 기존 패턴 유지.
+  const title = insight
+    ? `${insight.sections.headline} | ${match.homeTeam} vs ${match.awayTeam} 한해설`
+    : `${match.homeTeam} vs ${match.awayTeam} ${ko} 중계 - ${match.platform} ${date} | 한해설`;
+
+  const description = insight
+    ? `${insight.sections.headline} · ${date} ${match.time} ${match.league} ${match.homeTeam} vs ${match.awayTeam} 경기. ${match.platform}에서 ${ko}로 시청 가능.`
+    : `${date} ${match.time} ${match.league} ${match.homeTeam} vs ${match.awayTeam} 경기 중계. ${match.platform}에서 ${ko}${match.koreanCommentary === true ? "로" : "으로"} 시청 가능합니다.`;
+
   const url = `https://haeseol.com/match/${params.slug}`;
 
   return {
@@ -89,7 +103,9 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
     ],
     alternates: { canonical: url },
     openGraph: {
-      title: `${match.homeTeam} vs ${match.awayTeam} - ${match.platform} 중계`,
+      title: insight
+        ? `${insight.sections.headline} - 한해설`
+        : `${match.homeTeam} vs ${match.awayTeam} - ${match.platform} 중계`,
       description,
       url,
       siteName: "한해설",
@@ -106,7 +122,9 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
     },
     twitter: {
       card: "summary_large_image",
-      title: `${match.homeTeam} vs ${match.awayTeam} - ${ko}`,
+      title: insight
+        ? `${insight.sections.headline}`
+        : `${match.homeTeam} vs ${match.awayTeam} - ${ko}`,
       description,
       images: ["https://haeseol.com/og-default.png"],
     },

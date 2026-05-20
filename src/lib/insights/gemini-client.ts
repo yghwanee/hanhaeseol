@@ -25,7 +25,9 @@ export async function callGemini({
     contents: [{ parts: [{ text: prompt }] }],
     generationConfig: {
       temperature: 0.7,
-      responseMimeType: "application/json",
+      // responseMimeType은 googleSearch grounding과 동시 사용 불가.
+      // grounding 켰을 땐 프롬프트 안의 "JSON으로만 응답" 지시 + parseSections의 코드펜스 스트립으로 처리.
+      ...(enableSearchGrounding ? {} : { responseMimeType: "application/json" }),
     },
     ...(enableSearchGrounding ? { tools: [{ googleSearch: {} }] } : {}),
   };
