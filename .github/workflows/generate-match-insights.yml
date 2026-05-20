@@ -1,0 +1,76 @@
+name: Generate Match Insights
+
+on:
+  schedule:
+    # 매일 06:13 KST = 21:13 UTC (전날)
+    - cron: '13 21 * * *'
+  workflow_dispatch:
+    inputs:
+      days_ahead:
+        description: 'How many days ahead (default 3)'
+        required: false
+        default: '3'
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - run: npm ci
+
+      - name: Generate insights
+        id: gen
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '3' }}
+        run: npm run insights:generate
+
+      - name: Commit & push
+        id: commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main
+          git add src/data/match-insights/
+          if git diff --staged --quiet; then
+            echo "updated=false" >> $GITHUB_OUTPUT
+            echo "No insight changes"
+          else
+            git commit -m "chore: regenerate match insights"
+            git push
+            echo "updated=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Telegram notification
+        if: always()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          if [ -f insights-summary.json ]; then
+            CREATED=$(node -e "console.log(JSON.parse(require('fs').readFileSync('insights-summary.json','utf8')).created)")
+            SKIPPED=$(node -e "console.log(JSON.parse(require('fs').readFileSync('insights-summary.json','utf8')).skipped)")
+            TARGETS=$(node -e "console.log(JSON.parse(require('fs').readFileSync('insights-summary.json','utf8')).targets)")
+            REASONS=$(node -e "console.log(JSON.stringify(JSON.parse(require('fs').readFileSync('insights-summary.json','utf8')).skipReasons))")
+            MSG=$(printf '%s\n' \
+              "✨ AI 관전 포인트 생성" \
+              "" \
+              "대상 ${TARGETS}경기" \
+              "생성 ${CREATED} · 스킵 ${SKIPPED}" \
+              "스킵 사유: ${REASONS}")
+          else
+            MSG="❌ 관전 포인트 생성 실패 (요약 파일 없음)"
+          fi
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MSG}"
