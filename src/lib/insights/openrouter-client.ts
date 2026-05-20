@@ -36,9 +36,9 @@ export async function callOpenRouter({
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${apiKey}`,
-        // OpenRouter 리더보드용 (선택). 한해설 도메인 명시.
+        // OpenRouter 리더보드용 (선택). HTTP 헤더는 ASCII만 허용 → 영문 표기.
         "HTTP-Referer": "https://haeseol.com",
-        "X-Title": "한해설 - AI 관전 포인트",
+        "X-Title": "Haeseol Match Insights",
       },
       body: JSON.stringify(body),
       signal: controller.signal,
