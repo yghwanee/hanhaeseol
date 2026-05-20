@@ -33,8 +33,6 @@ export function MatchInsightSection({ insight }: { insight: MatchInsight }) {
             ))}
           </ul>
         </div>
-
-        <Block title="시청 안내" body={sections.viewingInfo} />
       </div>
     </section>
   );

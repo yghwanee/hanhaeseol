@@ -3,7 +3,6 @@ export interface MatchInsightSections {
   recentForm: string;
   keyMatchup: string;
   watchPoints: string[];
-  viewingInfo: string;
 }
 
 export interface MatchInsight {

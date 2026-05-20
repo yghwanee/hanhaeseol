@@ -37,8 +37,7 @@ ${ctx.headToHead ? `- ${ctx.headToHead}` : ""}
   "headline": "60자 이내, 경기의 핵심 매력 한 줄",
   "recentForm": "양 팀 최근 흐름. 100-150자",
   "keyMatchup": "주목할 선수 맞대결 또는 전술적 포인트. 150-200자",
-  "watchPoints": ["관전 포인트 1", "관전 포인트 2", "관전 포인트 3"],
-  "viewingInfo": "한국어 해설 시청 안내. ${ctx.platform}에서 ${ctx.time}부터 시청 가능 안내 포함. 50-100자"
+  "watchPoints": ["관전 포인트 1", "관전 포인트 2", "관전 포인트 3"]
 }
 
 [작성 규칙]

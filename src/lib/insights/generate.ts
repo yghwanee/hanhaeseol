@@ -39,7 +39,6 @@ export async function generateInsightForMatch(
         sections.recentForm,
         sections.keyMatchup,
         ...sections.watchPoints,
-        sections.viewingInfo,
       ].join(" ");
 
       if (fullText.length < MIN_TOTAL_LENGTH) {
@@ -97,7 +96,6 @@ function isValidSections(v: unknown): v is MatchInsightSections {
     typeof o.recentForm === "string" &&
     typeof o.keyMatchup === "string" &&
     Array.isArray(o.watchPoints) &&
-    o.watchPoints.every((x) => typeof x === "string") &&
-    typeof o.viewingInfo === "string"
+    o.watchPoints.every((x) => typeof x === "string")
   );
 }
