@@ -18,6 +18,7 @@ import {
   isGameFinished,
 } from "@/lib/schedule-utils";
 import { StickyHeader } from "../../_components/StickyHeader";
+import { CoupangTopBannerOnly } from "../../_components/CoupangBanners";
 import { readInsight } from "@/lib/insights/storage";
 import { MatchInsightSection } from "./_components/MatchInsight";
 import { TeamLogo } from "../../analysis/[id]/TeamLogo";
@@ -362,6 +363,8 @@ export default function MatchPage({ params }: { params: Params }) {
             </Link>
           </header>
         </StickyHeader>
+
+        <CoupangTopBannerOnly />
 
         <nav className="mt-4 flex flex-wrap items-center gap-2 text-xs text-zinc-500 sm:mt-6">
           <Link href="/" className="transition-colors hover:text-zinc-300">
