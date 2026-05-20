@@ -31,7 +31,7 @@ jobs:
       - name: Generate insights
         id: gen
         env:
-          OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '3' }}
         run: npm run insights:generate
 

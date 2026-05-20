@@ -8,8 +8,8 @@ import type { ResultsData } from "@/types/results";
 import { generateInsightForMatch } from "@/lib/insights/generate";
 
 const DAYS_AHEAD = Number(process.env.INSIGHTS_DAYS_AHEAD ?? "3");
-// OpenRouter 무료 한도: 일 200 req, 분당 10 req. 6.5초 간격이면 안전 마진.
-const SLEEP_MS = Number(process.env.INSIGHTS_SLEEP_MS ?? "6500");
+// Gemini 2.5 Flash 무료 한도: 일 1,500 req, 분당 15 RPM. 4.5초 간격이면 안전 마진.
+const SLEEP_MS = Number(process.env.INSIGHTS_SLEEP_MS ?? "4500");
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -28,9 +28,9 @@ function inDateRange(date: string, todayKst: Date, daysAhead: number): boolean {
 }
 
 async function main() {
-  const apiKey = process.env.OPENROUTER_API_KEY;
+  const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) {
-    console.error("OPENROUTER_API_KEY is required");
+    console.error("GEMINI_API_KEY is required");
     process.exit(1);
   }
 
