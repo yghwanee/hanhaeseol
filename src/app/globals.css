@@ -157,6 +157,71 @@ table td.sticky {
   display: none;
 }
 
+/* 활성 강조용 — caps-stripe-pressed 와 같은 형태(흰 배경 sweep + 박스 밖
+ * 코너)이되 톤을 한 단계 낮춰(zinc-300 배경 + zinc-700 텍스트) 카드 안에서
+ * 너무 강하지 않게. 정적으로만 보여 줌. */
+.btn-caps-stripe.caps-stripe-soft {
+  color: rgb(63, 63, 70);
+}
+.btn-caps-stripe.caps-stripe-soft::before {
+  inset: -3px;
+  background:
+    linear-gradient(to right, rgb(244, 244, 245) 8px, transparent 8px, transparent calc(100% - 8px), rgb(244, 244, 245) calc(100% - 8px)) no-repeat 0 0 / 100% 1px,
+    linear-gradient(to right, rgb(244, 244, 245) 8px, transparent 8px, transparent calc(100% - 8px), rgb(244, 244, 245) calc(100% - 8px)) no-repeat 0 100% / 100% 1px,
+    linear-gradient(to bottom, rgb(244, 244, 245) 8px, transparent 8px, transparent calc(100% - 8px), rgb(244, 244, 245) calc(100% - 8px)) no-repeat 0 0 / 1px 100%,
+    linear-gradient(to bottom, rgb(244, 244, 245) 8px, transparent 8px, transparent calc(100% - 8px), rgb(244, 244, 245) calc(100% - 8px)) no-repeat 100% 0 / 1px 100%;
+}
+.btn-caps-stripe.caps-stripe-soft::after {
+  clip-path: polygon(0% 0%, 200% 0%, 100% 100%, 0% 100%);
+  background-color: rgb(244, 244, 245);
+}
+@media (hover: hover) {
+  .btn-caps-stripe.caps-stripe-soft:hover {
+    color: rgb(63, 63, 70);
+  }
+}
+
+/* caps-stripe-soft 의 색상 반전 — 어두운 배경(zinc-800) + 밝은 텍스트
+ * + 박스 바깥쪽으로 살짝 나간 흰 코너. 형태는 soft 와 동일. */
+.btn-caps-stripe.caps-stripe-soft-inverse {
+  color: rgb(244, 244, 245);
+  background-image: none;
+  background-color: transparent;
+}
+.btn-caps-stripe.caps-stripe-soft-inverse::before {
+  inset: -3px;
+}
+.btn-caps-stripe.caps-stripe-soft-inverse::after {
+  display: none;
+}
+@media (hover: hover) {
+  .btn-caps-stripe.caps-stripe-soft-inverse:hover {
+    color: rgb(244, 244, 245);
+  }
+  .btn-caps-stripe.caps-stripe-soft-inverse:hover::before {
+    inset: -3px;
+  }
+}
+
+/* PlatformBadge 등 작은 뱃지용 — 코너 브래킷/빗금 톤 다운. 카드 안에서
+ * 너무 도드라지지 않도록 약 35% 불투명도로 깔아 시그니처 톤만 남김. */
+.btn-caps-stripe.caps-stripe-muted {
+  background-image: repeating-linear-gradient(
+    119deg,
+    rgba(237, 237, 235, 0.08) 0px,
+    rgba(237, 237, 235, 0.08) 1px,
+    transparent 1px,
+    transparent 5px
+  );
+}
+.btn-caps-stripe.caps-stripe-muted::before {
+  background:
+    linear-gradient(to right, rgba(237, 237, 236, 0.4) 8px, transparent 8px, transparent calc(100% - 8px), rgba(237, 237, 236, 0.4) calc(100% - 8px)) no-repeat 0 0 / 100% 1px,
+    linear-gradient(to right, rgba(237, 237, 236, 0.4) 8px, transparent 8px, transparent calc(100% - 8px), rgba(237, 237, 236, 0.4) calc(100% - 8px)) no-repeat 0 100% / 100% 1px,
+    linear-gradient(to bottom, rgba(237, 237, 236, 0.4) 8px, transparent 8px, transparent calc(100% - 8px), rgba(237, 237, 236, 0.4) calc(100% - 8px)) no-repeat 0 0 / 1px 100%,
+    linear-gradient(to bottom, rgba(237, 237, 236, 0.4) 8px, transparent 8px, transparent calc(100% - 8px), rgba(237, 237, 236, 0.4) calc(100% - 8px)) no-repeat 100% 0 / 1px 100%;
+}
+
 .skeleton-shimmer {
   background: linear-gradient(
     90deg,

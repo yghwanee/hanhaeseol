@@ -60,6 +60,8 @@ function ScheduleCardInner({
           </span>
           <span className="text-zinc-600">|</span>
           <span className="truncate"><Highlight text={schedule.league} query={query} /></span>
+          <span className="text-zinc-600">|</span>
+          <span className="text-zinc-400">{schedule.sport}</span>
           {result?.period && result.status === "live" && (
             <>
               <span className="text-zinc-600">|</span>
@@ -108,9 +110,8 @@ function ScheduleCardInner({
         </div>
       )}
 
-      <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 flex items-center justify-between">
+      <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 flex items-center">
         <PlatformBadge platform={schedule.platform} />
-        <span className="text-[11px] sm:text-xs text-zinc-500">{schedule.sport}</span>
       </div>
     </div>
   );
