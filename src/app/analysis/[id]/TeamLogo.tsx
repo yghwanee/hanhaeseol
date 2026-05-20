@@ -46,6 +46,7 @@ export function TeamLogo({ name, src, size = 64 }: { name: string; src: string |
       width={size}
       height={size}
       onError={() => setFailed(true)}
+      referrerPolicy="no-referrer"
       className="object-contain"
       style={{ width: size, height: size }}
     />
