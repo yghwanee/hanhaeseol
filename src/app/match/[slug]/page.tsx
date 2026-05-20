@@ -449,7 +449,7 @@ export default function MatchPage({ params }: { params: Params }) {
           )}
 
           <p className="mt-3 text-sm leading-relaxed text-zinc-300">
-            {date} {match.time}에 열리는 <strong>{match.league}</strong>{" "}
+            <strong>{match.league}</strong>{" "}
             <strong>{match.homeTeam}</strong> vs <strong>{match.awayTeam}</strong>{" "}
             경기는 <strong>{match.platform}</strong>에서 중계됩니다.
           </p>
