@@ -4,6 +4,7 @@ import archiveData from "@/data/schedule-archive.json";
 import { LEAGUE_SEO, PLATFORM_SEO } from "@/lib/slugs";
 import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
 import { matchToSlug } from "@/lib/match-slug";
+import { readInsight } from "@/lib/insights/storage";
 import type { Schedule, ScheduleData } from "@/types/schedule";
 
 const data = scheduleData as unknown as ScheduleData;
@@ -43,12 +44,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const matchById = new Map<string, Schedule>();
   for (const s of archive.schedules) matchById.set(s.id, s);
   for (const s of data.schedules) matchById.set(s.id, s); // 최신 우선
-  const matchUrls = [...matchById.values()].map((s) => ({
-    url: `${BASE}/match/${encodeURIComponent(matchToSlug(s))}`,
-    lastModified: new Date(s.date),
-    changeFrequency: "monthly" as const,
-    priority: 0.6,
-  }));
+  // 인사이트(경기 미리보기)가 있는 매치 페이지는 신호 ↑ — Google에 "이 페이지가 풍부한 콘텐츠
+   // 있다" 알려주기 위해 priority 0.6 → 0.8, changeFrequency monthly → weekly.
+  // lastModified도 insight.generatedAt가 있으면 그걸 우선 사용.
+  const matchUrls = [...matchById.values()].map((s) => {
+    const insight = readInsight(s.id);
+    return {
+      url: `${BASE}/match/${encodeURIComponent(matchToSlug(s))}`,
+      lastModified: insight ? new Date(insight.generatedAt) : new Date(s.date),
+      changeFrequency: insight ? ("weekly" as const) : ("monthly" as const),
+      priority: insight ? 0.8 : 0.6,
+    };
+  });
 
   return [
     {

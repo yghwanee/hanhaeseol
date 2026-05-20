@@ -47,5 +47,13 @@ ${ctx.headToHead ? `- ${ctx.headToHead}` : ""}
 - 베팅/확률/예측/배당/픽/승률 단어 절대 금지
 - "관전 포인트", "보는 재미", "주목할 부분" 중심
 - 추측이 아닌 사실 위주
+
+[SEO 키워드 자연스럽게 노출]
+다음 표현은 본문에 어색하지 않게 자연스럽게 1회 이상 녹여넣어줘 (억지 반복 금지):
+- "${ctx.league}"
+- "${ctx.homeTeam}" / "${ctx.awayTeam}"
+- "${ctx.platform} 중계" 또는 "${ctx.platform}에서 시청"
+- "한국어 해설"
+예: "${ctx.league} ${ctx.homeTeam} vs ${ctx.awayTeam} 경기는 ${ctx.platform}에서 한국어 해설로 볼 수 있다"
 `;
 }

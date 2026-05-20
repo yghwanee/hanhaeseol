@@ -5,8 +5,10 @@ import { notFound } from "next/navigation";
 import scheduleData from "@/data/schedule.json";
 import archiveData from "@/data/schedule-archive.json";
 import resultsArchiveData from "@/data/results-archive.json";
+import standingsData from "@/data/standings.json";
 import type { Schedule, ScheduleData } from "@/types/schedule";
 import type { ResultsData } from "@/types/results";
+import type { StandingsData } from "@/types/standings";
 import { LEAGUE_SEO } from "@/lib/slugs";
 import { matchToSlug, findMatchBySlug } from "@/lib/match-slug";
 import { findResult } from "@/lib/results/lookup";
@@ -18,9 +20,26 @@ import {
 import { StickyHeader } from "../../_components/StickyHeader";
 import { readInsight } from "@/lib/insights/storage";
 import { MatchInsightSection } from "./_components/MatchInsight";
+import { TeamLogo } from "../../analysis/[id]/TeamLogo";
 
 const data = scheduleData as unknown as ScheduleData;
 const archive = archiveData as unknown as ScheduleData;
+const standings = standingsData as unknown as StandingsData;
+
+/** standings 모든 sport 그룹에서 팀명 매칭으로 로고 검색. 없으면 null → TeamLogo가 initials 대체. */
+function findTeamLogo(teamName: string): string | null {
+  const allLeagues = [
+    ...standings.soccer,
+    ...standings.baseball,
+    ...standings.basketball,
+  ];
+  for (const league of allLeagues) {
+    for (const team of league.teams) {
+      if (team.teamName === teamName) return team.teamLogo ?? null;
+    }
+  }
+  return null;
+}
 const resultsArchive = resultsArchiveData as unknown as ResultsData;
 
 /**
@@ -238,10 +257,19 @@ export default function MatchPage({ params }: { params: Params }) {
       ...(insight
         ? [
             {
-              "@type": "Article",
+              // SportsArticle: 일반 Article보다 sports vertical에 더 정확. Google이 카테고리 인식 ↑
+              "@type": "SportsArticle",
               headline: insight.sections.headline,
+              description: insight.sections.recentForm.slice(0, 160),
+              image: "https://haeseol.com/og-default.png",
               datePublished: insight.generatedAt,
               dateModified: insight.generatedAt,
+              inLanguage: "ko",
+              articleBody: [
+                insight.sections.recentForm,
+                insight.sections.keyMatchup,
+                ...insight.sections.watchPoints,
+              ].join(" "),
               author: { "@type": "Organization", name: "한해설" },
               publisher: {
                 "@type": "Organization",
@@ -317,7 +345,7 @@ export default function MatchPage({ params }: { params: Params }) {
           </span>
         </nav>
 
-        <article className="mt-4 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-5 sm:p-6">
+        <article className="mt-4 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-5 text-center sm:p-6">
           <p className="text-xs text-zinc-500 sm:text-sm">
             {date} · {match.time} (KST) · {match.league}
           </p>
@@ -325,6 +353,21 @@ export default function MatchPage({ params }: { params: Params }) {
             {match.homeTeam}{" "}
             <span className="text-zinc-500">vs</span> {match.awayTeam}
           </h1>
+
+          {/* 팀 엠블럼 좌우 배치 — standings.json에 로고 있으면 이미지, 없으면 initials 자동 fallback */}
+          <div className="mt-4 flex items-center justify-center gap-5 sm:gap-7">
+            <TeamLogo
+              name={match.homeTeam}
+              src={findTeamLogo(match.homeTeam)}
+              size={56}
+            />
+            <span className="text-sm font-bold text-zinc-500 sm:text-base">vs</span>
+            <TeamLogo
+              name={match.awayTeam}
+              src={findTeamLogo(match.awayTeam)}
+              size={56}
+            />
+          </div>
 
           {hasScore && (
             <div className="mt-4 rounded-lg border border-emerald-700/40 bg-emerald-900/15 px-4 py-3">
