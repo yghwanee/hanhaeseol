@@ -62,8 +62,10 @@ export async function generateInsightForMatch(
     } catch (err) {
       if (err instanceof GeminiError) {
         lastError = `gemini-${err.status ?? "err"}`;
+        console.warn(`[gemini-error] ${err.message}`);
       } else {
         lastError = `unexpected-${(err as Error).message ?? "err"}`;
+        console.warn(`[unexpected-error] ${(err as Error).message}`);
       }
     }
   }
