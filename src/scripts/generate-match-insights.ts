@@ -7,7 +7,7 @@ import type { StandingsData } from "@/types/standings";
 import type { ResultsData } from "@/types/results";
 import { generateInsightForMatch } from "@/lib/insights/generate";
 
-const DAYS_AHEAD = Number(process.env.INSIGHTS_DAYS_AHEAD ?? "3");
+const DAYS_AHEAD = Number(process.env.INSIGHTS_DAYS_AHEAD ?? "0");
 // Gemini 2.5 Flash 무료 한도: 일 1,500 req, 분당 15 RPM. 4.5초 간격이면 안전 마진.
 const SLEEP_MS = Number(process.env.INSIGHTS_SLEEP_MS ?? "4500");
 

@@ -2,14 +2,15 @@ name: Generate Match Insights
 
 on:
   schedule:
-    # 매일 06:13 KST = 21:13 UTC (전날)
-    - cron: '13 21 * * *'
+    # 매일 01:30 KST = 16:30 UTC (전날). D-day만 생성 → 전날 경기 결과 반영된 최신 데이터로 작성.
+    # 01:00 정각은 standings crawl과 겹쳐 race condition 우려 → 30분 늦춤.
+    - cron: '30 16 * * *'
   workflow_dispatch:
     inputs:
       days_ahead:
-        description: 'How many days ahead (default 3)'
+        description: 'How many days ahead (default 0 = D-day only)'
         required: false
-        default: '3'
+        default: '0'
 
 permissions:
   contents: write
@@ -32,7 +33,7 @@ jobs:
         id: gen
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '3' }}
+          INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '0' }}
         run: npm run insights:generate
 
       - name: Commit & push
