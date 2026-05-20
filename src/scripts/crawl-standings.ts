@@ -64,9 +64,8 @@ async function main() {
 
   const jsonStr = JSON.stringify(data, null, 2);
   const srcPath = path.join(process.cwd(), "src/data/standings.json");
-  const pubPath = path.join(process.cwd(), "public/standings.json");
+  // public 카피본은 더 이상 만들지 않음 — 모든 페이지가 @/data/standings.json만 import.
   await fs.writeFile(srcPath, jsonStr, "utf-8");
-  await fs.writeFile(pubPath, jsonStr, "utf-8");
 
   console.log(`완료 → ${srcPath}`);
 }

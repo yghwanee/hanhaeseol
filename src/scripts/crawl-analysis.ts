@@ -36,8 +36,9 @@ async function main() {
   const scheduleData: ScheduleData = JSON.parse(fs.readFileSync(schedulePath, "utf-8"));
 
   // 기존 analysis.json 로드 (있으면)
+  // public 카피본은 더 이상 만들지 않음 — 클라이언트 fetch가 없고
+  // 분석 페이지는 fs로 src/data만 읽으므로 4.8MB public 파일은 dead weight였음.
   const analysisPath = path.resolve(__dirname, "../data/analysis.json");
-  const publicPath = path.resolve(__dirname, "../../public/analysis.json");
 
   let existingData: AnalysisData = { lastUpdated: "", articles: [] };
   try {
@@ -139,7 +140,6 @@ async function main() {
 
   // 저장
   fs.writeFileSync(analysisPath, JSON.stringify(result, null, 2), "utf-8");
-  fs.writeFileSync(publicPath, JSON.stringify(result, null, 2), "utf-8");
 
   console.log(`\n---`);
   console.log(`완료: 총 ${result.articles.length}건 → ${analysisPath}`);

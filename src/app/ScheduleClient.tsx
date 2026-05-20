@@ -252,23 +252,6 @@ export default function ScheduleClient({
             {/* 모바일에서도 검색엔진이 풀 키워드를 H1으로 읽도록 sr-only 노출 */}
             <span className="sr-only">한국어 해설 중계 편성표 · 한국어중계 편성표</span>
           </h1>
-          {/* AdSense 재심사 동안 분석글 링크 임시 숨김.
-              승인 후 복원할 때 사용할 코드:
-              <Link
-                href="/analysis"
-                className="border-glow group inline-flex items-center gap-2 whitespace-nowrap rounded-lg px-2.5 py-1.5 text-sm font-medium text-zinc-200 transition-colors hover:text-white sm:gap-2.5 sm:px-3"
-              >
-                <Image
-                  src="/icons/analysis.png"
-                  alt=""
-                  width={28}
-                  height={28}
-                  className="h-5 w-5 transition-transform group-hover:scale-110 sm:h-6 sm:w-6"
-                  unoptimized
-                />
-                픽스터 분석
-              </Link>
-          */}
           <Link
             href="/standings"
             aria-label="팀 순위"
