@@ -22,6 +22,7 @@ import { readInsight } from "@/lib/insights/storage";
 import { MatchInsightSection } from "./_components/MatchInsight";
 import { TeamLogo } from "../../analysis/[id]/TeamLogo";
 import { NAVER_TO_SCHEDULE_TEAM_NAME } from "@/lib/team-records/team-name-aliases";
+import { getTeamLogo } from "@/data/team-logos";
 
 const data = scheduleData as unknown as ScheduleData;
 const archive = archiveData as unknown as ScheduleData;
@@ -62,8 +63,15 @@ const SCHEDULE_TO_STANDINGS_NAME: Map<string, string> = (() => {
   return m;
 })();
 
-/** schedule 표기로 팀 로고 찾기. 직접 매칭 → alias 역매핑 → null 순. */
+/**
+ * schedule 표기로 팀 로고 찾기.
+ * 1순위: team-logos.ts (schedule 표기 기준, 로컬/ESPN/SDB 등 안정적 소스).
+ *   네이버 sports-phinf CDN은 외부 사이트 핫링크가 차단되는 경우가 있어 standings보다 우선.
+ * 2순위: standings.json 직접 매칭 → alias 역매핑.
+ */
 function findTeamLogo(teamName: string): string | null {
+  const mapped = getTeamLogo(teamName);
+  if (mapped) return mapped;
   if (STANDINGS_LOGOS.has(teamName)) return STANDINGS_LOGOS.get(teamName) ?? null;
   const standingsName = SCHEDULE_TO_STANDINGS_NAME.get(teamName);
   if (standingsName && STANDINGS_LOGOS.has(standingsName)) {
