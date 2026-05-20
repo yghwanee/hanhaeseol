@@ -8,7 +8,7 @@ export function MatchInsightSection({ insight }: { insight: MatchInsight }) {
       <header className="mb-4 flex items-center gap-2">
         <span className="text-sm">✨</span>
         <h2 className="text-base font-semibold text-white sm:text-lg">
-          AI 관전 포인트
+          경기 미리보기
         </h2>
       </header>
 
@@ -19,16 +19,6 @@ export function MatchInsightSection({ insight }: { insight: MatchInsight }) {
       <div className="mt-4 space-y-4 text-sm leading-relaxed text-zinc-300">
         <Block title="최근 폼" body={sections.recentForm} />
         <Block title="핵심 매치업" body={sections.keyMatchup} />
-
-        {/* AdSense in-article slot */}
-        <div
-          className="my-4 min-h-[100px] rounded-md border border-dashed border-zinc-800/60 bg-zinc-950/30 px-3 py-4 text-center text-xs text-zinc-600"
-          data-ad-slot="match-insight-inarticle"
-          aria-label="광고 영역"
-        >
-          {/* AdSense unit injected by existing global ad loader */}
-          광고
-        </div>
 
         <div>
           <h4 className="text-xs font-semibold uppercase tracking-wider text-zinc-500">

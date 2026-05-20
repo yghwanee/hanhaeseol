@@ -7,7 +7,7 @@ import archiveData from "@/data/schedule-archive.json";
 import resultsArchiveData from "@/data/results-archive.json";
 import type { Schedule, ScheduleData } from "@/types/schedule";
 import type { ResultsData } from "@/types/results";
-import { findPlatformSlugByName, LEAGUE_SEO } from "@/lib/slugs";
+import { LEAGUE_SEO } from "@/lib/slugs";
 import { matchToSlug, findMatchBySlug } from "@/lib/match-slug";
 import { findResult } from "@/lib/results/lookup";
 import {
@@ -148,15 +148,7 @@ export default function MatchPage({ params }: { params: Params }) {
       : null;
 
   const ko = matchKoreanLabel(match);
-  const koClass =
-    match.koreanCommentary === true
-      ? "text-emerald-400"
-      : match.koreanCommentary === false
-      ? "text-rose-400"
-      : "text-yellow-400";
-
   const leagueSlug = leagueSlugFor(match.league);
-  const platformSlug = findPlatformSlugByName(match.platform);
 
   // 동일 리그 / 동일 플랫폼의 직후 매치들. 같은 매치업이 여러 플랫폼에서 중계되면
   // 슬러그가 달라서 슬러그 비교만으론 자기 경기/중복 경기를 못 거른다. 매치업 키
@@ -407,36 +399,6 @@ export default function MatchPage({ params }: { params: Params }) {
             )}
           </p>
 
-          <dl className="mt-5 grid grid-cols-2 gap-3 text-sm sm:grid-cols-3">
-            <Field label="날짜">{date}</Field>
-            <Field label="시작 시간">{match.time} (KST)</Field>
-            <Field label="종목">{match.sport}</Field>
-            <Field label="리그">{match.league}</Field>
-            <Field label="플랫폼">{match.platform}</Field>
-            <Field label="해설">
-              <span className={koClass}>{ko}</span>
-            </Field>
-          </dl>
-
-          <div className="mt-5 flex flex-wrap gap-2">
-            {platformSlug && (
-              <Link
-                href={`/platform/${platformSlug}`}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-zinc-700 bg-zinc-900/60 px-3 py-2 text-xs font-medium text-zinc-200 transition-colors hover:border-zinc-500 hover:text-white sm:text-sm"
-              >
-                {match.platform} 편성표 →
-              </Link>
-            )}
-            {leagueSlug && (
-              <Link
-                href={`/league/${leagueSlug}`}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-xs font-semibold text-emerald-400 transition-colors hover:border-emerald-500/60 hover:bg-emerald-500/10 sm:text-sm"
-              >
-                {match.league} 한국어 해설 편성표 →
-              </Link>
-            )}
-          </div>
-
           {finished && (
             <p className="mt-4 rounded-md border border-zinc-800 bg-zinc-900/40 px-3 py-2 text-xs text-zinc-500">
               ※ 이 경기는 예상 종료 시간이 지났습니다. 다음 경기 일정은 아래에서 확인하세요.
@@ -518,17 +480,3 @@ export default function MatchPage({ params }: { params: Params }) {
   );
 }
 
-function Field({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="rounded-md border border-zinc-800 bg-zinc-900/40 px-3 py-2">
-      <dt className="text-[11px] text-zinc-500 sm:text-xs">{label}</dt>
-      <dd className="mt-0.5 text-sm font-medium text-zinc-100">{children}</dd>
-    </div>
-  );
-}
