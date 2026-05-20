@@ -18,13 +18,19 @@ function loadJson<T>(relPath: string): T {
   return JSON.parse(fs.readFileSync(full, "utf-8")) as T;
 }
 
-function inDateRange(date: string, todayKst: Date, daysAhead: number): boolean {
-  const d = new Date(`${date}T00:00:00+09:00`);
-  const today = new Date(todayKst);
-  today.setHours(0, 0, 0, 0);
-  const end = new Date(today);
-  end.setDate(end.getDate() + daysAhead);
-  return d >= today && d <= end;
+function todayKstDateStr(): string {
+  // KST 기준 "YYYY-MM-DD" 문자열. en-CA 로케일이 ISO 형식을 반환.
+  return new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Seoul" });
+}
+
+function inDateRange(date: string, todayKstStr: string, daysAhead: number): boolean {
+  if (date < todayKstStr) return false;
+  // todayKstStr + daysAhead → 끝 날짜 문자열. Date.UTC가 day overflow 자동 처리.
+  const [y, m, d] = todayKstStr.split("-").map(Number);
+  const endStr = new Date(Date.UTC(y, m - 1, d + daysAhead))
+    .toISOString()
+    .slice(0, 10);
+  return date <= endStr;
 }
 
 async function main() {
@@ -41,19 +47,15 @@ async function main() {
   const standingsData = loadJson<StandingsData>("src/data/standings.json");
   const resultsData = loadJson<ResultsData>("src/data/results-archive.json");
 
-  // KST today
-  const nowKst = new Date(
-    new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }),
-  );
-
+  const todayStr = todayKstDateStr();
   const targets = schedule.schedules.filter(
     (s) =>
       s.koreanCommentary === true &&
-      inDateRange(s.date, nowKst, DAYS_AHEAD),
+      inDateRange(s.date, todayStr, DAYS_AHEAD),
   );
 
   console.log(
-    `[insights] target matches: ${targets.length} (next ${DAYS_AHEAD} days, KR commentary only)`,
+    `[insights] today KST=${todayStr}, days_ahead=${DAYS_AHEAD}, target matches: ${targets.length} (KR commentary only)`,
   );
 
   let created = 0;
