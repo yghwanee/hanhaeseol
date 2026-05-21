@@ -40,7 +40,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase origin main
+          git pull --rebase --autostash origin main
           git add src/data/match-insights/ src/data/insights-summary.json
           if git diff --staged --quiet; then
             echo "updated=false" >> $GITHUB_OUTPUT
