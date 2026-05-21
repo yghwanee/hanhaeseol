@@ -14,8 +14,10 @@ export interface InsightContext {
   awayTeam: string;
   homeRank?: number;
   awayRank?: number;
-  homeRecentForm?: string; // e.g. "WWLDW"
+  homeRecentForm?: string; // e.g. "WWLDW" — 첫 글자=가장 최근.
   awayRecentForm?: string;
+  homeStreak?: string; // e.g. "현재 2연패", "현재 3연승"
+  awayStreak?: string;
   headToHead?: string; // e.g. "최근 5번 맞대결: 홈 3승 2패"
 }
 
@@ -64,8 +66,18 @@ export function buildInsightContext({
     awayRank,
     homeRecentForm: home?.last5,
     awayRecentForm: away?.last5,
+    homeStreak: formatStreak(home?.streak),
+    awayStreak: formatStreak(away?.streak),
     headToHead: h2h,
   };
+}
+
+function formatStreak(
+  streak: { count: number; type: "W" | "L" | "D" } | undefined,
+): string | undefined {
+  if (!streak || streak.count <= 0) return undefined;
+  const label = streak.type === "W" ? "연승" : streak.type === "L" ? "연패" : "무승부";
+  return `현재 ${streak.count}${label}`;
 }
 
 /** Finds rank for both teams across all sport-specific standings arrays. */

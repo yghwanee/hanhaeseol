@@ -5,6 +5,7 @@ export function buildPrompt(ctx: InsightContext): string {
     ctx.homeTeam,
     ctx.homeRank ? `현재 ${ctx.homeRank}위` : null,
     ctx.homeRecentForm ? `최근 5경기 ${ctx.homeRecentForm}` : null,
+    ctx.homeStreak,
   ]
     .filter(Boolean)
     .join(", ");
@@ -13,6 +14,7 @@ export function buildPrompt(ctx: InsightContext): string {
     ctx.awayTeam,
     ctx.awayRank ? `현재 ${ctx.awayRank}위` : null,
     ctx.awayRecentForm ? `최근 5경기 ${ctx.awayRecentForm}` : null,
+    ctx.awayStreak,
   ]
     .filter(Boolean)
     .join(", ");
@@ -26,6 +28,7 @@ export function buildPrompt(ctx: InsightContext): string {
 - 종목: ${ctx.sport}
 - 홈팀: ${homeInfo}
 - 원정팀: ${awayInfo}
+- 참고: "최근 5경기"의 문자열은 왼쪽이 가장 최근 경기. 예) "LLWWW"는 가장 최근에 2연패, 그 이전에 3연승. "현재 N연승/연패"가 절대 기준이므로, 둘이 충돌하면 streak를 따른다.
 ${ctx.headToHead ? `- ${ctx.headToHead}` : ""}
 - 한국 시간 킥오프: ${ctx.date} ${ctx.time} KST
 - 한국어 해설 플랫폼: ${ctx.platform}
