@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-21T19:06:23.876Z",
+  "lastUpdated": "2026-05-21T20:56:24.930Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -1111,6 +1111,16 @@
       "status": "finished",
       "period": "4쿼터"
     },
+    "2026-05-22|denmark|브뢴비|코펜하겐": {
+      "date": "2026-05-22",
+      "categoryId": "denmark",
+      "homeTeam": "브뢴비",
+      "awayTeam": "코펜하겐",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료"
+    },
     "2026-05-22|eredivisie|아약스|흐로닝언": {
       "date": "2026-05-22",
       "categoryId": "eredivisie",
@@ -1120,6 +1130,26 @@
       "awayScore": 0,
       "status": "finished",
       "period": "경기종료"
+    },
+    "2026-05-22|mlb|디트로이트 타이거스|클리블랜드 가디언스": {
+      "date": "2026-05-22",
+      "categoryId": "mlb",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "클리블랜드 가디언스",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-05-22|mlb|세인트루이스 카디널스|피츠버그 파이리츠": {
+      "date": "2026-05-22",
+      "categoryId": "mlb",
+      "homeTeam": "세인트루이스 카디널스",
+      "awayTeam": "피츠버그 파이리츠",
+      "homeScore": 2,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
     }
   },
   "results": [
@@ -2235,6 +2265,16 @@
     },
     {
       "date": "2026-05-22",
+      "categoryId": "denmark",
+      "homeTeam": "브뢴비",
+      "awayTeam": "코펜하겐",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-05-22",
       "categoryId": "eredivisie",
       "homeTeam": "아약스",
       "awayTeam": "흐로닝언",
@@ -2242,6 +2282,26 @@
       "awayScore": 0,
       "status": "finished",
       "period": "경기종료"
+    },
+    {
+      "date": "2026-05-22",
+      "categoryId": "mlb",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "클리블랜드 가디언스",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-05-22",
+      "categoryId": "mlb",
+      "homeTeam": "세인트루이스 카디널스",
+      "awayTeam": "피츠버그 파이리츠",
+      "homeScore": 2,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
     }
   ]
 }
