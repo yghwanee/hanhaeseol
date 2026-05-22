@@ -59,7 +59,8 @@ export function StandingsView({
   );
 
   // 상태 변경 시 URL ↔ 동기화 (history.replaceState로 라우터 재요청 없이).
-  // 초기값은 서버에서 prop으로 받았으므로 mount 시 query → state 동기화는 필요 없음 (깜빡임 방지).
+  // 첫 인자에 null 을 넘기면 Next.js App Router 의 router state 가 entry 에서 사라져
+  // 뒤로가기 시 page swap 이 깨진다. 기존 state 를 보존.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (sport !== "soccer") params.set("sport", sport);
@@ -69,7 +70,7 @@ export function StandingsView({
     else params.delete("league");
     const qs = params.toString();
     const next = qs ? `?${qs}` : window.location.pathname;
-    window.history.replaceState(null, "", next);
+    window.history.replaceState(window.history.state, "", next);
   }, [sport, leagueId, data]);
 
   const onSportClick = (s: SportKey) => {

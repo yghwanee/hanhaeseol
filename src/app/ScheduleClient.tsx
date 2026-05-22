@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useMemo, useEffect, useRef, useCallback } from "react";
+import React, { useState, useMemo, useEffect, useRef, useCallback, useDeferredValue } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ScheduleData } from "@/types/schedule";
@@ -69,6 +69,9 @@ export default function ScheduleClient({
 
   // 상태 변경 시 URL 동기화 (history.replaceState로 라우터 재요청 없이).
   // 초기값은 서버에서 prop으로 받으므로 mount 시 query → state 동기화 단계 없음 (깜빡임 방지).
+  // 첫 인자에 null을 넘기면 Next.js App Router 가 entry 에 박아둔 router state(__NA 등)가
+  // 통째로 사라져, 매치 페이지에서 뒤로가기 시 page swap 이 깨지고 scroll restoration 만
+  // 발동하는 현상이 생긴다. 현재 state 를 보존하여 URL 만 교체.
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     if (selectedDate !== getTodayString()) params.set("date", selectedDate);
@@ -81,7 +84,7 @@ export default function ScheduleClient({
     else params.delete("comm");
     const qs = params.toString();
     const next = qs ? `?${qs}` : window.location.pathname;
-    window.history.replaceState(null, "", next);
+    window.history.replaceState(window.history.state, "", next);
   }, [selectedDate, sport, platform, commentaryFilter]);
 
   const platformRef = useRef<HTMLDivElement>(null);
@@ -185,18 +188,26 @@ export default function ScheduleClient({
 
   const weekDates = useMemo(() => getUpcomingDates(), []);
 
+  // 필터 탭 클릭 시 활성 표시는 즉시 갱신되고 카드 list 만 한 박자 늦게 갱신되도록
+  // useDeferredValue 로 카드용 필터 값을 분리. selectedDate 는 사용자 의도가 즉시 반영
+  // 되어야 자연스러우므로 그대로 둠.
+  const deferredSport = useDeferredValue(sport);
+  const deferredPlatform = useDeferredValue(platform);
+  const deferredCommentary = useDeferredValue(commentaryFilter);
+  const deferredSearchQuery = useDeferredValue(searchQuery);
+
   const filtered = useMemo(() => {
     // 과거 날짜는 archive에서, 오늘 이후는 schedule.json에서 데이터를 가져온다.
     const source = isArchiveDate ? archive : data;
     if (!source) return [];
-    const q = searchQuery.trim().toLowerCase();
+    const q = deferredSearchQuery.trim().toLowerCase();
     return source.schedules
       .filter((s) => s.date === selectedDate)
-      .filter((s) => sport === "전체" || s.sport === sport)
-      .filter((s) => platform === "전체" || s.platform === platform)
+      .filter((s) => deferredSport === "전체" || s.sport === deferredSport)
+      .filter((s) => deferredPlatform === "전체" || s.platform === deferredPlatform)
       .filter((s) => {
-        if (commentaryFilter === "korean") return s.koreanCommentary === true;
-        if (commentaryFilter === "foreign") return s.koreanCommentary === false;
+        if (deferredCommentary === "korean") return s.koreanCommentary === true;
+        if (deferredCommentary === "foreign") return s.koreanCommentary === false;
         return true;
       })
       .filter((s) => {
@@ -208,7 +219,7 @@ export default function ScheduleClient({
         );
       })
       .sort((a, b) => a.time.localeCompare(b.time));
-  }, [data, archive, isArchiveDate, selectedDate, sport, platform, commentaryFilter, searchQuery]);
+  }, [data, archive, isArchiveDate, selectedDate, deferredSport, deferredPlatform, deferredCommentary, deferredSearchQuery]);
 
   // 카드 결과 표시: archive 모드는 archiveResults, 그 외는 현재 results.
   const effectiveResults = isArchiveDate ? archiveResults : results;

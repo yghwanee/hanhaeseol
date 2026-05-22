@@ -113,6 +113,8 @@ export default function AnalysisClient({ articles, lastUpdated }: { articles: An
   }, [showCalendar]);
 
   // selectedDate → URL 동기화 (새로고침해도 같은 날짜 유지)
+  // 첫 인자에 null 을 넘기면 Next.js App Router 의 router state 가 entry 에서 사라져
+  // 뒤로가기 시 page swap 이 깨진다. 기존 state 를 보존.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
@@ -120,7 +122,7 @@ export default function AnalysisClient({ articles, lastUpdated }: { articles: An
     else params.delete("date");
     const qs = params.toString();
     const next = qs ? `?${qs}` : window.location.pathname;
-    window.history.replaceState(null, "", next);
+    window.history.replaceState(window.history.state, "", next);
   }, [selectedDate]);
 
   if (articles.length === 0) {

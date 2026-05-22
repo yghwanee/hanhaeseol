@@ -104,7 +104,7 @@ export function SmoothTabs<T extends string>({
       {!useCapsStripe && (
         <div
           aria-hidden
-          className={`pointer-events-none absolute top-0 left-0 rounded-lg ${pillClassName} transition-[transform,width,height] duration-300 ease-out ${
+          className={`pointer-events-none absolute top-0 left-0 rounded-lg ${pillClassName} transition-[transform,width,height] duration-150 ease-out ${
             variant === "bordered" ? `border ${borderCls}` : ""
           }`}
           style={{
