@@ -65,6 +65,11 @@ export const metadata: Metadata = {
   },
   alternates: {
     canonical: "https://haeseol.com",
+    types: {
+      "application/rss+xml": [
+        { url: "https://haeseol.com/rss.xml", title: "한해설 RSS 피드" },
+      ],
+    },
   },
   robots: {
     index: true,
