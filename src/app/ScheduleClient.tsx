@@ -16,6 +16,7 @@ import { SmoothTabs, SmoothCircleTabs } from "./_components/SmoothTabs";
 import { ScheduleCard } from "./_components/ScheduleCard";
 import { AdSkeleton } from "./_components/AdSkeleton";
 import { DatePickerSheet } from "./_components/DatePickerSheet";
+import { useScrollbarDrag } from "@/lib/hooks/useScrollbarDrag";
 
 export default function ScheduleClient({
   initialData,
@@ -89,6 +90,7 @@ export default function ScheduleClient({
 
   const platformRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
+  const { trackRef: scrollbarTrackRef, handlers: scrollbarHandlers } = useScrollbarDrag(platformRef);
   const [showLeftFade, setShowLeftFade] = useState(false);
   const [showRightFade, setShowRightFade] = useState(false);
   const dragState = useRef({ isDown: false, isDragging: false, startX: 0, scrollLeft: 0 });
@@ -368,13 +370,22 @@ export default function ScheduleClient({
             aria-hidden
           />
           </div>
-          {/* Scroll indicator bar */}
-          <div className="mt-3 mx-auto w-28 sm:w-32 h-[3px] rounded-full bg-zinc-800/60">
+          {/* Scroll indicator bar — 시각 표시 겸 드래그 가능한 스크롤바.
+              -my-2 py-2 로 시각은 3px 유지하면서 터치/클릭 영역만 16px 로 확장. */}
+          <div className="mt-3 mx-auto w-28 sm:w-32">
             <div
-              ref={indicatorRef}
-              className="h-full rounded-full bg-zinc-500/80"
-              style={{ width: "35%", transform: "translateX(0%)", willChange: "transform" }}
-            />
+              aria-hidden
+              {...scrollbarHandlers}
+              className="-my-2 py-2 cursor-pointer touch-none select-none"
+            >
+              <div ref={scrollbarTrackRef} className="h-[3px] rounded-full bg-zinc-800/60">
+                <div
+                  ref={indicatorRef}
+                  className="h-full rounded-full bg-zinc-500/80"
+                  style={{ width: "35%", transform: "translateX(0%)", willChange: "transform" }}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -12,6 +12,7 @@ import { SoccerTable } from "./SoccerTable";
 import { BaseballTable } from "./BaseballTable";
 import { MlbStandingsTable } from "./MlbStandingsTable";
 import { MlsStandingsTable } from "./MlsStandingsTable";
+import { useScrollbarDrag } from "@/lib/hooks/useScrollbarDrag";
 
 type SportKey = "soccer" | "baseball";
 
@@ -84,6 +85,7 @@ export function StandingsView({
   // 메인 페이지 PLATFORM 필터와 동일한 가로 스크롤 + indicator + 드래그
   const scrollerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
+  const { trackRef: scrollbarTrackRef, handlers: scrollbarHandlers } = useScrollbarDrag(scrollerRef);
   const [showLeftFade, setShowLeftFade] = useState(false);
   const [showRightFade, setShowRightFade] = useState(false);
   const dragState = useRef({
@@ -225,16 +227,20 @@ export function StandingsView({
         />
         </div>
         {/* Scroll indicator bar — 야구는 리그가 2개라 스크롤 자체가 안 생겨서 숨김 */}
-        <div
-          className={`mt-3 mx-auto w-28 sm:w-32 h-[3px] rounded-full bg-zinc-800/60 ${
-            sport === "baseball" ? "hidden" : ""
-          }`}
-        >
+        <div className={`mt-3 mx-auto w-28 sm:w-32 ${sport === "baseball" ? "hidden" : ""}`}>
           <div
-            ref={indicatorRef}
-            className="h-full rounded-full bg-zinc-500/80"
-            style={{ width: "35%", transform: "translateX(0%)", willChange: "transform" }}
-          />
+            aria-hidden
+            {...scrollbarHandlers}
+            className="-my-2 py-2 cursor-pointer touch-none select-none"
+          >
+            <div ref={scrollbarTrackRef} className="h-[3px] rounded-full bg-zinc-800/60">
+              <div
+                ref={indicatorRef}
+                className="h-full rounded-full bg-zinc-500/80"
+                style={{ width: "35%", transform: "translateX(0%)", willChange: "transform" }}
+              />
+            </div>
+          </div>
         </div>
       </div>
 

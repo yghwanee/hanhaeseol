@@ -6,6 +6,7 @@ import type { SoccerStanding } from "@/types/standings";
 import { Last5Dots } from "./Last5Dots";
 import { StreakChip } from "./StreakChip";
 import { rankStatusStyle, uniqueRankStatuses } from "./rankStatus";
+import { useScrollbarDrag } from "@/lib/hooks/useScrollbarDrag";
 
 type SortKey =
   | "rank"
@@ -56,6 +57,7 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
 
   const scrollerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
+  const { trackRef: scrollbarTrackRef, handlers: scrollbarHandlers } = useScrollbarDrag(scrollerRef);
   const [showLeftFade, setShowLeftFade] = useState(false);
   const [showRightFade, setShowRightFade] = useState(false);
   const dragState = useRef({ isDown: false, isDragging: false, startX: 0, scrollLeft: 0 });
@@ -241,13 +243,21 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
         />
       </div>
 
-      {/* Scroll indicator bar — same style as league filter */}
-      <div className="mx-auto mt-2 mb-2 h-[3px] w-24 rounded-full bg-zinc-800/60 sm:w-28">
+      {/* Scroll indicator bar — same style as league filter, drag/click to scroll */}
+      <div className="mx-auto mt-2 mb-2 w-24 sm:w-28">
         <div
-          ref={indicatorRef}
-          className="h-full rounded-full bg-zinc-500/80"
-          style={{ width: "35%", transform: "translateX(0%)", willChange: "transform" }}
-        />
+          aria-hidden
+          {...scrollbarHandlers}
+          className="-my-2 py-2 cursor-pointer touch-none select-none"
+        >
+          <div ref={scrollbarTrackRef} className="h-[3px] rounded-full bg-zinc-800/60">
+            <div
+              ref={indicatorRef}
+              className="h-full rounded-full bg-zinc-500/80"
+              style={{ width: "35%", transform: "translateX(0%)", willChange: "transform" }}
+            />
+          </div>
+        </div>
       </div>
 
       {legend.length > 0 && (
