@@ -259,9 +259,7 @@ export default function ScheduleClient({
           <h1 className="flex items-end">
             <Image src="/icon.png" alt="한해설 아이콘" width={32} height={32} className="h-6 w-6 sm:h-8 sm:w-8 self-center" />
             <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
-            <span className="ml-2 sm:ml-3 hidden sm:inline text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
-            {/* 모바일에서도 검색엔진이 풀 키워드를 H1으로 읽도록 sr-only 노출 */}
-            <span className="sr-only">한국어 해설 중계 편성표 · 한국어중계 편성표</span>
+            <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어 해설 중계 편성표</span>
           </h1>
           <Link
             href="/standings"
