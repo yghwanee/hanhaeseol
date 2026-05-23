@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-23T22:01:43.154Z",
+  "lastUpdated": "2026-05-23T23:01:03.848Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -1581,6 +1581,26 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-05-24|mlb|마이애미 말린스|뉴욕 메츠": {
+      "date": "2026-05-24",
+      "categoryId": "mlb",
+      "homeTeam": "마이애미 말린스",
+      "awayTeam": "뉴욕 메츠",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-05-24|mlb|캔자스시티 로열스|시애틀 매리너스": {
+      "date": "2026-05-24",
+      "categoryId": "mlb",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "시애틀 매리너스",
+      "homeScore": 5,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-05-24|mls|세인트루이스|오스틴": {
       "date": "2026-05-24",
       "categoryId": "mls",
@@ -1588,6 +1608,16 @@
       "awayTeam": "오스틴",
       "homeScore": 3,
       "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    "2026-05-24|mls|미네소타|솔트 레이크": {
+      "date": "2026-05-24",
+      "categoryId": "mls",
+      "homeTeam": "미네소타",
+      "awayTeam": "솔트 레이크",
+      "homeScore": 1,
+      "awayScore": 1,
       "status": "finished",
       "period": "경기종료"
     },
@@ -3285,11 +3315,41 @@
     },
     {
       "date": "2026-05-24",
+      "categoryId": "mlb",
+      "homeTeam": "마이애미 말린스",
+      "awayTeam": "뉴욕 메츠",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-05-24",
+      "categoryId": "mlb",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "시애틀 매리너스",
+      "homeScore": 5,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-05-24",
       "categoryId": "mls",
       "homeTeam": "세인트루이스",
       "awayTeam": "오스틴",
       "homeScore": 3,
       "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-05-24",
+      "categoryId": "mls",
+      "homeTeam": "미네소타",
+      "awayTeam": "솔트 레이크",
+      "homeScore": 1,
+      "awayScore": 1,
       "status": "finished",
       "period": "경기종료"
     },
