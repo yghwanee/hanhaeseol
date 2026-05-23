@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-23T11:20:21.285Z",
+  "lastUpdated": "2026-05-23T13:57:06.289Z",
   "byKey": {
     "2026-05-22|kbo|KT|NC": {
       "date": "2026-05-22",
@@ -61,26 +61,6 @@
       "status": "finished",
       "period": "9회초"
     },
-    "2026-05-23|kbo|한화|두산": {
-      "date": "2026-05-23",
-      "categoryId": "kbo",
-      "homeTeam": "한화",
-      "awayTeam": "두산",
-      "homeScore": 5,
-      "awayScore": 2,
-      "status": "live",
-      "period": "8회말"
-    },
-    "2026-05-23|kbo|롯데|삼성": {
-      "date": "2026-05-23",
-      "categoryId": "kbo",
-      "homeTeam": "롯데",
-      "awayTeam": "삼성",
-      "homeScore": 7,
-      "awayScore": 5,
-      "status": "live",
-      "period": "9회초"
-    },
     "2026-05-23|kbo|KT|NC": {
       "date": "2026-05-23",
       "categoryId": "kbo",
@@ -91,6 +71,16 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-05-23|kbo|한화|두산": {
+      "date": "2026-05-23",
+      "categoryId": "kbo",
+      "homeTeam": "한화",
+      "awayTeam": "두산",
+      "homeScore": 5,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-05-23|kbo|KIA|SSG": {
       "date": "2026-05-23",
       "categoryId": "kbo",
@@ -98,6 +88,16 @@
       "awayTeam": "SSG",
       "homeScore": 5,
       "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-05-23|kbo|롯데|삼성": {
+      "date": "2026-05-23",
+      "categoryId": "kbo",
+      "homeTeam": "롯데",
+      "awayTeam": "삼성",
+      "homeScore": 7,
+      "awayScore": 5,
       "status": "finished",
       "period": "9회초"
     },
@@ -1034,7 +1034,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "canceled",
+      "period": "연기"
     },
     "2026-05-24|mlb|뉴욕양키스|탬파베이 레이스": {
       "date": "2026-05-24",
@@ -1043,7 +1044,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "canceled",
+      "period": "연기"
     },
     "2026-05-24|mlb|뉴욕 양키스|탬파베이": {
       "date": "2026-05-24",
@@ -1052,7 +1054,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "canceled",
+      "period": "연기"
     },
     "2026-05-24|mlb|뉴욕 양키스|탬파베이 레이스": {
       "date": "2026-05-24",
@@ -1061,7 +1064,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "canceled",
+      "period": "연기"
     },
     "2026-05-24|mlb|시카고컵스|휴스턴": {
       "date": "2026-05-24",
@@ -2048,9 +2052,9 @@
       "homeTeam": "충북청주",
       "awayTeam": "화성",
       "homeScore": 2,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 14'"
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-05-24|kleague2|용인|충남아산": {
       "date": "2026-05-24",
@@ -2187,26 +2191,6 @@
     {
       "date": "2026-05-23",
       "categoryId": "kbo",
-      "homeTeam": "한화",
-      "awayTeam": "두산",
-      "homeScore": 5,
-      "awayScore": 2,
-      "status": "live",
-      "period": "8회말"
-    },
-    {
-      "date": "2026-05-23",
-      "categoryId": "kbo",
-      "homeTeam": "롯데",
-      "awayTeam": "삼성",
-      "homeScore": 7,
-      "awayScore": 5,
-      "status": "live",
-      "period": "9회초"
-    },
-    {
-      "date": "2026-05-23",
-      "categoryId": "kbo",
       "homeTeam": "KT",
       "awayTeam": "NC",
       "homeScore": 10,
@@ -2217,10 +2201,30 @@
     {
       "date": "2026-05-23",
       "categoryId": "kbo",
+      "homeTeam": "한화",
+      "awayTeam": "두산",
+      "homeScore": 5,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-05-23",
+      "categoryId": "kbo",
       "homeTeam": "KIA",
       "awayTeam": "SSG",
       "homeScore": 5,
       "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-05-23",
+      "categoryId": "kbo",
+      "homeTeam": "롯데",
+      "awayTeam": "삼성",
+      "homeScore": 7,
+      "awayScore": 5,
       "status": "finished",
       "period": "9회초"
     },
@@ -2510,7 +2514,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "canceled",
+      "period": "연기"
     },
     {
       "date": "2026-05-24",
@@ -2953,9 +2958,9 @@
       "homeTeam": "충북청주",
       "awayTeam": "화성",
       "homeScore": 2,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 14'"
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-05-24",

@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-23T11:20:21.296Z",
+  "lastUpdated": "2026-05-23T13:57:06.299Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -1301,6 +1301,26 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-05-23|kbo|한화|두산": {
+      "date": "2026-05-23",
+      "categoryId": "kbo",
+      "homeTeam": "한화",
+      "awayTeam": "두산",
+      "homeScore": 5,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-05-23|kbo|롯데|삼성": {
+      "date": "2026-05-23",
+      "categoryId": "kbo",
+      "homeTeam": "롯데",
+      "awayTeam": "삼성",
+      "homeScore": 7,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-05-23|kleague2|전남|김해": {
       "date": "2026-05-23",
       "categoryId": "kleague2",
@@ -1318,6 +1338,16 @@
       "awayTeam": "수원FC",
       "homeScore": 3,
       "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    "2026-05-23|kleague2|충북청주|화성": {
+      "date": "2026-05-23",
+      "categoryId": "kleague2",
+      "homeTeam": "충북청주",
+      "awayTeam": "화성",
+      "homeScore": 2,
+      "awayScore": 3,
       "status": "finished",
       "period": "경기종료"
     },
@@ -1490,6 +1520,16 @@
       "awayScore": 1,
       "status": "finished",
       "period": "경기종료"
+    },
+    "2026-05-24|mlb|뉴욕 양키스|탬파베이 레이스": {
+      "date": "2026-05-24",
+      "categoryId": "mlb",
+      "homeTeam": "뉴욕 양키스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "연기"
     }
   },
   "results": [
@@ -2795,6 +2835,26 @@
     },
     {
       "date": "2026-05-23",
+      "categoryId": "kbo",
+      "homeTeam": "한화",
+      "awayTeam": "두산",
+      "homeScore": 5,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-05-23",
+      "categoryId": "kbo",
+      "homeTeam": "롯데",
+      "awayTeam": "삼성",
+      "homeScore": 7,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-05-23",
       "categoryId": "kleague2",
       "homeTeam": "전남",
       "awayTeam": "김해",
@@ -2810,6 +2870,16 @@
       "awayTeam": "수원FC",
       "homeScore": 3,
       "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-05-23",
+      "categoryId": "kleague2",
+      "homeTeam": "충북청주",
+      "awayTeam": "화성",
+      "homeScore": 2,
+      "awayScore": 3,
       "status": "finished",
       "period": "경기종료"
     },
@@ -2982,6 +3052,16 @@
       "awayScore": 1,
       "status": "finished",
       "period": "경기종료"
+    },
+    {
+      "date": "2026-05-24",
+      "categoryId": "mlb",
+      "homeTeam": "뉴욕 양키스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "연기"
     }
   ]
 }
