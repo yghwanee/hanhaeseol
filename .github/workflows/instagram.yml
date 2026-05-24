@@ -18,8 +18,10 @@ permissions:
 jobs:
   instagram:
     runs-on: ubuntu-latest
-    # 4/20(UTC=KST 22:00) 스케줄은 인스타 액션블록 쿨다운으로 1회 스킵. 수동 실행은 계속 가능.
-    if: ${{ github.event_name != 'schedule' || !startsWith(github.run_started_at, '2026-04-20') }}
+    # 4/20: 인스타 액션블록 쿨다운으로 1회 스킵.
+    # 5/24: 컨테이너 노드 GET 거부 이슈 fix 검증용 수동 run을 이미 KST 16시에 실행 → 중복 방지.
+    # 수동 실행은 계속 가능.
+    if: ${{ github.event_name != 'schedule' || (!startsWith(github.run_started_at, '2026-04-20') && !startsWith(github.run_started_at, '2026-05-24')) }}
     env:
       IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
       IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
