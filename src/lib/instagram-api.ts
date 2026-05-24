@@ -52,6 +52,22 @@ export async function postMedia(params: Record<string, string>): Promise<string>
   return data.id as string;
 }
 
+type IgError = { code?: number; error_subcode?: number; message?: string };
+
+// Meta가 Page Access Token으로 미디어 컨테이너 노드 직접 GET 호출을 막은 케이스.
+// 5/23부터 모든 컨테이너 GET이 code=100/subcode=33으로 거부됨.
+function isNodeGetForbidden(err: IgError | undefined): boolean {
+  return !!err && err.code === 100 && err.error_subcode === 33;
+}
+
+// publish 호출 시 컨테이너가 아직 IN_PROGRESS면 받는 종류의 에러
+function isMediaNotReady(err: IgError | undefined): boolean {
+  if (!err) return false;
+  if (err.code === 9007 || err.error_subcode === 2207027) return true;
+  const msg = err.message ?? "";
+  return /not available|still being processed|is being processed|media is not ready/i.test(msg);
+}
+
 export async function waitForFinished(containerId: string, maxAttempts = 20, intervalMs = 3000) {
   const { token } = igEnv();
   let lastData: Record<string, unknown> | null = null;
@@ -60,6 +76,16 @@ export async function waitForFinished(containerId: string, maxAttempts = 20, int
     const res = await fetch(`${IG_API}/${containerId}?fields=status_code,status&access_token=${token}`);
     const data = (await res.json()) as Record<string, unknown>;
     lastData = data;
+    const err = data.error as IgError | undefined;
+
+    // 노드 GET이 막혔으면 폴링이 영영 안 됨 → 남은 시간만큼 시간 기반 sleep 후 publish에 맡긴다.
+    if (isNodeGetForbidden(err)) {
+      const remainingMs = intervalMs * (maxAttempts - i);
+      console.warn(`   [poll ${i + 1}/${maxAttempts}] ${containerId} 노드 GET 거부 (code=100/sub=33) → ${Math.round(remainingMs / 1000)}s 시간 기반 대기로 전환`);
+      await sleep(remainingMs);
+      return;
+    }
+
     const statusCode = typeof data.status_code === "string" ? data.status_code : undefined;
     if (statusCode !== lastStatusCode) {
       console.log(`   [poll ${i + 1}/${maxAttempts}] ${containerId} status_code=${statusCode ?? "?"} status=${data.status ?? ""}`);
@@ -74,23 +100,36 @@ export async function waitForFinished(containerId: string, maxAttempts = 20, int
   throw new Error(`컨테이너 ${containerId} 처리 시간 초과 (마지막 status_code=${lastStatusCode ?? "?"}, raw=${JSON.stringify(lastData)})`);
 }
 
-export async function publish(creationId: string): Promise<string> {
+export async function publish(creationId: string, maxRetries = 6, retryDelayMs = 15000): Promise<string> {
   const { igId, token } = igEnv();
   const startedAt = Date.now();
-  const body = new URLSearchParams({ creation_id: creationId, access_token: token });
-  const res = await fetch(`${IG_API}/${igId}/media_publish`, { method: "POST", body });
-  const data = await res.json();
-  if (res.ok && data.id) return data.id as string;
+  let lastData: Record<string, unknown> = {};
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    const body = new URLSearchParams({ creation_id: creationId, access_token: token });
+    const res = await fetch(`${IG_API}/${igId}/media_publish`, { method: "POST", body });
+    const data = (await res.json()) as Record<string, unknown>;
+    lastData = data;
+    if (res.ok && data.id) return data.id as string;
+
+    // 컨테이너가 아직 처리 중이면 잠시 후 재시도. waitForFinished가 노드 GET 거부로
+    // 시간 기반 폴백을 거친 경우, publish 첫 시도 시점에 IN_PROGRESS일 수 있음.
+    if (isMediaNotReady(data.error as IgError | undefined) && attempt < maxRetries) {
+      console.warn(`⚠️  publish ${attempt}/${maxRetries} — 미디어 미준비, ${retryDelayMs / 1000}s 후 재시도: ${JSON.stringify(data.error)}`);
+      await sleep(retryDelayMs);
+      continue;
+    }
+    break;
+  }
 
   // IG가 "Application request limit reached"(code 4, subcode 2207051) 같은 에러를 내도
   // 실제로는 게시가 처리된 경우가 있음. 최근 피드를 조회해 방금 올라간 media를 복구한다.
-  console.warn(`⚠️  publish 응답 에러, 최근 media 조회로 폴백: ${JSON.stringify(data)}`);
+  console.warn(`⚠️  publish 응답 에러, 최근 media 조회로 폴백: ${JSON.stringify(lastData)}`);
   const recovered = await findRecentlyPublishedMediaId(startedAt);
   if (recovered) {
     console.log(`✅ 폴백으로 복구된 Media ID: ${recovered}`);
     return recovered;
   }
-  throw new Error(`게시 실패 (폴백도 실패): ${JSON.stringify(data)}`);
+  throw new Error(`게시 실패 (폴백도 실패): ${JSON.stringify(lastData)}`);
 }
 
 async function findRecentlyPublishedMediaId(
