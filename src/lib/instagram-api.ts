@@ -54,16 +54,24 @@ export async function postMedia(params: Record<string, string>): Promise<string>
 
 export async function waitForFinished(containerId: string, maxAttempts = 20, intervalMs = 3000) {
   const { token } = igEnv();
+  let lastData: Record<string, unknown> | null = null;
+  let lastStatusCode: string | undefined;
   for (let i = 0; i < maxAttempts; i++) {
-    const res = await fetch(`${IG_API}/${containerId}?fields=status_code&access_token=${token}`);
-    const data = await res.json();
-    if (data.status_code === "FINISHED") return;
-    if (data.status_code === "ERROR" || data.status_code === "EXPIRED") {
-      throw new Error(`컨테이너 ${containerId} 처리 실패: ${data.status_code}`);
+    const res = await fetch(`${IG_API}/${containerId}?fields=status_code,status&access_token=${token}`);
+    const data = (await res.json()) as Record<string, unknown>;
+    lastData = data;
+    const statusCode = typeof data.status_code === "string" ? data.status_code : undefined;
+    if (statusCode !== lastStatusCode) {
+      console.log(`   [poll ${i + 1}/${maxAttempts}] ${containerId} status_code=${statusCode ?? "?"} status=${data.status ?? ""}`);
+      lastStatusCode = statusCode;
+    }
+    if (statusCode === "FINISHED") return;
+    if (statusCode === "ERROR" || statusCode === "EXPIRED") {
+      throw new Error(`컨테이너 ${containerId} 처리 실패: ${statusCode} raw=${JSON.stringify(data)}`);
     }
     await sleep(intervalMs);
   }
-  throw new Error(`컨테이너 ${containerId} 처리 시간 초과`);
+  throw new Error(`컨테이너 ${containerId} 처리 시간 초과 (마지막 status_code=${lastStatusCode ?? "?"}, raw=${JSON.stringify(lastData)})`);
 }
 
 export async function publish(creationId: string): Promise<string> {
