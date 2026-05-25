@@ -21,13 +21,18 @@ import { StickyHeader } from "../../_components/StickyHeader";
 import { CoupangTopBannerOnly } from "../../_components/CoupangBanners";
 import { readInsight } from "@/lib/insights/storage";
 import { MatchInsightSection } from "./_components/MatchInsight";
-import { TeamLogo } from "../../analysis/[id]/TeamLogo";
+import { MatchContextSection } from "./_components/MatchContext";
+import { TeamLogo } from "../../_components/TeamLogo";
 import { NAVER_TO_SCHEDULE_TEAM_NAME } from "@/lib/team-records/team-name-aliases";
 import { getTeamLogo } from "@/data/team-logos";
+import teamRecordsData from "@/data/team-records.json";
+import type { TeamRecordsData } from "@/types/team-record";
+import { buildMatchNarrative } from "@/lib/match-content/build";
 
 const data = scheduleData as unknown as ScheduleData;
 const archive = archiveData as unknown as ScheduleData;
 const standings = standingsData as unknown as StandingsData;
+const teamRecords = teamRecordsData as unknown as TeamRecordsData;
 
 /**
  * standings teamName → logo URL. 모듈 로드 시 1회 평탄화해서 O(1) 조회.
@@ -127,10 +132,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   const match = findMatchAnywhere(params.slug);
   if (!match) return { title: "경기 정보 - 한해설" };
 
-  const insight =
-    process.env.NEXT_PUBLIC_INSIGHTS_ENABLED === "true"
-      ? readInsight(match.id)
-      : null;
+  const insight = readInsight(match.id);
 
   const date = formatDateHeader(match.date);
   const ko = matchKoreanLabel(match);
@@ -201,10 +203,16 @@ export default function MatchPage({ params }: { params: Params }) {
   const hasScore =
     !!result && typeof result.homeScore === "number" && typeof result.awayScore === "number";
 
-  const insight =
-    process.env.NEXT_PUBLIC_INSIGHTS_ENABLED === "true"
-      ? readInsight(match.id)
-      : null;
+  const insight = readInsight(match.id);
+
+  // 데이터 기반 자동 콘텐츠 — 인사이트 유무와 무관하게 항상 시도.
+  // standings/results-archive/team-records가 있으면 풍부한 섹션을 만들고, 없으면 자연어 단락만.
+  const narrative = buildMatchNarrative(
+    match,
+    resultsArchive,
+    standings,
+    teamRecords.records,
+  );
 
   const ko = matchKoreanLabel(match);
   const leagueSlug = leagueSlugFor(match.league);
@@ -489,6 +497,14 @@ export default function MatchPage({ params }: { params: Params }) {
         </article>
 
         {insight && <MatchInsightSection insight={insight} />}
+
+        <MatchContextSection
+          narrative={narrative}
+          homeTeam={match.homeTeam}
+          awayTeam={match.awayTeam}
+          league={match.league}
+          platform={match.platform}
+        />
 
         {/* 같은 리그 다른 경기 — 내부 링크 + 사용자 탐색 동선 */}
         {relatedByLeague.length > 0 && (
