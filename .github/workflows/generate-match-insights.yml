@@ -35,6 +35,9 @@ jobs:
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '6' }}
+          # 매일 04:00에 7일치 전부 overwrite. 팀 폼/순위/연승은 매일 바뀌므로 stale 방지가 필요.
+          # 일 호출 ~107회는 Gemini 무료 한도 1500의 7%로 안전.
+          INSIGHTS_FORCE_REGEN: "true"
         run: npm run insights:generate
 
       - name: Commit & push

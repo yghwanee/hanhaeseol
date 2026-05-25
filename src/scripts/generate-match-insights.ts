@@ -10,6 +10,9 @@ import { generateInsightForMatch } from "@/lib/insights/generate";
 const DAYS_AHEAD = Number(process.env.INSIGHTS_DAYS_AHEAD ?? "0");
 // Gemini 2.5 Flash 무료 한도: 일 1,500 req, 분당 15 RPM. 4.5초 간격이면 안전 마진.
 const SLEEP_MS = Number(process.env.INSIGHTS_SLEEP_MS ?? "4500");
+// 인사이트 컨텍스트(팀 폼/순위/연승)는 매일 바뀌므로 미리 생성한 인사이트는 stale이 된다.
+// 야구처럼 매일 경기하는 종목은 D+1 인사이트도 전날 결과를 반영해야 함. true면 매일 overwrite.
+const FORCE_REGEN = process.env.INSIGHTS_FORCE_REGEN === "true";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -73,6 +76,7 @@ async function main() {
         resultsArchive: resultsData.results,
       },
       apiKey,
+      { force: FORCE_REGEN },
     );
     if (outcome.status === "created") {
       created++;
