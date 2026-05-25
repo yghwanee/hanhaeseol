@@ -504,6 +504,7 @@ export default function MatchPage({ params }: { params: Params }) {
           awayTeam={match.awayTeam}
           league={match.league}
           platform={match.platform}
+          hasInsight={!!insight}
         />
 
         {/* 같은 리그 다른 경기 — 내부 링크 + 사용자 탐색 동선 */}

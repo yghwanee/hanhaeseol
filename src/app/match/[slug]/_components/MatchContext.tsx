@@ -8,6 +8,8 @@ type Props = {
   awayTeam: string;
   league: string;
   platform: string;
+  /** 인사이트(LLM 생성 미리보기)가 위에 이미 렌더링되었으면 자동 paragraph 단락은 숨김 — H2 "경기 미리보기" 중복 방지. */
+  hasInsight?: boolean;
 };
 
 function Last5Pips({ last5 }: { last5?: string }) {
@@ -122,12 +124,16 @@ export function MatchContextSection({
   awayTeam,
   league,
   platform,
+  hasInsight,
 }: Props) {
   const { paragraph, homeSummary, awaySummary, headToHead, leagueGuide, platformGuide } =
     narrative;
 
+  // 인사이트(LLM)가 있으면 자동 paragraph는 숨김 — 같은 의도의 두 단락이 중복되어 노출되지 않도록.
+  const showParagraph = !hasInsight && !!paragraph;
+
   const hasAnySection =
-    paragraph ||
+    showParagraph ||
     homeSummary ||
     awaySummary ||
     headToHead.length > 0 ||
@@ -137,7 +143,7 @@ export function MatchContextSection({
 
   return (
     <section className="mt-6 space-y-4">
-      {paragraph && (
+      {showParagraph && (
         <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
           <h2 className="mb-2 text-sm font-semibold text-white sm:text-base">
             경기 미리보기
