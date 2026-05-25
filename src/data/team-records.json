@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-25T01:34:50.369Z",
+  "lastUpdated": "2026-05-25T06:05:32.821Z",
   "records": {
     "KBO": {
       "삼성": {
@@ -323,6 +323,28 @@
           "type": "L"
         }
       },
+      "시애틀": {
+        "last5": "LLWWL",
+        "win": 25,
+        "lose": 29,
+        "draw": 0,
+        "wra": 0.463,
+        "streak": {
+          "count": 2,
+          "type": "L"
+        }
+      },
+      "시애틀 매리너스": {
+        "last5": "LLWWL",
+        "win": 25,
+        "lose": 29,
+        "draw": 0,
+        "wra": 0.463,
+        "streak": {
+          "count": 2,
+          "type": "L"
+        }
+      },
       "세인트루이스": {
         "last5": "LWLLW",
         "win": 29,
@@ -342,28 +364,6 @@
         "wra": 0.569,
         "streak": {
           "count": 1,
-          "type": "L"
-        }
-      },
-      "텍사스": {
-        "last5": "LLWWL",
-        "win": 24,
-        "lose": 27,
-        "draw": 0,
-        "wra": 0.471,
-        "streak": {
-          "count": 2,
-          "type": "L"
-        }
-      },
-      "텍사스 레인저스": {
-        "last5": "LLWWL",
-        "win": 24,
-        "lose": 27,
-        "draw": 0,
-        "wra": 0.471,
-        "streak": {
-          "count": 2,
           "type": "L"
         }
       },
@@ -455,25 +455,25 @@
           "type": "L"
         }
       },
-      "시애틀": {
-        "last5": "LLWWL",
-        "win": 25,
-        "lose": 29,
+      "텍사스": {
+        "last5": "LLLWW",
+        "win": 24,
+        "lose": 28,
         "draw": 0,
-        "wra": 0.463,
+        "wra": 0.462,
         "streak": {
-          "count": 2,
+          "count": 3,
           "type": "L"
         }
       },
-      "시애틀 매리너스": {
-        "last5": "LLWWL",
-        "win": 25,
-        "lose": 29,
+      "텍사스 레인저스": {
+        "last5": "LLLWW",
+        "win": 24,
+        "lose": 28,
         "draw": 0,
-        "wra": 0.463,
+        "wra": 0.462,
         "streak": {
-          "count": 2,
+          "count": 3,
           "type": "L"
         }
       },
@@ -632,24 +632,24 @@
         }
       },
       "LA에인절스": {
-        "last5": "WWLLL",
-        "win": 19,
+        "last5": "WWWLL",
+        "win": 20,
         "lose": 34,
         "draw": 0,
-        "wra": 0.358,
+        "wra": 0.37,
         "streak": {
-          "count": 2,
+          "count": 3,
           "type": "W"
         }
       },
       "LA 에인절스": {
-        "last5": "WWLLL",
-        "win": 19,
+        "last5": "WWWLL",
+        "win": 20,
         "lose": 34,
         "draw": 0,
-        "wra": 0.358,
+        "wra": 0.37,
         "streak": {
-          "count": 2,
+          "count": 3,
           "type": "W"
         }
       },
@@ -1675,16 +1675,16 @@
         "lose": 5,
         "draw": 4
       },
-      "시애틀 사운더스": {
-        "last5": "LWDDW",
+      "로스앤젤레스 FC": {
+        "last5": "WLLLD",
         "win": 7,
-        "lose": 2,
+        "lose": 5,
         "draw": 3
       },
-      "시애틀 사운더스 FC": {
-        "last5": "LWDDW",
+      "LAFC": {
+        "last5": "WLLLD",
         "win": 7,
-        "lose": 2,
+        "lose": 5,
         "draw": 3
       },
       "샬럿 FC": {
@@ -1692,6 +1692,24 @@
         "win": 6,
         "lose": 6,
         "draw": 3
+      },
+      "시애틀 사운더스": {
+        "last5": "LLWDD",
+        "win": 7,
+        "lose": 3,
+        "draw": 3
+      },
+      "시애틀 사운더스 FC": {
+        "last5": "LLWDD",
+        "win": 7,
+        "lose": 3,
+        "draw": 3
+      },
+      "FC 신시내티": {
+        "last5": "WDLDW",
+        "win": 5,
+        "lose": 5,
+        "draw": 5
       },
       "휴스턴 디나모": {
         "last5": "DWLWW",
@@ -1711,29 +1729,11 @@
         "lose": 6,
         "draw": 1
       },
-      "FC 신시내티": {
-        "last5": "WDLDW",
-        "win": 5,
-        "lose": 5,
-        "draw": 5
-      },
       "미네소타 유나이티드": {
         "last5": "DLLDW",
         "win": 6,
         "lose": 5,
         "draw": 4
-      },
-      "로스앤젤레스 FC": {
-        "last5": "LLLDW",
-        "win": 6,
-        "lose": 5,
-        "draw": 3
-      },
-      "LAFC": {
-        "last5": "LLLDW",
-        "win": 6,
-        "lose": 5,
-        "draw": 3
       },
       "뉴욕 시티 FC": {
         "last5": "LDWWL",
@@ -2912,7 +2912,7 @@
         "wra": 0.78
       },
       "오클라호마시티": {
-        "last5": "WWLWW",
+        "last5": "WLWWL",
         "win": 64,
         "lose": 18,
         "wra": 0.7804878048780488
@@ -2924,7 +2924,7 @@
         "wra": 0.6829268292682927
       },
       "샌안토니오": {
-        "last5": "WWWLL",
+        "last5": "WWLLW",
         "win": 62,
         "lose": 20,
         "wra": 0.7560975609756098
