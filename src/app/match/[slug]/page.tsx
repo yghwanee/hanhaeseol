@@ -128,6 +128,35 @@ function leagueSlugFor(leagueName: string): string | undefined {
   return LEAGUE_SEO.find((l) => l.match.includes(leagueName))?.slug;
 }
 
+/**
+ * 매치 페이지 메타 keywords + SportsArticle JSON-LD keywords 공통 빌더.
+ * GSC 데이터상 매치 페이지는 롱테일 영역이라 다양한 조합을 깔아 캡처력 ↑.
+ */
+function buildMatchKeywords(match: Schedule): string[] {
+  const matchupShort = `${match.homeTeam} vs ${match.awayTeam}`;
+  const koTag = match.koreanCommentary === true ? "한국어 해설" : "현지 해설";
+  return [
+    `${matchupShort} 중계`,
+    matchupShort,
+    `${matchupShort} 한국어 중계`,
+    `${matchupShort} ${match.platform}`,
+    `${matchupShort} 결과`,
+    `${matchupShort} 하이라이트`,
+    `${match.homeTeam} 중계`,
+    `${match.awayTeam} 중계`,
+    `${match.homeTeam} ${koTag}`,
+    `${match.awayTeam} ${koTag}`,
+    `${match.league} ${matchupShort}`,
+    `${match.league} 중계`,
+    `${match.league} 편성표`,
+    `${match.league} 한국어 중계`,
+    `${match.platform} 편성표`,
+    `${match.platform} ${match.league}`,
+    `${match.sport} 중계`,
+    `${match.sport} 한국어 해설`,
+  ];
+}
+
 export function generateMetadata({ params }: { params: Params }): Metadata {
   const match = findMatchAnywhere(params.slug);
   if (!match) return { title: "경기 정보 - 한해설" };
@@ -143,25 +172,20 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
     ? `${insight.sections.headline} | ${match.homeTeam} vs ${match.awayTeam} 한해설`
     : `${match.homeTeam} vs ${match.awayTeam} ${ko} 중계 - ${match.platform} ${date} | 한해설`;
 
+  // 인사이트 keyMatchup 첫 100자를 description에 결합 → SERP snippet에 unique 문장 노출.
+  // unique한 텍스트가 SERP에 보이면 CTR ↑ + 중복 페이지로 안 잡힘.
+  const koSuffix = match.koreanCommentary === true ? "로" : "으로";
   const description = insight
-    ? `${insight.sections.headline} · ${date} ${match.time} ${match.league} ${match.homeTeam} vs ${match.awayTeam} 경기. ${match.platform}에서 ${ko}로 시청 가능.`
-    : `${date} ${match.time} ${match.league} ${match.homeTeam} vs ${match.awayTeam} 경기 중계. ${match.platform}에서 ${ko}${match.koreanCommentary === true ? "로" : "으로"} 시청 가능합니다.`;
+    ? `${insight.sections.headline} — ${insight.sections.keyMatchup.slice(0, 100)}… ${date} ${match.time} ${match.league} ${match.homeTeam} vs ${match.awayTeam}, ${match.platform}에서 ${ko}${koSuffix} 시청.`
+    : `${date} ${match.time} ${match.league} ${match.homeTeam} vs ${match.awayTeam} 경기 중계. ${match.platform}에서 ${ko}${koSuffix} 시청 가능합니다.`;
 
   const url = `https://haeseol.com/match/${params.slug}`;
+  const keywords = buildMatchKeywords(match);
 
   return {
     title,
     description,
-    keywords: [
-      `${match.homeTeam} ${match.awayTeam} 중계`,
-      `${match.homeTeam} vs ${match.awayTeam}`,
-      `${match.homeTeam} 중계`,
-      `${match.awayTeam} 중계`,
-      `${match.league} 중계`,
-      `${match.league} 한국어 중계`,
-      `${match.platform} 편성표`,
-      `${match.homeTeam} 한국어 해설`,
-    ],
+    keywords,
     alternates: { canonical: url },
     openGraph: {
       title: insight
@@ -216,6 +240,7 @@ export default function MatchPage({ params }: { params: Params }) {
 
   const ko = matchKoreanLabel(match);
   const leagueSlug = leagueSlugFor(match.league);
+  const keywords = buildMatchKeywords(match);
 
   // 동일 리그 / 동일 플랫폼의 직후 매치들. 같은 매치업이 여러 플랫폼에서 중계되면
   // 슬러그가 달라서 슬러그 비교만으론 자기 경기/중복 경기를 못 거른다. 매치업 키
@@ -313,6 +338,9 @@ export default function MatchPage({ params }: { params: Params }) {
               datePublished: insight.generatedAt,
               dateModified: insight.generatedAt,
               inLanguage: "ko",
+              // articleSection / keywords로 sports vertical 카테고리·롱테일 키워드 노출.
+              articleSection: match.sport,
+              keywords: keywords.slice(0, 10).join(", "),
               articleBody: [
                 insight.sections.recentForm,
                 insight.sections.keyMatchup,
@@ -396,12 +424,21 @@ export default function MatchPage({ params }: { params: Params }) {
         </nav>
 
         <article className="mt-4 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-5 text-center sm:p-6">
-          <p className="text-xs text-zinc-500 sm:text-sm">
-            {date} · {match.time} (KST) · {match.league}
-          </p>
+          {/* H1 텍스트 콘텐츠를 일·시·리그·매치업·해설·플랫폼 모두 포함하도록 구성.
+              시각적으로는 작은 자막 + 큰 매치업 + 작은 자막 3단으로 자연스럽게 분리.
+              크롤러가 보는 H1 textContent: "5월 25일 (월) · 16:30 (KST) · K리그2 파주 vs 김포 한국어 해설 중계 · 쿠팡플레이"
+              → "파주 vs 김포 중계", "K리그2 한국어 해설", "쿠팡플레이 K리그2" 등 롱테일 캡처. */}
           <h1 className="mt-1 text-2xl font-bold leading-tight text-white sm:text-3xl">
-            {match.homeTeam}{" "}
-            <span className="text-zinc-500">vs</span> {match.awayTeam}
+            <span className="block text-xs font-normal text-zinc-500 sm:text-sm">
+              {date} · {match.time} (KST) · {match.league}
+            </span>
+            <span className="mt-1 block">
+              {match.homeTeam}{" "}
+              <span className="text-zinc-500">vs</span> {match.awayTeam}
+            </span>
+            <span className="mt-1 block text-xs font-normal text-zinc-400 sm:text-sm">
+              {ko} 중계 · {match.platform}
+            </span>
           </h1>
 
           {/* 팀 엠블럼 좌우 배치 — standings.json에 로고 있으면 이미지, 없으면 initials 자동 fallback */}
