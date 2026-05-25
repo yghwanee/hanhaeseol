@@ -2,14 +2,16 @@ name: Generate Match Insights
 
 on:
   schedule:
-    # 매일 04:00 KST = 19:00 UTC (전날). D-day만 생성.
+    # 매일 04:00 KST = 19:00 UTC (전날). 7일치(D-day~D+6) 생성.
+    # 이미 생성된 매치는 readInsight() 체크로 skip되므로 매일 추가분만 LLM 호출.
+    # 한국어해설 7일치 ~107건 / Gemini 무료 한도 1,500/일(7%), 4.5s sleep 분당 13.3req(<15 RPM).
     - cron: '0 19 * * *'
   workflow_dispatch:
     inputs:
       days_ahead:
-        description: 'How many days ahead (default 0 = D-day only)'
+        description: 'How many days ahead (default 6 = full 7-day window)'
         required: false
-        default: '0'
+        default: '6'
 
 permissions:
   contents: write
@@ -32,7 +34,7 @@ jobs:
         id: gen
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '0' }}
+          INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '6' }}
         run: npm run insights:generate
 
       - name: Commit & push
