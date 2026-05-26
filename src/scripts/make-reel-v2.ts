@@ -33,18 +33,19 @@ async function main() {
   const { files } = readManifest();
   if (files.length === 0) throw new Error("매니페스트에 카드 없음");
 
-  // title 카드: 합본 (배경+텍스트+로고) — 영상 첫 프레임에 자막 박혀 있어야 썸네일 흰색 회피
+  // title 카드 (영상 첫 프레임) — 9:16. 자막 박혀 있어야 썸네일 흰색 회피.
   const hookImg = pickHookImage(today);
   const titleFile = "_reel-title.png";
-  const titleBuf = await renderReelTitleCard(hookImg, today);
+  const titleBuf = await renderReelTitleCard(hookImg, today, "9:16");
   fs.writeFileSync(path.join(OUT_DIR, titleFile), titleBuf);
 
-  // 인스타 REELS cover_url용 동일 PNG를 _ 없는 이름으로 한 번 더 저장.
-  // insta-media 브랜치에 push되어 CDN URL이 노출되어야 publishSingleMedia가 사용 가능.
+  // 인스타 REELS cover_url + 피드 캐러셀 1번 슬라이드 공용 — 4:5 (1080x1350).
+  // post-instagram-all.ts가 main-MMDD.png를 동일 디자인 4:5로 만들지만,
+  // 여기서 cover 전용으로 한 번 더 저장하지 않고 그 main-MMDD.png를 그대로 cover로 사용.
+  // (insta-media 브랜치 push 시 main-MMDD.png 가 같이 올라가므로 CDN URL 사용 가능.)
   const mmddForCover = today.slice(5).replace("-", "");
-  const coverFile = `reel-cover-${mmddForCover}.png`;
-  fs.writeFileSync(path.join(OUT_DIR, coverFile), titleBuf);
-  console.log(`✅ title 합본 카드 + 인스타 cover 생성 (${coverFile})`);
+  const coverFile = `main-${mmddForCover}.png`;
+  console.log(`✅ title (9:16, 영상 첫 프레임) — cover는 캐러셀 1번(${coverFile})과 공용`);
 
   // bigmatch 카드 (있으면)
   const bigmatch = await renderReelBigMatchCard(today);

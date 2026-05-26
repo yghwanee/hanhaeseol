@@ -8,10 +8,17 @@ import {
   inferDayLabel,
 } from "./instagram";
 
-const REEL_W = 1080;
-const REEL_H = 1920;
 const ACCENT = "#8fff3d";
 const KST_DOW = ["일", "월", "화", "수", "목", "금", "토"];
+
+export type ReelTitleAspect = "9:16" | "4:5";
+
+// 9:16 (1080x1920): 릴스 영상 본 비율.
+// 4:5 (1080x1350): 인스타 피드 캐러셀 + 릴스 cover_url.
+// 같은 디자인 파라미터화로 캐러셀 첫 장과 릴스 썸네일을 동일 PNG로 통일.
+function aspectSize(aspect: ReelTitleAspect): { W: number; H: number } {
+  return aspect === "9:16" ? { W: 1080, H: 1920 } : { W: 1080, H: 1350 };
+}
 
 function dayOfWeekKr(today: string): string {
   const [y, m, d] = today.split("-").map(Number);
@@ -62,29 +69,34 @@ function fitText(
  * title 카드 배경 PNG — 풀스크린 AI 이미지 + 어두운 vignette.
  * 텍스트는 renderReelTitleText()로 별도 PNG 생성 후 ffmpeg overlay에서 모션 적용.
  */
-export async function renderReelTitleBackground(imagePath: string): Promise<Buffer> {
-  const canvas = createCanvas(REEL_W, REEL_H);
+export async function renderReelTitleBackground(
+  imagePath: string,
+  aspect: ReelTitleAspect = "9:16",
+): Promise<Buffer> {
+  const { W, H } = aspectSize(aspect);
+  const canvas = createCanvas(W, H);
   const ctx = canvas.getContext("2d");
 
   const img = await loadImage(imagePath);
-  drawCover(ctx, img, 0, 0, REEL_W, REEL_H, 0.32);
+  drawCover(ctx, img, 0, 0, W, H, 0.32);
 
-  // 상단 vignette
+  // 상단 vignette (높이 상수 — 폭은 동일하므로 비율 무관)
   const topShade = ctx.createLinearGradient(0, 0, 0, 280);
   topShade.addColorStop(0, "rgba(8,8,13,0.60)");
   topShade.addColorStop(1, "rgba(8,8,13,0)");
   ctx.fillStyle = topShade;
-  ctx.fillRect(0, 0, REEL_W, 280);
+  ctx.fillRect(0, 0, W, 280);
 
-  // 하단 vignette
-  const VIGNETTE_TOP = REEL_H - 820;
-  const vignette = ctx.createLinearGradient(0, VIGNETTE_TOP, 0, REEL_H);
+  // 하단 vignette — H의 약 43% (9:16 기준 820/1920 비율 유지)
+  const vignetteHeight = Math.round(H * 0.427);
+  const VIGNETTE_TOP = H - vignetteHeight;
+  const vignette = ctx.createLinearGradient(0, VIGNETTE_TOP, 0, H);
   vignette.addColorStop(0, "rgba(8,8,13,0)");
   vignette.addColorStop(0.35, "rgba(8,8,13,0.55)");
   vignette.addColorStop(0.7, "rgba(8,8,13,0.82)");
   vignette.addColorStop(1, "rgba(8,8,13,0.95)");
   ctx.fillStyle = vignette;
-  ctx.fillRect(0, VIGNETTE_TOP, REEL_W, 820);
+  ctx.fillRect(0, VIGNETTE_TOP, W, vignetteHeight);
 
   return canvas.toBuffer("image/png");
 }
@@ -93,8 +105,12 @@ export async function renderReelTitleBackground(imagePath: string): Promise<Buff
  * title 카드 텍스트 PNG — 투명 배경에 모든 텍스트 + 하단 한해설 로고.
  * ffmpeg overlay에서 페이드인/슬라이드 모션으로 합성하거나, renderReelTitleCard()로 합본.
  */
-export async function renderReelTitleText(today: string): Promise<Buffer> {
-  const canvas = createCanvas(REEL_W, REEL_H);
+export async function renderReelTitleText(
+  today: string,
+  aspect: ReelTitleAspect = "9:16",
+): Promise<Buffer> {
+  const { W, H } = aspectSize(aspect);
+  const canvas = createCanvas(W, H);
   const ctx = canvas.getContext("2d");
 
   ctx.textBaseline = "alphabetic";
@@ -146,7 +162,7 @@ export async function renderReelTitleText(today: string): Promise<Buffer> {
   }
 
   ctx.textAlign = "center";
-  const centerX = REEL_W / 2;
+  const centerX = W / 2;
 
   // 날짜 + 요일 (Anton 큰 숫자 + Pretendard 요일)
   const [, mm, dd] = today.split("-");
@@ -154,14 +170,19 @@ export async function renderReelTitleText(today: string): Promise<Buffer> {
   const dateText = `${Number(mm)}/${Number(dd)}`;
   const dowText = `${dow}요일`;
 
-  const DATE_BASELINE = REEL_H - 600;
+  // y좌표는 9:16(H=1920) 기준 절대값을 H 비율로 환산해 4:5에서도 동일 비주얼 비율 유지
+  const DATE_BASELINE = Math.round(H * 0.6875); // 9:16: 1320, 4:5: 928
+  const BIG_Y = Math.round(H * 0.7813);          // 9:16: 1500, 4:5: 1055
+  const SUB_Y = Math.round(H * 0.8333);          // 9:16: 1600, 4:5: 1125
+  const LOGO_BASELINE = Math.round(H * 0.9375);  // 9:16: 1800, 4:5: 1266
+
   ctx.font = "160px Anton";
   const dateW = ctx.measureText(dateText).width;
   ctx.font = "800 96px Pretendard";
   const dowW = ctx.measureText(dowText).width;
   const gap = 28;
   const totalW = dateW + gap + dowW;
-  const startX = (REEL_W - totalW) / 2;
+  const startX = (W - totalW) / 2;
 
   ctx.textAlign = "left";
   ctx.fillStyle = ACCENT;
@@ -173,19 +194,18 @@ export async function renderReelTitleText(today: string): Promise<Buffer> {
   ctx.textAlign = "center";
 
   // 큰 타이틀
-  const bigSize = fitText(ctx, bigLine, REEL_W - 120, 140, "900", 88);
+  const bigSize = fitText(ctx, bigLine, W - 120, 140, "900", 88);
   ctx.fillStyle = "#ffffff";
   ctx.font = `900 ${bigSize}px Pretendard`;
-  ctx.fillText(bigLine, centerX, REEL_H - 420);
+  ctx.fillText(bigLine, centerX, BIG_Y);
 
   // 서브 라인
-  const subSize = fitText(ctx, subLine, REEL_W - 160, 60, "600", 44);
+  const subSize = fitText(ctx, subLine, W - 160, 60, "600", 44);
   ctx.fillStyle = "rgba(255,255,255,0.85)";
   ctx.font = `600 ${subSize}px Pretendard`;
-  ctx.fillText(subLine, centerX, REEL_H - 320);
+  ctx.fillText(subLine, centerX, SUB_Y);
 
   // 하단 — 한해설 로고 + haeseol.com (영상이라 스와이프 CTA는 의미 없음)
-  const LOGO_BASELINE = REEL_H - 120;
   const LOGO_SIZE = 88;
   const LOGO_GAP = 22;
 
@@ -200,7 +220,7 @@ export async function renderReelTitleText(today: string): Promise<Buffer> {
   const brandText = "haeseol.com";
   const brandW = ctx.measureText(brandText).width;
   const blockW = (logoImg ? LOGO_SIZE + LOGO_GAP : 0) + brandW;
-  const blockStartX = (REEL_W - blockW) / 2;
+  const blockStartX = (W - blockW) / 2;
 
   if (logoImg) {
     ctx.save();
@@ -239,11 +259,13 @@ export async function renderReelTitleText(today: string): Promise<Buffer> {
 export async function renderReelTitleCard(
   imagePath: string,
   today: string,
+  aspect: ReelTitleAspect = "9:16",
 ): Promise<Buffer> {
-  const bg = await renderReelTitleBackground(imagePath);
-  const txt = await renderReelTitleText(today);
+  const { W, H } = aspectSize(aspect);
+  const bg = await renderReelTitleBackground(imagePath, aspect);
+  const txt = await renderReelTitleText(today, aspect);
 
-  const canvas = createCanvas(REEL_W, REEL_H);
+  const canvas = createCanvas(W, H);
   const ctx = canvas.getContext("2d");
   const bgImg = await loadImage(bg);
   ctx.drawImage(bgImg, 0, 0);

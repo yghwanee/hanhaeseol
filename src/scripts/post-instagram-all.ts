@@ -14,7 +14,8 @@ import {
   SPORTS_ORDER,
   type MediaItem,
 } from "@/lib/instagram";
-import { pickHookImage, renderHookV7 } from "@/lib/hook-card";
+import { pickHookImage } from "@/lib/hook-card";
+import { renderReelTitleCard } from "@/lib/reel-title-card";
 
 async function main() {
   registerFonts();
@@ -24,20 +25,16 @@ async function main() {
   const outDir = path.resolve("generated/instagram");
   fs.mkdirSync(outDir, { recursive: true });
 
-  // 1) 메인 (V7 후킹 카드 + 매일 다른 AI 이미지)
-  //    피드/스토리용은 PAD=50 (텍스트 크게), 릴스/쇼츠 첫 프레임은 PAD=85
-  //    (영상 좌측 세이프존 회피). 두 파일 모두 디스크에 저장하되 캐러셀에는
-  //    피드용만 포함. make-reel은 main-reel-* 을 골라 쓴다.
+  // 1) 메인 — reel-title 4:5 (1080x1350)
+  //    캐러셀 1번 슬라이드 = 릴스 cover_url. 같은 PNG를 양쪽에서 참조해
+  //    피드 그리드에서 두 게시물이 한 덩어리로 보이게 통일.
   {
     const hookImg = pickHookImage(today);
-    const buf = await renderHookV7(hookImg, mm, dd, today);
+    const buf = await renderReelTitleCard(hookImg, today, "4:5");
     const filename = `main-${mm}${dd}.png`;
     fs.writeFileSync(path.join(outDir, filename), buf);
     items.push({ buf, filename, caption: `${mm}/${dd} 한해설 한국어 중계 편성표` });
-
-    const reelBuf = await renderHookV7(hookImg, mm, dd, today, 85);
-    fs.writeFileSync(path.join(outDir, `main-reel-${mm}${dd}.png`), reelBuf);
-    console.log(`✅ 메인 (V7) — 피드용 + 릴스용`);
+    console.log(`✅ 메인 (reel-title 4:5) — 캐러셀 + 릴스 cover 공용`);
   }
 
   // 2) 종목별 (축구 → 야구 → 농구 → 배구)
