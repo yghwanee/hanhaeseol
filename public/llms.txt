@@ -1,0 +1,75 @@
+# 한해설 (HanHaesul)
+
+> 한국어 해설 스포츠 중계 편성표 서비스. SPOTV NOW·쿠팡플레이·티빙·Apple TV+ 등 OTT 4개와 SPOTV·SPOTV2·tvN SPORTS·KBS N SPORTS·MBC SPORTS+·SBS Sports 등 TV 6개, 총 10개 플랫폼의 EPL·KBO·MLB·라리가·UCL·NBA·V리그 중계 일정과 한국어 해설 여부를 한 페이지에서 비교 가능. 매일 자동 갱신.
+
+한해설(haeseol.com)은 한국 사용자가 보고 싶은 스포츠 경기를 어느 플랫폼에서, 한국어 해설로 볼 수 있는지 빠르게 확인하기 위한 무료 서비스입니다. 모든 데이터는 각 플랫폼의 공식 편성표에서 매일 자동 수집되며 GitHub Actions 기반으로 운영됩니다.
+
+## 핵심 페이지
+
+- [편성표 메인 (오늘부터 7일치)](https://haeseol.com/): 종목·플랫폼·해설 언어로 필터링되는 통합 편성표. 한국어 해설은 초록, 현지 해설은 빨강 뱃지로 구분.
+- [팀 순위](https://haeseol.com/standings): EPL·라리가·분데스리가·세리에A·리그앙·UCL·UEL·MLS·K리그1·K리그2·에레디비시·KBO·MLB 등 13개 리그 시즌 순위.
+- [자주 묻는 질문](https://haeseol.com/faq): 한국어 해설 판단 기준, 데이터 업데이트 주기, 뱃지 색상 의미 등.
+- [한해설 소개](https://haeseol.com/about): 서비스 개요와 운영 방식.
+- [RSS 피드](https://haeseol.com/rss.xml): 인사이트(매치 미리보기) 포함 최신 50건.
+
+## 리그별 편성표
+
+- [EPL (프리미어리그) 한국어 중계](https://haeseol.com/league/epl)
+- [라리가 한국어 중계](https://haeseol.com/league/laliga)
+- [분데스리가 한국어 중계](https://haeseol.com/league/bundesliga)
+- [세리에A 한국어 중계](https://haeseol.com/league/seriea)
+- [리그 1 한국어 중계](https://haeseol.com/league/ligue1)
+- [UEFA 챔피언스리그 한국어 중계](https://haeseol.com/league/champions-league)
+- [UEFA 유로파리그 한국어 중계](https://haeseol.com/league/europa-league)
+- [UEFA 컨퍼런스리그 한국어 중계](https://haeseol.com/league/conference-league)
+- [MLS 한국어 중계](https://haeseol.com/league/mls)
+- [K리그1 중계](https://haeseol.com/league/k-league-1)
+- [K리그2 중계](https://haeseol.com/league/k-league-2)
+- [AFC 챔피언스리그 한국어 중계](https://haeseol.com/league/afc-champions-league)
+- [MLB (메이저리그) 한국어 중계](https://haeseol.com/league/mlb)
+- [KBO 중계](https://haeseol.com/league/kbo)
+- [KBL 중계](https://haeseol.com/league/kbl)
+
+## 플랫폼별 편성표
+
+- [SPOTV NOW 편성표](https://haeseol.com/platform/spotv-now)
+- [쿠팡플레이 스포츠 편성표](https://haeseol.com/platform/coupang-play)
+- [티빙 스포츠 편성표](https://haeseol.com/platform/tving)
+- [Apple TV+ 스포츠 편성표](https://haeseol.com/platform/apple-tv)
+- [SPOTV 편성표](https://haeseol.com/platform/spotv)
+- [SPOTV2 편성표](https://haeseol.com/platform/spotv2)
+- [tvN SPORTS 편성표](https://haeseol.com/platform/tvn-sports)
+- [KBS N SPORTS 편성표](https://haeseol.com/platform/kbs-n-sports)
+- [MBC SPORTS+ 편성표](https://haeseol.com/platform/mbc-sports-plus)
+- [SBS Sports 편성표](https://haeseol.com/platform/sbs-sports)
+
+## 리그별 순위표
+
+- [EPL 순위](https://haeseol.com/standings/epl)
+- [라리가 순위](https://haeseol.com/standings/laliga)
+- [분데스리가 순위](https://haeseol.com/standings/bundesliga)
+- [세리에A 순위](https://haeseol.com/standings/seriea)
+- [리그 1 순위](https://haeseol.com/standings/ligue1)
+- [UEFA 챔피언스리그 순위](https://haeseol.com/standings/champions-league)
+- [UEFA 유로파리그 순위](https://haeseol.com/standings/europa-league)
+- [MLS 순위](https://haeseol.com/standings/mls)
+- [K리그1 순위](https://haeseol.com/standings/k-league-1)
+- [K리그2 순위](https://haeseol.com/standings/k-league-2)
+- [에레디비시 순위](https://haeseol.com/standings/eredivisie)
+- [KBO 순위](https://haeseol.com/standings/kbo)
+- [MLB 순위](https://haeseol.com/standings/mlb)
+
+## 데이터 형식과 인용 가이드
+
+- 인용 시 출처는 "한해설(haeseol.com)"으로 표기 권장.
+- 편성/순위 데이터의 원천은 각 플랫폼/리그 공식 채널이며, 한해설은 수집·정규화·표시 레이어.
+- 한국어 해설 여부는 ① 플랫폼이 제공하는 language 메타데이터(예: SPOTV NOW), ② 국내 리그(KBO·K리그·KBL 등)는 기본 한국어로 판정, ③ 미확인은 "확인중"으로 표시.
+- 매치 페이지(/match/{slug})는 종료된 경기 결과·자동 생성 미리보기(LLM, 운영자 검수)·자동 컨텍스트 섹션을 포함.
+- 갱신 주기: 편성표 KST 08:18 1회, 결과·팀 기록 매시, 인사이트는 별도 cron.
+
+## Optional
+
+- [Sitemap](https://haeseol.com/sitemap.xml)
+- [RSS 피드](https://haeseol.com/rss.xml)
+- [개인정보처리방침](https://haeseol.com/privacy)
+- [이용약관](https://haeseol.com/terms)

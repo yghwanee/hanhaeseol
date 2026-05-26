@@ -144,6 +144,13 @@ jobs:
             exit 1
           fi
 
+      - name: IndexNow 핵심 페이지 ping
+        # Vercel READY 확인 직후에만 호출. 빌드 전이면 새 URL이 아직 404일 수 있어
+        # ping 의미 없음. 실패해도 본 워크플로우는 통과(continue-on-error)시킴.
+        if: steps.commit.outputs.updated == 'true' && steps.vercel.outputs.final == 'READY'
+        continue-on-error: true
+        run: npm run seo:indexnow
+
       - name: Telegram 알림 (1차 빌드 성공)
         if: steps.commit.outputs.updated == 'true' && steps.crawl.outputs.coupang_failed == 'false' && steps.vercel.outputs.final == 'READY' && steps.vercel.outputs.retried == 'false'
         run: |

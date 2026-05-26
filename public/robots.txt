@@ -1,4 +1,20 @@
+# 한해설 robots.txt
+# /ig, /yt, /tt 는 단축 UTM 라우팅이라 모든 봇에서 색인 제외.
+
 User-agent: *
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+# === 검색 엔진 ===
+User-agent: Googlebot
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+User-agent: bingbot
 Allow: /
 Disallow: /ig
 Disallow: /yt
@@ -16,13 +32,144 @@ Disallow: /ig
 Disallow: /yt
 Disallow: /tt
 
-User-agent: Googlebot
+# === AI 답변/검색 봇 ===
+# 한해설은 공개 정보 기반 편성표 서비스라 AI 답변에 인용되는 것이 트래픽 채널 확대에
+# 도움됨. 학습용·실시간 fetch·답변 인덱싱 봇 모두 명시적 허용.
+
+# OpenAI / ChatGPT
+User-agent: GPTBot
 Allow: /
 Disallow: /ig
 Disallow: /yt
 Disallow: /tt
 
-User-agent: bingbot
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+# Anthropic / Claude
+User-agent: ClaudeBot
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+User-agent: Claude-User
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+# Google Gemini / Bard (Google 검색과 별개 토큰)
+User-agent: Google-Extended
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+# Perplexity
+User-agent: PerplexityBot
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+User-agent: Perplexity-User
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+# Apple Intelligence
+User-agent: Applebot
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+User-agent: Applebot-Extended
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+# Meta AI (Llama)
+User-agent: Meta-ExternalAgent
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+User-agent: Meta-ExternalFetcher
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+# ByteDance (Doubao / TikTok AI)
+User-agent: Bytespider
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+# Amazon (Alexa, Q)
+User-agent: Amazonbot
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+# Cohere
+User-agent: cohere-ai
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+User-agent: cohere-training-data-crawler
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+# Mistral
+User-agent: MistralAI-User
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+# You.com
+User-agent: YouBot
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+# Diffbot (LLM citation source)
+User-agent: Diffbot
+Allow: /
+Disallow: /ig
+Disallow: /yt
+Disallow: /tt
+
+# DuckDuckGo Assist
+User-agent: DuckAssistBot
 Allow: /
 Disallow: /ig
 Disallow: /yt
@@ -30,3 +177,4 @@ Disallow: /tt
 
 Sitemap: https://haeseol.com/sitemap.xml
 Sitemap: https://haeseol.com/rss.xml
+Host: haeseol.com

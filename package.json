@@ -37,7 +37,8 @@
     "telegram:failure": "tsx src/scripts/telegram-failure.ts",
     "tiktok:setup": "tsx src/scripts/get-tiktok-token.ts",
     "tiktok:check": "tsx src/scripts/check-tiktok-token.ts",
-    "post:tiktok": "tsx src/scripts/post-tiktok.ts"
+    "post:tiktok": "tsx src/scripts/post-tiktok.ts",
+    "seo:indexnow": "tsx src/scripts/indexnow-ping.ts"
   },
   "dependencies": {
     "next": "14.2.35",
