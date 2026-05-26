@@ -21,6 +21,9 @@ jobs:
     env:
       # 당일 경기 (=offset 0). 저녁 워크플로우는 1 (=내일).
       KST_OFFSET_DAYS: '0'
+      # legacy 이미지 세트 사용 (캐러셀 1번 = V7 후킹 카드, 릴스 v1 첫 프레임 = pad=85 V7).
+      # 저녁(신규 reel-title-card 4:5)과 시각적으로 구별 — 같은 날 2번 올려도 다른 게시물처럼 보임.
+      HHS_LEGACY_MORNING: '1'
       IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
       IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
       YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
