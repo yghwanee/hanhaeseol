@@ -25,6 +25,8 @@
     "post:reel": "tsx src/scripts/post-instagram-reel.ts",
     "post:story": "tsx src/scripts/post-instagram-story.ts",
     "reel:make": "tsx src/scripts/make-reel.ts",
+    "reel:make:v2": "tsx src/scripts/make-reel-v2.ts",
+    "preview": "tsx src/scripts/preview-posts.ts",
     "story:make": "tsx src/scripts/make-story.ts",
     "og:make": "tsx src/scripts/make-og.ts",
     "ig:setup": "tsx src/scripts/instagram-setup.ts",

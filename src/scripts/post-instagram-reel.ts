@@ -12,16 +12,21 @@ async function main() {
   const videoUrl = `${mediaBaseUrl()}/${manifest.reel}`;
   console.log(`🎬 릴스 게시 시작: ${videoUrl}`);
 
+  // manifest.cover 있으면 인스타 REELS cover_url로 강제 지정 — mp4 첫 프레임 아닌
+  // 별도 PNG가 썸네일로 박힘 (탐색기/플랫폼 일관)
+  const params: Record<string, string> = {
+    media_type: "REELS",
+    video_url: videoUrl,
+    caption: buildCaption(mm, dd, today, UTM_LINKS.ig_reel),
+    share_to_feed: "false",
+  };
+  if (manifest.cover) {
+    params.cover_url = `${mediaBaseUrl()}/${manifest.cover}`;
+    console.log(`🖼  cover_url: ${params.cover_url}`);
+  }
+
   // 비디오 트랜스코딩 대기는 최대 ~3분
-  const mediaId = await publishSingleMedia(
-    {
-      media_type: "REELS",
-      video_url: videoUrl,
-      caption: buildCaption(mm, dd, today, UTM_LINKS.ig_reel),
-      share_to_feed: "false",
-    },
-    60,
-  );
+  const mediaId = await publishSingleMedia(params, 60);
   console.log(`✅ 릴스 게시 완료. Media ID: ${mediaId}`);
 
   await comment(mediaId, buildSocialComment(today));

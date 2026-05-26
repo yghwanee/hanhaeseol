@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import sharp from "sharp";
 import { getHeroMatchLines, getHierarchicalTags, getMainHighlight, getPlainTags } from "./hashtags";
+import { inferDayLabel } from "./instagram";
 import { dayOfWeekKr } from "./instagram";
 import { UTM_LINKS } from "./utm";
 
@@ -189,25 +190,27 @@ export function buildShortsMeta(mm: string, dd: string, today: string) {
   // today 인자 기준으로 요일을 파싱. 시계로 다시 계산하면 자정 직전 호출에서 어긋날 수 있음.
   const wd = dayOfWeekKr(today);
 
-  // 제목: 오늘의 hero 매치 highlight + 날짜. 매일 다른 매치업이라 박제 패턴 피함.
-  // 예) 📺 5/12(월) 양민혁 EPL 한국어 중계 #Shorts
-  //     📺 5/12(월) EPL 빅매치 한국어 중계 #Shorts (한국 선수 매치 없을 때)
-  //     📺 5/12(월) 오늘의 한국어 중계 편성표 #Shorts (한국어해설 0경기 폴백)
+  // 제목: 키워드를 맨 앞에 두어 검색 매칭 우선 (2026 YouTube SEO 권장: 첫 7단어에 핵심 키워드).
+  // 예) "이정후 MLB 한국어 중계 ⚾ 5/27(화) #Shorts"
+  //     "EPL 빅매치 한국어 중계 ⚽ 5/27(화) #Shorts"
+  //     "한국어 중계 편성표 5/27(화) #Shorts" (한국어해설 0경기 폴백)
   const highlight = getMainHighlight(today);
-  const title = `📺 ${mNum}/${dNum}(${wd}) ${highlight} #Shorts`;
+  const title = `${highlight} ${mNum}/${dNum}(${wd}) #Shorts`;
 
   const { lines: heroLines, totalGames } = getHeroMatchLines(today, 3);
   const hashtagLine = getHierarchicalTags(today).tags.join(" ");
+  const dayLabel = inferDayLabel(today);
 
   const desc: string[] = [];
+  // 첫 줄에 #Shorts 명시 — Shorts 알고리즘 분류 강화 (description hashtag 보장)
   if (totalGames > 0) {
-    desc.push(`${mm}/${dd} 한국어 해설 ${totalGames}경기 편성표.`);
+    desc.push(`${mm}/${dd} 한국어 해설 ${totalGames}경기 편성표 #Shorts`);
   } else {
-    desc.push(`${mm}/${dd} 한국어 해설 편성표.`);
+    desc.push(`${mm}/${dd} 한국어 해설 편성표 #Shorts`);
   }
   desc.push(``);
   if (heroLines.length > 0) {
-    desc.push(`🎯 오늘의 빅매치`);
+    desc.push(`🎯 ${dayLabel}의 빅매치`);
     for (const line of heroLines) desc.push(line);
     if (totalGames > heroLines.length) {
       desc.push(`+ ${totalGames - heroLines.length}경기 더보기`);
