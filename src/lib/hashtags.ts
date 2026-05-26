@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import type { Schedule, ScheduleData, Sport } from "@/types/schedule";
 import { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop } from "./instagram";
+import { getRivalryName } from "./hero-pick";
 
 const SPORT_EMOJI: Record<Sport, string> = {
   축구: "⚽",
@@ -9,13 +10,8 @@ const SPORT_EMOJI: Record<Sport, string> = {
   배구: "🏐",
 };
 
-// 종목 → 해시태그 (대분류)
-const SPORT_HASHTAGS: Record<Sport, string> = {
-  축구: "#축구",
-  야구: "#야구",
-  농구: "#농구",
-  배구: "#배구",
-};
+// 종목 mega-tag는 2026 해시태그 5개 cap에서 자리 낭비라 슬롯 구성에서 제외.
+// 종목별 emoji는 캡션 매치 라인용으로 SPORT_EMOJI 유지.
 
 // 리그 → 해시태그 (중분류)
 // 한국어 해설이 실제로 있는 리그만 매핑. 매핑 없으면 자연스럽게 빠짐.
@@ -137,17 +133,19 @@ const TEAM_HASHTAGS: Record<string, string> = {
   NC: "#NC다이노스",
   KT: "#KT위즈",
   키움: "#키움히어로즈",
-  // MLB
+  // MLB — 한국 팬 검색 패턴 우선
+  //  · 다른 인기 팀 없는 도시: 도시명 단독 (예: 샌프란시스코, 피츠버그)
+  //  · 도시명이 NBA/NFL 인기팀과 충돌: 도시명+팀명 결합 (시카고컵스, 마이애미말린스)
   "LA 다저스": "#다저스",
-  "샌프란시스코 자이언츠": "#자이언츠",
+  "샌프란시스코 자이언츠": "#샌프란시스코",
   "탬파베이 레이스": "#탬파베이",
   "샌디에이고 파드리스": "#파드리스",
-  "피츠버그 파이리츠": "#파이리츠",
-  "마이애미 말린스": "#말린스",
+  "피츠버그 파이리츠": "#피츠버그",
+  "마이애미 말린스": "#마이애미말린스",
   "뉴욕 양키스": "#양키스",
   "뉴욕 메츠": "#메츠",
   "보스턴 레드삭스": "#레드삭스",
-  "시카고 컵스": "#컵스",
+  "시카고 컵스": "#시카고컵스",
   "애틀랜타 브레이브스": "#브레이브스",
   "토론토 블루제이스": "#블루제이스",
   "텍사스 레인저스": "#레인저스",
@@ -212,41 +210,39 @@ export interface HierarchicalTagsResult {
 }
 
 /**
- * 빅매치(hero) 양 팀 + 한국 선수 + 리그 + 종목을 해시태그로 통일.
- * 영상 첫 화면(hero)에 등장한 매치와 캡션 해시태그가 항상 일치하도록 보장.
+ * 인스타 해시태그 5개 슬롯 — 2025/12 이후 5개 hard cap 대응.
  *
- * 출력 예 (5/12 토트넘 vs 리즈, 양민혁 소속):
- *   #양민혁 #토트넘 #리즈 #프리미어리그 #축구 #한국어중계 #한해설
+ * 슬롯:
+ *   1. 한국 선수 (없으면 라이벌리 별명; 둘 다 없으면 폴백으로 #스포츠편성표)
+ *   2. 홈팀 (TEAM_HASHTAGS 매핑)
+ *   3. 원정팀 (TEAM_HASHTAGS 매핑)
+ *   4. 리그 (LEAGUE_HASHTAGS 매핑)
+ *   5. #한국어중계 (고정 brand-keyword)
  *
- * 한국어 해설 0경기인 날: 일반 폴백 태그.
+ * 출력 예:
+ *   한국 선수 매치:     #이정후 #샌프란시스코 #다이아몬드백스 #MLB #한국어중계
+ *   라이벌리 매치:      #엘클라시코 #레알마드리드 #바르셀로나 #라리가 #한국어중계
+ *   일반 매치:          #풀럼 #본머스 #프리미어리그 #한국어중계 #스포츠편성표
+ *
+ * 한국어 해설 0경기인 날: 폴백 2개만 (#한국어중계 #스포츠편성표).
  */
 export function getHierarchicalTags(today: string): HierarchicalTagsResult {
   const games = loadKoreanCommentaryGames(today);
 
-  if (games.length === 0) {
-    return {
-      tags: ["#스포츠", "#한국어중계", "#한해설"],
-      mainSport: null,
-      mainLeague: null,
-      mainTeam: null,
-      mainPlayer: null,
-      totalGames: 0,
-    };
-  }
+  const FALLBACK_EMPTY: HierarchicalTagsResult = {
+    tags: ["#한국어중계", "#스포츠편성표"],
+    mainSport: null,
+    mainLeague: null,
+    mainTeam: null,
+    mainPlayer: null,
+    totalGames: games.length,
+  };
+
+  if (games.length === 0) return { ...FALLBACK_EMPTY, totalGames: 0 };
 
   const hero = pickHeroMatch(games);
-  if (!hero) {
-    return {
-      tags: ["#스포츠", "#한국어중계", "#한해설"],
-      mainSport: null,
-      mainLeague: null,
-      mainTeam: null,
-      mainPlayer: null,
-      totalGames: games.length,
-    };
-  }
+  if (!hero) return FALLBACK_EMPTY;
 
-  const sportTag = SPORT_HASHTAGS[hero.sport];
   const leagueTag = LEAGUE_HASHTAGS[hero.league];
   const homeTag = TEAM_HASHTAGS[hero.homeTeam];
   const awayTag = hero.awayTeam ? TEAM_HASHTAGS[hero.awayTeam] : undefined;
@@ -256,12 +252,26 @@ export function getHierarchicalTags(today: string): HierarchicalTagsResult {
     (hero.awayTeam ? findKoreanPlayerOnTeam(hero.awayTeam) : null);
   const playerTag = playerName ? `#${playerName}` : undefined;
 
-  // 순서: specific → general (알고리즘 분류는 앞쪽 태그를 우선 참조)
-  const tags = [playerTag, homeTag, awayTag, leagueTag, sportTag, "#한국어중계", "#한해설"]
-    .filter((t): t is string => Boolean(t));
+  // Slot 1: 한국 선수 우선, 없으면 라이벌리명
+  const slot1 = playerTag ?? getRivalryName(hero.homeTeam, hero.awayTeam);
+
+  const tags: string[] = [];
+  if (slot1) tags.push(slot1);
+  if (homeTag) tags.push(homeTag);
+  if (awayTag) tags.push(awayTag);
+  if (leagueTag) tags.push(leagueTag);
+  if (!tags.includes("#한국어중계")) tags.push("#한국어중계");
+
+  // 5개 안 차면 #스포츠편성표로 폴백
+  if (tags.length < 5 && !tags.includes("#스포츠편성표")) {
+    tags.push("#스포츠편성표");
+  }
+
+  // 최종 5개 cap (인스타 2025/12 정책)
+  const capped = tags.slice(0, 5);
 
   return {
-    tags,
+    tags: capped,
     mainSport: hero.sport,
     mainLeague: hero.league,
     mainTeam: hero.homeTeam,
@@ -276,11 +286,12 @@ export function getHierarchicalTags(today: string): HierarchicalTagsResult {
  */
 export function getMainHighlight(today: string): string {
   const r = getHierarchicalTags(today);
-  if (!r.mainSport || !r.mainLeague) return "오늘의 한국어 중계 편성표";
+  if (!r.mainSport || !r.mainLeague) return "한국어 중계 편성표";
 
   const leagueShort = leagueShortName(r.mainLeague);
-  if (r.mainPlayer) return `${r.mainPlayer} ${leagueShort} 한국어 중계`;
-  return `${leagueShort} 빅매치 한국어 중계`;
+  const emoji = SPORT_EMOJI[r.mainSport];
+  if (r.mainPlayer) return `${r.mainPlayer} ${leagueShort} 한국어 중계 ${emoji}`;
+  return `${leagueShort} 빅매치 한국어 중계 ${emoji}`;
 }
 
 /**
@@ -314,18 +325,10 @@ export function getHeroMatchLines(today: string, max: number = 3): {
  * 동적 hero 기반 태그 + 브랜드 baseline. 매일 hero가 바뀌면 태그도 바뀜.
  */
 export function getPlainTags(today: string): string[] {
+  // YouTube tags 필드(보이지 않는 검색용 키워드)는 인스타 5개 cap과 별개.
+  // dynamic(매치별 5개) + baseline(검색 키워드)을 합쳐 검색 매칭 폭 넓힘.
+  // baseline에서 "한해설"은 검색 트래픽 0이라 제외.
   const dynamic = getHierarchicalTags(today).tags.map((t) => t.replace(/^#/, ""));
-  const baseline = ["한해설", "한국어해설", "한국어중계", "스포츠중계", "편성표"];
+  const baseline = ["한국어해설", "한국어중계", "스포츠중계", "스포츠편성표", "Shorts"];
   return Array.from(new Set([...dynamic, ...baseline]));
-}
-
-/**
- * @deprecated 호환용. 신규 코드는 getHierarchicalTags 사용.
- */
-export function getDynamicLeagueTags(today: string, max: number): string[] {
-  const r = getHierarchicalTags(today);
-  // 종목·리그·팀만 추리고 max 적용
-  return r.tags
-    .filter((t) => t !== "#한국어중계" && t !== "#한해설")
-    .slice(0, max);
 }
