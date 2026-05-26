@@ -1,10 +1,10 @@
-name: Evening post (tomorrow schedule, v2)
+name: Morning post (today schedule)
 
 on:
   schedule:
-    # cron UTC 10:18 = KST 19:18. GH Actions 지연 1~2h → 실제 노출 KST 20~21시 (저녁 골든타임).
-    # 내일 경기 정보를 자기 전 시청자에게 푸시 (오전 워크플로우는 당일 경기 정보).
-    - cron: '18 10 * * *'
+    # UTC 20:00 = KST 다음날 05:00. GH Actions 지연 1~2h 고려하면 실제 KST 06~07시 노출.
+    # 당일 경기 정보를 출근/등교 타임에 푸시 (저녁 워크플로우는 내일 경기 정보).
+    - cron: '0 20 * * *'
   workflow_dispatch:
     inputs:
       skip_instagram:
@@ -16,11 +16,11 @@ permissions:
   contents: write
 
 jobs:
-  instagram:
+  morning:
     runs-on: ubuntu-latest
     env:
-      # 내일 경기 (=offset 1). 오전 워크플로우는 0 (=당일).
-      KST_OFFSET_DAYS: '1'
+      # 당일 경기 (=offset 0). 저녁 워크플로우는 1 (=내일).
+      KST_OFFSET_DAYS: '0'
       IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
       IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
       YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
@@ -53,11 +53,11 @@ jobs:
       - name: 토큰 헬스체크
         run: npm run ig:check && npm run tiktok:check
 
-      - name: 카드 생성
+      - name: 카드 생성 (당일 경기)
         run: npm run post:all -- --no-send
 
-      - name: 릴스 영상 생성 (신규 v2 — punch + xfade zoomin)
-        run: npm run reel:make:v2
+      - name: 릴스 영상 생성 (기존 슬라이드쇼)
+        run: npm run reel:make
 
       - name: 스토리 이미지 생성
         run: npm run story:make
@@ -70,13 +70,9 @@ jobs:
           git init -q
           git checkout -q -b insta-media
           git add -A
-          # commit message 에 [vercel skip] 토큰을 박아 Vercel 이 이 브랜치
-          # push 의 빌드를 자동 스킵하게 함. insta-media 는 미디어 전용 orphan
-          # 브랜치라 Next.js 코드(app/, package.json) 가 없어 빌드 시도 시
-          # "Couldn't find any pages or app directory" 로 100% 실패함.
           git -c user.email="github-actions[bot]@users.noreply.github.com" \
               -c user.name="github-actions[bot]" \
-              commit -q -m "update $(date -u +%F) [vercel skip]"
+              commit -q -m "morning update $(date -u +%F) [vercel skip]"
           git push -q -f "https://x-access-token:${GITHUB_TOKEN}@github.com/${{ github.repository }}.git" HEAD:insta-media
           echo "✅ insta-media 브랜치 업데이트 완료"
 
@@ -109,7 +105,7 @@ jobs:
         run: |
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d chat_id="${TELEGRAM_CHAT_ID}" \
-            -d text="🌙 [저녁] 내일 경기 v2 업로드 완료 (인스타 캐러셀+릴스+스토리, 유튜브 쇼츠)"
+            -d text="☀️ [오전] 당일 경기 업로드 완료 (인스타 캐러셀+릴스+스토리, 유튜브 쇼츠)"
 
       - name: Telegram 실패 알림 + 카드 전송
         if: failure()
