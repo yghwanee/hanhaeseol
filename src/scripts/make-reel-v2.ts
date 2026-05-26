@@ -211,7 +211,9 @@ async function main() {
     "-preset medium -crf 18",
     "-maxrate 7M -bufsize 14M",
     "-g 60 -keyint_min 60",
-    `-r ${FPS} -fps_mode cfr`,
+    // -vsync cfr: ffmpeg 4.x/5.x/6.x 모두 호환 (5.x+에선 deprecated지만 작동).
+    // -fps_mode cfr (5.1+)는 4.x에서 인식 불가라 GH Actions ubuntu-22.04 환경에서 위험.
+    `-r ${FPS} -vsync cfr`,
     "-c:a aac -b:a 192k",
     "-movflags +faststart",
     `"${TEMP_OUT}"`,
