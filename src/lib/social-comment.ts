@@ -1,5 +1,5 @@
 import type { Sport } from "@/types/schedule";
-import { loadKoreanMatchesAll, pickHeroMatch } from "./instagram";
+import { loadKoreanMatchesAll, pickHeroMatch, inferDayLabel } from "./instagram";
 
 const BRAND_URL = "haeseol.com";
 
@@ -23,5 +23,5 @@ export function buildSocialComment(today: string): string {
 
   const emoji = SPORT_EMOJI[hero.sport];
   const matchup = hero.awayTeam ? `${hero.homeTeam} vs ${hero.awayTeam}` : hero.homeTeam;
-  return `오늘 빅매치 ${emoji} ${matchup}  ${hero.time}\n${link}`;
+  return `${inferDayLabel(today)} 빅매치 ${emoji} ${matchup}  ${hero.time}\n${link}`;
 }

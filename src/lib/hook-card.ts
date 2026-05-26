@@ -8,6 +8,7 @@ import {
   loadAllMatchesForDate,
   pickHeroMatch,
   fitText,
+  inferDayLabel,
 } from "./instagram";
 import { findEnglishTeamName } from "@/data/team-names";
 
@@ -106,7 +107,7 @@ export async function renderHookV6(imagePath: string, mm: string, dd: string, to
 
   ctx.fillStyle = "#ffffff";
   ctx.font = "600 28px Pretendard";
-  drawTextWithShadow(ctx, "   오늘의 한국어 중계 편성표", PAD + 22 + haeseolWidth, 95, 16, 0.7);
+  drawTextWithShadow(ctx, `   ${inferDayLabel(today)}의 한국어 중계 편성표`, PAD + 22 + haeseolWidth, 95, 16, 0.7);
 
   const dateBaseline = 880;
   ctx.font = "200px Anton";
@@ -134,8 +135,9 @@ export async function renderHookV6(imagePath: string, mm: string, dd: string, to
   ctx.fillRect(PAD, yCursor - 28, 6, 32);
   ctx.fillStyle = ACCENT;
   ctx.font = "800 32px Pretendard";
-  ctx.fillText("오늘의 빅매치", PAD + 22, yCursor);
-  const labelW = ctx.measureText("오늘의 빅매치").width;
+  const v6Label = `${inferDayLabel(today)}의 빅매치`;
+  ctx.fillText(v6Label, PAD + 22, yCursor);
+  const labelW = ctx.measureText(v6Label).width;
 
   const koreanMatches = loadKoreanMatchesAll(today);
   let hero = pickHeroMatch(koreanMatches);
@@ -288,7 +290,7 @@ export async function renderHookV7(imagePath: string, mm: string, dd: string, to
   ctx.fillRect(PAD - 14, yCursor - 22, 4, 28);
   ctx.fillStyle = ACCENT;
   ctx.font = "800 26px Pretendard";
-  ctx.fillText("오늘의 빅매치", PAD, yCursor);
+  ctx.fillText(`${inferDayLabel(today)}의 빅매치`, PAD, yCursor);
 
   const koreanMatches = loadKoreanMatchesAll(today);
   let hero = pickHeroMatch(koreanMatches);

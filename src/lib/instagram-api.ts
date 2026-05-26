@@ -1,4 +1,5 @@
 import { getHeroMatchLines, getHierarchicalTags, getMainHighlight } from "./hashtags";
+import { inferDayLabel } from "./instagram";
 
 const IG_API = "https://graph.facebook.com/v21.0";
 
@@ -15,6 +16,7 @@ export function igEnv() {
 export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export function buildCaption(mm: string, dd: string, today: string, link: string) {
+  const dayLabel = inferDayLabel(today);
   const hashtagLine = getHierarchicalTags(today).tags.join(" ");
   const highlight = getMainHighlight(today);
   const { lines: heroLines, totalGames } = getHeroMatchLines(today, 3);
@@ -24,7 +26,7 @@ export function buildCaption(mm: string, dd: string, today: string, link: string
   body.push(``);
 
   if (heroLines.length > 0) {
-    body.push(`🎯 오늘의 빅매치`);
+    body.push(`🎯 ${dayLabel}의 빅매치`);
     for (const line of heroLines) body.push(line);
     body.push(``);
     if (totalGames > heroLines.length) {
@@ -33,7 +35,7 @@ export function buildCaption(mm: string, dd: string, today: string, link: string
       body.push(`총 ${totalGames}경기`);
     }
   } else {
-    body.push(`오늘은 한국어 해설 편성이 없어요.`);
+    body.push(`${dayLabel}은 한국어 해설 편성이 없어요.`);
   }
   body.push(``);
   body.push(link);

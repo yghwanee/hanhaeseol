@@ -69,15 +69,47 @@ export function registerFonts() {
   GlobalFonts.registerFromPath(path.resolve("templates/fonts/Pretendard-Regular.otf"), "Pretendard");
 }
 
-export function getKstToday() {
-  // KST 21:00에 내일 편성 미리보기를 올리는 구조라 "내일" 날짜를 반환합니다.
+/**
+ * 게시할 컨텐츠의 대상 날짜를 KST 기준으로 반환.
+ *
+ * offsetDays:
+ *  - 1 (기본) → 내일 — 저녁 19:18 게시 시 "내일 새벽/낮 경기" 미리보기
+ *  - 0        → 당일 — 오전 05:00 게시 시 "오늘 저녁/밤 경기" 안내
+ *
+ * 인자 안 주면 env `KST_OFFSET_DAYS`를 읽음 (워크플로우별 분기). 둘 다 없으면 1(내일).
+ */
+export function getKstToday(offsetDays?: number) {
+  const offset =
+    offsetDays !== undefined ? offsetDays : readKstOffsetFromEnv();
   const kstStr = new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" });
   const d = new Date(kstStr);
-  d.setDate(d.getDate() + 1);
+  d.setDate(d.getDate() + offset);
   const yyyy = d.getFullYear();
   const mm = String(d.getMonth() + 1).padStart(2, "0");
   const dd = String(d.getDate()).padStart(2, "0");
   return { today: `${yyyy}-${mm}-${dd}`, mm, dd };
+}
+
+function readKstOffsetFromEnv(): number {
+  const raw = process.env.KST_OFFSET_DAYS;
+  if (raw === undefined || raw === "") return 1;
+  const n = Number.parseInt(raw, 10);
+  return Number.isFinite(n) ? n : 1;
+}
+
+/**
+ * today(YYYY-MM-DD)가 KST 기준 당일이면 "오늘", 그 외엔 "내일".
+ * 카드/캡션의 "오늘" 표현을 데이터 옵셋에 맞춰 분기할 때 사용.
+ * (offset이 2 이상이어도 일단 "내일"로 처리 — 운영상 0/1만 사용)
+ */
+export function inferDayLabel(today: string): "오늘" | "내일" {
+  const kstStr = new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" });
+  const d = new Date(kstStr);
+  const yyyy = d.getFullYear();
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  const todayStr = `${yyyy}-${mm}-${dd}`;
+  return today === todayStr ? "오늘" : "내일";
 }
 
 export function loadTodayMatches(sport: Sport, today: string): Schedule[] {
@@ -229,7 +261,8 @@ export async function renderMainCard(
 
   ctx.fillStyle = TEXT_DIM;
   ctx.font = "500 28px Pretendard";
-  ctx.fillText("   오늘의 한국어 중계 편성표", PAD + 22 + haeseolWidth, 95);
+  const dayLabel = inferDayLabel(today);
+  ctx.fillText(`   ${dayLabel}의 한국어 중계 편성표`, PAD + 22 + haeseolWidth, 95);
 
   // 4. 거대한 날짜 (MM / DD) + 요일 옆에
   const DATE_BASELINE = 510;
@@ -269,7 +302,7 @@ export async function renderMainCard(
   ctx.fillStyle = TEXT_SUBTLE;
   ctx.fillRect(PAD, 605, W - PAD * 2, 2);
 
-  // 6. 오늘의 빅매치 섹션
+  // 6. 빅매치 섹션 (라벨은 dayLabel)
   // 한국어 해설 경기 중에서 우선 픽 → 없으면 그날 전체 경기 중에서 폴백
   const koreanMatches = loadKoreanMatchesAll(today);
   let hero = pickHeroMatch(koreanMatches);
@@ -287,7 +320,7 @@ export async function renderMainCard(
 
   ctx.fillStyle = ACCENT;
   ctx.font = "800 34px Pretendard";
-  ctx.fillText("오늘의 빅매치", PAD + 22, yCursor);
+  ctx.fillText(`${dayLabel}의 빅매치`, PAD + 22, yCursor);
 
   if (hero) {
     yCursor += 70;
