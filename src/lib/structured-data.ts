@@ -44,6 +44,29 @@ export function buildSportsEventLd(
     const koreanCommentary = s.koreanCommentary === true;
     const description = `${s.league} ${s.homeTeam} vs ${s.awayTeam} ${koreanCommentary ? "한국어 해설" : "현지 해설"} 중계. ${s.platform}에서 ${s.date} ${s.time} KST 시작.`;
 
+    // BroadcastEvent: SportsEvent 위에 "어디서 시청하는지"를 schema-level로 명시.
+    // Google이 "Where to watch" 캐러셀(특히 sports vertical)에 노출할 신호.
+    // 한해설의 핵심 가치 = 시청처 안내라 이 schema가 가장 잘 맞음.
+    const broadcastEvent = {
+      "@type": "BroadcastEvent",
+      name: `${s.platform} 중계 — ${s.homeTeam} vs ${s.awayTeam}`,
+      isLiveBroadcast: true,
+      startDate,
+      endDate,
+      inLanguage: koreanCommentary ? "ko" : "en",
+      publishedOn: {
+        "@type": "BroadcastService",
+        name: s.platform,
+        broadcastDisplayName: s.platform,
+        inLanguage: koreanCommentary ? "ko" : "en",
+        areaServed: "KR",
+        broadcaster: {
+          "@type": "Organization",
+          name: s.platform,
+        },
+      },
+    };
+
     return {
       "@type": "SportsEvent",
       name: `${s.homeTeam} vs ${s.awayTeam}`,
@@ -72,6 +95,7 @@ export function buildSportsEventLd(
         category: s.platform,
       },
       broadcastChannel: s.platform,
+      subEvent: broadcastEvent,
       inLanguage: koreanCommentary ? "ko" : "en",
     };
   });

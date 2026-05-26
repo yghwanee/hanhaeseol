@@ -304,6 +304,27 @@ export default function MatchPage({ params }: { params: Params }) {
           price: "0",
           priceCurrency: "KRW",
         },
+        // BroadcastEvent: "Where to watch" 시그널. 한해설의 핵심 가치를 schema-level에
+        // 명시해 Google sports 캐러셀 후보로 만든다.
+        subEvent: {
+          "@type": "BroadcastEvent",
+          name: `${match.platform} 중계 — ${match.homeTeam} vs ${match.awayTeam}`,
+          isLiveBroadcast: !finished,
+          startDate: start.toISOString(),
+          endDate: end.toISOString(),
+          inLanguage: inLang,
+          publishedOn: {
+            "@type": "BroadcastService",
+            name: match.platform,
+            broadcastDisplayName: match.platform,
+            inLanguage: inLang,
+            areaServed: "KR",
+            broadcaster: {
+              "@type": "Organization",
+              name: match.platform,
+            },
+          },
+        },
       },
       {
         "@type": "BreadcrumbList",

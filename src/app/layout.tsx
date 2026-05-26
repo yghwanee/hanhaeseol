@@ -131,8 +131,16 @@ gtag('config', 'G-F1MX6S0SGW');`}
                 {
                   "@type": "Organization",
                   "name": "한해설",
+                  "alternateName": "HanHaesul",
                   "url": "https://haeseol.com",
                   "logo": "https://haeseol.com/icon.png",
+                  // sameAs: Google/AI Overviews가 같은 entity로 인식하도록 다른 채널 연결.
+                  // 한해설 운영 채널 — 매일 자동 게시 파이프라인 운영 중.
+                  "sameAs": [
+                    "https://www.instagram.com/hanhaeseol/",
+                    "https://www.youtube.com/@hanhaeseol",
+                    "https://www.tiktok.com/@hanhaeseol",
+                  ],
                 },
               ],
             }),
