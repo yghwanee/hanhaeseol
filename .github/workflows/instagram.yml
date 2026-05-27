@@ -2,9 +2,9 @@ name: Evening post (tomorrow schedule, v2)
 
 on:
   schedule:
-    # cron UTC 10:18 = KST 19:18. GH Actions 지연 1~2h → 실제 노출 KST 20~21시 (저녁 골든타임).
+    # cron UTC 9:18 = KST 18:18. GH Actions 지연 ~3h 관측 → 실제 노출 KST 21시대 (저녁 골든타임).
     # 내일 경기 정보를 자기 전 시청자에게 푸시 (오전 워크플로우는 당일 경기 정보).
-    - cron: '18 10 * * *'
+    - cron: '18 9 * * *'
   workflow_dispatch:
     inputs:
       skip_instagram:
