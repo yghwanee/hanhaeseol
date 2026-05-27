@@ -34,6 +34,16 @@ const archive = archiveData as unknown as ScheduleData;
 const standings = standingsData as unknown as StandingsData;
 const teamRecords = teamRecordsData as unknown as TeamRecordsData;
 
+const LAST_UPDATED_KST_DISPLAY = new Intl.DateTimeFormat("sv-SE", {
+  timeZone: "Asia/Seoul",
+  year: "numeric",
+  month: "2-digit",
+  day: "2-digit",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+}).format(new Date(data.lastUpdated));
+
 /**
  * standings teamName → logo URL. 모듈 로드 시 1회 평탄화해서 O(1) 조회.
  * standings 표기는 네이버 원본(예: "맨체스터 시티").
@@ -630,6 +640,12 @@ export default function MatchPage({ params }: { params: Params }) {
                 에서 확인하세요.
               </>
             )}
+          </p>
+          <p className="mt-3 text-xs text-zinc-500">
+            편성 정보 갱신 ·{" "}
+            <time dateTime={data.lastUpdated}>
+              {LAST_UPDATED_KST_DISPLAY} KST
+            </time>
           </p>
         </section>
       </div>
