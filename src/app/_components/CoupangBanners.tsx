@@ -1,9 +1,17 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { INTRO_DONE_EVENT, isIntroDone } from "./IntroAnimation";
 import { CoupangProductCard } from "./CoupangProductCard";
 import { useShuffledProducts } from "./coupang-product-utils";
+
+/** /admin/* 같은 운영자 페이지에서는 광고 자체를 숨김.
+ *  audit 데모 영상에 광고가 끼면 reviewer 가 혼란스러워질 수 있어서. */
+function isHiddenPath(pathname: string | null): boolean {
+  if (!pathname) return false;
+  return pathname.startsWith("/admin");
+}
 
 /** 인트로(fixed z-[100] bg-zinc-950) 가 끝난 뒤 광고 노출.
  *  - 메인 페이지: IntroAnimation 마운트되니 INTRO_DONE_EVENT 받아 즉시 표시.
@@ -33,9 +41,10 @@ function useShowAds() {
  * ──────────────────────────────────────────────────────────────────────── */
 export function CoupangSideBanners() {
   const showAds = useShowAds();
+  const pathname = usePathname();
   // 좌/우 다른 카드 보이도록 4개 뽑고 0-1=좌, 2-3=우 로 분배.
   const picks = useShuffledProducts(4, { dedupeCategory: true, refreshKey: "side" });
-  if (!showAds || picks.length < 4) return null;
+  if (!showAds || picks.length < 4 || isHiddenPath(pathname)) return null;
 
   const leftCards = picks.slice(0, 2);
   const rightCards = picks.slice(2, 4);
