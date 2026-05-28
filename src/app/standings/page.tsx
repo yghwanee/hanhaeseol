@@ -5,6 +5,7 @@ import standingsData from "@/data/standings.json";
 import type { StandingsData } from "@/types/standings";
 import { StickyHeader } from "../_components/StickyHeader";
 import { StandingsView } from "./_components/StandingsView";
+import { CoupangTopBannerOnly } from "../_components/CoupangBanners";
 import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
 
 const data = standingsData as unknown as StandingsData;
@@ -137,6 +138,12 @@ export default function StandingsPage({
             </Link>
           </header>
         </StickyHeader>
+
+        <div className="mt-4 sm:mt-6 mb-3 sm:mb-4 rounded-lg border border-zinc-700/50 bg-zinc-800/30 px-3 py-2 text-center">
+          <p className="text-[11px] sm:text-xs text-zinc-400">이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br className="sm:hidden" /> 이에 따른 일정액의 수수료를 제공받습니다.</p>
+        </div>
+
+        <CoupangTopBannerOnly />
 
         <div className="mt-4 sm:mt-6">
           <StandingsView data={data} initialSport={initialSport} initialLeague={initialLeague} />

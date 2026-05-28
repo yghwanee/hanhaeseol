@@ -91,6 +91,10 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
 
       {highlightsSlot}
 
+      <div className="mt-4 mb-3 sm:mb-4 rounded-lg border border-zinc-700/50 bg-zinc-800/30 px-3 py-2 text-center">
+        <p className="text-[11px] sm:text-xs text-zinc-400">이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br className="sm:hidden" /> 이에 따른 일정액의 수수료를 제공받습니다.</p>
+      </div>
+
       <CoupangTopBannerOnly />
 
       <section className="mb-8">

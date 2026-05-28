@@ -431,8 +431,6 @@ export default function MatchPage({ params }: { params: Params }) {
           </header>
         </StickyHeader>
 
-        <CoupangTopBannerOnly />
-
         <nav className="mt-4 flex flex-wrap items-center gap-2 text-xs text-zinc-500 sm:mt-6">
           <Link href="/" className="transition-colors hover:text-zinc-300">
             편성표
@@ -563,6 +561,10 @@ export default function MatchPage({ params }: { params: Params }) {
           </p>
 
         </article>
+
+        <div className="mt-6">
+          <CoupangTopBannerOnly />
+        </div>
 
         {insight && <MatchInsightSection insight={insight} />}
 

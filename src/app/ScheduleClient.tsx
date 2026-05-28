@@ -14,7 +14,7 @@ import { SPORTS, PLATFORM_LIST } from "./_components/constants";
 import { PlatformIcon } from "./_components/PlatformIcon";
 import { SmoothTabs, SmoothCircleTabs } from "./_components/SmoothTabs";
 import { ScheduleCard } from "./_components/ScheduleCard";
-import { AdSkeleton } from "./_components/AdSkeleton";
+import { CoupangTopBannerOnly, CoupangInlineBanner } from "./_components/CoupangBanners";
 import { DatePickerSheet } from "./_components/DatePickerSheet";
 import { useScrollbarDrag } from "@/lib/hooks/useScrollbarDrag";
 
@@ -42,7 +42,6 @@ export default function ScheduleClient({
   const [commentaryFilter, setCommentaryFilter] = useState<"all" | "korean" | "foreign">(initialCommentary);
   const [searchQuery, setSearchQuery] = useState("");
   const [showInfo, setShowInfo] = useState(false);
-  const [showAds, setShowAds] = useState(false);
 
   // archive 데이터 (과거 경기들). 사용자가 datepicker로 과거 날짜를 선택하면 그때 lazy fetch.
   // 영구 누적 데이터라 크기가 크므로 초기 로드에 포함하지 않음.
@@ -183,11 +182,6 @@ export default function ScheduleClient({
     };
   }, []);
 
-  useEffect(() => {
-    const timer = setTimeout(() => setShowAds(true), 1500);
-    return () => clearTimeout(timer);
-  }, []);
-
   const weekDates = useMemo(() => getUpcomingDates(), []);
 
   // 필터 탭 클릭 시 활성 표시는 즉시 갱신되고 카드 list 만 한 박자 늦게 갱신되도록
@@ -273,12 +267,8 @@ export default function ScheduleClient({
         </header>
       </StickyHeader>
 
-      <div className="mt-4 sm:mt-6 mb-6 sm:mb-10 rounded-lg border border-zinc-700/50 bg-zinc-800/30 px-3 py-2 text-center">
-        <p className="text-[11px] sm:text-xs text-zinc-400">이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br className="sm:hidden" /> 이에 따른 일정액의 수수료를 제공받습니다.</p>
-      </div>
-
       {/* Filters */}
-      <div className="mb-6 sm:mb-10 space-y-2.5 sm:space-y-3">
+      <div className="mt-6 sm:mt-10 mb-6 sm:mb-10 space-y-2.5 sm:space-y-3">
         {/* Sport Filter */}
         <div className="flex items-center gap-1.5 sm:gap-2">
           <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-zinc-300">
@@ -390,26 +380,12 @@ export default function ScheduleClient({
         </div>
       </div>
 
-      {/* 모바일 광고 */}
-      <div className="sm:hidden flex justify-center mb-4">
-        <div className="rounded-xl overflow-hidden w-full" style={{ aspectRatio: "728/90" }}>
-          {showAds ? (
-            <iframe title="쿠팡 파트너스 광고 (모바일 상단)" src="https://ads-partners.coupang.com/widgets.html?id=979107&template=banner&trackingCode=AF2259406&subId=mobile-top&width=728&height=90" className="w-full h-full border-0 rounded-xl" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
-          ) : (
-            <AdSkeleton className="w-full h-full rounded-xl" />
-          )}
-        </div>
+      <div className="mt-4 sm:mt-6 mb-3 sm:mb-4 rounded-lg border border-zinc-700/50 bg-zinc-800/30 px-3 py-2 text-center">
+        <p className="text-[11px] sm:text-xs text-zinc-400">이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br className="sm:hidden" /> 이에 따른 일정액의 수수료를 제공받습니다.</p>
       </div>
-      {/* PC 광고 */}
-      <div className="hidden sm:flex justify-center mb-6">
-        <div className="rounded-xl overflow-hidden w-full max-w-2xl">
-          {showAds ? (
-            <iframe title="쿠팡 파트너스 광고 (PC 상단)" src="https://ads-partners.coupang.com/widgets.html?id=979107&template=banner&trackingCode=AF2259406&subId=pc-top&width=728&height=90" className="w-full h-[90px] border-0 rounded-xl" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
-          ) : (
-            <AdSkeleton className="w-full h-[90px] rounded-xl" />
-          )}
-        </div>
-      </div>
+
+      {/* 쿠팡 파트너스 상단 광고 — 페이지마다 랜덤 상품 5~6개 가로 캐러셀 */}
+      <CoupangTopBannerOnly />
 
       {/* Date Tabs */}
       <div className="mb-6 sm:mb-10">
@@ -619,24 +595,7 @@ export default function ScheduleClient({
                       <span className="text-[11px] sm:text-xs font-medium text-zinc-500">오후 경기</span>
                       <div className="h-px flex-1 bg-zinc-700/60" />
                     </div>
-                    <div className="sm:hidden w-full">
-                      <div className="rounded-lg overflow-hidden" style={{ aspectRatio: "320/100" }}>
-                        {showAds ? (
-                          <iframe title="쿠팡 파트너스 광고 (모바일 인라인)" src="https://ads-partners.coupang.com/widgets.html?id=979232&template=carousel&trackingCode=AF2259406&subId=mobile-inline&width=320&height=100&tsource=" className="w-full h-full border-0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" />
-                        ) : (
-                          <AdSkeleton className="w-full h-full" />
-                        )}
-                      </div>
-                    </div>
-                    <div className="hidden sm:flex justify-center">
-                      <div className="rounded-lg overflow-hidden w-full max-w-2xl">
-                        {showAds ? (
-                          <iframe title="쿠팡 파트너스 광고 (PC 인라인)" src="https://ads-partners.coupang.com/widgets.html?id=979239&template=carousel&trackingCode=AF2259406&subId=pc-inline&width=680&height=140&tsource=" width="680" height="140" frameBorder="0" scrolling="no" referrerPolicy="unsafe-url" loading="lazy" className="w-full h-[140px] border-0" />
-                        ) : (
-                          <AdSkeleton className="w-full h-[140px]" />
-                        )}
-                      </div>
-                    </div>
+                    <CoupangInlineBanner />
                   </>
                 )}
                 <ScheduleCard
