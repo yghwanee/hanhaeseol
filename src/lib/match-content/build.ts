@@ -10,7 +10,7 @@ import type { Schedule } from "@/types/schedule";
 import type { ResultsData } from "@/types/results";
 import type { StandingsData } from "@/types/standings";
 import type { TeamRecord, TeamRecordsMap } from "@/types/team-record";
-import { LEAGUE_TO_CATEGORY } from "@/lib/results/lookup";
+import { categoriesForLeague } from "@/lib/results/lookup";
 import { lookupTeamRecord } from "@/lib/team-records/lookup";
 import { LEAGUE_GUIDES } from "@/lib/league-guides";
 import { PLATFORM_GUIDES } from "@/lib/platform-guides";
@@ -87,12 +87,12 @@ export function buildHeadToHead(
   match: Schedule,
 ): H2HEntry[] {
   if (!results) return [];
-  const categoryId = LEAGUE_TO_CATEGORY[match.league];
-  if (!categoryId) return [];
+  const categoryIds = categoriesForLeague(match.league);
+  if (categoryIds.length === 0) return [];
 
   const out: H2HEntry[] = [];
   for (const r of results.results) {
-    if (r.categoryId !== categoryId) continue;
+    if (!categoryIds.includes(r.categoryId)) continue;
     if (r.status !== "finished") continue;
     if (r.date >= match.date) continue;
     if (typeof r.homeScore !== "number" || typeof r.awayScore !== "number") continue;

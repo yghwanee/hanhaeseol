@@ -4,8 +4,12 @@ import type { Schedule } from "@/types/schedule";
 /**
  * schedule.json의 league 문자열 → 네이버 categoryId.
  * 네이버 API가 커버하는 리그만 매핑. 매핑 없으면 결과 표시 안 함.
+ *
+ * 값이 배열인 경우 후보 categoryId를 순서대로 모두 조회한다. 국가대표 친선경기는
+ * 한국 경기(네이버 categoryId=amatch)와 그 외 국가 경기(amatchfriendly)가 서로 다른
+ * 카테고리로 나뉘는데, schedule.league("친선 경기")만으로는 어느 쪽인지 알 수 없으므로 둘 다 시도한다.
  */
-export const LEAGUE_TO_CATEGORY: Record<string, string> = {
+export const LEAGUE_TO_CATEGORY: Record<string, string | string[]> = {
   // 야구
   KBO: "kbo",
   MLB: "mlb",
@@ -32,7 +36,18 @@ export const LEAGUE_TO_CATEGORY: Record<string, string> = {
   K리그: "kleague",
   K리그1: "kleague",
   K리그2: "kleague2",
+  // 축구 (국가대표 / 친선) — 한국=amatch, 해외=amatchfriendly
+  "남자축구 국가대표팀": "amatch",
+  "친선 경기": ["amatch", "amatchfriendly"],
+  "국가 친선경기": ["amatch", "amatchfriendly"],
 };
+
+/** league 문자열 → 후보 categoryId 목록 (단일 값/배열 모두 배열로 정규화). 매핑 없으면 빈 배열. */
+export function categoriesForLeague(league: string): string[] {
+  const c = LEAGUE_TO_CATEGORY[league];
+  if (!c) return [];
+  return Array.isArray(c) ? c : [c];
+}
 
 /** 룩업 키 빌드. 크롤러 쪽과 동일해야 함. */
 export function resultKey(
@@ -58,25 +73,27 @@ export function findResult(
   schedule: Schedule,
 ): MatchResult | undefined {
   if (!results) return undefined;
-  const categoryId = LEAGUE_TO_CATEGORY[schedule.league];
-  if (!categoryId) return undefined;
+  const categoryIds = categoriesForLeague(schedule.league);
+  if (categoryIds.length === 0) return undefined;
 
-  const direct = results.byKey[
-    resultKey(schedule.date, categoryId, schedule.homeTeam, schedule.awayTeam)
-  ];
-  if (direct) return direct;
+  for (const categoryId of categoryIds) {
+    const direct = results.byKey[
+      resultKey(schedule.date, categoryId, schedule.homeTeam, schedule.awayTeam)
+    ];
+    if (direct) return direct;
 
-  const reversed = results.byKey[
-    resultKey(schedule.date, categoryId, schedule.awayTeam, schedule.homeTeam)
-  ];
-  if (reversed) {
-    return {
-      ...reversed,
-      homeTeam: schedule.homeTeam,
-      awayTeam: schedule.awayTeam,
-      homeScore: reversed.awayScore,
-      awayScore: reversed.homeScore,
-    };
+    const reversed = results.byKey[
+      resultKey(schedule.date, categoryId, schedule.awayTeam, schedule.homeTeam)
+    ];
+    if (reversed) {
+      return {
+        ...reversed,
+        homeTeam: schedule.homeTeam,
+        awayTeam: schedule.awayTeam,
+        homeScore: reversed.awayScore,
+        awayScore: reversed.homeScore,
+      };
+    }
   }
   return undefined;
 }

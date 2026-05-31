@@ -102,6 +102,8 @@ const CATEGORY_TO_LEAGUE_KEYS: Record<string, string[]> = {
   eredivisie: ["에레디비시"],
   denmark: ["수페르리가"],
   acl: ["ACL"],
+  amatch: ["남자축구 국가대표팀", "친선 경기", "국가 친선경기"],
+  amatchfriendly: ["친선 경기", "국가 친선경기"],
 };
 
 function findAliasMapByCategory(categoryId: string): Record<string, string | string[]> {
@@ -175,6 +177,8 @@ const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "eredivisie", label: "에레디비시" },
   { categoryId: "denmark", label: "수페르리가" },
   { categoryId: "acl", label: "ACL" },
+  { categoryId: "amatch", label: "A매치(한국)" },
+  { categoryId: "amatchfriendly", label: "국가대표 친선" },
 ];
 
 export async function crawlAllResults(): Promise<ResultsData> {
