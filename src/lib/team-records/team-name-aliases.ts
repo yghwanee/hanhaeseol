@@ -145,6 +145,8 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     "아틀레티코 마드리드": "AT.마드리드",
     "아틀레틱 빌바오": "아틀레틱",
     "올림피크 마르세유": "마르세유",
+    // 네이버는 PSG로 응답 (풀네임 "파리 생제르맹"도 혹시 모를 케이스 대비 유지)
+    PSG: "파리 생제르망",
     "파리 생제르맹": "파리 생제르망",
     "클럽 브뤼헤": "클뤼프 브뤼헤",
   },
