@@ -1,0 +1,42 @@
+name: Crawl Starting Pitchers
+
+on:
+  schedule:
+    # KST 03:00 / 10:00 / 21:00 = UTC 18:00(전날) / 01:00 / 12:00
+    - cron: '0 18 * * *'
+    - cron: '0 1 * * *'
+    - cron: '0 12 * * *'
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+jobs:
+  crawl:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - run: npm ci
+
+      - name: Crawl starters
+        run: npm run crawl:starters
+
+      - name: Commit & push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git pull --rebase --autostash origin main
+          git add src/data/starters.json
+          if git diff --staged --quiet; then
+            echo "No starter changes"
+          else
+            git commit -m "chore: update starting pitchers"
+            git push
+          fi
