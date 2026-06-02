@@ -24,6 +24,16 @@ export interface H2HEntry {
   awayScore: number;
 }
 
+export interface RecentGame {
+  date: string;
+  homeTeam: string;
+  awayTeam: string;
+  homeScore: number;
+  awayScore: number;
+  /** 카드 주인 팀(teamName) 관점의 결과 */
+  result: "W" | "L" | "D";
+}
+
 export interface TeamSummary {
   /** 시즌 표기에 그대로 사용. "1위·승점 78" 같이. */
   rank?: number;
@@ -48,6 +58,10 @@ export interface MatchNarrative {
   awaySummary?: TeamSummary;
   /** 최근 head-to-head (최대 5건) */
   headToHead: H2HEntry[];
+  /** 홈팀의 최근 경기 (최대 5건, 모든 상대 포함) */
+  homeRecent: RecentGame[];
+  /** 원정팀의 최근 경기 (최대 5건, 모든 상대 포함) */
+  awayRecent: RecentGame[];
   /** 리그 가이드(있으면) */
   leagueGuide?: ReturnType<typeof getLeagueGuide>;
   /** 플랫폼 가이드(있으면) */
@@ -107,6 +121,49 @@ export function buildHeadToHead(
       awayTeam: r.awayTeam,
       homeScore: r.homeScore,
       awayScore: r.awayScore,
+    });
+  }
+  out.sort((a, b) => b.date.localeCompare(a.date));
+  return out.slice(0, 5);
+}
+
+/**
+ * results-archive에서 특정 팀의 최근 완료 경기(모든 상대) 추출. status=finished만,
+ * 매치 날짜 이전, 홈/원정 양쪽 매칭, 가장 최근 순으로 최대 5건.
+ * 점수는 실제 경기 그대로(홈-원정) 보존하고, result만 teamName 관점으로 계산한다.
+ */
+export function buildRecentGames(
+  results: ResultsData | null,
+  match: Schedule,
+  teamName: string,
+): RecentGame[] {
+  if (!results) return [];
+  const categoryIds = categoriesForLeague(match.league);
+  if (categoryIds.length === 0) return [];
+
+  const out: RecentGame[] = [];
+  for (const r of results.results) {
+    if (!categoryIds.includes(r.categoryId)) continue;
+    if (r.status !== "finished") continue;
+    if (r.date >= match.date) continue;
+    if (typeof r.homeScore !== "number" || typeof r.awayScore !== "number") continue;
+
+    const isHome = r.homeTeam === teamName;
+    const isAway = r.awayTeam === teamName;
+    if (!isHome && !isAway) continue;
+
+    const teamScore = isHome ? r.homeScore : r.awayScore;
+    const oppScore = isHome ? r.awayScore : r.homeScore;
+    const result: RecentGame["result"] =
+      teamScore > oppScore ? "W" : teamScore < oppScore ? "L" : "D";
+
+    out.push({
+      date: r.date,
+      homeTeam: r.homeTeam,
+      awayTeam: r.awayTeam,
+      homeScore: r.homeScore,
+      awayScore: r.awayScore,
+      result,
     });
   }
   out.sort((a, b) => b.date.localeCompare(a.date));
@@ -314,6 +371,8 @@ export function buildMatchNarrative(
   const homeSummary = buildTeamSummary(match, match.homeTeam, standings, teamRecords);
   const awaySummary = buildTeamSummary(match, match.awayTeam, standings, teamRecords);
   const h2h = buildHeadToHead(results, match);
+  const homeRecent = buildRecentGames(results, match, match.homeTeam);
+  const awayRecent = buildRecentGames(results, match, match.awayTeam);
   const leagueGuide = getLeagueGuide(match.league);
   const platformGuide = getPlatformGuide(match.platform);
   const paragraph = buildPreviewParagraph(
@@ -324,7 +383,16 @@ export function buildMatchNarrative(
     leagueGuide,
     platformGuide,
   );
-  return { paragraph, homeSummary, awaySummary, headToHead: h2h, leagueGuide, platformGuide };
+  return {
+    paragraph,
+    homeSummary,
+    awaySummary,
+    headToHead: h2h,
+    homeRecent,
+    awayRecent,
+    leagueGuide,
+    platformGuide,
+  };
 }
 
 // findLeagueBySlug는 컴포넌트에서 leagueGuide.slug → display name 역참조 시 사용.

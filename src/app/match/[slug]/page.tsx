@@ -26,6 +26,7 @@ import { getStartersForMatch } from "@/lib/starters/lookup";
 import type { StartersData } from "@/types/starter";
 import startersData from "@/data/starters.json";
 import { MatchContextSection } from "./_components/MatchContext";
+import { MatchRecentGames } from "./_components/MatchRecentGames";
 import { TeamLogo } from "../../_components/TeamLogo";
 import { NAVER_TO_SCHEDULE_TEAM_NAME } from "@/lib/team-records/team-name-aliases";
 import { getTeamLogo } from "@/data/team-logos";
@@ -580,6 +581,14 @@ export default function MatchPage({ params }: { params: Params }) {
           />
         )}
         {insight && <MatchInsightSection insight={insight} />}
+
+        <MatchRecentGames
+          homeTeam={match.homeTeam}
+          awayTeam={match.awayTeam}
+          homeRecent={narrative.homeRecent}
+          awayRecent={narrative.awayRecent}
+          logoFor={findTeamLogo}
+        />
 
         <MatchContextSection
           narrative={narrative}
