@@ -13,6 +13,7 @@
     "crawl:standings": "tsx src/scripts/crawl-standings.ts",
     "crawl:results": "tsx src/scripts/crawl-results.ts",
     "crawl:starters": "tsx src/scripts/crawl-starters.ts",
+    "test:starters": "tsx --test src/lib/starters/*.test.ts",
     "insights:generate": "tsx src/scripts/generate-match-insights.ts",
     "post:main": "tsx src/scripts/post-instagram-main.ts",
     "post:soccer": "tsx src/scripts/post-instagram-sport.ts soccer",
