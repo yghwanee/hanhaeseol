@@ -21,6 +21,10 @@ import { StickyHeader } from "../../_components/StickyHeader";
 import { CoupangTopBannerOnly } from "../../_components/CoupangBanners";
 import { readInsight } from "@/lib/insights/storage";
 import { MatchInsightSection } from "./_components/MatchInsight";
+import { MatchStarters } from "./_components/MatchStarters";
+import { getStartersForMatch } from "@/lib/starters/lookup";
+import type { StartersData } from "@/types/starter";
+import startersData from "@/data/starters.json";
 import { MatchContextSection } from "./_components/MatchContext";
 import { TeamLogo } from "../../_components/TeamLogo";
 import { NAVER_TO_SCHEDULE_TEAM_NAME } from "@/lib/team-records/team-name-aliases";
@@ -238,6 +242,7 @@ export default function MatchPage({ params }: { params: Params }) {
     !!result && typeof result.homeScore === "number" && typeof result.awayScore === "number";
 
   const insight = readInsight(match.id);
+  const starters = getStartersForMatch(startersData as unknown as StartersData, match);
 
   // 데이터 기반 자동 콘텐츠 — 인사이트 유무와 무관하게 항상 시도.
   // standings/results-archive/team-records가 있으면 풍부한 섹션을 만들고, 없으면 자연어 단락만.
@@ -566,6 +571,14 @@ export default function MatchPage({ params }: { params: Params }) {
           <CoupangTopBannerOnly />
         </div>
 
+        {starters && (
+          <MatchStarters
+            home={starters.home}
+            away={starters.away}
+            homeTeam={match.homeTeam}
+            awayTeam={match.awayTeam}
+          />
+        )}
         {insight && <MatchInsightSection insight={insight} />}
 
         <MatchContextSection
