@@ -2,11 +2,11 @@ name: Crawl Starting Pitchers
 
 on:
   schedule:
-    # KST 03:07 / 10:07 / 21:07 = UTC 18:07(전날) / 01:07 / 12:07
-    # 정각(:00)은 GitHub Actions 큐 혼잡으로 지연되므로 7분 오프셋(프로젝트 관례).
-    - cron: '7 18 * * *'
-    - cron: '7 1 * * *'
-    - cron: '7 12 * * *'
+    # KST 03:47 / 10:47 / 21:47 = UTC 18:47(전날) / 01:47 / 12:47
+    # 정각·정각직후 재시도 러시 회피를 위해 47분 오프셋.
+    - cron: '47 18 * * *'
+    - cron: '47 1 * * *'
+    - cron: '47 12 * * *'
   workflow_dispatch: {}
 
 permissions:

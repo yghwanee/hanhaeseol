@@ -2,12 +2,12 @@ name: Crawl Results & Records (hourly)
 
 on:
   schedule:
-    # 매시 7분 + 37분 2회 (정각 회피 + 분산).
+    # 매시 13분 + 43분 2회 (정각·5의 배수·정각직후 재시도 러시 회피 + 분산).
     # GH Actions의 schedule cron은 부하 시 누락되는 알려진 한계가 있어
     # 시간당 2번으로 분산해 누락 확률을 낮춘다. concurrency가 직렬화하므로
     # 두 트리거가 겹쳐도 데이터 중복 없이 순차 실행.
     # 비용 우려는 없음(퍼블릭 리포는 Actions 무제한).
-    - cron: '7,37 * * * *'
+    - cron: '13,43 * * * *'
   workflow_dispatch: {}
 
 # 동시 실행 방지: 이전 잡이 끝나기 전에 다음 cron이 트리거되면 큐에 쌓지 않고 스킵.

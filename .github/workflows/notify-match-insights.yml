@@ -1,9 +1,10 @@
 name: Notify Match Insights
 
-# 매일 08:00 KST = 23:00 UTC (전날). 04:00 생성 결과를 4시간 뒤에 텔레그램으로 발송.
+# 매일 08:43 KST = 23:43 UTC (전날). 04:23 생성 결과를 ~4시간 뒤에 텔레그램으로 발송.
+# :00 정각은 GH Actions 글로벌 큐 혼잡으로 지연이 가장 큼 → :43으로 회피.
 on:
   schedule:
-    - cron: '0 23 * * *'
+    - cron: '43 23 * * *'
   workflow_dispatch: {}
 
 jobs:

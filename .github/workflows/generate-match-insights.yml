@@ -2,10 +2,11 @@ name: Generate Match Insights
 
 on:
   schedule:
-    # 매일 04:00 KST = 19:00 UTC (전날). 7일치(D-day~D+6) 생성.
+    # 매일 04:23 KST = 19:23 UTC (전날). 7일치(D-day~D+6) 생성.
+    # :00 정각은 GH Actions 글로벌 큐 혼잡으로 지연이 가장 큼 → :23으로 회피.
     # 이미 생성된 매치는 readInsight() 체크로 skip되므로 매일 추가분만 LLM 호출.
     # 한국어해설 7일치 ~107건 / Gemini 무료 한도 1,500/일(7%), 4.5s sleep 분당 13.3req(<15 RPM).
-    - cron: '0 19 * * *'
+    - cron: '23 19 * * *'
   workflow_dispatch:
     inputs:
       days_ahead:

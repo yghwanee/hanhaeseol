@@ -2,9 +2,9 @@ name: Crawl Standings (extra)
 
 on:
   schedule:
-    # KST 01:00 = UTC 16:00 (하루 1회 추가)
-    # 정각 회피를 위해 07분에 시작
-    - cron: '07 16 * * *'
+    # KST 01:23 = UTC 16:23 (하루 1회 추가)
+    # 정각·정각직후 재시도 러시 회피를 위해 23분에 시작
+    - cron: '23 16 * * *'
   workflow_dispatch: {}
 
 permissions:
