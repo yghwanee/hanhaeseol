@@ -2,10 +2,10 @@ name: Generate Match Insights
 
 on:
   schedule:
-    # 매일 04:23 KST = 19:23 UTC (전날). 7일치(D-day~D+6) 생성.
+    # 매일 04:23 KST = 19:23 UTC (전날). 당일분(D-day)만 생성.
     # :00 정각은 GH Actions 글로벌 큐 혼잡으로 지연이 가장 큼 → :23으로 회피.
-    # 이미 생성된 매치는 readInsight() 체크로 skip되므로 매일 추가분만 LLM 호출.
-    # 한국어해설 7일치 ~107건 / Gemini 무료 한도 1,500/일(7%), 4.5s sleep 분당 13.3req(<15 RPM).
+    # (실측: 큐 지연으로 ~06:56 KST 실행 — 경기 당일 아침에 그날 경기 인사이트 생성.)
+    # 당일분 ~20건/일 → 무료 티어 Google Search grounding 일일 quota(~20여건) 안에 수렴해 429 회피.
     - cron: '23 19 * * *'
   workflow_dispatch:
     inputs:
@@ -35,9 +35,11 @@ jobs:
         id: gen
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '6' }}
-          # 매일 04:00에 7일치 전부 overwrite. 팀 폼/순위/연승은 매일 바뀌므로 stale 방지가 필요.
-          # 일 호출 ~107회는 Gemini 무료 한도 1500의 7%로 안전.
+          # 하루치(D-day)만 생성. 무료 티어 Google Search grounding 일일 quota(~20여건)에
+          # 맞춰 7일치(~100건/일) → 당일분(~20건/일)으로 축소해 429 소진을 회피.
+          # 경기 당일 아침 생성이라 순위/폼 컨텍스트도 가장 신선. 수동 dispatch로 backfill 가능.
+          INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '0' }}
+          # 당일분을 매일 아침 최신 데이터로 overwrite (stale 방지).
           INSIGHTS_FORCE_REGEN: "true"
         run: npm run insights:generate
 
