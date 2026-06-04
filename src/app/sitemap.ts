@@ -1,14 +1,18 @@
 import { MetadataRoute } from "next";
 import scheduleData from "@/data/schedule.json";
 import archiveData from "@/data/schedule-archive.json";
+import resultsArchiveData from "@/data/results-archive.json";
 import { LEAGUE_SEO, PLATFORM_SEO } from "@/lib/slugs";
 import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
 import { matchToSlug } from "@/lib/match-slug";
 import { readInsight } from "@/lib/insights/storage";
+import { isRichMatch } from "@/lib/match-quality";
 import type { Schedule, ScheduleData } from "@/types/schedule";
+import type { ResultsData } from "@/types/results";
 
 const data = scheduleData as unknown as ScheduleData;
 const archive = archiveData as unknown as ScheduleData;
+const resultsArchive = resultsArchiveData as unknown as ResultsData;
 
 const BASE = "https://haeseol.com";
 
@@ -44,18 +48,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
   const matchById = new Map<string, Schedule>();
   for (const s of archive.schedules) matchById.set(s.id, s);
   for (const s of data.schedules) matchById.set(s.id, s); // 최신 우선
-  // 인사이트(경기 미리보기)가 있는 매치 페이지는 신호 ↑ — Google에 "이 페이지가 풍부한 콘텐츠
-   // 있다" 알려주기 위해 priority 0.6 → 0.8, changeFrequency monthly → weekly.
-  // lastModified도 insight.generatedAt가 있으면 그걸 우선 사용.
-  const matchUrls = [...matchById.values()].map((s) => {
-    const insight = readInsight(s.id);
-    return {
-      url: `${BASE}/match/${encodeURIComponent(matchToSlug(s))}`,
-      lastModified: insight ? new Date(insight.generatedAt) : new Date(s.date),
-      changeFrequency: insight ? ("weekly" as const) : ("monthly" as const),
-      priority: insight ? 0.8 : 0.6,
-    };
-  });
+  // 색인은 "풍부한" 매치(인사이트 or 최종 스코어 보유)만 포함한다. 템플릿에 데이터만
+  // 채운 얇은 매치 수백 개가 색인되면 사이트 전체가 low value content로 판정되므로,
+  // sitemap에서 빼서 색인 평균 품질을 끌어올린다. (얇은 매치는 페이지 자체에 noindex 부여 —
+  // match/[slug]/page.tsx 의 generateMetadata 참고. sitemap 제외와 noindex를 일치시켜 신호 모순 방지.)
+  // 인사이트가 있으면 priority 0.8/weekly, 스코어만 있으면 0.7/monthly.
+  const matchUrls = [...matchById.values()]
+    .filter((s) => isRichMatch(s, resultsArchive))
+    .map((s) => {
+      const insight = readInsight(s.id);
+      return {
+        url: `${BASE}/match/${encodeURIComponent(matchToSlug(s))}`,
+        lastModified: insight ? new Date(insight.generatedAt) : new Date(s.date),
+        changeFrequency: insight ? ("weekly" as const) : ("monthly" as const),
+        priority: insight ? 0.8 : 0.7,
+      };
+    });
 
   return [
     {

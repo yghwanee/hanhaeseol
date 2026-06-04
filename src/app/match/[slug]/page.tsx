@@ -33,6 +33,7 @@ import { getTeamLogo } from "@/data/team-logos";
 import teamRecordsData from "@/data/team-records.json";
 import type { TeamRecordsData } from "@/types/team-record";
 import { buildMatchNarrative } from "@/lib/match-content/build";
+import { isRichMatch } from "@/lib/match-quality";
 
 const data = scheduleData as unknown as ScheduleData;
 const archive = archiveData as unknown as ScheduleData;
@@ -197,11 +198,17 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   const url = `https://haeseol.com/match/${params.slug}`;
   const keywords = buildMatchKeywords(match);
 
+  // 얇은 매치(인사이트·스코어 없는 예정 경기)는 noindex. 사이트 색인 평균 품질을
+  // 끌어올려 AdSense "low value content" 판정을 피하기 위함. sitemap 제외와 일치시킨다.
+  // follow는 유지해 내부 링크 equity가 허브(리그·플랫폼) 페이지로 흐르게 한다.
+  const rich = isRichMatch(match, resultsArchive);
+
   return {
     title,
     description,
     keywords,
     alternates: { canonical: url },
+    robots: rich ? undefined : { index: false, follow: true },
     openGraph: {
       title: insight
         ? `${insight.sections.headline} - 한해설`
