@@ -4514,16 +4514,16 @@
           "rank": 1,
           "teamName": "애틀랜타",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/AT.png?type=f92_88",
-          "gameCount": 61,
-          "win": 41,
+          "gameCount": 62,
+          "win": 42,
           "draw": 0,
           "lose": 20,
-          "winRate": 0.672,
+          "winRate": 0.677,
           "gameBehind": 0,
-          "lastFive": "WLWWW",
+          "lastFive": "WWLWW",
           "streak": {
             "type": "W",
-            "count": 1
+            "count": 2
           },
           "league": "NL",
           "division": "EAST"
@@ -4586,16 +4586,16 @@
           "rank": 1,
           "teamName": "시애틀",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/SE.png?type=f92_88",
-          "gameCount": 62,
+          "gameCount": 63,
           "win": 33,
           "draw": 0,
-          "lose": 29,
-          "winRate": 0.532,
+          "lose": 30,
+          "winRate": 0.524,
           "gameBehind": 0,
-          "lastFive": "WWWWW",
+          "lastFive": "LWWWW",
           "streak": {
-            "type": "W",
-            "count": 8
+            "type": "L",
+            "count": 1
           },
           "league": "AL",
           "division": "WEST"
@@ -4620,18 +4620,36 @@
         },
         {
           "rank": 2,
-          "teamName": "시카고W",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/CW.png?type=f92_88",
-          "gameCount": 61,
+          "teamName": "애리조나",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/AZ.png?type=f92_88",
+          "gameCount": 60,
           "win": 32,
           "draw": 0,
-          "lose": 29,
-          "winRate": 0.525,
-          "gameBehind": 2.5,
-          "lastFive": "LLWWW",
+          "lose": 28,
+          "winRate": 0.533,
+          "gameBehind": 6.5,
+          "lastFive": "LWLLL",
           "streak": {
             "type": "L",
-            "count": 2
+            "count": 1
+          },
+          "league": "NL",
+          "division": "WEST"
+        },
+        {
+          "rank": 2,
+          "teamName": "시카고W",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/CW.png?type=f92_88",
+          "gameCount": 62,
+          "win": 33,
+          "draw": 0,
+          "lose": 29,
+          "winRate": 0.532,
+          "gameBehind": 2,
+          "lastFive": "WLLWW",
+          "streak": {
+            "type": "W",
+            "count": 1
           },
           "league": "AL",
           "division": "CENT"
@@ -4658,16 +4676,16 @@
           "rank": 2,
           "teamName": "필라델피아",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/PH.png?type=f92_88",
-          "gameCount": 60,
-          "win": 31,
+          "gameCount": 61,
+          "win": 32,
           "draw": 0,
           "lose": 29,
-          "winRate": 0.517,
+          "winRate": 0.525,
           "gameBehind": 9.5,
-          "lastFive": "WLWLW",
+          "lastFive": "WWLWL",
           "streak": {
             "type": "W",
-            "count": 1
+            "count": 2
           },
           "league": "NL",
           "division": "EAST"
@@ -4694,16 +4712,16 @@
           "rank": 2,
           "teamName": "샌디에이고",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/SD.png?type=f92_88",
-          "gameCount": 59,
+          "gameCount": 60,
           "win": 32,
           "draw": 0,
-          "lose": 27,
-          "winRate": 0.542,
-          "gameBehind": 6,
-          "lastFive": "LLLWL",
+          "lose": 28,
+          "winRate": 0.533,
+          "gameBehind": 6.5,
+          "lastFive": "LLLLW",
           "streak": {
             "type": "L",
-            "count": 3
+            "count": 4
           },
           "league": "NL",
           "division": "WEST"
@@ -4717,7 +4735,7 @@
           "draw": 0,
           "lose": 31,
           "winRate": 0.492,
-          "gameBehind": 2.5,
+          "gameBehind": 2,
           "lastFive": "WWWWW",
           "streak": {
             "type": "W",
@@ -4728,36 +4746,18 @@
         },
         {
           "rank": 3,
-          "teamName": "애리조나",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/AZ.png?type=f92_88",
-          "gameCount": 60,
-          "win": 32,
+          "teamName": "볼티모어",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/BA.png?type=f92_88",
+          "gameCount": 62,
+          "win": 29,
           "draw": 0,
-          "lose": 28,
-          "winRate": 0.533,
-          "gameBehind": 6.5,
-          "lastFive": "LWLLL",
+          "lose": 33,
+          "winRate": 0.468,
+          "gameBehind": 8.5,
+          "lastFive": "LWWWL",
           "streak": {
             "type": "L",
             "count": 1
-          },
-          "league": "NL",
-          "division": "WEST"
-        },
-        {
-          "rank": 3,
-          "teamName": "볼티모어",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/BA.png?type=f92_88",
-          "gameCount": 61,
-          "win": 29,
-          "draw": 0,
-          "lose": 32,
-          "winRate": 0.475,
-          "gameBehind": 8,
-          "lastFive": "WWWLL",
-          "streak": {
-            "type": "W",
-            "count": 3
           },
           "league": "AL",
           "division": "EAST"
@@ -4784,16 +4784,16 @@
           "rank": 3,
           "teamName": "미네소타",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/MN.png?type=f92_88",
-          "gameCount": 62,
+          "gameCount": 63,
           "win": 29,
           "draw": 0,
-          "lose": 33,
-          "winRate": 0.468,
-          "gameBehind": 6,
-          "lastFive": "WWLLL",
+          "lose": 34,
+          "winRate": 0.46,
+          "gameBehind": 6.5,
+          "lastFive": "LWWLL",
           "streak": {
-            "type": "W",
-            "count": 2
+            "type": "L",
+            "count": 1
           },
           "league": "AL",
           "division": "CENT"
@@ -4802,16 +4802,16 @@
           "rank": 3,
           "teamName": "워싱턴",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/MO.png?type=f92_88",
-          "gameCount": 62,
+          "gameCount": 63,
           "win": 31,
           "draw": 0,
-          "lose": 31,
-          "winRate": 0.5,
-          "gameBehind": 10.5,
-          "lastFive": "LLWWL",
+          "lose": 32,
+          "winRate": 0.492,
+          "gameBehind": 11.5,
+          "lastFive": "LLLWW",
           "streak": {
             "type": "L",
-            "count": 2
+            "count": 3
           },
           "league": "NL",
           "division": "EAST"
@@ -4825,7 +4825,7 @@
           "draw": 0,
           "lose": 31,
           "winRate": 0.483,
-          "gameBehind": 3,
+          "gameBehind": 2.5,
           "lastFive": "WLWLL",
           "streak": {
             "type": "W",
@@ -4856,16 +4856,16 @@
           "rank": 3,
           "teamName": "토론토",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/TO.png?type=f92_88",
-          "gameCount": 61,
+          "gameCount": 62,
           "win": 29,
           "draw": 0,
-          "lose": 32,
-          "winRate": 0.475,
-          "gameBehind": 8,
-          "lastFive": "LLLWW",
+          "lose": 33,
+          "winRate": 0.468,
+          "gameBehind": 8.5,
+          "lastFive": "LLLLW",
           "streak": {
             "type": "L",
-            "count": 3
+            "count": 4
           },
           "league": "AL",
           "division": "EAST"
@@ -4910,16 +4910,16 @@
           "rank": 4,
           "teamName": "마이애미",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/FL.png?type=f92_88",
-          "gameCount": 62,
-          "win": 28,
+          "gameCount": 63,
+          "win": 29,
           "draw": 0,
           "lose": 34,
-          "winRate": 0.452,
+          "winRate": 0.46,
           "gameBehind": 13.5,
-          "lastFive": "WWLLL",
+          "lastFive": "WWWLL",
           "streak": {
             "type": "W",
-            "count": 2
+            "count": 3
           },
           "league": "NL",
           "division": "EAST"
@@ -4933,7 +4933,7 @@
           "draw": 0,
           "lose": 35,
           "winRate": 0.435,
-          "gameBehind": 6,
+          "gameBehind": 5.5,
           "lastFive": "LLWLW",
           "streak": {
             "type": "L",
@@ -4951,7 +4951,7 @@
           "draw": 0,
           "lose": 39,
           "winRate": 0.371,
-          "gameBehind": 10,
+          "gameBehind": 9.5,
           "lastFive": "LLLWL",
           "streak": {
             "type": "L",
@@ -4964,15 +4964,15 @@
           "rank": 5,
           "teamName": "보스턴",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/BO.png?type=f92_88",
-          "gameCount": 59,
-          "win": 25,
+          "gameCount": 60,
+          "win": 26,
           "draw": 0,
           "lose": 34,
-          "winRate": 0.424,
-          "gameBehind": 11,
-          "lastFive": "LWWLL",
+          "winRate": 0.433,
+          "gameBehind": 10.5,
+          "lastFive": "WLWWL",
           "streak": {
-            "type": "L",
+            "type": "W",
             "count": 1
           },
           "league": "AL",
@@ -5018,16 +5018,16 @@
           "rank": 5,
           "teamName": "뉴욕메츠",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/NM.png?type=f92_88",
-          "gameCount": 61,
-          "win": 26,
+          "gameCount": 62,
+          "win": 27,
           "draw": 0,
           "lose": 35,
-          "winRate": 0.426,
+          "winRate": 0.435,
           "gameBehind": 15,
-          "lastFive": "LLWWW",
+          "lastFive": "WLLWW",
           "streak": {
-            "type": "L",
-            "count": 2
+            "type": "W",
+            "count": 1
           },
           "league": "NL",
           "division": "EAST"
@@ -5054,5 +5054,5 @@
     }
   ],
   "basketball": [],
-  "lastUpdated": "2026-06-03T19:57:06.597Z"
+  "lastUpdated": "2026-06-04T01:48:30.190Z"
 }
