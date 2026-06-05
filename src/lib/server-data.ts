@@ -8,7 +8,19 @@ import type { ResultsData } from "@/types/results";
 export function loadScheduleData(): ScheduleData {
   const filePath = path.join(process.cwd(), "public", "schedule.json");
   const raw = fs.readFileSync(filePath, "utf-8");
-  return JSON.parse(raw) as ScheduleData;
+  const data = JSON.parse(raw) as ScheduleData;
+
+  // 월드컵 편성은 별도 파일(worldcup.json)로 관리되며, 매시간 도는 일반 크롤러가
+  // schedule.json을 덮어써도 살아남는다. 읽을 때 합쳐서 한 목록으로 노출한다.
+  try {
+    const wcPath = path.join(process.cwd(), "public", "worldcup.json");
+    const wc = JSON.parse(fs.readFileSync(wcPath, "utf-8")) as ScheduleData;
+    data.schedules = [...data.schedules, ...wc.schedules];
+  } catch {
+    // worldcup.json 없으면 무시
+  }
+
+  return data;
 }
 
 export function loadTeamRecords(): TeamRecordsMap {

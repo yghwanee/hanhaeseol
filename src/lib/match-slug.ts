@@ -14,9 +14,13 @@ export function matchToSlug(s: Schedule): string {
     findPlatformSlugByName(s.platform) ?? sanitize(s.platform);
   const home = sanitize(s.homeTeam);
   const away = sanitize(s.awayTeam);
+  // 월드컵 토너먼트 진출 미확정 경기는 "미정 vs 미정"이라 같은 날 여러 경기가
+  // 동일 슬러그로 충돌한다. home===away인 경우에만 시간을 덧붙여 분리한다.
+  // (실제 매치업은 home≠away라 기존 슬러그/SEO URL에 영향 없음.)
+  const suffix = s.homeTeam === s.awayTeam ? `-${sanitize(s.time)}` : "";
   // NFC 정규화: Linux Vercel 빌드에서 한글 dynamic segment가 NFD/percent-encoded로
   // 변형되어 들어와 generateStaticParams의 slug와 page params가 어긋나는 사고를 막는다.
-  return `${s.date}-${platformSlug}-${home}-vs-${away}`.normalize("NFC");
+  return `${s.date}-${platformSlug}-${home}-vs-${away}${suffix}`.normalize("NFC");
 }
 
 function sanitize(input: string): string {

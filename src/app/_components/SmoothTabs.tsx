@@ -46,7 +46,8 @@ function useActiveRect(activeKey: string, depsKey: string) {
 }
 
 type SmoothTabsProps<T extends string> = {
-  options: { value: T; label: ReactNode }[];
+  /** className: 해당 칩 버튼에만 추가로 붙는 클래스 (예: 강조 테두리). */
+  options: { value: T; label: ReactNode; className?: string }[];
   value: T;
   onChange: (value: T) => void;
   variant?: "filled" | "bordered";
@@ -143,7 +144,7 @@ export function SmoothTabs<T extends string>({
             onClick={() => onChange(o.value)}
             className={`relative z-10 shrink-0 whitespace-nowrap font-medium outline-none focus:outline-none ${
               useCapsStripe ? "" : "transition-colors "
-            }${sizeCls} ${baseShape} ${stateCls} ${fullWidth ? "w-full" : ""}`}
+            }${sizeCls} ${baseShape} ${stateCls} ${fullWidth ? "w-full" : ""} ${o.className ?? ""}`}
           >
             {o.label}
           </button>

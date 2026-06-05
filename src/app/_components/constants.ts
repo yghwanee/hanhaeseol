@@ -1,4 +1,4 @@
-export const SPORTS = ["전체", "축구", "야구", "농구", "배구"] as const;
+export const SPORTS = ["전체", "북중미 월드컵", "축구", "야구", "농구", "배구"] as const;
 
 export const PLATFORM_LIST = [
   { key: "전체", label: "전체" },

@@ -179,6 +179,7 @@ const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "acl", label: "ACL" },
   { categoryId: "amatch", label: "A매치(한국)" },
   { categoryId: "amatchfriendly", label: "국가대표 친선" },
+  { categoryId: "worldcup", label: "월드컵" },
 ];
 
 export async function crawlAllResults(): Promise<ResultsData> {

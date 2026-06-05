@@ -43,12 +43,18 @@ jobs:
       - name: Run standings crawl
         run: npm run crawl:standings
 
+      # 월드컵 편성은 schedule.json과 분리된 worldcup.json으로 관리(네이버 소스).
+      # 실패해도 전체 워크플로우는 통과시킨다(기존 데이터 보존).
+      - name: Run worldcup crawl
+        continue-on-error: true
+        run: npm run crawl:worldcup
+
       - name: Commit & Push
         id: commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/data/schedule.json public/schedule.json src/data/schedule-archive.json public/schedule-archive.json src/data/standings.json
+          git add src/data/schedule.json public/schedule.json src/data/schedule-archive.json public/schedule-archive.json src/data/standings.json src/data/worldcup.json public/worldcup.json
           if git diff --staged --quiet; then
             echo "updated=false" >> $GITHUB_OUTPUT
           else

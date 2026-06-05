@@ -10,7 +10,8 @@ export type Platform =
   | "KBS N SPORTS"
   | "MBC SPORTS+"
   | "SBS Sports"
-  | "Apple TV+";
+  | "Apple TV+"
+  | "JTBC";
 
 export interface Schedule {
   id: string;
@@ -22,6 +23,9 @@ export interface Schedule {
   awayTeam: string;
   platform: Platform;
   koreanCommentary: boolean | "unknown";
+  /** 국기/엠블럼 이미지 URL (현재 월드컵 국가대표 경기에만 채워짐). */
+  homeEmblem?: string;
+  awayEmblem?: string;
 }
 
 export interface ScheduleData {

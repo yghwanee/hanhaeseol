@@ -16,6 +16,7 @@ import { SmoothTabs, SmoothCircleTabs } from "./_components/SmoothTabs";
 import { ScheduleCard } from "./_components/ScheduleCard";
 import { CoupangTopBannerOnly, CoupangInlineBanner } from "./_components/CoupangBanners";
 import { DatePickerSheet } from "./_components/DatePickerSheet";
+import { WorldCupView } from "./_components/WorldCupView";
 import { useScrollbarDrag } from "@/lib/hooks/useScrollbarDrag";
 
 export default function ScheduleClient({
@@ -192,6 +193,14 @@ export default function ScheduleClient({
   const deferredCommentary = useDeferredValue(commentaryFilter);
   const deferredSearchQuery = useDeferredValue(searchQuery);
 
+  // "북중미 월드컵" 칩은 일반 날짜 필터 리스트가 아니라 전용 월드컵 뷰(전 경기+브래킷)로
+  // 분기한다. 7일 날짜 탭 제약을 받지 않고 대회 전체를 한 화면에 보여준다.
+  const isWorldCupView = sport === "북중미 월드컵";
+  const worldcupSchedules = useMemo(
+    () => data.schedules.filter((s) => s.league.startsWith("북중미 월드컵")),
+    [data],
+  );
+
   const filtered = useMemo(() => {
     // 과거 날짜는 archive에서, 오늘 이후는 schedule.json에서 데이터를 가져온다.
     const source = isArchiveDate ? archive : data;
@@ -199,7 +208,13 @@ export default function ScheduleClient({
     const q = deferredSearchQuery.trim().toLowerCase();
     return source.schedules
       .filter((s) => s.date === selectedDate)
-      .filter((s) => deferredSport === "전체" || s.sport === deferredSport)
+      .filter((s) => {
+        if (deferredSport === "전체") return true;
+        // "북중미 월드컵"은 5번째 종목이 아니라 파생 카테고리(축구 중 월드컵 대회).
+        // 축구 칩에는 sport==="축구"라 자동 포함되고, 월드컵 칩에선 league로 골라낸다.
+        if (deferredSport === "북중미 월드컵") return s.league.startsWith("북중미 월드컵");
+        return s.sport === deferredSport;
+      })
       .filter((s) => deferredPlatform === "전체" || s.platform === deferredPlatform)
       .filter((s) => {
         if (deferredCommentary === "korean") return s.koreanCommentary === true;
@@ -277,13 +292,29 @@ export default function ScheduleClient({
           <div className="overflow-x-auto scrollbar-hide">
             <SmoothTabs
               ariaLabel="종목 필터"
-              options={SPORTS.map((s) => ({ value: s, label: s }))}
+              options={SPORTS.map((s) =>
+                s === "북중미 월드컵"
+                  ? {
+                      value: s,
+                      // 월드컵 시즌 강조 — 골드 테두리 + 트로피 아이콘
+                      className: "!border-amber-400/80 bg-amber-400/5",
+                      label: (
+                        <span className="inline-flex items-center gap-1">
+                          <span aria-hidden>🏆</span>
+                          <span>{s}</span>
+                        </span>
+                      ),
+                    }
+                  : { value: s, label: s },
+              )}
               value={sport as (typeof SPORTS)[number]}
               onChange={handleSelectSport}
             />
           </div>
         </div>
 
+        {!isWorldCupView && (
+        <>
         {/* Korean Commentary Toggle */}
         <div className="flex items-center gap-1.5 sm:gap-2">
           <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-zinc-300">
@@ -378,8 +409,19 @@ export default function ScheduleClient({
             </div>
           </div>
         </div>
+        </>
+        )}
       </div>
 
+      {isWorldCupView ? (
+        <WorldCupView
+          schedules={worldcupSchedules}
+          teamRecords={teamRecords}
+          results={results}
+          today={todayStr}
+        />
+      ) : (
+      <>
       <div className="mt-4 sm:mt-6 mb-3 sm:mb-4 rounded-lg border border-zinc-700/50 bg-zinc-800/30 px-3 py-2 text-center">
         <p className="text-[11px] sm:text-xs text-zinc-400">이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br className="sm:hidden" /> 이에 따른 일정액의 수수료를 제공받습니다.</p>
       </div>
@@ -609,6 +651,8 @@ export default function ScheduleClient({
             );
           })}
         </div>
+      )}
+      </>
       )}
 
       {/* SEO 안내 섹션 — 사용자 가독성을 해치지 않는 톤으로 핵심 키워드 자연 노출 */}

@@ -44,6 +44,9 @@ export const LEAGUE_TO_CATEGORY: Record<string, string | string[]> = {
 
 /** league 문자열 → 후보 categoryId 목록 (단일 값/배열 모두 배열로 정규화). 매핑 없으면 빈 배열. */
 export function categoriesForLeague(league: string): string[] {
+  // 북중미 월드컵은 라운드 접미사("북중미 월드컵 32강" 등)가 붙으므로 prefix로 매칭.
+  // 편성(worldcup.json)·결과 모두 네이버 categoryId=worldcup에서 와 팀명이 정확히 일치한다.
+  if (league.startsWith("북중미 월드컵")) return ["worldcup"];
   const c = LEAGUE_TO_CATEGORY[league];
   if (!c) return [];
   return Array.isArray(c) ? c : [c];

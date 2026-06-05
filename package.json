@@ -9,6 +9,7 @@
     "lint": "next lint",
     "crawl": "tsx src/scripts/crawl.ts",
     "crawl:coupang": "tsx src/scripts/crawl-coupang.ts",
+    "crawl:worldcup": "tsx src/scripts/crawl-worldcup.ts",
 "crawl:records": "tsx src/scripts/crawl-records.ts",
     "crawl:standings": "tsx src/scripts/crawl-standings.ts",
     "crawl:results": "tsx src/scripts/crawl-results.ts",
