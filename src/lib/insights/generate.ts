@@ -15,7 +15,7 @@ const MAX_RETRIES = 1;
 export async function generateInsightForMatch(
   inputs: ContextInputs,
   apiKey: string,
-  options: { force?: boolean } = {},
+  options: { force?: boolean; disableGrounding?: boolean } = {},
 ): Promise<GenerateOutcome> {
   const ctx = buildInsightContext(inputs);
 
@@ -28,7 +28,11 @@ export async function generateInsightForMatch(
 
   for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
     try {
-      const raw = await callGemini({ apiKey, prompt });
+      const raw = await callGemini({
+        apiKey,
+        prompt,
+        enableSearchGrounding: !options.disableGrounding,
+      });
       const sections = parseSections(raw);
       if (!sections) {
         lastError = "json-parse-failed";

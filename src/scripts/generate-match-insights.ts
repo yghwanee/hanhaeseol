@@ -13,6 +13,11 @@ const SLEEP_MS = Number(process.env.INSIGHTS_SLEEP_MS ?? "4500");
 // 인사이트 컨텍스트(팀 폼/순위/연승)는 매일 바뀌므로 미리 생성한 인사이트는 stale이 된다.
 // 야구처럼 매일 경기하는 종목은 D+1 인사이트도 전날 결과를 반영해야 함. true면 매일 overwrite.
 const FORCE_REGEN = process.env.INSIGHTS_FORCE_REGEN === "true";
+// 개막 전 월드컵 백필용: grounding(실시간 검색)을 꺼서 무료 grounding quota(~20/일)를
+// 우회. 개막 전엔 검색할 결과가 없어 grounding 불필요 → 기본 1,500 req/일 한도 안에서 전 경기 생성.
+const DISABLE_GROUNDING = process.env.INSIGHTS_DISABLE_GROUNDING === "true";
+// 월드컵 경기만 대상으로(백필 시 일반 경기 인사이트는 건드리지 않도록).
+const WORLDCUP_ONLY = process.env.INSIGHTS_WORLDCUP_ONLY === "true";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -65,11 +70,13 @@ async function main() {
       // 토너먼트 진출 미확정(미정 vs 미정) 경기는 미리보기 생성 제외
       s.homeTeam !== "미정" &&
       s.awayTeam !== "미정" &&
+      (!WORLDCUP_ONLY || s.league.startsWith("북중미 월드컵")) &&
       inDateRange(s.date, todayStr, DAYS_AHEAD),
   );
 
   console.log(
-    `[insights] today KST=${todayStr}, days_ahead=${DAYS_AHEAD}, target matches: ${targets.length} (KR commentary only)`,
+    `[insights] today KST=${todayStr}, days_ahead=${DAYS_AHEAD}, target matches: ${targets.length} (KR commentary only)` +
+      `${WORLDCUP_ONLY ? " [WORLDCUP_ONLY]" : ""}${DISABLE_GROUNDING ? " [no-grounding]" : ""}`,
   );
 
   let created = 0;
@@ -87,7 +94,7 @@ async function main() {
         resultsArchive: resultsData.results,
       },
       apiKey,
-      { force: FORCE_REGEN },
+      { force: FORCE_REGEN, disableGrounding: DISABLE_GROUNDING },
     );
     if (outcome.status === "created") {
       created++;

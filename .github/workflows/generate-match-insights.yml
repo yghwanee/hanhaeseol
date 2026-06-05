@@ -10,9 +10,17 @@ on:
   workflow_dispatch:
     inputs:
       days_ahead:
-        description: 'How many days ahead (default 6 = full 7-day window)'
+        description: 'How many days ahead (default 6 = full 7-day window). 월드컵 개막 전 백필은 44 정도(7/20까지).'
         required: false
         default: '6'
+      worldcup_only:
+        description: '월드컵 경기만 생성 (true/false)'
+        required: false
+        default: 'false'
+      disable_grounding:
+        description: 'Google Search grounding 끄기 (개막 전 백필 시 true → grounding quota 회피)'
+        required: false
+        default: 'false'
 
 permissions:
   contents: write
@@ -41,6 +49,9 @@ jobs:
           INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '0' }}
           # 당일분을 매일 아침 최신 데이터로 overwrite (stale 방지).
           INSIGHTS_FORCE_REGEN: "true"
+          # 수동 백필 옵션: 월드컵만 / grounding 끄기 (개막 전 대량 생성용)
+          INSIGHTS_WORLDCUP_ONLY: ${{ github.event.inputs.worldcup_only || 'false' }}
+          INSIGHTS_DISABLE_GROUNDING: ${{ github.event.inputs.disable_grounding || 'false' }}
         run: npm run insights:generate
 
       - name: Commit & push
