@@ -50,9 +50,12 @@ jobs:
           # 하루치(D-day)만 생성. 무료 티어 Google Search grounding 일일 quota(~20여건)에
           # 맞춰 7일치(~100건/일) → 당일분(~20건/일)으로 축소해 429 소진을 회피.
           # 경기 당일 아침 생성이라 순위/폼 컨텍스트도 가장 신선. 수동 dispatch로 backfill 가능.
-          INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '0' }}
-          # 당일분을 매일 아침 최신 데이터로 overwrite (stale 방지). 백필 시엔 false로 스킵.
-          INSIGHTS_FORCE_REGEN: ${{ github.event.inputs.force_regen || 'true' }}
+          # ⚠️ 임시 BACKFILL 모드 (인사이트 전체 초기화 후 재충전 기간):
+          #   scheduled 기본을 days_ahead=6(7일 윈도우) + force_regen=false(이미 채운 건 스킵)로
+          #   둬서, 매일 quota(~16~20건) 한도껏 '아직 없는' 다가오는 경기를 미리 채운다.
+          #   윈도우가 다 차면 원래대로(days_ahead=0 / force_regen=true: 당일 새로고침) 되돌릴 것.
+          INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '6' }}
+          INSIGHTS_FORCE_REGEN: ${{ github.event.inputs.force_regen || 'false' }}
           # 수동 백필 옵션: 월드컵만 / grounding 끄기 (개막 전 대량 생성용)
           INSIGHTS_WORLDCUP_ONLY: ${{ github.event.inputs.worldcup_only || 'false' }}
           INSIGHTS_DISABLE_GROUNDING: ${{ github.event.inputs.disable_grounding || 'false' }}
