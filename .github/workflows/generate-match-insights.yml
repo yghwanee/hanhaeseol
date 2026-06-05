@@ -21,6 +21,10 @@ on:
         description: 'Google Search grounding 끄기 (개막 전 백필 시 true → grounding quota 회피)'
         required: false
         default: 'false'
+      force_regen:
+        description: '이미 생성된 인사이트도 재생성 (false면 스킵 → 며칠에 걸친 백필에 유용)'
+        required: false
+        default: 'true'
 
 permissions:
   contents: write
@@ -47,8 +51,8 @@ jobs:
           # 맞춰 7일치(~100건/일) → 당일분(~20건/일)으로 축소해 429 소진을 회피.
           # 경기 당일 아침 생성이라 순위/폼 컨텍스트도 가장 신선. 수동 dispatch로 backfill 가능.
           INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '0' }}
-          # 당일분을 매일 아침 최신 데이터로 overwrite (stale 방지).
-          INSIGHTS_FORCE_REGEN: "true"
+          # 당일분을 매일 아침 최신 데이터로 overwrite (stale 방지). 백필 시엔 false로 스킵.
+          INSIGHTS_FORCE_REGEN: ${{ github.event.inputs.force_regen || 'true' }}
           # 수동 백필 옵션: 월드컵만 / grounding 끄기 (개막 전 대량 생성용)
           INSIGHTS_WORLDCUP_ONLY: ${{ github.event.inputs.worldcup_only || 'false' }}
           INSIGHTS_DISABLE_GROUNDING: ${{ github.event.inputs.disable_grounding || 'false' }}
