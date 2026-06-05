@@ -4,6 +4,7 @@ import path from "path";
 import type { ScheduleData } from "@/types/schedule";
 import type { TeamRecordsData, TeamRecordsMap } from "@/types/team-record";
 import type { ResultsData } from "@/types/results";
+import type { WorldCupStandings } from "@/types/worldcup";
 
 export function loadScheduleData(): ScheduleData {
   const filePath = path.join(process.cwd(), "public", "schedule.json");
@@ -30,6 +31,17 @@ export function loadTeamRecords(): TeamRecordsMap {
     return (JSON.parse(raw) as TeamRecordsData).records;
   } catch {
     return {};
+  }
+}
+
+/** 월드컵 조별 순위. 크롤 전이면 없을 수 있음. */
+export function loadWorldcupStandings(): WorldCupStandings | null {
+  try {
+    const filePath = path.join(process.cwd(), "public", "worldcup-standings.json");
+    const raw = fs.readFileSync(filePath, "utf-8");
+    return JSON.parse(raw) as WorldCupStandings;
+  } catch {
+    return null;
   }
 }
 

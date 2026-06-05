@@ -1,4 +1,5 @@
 import { Schedule } from "@/types/schedule";
+import { WorldCupStandings, WorldCupGroup } from "@/types/worldcup";
 
 // 2026 북중미 월드컵 편성 = 네이버 스포츠 비공개 API (인증 불필요).
 // gameDateTime이 이미 KST라 시간대 변환 불필요.
@@ -101,4 +102,69 @@ export async function crawlWorldcup(): Promise<Schedule[]> {
   }
 
   return schedules;
+}
+
+// ── 조별 순위 ──────────────────────────────────────────────
+// 2026 북중미 월드컵 시즌 코드 (네이버 record 페이지 seasonCode). 대회 고정값.
+const SEASON_CODE = "3F9X";
+
+interface NaverTeamStat {
+  teamName: string;
+  group: string;
+  rank: number;
+  matchesPlayed: number;
+  wins: number;
+  draws: number;
+  losses: number;
+  goals: number;
+  goalsConceded: number;
+  goalsDifference: number;
+  points: number;
+  teamEmblemUrl: string | null;
+  tournamentSimulation: { roundOf16?: number } | null;
+}
+
+export async function crawlWorldcupStandings(): Promise<WorldCupStandings | null> {
+  const url = `https://api-gw.sports.naver.com/statistics/categories/worldcup/seasons/${SEASON_CODE}/teams`;
+  let stats: NaverTeamStat[] = [];
+  try {
+    const res = await fetch(url, {
+      headers: { "User-Agent": "Mozilla/5.0", Referer: "https://m.sports.naver.com/", Accept: "application/json" },
+      signal: AbortSignal.timeout(10000),
+    });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const json = await res.json();
+    stats = json?.result?.seasonTeamStats ?? [];
+  } catch (e) {
+    console.error(`  ✗ 월드컵 순위: ${e}`);
+    return null;
+  }
+  if (stats.length === 0) return null;
+
+  const byGroup = new Map<string, WorldCupGroup>();
+  for (const t of stats) {
+    const g = t.group;
+    if (!g) continue;
+    if (!byGroup.has(g)) byGroup.set(g, { group: g, teams: [] });
+    byGroup.get(g)!.teams.push({
+      name: t.teamName,
+      rank: t.rank,
+      played: t.matchesPlayed,
+      win: t.wins,
+      draw: t.draws,
+      loss: t.losses,
+      gf: t.goals,
+      ga: t.goalsConceded,
+      gd: t.goalsDifference,
+      points: t.points,
+      ...(t.teamEmblemUrl ? { emblem: t.teamEmblemUrl } : {}),
+      ...(typeof t.tournamentSimulation?.roundOf16 === "number" ? { advanceProb: t.tournamentSimulation.roundOf16 } : {}),
+    });
+  }
+
+  const groups = [...byGroup.values()]
+    .map((g) => ({ ...g, teams: g.teams.sort((a, b) => a.rank - b.rank) }))
+    .sort((a, b) => a.group.localeCompare(b.group));
+
+  return { lastUpdated: new Date().toISOString(), groups };
 }

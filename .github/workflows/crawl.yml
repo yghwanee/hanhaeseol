@@ -54,7 +54,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/data/schedule.json public/schedule.json src/data/schedule-archive.json public/schedule-archive.json src/data/standings.json src/data/worldcup.json public/worldcup.json
+          git add src/data/schedule.json public/schedule.json src/data/schedule-archive.json public/schedule-archive.json src/data/standings.json src/data/worldcup.json public/worldcup.json src/data/worldcup-standings.json public/worldcup-standings.json
           if git diff --staged --quiet; then
             echo "updated=false" >> $GITHUB_OUTPUT
           else
