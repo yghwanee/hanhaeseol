@@ -48,16 +48,11 @@ function GameRow({
       </span>
 
       <div className="flex min-w-0 flex-1 items-center justify-center gap-1.5 sm:gap-2">
-        {/* 홈팀 */}
-        <div className="flex min-w-0 flex-1 items-center justify-end gap-1.5">
-          <span
-            className={`truncate text-xs sm:text-sm ${
-              homeLost ? "text-zinc-500" : "text-zinc-100"
-            }`}
-          >
-            {game.homeTeam}
+        {/* 홈팀 — 엠블럼만 (팀명이 길면 행이 깨져서 이름은 생략) */}
+        <div className="flex flex-1 items-center justify-end gap-1.5">
+          <span className={homeLost ? "opacity-40" : ""}>
+            <TeamLogo name={game.homeTeam} src={logoFor(game.homeTeam)} size={22} />
           </span>
-          <TeamLogo name={game.homeTeam} src={logoFor(game.homeTeam)} size={18} />
         </div>
 
         {/* 스코어 (메인 카드 스타일: 진 쪽 흐리게) */}
@@ -71,15 +66,10 @@ function GameRow({
           </span>
         </div>
 
-        {/* 원정팀 */}
-        <div className="flex min-w-0 flex-1 items-center justify-start gap-1.5">
-          <TeamLogo name={game.awayTeam} src={logoFor(game.awayTeam)} size={18} />
-          <span
-            className={`truncate text-xs sm:text-sm ${
-              awayLost ? "text-zinc-500" : "text-zinc-100"
-            }`}
-          >
-            {game.awayTeam}
+        {/* 원정팀 — 엠블럼만 */}
+        <div className="flex flex-1 items-center justify-start gap-1.5">
+          <span className={awayLost ? "opacity-40" : ""}>
+            <TeamLogo name={game.awayTeam} src={logoFor(game.awayTeam)} size={22} />
           </span>
         </div>
       </div>
