@@ -4,6 +4,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import scheduleData from "@/data/schedule.json";
 import archiveData from "@/data/schedule-archive.json";
+import worldcupData from "@/data/worldcup.json";
 import resultsArchiveData from "@/data/results-archive.json";
 import standingsData from "@/data/standings.json";
 import type { Schedule, ScheduleData } from "@/types/schedule";
@@ -37,6 +38,7 @@ import { isRichMatch } from "@/lib/match-quality";
 
 const data = scheduleData as unknown as ScheduleData;
 const archive = archiveData as unknown as ScheduleData;
+const worldcup = worldcupData as unknown as ScheduleData;
 const standings = standingsData as unknown as StandingsData;
 const teamRecords = teamRecordsData as unknown as TeamRecordsData;
 
@@ -109,7 +111,11 @@ const resultsArchive = resultsArchiveData as unknown as ResultsData;
  * 7일이 지나 schedule.json에서 빠진 과거 경기도 archive에서 부활시켜 404를 막는다.
  */
 function findMatchAnywhere(slug: string): Schedule | undefined {
-  return findMatchBySlug(data.schedules, slug) ?? findMatchBySlug(archive.schedules, slug);
+  return (
+    findMatchBySlug(data.schedules, slug) ??
+    findMatchBySlug(worldcup.schedules, slug) ??
+    findMatchBySlug(archive.schedules, slug)
+  );
 }
 
 // 관련 경기 검색용 통합 목록 (schedule + archive, id 기준 dedupe).
@@ -117,6 +123,7 @@ function findMatchAnywhere(slug: string): Schedule | undefined {
 const allSchedules: Schedule[] = (() => {
   const byId = new Map<string, Schedule>();
   for (const s of archive.schedules) byId.set(s.id, s);
+  for (const s of worldcup.schedules) byId.set(s.id, s);
   for (const s of data.schedules) byId.set(s.id, s); // schedule이 최신
   return [...byId.values()];
 })();
@@ -128,7 +135,15 @@ type Params = { slug: string };
  * archive가 수천 건으로 커지면 빌드 폭발하므로, 정적 생성은 트래픽이 몰리는 현재 7일치에만.
  */
 export function generateStaticParams(): Params[] {
-  return data.schedules.map((s) => ({ slug: matchToSlug(s) }));
+  const seen = new Set<string>();
+  const params: Params[] = [];
+  for (const s of [...data.schedules, ...worldcup.schedules]) {
+    const slug = matchToSlug(s);
+    if (seen.has(slug)) continue;
+    seen.add(slug);
+    params.push({ slug });
+  }
+  return params;
 }
 
 // dynamicParams=true: archive에 있는 과거 경기는 런타임에 SSR로 렌더링.
@@ -487,13 +502,13 @@ export default function MatchPage({ params }: { params: Params }) {
           <div className="mt-4 flex items-center justify-center gap-5 sm:gap-7">
             <TeamLogo
               name={match.homeTeam}
-              src={findTeamLogo(match.homeTeam)}
+              src={findTeamLogo(match.homeTeam) ?? match.homeEmblem ?? null}
               size={56}
             />
             <span className="text-sm font-bold text-zinc-500 sm:text-base">vs</span>
             <TeamLogo
               name={match.awayTeam}
-              src={findTeamLogo(match.awayTeam)}
+              src={findTeamLogo(match.awayTeam) ?? match.awayEmblem ?? null}
               size={56}
             />
           </div>
