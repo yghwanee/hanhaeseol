@@ -44,6 +44,13 @@ async function main() {
   }
 
   const schedule = loadJson<ScheduleData>("src/data/schedule.json");
+  // 월드컵 편성은 별도 파일이므로 인사이트 대상 풀에 합친다. (없으면 무시)
+  let worldcup: ScheduleData = { lastUpdated: "", schedules: [] };
+  try {
+    worldcup = loadJson<ScheduleData>("src/data/worldcup.json");
+  } catch {
+    // worldcup.json 없으면 무시
+  }
   const teamRecordsData = loadJson<TeamRecordsData>(
     "src/data/team-records.json",
   );
@@ -51,9 +58,13 @@ async function main() {
   const resultsData = loadJson<ResultsData>("src/data/results-archive.json");
 
   const todayStr = todayKstDateStr();
-  const targets = schedule.schedules.filter(
+  // 월드컵을 앞에 둬서 무료 quota가 모자라도 월드컵 미리보기가 우선 생성되게 함.
+  const targets = [...worldcup.schedules, ...schedule.schedules].filter(
     (s) =>
       s.koreanCommentary === true &&
+      // 토너먼트 진출 미확정(미정 vs 미정) 경기는 미리보기 생성 제외
+      s.homeTeam !== "미정" &&
+      s.awayTeam !== "미정" &&
       inDateRange(s.date, todayStr, DAYS_AHEAD),
   );
 
