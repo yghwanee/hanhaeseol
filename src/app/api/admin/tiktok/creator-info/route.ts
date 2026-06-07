@@ -23,6 +23,9 @@ export async function GET(req: NextRequest) {
         nickname: info.creatorNickname ?? null,
         privacyLevelOptions: info.privacyLevelOptions,
         maxVideoPostDurationSec: info.maxVideoPostDurationSec,
+        commentDisabled: info.commentDisabled,
+        duetDisabled: info.duetDisabled,
+        stitchDisabled: info.stitchDisabled,
       },
     });
   } catch (e) {

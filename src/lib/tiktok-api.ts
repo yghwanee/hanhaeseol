@@ -66,6 +66,10 @@ export interface CreatorInfo {
   creatorNickname?: string;
   privacyLevelOptions: string[];
   maxVideoPostDurationSec: number;
+  /** creator_info가 상호작용을 막아둔 경우 → UI에서 해당 체크박스 비활성 (UX Guideline) */
+  commentDisabled: boolean;
+  duetDisabled: boolean;
+  stitchDisabled: boolean;
 }
 
 export async function getCreatorInfo(accessToken: string): Promise<CreatorInfo> {
@@ -82,6 +86,9 @@ export async function getCreatorInfo(accessToken: string): Promise<CreatorInfo> 
       creator_nickname?: string;
       privacy_level_options?: string[];
       max_video_post_duration_sec?: number;
+      comment_disabled?: boolean;
+      duet_disabled?: boolean;
+      stitch_disabled?: boolean;
     };
     error?: { code?: string; message?: string };
   };
@@ -93,6 +100,9 @@ export async function getCreatorInfo(accessToken: string): Promise<CreatorInfo> 
     creatorNickname: data.data.creator_nickname,
     privacyLevelOptions: data.data.privacy_level_options ?? [],
     maxVideoPostDurationSec: data.data.max_video_post_duration_sec ?? 60,
+    commentDisabled: data.data.comment_disabled ?? false,
+    duetDisabled: data.data.duet_disabled ?? false,
+    stitchDisabled: data.data.stitch_disabled ?? false,
   };
 }
 

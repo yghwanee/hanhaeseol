@@ -9,6 +9,9 @@ interface CreatorInfo {
   nickname: string | null;
   privacyLevelOptions: string[];
   maxVideoPostDurationSec: number;
+  commentDisabled: boolean;
+  duetDisabled: boolean;
+  stitchDisabled: boolean;
 }
 
 const PRIVACY_LABEL: Record<PrivacyLevel, string> = {
@@ -40,8 +43,11 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
   const [isYourBrand, setIsYourBrand] = useState(false);
   const [isBrandedContent, setIsBrandedContent] = useState(false);
 
-  // ── Point 4: 정책 동의 ────────────────────────────────────────────────
-  const [policyAccepted, setPolicyAccepted] = useState(false);
+  // Branded content 는 비공개(SELF_ONLY) 불가 → 켜는 순간 이미 SELF_ONLY 면 해제
+  const onChangeBrandedContent = (v: boolean) => {
+    setIsBrandedContent(v);
+    if (v && privacy === "SELF_ONLY") setPrivacy("");
+  };
 
   // ── Point 5: 미리보기 / 파일 ──────────────────────────────────────────
   const [file, setFile] = useState<File | null>(null);
@@ -105,7 +111,6 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
     file &&
     title.trim().length > 0 &&
     privacy !== "" &&
-    policyAccepted &&
     durationOk &&
     commercialOk &&
     brandedPrivacyOk &&
@@ -124,7 +129,8 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
     fd.append("is_commercial", String(isCommercial));
     fd.append("is_your_brand", String(isYourBrand));
     fd.append("is_branded_content", String(isBrandedContent));
-    fd.append("policy_accepted", String(policyAccepted));
+    // 가이드라인상 "By posting, you agree..." — 게시 버튼 클릭 자체가 동의.
+    fd.append("policy_accepted", "true");
 
     try {
       const r = await fetch(
@@ -250,12 +256,21 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
                 <option value="" disabled>
                   -- 선택하세요 --
                 </option>
-                {privacyOptions.map((p) => (
-                  <option key={p} value={p}>
-                    {PRIVACY_LABEL[p]}
-                  </option>
-                ))}
+                {privacyOptions.map((p) => {
+                  // Branded content 는 비공개 불가 → "Only me" 옵션 자체를 비활성
+                  const optDisabled = isBrandedContent && p === "SELF_ONLY";
+                  return (
+                    <option key={p} value={p} disabled={optDisabled}>
+                      {PRIVACY_LABEL[p]}
+                    </option>
+                  );
+                })}
               </select>
+              {isBrandedContent && (
+                <p className="mt-1.5 text-xs text-amber-400">
+                  Branded content visibility cannot be set to private
+                </p>
+              )}
             </div>
 
             <fieldset className="space-y-2">
@@ -264,17 +279,20 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
               </legend>
               <Checkbox
                 label="댓글 허용"
-                checked={allowComment}
+                checked={allowComment && !creator?.commentDisabled}
+                disabled={creator?.commentDisabled ?? false}
                 onChange={setAllowComment}
               />
               <Checkbox
                 label="듀엣 허용"
-                checked={allowDuet}
+                checked={allowDuet && !creator?.duetDisabled}
+                disabled={creator?.duetDisabled ?? false}
                 onChange={setAllowDuet}
               />
               <Checkbox
                 label="스티치 허용"
-                checked={allowStitch}
+                checked={allowStitch && !creator?.stitchDisabled}
+                disabled={creator?.stitchDisabled ?? false}
                 onChange={setAllowStitch}
               />
             </fieldset>
@@ -282,10 +300,11 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
         </Section>
 
         {/* ─────────── Step 3: 상업용 콘텐츠 토글 ─────────── */}
-        <Section step={3} title="상업용 콘텐츠 표시">
+        <Section step={3} title="상업용 콘텐츠 표시 (Disclose content)">
           <div className="space-y-3">
             <Checkbox
               label="이 영상은 상업용 콘텐츠입니다 (Disclose commercial content)"
+              title="You need to indicate if your content promotes yourself, a third party, or both"
               checked={isCommercial}
               onChange={(v) => {
                 setIsCommercial(v);
@@ -296,54 +315,50 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
               }}
             />
             {isCommercial && (
-              <div className="ml-6 space-y-2 border-l-2 border-zinc-700 pl-4">
-                <Checkbox
-                  label="본인 브랜드 (Your Brand) — 본인 사업/제품을 홍보"
-                  checked={isYourBrand}
-                  onChange={setIsYourBrand}
-                />
-                <Checkbox
-                  label="브랜드 콘텐츠 (Branded Content) — 광고주 협찬"
-                  checked={isBrandedContent}
-                  onChange={setIsBrandedContent}
-                />
-                {isBrandedContent && (
-                  <p className="text-xs text-amber-400">
-                    ⚠️ 브랜드 콘텐츠는 PUBLIC 공개만 허용됩니다 (TikTok 정책).
-                  </p>
-                )}
-                {isCommercial && !isYourBrand && !isBrandedContent && (
+              <div className="ml-6 space-y-3 border-l-2 border-zinc-700 pl-4">
+                <div className="space-y-1">
+                  <Checkbox
+                    label="Your Brand — 본인 사업/브랜드/제품을 홍보"
+                    checked={isYourBrand}
+                    onChange={setIsYourBrand}
+                  />
+                  {isYourBrand && !isBrandedContent && (
+                    <p className="ml-6 text-xs text-zinc-400">
+                      Your video will be labeled as &apos;Promotional
+                      content&apos;.
+                    </p>
+                  )}
+                </div>
+                <div className="space-y-1">
+                  <Checkbox
+                    label="Branded Content — 제3자/광고주 협찬"
+                    checked={isBrandedContent}
+                    onChange={onChangeBrandedContent}
+                  />
+                  {isBrandedContent && (
+                    <p className="ml-6 text-xs text-zinc-400">
+                      Your video will be labeled as &apos;Paid
+                      partnership&apos;.
+                    </p>
+                  )}
+                </div>
+                {!isYourBrand && !isBrandedContent && (
                   <p className="text-xs text-red-400">
-                    상업용으로 표시한 경우 위 두 가지 중 하나 이상을
-                    선택해야 합니다.
+                    You need to indicate if your content promotes yourself, a
+                    third party, or both.
                   </p>
                 )}
-                <p className="text-xs text-zinc-500">
-                  선택 시 게시 후 영상에 자동으로 관련 라벨이 표시됩니다.
-                </p>
               </div>
             )}
           </div>
         </Section>
 
-        {/* ─────────── Step 4: 정책 동의 ─────────── */}
-        <Section step={4} title="정책 동의">
-          <div className="space-y-3 text-sm text-zinc-400">
-            <p className="leading-relaxed">
-              영상에 포함된 음악 사용권을 확인했으며, TikTok 의{" "}
-              <a
-                href="https://www.tiktok.com/legal/music-usage-confirmation"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-emerald-400 underline underline-offset-2"
-              >
-                Music Usage Confirmation
-              </a>{" "}
-              정책을 준수합니다.
-            </p>
+        {/* ─────────── Step 4: 컴플라이언스 동의 (게시 = 동의) ─────────── */}
+        <Section step={4} title="컴플라이언스 동의">
+          <p className="text-sm leading-relaxed text-zinc-400">
+            By posting, you agree to TikTok&apos;s{" "}
             {isBrandedContent && (
-              <p className="leading-relaxed">
-                또한{" "}
+              <>
                 <a
                   href="https://www.tiktok.com/legal/page/global/bc-policy/en"
                   target="_blank"
@@ -352,16 +367,19 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
                 >
                   Branded Content Policy
                 </a>{" "}
-                를 검토하였고 게시 콘텐츠가 해당 정책을 위반하지 않음을
-                확인했습니다.
-              </p>
+                and{" "}
+              </>
             )}
-            <Checkbox
-              label="위 정책을 모두 확인했으며 동의합니다."
-              checked={policyAccepted}
-              onChange={setPolicyAccepted}
-            />
-          </div>
+            <a
+              href="https://www.tiktok.com/legal/page/global/music-usage-confirmation/en"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-emerald-400 underline underline-offset-2"
+            >
+              Music Usage Confirmation
+            </a>
+            .
+          </p>
         </Section>
 
         {/* ─────────── Step 5: 미리보기 + 게시 ─────────── */}
@@ -479,18 +497,30 @@ function Checkbox({
   label,
   checked,
   onChange,
+  disabled = false,
+  title,
 }: {
   label: string;
   checked: boolean;
   onChange: (v: boolean) => void;
+  disabled?: boolean;
+  title?: string;
 }) {
   return (
-    <label className="flex cursor-pointer items-start gap-2 text-sm text-zinc-300">
+    <label
+      title={title}
+      className={`flex items-start gap-2 text-sm ${
+        disabled
+          ? "cursor-not-allowed text-zinc-600"
+          : "cursor-pointer text-zinc-300"
+      }`}
+    >
       <input
         type="checkbox"
         checked={checked}
+        disabled={disabled}
         onChange={(e) => onChange(e.target.checked)}
-        className="mt-0.5 h-4 w-4 cursor-pointer accent-emerald-500"
+        className="mt-0.5 h-4 w-4 cursor-pointer accent-emerald-500 disabled:cursor-not-allowed"
       />
       <span>{label}</span>
     </label>
