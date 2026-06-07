@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-07T08:30:17.691Z",
+  "lastUpdated": "2026-06-07T10:56:02.170Z",
   "records": {
     "KBO": {
       "LG": {
@@ -13,17 +13,6 @@
           "type": "L"
         }
       },
-      "KT": {
-        "last5": "WLLWL",
-        "win": 34,
-        "lose": 23,
-        "draw": 1,
-        "wra": 0.596,
-        "streak": {
-          "count": 1,
-          "type": "W"
-        }
-      },
       "삼성": {
         "last5": "WLLLW",
         "win": 33,
@@ -33,6 +22,17 @@
         "streak": {
           "count": 1,
           "type": "W"
+        }
+      },
+      "KT": {
+        "last5": "LWLLW",
+        "win": 34,
+        "lose": 24,
+        "draw": 1,
+        "wra": 0.586,
+        "streak": {
+          "count": 1,
+          "type": "L"
         }
       },
       "KIA": {
@@ -68,6 +68,17 @@
           "type": "W"
         }
       },
+      "SSG": {
+        "last5": "WLWWW",
+        "win": 26,
+        "lose": 32,
+        "draw": 1,
+        "wra": 0.448,
+        "streak": {
+          "count": 1,
+          "type": "W"
+        }
+      },
       "NC": {
         "last5": "WLWWL",
         "win": 25,
@@ -77,17 +88,6 @@
         "streak": {
           "count": 1,
           "type": "W"
-        }
-      },
-      "SSG": {
-        "last5": "LWWWL",
-        "win": 25,
-        "lose": 32,
-        "draw": 1,
-        "wra": 0.439,
-        "streak": {
-          "count": 1,
-          "type": "L"
         }
       },
       "롯데": {
@@ -1991,7 +1991,7 @@
         "last5": "WWDLW",
         "win": 8,
         "lose": 4,
-        "draw": 2,
+        "draw": 3,
         "streak": {
           "count": 2,
           "type": "W"
@@ -2017,21 +2017,21 @@
           "type": "L"
         }
       },
-      "김포": {
-        "last5": "WWWDL",
-        "win": 6,
-        "lose": 2,
-        "draw": 5
-      },
       "수원FC": {
         "last5": "DLWDW",
         "win": 6,
         "lose": 3,
-        "draw": 4,
+        "draw": 5,
         "streak": {
           "count": 1,
           "type": "D"
         }
+      },
+      "김포": {
+        "last5": "WWWDL",
+        "win": 6,
+        "lose": 3,
+        "draw": 5
       },
       "충남아산": {
         "last5": "DWDLW",
@@ -2047,7 +2047,7 @@
         "last5": "WLDLW",
         "win": 4,
         "lose": 3,
-        "draw": 6,
+        "draw": 7,
         "streak": {
           "count": 1,
           "type": "W"
@@ -2093,6 +2093,16 @@
           "type": "D"
         }
       },
+      "충북청주": {
+        "last5": "LDDDD",
+        "win": 0,
+        "lose": 3,
+        "draw": 11,
+        "streak": {
+          "count": 1,
+          "type": "L"
+        }
+      },
       "안산": {
         "last5": "LLLLL",
         "win": 3,
@@ -2103,19 +2113,9 @@
           "type": "L"
         }
       },
-      "충북청주": {
-        "last5": "LDDDD",
-        "win": 0,
-        "lose": 3,
-        "draw": 10,
-        "streak": {
-          "count": 1,
-          "type": "L"
-        }
-      },
       "전남": {
         "last5": "LLDDL",
-        "win": 1,
+        "win": 2,
         "lose": 8,
         "draw": 4,
         "streak": {
