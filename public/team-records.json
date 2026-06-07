@@ -1,27 +1,16 @@
 {
-  "lastUpdated": "2026-06-07T10:56:02.170Z",
+  "lastUpdated": "2026-06-07T12:50:25.997Z",
   "records": {
     "KBO": {
       "LG": {
-        "last5": "LWWLW",
+        "last5": "LLWWL",
         "win": 36,
-        "lose": 22,
-        "draw": 0,
-        "wra": 0.621,
-        "streak": {
-          "count": 1,
-          "type": "L"
-        }
-      },
-      "삼성": {
-        "last5": "WLLLW",
-        "win": 33,
         "lose": 23,
-        "draw": 1,
-        "wra": 0.589,
+        "draw": 0,
+        "wra": 0.61,
         "streak": {
-          "count": 1,
-          "type": "W"
+          "count": 2,
+          "type": "L"
         }
       },
       "KT": {
@@ -35,36 +24,58 @@
           "type": "L"
         }
       },
-      "KIA": {
-        "last5": "LWWLW",
-        "win": 31,
-        "lose": 27,
+      "삼성": {
+        "last5": "LWLLL",
+        "win": 33,
+        "lose": 24,
         "draw": 1,
-        "wra": 0.534,
+        "wra": 0.579,
         "streak": {
           "count": 1,
           "type": "L"
         }
       },
-      "한화": {
-        "last5": "WWLDL",
-        "win": 29,
+      "KIA": {
+        "last5": "WLWWL",
+        "win": 32,
         "lose": 27,
         "draw": 1,
-        "wra": 0.518,
+        "wra": 0.542,
         "streak": {
-          "count": 2,
+          "count": 1,
+          "type": "W"
+        }
+      },
+      "한화": {
+        "last5": "WWWLD",
+        "win": 30,
+        "lose": 27,
+        "draw": 1,
+        "wra": 0.526,
+        "streak": {
+          "count": 3,
           "type": "W"
         }
       },
       "두산": {
-        "last5": "WWWDW",
+        "last5": "LWWWD",
         "win": 29,
-        "lose": 28,
+        "lose": 29,
         "draw": 2,
-        "wra": 0.509,
+        "wra": 0.5,
         "streak": {
-          "count": 4,
+          "count": 1,
+          "type": "L"
+        }
+      },
+      "NC": {
+        "last5": "WWLWW",
+        "win": 26,
+        "lose": 31,
+        "draw": 1,
+        "wra": 0.456,
+        "streak": {
+          "count": 2,
           "type": "W"
         }
       },
@@ -79,37 +90,26 @@
           "type": "W"
         }
       },
-      "NC": {
-        "last5": "WLWWL",
-        "win": 25,
-        "lose": 31,
-        "draw": 1,
-        "wra": 0.446,
-        "streak": {
-          "count": 1,
-          "type": "W"
-        }
-      },
       "롯데": {
-        "last5": "LLLWL",
+        "last5": "LLLLW",
         "win": 22,
-        "lose": 34,
+        "lose": 35,
         "draw": 1,
-        "wra": 0.393,
+        "wra": 0.386,
         "streak": {
-          "count": 3,
+          "count": 4,
           "type": "L"
         }
       },
       "키움": {
-        "last5": "LLLLW",
-        "win": 21,
+        "last5": "WLLLL",
+        "win": 22,
         "lose": 38,
         "draw": 1,
-        "wra": 0.356,
+        "wra": 0.367,
         "streak": {
-          "count": 4,
-          "type": "L"
+          "count": 1,
+          "type": "W"
         }
       }
     },
@@ -1988,10 +1988,10 @@
         }
       },
       "서울E": {
-        "last5": "WWDLW",
+        "last5": "LWWDL",
         "win": 8,
-        "lose": 4,
-        "draw": 3,
+        "lose": 5,
+        "draw": 2,
         "streak": {
           "count": 2,
           "type": "W"
@@ -2017,8 +2017,14 @@
           "type": "L"
         }
       },
+      "김포": {
+        "last5": "DWWWD",
+        "win": 6,
+        "lose": 2,
+        "draw": 6
+      },
       "수원FC": {
-        "last5": "DLWDW",
+        "last5": "DDLWD",
         "win": 6,
         "lose": 3,
         "draw": 5,
@@ -2026,12 +2032,6 @@
           "count": 1,
           "type": "D"
         }
-      },
-      "김포": {
-        "last5": "WWWDL",
-        "win": 6,
-        "lose": 3,
-        "draw": 5
       },
       "충남아산": {
         "last5": "DWDLW",
@@ -2044,7 +2044,7 @@
         }
       },
       "천안": {
-        "last5": "WLDLW",
+        "last5": "DWLDL",
         "win": 4,
         "lose": 3,
         "draw": 7,
@@ -2094,10 +2094,10 @@
         }
       },
       "충북청주": {
-        "last5": "LDDDD",
-        "win": 0,
+        "last5": "WLDDD",
+        "win": 1,
         "lose": 3,
-        "draw": 11,
+        "draw": 10,
         "streak": {
           "count": 1,
           "type": "L"
@@ -2114,10 +2114,10 @@
         }
       },
       "전남": {
-        "last5": "LLDDL",
-        "win": 2,
+        "last5": "DLLDD",
+        "win": 1,
         "lose": 8,
-        "draw": 4,
+        "draw": 5,
         "streak": {
           "count": 2,
           "type": "L"
