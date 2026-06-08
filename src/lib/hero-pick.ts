@@ -216,19 +216,88 @@ export function heroScore(m: Schedule): number {
   );
 }
 
+// ====================================================================
+// 월드컵 우선 모드 (2026 북중미 월드컵, 개막 2026-06-12)
+// 후보에 월드컵 경기가 있으면 무조건 최우선.
+// 월드컵끼리: 라운드 티어 → 매치업 티어(대한민국 최우선 → 강호) → 시간.
+// 데이터(public/worldcup.json) 부재 시 자동 비활성(대회 종료 후 현행 동작).
+// ====================================================================
+
+const WC_LEAGUE_PREFIX = "북중미 월드컵";
+
+// 라운드 티어 (높을수록 우선). 조별리그 league는 정확히 "북중미 월드컵"이라
+// 맵에 없으면 기본 1로 처리.
+const WC_ROUND_TIER: Record<string, number> = {
+  "북중미 월드컵 결승": 7,
+  "북중미 월드컵 4강": 6,
+  "북중미 월드컵 3·4위전": 5,
+  "북중미 월드컵 8강": 4,
+  "북중미 월드컵 16강": 3,
+  "북중미 월드컵 32강": 2,
+  "북중미 월드컵": 1,
+};
+
+// 강호 풀 (시즌 중 편집 가능). 대한민국은 별도 최우선 처리.
+// schedule.json/worldcup.json 국가명 표기 그대로.
+const WC_POWERHOUSES = new Set<string>([
+  "브라질", "아르헨티나", "프랑스", "잉글랜드", "스페인", "독일",
+  "포르투갈", "네덜란드", "벨기에", "크로아티아", "우루과이",
+  "일본", "멕시코", "남아프리카 공화국", "체코",
+]);
+
+const WC_KOREA = "대한민국";
+
+export function isWorldCup(m: Schedule): boolean {
+  return m.league.startsWith(WC_LEAGUE_PREFIX);
+}
+
+function wcRoundTier(m: Schedule): number {
+  return WC_ROUND_TIER[m.league] ?? 1;
+}
+
+function wcMatchupTier(m: Schedule): number {
+  if (m.homeTeam === WC_KOREA || m.awayTeam === WC_KOREA) return 3;
+  const homeBig = WC_POWERHOUSES.has(m.homeTeam);
+  const awayBig = m.awayTeam ? WC_POWERHOUSES.has(m.awayTeam) : false;
+  if (homeBig && awayBig) return 2;
+  if (homeBig || awayBig) return 1;
+  return 0;
+}
+
+/**
+ * Hero 정렬 비교자. 음수면 a가 우선.
+ * 1) 월드컵 vs 비월드컵 → 월드컵 우선
+ * 2) 둘 다 월드컵 → 라운드 티어 desc → 매치업 티어 desc → 시간 asc
+ * 3) 둘 다 비월드컵 → heroScore desc → 시간 asc
+ */
+export function compareHero(a: Schedule, b: Schedule): number {
+  const wa = isWorldCup(a);
+  const wb = isWorldCup(b);
+  if (wa !== wb) return wa ? -1 : 1;
+
+  if (wa && wb) {
+    const ra = wcRoundTier(a);
+    const rb = wcRoundTier(b);
+    if (ra !== rb) return rb - ra;
+    const ma = wcMatchupTier(a);
+    const mb = wcMatchupTier(b);
+    if (ma !== mb) return mb - ma;
+    return a.time.localeCompare(b.time);
+  }
+
+  const sa = heroScore(a);
+  const sb = heroScore(b);
+  if (sa !== sb) return sb - sa;
+  return a.time.localeCompare(b.time);
+}
+
 /**
  * 매치 배열에서 가장 점수 높은 hero 매치 1개를 픽.
  * 동점이면 시간 빠른 순.
  */
 export function pickHeroMatch(matches: Schedule[]): Schedule | null {
   if (matches.length === 0) return null;
-  const sorted = [...matches].sort((a, b) => {
-    const sa = heroScore(a);
-    const sb = heroScore(b);
-    if (sa !== sb) return sb - sa;
-    return a.time.localeCompare(b.time);
-  });
-  return sorted[0];
+  return [...matches].sort(compareHero)[0];
 }
 
 /**
@@ -242,12 +311,7 @@ export function pickHeroMatchesTop(
 ): Schedule[] {
   if (matches.length === 0 || max <= 0) return [];
 
-  const sorted = [...matches].sort((a, b) => {
-    const sa = heroScore(a);
-    const sb = heroScore(b);
-    if (sa !== sb) return sb - sa;
-    return a.time.localeCompare(b.time);
-  });
+  const sorted = [...matches].sort(compareHero);
 
   const out: Schedule[] = [];
   const seenSports = new Set<Sport>();
