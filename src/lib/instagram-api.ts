@@ -45,16 +45,40 @@ export function buildCaption(mm: string, dd: string, today: string, link: string
   return body.join("\n");
 }
 
-export async function postMedia(params: Record<string, string>): Promise<string> {
+export async function postMedia(
+  params: Record<string, string>,
+  maxRetries = 5,
+  retryDelayMs = 15000,
+): Promise<string> {
   const { igId, token } = igEnv();
-  const body = new URLSearchParams({ ...params, access_token: token });
-  const res = await fetch(`${IG_API}/${igId}/media`, { method: "POST", body });
-  const data = await res.json();
-  if (!res.ok || !data.id) throw new Error(`미디어 생성 실패: ${JSON.stringify(data)}`);
-  return data.id as string;
+  for (let attempt = 1; ; attempt++) {
+    const body = new URLSearchParams({ ...params, access_token: token });
+    const res = await fetch(`${IG_API}/${igId}/media`, { method: "POST", body });
+    const data = await res.json();
+    if (res.ok && data.id) return data.id as string;
+    // raw.githubusercontent CDN가 방금 푸시한 커밋을 아직 전파 못해 Meta가
+    // 미디어 URI를 못 가져온 케이스(9004/2207052). 잠깐 뒤 재시도하면 회복됨.
+    if (isTransientFetch(data.error) && attempt < maxRetries) {
+      console.warn(
+        `⚠️  미디어 생성 ${attempt}/${maxRetries} — URI fetch 실패(CDN 전파 대기), ${retryDelayMs / 1000}s 후 재시도: ${JSON.stringify(data.error)}`,
+      );
+      await sleep(retryDelayMs);
+      continue;
+    }
+    throw new Error(`미디어 생성 실패: ${JSON.stringify(data)}`);
+  }
 }
 
-type IgError = { code?: number; error_subcode?: number; message?: string };
+type IgError = { code?: number; error_subcode?: number; message?: string; is_transient?: boolean };
+
+// 미디어 URI를 Meta가 일시적으로 못 가져온 케이스. raw CDN 전파 지연이 주원인.
+function isTransientFetch(err: IgError | undefined): boolean {
+  if (!err) return false;
+  if (err.code === 9004 || err.error_subcode === 2207052) return true;
+  if (err.is_transient) return true;
+  const msg = err.message ?? "";
+  return /can(no| )?t be fetched|could not be fetched|fetch the media/i.test(msg);
+}
 
 // Meta가 Page Access Token으로 미디어 컨테이너 노드 직접 GET 호출을 막은 케이스.
 // 5/23부터 모든 컨테이너 GET이 code=100/subcode=33으로 거부됨.

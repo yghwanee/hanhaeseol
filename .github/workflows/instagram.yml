@@ -81,7 +81,7 @@ jobs:
           echo "✅ insta-media 브랜치 업데이트 완료"
 
       - name: raw.githubusercontent CDN 반영 대기
-        run: sleep 10
+        run: sleep 30
 
       - name: 캐러셀 게시
         if: ${{ inputs.skip_instagram != true }}
