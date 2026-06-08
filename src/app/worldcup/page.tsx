@@ -3,21 +3,52 @@ import Link from "next/link";
 import Image from "next/image";
 import { loadWorldcupStandings, loadScheduleData } from "@/lib/server-data";
 import type { WorldCupGroup } from "@/types/worldcup";
+import type { Schedule } from "@/types/schedule";
+import { buildSportsEventLd } from "@/lib/structured-data";
 import { WorldCupBanner } from "@/app/_components/WorldCupBanner";
 import { StickyHeader } from "@/app/_components/StickyHeader";
 
+const CANONICAL = "https://haeseol.com/worldcup";
+const OG_DESC =
+  "2026 FIFA 북중미 월드컵 조별 순위·16강 진출 확률과 한국 경기 한국어 해설 중계 편성을 한곳에서.";
+
 export const metadata: Metadata = {
-  title: "북중미 월드컵 조별 순위 | 한해설",
+  title: "북중미 월드컵 조별 순위·중계 편성표 | 한해설",
   description:
-    "2026 FIFA 북중미 월드컵 12개 조 순위·승점·골득실·16강 진출 확률을 한곳에서. 조 1·2위 16강 직행.",
+    "2026 FIFA 북중미 월드컵 12개 조 순위·승점·골득실·16강 진출 확률과 한국 경기 중계 편성을 한곳에서. 한국어 해설 중계 어디서 보는지 한눈에.",
+  keywords: [
+    "월드컵 중계",
+    "북중미 월드컵",
+    "2026 월드컵",
+    "월드컵 조별 순위",
+    "월드컵 16강 진출",
+    "월드컵 편성표",
+    "월드컵 한국어 해설",
+    "월드컵 한국 경기",
+    "월드컵 중계 어디서",
+    "FIFA 월드컵 2026",
+  ],
+  alternates: { canonical: CANONICAL },
+  openGraph: {
+    title: "북중미 월드컵 조별 순위·중계 편성표 | 한해설",
+    description: OG_DESC,
+    url: CANONICAL,
+    siteName: "한해설",
+    locale: "ko_KR",
+    type: "website",
+    images: [{ url: "/og-default.png", width: 1200, height: 630, alt: "2026 북중미 월드컵" }],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "북중미 월드컵 조별 순위·중계 편성표 | 한해설",
+    description: OG_DESC,
+    images: ["/og-default.png"],
+  },
 };
 
 /** 오늘(로컬)부터 첫 경기까지 D-day. */
-function computeDday(): number | null {
-  const wcDates = loadScheduleData()
-    .schedules.filter((s) => s.league.startsWith("북중미 월드컵"))
-    .map((s) => s.date)
-    .sort();
+function computeDday(wcSchedules: Schedule[]): number | null {
+  const wcDates = wcSchedules.map((s) => s.date).sort();
   if (wcDates.length === 0) return null;
   const d = new Date();
   const a = [d.getFullYear(), d.getMonth() + 1, d.getDate()];
@@ -83,10 +114,33 @@ function GroupCard({ g }: { g: WorldCupGroup }) {
 
 export default function WorldCupPage() {
   const standings = loadWorldcupStandings();
-  const dday = computeDday();
+  const wcSchedules = loadScheduleData().schedules.filter((s) =>
+    s.league.startsWith("북중미 월드컵")
+  );
+  const dday = computeDday(wcSchedules);
+
+  // 다가오는 월드컵 경기를 SportsEvent + BroadcastEvent("어디서 시청")로 노출 →
+  // Google sports "Where to watch" 신호. 홈/리그 페이지와 동일한 헬퍼 재사용.
+  const sportsEventLd = buildSportsEventLd(wcSchedules, CANONICAL);
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "한해설", item: "https://haeseol.com" },
+      { "@type": "ListItem", position: 2, name: "북중미 월드컵 조별 순위", item: CANONICAL },
+    ],
+  };
 
   return (
-    <main className="mx-auto min-h-screen max-w-2xl px-3 pb-12 sm:px-4">
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
+      {sportsEventLd && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: sportsEventLd }} />
+      )}
+      <main className="mx-auto min-h-screen max-w-2xl px-3 pb-12 sm:px-4">
       <StickyHeader>
         <header className="flex items-center justify-between">
           <Link href="/" className="flex items-end">
@@ -119,6 +173,7 @@ export default function WorldCupPage() {
       <p className="mt-6 text-center text-[11px] leading-relaxed text-zinc-600">
         조 1·2위 16강 직행 + 각 조 3위 중 상위 8팀 추가 진출 · 순위 출처: 네이버 스포츠
       </p>
-    </main>
+      </main>
+    </>
   );
 }
