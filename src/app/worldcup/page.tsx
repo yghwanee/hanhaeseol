@@ -5,6 +5,7 @@ import { loadWorldcupStandings, loadScheduleData } from "@/lib/server-data";
 import type { WorldCupGroup } from "@/types/worldcup";
 import type { Schedule } from "@/types/schedule";
 import { buildSportsEventLd } from "@/lib/structured-data";
+import { proxyLogo } from "@/lib/emblem";
 import { WorldCupBanner } from "@/app/_components/WorldCupBanner";
 import { StickyHeader } from "@/app/_components/StickyHeader";
 
@@ -89,7 +90,7 @@ function GroupCard({ g }: { g: WorldCupGroup }) {
                     <span className="flex min-w-0 items-center gap-1.5">
                       {t.emblem && (
                         /* eslint-disable-next-line @next/next/no-img-element */
-                        <img src={t.emblem} alt="" referrerPolicy="no-referrer" className="h-3.5 w-5 shrink-0 rounded-[2px] object-cover" />
+                        <img src={proxyLogo(t.emblem)} alt="" referrerPolicy="no-referrer" className="h-3.5 w-5 shrink-0 rounded-[2px] object-cover" />
                       )}
                       <span className="truncate font-medium text-zinc-100">{t.name}</span>
                     </span>

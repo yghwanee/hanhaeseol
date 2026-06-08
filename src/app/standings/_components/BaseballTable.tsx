@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import { proxyLogo } from "@/lib/emblem";
 import type { BaseballStanding } from "@/types/standings";
 import { Last5Dots } from "./Last5Dots";
 import { StreakChip } from "./StreakChip";
@@ -163,7 +164,7 @@ export function BaseballTable({ teams }: { teams: BaseballStanding[] }) {
                     <div className="flex items-center gap-1.5 sm:gap-2">
                       {t.teamLogo ? (
                         <Image
-                          src={t.teamLogo}
+                          src={proxyLogo(t.teamLogo)}
                           alt={t.teamName}
                           width={22}
                           height={22}

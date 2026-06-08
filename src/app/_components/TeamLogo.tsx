@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { proxyLogo } from "@/lib/emblem";
 
 export function TeamLogo({ name, src, size = 64 }: { name: string; src: string | null; size?: number }) {
   const [failed, setFailed] = useState(false);
@@ -31,7 +32,7 @@ export function TeamLogo({ name, src, size = 64 }: { name: string; src: string |
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
-      src={src}
+      src={proxyLogo(src)}
       alt={name}
       width={size}
       height={size}
