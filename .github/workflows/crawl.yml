@@ -2,15 +2,54 @@ name: Crawl Schedules
 
 on:
   schedule:
-    # KST 08:18 = UTC 23:18 (하루 1회)
+    # primary: KST 08:18 = UTC 23:18 (하루 1회)
     - cron: '18 23 * * *'
+    # backup: GitHub schedule 이벤트는 best-effort라 부하 시 드롭될 수 있음.
+    # primary가 드롭되면 아래 백업이 따라잡는다. 정각/:18분 회피(부하 회피).
+    # 가드 job이 "오늘 이미 갱신됐으면 스킵"하므로 primary 성공 시 백업은 즉시 종료.
+    - cron: '48 1 * * *'   # KST 10:48 = UTC 01:48
+    - cron: '48 4 * * *'   # KST 13:48 = UTC 04:48
   workflow_dispatch: {}  # 수동 트리거
 
 permissions:
   contents: write
 
 jobs:
+  # 오늘(KST) 이미 schedule.json이 갱신됐는지 확인. 갱신됐으면 crawl job 전체 스킵.
+  # 수동 실행은 무조건 통과. lastUpdated를 못 읽으면 fail-open(안전하게 실행).
+  guard:
+    runs-on: ubuntu-latest
+    outputs:
+      should_run: ${{ steps.check.outputs.should_run }}
+    steps:
+      - uses: actions/checkout@v6
+      - id: check
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "수동 실행 → 무조건 실행"
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          LAST=$(node -e "try{process.stdout.write(String(require('./src/data/schedule.json').lastUpdated||''))}catch(e){process.stdout.write('')}")
+          if [ -z "$LAST" ]; then
+            echo "lastUpdated 못 읽음 → fail-open(실행)"
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          LAST_KST=$(TZ=Asia/Seoul date -d "$LAST" +%F)
+          TODAY_KST=$(TZ=Asia/Seoul date +%F)
+          echo "schedule.json lastUpdated(KST): $LAST_KST / 오늘(KST): $TODAY_KST"
+          if [ "$LAST_KST" = "$TODAY_KST" ]; then
+            echo "이미 오늘 갱신됨 → 백업 스킵"
+            echo "should_run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "오늘 갱신 안 됨 → 실행"
+            echo "should_run=true" >> "$GITHUB_OUTPUT"
+          fi
+
   crawl:
+    needs: guard
+    if: needs.guard.outputs.should_run == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
