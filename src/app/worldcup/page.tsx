@@ -149,7 +149,7 @@ export default function WorldCupPage() {
             <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
             <span className="ml-2 sm:ml-3 text-sm sm:text-lg font-normal text-zinc-500">한국어중계 편성표</span>
           </Link>
-          <Link href="/?sport=북중미 월드컵" className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-4 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs">
+          <Link href="/" className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-4 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs">
             ← &ensp;편성표
           </Link>
         </header>
