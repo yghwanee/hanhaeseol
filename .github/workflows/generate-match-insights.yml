@@ -50,11 +50,15 @@ jobs:
           # 하루치(D-day)만 생성. 무료 티어 Google Search grounding 일일 quota(~20여건)에
           # 맞춰 7일치(~100건/일) → 당일분(~20건/일)으로 축소해 429 소진을 회피.
           # 경기 당일 아침 생성이라 순위/폼 컨텍스트도 가장 신선. 수동 dispatch로 backfill 가능.
-          # ⚠️ 임시 BACKFILL 모드 (인사이트 전체 초기화 후 재충전 기간):
-          #   scheduled 기본을 days_ahead=6(7일 윈도우) + force_regen=false(이미 채운 건 스킵)로
-          #   둬서, 매일 quota(~16~20건) 한도껏 '아직 없는' 다가오는 경기를 미리 채운다.
-          #   윈도우가 다 차면 원래대로(days_ahead=0 / force_regen=true: 당일 새로고침) 되돌릴 것.
-          INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '6' }}
+          # ⚠️ 월드컵 백필 모드 (2026 북중미 월드컵 기간, ~7/20):
+          #   gemini-2.5-flash 무료 한도는 실측 generate_content 20요청/일(주석의 1,500은 옛 값).
+          #   스크립트가 월드컵(worldcup.json)을 targets 맨 앞에 두고, 이미 생성된 건 Gemini 호출
+          #   전에 스킵(generate.ts L22)하므로, days_ahead를 대회 전체(44일=7/20)로 넓히면 매일 20건
+          #   한도가 '미생성 월드컵'부터 소진 → ~3일이면 다가오는 월드컵 전 경기 채움. 다 차면
+          #   월드컵은 전부 무료 스킵돼 budget이 자동으로 일반 경기로 돌아감(자기교정, 되돌릴 필요 X).
+          #   ※ 일반 경기는 schedule.json이 7일치뿐이라 days_ahead=44여도 7일로 자연 제한됨.
+          #   대회 종료 후엔 원래 의도(days_ahead=0 / force_regen=true: 당일 새로고침)로 정리할 것.
+          INSIGHTS_DAYS_AHEAD: ${{ github.event.inputs.days_ahead || '44' }}
           INSIGHTS_FORCE_REGEN: ${{ github.event.inputs.force_regen || 'false' }}
           # 수동 백필 옵션: 월드컵만 / grounding 끄기 (개막 전 대량 생성용)
           INSIGHTS_WORLDCUP_ONLY: ${{ github.event.inputs.worldcup_only || 'false' }}
