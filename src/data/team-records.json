@@ -1,60 +1,60 @@
 {
-  "lastUpdated": "2026-06-09T10:02:38.562Z",
+  "lastUpdated": "2026-06-09T12:51:05.699Z",
   "records": {
     "KBO": {
       "LG": {
-        "last5": "LLWWL",
-        "win": 36,
+        "last5": "WLLWW",
+        "win": 37,
         "lose": 23,
         "draw": 0,
-        "wra": 0.61,
+        "wra": 0.617,
+        "streak": {
+          "count": 1,
+          "type": "W"
+        }
+      },
+      "KT": {
+        "last5": "WLWLL",
+        "win": 35,
+        "lose": 24,
+        "draw": 1,
+        "wra": 0.593,
+        "streak": {
+          "count": 1,
+          "type": "W"
+        }
+      },
+      "삼성": {
+        "last5": "LLWLL",
+        "win": 33,
+        "lose": 25,
+        "draw": 1,
+        "wra": 0.569,
         "streak": {
           "count": 2,
           "type": "L"
         }
       },
-      "KT": {
-        "last5": "LWLLW",
-        "win": 34,
-        "lose": 24,
-        "draw": 1,
-        "wra": 0.586,
-        "streak": {
-          "count": 1,
-          "type": "L"
-        }
-      },
-      "삼성": {
-        "last5": "LWLLL",
-        "win": 33,
-        "lose": 24,
-        "draw": 1,
-        "wra": 0.579,
-        "streak": {
-          "count": 1,
-          "type": "L"
-        }
-      },
       "KIA": {
-        "last5": "WLWWL",
-        "win": 32,
+        "last5": "WWLWW",
+        "win": 33,
         "lose": 27,
         "draw": 1,
-        "wra": 0.542,
+        "wra": 0.55,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "W"
         }
       },
       "한화": {
-        "last5": "WWWLD",
+        "last5": "LWWWL",
         "win": 30,
-        "lose": 27,
+        "lose": 28,
         "draw": 1,
-        "wra": 0.526,
+        "wra": 0.517,
         "streak": {
-          "count": 3,
-          "type": "W"
+          "count": 1,
+          "type": "L"
         }
       },
       "두산": {
@@ -80,14 +80,14 @@
         }
       },
       "SSG": {
-        "last5": "WLWWW",
+        "last5": "LWLWW",
         "win": 26,
-        "lose": 32,
+        "lose": 33,
         "draw": 1,
-        "wra": 0.448,
+        "wra": 0.441,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "L"
         }
       },
       "롯데": {
