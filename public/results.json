@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-09T05:52:36.180Z",
+  "lastUpdated": "2026-06-09T10:02:31.592Z",
   "byKey": {
     "2026-06-09|kbo|한화|KIA": {
       "date": "2026-06-09",
@@ -7,29 +7,29 @@
       "homeTeam": "한화",
       "awayTeam": "KIA",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "2회초"
     },
     "2026-06-09|kbo|키움|NC": {
       "date": "2026-06-09",
       "categoryId": "kbo",
       "homeTeam": "키움",
       "awayTeam": "NC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "2회초"
     },
     "2026-06-09|kbo|롯데|두산": {
       "date": "2026-06-09",
       "categoryId": "kbo",
       "homeTeam": "롯데",
       "awayTeam": "두산",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "live",
+      "period": "2회초"
     },
     "2026-06-09|kbo|LG|SSG": {
       "date": "2026-06-09",
@@ -38,8 +38,8 @@
       "awayTeam": "SSG",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "2회초"
     },
     "2026-06-09|kbo|KT|삼성": {
       "date": "2026-06-09",
@@ -47,9 +47,9 @@
       "homeTeam": "KT",
       "awayTeam": "삼성",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "2회말"
     },
     "2026-06-10|kbo|한화|KIA": {
       "date": "2026-06-10",
@@ -967,9 +967,9 @@
       "homeTeam": "애슬레틱스",
       "awayTeam": "밀워키 브루어스",
       "homeScore": 14,
-      "awayScore": 14,
-      "status": "live",
-      "period": "11회초"
+      "awayScore": 15,
+      "status": "finished",
+      "period": "12회말"
     },
     "2026-06-09|mlb|애슬레틱스|밀워키 브루어스": {
       "date": "2026-06-09",
@@ -977,9 +977,9 @@
       "homeTeam": "애슬레틱스",
       "awayTeam": "밀워키 브루어스",
       "homeScore": 14,
-      "awayScore": 14,
-      "status": "live",
-      "period": "11회초"
+      "awayScore": 15,
+      "status": "finished",
+      "period": "12회말"
     },
     "2026-06-10|mlb|볼티모어|시애틀": {
       "date": "2026-06-10",
@@ -1663,16 +1663,6 @@
       "status": "canceled",
       "period": "경기취소"
     },
-    "2026-06-10|amatchfriendly|콩고민주공화국|칠레": {
-      "date": "2026-06-10",
-      "categoryId": "amatchfriendly",
-      "homeTeam": "콩고민주공화국",
-      "awayTeam": "칠레",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
-    },
     "2026-06-10|amatchfriendly|벨라루스|부르키나 파소": {
       "date": "2026-06-10",
       "categoryId": "amatchfriendly",
@@ -1751,29 +1741,29 @@
       "homeTeam": "한화",
       "awayTeam": "KIA",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "2회초"
     },
     {
       "date": "2026-06-09",
       "categoryId": "kbo",
       "homeTeam": "키움",
       "awayTeam": "NC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "2회초"
     },
     {
       "date": "2026-06-09",
       "categoryId": "kbo",
       "homeTeam": "롯데",
       "awayTeam": "두산",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "live",
+      "period": "2회초"
     },
     {
       "date": "2026-06-09",
@@ -1782,8 +1772,8 @@
       "awayTeam": "SSG",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "2회초"
     },
     {
       "date": "2026-06-09",
@@ -1791,9 +1781,9 @@
       "homeTeam": "KT",
       "awayTeam": "삼성",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "2회말"
     },
     {
       "date": "2026-06-10",
@@ -2071,9 +2061,9 @@
       "homeTeam": "애슬레틱스",
       "awayTeam": "밀워키 브루어스",
       "homeScore": 14,
-      "awayScore": 14,
-      "status": "live",
-      "period": "11회초"
+      "awayScore": 15,
+      "status": "finished",
+      "period": "12회말"
     },
     {
       "date": "2026-06-10",
@@ -2369,16 +2359,6 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기취소"
-    },
-    {
-      "date": "2026-06-10",
-      "categoryId": "amatchfriendly",
-      "homeTeam": "콩고민주공화국",
-      "awayTeam": "칠레",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
     },
     {
       "date": "2026-06-10",
