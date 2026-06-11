@@ -116,6 +116,14 @@ export function loadTodayMatches(sport: Sport, today: string): Schedule[] {
   const data: ScheduleData = JSON.parse(
     fs.readFileSync(path.resolve("public/schedule.json"), "utf-8"),
   );
+  try {
+    const wc: ScheduleData = JSON.parse(
+      fs.readFileSync(path.resolve("public/worldcup.json"), "utf-8"),
+    );
+    data.schedules = [...data.schedules, ...wc.schedules];
+  } catch {
+    // worldcup.json 없으면 무시
+  }
   return data.schedules
     .filter((s) => s.date === today && s.sport === sport && s.koreanCommentary === true)
     .sort((a, b) => a.time.localeCompare(b.time));
