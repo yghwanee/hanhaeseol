@@ -4685,24 +4685,6 @@
         },
         {
           "rank": 3,
-          "teamName": "피츠버그",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/PI.png?type=f92_88",
-          "gameCount": 69,
-          "win": 35,
-          "draw": 0,
-          "lose": 34,
-          "winRate": 0.507,
-          "gameBehind": 7.5,
-          "lastFive": "LWLLL",
-          "streak": {
-            "type": "L",
-            "count": 1
-          },
-          "league": "NL",
-          "division": "CENT"
-        },
-        {
-          "rank": 3,
           "teamName": "토론토",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/TO.png?type=f92_88",
           "gameCount": 69,
@@ -4759,16 +4741,16 @@
           "rank": 4,
           "teamName": "마이애미",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/FL.png?type=f92_88",
-          "gameCount": 69,
-          "win": 34,
+          "gameCount": 70,
+          "win": 35,
           "draw": 0,
           "lose": 35,
-          "winRate": 0.493,
-          "gameBehind": 11.5,
+          "winRate": 0.5,
+          "gameBehind": 11,
           "lastFive": "WWWWW",
           "streak": {
             "type": "W",
-            "count": 5
+            "count": 6
           },
           "league": "NL",
           "division": "EAST"
@@ -4790,6 +4772,24 @@
           },
           "league": "AL",
           "division": "WEST"
+        },
+        {
+          "rank": 4,
+          "teamName": "피츠버그",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/PI.png?type=f92_88",
+          "gameCount": 70,
+          "win": 35,
+          "draw": 0,
+          "lose": 35,
+          "winRate": 0.5,
+          "gameBehind": 8,
+          "lastFive": "LLWLL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          },
+          "league": "NL",
+          "division": "CENT"
         },
         {
           "rank": 4,
@@ -4921,5 +4921,5 @@
     }
   ],
   "basketball": [],
-  "lastUpdated": "2026-06-12T18:20:49.645Z"
+  "lastUpdated": "2026-06-13T01:34:43.071Z"
 }
