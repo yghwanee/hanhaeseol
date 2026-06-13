@@ -1,6 +1,6 @@
 import fs from "node:fs";
 import sharp from "sharp";
-import { getHeroMatchLines, getHierarchicalTags, getMainHighlight, getPlainTags } from "./hashtags";
+import { getHeroMatchLines, getHierarchicalTags, getMainHighlight, getPlainTags, getHeroEventWord } from "./hashtags";
 import { inferDayLabel } from "./instagram";
 import { dayOfWeekKr } from "./instagram";
 import { UTM_LINKS } from "./utm";
@@ -210,7 +210,7 @@ export function buildShortsMeta(mm: string, dd: string, today: string) {
   }
   desc.push(``);
   if (heroLines.length > 0) {
-    desc.push(`🎯 ${dayLabel}의 빅매치`);
+    desc.push(`🎯 ${dayLabel}의 ${getHeroEventWord(today)}`);
     for (const line of heroLines) desc.push(line);
     if (totalGames > heroLines.length) {
       desc.push(`+ ${totalGames - heroLines.length}경기 더보기`);

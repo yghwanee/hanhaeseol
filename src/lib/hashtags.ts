@@ -1,7 +1,6 @@
-import fs from "node:fs";
-import type { Schedule, ScheduleData, Sport } from "@/types/schedule";
-import { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop } from "./instagram";
-import { getRivalryName } from "./hero-pick";
+import type { Sport } from "@/types/schedule";
+import { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop, loadKoreanMatchesAll } from "./instagram";
+import { getRivalryName, isWorldCup } from "./hero-pick";
 
 const SPORT_EMOJI: Record<Sport, string> = {
   축구: "⚽",
@@ -166,16 +165,13 @@ const TEAM_HASHTAGS: Record<string, string> = {
   "고양 소노": "#소노",
 };
 
-function loadKoreanCommentaryGames(today: string): Schedule[] {
-  try {
-    const raw = fs.readFileSync("public/schedule.json", "utf-8");
-    const data = JSON.parse(raw) as ScheduleData;
-    return data.schedules
-      .filter((s) => s.date === today && s.koreanCommentary === true)
-      .sort((a, b) => a.time.localeCompare(b.time));
-  } catch {
-    return [];
-  }
+/**
+ * 월드컵 국가명 → 해시태그. "남아프리카 공화국" → "#남아프리카공화국".
+ * 조 미정(TBD) "미정" 등 국가가 아닌 값은 null.
+ */
+function countryHashtag(name: string): string | null {
+  if (!name || name === "미정") return null;
+  return `#${name.replace(/\s+/g, "")}`;
 }
 
 function findKoreanPlayerOnTeam(team: string): string | null {
@@ -193,6 +189,7 @@ const LEAGUE_SHORT_NAME: Record<string, string> = {
   "잉글랜드 FA컵": "FA컵",
   "EFL 챔피언십": "EFL",
   "북중미 챔피언스컵": "북중미챔스",
+  "북중미 월드컵": "월드컵",
   일본프로농구: "B리그",
 };
 
@@ -227,7 +224,7 @@ export interface HierarchicalTagsResult {
  * 한국어 해설 0경기인 날: 폴백 2개만 (#한국어중계 #스포츠편성표).
  */
 export function getHierarchicalTags(today: string): HierarchicalTagsResult {
-  const games = loadKoreanCommentaryGames(today);
+  const games = loadKoreanMatchesAll(today);
 
   const FALLBACK_EMPTY: HierarchicalTagsResult = {
     tags: ["#한국어중계", "#스포츠편성표"],
@@ -242,6 +239,35 @@ export function getHierarchicalTags(today: string): HierarchicalTagsResult {
 
   const hero = pickHeroMatch(games);
   if (!hero) return FALLBACK_EMPTY;
+
+  // 월드컵 히어로: 국가팀·"북중미 월드컵"은 일반 리그/팀 해시태그 매핑이 없으므로
+  // 월드컵 전용 슬롯으로 구성. 대한민국 경기면 #대한민국 최우선. (월드컵 기간에만 진입)
+  if (isWorldCup(hero)) {
+    const koreaHome = hero.homeTeam === "대한민국";
+    const koreaAway = hero.awayTeam === "대한민국";
+    const wcTags: string[] = [];
+    if (koreaHome || koreaAway) {
+      wcTags.push("#대한민국", "#월드컵");
+      const oppTag = countryHashtag(koreaHome ? (hero.awayTeam ?? "") : hero.homeTeam);
+      if (oppTag) wcTags.push(oppTag);
+    } else {
+      wcTags.push("#월드컵");
+      const homeC = countryHashtag(hero.homeTeam);
+      const awayC = hero.awayTeam ? countryHashtag(hero.awayTeam) : null;
+      if (homeC) wcTags.push(homeC);
+      if (awayC) wcTags.push(awayC);
+    }
+    wcTags.push("#2026월드컵", "#한국어중계");
+    const capped = Array.from(new Set(wcTags)).slice(0, 5);
+    return {
+      tags: capped,
+      mainSport: hero.sport,
+      mainLeague: hero.league,
+      mainTeam: hero.homeTeam,
+      mainPlayer: null,
+      totalGames: games.length,
+    };
+  }
 
   const leagueTag = LEAGUE_HASHTAGS[hero.league];
   const homeTag = TEAM_HASHTAGS[hero.homeTeam];
@@ -285,6 +311,21 @@ export function getHierarchicalTags(today: string): HierarchicalTagsResult {
  *   "손흥민 EPL 한국어 중계" / "EPL 빅매치 한국어 중계" / "오늘의 한국어 중계 편성표"
  */
 export function getMainHighlight(today: string): string {
+  // 월드컵 히어로면 매치업 기반 월드컵 제목 (대한민국 경기는 🇰🇷 강조). 월드컵 기간에만 진입.
+  const games = loadKoreanMatchesAll(today);
+  const wcHero = games.length ? pickHeroMatch(games) : null;
+  if (wcHero && isWorldCup(wcHero)) {
+    const emoji = SPORT_EMOJI[wcHero.sport];
+    const korea = wcHero.homeTeam === "대한민국" || wcHero.awayTeam === "대한민국";
+    // 녹아웃 대진 미확정("미정")은 매치업에서 제외 → 둘 다 미정이면 매치업 없는 일반 월드컵 제목.
+    const home = wcHero.homeTeam !== "미정" ? wcHero.homeTeam : null;
+    const away = wcHero.awayTeam && wcHero.awayTeam !== "미정" ? wcHero.awayTeam : null;
+    const matchup = home && away ? `${home} vs ${away}` : home || away || "";
+    return matchup
+      ? `${korea ? "🇰🇷 " : ""}월드컵 ${matchup} 한국어 중계 ${emoji}`
+      : `월드컵 한국어 중계 ${emoji}`;
+  }
+
   const r = getHierarchicalTags(today);
   if (!r.mainSport || !r.mainLeague) return "한국어 중계 편성표";
 
@@ -292,6 +333,16 @@ export function getMainHighlight(today: string): string {
   const emoji = SPORT_EMOJI[r.mainSport];
   if (r.mainPlayer) return `${r.mainPlayer} ${leagueShort} 한국어 중계 ${emoji}`;
   return `${leagueShort} 빅매치 한국어 중계 ${emoji}`;
+}
+
+/**
+ * 캡션/설명의 "🎯 …의 빅매치" 섹션 라벨용 단어.
+ * 히어로가 월드컵이면 "월드컵", 아니면 "빅매치". (제목/해시태그와 동일 히어로 기준)
+ */
+export function getHeroEventWord(today: string): "월드컵" | "빅매치" {
+  const games = loadKoreanMatchesAll(today);
+  const hero = games.length ? pickHeroMatch(games) : null;
+  return hero && isWorldCup(hero) ? "월드컵" : "빅매치";
 }
 
 /**
@@ -306,7 +357,7 @@ export function getHeroMatchLines(today: string, max: number = 3): {
   lines: string[];
   totalGames: number;
 } {
-  const games = loadKoreanCommentaryGames(today);
+  const games = loadKoreanMatchesAll(today);
   const totalGames = games.length;
   if (totalGames === 0) return { lines: [], totalGames: 0 };
 

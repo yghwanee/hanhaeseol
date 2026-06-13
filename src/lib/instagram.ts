@@ -3,10 +3,9 @@ import fs from "fs";
 import path from "path";
 import type { Schedule, ScheduleData, Sport } from "@/types/schedule";
 import { getTeamLogo } from "@/data/team-logos";
+import { flagUrl } from "@/lib/country-flags";
 
-export async function fetchTeamLogoImage(name: string): Promise<Image | null> {
-  const url = getTeamLogo(name);
-  if (!url) return null;
+async function loadFromUrl(url: string): Promise<Image | null> {
   try {
     if (url.startsWith("http")) {
       const res = await fetch(url);
@@ -19,6 +18,33 @@ export async function fetchTeamLogoImage(name: string): Promise<Image | null> {
   } catch {
     return null;
   }
+}
+
+/**
+ * 국기는 가로형(보통 4:3)이라 호출부의 정사각 draw에 그대로 넣으면 가로로 찌그러진다.
+ * 정사각 캔버스 중앙에 비율 유지로 레터박스해서 반환 → 모든 카드의 정사각 슬롯에서 정상 표시.
+ */
+async function squarePad(img: Image): Promise<Image> {
+  const side = Math.max(img.width, img.height);
+  const canvas = createCanvas(side, side);
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(img, (side - img.width) / 2, (side - img.height) / 2, img.width, img.height);
+  return await loadImage(canvas.toBuffer("image/png"));
+}
+
+export async function fetchTeamLogoImage(name: string): Promise<Image | null> {
+  const url = getTeamLogo(name);
+  if (url) {
+    const img = await loadFromUrl(url);
+    if (img) return img;
+  }
+  // 월드컵 국가대표팀은 team-logos.ts에 매핑이 없다 → 국기로 대체(클럽·KBO는 미스되어 영향 없음).
+  const flag = flagUrl(name);
+  if (flag) {
+    const img = await loadFromUrl(flag);
+    if (img) return await squarePad(img);
+  }
+  return null;
 }
 
 export const LAYOUT = {
@@ -43,7 +69,7 @@ export const MAIN_CARD_SIZE = { width: 1080, height: 1350 };
 
 // hero 매치 선정 로직은 src/lib/hero-pick.ts로 분리 (RSC에서 canvas/fs 의존 없이 import 가능하도록).
 // 본문에서도 사용하므로 import + 외부 호환 위한 re-export 둘 다 필요.
-import { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop } from "./hero-pick";
+import { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop, isWorldCup } from "./hero-pick";
 export { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop };
 
 export const SPORT_META: Record<Sport, { emoji: string; template: string; filePrefix: string }> = {
@@ -329,7 +355,7 @@ export async function renderMainCard(
 
   ctx.fillStyle = ACCENT;
   ctx.font = "800 34px Pretendard";
-  ctx.fillText(`${dayLabel}의 빅매치`, PAD + 22, yCursor);
+  ctx.fillText(`${dayLabel}의 ${hero && isWorldCup(hero) ? "월드컵" : "빅매치"}`, PAD + 22, yCursor);
 
   if (hero) {
     yCursor += 70;

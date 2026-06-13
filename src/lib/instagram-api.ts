@@ -1,4 +1,4 @@
-import { getHeroMatchLines, getHierarchicalTags, getMainHighlight } from "./hashtags";
+import { getHeroMatchLines, getHierarchicalTags, getMainHighlight, getHeroEventWord } from "./hashtags";
 import { inferDayLabel } from "./instagram";
 
 const IG_API = "https://graph.facebook.com/v21.0";
@@ -26,7 +26,7 @@ export function buildCaption(mm: string, dd: string, today: string, link: string
   body.push(``);
 
   if (heroLines.length > 0) {
-    body.push(`🎯 ${dayLabel}의 빅매치`);
+    body.push(`🎯 ${dayLabel}의 ${getHeroEventWord(today)}`);
     for (const line of heroLines) body.push(line);
     body.push(``);
     if (totalGames > heroLines.length) {

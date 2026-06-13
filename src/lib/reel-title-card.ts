@@ -7,6 +7,7 @@ import {
   pickHeroMatch,
   inferDayLabel,
 } from "./instagram";
+import { isWorldCup } from "./hero-pick";
 
 const ACCENT = "#8fff3d";
 const KST_DOW = ["일", "월", "화", "수", "목", "금", "토"];
@@ -151,7 +152,8 @@ export async function renderReelTitleText(
     bigLine = `${playerOnHero.name} 출전`;
     subLine = `${dayLabel} 한국어 해설 ${n}경기`;
   } else if (n > 0 && hero) {
-    bigLine = `${hero.time} 빅매치`;
+    // 월드컵 경기가 히어로면 "빅매치" 대신 "월드컵"으로 (월드컵 기간에만 자연히 적용 — 평시엔 히어로가 월드컵일 수 없음).
+    bigLine = `${hero.time} ${isWorldCup(hero) ? "월드컵" : "빅매치"}`;
     subLine = `${dayLabel} 한국어 해설 ${n}경기`;
   } else if (n > 0) {
     bigLine = `한국어 해설 ${n}경기`;

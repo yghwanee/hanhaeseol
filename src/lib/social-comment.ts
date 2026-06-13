@@ -1,5 +1,6 @@
 import type { Sport } from "@/types/schedule";
 import { loadKoreanMatchesAll, pickHeroMatch, inferDayLabel } from "./instagram";
+import { isWorldCup } from "./hero-pick";
 
 const BRAND_URL = "haeseol.com";
 
@@ -23,5 +24,6 @@ export function buildSocialComment(today: string): string {
 
   const emoji = SPORT_EMOJI[hero.sport];
   const matchup = hero.awayTeam ? `${hero.homeTeam} vs ${hero.awayTeam}` : hero.homeTeam;
-  return `${inferDayLabel(today)} 빅매치 ${emoji} ${matchup}  ${hero.time}\n${link}`;
+  const word = isWorldCup(hero) ? "월드컵" : "빅매치";
+  return `${inferDayLabel(today)} ${word} ${emoji} ${matchup}  ${hero.time}\n${link}`;
 }

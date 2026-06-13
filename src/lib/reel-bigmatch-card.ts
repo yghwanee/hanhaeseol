@@ -9,6 +9,7 @@ import {
   pickHeroMatch,
   inferDayLabel,
 } from "./instagram";
+import { isWorldCup } from "./hero-pick";
 
 const REEL_W = 1080;
 const REEL_H = 1920;
@@ -88,7 +89,7 @@ export async function renderReelBigMatchCard(today: string): Promise<{
 
   const labelText = playerOnHero
     ? `🇰🇷 ${playerOnHero.name} 출전`
-    : `🎯 ${inferDayLabel(today)}의 빅매치`;
+    : `🎯 ${inferDayLabel(today)}의 ${isWorldCup(hero!) ? "월드컵" : "빅매치"}`;
   ctx.fillStyle = ACCENT;
   ctx.font = "900 56px Pretendard";
   ctx.fillText(labelText, REEL_W / 2, 200);

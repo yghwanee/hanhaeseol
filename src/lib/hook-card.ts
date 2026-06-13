@@ -10,6 +10,7 @@ import {
   fitText,
   inferDayLabel,
 } from "./instagram";
+import { isWorldCup } from "./hero-pick";
 import { findEnglishTeamName } from "@/data/team-names";
 
 const ACCENT = "#8fff3d";
@@ -135,16 +136,15 @@ export async function renderHookV6(imagePath: string, mm: string, dd: string, to
   ctx.fillRect(PAD, yCursor - 28, 6, 32);
   ctx.fillStyle = ACCENT;
   ctx.font = "800 32px Pretendard";
-  const v6Label = `${inferDayLabel(today)}의 빅매치`;
-  ctx.fillText(v6Label, PAD + 22, yCursor);
-  const labelW = ctx.measureText(v6Label).width;
-
   const koreanMatches = loadKoreanMatchesAll(today);
   let hero = pickHeroMatch(koreanMatches);
   if (!hero) {
     const all = loadAllMatchesForDate(today);
     hero = pickHeroMatch(all);
   }
+  const v6Label = `${inferDayLabel(today)}의 ${hero && isWorldCup(hero) ? "월드컵" : "빅매치"}`;
+  ctx.fillText(v6Label, PAD + 22, yCursor);
+  const labelW = ctx.measureText(v6Label).width;
 
   if (hero) {
     const metaText = `${hero.league}  ${hero.time}  ·  ${hero.platform}`;
@@ -290,14 +290,13 @@ export async function renderHookV7(imagePath: string, mm: string, dd: string, to
   ctx.fillRect(PAD - 14, yCursor - 22, 4, 28);
   ctx.fillStyle = ACCENT;
   ctx.font = "800 26px Pretendard";
-  ctx.fillText(`${inferDayLabel(today)}의 빅매치`, PAD, yCursor);
-
   const koreanMatches = loadKoreanMatchesAll(today);
   let hero = pickHeroMatch(koreanMatches);
   if (!hero) {
     const all = loadAllMatchesForDate(today);
     hero = pickHeroMatch(all);
   }
+  ctx.fillText(`${inferDayLabel(today)}의 ${hero && isWorldCup(hero) ? "월드컵" : "빅매치"}`, PAD, yCursor);
 
   if (hero) {
     yCursor += 40;
