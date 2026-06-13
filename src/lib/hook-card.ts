@@ -4,13 +4,11 @@ import { createCanvas, loadImage, type SKRSContext2D, type Image } from "@napi-r
 import {
   MAIN_CARD_SIZE,
   fetchTeamLogoImage,
-  loadKoreanMatchesAll,
-  loadAllMatchesForDate,
-  pickHeroMatch,
+  pickHeroForDate,
   fitText,
   inferDayLabel,
 } from "./instagram";
-import { isWorldCup } from "./hero-pick";
+import { eventWord } from "./hero-pick";
 import { findEnglishTeamName } from "@/data/team-names";
 
 const ACCENT = "#8fff3d";
@@ -136,13 +134,8 @@ export async function renderHookV6(imagePath: string, mm: string, dd: string, to
   ctx.fillRect(PAD, yCursor - 28, 6, 32);
   ctx.fillStyle = ACCENT;
   ctx.font = "800 32px Pretendard";
-  const koreanMatches = loadKoreanMatchesAll(today);
-  let hero = pickHeroMatch(koreanMatches);
-  if (!hero) {
-    const all = loadAllMatchesForDate(today);
-    hero = pickHeroMatch(all);
-  }
-  const v6Label = `${inferDayLabel(today)}의 ${hero && isWorldCup(hero) ? "월드컵" : "빅매치"}`;
+  const hero = pickHeroForDate(today);
+  const v6Label = `${inferDayLabel(today)}의 ${eventWord(hero)}`;
   ctx.fillText(v6Label, PAD + 22, yCursor);
   const labelW = ctx.measureText(v6Label).width;
 
@@ -290,13 +283,8 @@ export async function renderHookV7(imagePath: string, mm: string, dd: string, to
   ctx.fillRect(PAD - 14, yCursor - 22, 4, 28);
   ctx.fillStyle = ACCENT;
   ctx.font = "800 26px Pretendard";
-  const koreanMatches = loadKoreanMatchesAll(today);
-  let hero = pickHeroMatch(koreanMatches);
-  if (!hero) {
-    const all = loadAllMatchesForDate(today);
-    hero = pickHeroMatch(all);
-  }
-  ctx.fillText(`${inferDayLabel(today)}의 ${hero && isWorldCup(hero) ? "월드컵" : "빅매치"}`, PAD, yCursor);
+  const hero = pickHeroForDate(today);
+  ctx.fillText(`${inferDayLabel(today)}의 ${eventWord(hero)}`, PAD, yCursor);
 
   if (hero) {
     yCursor += 40;

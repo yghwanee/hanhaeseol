@@ -69,7 +69,7 @@ export const MAIN_CARD_SIZE = { width: 1080, height: 1350 };
 
 // hero 매치 선정 로직은 src/lib/hero-pick.ts로 분리 (RSC에서 canvas/fs 의존 없이 import 가능하도록).
 // 본문에서도 사용하므로 import + 외부 호환 위한 re-export 둘 다 필요.
-import { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop, isWorldCup } from "./hero-pick";
+import { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop, eventWord } from "./hero-pick";
 export { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop };
 
 export const SPORT_META: Record<Sport, { emoji: string; template: string; filePrefix: string }> = {
@@ -221,6 +221,14 @@ export function loadAllMatchesForDate(today: string): Schedule[] {
   }
 }
 
+/** 그날 히어로 매치: 한국어해설 경기 우선, 없으면 그날 전체 경기에서 폴백. (카드 렌더러 공용) */
+export function pickHeroForDate(today: string): Schedule | null {
+  return (
+    pickHeroMatch(loadKoreanMatchesAll(today)) ??
+    pickHeroMatch(loadAllMatchesForDate(today))
+  );
+}
+
 export function fitText(
   ctx: SKRSContext2D,
   text: string,
@@ -355,7 +363,7 @@ export async function renderMainCard(
 
   ctx.fillStyle = ACCENT;
   ctx.font = "800 34px Pretendard";
-  ctx.fillText(`${dayLabel}의 ${hero && isWorldCup(hero) ? "월드컵" : "빅매치"}`, PAD + 22, yCursor);
+  ctx.fillText(`${dayLabel}의 ${eventWord(hero)}`, PAD + 22, yCursor);
 
   if (hero) {
     yCursor += 70;

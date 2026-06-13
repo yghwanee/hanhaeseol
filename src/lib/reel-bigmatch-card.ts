@@ -3,13 +3,11 @@ import path from "node:path";
 import type { Schedule } from "@/types/schedule";
 import {
   fetchTeamLogoImage,
-  loadKoreanMatchesAll,
-  loadAllMatchesForDate,
   KOREAN_PLAYERS,
-  pickHeroMatch,
+  pickHeroForDate,
   inferDayLabel,
 } from "./instagram";
-import { isWorldCup } from "./hero-pick";
+import { eventWord } from "./hero-pick";
 
 const REEL_W = 1080;
 const REEL_H = 1920;
@@ -40,9 +38,7 @@ export async function renderReelBigMatchCard(today: string): Promise<{
   buf: Buffer;
   hero: Schedule;
 } | null> {
-  const koreanMatches = loadKoreanMatchesAll(today);
-  let hero: Schedule | null = pickHeroMatch(koreanMatches);
-  if (!hero) hero = pickHeroMatch(loadAllMatchesForDate(today));
+  const hero = pickHeroForDate(today);
   if (!hero) return null;
 
   const canvas = createCanvas(REEL_W, REEL_H);
@@ -89,7 +85,7 @@ export async function renderReelBigMatchCard(today: string): Promise<{
 
   const labelText = playerOnHero
     ? `🇰🇷 ${playerOnHero.name} 출전`
-    : `🎯 ${inferDayLabel(today)}의 ${isWorldCup(hero!) ? "월드컵" : "빅매치"}`;
+    : `🎯 ${inferDayLabel(today)}의 ${eventWord(hero)}`;
   ctx.fillStyle = ACCENT;
   ctx.font = "900 56px Pretendard";
   ctx.fillText(labelText, REEL_W / 2, 200);

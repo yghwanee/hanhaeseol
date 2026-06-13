@@ -1,6 +1,6 @@
 import type { Sport } from "@/types/schedule";
 import { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop, loadKoreanMatchesAll } from "./instagram";
-import { getRivalryName, isWorldCup } from "./hero-pick";
+import { getRivalryName, isWorldCup, eventWord } from "./hero-pick";
 
 const SPORT_EMOJI: Record<Sport, string> = {
   축구: "⚽",
@@ -342,7 +342,7 @@ export function getMainHighlight(today: string): string {
 export function getHeroEventWord(today: string): "월드컵" | "빅매치" {
   const games = loadKoreanMatchesAll(today);
   const hero = games.length ? pickHeroMatch(games) : null;
-  return hero && isWorldCup(hero) ? "월드컵" : "빅매치";
+  return eventWord(hero);
 }
 
 /**

@@ -251,6 +251,11 @@ export function isWorldCup(m: Schedule): boolean {
   return m.league.startsWith(WC_LEAGUE_PREFIX);
 }
 
+/** 카드/캡션/제목 라벨용: 히어로가 월드컵이면 "월드컵", 아니면(또는 없으면) "빅매치". */
+export function eventWord(hero: Schedule | null): "월드컵" | "빅매치" {
+  return hero && isWorldCup(hero) ? "월드컵" : "빅매치";
+}
+
 function wcRoundTier(m: Schedule): number {
   return WC_ROUND_TIER[m.league] ?? 1;
 }
