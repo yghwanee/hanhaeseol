@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-13T09:33:36.506Z",
+  "lastUpdated": "2026-06-13T11:31:44.226Z",
   "byKey": {
     "2026-06-12|kbo|키움|한화": {
       "date": "2026-06-12",
@@ -51,15 +51,25 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-06-13|kbo|KT|NC": {
+      "date": "2026-06-13",
+      "categoryId": "kbo",
+      "homeTeam": "KT",
+      "awayTeam": "NC",
+      "homeScore": 11,
+      "awayScore": 9,
+      "status": "scheduled",
+      "period": "9회초"
+    },
     "2026-06-13|kbo|키움|한화": {
       "date": "2026-06-13",
       "categoryId": "kbo",
       "homeTeam": "키움",
       "awayTeam": "한화",
-      "homeScore": 1,
+      "homeScore": 3,
       "awayScore": 1,
-      "status": "live",
-      "period": "6회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-13|kbo|LG|롯데": {
       "date": "2026-06-13",
@@ -67,19 +77,9 @@
       "homeTeam": "LG",
       "awayTeam": "롯데",
       "homeScore": 5,
-      "awayScore": 2,
-      "status": "live",
-      "period": "5회초"
-    },
-    "2026-06-13|kbo|KT|NC": {
-      "date": "2026-06-13",
-      "categoryId": "kbo",
-      "homeTeam": "KT",
-      "awayTeam": "NC",
-      "homeScore": 5,
-      "awayScore": 1,
-      "status": "live",
-      "period": "5회초"
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-13|kbo|KIA|두산": {
       "date": "2026-06-13",
@@ -87,19 +87,19 @@
       "homeTeam": "KIA",
       "awayTeam": "두산",
       "homeScore": 2,
-      "awayScore": 0,
-      "status": "live",
-      "period": "6회초"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-13|kbo|삼성|SSG": {
       "date": "2026-06-13",
       "categoryId": "kbo",
       "homeTeam": "삼성",
       "awayTeam": "SSG",
-      "homeScore": 0,
+      "homeScore": 7,
       "awayScore": 6,
-      "status": "live",
-      "period": "5회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-14|kbo|키움|한화": {
       "date": "2026-06-14",
@@ -1717,12 +1717,22 @@
     {
       "date": "2026-06-13",
       "categoryId": "kbo",
+      "homeTeam": "KT",
+      "awayTeam": "NC",
+      "homeScore": 11,
+      "awayScore": 9,
+      "status": "scheduled",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-13",
+      "categoryId": "kbo",
       "homeTeam": "키움",
       "awayTeam": "한화",
-      "homeScore": 1,
+      "homeScore": 3,
       "awayScore": 1,
-      "status": "live",
-      "period": "6회말"
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-06-13",
@@ -1730,19 +1740,9 @@
       "homeTeam": "LG",
       "awayTeam": "롯데",
       "homeScore": 5,
-      "awayScore": 2,
-      "status": "live",
-      "period": "5회초"
-    },
-    {
-      "date": "2026-06-13",
-      "categoryId": "kbo",
-      "homeTeam": "KT",
-      "awayTeam": "NC",
-      "homeScore": 5,
-      "awayScore": 1,
-      "status": "live",
-      "period": "5회초"
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-06-13",
@@ -1750,19 +1750,19 @@
       "homeTeam": "KIA",
       "awayTeam": "두산",
       "homeScore": 2,
-      "awayScore": 0,
-      "status": "live",
-      "period": "6회초"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-06-13",
       "categoryId": "kbo",
       "homeTeam": "삼성",
       "awayTeam": "SSG",
-      "homeScore": 0,
+      "homeScore": 7,
       "awayScore": 6,
-      "status": "live",
-      "period": "5회말"
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-06-14",
