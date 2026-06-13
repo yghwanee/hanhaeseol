@@ -80,10 +80,10 @@ function ScheduleCardInner({
       {schedule.awayTeam ? (
         <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 flex items-baseline justify-center gap-2 sm:gap-3 text-sm sm:text-base">
           <div className="flex-1 min-w-0 flex flex-col items-end gap-1">
-            <span className={`flex w-full items-center justify-end gap-1.5 font-semibold ${winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}`}>
+            <span className={`flex w-full items-baseline justify-end gap-1.5 font-semibold ${winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}`}>
               {schedule.homeEmblem && (
                 /* eslint-disable-next-line @next/next/no-img-element */
-                <img src={proxyLogo(schedule.homeEmblem)} alt="" referrerPolicy="no-referrer" loading="lazy" className="h-3.5 w-5 shrink-0 rounded-[2px] object-cover" />
+                <img src={proxyLogo(schedule.homeEmblem)} alt="" referrerPolicy="no-referrer" loading="lazy" className="h-3.5 w-5 shrink-0 self-center rounded-[2px] object-cover" />
               )}
               <span className="min-w-0 truncate"><Highlight text={schedule.homeTeam} query={query} /></span>
             </span>
@@ -101,11 +101,11 @@ function ScheduleCardInner({
             <span className="shrink-0 mt-1 text-[10px] sm:text-xs font-bold text-zinc-500">VS</span>
           )}
           <div className="flex-1 min-w-0 flex flex-col items-start gap-1">
-            <span className={`flex w-full items-center justify-start gap-1.5 font-semibold ${winnerSide === "home" ? "text-zinc-500" : "text-zinc-100"}`}>
+            <span className={`flex w-full items-baseline justify-start gap-1.5 font-semibold ${winnerSide === "home" ? "text-zinc-500" : "text-zinc-100"}`}>
               <span className="min-w-0 truncate"><Highlight text={schedule.awayTeam} query={query} /></span>
               {schedule.awayEmblem && (
                 /* eslint-disable-next-line @next/next/no-img-element */
-                <img src={proxyLogo(schedule.awayEmblem)} alt="" referrerPolicy="no-referrer" loading="lazy" className="h-3.5 w-5 shrink-0 rounded-[2px] object-cover" />
+                <img src={proxyLogo(schedule.awayEmblem)} alt="" referrerPolicy="no-referrer" loading="lazy" className="h-3.5 w-5 shrink-0 self-center rounded-[2px] object-cover" />
               )}
             </span>
             {awayRecord?.last5 && (

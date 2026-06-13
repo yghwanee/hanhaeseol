@@ -53,6 +53,9 @@ export async function crawlSpotvNow(date: string): Promise<Schedule[]> {
     const sport = SPORT_MAP[desc.typeName];
     if (!sport) continue;
 
+    // SPOTV NOW API는 야구에서 homeName/awayName이 한국 방송 '원정:홈' 관례로 뒤바뀐다
+    // (네이버 결과 대조 187/187 swap, 축구 47/48 정상). spotv-tv(parsers.ts)와 동일하게 야구만 swap.
+    const swap = sport === "야구";
     for (const live of game.lives) {
       const [actualDate, time] = game.beginDate.split(" "); // "YYYY-MM-DD", "HH:mm"
       if (actualDate !== date) continue;
@@ -62,8 +65,8 @@ export async function crawlSpotvNow(date: string): Promise<Schedule[]> {
         time,
         sport,
         league: normalizeLeague(desc.leagueNameFull || desc.leagueName),
-        homeTeam: desc.homeName,
-        awayTeam: desc.awayName,
+        homeTeam: swap ? desc.awayName : desc.homeName,
+        awayTeam: swap ? desc.homeName : desc.awayName,
         platform: "SPOTV NOW",
         koreanCommentary: languageToCommentary(live.language),
       });

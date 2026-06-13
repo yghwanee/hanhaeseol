@@ -216,7 +216,13 @@ export default function ScheduleClient({
     const source = isArchiveDate ? archive : data;
     if (!source) return [];
     const q = deferredSearchQuery.trim().toLowerCase();
-    return source.schedules
+    // 월드컵은 worldcup.json으로 분리 관리돼 schedule-archive.json에 누적되지 않는다.
+    // 과거 날짜(archive 모드)에서도 월드컵 경기가 보이도록, data에 병합돼 있는 대회 전체
+    // 일정(worldcupSchedules)을 합친다. (worldcup id는 archive와 겹치지 않아 중복 없음)
+    const sourceSchedules = isArchiveDate
+      ? [...source.schedules, ...worldcupSchedules]
+      : source.schedules;
+    return sourceSchedules
       .filter((s) => s.date === selectedDate)
       .filter((s) => {
         if (deferredSport === "전체") return true;
@@ -240,7 +246,7 @@ export default function ScheduleClient({
         );
       })
       .sort((a, b) => a.time.localeCompare(b.time));
-  }, [data, archive, isArchiveDate, selectedDate, deferredSport, deferredPlatform, deferredCommentary, deferredSearchQuery]);
+  }, [data, archive, worldcupSchedules, isArchiveDate, selectedDate, deferredSport, deferredPlatform, deferredCommentary, deferredSearchQuery]);
 
   // 카드 결과 표시: archive 모드는 archiveResults, 그 외는 현재 results.
   const effectiveResults = isArchiveDate ? archiveResults : results;
