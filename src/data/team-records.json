@@ -1,15 +1,15 @@
 {
-  "lastUpdated": "2026-06-14T08:55:56.366Z",
+  "lastUpdated": "2026-06-14T11:37:07.196Z",
   "records": {
     "KBO": {
       "LG": {
-        "last5": "WLWWW",
-        "win": 40,
+        "last5": "WWLWW",
+        "win": 41,
         "lose": 24,
         "draw": 0,
-        "wra": 0.625,
+        "wra": 0.631,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "W"
         }
       },
@@ -36,11 +36,22 @@
         }
       },
       "KIA": {
-        "last5": "WLLLW",
+        "last5": "LWLLL",
         "win": 34,
-        "lose": 30,
+        "lose": 31,
         "draw": 1,
-        "wra": 0.531,
+        "wra": 0.523,
+        "streak": {
+          "count": 1,
+          "type": "L"
+        }
+      },
+      "두산": {
+        "last5": "WLWWL",
+        "win": 33,
+        "lose": 31,
+        "draw": 2,
+        "wra": 0.516,
         "streak": {
           "count": 1,
           "type": "W"
@@ -54,17 +65,6 @@
         "wra": 0.508,
         "streak": {
           "count": 3,
-          "type": "L"
-        }
-      },
-      "두산": {
-        "last5": "LWWLW",
-        "win": 32,
-        "lose": 31,
-        "draw": 2,
-        "wra": 0.508,
-        "streak": {
-          "count": 1,
           "type": "L"
         }
       },
@@ -102,13 +102,13 @@
         }
       },
       "롯데": {
-        "last5": "LWLWL",
+        "last5": "LLWLW",
         "win": 24,
-        "lose": 38,
+        "lose": 39,
         "draw": 1,
-        "wra": 0.387,
+        "wra": 0.381,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "L"
         }
       }

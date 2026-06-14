@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T08:55:47.179Z",
+  "lastUpdated": "2026-06-14T11:36:58.019Z",
   "byKey": {
     "2026-06-13|kbo|키움|한화": {
       "date": "2026-06-13",
@@ -71,15 +71,25 @@
       "status": "canceled",
       "period": "경기취소"
     },
+    "2026-06-14|kbo|삼성|SSG": {
+      "date": "2026-06-14",
+      "categoryId": "kbo",
+      "homeTeam": "삼성",
+      "awayTeam": "SSG",
+      "homeScore": 10,
+      "awayScore": 8,
+      "status": "live",
+      "period": "9회초"
+    },
     "2026-06-14|kbo|LG|롯데": {
       "date": "2026-06-14",
       "categoryId": "kbo",
       "homeTeam": "LG",
       "awayTeam": "롯데",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "4회초"
+      "homeScore": 6,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-14|kbo|KIA|두산": {
       "date": "2026-06-14",
@@ -87,19 +97,9 @@
       "homeTeam": "KIA",
       "awayTeam": "두산",
       "homeScore": 1,
-      "awayScore": 3,
-      "status": "live",
-      "period": "3회말"
-    },
-    "2026-06-14|kbo|삼성|SSG": {
-      "date": "2026-06-14",
-      "categoryId": "kbo",
-      "homeTeam": "삼성",
-      "awayTeam": "SSG",
-      "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "4회초"
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-06-13|mlb|피츠버그|마이애미": {
       "date": "2026-06-13",
@@ -1968,12 +1968,22 @@
     {
       "date": "2026-06-14",
       "categoryId": "kbo",
+      "homeTeam": "삼성",
+      "awayTeam": "SSG",
+      "homeScore": 10,
+      "awayScore": 8,
+      "status": "live",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-14",
+      "categoryId": "kbo",
       "homeTeam": "LG",
       "awayTeam": "롯데",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "4회초"
+      "homeScore": 6,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-06-14",
@@ -1981,19 +1991,9 @@
       "homeTeam": "KIA",
       "awayTeam": "두산",
       "homeScore": 1,
-      "awayScore": 3,
-      "status": "live",
-      "period": "3회말"
-    },
-    {
-      "date": "2026-06-14",
-      "categoryId": "kbo",
-      "homeTeam": "삼성",
-      "awayTeam": "SSG",
-      "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "4회초"
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-06-13",
