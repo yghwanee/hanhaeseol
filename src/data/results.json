@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-14T05:20:28.617Z",
+  "lastUpdated": "2026-06-14T08:55:47.179Z",
   "byKey": {
     "2026-06-13|kbo|키움|한화": {
       "date": "2026-06-13",
@@ -56,20 +56,10 @@
       "categoryId": "kbo",
       "homeTeam": "키움",
       "awayTeam": "한화",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1회말"
-    },
-    "2026-06-14|kbo|LG|롯데": {
-      "date": "2026-06-14",
-      "categoryId": "kbo",
-      "homeTeam": "LG",
-      "awayTeam": "롯데",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-14|kbo|KT|NC": {
       "date": "2026-06-14",
@@ -78,18 +68,28 @@
       "awayTeam": "NC",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "canceled",
+      "period": "경기취소"
+    },
+    "2026-06-14|kbo|LG|롯데": {
+      "date": "2026-06-14",
+      "categoryId": "kbo",
+      "homeTeam": "LG",
+      "awayTeam": "롯데",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "live",
+      "period": "4회초"
     },
     "2026-06-14|kbo|KIA|두산": {
       "date": "2026-06-14",
       "categoryId": "kbo",
       "homeTeam": "KIA",
       "awayTeam": "두산",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "live",
+      "period": "3회말"
     },
     "2026-06-14|kbo|삼성|SSG": {
       "date": "2026-06-14",
@@ -97,9 +97,9 @@
       "homeTeam": "삼성",
       "awayTeam": "SSG",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "4회초"
     },
     "2026-06-13|mlb|피츠버그|마이애미": {
       "date": "2026-06-13",
@@ -1848,10 +1848,10 @@
       "categoryId": "worldcup",
       "homeTeam": "호주",
       "awayTeam": "튀르키예",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 15'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-06-15|worldcup|독일|퀴라소": {
       "date": "2026-06-15",
@@ -1950,20 +1950,10 @@
       "categoryId": "kbo",
       "homeTeam": "키움",
       "awayTeam": "한화",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1회말"
-    },
-    {
-      "date": "2026-06-14",
-      "categoryId": "kbo",
-      "homeTeam": "LG",
-      "awayTeam": "롯데",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-06-14",
@@ -1972,18 +1962,28 @@
       "awayTeam": "NC",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "canceled",
+      "period": "경기취소"
+    },
+    {
+      "date": "2026-06-14",
+      "categoryId": "kbo",
+      "homeTeam": "LG",
+      "awayTeam": "롯데",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "live",
+      "period": "4회초"
     },
     {
       "date": "2026-06-14",
       "categoryId": "kbo",
       "homeTeam": "KIA",
       "awayTeam": "두산",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "live",
+      "period": "3회말"
     },
     {
       "date": "2026-06-14",
@@ -1991,9 +1991,9 @@
       "homeTeam": "삼성",
       "awayTeam": "SSG",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "4회초"
     },
     {
       "date": "2026-06-13",
@@ -2495,10 +2495,10 @@
       "categoryId": "worldcup",
       "homeTeam": "호주",
       "awayTeam": "튀르키예",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 15'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-06-15",
