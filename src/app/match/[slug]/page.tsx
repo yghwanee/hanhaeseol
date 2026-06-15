@@ -8,7 +8,7 @@ import worldcupData from "@/data/worldcup.json";
 import resultsArchiveData from "@/data/results-archive.json";
 import standingsData from "@/data/standings.json";
 import type { Schedule, ScheduleData } from "@/types/schedule";
-import type { ResultsData } from "@/types/results";
+import type { GoalEvent, ResultsData } from "@/types/results";
 import type { StandingsData } from "@/types/standings";
 import { LEAGUE_SEO } from "@/lib/slugs";
 import { matchToSlug, findMatchBySlug } from "@/lib/match-slug";
@@ -251,6 +251,12 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
       images: ["https://haeseol.com/og-default.png"],
     },
   };
+}
+
+/** "이름 45+2'" 형태 라벨. 자책골은 (OG) 표기. (ScheduleCard와 동일 규칙) */
+function goalLabel(g: GoalEvent): string {
+  const t = g.addedTime ? `${g.minute}+${g.addedTime}'` : `${g.minute}'`;
+  return `${g.player} ${t}${g.ownGoal ? " (OG)" : ""}`;
 }
 
 export default function MatchPage({ params }: { params: Params }) {
@@ -553,6 +559,24 @@ export default function MatchPage({ params }: { params: Params }) {
                   </p>
                 </div>
               </div>
+              {match.sport === "축구" && result!.goals && result!.goals.length > 0 && (
+                <div className="mt-3 grid grid-cols-2 gap-x-6 border-t border-emerald-700/20 pt-2 text-[11px] leading-snug text-zinc-300 sm:text-xs">
+                  <div className="min-w-0 space-y-0.5 text-right">
+                    {result!.goals!.filter((g) => g.team === "home").map((g, i) => (
+                      <div key={i} className="truncate">
+                        {goalLabel(g)} <span aria-hidden>⚽</span>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="min-w-0 space-y-0.5 text-left">
+                    {result!.goals!.filter((g) => g.team === "away").map((g, i) => (
+                      <div key={i} className="truncate">
+                        <span aria-hidden>⚽</span> {goalLabel(g)}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
               {result!.period && (
                 <p className="mt-2 text-center text-[11px] text-zinc-500 sm:text-xs">
                   {result!.period}
