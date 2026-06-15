@@ -4594,6 +4594,24 @@
           "division": "EAST"
         },
         {
+          "rank": 2,
+          "teamName": "텍사스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/TE.png?type=f92_88",
+          "gameCount": 71,
+          "win": 35,
+          "draw": 0,
+          "lose": 36,
+          "winRate": 0.493,
+          "gameBehind": 1,
+          "lastFive": "WLLWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "league": "AL",
+          "division": "WEST"
+        },
+        {
           "rank": 3,
           "teamName": "애리조나",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/AZ.png?type=f92_88",
@@ -4664,24 +4682,6 @@
           },
           "league": "NL",
           "division": "EAST"
-        },
-        {
-          "rank": 3,
-          "teamName": "텍사스",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/TE.png?type=f92_88",
-          "gameCount": 70,
-          "win": 34,
-          "draw": 0,
-          "lose": 36,
-          "winRate": 0.486,
-          "gameBehind": 1.5,
-          "lastFive": "LLWWL",
-          "streak": {
-            "type": "L",
-            "count": 2
-          },
-          "league": "AL",
-          "division": "WEST"
         },
         {
           "rank": 3,
@@ -4831,16 +4831,16 @@
           "rank": 5,
           "teamName": "보스턴",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/BO.png?type=f92_88",
-          "gameCount": 68,
+          "gameCount": 69,
           "win": 29,
           "draw": 0,
-          "lose": 39,
-          "winRate": 0.426,
-          "gameBehind": 13,
-          "lastFive": "WWLLL",
+          "lose": 40,
+          "winRate": 0.42,
+          "gameBehind": 13.5,
+          "lastFive": "LWWLL",
           "streak": {
-            "type": "W",
-            "count": 2
+            "type": "L",
+            "count": 1
           },
           "league": "AL",
           "division": "EAST"
@@ -4921,5 +4921,5 @@
     }
   ],
   "basketball": [],
-  "lastUpdated": "2026-06-15T01:41:26.784Z"
+  "lastUpdated": "2026-06-15T11:56:29.193Z"
 }
