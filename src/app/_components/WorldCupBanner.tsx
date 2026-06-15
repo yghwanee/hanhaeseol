@@ -32,7 +32,7 @@ export function WorldCupBanner({ dday, href }: { dday: number | null; href: stri
           )}
           {dday !== null && dday <= 0 && (
             <div className="shrink-0 rounded-lg bg-rose-500 px-3 py-1.5 text-center text-white shadow-lg">
-              <div className="text-sm sm:text-base font-extrabold leading-none">진행 중</div>
+              <div className="text-sm sm:text-base font-extrabold leading-none">조별 순위</div>
             </div>
           )}
           {/* 대회명 — 배지와 우측 이미지 사이 가운데 정렬 */}
