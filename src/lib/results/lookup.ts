@@ -95,6 +95,9 @@ export function findResult(
         awayTeam: schedule.awayTeam,
         homeScore: reversed.awayScore,
         awayScore: reversed.homeScore,
+        ...(reversed.goals
+          ? { goals: reversed.goals.map((gl) => ({ ...gl, team: gl.team === "home" ? "away" : "home" as const })) }
+          : {}),
       };
     }
   }

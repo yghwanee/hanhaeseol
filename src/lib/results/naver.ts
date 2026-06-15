@@ -1,4 +1,4 @@
-import type { GameStatus, MatchResult, ResultsData } from "@/types/results";
+import type { GameStatus, GoalEvent, MatchResult, ResultsData } from "@/types/results";
 import { NAVER_TO_SCHEDULE_TEAM_NAME } from "@/lib/team-records/team-name-aliases";
 import { resultKey } from "./lookup";
 
@@ -124,6 +124,46 @@ async function naverGet<T>(path: string): Promise<T | null> {
   return json.result;
 }
 
+/** 네이버 game.scorers 한 명. */
+interface NaverScorer {
+  time?: number;
+  addedTime?: number;
+  playerName?: string;
+  ownGoal?: boolean;
+}
+interface NaverGameDetail {
+  game?: { scorers?: { home?: NaverScorer[]; away?: NaverScorer[] } | null };
+}
+
+/**
+ * 축구 경기 상세에서 득점자·득점시간을 가져온다(목록 API엔 없어 경기별 호출 필요).
+ * 실패하면 빈 배열(표시는 생략). scorers.home/away는 g.homeTeamName/awayTeamName 기준 →
+ * MatchResult의 home/away와 동일 방향. (schedule와의 home/away 역전은 findResult에서 처리)
+ */
+export async function fetchGoals(gameId: string): Promise<GoalEvent[]> {
+  let detail: NaverGameDetail | null;
+  try {
+    detail = await naverGet<NaverGameDetail>(`/schedule/games/${gameId}`);
+  } catch {
+    return [];
+  }
+  const sc = detail?.game?.scorers;
+  if (!sc) return [];
+  const map = (arr: NaverScorer[] | undefined, team: "home" | "away"): GoalEvent[] =>
+    (arr ?? [])
+      .filter((s) => s.playerName && typeof s.time === "number")
+      .map((s) => ({
+        team,
+        player: s.playerName!,
+        minute: s.time!,
+        ...(s.addedTime ? { addedTime: s.addedTime } : {}),
+        ...(s.ownGoal ? { ownGoal: true } : {}),
+      }));
+  return [...map(sc.home, "home"), ...map(sc.away, "away")].sort(
+    (a, b) => a.minute + (a.addedTime ?? 0) - (b.minute + (b.addedTime ?? 0)),
+  );
+}
+
 /** YYYY-MM-DD 포맷 (KST). 네이버 API가 2026년경 하이픈 포맷만 받도록 바뀜. */
 function toYmd(d: Date): string {
   const kst = new Date(d.getTime() + 9 * 60 * 60 * 1000);
@@ -155,6 +195,14 @@ async function fetchLeagueGames(categoryId: string): Promise<NaverGame[]> {
   const r = await naverGet<NaverScheduleResult>(path);
   return r?.games ?? [];
 }
+
+// 축구 카테고리(득점자 상세 조회 대상). 목록 API엔 superCategoryId가 없어 categoryId로 판별.
+// 야구(kbo,mlb)·농구(kbl,nba) 외 LEAGUES의 나머지 = 전부 축구.
+const SOCCER_CATEGORIES = new Set([
+  "epl", "england2", "facup", "primera", "seria", "coppaitalia", "bundesliga",
+  "ligue1", "mls", "kleague", "kleague2", "champs", "europa", "eredivisie",
+  "denmark", "acl", "amatch", "amatchfriendly", "worldcup",
+]);
 
 const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "kbo", label: "KBO" },
@@ -219,6 +267,19 @@ export async function crawlAllResults(): Promise<ResultsData> {
       status,
       ...(g.statusInfo ? { period: g.statusInfo } : {}),
     };
+
+    // 축구 + 골이 있는(>0) 종료/진행 경기만 득점자 상세를 추가 조회(불필요한 호출 회피).
+    const totalGoals = (g.homeTeamScore ?? 0) + (g.awayTeamScore ?? 0);
+    if (
+      SOCCER_CATEGORIES.has(categoryId) &&
+      g.gameId &&
+      totalGoals > 0 &&
+      (status === "finished" || status === "live")
+    ) {
+      const goals = await fetchGoals(g.gameId);
+      if (goals.length > 0) result.goals = goals;
+    }
+
     results.push(result);
 
     for (const h of homeAliases) {

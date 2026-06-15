@@ -8,6 +8,20 @@ export type GameStatus =
   | "canceled" // 취소
   | "postponed"; // 연기
 
+/** 축구 득점 이벤트 (네이버 game.scorers 기반). 카드/매치페이지에 득점자·시간 표시용. */
+export interface GoalEvent {
+  /** 득점이 기록된 팀(스코어가 올라가는 쪽). 자책골도 이득을 본 팀 기준. */
+  team: "home" | "away";
+  /** 득점자 이름 */
+  player: string;
+  /** 득점 시간(분). 예: 41 → 41' */
+  minute: number;
+  /** 추가시간(분). 있으면 45+2' 처럼 표기. 없으면 생략. */
+  addedTime?: number;
+  /** 자책골 여부 */
+  ownGoal?: boolean;
+}
+
 export interface MatchResult {
   /** YYYY-MM-DD (KST) */
   date: string;
@@ -22,6 +36,8 @@ export interface MatchResult {
   status: GameStatus;
   /** 라이브용 표기. 예: "9회말", "전반전", "3쿼터". 없으면 생략. */
   period?: string;
+  /** 축구 한정: 득점자·득점시간 목록(시간순). 골 없으면 생략. */
+  goals?: GoalEvent[];
 }
 
 export interface ResultsData {

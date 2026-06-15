@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T23:24:10.267Z",
+  "lastUpdated": "2026-06-15T23:43:12.227Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -6899,7 +6899,19 @@
       "homeScore": 2,
       "awayScore": 0,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "퀴뇨네스",
+          "minute": 9
+        },
+        {
+          "team": "home",
+          "player": "라울 히메네스",
+          "minute": 67
+        }
+      ]
     },
     "2026-06-12|worldcup|대한민국|체코": {
       "date": "2026-06-12",
@@ -6909,7 +6921,24 @@
       "homeScore": 2,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "크레이치",
+          "minute": 59
+        },
+        {
+          "team": "home",
+          "player": "황인범",
+          "minute": 67
+        },
+        {
+          "team": "home",
+          "player": "오현규",
+          "minute": 80
+        }
+      ]
     },
     "2026-06-13|kbo|키움|한화": {
       "date": "2026-06-13",
@@ -7119,7 +7148,19 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "루키치",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "래린",
+          "minute": 78
+        }
+      ]
     },
     "2026-06-13|worldcup|미국|파라과이": {
       "date": "2026-06-13",
@@ -7129,7 +7170,37 @@
       "homeScore": 4,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "보바디야",
+          "minute": 7,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "발로건",
+          "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "발로건",
+          "minute": 45,
+          "addedTime": 5
+        },
+        {
+          "team": "away",
+          "player": "마우리시우",
+          "minute": 73
+        },
+        {
+          "team": "home",
+          "player": "레이나",
+          "minute": 90,
+          "addedTime": 8
+        }
+      ]
     },
     "2026-06-14|kbo|키움|한화": {
       "date": "2026-06-14",
@@ -7349,7 +7420,21 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "엠볼로",
+          "minute": 17
+        },
+        {
+          "team": "home",
+          "player": "무하임",
+          "minute": 90,
+          "addedTime": 4,
+          "ownGoal": true
+        }
+      ]
     },
     "2026-06-14|worldcup|브라질|모로코": {
       "date": "2026-06-14",
@@ -7359,7 +7444,19 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "사이바리",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "비니시우스",
+          "minute": 32
+        }
+      ]
     },
     "2026-06-14|worldcup|아이티|스코틀랜드": {
       "date": "2026-06-14",
@@ -7369,7 +7466,14 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "맥긴",
+          "minute": 28
+        }
+      ]
     },
     "2026-06-14|worldcup|호주|튀르키예": {
       "date": "2026-06-14",
@@ -7379,7 +7483,19 @@
       "homeScore": 2,
       "awayScore": 0,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이란쿤다",
+          "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "멧칼프",
+          "minute": 75
+        }
+      ]
     },
     "2026-06-15|mlb|클리블랜드 가디언스|디트로이트 타이거스": {
       "date": "2026-06-15",
@@ -7539,7 +7655,50 @@
       "homeScore": 7,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "은메차",
+          "minute": 6
+        },
+        {
+          "team": "away",
+          "player": "코메넨시아",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "슐로터벡",
+          "minute": 38
+        },
+        {
+          "team": "home",
+          "player": "무시알라",
+          "minute": 47
+        },
+        {
+          "team": "home",
+          "player": "하베르츠",
+          "minute": 45,
+          "addedTime": 5
+        },
+        {
+          "team": "home",
+          "player": "브라운",
+          "minute": 68
+        },
+        {
+          "team": "home",
+          "player": "운다브",
+          "minute": 78
+        },
+        {
+          "team": "home",
+          "player": "하베르츠",
+          "minute": 88
+        }
+      ]
     },
     "2026-06-15|worldcup|네덜란드|일본": {
       "date": "2026-06-15",
@@ -7549,7 +7708,29 @@
       "homeScore": 2,
       "awayScore": 2,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "반 다이크",
+          "minute": 51
+        },
+        {
+          "team": "away",
+          "player": "나카무라",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "서머빌",
+          "minute": 64
+        },
+        {
+          "team": "away",
+          "player": "카마다",
+          "minute": 89
+        }
+      ]
     },
     "2026-06-15|worldcup|코트디부아르|에콰도르": {
       "date": "2026-06-15",
@@ -7559,7 +7740,14 @@
       "homeScore": 1,
       "awayScore": 0,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "디알로",
+          "minute": 90
+        }
+      ]
     },
     "2026-06-15|worldcup|스웨덴|튀니지": {
       "date": "2026-06-15",
@@ -7569,7 +7757,40 @@
       "homeScore": 5,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "아야리",
+          "minute": 7
+        },
+        {
+          "team": "home",
+          "player": "이삭",
+          "minute": 30
+        },
+        {
+          "team": "away",
+          "player": "레킥",
+          "minute": 43
+        },
+        {
+          "team": "home",
+          "player": "요케레스",
+          "minute": 59
+        },
+        {
+          "team": "home",
+          "player": "스반베리",
+          "minute": 84
+        },
+        {
+          "team": "home",
+          "player": "아야리",
+          "minute": 90,
+          "addedTime": 6
+        }
+      ]
     },
     "2026-06-16|worldcup|스페인|카보베르데": {
       "date": "2026-06-16",
@@ -7589,7 +7810,20 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에맘 아슈르",
+          "minute": 19
+        },
+        {
+          "team": "home",
+          "player": "모하메드 하니",
+          "minute": 66,
+          "ownGoal": true
+        }
+      ]
     }
   },
   "results": [
@@ -14491,7 +14725,19 @@
       "homeScore": 2,
       "awayScore": 0,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "퀴뇨네스",
+          "minute": 9
+        },
+        {
+          "team": "home",
+          "player": "라울 히메네스",
+          "minute": 67
+        }
+      ]
     },
     {
       "date": "2026-06-12",
@@ -14501,7 +14747,24 @@
       "homeScore": 2,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "크레이치",
+          "minute": 59
+        },
+        {
+          "team": "home",
+          "player": "황인범",
+          "minute": 67
+        },
+        {
+          "team": "home",
+          "player": "오현규",
+          "minute": 80
+        }
+      ]
     },
     {
       "date": "2026-06-13",
@@ -14711,7 +14974,19 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "루키치",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "래린",
+          "minute": 78
+        }
+      ]
     },
     {
       "date": "2026-06-13",
@@ -14721,7 +14996,37 @@
       "homeScore": 4,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "보바디야",
+          "minute": 7,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "발로건",
+          "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "발로건",
+          "minute": 45,
+          "addedTime": 5
+        },
+        {
+          "team": "away",
+          "player": "마우리시우",
+          "minute": 73
+        },
+        {
+          "team": "home",
+          "player": "레이나",
+          "minute": 90,
+          "addedTime": 8
+        }
+      ]
     },
     {
       "date": "2026-06-14",
@@ -14941,7 +15246,21 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "엠볼로",
+          "minute": 17
+        },
+        {
+          "team": "home",
+          "player": "무하임",
+          "minute": 90,
+          "addedTime": 4,
+          "ownGoal": true
+        }
+      ]
     },
     {
       "date": "2026-06-14",
@@ -14951,7 +15270,19 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "사이바리",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "비니시우스",
+          "minute": 32
+        }
+      ]
     },
     {
       "date": "2026-06-14",
@@ -14961,7 +15292,14 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "맥긴",
+          "minute": 28
+        }
+      ]
     },
     {
       "date": "2026-06-14",
@@ -14971,7 +15309,19 @@
       "homeScore": 2,
       "awayScore": 0,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이란쿤다",
+          "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "멧칼프",
+          "minute": 75
+        }
+      ]
     },
     {
       "date": "2026-06-15",
@@ -15131,7 +15481,50 @@
       "homeScore": 7,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "은메차",
+          "minute": 6
+        },
+        {
+          "team": "away",
+          "player": "코메넨시아",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "슐로터벡",
+          "minute": 38
+        },
+        {
+          "team": "home",
+          "player": "무시알라",
+          "minute": 47
+        },
+        {
+          "team": "home",
+          "player": "하베르츠",
+          "minute": 45,
+          "addedTime": 5
+        },
+        {
+          "team": "home",
+          "player": "브라운",
+          "minute": 68
+        },
+        {
+          "team": "home",
+          "player": "운다브",
+          "minute": 78
+        },
+        {
+          "team": "home",
+          "player": "하베르츠",
+          "minute": 88
+        }
+      ]
     },
     {
       "date": "2026-06-15",
@@ -15141,7 +15534,29 @@
       "homeScore": 2,
       "awayScore": 2,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "반 다이크",
+          "minute": 51
+        },
+        {
+          "team": "away",
+          "player": "나카무라",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "서머빌",
+          "minute": 64
+        },
+        {
+          "team": "away",
+          "player": "카마다",
+          "minute": 89
+        }
+      ]
     },
     {
       "date": "2026-06-15",
@@ -15151,7 +15566,14 @@
       "homeScore": 1,
       "awayScore": 0,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "디알로",
+          "minute": 90
+        }
+      ]
     },
     {
       "date": "2026-06-15",
@@ -15161,7 +15583,40 @@
       "homeScore": 5,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "아야리",
+          "minute": 7
+        },
+        {
+          "team": "home",
+          "player": "이삭",
+          "minute": 30
+        },
+        {
+          "team": "away",
+          "player": "레킥",
+          "minute": 43
+        },
+        {
+          "team": "home",
+          "player": "요케레스",
+          "minute": 59
+        },
+        {
+          "team": "home",
+          "player": "스반베리",
+          "minute": 84
+        },
+        {
+          "team": "home",
+          "player": "아야리",
+          "minute": 90,
+          "addedTime": 6
+        }
+      ]
     },
     {
       "date": "2026-06-16",
@@ -15181,7 +15636,20 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에맘 아슈르",
+          "minute": 19
+        },
+        {
+          "team": "home",
+          "player": "모하메드 하니",
+          "minute": 66,
+          "ownGoal": true
+        }
+      ]
     }
   ]
 }

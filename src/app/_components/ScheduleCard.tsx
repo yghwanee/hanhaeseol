@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { Schedule } from "@/types/schedule";
 import { TeamRecord } from "@/types/team-record";
-import { MatchResult } from "@/types/results";
+import { GoalEvent, MatchResult } from "@/types/results";
 import { isGameFinished } from "@/lib/schedule-utils";
 import { matchToSlug } from "@/lib/match-slug";
 import { proxyLogo } from "@/lib/emblem";
@@ -11,12 +11,38 @@ import { PlatformBadge } from "./PlatformBadge";
 import { Highlight } from "./Highlight";
 import { LastFiveBadges } from "./LastFiveBadges";
 
-function hasScores(r?: MatchResult): r is MatchResult & { homeScore: number; awayScore: number } {
-  if (!r) return false;
-  if (typeof r.homeScore !== "number" || typeof r.awayScore !== "number") return false;
-  // 네이버는 시작 전·진행 중 매치도 0-0 / 진행 중 스코어로 응답.
-  // 진행 중 스코어는 크롤 타이밍에 따라 실제 현황과 어긋날 수 있어 종료된 경기만 표시.
-  return r.status === "finished";
+/** "이름 45+2'" 형태 라벨. 자책골은 (OG) 표기. */
+function goalLabel(g: GoalEvent): string {
+  const t = g.addedTime ? `${g.minute}+${g.addedTime}'` : `${g.minute}'`;
+  return `${g.player} ${t}${g.ownGoal ? " (OG)" : ""}`;
+}
+
+/** 카드 하단 득점자 줄: 홈은 우측(센터 쪽)·원정은 좌측 정렬, ⚽는 센터 쪽에 둬 미러 배치. */
+function ScorerLines({ goals }: { goals: GoalEvent[] }) {
+  const home = goals.filter((g) => g.team === "home");
+  const away = goals.filter((g) => g.team === "away");
+  return (
+    <div className="pointer-events-none relative z-10 mt-2 grid grid-cols-2 gap-x-3 sm:gap-x-4 text-[10px] sm:text-[11px] leading-snug text-zinc-400">
+      <div className="min-w-0 space-y-0.5 text-right">
+        {home.map((g, i) => (
+          <div key={i} className="truncate">
+            {goalLabel(g)} <span aria-hidden>⚽</span>
+          </div>
+        ))}
+      </div>
+      <div className="min-w-0 space-y-0.5 text-left">
+        {away.map((g, i) => (
+          <div key={i} className="truncate">
+            <span aria-hidden>⚽</span> {goalLabel(g)}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function hasNumericScores(r?: MatchResult): r is MatchResult & { homeScore: number; awayScore: number } {
+  return !!r && typeof r.homeScore === "number" && typeof r.awayScore === "number";
 }
 
 function ScheduleCardInner({
@@ -32,7 +58,12 @@ function ScheduleCardInner({
   awayRecord?: TeamRecord;
   result?: MatchResult;
 }) {
-  const showScores = hasScores(result);
+  // 종료 경기는 항상 스코어 표시. 축구는 진행 중에도 스코어+득점자를 보여준다
+  // (타 종목은 진행 중 스코어가 어긋날 수 있어 종전대로 종료만 표시).
+  const isSoccer = schedule.sport === "축구";
+  const numeric = hasNumericScores(result);
+  const showScores =
+    numeric && (result.status === "finished" || (isSoccer && result.status === "live"));
   const home = result?.homeScore;
   const away = result?.awayScore;
   const winnerSide: "home" | "away" | "draw" | null =
@@ -43,6 +74,7 @@ function ScheduleCardInner({
           ? "away"
           : "draw"
       : null;
+  const showGoals = isSoccer && showScores && !!result?.goals && result.goals.length > 0;
 
   // 카드 전체는 매치 페이지로, 플랫폼 뱃지는 플랫폼 페이지로 — nested anchor 회피를
   // 위해 카드 본체를 div로 두고 absolute Link를 inset-0으로 깐다. PlatformBadge Link는
@@ -118,6 +150,8 @@ function ScheduleCardInner({
           <Highlight text={schedule.homeTeam} query={query} />
         </div>
       )}
+
+      {showGoals && <ScorerLines goals={result!.goals!} />}
 
       <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 flex items-center">
         <PlatformBadge platform={schedule.platform} />
