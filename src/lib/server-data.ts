@@ -55,3 +55,18 @@ export function loadResults(): ResultsData | null {
     return null;
   }
 }
+
+/**
+ * results-archive.json: 종료/취소 경기를 영구 누적한 파일.
+ * results.json은 3일 윈도우라 대회 초반(예: 월드컵 6/12~14) 스코어가 빠지는데,
+ * 아카이브엔 남아 있으므로 월드컵 전체 스코어를 채우는 데 사용한다.
+ */
+export function loadResultsArchive(): ResultsData | null {
+  try {
+    const filePath = path.join(process.cwd(), "public", "results-archive.json");
+    const raw = fs.readFileSync(filePath, "utf-8");
+    return JSON.parse(raw) as ResultsData;
+  } catch {
+    return null;
+  }
+}

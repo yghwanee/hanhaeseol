@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useMemo } from "react";
+import React, { useMemo, useRef, useEffect } from "react";
 import { Schedule } from "@/types/schedule";
 import { TeamRecordsMap } from "@/types/team-record";
 import { ResultsData } from "@/types/results";
@@ -42,7 +42,7 @@ export function WorldCupView({
   results?: ResultsData | null;
   today: string;
 }) {
-  const { group, rounds, dday } = useMemo(() => {
+  const { group, rounds, dday, focusDate } = useMemo(() => {
     const sorted = [...schedules].sort((a, b) =>
       a.date === b.date ? a.time.localeCompare(b.time) : a.date.localeCompare(b.date),
     );
@@ -71,8 +71,26 @@ export function WorldCupView({
     const firstDate = sorted[0]?.date;
     const dday = firstDate ? daysBetween(today, firstDate) : null;
 
-    return { group, rounds, dday };
+    // 진입 시 포커싱할 조별리그 날짜: 오늘 ⊃ 없으면 오늘 이후 가장 가까운 날 ⊃ 없으면 마지막(가장 최근).
+    const groupDates = group.map(([d]) => d);
+    const focusDate =
+      groupDates.find((d) => d === today) ??
+      groupDates.find((d) => d > today) ??
+      groupDates[groupDates.length - 1] ??
+      null;
+
+    return { group, rounds, dday, focusDate };
   }, [schedules, today]);
+
+  // 마운트(또는 포커스 날짜 변경) 시 해당 날짜 섹션으로 1회 스크롤. 스티키 헤더만큼 scroll-mt로 보정.
+  const focusRef = useRef<HTMLDivElement | null>(null);
+  useEffect(() => {
+    if (!focusDate) return;
+    const id = requestAnimationFrame(() => {
+      focusRef.current?.scrollIntoView({ block: "start" });
+    });
+    return () => cancelAnimationFrame(id);
+  }, [focusDate]);
 
   const renderCard = (s: Schedule) => (
     <ScheduleCard
@@ -104,8 +122,9 @@ export function WorldCupView({
             {group.map(([date, games]) => {
               const { md, dow, weekend } = dateLabel(date);
               const dowColor = weekend === 0 ? "text-red-400" : weekend === 6 ? "text-blue-400" : "text-zinc-400";
+              const isFocus = date === focusDate;
               return (
-                <div key={date}>
+                <div key={date} ref={isFocus ? focusRef : undefined} className={isFocus ? "scroll-mt-24" : undefined}>
                   <div className="mb-2 flex items-center gap-2">
                     <span className="text-xs sm:text-sm font-bold text-zinc-100">{md}</span>
                     <span className={`text-[11px] sm:text-xs font-medium ${dowColor}`}>({dow})</span>

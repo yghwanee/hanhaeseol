@@ -1,7 +1,8 @@
 import Link from "next/link";
 import { Schedule } from "@/types/schedule";
 import { GAME_DURATION_HOURS } from "@/lib/schedule-utils";
-import { loadScheduleData, loadTeamRecords, loadResults } from "@/lib/server-data";
+import { loadScheduleData, loadTeamRecords, loadResults, loadResultsArchive } from "@/lib/server-data";
+import { ResultsData } from "@/types/results";
 import ScheduleClient from "./ScheduleClient";
 import { HomeAboutSection } from "./_components/HomeAboutSection";
 import WeekHighlights from "./_components/WeekHighlights";
@@ -62,6 +63,28 @@ function buildSportsEventsJsonLd(schedules: Schedule[]) {
   };
 }
 
+/**
+ * 월드컵 과거 스코어 채우기: results.json은 3일 윈도우라 대회 초반 경기 스코어가 빠진다.
+ * 영구 누적 아카이브에서 categoryId=worldcup 결과만 골라 results.byKey의 베이스로 깔고,
+ * 그 위에 최신 results.json을 덮어써 라이브/당일 경기는 신선한 상태를 유지한다.
+ * (월드컵은 팀명이 네이버와 정확히 일치해 alias 없이 byKey 매칭됨 — lookup.ts 참고)
+ */
+function mergeWorldcupArchive(
+  results: ResultsData | null,
+  archive: ResultsData | null,
+): ResultsData | null {
+  if (!archive) return results;
+  const wcByKey: Record<string, ResultsData["results"][number]> = {};
+  for (const [key, r] of Object.entries(archive.byKey)) {
+    if (r.categoryId === "worldcup") wcByKey[key] = r;
+  }
+  if (Object.keys(wcByKey).length === 0) return results;
+  if (!results) {
+    return { lastUpdated: archive.lastUpdated, byKey: wcByKey, results: [] };
+  }
+  return { ...results, byKey: { ...wcByKey, ...results.byKey } };
+}
+
 export default function Home({
   searchParams,
 }: {
@@ -74,7 +97,7 @@ export default function Home({
 }) {
   const data = loadScheduleData();
   const teamRecords = loadTeamRecords();
-  const results = loadResults();
+  const results = mergeWorldcupArchive(loadResults(), loadResultsArchive());
   const sportsEventsJsonLd = buildSportsEventsJsonLd(data.schedules);
   const initialCommentary: "all" | "korean" | "foreign" =
     searchParams.comm === "korean" || searchParams.comm === "foreign" ? searchParams.comm : "all";
