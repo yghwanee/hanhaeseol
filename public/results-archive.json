@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-15T23:43:12.227Z",
+  "lastUpdated": "2026-06-16T02:12:44.659Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -7792,6 +7792,36 @@
         }
       ]
     },
+    "2026-06-16|mlb|필라델피아 필리스|마이애미 말린스": {
+      "date": "2026-06-16",
+      "categoryId": "mlb",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "마이애미 말린스",
+      "homeScore": 7,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-06-16|mlb|워싱턴 내셔널스|캔자스시티 로열스": {
+      "date": "2026-06-16",
+      "categoryId": "mlb",
+      "homeTeam": "워싱턴 내셔널스",
+      "awayTeam": "캔자스시티 로열스",
+      "homeScore": 7,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-06-16|mlb|세인트루이스 카디널스|샌디에이고 파드리스": {
+      "date": "2026-06-16",
+      "categoryId": "mlb",
+      "homeTeam": "세인트루이스 카디널스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-06-16|worldcup|스페인|카보베르데": {
       "date": "2026-06-16",
       "categoryId": "worldcup",
@@ -7815,13 +7845,35 @@
         {
           "team": "away",
           "player": "에맘 아슈르",
-          "minute": 19
+          "minute": 20
         },
         {
           "team": "home",
           "player": "모하메드 하니",
           "minute": 66,
           "ownGoal": true
+        }
+      ]
+    },
+    "2026-06-16|worldcup|사우디아라비아|우루과이": {
+      "date": "2026-06-16",
+      "categoryId": "worldcup",
+      "homeTeam": "사우디아라비아",
+      "awayTeam": "우루과이",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "압둘레라 알 암리",
+          "minute": 41
+        },
+        {
+          "team": "away",
+          "player": "막시 아라우호",
+          "minute": 80
         }
       ]
     }
@@ -15620,6 +15672,36 @@
     },
     {
       "date": "2026-06-16",
+      "categoryId": "mlb",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "마이애미 말린스",
+      "homeScore": 7,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-16",
+      "categoryId": "mlb",
+      "homeTeam": "워싱턴 내셔널스",
+      "awayTeam": "캔자스시티 로열스",
+      "homeScore": 7,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-16",
+      "categoryId": "mlb",
+      "homeTeam": "세인트루이스 카디널스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-16",
       "categoryId": "worldcup",
       "homeTeam": "스페인",
       "awayTeam": "카보베르데",
@@ -15641,13 +15723,35 @@
         {
           "team": "away",
           "player": "에맘 아슈르",
-          "minute": 19
+          "minute": 20
         },
         {
           "team": "home",
           "player": "모하메드 하니",
           "minute": 66,
           "ownGoal": true
+        }
+      ]
+    },
+    {
+      "date": "2026-06-16",
+      "categoryId": "worldcup",
+      "homeTeam": "사우디아라비아",
+      "awayTeam": "우루과이",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "압둘레라 알 암리",
+          "minute": 41
+        },
+        {
+          "team": "away",
+          "player": "막시 아라우호",
+          "minute": 80
         }
       ]
     }
