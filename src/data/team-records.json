@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T13:04:05.406Z",
+  "lastUpdated": "2026-06-16T18:09:53.867Z",
   "records": {
     "KBO": {
       "LG": {
@@ -80,14 +80,25 @@
         }
       },
       "SSG": {
-        "last5": "LLWLL",
+        "last5": "LLLWL",
         "win": 27,
-        "lose": 37,
+        "lose": 38,
         "draw": 1,
-        "wra": 0.422,
+        "wra": 0.415,
         "streak": {
-          "count": 2,
+          "count": 3,
           "type": "L"
+        }
+      },
+      "롯데": {
+        "last5": "WLLWL",
+        "win": 25,
+        "lose": 39,
+        "draw": 1,
+        "wra": 0.391,
+        "streak": {
+          "count": 1,
+          "type": "W"
         }
       },
       "키움": {
@@ -98,17 +109,6 @@
         "wra": 0.388,
         "streak": {
           "count": 1,
-          "type": "L"
-        }
-      },
-      "롯데": {
-        "last5": "LLWLW",
-        "win": 24,
-        "lose": 39,
-        "draw": 1,
-        "wra": 0.381,
-        "streak": {
-          "count": 2,
           "type": "L"
         }
       }
