@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-17T20:56:07.108Z",
+  "lastUpdated": "2026-06-17T22:53:02.580Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -8403,6 +8403,36 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-06-18|mlb|세인트루이스 카디널스|샌디에이고 파드리스": {
+      "date": "2026-06-18",
+      "categoryId": "mlb",
+      "homeTeam": "세인트루이스 카디널스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 1,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-06-18|mlb|LA 다저스|탬파베이 레이스": {
+      "date": "2026-06-18",
+      "categoryId": "mlb",
+      "homeTeam": "LA 다저스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 5,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-06-18|mlb|애리조나 다이아몬드백스|LA 에인절스": {
+      "date": "2026-06-18",
+      "categoryId": "mlb",
+      "homeTeam": "애리조나 다이아몬드백스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 8,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-06-18|worldcup|포르투갈|콩고민주공화국": {
       "date": "2026-06-18",
       "categoryId": "worldcup",
@@ -8423,6 +8453,49 @@
           "player": "위사",
           "minute": 45,
           "addedTime": 5
+        }
+      ]
+    },
+    "2026-06-18|worldcup|잉글랜드|크로아티아": {
+      "date": "2026-06-18",
+      "categoryId": "worldcup",
+      "homeTeam": "잉글랜드",
+      "awayTeam": "크로아티아",
+      "homeScore": 4,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "케인",
+          "minute": 12
+        },
+        {
+          "team": "away",
+          "player": "바투리나",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "케인",
+          "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "벨링엄",
+          "minute": 47
+        },
+        {
+          "team": "away",
+          "player": "무사",
+          "minute": 45,
+          "addedTime": 5
+        },
+        {
+          "team": "home",
+          "player": "래시포드",
+          "minute": 85
         }
       ]
     }
@@ -16832,6 +16905,36 @@
     },
     {
       "date": "2026-06-18",
+      "categoryId": "mlb",
+      "homeTeam": "세인트루이스 카디널스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 1,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-18",
+      "categoryId": "mlb",
+      "homeTeam": "LA 다저스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 5,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-18",
+      "categoryId": "mlb",
+      "homeTeam": "애리조나 다이아몬드백스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 8,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-18",
       "categoryId": "worldcup",
       "homeTeam": "포르투갈",
       "awayTeam": "콩고민주공화국",
@@ -16850,6 +16953,49 @@
           "player": "위사",
           "minute": 45,
           "addedTime": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-06-18",
+      "categoryId": "worldcup",
+      "homeTeam": "잉글랜드",
+      "awayTeam": "크로아티아",
+      "homeScore": 4,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "케인",
+          "minute": 12
+        },
+        {
+          "team": "away",
+          "player": "바투리나",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "케인",
+          "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "벨링엄",
+          "minute": 47
+        },
+        {
+          "team": "away",
+          "player": "무사",
+          "minute": 45,
+          "addedTime": 5
+        },
+        {
+          "team": "home",
+          "player": "래시포드",
+          "minute": 85
         }
       ]
     }
