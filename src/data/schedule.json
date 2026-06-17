@@ -1,215 +1,6 @@
 {
-  "lastUpdated": "2026-06-16T01:46:56.085Z",
+  "lastUpdated": "2026-06-17T06:54:48.814Z",
   "schedules": [
-    {
-      "id": "spotvnow-2026-06-16-39021",
-      "date": "2026-06-16",
-      "time": "07:40",
-      "sport": "야구",
-      "league": "MLB",
-      "homeTeam": "필라델피아 필리스",
-      "awayTeam": "마이애미 말린스",
-      "platform": "SPOTV NOW",
-      "koreanCommentary": false
-    },
-    {
-      "id": "spotvnow-2026-06-16-39022",
-      "date": "2026-06-16",
-      "time": "08:10",
-      "sport": "야구",
-      "league": "MLB",
-      "homeTeam": "신시내티 레즈",
-      "awayTeam": "뉴욕 메츠",
-      "platform": "SPOTV NOW",
-      "koreanCommentary": false
-    },
-    {
-      "id": "spotvnow-2026-06-16-39023",
-      "date": "2026-06-16",
-      "time": "08:45",
-      "sport": "야구",
-      "league": "MLB",
-      "homeTeam": "세인트루이스 카디널스",
-      "awayTeam": "샌디에이고 파드리스",
-      "platform": "SPOTV NOW",
-      "koreanCommentary": true
-    },
-    {
-      "id": "spotvnow-2026-06-16-39025",
-      "date": "2026-06-16",
-      "time": "10:40",
-      "sport": "야구",
-      "league": "MLB",
-      "homeTeam": "애슬레틱스",
-      "awayTeam": "피츠버그 파이리츠",
-      "platform": "SPOTV NOW",
-      "koreanCommentary": false
-    },
-    {
-      "id": "spotvnow-2026-06-16-39024",
-      "date": "2026-06-16",
-      "time": "10:40",
-      "sport": "야구",
-      "league": "MLB",
-      "homeTeam": "애리조나 다이아몬드백스",
-      "awayTeam": "LA 에인절스",
-      "platform": "SPOTV NOW",
-      "koreanCommentary": false
-    },
-    {
-      "id": "kbs-sports-2026-06-16-10:55-2026 한국실업배구연맹 &amp; ",
-      "date": "2026-06-16",
-      "time": "10:55",
-      "sport": "배구",
-      "league": "프로배구",
-      "homeTeam": "퓨처스 챔프전 단양대회 여자부 결승 현대건설",
-      "awayTeam": "수원특례시청",
-      "platform": "KBS N SPORTS",
-      "koreanCommentary": true
-    },
-    {
-      "id": "coupang-2026-06-16-11:00-WNBA-LA 스파크스-골든스테이트",
-      "date": "2026-06-16",
-      "time": "11:00",
-      "sport": "농구",
-      "league": "WNBA",
-      "homeTeam": "LA 스파크스",
-      "awayTeam": "골든스테이트",
-      "platform": "쿠팡플레이",
-      "koreanCommentary": false
-    },
-    {
-      "id": "spotvnow-2026-06-16-39026",
-      "date": "2026-06-16",
-      "time": "11:10",
-      "sport": "야구",
-      "league": "MLB",
-      "homeTeam": "LA 다저스",
-      "awayTeam": "탬파베이 레이스",
-      "platform": "SPOTV NOW",
-      "koreanCommentary": true
-    },
-    {
-      "id": "kbs-sports-2026-06-16-13:00-2026 한국실업배구연맹 &amp; ",
-      "date": "2026-06-16",
-      "time": "13:00",
-      "sport": "배구",
-      "league": "프로배구",
-      "homeTeam": "퓨처스 챔프전 단양대회 남자부 결승 화성특례시청",
-      "awayTeam": "대한항공",
-      "platform": "KBS N SPORTS",
-      "koreanCommentary": true
-    },
-    {
-      "id": "kbs-sports-2026-06-16-18:10-2026 신한 SOL KBO리그 한화",
-      "date": "2026-06-16",
-      "time": "18:10",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "NC",
-      "awayTeam": "한화",
-      "platform": "KBS N SPORTS",
-      "koreanCommentary": true
-    },
-    {
-      "id": "spotv-2026-06-16-18:15-2026 KBO리그    KT:두산(",
-      "date": "2026-06-16",
-      "time": "18:15",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "두산",
-      "awayTeam": "KT",
-      "platform": "SPOTV",
-      "koreanCommentary": true
-    },
-    {
-      "id": "spotv2-2026-06-16-18:15-2026 KBO리그 롯데:SSG(문학",
-      "date": "2026-06-16",
-      "time": "18:15",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "SSG",
-      "awayTeam": "롯데",
-      "platform": "SPOTV2",
-      "koreanCommentary": true
-    },
-    {
-      "id": "mbc-2026-06-16-18:15-2026 신한 SOL KBO리그",
-      "date": "2026-06-16",
-      "time": "18:15",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "삼성",
-      "awayTeam": "키움",
-      "platform": "MBC SPORTS+",
-      "koreanCommentary": true
-    },
-    {
-      "id": "sbs-sports-2026-06-16-18:20-2026 KBO리그 LG:KIA",
-      "date": "2026-06-16",
-      "time": "18:20",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "KIA",
-      "awayTeam": "LG",
-      "platform": "SBS Sports",
-      "koreanCommentary": true
-    },
-    {
-      "id": "tving-2026-06-16-18:30-KBO-LG-KIA",
-      "date": "2026-06-16",
-      "time": "18:30",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "KIA",
-      "awayTeam": "LG",
-      "platform": "티빙",
-      "koreanCommentary": true
-    },
-    {
-      "id": "tving-2026-06-16-18:30-KBO-한화-NC",
-      "date": "2026-06-16",
-      "time": "18:30",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "NC",
-      "awayTeam": "한화",
-      "platform": "티빙",
-      "koreanCommentary": true
-    },
-    {
-      "id": "tving-2026-06-16-18:30-KBO-롯데-SSG",
-      "date": "2026-06-16",
-      "time": "18:30",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "SSG",
-      "awayTeam": "롯데",
-      "platform": "티빙",
-      "koreanCommentary": true
-    },
-    {
-      "id": "tving-2026-06-16-18:30-KBO-키움-삼성",
-      "date": "2026-06-16",
-      "time": "18:30",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "삼성",
-      "awayTeam": "키움",
-      "platform": "티빙",
-      "koreanCommentary": true
-    },
-    {
-      "id": "tving-2026-06-16-18:30-KBO-KT-두산",
-      "date": "2026-06-16",
-      "time": "18:30",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "두산",
-      "awayTeam": "KT",
-      "platform": "티빙",
-      "koreanCommentary": true
-    },
     {
       "id": "spotvnow-2026-06-17-39027",
       "date": "2026-06-17",
@@ -277,6 +68,17 @@
       "koreanCommentary": true
     },
     {
+      "id": "tvn-2026-06-17-13:00-2026 메디힐 KBO 퓨처스리그",
+      "date": "2026-06-17",
+      "time": "13:00",
+      "sport": "야구",
+      "league": "퓨처스리그",
+      "homeTeam": "KT",
+      "awayTeam": "KIA",
+      "platform": "tvN SPORTS",
+      "koreanCommentary": true
+    },
+    {
       "id": "kbs-sports-2026-06-17-18:10-2026 신한 SOL KBO리그 한화",
       "date": "2026-06-17",
       "time": "18:10",
@@ -288,7 +90,7 @@
       "koreanCommentary": true
     },
     {
-      "id": "spotv-2026-06-17-18:15-2026 KBO리그    KT:두산(",
+      "id": "spotv-2026-06-17-18:15-2026 KBO리그 KT:두산(잠실)",
       "date": "2026-06-17",
       "time": "18:15",
       "sport": "야구",
@@ -310,6 +112,17 @@
       "koreanCommentary": true
     },
     {
+      "id": "mbc-2026-06-17-18:15-2026 신한 SOL KBO리그",
+      "date": "2026-06-17",
+      "time": "18:15",
+      "sport": "야구",
+      "league": "KBO",
+      "homeTeam": "삼성",
+      "awayTeam": "키움",
+      "platform": "MBC SPORTS+",
+      "koreanCommentary": true
+    },
+    {
       "id": "sbs-sports-2026-06-17-18:20-2026 KBO리그 LG:KIA",
       "date": "2026-06-17",
       "time": "18:20",
@@ -321,14 +134,14 @@
       "koreanCommentary": true
     },
     {
-      "id": "mbc-2026-06-17-18:30-2026 신한 SOL KBO리그",
+      "id": "tving-2026-06-17-18:30-KBO-롯데-SSG",
       "date": "2026-06-17",
       "time": "18:30",
       "sport": "야구",
       "league": "KBO",
-      "homeTeam": "삼성",
-      "awayTeam": "키움",
-      "platform": "MBC SPORTS+",
+      "homeTeam": "SSG",
+      "awayTeam": "롯데",
+      "platform": "티빙",
       "koreanCommentary": true
     },
     {
@@ -354,6 +167,17 @@
       "koreanCommentary": true
     },
     {
+      "id": "tving-2026-06-17-18:30-KBO-키움-삼성",
+      "date": "2026-06-17",
+      "time": "18:30",
+      "sport": "야구",
+      "league": "KBO",
+      "homeTeam": "삼성",
+      "awayTeam": "키움",
+      "platform": "티빙",
+      "koreanCommentary": true
+    },
+    {
       "id": "tving-2026-06-17-18:30-KBO-LG-KIA",
       "date": "2026-06-17",
       "time": "18:30",
@@ -365,25 +189,14 @@
       "koreanCommentary": true
     },
     {
-      "id": "tving-2026-06-17-18:30-KBO-롯데-SSG",
-      "date": "2026-06-17",
-      "time": "18:30",
+      "id": "spotvnow-2026-06-18-39170",
+      "date": "2026-06-18",
+      "time": "03:05",
       "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "SSG",
-      "awayTeam": "롯데",
-      "platform": "티빙",
-      "koreanCommentary": true
-    },
-    {
-      "id": "tving-2026-06-17-18:30-KBO-키움-삼성",
-      "date": "2026-06-17",
-      "time": "18:30",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "삼성",
-      "awayTeam": "키움",
-      "platform": "티빙",
+      "league": "MLB",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "샌프란시스코 자이언츠",
+      "platform": "SPOTV NOW",
       "koreanCommentary": true
     },
     {
@@ -409,17 +222,6 @@
       "koreanCommentary": true
     },
     {
-      "id": "spotvnow-2026-06-18-39035",
-      "date": "2026-06-18",
-      "time": "04:40",
-      "sport": "야구",
-      "league": "MLB",
-      "homeTeam": "애리조나 다이아몬드백스",
-      "awayTeam": "LA 에인절스",
-      "platform": "SPOTV NOW",
-      "koreanCommentary": false
-    },
-    {
       "id": "spotvnow-2026-06-18-39036",
       "date": "2026-06-18",
       "time": "08:05",
@@ -429,17 +231,6 @@
       "awayTeam": "시카고 화이트삭스",
       "platform": "SPOTV NOW",
       "koreanCommentary": false
-    },
-    {
-      "id": "spotvnow-2026-06-18-39037",
-      "date": "2026-06-18",
-      "time": "08:15",
-      "sport": "야구",
-      "league": "MLB",
-      "homeTeam": "애틀랜타 브레이브스",
-      "awayTeam": "샌프란시스코 자이언츠",
-      "platform": "SPOTV NOW",
-      "koreanCommentary": true
     },
     {
       "id": "spotvnow-2026-06-18-39038",
@@ -486,6 +277,17 @@
       "koreanCommentary": false
     },
     {
+      "id": "tvn-2026-06-18-13:00-2026 메디힐 KBO 퓨처스리그",
+      "date": "2026-06-18",
+      "time": "13:00",
+      "sport": "야구",
+      "league": "퓨처스리그",
+      "homeTeam": "KT",
+      "awayTeam": "KIA",
+      "platform": "tvN SPORTS",
+      "koreanCommentary": true
+    },
+    {
       "id": "kbs-sports-2026-06-18-18:10-2026 신한 SOL KBO리그 키움",
       "date": "2026-06-18",
       "time": "18:10",
@@ -497,7 +299,7 @@
       "koreanCommentary": true
     },
     {
-      "id": "spotv-2026-06-18-18:15-2026 KBO리그  KT:두산",
+      "id": "spotv-2026-06-18-18:15-2026 KBO리그 KT:두산",
       "date": "2026-06-18",
       "time": "18:15",
       "sport": "야구",
@@ -684,6 +486,17 @@
       "koreanCommentary": false
     },
     {
+      "id": "tvn-2026-06-19-11:00-2026 메디힐 KBO 퓨처스리그",
+      "date": "2026-06-19",
+      "time": "11:00",
+      "sport": "야구",
+      "league": "퓨처스리그",
+      "homeTeam": "KT",
+      "awayTeam": "KIA",
+      "platform": "tvN SPORTS",
+      "koreanCommentary": true
+    },
+    {
       "id": "kbs-sports-2026-06-19-18:10-2026 신한 SOL KBO리그 KI",
       "date": "2026-06-19",
       "time": "18:10",
@@ -695,7 +508,7 @@
       "koreanCommentary": true
     },
     {
-      "id": "spotv-2026-06-19-18:15-2026 KBO리그  SSG:NC(창",
+      "id": "spotv-2026-06-19-18:15-2026 KBO리그 SSG:NC(창원",
       "date": "2026-06-19",
       "time": "18:15",
       "sport": "야구",
@@ -805,7 +618,7 @@
       "koreanCommentary": false
     },
     {
-      "id": "spotv-2026-06-20-07:50-2026 메이저리그  신시내티:뉴욕 ",
+      "id": "spotv-2026-06-20-07:50-2026 메이저리그 신시내티:뉴욕 양",
       "date": "2026-06-20",
       "time": "07:50",
       "sport": "야구",
@@ -915,7 +728,7 @@
       "koreanCommentary": true
     },
     {
-      "id": "spotv-2026-06-20-16:45-2026 KBO리그    SSG:NC",
+      "id": "spotv-2026-06-20-16:45-2026 KBO리그 SSG:NC(창원",
       "date": "2026-06-20",
       "time": "16:45",
       "sport": "야구",
@@ -1069,7 +882,7 @@
       "koreanCommentary": true
     },
     {
-      "id": "spotv-2026-06-21-08:00-2026 메이저리그   뉴욕 메츠:필",
+      "id": "spotv-2026-06-21-08:00-2026 메이저리그 뉴욕 메츠:필라델",
       "date": "2026-06-21",
       "time": "08:00",
       "sport": "야구",
@@ -1157,7 +970,7 @@
       "koreanCommentary": true
     },
     {
-      "id": "spotv-2026-06-21-16:45-2026 KBO리그    SSG:NC",
+      "id": "spotv-2026-06-21-16:45-2026 KBO리그 SSG:NC",
       "date": "2026-06-21",
       "time": "16:45",
       "sport": "야구",
@@ -1342,6 +1155,127 @@
       "awayTeam": "LA 스파크스",
       "platform": "쿠팡플레이",
       "koreanCommentary": false
+    },
+    {
+      "id": "spotvnow-2026-06-23-39097",
+      "date": "2026-06-23",
+      "time": "07:40",
+      "sport": "야구",
+      "league": "MLB",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "뉴욕 양키스",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": true
+    },
+    {
+      "id": "spotvnow-2026-06-23-39098",
+      "date": "2026-06-23",
+      "time": "08:10",
+      "sport": "야구",
+      "league": "MLB",
+      "homeTeam": "뉴욕 메츠",
+      "awayTeam": "시카고 컵스",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": false
+    },
+    {
+      "id": "spotvnow-2026-06-23-39099",
+      "date": "2026-06-23",
+      "time": "08:40",
+      "sport": "야구",
+      "league": "MLB",
+      "homeTeam": "미네소타 트윈스",
+      "awayTeam": "LA 다저스",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": true
+    },
+    {
+      "id": "spotvnow-2026-06-23-39100",
+      "date": "2026-06-23",
+      "time": "09:40",
+      "sport": "야구",
+      "league": "MLB",
+      "homeTeam": "콜로라도 로키스",
+      "awayTeam": "보스턴 레드삭스",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": false
+    },
+    {
+      "id": "spotvnow-2026-06-23-39101",
+      "date": "2026-06-23",
+      "time": "10:38",
+      "sport": "야구",
+      "league": "MLB",
+      "homeTeam": "LA 에인절스",
+      "awayTeam": "볼티모어 오리올스",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": false
+    },
+    {
+      "id": "spotvnow-2026-06-23-39102",
+      "date": "2026-06-23",
+      "time": "11:10",
+      "sport": "야구",
+      "league": "MLB",
+      "homeTeam": "샌디에이고 파드리스",
+      "awayTeam": "애틀랜타 브레이브스",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": true
+    },
+    {
+      "id": "tving-2026-06-23-18:30-KBO-KIA-키움",
+      "date": "2026-06-23",
+      "time": "18:30",
+      "sport": "야구",
+      "league": "KBO",
+      "homeTeam": "키움",
+      "awayTeam": "KIA",
+      "platform": "티빙",
+      "koreanCommentary": true
+    },
+    {
+      "id": "tving-2026-06-23-18:30-KBO-NC-롯데",
+      "date": "2026-06-23",
+      "time": "18:30",
+      "sport": "야구",
+      "league": "KBO",
+      "homeTeam": "롯데",
+      "awayTeam": "NC",
+      "platform": "티빙",
+      "koreanCommentary": true
+    },
+    {
+      "id": "tving-2026-06-23-18:30-KBO-두산-한화",
+      "date": "2026-06-23",
+      "time": "18:30",
+      "sport": "야구",
+      "league": "KBO",
+      "homeTeam": "한화",
+      "awayTeam": "두산",
+      "platform": "티빙",
+      "koreanCommentary": true
+    },
+    {
+      "id": "tving-2026-06-23-18:30-KBO-SSG-KT",
+      "date": "2026-06-23",
+      "time": "18:30",
+      "sport": "야구",
+      "league": "KBO",
+      "homeTeam": "KT",
+      "awayTeam": "SSG",
+      "platform": "티빙",
+      "koreanCommentary": true
+    },
+    {
+      "id": "tving-2026-06-23-18:30-KBO-삼성-LG",
+      "date": "2026-06-23",
+      "time": "18:30",
+      "sport": "야구",
+      "league": "KBO",
+      "homeTeam": "LG",
+      "awayTeam": "삼성",
+      "platform": "티빙",
+      "koreanCommentary": true
     }
   ]
 }
