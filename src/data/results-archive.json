@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-16T23:09:51.233Z",
+  "lastUpdated": "2026-06-17T01:41:41.627Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -8029,6 +8029,26 @@
         }
       ]
     },
+    "2026-06-17|mlb|필라델피아 필리스|마이애미 말린스": {
+      "date": "2026-06-17",
+      "categoryId": "mlb",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "마이애미 말린스",
+      "homeScore": 8,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-06-17|mlb|워싱턴 내셔널스|캔자스시티 로열스": {
+      "date": "2026-06-17",
+      "categoryId": "mlb",
+      "homeTeam": "워싱턴 내셔널스",
+      "awayTeam": "캔자스시티 로열스",
+      "homeScore": 6,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-06-17|worldcup|프랑스|세네갈": {
       "date": "2026-06-17",
       "categoryId": "worldcup",
@@ -8060,6 +8080,45 @@
           "player": "음바페",
           "minute": 90,
           "addedTime": 6
+        }
+      ]
+    },
+    "2026-06-17|worldcup|이라크|노르웨이": {
+      "date": "2026-06-17",
+      "categoryId": "worldcup",
+      "homeTeam": "이라크",
+      "awayTeam": "노르웨이",
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "홀란",
+          "minute": 29
+        },
+        {
+          "team": "home",
+          "player": "아이멘 후세인",
+          "minute": 39
+        },
+        {
+          "team": "away",
+          "player": "홀란",
+          "minute": 43
+        },
+        {
+          "team": "away",
+          "player": "외스티고르",
+          "minute": 76
+        },
+        {
+          "team": "away",
+          "player": "아이멘 후세인",
+          "minute": 90,
+          "addedTime": 6,
+          "ownGoal": true
         }
       ]
     }
@@ -16095,6 +16154,26 @@
     },
     {
       "date": "2026-06-17",
+      "categoryId": "mlb",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "마이애미 말린스",
+      "homeScore": 8,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-17",
+      "categoryId": "mlb",
+      "homeTeam": "워싱턴 내셔널스",
+      "awayTeam": "캔자스시티 로열스",
+      "homeScore": 6,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-17",
       "categoryId": "worldcup",
       "homeTeam": "프랑스",
       "awayTeam": "세네갈",
@@ -16124,6 +16203,45 @@
           "player": "음바페",
           "minute": 90,
           "addedTime": 6
+        }
+      ]
+    },
+    {
+      "date": "2026-06-17",
+      "categoryId": "worldcup",
+      "homeTeam": "이라크",
+      "awayTeam": "노르웨이",
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "홀란",
+          "minute": 29
+        },
+        {
+          "team": "home",
+          "player": "아이멘 후세인",
+          "minute": 39
+        },
+        {
+          "team": "away",
+          "player": "홀란",
+          "minute": 43
+        },
+        {
+          "team": "away",
+          "player": "외스티고르",
+          "minute": 76
+        },
+        {
+          "team": "away",
+          "player": "아이멘 후세인",
+          "minute": 90,
+          "addedTime": 6,
+          "ownGoal": true
         }
       ]
     }
