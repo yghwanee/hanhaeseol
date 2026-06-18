@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-18T17:48:01.962Z",
+  "lastUpdated": "2026-06-18T20:38:31.558Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -8657,6 +8657,48 @@
           "player": "캄파스",
           "minute": 90,
           "addedTime": 9
+        }
+      ]
+    },
+    "2026-06-19|mlb|보스턴 레드삭스|토론토 블루제이스": {
+      "date": "2026-06-19",
+      "categoryId": "mlb",
+      "homeTeam": "보스턴 레드삭스",
+      "awayTeam": "토론토 블루제이스",
+      "homeScore": 3,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-06-19|mlb|애틀랜타 브레이브스|샌프란시스코 자이언츠": {
+      "date": "2026-06-19",
+      "categoryId": "mlb",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "샌프란시스코 자이언츠",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "연기"
+    },
+    "2026-06-19|worldcup|체코|남아프리카 공화국": {
+      "date": "2026-06-19",
+      "categoryId": "worldcup",
+      "homeTeam": "체코",
+      "awayTeam": "남아프리카 공화국",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "사딜레크",
+          "minute": 6
+        },
+        {
+          "team": "away",
+          "player": "모코에나",
+          "minute": 83
         }
       ]
     }
@@ -17318,6 +17360,48 @@
           "player": "캄파스",
           "minute": 90,
           "addedTime": 9
+        }
+      ]
+    },
+    {
+      "date": "2026-06-19",
+      "categoryId": "mlb",
+      "homeTeam": "보스턴 레드삭스",
+      "awayTeam": "토론토 블루제이스",
+      "homeScore": 3,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-19",
+      "categoryId": "mlb",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "샌프란시스코 자이언츠",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "연기"
+    },
+    {
+      "date": "2026-06-19",
+      "categoryId": "worldcup",
+      "homeTeam": "체코",
+      "awayTeam": "남아프리카 공화국",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "사딜레크",
+          "minute": 6
+        },
+        {
+          "team": "away",
+          "player": "모코에나",
+          "minute": 83
         }
       ]
     }
