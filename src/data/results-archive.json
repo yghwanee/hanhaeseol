@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T00:14:40.310Z",
+  "lastUpdated": "2026-06-19T05:57:44.775Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -8710,6 +8710,46 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-06-19|mlb|필라델피아 필리스|뉴욕 메츠": {
+      "date": "2026-06-19",
+      "categoryId": "mlb",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "뉴욕 메츠",
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-06-19|mlb|뉴욕 양키스|시카고 화이트삭스": {
+      "date": "2026-06-19",
+      "categoryId": "mlb",
+      "homeTeam": "뉴욕 양키스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 1,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-06-19|mlb|캔자스시티 로열스|세인트루이스 카디널스": {
+      "date": "2026-06-19",
+      "categoryId": "mlb",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "세인트루이스 카디널스",
+      "homeScore": 14,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-06-19|mlb|애슬레틱스|LA 에인절스": {
+      "date": "2026-06-19",
+      "categoryId": "mlb",
+      "homeTeam": "애슬레틱스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 5,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-06-19|worldcup|체코|남아프리카 공화국": {
       "date": "2026-06-19",
       "categoryId": "worldcup",
@@ -8813,6 +8853,23 @@
           "player": "조너선 데이비드",
           "minute": 90,
           "addedTime": 2
+        }
+      ]
+    },
+    "2026-06-19|worldcup|멕시코|대한민국": {
+      "date": "2026-06-19",
+      "categoryId": "worldcup",
+      "homeTeam": "멕시코",
+      "awayTeam": "대한민국",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "로모",
+          "minute": 50
         }
       ]
     }
@@ -17529,6 +17586,46 @@
     },
     {
       "date": "2026-06-19",
+      "categoryId": "mlb",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "뉴욕 메츠",
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-19",
+      "categoryId": "mlb",
+      "homeTeam": "뉴욕 양키스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 1,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-19",
+      "categoryId": "mlb",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "세인트루이스 카디널스",
+      "homeScore": 14,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-19",
+      "categoryId": "mlb",
+      "homeTeam": "애슬레틱스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 5,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-19",
       "categoryId": "worldcup",
       "homeTeam": "체코",
       "awayTeam": "남아프리카 공화국",
@@ -17630,6 +17727,23 @@
           "player": "조너선 데이비드",
           "minute": 90,
           "addedTime": 2
+        }
+      ]
+    },
+    {
+      "date": "2026-06-19",
+      "categoryId": "worldcup",
+      "homeTeam": "멕시코",
+      "awayTeam": "대한민국",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "로모",
+          "minute": 50
         }
       ]
     }
