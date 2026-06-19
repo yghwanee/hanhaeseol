@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T20:46:35.191Z",
+  "lastUpdated": "2026-06-19T22:13:24.825Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -8920,6 +8920,39 @@
           "team": "home",
           "player": "로모",
           "minute": 50
+        }
+      ]
+    },
+    "2026-06-20|mlb|시카고 컵스|토론토 블루제이스": {
+      "date": "2026-06-20",
+      "categoryId": "mlb",
+      "homeTeam": "시카고 컵스",
+      "awayTeam": "토론토 블루제이스",
+      "homeScore": 16,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-06-20|worldcup|미국|호주": {
+      "date": "2026-06-20",
+      "categoryId": "worldcup",
+      "homeTeam": "미국",
+      "awayTeam": "호주",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "버지스",
+          "minute": 11,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "프리먼",
+          "minute": 43
         }
       ]
     }
@@ -17844,6 +17877,39 @@
           "team": "home",
           "player": "로모",
           "minute": 50
+        }
+      ]
+    },
+    {
+      "date": "2026-06-20",
+      "categoryId": "mlb",
+      "homeTeam": "시카고 컵스",
+      "awayTeam": "토론토 블루제이스",
+      "homeScore": 16,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-20",
+      "categoryId": "worldcup",
+      "homeTeam": "미국",
+      "awayTeam": "호주",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "버지스",
+          "minute": 11,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "프리먼",
+          "minute": 43
         }
       ]
     }
