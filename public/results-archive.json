@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-20T21:40:00.291Z",
+  "lastUpdated": "2026-06-20T22:49:32.485Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -9228,6 +9228,16 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-06-21|mlb|애틀랜타 브레이브스|밀워키 브루어스": {
+      "date": "2026-06-21",
+      "categoryId": "mlb",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "밀워키 브루어스",
+      "homeScore": 4,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-06-21|worldcup|네덜란드|스웨덴": {
       "date": "2026-06-21",
       "categoryId": "worldcup",
@@ -9267,6 +9277,34 @@
           "team": "home",
           "player": "서머빌",
           "minute": 89
+        }
+      ]
+    },
+    "2026-06-21|worldcup|독일|코트디부아르": {
+      "date": "2026-06-21",
+      "categoryId": "worldcup",
+      "homeTeam": "독일",
+      "awayTeam": "코트디부아르",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "케시에",
+          "minute": 30
+        },
+        {
+          "team": "home",
+          "player": "운다브",
+          "minute": 68
+        },
+        {
+          "team": "home",
+          "player": "운다브",
+          "minute": 90,
+          "addedTime": 4
         }
       ]
     }
@@ -18501,6 +18539,16 @@
     },
     {
       "date": "2026-06-21",
+      "categoryId": "mlb",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "밀워키 브루어스",
+      "homeScore": 4,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-21",
       "categoryId": "worldcup",
       "homeTeam": "네덜란드",
       "awayTeam": "스웨덴",
@@ -18538,6 +18586,34 @@
           "team": "home",
           "player": "서머빌",
           "minute": 89
+        }
+      ]
+    },
+    {
+      "date": "2026-06-21",
+      "categoryId": "worldcup",
+      "homeTeam": "독일",
+      "awayTeam": "코트디부아르",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "케시에",
+          "minute": 30
+        },
+        {
+          "team": "home",
+          "player": "운다브",
+          "minute": 68
+        },
+        {
+          "team": "home",
+          "player": "운다브",
+          "minute": 90,
+          "addedTime": 4
         }
       ]
     }
