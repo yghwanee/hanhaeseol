@@ -45,6 +45,22 @@ export function buildCaption(mm: string, dd: string, today: string, link: string
   return body.join("\n");
 }
 
+// raw.githubusercontent(Fastly)는 404를 300초간 네거티브 캐시한다. 푸시 직후
+// 전파 레이스로 한번 404가 캐시되면, 재시도 예산(~105초)으로는 그 캐시를 못 넘겨
+// 같은 9004/2207052를 계속 맞고 실패한다. 재시도마다 cb 쿼리를 바꿔 캐시 키를
+// 새로 만들면 캐시된 404를 즉시 우회한다. 캐러셀 미디어 URL에만 적용.
+function withCacheBust(params: Record<string, string>, attempt: number): Record<string, string> {
+  const runId = process.env.GITHUB_RUN_ID ?? "local";
+  const cb = `${runId}-${attempt}`;
+  const out = { ...params };
+  for (const key of ["image_url", "video_url", "cover_url"] as const) {
+    const url = out[key];
+    if (!url || !/^https?:\/\//.test(url)) continue;
+    out[key] = url + (url.includes("?") ? "&" : "?") + `cb=${cb}`;
+  }
+  return out;
+}
+
 export async function postMedia(
   params: Record<string, string>,
   maxRetries = 5,
@@ -52,7 +68,7 @@ export async function postMedia(
 ): Promise<string> {
   const { igId, token } = igEnv();
   for (let attempt = 1; ; attempt++) {
-    const body = new URLSearchParams({ ...params, access_token: token });
+    const body = new URLSearchParams({ ...withCacheBust(params, attempt), access_token: token });
     const res = await fetch(`${IG_API}/${igId}/media`, { method: "POST", body });
     const data = await res.json();
     if (res.ok && data.id) return data.id as string;
