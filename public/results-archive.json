@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-19T23:17:08.972Z",
+  "lastUpdated": "2026-06-20T01:51:17.031Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -8933,6 +8933,26 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-06-20|mlb|디트로이트 타이거스|시카고 화이트삭스": {
+      "date": "2026-06-20",
+      "categoryId": "mlb",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 4,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-06-20|mlb|탬파베이 레이스|워싱턴 내셔널스": {
+      "date": "2026-06-20",
+      "categoryId": "mlb",
+      "homeTeam": "탬파베이 레이스",
+      "awayTeam": "워싱턴 내셔널스",
+      "homeScore": 5,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-06-20|worldcup|미국|호주": {
       "date": "2026-06-20",
       "categoryId": "worldcup",
@@ -8953,6 +8973,23 @@
           "team": "home",
           "player": "프리먼",
           "minute": 43
+        }
+      ]
+    },
+    "2026-06-20|worldcup|스코틀랜드|모로코": {
+      "date": "2026-06-20",
+      "categoryId": "worldcup",
+      "homeTeam": "스코틀랜드",
+      "awayTeam": "모로코",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "사이바리",
+          "minute": 2
         }
       ]
     }
@@ -17892,6 +17929,26 @@
     },
     {
       "date": "2026-06-20",
+      "categoryId": "mlb",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 4,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-20",
+      "categoryId": "mlb",
+      "homeTeam": "탬파베이 레이스",
+      "awayTeam": "워싱턴 내셔널스",
+      "homeScore": 5,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-20",
       "categoryId": "worldcup",
       "homeTeam": "미국",
       "awayTeam": "호주",
@@ -17910,6 +17967,23 @@
           "team": "home",
           "player": "프리먼",
           "minute": 43
+        }
+      ]
+    },
+    {
+      "date": "2026-06-20",
+      "categoryId": "worldcup",
+      "homeTeam": "스코틀랜드",
+      "awayTeam": "모로코",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "사이바리",
+          "minute": 2
         }
       ]
     }
