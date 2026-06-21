@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T05:29:54.700Z",
+  "lastUpdated": "2026-06-21T09:29:15.579Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -9198,6 +9198,16 @@
         }
       ]
     },
+    "2026-06-21|kbo|키움|롯데": {
+      "date": "2026-06-21",
+      "categoryId": "kbo",
+      "homeTeam": "키움",
+      "awayTeam": "롯데",
+      "homeScore": 3,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-06-21|mlb|디트로이트 타이거스|시카고 화이트삭스": {
       "date": "2026-06-21",
       "categoryId": "mlb",
@@ -9328,6 +9338,16 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-06-21|mlb|애리조나 다이아몬드백스|미네소타 트윈스": {
+      "date": "2026-06-21",
+      "categoryId": "mlb",
+      "homeTeam": "애리조나 다이아몬드백스",
+      "awayTeam": "미네소타 트윈스",
+      "homeScore": 8,
+      "awayScore": 16,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-06-21|worldcup|네덜란드|스웨덴": {
       "date": "2026-06-21",
       "categoryId": "worldcup",
@@ -9407,6 +9427,38 @@
       "awayScore": 0,
       "status": "finished",
       "period": "경기종료"
+    },
+    "2026-06-21|worldcup|튀니지|일본": {
+      "date": "2026-06-21",
+      "categoryId": "worldcup",
+      "homeTeam": "튀니지",
+      "awayTeam": "일본",
+      "homeScore": 0,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "카마다",
+          "minute": 4
+        },
+        {
+          "team": "away",
+          "player": "우에다",
+          "minute": 31
+        },
+        {
+          "team": "away",
+          "player": "이토 준야",
+          "minute": 69
+        },
+        {
+          "team": "away",
+          "player": "우에다",
+          "minute": 83
+        }
+      ]
     }
   },
   "results": [
@@ -18609,6 +18661,16 @@
     },
     {
       "date": "2026-06-21",
+      "categoryId": "kbo",
+      "homeTeam": "키움",
+      "awayTeam": "롯데",
+      "homeScore": 3,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-21",
       "categoryId": "mlb",
       "homeTeam": "디트로이트 타이거스",
       "awayTeam": "시카고 화이트삭스",
@@ -18739,6 +18801,16 @@
     },
     {
       "date": "2026-06-21",
+      "categoryId": "mlb",
+      "homeTeam": "애리조나 다이아몬드백스",
+      "awayTeam": "미네소타 트윈스",
+      "homeScore": 8,
+      "awayScore": 16,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-21",
       "categoryId": "worldcup",
       "homeTeam": "네덜란드",
       "awayTeam": "스웨덴",
@@ -18816,6 +18888,38 @@
       "awayScore": 0,
       "status": "finished",
       "period": "경기종료"
+    },
+    {
+      "date": "2026-06-21",
+      "categoryId": "worldcup",
+      "homeTeam": "튀니지",
+      "awayTeam": "일본",
+      "homeScore": 0,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "카마다",
+          "minute": 4
+        },
+        {
+          "team": "away",
+          "player": "우에다",
+          "minute": 31
+        },
+        {
+          "team": "away",
+          "player": "이토 준야",
+          "minute": 69
+        },
+        {
+          "team": "away",
+          "player": "우에다",
+          "minute": 83
+        }
+      ]
     }
   ]
 }
