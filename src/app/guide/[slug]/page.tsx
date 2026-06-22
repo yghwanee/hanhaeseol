@@ -102,7 +102,7 @@ export default function GuidePage({ params }: { params: Params }) {
         </Link>
         <span className="px-1.5 text-zinc-600">/</span>
         <Link href="/guide" className="hover:text-white">
-          가이드
+          Topic
         </Link>
       </nav>
 
@@ -132,7 +132,7 @@ export default function GuidePage({ params }: { params: Params }) {
 
       <div className="mt-12 border-t border-zinc-800 pt-6 text-sm">
         <Link href="/guide" className="text-sky-400 hover:underline">
-          ← 다른 가이드 더 보기
+          ← 다른 글 더 보기
         </Link>
       </div>
     </main>

@@ -29,11 +29,11 @@ export default function GuideIndexPage() {
           한해설
         </Link>
         <span className="px-1.5 text-zinc-600">/</span>
-        <span className="text-zinc-300">가이드</span>
+        <span className="text-zinc-300">Topic</span>
       </nav>
 
       <header className="border-b border-zinc-800 pb-6">
-        <h1 className="text-2xl font-bold text-white sm:text-3xl">중계 가이드</h1>
+        <h1 className="text-2xl font-bold text-white sm:text-3xl">한해설 Topic</h1>
         <p className="mt-2 text-sm text-zinc-400">
           주요 경기를 어디서 한국어로 보는지, 일정과 경우의 수까지 직접 정리합니다.
         </p>
