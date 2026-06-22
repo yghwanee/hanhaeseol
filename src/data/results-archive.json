@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T00:21:58.880Z",
+  "lastUpdated": "2026-06-22T06:12:13.580Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -9640,6 +9640,16 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-06-22|mlb|필라델피아 필리스|뉴욕 메츠": {
+      "date": "2026-06-22",
+      "categoryId": "mlb",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "뉴욕 메츠",
+      "homeScore": 6,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-06-22|worldcup|스페인|사우디아라비아": {
       "date": "2026-06-22",
       "categoryId": "worldcup",
@@ -9713,6 +9723,38 @@
           "team": "away",
           "player": "엘리우 바렐라",
           "minute": 61
+        }
+      ]
+    },
+    "2026-06-22|worldcup|뉴질랜드|이집트": {
+      "date": "2026-06-22",
+      "categoryId": "worldcup",
+      "homeTeam": "뉴질랜드",
+      "awayTeam": "이집트",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "서먼",
+          "minute": 15
+        },
+        {
+          "team": "away",
+          "player": "모스타파 지코",
+          "minute": 58
+        },
+        {
+          "team": "away",
+          "player": "모하메드 살라",
+          "minute": 67
+        },
+        {
+          "team": "away",
+          "player": "트레제게",
+          "minute": 82
         }
       ]
     }
@@ -19359,6 +19401,16 @@
     },
     {
       "date": "2026-06-22",
+      "categoryId": "mlb",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "뉴욕 메츠",
+      "homeScore": 6,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-22",
       "categoryId": "worldcup",
       "homeTeam": "스페인",
       "awayTeam": "사우디아라비아",
@@ -19430,6 +19482,38 @@
           "team": "away",
           "player": "엘리우 바렐라",
           "minute": 61
+        }
+      ]
+    },
+    {
+      "date": "2026-06-22",
+      "categoryId": "worldcup",
+      "homeTeam": "뉴질랜드",
+      "awayTeam": "이집트",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "서먼",
+          "minute": 15
+        },
+        {
+          "team": "away",
+          "player": "모스타파 지코",
+          "minute": 58
+        },
+        {
+          "team": "away",
+          "player": "모하메드 살라",
+          "minute": 67
+        },
+        {
+          "team": "away",
+          "player": "트레제게",
+          "minute": 82
         }
       ]
     }

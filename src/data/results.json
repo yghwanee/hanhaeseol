@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-22T00:21:58.864Z",
+  "lastUpdated": "2026-06-22T06:12:13.565Z",
   "byKey": {
     "2026-06-21|kbo|키움|롯데": {
       "date": "2026-06-21",
@@ -1186,40 +1186,40 @@
       "categoryId": "mlb",
       "homeTeam": "필라델피아 필리스",
       "awayTeam": "뉴욕 메츠",
-      "homeScore": 5,
-      "awayScore": 1,
-      "status": "live",
-      "period": "3회말"
+      "homeScore": 6,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-22|mlb|필라델피아|뉴욕 메츠": {
       "date": "2026-06-22",
       "categoryId": "mlb",
       "homeTeam": "필라델피아 필리스",
       "awayTeam": "뉴욕 메츠",
-      "homeScore": 5,
-      "awayScore": 1,
-      "status": "live",
-      "period": "3회말"
+      "homeScore": 6,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-22|mlb|필라델피아 필리스|뉴욕메츠": {
       "date": "2026-06-22",
       "categoryId": "mlb",
       "homeTeam": "필라델피아 필리스",
       "awayTeam": "뉴욕 메츠",
-      "homeScore": 5,
-      "awayScore": 1,
-      "status": "live",
-      "period": "3회말"
+      "homeScore": 6,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-22|mlb|필라델피아 필리스|뉴욕 메츠": {
       "date": "2026-06-22",
       "categoryId": "mlb",
       "homeTeam": "필라델피아 필리스",
       "awayTeam": "뉴욕 메츠",
-      "homeScore": 5,
-      "awayScore": 1,
-      "status": "live",
-      "period": "3회말"
+      "homeScore": 6,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-23|mlb|디트로이트|뉴욕양키스": {
       "date": "2026-06-23",
@@ -1882,10 +1882,32 @@
       "categoryId": "worldcup",
       "homeTeam": "뉴질랜드",
       "awayTeam": "이집트",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "서먼",
+          "minute": 15
+        },
+        {
+          "team": "away",
+          "player": "모스타파 지코",
+          "minute": 58
+        },
+        {
+          "team": "away",
+          "player": "모하메드 살라",
+          "minute": 67
+        },
+        {
+          "team": "away",
+          "player": "트레제게",
+          "minute": 82
+        }
+      ]
     },
     "2026-06-23|worldcup|아르헨티나|오스트리아": {
       "date": "2026-06-23",
@@ -2314,10 +2336,10 @@
       "categoryId": "mlb",
       "homeTeam": "필라델피아 필리스",
       "awayTeam": "뉴욕 메츠",
-      "homeScore": 5,
-      "awayScore": 1,
-      "status": "live",
-      "period": "3회말"
+      "homeScore": 6,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-06-23",
@@ -2629,10 +2651,32 @@
       "categoryId": "worldcup",
       "homeTeam": "뉴질랜드",
       "awayTeam": "이집트",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "서먼",
+          "minute": 15
+        },
+        {
+          "team": "away",
+          "player": "모스타파 지코",
+          "minute": 58
+        },
+        {
+          "team": "away",
+          "player": "모하메드 살라",
+          "minute": 67
+        },
+        {
+          "team": "away",
+          "player": "트레제게",
+          "minute": 82
+        }
+      ]
     },
     {
       "date": "2026-06-23",
