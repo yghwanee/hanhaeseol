@@ -6,7 +6,7 @@ import { GuideHeader } from "./_components/GuideHeader";
 export const metadata: Metadata = {
   title: "스포츠 중계 가이드 - 어디서 한국어로 보나 | 한해설",
   description:
-    "월드컵·EPL·KBO 등 주요 경기를 어디서 한국어 해설로 보는지, 경우의 수와 일정까지 한해설이 직접 정리한 가이드 모음.",
+    "EPL·KBO·MLB·월드컵 등 주요 경기를 어디서 한국어 해설로 보는지, 여러 플랫폼에 흩어진 중계 일정에서 챙겨볼 만한 경기를 골라 정리한 한해설 가이드 모음.",
   alternates: { canonical: "https://haeseol.com/guide" },
   openGraph: {
     title: "스포츠 중계 가이드 | 한해설",
