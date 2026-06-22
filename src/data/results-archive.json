@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-21T22:50:04.760Z",
+  "lastUpdated": "2026-06-22T00:21:58.880Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -9620,6 +9620,26 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-06-22|mlb|애슬레틱스|LA 에인절스": {
+      "date": "2026-06-22",
+      "categoryId": "mlb",
+      "homeTeam": "애슬레틱스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 7,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-06-22|mlb|LA 다저스|볼티모어 오리올스": {
+      "date": "2026-06-22",
+      "categoryId": "mlb",
+      "homeTeam": "LA 다저스",
+      "awayTeam": "볼티모어 오리올스",
+      "homeScore": 1,
+      "awayScore": 12,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-06-22|worldcup|스페인|사우디아라비아": {
       "date": "2026-06-22",
       "categoryId": "worldcup",
@@ -9662,6 +9682,39 @@
       "awayScore": 0,
       "status": "finished",
       "period": "경기종료"
+    },
+    "2026-06-22|worldcup|우루과이|카보베르데": {
+      "date": "2026-06-22",
+      "categoryId": "worldcup",
+      "homeTeam": "우루과이",
+      "awayTeam": "카보베르데",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "케빈 피나",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "막시 아라우호",
+          "minute": 44
+        },
+        {
+          "team": "home",
+          "player": "카노비오",
+          "minute": 45,
+          "addedTime": 6
+        },
+        {
+          "team": "away",
+          "player": "엘리우 바렐라",
+          "minute": 61
+        }
+      ]
     }
   },
   "results": [
@@ -19286,6 +19339,26 @@
     },
     {
       "date": "2026-06-22",
+      "categoryId": "mlb",
+      "homeTeam": "애슬레틱스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 7,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-22",
+      "categoryId": "mlb",
+      "homeTeam": "LA 다저스",
+      "awayTeam": "볼티모어 오리올스",
+      "homeScore": 1,
+      "awayScore": 12,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-22",
       "categoryId": "worldcup",
       "homeTeam": "스페인",
       "awayTeam": "사우디아라비아",
@@ -19326,6 +19399,39 @@
       "awayScore": 0,
       "status": "finished",
       "period": "경기종료"
+    },
+    {
+      "date": "2026-06-22",
+      "categoryId": "worldcup",
+      "homeTeam": "우루과이",
+      "awayTeam": "카보베르데",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "케빈 피나",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "막시 아라우호",
+          "minute": 44
+        },
+        {
+          "team": "home",
+          "player": "카노비오",
+          "minute": 45,
+          "addedTime": 6
+        },
+        {
+          "team": "away",
+          "player": "엘리우 바렐라",
+          "minute": 61
+        }
+      ]
     }
   ]
 }
