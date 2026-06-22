@@ -1,6 +1,4 @@
-// import 없는 스크립트는 글로벌 스코프로 인식되어 다른 스크립트의 main()과
-// "Duplicate function implementation" 충돌. export {}로 모듈화.
-export {};
+import { getAllGuides } from "@/lib/guides";
 
 /**
  * IndexNow ping — 검색엔진에 URL 변경을 즉시 통지.
@@ -55,6 +53,9 @@ function buildUrlList(): string[] {
   for (const s of LEAGUE_SLUGS) urls.add(`${BASE}/league/${s}`);
   for (const s of PLATFORM_SLUGS) urls.add(`${BASE}/platform/${s}`);
   for (const s of STANDINGS_SLUGS) urls.add(`${BASE}/standings/${s}`);
+  // 가이드(한해설 Topic) — 새 글 빠른 색인용. 수가 적어 quota 영향 없음.
+  urls.add(`${BASE}/guide`);
+  for (const g of getAllGuides()) urls.add(`${BASE}/guide/${g.slug}`);
   return [...urls];
 }
 

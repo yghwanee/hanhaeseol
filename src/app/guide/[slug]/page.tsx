@@ -28,6 +28,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   return {
     title,
     description: guide.description,
+    keywords: guide.keywords,
     alternates: { canonical: url },
     openGraph: {
       title: guide.title,
@@ -64,27 +65,40 @@ export default function GuidePage({ params }: { params: Params }) {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "NewsArticle",
-    headline: guide.title,
-    description: guide.description,
-    inLanguage: "ko",
-    datePublished: published,
-    dateModified: modified,
-    mainEntityOfPage: { "@type": "WebPage", "@id": url },
-    image: "https://haeseol.com/og-default.png",
-    author: {
-      "@type": "Organization",
-      name: "한해설",
-      url: "https://haeseol.com",
-    },
-    publisher: {
-      "@type": "Organization",
-      name: "한해설",
-      logo: {
-        "@type": "ImageObject",
-        url: "https://haeseol.com/icon.png",
+    "@graph": [
+      {
+        "@type": "NewsArticle",
+        headline: guide.title,
+        description: guide.description,
+        inLanguage: "ko",
+        datePublished: published,
+        dateModified: modified,
+        mainEntityOfPage: { "@type": "WebPage", "@id": url },
+        image: "https://haeseol.com/og-default.png",
+        ...(guide.keywords ? { keywords: guide.keywords.join(", ") } : {}),
+        author: {
+          "@type": "Organization",
+          name: "한해설",
+          url: "https://haeseol.com",
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "한해설",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://haeseol.com/icon.png",
+          },
+        },
       },
-    },
+      {
+        "@type": "BreadcrumbList",
+        itemListElement: [
+          { "@type": "ListItem", position: 1, name: "한해설", item: "https://haeseol.com" },
+          { "@type": "ListItem", position: 2, name: "한해설 Topic", item: "https://haeseol.com/guide" },
+          { "@type": "ListItem", position: 3, name: guide.title, item: url },
+        ],
+      },
+    ],
   };
 
   const dateLabel = guide.date.replace(/-/g, ".");

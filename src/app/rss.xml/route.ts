@@ -1,6 +1,7 @@
 import { loadScheduleData } from "@/lib/server-data";
 import { readInsight } from "@/lib/insights/storage";
 import { matchToSlug } from "@/lib/match-slug";
+import { getAllGuides, type Guide } from "@/lib/guides";
 import type { Schedule } from "@/types/schedule";
 
 const BASE = "https://haeseol.com";
@@ -88,6 +89,21 @@ function buildItem(s: Schedule): FeedItem {
   };
 }
 
+/** 가이드(에디토리얼) 글을 피드 아이템으로. weight 3 = 매치보다 최우선. */
+function buildGuideItem(g: Guide): FeedItem {
+  const url = `${BASE}/guide/${g.slug}`;
+  return {
+    matchId: `guide-${g.slug}`,
+    url,
+    title: g.title,
+    descriptionHtml:
+      `<p>${xmlEscape(g.description)}</p>` +
+      `<p><a href="${xmlEscape(url)}">한해설에서 자세히 보기</a></p>`,
+    pubDate: new Date(`${g.updated ?? g.date}T09:00:00+09:00`),
+    weight: 3,
+  };
+}
+
 export async function GET(): Promise<Response> {
   const { schedules, lastUpdated } = loadScheduleData();
   const todayStr = new Date().toISOString().slice(0, 10);
@@ -98,9 +114,9 @@ export async function GET(): Promise<Response> {
     return insight !== null || s.date >= todayStr;
   });
 
-  // 2) 가중치(인사이트 우선) → pubDate 최신순으로 정렬, 50개 take
-  const items = candidates
-    .map(buildItem)
+  // 2) 가이드(에디토리얼) 최우선 + 가중치(인사이트 우선) → pubDate 최신순, 50개 take
+  const guideItems = getAllGuides().map(buildGuideItem);
+  const items = [...guideItems, ...candidates.map(buildItem)]
     .sort((a, b) => {
       if (a.weight !== b.weight) return b.weight - a.weight;
       return b.pubDate.getTime() - a.pubDate.getTime();

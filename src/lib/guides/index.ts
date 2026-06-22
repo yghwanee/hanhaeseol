@@ -24,6 +24,8 @@ export interface GuideMeta {
   updated?: string;
   /** 분류 라벨 (예: 월드컵, 해외축구, KBO) */
   category?: string;
+  /** SEO 타깃 키워드. frontmatter에 쉼표로 구분해 적는다. */
+  keywords?: string[];
 }
 
 export interface Guide extends GuideMeta {
@@ -89,6 +91,10 @@ export function getGuide(slug: string): Guide | null {
     breaks: true,
   }) as string;
 
+  const keywords = data.keywords
+    ? data.keywords.split(",").map((k) => k.trim()).filter(Boolean)
+    : undefined;
+
   return {
     slug,
     title: data.title ?? slug,
@@ -96,6 +102,7 @@ export function getGuide(slug: string): Guide | null {
     date: data.date ?? "",
     updated: data.updated || undefined,
     category: data.category || undefined,
+    keywords: keywords && keywords.length > 0 ? keywords : undefined,
     bodyMarkdown: body,
     bodyHtml,
   };
