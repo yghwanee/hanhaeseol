@@ -8,6 +8,8 @@ import { buildSportsEventLd } from "@/lib/structured-data";
 import { proxyLogo } from "@/lib/emblem";
 import { WorldCupBanner } from "@/app/_components/WorldCupBanner";
 import { StickyHeader } from "@/app/_components/StickyHeader";
+import { GuideCards } from "@/app/_components/GuideCards";
+import { getAllGuides } from "@/lib/guides";
 
 const CANONICAL = "https://haeseol.com/worldcup";
 const OG_DESC =
@@ -174,6 +176,13 @@ export default function WorldCupPage() {
       <p className="mt-6 text-center text-[11px] leading-relaxed text-zinc-600">
         조 1·2위 16강 직행 + 각 조 3위 중 상위 8팀 추가 진출 · 순위 출처: 네이버 스포츠
       </p>
+
+      <section className="mt-8">
+        <GuideCards
+          title="월드컵 가이드"
+          guides={getAllGuides().filter((g) => g.category === "월드컵").slice(0, 4)}
+        />
+      </section>
       </main>
     </>
   );

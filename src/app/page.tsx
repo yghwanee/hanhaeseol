@@ -7,6 +7,8 @@ import ScheduleClient from "./ScheduleClient";
 import { HomeAboutSection } from "./_components/HomeAboutSection";
 import WeekHighlights from "./_components/WeekHighlights";
 import { IntroAnimation } from "./_components/IntroAnimation";
+import { GuideCards } from "./_components/GuideCards";
+import { getAllGuides } from "@/lib/guides";
 
 function buildSportsEventsJsonLd(schedules: Schedule[]) {
   const todayStr = new Date().toISOString().slice(0, 10);
@@ -126,6 +128,9 @@ export default function Home({
             days={7}
             emptyText="이번 주 한국어 해설 빅매치 정보가 아직 갱신되지 않았습니다."
           />
+        </section>
+        <section className="mx-auto mt-6 sm:mt-8 max-w-2xl px-3 sm:px-4">
+          <GuideCards title="한해설 Topic" guides={getAllGuides().slice(0, 4)} />
         </section>
         <HomeAboutSection />
       </main>
