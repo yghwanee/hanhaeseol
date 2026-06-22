@@ -81,7 +81,13 @@ export function getGuide(slug: string): Guide | null {
 
   const raw = fs.readFileSync(file, "utf8");
   const { data, body } = parseFrontmatter(raw);
-  const bodyHtml = marked.parse(body, { async: false, gfm: true }) as string;
+  // breaks: true → 마크다운에서 엔터 한 번(단일 개행)도 <br>로 변환.
+  // 글쓴이가 친 줄바꿈이 화면에 그대로 반영돼 직관적이고, 줄바꿈 제어가 쉬워진다.
+  const bodyHtml = marked.parse(body, {
+    async: false,
+    gfm: true,
+    breaks: true,
+  }) as string;
 
   return {
     slug,
