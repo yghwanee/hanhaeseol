@@ -30,7 +30,7 @@ export default function GuideIndexPage() {
       <header className="mt-8 border-b border-zinc-800 pb-6">
         <h1 className="text-2xl font-bold text-white sm:text-3xl">한해설 Topic</h1>
         <p className="mt-2 text-sm text-zinc-400">
-          주요 경기를 어디서 한국어로 보는지, 일정과 경우의 수까지 직접 정리합니다.
+          여러 플랫폼에 흩어진 중계 일정 속에서, 챙겨볼 만한 경기를 골라 정리합니다.
         </p>
       </header>
 
