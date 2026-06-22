@@ -291,10 +291,10 @@ export default function ScheduleClient({
           <div className="flex items-center gap-2">
             <Link
               href="/guide"
-              aria-label="중계 가이드 · 꿀팁"
-              className="inline-flex items-center justify-center gap-1 whitespace-nowrap rounded-full border border-amber-400/70 bg-amber-400/10 px-4 py-1.5 text-[11px] font-semibold text-amber-300 transition-colors hover:bg-amber-400/20 sm:px-5 sm:py-2 sm:text-xs"
+              aria-label="한해설 Topic · 중계 가이드"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-amber-400/70 bg-amber-400/10 px-4 py-1.5 text-[11px] font-semibold text-amber-300 transition-colors hover:bg-amber-400/20 sm:px-5 sm:py-2 sm:text-xs"
             >
-              <span aria-hidden>🔥</span> 꿀팁
+              한해설 Topic
             </Link>
             <Link
               href="/standings"
