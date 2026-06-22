@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllGuides } from "@/lib/guides";
+import { GuideHeader } from "./_components/GuideHeader";
 
 export const metadata: Metadata = {
   title: "스포츠 중계 가이드 - 어디서 한국어로 보나 | 한해설",
@@ -24,15 +25,9 @@ export default function GuideIndexPage() {
 
   return (
     <main className="mx-auto max-w-3xl px-4 py-8 sm:py-12">
-      <nav className="mb-6 text-sm text-zinc-400">
-        <Link href="/" className="hover:text-white">
-          한해설
-        </Link>
-        <span className="px-1.5 text-zinc-600">/</span>
-        <span className="text-zinc-300">Topic</span>
-      </nav>
+      <GuideHeader />
 
-      <header className="border-b border-zinc-800 pb-6">
+      <header className="mt-8 border-b border-zinc-800 pb-6">
         <h1 className="text-2xl font-bold text-white sm:text-3xl">한해설 Topic</h1>
         <p className="mt-2 text-sm text-zinc-400">
           주요 경기를 어디서 한국어로 보는지, 일정과 경우의 수까지 직접 정리합니다.

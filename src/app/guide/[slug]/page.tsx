@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllGuideSlugs, getGuide } from "@/lib/guides";
+import { GuideHeader } from "../_components/GuideHeader";
 
 type Params = { slug: string };
 
@@ -96,17 +97,9 @@ export default function GuidePage({ params }: { params: Params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <nav className="mb-6 text-sm text-zinc-400">
-        <Link href="/" className="hover:text-white">
-          한해설
-        </Link>
-        <span className="px-1.5 text-zinc-600">/</span>
-        <Link href="/guide" className="hover:text-white">
-          Topic
-        </Link>
-      </nav>
+      <GuideHeader />
 
-      <article>
+      <article className="mt-8">
         <header className="border-b border-zinc-800 pb-6">
           {guide.category ? (
             <span className="inline-block rounded-full bg-zinc-800 px-2.5 py-0.5 text-xs font-medium text-zinc-300">
