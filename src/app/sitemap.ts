@@ -8,6 +8,7 @@ import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
 import { matchToSlug } from "@/lib/match-slug";
 import { readInsight } from "@/lib/insights/storage";
 import { isRichMatch } from "@/lib/match-quality";
+import { getAllGuides } from "@/lib/guides";
 import type { Schedule, ScheduleData } from "@/types/schedule";
 import type { ResultsData } from "@/types/results";
 
@@ -59,6 +60,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // sitemap에서 빼서 색인 평균 품질을 끌어올린다. (얇은 매치는 페이지 자체에 noindex 부여 —
   // match/[slug]/page.tsx 의 generateMetadata 참고. sitemap 제외와 noindex를 일치시켜 신호 모순 방지.)
   // 인사이트가 있으면 priority 0.8/weekly, 스코어만 있으면 0.7/monthly.
+  // 가이드(에디토리얼) 글 — 사람이 쓴 고유 콘텐츠라 색인 가치가 높다. weekly/0.7.
+  const guideUrls = getAllGuides().map((g) => ({
+    url: `${BASE}/guide/${g.slug}`,
+    lastModified: new Date(`${g.updated ?? g.date}T09:00:00+09:00`),
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
+
   const matchUrls = [...matchById.values()]
     .filter((s) => isRichMatch(s, resultsArchive))
     .map((s) => {
@@ -91,6 +100,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.9,
     },
+    {
+      url: `${BASE}/guide`,
+      lastModified,
+      changeFrequency: "daily",
+      priority: 0.8,
+    },
+    ...guideUrls,
     ...standingsLeagueUrls,
     ...leagueUrls,
     ...platformUrls,

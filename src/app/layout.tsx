@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import Link from "next/link";
 import Script from "next/script";
 import scheduleData from "@/data/schedule.json";
 import { CoupangSideBanners } from "./_components/CoupangBanners";
@@ -151,6 +152,17 @@ gtag('config', 'G-F1MX6S0SGW');`}
         <CoupangSideBanners />
         <CapsStripeClickHandler />
         <PageTransition>{children}</PageTransition>
+        <footer className="border-t border-zinc-800 bg-zinc-950 px-4 py-8 text-center">
+          <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-zinc-400">
+            <Link href="/" className="hover:text-white">홈</Link>
+            <Link href="/guide" className="hover:text-white">가이드</Link>
+            <Link href="/worldcup" className="hover:text-white">월드컵</Link>
+            <Link href="/standings" className="hover:text-white">순위</Link>
+            <Link href="/about" className="hover:text-white">소개</Link>
+            <Link href="/faq" className="hover:text-white">FAQ</Link>
+          </nav>
+          <p className="mt-4 text-xs text-zinc-600">© 2026 한해설</p>
+        </footer>
       </body>
     </html>
   );

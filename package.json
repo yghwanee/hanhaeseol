@@ -10,7 +10,7 @@
     "crawl": "tsx src/scripts/crawl.ts",
     "crawl:coupang": "tsx src/scripts/crawl-coupang.ts",
     "crawl:worldcup": "tsx src/scripts/crawl-worldcup.ts",
-"crawl:records": "tsx src/scripts/crawl-records.ts",
+    "crawl:records": "tsx src/scripts/crawl-records.ts",
     "crawl:standings": "tsx src/scripts/crawl-standings.ts",
     "crawl:results": "tsx src/scripts/crawl-results.ts",
     "backfill:worldcup-goals": "tsx src/scripts/backfill-worldcup-goals.ts",
@@ -45,12 +45,14 @@
     "seo:indexnow": "tsx src/scripts/indexnow-ping.ts"
   },
   "dependencies": {
+    "marked": "^18.0.5",
     "next": "14.2.35",
     "react": "^18",
     "react-dom": "^18"
   },
   "devDependencies": {
     "@napi-rs/canvas": "^0.1.98",
+    "@tailwindcss/typography": "^0.5.20",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
