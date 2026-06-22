@@ -18,11 +18,7 @@ export function GuideHeader() {
         />
         <span className="ml-1 text-xl font-bold text-white sm:ml-2 sm:text-3xl">
           한해설
-        </span>
-        <span className="ml-2 text-sm font-normal text-zinc-500 sm:ml-3 sm:text-base">
-          한국어 해설 중계 편성표
-        </span>
-      </Link>
+        </span>      </Link>
       <Link
         href="/"
         aria-label="편성표로 가기"
