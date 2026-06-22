@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
 import { CoupangTopBannerOnly } from "../_components/CoupangBanners";
-import { StickyHeader } from "../_components/StickyHeader";
+import { SiteHeader } from "../_components/SiteHeader";
 
 export const metadata: Metadata = {
   title: "자주 묻는 질문 - 한국어 해설 중계 편성표 | 한해설",
@@ -106,16 +104,7 @@ export default function FaqPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="mx-auto max-w-2xl px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
-        <StickyHeader>
-          <header className="flex items-center justify-between">
-            <Link href="/" className="flex items-end">
-              <Image src="/icon.png" alt="한해설 아이콘" width={32} height={32} className="h-6 w-6 sm:h-8 sm:w-8 self-center" />
-              <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>            </Link>
-            <Link href="/" className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-4 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs">
-              ← &ensp;편성표
-            </Link>
-          </header>
-        </StickyHeader>
+        <SiteHeader />
 
         <h1 className="mt-4 sm:mt-6 mb-2 text-2xl font-bold sm:text-3xl">자주 묻는 질문</h1>
         <p className="mb-8 text-sm text-zinc-400">

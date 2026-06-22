@@ -1,13 +1,11 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
 import { loadWorldcupStandings, loadScheduleData } from "@/lib/server-data";
 import type { WorldCupGroup } from "@/types/worldcup";
 import type { Schedule } from "@/types/schedule";
 import { buildSportsEventLd } from "@/lib/structured-data";
 import { proxyLogo } from "@/lib/emblem";
 import { WorldCupBanner } from "@/app/_components/WorldCupBanner";
-import { StickyHeader } from "@/app/_components/StickyHeader";
+import { SiteHeader } from "@/app/_components/SiteHeader";
 import { GuideCards } from "@/app/_components/GuideCards";
 import { getAllGuides } from "@/lib/guides";
 
@@ -144,16 +142,7 @@ export default function WorldCupPage() {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: sportsEventLd }} />
       )}
       <main className="mx-auto min-h-screen max-w-2xl px-3 pb-12 sm:px-4">
-      <StickyHeader>
-        <header className="flex items-center justify-between">
-          <Link href="/" className="flex items-end">
-            <Image src="/icon.png" alt="한해설 아이콘" width={32} height={32} className="h-6 w-6 sm:h-8 sm:w-8 self-center" />
-            <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>          </Link>
-          <Link href="/" className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-4 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs">
-            ← &ensp;편성표
-          </Link>
-        </header>
-      </StickyHeader>
+      <SiteHeader />
 
       <div className="mt-4 sm:mt-6">
         <WorldCupBanner dday={dday} href="/?sport=북중미 월드컵" />

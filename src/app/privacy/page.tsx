@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import Image from "next/image";
 import { CoupangTopBannerOnly } from "../_components/CoupangBanners";
-import { StickyHeader } from "../_components/StickyHeader";
+import { SiteHeader } from "../_components/SiteHeader";
 
 export const metadata: Metadata = {
   title: "개인정보처리방침 - 한해설",
@@ -14,16 +12,7 @@ export default function PrivacyPage() {
   return (
     <main className="min-h-screen text-gray-100">
       <div className="max-w-2xl mx-auto px-3 sm:px-4 pb-8 sm:pb-12 text-[14px]">
-        <StickyHeader>
-          <header className="flex items-center justify-between">
-            <Link href="/" className="flex items-end">
-              <Image src="/icon.png" alt="한해설 아이콘" width={32} height={32} className="h-6 w-6 sm:h-8 sm:w-8 self-center" />
-              <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>            </Link>
-            <Link href="/" className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-4 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs">
-              ← &ensp;편성표
-            </Link>
-          </header>
-        </StickyHeader>
+        <SiteHeader />
 
         <h1 className="text-2xl sm:text-3xl font-bold mt-4 sm:mt-6 mb-8">개인정보처리방침</h1>
 

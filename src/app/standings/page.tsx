@@ -1,9 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import standingsData from "@/data/standings.json";
 import type { StandingsData } from "@/types/standings";
-import { StickyHeader } from "../_components/StickyHeader";
+import { SiteHeader } from "../_components/SiteHeader";
 import { StandingsView } from "./_components/StandingsView";
 import { CoupangTopBannerOnly } from "../_components/CoupangBanners";
 import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
@@ -115,25 +114,7 @@ export default function StandingsPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(STANDINGS_INDEX_JSONLD) }}
       />
       <div className="mx-auto max-w-2xl px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
-        <StickyHeader>
-          <header className="flex items-center justify-between">
-            <Link href="/" className="flex items-end">
-              <Image
-                src="/icon.png"
-                alt="한해설 아이콘"
-                width={32}
-                height={32}
-                className="h-6 w-6 self-center sm:h-8 sm:w-8"
-              />
-              <span className="ml-1 text-xl font-bold text-white sm:ml-2 sm:text-3xl">한해설</span>            </Link>
-            <Link
-              href="/"
-              className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-4 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs"
-            >
-              ← &ensp;편성표
-            </Link>
-          </header>
-        </StickyHeader>
+        <SiteHeader />
 
         <div className="mt-4 sm:mt-6 mb-3 sm:mb-4 rounded-lg border border-zinc-700/50 bg-zinc-800/30 px-3 py-2 text-center">
           <p className="text-[11px] sm:text-xs text-zinc-400">이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br className="sm:hidden" /> 이에 따른 일정액의 수수료를 제공받습니다.</p>

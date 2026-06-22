@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Image from "next/image";
 import { notFound } from "next/navigation";
 import scheduleData from "@/data/schedule.json";
 import archiveData from "@/data/schedule-archive.json";
@@ -18,7 +17,7 @@ import {
   GAME_DURATION_HOURS,
   isGameFinished,
 } from "@/lib/schedule-utils";
-import { StickyHeader } from "../../_components/StickyHeader";
+import { SiteHeader } from "../../_components/SiteHeader";
 import { CoupangTopBannerOnly } from "../../_components/CoupangBanners";
 import { readInsight } from "@/lib/insights/storage";
 import { MatchInsightSection } from "./_components/MatchInsight";
@@ -441,25 +440,7 @@ export default function MatchPage({ params }: { params: Params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="mx-auto max-w-2xl px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
-        <StickyHeader>
-          <header className="flex items-center justify-between">
-            <Link href="/" className="flex items-end">
-              <Image
-                src="/icon.png"
-                alt="한해설 아이콘"
-                width={32}
-                height={32}
-                className="h-6 w-6 self-center sm:h-8 sm:w-8"
-              />
-              <span className="ml-1 text-xl font-bold text-white sm:ml-2 sm:text-3xl">한해설</span>            </Link>
-            <Link
-              href="/"
-              className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-4 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs"
-            >
-              ← &ensp;편성표
-            </Link>
-          </header>
-        </StickyHeader>
+        <SiteHeader />
 
         <nav className="mt-4 flex flex-wrap items-center gap-2 text-xs text-zinc-500 sm:mt-6">
           <Link href="/" className="transition-colors hover:text-zinc-300">
