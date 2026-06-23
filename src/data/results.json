@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T04:19:45.223Z",
+  "lastUpdated": "2026-06-23T08:20:05.080Z",
   "byKey": {
     "2026-06-23|kbo|키움|KIA": {
       "date": "2026-06-23",
@@ -1128,7 +1128,7 @@
       "awayTeam": "볼티모어 오리올스",
       "homeScore": 1,
       "awayScore": 6,
-      "status": "live",
+      "status": "finished",
       "period": "9회말"
     },
     "2026-06-23|mlb|LA에인절스|볼티모어 오리올스": {
@@ -1138,7 +1138,7 @@
       "awayTeam": "볼티모어 오리올스",
       "homeScore": 1,
       "awayScore": 6,
-      "status": "live",
+      "status": "finished",
       "period": "9회말"
     },
     "2026-06-23|mlb|LA 에인절스|볼티모어": {
@@ -1148,7 +1148,7 @@
       "awayTeam": "볼티모어 오리올스",
       "homeScore": 1,
       "awayScore": 6,
-      "status": "live",
+      "status": "finished",
       "period": "9회말"
     },
     "2026-06-23|mlb|LA 에인절스|볼티모어 오리올스": {
@@ -1158,7 +1158,7 @@
       "awayTeam": "볼티모어 오리올스",
       "homeScore": 1,
       "awayScore": 6,
-      "status": "live",
+      "status": "finished",
       "period": "9회말"
     },
     "2026-06-23|mlb|샌디에이고|애틀랜타": {
@@ -1168,8 +1168,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "8회초"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-23|mlb|샌디에이고|애틀랜타 브레이브스": {
       "date": "2026-06-23",
@@ -1178,8 +1178,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "8회초"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-23|mlb|샌디에이고 파드리스|애틀랜타": {
       "date": "2026-06-23",
@@ -1188,8 +1188,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "8회초"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-23|mlb|샌디에이고 파드리스|애틀랜타 브레이브스": {
       "date": "2026-06-23",
@@ -1198,8 +1198,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "8회초"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-24|mlb|토론토|휴스턴": {
       "date": "2026-06-24",
@@ -1925,14 +1925,24 @@
       "homeTeam": "요르단",
       "awayTeam": "알제리",
       "homeScore": 1,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 11'",
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "니자르 알 라시단",
           "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "벤부알리",
+          "minute": 69
+        },
+        {
+          "team": "away",
+          "player": "구이리",
+          "minute": 82
         }
       ]
     },
@@ -2345,7 +2355,7 @@
       "awayTeam": "볼티모어 오리올스",
       "homeScore": 1,
       "awayScore": 6,
-      "status": "live",
+      "status": "finished",
       "period": "9회말"
     },
     {
@@ -2355,8 +2365,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "8회초"
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-06-24",
@@ -2695,14 +2705,24 @@
       "homeTeam": "요르단",
       "awayTeam": "알제리",
       "homeScore": 1,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 11'",
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "니자르 알 라시단",
           "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "벤부알리",
+          "minute": 69
+        },
+        {
+          "team": "away",
+          "player": "구이리",
+          "minute": 82
         }
       ]
     },

@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T04:19:45.240Z",
+  "lastUpdated": "2026-06-23T08:20:05.098Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -9868,6 +9868,26 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-06-23|mlb|LA 에인절스|볼티모어 오리올스": {
+      "date": "2026-06-23",
+      "categoryId": "mlb",
+      "homeTeam": "LA 에인절스",
+      "awayTeam": "볼티모어 오리올스",
+      "homeScore": 1,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-06-23|mlb|샌디에이고 파드리스|애틀랜타 브레이브스": {
+      "date": "2026-06-23",
+      "categoryId": "mlb",
+      "homeTeam": "샌디에이고 파드리스",
+      "awayTeam": "애틀랜타 브레이브스",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-06-23|worldcup|아르헨티나|오스트리아": {
       "date": "2026-06-23",
       "categoryId": "worldcup",
@@ -9953,6 +9973,33 @@
           "player": "이스마일라 사르",
           "minute": 90,
           "addedTime": 3
+        }
+      ]
+    },
+    "2026-06-23|worldcup|요르단|알제리": {
+      "date": "2026-06-23",
+      "categoryId": "worldcup",
+      "homeTeam": "요르단",
+      "awayTeam": "알제리",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "니자르 알 라시단",
+          "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "벤부알리",
+          "minute": 69
+        },
+        {
+          "team": "away",
+          "player": "구이리",
+          "minute": 82
         }
       ]
     }
@@ -19827,6 +19874,26 @@
     },
     {
       "date": "2026-06-23",
+      "categoryId": "mlb",
+      "homeTeam": "LA 에인절스",
+      "awayTeam": "볼티모어 오리올스",
+      "homeScore": 1,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-23",
+      "categoryId": "mlb",
+      "homeTeam": "샌디에이고 파드리스",
+      "awayTeam": "애틀랜타 브레이브스",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-23",
       "categoryId": "worldcup",
       "homeTeam": "아르헨티나",
       "awayTeam": "오스트리아",
@@ -19910,6 +19977,33 @@
           "player": "이스마일라 사르",
           "minute": 90,
           "addedTime": 3
+        }
+      ]
+    },
+    {
+      "date": "2026-06-23",
+      "categoryId": "worldcup",
+      "homeTeam": "요르단",
+      "awayTeam": "알제리",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "니자르 알 라시단",
+          "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "벤부알리",
+          "minute": 69
+        },
+        {
+          "team": "away",
+          "player": "구이리",
+          "minute": 82
         }
       ]
     }
