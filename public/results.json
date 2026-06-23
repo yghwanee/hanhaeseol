@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-23T17:29:52.390Z",
+  "lastUpdated": "2026-06-23T19:32:02.114Z",
   "byKey": {
     "2026-06-23|kbo|키움|KIA": {
       "date": "2026-06-23",
@@ -678,7 +678,8 @@
       "awayTeam": "휴스턴 애스트로스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-06-24|mlb|토론토|휴스턴 애스트로스": {
       "date": "2026-06-24",
@@ -687,7 +688,8 @@
       "awayTeam": "휴스턴 애스트로스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-06-24|mlb|토론토 블루제이스|휴스턴": {
       "date": "2026-06-24",
@@ -696,7 +698,8 @@
       "awayTeam": "휴스턴 애스트로스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-06-24|mlb|토론토 블루제이스|휴스턴 애스트로스": {
       "date": "2026-06-24",
@@ -705,7 +708,8 @@
       "awayTeam": "휴스턴 애스트로스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-06-24|mlb|탬파베이|캔자스시티": {
       "date": "2026-06-24",
@@ -1835,10 +1839,10 @@
       "categoryId": "worldcup",
       "homeTeam": "포르투갈",
       "awayTeam": "우즈베키스탄",
-      "homeScore": 2,
+      "homeScore": 5,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반 29'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -1851,9 +1855,20 @@
           "minute": 17
         },
         {
-          "team": "away",
-          "player": "가니예프",
-          "minute": 29
+          "team": "home",
+          "player": "크리스티아누 호날두",
+          "minute": 39
+        },
+        {
+          "team": "home",
+          "player": "네마토프",
+          "minute": 60,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "하파엘 레앙",
+          "minute": 87
         }
       ]
     },
@@ -2236,7 +2251,8 @@
       "awayTeam": "휴스턴 애스트로스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-06-24",
@@ -2628,10 +2644,10 @@
       "categoryId": "worldcup",
       "homeTeam": "포르투갈",
       "awayTeam": "우즈베키스탄",
-      "homeScore": 2,
+      "homeScore": 5,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반 29'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2644,9 +2660,20 @@
           "minute": 17
         },
         {
-          "team": "away",
-          "player": "가니예프",
-          "minute": 29
+          "team": "home",
+          "player": "크리스티아누 호날두",
+          "minute": 39
+        },
+        {
+          "team": "home",
+          "player": "네마토프",
+          "minute": 60,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "하파엘 레앙",
+          "minute": 87
         }
       ]
     },
