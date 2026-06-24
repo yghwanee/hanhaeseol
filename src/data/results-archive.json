@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T20:23:09.496Z",
+  "lastUpdated": "2026-06-24T22:01:06.002Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -10354,6 +10354,76 @@
       "awayScore": 10,
       "status": "finished",
       "period": "9회말"
+    },
+    "2026-06-25|mlb|콜로라도 로키스|보스턴 레드삭스": {
+      "date": "2026-06-25",
+      "categoryId": "mlb",
+      "homeTeam": "콜로라도 로키스",
+      "awayTeam": "보스턴 레드삭스",
+      "homeScore": 8,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-06-25|worldcup|스위스|캐나다": {
+      "date": "2026-06-25",
+      "categoryId": "worldcup",
+      "homeTeam": "스위스",
+      "awayTeam": "캐나다",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "바르가스",
+          "minute": 46
+        },
+        {
+          "team": "home",
+          "player": "만잠비",
+          "minute": 57
+        },
+        {
+          "team": "away",
+          "player": "프로미스 데이비드",
+          "minute": 76
+        }
+      ]
+    },
+    "2026-06-25|worldcup|보스니아 헤르체고비나|카타르": {
+      "date": "2026-06-25",
+      "categoryId": "worldcup",
+      "homeTeam": "보스니아 헤르체고비나",
+      "awayTeam": "카타르",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "알라이베고비치",
+          "minute": 29
+        },
+        {
+          "team": "home",
+          "player": "마흐무드 아부나다",
+          "minute": 34,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "하산 알 하이도스",
+          "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "마흐미치",
+          "minute": 80
+        }
+      ]
     }
   },
   "results": [
@@ -20710,6 +20780,76 @@
       "awayScore": 10,
       "status": "finished",
       "period": "9회말"
+    },
+    {
+      "date": "2026-06-25",
+      "categoryId": "mlb",
+      "homeTeam": "콜로라도 로키스",
+      "awayTeam": "보스턴 레드삭스",
+      "homeScore": 8,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-25",
+      "categoryId": "worldcup",
+      "homeTeam": "스위스",
+      "awayTeam": "캐나다",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "바르가스",
+          "minute": 46
+        },
+        {
+          "team": "home",
+          "player": "만잠비",
+          "minute": 57
+        },
+        {
+          "team": "away",
+          "player": "프로미스 데이비드",
+          "minute": 76
+        }
+      ]
+    },
+    {
+      "date": "2026-06-25",
+      "categoryId": "worldcup",
+      "homeTeam": "보스니아 헤르체고비나",
+      "awayTeam": "카타르",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "알라이베고비치",
+          "minute": 29
+        },
+        {
+          "team": "home",
+          "player": "마흐무드 아부나다",
+          "minute": 34,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "하산 알 하이도스",
+          "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "마흐미치",
+          "minute": 80
+        }
+      ]
     }
   ]
 }
