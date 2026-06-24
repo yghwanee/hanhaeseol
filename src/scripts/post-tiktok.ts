@@ -64,7 +64,8 @@ async function main() {
 
   const sizeMb = (fs.statSync(filePath).size / 1024 / 1024).toFixed(2);
   const { today, mm, dd } = getKstToday();
-  const caption = `${buildCaption(mm, dd, today, UTM_LINKS.tt_caption)}\n#fyp #포유`;
+  // 본문(buildCaption)에 콘텐츠 해시태그 5개가 이미 포함됨. 여기엔 틱톡 발견(FYP) 태그만 덧붙임.
+  const caption = `${buildCaption(mm, dd, today, UTM_LINKS.tt_caption)}\n#fyp #추천 #포유 #스포츠`;
   const privacyLevel = resolvePrivacyLevel();
 
   console.log(`🎵 TikTok 업로드 시작 (${sizeMb} MB)`);
