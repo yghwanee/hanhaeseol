@@ -130,10 +130,12 @@ src/
 31. 축구 득점자·득점시간 표시 — 네이버 `game.scorers`(상세 호출) 수집해 `MatchResult.goals`에 저장. 카드 하단·매치페이지에 홈/원정 2열 표시(축구 종료+라이브). 모든 축구 카테고리 적용. 지난 월드컵 백필(`npm run backfill:worldcup-goals`).
 32. 한해설 Topic 에디토리얼 섹션 — `/guide`(목록)+`/guide/[slug]`(본문, NewsArticle JSON-LD). 글 = `src/content/guides/*.md`(marked + @tailwindcss/typography). 메인 헤더·전역 푸터에 "한해설 Topic" 진입 버튼. AdSense 4차 거절 후 "자동집계 사이트에 사람이 쓴 고유 콘텐츠가 없다" 문제 대응(트래픽·AdSense 공통 레버). 톤 규칙은 `docs/guide-style.md`.
 33. 평일 자동 초안 파이프라인 — 클라우드 루틴(claude.ai routine, 평일 6:30 KST)이 `docs/content-plan.md` 큐 + `docs/guide-style.md` 톤으로 초안 작성 → `draft/*` PR. `.github/workflows/notify-draft-pr.yml`가 텔레그램 알림. 사람 검수 후 머지 = 발행. (루틴 현재 OFF, 2026-06-29 시작 예정)
+34. 주간 글감 제안 루틴 + 월드컵 우선 운영 (2026-06-25) — 클라우드 루틴 2번째(매주 월 6:30 KST, enabled)가 월드컵 글감 10개를 `[글감]` 이슈로 생성 → `.github/workflows/notify-ideas.yml`(issues 다리)가 텔레그램. 사람이 5개 골라 큐 세팅(목표 주 5개 발행). `content-plan.md`는 "월드컵 우선(~7/19)" 섹션 + "월드컵 이후(7/19~)" 섹션으로 분리, 자동초안은 대회 끝까지 월드컵만 고름. 결과/대진글(한국전 결과 등)은 자동 아닌 사람 수동. 두 텔레그램 다리(PR·이슈) end-to-end 검증 완료.
 
 ### 다음 작업 (예정)
 - Vercel 배포 설정
-- 자동 초안 루틴 ON (2026-06-29) + 첫 PR 텔레그램 알림 동작 확인
+- 평일 자동 초안 루틴 ON (2026-06-29). 텔레그램 다리는 이미 검증됨
+- (상시 운영) 매주 월 글감 이슈 도착 → 5개 선택해 큐 세팅 / 월드컵 한국전 등 결과글은 수동 작성
 
 ## 개발 명령어
 
