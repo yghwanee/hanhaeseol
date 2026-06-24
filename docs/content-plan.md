@@ -17,7 +17,10 @@
 대진·결과 의존 글(누가 16강 갔나·다음 상대는 누구)은 자동에 안 맞으니 **사람이 수동**으로 처리한다.
 
 - [ ] 월드컵 토너먼트 보는 법 — 32강~결승 일정·중계채널·한국어 해설·무료 여부 (slug: worldcup-knockout-how-to-watch)
-- [ ] 월드컵 4강·결승 어디서 보나 — 막판 빅매치 중계 정리 (slug: worldcup-final-how-to-watch)
+- [ ] 월드컵 다시보기·하이라이트 어디서 보나 — 유튜브·앱 정리 (slug: worldcup-replay-highlights)
+- [ ] JTBC·2·3·4 채널 월드컵 편성, 헷갈리지 않게 보는 법 (slug: worldcup-jtbc-channels)
+- [ ] 월드컵 16강 일정·중계 총정리 (예고형) (slug: worldcup-round-of-16)
+- [ ] 월드컵 8강 일정·중계 총정리 (예고형) (slug: worldcup-quarterfinals)
 
 ## 월드컵 이후 (2026-07-19 종료 후 활성화)
 
