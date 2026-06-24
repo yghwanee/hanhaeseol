@@ -4687,16 +4687,16 @@
           "rank": 3,
           "teamName": "토론토",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/TO.png?type=f92_88",
-          "gameCount": 78,
+          "gameCount": 79,
           "win": 39,
           "draw": 0,
-          "lose": 39,
-          "winRate": 0.5,
-          "gameBehind": 7.5,
-          "lastFive": "WWLWW",
+          "lose": 40,
+          "winRate": 0.494,
+          "gameBehind": 8,
+          "lastFive": "LWWLW",
           "streak": {
-            "type": "W",
-            "count": 2
+            "type": "L",
+            "count": 1
           },
           "league": "AL",
           "division": "EAST"
@@ -4759,15 +4759,15 @@
           "rank": 4,
           "teamName": "휴스턴",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/HO.png?type=f92_88",
-          "gameCount": 80,
-          "win": 37,
+          "gameCount": 81,
+          "win": 38,
           "draw": 0,
           "lose": 43,
-          "winRate": 0.463,
-          "gameBehind": 3.5,
-          "lastFive": "LWLWW",
+          "winRate": 0.469,
+          "gameBehind": 3,
+          "lastFive": "WLWLW",
           "streak": {
-            "type": "L",
+            "type": "W",
             "count": 1
           },
           "league": "AL",
@@ -4921,5 +4921,5 @@
     }
   ],
   "basketball": [],
-  "lastUpdated": "2026-06-23T18:16:32.370Z"
+  "lastUpdated": "2026-06-24T00:12:09.159Z"
 }
