@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T21:17:50.719Z",
+  "lastUpdated": "2026-06-25T23:02:25.269Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -10731,6 +10731,65 @@
       "awayScore": 1,
       "status": "finished",
       "period": "9회초"
+    },
+    "2026-06-26|mlb|샌프란시스코 자이언츠|애슬레틱스": {
+      "date": "2026-06-26",
+      "categoryId": "mlb",
+      "homeTeam": "샌프란시스코 자이언츠",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 6,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-06-26|worldcup|퀴라소|코트디부아르": {
+      "date": "2026-06-26",
+      "categoryId": "worldcup",
+      "homeTeam": "퀴라소",
+      "awayTeam": "코트디부아르",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "페페",
+          "minute": 7
+        },
+        {
+          "team": "away",
+          "player": "페페",
+          "minute": 64
+        }
+      ]
+    },
+    "2026-06-26|worldcup|에콰도르|독일": {
+      "date": "2026-06-26",
+      "categoryId": "worldcup",
+      "homeTeam": "에콰도르",
+      "awayTeam": "독일",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "사네",
+          "minute": 2
+        },
+        {
+          "team": "home",
+          "player": "앙굴로",
+          "minute": 9
+        },
+        {
+          "team": "home",
+          "player": "플라타",
+          "minute": 77
+        }
+      ]
     }
   },
   "results": [
@@ -21464,6 +21523,65 @@
       "awayScore": 1,
       "status": "finished",
       "period": "9회초"
+    },
+    {
+      "date": "2026-06-26",
+      "categoryId": "mlb",
+      "homeTeam": "샌프란시스코 자이언츠",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 6,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-26",
+      "categoryId": "worldcup",
+      "homeTeam": "퀴라소",
+      "awayTeam": "코트디부아르",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "페페",
+          "minute": 7
+        },
+        {
+          "team": "away",
+          "player": "페페",
+          "minute": 64
+        }
+      ]
+    },
+    {
+      "date": "2026-06-26",
+      "categoryId": "worldcup",
+      "homeTeam": "에콰도르",
+      "awayTeam": "독일",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "사네",
+          "minute": 2
+        },
+        {
+          "team": "home",
+          "player": "앙굴로",
+          "minute": 9
+        },
+        {
+          "team": "home",
+          "player": "플라타",
+          "minute": 77
+        }
+      ]
     }
   ]
 }
