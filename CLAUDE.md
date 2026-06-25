@@ -26,7 +26,7 @@
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Directory**: `src/` 디렉토리 구조 사용
-- **자동화**: GitHub Actions (편성 하루 1회 + 결과/기록/순위/월드컵 시간별 크롤)
+- **자동화**: GitHub Actions — 편성·결과·순위·선발투수·월드컵·인사이트 크롤 + 소셜 3채널(인스타·유튜브 쇼츠·틱톡) 하루 2회 자동 게시
 
 ## 프로젝트 구조
 
@@ -41,7 +41,7 @@ src/
 │   └── schedule.json        # 크롤러가 생성하는 편성 데이터
 ├── lib/
 │   └── crawlers/
-│       ├── index.ts         # 크롤러 통�� + 필터링
+│       ├── index.ts         # 크롤러 통합 + 필터링
 │       ├── parsers.ts       # 제목 파싱, 리그명 정규화, 종목 감지
 │       ├── spotv-now.ts     # SPOTV NOW API 크롤러
 │       ├── spotv-tv.ts      # SPOTV/SPOTV2 TV 채널 크롤러
@@ -51,9 +51,12 @@ src/
 │       ├── kbs-sports.ts    # KBS N SPORTS 크롤러
 │       ├── apple-tv.ts     # Apple TV+ 크롤러
 │       ├── coupang-play.ts # 쿠팡플레이 크롤러
-│       └── tving.ts        # 티빙 크롤러
+│       ├── tving.ts        # 티빙 크롤러
+│       └── worldcup.ts     # 북중미 월드컵(네이버) 크롤러
+├── content/
+│   └── guides/             # 한해설 Topic 에디토리얼 글(*.md)
 ├── scripts/
-│   └── crawl.ts             # 크롤링 실행 스크립트
+│   └── crawl.ts             # 크롤링 실행 스크립트 (외 결과/순위/선발/인사이트/소셜 게시 다수)
 └── types/
     └── schedule.ts          # Schedule, ScheduleData, Sport, Platform 타입
 ```
@@ -89,7 +92,7 @@ src/
 ## 크롤링
 
 - `npm run crawl` → 오늘부터 7일치 크롤링 → `schedule.json` 갱신
-- GitHub Actions 워크플로우: 편성(`crawl.yml`, KST 08:18 하루 1회 + 백업) / 결과·기록·월드컵(`crawl-results.yml`, 매시 13·43분) / 순위(`crawl-standings.yml`) / 선발투수 / 인사이트 생성·알림 / 인스타 오전·저녁. 편성 갱신 시 텔레그램 알림
+- GitHub Actions 워크플로우: 편성(`crawl.yml`, KST 08:18 + 백업 10:48·13:48) / 결과·기록·월드컵(`crawl-results.yml`, 매시 13·43분) / 순위(`crawl-standings.yml`) / 선발투수 / 인사이트 생성·알림 / 소셜 오전(`instagram-morning.yml`)·저녁(`instagram.yml`) — 각각 인스타(캐러셀+릴스+스토리)+유튜브 쇼츠+틱톡 게시. 편성 갱신 시 텔레그램 알림
 - 결과(`results.json`)는 어제~내일 3일 윈도우로 통째 덮어쓰기, 과거 종료경기는 `results-archive.json`에 영구 누적
 - 비경기 콘텐츠(하이라이트, 시상식, 스포타임 등) 자동 제외
 - SPOTV TV는 LIVE만 수집 (녹화 본방송 제외)
@@ -99,10 +102,10 @@ src/
 ### 완료된 작업
 1. 프로젝트 초기 설정 (Next.js 14 + TypeScript + Tailwind CSS)
 2. 타입 정의 (Sport, Platform, Schedule, ScheduleData)
-3. 메인 페이지 UI (필���링, 경기 카드, 다크모드, 반응형)
+3. 메인 페이지 UI (필터링, 경기 카드, 다크모드, 반응형)
 4. 크롤러 9개 구현 (SPOTV NOW, SPOTV/SPOTV2, MBC SPORTS+, tvN SPORTS, SBS Sports, KBS N SPORTS, Apple TV+, 쿠팡플레이, 티빙)
 5. 리그명/팀명 파싱 정규화
-6. 경기 종료 표시 (종목별 예상 ��간)
+6. 경기 종료 표시 (종목별 예상 시간)
 7. GitHub Actions 자동화 설정
 8. hydration 버그 수정
 9. GitHub Actions 워크플로우 수정 (push 권한, actions v6 업그레이드, pull --rebase 추가)
@@ -131,11 +134,13 @@ src/
 32. 한해설 Topic 에디토리얼 섹션 — `/guide`(목록)+`/guide/[slug]`(본문, NewsArticle JSON-LD). 글 = `src/content/guides/*.md`(marked + @tailwindcss/typography). 메인 헤더·전역 푸터에 "한해설 Topic" 진입 버튼. AdSense 4차 거절 후 "자동집계 사이트에 사람이 쓴 고유 콘텐츠가 없다" 문제 대응(트래픽·AdSense 공통 레버). 톤 규칙은 `docs/guide-style.md`.
 33. 평일 자동 초안 파이프라인 — 클라우드 루틴(claude.ai routine, 평일 6:30 KST)이 `docs/content-plan.md` 큐 + `docs/guide-style.md` 톤으로 초안 작성 → `draft/*` PR. `.github/workflows/notify-draft-pr.yml`가 텔레그램 알림. 사람 검수 후 머지 = 발행. (루틴 현재 OFF, 2026-06-29 시작 예정)
 34. 주간 글감 제안 루틴 + 월드컵 우선 운영 (2026-06-25) — 클라우드 루틴 2번째(매주 월 6:30 KST, enabled)가 월드컵 글감 10개를 `[글감]` 이슈로 생성 → `.github/workflows/notify-ideas.yml`(issues 다리)가 텔레그램. 사람이 5개 골라 큐 세팅(목표 주 5개 발행). `content-plan.md`는 "월드컵 우선(~7/19)" 섹션 + "월드컵 이후(7/19~)" 섹션으로 분리, 자동초안은 대회 끝까지 월드컵만 고름. 결과/대진글(한국전 결과 등)은 자동 아닌 사람 수동. 두 텔레그램 다리(PR·이슈) end-to-end 검증 완료.
+35. 소셜 자동 게시 3채널 — 인스타(캐러셀+릴스+스토리)·유튜브 쇼츠·틱톡을 하루 2회 자동 공개 게시. 오전(`instagram-morning.yml`, KST 06~07시 노출, 당일 경기, legacy 세트) + 저녁(`instagram.yml`, KST 21시대 노출, 내일 경기, v2 세트). 카드/릴스/스토리 생성 → `insta-media` orphan 브랜치 푸시(raw CDN) → 게시. 토큰 자동 회전(YT/TikTok refresh + 회전 시 `GH_PAT_SECRETS_WRITE`로 Secret 갱신). **틱톡은 2026-06-25 Direct Post audit 승인 후 활성화**(privacy=`PUBLIC_TO_EVERYONE`, `post:tiktok`, 첫 공개 게시 검증 완료). 텔레그램 성공/실패 알림.
 
 ### 다음 작업 (예정)
 - Vercel 배포 설정
 - 평일 자동 초안 루틴 ON (2026-06-29). 텔레그램 다리는 이미 검증됨
 - (상시 운영) 매주 월 글감 이슈 도착 → 5개 선택해 큐 세팅 / 월드컵 한국전 등 결과글은 수동 작성
+- (운영 메모) 핵심 미해결은 기술 아닌 **트래픽/수익화** — AdSense·애드핏 다 트래픽 미달이 병목(일 ~110명)
 
 ## 개발 명령어
 
