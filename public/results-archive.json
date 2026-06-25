@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-24T23:21:30.427Z",
+  "lastUpdated": "2026-06-25T01:36:49.932Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -10365,6 +10365,56 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-06-25|mlb|시카고 화이트삭스|클리블랜드 가디언스": {
+      "date": "2026-06-25",
+      "categoryId": "mlb",
+      "homeTeam": "시카고 화이트삭스",
+      "awayTeam": "클리블랜드 가디언스",
+      "homeScore": 3,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "10회말"
+    },
+    "2026-06-25|mlb|LA 에인절스|볼티모어 오리올스": {
+      "date": "2026-06-25",
+      "categoryId": "mlb",
+      "homeTeam": "LA 에인절스",
+      "awayTeam": "볼티모어 오리올스",
+      "homeScore": 7,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "10회말"
+    },
+    "2026-06-25|mlb|탬파베이 레이스|캔자스시티 로열스": {
+      "date": "2026-06-25",
+      "categoryId": "mlb",
+      "homeTeam": "탬파베이 레이스",
+      "awayTeam": "캔자스시티 로열스",
+      "homeScore": 5,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-06-25|mlb|디트로이트 타이거스|뉴욕 양키스": {
+      "date": "2026-06-25",
+      "categoryId": "mlb",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "뉴욕 양키스",
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-06-25|mlb|피츠버그 파이리츠|시애틀 매리너스": {
+      "date": "2026-06-25",
+      "categoryId": "mlb",
+      "homeTeam": "피츠버그 파이리츠",
+      "awayTeam": "시애틀 매리너스",
+      "homeScore": 11,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-06-25|worldcup|스위스|캐나다": {
       "date": "2026-06-25",
       "categoryId": "worldcup",
@@ -10422,6 +10472,78 @@
           "team": "home",
           "player": "마흐미치",
           "minute": 80
+        }
+      ]
+    },
+    "2026-06-25|worldcup|스코틀랜드|브라질": {
+      "date": "2026-06-25",
+      "categoryId": "worldcup",
+      "homeTeam": "스코틀랜드",
+      "awayTeam": "브라질",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "비니시우스",
+          "minute": 7
+        },
+        {
+          "team": "away",
+          "player": "비니시우스",
+          "minute": 45,
+          "addedTime": 3
+        },
+        {
+          "team": "away",
+          "player": "마테우스 쿠냐",
+          "minute": 60
+        }
+      ]
+    },
+    "2026-06-25|worldcup|모로코|아이티": {
+      "date": "2026-06-25",
+      "categoryId": "worldcup",
+      "homeTeam": "모로코",
+      "awayTeam": "아이티",
+      "homeScore": 4,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "부누",
+          "minute": 10,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "하키미",
+          "minute": 39
+        },
+        {
+          "team": "away",
+          "player": "이시도르",
+          "minute": 43
+        },
+        {
+          "team": "home",
+          "player": "사이바리",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "라히미",
+          "minute": 78
+        },
+        {
+          "team": "home",
+          "player": "야신",
+          "minute": 89
         }
       ]
     }
@@ -20793,6 +20915,56 @@
     },
     {
       "date": "2026-06-25",
+      "categoryId": "mlb",
+      "homeTeam": "시카고 화이트삭스",
+      "awayTeam": "클리블랜드 가디언스",
+      "homeScore": 3,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "10회말"
+    },
+    {
+      "date": "2026-06-25",
+      "categoryId": "mlb",
+      "homeTeam": "LA 에인절스",
+      "awayTeam": "볼티모어 오리올스",
+      "homeScore": 7,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "10회말"
+    },
+    {
+      "date": "2026-06-25",
+      "categoryId": "mlb",
+      "homeTeam": "탬파베이 레이스",
+      "awayTeam": "캔자스시티 로열스",
+      "homeScore": 5,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-25",
+      "categoryId": "mlb",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "뉴욕 양키스",
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-25",
+      "categoryId": "mlb",
+      "homeTeam": "피츠버그 파이리츠",
+      "awayTeam": "시애틀 매리너스",
+      "homeScore": 11,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-25",
       "categoryId": "worldcup",
       "homeTeam": "스위스",
       "awayTeam": "캐나다",
@@ -20848,6 +21020,78 @@
           "team": "home",
           "player": "마흐미치",
           "minute": 80
+        }
+      ]
+    },
+    {
+      "date": "2026-06-25",
+      "categoryId": "worldcup",
+      "homeTeam": "스코틀랜드",
+      "awayTeam": "브라질",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "비니시우스",
+          "minute": 7
+        },
+        {
+          "team": "away",
+          "player": "비니시우스",
+          "minute": 45,
+          "addedTime": 3
+        },
+        {
+          "team": "away",
+          "player": "마테우스 쿠냐",
+          "minute": 60
+        }
+      ]
+    },
+    {
+      "date": "2026-06-25",
+      "categoryId": "worldcup",
+      "homeTeam": "모로코",
+      "awayTeam": "아이티",
+      "homeScore": 4,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "부누",
+          "minute": 10,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "하키미",
+          "minute": 39
+        },
+        {
+          "team": "away",
+          "player": "이시도르",
+          "minute": 43
+        },
+        {
+          "team": "home",
+          "player": "사이바리",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "라히미",
+          "minute": 78
+        },
+        {
+          "team": "home",
+          "player": "야신",
+          "minute": 89
         }
       ]
     }
