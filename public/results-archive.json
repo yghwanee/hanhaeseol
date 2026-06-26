@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-25T23:02:25.269Z",
+  "lastUpdated": "2026-06-26T01:29:24.850Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -10742,6 +10742,26 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-06-26|mlb|디트로이트 타이거스|휴스턴 애스트로스": {
+      "date": "2026-06-26",
+      "categoryId": "mlb",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "휴스턴 애스트로스",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-06-26|mlb|세인트루이스 카디널스|애리조나 다이아몬드백스": {
+      "date": "2026-06-26",
+      "categoryId": "mlb",
+      "homeTeam": "세인트루이스 카디널스",
+      "awayTeam": "애리조나 다이아몬드백스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "연기"
+    },
     "2026-06-26|worldcup|퀴라소|코트디부아르": {
       "date": "2026-06-26",
       "categoryId": "worldcup",
@@ -10788,6 +10808,61 @@
           "team": "home",
           "player": "플라타",
           "minute": 77
+        }
+      ]
+    },
+    "2026-06-26|worldcup|튀니지|네덜란드": {
+      "date": "2026-06-26",
+      "categoryId": "worldcup",
+      "homeTeam": "튀니지",
+      "awayTeam": "네덜란드",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "스키리",
+          "minute": 3,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "브로베이",
+          "minute": 7
+        },
+        {
+          "team": "home",
+          "player": "마스투리",
+          "minute": 54
+        },
+        {
+          "team": "away",
+          "player": "반 헤케",
+          "minute": 62
+        }
+      ]
+    },
+    "2026-06-26|worldcup|일본|스웨덴": {
+      "date": "2026-06-26",
+      "categoryId": "worldcup",
+      "homeTeam": "일본",
+      "awayTeam": "스웨덴",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "마에다",
+          "minute": 56
+        },
+        {
+          "team": "away",
+          "player": "엘랑가",
+          "minute": 62
         }
       ]
     }
@@ -21536,6 +21611,26 @@
     },
     {
       "date": "2026-06-26",
+      "categoryId": "mlb",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "휴스턴 애스트로스",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-26",
+      "categoryId": "mlb",
+      "homeTeam": "세인트루이스 카디널스",
+      "awayTeam": "애리조나 다이아몬드백스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "연기"
+    },
+    {
+      "date": "2026-06-26",
       "categoryId": "worldcup",
       "homeTeam": "퀴라소",
       "awayTeam": "코트디부아르",
@@ -21580,6 +21675,61 @@
           "team": "home",
           "player": "플라타",
           "minute": 77
+        }
+      ]
+    },
+    {
+      "date": "2026-06-26",
+      "categoryId": "worldcup",
+      "homeTeam": "튀니지",
+      "awayTeam": "네덜란드",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "스키리",
+          "minute": 3,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "브로베이",
+          "minute": 7
+        },
+        {
+          "team": "home",
+          "player": "마스투리",
+          "minute": 54
+        },
+        {
+          "team": "away",
+          "player": "반 헤케",
+          "minute": 62
+        }
+      ]
+    },
+    {
+      "date": "2026-06-26",
+      "categoryId": "worldcup",
+      "homeTeam": "일본",
+      "awayTeam": "스웨덴",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "마에다",
+          "minute": 56
+        },
+        {
+          "team": "away",
+          "player": "엘랑가",
+          "minute": 62
         }
       ]
     }
