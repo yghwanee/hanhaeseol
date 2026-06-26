@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-26T17:23:25.093Z",
+  "lastUpdated": "2026-06-26T19:22:20.575Z",
   "byKey": {
     "2026-06-26|kbo|SSG|한화": {
       "date": "2026-06-26",
@@ -1692,10 +1692,17 @@
       "categoryId": "worldcup",
       "homeTeam": "세네갈",
       "awayTeam": "이라크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 20'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "디아라",
+          "minute": 4
+        }
+      ]
     },
     "2026-06-27|worldcup|노르웨이|프랑스": {
       "date": "2026-06-27",
@@ -1703,9 +1710,21 @@
       "homeTeam": "노르웨이",
       "awayTeam": "프랑스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 2,
+      "status": "live",
+      "period": "전반 21'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "뎀벨레",
+          "minute": 7
+        },
+        {
+          "team": "away",
+          "player": "뎀벨레",
+          "minute": 20
+        }
+      ]
     },
     "2026-06-27|worldcup|우루과이|스페인": {
       "date": "2026-06-27",
@@ -2476,10 +2495,17 @@
       "categoryId": "worldcup",
       "homeTeam": "세네갈",
       "awayTeam": "이라크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 20'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "디아라",
+          "minute": 4
+        }
+      ]
     },
     {
       "date": "2026-06-27",
@@ -2487,9 +2513,21 @@
       "homeTeam": "노르웨이",
       "awayTeam": "프랑스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 2,
+      "status": "live",
+      "period": "전반 21'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "뎀벨레",
+          "minute": 7
+        },
+        {
+          "team": "away",
+          "player": "뎀벨레",
+          "minute": 20
+        }
+      ]
     },
     {
       "date": "2026-06-27",
