@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T04:15:42.707Z",
+  "lastUpdated": "2026-06-27T07:39:30.941Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -11124,6 +11124,36 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-06-27|mlb|LA 에인절스|애슬레틱스": {
+      "date": "2026-06-27",
+      "categoryId": "mlb",
+      "homeTeam": "LA 에인절스",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 3,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-06-27|mlb|샌디에이고 파드리스|LA 다저스": {
+      "date": "2026-06-27",
+      "categoryId": "mlb",
+      "homeTeam": "샌디에이고 파드리스",
+      "awayTeam": "LA 다저스",
+      "homeScore": 7,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-06-27|mlb|샌프란시스코 자이언츠|애틀랜타 브레이브스": {
+      "date": "2026-06-27",
+      "categoryId": "mlb",
+      "homeTeam": "샌프란시스코 자이언츠",
+      "awayTeam": "애틀랜타 브레이브스",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-06-27|worldcup|세네갈|이라크": {
       "date": "2026-06-27",
       "categoryId": "worldcup",
@@ -11225,6 +11255,71 @@
       "awayScore": 0,
       "status": "finished",
       "period": "경기종료"
+    },
+    "2026-06-27|worldcup|뉴질랜드|벨기에": {
+      "date": "2026-06-27",
+      "categoryId": "worldcup",
+      "homeTeam": "뉴질랜드",
+      "awayTeam": "벨기에",
+      "homeScore": 1,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "트로사르",
+          "minute": 28
+        },
+        {
+          "team": "away",
+          "player": "트로사르",
+          "minute": 50
+        },
+        {
+          "team": "away",
+          "player": "더 브라위너",
+          "minute": 66
+        },
+        {
+          "team": "home",
+          "player": "저스트",
+          "minute": 84
+        },
+        {
+          "team": "away",
+          "player": "루카쿠",
+          "minute": 86
+        },
+        {
+          "team": "away",
+          "player": "살레마키어스",
+          "minute": 90,
+          "addedTime": 4
+        }
+      ]
+    },
+    "2026-06-27|worldcup|이집트|이란": {
+      "date": "2026-06-27",
+      "categoryId": "worldcup",
+      "homeTeam": "이집트",
+      "awayTeam": "이란",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "마흐무드 사베르",
+          "minute": 5
+        },
+        {
+          "team": "away",
+          "player": "레자에이안",
+          "minute": 14
+        }
+      ]
     }
   },
   "results": [
@@ -22353,6 +22448,36 @@
     },
     {
       "date": "2026-06-27",
+      "categoryId": "mlb",
+      "homeTeam": "LA 에인절스",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 3,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-27",
+      "categoryId": "mlb",
+      "homeTeam": "샌디에이고 파드리스",
+      "awayTeam": "LA 다저스",
+      "homeScore": 7,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-06-27",
+      "categoryId": "mlb",
+      "homeTeam": "샌프란시스코 자이언츠",
+      "awayTeam": "애틀랜타 브레이브스",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-27",
       "categoryId": "worldcup",
       "homeTeam": "세네갈",
       "awayTeam": "이라크",
@@ -22452,6 +22577,71 @@
       "awayScore": 0,
       "status": "finished",
       "period": "경기종료"
+    },
+    {
+      "date": "2026-06-27",
+      "categoryId": "worldcup",
+      "homeTeam": "뉴질랜드",
+      "awayTeam": "벨기에",
+      "homeScore": 1,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "트로사르",
+          "minute": 28
+        },
+        {
+          "team": "away",
+          "player": "트로사르",
+          "minute": 50
+        },
+        {
+          "team": "away",
+          "player": "더 브라위너",
+          "minute": 66
+        },
+        {
+          "team": "home",
+          "player": "저스트",
+          "minute": 84
+        },
+        {
+          "team": "away",
+          "player": "루카쿠",
+          "minute": 86
+        },
+        {
+          "team": "away",
+          "player": "살레마키어스",
+          "minute": 90,
+          "addedTime": 4
+        }
+      ]
+    },
+    {
+      "date": "2026-06-27",
+      "categoryId": "worldcup",
+      "homeTeam": "이집트",
+      "awayTeam": "이란",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "마흐무드 사베르",
+          "minute": 5
+        },
+        {
+          "team": "away",
+          "player": "레자에이안",
+          "minute": 14
+        }
+      ]
     }
   ]
 }

@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T04:15:42.690Z",
+  "lastUpdated": "2026-06-27T07:39:30.924Z",
   "byKey": {
     "2026-06-26|kbo|SSG|한화": {
       "date": "2026-06-26",
@@ -978,8 +978,8 @@
       "awayTeam": "애슬레틱스",
       "homeScore": 3,
       "awayScore": 9,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-06-27|mlb|LA 에인절스|애슬레틱스": {
       "date": "2026-06-27",
@@ -988,48 +988,48 @@
       "awayTeam": "애슬레틱스",
       "homeScore": 3,
       "awayScore": 9,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-06-27|mlb|샌디에이고|LA다저스": {
       "date": "2026-06-27",
       "categoryId": "mlb",
       "homeTeam": "샌디에이고 파드리스",
       "awayTeam": "LA 다저스",
-      "homeScore": 6,
+      "homeScore": 7,
       "awayScore": 1,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-27|mlb|샌디에이고|LA 다저스": {
       "date": "2026-06-27",
       "categoryId": "mlb",
       "homeTeam": "샌디에이고 파드리스",
       "awayTeam": "LA 다저스",
-      "homeScore": 6,
+      "homeScore": 7,
       "awayScore": 1,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-27|mlb|샌디에이고 파드리스|LA다저스": {
       "date": "2026-06-27",
       "categoryId": "mlb",
       "homeTeam": "샌디에이고 파드리스",
       "awayTeam": "LA 다저스",
-      "homeScore": 6,
+      "homeScore": 7,
       "awayScore": 1,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-27|mlb|샌디에이고 파드리스|LA 다저스": {
       "date": "2026-06-27",
       "categoryId": "mlb",
       "homeTeam": "샌디에이고 파드리스",
       "awayTeam": "LA 다저스",
-      "homeScore": 6,
+      "homeScore": 7,
       "awayScore": 1,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-06-27|mlb|샌프란시스코|애틀랜타": {
       "date": "2026-06-27",
@@ -1038,8 +1038,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 1,
       "awayScore": 3,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-06-27|mlb|샌프란시스코|애틀랜타 브레이브스": {
       "date": "2026-06-27",
@@ -1048,8 +1048,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 1,
       "awayScore": 3,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-06-27|mlb|샌프란시스코 자이언츠|애틀랜타": {
       "date": "2026-06-27",
@@ -1058,8 +1058,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 1,
       "awayScore": 3,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-06-27|mlb|샌프란시스코 자이언츠|애틀랜타 브레이브스": {
       "date": "2026-06-27",
@@ -1068,8 +1068,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 1,
       "awayScore": 3,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-06-28|mlb|디트로이트|휴스턴": {
       "date": "2026-06-28",
@@ -1852,10 +1852,10 @@
       "categoryId": "worldcup",
       "homeTeam": "뉴질랜드",
       "awayTeam": "벨기에",
-      "homeScore": 0,
-      "awayScore": 2,
-      "status": "live",
-      "period": "후반 8'",
+      "homeScore": 1,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -1866,6 +1866,27 @@
           "team": "away",
           "player": "트로사르",
           "minute": 50
+        },
+        {
+          "team": "away",
+          "player": "더 브라위너",
+          "minute": 66
+        },
+        {
+          "team": "home",
+          "player": "저스트",
+          "minute": 84
+        },
+        {
+          "team": "away",
+          "player": "루카쿠",
+          "minute": 86
+        },
+        {
+          "team": "away",
+          "player": "살레마키어스",
+          "minute": 90,
+          "addedTime": 4
         }
       ]
     },
@@ -1876,8 +1897,8 @@
       "awayTeam": "이란",
       "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 6'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2320,18 +2341,18 @@
       "awayTeam": "애슬레틱스",
       "homeScore": 3,
       "awayScore": 9,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-06-27",
       "categoryId": "mlb",
       "homeTeam": "샌디에이고 파드리스",
       "awayTeam": "LA 다저스",
-      "homeScore": 6,
+      "homeScore": 7,
       "awayScore": 1,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-06-27",
@@ -2340,8 +2361,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 1,
       "awayScore": 3,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-06-28",
@@ -2737,10 +2758,10 @@
       "categoryId": "worldcup",
       "homeTeam": "뉴질랜드",
       "awayTeam": "벨기에",
-      "homeScore": 0,
-      "awayScore": 2,
-      "status": "live",
-      "period": "후반 8'",
+      "homeScore": 1,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2751,6 +2772,27 @@
           "team": "away",
           "player": "트로사르",
           "minute": 50
+        },
+        {
+          "team": "away",
+          "player": "더 브라위너",
+          "minute": 66
+        },
+        {
+          "team": "home",
+          "player": "저스트",
+          "minute": 84
+        },
+        {
+          "team": "away",
+          "player": "루카쿠",
+          "minute": 86
+        },
+        {
+          "team": "away",
+          "player": "살레마키어스",
+          "minute": 90,
+          "addedTime": 4
         }
       ]
     },
@@ -2761,8 +2803,8 @@
       "awayTeam": "이란",
       "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 6'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
