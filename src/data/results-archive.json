@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-27T22:43:09.179Z",
+  "lastUpdated": "2026-06-27T23:43:30.378Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -11400,6 +11400,65 @@
       "awayScore": 7,
       "status": "finished",
       "period": "9회말"
+    },
+    "2026-06-28|mlb|시카고 화이트삭스|캔자스시티 로열스": {
+      "date": "2026-06-28",
+      "categoryId": "mlb",
+      "homeTeam": "시카고 화이트삭스",
+      "awayTeam": "캔자스시티 로열스",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-06-28|worldcup|파나마|잉글랜드": {
+      "date": "2026-06-28",
+      "categoryId": "worldcup",
+      "homeTeam": "파나마",
+      "awayTeam": "잉글랜드",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "벨링엄",
+          "minute": 62
+        },
+        {
+          "team": "away",
+          "player": "케인",
+          "minute": 67
+        }
+      ]
+    },
+    "2026-06-28|worldcup|크로아티아|가나": {
+      "date": "2026-06-28",
+      "categoryId": "worldcup",
+      "homeTeam": "크로아티아",
+      "awayTeam": "가나",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "페타르 수치치",
+          "minute": 31
+        },
+        {
+          "team": "away",
+          "player": "루카센",
+          "minute": 73
+        },
+        {
+          "team": "home",
+          "player": "블라시치",
+          "minute": 83
+        }
+      ]
     }
   },
   "results": [
@@ -22802,6 +22861,65 @@
       "awayScore": 7,
       "status": "finished",
       "period": "9회말"
+    },
+    {
+      "date": "2026-06-28",
+      "categoryId": "mlb",
+      "homeTeam": "시카고 화이트삭스",
+      "awayTeam": "캔자스시티 로열스",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-06-28",
+      "categoryId": "worldcup",
+      "homeTeam": "파나마",
+      "awayTeam": "잉글랜드",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "벨링엄",
+          "minute": 62
+        },
+        {
+          "team": "away",
+          "player": "케인",
+          "minute": 67
+        }
+      ]
+    },
+    {
+      "date": "2026-06-28",
+      "categoryId": "worldcup",
+      "homeTeam": "크로아티아",
+      "awayTeam": "가나",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "페타르 수치치",
+          "minute": 31
+        },
+        {
+          "team": "away",
+          "player": "루카센",
+          "minute": 73
+        },
+        {
+          "team": "home",
+          "player": "블라시치",
+          "minute": 83
+        }
+      ]
     }
   ]
 }
