@@ -14,6 +14,11 @@ const KST_DOW = ["일", "월", "화", "수", "목", "금", "토"];
 
 export type ReelTitleAspect = "9:16" | "4:5";
 
+export interface ReelBrandOpts {
+  /** true면 URL(haeseol.com) 대신 한글 브랜드(한해설) 사용 — 틱톡 워터마크/URL 억제 회피용. */
+  noUrl?: boolean;
+}
+
 // 9:16 (1080x1920): 릴스 영상 본 비율.
 // 4:5 (1080x1350): 인스타 피드 캐러셀 + 릴스 cover_url.
 // 같은 디자인 파라미터화로 캐러셀 첫 장과 릴스 썸네일을 동일 PNG로 통일.
@@ -109,7 +114,9 @@ export async function renderReelTitleBackground(
 export async function renderReelTitleText(
   today: string,
   aspect: ReelTitleAspect = "9:16",
+  opts: ReelBrandOpts = {},
 ): Promise<Buffer> {
+  const noUrl = opts.noUrl ?? false;
   const { W, H } = aspectSize(aspect);
   const canvas = createCanvas(W, H);
   const ctx = canvas.getContext("2d");
@@ -127,10 +134,15 @@ export async function renderReelTitleText(
   ctx.fillRect(60, 130 - 30, 6, 38);
   ctx.fillStyle = "#ffffff";
   ctx.font = "800 38px Pretendard";
-  ctx.fillText("haeseol", 80, 130);
-  const haeW = ctx.measureText("haeseol").width;
-  ctx.fillStyle = ACCENT;
-  ctx.fillText(".com", 80 + haeW, 130);
+  if (noUrl) {
+    // 틱톡: URL 대신 한글 브랜드
+    ctx.fillText("한해설", 80, 130);
+  } else {
+    ctx.fillText("haeseol", 80, 130);
+    const haeW = ctx.measureText("haeseol").width;
+    ctx.fillStyle = ACCENT;
+    ctx.fillText(".com", 80 + haeW, 130);
+  }
 
   // 타이틀 콘텐츠 결정
   const koreanMatches = loadKoreanMatchesAll(today);
@@ -160,7 +172,7 @@ export async function renderReelTitleText(
     subLine = `${dayLabel}의 중계 편성표`;
   } else {
     bigLine = `${dayLabel}의 한국어 중계`;
-    subLine = "haeseol.com";
+    subLine = noUrl ? "한국어 해설 편성표" : "haeseol.com";
   }
 
   ctx.textAlign = "center";
@@ -219,7 +231,7 @@ export async function renderReelTitleText(
   }
 
   ctx.font = "900 64px Pretendard";
-  const brandText = "haeseol.com";
+  const brandText = noUrl ? "한해설" : "haeseol.com";
   const brandW = ctx.measureText(brandText).width;
   const blockW = (logoImg ? LOGO_SIZE + LOGO_GAP : 0) + brandW;
   const blockStartX = (W - blockW) / 2;
@@ -262,10 +274,11 @@ export async function renderReelTitleCard(
   imagePath: string,
   today: string,
   aspect: ReelTitleAspect = "9:16",
+  opts: ReelBrandOpts = {},
 ): Promise<Buffer> {
   const { W, H } = aspectSize(aspect);
   const bg = await renderReelTitleBackground(imagePath, aspect);
-  const txt = await renderReelTitleText(today, aspect);
+  const txt = await renderReelTitleText(today, aspect, opts);
 
   const canvas = createCanvas(W, H);
   const ctx = canvas.getContext("2d");

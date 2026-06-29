@@ -54,7 +54,7 @@ jobs:
           ffmpeg -version | head -1
 
       - name: 토큰 헬스체크
-        run: npm run ig:check && npm run tiktok:check
+        run: npm run ig:check
 
       - name: 카드 생성 (당일 경기)
         run: npm run post:all -- --no-send
@@ -98,16 +98,14 @@ jobs:
         if: always()
         run: npm run post:youtube
 
-      - name: 틱톡 업로드
-        if: always()
-        run: npm run post:tiktok
+      # 틱톡은 저녁 워크플로우(instagram.yml)에서만 게시. 오전엔 제외(1일 1회 = 도배 신호 완화).
 
       - name: Telegram 성공 알림
         if: success()
         run: |
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d chat_id="${TELEGRAM_CHAT_ID}" \
-            -d text="☀️ [오전] 당일 경기 업로드 완료 (인스타 캐러셀+릴스+스토리, 유튜브 쇼츠, 틱톡)"
+            -d text="☀️ [오전] 당일 경기 업로드 완료 (인스타 캐러셀+릴스+스토리, 유튜브 쇼츠)"
 
       - name: Telegram 실패 알림 + 카드 전송
         if: failure()

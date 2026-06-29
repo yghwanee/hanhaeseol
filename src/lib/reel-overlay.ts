@@ -9,7 +9,8 @@ const ACCENT = "#8fff3d";
  * "지금 저장 ↓" 큰 행동 카피 + "haeseol.com →" 강조.
  * 페이드인은 ffmpeg fade=t=in:alpha=1, 펄스는 outro 컷의 zoompan에서.
  */
-export function renderCtaOverlay(): Buffer {
+export function renderCtaOverlay(opts: { noUrl?: boolean } = {}): Buffer {
+  const noUrl = opts.noUrl ?? false;
   const canvas = createCanvas(REEL_W, REEL_H);
   const ctx = canvas.getContext("2d");
 
@@ -29,10 +30,10 @@ export function renderCtaOverlay(): Buffer {
   ctx.shadowBlur = 18;
   ctx.shadowOffsetY = 4;
 
-  // haeseol.com → (큰 형광 + 흰 화살표)
+  // 큰 형광 CTA + 흰 화살표. 틱톡(noUrl)은 URL 대신 브랜드 검색 유도.
   ctx.fillStyle = ACCENT;
   ctx.font = "900 116px Pretendard";
-  const url = "haeseol.com";
+  const url = noUrl ? "한해설 검색" : "haeseol.com";
   const urlW = ctx.measureText(url).width;
   ctx.textAlign = "left";
   const arrowW = ctx.measureText("  →").width;

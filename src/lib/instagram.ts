@@ -525,7 +525,10 @@ export async function renderSportCard(
   return canvas.toBuffer("image/png");
 }
 
-export async function renderOutroCard(): Promise<Buffer> {
+export async function renderOutroCard(
+  opts: { noUrl?: boolean } = {},
+): Promise<Buffer> {
+  const noUrl = opts.noUrl ?? false;
   const W = MAIN_CARD_SIZE.width;
   const H = MAIN_CARD_SIZE.height;
   const PAD = 80;
@@ -642,7 +645,8 @@ export async function renderOutroCard(): Promise<Buffer> {
 
   ctx.fillStyle = ACCENT;
   ctx.font = "900 64px Pretendard";
-  ctx.fillText("haeseol.com  →", W / 2, ctaY + ctaBoxH / 2 + 22);
+  // 틱톡(noUrl)은 URL 대신 브랜드 검색 유도 — URL 워터마크 회피.
+  ctx.fillText(noUrl ? "한해설 검색  →" : "haeseol.com  →", W / 2, ctaY + ctaBoxH / 2 + 22);
 
   ctx.textAlign = "left";
 

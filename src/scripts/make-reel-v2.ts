@@ -6,7 +6,7 @@ import { renderReelTitleCard } from "@/lib/reel-title-card";
 import { renderReelBigMatchCard } from "@/lib/reel-bigmatch-card";
 import { renderCtaOverlay } from "@/lib/reel-overlay";
 import { pickHookImage } from "@/lib/hook-card";
-import { registerFonts, getKstToday } from "@/lib/instagram";
+import { registerFonts, getKstToday, renderOutroCard } from "@/lib/instagram";
 
 const W = 1080;
 const H = 1920;
@@ -24,7 +24,12 @@ const TITLE_PUNCH_Z = 0.10;  // 펀치 줌 폭 (1.10 → 1.0) — 첫 프레임 
 const CTA_FADE_IN_ST = 0.4;
 const CTA_FADE_IN_D = 0.8;
 
-const OUTPUT = "reel-v2.mp4";
+// 틱톡 전용 변형: URL 워터마크 제거(noUrl) + 별도 출력 파일 + manifest.reelTiktok 기록.
+// 기존 IG/YT용 reel-v2.mp4 / manifest.reel 은 건드리지 않음.
+const TIKTOK = process.env.HHS_TIKTOK_VARIANT === "1";
+const OUTPUT = TIKTOK ? "reel-v2-tiktok.mp4" : "reel-v2.mp4";
+const SFX = TIKTOK ? "-tt" : ""; // temp 파일 충돌 방지(같은 잡에서 v2 후 실행돼도 안전)
+const brandOpts = { noUrl: TIKTOK };
 
 async function main() {
   registerFonts();
@@ -35,8 +40,8 @@ async function main() {
 
   // title 카드 (영상 첫 프레임) — 9:16. 자막 박혀 있어야 썸네일 흰색 회피.
   const hookImg = pickHookImage(today);
-  const titleFile = "_reel-title.png";
-  const titleBuf = await renderReelTitleCard(hookImg, today, "9:16");
+  const titleFile = `_reel-title${SFX}.png`;
+  const titleBuf = await renderReelTitleCard(hookImg, today, "9:16", brandOpts);
   fs.writeFileSync(path.join(OUT_DIR, titleFile), titleBuf);
 
   // 인스타 REELS cover_url + 피드 캐러셀 1번 슬라이드 공용 — 4:5 (1080x1350).
@@ -51,7 +56,7 @@ async function main() {
   const bigmatch = await renderReelBigMatchCard(today);
   let bigmatchFile: string | null = null;
   if (bigmatch) {
-    bigmatchFile = "_reel-bigmatch.png";
+    bigmatchFile = `_reel-bigmatch${SFX}.png`;
     fs.writeFileSync(path.join(OUT_DIR, bigmatchFile), bigmatch.buf);
     const matchup = bigmatch.hero.awayTeam
       ? `${bigmatch.hero.homeTeam} vs ${bigmatch.hero.awayTeam}`
@@ -62,15 +67,22 @@ async function main() {
   }
 
   // CTA overlay
-  const ctaFile = "_cta-overlay.png";
-  fs.writeFileSync(path.join(OUT_DIR, ctaFile), renderCtaOverlay());
+  const ctaFile = `_cta-overlay${SFX}.png`;
+  fs.writeFileSync(path.join(OUT_DIR, ctaFile), renderCtaOverlay(brandOpts));
 
   // 스포츠/outro
   const sportFiles = files.filter(
     (f) => !f.startsWith("main-") && f !== "outro.png",
   );
-  const outroFile = files.find((f) => f === "outro.png");
+  let outroFile: string = files.find((f) => f === "outro.png") ?? "";
   if (!outroFile) throw new Error("outro.png 없음 — npm run post:all 먼저");
+  if (TIKTOK) {
+    // outro 카드의 "haeseol.com →" URL 제거 변형을 따로 렌더해 사용.
+    const outroTtFile = "outro-tt.png";
+    fs.writeFileSync(path.join(OUT_DIR, outroTtFile), await renderOutroCard({ noUrl: true }));
+    outroFile = outroTtFile;
+    console.log(`✅ 틱톡 outro (URL 제거) 생성: ${outroTtFile}`);
+  }
 
   // 영상 컷 구성: title → bigmatch? → sports → outro
   const baseFiles: string[] = [titleFile];
@@ -193,7 +205,7 @@ async function main() {
       `afade=t=out:st=${fadeOutStart}:d=0.8[aout]`,
   );
 
-  const filterScriptFile = "_filter.txt";
+  const filterScriptFile = `_filter${SFX}.txt`;
   fs.writeFileSync(path.join(OUT_DIR, filterScriptFile), filters.join(";\n"));
 
   // 1단계: 메인 영상 인코딩 (고품질로 stutter 회피)
@@ -201,7 +213,7 @@ async function main() {
   //   - maxrate 7M + bufsize 14M: 모션 많은 구간(xfade zoomin, punch)도 비트 충분히
   //   - keyint 60: 2초마다 keyframe — seek/플랫폼 호환성
   //   - fps_mode cfr -r 30: 출력 고정 framerate
-  const TEMP_OUT = "_temp-reel.mp4";
+  const TEMP_OUT = `_temp-reel${SFX}.mp4`;
   const cmd1 = [
     "ffmpeg -y -hide_banner -loglevel error",
     ...inputArgs,
@@ -252,7 +264,12 @@ async function main() {
     `✅ ${OUTPUT} 생성 완료 (${(stat.size / 1024 / 1024).toFixed(2)} MB, ${total.toFixed(1)}s)`,
   );
 
-  patchManifest({ reel: OUTPUT, cover: coverFile });
+  if (TIKTOK) {
+    // 틱톡 변형은 reel/cover를 덮어쓰지 않음 (IG/YT가 쓰는 값 보존).
+    patchManifest({ reelTiktok: OUTPUT });
+  } else {
+    patchManifest({ reel: OUTPUT, cover: coverFile });
+  }
 }
 
 main().catch((e) => {

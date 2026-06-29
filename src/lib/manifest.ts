@@ -5,6 +5,8 @@ export type Manifest = {
   date: string;
   files: string[];
   reel?: string;
+  /** 틱톡 전용 릴스(URL 워터마크 제거 변형). 없으면 post-tiktok이 reel로 폴백. */
+  reelTiktok?: string;
   story?: string;
   /** 인스타 REELS API의 cover_url용 9:16 PNG 파일명 (있으면 publishSingleMedia가 사용). */
   cover?: string;

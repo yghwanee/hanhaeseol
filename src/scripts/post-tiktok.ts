@@ -54,18 +54,29 @@ function persistRotatedRefreshToken(oldToken: string, newToken: string) {
 
 async function main() {
   const manifest = readManifest();
-  if (!manifest.reel) {
-    throw new Error("매니페스트에 reel 필드 없음 — 먼저 reel:make 실행 필요");
+  // 틱톡 전용 릴스(URL 워터마크 제거 변형)가 있으면 그걸 우선 사용, 없으면 공용 reel 폴백.
+  const reelFile = manifest.reelTiktok ?? manifest.reel;
+  if (!reelFile) {
+    throw new Error("매니페스트에 reel/reelTiktok 필드 없음 — 먼저 reel:make 실행 필요");
   }
-  const filePath = path.join(OUT_DIR, manifest.reel);
+  const filePath = path.join(OUT_DIR, reelFile);
+  console.log(`🎞️ 사용 영상: ${reelFile}${manifest.reelTiktok ? " (틱톡 전용)" : " (공용 폴백)"}`);
   if (!fs.existsSync(filePath)) {
     throw new Error(`영상 파일 없음: ${filePath}`);
   }
 
   const sizeMb = (fs.statSync(filePath).size / 1024 / 1024).toFixed(2);
   const { today, mm, dd } = getKstToday();
-  // 본문(buildCaption)에 콘텐츠 해시태그 5개가 이미 포함됨. 여기엔 틱톡 발견(FYP) 태그만 덧붙임.
-  const caption = `${buildCaption(mm, dd, today, UTM_LINKS.tt_caption)}\n#fyp #추천 #포유 #스포츠`;
+  // 본문(buildCaption)에 날짜·경기·동적 콘텐츠 해시태그가 이미 포함됨.
+  // 여기엔 틱톡 스포츠 발견(FYP) 태그를 덧붙이되, 본문에 이미 있는 태그는 중복 제거.
+  // 스포츠 고유입 위주(범용 #포유 등 노이즈 태그 제거) — 틱톡 한정 적용.
+  const base = buildCaption(mm, dd, today, UTM_LINKS.tt_caption);
+  const ttDiscoveryTags = [
+    "#축구", "#해외축구", "#스포츠", "#스포츠중계", "#축구중계",
+    "#스포츠하이라이트", "#월드컵", "#fyp", "#추천",
+  ];
+  const extraTags = ttDiscoveryTags.filter((t) => !base.includes(t)).join(" ");
+  const caption = `${base}\n${extraTags}`;
   const privacyLevel = resolvePrivacyLevel();
 
   console.log(`🎵 TikTok 업로드 시작 (${sizeMb} MB)`);
