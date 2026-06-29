@@ -7,6 +7,7 @@ import { CoupangSideBanners } from "./_components/CoupangBanners";
 import { CapsStripeClickHandler } from "./_components/CapsStripeClickHandler";
 import { PageTransition } from "./_components/PageTransition";
 import { ServiceWorkerRegister } from "./_components/ServiceWorkerRegister";
+import { FocusRefresh } from "./_components/FocusRefresh";
 import { InstallPrompt } from "./_components/InstallPrompt";
 import { PullToRefresh } from "./_components/PullToRefresh";
 import { PushSubscribeButton } from "./_components/PushSubscribeButton";
@@ -162,6 +163,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
         <CoupangSideBanners />
         <CapsStripeClickHandler />
         <ServiceWorkerRegister />
+        <FocusRefresh />
         <PullToRefresh />
         <InstallPrompt />
         <PageTransition>{children}</PageTransition>
