@@ -117,7 +117,11 @@ function findAliasMapByCategory(categoryId: string): Record<string, string | str
 }
 
 async function naverGet<T>(path: string): Promise<T | null> {
-  const res = await fetch(`${BASE}${path}`, { headers: HEADERS });
+  // 업스트림(네이버)이 응답하지 않을 때 무한 대기 방지(특히 /api/live 핫패스).
+  const res = await fetch(`${BASE}${path}`, {
+    headers: HEADERS,
+    signal: AbortSignal.timeout(8000),
+  });
   if (!res.ok) throw new Error(`Naver HTTP ${res.status}: ${path}`);
   const json = (await res.json()) as NaverApiResponse<T>;
   if (!json.success || !json.result) return null;
@@ -229,6 +233,67 @@ const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "amatchfriendly", label: "국가대표 친선" },
   { categoryId: "worldcup", label: "월드컵" },
 ];
+
+/**
+ * 라이브 전용 경량 크롤 (/api/live 핫패스용).
+ * crawlAllResults와 달리: ①리그를 병렬 호출 ②진행중/종료 경기만 포함(예정·취소 제외로 payload 축소)
+ * ③득점자 상세는 "진행중 축구"만 추가 조회(종료 경기 득점자는 30분 주기 결과 크롤이 채움).
+ * 반환은 동일한 ResultsData 모양 → 클라가 빌드시 results 위에 byKey로 머지해 카드 스코어만 갱신.
+ */
+export async function crawlLiveResults(): Promise<ResultsData> {
+  const lists = await Promise.all(
+    LEAGUES.map((lg) => fetchLeagueGames(lg.categoryId).catch(() => [] as NaverGame[])),
+  );
+  const allGames = lists.flat();
+
+  const results: MatchResult[] = [];
+  const byKey: Record<string, MatchResult> = {};
+
+  for (const g of allGames) {
+    const date = formatDate(g.gameDate);
+    const categoryId = g.categoryId;
+    const home = g.homeTeamName;
+    const away = g.awayTeamName;
+    if (!date || !categoryId || !home || !away) continue;
+
+    const status = mapStatus(g);
+    // 라이브 화면에 필요한 건 진행중·종료뿐(예정/취소는 빌드 데이터로 충분).
+    if (status !== "live" && status !== "finished") continue;
+
+    const homeAliases = expandAliases(categoryId, home);
+    const awayAliases = expandAliases(categoryId, away);
+    const result: MatchResult = {
+      date,
+      categoryId,
+      homeTeam: homeAliases[1] ?? homeAliases[0],
+      awayTeam: awayAliases[1] ?? awayAliases[0],
+      ...(typeof g.homeTeamScore === "number" ? { homeScore: g.homeTeamScore } : {}),
+      ...(typeof g.awayTeamScore === "number" ? { awayScore: g.awayTeamScore } : {}),
+      status,
+      ...(g.statusInfo ? { period: g.statusInfo } : {}),
+    };
+
+    // 진행중 축구 + 골>0 만 득점자 상세 조회(라이브 한정이라 호출 수 적음).
+    const totalGoals = (g.homeTeamScore ?? 0) + (g.awayTeamScore ?? 0);
+    if (status === "live" && SOCCER_CATEGORIES.has(categoryId) && g.gameId && totalGoals > 0) {
+      const goals = await fetchGoals(g.gameId);
+      if (goals.length > 0) result.goals = goals;
+    }
+
+    results.push(result);
+    for (const h of homeAliases) {
+      for (const a of awayAliases) {
+        byKey[resultKey(date, categoryId, h, a)] = result;
+      }
+    }
+  }
+
+  return {
+    lastUpdated: new Date().toISOString(),
+    byKey,
+    results,
+  };
+}
 
 export async function crawlAllResults(): Promise<ResultsData> {
   const allGames: NaverGame[] = [];

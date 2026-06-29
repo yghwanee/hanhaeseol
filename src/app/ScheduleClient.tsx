@@ -8,7 +8,7 @@ import { TeamRecordsMap } from "@/types/team-record";
 import { ResultsData } from "@/types/results";
 import { lookupTeamRecord } from "@/lib/team-records/lookup";
 import { findResult } from "@/lib/results/lookup";
-import { getUpcomingDates, getTodayString } from "@/lib/schedule-utils";
+import { getUpcomingDates, getTodayString, isGameLive } from "@/lib/schedule-utils";
 import { StickyHeader } from "./_components/StickyHeader";
 import { SPORTS, PLATFORM_LIST } from "./_components/constants";
 import { PlatformIcon } from "./_components/PlatformIcon";
@@ -51,6 +51,8 @@ export default function ScheduleClient({
   const [archiveResults, setArchiveResults] = useState<ResultsData | null>(null);
   const [archiveLoading, setArchiveLoading] = useState(false);
   const [datepickerOpen, setDatepickerOpen] = useState(false);
+  // 라이브 폴링(/api/live)으로 받아온 최신 결과. 빌드시 results 위에 머지한다.
+  const [polledResults, setPolledResults] = useState<ResultsData | null>(null);
   const todayStr = useMemo(() => getTodayString(), []);
   const isArchiveDate = selectedDate < todayStr;
 
@@ -68,6 +70,43 @@ export default function ScheduleClient({
       .catch((e) => console.error("archive fetch failed", e))
       .finally(() => setArchiveLoading(false));
   }, [isArchiveDate, archive, archiveLoading]);
+
+  // 라이브 스코어 폴링: 진행 중(킥오프~예상종료+여유)인 경기가 있고 탭이 보일 때만
+  // /api/live를 45초 간격으로 가져와 카드 스코어를 새로고침 없이 갱신한다.
+  // 엔드포인트는 엣지 30초 캐시라 시청자가 늘어도 원본 부하는 상수(비용 가드).
+  useEffect(() => {
+    if (isArchiveDate) return;
+    let stopped = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    const anyLiveNow = () =>
+      data.schedules.some((s) => isGameLive(s.date, s.time, s.sport));
+
+    const tick = async () => {
+      if (stopped) return;
+      if (
+        typeof document !== "undefined" &&
+        document.visibilityState === "visible" &&
+        anyLiveNow()
+      ) {
+        try {
+          const r = await fetch("/api/live", { cache: "no-store" });
+          if (r.ok) {
+            const j = (await r.json()) as ResultsData;
+            if (!stopped) setPolledResults(j);
+          }
+        } catch {
+          /* 네트워크 일시 오류는 무시하고 다음 틱에 재시도 */
+        }
+      }
+      if (!stopped) timer = setTimeout(tick, 45000);
+    };
+    tick();
+    return () => {
+      stopped = true;
+      if (timer) clearTimeout(timer);
+    };
+  }, [data, isArchiveDate]);
 
   // 상태 변경 시 URL 동기화 (history.replaceState로 라우터 재요청 없이).
   // 초기값은 서버에서 prop으로 받으므로 mount 시 query → state 동기화 단계 없음 (깜빡임 방지).
@@ -248,8 +287,19 @@ export default function ScheduleClient({
       .sort((a, b) => a.time.localeCompare(b.time));
   }, [data, archive, worldcupSchedules, isArchiveDate, selectedDate, deferredSport, deferredPlatform, deferredCommentary, deferredSearchQuery]);
 
-  // 카드 결과 표시: archive 모드는 archiveResults, 그 외는 현재 results.
-  const effectiveResults = isArchiveDate ? archiveResults : results;
+  // 라이브 폴링 결과를 빌드시 results 위에 머지(진행중 경기 byKey만 덮어씀).
+  const liveResults = useMemo<ResultsData | null>(() => {
+    if (!polledResults) return results;
+    if (!results) return polledResults;
+    return {
+      lastUpdated: polledResults.lastUpdated,
+      byKey: { ...results.byKey, ...polledResults.byKey },
+      results: polledResults.results,
+    };
+  }, [results, polledResults]);
+
+  // 카드 결과 표시: archive 모드는 archiveResults, 그 외는 라이브 머지된 결과.
+  const effectiveResults = isArchiveDate ? archiveResults : liveResults;
 
   // datepicker 버튼 라벨: archive 날짜면 그 날짜를 한국 포맷으로, 아니면 placeholder.
   const datepickerLabel = useMemo(() => {
@@ -449,7 +499,7 @@ export default function ScheduleClient({
         <WorldCupView
           schedules={worldcupSchedules}
           teamRecords={teamRecords}
-          results={results}
+          results={liveResults}
           today={todayStr}
         />
       ) : (
