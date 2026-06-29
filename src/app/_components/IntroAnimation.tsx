@@ -124,6 +124,14 @@ export function IntroAnimation() {
     }
     handledInThisSession = true;
 
+    // 당겨서 새로고침 등으로 reload한 경우: 인트로/ripple 스킵 → 바로 콘텐츠.
+    if (sessionStorage.getItem("hhs-skip-intro-once") === "1") {
+      sessionStorage.removeItem("hhs-skip-intro-once");
+      setMode("done");
+      markIntroDone();
+      return;
+    }
+
     // ↓ 일부러 cleanup 으로 animation 을 취소하지 않음.
     //   React 18 dev strict mode 가 effect 를 두 번 돌리는데, cleanup 에서 timers/cancelled
     //   를 끄면 첫번째 effect 가 시작한 타이핑이 첫 sleep 직후 멈춤 ("h" 에서 정지 버그).
