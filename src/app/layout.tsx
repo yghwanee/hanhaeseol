@@ -20,6 +20,13 @@ const geistSans = localFont({
   weight: "100 900",
 });
 
+// iOS PWA 런치스크린(흰 화면 방지). 기기 해상도별 어두운 스플래시 이미지를
+// media 쿼리로 매칭해야 흰 번쩍 없이 어두운 스플래시가 뜬다. [cssW, cssH, dpr] portrait.
+const APPLE_SPLASH: [number, number, number][] = [
+  [430, 932, 3], [393, 852, 3], [402, 874, 3], [440, 956, 3], [390, 844, 3],
+  [375, 812, 3], [414, 896, 3], [414, 896, 2], [414, 736, 3], [375, 667, 2], [320, 568, 2],
+];
+
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
@@ -119,6 +126,19 @@ gtag('config', 'G-F1MX6S0SGW');`}
         {INTRO_EMBLEM_PATHS.map((src) => (
           <link key={src} rel="preload" as="image" href={src} />
         ))}
+        {/* iOS 설치형 앱 런치스크린 — 흰 번쩍 방지(어두운 스플래시). */}
+        {APPLE_SPLASH.map(([w, h, r]) => {
+          const W = w * r;
+          const H = h * r;
+          return (
+            <link
+              key={`${W}x${H}`}
+              rel="apple-touch-startup-image"
+              media={`screen and (device-width: ${w}px) and (device-height: ${h}px) and (-webkit-device-pixel-ratio: ${r}) and (orientation: portrait)`}
+              href={`/splash/apple-splash-${W}x${H}.png`}
+            />
+          );
+        })}
         <meta name="msvalidate.01" content="BAF456457E39D2FDB1A54BF8674FA2C6" />
         <meta name="google-site-verification" content="qe2Z2hjBEFJqqq_nEcLigG8aEiQdotP4_6jouBXE5aE" />
         <meta name="naver-site-verification" content="d9be7cb662b83910f698f22aea4b0267c91e53f4" />
