@@ -114,6 +114,21 @@ export default function RootLayout({
   return (
     <html lang="ko" className="dark" style={{ backgroundColor: "#0a0a0a" }}>
       <head>
+        {/* Pretendard 폰트 — 비차단 로드(media=print → 로드되면 all로 스왑).
+            globals.css @import는 렌더링을 막아 검정화면이 길어지므로 여기로 옮김. */}
+        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
+        <link
+          id="pretendard-css"
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css"
+          media="print"
+        />
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){var l=document.getElementById('pretendard-css');if(!l)return;if(l.sheet){l.media='all';}else{l.addEventListener('load',function(){l.media='all';});}})();",
+          }}
+        />
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-F1MX6S0SGW" strategy="afterInteractive" />
         <Script id="gtag-init" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];

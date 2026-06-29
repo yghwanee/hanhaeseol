@@ -2,11 +2,20 @@
 
 import { useEffect, useRef, useState } from "react";
 
-// 당겨서 새로고침(pull-to-refresh).
-// 설치형(standalone)에서만 동작 — 일반 브라우저는 자체 당겨서 새로고침이 있어 충돌 방지.
-// 맨 위(scrollY=0)에서 아래로 끌면 인디케이터가 따라오고, 임계값 넘겨 놓으면 reload.
-const THRESHOLD = 70; // 이만큼 당기면 새로고침
-const MAX = 90; // 최대 당김(고무줄 저항)
+// 배민 스타일 당겨서 새로고침(pull-to-refresh).
+// 설치형(standalone)에서만 — 일반 브라우저는 자체 당겨서 새로고침이 있어 충돌 방지.
+// 맨 위(scrollY=0)에서 아래로 끌면 영역이 늘어나며 스포츠 공들이 '팡' 나타나고
+// "땡겨서 스포츠경기 리프레시" 문구 표시. 임계값 넘겨 놓으면 reload.
+const THRESHOLD = 80; // 이만큼 당기면 새로고침(공 팡 터짐)
+const MAX = 130; // 최대 당김(고무줄 저항)
+
+const BALLS = [
+  { e: "🎾", x: "50%", y: "20%", d: 0 },
+  { e: "🏀", x: "27%", y: "37%", d: 70 },
+  { e: "⚾", x: "73%", y: "37%", d: 110 },
+  { e: "⚽", x: "13%", y: "64%", d: 160 },
+  { e: "🏐", x: "87%", y: "64%", d: 210 },
+];
 
 export function PullToRefresh() {
   const [pull, setPull] = useState(0);
@@ -39,15 +48,14 @@ export function PullToRefresh() {
     const onMove = (e: TouchEvent) => {
       if (!active.current) return;
       const dy = e.touches[0].clientY - startY.current;
-      // 위로 스크롤 중이거나 이미 아래로 내려갔으면 취소
       if (dy <= 0 || window.scrollY > 0) {
         active.current = false;
         apply(0);
         return;
       }
-      // 아래로 당기는 중엔 페이지 고무줄 막고 우리 인디케이터로 대체
+      // 아래로 당기는 중엔 페이지 고무줄 막고 우리 영역으로 대체
       if (e.cancelable) e.preventDefault();
-      apply(Math.min(MAX, dy * 0.5));
+      apply(Math.min(MAX, dy * 0.55));
     };
 
     const onEnd = () => {
@@ -74,40 +82,54 @@ export function PullToRefresh() {
   }, [refreshing]);
 
   const visible = pull > 0 || refreshing;
-  const ready = pull >= THRESHOLD;
+  const ready = pull >= THRESHOLD || refreshing;
+  const p = Math.min(1, pull / THRESHOLD);
+  const height = refreshing ? 96 : pull;
 
   return (
     <div
       aria-hidden
-      className="pointer-events-none fixed inset-x-0 top-0 z-[60] flex justify-center"
+      className="pointer-events-none fixed inset-x-0 top-0 z-[60] overflow-hidden"
       style={{
-        transform: `translateY(${refreshing ? 24 : pull}px)`,
+        height,
         opacity: visible ? 1 : 0,
-        transition: active.current ? "none" : "transform 0.25s, opacity 0.25s",
+        transition: active.current ? "none" : "height 0.25s ease, opacity 0.25s ease",
+        background:
+          "linear-gradient(180deg, #0a0a0a 0%, rgba(10,10,10,0.92) 75%, rgba(10,10,10,0.7) 100%)",
       }}
     >
-      <div className="mt-2 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/60 backdrop-blur-md">
-        <svg
-          viewBox="0 0 24 24"
-          className={`h-5 w-5 text-white ${refreshing ? "animate-spin" : ""}`}
-          style={{ transform: refreshing ? undefined : `rotate(${Math.min(180, (pull / THRESHOLD) * 180)}deg)` }}
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2.2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
+      <div className="relative h-full w-full">
+        {BALLS.map((b, i) => (
+          <span
+            key={i}
+            style={{ position: "absolute", left: b.x, top: b.y, transform: "translate(-50%,-50%)" }}
+          >
+            <span
+              className={ready ? "animate-[ballPop_0.55s_ease-out_backwards]" : ""}
+              style={{
+                display: "inline-block",
+                fontSize: 30,
+                transform: ready ? "scale(1)" : `scale(${p})`,
+                opacity: ready ? 1 : p * p,
+                animationDelay: ready ? `${b.d}ms` : undefined,
+              }}
+            >
+              {b.e}
+            </span>
+          </span>
+        ))}
+        <div
+          className="absolute inset-x-0 bottom-2 text-center text-sm font-extrabold tracking-tight"
+          style={{ opacity: Math.min(1, p * 1.25) }}
         >
           {refreshing ? (
-            // 스피너(원호)
-            <path d="M21 12a9 9 0 1 1-6.2-8.6" />
-          ) : ready ? (
-            // 놓으면 새로고침 — 위 화살표
-            <path d="M12 19V5M5 12l7-7 7 7" />
+            <span className="text-white">새로고침 중…</span>
           ) : (
-            // 당기는 중 — 아래 화살표
-            <path d="M12 5v14M5 12l7 7 7-7" />
+            <span className="text-white">
+              땡겨서 <span className="text-emerald-400">스포츠경기</span> 리프레시
+            </span>
           )}
-        </svg>
+        </div>
       </div>
     </div>
   );

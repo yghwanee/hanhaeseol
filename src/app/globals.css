@@ -1,4 +1,5 @@
-@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css");
+/* Pretendard 폰트는 layout.tsx <head>에서 비차단(media-swap)으로 로드한다.
+   여기서 @import 하면 렌더링이 막혀(검정 화면 길어짐+깜빡) 첫 페인트가 지연됨. */
 
 @tailwind base;
 @tailwind components;
@@ -36,6 +37,14 @@
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
+}
+
+/* 당겨서 새로고침 — 스포츠 공 '팡' 터지는 효과 */
+@keyframes ballPop {
+  0% { transform: scale(0.3); }
+  55% { transform: scale(1.35); }
+  78% { transform: scale(0.9); }
+  100% { transform: scale(1); }
 }
 
 @keyframes introBlink {
