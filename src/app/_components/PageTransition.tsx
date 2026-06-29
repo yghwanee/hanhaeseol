@@ -26,8 +26,11 @@ export function PageTransition({ children }: { children: ReactNode }) {
     el.classList.add("page-enter-anim");
   }, [pathname]);
 
+  // 첫 로드엔 enter 애니메이션 미적용 — 인트로가 페이드/슬라이드 없이 즉시 뜨게.
+  // (이 wrapper 안에 인트로 오버레이가 있어, 첫 진입에 pageEnter opacity 0→1 이
+  //  돌면 검정 splash 뒤 인트로가 번쩍이며 나타남.) 내비게이션 전환부턴 effect 가 적용.
   return (
-    <div ref={ref} className="page-enter-anim">
+    <div ref={ref}>
       {children}
     </div>
   );
