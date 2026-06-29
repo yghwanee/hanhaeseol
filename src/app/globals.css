@@ -20,23 +20,20 @@
      어두운 틴트가 아니라 '밝은' 틴트와 빛 반사를 준다. (어두운 틴트면 그냥 검은 박스) */
   .liquid-glass {
     position: relative;
-    /* 우윳빛 프로스티드 틴트 — backdrop-blur에만 의존하지 않고 유리 자체에 밝은 틴트를
-       입혀, 뒤에 비칠 콘텐츠가 없는 상황(검정 배경/맨 위)에서도 기본으로 유리처럼 보이게. */
-    background-image: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.22),
-      rgba(255, 255, 255, 0.09)
-    );
-    -webkit-backdrop-filter: blur(28px) saturate(190%) brightness(1.25);
-    backdrop-filter: blur(28px) saturate(190%) brightness(1.25);
+    /* 어두운 사이트에선 '흰 프로스트' 틴트가 그냥 회색으로 보인다. 그래서 틴트는 거의
+       투명하게 두고(회색화 방지), 유리감은 ①사선 빛줄기(::before) ②밝은 상단 테두리
+       ③backdrop blur/채도 로 낸다. 빛줄기·테두리는 그라데이션이라 backdrop-filter가
+       약한 iOS Safari에서도 그대로 보인다(=어두운 배경 위 유광 유리). */
+    background-color: rgba(255, 255, 255, 0.04);
+    -webkit-backdrop-filter: blur(18px) saturate(200%) brightness(1.12);
+    backdrop-filter: blur(18px) saturate(200%) brightness(1.12);
     border: 1px solid rgba(255, 255, 255, 0.28);
     box-shadow:
-      0 12px 44px rgba(0, 0, 0, 0.55),
-      inset 0 1.5px 0 rgba(255, 255, 255, 0.7),
-      inset 1px 0 0 rgba(255, 255, 255, 0.2),
-      inset 0 -1px 1px rgba(0, 0, 0, 0.25);
+      0 12px 40px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.85),
+      inset 0 -10px 18px -10px rgba(255, 255, 255, 0.18);
   }
-  /* 좌상단에서 들어오는 빛 반사 — 유리감의 핵심 */
+  /* 사선으로 흐르는 빛 반사 줄기 — 유광 유리감의 핵심 */
   .liquid-glass::before {
     content: "";
     position: absolute;
@@ -44,10 +41,12 @@
     border-radius: inherit;
     pointer-events: none;
     background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.4) 0%,
-      rgba(255, 255, 255, 0.1) 26%,
-      rgba(255, 255, 255, 0) 52%
+      118deg,
+      transparent 18%,
+      rgba(255, 255, 255, 0.16) 38%,
+      rgba(255, 255, 255, 0.42) 46%,
+      rgba(255, 255, 255, 0.12) 54%,
+      transparent 72%
     );
   }
 }
