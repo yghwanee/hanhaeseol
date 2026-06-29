@@ -24,6 +24,7 @@ import { readInsight } from "@/lib/insights/storage";
 import { MatchInsightSection } from "./_components/MatchInsight";
 import { MatchStarters } from "./_components/MatchStarters";
 import { MatchLineup } from "./_components/MatchLineup";
+import { MatchBaseballLineup } from "./_components/MatchBaseballLineup";
 import { getStartersForMatch } from "@/lib/starters/lookup";
 import type { StartersData } from "@/types/starter";
 import startersData from "@/data/starters.json";
@@ -272,9 +273,10 @@ export default function MatchPage({ params }: { params: Params }) {
   const hasScore =
     !!result && typeof result.homeScore === "number" && typeof result.awayScore === "number";
 
-  // 축구 라인업용 네이버 gameId. 진행중/예정은 results(3일 윈도우), 과거는 archive에서.
+  // 라인업용 네이버 gameId. 진행중/예정은 results(3일 윈도우), 과거는 archive에서.
+  // 축구=포메이션(/api/lineup), 야구=타순(/api/lineup-baseball).
   const lineupGameId =
-    match.sport === "축구"
+    match.sport === "축구" || match.sport === "야구"
       ? findResult(results, match)?.gameId ?? findResult(resultsArchive, match)?.gameId
       : undefined;
 
@@ -600,8 +602,15 @@ export default function MatchPage({ params }: { params: Params }) {
 
         </article>
 
-        {lineupGameId && (
+        {lineupGameId && match.sport === "축구" && (
           <MatchLineup
+            gameId={lineupGameId}
+            homeTeam={match.homeTeam}
+            awayTeam={match.awayTeam}
+          />
+        )}
+        {lineupGameId && match.sport === "야구" && (
+          <MatchBaseballLineup
             gameId={lineupGameId}
             homeTeam={match.homeTeam}
             awayTeam={match.awayTeam}
