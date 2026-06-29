@@ -8,6 +8,7 @@ import { CapsStripeClickHandler } from "./_components/CapsStripeClickHandler";
 import { PageTransition } from "./_components/PageTransition";
 import { ServiceWorkerRegister } from "./_components/ServiceWorkerRegister";
 import { InstallPrompt } from "./_components/InstallPrompt";
+import { PullToRefresh } from "./_components/PullToRefresh";
 import { PushSubscribeButton } from "./_components/PushSubscribeButton";
 import { INTRO_EMBLEM_PATHS } from "./_components/intro-emblems";
 import "./globals.css";
@@ -161,6 +162,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
         <CoupangSideBanners />
         <CapsStripeClickHandler />
         <ServiceWorkerRegister />
+        <PullToRefresh />
         <InstallPrompt />
         <PageTransition>{children}</PageTransition>
         <footer className="border-t border-zinc-800 bg-zinc-950 px-4 py-8 text-center">
