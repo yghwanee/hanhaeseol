@@ -48,17 +48,12 @@ export function InstallPrompt() {
     return () => window.removeEventListener("beforeinstallprompt", onBIP);
   }, []);
 
-  // 일정 이상 스크롤하면 노출. 한 번 충족되면 유지.
+  // 일정 이상 내려가면 노출, 다시 위로 올라오면 숨김(스크롤 위치 추종).
   useEffect(() => {
     if (typeof window === "undefined") return;
-    const onScroll = () => {
-      if (window.scrollY > 320) {
-        setScrolled(true);
-        window.removeEventListener("scroll", onScroll);
-      }
-    };
+    const onScroll = () => setScrolled(window.scrollY > 320);
     window.addEventListener("scroll", onScroll, { passive: true });
-    onScroll(); // 이미 내려와 있으면 즉시
+    onScroll(); // 초기 위치 반영
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
