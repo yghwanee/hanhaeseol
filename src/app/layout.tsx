@@ -6,6 +6,8 @@ import scheduleData from "@/data/schedule.json";
 import { CoupangSideBanners } from "./_components/CoupangBanners";
 import { CapsStripeClickHandler } from "./_components/CapsStripeClickHandler";
 import { PageTransition } from "./_components/PageTransition";
+import { ServiceWorkerRegister } from "./_components/ServiceWorkerRegister";
+import { InstallPrompt } from "./_components/InstallPrompt";
 import { INTRO_EMBLEM_PATHS } from "./_components/intro-emblems";
 import "./globals.css";
 
@@ -75,6 +77,12 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+  },
+  manifest: "/manifest.webmanifest",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "한해설",
   },
   icons: {
     icon: [
@@ -151,6 +159,8 @@ gtag('config', 'G-F1MX6S0SGW');`}
       <body className={`${geistSans.variable} antialiased`}>
         <CoupangSideBanners />
         <CapsStripeClickHandler />
+        <ServiceWorkerRegister />
+        <InstallPrompt />
         <PageTransition>{children}</PageTransition>
         <footer className="border-t border-zinc-800 bg-zinc-950 px-4 py-8 text-center">
           <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-zinc-400">
