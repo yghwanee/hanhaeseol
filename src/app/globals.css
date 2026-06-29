@@ -24,12 +24,12 @@
        뒤 배경을 흐리게 통과시킨다. 배경이 투명/어두우므로 글씨는 흰색+그림자.
        얇은 흰 테두리 + inset 하이라이트로 유리 가장자리 표현. */
     background-color: transparent;
-    -webkit-backdrop-filter: blur(30px) saturate(180%);
-    backdrop-filter: blur(30px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    -webkit-backdrop-filter: blur(10px) saturate(140%);
+    backdrop-filter: blur(10px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.15);
     box-shadow:
-      0 8px 30px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.28);
+      0 8px 30px rgba(0, 0, 0, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
   }
 }
 
