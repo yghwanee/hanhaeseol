@@ -45,10 +45,12 @@
     "seo:indexnow": "tsx src/scripts/indexnow-ping.ts"
   },
   "dependencies": {
+    "@vercel/blob": "^2.5.0",
     "marked": "^18.0.5",
     "next": "14.2.35",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "web-push": "^3.6.7"
   },
   "devDependencies": {
     "@napi-rs/canvas": "^0.1.98",
@@ -56,6 +58,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/web-push": "^3.6.4",
     "dotenv": "^17.4.1",
     "eslint": "^8",
     "eslint-config-next": "14.2.35",

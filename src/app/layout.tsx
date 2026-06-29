@@ -8,6 +8,7 @@ import { CapsStripeClickHandler } from "./_components/CapsStripeClickHandler";
 import { PageTransition } from "./_components/PageTransition";
 import { ServiceWorkerRegister } from "./_components/ServiceWorkerRegister";
 import { InstallPrompt } from "./_components/InstallPrompt";
+import { PushSubscribeButton } from "./_components/PushSubscribeButton";
 import { INTRO_EMBLEM_PATHS } from "./_components/intro-emblems";
 import "./globals.css";
 
@@ -170,6 +171,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
             <Link href="/standings" className="hover:text-white">순위</Link>
             <Link href="/about" className="hover:text-white">소개</Link>
             <Link href="/faq" className="hover:text-white">FAQ</Link>
+            <PushSubscribeButton />
           </nav>
           <p className="mt-4 text-xs text-zinc-600">© 2026 한해설</p>
         </footer>
