@@ -20,24 +20,17 @@
      어두운 틴트가 아니라 '밝은' 틴트와 빛 반사를 준다. (어두운 틴트면 그냥 검은 박스) */
   .liquid-glass {
     position: relative;
-    /* 은은한 다크 글래스 — 어두운 반투명 + 약한 블러 + 얇은 테두리 + 아주 살짝 상단 빛.
-       화려한 빛줄기/프로스트 없이 깔끔하게. */
-    background-color: rgba(20, 20, 23, 0.6);
-    -webkit-backdrop-filter: blur(16px) saturate(150%);
-    backdrop-filter: blur(16px) saturate(150%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
+    /* iOS 26 'Liquid Glass' 탭바 스타일 — 밝은 흰 반투명 알약. iOS 글래스가 밝아 보이는 건
+       라이트 앱 배경 때문. 어두운 사이트에선 흰 반투명을 '연하게' 쓰면 회색이 되므로,
+       반대로 거의 흰색(0.82)으로 밝게 + backdrop blur/채도 → 어두운 배경 위 흰 글래스 알약.
+       (글씨는 밝은 배경에 맞춰 어둡게) */
+    background-color: rgba(255, 255, 255, 0.82);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
     box-shadow:
-      0 8px 28px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.18);
-  }
-  /* 좌상단 아주 옅은 빛 */
-  .liquid-glass::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.07), transparent 42%);
+      0 8px 30px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.9);
   }
 }
 
