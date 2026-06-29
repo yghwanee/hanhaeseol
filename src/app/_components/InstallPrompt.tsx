@@ -90,30 +90,33 @@ export function InstallPrompt() {
   // 안내 문구: 설치 이벤트 있으면 원클릭, 없으면 플랫폼별 수동 안내.
   let body: React.ReactNode;
   if (deferred) {
-    body = <span>한해설을 앱처럼 홈 화면에 추가하세요.</span>;
+    body = (
+      <span>
+        자주 보는 한해설, <b className="text-white">홈 화면에 추가</b>하고 더 빠르게!
+      </span>
+    );
   } else if (platform === "ios") {
     body = iosSafari ? (
       <span>
-        <b className="text-white">공유</b> 버튼 → <b className="text-white">홈 화면에 추가</b>로
-        앱처럼 설치할 수 있어요.
+        <b className="text-white">공유</b> → <b className="text-white">홈 화면에 추가</b>하면
+        앱처럼 한 번에 열려요.
       </span>
     ) : (
       <span>
-        <b className="text-white">Safari</b>로 열어 <b className="text-white">공유 → 홈 화면에 추가</b>로
-        설치할 수 있어요.
+        <b className="text-white">Safari</b>로 열어 <b className="text-white">공유 → 홈 화면에 추가</b>하면 끝!
       </span>
     );
   } else if (platform === "android") {
     body = (
       <span>
-        브라우저 <b className="text-white">메뉴(⋮)</b> → <b className="text-white">앱 설치</b>로
-        홈 화면에 추가하세요.
+        <b className="text-white">메뉴(⋮)</b> → <b className="text-white">앱 설치</b>면
+        홈 화면에서 바로 열려요.
       </span>
     );
   } else {
     body = (
       <span>
-        주소창 오른쪽 <b className="text-white">설치 아이콘</b>으로 한해설을 앱처럼 설치하세요.
+        주소창 끝 <b className="text-white">설치 아이콘</b>을 누르면 앱처럼 쓸 수 있어요.
       </span>
     );
   }
