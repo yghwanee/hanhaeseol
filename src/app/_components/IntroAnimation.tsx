@@ -184,6 +184,7 @@ export function IntroAnimation() {
       className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-zinc-950 transition-opacity duration-500 ${
         fadingOut ? "opacity-0" : "opacity-100"
       } ${fadingOut || mode !== "intro" ? "pointer-events-none" : ""}`}
+      style={{ backgroundColor: "#0a0a0a" }}
       aria-hidden
     >
       {mode === "intro" && (

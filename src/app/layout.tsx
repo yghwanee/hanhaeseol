@@ -112,7 +112,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ko" className="dark">
+    <html lang="ko" className="dark" style={{ backgroundColor: "#0a0a0a" }}>
       <head>
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-F1MX6S0SGW" strategy="afterInteractive" />
         <Script id="gtag-init" strategy="afterInteractive">
@@ -180,7 +180,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
           }}
         />
       </head>
-      <body className={`${geistSans.variable} antialiased`}>
+      <body className={`${geistSans.variable} antialiased`} style={{ backgroundColor: "#0a0a0a" }}>
         <CoupangSideBanners />
         <CapsStripeClickHandler />
         <ServiceWorkerRegister />
