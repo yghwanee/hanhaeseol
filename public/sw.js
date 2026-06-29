@@ -1,11 +1,20 @@
-// 한해설 서비스워커 — PWA 설치 + 웹푸시 수신.
-// 캐싱은 최소화: 편성표/데이터가 자주 바뀌므로 stale 방지를 위해 HTML·데이터는 항상
-// 네트워크 우선으로 두고, 오프라인일 때만 캐시된 오프라인 페이지로 폴백한다.
-const CACHE = "hhs-shell-v1";
+// 한해설 서비스워커 — PWA 설치 + 웹푸시 수신 + 빠른 실행(흰 번쩍 방지).
+// 루트("/")는 stale-while-revalidate: 캐시본을 즉시 반환해 네트워크 대기 중
+// 흰 화면(웹뷰 기본색)이 번쩍이는 걸 없애고, 백그라운드로 최신본을 받아 캐시 갱신.
+// 그 외 페이지/데이터는 네트워크 우선(+오프라인 폴백)으로 stale 위험 없게 둔다.
+const CACHE = "hhs-shell-v2";
 const OFFLINE_URL = "/offline";
+const ROOT_URL = "/";
 
 self.addEventListener("install", (event) => {
-  event.waitUntil(caches.open(CACHE).then((cache) => cache.add(OFFLINE_URL)));
+  event.waitUntil(
+    (async () => {
+      const cache = await caches.open(CACHE);
+      // 루트와 오프라인 페이지 미리 캐시(첫 실행 후부터 즉시 표시 가능).
+      await cache.add(OFFLINE_URL).catch(() => {});
+      await cache.add(ROOT_URL).catch(() => {});
+    })(),
+  );
   self.skipWaiting();
 });
 
@@ -18,14 +27,35 @@ self.addEventListener("activate", (event) => {
   self.clients.claim();
 });
 
-// 페이지 이동만 가로채 네트워크 우선 + 오프라인 폴백. 그 외(데이터·정적자원)는
-// 브라우저 기본 동작(HTTP 캐시)에 맡겨 stale 위험을 만들지 않는다.
 self.addEventListener("fetch", (event) => {
   const req = event.request;
   if (req.method !== "GET") return;
-  if (req.mode === "navigate") {
-    event.respondWith(fetch(req).catch(() => caches.match(OFFLINE_URL)));
+  if (req.mode !== "navigate") return;
+
+  const url = new URL(req.url);
+  const isRoot = url.pathname === "/";
+
+  if (isRoot) {
+    // stale-while-revalidate: 캐시본 즉시 반환(흰 번쩍 방지) + 백그라운드 최신화.
+    event.respondWith(
+      (async () => {
+        const cache = await caches.open(CACHE);
+        const cached = await cache.match(ROOT_URL);
+        const network = fetch(req)
+          .then((res) => {
+            if (res && res.ok) cache.put(ROOT_URL, res.clone());
+            return res;
+          })
+          .catch(() => null);
+        // 캐시 있으면 즉시(=흰 번쩍 없음). 없으면(첫 실행) 네트워크 대기.
+        return cached || (await network) || (await caches.match(OFFLINE_URL));
+      })(),
+    );
+    return;
   }
+
+  // 그 외 페이지: 네트워크 우선 + 오프라인 폴백.
+  event.respondWith(fetch(req).catch(() => caches.match(OFFLINE_URL)));
 });
 
 // 웹푸시 수신 (#1 경기 알림). payload: { title, body, url, tag }
