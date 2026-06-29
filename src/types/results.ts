@@ -27,6 +27,8 @@ export interface MatchResult {
   date: string;
   /** 네이버 categoryId. ex) "epl", "kbo", "nba" */
   categoryId: string;
+  /** 네이버 gameId. 라인업 등 경기별 상세(/api/lineup) 호출용. 목록 응답에서 수집. */
+  gameId?: string;
   /** schedule.json 표기로 정규화된 홈팀명 */
   homeTeam: string;
   /** schedule.json 표기로 정규화된 원정팀명 */

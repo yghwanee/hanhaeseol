@@ -265,6 +265,7 @@ export async function crawlLiveResults(): Promise<ResultsData> {
     const result: MatchResult = {
       date,
       categoryId,
+      ...(g.gameId ? { gameId: g.gameId } : {}),
       homeTeam: homeAliases[1] ?? homeAliases[0],
       awayTeam: awayAliases[1] ?? awayAliases[0],
       ...(typeof g.homeTeamScore === "number" ? { homeScore: g.homeTeamScore } : {}),
@@ -324,6 +325,7 @@ export async function crawlAllResults(): Promise<ResultsData> {
     const result: MatchResult = {
       date,
       categoryId,
+      ...(g.gameId ? { gameId: g.gameId } : {}),
       // 1차 표기는 alias map의 첫 번째 변형(있으면 그것)을 사용 — schedule.json 호환 우선.
       homeTeam: homeAliases[1] ?? homeAliases[0],
       awayTeam: awayAliases[1] ?? awayAliases[0],

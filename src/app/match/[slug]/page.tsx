@@ -5,6 +5,7 @@ import scheduleData from "@/data/schedule.json";
 import archiveData from "@/data/schedule-archive.json";
 import worldcupData from "@/data/worldcup.json";
 import resultsArchiveData from "@/data/results-archive.json";
+import resultsData from "@/data/results.json";
 import standingsData from "@/data/standings.json";
 import type { Schedule, ScheduleData } from "@/types/schedule";
 import type { GoalEvent, ResultsData } from "@/types/results";
@@ -22,6 +23,7 @@ import { CoupangTopBannerOnly } from "../../_components/CoupangBanners";
 import { readInsight } from "@/lib/insights/storage";
 import { MatchInsightSection } from "./_components/MatchInsight";
 import { MatchStarters } from "./_components/MatchStarters";
+import { MatchLineup } from "./_components/MatchLineup";
 import { getStartersForMatch } from "@/lib/starters/lookup";
 import type { StartersData } from "@/types/starter";
 import startersData from "@/data/starters.json";
@@ -103,6 +105,7 @@ function findTeamLogo(teamName: string): string | null {
   return null;
 }
 const resultsArchive = resultsArchiveData as unknown as ResultsData;
+const results = resultsData as unknown as ResultsData;
 
 /**
  * 매치 슬러그 조회: 현재 schedule(7일치) → archive(영구 누적) 순으로 찾는다.
@@ -268,6 +271,12 @@ export default function MatchPage({ params }: { params: Params }) {
   const result = finished ? findResult(resultsArchive, match) : undefined;
   const hasScore =
     !!result && typeof result.homeScore === "number" && typeof result.awayScore === "number";
+
+  // 축구 라인업용 네이버 gameId. 진행중/예정은 results(3일 윈도우), 과거는 archive에서.
+  const lineupGameId =
+    match.sport === "축구"
+      ? findResult(results, match)?.gameId ?? findResult(resultsArchive, match)?.gameId
+      : undefined;
 
   const insight = readInsight(match.id);
   const starters = getStartersForMatch(startersData as unknown as StartersData, match);
@@ -590,6 +599,14 @@ export default function MatchPage({ params }: { params: Params }) {
           </p>
 
         </article>
+
+        {lineupGameId && (
+          <MatchLineup
+            gameId={lineupGameId}
+            homeTeam={match.homeTeam}
+            awayTeam={match.awayTeam}
+          />
+        )}
 
         <div className="mt-6">
           <CoupangTopBannerOnly />
