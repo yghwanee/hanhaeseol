@@ -114,6 +114,14 @@ export default function RootLayout({
   return (
     <html lang="ko" className="dark" style={{ backgroundColor: "#0a0a0a" }}>
       <head>
+        {/* 당겨서 새로고침 reload면 인트로를 첫 페인트부터 숨김(SSR 인트로가 한 프레임
+            보이는 깜빡 방지). React보다 먼저 동기 실행되어야 해서 head 인라인 스크립트. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(sessionStorage.getItem('hhs-skip-intro-once'))document.documentElement.classList.add('skip-intro')}catch(e){}",
+          }}
+        />
         {/* Pretendard CDN 제거 — 브라우저에선 인트로 타이틀만 쓰던 걸 Geist로 바꿔
             더 이상 필요 없음. (렌더 차단 @import도, 폰트 스왑 FOUT 깜빡도 없앰.
             인스타/릴스 이미지 생성용 Pretendard는 node-canvas 로컬 폰트라 무관.) */}

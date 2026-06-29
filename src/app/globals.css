@@ -36,6 +36,12 @@
   100% { background-position: 200% 0; }
 }
 
+/* 당겨서 새로고침으로 reload된 경우: 인트로 오버레이를 첫 페인트부터 숨김(깜빡 방지).
+   head의 인라인 스크립트가 sessionStorage 플래그를 보고 html.skip-intro를 단다. */
+html.skip-intro [data-intro-overlay] {
+  display: none !important;
+}
+
 @keyframes introBlink {
   0%, 49% { opacity: 1; }
   50%, 100% { opacity: 0; }
