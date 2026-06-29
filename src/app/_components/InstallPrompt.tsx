@@ -79,7 +79,9 @@ export function InstallPrompt() {
   if (!deferred && !showIosHint) return null;
 
   return (
-    <div className="liquid-glass fixed inset-x-3 bottom-3 z-50 mx-auto max-w-md rounded-2xl p-3.5 sm:inset-x-auto sm:right-4">
+    <div
+      className="liquid-glass fixed inset-x-3 bottom-3 z-50 mx-auto max-w-md rounded-2xl p-3.5 [text-shadow:0_1px_3px_rgba(0,0,0,0.7)] sm:inset-x-auto sm:right-4"
+    >
       <div className="relative z-10 flex items-center gap-3">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -87,12 +89,12 @@ export function InstallPrompt() {
           alt="한해설"
           className="h-9 w-9 shrink-0 rounded-lg"
         />
-        <div className="min-w-0 flex-1 text-xs font-medium text-zinc-800 sm:text-sm">
+        <div className="min-w-0 flex-1 text-xs font-medium text-white sm:text-sm">
           {deferred ? (
             <span>한해설을 앱처럼 홈 화면에 추가하세요.</span>
           ) : (
             <span>
-              <b className="text-black">공유</b> 버튼 → <b className="text-black">홈 화면에 추가</b>로
+              <b className="text-white">공유</b> 버튼 → <b className="text-white">홈 화면에 추가</b>로
               앱처럼 설치할 수 있어요.
             </span>
           )}
@@ -100,7 +102,7 @@ export function InstallPrompt() {
         {deferred && (
           <button
             onClick={install}
-            className="shrink-0 rounded-full bg-emerald-600 px-4 py-1.5 text-xs font-semibold text-white shadow-sm shadow-emerald-600/30 transition-colors hover:bg-emerald-500"
+            className="shrink-0 rounded-full bg-emerald-600 px-4 py-1.5 text-xs font-semibold text-white shadow-sm shadow-emerald-600/30 transition-colors hover:bg-emerald-500 [text-shadow:none]"
           >
             설치
           </button>
@@ -108,7 +110,7 @@ export function InstallPrompt() {
         <button
           onClick={close}
           aria-label="닫기"
-          className="shrink-0 rounded-md px-1.5 py-1 text-zinc-500 hover:text-zinc-800"
+          className="shrink-0 rounded-md px-1.5 py-1 text-white/70 hover:text-white"
         >
           ✕
         </button>
