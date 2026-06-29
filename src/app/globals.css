@@ -307,7 +307,9 @@ table td.sticky {
 }
 
 html {
-  /* 첫 페인트 흰 번쩍 방지 — body 배경 적용 전에도 어둡게. */
+  /* 첫 페인트 흰 번쩍 방지 — body 배경 적용 전에도 어둡게.
+     color-scheme:dark = 브라우저/웹뷰 기본 캔버스색을 어둡게(콘텐츠 그려지기 전 흰색 방지). */
+  color-scheme: dark;
   background-color: #0a0a0a;
 }
 

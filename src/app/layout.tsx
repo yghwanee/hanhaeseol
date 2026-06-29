@@ -114,6 +114,8 @@ export default function RootLayout({
   return (
     <html lang="ko" className="dark" style={{ backgroundColor: "#0a0a0a" }}>
       <head>
+        {/* 첫 페인트 전 웹뷰 기본 캔버스색을 어둡게(흰 번쩍 방지). head에서 일찍 적용. */}
+        <meta name="color-scheme" content="dark" />
         {/* 당겨서 새로고침 reload면 인트로를 첫 페인트부터 숨김(SSR 인트로가 한 프레임
             보이는 깜빡 방지). React보다 먼저 동기 실행되어야 해서 head 인라인 스크립트. */}
         <script
