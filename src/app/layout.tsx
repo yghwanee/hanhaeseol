@@ -114,21 +114,9 @@ export default function RootLayout({
   return (
     <html lang="ko" className="dark" style={{ backgroundColor: "#0a0a0a" }}>
       <head>
-        {/* Pretendard 폰트 — 비차단 로드(media=print → 로드되면 all로 스왑).
-            globals.css @import는 렌더링을 막아 검정화면이 길어지므로 여기로 옮김. */}
-        <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
-        <link
-          id="pretendard-css"
-          rel="stylesheet"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.css"
-          media="print"
-        />
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "(function(){var l=document.getElementById('pretendard-css');if(!l)return;if(l.sheet){l.media='all';}else{l.addEventListener('load',function(){l.media='all';});}})();",
-          }}
-        />
+        {/* Pretendard CDN 제거 — 브라우저에선 인트로 타이틀만 쓰던 걸 Geist로 바꿔
+            더 이상 필요 없음. (렌더 차단 @import도, 폰트 스왑 FOUT 깜빡도 없앰.
+            인스타/릴스 이미지 생성용 Pretendard는 node-canvas 로컬 폰트라 무관.) */}
         <Script src="https://www.googletagmanager.com/gtag/js?id=G-F1MX6S0SGW" strategy="afterInteractive" />
         <Script id="gtag-init" strategy="afterInteractive">
           {`window.dataLayer = window.dataLayer || [];
@@ -202,19 +190,22 @@ gtag('config', 'G-F1MX6S0SGW');`}
         <FocusRefresh />
         <PullToRefresh />
         <InstallPrompt />
-        <PageTransition>{children}</PageTransition>
-        <footer className="border-t border-zinc-800 bg-zinc-950 px-4 py-8 text-center">
-          <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-zinc-400">
-            <Link href="/" className="hover:text-white">홈</Link>
-            <Link href="/guide" className="hover:text-white">한해설 Topic</Link>
-            <Link href="/worldcup" className="hover:text-white">월드컵</Link>
-            <Link href="/standings" className="hover:text-white">순위</Link>
-            <Link href="/about" className="hover:text-white">소개</Link>
-            <Link href="/faq" className="hover:text-white">FAQ</Link>
-            <PushSubscribeButton />
-          </nav>
-          <p className="mt-4 text-xs text-zinc-600">© 2026 한해설</p>
-        </footer>
+        {/* ptr-content: 당겨서 새로고침 시 이 영역이 아래로 밀려 내려간다(배민식). */}
+        <div className="ptr-content">
+          <PageTransition>{children}</PageTransition>
+          <footer className="border-t border-zinc-800 bg-zinc-950 px-4 py-8 text-center">
+            <nav className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-zinc-400">
+              <Link href="/" className="hover:text-white">홈</Link>
+              <Link href="/guide" className="hover:text-white">한해설 Topic</Link>
+              <Link href="/worldcup" className="hover:text-white">월드컵</Link>
+              <Link href="/standings" className="hover:text-white">순위</Link>
+              <Link href="/about" className="hover:text-white">소개</Link>
+              <Link href="/faq" className="hover:text-white">FAQ</Link>
+              <PushSubscribeButton />
+            </nav>
+            <p className="mt-4 text-xs text-zinc-600">© 2026 한해설</p>
+          </footer>
+        </div>
       </body>
     </html>
   );

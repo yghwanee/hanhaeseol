@@ -191,7 +191,7 @@ export function IntroAnimation() {
         <>
           <div
             className="text-3xl font-semibold tracking-tight text-zinc-100 sm:text-5xl"
-            style={{ fontFamily: '"Pretendard Variable", Pretendard, system-ui, sans-serif' }}
+            style={{ fontFamily: "var(--font-geist-sans), system-ui, -apple-system, sans-serif" }}
           >
             <span>{text}</span>
             <span className="ml-1 inline-block h-[0.95em] w-[2px] translate-y-[0.08em] bg-red-500 align-middle motion-safe:animate-[introBlink_1s_steps(2,end)_infinite]" />

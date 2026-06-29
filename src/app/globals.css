@@ -1,6 +1,3 @@
-/* Pretendard 폰트는 layout.tsx <head>에서 비차단(media-swap)으로 로드한다.
-   여기서 @import 하면 렌더링이 막혀(검정 화면 길어짐+깜빡) 첫 페인트가 지연됨. */
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -37,6 +34,18 @@
 @keyframes shimmer {
   0% { background-position: -200% 0; }
   100% { background-position: 200% 0; }
+}
+
+/* 당겨서 새로고침 — 콘텐츠를 아래로 밀어내림(배민식). 당기는 동안만 transform 적용
+   (평소엔 미적용 → sticky 헤더 등 정상 동작, fixed 요소 containing-block 부작용 방지). */
+.ptr-content {
+  will-change: transform;
+}
+html.ptr-pulling .ptr-content {
+  transform: translateY(var(--ptr, 0px));
+}
+html.ptr-pulling:not([data-ptr-active]) .ptr-content {
+  transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 /* 당겨서 새로고침 — 스포츠 공 '팡' 터지는 효과 */
