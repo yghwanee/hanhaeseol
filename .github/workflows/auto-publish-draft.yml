@@ -35,7 +35,11 @@ jobs:
       - name: Merge & publish
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: gh pr merge ${{ github.event.pull_request.number }} --squash --delete-branch
+        run: |
+          # 루틴은 PR을 GitHub Draft 상태로 연다. Draft 는 머지가 안 되므로
+          # 빌드 통과 후 Ready 로 전환한 뒤 머지한다. (이미 Ready면 무시)
+          gh pr ready ${{ github.event.pull_request.number }} || true
+          gh pr merge ${{ github.event.pull_request.number }} --squash --delete-branch
 
       - name: Notify success
         if: success()
