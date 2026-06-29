@@ -302,6 +302,11 @@ table td.sticky {
   animation: border-rotate 3s linear infinite;
 }
 
+html {
+  /* 첫 페인트 흰 번쩍 방지 — body 배경 적용 전에도 어둡게. */
+  background-color: #0a0a0a;
+}
+
 body {
   color: #ededed;
   background: #0a0a0a;

@@ -8,8 +8,8 @@ export default function manifest(): MetadataRoute.Manifest {
       "축구, 야구, 농구, 배구 한국어중계 편성표. 10개 플랫폼의 한국어 해설 중계를 한눈에.",
     start_url: "/",
     display: "standalone",
-    background_color: "#000000",
-    theme_color: "#000000",
+    background_color: "#0a0a0a",
+    theme_color: "#0a0a0a",
     lang: "ko",
     icons: [
       { src: "/favicon-192x192.png", sizes: "192x192", type: "image/png" },

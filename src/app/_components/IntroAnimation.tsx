@@ -124,6 +124,17 @@ export function IntroAnimation() {
     }
     handledInThisSession = true;
 
+    // 설치형(standalone) 앱은 콜드 실행마다 세션이 새로 시작돼 인트로가 매번
+    // 재생된다 → 앱답게 콘텐츠로 즉시 진입(인트로/ripple 생략). 웹은 그대로 유지.
+    const standalone =
+      window.matchMedia("(display-mode: standalone)").matches ||
+      (window.navigator as unknown as { standalone?: boolean }).standalone === true;
+    if (standalone) {
+      setMode("done");
+      markIntroDone();
+      return;
+    }
+
     // ↓ 일부러 cleanup 으로 animation 을 취소하지 않음.
     //   React 18 dev strict mode 가 effect 를 두 번 돌리는데, cleanup 에서 timers/cancelled
     //   를 끄면 첫번째 effect 가 시작한 타이핑이 첫 sleep 직후 멈춤 ("h" 에서 정지 버그).
