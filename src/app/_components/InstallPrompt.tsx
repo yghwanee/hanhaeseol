@@ -16,6 +16,8 @@ export function InstallPrompt() {
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
   const [showIosHint, setShowIosHint] = useState(false);
   const [dismissed, setDismissed] = useState(true);
+  // 스크롤을 어느 정도 내린 뒤에만 배너 노출(바로 안 띄우고 콘텐츠 본 다음).
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -45,6 +47,20 @@ export function InstallPrompt() {
     return () => window.removeEventListener("beforeinstallprompt", onBIP);
   }, []);
 
+  // 일정 이상 스크롤하면 노출. 한 번 충족되면 유지.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const onScroll = () => {
+      if (window.scrollY > 320) {
+        setScrolled(true);
+        window.removeEventListener("scroll", onScroll);
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    onScroll(); // 이미 내려와 있으면 즉시
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const close = () => {
     localStorage.setItem(DISMISS_KEY, "1");
     setDismissed(true);
@@ -58,6 +74,7 @@ export function InstallPrompt() {
   };
 
   if (dismissed) return null;
+  if (!scrolled) return null;
   if (!deferred && !showIosHint) return null;
 
   return (

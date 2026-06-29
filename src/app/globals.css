@@ -24,13 +24,13 @@
        라이트 앱 배경 때문. 어두운 사이트에선 흰 반투명을 '연하게' 쓰면 회색이 되므로,
        반대로 거의 흰색(0.82)으로 밝게 + backdrop blur/채도 → 어두운 배경 위 흰 글래스 알약.
        (글씨는 밝은 배경에 맞춰 어둡게) */
-    background-color: rgba(255, 255, 255, 0.82);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.6);
+    background-color: rgba(255, 255, 255, 0.7);
+    -webkit-backdrop-filter: blur(34px) saturate(185%);
+    backdrop-filter: blur(34px) saturate(185%);
+    border: 1px solid rgba(255, 255, 255, 0.55);
     box-shadow:
       0 8px 30px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      inset 0 1px 0 rgba(255, 255, 255, 0.85);
   }
 }
 
