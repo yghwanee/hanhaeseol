@@ -11,7 +11,7 @@ const DISMISS_KEY = "hhs-install-dismissed";
 
 // 앱 설치 유도 배너. 안드로이드/PC는 beforeinstallprompt로 설치 버튼,
 // iOS Safari는 이벤트가 없어 "공유 → 홈 화면에 추가" 안내를 보여준다.
-// 한 번 닫으면 localStorage로 다시 안 띄움.
+// 한 번 닫으면 그 탭(세션) 동안 안 띄움. 새 탭/새 창이면 다시 노출(sessionStorage).
 export function InstallPrompt() {
   const [deferred, setDeferred] = useState<BeforeInstallPromptEvent | null>(null);
   const [showIosHint, setShowIosHint] = useState(false);
@@ -21,7 +21,8 @@ export function InstallPrompt() {
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (localStorage.getItem(DISMISS_KEY)) return;
+    // sessionStorage = 같은 탭에선 닫으면 유지, 새 탭/새 창이면 다시 노출.
+    if (sessionStorage.getItem(DISMISS_KEY)) return;
 
     // 이미 설치(standalone)면 안내 불필요.
     const standalone =
@@ -62,7 +63,7 @@ export function InstallPrompt() {
   }, []);
 
   const close = () => {
-    localStorage.setItem(DISMISS_KEY, "1");
+    sessionStorage.setItem(DISMISS_KEY, "1");
     setDismissed(true);
   };
 
