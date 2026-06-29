@@ -36,13 +36,12 @@
   100% { background-position: 200% 0; }
 }
 
-/* 당겨서 새로고침 — 콘텐츠를 아래로 밀어내림(배민식). 당기는 동안만 transform 적용
-   (평소엔 미적용 → sticky 헤더 등 정상 동작, fixed 요소 containing-block 부작용 방지). */
-.ptr-content {
-  will-change: transform;
-}
+/* 당겨서 새로고침 — 콘텐츠를 아래로 밀어내림(배민식). 당기는 동안(.ptr-pulling)에만
+   transform/will-change 적용. 평소엔 절대 걸지 않음 — will-change:transform 조차
+   fixed 자식의 containing block을 만들어 인트로(fixed inset-0)가 깨지기 때문. */
 html.ptr-pulling .ptr-content {
   transform: translateY(var(--ptr, 0px));
+  will-change: transform;
 }
 html.ptr-pulling:not([data-ptr-active]) .ptr-content {
   transition: transform 0.32s cubic-bezier(0.2, 0.8, 0.2, 1);
