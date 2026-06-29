@@ -132,14 +132,18 @@ src/
 30. 북중미 월드컵 연동 — 편성/순위 분리 관리(`worldcup.json`/`worldcup-standings.json`), `/worldcup` 조별 순위 페이지 + 메인 월드컵 뷰(오늘 날짜 자동 포커싱). 순위 시간별 갱신 + 진행중 경기 라이브 오염 가드(승+무+패!=경기수 조는 직전 스냅샷 유지). 과거 스코어는 archive 머지로 표시.
 31. 축구 득점자·득점시간 표시 — 네이버 `game.scorers`(상세 호출) 수집해 `MatchResult.goals`에 저장. 카드 하단·매치페이지에 홈/원정 2열 표시(축구 종료+라이브). 모든 축구 카테고리 적용. 지난 월드컵 백필(`npm run backfill:worldcup-goals`).
 32. 한해설 Topic 에디토리얼 섹션 — `/guide`(목록)+`/guide/[slug]`(본문, NewsArticle JSON-LD). 글 = `src/content/guides/*.md`(marked + @tailwindcss/typography). 메인 헤더·전역 푸터에 "한해설 Topic" 진입 버튼. AdSense 4차 거절 후 "자동집계 사이트에 사람이 쓴 고유 콘텐츠가 없다" 문제 대응(트래픽·AdSense 공통 레버). 톤 규칙은 `docs/guide-style.md`.
-33. 평일 자동 초안 파이프라인 — 클라우드 루틴(claude.ai routine, 평일 6:30 KST)이 `docs/content-plan.md` 큐 + `docs/guide-style.md` 톤으로 초안 작성 → `draft/*` PR. `.github/workflows/notify-draft-pr.yml`가 텔레그램 알림. 사람 검수 후 머지 = 발행. (루틴 현재 OFF, 2026-06-29 시작 예정)
+33. 평일 자동 초안 파이프라인 — 클라우드 루틴(claude.ai routine `trig_01BDiRqeDKktbJ8WhrbUqrKM`)이 `docs/content-plan.md` 큐 + `docs/guide-style.md` 톤으로 초안 작성 → `draft/*` PR. `.github/workflows/notify-draft-pr.yml`가 텔레그램 알림. 사람 검수 후 머지 = 발행. **2026-06-29 ON. cron `30 21 * * 1-4`=화~금 6:30 KST**(월요일 제외 — 월은 글감 받아 사람+클로드가 1편 즉시 발행=수동, 화~금 4편 자동 = 주 5편). 매 실행 step0에서 content-plan.md "자동 휴무일"이면 스킵, "★ 월드컵 우선" 섹션만 선택("일정 고정·결과 반영"/"월드컵 이후" 섹션은 자동 제외).
 34. 주간 글감 제안 루틴 + 월드컵 우선 운영 (2026-06-25) — 클라우드 루틴 2번째(매주 월 6:30 KST, enabled)가 월드컵 글감 10개를 `[글감]` 이슈로 생성 → `.github/workflows/notify-ideas.yml`(issues 다리)가 텔레그램. 사람이 5개 골라 큐 세팅(목표 주 5개 발행). `content-plan.md`는 "월드컵 우선(~7/19)" 섹션 + "월드컵 이후(7/19~)" 섹션으로 분리, 자동초안은 대회 끝까지 월드컵만 고름. 결과/대진글(한국전 결과 등)은 자동 아닌 사람 수동. 두 텔레그램 다리(PR·이슈) end-to-end 검증 완료.
-35. 소셜 자동 게시 3채널 — 인스타(캐러셀+릴스+스토리)·유튜브 쇼츠·틱톡을 하루 2회 자동 공개 게시. 오전(`instagram-morning.yml`, KST 06~07시 노출, 당일 경기, legacy 세트) + 저녁(`instagram.yml`, KST 21시대 노출, 내일 경기, v2 세트). 카드/릴스/스토리 생성 → `insta-media` orphan 브랜치 푸시(raw CDN) → 게시. 토큰 자동 회전(YT/TikTok refresh + 회전 시 `GH_PAT_SECRETS_WRITE`로 Secret 갱신). **틱톡은 2026-06-25 Direct Post audit 승인 후 활성화**(privacy=`PUBLIC_TO_EVERYONE`, `post:tiktok`, 첫 공개 게시 검증 완료). 텔레그램 성공/실패 알림.
+35. 소셜 자동 게시 3채널 — 인스타(캐러셀+릴스+스토리)·유튜브 쇼츠는 하루 2회(오전 `instagram-morning.yml` KST 06~07시 당일경기 legacy / 저녁 `instagram.yml` KST 21시대 내일경기 v2). 카드/릴스/스토리 생성 → `insta-media` orphan 브랜치 푸시(raw CDN) → 게시. 토큰 자동 회전(YT/TikTok refresh + 회전 시 `GH_PAT_SECRETS_WRITE`로 Secret 갱신). **틱톡은 2026-06-25 Direct Post audit 승인 후 활성화**(privacy=`PUBLIC_TO_EVERYONE`, `post:tiktok`). 텔레그램 성공/실패 알림.
+36. 틱톡 도달 개선 (2026-06-29) — @hanhaeseol 0조회수(게시는 정상, 배포 억제) 대응. **틱톡 한정**: ①해시태그 스포츠 발견태그(`post-tiktok.ts`) ②틱톡은 **저녁 1회만**(아침 워크플로우에서 제외 — 도배 신호 완화) ③틱톡 전용 릴스 변형 `HHS_TIKTOK_VARIANT=1 npm run reel:make:v2`→`reel-v2-tiktok.mp4`로 title/outro/CTA `haeseol.com` URL→한글("한해설"/"한해설 검색") 교체(워터마크 제거+유튜브판과 차별=중복 회피), `manifest.reelTiktok` 우선 사용. IG/YT 경로(reel-v2.mp4/manifest.reel)는 옵션 noUrl 기본 false라 무변경. AI 실사컷→비-AI(레버3)는 보류. 남은 건 계정 warmup(사람 몫).
+37. 라이브 스코어 무새로고침 갱신 (2026-06-29) — kicktalk.xyz(한국어 월드컵 컴패니언) 벤치마크 후 "살아있는 느낌" 도입. **`/api/live`**(동적 함수, `crawlLiveResults` 경량 병렬크롤=진행중·종료만, `s-maxage=30` 엣지캐시) + 클라(`ScheduleClient`) 폴링: 진행중(킥오프~예상종료+여유) 경기 있고 탭 보일 때만 45초 간격 fetch→빌드 results 위에 byKey 머지. 라이브 없으면 폴링 자체 중단. 비용 $0(캐시로 원본부하 상수화). **스케줄러(GH 30분 크롤)는 그대로 필요** — 정적HTML·SEO·영구아카이브·폴백 담당이고 `/api/live`는 그 위 휘발성 오버레이(둘은 보완관계, 대체 아님). `naverGet`에 8초 타임아웃 추가(hang 방지).
+38. 선발 라인업 표시 (2026-06-29) — 매치페이지에 라인업. **축구**=`/api/lineup`(네이버 `/lineup`, 포메이션+선발XI, 원정 미러링 보정으로 GK-first 통일), **야구(KBO·MLB)**=`/api/lineup-baseball`(네이버 `/preview`, KBO `fullLineUp`·MLB `batter/pitcher` 구조 달라 파서 각각→타순1~9+선발투수 공통정규화). 둘 다 클라 아일랜드 fetch(페이지 열 때 최신, 초단위 틱 X — 라인업은 경기전 확정), 데이터 없으면 섹션 숨김. `MatchResult.gameId` 추가(크롤서 수집)로 매치↔네이버 연결. 농구·배구는 미지원. 선수평점은 네이버에 없어 제외(Sofascore/Fotmob 별도소스 필요). 비용 $0.
 
 ### 다음 작업 (예정)
-- Vercel 배포 설정
-- 평일 자동 초안 루틴 ON (2026-06-29). 텔레그램 다리는 이미 검증됨
-- (상시 운영) 매주 월 글감 이슈 도착 → 5개 선택해 큐 세팅 / 월드컵 한국전 등 결과글은 수동 작성
+- **경기 푸시 알림(#3)** — 방향 확정·미착수: 자체스택(웹푸시 VAPID + Upstash Redis 무료티어, GH Actions서 발송) · 실시간 골+시작임박+결과 · 팀/리그 찜하기 타겟팅. 레포 public이라 라이브 골 폴러도 $0. **선행: 사용자가 Upstash 생성 + VAPID 키 + 시크릿(Vercel/GH) 셋업**해야 시작. 빌드순서 A(구독 최소슬라이스)→B(찜)→C(시작·결과 발송)→D(실시간 골 폴러).
+- kicktalk 추가 후보(우선순위): 승부예측+포인트(localStorage 시작=셋업0) > PWA > 하이라이트 임베드 > 팀/국가 상세(SEO) > MVP투표 > 경기별 댓글(가벼운 UGC). 자유게시판 풀버전은 모더레이션 부담으로 제외.
+- (상시 운영) 매주 월 글감 이슈 도착 → 5개 선택해 큐 세팅. 월요일 1편은 즉시 수동 발행, 화~금 4편은 자동. 월드컵 결과글(16강 7/3·8강 7/9·4강 7/14·3·4위전 7/16·결승 7/17)은 그날 사람이 결과 반영해 수동(해당일은 자동 휴무일)
+- 틱톡 0조회수 — 도달 개선 적용(작업 36) 후 조회수 추이 관찰. 안 풀리면 레버3(AI컷 교체)·inbox 수동게시 실험. 계정 warmup은 사람 몫
 - (운영 메모) 핵심 미해결은 기술 아닌 **트래픽/수익화** — AdSense·애드핏 다 트래픽 미달이 병목(일 ~110명)
 
 ## 개발 명령어
@@ -150,4 +154,11 @@ npm run build    # 프로덕션 빌드
 npm run start    # 프로덕션 서버
 npm run lint     # ESLint 검사
 npm run crawl    # 크롤링 실행 (7일치)
+npm run crawl:worldcup   # 월드컵 편성+조별순위 재크롤 (현재 기준 맞출 때)
+npm run crawl:results    # 결과·스코어 재크롤
 ```
+
+## 배포
+
+- **Vercel Git 연동**으로 `main` 푸시 시 자동 프로덕션 배포(`vercel.json` 존재, 별도 deploy 워크플로 없음). 가이드 등 콘텐츠 발행 = main 직접 푸시.
+- 데이터 JSON의 `lastUpdated`는 **UTC(Z)** 표기(KST=+9). 로컬 "현재 기준"은 위 crawl 명령으로 재크롤(src/data·public 양쪽 기록).
