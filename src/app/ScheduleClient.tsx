@@ -288,12 +288,18 @@ export default function ScheduleClient({
   }, [data, archive, worldcupSchedules, isArchiveDate, selectedDate, deferredSport, deferredPlatform, deferredCommentary, deferredSearchQuery]);
 
   // 라이브 폴링 결과를 빌드시 results 위에 머지(진행중 경기 byKey만 덮어씀).
+  // 키 단위로 "필드 병합"한다(통째 교체 X): 라이브 엔트리에 없는 필드(예: 종료 경기의
+  // 득점자·승부차기 점수)는 빌드 값을 보존해야, 라이브 오버레이가 빌드에 있던 골을 지우지 않는다.
   const liveResults = useMemo<ResultsData | null>(() => {
     if (!polledResults) return results;
     if (!results) return polledResults;
+    const byKey = { ...results.byKey };
+    for (const [k, live] of Object.entries(polledResults.byKey)) {
+      byKey[k] = { ...results.byKey[k], ...live };
+    }
     return {
       lastUpdated: polledResults.lastUpdated,
-      byKey: { ...results.byKey, ...polledResults.byKey },
+      byKey,
       results: polledResults.results,
     };
   }, [results, polledResults]);

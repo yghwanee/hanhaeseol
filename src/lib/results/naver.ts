@@ -315,13 +315,15 @@ export async function crawlLiveResults(): Promise<ResultsData> {
       ...(decisiveDraw ? { winner: mapWinner(g.winner) } : {}),
     };
 
-    // 상세(득점자+승부차기) 조회: 진행중 축구 골>0, 또는 승부차기로 갈린 종료 경기.
-    // 둘 다 흔치 않아 라이브 핫패스 호출 수가 적게 유지된다.
+    // 상세(득점자+승부차기) 조회: 골이 있는 축구 경기는 진행중·종료 모두, 또는 승부차기로
+    // 갈린 종료 경기. 종료 경기도 채워야 한다 — 라이브 오버레이는 빌드 결과를 byKey 단위로
+    // 덮어쓰므로(클라 머지), 여기서 종료 경기 골을 빼면 빌드에 있던 골이 화면에서 사라진다.
+    // (status는 위에서 이미 live|finished로 걸러져 있다.)
     const totalGoals = (g.homeTeamScore ?? 0) + (g.awayTeamScore ?? 0);
     const needsDetail =
       SOCCER_CATEGORIES.has(categoryId) &&
       !!g.gameId &&
-      ((status === "live" && totalGoals > 0) || decisiveDraw);
+      (totalGoals > 0 || decisiveDraw);
     if (needsDetail) {
       const detail = await fetchGameDetail(g.gameId!);
       if (detail.goals.length > 0) result.goals = detail.goals;
