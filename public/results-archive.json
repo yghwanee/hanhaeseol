@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-06-29T23:15:50.457Z",
+  "lastUpdated": "2026-06-30T00:07:31.956Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -11977,6 +11977,32 @@
           "addedTime": 5
         }
       ]
+    },
+    "2026-06-30|worldcup|독일|파라과이": {
+      "date": "2026-06-30",
+      "categoryId": "worldcup",
+      "gameId": "bwBeCjswPeFyCAd",
+      "homeTeam": "독일",
+      "awayTeam": "파라과이",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "goals": [
+        {
+          "team": "away",
+          "player": "엔시소",
+          "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "하베르츠",
+          "minute": 54
+        }
+      ],
+      "homePtScore": 3,
+      "awayPtScore": 4
     }
   },
   "results": [
@@ -23956,6 +23982,32 @@
           "addedTime": 5
         }
       ]
+    },
+    {
+      "date": "2026-06-30",
+      "categoryId": "worldcup",
+      "gameId": "bwBeCjswPeFyCAd",
+      "homeTeam": "독일",
+      "awayTeam": "파라과이",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "goals": [
+        {
+          "team": "away",
+          "player": "엔시소",
+          "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "하베르츠",
+          "minute": 54
+        }
+      ],
+      "homePtScore": 3,
+      "awayPtScore": 4
     }
   ]
 }
