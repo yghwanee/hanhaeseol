@@ -24,6 +24,18 @@ export function loadScheduleData(): ScheduleData {
   return data;
 }
 
+/** schedule.json 의 lastUpdated 만 필요한 곳(레이아웃 JSON-LD 등)용 경량 리더.
+ *  schedule.json 전체를 모듈에 static import 하면 그 청크에 42KB가 묶이므로 런타임 읽기로 대체. */
+export function loadScheduleLastUpdated(): string {
+  try {
+    const filePath = path.join(process.cwd(), "public", "schedule.json");
+    const raw = fs.readFileSync(filePath, "utf-8");
+    return (JSON.parse(raw) as { lastUpdated?: string }).lastUpdated ?? "";
+  } catch {
+    return "";
+  }
+}
+
 export function loadTeamRecords(): TeamRecordsMap {
   try {
     const filePath = path.join(process.cwd(), "public", "team-records.json");

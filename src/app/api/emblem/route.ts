@@ -23,6 +23,8 @@ export async function GET(request: Request): Promise<Response> {
     // 서버 측 fetch는 기본적으로 Referer를 보내지 않음 → pstatic이 200으로 응답.
     upstream = await fetch(target.toString(), {
       headers: { "User-Agent": "Mozilla/5.0 (haeseol image proxy)" },
+      // pstatic이 응답을 끌면 핫패스 프록시가 무한 대기하지 않도록(다른 네이버 fetch와 동일 8초).
+      signal: AbortSignal.timeout(8000),
     });
   } catch {
     return new Response("upstream fetch failed", { status: 502 });

@@ -621,6 +621,7 @@ export default function ScheduleClient({
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="팀, 리그 검색"
+            aria-label="팀, 리그 검색"
             className="w-full rounded-lg border border-zinc-700 bg-zinc-900 py-2 pl-9 pr-3 text-xs text-zinc-200 placeholder-zinc-500 focus:border-zinc-500 focus:outline-none sm:py-2.5 sm:pl-10 sm:pr-4 sm:text-sm"
           />
           {searchQuery && (

@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 키보드 포커스 가시화 — 여러 컴포넌트가 focus:outline-none 으로 포커스 표시를
+   지워, 탭/버튼/입력을 키보드로 탐색할 때 현재 위치가 안 보였다(WCAG 2.4.7).
+   focus-visible(키보드 포커스)에만, outline-none(:focus) 보다 우선하도록 !important.
+   마우스 클릭(:focus 이되 :focus-visible 아님)에는 적용되지 않아 시각적 노이즈 없음. */
+:focus-visible {
+  outline: 2px solid rgb(212 212 216) !important; /* zinc-300 */
+  outline-offset: 2px !important;
+  border-radius: 4px;
+}
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;

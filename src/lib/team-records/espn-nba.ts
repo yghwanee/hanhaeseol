@@ -1,4 +1,5 @@
 import { TeamRecord } from "@/types/team-record";
+import { pLimit } from "@/lib/crawlers/_utils";
 
 // ESPN team abbreviation → schedule.json의 한국어 팀명.
 // 네이버 NBA 응답이 정규시즌 종료 후 비어있어서, 플레이오프 기간엔 ESPN을 쓴다.
@@ -101,24 +102,6 @@ function extractTeamRecord(events: EspnEvent[], teamAbbr: string): TeamRecord {
     }
   }
   return { last5, win, lose, ...(wra !== undefined ? { wra } : {}) };
-}
-
-async function pLimit<T, R>(
-  items: T[],
-  limit: number,
-  fn: (item: T) => Promise<R>,
-): Promise<R[]> {
-  const results: R[] = new Array(items.length);
-  let idx = 0;
-  async function worker() {
-    while (true) {
-      const i = idx++;
-      if (i >= items.length) return;
-      results[i] = await fn(items[i]);
-    }
-  }
-  await Promise.all(Array.from({ length: Math.min(limit, items.length) }, worker));
-  return results;
 }
 
 export async function fetchEspnNbaRecords(): Promise<Record<string, TeamRecord>> {

@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import Link from "next/link";
 import Script from "next/script";
-import scheduleData from "@/data/schedule.json";
+import { loadScheduleLastUpdated } from "@/lib/server-data";
 import { CoupangSideBanners } from "./_components/CoupangBanners";
 import { CapsStripeClickHandler } from "./_components/CapsStripeClickHandler";
 import { PageTransition } from "./_components/PageTransition";
@@ -29,7 +29,7 @@ const APPLE_SPLASH: [number, number, number][] = [
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  maximumScale: 1,
+  // maximumScale 를 두지 않는다 — 저시력 사용자의 핀치 줌 확대를 막으면 안 됨(WCAG 1.4.4).
   themeColor: "#0a0a0a",
 };
 
@@ -110,6 +110,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const scheduleLastUpdated = loadScheduleLastUpdated();
   return (
     <html lang="ko" className="dark" style={{ backgroundColor: "#0a0a0a" }}>
       <head>
@@ -169,7 +170,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
                   "description": "축구, 야구, 농구, 배구 한국어중계 편성표. 10개 플랫폼의 한국어 해설 중계를 한눈에 확인하세요.",
                   "inLanguage": "ko",
                   "datePublished": "2026-02-01T00:00:00+09:00",
-                  "dateModified": scheduleData.lastUpdated,
+                  "dateModified": scheduleLastUpdated,
                 },
                 {
                   "@type": "Organization",
