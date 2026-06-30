@@ -150,7 +150,7 @@ function GroupCard({ g }: { g: WorldCupGroup }) {
                     <span className="flex min-w-0 items-center gap-1.5">
                       {t.emblem && (
                         /* eslint-disable-next-line @next/next/no-img-element */
-                        <img src={proxyLogo(t.emblem)} alt="" referrerPolicy="no-referrer" className="h-3.5 w-5 shrink-0 rounded-[2px] object-cover" />
+                        <img src={proxyLogo(t.emblem)} alt="" loading="lazy" referrerPolicy="no-referrer" className="h-3.5 w-5 shrink-0 rounded-[2px] object-cover" />
                       )}
                       <span className="truncate font-medium text-zinc-100">{t.name}</span>
                     </span>
@@ -217,7 +217,7 @@ export default function WorldCupPage() {
         bracket={
           <>
             <TournamentBracket rounds={bracketRounds} />
-            <p className="mt-6 text-center text-[11px] leading-relaxed text-zinc-600">
+            <p className="mt-6 text-center text-[11px] leading-relaxed text-zinc-400">
               정규+연장 무승부 시 승부차기로 승자 결정 · 결과 출처: 네이버 스포츠
             </p>
           </>
@@ -235,7 +235,7 @@ export default function WorldCupPage() {
                 ))}
               </div>
             )}
-            <p className="mt-6 text-center text-[11px] leading-relaxed text-zinc-600">
+            <p className="mt-6 text-center text-[11px] leading-relaxed text-zinc-400">
               조 1·2위 16강 직행 + 각 조 3위 중 상위 8팀 추가 진출 · 순위 출처: 네이버 스포츠
             </p>
           </>

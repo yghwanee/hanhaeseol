@@ -209,7 +209,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
             <Link href="/faq" className="hover:text-white">FAQ</Link>
             <PushSubscribeButton />
           </nav>
-          <p className="mt-4 text-xs text-zinc-600">© 2026 한해설</p>
+          <p className="mt-4 text-xs text-zinc-400">© 2026 한해설</p>
         </footer>
       </body>
     </html>

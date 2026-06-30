@@ -61,6 +61,7 @@ function TeamLine({
           <img
             src={proxyLogo(emblem)}
             alt=""
+            loading="lazy"
             referrerPolicy="no-referrer"
             className="h-3.5 w-5 shrink-0 rounded-[2px] object-cover"
           />

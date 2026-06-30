@@ -50,6 +50,7 @@ export default function ScheduleClient({
   const [archive, setArchive] = useState<ScheduleData | null>(null);
   const [archiveResults, setArchiveResults] = useState<ResultsData | null>(null);
   const [archiveLoading, setArchiveLoading] = useState(false);
+  const [archiveError, setArchiveError] = useState(false);
   const [datepickerOpen, setDatepickerOpen] = useState(false);
   // 라이브 폴링(/api/live)으로 받아온 최신 결과. 빌드시 results 위에 머지한다.
   const [polledResults, setPolledResults] = useState<ResultsData | null>(null);
@@ -59,17 +60,39 @@ export default function ScheduleClient({
   useEffect(() => {
     if (!isArchiveDate || archive || archiveLoading) return;
     setArchiveLoading(true);
+    setArchiveError(false);
     Promise.all([
       fetch("/schedule-archive.json").then((r) => (r.ok ? r.json() : null)),
       fetch("/results-archive.json").then((r) => (r.ok ? r.json() : null)).catch(() => null),
     ])
       .then(([sch, res]) => {
+        // schedule-archive 를 못 받으면 빈 목록이 "편성 없음"으로 잘못 보이므로 에러로 구분.
         if (sch) setArchive(sch);
+        else setArchiveError(true);
         if (res) setArchiveResults(res);
       })
-      .catch((e) => console.error("archive fetch failed", e))
+      .catch((e) => {
+        console.error("archive fetch failed", e);
+        setArchiveError(true);
+      })
       .finally(() => setArchiveLoading(false));
   }, [isArchiveDate, archive, archiveLoading]);
+
+  // 과거 데이터 다시 불러오기(에러 후 재시도): 상태를 초기화하면 위 effect 가 다시 fetch.
+  const retryArchive = () => {
+    setArchiveError(false);
+    setArchive(null);
+  };
+
+  // 안내 모달: Escape 로 닫기(접근성).
+  useEffect(() => {
+    if (!showInfo) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setShowInfo(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [showInfo]);
 
   // 라이브 스코어 폴링: 진행 중(킥오프~예상종료+여유)인 경기가 있고 탭이 보일 때만
   // /api/live를 45초 간격으로 가져와 카드 스코어를 새로고침 없이 갱신한다.
@@ -629,7 +652,7 @@ export default function ScheduleClient({
               type="button"
               onClick={() => setSearchQuery("")}
               aria-label="검색어 지우기"
-              className="absolute right-1 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded text-base leading-none text-zinc-500 hover:text-zinc-300"
+              className="absolute right-0.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded text-base leading-none text-zinc-500 hover:text-zinc-300"
             >
               &times;
             </button>
@@ -662,7 +685,7 @@ export default function ScheduleClient({
               type="button"
               onClick={() => setSelectedDate(todayStr)}
               aria-label="오늘로 돌아가기"
-              className="absolute right-1 top-1/2 flex h-7 w-7 -translate-y-1/2 items-center justify-center rounded text-base leading-none text-zinc-400 hover:text-zinc-200"
+              className="absolute right-0.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded text-base leading-none text-zinc-400 hover:text-zinc-200"
             >
               &times;
             </button>
@@ -680,13 +703,25 @@ export default function ScheduleClient({
 
       {/* archive 로딩 중 표시 */}
       {isArchiveDate && archiveLoading && (
-        <div className="mb-4 text-center text-xs text-zinc-500 sm:text-sm">
+        <div className="mb-4 text-center text-xs text-zinc-400 sm:text-sm">
           지난 경기 데이터를 불러오는 중...
         </div>
       )}
 
       {/* Schedule List */}
-      {filtered.length === 0 ? (
+      {isArchiveDate && archiveError && !archiveLoading ? (
+        <div className="tab-content-anim flex flex-col items-center justify-center py-16 sm:py-20 text-zinc-400">
+          <span className="text-2xl sm:text-3xl">⚠️</span>
+          <p className="mt-3 text-xs sm:text-sm">지난 경기 데이터를 불러오지 못했습니다</p>
+          <button
+            type="button"
+            onClick={retryArchive}
+            className="mt-4 rounded-lg border border-zinc-600 px-4 py-2 text-xs text-zinc-200 hover:border-zinc-400 sm:text-sm"
+          >
+            다시 시도
+          </button>
+        </div>
+      ) : filtered.length === 0 ? (
         <div
           key={`empty:${selectedDate}|${sport}|${platform}|${commentaryFilter}`}
           className="tab-content-anim flex flex-col items-center justify-center py-16 sm:py-20 text-zinc-500"
@@ -761,14 +796,14 @@ export default function ScheduleClient({
         </p>
       </section>
 
-      <p className="mt-6 sm:mt-8 text-center text-[11px] sm:text-xs text-zinc-600" suppressHydrationWarning>
+      <p className="mt-6 sm:mt-8 text-center text-[11px] sm:text-xs text-zinc-400" suppressHydrationWarning>
         마지막 업데이트: {data ? new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" }) : "로딩 중..."}
       </p>
 
       {/* Info Modal */}
       {showInfo && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={() => setShowInfo(false)}>
-          <div className="mx-4 max-w-md rounded-xl border border-zinc-700 bg-zinc-900 px-5 sm:px-6 pt-5 sm:pt-6 pb-8 sm:pb-9" onClick={(e) => e.stopPropagation()}>
+          <div role="dialog" aria-modal="true" aria-label="안내" className="mx-4 max-w-md rounded-xl border border-zinc-700 bg-zinc-900 px-5 sm:px-6 pt-5 sm:pt-6 pb-8 sm:pb-9" onClick={(e) => e.stopPropagation()}>
             <div className="flex justify-end">
               <button
                 type="button"

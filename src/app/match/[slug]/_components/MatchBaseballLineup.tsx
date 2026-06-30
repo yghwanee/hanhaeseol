@@ -41,7 +41,7 @@ function TeamColumn({ team, label }: { team: BaseballTeamLineup; label: string }
             </span>
             <span className="truncate text-zinc-200">{b.name}</span>
             <span className="shrink-0 text-[10px] text-zinc-500">{b.position}</span>
-            {b.bats && <span className="shrink-0 text-[10px] text-zinc-600">{b.bats}</span>}
+            {b.bats && <span className="shrink-0 text-[10px] text-zinc-400">{b.bats}</span>}
           </li>
         ))}
       </ol>
@@ -93,15 +93,15 @@ export function MatchBaseballLineup({
         {data!.home ? (
           <TeamColumn team={data!.home} label={homeTeam} />
         ) : (
-          <div className="text-xs text-zinc-600">정보 없음</div>
+          <div className="text-xs text-zinc-400">정보 없음</div>
         )}
         {data!.away ? (
           <TeamColumn team={data!.away} label={awayTeam} />
         ) : (
-          <div className="text-xs text-zinc-600">정보 없음</div>
+          <div className="text-xs text-zinc-400">정보 없음</div>
         )}
       </div>
-      <p className="mt-3 text-[10px] text-zinc-600">출처: 네이버 스포츠 · 발표 후 표시</p>
+      <p className="mt-3 text-[10px] text-zinc-400">출처: 네이버 스포츠 · 발표 후 표시</p>
     </section>
   );
 }

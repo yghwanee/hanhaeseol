@@ -117,15 +117,15 @@ export function MatchLineup({
         {data.home ? (
           <TeamColumn team={data.home} label={homeTeam} align="left" />
         ) : (
-          <div className="text-xs text-zinc-600">정보 없음</div>
+          <div className="text-xs text-zinc-400">정보 없음</div>
         )}
         {data.away ? (
           <TeamColumn team={data.away} label={awayTeam} align="right" />
         ) : (
-          <div className="text-xs text-zinc-600">정보 없음</div>
+          <div className="text-xs text-zinc-400">정보 없음</div>
         )}
       </div>
-      <p className="mt-3 text-[10px] text-zinc-600">출처: 네이버 스포츠 · 교체 시 갱신</p>
+      <p className="mt-3 text-[10px] text-zinc-400">출처: 네이버 스포츠 · 교체 시 갱신</p>
     </section>
   );
 }

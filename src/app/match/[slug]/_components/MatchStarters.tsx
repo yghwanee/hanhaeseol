@@ -30,7 +30,7 @@ function StarterCol({
     return (
       <div className={`flex-1 ${alignCls}`}>
         <p className="truncate text-xs text-zinc-400 sm:text-sm">{team}</p>
-        <p className="mt-1 text-sm text-zinc-600">선발 미발표</p>
+        <p className="mt-1 text-sm text-zinc-400">선발 미발표</p>
       </div>
     );
   }
@@ -53,7 +53,7 @@ export function MatchStarters({ home, away, homeTeam, awayTeam }: Props) {
         선발 매치업
       </h2>
       {!home && !away ? (
-        <p className="text-center text-sm text-zinc-600">선발 미발표</p>
+        <p className="text-center text-sm text-zinc-400">선발 미발표</p>
       ) : (
         <div className="flex items-start justify-center gap-4 sm:gap-6">
           <StarterCol team={homeTeam} starter={home} align="right" />

@@ -126,7 +126,7 @@ export default function StandingsPage({
           <StandingsView data={data} initialSport={initialSport} initialLeague={initialLeague} />
         </div>
 
-        <p className="mt-6 text-xs text-zinc-600">
+        <p className="mt-6 text-xs text-zinc-400">
           데이터 출처: 네이버 스포츠 · 갱신:{" "}
           {new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })} (KST)
         </p>
