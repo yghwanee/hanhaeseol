@@ -590,6 +590,25 @@ export default function MatchPage({ params }: { params: Params }) {
             </div>
           )}
 
+          {result?.highlightVideoId && (
+            <div className="mt-4">
+              <p className="mb-2 text-[11px] font-medium text-zinc-400 sm:text-xs">
+                경기 하이라이트
+              </p>
+              <div className="relative aspect-video overflow-hidden rounded-lg border border-zinc-800">
+                <iframe
+                  className="absolute inset-0 h-full w-full"
+                  src={`https://www.youtube-nocookie.com/embed/${result.highlightVideoId}`}
+                  title={`${match.homeTeam} vs ${match.awayTeam} 하이라이트`}
+                  loading="lazy"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowFullScreen
+                  referrerPolicy="strict-origin-when-cross-origin"
+                />
+              </div>
+            </div>
+          )}
+
           <p className="mt-3 text-sm leading-relaxed text-zinc-300">
             <strong>{match.league}</strong>{" "}
             <strong>{match.homeTeam}</strong> vs <strong>{match.awayTeam}</strong>{" "}

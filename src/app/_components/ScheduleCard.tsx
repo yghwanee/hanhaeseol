@@ -78,6 +78,7 @@ function ScheduleCardInner({
     result?.status === "finished" &&
     typeof result?.homePtScore === "number" &&
     typeof result?.awayPtScore === "number";
+  const showHighlight = result?.status === "finished" && !!result?.highlightVideoId;
 
   // 카드 전체는 매치 페이지로, 플랫폼 뱃지는 플랫폼 페이지로 — nested anchor 회피를
   // 위해 카드 본체를 div로 두고 absolute Link를 inset-0으로 깐다. PlatformBadge Link는
@@ -162,8 +163,19 @@ function ScheduleCardInner({
 
       {showGoals && <ScorerLines goals={result!.goals!} />}
 
-      <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 flex items-center">
+      <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 flex items-center justify-between gap-2">
         <PlatformBadge platform={schedule.platform} />
+        {showHighlight && (
+          <a
+            href={`https://www.youtube.com/watch?v=${result!.highlightVideoId}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="pointer-events-auto relative z-20 inline-flex shrink-0 items-center gap-1 rounded-md bg-rose-500/15 px-2 py-1 text-[10px] font-bold text-rose-300 transition-colors hover:bg-rose-500/25"
+            aria-label={`${schedule.homeTeam} vs ${schedule.awayTeam} 하이라이트 영상 보기`}
+          >
+            ▶ 하이라이트
+          </a>
+        )}
       </div>
     </div>
   );

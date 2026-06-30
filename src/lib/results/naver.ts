@@ -236,7 +236,7 @@ async function fetchLeagueGames(categoryId: string): Promise<NaverGame[]> {
 
 // 축구 카테고리(득점자 상세 조회 대상). 목록 API엔 superCategoryId가 없어 categoryId로 판별.
 // 야구(kbo,mlb)·농구(kbl,nba) 외 LEAGUES의 나머지 = 전부 축구.
-const SOCCER_CATEGORIES = new Set([
+export const SOCCER_CATEGORIES = new Set([
   "epl", "england2", "facup", "primera", "seria", "coppaitalia", "bundesliga",
   "ligue1", "mls", "kleague", "kleague2", "champs", "europa", "eredivisie",
   "denmark", "acl", "amatch", "amatchfriendly", "worldcup",

@@ -1,9 +1,44 @@
 import "dotenv/config";
 import fs from "node:fs/promises";
 import path from "node:path";
-import { crawlAllResults } from "@/lib/results/naver";
+import { crawlAllResults, SOCCER_CATEGORIES } from "@/lib/results/naver";
 import type { MatchResult, ResultsData } from "@/types/results";
 import { resultKey } from "@/lib/results/lookup";
+import { searchHighlightVideoId } from "@/lib/highlights/youtube";
+
+/**
+ * 종료된 축구 경기에 유튜브 하이라이트 영상ID를 부여한다.
+ * 아카이브에 이미 있으면 재사용(쿼터 절약), 없으면 경기당 1회 검색.
+ * YOUTUBE_API_KEY 미설정 시 전부 건너뜀(no-op).
+ */
+async function enrichHighlights(
+  results: MatchResult[],
+  archive: ResultsData,
+  dedupKey: (r: MatchResult) => string,
+): Promise<void> {
+  if (!process.env.YOUTUBE_API_KEY) return;
+  const prev = new Map<string, string>();
+  for (const r of archive.results) {
+    if (r.highlightVideoId) prev.set(dedupKey(r), r.highlightVideoId);
+  }
+  let searched = 0;
+  let found = 0;
+  for (const r of results) {
+    if (r.status !== "finished" || !SOCCER_CATEGORIES.has(r.categoryId)) continue;
+    const existing = prev.get(dedupKey(r));
+    if (existing) {
+      r.highlightVideoId = existing;
+      continue;
+    }
+    searched++;
+    const id = await searchHighlightVideoId(r.homeTeam, r.awayTeam);
+    if (id) {
+      r.highlightVideoId = id;
+      found++;
+    }
+  }
+  if (searched > 0) console.log(`  하이라이트: 검색 ${searched}건, 신규 ${found}건`);
+}
 
 async function main() {
   console.log("결과 크롤링 시작 (네이버 스포츠, 어제~내일 3일치)");
@@ -16,6 +51,23 @@ async function main() {
     console.error("결과 0건 — 일시적 차단 가능성. 기존 results.json을 유지하고 종료.");
     process.exit(1);
   }
+
+  // 아카이브를 먼저 읽어 ①하이라이트 영상ID 이월 ②아래 누적 단계에 재사용.
+  const archivePath = path.join(process.cwd(), "src/data/results-archive.json");
+  const archivePublicPath = path.join(process.cwd(), "public/results-archive.json");
+  let archive: ResultsData = { lastUpdated: "", byKey: {}, results: [] };
+  try {
+    archive = JSON.parse(await fs.readFile(archivePath, "utf-8"));
+  } catch {
+    // 파일 없으면 새로 시작
+  }
+
+  // 누적 키: date|categoryId|homeTeam|awayTeam — 같은 경기는 최신 결과로 덮어쓰기
+  const dedupKey = (r: MatchResult) =>
+    `${r.date}|${r.categoryId}|${r.homeTeam}|${r.awayTeam}`;
+
+  // 종료 축구 경기에 유튜브 하이라이트 영상ID 부여(검색은 결과 객체를 직접 수정 → byKey에도 반영).
+  await enrichHighlights(data.results, archive, dedupKey);
 
   const json = JSON.stringify(data, null, 2);
   const srcPath = path.join(process.cwd(), "src/data/results.json");
@@ -31,22 +83,7 @@ async function main() {
 
   // results-archive.json 영구 누적: finished/canceled만 (live/scheduled/postponed는 변동 가능).
   // /match/[slug]에서 종료 경기 페이지의 스코어 표시 + Google이 영구 가치 있는 페이지로 인식하게 만듦.
-  const archivePath = path.join(process.cwd(), "src/data/results-archive.json");
-  const archivePublicPath = path.join(process.cwd(), "public/results-archive.json");
-  let archive: ResultsData = {
-    lastUpdated: "",
-    byKey: {},
-    results: [],
-  };
-  try {
-    archive = JSON.parse(await fs.readFile(archivePath, "utf-8"));
-  } catch {
-    // 파일 없으면 새로 시작
-  }
-
-  // 누적 키: date|categoryId|homeTeam|awayTeam — 같은 경기는 최신 결과로 덮어쓰기
-  const dedupKey = (r: MatchResult) =>
-    `${r.date}|${r.categoryId}|${r.homeTeam}|${r.awayTeam}`;
+  // archive / dedupKey 는 위 하이라이트 이월 단계에서 이미 로드/정의됨.
   const acc = new Map<string, MatchResult>();
   for (const r of archive.results) acc.set(dedupKey(r), r);
 

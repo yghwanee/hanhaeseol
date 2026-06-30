@@ -51,6 +51,11 @@ export interface MatchResult {
    * 스코어로 승패가 결정되는 일반 경기에는 채우지 않음(스코어로 충분).
    */
   winner?: "home" | "away";
+  /**
+   * 종료된 축구 경기의 유튜브 하이라이트 영상 ID. 크롤 시 1회 검색해 저장(아카이브에 영구 보관).
+   * YOUTUBE_API_KEY 미설정 시 비어 있음 → UI에서 하이라이트 섹션 자체를 숨김.
+   */
+  highlightVideoId?: string;
 }
 
 export interface ResultsData {

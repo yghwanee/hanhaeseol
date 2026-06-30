@@ -32,6 +32,10 @@ jobs:
 
       - name: Run results crawl
         run: npm run crawl:results
+        env:
+          # 종료된 축구 경기 하이라이트 영상ID 검색용(YouTube Data API v3).
+          # 미설정 시 하이라이트 검색은 조용히 건너뜀.
+          YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
 
       # 스코어와 함께 매시 갱신해 카드의 최근 5경기/연승/연패 표시를 빠르게 반영.
       # results 실패 시(0건이면 exit 1) records는 다음 cron에 재시도된다.
