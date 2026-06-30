@@ -60,7 +60,9 @@ jobs:
             echo "변경 없음"
           else
             git commit -m "chore: update results & team records (hourly)"
-            # 동일 시간대에 다른 워크플로가 push했을 가능성 → rebase로 흡수.
-            git pull --rebase origin main
-            git push
+            # 동일 시간대에 다른 워크플로가 push했을 가능성 → rebase로 흡수. 사이에 또 끼면 재시도.
+            for i in 1 2 3 4 5; do
+              git pull --rebase --autostash origin main && git push && break
+              echo "push 충돌, 재시도 $i/5..."; sleep 5
+            done
           fi

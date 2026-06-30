@@ -15,27 +15,31 @@ export function formatDateHeader(isoDate: string): string {
 
 export function getUpcomingDates(): { label: string; value: string }[] {
   const dates: { label: string; value: string }[] = [];
-  const today = new Date();
+  // KST 기준 오늘을 UTC 자정으로 취급해 일수만 더한다(달/요일 계산은 getUTC*).
+  // 로컬타임으로 계산하면 서버(UTC)·클라(KST)가 달라 hydration mismatch 가 난다.
+  const [y, m, d] = getTodayString().split("-").map(Number);
+  const base = Date.UTC(y, m - 1, d);
 
   for (let i = 0; i < 7; i++) {
-    const d = new Date(today);
-    d.setDate(today.getDate() + i);
-    const yyyy = d.getFullYear();
-    const mm = String(d.getMonth() + 1).padStart(2, "0");
-    const dd = String(d.getDate()).padStart(2, "0");
+    const dt = new Date(base + i * 86400000);
+    const yyyy = dt.getUTCFullYear();
+    const mm = String(dt.getUTCMonth() + 1).padStart(2, "0");
+    const dd = String(dt.getUTCDate()).padStart(2, "0");
     const value = `${yyyy}-${mm}-${dd}`;
-    const label = i === 0 ? "오늘" : `${Number(mm)}/${Number(dd)}(${DAY_NAMES[d.getDay()]})`;
+    const label = i === 0 ? "오늘" : `${Number(mm)}/${Number(dd)}(${DAY_NAMES[dt.getUTCDay()]})`;
     dates.push({ label, value });
   }
   return dates;
 }
 
+/** KST(Asia/Seoul) 기준 오늘 "YYYY-MM-DD". 서버(UTC)·클라(로컬) 어디서 불러도 같은 값 → hydration 안전. */
 export function getTodayString(): string {
-  const d = new Date();
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const dd = String(d.getDate()).padStart(2, "0");
-  return `${yyyy}-${mm}-${dd}`;
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(new Date());
 }
 
 export function isGameFinished(date: string, time: string, sport: string): boolean {

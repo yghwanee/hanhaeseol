@@ -11,6 +11,11 @@ on:
     - cron: '48 4 * * *'   # KST 13:48 = UTC 04:48
   workflow_dispatch: {}  # 수동 트리거
 
+# 백업 cron + 수동 트리거가 겹쳐 같은 워크플로 두 인스턴스가 동시에 커밋/푸시하는 걸 방지.
+concurrency:
+  group: crawl-schedules
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
@@ -98,8 +103,11 @@ jobs:
             echo "updated=false" >> $GITHUB_OUTPUT
           else
             git commit -m "chore: update schedule data"
-            git pull --rebase origin main
-            git push
+            # 다른 크롤 워크플로가 사이에 push하면 non-fast-forward로 거절될 수 있어 재시도.
+            for i in 1 2 3 4 5; do
+              git pull --rebase --autostash origin main && git push && break
+              echo "push 충돌, 재시도 $i/5..."; sleep 5
+            done
             echo "updated=true" >> $GITHUB_OUTPUT
           fi
 

@@ -28,7 +28,8 @@ interface NaverSeason {
 }
 
 async function naverGet<T>(path: string): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, { headers: HEADERS });
+  // 타임아웃이 없으면 네이버가 응답을 끌 때 순위 크롤이 무한 대기한다(results 쪽과 동일하게 8초).
+  const res = await fetch(`${BASE}${path}`, { headers: HEADERS, signal: AbortSignal.timeout(8000) });
   if (!res.ok) throw new Error(`Naver HTTP ${res.status}: ${path}`);
   const json = (await res.json()) as NaverApiResponse<T>;
   if (!json.success || !json.result) throw new Error(`Naver API failed: ${path}`);
