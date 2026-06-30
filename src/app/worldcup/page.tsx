@@ -1,13 +1,73 @@
 import type { Metadata } from "next";
-import { loadWorldcupStandings, loadScheduleData } from "@/lib/server-data";
+import {
+  loadWorldcupStandings,
+  loadScheduleData,
+  loadResults,
+  loadResultsArchive,
+} from "@/lib/server-data";
 import type { WorldCupGroup } from "@/types/worldcup";
 import type { Schedule } from "@/types/schedule";
 import { buildSportsEventLd } from "@/lib/structured-data";
 import { proxyLogo } from "@/lib/emblem";
+import { findResult } from "@/lib/results/lookup";
 import { WorldCupBanner } from "@/app/_components/WorldCupBanner";
 import { SiteHeader } from "@/app/_components/SiteHeader";
 import { GuideCards } from "@/app/_components/GuideCards";
 import { getAllGuides } from "@/lib/guides";
+import { WorldcupTabs } from "./_components/WorldcupTabs";
+import {
+  TournamentBracket,
+  type BracketMatch,
+  type BracketRound,
+} from "./_components/TournamentBracket";
+
+// 토너먼트 라운드 표시 순서. worldcup.json league 접미사("북중미 월드컵 32강" 등)와 일치.
+const ROUND_ORDER = ["32강", "16강", "8강", "4강", "3·4위전", "결승"];
+
+/** 월드컵 토너먼트 편성 + 결과를 합쳐 라운드별 대진표 데이터로 만든다. */
+function buildBracket(wcSchedules: Schedule[]): BracketRound[] {
+  const results = loadResults();
+  const archive = loadResultsArchive();
+  // 라운드 접미사가 붙은 편성만 토너먼트(조별리그는 "북중미 월드컵" 그대로).
+  const knockout = wcSchedules.filter((s) => s.league !== "북중미 월드컵");
+
+  const byRound = new Map<string, BracketMatch[]>();
+  for (const s of knockout) {
+    const label = s.league.replace("북중미 월드컵", "").trim();
+    // 종료 결과는 archive에 영구 보관, 진행/직전 경기는 results(3일 윈도우)에 있음.
+    const r = findResult(archive, s) ?? findResult(results, s);
+    const m: BracketMatch = {
+      date: s.date,
+      time: s.time,
+      homeTeam: s.homeTeam,
+      awayTeam: s.awayTeam,
+      ...(s.homeEmblem ? { homeEmblem: s.homeEmblem } : {}),
+      ...(s.awayEmblem ? { awayEmblem: s.awayEmblem } : {}),
+      ...(typeof r?.homeScore === "number" ? { homeScore: r.homeScore } : {}),
+      ...(typeof r?.awayScore === "number" ? { awayScore: r.awayScore } : {}),
+      ...(typeof r?.homePtScore === "number"
+        ? { homePtScore: r.homePtScore, awayPtScore: r.awayPtScore }
+        : {}),
+      ...(r?.winner ? { winner: r.winner } : {}),
+      status: r?.status ?? "scheduled",
+    };
+    if (!byRound.has(label)) byRound.set(label, []);
+    byRound.get(label)!.push(m);
+  }
+
+  const sortMatches = (ms: BracketMatch[]) =>
+    ms.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+
+  const rounds: BracketRound[] = ROUND_ORDER.filter((l) => byRound.has(l)).map((l) => ({
+    label: l,
+    matches: sortMatches(byRound.get(l)!),
+  }));
+  // 예상 순서에 없는 라운드 라벨이 있으면 뒤에 덧붙임(누락 방지).
+  for (const [l, ms] of byRound) {
+    if (!ROUND_ORDER.includes(l)) rounds.push({ label: l, matches: sortMatches(ms) });
+  }
+  return rounds;
+}
 
 const CANONICAL = "https://haeseol.com/worldcup";
 const OG_DESC =
@@ -119,6 +179,7 @@ export default function WorldCupPage() {
     s.league.startsWith("북중미 월드컵")
   );
   const dday = computeDday(wcSchedules);
+  const bracketRounds = buildBracket(wcSchedules);
 
   // 다가오는 월드컵 경기를 SportsEvent + BroadcastEvent("어디서 시청")로 노출 →
   // Google sports "Where to watch" 신호. 홈/리그 페이지와 동일한 헬퍼 재사용.
@@ -148,21 +209,38 @@ export default function WorldCupPage() {
         <WorldCupBanner dday={dday} href="/?sport=북중미 월드컵" />
       </div>
 
-      <h1 className="mb-3 text-base font-bold text-zinc-100 sm:text-lg">조별 순위</h1>
+      <h1 className="mb-3 text-base font-bold text-zinc-100 sm:text-lg">
+        북중미 월드컵 토너먼트·조별 순위
+      </h1>
 
-      {!standings ? (
-        <p className="py-16 text-center text-sm text-zinc-500">순위 데이터가 아직 준비되지 않았습니다.</p>
-      ) : (
-        <div className="space-y-3 sm:space-y-4">
-          {standings.groups.map((g) => (
-            <GroupCard key={g.group} g={g} />
-          ))}
-        </div>
-      )}
-
-      <p className="mt-6 text-center text-[11px] leading-relaxed text-zinc-600">
-        조 1·2위 16강 직행 + 각 조 3위 중 상위 8팀 추가 진출 · 순위 출처: 네이버 스포츠
-      </p>
+      <WorldcupTabs
+        bracket={
+          <>
+            <TournamentBracket rounds={bracketRounds} />
+            <p className="mt-6 text-center text-[11px] leading-relaxed text-zinc-600">
+              정규+연장 무승부 시 승부차기로 승자 결정 · 결과 출처: 네이버 스포츠
+            </p>
+          </>
+        }
+        groups={
+          <>
+            {!standings ? (
+              <p className="py-16 text-center text-sm text-zinc-500">
+                순위 데이터가 아직 준비되지 않았습니다.
+              </p>
+            ) : (
+              <div className="space-y-3 sm:space-y-4">
+                {standings.groups.map((g) => (
+                  <GroupCard key={g.group} g={g} />
+                ))}
+              </div>
+            )}
+            <p className="mt-6 text-center text-[11px] leading-relaxed text-zinc-600">
+              조 1·2위 16강 직행 + 각 조 3위 중 상위 8팀 추가 진출 · 순위 출처: 네이버 스포츠
+            </p>
+          </>
+        }
+      />
 
       <section className="mt-8">
         <GuideCards

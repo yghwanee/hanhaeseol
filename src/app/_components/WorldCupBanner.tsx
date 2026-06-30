@@ -7,7 +7,7 @@ import Link from "next/link";
  */
 export function WorldCupBanner({ dday, href }: { dday: number | null; href: string }) {
   return (
-    <Link href={href} aria-label="북중미 월드컵 조별 순위·기록 보기" className="group block">
+    <Link href={href} aria-label="북중미 월드컵 토너먼트 대진표 보기" className="group block">
       <div className="relative mb-6 sm:mb-8 h-[100px] sm:h-[128px] overflow-hidden rounded-2xl border border-amber-400/30 bg-gradient-to-br from-[#0a0f3d] via-[#141c63] to-[#0a0f3d] ring-1 ring-inset ring-amber-300/10 transition-[filter] group-hover:brightness-110">
         {/* 우측 히어로 이미지 (16:9) */}
         <div className="absolute right-0 top-0 h-full w-[150px] sm:w-[228px]">
@@ -32,14 +32,14 @@ export function WorldCupBanner({ dday, href }: { dday: number | null; href: stri
           )}
           {dday !== null && dday <= 0 && (
             <div className="shrink-0 rounded-lg bg-rose-500 px-3 py-1.5 text-center text-white shadow-lg">
-              <div className="text-sm sm:text-base font-extrabold leading-none">조별 순위</div>
+              <div className="text-sm sm:text-base font-extrabold leading-none">토너먼트</div>
             </div>
           )}
           {/* 대회명 — 배지와 우측 이미지 사이 가운데 정렬 */}
           <div className="min-w-0 flex-1 px-1 text-center">
             <p className="whitespace-nowrap text-[9px] sm:text-[11px] font-bold tracking-[0.16em] text-amber-300 drop-shadow">FIFA WORLD CUP 2026</p>
             <h2 className="mt-0.5 text-base sm:text-2xl font-extrabold tracking-tight text-white drop-shadow">북중미 월드컵</h2>
-            <p className="mt-1 whitespace-nowrap text-[9px] sm:text-[10px] font-medium text-amber-200/80">조별 순위·기록 ›</p>
+            <p className="mt-1 whitespace-nowrap text-[9px] sm:text-[10px] font-medium text-amber-200/80">토너먼트 대진표 ›</p>
           </div>
           {/* 우측 이미지 폭만큼 자리 확보 → 제목이 이미지와 안 겹치고 가운데로 */}
           <div className="w-[150px] sm:w-[228px] shrink-0" aria-hidden />
