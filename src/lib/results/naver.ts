@@ -1,6 +1,7 @@
 import type { GameStatus, GoalEvent, MatchResult, ResultsData } from "@/types/results";
 import { NAVER_TO_SCHEDULE_TEAM_NAME } from "@/lib/team-records/team-name-aliases";
 import { resultKey } from "./lookup";
+import { pLimit } from "@/lib/crawlers/_utils";
 
 const BASE = "https://api-gw.sports.naver.com";
 const HEADERS = {
@@ -282,6 +283,9 @@ export async function crawlLiveResults(): Promise<ResultsData> {
 
   const results: MatchResult[] = [];
   const byKey: Record<string, MatchResult> = {};
+  // 상세(득점자+승부차기) 조회 대상. 루프에서 직렬 await 하면 /api/live 핫패스에서
+  // 라이브 경기가 많을 때 (각 8초 타임아웃) 지연이 누적되므로, 먼저 모아 두고 병렬 조회한다.
+  const detailJobs: { gameId: string; result: MatchResult }[] = [];
 
   for (const g of allGames) {
     const date = formatDate(g.gameDate);
@@ -325,12 +329,7 @@ export async function crawlLiveResults(): Promise<ResultsData> {
       !!g.gameId &&
       (totalGoals > 0 || decisiveDraw);
     if (needsDetail) {
-      const detail = await fetchGameDetail(g.gameId!);
-      if (detail.goals.length > 0) result.goals = detail.goals;
-      if (typeof detail.homePtScore === "number") {
-        result.homePtScore = detail.homePtScore;
-        result.awayPtScore = detail.awayPtScore;
-      }
+      detailJobs.push({ gameId: g.gameId!, result });
     }
 
     results.push(result);
@@ -340,6 +339,16 @@ export async function crawlLiveResults(): Promise<ResultsData> {
       }
     }
   }
+
+  // 상세 조회 병렬 실행(동시 6건). results/byKey 가 같은 result 객체를 참조하므로 변이가 반영된다.
+  await pLimit(detailJobs, 6, async ({ gameId, result }) => {
+    const detail = await fetchGameDetail(gameId);
+    if (detail.goals.length > 0) result.goals = detail.goals;
+    if (typeof detail.homePtScore === "number") {
+      result.homePtScore = detail.homePtScore;
+      result.awayPtScore = detail.awayPtScore;
+    }
+  });
 
   return {
     lastUpdated: new Date().toISOString(),

@@ -99,7 +99,13 @@ export default function Home({
   };
 }) {
   const data = loadScheduleData();
-  const teamRecords = loadTeamRecords();
+  // 클라로 직렬화되는 teamRecords 를 화면(7일치)에 나오는 리그로 한정한다. 전 리그 풀맵을
+  // 그대로 보내면 비시즌 리그(예: 여름의 EPL/라리가)까지 초기 HTML 에 박혀 낭비. 리그 단위로
+  // 통째 보존하므로 lookupTeamRecord 의 league 내 normalize 폴백은 그대로 동작한다.
+  const shownLeagues = new Set(data.schedules.map((s) => s.league));
+  const teamRecords = Object.fromEntries(
+    Object.entries(loadTeamRecords()).filter(([league]) => shownLeagues.has(league)),
+  );
   const results = mergeWorldcupArchive(loadResults(), loadResultsArchive());
   const sportsEventsJsonLd = buildSportsEventsJsonLd(data.schedules);
   const initialCommentary: "all" | "korean" | "foreign" =
