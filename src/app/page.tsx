@@ -7,6 +7,7 @@ import ScheduleClient from "./ScheduleClient";
 import { HomeAboutSection } from "./_components/HomeAboutSection";
 import WeekHighlights from "./_components/WeekHighlights";
 import { IntroAnimation } from "./_components/IntroAnimation";
+import { INTRO_EMBLEM_PATHS } from "./_components/intro-emblems";
 import { GuideCards } from "./_components/GuideCards";
 import { getAllGuides } from "@/lib/guides";
 
@@ -110,6 +111,11 @@ export default function Home({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(sportsEventsJsonLd) }}
       />
+      {/* 인트로 엠블럼 프리로드 — 인트로가 뜨는 메인에서만. React 가 rel=preload
+          링크를 head 로 호이스트한다. (layout 전역 프리로드는 다른 페이지 낭비라 제거) */}
+      {INTRO_EMBLEM_PATHS.map((src) => (
+        <link key={src} rel="preload" as="image" href={src} />
+      ))}
       <IntroAnimation />
       <main>
         <ScheduleClient

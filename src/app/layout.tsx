@@ -11,7 +11,6 @@ import { FocusRefresh } from "./_components/FocusRefresh";
 import { InstallPrompt } from "./_components/InstallPrompt";
 import { PullToRefresh } from "./_components/PullToRefresh";
 import { PushSubscribeButton } from "./_components/PushSubscribeButton";
-import { INTRO_EMBLEM_PATHS } from "./_components/intro-emblems";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -134,11 +133,9 @@ function gtag(){dataLayer.push(arguments);}
 gtag('js', new Date());
 gtag('config', 'G-F1MX6S0SGW');`}
         </Script>
-        {/* 인트로 엠블럼 프리로드 - HTML 파싱 단계에서 이미지 받아두면
-            IntroAnimation 마운트 직후 깜빡임 없이 표시됨. */}
-        {INTRO_EMBLEM_PATHS.map((src) => (
-          <link key={src} rel="preload" as="image" href={src} />
-        ))}
+        {/* 인트로 엠블럼 프리로드는 인트로가 뜨는 메인 페이지(page.tsx)에서만 한다.
+            (layout 에 두면 /guide·/match 등 인트로 없는 페이지에서도 이미지 21개를
+            높은 우선순위로 받아 그 페이지 본문 로딩을 느리게 만든다.) */}
         {/* iOS 설치형 앱 런치스크린 — 흰 번쩍 방지(어두운 스플래시). */}
         {APPLE_SPLASH.map(([w, h, r]) => {
           const W = w * r;
