@@ -95,6 +95,12 @@ export function findResult(
         awayTeam: schedule.awayTeam,
         homeScore: reversed.awayScore,
         awayScore: reversed.homeScore,
+        ...(typeof reversed.homePtScore === "number"
+          ? { homePtScore: reversed.awayPtScore, awayPtScore: reversed.homePtScore }
+          : {}),
+        ...(reversed.winner
+          ? { winner: reversed.winner === "home" ? "away" : ("home" as const) }
+          : {}),
         ...(reversed.goals
           ? { goals: reversed.goals.map((gl) => ({ ...gl, team: gl.team === "home" ? "away" : "home" as const })) }
           : {}),

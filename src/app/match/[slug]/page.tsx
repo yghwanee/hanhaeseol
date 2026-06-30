@@ -519,7 +519,11 @@ export default function MatchPage({ params }: { params: Params }) {
                   </p>
                   <p
                     className={`tabular-nums text-3xl font-bold sm:text-4xl ${
-                      result!.homeScore! > result!.awayScore!
+                      result!.winner
+                        ? result!.winner === "home"
+                          ? "text-white"
+                          : "text-zinc-500"
+                        : result!.homeScore! > result!.awayScore!
                         ? "text-white"
                         : result!.homeScore! < result!.awayScore!
                         ? "text-zinc-500"
@@ -536,7 +540,11 @@ export default function MatchPage({ params }: { params: Params }) {
                   </p>
                   <p
                     className={`tabular-nums text-3xl font-bold sm:text-4xl ${
-                      result!.awayScore! > result!.homeScore!
+                      result!.winner
+                        ? result!.winner === "away"
+                          ? "text-white"
+                          : "text-zinc-500"
+                        : result!.awayScore! > result!.homeScore!
                         ? "text-white"
                         : result!.awayScore! < result!.homeScore!
                         ? "text-zinc-500"
@@ -547,6 +555,15 @@ export default function MatchPage({ params }: { params: Params }) {
                   </p>
                 </div>
               </div>
+              {typeof result!.homePtScore === "number" &&
+                typeof result!.awayPtScore === "number" && (
+                  <p className="mt-1 text-center text-xs font-semibold text-amber-300/90 sm:text-sm">
+                    승부차기 {result!.homePtScore}-{result!.awayPtScore}{" "}
+                    <span className="text-amber-200/70">
+                      ({result!.winner === "away" ? match.awayTeam : match.homeTeam} 승)
+                    </span>
+                  </p>
+                )}
               {match.sport === "축구" && result!.goals && result!.goals.length > 0 && (
                 <div className="mt-3 grid grid-cols-2 gap-x-6 border-t border-emerald-700/20 pt-2 text-[11px] leading-snug text-zinc-300 sm:text-xs">
                   <div className="min-w-0 space-y-0.5 text-right">

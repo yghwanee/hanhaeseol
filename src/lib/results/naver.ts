@@ -22,6 +22,7 @@ interface NaverGame {
   statusInfo?: string | null; // 라이브 시 "9회말", "전반전" 등
   categoryId?: string; // "epl", "kbo" 등
   superCategoryId?: string; // "baseball", "football", "basketball", "volleyball"
+  winner?: string; // "HOME" / "AWAY" — 무승부여도 승부차기로 갈리면 채워짐
   cancel?: boolean;
   cancelReason?: string | null;
 }
@@ -136,23 +137,36 @@ interface NaverScorer {
   ownGoal?: boolean;
 }
 interface NaverGameDetail {
-  game?: { scorers?: { home?: NaverScorer[]; away?: NaverScorer[] } | null };
+  game?: {
+    scorers?: { home?: NaverScorer[]; away?: NaverScorer[] } | null;
+    hasPtScore?: boolean;
+    homePtScore?: number | null;
+    awayPtScore?: number | null;
+  };
+}
+
+/** 경기 상세에서 가져온 추가 정보(득점자 + 승부차기 점수). */
+export interface GameDetail {
+  goals: GoalEvent[];
+  homePtScore?: number;
+  awayPtScore?: number;
 }
 
 /**
- * 축구 경기 상세에서 득점자·득점시간을 가져온다(목록 API엔 없어 경기별 호출 필요).
- * 실패하면 빈 배열(표시는 생략). scorers.home/away는 g.homeTeamName/awayTeamName 기준 →
- * MatchResult의 home/away와 동일 방향. (schedule와의 home/away 역전은 findResult에서 처리)
+ * 축구 경기 상세에서 득점자·득점시간 + 승부차기 점수를 가져온다
+ * (목록 API엔 없어 경기별 호출 필요). 실패하면 빈 값(표시는 생략).
+ * scorers.home/away는 g.homeTeamName/awayTeamName 기준 → MatchResult의 home/away와 동일 방향.
+ * (schedule와의 home/away 역전은 findResult에서 처리)
  */
-export async function fetchGoals(gameId: string): Promise<GoalEvent[]> {
+export async function fetchGameDetail(gameId: string): Promise<GameDetail> {
   let detail: NaverGameDetail | null;
   try {
     detail = await naverGet<NaverGameDetail>(`/schedule/games/${gameId}`);
   } catch {
-    return [];
+    return { goals: [] };
   }
-  const sc = detail?.game?.scorers;
-  if (!sc) return [];
+  const game = detail?.game;
+  const sc = game?.scorers;
   const map = (arr: NaverScorer[] | undefined, team: "home" | "away"): GoalEvent[] =>
     (arr ?? [])
       .filter((s) => s.playerName && typeof s.time === "number")
@@ -163,9 +177,29 @@ export async function fetchGoals(gameId: string): Promise<GoalEvent[]> {
         ...(s.addedTime ? { addedTime: s.addedTime } : {}),
         ...(s.ownGoal ? { ownGoal: true } : {}),
       }));
-  return [...map(sc.home, "home"), ...map(sc.away, "away")].sort(
-    (a, b) => a.minute + (a.addedTime ?? 0) - (b.minute + (b.addedTime ?? 0)),
-  );
+  const goals = sc
+    ? [...map(sc.home, "home"), ...map(sc.away, "away")].sort(
+        (a, b) => a.minute + (a.addedTime ?? 0) - (b.minute + (b.addedTime ?? 0)),
+      )
+    : [];
+  const pt =
+    game?.hasPtScore && typeof game.homePtScore === "number" && typeof game.awayPtScore === "number"
+      ? { homePtScore: game.homePtScore, awayPtScore: game.awayPtScore }
+      : {};
+  return { goals, ...pt };
+}
+
+/** 득점자만 필요한 곳(백필 등)용 얇은 래퍼. */
+export async function fetchGoals(gameId: string): Promise<GoalEvent[]> {
+  return (await fetchGameDetail(gameId)).goals;
+}
+
+/** 네이버 winner("HOME"/"AWAY") → 우리 방향. 무승부·미정은 undefined. */
+function mapWinner(winner: string | undefined): "home" | "away" | undefined {
+  const w = (winner ?? "").toUpperCase();
+  if (w === "HOME") return "home";
+  if (w === "AWAY") return "away";
+  return undefined;
 }
 
 /** YYYY-MM-DD 포맷 (KST). 네이버 API가 2026년경 하이픈 포맷만 받도록 바뀜. */
@@ -262,6 +296,12 @@ export async function crawlLiveResults(): Promise<ResultsData> {
 
     const homeAliases = expandAliases(categoryId, home);
     const awayAliases = expandAliases(categoryId, away);
+    // 정규+연장 무승부인데 승자가 있으면(=승부차기로 갈림) winner를 채워 카드에서 승패 표시.
+    const decisiveDraw =
+      status === "finished" &&
+      typeof g.homeTeamScore === "number" &&
+      g.homeTeamScore === g.awayTeamScore &&
+      !!mapWinner(g.winner);
     const result: MatchResult = {
       date,
       categoryId,
@@ -272,13 +312,23 @@ export async function crawlLiveResults(): Promise<ResultsData> {
       ...(typeof g.awayTeamScore === "number" ? { awayScore: g.awayTeamScore } : {}),
       status,
       ...(g.statusInfo ? { period: g.statusInfo } : {}),
+      ...(decisiveDraw ? { winner: mapWinner(g.winner) } : {}),
     };
 
-    // 진행중 축구 + 골>0 만 득점자 상세 조회(라이브 한정이라 호출 수 적음).
+    // 상세(득점자+승부차기) 조회: 진행중 축구 골>0, 또는 승부차기로 갈린 종료 경기.
+    // 둘 다 흔치 않아 라이브 핫패스 호출 수가 적게 유지된다.
     const totalGoals = (g.homeTeamScore ?? 0) + (g.awayTeamScore ?? 0);
-    if (status === "live" && SOCCER_CATEGORIES.has(categoryId) && g.gameId && totalGoals > 0) {
-      const goals = await fetchGoals(g.gameId);
-      if (goals.length > 0) result.goals = goals;
+    const needsDetail =
+      SOCCER_CATEGORIES.has(categoryId) &&
+      !!g.gameId &&
+      ((status === "live" && totalGoals > 0) || decisiveDraw);
+    if (needsDetail) {
+      const detail = await fetchGameDetail(g.gameId!);
+      if (detail.goals.length > 0) result.goals = detail.goals;
+      if (typeof detail.homePtScore === "number") {
+        result.homePtScore = detail.homePtScore;
+        result.awayPtScore = detail.awayPtScore;
+      }
     }
 
     results.push(result);
@@ -322,6 +372,12 @@ export async function crawlAllResults(): Promise<ResultsData> {
     const homeAliases = expandAliases(categoryId, home);
     const awayAliases = expandAliases(categoryId, away);
     const status = mapStatus(g);
+    // 정규+연장 무승부인데 승자가 있으면(=승부차기로 갈림) winner를 채워 승패 표시.
+    const decisiveDraw =
+      status === "finished" &&
+      typeof g.homeTeamScore === "number" &&
+      g.homeTeamScore === g.awayTeamScore &&
+      !!mapWinner(g.winner);
     const result: MatchResult = {
       date,
       categoryId,
@@ -333,18 +389,23 @@ export async function crawlAllResults(): Promise<ResultsData> {
       ...(typeof g.awayTeamScore === "number" ? { awayScore: g.awayTeamScore } : {}),
       status,
       ...(g.statusInfo ? { period: g.statusInfo } : {}),
+      ...(decisiveDraw ? { winner: mapWinner(g.winner) } : {}),
     };
 
-    // 축구 + 골이 있는(>0) 종료/진행 경기만 득점자 상세를 추가 조회(불필요한 호출 회피).
+    // 축구 종료/진행 경기 중 ①골이 있거나 ②승부차기로 갈린 경우만 상세(득점자+승부차기) 조회.
     const totalGoals = (g.homeTeamScore ?? 0) + (g.awayTeamScore ?? 0);
     if (
       SOCCER_CATEGORIES.has(categoryId) &&
       g.gameId &&
-      totalGoals > 0 &&
+      (totalGoals > 0 || decisiveDraw) &&
       (status === "finished" || status === "live")
     ) {
-      const goals = await fetchGoals(g.gameId);
-      if (goals.length > 0) result.goals = goals;
+      const detail = await fetchGameDetail(g.gameId);
+      if (detail.goals.length > 0) result.goals = detail.goals;
+      if (typeof detail.homePtScore === "number") {
+        result.homePtScore = detail.homePtScore;
+        result.awayPtScore = detail.awayPtScore;
+      }
     }
 
     results.push(result);

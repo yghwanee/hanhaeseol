@@ -40,6 +40,17 @@ export interface MatchResult {
   period?: string;
   /** 축구 한정: 득점자·득점시간 목록(시간순). 골 없으면 생략. */
   goals?: GoalEvent[];
+  /**
+   * 승부차기 점수. 정규+연장이 무승부로 끝나 승부차기로 갈린 경기에만 존재.
+   * 네이버 detail의 homePtScore/awayPtScore 기반. 표시: "1-1 (승부차기 4-3)".
+   */
+  homePtScore?: number;
+  awayPtScore?: number;
+  /**
+   * 승부차기 등으로 갈린 최종 승자. 스코어가 같아도(1-1) 이 값으로 승패를 표시한다.
+   * 스코어로 승패가 결정되는 일반 경기에는 채우지 않음(스코어로 충분).
+   */
+  winner?: "home" | "away";
 }
 
 export interface ResultsData {

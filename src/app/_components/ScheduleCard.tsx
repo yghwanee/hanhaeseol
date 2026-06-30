@@ -66,15 +66,18 @@ function ScheduleCardInner({
     numeric && (result.status === "finished" || (isSoccer && result.status === "live"));
   const home = result?.homeScore;
   const away = result?.awayScore;
+  // 승부차기로 갈린 경기는 스코어가 같아도(1-1) result.winner로 승패를 가른다.
   const winnerSide: "home" | "away" | "draw" | null =
     showScores && result?.status === "finished"
-      ? home! > away!
-        ? "home"
-        : away! > home!
-          ? "away"
-          : "draw"
+      ? (result.winner ??
+        (home! > away! ? "home" : away! > home! ? "away" : "draw"))
       : null;
   const showGoals = isSoccer && showScores && !!result?.goals && result.goals.length > 0;
+  const showPk =
+    showScores &&
+    result?.status === "finished" &&
+    typeof result?.homePtScore === "number" &&
+    typeof result?.awayPtScore === "number";
 
   // 카드 전체는 매치 페이지로, 플랫폼 뱃지는 플랫폼 페이지로 — nested anchor 회피를
   // 위해 카드 본체를 div로 두고 absolute Link를 inset-0으로 깐다. PlatformBadge Link는
@@ -148,6 +151,12 @@ function ScheduleCardInner({
       ) : (
         <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 text-center text-sm sm:text-base font-semibold text-zinc-100 truncate">
           <Highlight text={schedule.homeTeam} query={query} />
+        </div>
+      )}
+
+      {showPk && (
+        <div className="pointer-events-none relative z-10 mt-1 text-center text-[10px] sm:text-[11px] font-semibold text-amber-300/90">
+          승부차기 {result!.homePtScore}-{result!.awayPtScore}
         </div>
       )}
 
