@@ -28,7 +28,7 @@
 대진·결과 의존 글(누가 16강 갔나·다음 상대는 누구)은 자동에 안 맞으니 **사람이 수동**으로 처리한다.
 
 - [x] 월드컵 한국어 해설진 누가 나오나 — JTBC·KBS·치지직 캐스터·해설위원 라인업 (slug: worldcup-korean-commentators)
-- [ ] 새벽 경기 놓치지 않는 법 — 미국 시차로 늦은 밤·새벽에 몰린 월드컵 경기, 알림·다시보기 활용 팁 (slug: worldcup-late-night-viewing-tips)
+- [x] 새벽 경기 놓치지 않는 법 — 미국 시차로 늦은 밤·새벽에 몰린 월드컵 경기, 알림·다시보기 활용 팁 (slug: worldcup-late-night-viewing-tips)
 - [ ] 월드컵 연장전·승부차기 룰 정리 — 토너먼트에서 무승부면 어떻게 결판 나는지, 처음 보는 분들을 위해 (slug: worldcup-overtime-shootout-rules)
 - [ ] 월드컵 토너먼트 보는 법 — 32강~결승 일정·중계채널·한국어 해설·무료 여부 (slug: worldcup-knockout-how-to-watch)
 - [ ] 월드컵 다시보기·하이라이트 어디서 보나 — 유튜브·앱 정리 (slug: worldcup-replay-highlights)
