@@ -26,19 +26,31 @@ jobs:
           if [ ! -f "$SUMMARY_PATH" ]; then
             MSG="❌ 관전 포인트 요약 파일 없음 (생성 워크플로우가 안 돌았을 수 있음)"
           else
-            CREATED=$(node -e "console.log(JSON.parse(require('fs').readFileSync('$SUMMARY_PATH','utf8')).created)")
-            SKIPPED=$(node -e "console.log(JSON.parse(require('fs').readFileSync('$SUMMARY_PATH','utf8')).skipped)")
-            TARGETS=$(node -e "console.log(JSON.parse(require('fs').readFileSync('$SUMMARY_PATH','utf8')).targets)")
-            REASONS=$(node -e "console.log(JSON.stringify(JSON.parse(require('fs').readFileSync('$SUMMARY_PATH','utf8')).skipReasons))")
-            TIMESTAMP=$(node -e "console.log(JSON.parse(require('fs').readFileSync('$SUMMARY_PATH','utf8')).timestamp)")
-            MSG=$(printf '%s\n' \
-              "✨ AI 관전 포인트 (오늘)" \
-              "" \
-              "대상 ${TARGETS}경기" \
-              "생성 ${CREATED} · 스킵 ${SKIPPED}" \
-              "스킵 사유: ${REASONS}" \
-              "" \
-              "생성 시각: ${TIMESTAMP}")
+            # already-exists = 이미 만들어둔 것 재활용(정상, Gemini 호출 안 함).
+            # 그 외 스킵(gemini-429 등)만 '진짜 실패'로 분리 표기해 매일 오탐 놀람을 없앤다.
+            MSG=$(node -e '
+              const s = JSON.parse(require("fs").readFileSync(process.argv[1], "utf8"));
+              const reasons = s.skipReasons || {};
+              const reused = reasons["already-exists"] || 0;
+              const fails = Object.entries(reasons).filter(([k]) => k !== "already-exists");
+              const failCount = fails.reduce((a, [, n]) => a + n, 0);
+              const health = failCount === 0 ? "✅" : "⚠️";
+              const lines = [
+                "✨ AI 관전 포인트 (오늘)",
+                "",
+                `대상 ${s.targets}경기 (한국어해설만)`,
+                `생성 ${s.created} · 재활용 ${reused} · 실패 ${failCount} ${health}`,
+              ];
+              if (failCount > 0) {
+                const detail = fails.map(([k, n]) => `${k} ${n}`).join(", ");
+                lines.push(`실패 사유: ${detail}`);
+                if (reasons["gemini-429"]) {
+                  lines.push("(429 = 무료 quota 소진. 며칠에 걸쳐 자동 충전됨)");
+                }
+              }
+              lines.push("", `생성 시각: ${s.timestamp}`);
+              console.log(lines.join("\n"));
+            ' "$SUMMARY_PATH")
           fi
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d chat_id="${TELEGRAM_CHAT_ID}" \
