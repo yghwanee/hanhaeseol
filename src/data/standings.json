@@ -487,7 +487,7 @@
             "type": "W",
             "count": 0
           },
-          "rankStatus": "UEFA Champions League"
+          "rankStatus": "UEFA Europa League"
         },
         {
           "rank": 6,
@@ -506,7 +506,7 @@
             "type": "W",
             "count": 0
           },
-          "rankStatus": "UEFA Europa League"
+          "rankStatus": "UEFA Conference League Play-offs"
         },
         {
           "rank": 7,
@@ -525,7 +525,7 @@
             "type": "W",
             "count": 0
           },
-          "rankStatus": "UEFA Conference League Play-offs"
+          "rankStatus": null
         },
         {
           "rank": 8,
@@ -4405,7 +4405,7 @@
           "lose": 39,
           "winRate": 0.53,
           "gameBehind": 0,
-          "lastFive": "WLWWL",
+          "lastFive": "WWLWW",
           "streak": {
             "type": "W",
             "count": 1
@@ -4471,16 +4471,16 @@
           "rank": 1,
           "teamName": "텍사스",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/TE.png?type=f92_88",
-          "gameCount": 85,
-          "win": 43,
+          "gameCount": 86,
+          "win": 44,
           "draw": 0,
           "lose": 42,
-          "winRate": 0.506,
+          "winRate": 0.512,
           "gameBehind": 0,
           "lastFive": "WWWWW",
           "streak": {
             "type": "W",
-            "count": 5
+            "count": 6
           },
           "league": "AL",
           "division": "WEST"
@@ -4507,16 +4507,16 @@
           "rank": 2,
           "teamName": "클리블랜드",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/CL.png?type=f92_88",
-          "gameCount": 85,
+          "gameCount": 86,
           "win": 44,
           "draw": 0,
-          "lose": 41,
-          "winRate": 0.518,
-          "gameBehind": 1,
-          "lastFive": "LWWLW",
+          "lose": 42,
+          "winRate": 0.512,
+          "gameBehind": 1.5,
+          "lastFive": "LLWWL",
           "streak": {
             "type": "L",
-            "count": 1
+            "count": 2
           },
           "league": "AL",
           "division": "CENT"
@@ -4543,15 +4543,15 @@
           "rank": 2,
           "teamName": "필라델피아",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/PH.png?type=f92_88",
-          "gameCount": 85,
-          "win": 47,
+          "gameCount": 86,
+          "win": 48,
           "draw": 0,
           "lose": 38,
-          "winRate": 0.553,
-          "gameBehind": 3.5,
-          "lastFive": "LWLWW",
+          "winRate": 0.558,
+          "gameBehind": 3,
+          "lastFive": "WLWLW",
           "streak": {
-            "type": "L",
+            "type": "W",
             "count": 1
           },
           "league": "NL",
@@ -4584,7 +4584,7 @@
           "draw": 0,
           "lose": 43,
           "winRate": 0.5,
-          "gameBehind": 0.5,
+          "gameBehind": 1,
           "lastFive": "WLLWL",
           "streak": {
             "type": "W",
@@ -4638,7 +4638,7 @@
           "draw": 0,
           "lose": 45,
           "winRate": 0.483,
-          "gameBehind": 2,
+          "gameBehind": 2.5,
           "lastFive": "LWWLW",
           "streak": {
             "type": "L",
@@ -4711,7 +4711,7 @@
           "lose": 47,
           "winRate": 0.453,
           "gameBehind": 11.5,
-          "lastFive": "LLLWL",
+          "lastFive": "LLLLW",
           "streak": {
             "type": "L",
             "count": 3
@@ -4764,7 +4764,7 @@
           "draw": 0,
           "lose": 45,
           "winRate": 0.471,
-          "gameBehind": 3,
+          "gameBehind": 3.5,
           "lastFive": "LLLWW",
           "streak": {
             "type": "L",
@@ -4777,16 +4777,16 @@
           "rank": 4,
           "teamName": "피츠버그",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/PI.png?type=f92_88",
-          "gameCount": 85,
+          "gameCount": 86,
           "win": 43,
           "draw": 0,
-          "lose": 42,
-          "winRate": 0.506,
-          "gameBehind": 9.5,
-          "lastFive": "WWLLW",
+          "lose": 43,
+          "winRate": 0.5,
+          "gameBehind": 10,
+          "lastFive": "LWWLL",
           "streak": {
-            "type": "W",
-            "count": 2
+            "type": "L",
+            "count": 1
           },
           "league": "NL",
           "division": "CENT"
@@ -4818,7 +4818,7 @@
           "draw": 0,
           "lose": 50,
           "winRate": 0.419,
-          "gameBehind": 7.5,
+          "gameBehind": 8,
           "lastFive": "LWWLW",
           "streak": {
             "type": "L",
@@ -4921,5 +4921,5 @@
     }
   ],
   "basketball": [],
-  "lastUpdated": "2026-06-30T18:16:30.284Z"
+  "lastUpdated": "2026-07-01T01:33:15.509Z"
 }
