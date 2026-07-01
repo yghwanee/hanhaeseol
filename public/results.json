@@ -1,71 +1,16 @@
 {
-  "lastUpdated": "2026-07-01T12:16:59.479Z",
+  "lastUpdated": "2026-07-01T15:28:38.281Z",
   "byKey": {
-    "2026-06-30|kbo|한화|KT": {
-      "date": "2026-06-30",
-      "categoryId": "kbo",
-      "gameId": "20260630KTHH02026",
-      "homeTeam": "한화",
-      "awayTeam": "KT",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "canceled",
-      "period": "경기취소"
-    },
-    "2026-06-30|kbo|키움|LG": {
-      "date": "2026-06-30",
-      "categoryId": "kbo",
-      "gameId": "20260630LGWO02026",
-      "homeTeam": "키움",
-      "awayTeam": "LG",
-      "homeScore": 6,
-      "awayScore": 0,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|kbo|두산|롯데": {
-      "date": "2026-06-30",
-      "categoryId": "kbo",
-      "gameId": "20260630LTOB02026",
-      "homeTeam": "두산",
-      "awayTeam": "롯데",
-      "homeScore": 5,
-      "awayScore": 0,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|kbo|KIA|SSG": {
-      "date": "2026-06-30",
-      "categoryId": "kbo",
-      "gameId": "20260630SKHT02026",
-      "homeTeam": "KIA",
-      "awayTeam": "SSG",
-      "homeScore": 10,
-      "awayScore": 3,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|kbo|NC|삼성": {
-      "date": "2026-06-30",
-      "categoryId": "kbo",
-      "gameId": "20260630SSNC02026",
-      "homeTeam": "NC",
-      "awayTeam": "삼성",
-      "homeScore": 7,
-      "awayScore": 13,
-      "status": "finished",
-      "period": "9회말"
-    },
     "2026-07-01|kbo|한화|KT": {
       "date": "2026-07-01",
       "categoryId": "kbo",
       "gameId": "20260701KTHH02026",
       "homeTeam": "한화",
       "awayTeam": "KT",
-      "homeScore": 3,
-      "awayScore": 3,
-      "status": "live",
-      "period": "9회초"
+      "homeScore": 4,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-07-01|kbo|키움|LG": {
       "date": "2026-07-01",
@@ -74,9 +19,9 @@
       "homeTeam": "키움",
       "awayTeam": "LG",
       "homeScore": 4,
-      "awayScore": 8,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 10,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-07-01|kbo|두산|롯데": {
       "date": "2026-07-01",
@@ -85,9 +30,9 @@
       "homeTeam": "두산",
       "awayTeam": "롯데",
       "homeScore": 2,
-      "awayScore": 2,
-      "status": "live",
-      "period": "9회말"
+      "awayScore": 5,
+      "status": "finished",
+      "period": "10회말"
     },
     "2026-07-01|kbo|KIA|SSG": {
       "date": "2026-07-01",
@@ -95,10 +40,10 @@
       "gameId": "20260701SKHT02026",
       "homeTeam": "KIA",
       "awayTeam": "SSG",
-      "homeScore": 3,
-      "awayScore": 1,
-      "status": "live",
-      "period": "8회말"
+      "homeScore": 6,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "11회말"
     },
     "2026-07-01|kbo|NC|삼성": {
       "date": "2026-07-01",
@@ -108,8 +53,8 @@
       "awayTeam": "삼성",
       "homeScore": 10,
       "awayScore": 5,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-07-02|kbo|한화|KT": {
       "date": "2026-07-02",
@@ -166,555 +111,60 @@
       "status": "scheduled",
       "period": "경기전"
     },
-    "2026-06-30|mlb|볼티모어|시카고W": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630CWBA0",
-      "homeTeam": "볼티모어 오리올스",
-      "awayTeam": "시카고 화이트삭스",
-      "homeScore": 2,
-      "awayScore": 8,
-      "status": "finished",
-      "period": "9회말"
+    "2026-07-03|kbo|LG|한화": {
+      "date": "2026-07-03",
+      "categoryId": "kbo",
+      "gameId": "20260703HHLG02026",
+      "homeTeam": "LG",
+      "awayTeam": "한화",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
     },
-    "2026-06-30|mlb|볼티모어|시카고 화이트삭스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630CWBA0",
-      "homeTeam": "볼티모어 오리올스",
-      "awayTeam": "시카고 화이트삭스",
-      "homeScore": 2,
-      "awayScore": 8,
-      "status": "finished",
-      "period": "9회말"
+    "2026-07-03|kbo|KT|롯데": {
+      "date": "2026-07-03",
+      "categoryId": "kbo",
+      "gameId": "20260703LTKT02026",
+      "homeTeam": "KT",
+      "awayTeam": "롯데",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
     },
-    "2026-06-30|mlb|볼티모어 오리올스|시카고W": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630CWBA0",
-      "homeTeam": "볼티모어 오리올스",
-      "awayTeam": "시카고 화이트삭스",
-      "homeScore": 2,
-      "awayScore": 8,
-      "status": "finished",
-      "period": "9회말"
+    "2026-07-03|kbo|KIA|NC": {
+      "date": "2026-07-03",
+      "categoryId": "kbo",
+      "gameId": "20260703NCHT02026",
+      "homeTeam": "KIA",
+      "awayTeam": "NC",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
     },
-    "2026-06-30|mlb|볼티모어 오리올스|시카고 화이트삭스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630CWBA0",
-      "homeTeam": "볼티모어 오리올스",
-      "awayTeam": "시카고 화이트삭스",
-      "homeScore": 2,
-      "awayScore": 8,
-      "status": "finished",
-      "period": "9회말"
+    "2026-07-03|kbo|키움|두산": {
+      "date": "2026-07-03",
+      "categoryId": "kbo",
+      "gameId": "20260703OBWO02026",
+      "homeTeam": "키움",
+      "awayTeam": "두산",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
     },
-    "2026-06-30|mlb|필라델피아|피츠버그": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630PIPH0",
-      "homeTeam": "필라델피아 필리스",
-      "awayTeam": "피츠버그 파이리츠",
-      "homeScore": 7,
-      "awayScore": 11,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|필라델피아|피츠버그 파이리츠": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630PIPH0",
-      "homeTeam": "필라델피아 필리스",
-      "awayTeam": "피츠버그 파이리츠",
-      "homeScore": 7,
-      "awayScore": 11,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|필라델피아 필리스|피츠버그": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630PIPH0",
-      "homeTeam": "필라델피아 필리스",
-      "awayTeam": "피츠버그 파이리츠",
-      "homeScore": 7,
-      "awayScore": 11,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|필라델피아 필리스|피츠버그 파이리츠": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630PIPH0",
-      "homeTeam": "필라델피아 필리스",
-      "awayTeam": "피츠버그 파이리츠",
-      "homeScore": 7,
-      "awayScore": 11,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|뉴욕양키스|디트로이트": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630DENY0",
-      "homeTeam": "뉴욕 양키스",
-      "awayTeam": "디트로이트 타이거스",
-      "homeScore": 3,
-      "awayScore": 7,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|뉴욕양키스|디트로이트 타이거스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630DENY0",
-      "homeTeam": "뉴욕 양키스",
-      "awayTeam": "디트로이트 타이거스",
-      "homeScore": 3,
-      "awayScore": 7,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|뉴욕 양키스|디트로이트": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630DENY0",
-      "homeTeam": "뉴욕 양키스",
-      "awayTeam": "디트로이트 타이거스",
-      "homeScore": 3,
-      "awayScore": 7,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|뉴욕 양키스|디트로이트 타이거스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630DENY0",
-      "homeTeam": "뉴욕 양키스",
-      "awayTeam": "디트로이트 타이거스",
-      "homeScore": 3,
-      "awayScore": 7,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|토론토|뉴욕메츠": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630NMTO0",
-      "homeTeam": "토론토 블루제이스",
-      "awayTeam": "뉴욕 메츠",
-      "homeScore": 2,
-      "awayScore": 1,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|토론토|뉴욕 메츠": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630NMTO0",
-      "homeTeam": "토론토 블루제이스",
-      "awayTeam": "뉴욕 메츠",
-      "homeScore": 2,
-      "awayScore": 1,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|토론토 블루제이스|뉴욕메츠": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630NMTO0",
-      "homeTeam": "토론토 블루제이스",
-      "awayTeam": "뉴욕 메츠",
-      "homeScore": 2,
-      "awayScore": 1,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|토론토 블루제이스|뉴욕 메츠": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630NMTO0",
-      "homeTeam": "토론토 블루제이스",
-      "awayTeam": "뉴욕 메츠",
-      "homeScore": 2,
-      "awayScore": 1,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|보스턴|워싱턴": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630MOBO0",
-      "homeTeam": "보스턴 레드삭스",
-      "awayTeam": "워싱턴 내셔널스",
-      "homeScore": 6,
-      "awayScore": 3,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|보스턴|워싱턴 내셔널스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630MOBO0",
-      "homeTeam": "보스턴 레드삭스",
-      "awayTeam": "워싱턴 내셔널스",
-      "homeScore": 6,
-      "awayScore": 3,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|보스턴 레드삭스|워싱턴": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630MOBO0",
-      "homeTeam": "보스턴 레드삭스",
-      "awayTeam": "워싱턴 내셔널스",
-      "homeScore": 6,
-      "awayScore": 3,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|보스턴 레드삭스|워싱턴 내셔널스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630MOBO0",
-      "homeTeam": "보스턴 레드삭스",
-      "awayTeam": "워싱턴 내셔널스",
-      "homeScore": 6,
-      "awayScore": 3,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|클리블랜드|텍사스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630TECL0",
-      "homeTeam": "클리블랜드 가디언스",
-      "awayTeam": "텍사스 레인저스",
-      "homeScore": 3,
-      "awayScore": 6,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|클리블랜드|텍사스 레인저스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630TECL0",
-      "homeTeam": "클리블랜드 가디언스",
-      "awayTeam": "텍사스 레인저스",
-      "homeScore": 3,
-      "awayScore": 6,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|클리블랜드 가디언스|텍사스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630TECL0",
-      "homeTeam": "클리블랜드 가디언스",
-      "awayTeam": "텍사스 레인저스",
-      "homeScore": 3,
-      "awayScore": 6,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|클리블랜드 가디언스|텍사스 레인저스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630TECL0",
-      "homeTeam": "클리블랜드 가디언스",
-      "awayTeam": "텍사스 레인저스",
-      "homeScore": 3,
-      "awayScore": 6,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|밀워키|신시내티": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630CIMI0",
-      "homeTeam": "밀워키 브루어스",
-      "awayTeam": "신시내티 레즈",
-      "homeScore": 5,
-      "awayScore": 3,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|밀워키|신시내티 레즈": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630CIMI0",
-      "homeTeam": "밀워키 브루어스",
-      "awayTeam": "신시내티 레즈",
-      "homeScore": 5,
-      "awayScore": 3,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|밀워키 브루어스|신시내티": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630CIMI0",
-      "homeTeam": "밀워키 브루어스",
-      "awayTeam": "신시내티 레즈",
-      "homeScore": 5,
-      "awayScore": 3,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|밀워키 브루어스|신시내티 레즈": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630CIMI0",
-      "homeTeam": "밀워키 브루어스",
-      "awayTeam": "신시내티 레즈",
-      "homeScore": 5,
-      "awayScore": 3,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|시카고컵스|샌디에이고": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630SDCC0",
-      "homeTeam": "시카고 컵스",
-      "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 3,
-      "awayScore": 2,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|시카고컵스|샌디에이고 파드리스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630SDCC0",
-      "homeTeam": "시카고 컵스",
-      "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 3,
-      "awayScore": 2,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|시카고 컵스|샌디에이고": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630SDCC0",
-      "homeTeam": "시카고 컵스",
-      "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 3,
-      "awayScore": 2,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|시카고 컵스|샌디에이고 파드리스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630SDCC0",
-      "homeTeam": "시카고 컵스",
-      "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 3,
-      "awayScore": 2,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|휴스턴|미네소타": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630MNHO0",
-      "homeTeam": "휴스턴 애스트로스",
-      "awayTeam": "미네소타 트윈스",
-      "homeScore": 4,
-      "awayScore": 5,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|휴스턴|미네소타 트윈스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630MNHO0",
-      "homeTeam": "휴스턴 애스트로스",
-      "awayTeam": "미네소타 트윈스",
-      "homeScore": 4,
-      "awayScore": 5,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|휴스턴 애스트로스|미네소타": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630MNHO0",
-      "homeTeam": "휴스턴 애스트로스",
-      "awayTeam": "미네소타 트윈스",
-      "homeScore": 4,
-      "awayScore": 5,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|휴스턴 애스트로스|미네소타 트윈스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630MNHO0",
-      "homeTeam": "휴스턴 애스트로스",
-      "awayTeam": "미네소타 트윈스",
-      "homeScore": 4,
-      "awayScore": 5,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|콜로라도|마이애미": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630FLCO0",
-      "homeTeam": "콜로라도 로키스",
-      "awayTeam": "마이애미 말린스",
-      "homeScore": 7,
-      "awayScore": 10,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|콜로라도|마이애미 말린스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630FLCO0",
-      "homeTeam": "콜로라도 로키스",
-      "awayTeam": "마이애미 말린스",
-      "homeScore": 7,
-      "awayScore": 10,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|콜로라도 로키스|마이애미": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630FLCO0",
-      "homeTeam": "콜로라도 로키스",
-      "awayTeam": "마이애미 말린스",
-      "homeScore": 7,
-      "awayScore": 10,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|콜로라도 로키스|마이애미 말린스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630FLCO0",
-      "homeTeam": "콜로라도 로키스",
-      "awayTeam": "마이애미 말린스",
-      "homeScore": 7,
-      "awayScore": 10,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|시애틀|LA에인절스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630ANSE0",
-      "homeTeam": "시애틀 매리너스",
-      "awayTeam": "LA 에인절스",
-      "homeScore": 6,
-      "awayScore": 2,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|시애틀|LA 에인절스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630ANSE0",
-      "homeTeam": "시애틀 매리너스",
-      "awayTeam": "LA 에인절스",
-      "homeScore": 6,
-      "awayScore": 2,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|시애틀 매리너스|LA에인절스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630ANSE0",
-      "homeTeam": "시애틀 매리너스",
-      "awayTeam": "LA 에인절스",
-      "homeScore": 6,
-      "awayScore": 2,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|시애틀 매리너스|LA 에인절스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630ANSE0",
-      "homeTeam": "시애틀 매리너스",
-      "awayTeam": "LA 에인절스",
-      "homeScore": 6,
-      "awayScore": 2,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|애슬레틱스|LA다저스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630LAOA0",
-      "homeTeam": "애슬레틱스",
-      "awayTeam": "LA 다저스",
-      "homeScore": 4,
-      "awayScore": 9,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|애슬레틱스|LA 다저스": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630LAOA0",
-      "homeTeam": "애슬레틱스",
-      "awayTeam": "LA 다저스",
-      "homeScore": 4,
-      "awayScore": 9,
-      "status": "finished",
-      "period": "9회말"
-    },
-    "2026-06-30|mlb|애리조나|샌프란시스코": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630SFAZ0",
-      "homeTeam": "애리조나 다이아몬드백스",
-      "awayTeam": "샌프란시스코 자이언츠",
-      "homeScore": 5,
-      "awayScore": 4,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|애리조나|샌프란시스코 자이언츠": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630SFAZ0",
-      "homeTeam": "애리조나 다이아몬드백스",
-      "awayTeam": "샌프란시스코 자이언츠",
-      "homeScore": 5,
-      "awayScore": 4,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|애리조나 다이아몬드백스|샌프란시스코": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630SFAZ0",
-      "homeTeam": "애리조나 다이아몬드백스",
-      "awayTeam": "샌프란시스코 자이언츠",
-      "homeScore": 5,
-      "awayScore": 4,
-      "status": "finished",
-      "period": "9회초"
-    },
-    "2026-06-30|mlb|애리조나 다이아몬드백스|샌프란시스코 자이언츠": {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630SFAZ0",
-      "homeTeam": "애리조나 다이아몬드백스",
-      "awayTeam": "샌프란시스코 자이언츠",
-      "homeScore": 5,
-      "awayScore": 4,
-      "status": "finished",
-      "period": "9회초"
+    "2026-07-03|kbo|SSG|삼성": {
+      "date": "2026-07-03",
+      "categoryId": "kbo",
+      "gameId": "20260703SSSK02026",
+      "homeTeam": "SSG",
+      "awayTeam": "삼성",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
     },
     "2026-07-01|mlb|볼티모어|시카고W": {
       "date": "2026-07-01",
@@ -1402,7 +852,8 @@
       "awayTeam": "텍사스 레인저스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-02|mlb|클리블랜드|텍사스 레인저스": {
       "date": "2026-07-02",
@@ -1412,7 +863,8 @@
       "awayTeam": "텍사스 레인저스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-02|mlb|클리블랜드 가디언스|텍사스": {
       "date": "2026-07-02",
@@ -1422,7 +874,8 @@
       "awayTeam": "텍사스 레인저스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-02|mlb|클리블랜드 가디언스|텍사스 레인저스": {
       "date": "2026-07-02",
@@ -1432,7 +885,8 @@
       "awayTeam": "텍사스 레인저스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-02|mlb|뉴욕양키스|디트로이트": {
       "date": "2026-07-02",
@@ -1482,7 +936,8 @@
       "awayTeam": "워싱턴 내셔널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-02|mlb|보스턴|워싱턴 내셔널스": {
       "date": "2026-07-02",
@@ -1492,7 +947,8 @@
       "awayTeam": "워싱턴 내셔널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-02|mlb|보스턴 레드삭스|워싱턴": {
       "date": "2026-07-02",
@@ -1502,7 +958,8 @@
       "awayTeam": "워싱턴 내셔널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-02|mlb|보스턴 레드삭스|워싱턴 내셔널스": {
       "date": "2026-07-02",
@@ -1512,7 +969,8 @@
       "awayTeam": "워싱턴 내셔널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-02|mlb|시카고컵스|샌디에이고": {
       "date": "2026-07-02",
@@ -1894,87 +1352,365 @@
       "awayScore": 0,
       "status": "scheduled"
     },
-    "2026-06-30|worldcup|브라질|일본": {
-      "date": "2026-06-30",
-      "categoryId": "worldcup",
-      "gameId": "JUiroo5GFn3JdTC",
-      "homeTeam": "브라질",
-      "awayTeam": "일본",
-      "homeScore": 2,
-      "awayScore": 1,
-      "status": "finished",
-      "period": "경기종료",
-      "goals": [
-        {
-          "team": "away",
-          "player": "사노",
-          "minute": 29
-        },
-        {
-          "team": "home",
-          "player": "카세미루",
-          "minute": 56
-        },
-        {
-          "team": "home",
-          "player": "마르티넬리",
-          "minute": 90,
-          "addedTime": 5
-        }
-      ]
+    "2026-07-03|mlb|필라델피아|피츠버그": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703PIPH0",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "피츠버그 파이리츠",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
     },
-    "2026-06-30|worldcup|독일|파라과이": {
-      "date": "2026-06-30",
-      "categoryId": "worldcup",
-      "gameId": "bwBeCjswPeFyCAd",
-      "homeTeam": "독일",
-      "awayTeam": "파라과이",
-      "homeScore": 1,
-      "awayScore": 1,
-      "status": "finished",
-      "period": "경기종료",
-      "winner": "away",
-      "goals": [
-        {
-          "team": "away",
-          "player": "엔시소",
-          "minute": 42
-        },
-        {
-          "team": "home",
-          "player": "하베르츠",
-          "minute": 54
-        }
-      ],
-      "homePtScore": 3,
-      "awayPtScore": 4
+    "2026-07-03|mlb|필라델피아|피츠버그 파이리츠": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703PIPH0",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "피츠버그 파이리츠",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
     },
-    "2026-06-30|worldcup|네덜란드|모로코": {
-      "date": "2026-06-30",
-      "categoryId": "worldcup",
-      "gameId": "xyAFeEX2NfuEpaU",
-      "homeTeam": "네덜란드",
-      "awayTeam": "모로코",
-      "homeScore": 1,
-      "awayScore": 1,
-      "status": "finished",
-      "period": "경기종료",
-      "winner": "away",
-      "goals": [
-        {
-          "team": "home",
-          "player": "학포",
-          "minute": 72
-        },
-        {
-          "team": "away",
-          "player": "디오프",
-          "minute": 90,
-          "addedTime": 1
-        }
-      ],
-      "homePtScore": 2,
-      "awayPtScore": 3
+    "2026-07-03|mlb|필라델피아 필리스|피츠버그": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703PIPH0",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "피츠버그 파이리츠",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|필라델피아 필리스|피츠버그 파이리츠": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703PIPH0",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "피츠버그 파이리츠",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|밀워키|신시내티": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703CIMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|밀워키|신시내티 레즈": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703CIMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|밀워키 브루어스|신시내티": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703CIMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|밀워키 브루어스|신시내티 레즈": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703CIMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|콜로라도|마이애미": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703FLCO0",
+      "homeTeam": "콜로라도 로키스",
+      "awayTeam": "마이애미 말린스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|콜로라도|마이애미 말린스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703FLCO0",
+      "homeTeam": "콜로라도 로키스",
+      "awayTeam": "마이애미 말린스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|콜로라도 로키스|마이애미": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703FLCO0",
+      "homeTeam": "콜로라도 로키스",
+      "awayTeam": "마이애미 말린스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|콜로라도 로키스|마이애미 말린스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703FLCO0",
+      "homeTeam": "콜로라도 로키스",
+      "awayTeam": "마이애미 말린스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|클리블랜드|시카고W": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703CWCL0",
+      "homeTeam": "클리블랜드 가디언스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|클리블랜드|시카고 화이트삭스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703CWCL0",
+      "homeTeam": "클리블랜드 가디언스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|클리블랜드 가디언스|시카고W": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703CWCL0",
+      "homeTeam": "클리블랜드 가디언스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|클리블랜드 가디언스|시카고 화이트삭스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703CWCL0",
+      "homeTeam": "클리블랜드 가디언스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|애틀랜타|세인트루이스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703SLAT0",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "세인트루이스 카디널스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|애틀랜타|세인트루이스 카디널스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703SLAT0",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "세인트루이스 카디널스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|애틀랜타 브레이브스|세인트루이스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703SLAT0",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "세인트루이스 카디널스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|애틀랜타 브레이브스|세인트루이스 카디널스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703SLAT0",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "세인트루이스 카디널스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|캔자스시티|탬파베이": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703TBKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|캔자스시티|탬파베이 레이스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703TBKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|캔자스시티 로열스|탬파베이": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703TBKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|캔자스시티 로열스|탬파베이 레이스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703TBKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|텍사스|디트로이트": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703DETE0",
+      "homeTeam": "텍사스 레인저스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|텍사스|디트로이트 타이거스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703DETE0",
+      "homeTeam": "텍사스 레인저스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|텍사스 레인저스|디트로이트": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703DETE0",
+      "homeTeam": "텍사스 레인저스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|텍사스 레인저스|디트로이트 타이거스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703DETE0",
+      "homeTeam": "텍사스 레인저스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|시애틀|LA에인절스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703ANSE0",
+      "homeTeam": "시애틀 매리너스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|시애틀|LA 에인절스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703ANSE0",
+      "homeTeam": "시애틀 매리너스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|시애틀 매리너스|LA에인절스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703ANSE0",
+      "homeTeam": "시애틀 매리너스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|시애틀 매리너스|LA 에인절스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703ANSE0",
+      "homeTeam": "시애틀 매리너스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|LA다저스|샌디에이고": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703SDLA0",
+      "homeTeam": "LA 다저스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|LA다저스|샌디에이고 파드리스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703SDLA0",
+      "homeTeam": "LA 다저스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|LA 다저스|샌디에이고": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703SDLA0",
+      "homeTeam": "LA 다저스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-07-03|mlb|LA 다저스|샌디에이고 파드리스": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703SDLA0",
+      "homeTeam": "LA 다저스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
     },
     "2026-07-01|worldcup|코트디부아르|노르웨이": {
       "date": "2026-07-01",
@@ -2087,74 +1823,52 @@
       "awayScore": 0,
       "status": "scheduled",
       "period": "경기전"
+    },
+    "2026-07-03|worldcup|스페인|오스트리아": {
+      "date": "2026-07-03",
+      "categoryId": "worldcup",
+      "gameId": "eGLZlfW9XdOQqNa",
+      "homeTeam": "스페인",
+      "awayTeam": "오스트리아",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-07-03|worldcup|포르투갈|크로아티아": {
+      "date": "2026-07-03",
+      "categoryId": "worldcup",
+      "gameId": "UUthhOlRxJjWtS5",
+      "homeTeam": "포르투갈",
+      "awayTeam": "크로아티아",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-07-03|worldcup|스위스|알제리": {
+      "date": "2026-07-03",
+      "categoryId": "worldcup",
+      "gameId": "fqi0ocBbFSj9ol9",
+      "homeTeam": "스위스",
+      "awayTeam": "알제리",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
     }
   },
   "results": [
-    {
-      "date": "2026-06-30",
-      "categoryId": "kbo",
-      "gameId": "20260630KTHH02026",
-      "homeTeam": "한화",
-      "awayTeam": "KT",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "canceled",
-      "period": "경기취소"
-    },
-    {
-      "date": "2026-06-30",
-      "categoryId": "kbo",
-      "gameId": "20260630LGWO02026",
-      "homeTeam": "키움",
-      "awayTeam": "LG",
-      "homeScore": 6,
-      "awayScore": 0,
-      "status": "finished",
-      "period": "9회초"
-    },
-    {
-      "date": "2026-06-30",
-      "categoryId": "kbo",
-      "gameId": "20260630LTOB02026",
-      "homeTeam": "두산",
-      "awayTeam": "롯데",
-      "homeScore": 5,
-      "awayScore": 0,
-      "status": "finished",
-      "period": "9회초"
-    },
-    {
-      "date": "2026-06-30",
-      "categoryId": "kbo",
-      "gameId": "20260630SKHT02026",
-      "homeTeam": "KIA",
-      "awayTeam": "SSG",
-      "homeScore": 10,
-      "awayScore": 3,
-      "status": "finished",
-      "period": "9회초"
-    },
-    {
-      "date": "2026-06-30",
-      "categoryId": "kbo",
-      "gameId": "20260630SSNC02026",
-      "homeTeam": "NC",
-      "awayTeam": "삼성",
-      "homeScore": 7,
-      "awayScore": 13,
-      "status": "finished",
-      "period": "9회말"
-    },
     {
       "date": "2026-07-01",
       "categoryId": "kbo",
       "gameId": "20260701KTHH02026",
       "homeTeam": "한화",
       "awayTeam": "KT",
-      "homeScore": 3,
-      "awayScore": 3,
-      "status": "live",
-      "period": "9회초"
+      "homeScore": 4,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-07-01",
@@ -2163,9 +1877,9 @@
       "homeTeam": "키움",
       "awayTeam": "LG",
       "homeScore": 4,
-      "awayScore": 8,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 10,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-07-01",
@@ -2174,9 +1888,9 @@
       "homeTeam": "두산",
       "awayTeam": "롯데",
       "homeScore": 2,
-      "awayScore": 2,
-      "status": "live",
-      "period": "9회말"
+      "awayScore": 5,
+      "status": "finished",
+      "period": "10회말"
     },
     {
       "date": "2026-07-01",
@@ -2184,10 +1898,10 @@
       "gameId": "20260701SKHT02026",
       "homeTeam": "KIA",
       "awayTeam": "SSG",
-      "homeScore": 3,
-      "awayScore": 1,
-      "status": "live",
-      "period": "8회말"
+      "homeScore": 6,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "11회말"
     },
     {
       "date": "2026-07-01",
@@ -2197,8 +1911,8 @@
       "awayTeam": "삼성",
       "homeScore": 10,
       "awayScore": 5,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-07-02",
@@ -2256,147 +1970,59 @@
       "period": "경기전"
     },
     {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630CWBA0",
-      "homeTeam": "볼티모어 오리올스",
-      "awayTeam": "시카고 화이트삭스",
-      "homeScore": 2,
-      "awayScore": 8,
-      "status": "finished",
-      "period": "9회말"
+      "date": "2026-07-03",
+      "categoryId": "kbo",
+      "gameId": "20260703HHLG02026",
+      "homeTeam": "LG",
+      "awayTeam": "한화",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
     },
     {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630PIPH0",
-      "homeTeam": "필라델피아 필리스",
-      "awayTeam": "피츠버그 파이리츠",
-      "homeScore": 7,
-      "awayScore": 11,
-      "status": "finished",
-      "period": "9회말"
+      "date": "2026-07-03",
+      "categoryId": "kbo",
+      "gameId": "20260703LTKT02026",
+      "homeTeam": "KT",
+      "awayTeam": "롯데",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
     },
     {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630DENY0",
-      "homeTeam": "뉴욕 양키스",
-      "awayTeam": "디트로이트 타이거스",
-      "homeScore": 3,
-      "awayScore": 7,
-      "status": "finished",
-      "period": "9회말"
+      "date": "2026-07-03",
+      "categoryId": "kbo",
+      "gameId": "20260703NCHT02026",
+      "homeTeam": "KIA",
+      "awayTeam": "NC",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
     },
     {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630NMTO0",
-      "homeTeam": "토론토 블루제이스",
-      "awayTeam": "뉴욕 메츠",
-      "homeScore": 2,
-      "awayScore": 1,
-      "status": "finished",
-      "period": "9회초"
+      "date": "2026-07-03",
+      "categoryId": "kbo",
+      "gameId": "20260703OBWO02026",
+      "homeTeam": "키움",
+      "awayTeam": "두산",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
     },
     {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630MOBO0",
-      "homeTeam": "보스턴 레드삭스",
-      "awayTeam": "워싱턴 내셔널스",
-      "homeScore": 6,
-      "awayScore": 3,
-      "status": "finished",
-      "period": "9회초"
-    },
-    {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630TECL0",
-      "homeTeam": "클리블랜드 가디언스",
-      "awayTeam": "텍사스 레인저스",
-      "homeScore": 3,
-      "awayScore": 6,
-      "status": "finished",
-      "period": "9회말"
-    },
-    {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630CIMI0",
-      "homeTeam": "밀워키 브루어스",
-      "awayTeam": "신시내티 레즈",
-      "homeScore": 5,
-      "awayScore": 3,
-      "status": "finished",
-      "period": "9회초"
-    },
-    {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630SDCC0",
-      "homeTeam": "시카고 컵스",
-      "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 3,
-      "awayScore": 2,
-      "status": "finished",
-      "period": "9회말"
-    },
-    {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630MNHO0",
-      "homeTeam": "휴스턴 애스트로스",
-      "awayTeam": "미네소타 트윈스",
-      "homeScore": 4,
-      "awayScore": 5,
-      "status": "finished",
-      "period": "9회말"
-    },
-    {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630FLCO0",
-      "homeTeam": "콜로라도 로키스",
-      "awayTeam": "마이애미 말린스",
-      "homeScore": 7,
-      "awayScore": 10,
-      "status": "finished",
-      "period": "9회말"
-    },
-    {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630ANSE0",
-      "homeTeam": "시애틀 매리너스",
-      "awayTeam": "LA 에인절스",
-      "homeScore": 6,
-      "awayScore": 2,
-      "status": "finished",
-      "period": "9회초"
-    },
-    {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630LAOA0",
-      "homeTeam": "애슬레틱스",
-      "awayTeam": "LA 다저스",
-      "homeScore": 4,
-      "awayScore": 9,
-      "status": "finished",
-      "period": "9회말"
-    },
-    {
-      "date": "2026-06-30",
-      "categoryId": "mlb",
-      "gameId": "20260630SFAZ0",
-      "homeTeam": "애리조나 다이아몬드백스",
-      "awayTeam": "샌프란시스코 자이언츠",
-      "homeScore": 5,
-      "awayScore": 4,
-      "status": "finished",
-      "period": "9회초"
+      "date": "2026-07-03",
+      "categoryId": "kbo",
+      "gameId": "20260703SSSK02026",
+      "homeTeam": "SSG",
+      "awayTeam": "삼성",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
     },
     {
       "date": "2026-07-01",
@@ -2581,7 +2207,8 @@
       "awayTeam": "텍사스 레인저스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-07-02",
@@ -2601,7 +2228,8 @@
       "awayTeam": "워싱턴 내셔널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-07-02",
@@ -2704,86 +2332,94 @@
       "status": "scheduled"
     },
     {
-      "date": "2026-06-30",
-      "categoryId": "worldcup",
-      "gameId": "JUiroo5GFn3JdTC",
-      "homeTeam": "브라질",
-      "awayTeam": "일본",
-      "homeScore": 2,
-      "awayScore": 1,
-      "status": "finished",
-      "period": "경기종료",
-      "goals": [
-        {
-          "team": "away",
-          "player": "사노",
-          "minute": 29
-        },
-        {
-          "team": "home",
-          "player": "카세미루",
-          "minute": 56
-        },
-        {
-          "team": "home",
-          "player": "마르티넬리",
-          "minute": 90,
-          "addedTime": 5
-        }
-      ]
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703PIPH0",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "피츠버그 파이리츠",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
     },
     {
-      "date": "2026-06-30",
-      "categoryId": "worldcup",
-      "gameId": "bwBeCjswPeFyCAd",
-      "homeTeam": "독일",
-      "awayTeam": "파라과이",
-      "homeScore": 1,
-      "awayScore": 1,
-      "status": "finished",
-      "period": "경기종료",
-      "winner": "away",
-      "goals": [
-        {
-          "team": "away",
-          "player": "엔시소",
-          "minute": 42
-        },
-        {
-          "team": "home",
-          "player": "하베르츠",
-          "minute": 54
-        }
-      ],
-      "homePtScore": 3,
-      "awayPtScore": 4
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703CIMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
     },
     {
-      "date": "2026-06-30",
-      "categoryId": "worldcup",
-      "gameId": "xyAFeEX2NfuEpaU",
-      "homeTeam": "네덜란드",
-      "awayTeam": "모로코",
-      "homeScore": 1,
-      "awayScore": 1,
-      "status": "finished",
-      "period": "경기종료",
-      "winner": "away",
-      "goals": [
-        {
-          "team": "home",
-          "player": "학포",
-          "minute": 72
-        },
-        {
-          "team": "away",
-          "player": "디오프",
-          "minute": 90,
-          "addedTime": 1
-        }
-      ],
-      "homePtScore": 2,
-      "awayPtScore": 3
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703FLCO0",
+      "homeTeam": "콜로라도 로키스",
+      "awayTeam": "마이애미 말린스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703CWCL0",
+      "homeTeam": "클리블랜드 가디언스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703SLAT0",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "세인트루이스 카디널스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703TBKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703DETE0",
+      "homeTeam": "텍사스 레인저스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703ANSE0",
+      "homeTeam": "시애틀 매리너스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703SDLA0",
+      "homeTeam": "LA 다저스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
     },
     {
       "date": "2026-07-01",
@@ -2892,6 +2528,39 @@
       "gameId": "DzCXvZeKlC24kmn",
       "homeTeam": "미국",
       "awayTeam": "보스니아 헤르체고비나",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    {
+      "date": "2026-07-03",
+      "categoryId": "worldcup",
+      "gameId": "eGLZlfW9XdOQqNa",
+      "homeTeam": "스페인",
+      "awayTeam": "오스트리아",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    {
+      "date": "2026-07-03",
+      "categoryId": "worldcup",
+      "gameId": "UUthhOlRxJjWtS5",
+      "homeTeam": "포르투갈",
+      "awayTeam": "크로아티아",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    {
+      "date": "2026-07-03",
+      "categoryId": "worldcup",
+      "gameId": "fqi0ocBbFSj9ol9",
+      "homeTeam": "스위스",
+      "awayTeam": "알제리",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
