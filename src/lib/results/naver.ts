@@ -269,6 +269,66 @@ const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "worldcup", label: "월드컵" },
 ];
 
+/** NaverGame → MatchResult 매핑(득점자 상세 제외). 유효하지 않으면 null.
+ *  crawlAllResults(전체)·crawlLiveResults(진행중·종료만) 공용 — 두 함수의 매핑 중복 제거.
+ *  needsDetail=true 면 축구 득점자/승부차기 상세를 추가 조회해야 하는 경기. */
+function mapGameToResult(g: NaverGame): {
+  result: MatchResult;
+  homeAliases: string[];
+  awayAliases: string[];
+  needsDetail: boolean;
+} | null {
+  const date = formatDate(g.gameDate);
+  const categoryId = g.categoryId;
+  const home = g.homeTeamName;
+  const away = g.awayTeamName;
+  if (!date || !categoryId || !home || !away) return null;
+
+  const status = mapStatus(g);
+  const homeAliases = expandAliases(categoryId, home);
+  const awayAliases = expandAliases(categoryId, away);
+  // 정규+연장 무승부인데 승자가 있으면(=승부차기로 갈림) winner를 채워 승패 표시.
+  const decisiveDraw =
+    status === "finished" &&
+    typeof g.homeTeamScore === "number" &&
+    g.homeTeamScore === g.awayTeamScore &&
+    !!mapWinner(g.winner);
+  const result: MatchResult = {
+    date,
+    categoryId,
+    ...(g.gameId ? { gameId: g.gameId } : {}),
+    // 1차 표기는 alias map의 두 번째 변형(있으면)을 사용 — schedule.json 호환 우선.
+    homeTeam: homeAliases[1] ?? homeAliases[0],
+    awayTeam: awayAliases[1] ?? awayAliases[0],
+    ...(typeof g.homeTeamScore === "number" ? { homeScore: g.homeTeamScore } : {}),
+    ...(typeof g.awayTeamScore === "number" ? { awayScore: g.awayTeamScore } : {}),
+    status,
+    ...(g.statusInfo ? { period: g.statusInfo } : {}),
+    ...(decisiveDraw ? { winner: mapWinner(g.winner) } : {}),
+  };
+  // 축구 종료/진행 경기 중 골이 있거나 승부차기로 갈린 경우만 상세(득점자+승부차기) 조회.
+  const totalGoals = (g.homeTeamScore ?? 0) + (g.awayTeamScore ?? 0);
+  const needsDetail =
+    SOCCER_CATEGORIES.has(categoryId) &&
+    !!g.gameId &&
+    (totalGoals > 0 || decisiveDraw) &&
+    (status === "finished" || status === "live");
+  return { result, homeAliases, awayAliases, needsDetail };
+}
+
+/** detailJobs(득점자/승부차기 조회 대상)를 동시 6건 병렬로 채운다.
+ *  results/byKey 가 같은 result 객체를 참조하므로 여기서의 변이가 그대로 반영된다. */
+async function fillDetails(jobs: { gameId: string; result: MatchResult }[]): Promise<void> {
+  await pLimit(jobs, 6, async ({ gameId, result }) => {
+    const detail = await fetchGameDetail(gameId);
+    if (detail.goals.length > 0) result.goals = detail.goals;
+    if (typeof detail.homePtScore === "number") {
+      result.homePtScore = detail.homePtScore;
+      result.awayPtScore = detail.awayPtScore;
+    }
+  });
+}
+
 /**
  * 라이브 전용 경량 크롤 (/api/live 핫패스용).
  * crawlAllResults와 달리: ①리그를 병렬 호출 ②진행중/종료 경기만 포함(예정·취소 제외로 payload 축소)
@@ -283,72 +343,28 @@ export async function crawlLiveResults(): Promise<ResultsData> {
 
   const results: MatchResult[] = [];
   const byKey: Record<string, MatchResult> = {};
-  // 상세(득점자+승부차기) 조회 대상. 루프에서 직렬 await 하면 /api/live 핫패스에서
-  // 라이브 경기가 많을 때 (각 8초 타임아웃) 지연이 누적되므로, 먼저 모아 두고 병렬 조회한다.
+  // 상세(득점자+승부차기) 조회 대상을 모아 뒤에서 병렬 조회(핫패스에서 직렬 8초 누적 방지).
   const detailJobs: { gameId: string; result: MatchResult }[] = [];
 
   for (const g of allGames) {
-    const date = formatDate(g.gameDate);
-    const categoryId = g.categoryId;
-    const home = g.homeTeamName;
-    const away = g.awayTeamName;
-    if (!date || !categoryId || !home || !away) continue;
-
-    const status = mapStatus(g);
     // 라이브 화면에 필요한 건 진행중·종료뿐(예정/취소는 빌드 데이터로 충분).
+    const status = mapStatus(g);
     if (status !== "live" && status !== "finished") continue;
 
-    const homeAliases = expandAliases(categoryId, home);
-    const awayAliases = expandAliases(categoryId, away);
-    // 정규+연장 무승부인데 승자가 있으면(=승부차기로 갈림) winner를 채워 카드에서 승패 표시.
-    const decisiveDraw =
-      status === "finished" &&
-      typeof g.homeTeamScore === "number" &&
-      g.homeTeamScore === g.awayTeamScore &&
-      !!mapWinner(g.winner);
-    const result: MatchResult = {
-      date,
-      categoryId,
-      ...(g.gameId ? { gameId: g.gameId } : {}),
-      homeTeam: homeAliases[1] ?? homeAliases[0],
-      awayTeam: awayAliases[1] ?? awayAliases[0],
-      ...(typeof g.homeTeamScore === "number" ? { homeScore: g.homeTeamScore } : {}),
-      ...(typeof g.awayTeamScore === "number" ? { awayScore: g.awayTeamScore } : {}),
-      status,
-      ...(g.statusInfo ? { period: g.statusInfo } : {}),
-      ...(decisiveDraw ? { winner: mapWinner(g.winner) } : {}),
-    };
-
-    // 상세(득점자+승부차기) 조회: 골이 있는 축구 경기는 진행중·종료 모두, 또는 승부차기로
-    // 갈린 종료 경기. 종료 경기도 채워야 한다 — 라이브 오버레이는 빌드 결과를 byKey 단위로
-    // 덮어쓰므로(클라 머지), 여기서 종료 경기 골을 빼면 빌드에 있던 골이 화면에서 사라진다.
-    // (status는 위에서 이미 live|finished로 걸러져 있다.)
-    const totalGoals = (g.homeTeamScore ?? 0) + (g.awayTeamScore ?? 0);
-    const needsDetail =
-      SOCCER_CATEGORIES.has(categoryId) &&
-      !!g.gameId &&
-      (totalGoals > 0 || decisiveDraw);
-    if (needsDetail) {
-      detailJobs.push({ gameId: g.gameId!, result });
-    }
+    const mapped = mapGameToResult(g);
+    if (!mapped) continue;
+    const { result, homeAliases, awayAliases, needsDetail } = mapped;
+    if (needsDetail) detailJobs.push({ gameId: g.gameId!, result });
 
     results.push(result);
     for (const h of homeAliases) {
       for (const a of awayAliases) {
-        byKey[resultKey(date, categoryId, h, a)] = result;
+        byKey[resultKey(result.date, result.categoryId, h, a)] = result;
       }
     }
   }
 
-  // 상세 조회 병렬 실행(동시 6건). results/byKey 가 같은 result 객체를 참조하므로 변이가 반영된다.
-  await pLimit(detailJobs, 6, async ({ gameId, result }) => {
-    const detail = await fetchGameDetail(gameId);
-    if (detail.goals.length > 0) result.goals = detail.goals;
-    if (typeof detail.homePtScore === "number") {
-      result.homePtScore = detail.homePtScore;
-      result.awayPtScore = detail.awayPtScore;
-    }
-  });
+  await fillDetails(detailJobs);
 
   return {
     lastUpdated: new Date().toISOString(),
@@ -358,75 +374,42 @@ export async function crawlLiveResults(): Promise<ResultsData> {
 }
 
 export async function crawlAllResults(): Promise<ResultsData> {
-  const allGames: NaverGame[] = [];
-  for (const lg of LEAGUES) {
-    try {
-      const games = await fetchLeagueGames(lg.categoryId);
-      console.log(`  [${lg.label}] ${games.length}건`);
-      allGames.push(...games);
-    } catch (e) {
-      console.error(`  [${lg.label}] ❌ ${(e as Error).message}`);
-    }
-  }
+  // 리그를 병렬 호출(기존 직렬 → 30분 주기 크롤 시간 단축). 라이브 크롤과 동일 방식.
+  const lists = await Promise.all(
+    LEAGUES.map((lg) =>
+      fetchLeagueGames(lg.categoryId)
+        .then((games) => {
+          console.log(`  [${lg.label}] ${games.length}건`);
+          return games;
+        })
+        .catch((e) => {
+          console.error(`  [${lg.label}] ❌ ${(e as Error).message}`);
+          return [] as NaverGame[];
+        }),
+    ),
+  );
+  const allGames = lists.flat();
 
   const results: MatchResult[] = [];
   const byKey: Record<string, MatchResult> = {};
+  const detailJobs: { gameId: string; result: MatchResult }[] = [];
 
   for (const g of allGames) {
-    const date = formatDate(g.gameDate);
-    const categoryId = g.categoryId;
-    const home = g.homeTeamName;
-    const away = g.awayTeamName;
-    if (!date || !categoryId || !home || !away) continue;
-
-    // 결과 표기는 naver 원본을 1차 표기로, alias 다 적용해 byKey에 채움.
-    const homeAliases = expandAliases(categoryId, home);
-    const awayAliases = expandAliases(categoryId, away);
-    const status = mapStatus(g);
-    // 정규+연장 무승부인데 승자가 있으면(=승부차기로 갈림) winner를 채워 승패 표시.
-    const decisiveDraw =
-      status === "finished" &&
-      typeof g.homeTeamScore === "number" &&
-      g.homeTeamScore === g.awayTeamScore &&
-      !!mapWinner(g.winner);
-    const result: MatchResult = {
-      date,
-      categoryId,
-      ...(g.gameId ? { gameId: g.gameId } : {}),
-      // 1차 표기는 alias map의 첫 번째 변형(있으면 그것)을 사용 — schedule.json 호환 우선.
-      homeTeam: homeAliases[1] ?? homeAliases[0],
-      awayTeam: awayAliases[1] ?? awayAliases[0],
-      ...(typeof g.homeTeamScore === "number" ? { homeScore: g.homeTeamScore } : {}),
-      ...(typeof g.awayTeamScore === "number" ? { awayScore: g.awayTeamScore } : {}),
-      status,
-      ...(g.statusInfo ? { period: g.statusInfo } : {}),
-      ...(decisiveDraw ? { winner: mapWinner(g.winner) } : {}),
-    };
-
-    // 축구 종료/진행 경기 중 ①골이 있거나 ②승부차기로 갈린 경우만 상세(득점자+승부차기) 조회.
-    const totalGoals = (g.homeTeamScore ?? 0) + (g.awayTeamScore ?? 0);
-    if (
-      SOCCER_CATEGORIES.has(categoryId) &&
-      g.gameId &&
-      (totalGoals > 0 || decisiveDraw) &&
-      (status === "finished" || status === "live")
-    ) {
-      const detail = await fetchGameDetail(g.gameId);
-      if (detail.goals.length > 0) result.goals = detail.goals;
-      if (typeof detail.homePtScore === "number") {
-        result.homePtScore = detail.homePtScore;
-        result.awayPtScore = detail.awayPtScore;
-      }
-    }
+    const mapped = mapGameToResult(g);
+    if (!mapped) continue;
+    const { result, homeAliases, awayAliases, needsDetail } = mapped;
+    if (needsDetail) detailJobs.push({ gameId: g.gameId!, result });
 
     results.push(result);
-
     for (const h of homeAliases) {
       for (const a of awayAliases) {
-        byKey[resultKey(date, categoryId, h, a)] = result;
+        byKey[resultKey(result.date, result.categoryId, h, a)] = result;
       }
     }
   }
+
+  // 상세(득점자/승부차기) 조회를 병렬로(기존 루프 내 직렬 await → N+1 해소).
+  await fillDetails(detailJobs);
 
   return {
     lastUpdated: new Date().toISOString(),
