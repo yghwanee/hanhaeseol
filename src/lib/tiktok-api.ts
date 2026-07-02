@@ -188,6 +188,11 @@ async function uploadChunk(
   }
 }
 
+type StatusFetchResponse = {
+  data?: { status?: string; fail_reason?: string; publicaly_available_post_id?: string[] };
+  error?: { code?: string; message?: string };
+};
+
 async function pollPublishStatus(
   accessToken: string,
   publishId: string,
@@ -195,25 +200,33 @@ async function pollPublishStatus(
   intervalMs = 3000,
 ): Promise<void> {
   for (let i = 0; i < maxAttempts; i++) {
-    const res = await fetch(`${TIKTOK_API}/v2/post/publish/status/fetch/`, {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-        "Content-Type": "application/json; charset=UTF-8",
-      },
-      body: JSON.stringify({ publish_id: publishId }),
-    });
-    const data = (await res.json()) as {
-      data?: { status?: string; fail_reason?: string; publicaly_available_post_id?: string[] };
-      error?: { code?: string; message?: string };
-    };
-    if (!res.ok) {
-      throw new Error(`상태 조회 실패: ${JSON.stringify(data)}`);
+    // 상태 조회 자체가 일시 오류(네트워크/5xx/internal_error)로 실패해도
+    // 업로드는 이미 끝난 상태라 대개 다음 폴링에서 회복된다. 즉시 throw하지 말고 재시도.
+    let data: StatusFetchResponse | null = null;
+    try {
+      const res = await fetch(`${TIKTOK_API}/v2/post/publish/status/fetch/`, {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json; charset=UTF-8",
+        },
+        body: JSON.stringify({ publish_id: publishId }),
+      });
+      data = (await res.json()) as StatusFetchResponse;
+      if (!res.ok || data?.error?.code === "internal_error") {
+        console.warn(`⚠️ 상태 조회 일시 오류(재시도 ${i + 1}/${maxAttempts}): ${JSON.stringify(data)}`);
+        await sleep(intervalMs);
+        continue;
+      }
+    } catch (e) {
+      console.warn(`⚠️ 상태 조회 네트워크 오류(재시도 ${i + 1}/${maxAttempts}): ${String(e)}`);
+      await sleep(intervalMs);
+      continue;
     }
-    const status = data.data?.status;
+    const status = data?.data?.status;
     if (status === "PUBLISH_COMPLETE") return;
     if (status === "FAILED") {
-      throw new Error(`게시 실패: ${data.data?.fail_reason ?? "알 수 없음"}`);
+      throw new Error(`게시 실패: ${data?.data?.fail_reason ?? "알 수 없음"}`);
     }
     await sleep(intervalMs);
   }
