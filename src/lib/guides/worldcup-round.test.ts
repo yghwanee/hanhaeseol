@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import {
   type WcSchedule,
   selectTargetRound,
+  selectTargetRounds,
   buildArticle,
   refreshArticle,
   renderDataBlock,
@@ -76,6 +77,27 @@ test("selectTargetRound: 32강은 자동 대상이 아니다", () => {
   // 7/3은 32강도 진행 중이지만 16강이 선택돼야 함(32강 제외 규칙)
   const t = selectTargetRound(FIXTURE, "2026-07-03");
   assert.equal(t!.round, "16강");
+});
+
+// 실제 대회 막판: 3·4위전(7/19)·결승(7/20) 단일 경기가 연달아 붙는다.
+const FINALE: WcSchedule[] = [
+  sched("4강", "2026-07-15", "04:00", "미정", "미정"),
+  sched("4강", "2026-07-16", "04:00", "미정", "미정"),
+  sched("3·4위전", "2026-07-19", "06:00", "미정", "미정"),
+  sched("결승", "2026-07-20", "04:00", "미정", "미정"),
+];
+
+test("selectTargetRounds: 결승 D-2(7/18)에 결승이 창에 포함(3·4위전에 안 밀림)", () => {
+  // 7/18 = 결승(7/20) D-2. 3·4위전(7/19)도 아직 창 안.
+  const rounds = selectTargetRounds(FINALE, "2026-07-18").map((r) => r.round);
+  assert.ok(rounds.includes("결승"), "결승이 D-2에 창에 있어야 함");
+  assert.ok(rounds.includes("3·4위전"), "3·4위전도 아직 창 안");
+});
+
+test("selectTargetRounds: 결승 경기 당일 전에 이미 발행 창 진입", () => {
+  // 7/18·7/19 모두 결승이 창 안이어야 경기(7/20 04:00) 전에 글이 뜬다.
+  assert.ok(selectTargetRounds(FINALE, "2026-07-18").some((r) => r.round === "결승"));
+  assert.ok(selectTargetRounds(FINALE, "2026-07-19").some((r) => r.round === "결승"));
 });
 
 test("renderDataBlock: 표 + 미정 안내(피더 라운드 언급)", () => {

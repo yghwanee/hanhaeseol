@@ -14,8 +14,9 @@ import fs from "fs";
 import path from "path";
 import {
   type WcSchedule,
+  type RoundTarget,
   kstTodayISO,
-  selectTargetRound,
+  selectTargetRounds,
   buildArticle,
   refreshArticle,
 } from "../lib/guides/worldcup-round";
@@ -59,16 +60,11 @@ function done(changed: boolean): never {
   process.exit(0);
 }
 
-function main() {
-  const schedules = loadSchedules();
-  const today = kstTodayISO();
-
-  const target = selectTargetRound(schedules, today);
-  if (!target) {
-    console.log("다가오는 토너먼트 라운드 없음(발행 창 밖). 스킵.");
-    done(false);
-  }
-
+function processRound(
+  target: RoundTarget,
+  schedules: WcSchedule[],
+  today: string,
+): boolean {
   const { round } = target;
   const built = buildArticle(target, schedules, today);
   const file = path.join(GUIDES_DIR, `${built.slug}.md`);
@@ -93,6 +89,24 @@ function main() {
   if (markQueueDone(built.slug)) {
     console.log(`content-plan 큐 처리: ${built.slug} → [x]`);
     changed = true;
+  }
+  return changed;
+}
+
+function main() {
+  const schedules = loadSchedules();
+  const today = kstTodayISO();
+
+  const targets = selectTargetRounds(schedules, today);
+  if (targets.length === 0) {
+    console.log("발행 창이 열린 토너먼트 라운드 없음. 스킵.");
+    done(false);
+  }
+
+  // 창이 열린 라운드를 전부 처리(단일 경기 결승이 3·4위전에 밀려 늦게 뜨는 문제 방지).
+  let changed = false;
+  for (const target of targets) {
+    if (processRound(target, schedules, today)) changed = true;
   }
 
   done(changed);

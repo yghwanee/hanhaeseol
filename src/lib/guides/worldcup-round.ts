@@ -84,24 +84,37 @@ export interface RoundTarget {
 }
 
 /**
- * 오늘(KST) 기준 발행 대상 라운드를 고른다.
- * 규칙: 첫 경기 D-2 이내로 다가왔고 아직 마지막 경기가 안 지난, 가장 이른 라운드.
- * 대상 없으면 null(그날은 아무것도 안 함).
+ * 오늘(KST) 기준 발행 창이 열린 라운드를 전부 고른다.
+ * 창: 첫 경기 D-2 이내로 다가왔고 아직 마지막 경기가 안 지난 라운드.
+ *
+ * 여러 라운드를 함께 처리하는 이유: 3·4위전(7/19)·결승(7/20)처럼 단일 경기가
+ * 연달아 붙으면, "한 번에 한 라운드"로는 앞 라운드가 결승 선택을 막아
+ * 결승 글이 경기 당일(=경기 시각 이후)에야 떴다. 창이 열린 라운드를 모두
+ * 만들면 각 라운드가 제 D-2에 뜬다.
  */
-export function selectTargetRound(
+export function selectTargetRounds(
   schedules: WcSchedule[],
   todayISO: string,
-): RoundTarget | null {
+): RoundTarget[] {
+  const out: RoundTarget[] = [];
   for (const round of AUTO_ROUNDS) {
     const matches = schedules.filter((s) => roundOf(s) === round).sort(byDateTime);
     if (matches.length === 0) continue;
     const first = matches[0].date;
     const last = matches[matches.length - 1].date;
     if (todayISO >= addDays(first, -2) && todayISO <= last) {
-      return { round, matches };
+      out.push({ round, matches });
     }
   }
-  return null;
+  return out;
+}
+
+/** 발행 창이 열린 라운드 중 가장 이른 하나(없으면 null). */
+export function selectTargetRound(
+  schedules: WcSchedule[],
+  todayISO: string,
+): RoundTarget | null {
+  return selectTargetRounds(schedules, todayISO)[0] ?? null;
 }
 
 function matchup(m: WcSchedule): string {
