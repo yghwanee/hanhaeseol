@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-02T20:37:01.587Z",
+  "lastUpdated": "2026-07-02T21:48:59.387Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -12837,6 +12837,45 @@
       "awayScore": 6,
       "status": "finished",
       "period": "9회말"
+    },
+    "2026-07-03|mlb|밀워키 브루어스|신시내티 레즈": {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703CIMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 2,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-07-03|worldcup|스페인|오스트리아": {
+      "date": "2026-07-03",
+      "categoryId": "worldcup",
+      "gameId": "eGLZlfW9XdOQqNa",
+      "homeTeam": "스페인",
+      "awayTeam": "오스트리아",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "미켈 오야르사발",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "페드로 포로",
+          "minute": 66
+        },
+        {
+          "team": "home",
+          "player": "미켈 오야르사발",
+          "minute": 89
+        }
+      ]
     }
   },
   "results": [
@@ -25676,6 +25715,45 @@
       "awayScore": 6,
       "status": "finished",
       "period": "9회말"
+    },
+    {
+      "date": "2026-07-03",
+      "categoryId": "mlb",
+      "gameId": "20260703CIMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 2,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-07-03",
+      "categoryId": "worldcup",
+      "gameId": "eGLZlfW9XdOQqNa",
+      "homeTeam": "스페인",
+      "awayTeam": "오스트리아",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "미켈 오야르사발",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "페드로 포로",
+          "minute": 66
+        },
+        {
+          "team": "home",
+          "player": "미켈 오야르사발",
+          "minute": 89
+        }
+      ]
     }
   ]
 }
