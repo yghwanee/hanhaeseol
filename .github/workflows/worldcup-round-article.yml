@@ -1,0 +1,79 @@
+name: Worldcup Round Article (auto)
+
+# 월드컵 토너먼트 라운드별 편성글(16강·8강·4강·3·4위전·결승)을 자동 생성·발행한다.
+# worldcup.json(매시 크롤로 갱신됨)에서 "다가오는 라운드"를 판별해:
+#   - 글이 없으면 새로 생성, 있으면 편성표 구간만 갱신(미정 대진이 확정되면 자동 반영)
+#   - content-plan.md 큐의 해당 slug 줄을 [x] 처리
+# 빌드 게이트 통과 시 main 직접 커밋 → Vercel 자동 배포. 텔레그램으로 결과 알림.
+#
+# 대상 라운드가 없으면(발행 창 밖) 스크립트가 조용히 스킵하므로,
+# 대회가 끝난 뒤에도 이 워크플로는 매일 돌지만 아무 것도 커밋하지 않는다(무해).
+
+on:
+  schedule:
+    - cron: '20 23 * * *'   # 매일 08:20 KST — 아침 크롤(매시 13/43분) 이후
+  workflow_dispatch: {}
+
+concurrency:
+  group: worldcup-round-article
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - run: npm ci
+
+      - name: Generate / refresh round article
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          set -uo pipefail
+
+          tg() {  # 텔레그램 알림 (토큰 없으면 조용히 스킵)
+            [ -n "${TELEGRAM_BOT_TOKEN:-}" ] || return 0
+            curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+              -d chat_id="${TELEGRAM_CHAT_ID}" --data-urlencode "text=$1" >/dev/null || true
+          }
+
+          npm run gen:worldcup-round
+
+          # 변경 없으면 종료(대상 라운드 없음/이미 최신).
+          if git diff --quiet -- src/content/guides docs/content-plan.md; then
+            echo "변경 없음 — 커밋 스킵"
+            exit 0
+          fi
+
+          # 빌드 게이트: 잘못된 글이 배포(시간별 크롤 포함)를 얼리지 않도록.
+          if ! npm run build; then
+            git checkout -- src/content/guides docs/content-plan.md
+            tg "$(printf '%s\n' '⚠️ 월드컵 라운드 글 자동 발행 실패 (빌드 오류)' '' '커밋 안 됨 — 확인 필요')"
+            echo "빌드 실패 → 커밋 차단"
+            exit 1
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add src/content/guides docs/content-plan.md
+          git commit -m "content: 월드컵 라운드 편성글 자동 생성·갱신"
+
+          # 동일 시간대 다른 워크플로 push와 충돌 시 rebase 흡수 후 재시도.
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash origin main && git push && break
+            echo "push 충돌, 재시도 $i/5..."; sleep 5
+          done
+
+          tg "$(printf '%s\n' '✅ 월드컵 라운드 편성글 발행/갱신' '' 'https://haeseol.com/guide')"

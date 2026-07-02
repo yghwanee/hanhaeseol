@@ -14,6 +14,8 @@
     "crawl:standings": "tsx src/scripts/crawl-standings.ts",
     "crawl:results": "tsx src/scripts/crawl-results.ts",
     "backfill:worldcup-goals": "tsx src/scripts/backfill-worldcup-goals.ts",
+    "gen:worldcup-round": "tsx src/scripts/gen-worldcup-round-article.ts",
+    "test:worldcup-round": "tsx --test src/lib/guides/worldcup-round.test.ts",
     "crawl:starters": "tsx src/scripts/crawl-starters.ts",
     "test:starters": "tsx --test src/lib/starters/*.test.ts",
     "insights:generate": "tsx src/scripts/generate-match-insights.ts",
