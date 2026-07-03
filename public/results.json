@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T17:03:32.038Z",
+  "lastUpdated": "2026-07-03T18:38:30.802Z",
   "byKey": {
     "2026-07-03|kbo|LG|한화": {
       "date": "2026-07-03",
@@ -570,7 +570,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-04|mlb|시카고컵스|세인트루이스 카디널스": {
       "date": "2026-07-04",
@@ -580,7 +581,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-04|mlb|시카고 컵스|세인트루이스": {
       "date": "2026-07-04",
@@ -590,7 +592,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-04|mlb|시카고 컵스|세인트루이스 카디널스": {
       "date": "2026-07-04",
@@ -600,7 +603,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-04|mlb|워싱턴|피츠버그": {
       "date": "2026-07-04",
@@ -1883,9 +1887,16 @@
       "homeTeam": "호주",
       "awayTeam": "이집트",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 38'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에맘 아슈르",
+          "minute": 13
+        }
+      ]
     },
     "2026-07-04|worldcup|아르헨티나|카보베르데": {
       "date": "2026-07-04",
@@ -2205,7 +2216,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-07-04",
@@ -2718,9 +2730,16 @@
       "homeTeam": "호주",
       "awayTeam": "이집트",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 38'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에맘 아슈르",
+          "minute": 13
+        }
+      ]
     },
     {
       "date": "2026-07-04",
