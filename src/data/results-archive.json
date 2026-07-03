@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T20:03:02.712Z",
+  "lastUpdated": "2026-07-03T21:31:05.810Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -13060,6 +13060,33 @@
           "minute": 46
         }
       ]
+    },
+    "2026-07-04|worldcup|호주|이집트": {
+      "date": "2026-07-04",
+      "categoryId": "worldcup",
+      "gameId": "crfpr0TV88a1yL6",
+      "homeTeam": "호주",
+      "awayTeam": "이집트",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에맘 아슈르",
+          "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "모하메드 하니",
+          "minute": 55,
+          "ownGoal": true
+        }
+      ],
+      "homePtScore": 2,
+      "awayPtScore": 4
     }
   },
   "results": [
@@ -26122,6 +26149,33 @@
           "minute": 46
         }
       ]
+    },
+    {
+      "date": "2026-07-04",
+      "categoryId": "worldcup",
+      "gameId": "crfpr0TV88a1yL6",
+      "homeTeam": "호주",
+      "awayTeam": "이집트",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에맘 아슈르",
+          "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "모하메드 하니",
+          "minute": 55,
+          "ownGoal": true
+        }
+      ],
+      "homePtScore": 2,
+      "awayPtScore": 4
     }
   ]
 }
