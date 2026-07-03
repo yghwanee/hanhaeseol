@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-03T18:38:30.802Z",
+  "lastUpdated": "2026-07-03T20:03:02.694Z",
   "byKey": {
     "2026-07-03|kbo|LG|한화": {
       "date": "2026-07-03",
@@ -1886,15 +1886,21 @@
       "gameId": "crfpr0TV88a1yL6",
       "homeTeam": "호주",
       "awayTeam": "이집트",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 38'",
+      "period": "후반종료",
       "goals": [
         {
           "team": "away",
           "player": "에맘 아슈르",
           "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "모하메드 하니",
+          "minute": 55,
+          "ownGoal": true
         }
       ]
     },
@@ -2729,15 +2735,21 @@
       "gameId": "crfpr0TV88a1yL6",
       "homeTeam": "호주",
       "awayTeam": "이집트",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 38'",
+      "period": "후반종료",
       "goals": [
         {
           "team": "away",
           "player": "에맘 아슈르",
           "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "모하메드 하니",
+          "minute": 55,
+          "ownGoal": true
         }
       ]
     },
