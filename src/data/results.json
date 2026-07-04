@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T12:18:39.278Z",
+  "lastUpdated": "2026-07-04T14:14:24.651Z",
   "byKey": {
     "2026-07-03|kbo|LG|한화": {
       "date": "2026-07-03",
@@ -64,29 +64,18 @@
       "awayTeam": "한화",
       "homeScore": 5,
       "awayScore": 3,
-      "status": "live",
+      "status": "finished",
       "period": "9회초"
     },
-    "2026-07-04|kbo|키움|두산": {
+    "2026-07-04|kbo|KT|롯데": {
       "date": "2026-07-04",
       "categoryId": "kbo",
-      "gameId": "20260704OBWO02026",
-      "homeTeam": "키움",
-      "awayTeam": "두산",
-      "homeScore": 5,
-      "awayScore": 8,
-      "status": "live",
-      "period": "8회말"
-    },
-    "2026-07-04|kbo|SSG|삼성": {
-      "date": "2026-07-04",
-      "categoryId": "kbo",
-      "gameId": "20260704SSSK02026",
-      "homeTeam": "SSG",
-      "awayTeam": "삼성",
-      "homeScore": 7,
-      "awayScore": 13,
-      "status": "live",
+      "gameId": "20260704LTKT02026",
+      "homeTeam": "KT",
+      "awayTeam": "롯데",
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "finished",
       "period": "9회말"
     },
     "2026-07-04|kbo|KIA|NC": {
@@ -97,17 +86,28 @@
       "awayTeam": "NC",
       "homeScore": 4,
       "awayScore": 5,
-      "status": "scheduled",
+      "status": "finished",
       "period": "9회말"
     },
-    "2026-07-04|kbo|KT|롯데": {
+    "2026-07-04|kbo|키움|두산": {
       "date": "2026-07-04",
       "categoryId": "kbo",
-      "gameId": "20260704LTKT02026",
-      "homeTeam": "KT",
-      "awayTeam": "롯데",
-      "homeScore": 1,
-      "awayScore": 4,
+      "gameId": "20260704OBWO02026",
+      "homeTeam": "키움",
+      "awayTeam": "두산",
+      "homeScore": 5,
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-07-04|kbo|SSG|삼성": {
+      "date": "2026-07-04",
+      "categoryId": "kbo",
+      "gameId": "20260704SSSK02026",
+      "homeTeam": "SSG",
+      "awayTeam": "삼성",
+      "homeScore": 7,
+      "awayScore": 13,
       "status": "finished",
       "period": "9회말"
     },
@@ -1700,8 +1700,8 @@
       "awayTeam": "강원",
       "homeScore": 1,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 46'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -1728,8 +1728,8 @@
       "awayTeam": "부천",
       "homeScore": 2,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 47'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -1761,8 +1761,8 @@
       "awayTeam": "포항",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 44'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -1833,8 +1833,8 @@
       "awayTeam": "성남",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 45'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -1850,9 +1850,9 @@
       "homeTeam": "안산",
       "awayTeam": "수원FC",
       "homeScore": 1,
-      "awayScore": 2,
-      "status": "live",
-      "period": "후반 42'",
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -1868,6 +1868,11 @@
           "team": "away",
           "player": "김정환",
           "minute": 51
+        },
+        {
+          "team": "away",
+          "player": "하정우",
+          "minute": 86
         }
       ]
     },
@@ -1879,8 +1884,8 @@
       "awayTeam": "대구",
       "homeScore": 1,
       "awayScore": 5,
-      "status": "live",
-      "period": "후반 46'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -1922,8 +1927,8 @@
       "awayTeam": "용인",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 46'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2227,29 +2232,18 @@
       "awayTeam": "한화",
       "homeScore": 5,
       "awayScore": 3,
-      "status": "live",
+      "status": "finished",
       "period": "9회초"
     },
     {
       "date": "2026-07-04",
       "categoryId": "kbo",
-      "gameId": "20260704OBWO02026",
-      "homeTeam": "키움",
-      "awayTeam": "두산",
-      "homeScore": 5,
-      "awayScore": 8,
-      "status": "live",
-      "period": "8회말"
-    },
-    {
-      "date": "2026-07-04",
-      "categoryId": "kbo",
-      "gameId": "20260704SSSK02026",
-      "homeTeam": "SSG",
-      "awayTeam": "삼성",
-      "homeScore": 7,
-      "awayScore": 13,
-      "status": "live",
+      "gameId": "20260704LTKT02026",
+      "homeTeam": "KT",
+      "awayTeam": "롯데",
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "finished",
       "period": "9회말"
     },
     {
@@ -2260,17 +2254,28 @@
       "awayTeam": "NC",
       "homeScore": 4,
       "awayScore": 5,
-      "status": "scheduled",
+      "status": "finished",
       "period": "9회말"
     },
     {
       "date": "2026-07-04",
       "categoryId": "kbo",
-      "gameId": "20260704LTKT02026",
-      "homeTeam": "KT",
-      "awayTeam": "롯데",
-      "homeScore": 1,
-      "awayScore": 4,
+      "gameId": "20260704OBWO02026",
+      "homeTeam": "키움",
+      "awayTeam": "두산",
+      "homeScore": 5,
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-07-04",
+      "categoryId": "kbo",
+      "gameId": "20260704SSSK02026",
+      "homeTeam": "SSG",
+      "awayTeam": "삼성",
+      "homeScore": 7,
+      "awayScore": 13,
       "status": "finished",
       "period": "9회말"
     },
@@ -2729,8 +2734,8 @@
       "awayTeam": "강원",
       "homeScore": 1,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 46'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2757,8 +2762,8 @@
       "awayTeam": "부천",
       "homeScore": 2,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 47'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2790,8 +2795,8 @@
       "awayTeam": "포항",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 44'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2862,8 +2867,8 @@
       "awayTeam": "성남",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 45'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2879,9 +2884,9 @@
       "homeTeam": "안산",
       "awayTeam": "수원FC",
       "homeScore": 1,
-      "awayScore": 2,
-      "status": "live",
-      "period": "후반 42'",
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2897,6 +2902,11 @@
           "team": "away",
           "player": "김정환",
           "minute": 51
+        },
+        {
+          "team": "away",
+          "player": "하정우",
+          "minute": 86
         }
       ]
     },
@@ -2908,8 +2918,8 @@
       "awayTeam": "대구",
       "homeScore": 1,
       "awayScore": 5,
-      "status": "live",
-      "period": "후반 46'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2951,8 +2961,8 @@
       "awayTeam": "용인",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 46'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
