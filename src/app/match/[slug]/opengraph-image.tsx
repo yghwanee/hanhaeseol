@@ -1,13 +1,10 @@
 import { ImageResponse } from "next/og";
-import fs from "node:fs";
-import path from "node:path";
 import scheduleData from "@/data/schedule.json";
 import worldcupData from "@/data/worldcup.json";
 import archiveData from "@/data/schedule-archive.json";
 import { findMatchBySlug } from "@/lib/match-slug";
 import type { Schedule, ScheduleData } from "@/types/schedule";
 
-// fs 접근을 위해 Node 런타임. (Edge에서는 로컬 폰트 파일 읽기가 안 됨.)
 export const runtime = "nodejs";
 export const alt = "한해설 경기 중계 카드";
 export const size = { width: 1200, height: 630 };
@@ -17,17 +14,30 @@ const data = scheduleData as unknown as ScheduleData;
 const worldcup = worldcupData as unknown as ScheduleData;
 const archive = archiveData as unknown as ScheduleData;
 
-// 폰트/로고는 모듈 로드 시 1회만 읽는다(요청마다 재읽기 방지). process.cwd()는
-// 빌드·런타임 모두 프로젝트 루트. templates/fonts 는 next.config outputFileTracingIncludes 로 번들 포함.
-const FONT_BOLD = fs.readFileSync(
-  path.join(process.cwd(), "templates/fonts/Pretendard-Bold.otf")
-);
-const FONT_REGULAR = fs.readFileSync(
-  path.join(process.cwd(), "templates/fonts/Pretendard-Regular.otf")
-);
-const LOGO_DATA = `data:image/png;base64,${fs
-  .readFileSync(path.join(process.cwd(), "public/logo.png"))
-  .toString("base64")}`;
+const BASE = "https://haeseol.com";
+
+// 폰트/로고는 서버리스 번들 파일 트레이싱(fs)에 의존하면 프로덕션에서 파일 누락으로
+// 500 이 난다. 대신 배포된 public 자산을 HTTPS 로 가져온다. 모듈 스코프에서 1회 메모.
+let assetsPromise: Promise<{
+  bold: ArrayBuffer;
+  regular: ArrayBuffer;
+  logo: string;
+}> | null = null;
+
+function loadAssets() {
+  if (!assetsPromise) {
+    assetsPromise = (async () => {
+      const [bold, regular, logoBuf] = await Promise.all([
+        fetch(`${BASE}/fonts/Pretendard-Bold.otf`).then((r) => r.arrayBuffer()),
+        fetch(`${BASE}/fonts/Pretendard-Regular.otf`).then((r) => r.arrayBuffer()),
+        fetch(`${BASE}/logo.png`).then((r) => r.arrayBuffer()),
+      ]);
+      const logo = `data:image/png;base64,${Buffer.from(logoBuf).toString("base64")}`;
+      return { bold, regular, logo };
+    })();
+  }
+  return assetsPromise;
+}
 
 function findMatchAnywhere(slug: string): Schedule | undefined {
   return (
@@ -54,12 +64,13 @@ function commentaryBadge(s: Schedule): Badge {
   return { label: "해설 확인중", color: "#fbbf24", bg: "rgba(245,158,11,0.14)", border: "#f59e0b" };
 }
 
-export default function Image({ params }: { params: { slug: string } }) {
+export default async function Image({ params }: { params: { slug: string } }) {
+  const { bold, regular, logo } = await loadAssets();
   const match = findMatchAnywhere(params.slug);
 
   const badge = match ? commentaryBadge(match) : null;
   const league = match?.league ?? "";
-  const home = match?.homeTeam ?? "";
+  const home = match?.homeTeam ?? "한해설";
   const away = match?.awayTeam ?? "";
   const metaLine = match
     ? `${formatDate(match.date)} ${match.time} KST · ${match.platform}`
@@ -77,7 +88,7 @@ export default function Image({ params }: { params: { slug: string } }) {
           padding: "64px 72px",
           backgroundColor: "#0a0a0a",
           // satori는 radial-gradient의 `<size> at <pos>` 형태를 파싱 못 함.
-          // `circle at <pos>` 형태만 지원하므로 이 문법을 쓴다.
+          // `circle at <pos>` 형태만 지원한다.
           backgroundImage:
             "radial-gradient(circle at 25% 15%, #1e1b3a 0%, #0a0a0a 55%, #000000 100%)",
           fontFamily: "Pretendard",
@@ -88,7 +99,7 @@ export default function Image({ params }: { params: { slug: string } }) {
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
           <div style={{ display: "flex", alignItems: "center" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src={LOGO_DATA} width={68} height={68} alt="" />
+            <img src={logo} width={68} height={68} alt="" />
             <span style={{ marginLeft: 20, fontSize: 40, fontWeight: 700 }}>한해설</span>
           </div>
           {badge && (
@@ -116,8 +127,10 @@ export default function Image({ params }: { params: { slug: string } }) {
           )}
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "center", fontWeight: 700 }}>
             <span style={{ fontSize: 76, lineHeight: 1.1 }}>{home}</span>
-            <span style={{ fontSize: 48, color: "#a855f7", padding: "0 26px", fontWeight: 400 }}>vs</span>
-            <span style={{ fontSize: 76, lineHeight: 1.1 }}>{away}</span>
+            {away !== "" && (
+              <span style={{ fontSize: 48, color: "#a855f7", padding: "0 26px", fontWeight: 400 }}>vs</span>
+            )}
+            {away !== "" && <span style={{ fontSize: 76, lineHeight: 1.1 }}>{away}</span>}
           </div>
         </div>
 
@@ -131,8 +144,8 @@ export default function Image({ params }: { params: { slug: string } }) {
     {
       ...size,
       fonts: [
-        { name: "Pretendard", data: FONT_REGULAR, weight: 400, style: "normal" },
-        { name: "Pretendard", data: FONT_BOLD, weight: 700, style: "normal" },
+        { name: "Pretendard", data: regular, weight: 400, style: "normal" },
+        { name: "Pretendard", data: bold, weight: 700, style: "normal" },
       ],
     }
   );

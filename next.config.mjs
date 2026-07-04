@@ -1,12 +1,5 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // 매치 동적 OG 이미지(opengraph-image)가 런타임에 읽는 Pretendard 폰트를
-  // Vercel 서버리스 번들에 강제 포함. (fs.readFileSync는 자동 트레이싱이 안 됨.)
-  experimental: {
-    outputFileTracingIncludes: {
-      "/match/[slug]/opengraph-image": ["./templates/fonts/Pretendard-*.otf"],
-    },
-  },
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: [
