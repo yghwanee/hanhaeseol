@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T18:39:59.608Z",
+  "lastUpdated": "2026-07-04T19:53:48.698Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -13565,6 +13565,35 @@
       "awayScore": 7,
       "status": "finished",
       "period": "9회말"
+    },
+    "2026-07-05|worldcup|캐나다|모로코": {
+      "date": "2026-07-05",
+      "categoryId": "worldcup",
+      "gameId": "dxZjTHkMiGI1Sao",
+      "homeTeam": "캐나다",
+      "awayTeam": "모로코",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "우나히",
+          "minute": 50
+        },
+        {
+          "team": "away",
+          "player": "우나히",
+          "minute": 82
+        },
+        {
+          "team": "away",
+          "player": "라히미",
+          "minute": 90,
+          "addedTime": 8
+        }
+      ]
     }
   },
   "results": [
@@ -27132,6 +27161,35 @@
       "awayScore": 7,
       "status": "finished",
       "period": "9회말"
+    },
+    {
+      "date": "2026-07-05",
+      "categoryId": "worldcup",
+      "gameId": "dxZjTHkMiGI1Sao",
+      "homeTeam": "캐나다",
+      "awayTeam": "모로코",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "우나히",
+          "minute": 50
+        },
+        {
+          "team": "away",
+          "player": "우나히",
+          "minute": 82
+        },
+        {
+          "team": "away",
+          "player": "라히미",
+          "minute": 90,
+          "addedTime": 8
+        }
+      ]
     }
   ]
 }

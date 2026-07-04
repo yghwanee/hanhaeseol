@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T18:39:59.590Z",
+  "lastUpdated": "2026-07-04T19:53:48.679Z",
   "byKey": {
     "2026-07-04|kbo|LG|한화": {
       "date": "2026-07-04",
@@ -711,10 +711,10 @@
       "gameId": "20260705MNNY0",
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 0,
-      "awayScore": 5,
+      "homeScore": 4,
+      "awayScore": 6,
       "status": "live",
-      "period": "4회초"
+      "period": "6회말"
     },
     "2026-07-05|mlb|뉴욕양키스|미네소타 트윈스": {
       "date": "2026-07-05",
@@ -722,10 +722,10 @@
       "gameId": "20260705MNNY0",
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 0,
-      "awayScore": 5,
+      "homeScore": 4,
+      "awayScore": 6,
       "status": "live",
-      "period": "4회초"
+      "period": "6회말"
     },
     "2026-07-05|mlb|뉴욕 양키스|미네소타": {
       "date": "2026-07-05",
@@ -733,10 +733,10 @@
       "gameId": "20260705MNNY0",
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 0,
-      "awayScore": 5,
+      "homeScore": 4,
+      "awayScore": 6,
       "status": "live",
-      "period": "4회초"
+      "period": "6회말"
     },
     "2026-07-05|mlb|뉴욕 양키스|미네소타 트윈스": {
       "date": "2026-07-05",
@@ -744,10 +744,10 @@
       "gameId": "20260705MNNY0",
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 0,
-      "awayScore": 5,
+      "homeScore": 4,
+      "awayScore": 6,
       "status": "live",
-      "period": "4회초"
+      "period": "6회말"
     },
     "2026-07-05|mlb|텍사스|디트로이트": {
       "date": "2026-07-05",
@@ -2217,14 +2217,25 @@
       "homeTeam": "캐나다",
       "awayTeam": "모로코",
       "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 30'",
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "우나히",
           "minute": 50
+        },
+        {
+          "team": "away",
+          "player": "우나히",
+          "minute": 82
+        },
+        {
+          "team": "away",
+          "player": "라히미",
+          "minute": 90,
+          "addedTime": 8
         }
       ]
     },
@@ -2533,10 +2544,10 @@
       "gameId": "20260705MNNY0",
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 0,
-      "awayScore": 5,
+      "homeScore": 4,
+      "awayScore": 6,
       "status": "live",
-      "period": "4회초"
+      "period": "6회말"
     },
     {
       "date": "2026-07-05",
@@ -3200,14 +3211,25 @@
       "homeTeam": "캐나다",
       "awayTeam": "모로코",
       "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 30'",
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "우나히",
           "minute": 50
+        },
+        {
+          "team": "away",
+          "player": "우나히",
+          "minute": 82
+        },
+        {
+          "team": "away",
+          "player": "라히미",
+          "minute": 90,
+          "addedTime": 8
         }
       ]
     },
