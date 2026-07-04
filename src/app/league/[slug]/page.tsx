@@ -4,7 +4,7 @@ import { LEAGUE_SEO, findLeagueBySlug } from "@/lib/slugs";
 import { LEAGUE_GUIDES } from "@/lib/league-guides";
 import { LEAGUE_FAQS } from "@/lib/league-faqs";
 import { loadScheduleData, loadTeamRecords, loadResults } from "@/lib/server-data";
-import { buildSportsEventLd } from "@/lib/structured-data";
+import { buildSportsEventLd, buildBreadcrumbLd } from "@/lib/structured-data";
 import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
 import LeagueGuideSection from "@/app/_components/LeagueGuideSection";
 import FaqSection from "@/app/_components/FaqSection";
@@ -68,9 +68,17 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
   const pageUrl = `https://haeseol.com/league/${meta.slug}`;
   const matched = schedules.filter((s) => meta.match.includes(s.league));
   const sportsEventLd = buildSportsEventLd(matched, pageUrl);
+  const breadcrumbLd = buildBreadcrumbLd([
+    { name: "한해설", url: "https://haeseol.com" },
+    { name: `${meta.display} 편성표`, url: pageUrl },
+  ]);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: breadcrumbLd }}
+      />
       {sportsEventLd && (
         <script
           type="application/ld+json"

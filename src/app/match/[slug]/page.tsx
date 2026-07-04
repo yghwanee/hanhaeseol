@@ -236,14 +236,8 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
       siteName: "한해설",
       locale: "ko_KR",
       type: "website",
-      images: [
-        {
-          url: "https://haeseol.com/og-default.png",
-          width: 1200,
-          height: 630,
-          alt: `${match.homeTeam} vs ${match.awayTeam} - 한해설`,
-        },
-      ],
+      // og:image 는 매치별 동적 OG(opengraph-image.tsx)가 파일 컨벤션으로 자동 주입.
+      // 여기서 images 를 명시하면 파일 컨벤션을 덮어써 정적 og-default 로 고정되므로 비워둔다.
     },
     twitter: {
       card: "summary_large_image",
@@ -251,7 +245,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
         ? `${insight.sections.headline}`
         : `${match.homeTeam} vs ${match.awayTeam} - ${ko}`,
       description,
-      images: ["https://haeseol.com/og-default.png"],
+      // twitter:image 미지정 → 트위터/X는 og:image(동적 OG)로 폴백.
     },
   };
 }

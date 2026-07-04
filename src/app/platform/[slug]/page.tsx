@@ -4,7 +4,7 @@ import { PLATFORM_SEO, findPlatformBySlug } from "@/lib/slugs";
 import { PLATFORM_GUIDES } from "@/lib/platform-guides";
 import { PLATFORM_FAQS } from "@/lib/platform-faqs";
 import { loadScheduleData, loadTeamRecords, loadResults } from "@/lib/server-data";
-import { buildSportsEventLd } from "@/lib/structured-data";
+import { buildSportsEventLd, buildBreadcrumbLd } from "@/lib/structured-data";
 import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
 import PlatformGuideSection from "@/app/_components/PlatformGuideSection";
 import FaqSection from "@/app/_components/FaqSection";
@@ -68,9 +68,17 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
   const pageUrl = `https://haeseol.com/platform/${meta.slug}`;
   const matched = schedules.filter((s) => meta.match.includes(s.platform));
   const sportsEventLd = buildSportsEventLd(matched, pageUrl);
+  const breadcrumbLd = buildBreadcrumbLd([
+    { name: "한해설", url: "https://haeseol.com" },
+    { name: `${meta.display} 편성표`, url: pageUrl },
+  ]);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: breadcrumbLd }}
+      />
       {sportsEventLd && (
         <script
           type="application/ld+json"

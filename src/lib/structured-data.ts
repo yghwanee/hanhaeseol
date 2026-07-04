@@ -23,6 +23,23 @@ function toKstIso(ms: number): string {
   return `${yyyy}-${MM}-${dd}T${hh}:${mm}:00+09:00`;
 }
 
+// BreadcrumbList 공용 빌더. league/platform 등 목록 페이지에서 재사용.
+// 각 페이지가 인라인하던 패턴(match·guide·standings)을 목록 페이지로 확장.
+export function buildBreadcrumbLd(
+  items: { name: string; url: string }[]
+): string {
+  return JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: it.name,
+      item: it.url,
+    })),
+  });
+}
+
 export function buildSportsEventLd(
   schedules: Schedule[],
   pageUrl: string
