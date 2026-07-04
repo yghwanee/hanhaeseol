@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-04T22:13:21.702Z",
+  "lastUpdated": "2026-07-04T23:15:18.209Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -13577,6 +13577,28 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-07-05|mlb|텍사스 레인저스|디트로이트 타이거스": {
+      "date": "2026-07-05",
+      "categoryId": "mlb",
+      "gameId": "20260705DETE0",
+      "homeTeam": "텍사스 레인저스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-07-05|mlb|시애틀 매리너스|토론토 블루제이스": {
+      "date": "2026-07-05",
+      "categoryId": "mlb",
+      "gameId": "20260705TOSE0",
+      "homeTeam": "시애틀 매리너스",
+      "awayTeam": "토론토 블루제이스",
+      "homeScore": 11,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-07-05|worldcup|캐나다|모로코": {
       "date": "2026-07-05",
       "categoryId": "worldcup",
@@ -13603,6 +13625,24 @@
           "player": "라히미",
           "minute": 90,
           "addedTime": 8
+        }
+      ]
+    },
+    "2026-07-05|worldcup|파라과이|프랑스": {
+      "date": "2026-07-05",
+      "categoryId": "worldcup",
+      "gameId": "I4e9suEcSWz89Bj",
+      "homeTeam": "파라과이",
+      "awayTeam": "프랑스",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "음바페",
+          "minute": 70
         }
       ]
     }
@@ -27186,6 +27226,28 @@
     },
     {
       "date": "2026-07-05",
+      "categoryId": "mlb",
+      "gameId": "20260705DETE0",
+      "homeTeam": "텍사스 레인저스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-07-05",
+      "categoryId": "mlb",
+      "gameId": "20260705TOSE0",
+      "homeTeam": "시애틀 매리너스",
+      "awayTeam": "토론토 블루제이스",
+      "homeScore": 11,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-07-05",
       "categoryId": "worldcup",
       "gameId": "dxZjTHkMiGI1Sao",
       "homeTeam": "캐나다",
@@ -27210,6 +27272,24 @@
           "player": "라히미",
           "minute": 90,
           "addedTime": 8
+        }
+      ]
+    },
+    {
+      "date": "2026-07-05",
+      "categoryId": "worldcup",
+      "gameId": "I4e9suEcSWz89Bj",
+      "homeTeam": "파라과이",
+      "awayTeam": "프랑스",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "음바페",
+          "minute": 70
         }
       ]
     }
