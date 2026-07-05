@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-05T21:41:53.348Z",
+  "lastUpdated": "2026-07-05T22:41:03.391Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -14082,6 +14082,57 @@
       "awayScore": 2,
       "status": "finished",
       "period": "9회초"
+    },
+    "2026-07-06|mlb|텍사스 레인저스|디트로이트 타이거스": {
+      "date": "2026-07-06",
+      "categoryId": "mlb",
+      "gameId": "20260706DETE0",
+      "homeTeam": "텍사스 레인저스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 3,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-07-06|mlb|휴스턴 애스트로스|탬파베이 레이스": {
+      "date": "2026-07-06",
+      "categoryId": "mlb",
+      "gameId": "20260706TBHO0",
+      "homeTeam": "휴스턴 애스트로스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-07-06|worldcup|브라질|노르웨이": {
+      "date": "2026-07-06",
+      "categoryId": "worldcup",
+      "gameId": "UxZKeP6929VOgkY",
+      "homeTeam": "브라질",
+      "awayTeam": "노르웨이",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "홀란",
+          "minute": 79
+        },
+        {
+          "team": "away",
+          "player": "홀란",
+          "minute": 90
+        },
+        {
+          "team": "home",
+          "player": "네이마르",
+          "minute": 90,
+          "addedTime": 10
+        }
+      ]
     }
   },
   "results": [
@@ -28166,6 +28217,57 @@
       "awayScore": 2,
       "status": "finished",
       "period": "9회초"
+    },
+    {
+      "date": "2026-07-06",
+      "categoryId": "mlb",
+      "gameId": "20260706DETE0",
+      "homeTeam": "텍사스 레인저스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 3,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-07-06",
+      "categoryId": "mlb",
+      "gameId": "20260706TBHO0",
+      "homeTeam": "휴스턴 애스트로스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-07-06",
+      "categoryId": "worldcup",
+      "gameId": "UxZKeP6929VOgkY",
+      "homeTeam": "브라질",
+      "awayTeam": "노르웨이",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "홀란",
+          "minute": 79
+        },
+        {
+          "team": "away",
+          "player": "홀란",
+          "minute": 90
+        },
+        {
+          "team": "home",
+          "player": "네이마르",
+          "minute": 90,
+          "addedTime": 10
+        }
+      ]
     }
   ]
 }
