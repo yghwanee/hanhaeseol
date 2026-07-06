@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-05T23:45:33.204Z",
+  "lastUpdated": "2026-07-06T04:37:53.944Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -14149,6 +14149,28 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-07-06|mlb|애슬레틱스|마이애미 말린스": {
+      "date": "2026-07-06",
+      "categoryId": "mlb",
+      "gameId": "20260706FLOA0",
+      "homeTeam": "애슬레틱스",
+      "awayTeam": "마이애미 말린스",
+      "homeScore": 8,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-07-06|mlb|LA 다저스|샌디에이고 파드리스": {
+      "date": "2026-07-06",
+      "categoryId": "mlb",
+      "gameId": "20260706SDLA0",
+      "homeTeam": "LA 다저스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 2,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-07-06|worldcup|브라질|노르웨이": {
       "date": "2026-07-06",
       "categoryId": "worldcup",
@@ -14175,6 +14197,44 @@
           "player": "네이마르",
           "minute": 90,
           "addedTime": 10
+        }
+      ]
+    },
+    "2026-07-06|worldcup|멕시코|잉글랜드": {
+      "date": "2026-07-06",
+      "categoryId": "worldcup",
+      "gameId": "9Vkk9CB7qWI5ndB",
+      "homeTeam": "멕시코",
+      "awayTeam": "잉글랜드",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "벨링엄",
+          "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "벨링엄",
+          "minute": 38
+        },
+        {
+          "team": "home",
+          "player": "퀴뇨네스",
+          "minute": 42
+        },
+        {
+          "team": "away",
+          "player": "케인",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "라울 히메네스",
+          "minute": 69
         }
       ]
     }
@@ -28330,6 +28390,28 @@
     },
     {
       "date": "2026-07-06",
+      "categoryId": "mlb",
+      "gameId": "20260706FLOA0",
+      "homeTeam": "애슬레틱스",
+      "awayTeam": "마이애미 말린스",
+      "homeScore": 8,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-07-06",
+      "categoryId": "mlb",
+      "gameId": "20260706SDLA0",
+      "homeTeam": "LA 다저스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 2,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-07-06",
       "categoryId": "worldcup",
       "gameId": "UxZKeP6929VOgkY",
       "homeTeam": "브라질",
@@ -28354,6 +28436,44 @@
           "player": "네이마르",
           "minute": 90,
           "addedTime": 10
+        }
+      ]
+    },
+    {
+      "date": "2026-07-06",
+      "categoryId": "worldcup",
+      "gameId": "9Vkk9CB7qWI5ndB",
+      "homeTeam": "멕시코",
+      "awayTeam": "잉글랜드",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "벨링엄",
+          "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "벨링엄",
+          "minute": 38
+        },
+        {
+          "team": "home",
+          "player": "퀴뇨네스",
+          "minute": 42
+        },
+        {
+          "team": "away",
+          "player": "케인",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "라울 히메네스",
+          "minute": 69
         }
       ]
     }
