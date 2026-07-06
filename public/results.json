@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-06T20:33:33.345Z",
+  "lastUpdated": "2026-07-06T22:02:48.562Z",
   "byKey": {
     "2026-07-07|kbo|롯데|KIA": {
       "date": "2026-07-07",
@@ -755,10 +755,10 @@
       "gameId": "20260707PHKC0",
       "homeTeam": "캔자스시티 로열스",
       "awayTeam": "필라델피아 필리스",
-      "homeScore": 11,
+      "homeScore": 15,
       "awayScore": 1,
-      "status": "live",
-      "period": "7회초"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-07-07|mlb|캔자스시티|필라델피아 필리스": {
       "date": "2026-07-07",
@@ -766,10 +766,10 @@
       "gameId": "20260707PHKC0",
       "homeTeam": "캔자스시티 로열스",
       "awayTeam": "필라델피아 필리스",
-      "homeScore": 11,
+      "homeScore": 15,
       "awayScore": 1,
-      "status": "live",
-      "period": "7회초"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-07-07|mlb|캔자스시티 로열스|필라델피아": {
       "date": "2026-07-07",
@@ -777,10 +777,10 @@
       "gameId": "20260707PHKC0",
       "homeTeam": "캔자스시티 로열스",
       "awayTeam": "필라델피아 필리스",
-      "homeScore": 11,
+      "homeScore": 15,
       "awayScore": 1,
-      "status": "live",
-      "period": "7회초"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-07-07|mlb|캔자스시티 로열스|필라델피아 필리스": {
       "date": "2026-07-07",
@@ -788,10 +788,10 @@
       "gameId": "20260707PHKC0",
       "homeTeam": "캔자스시티 로열스",
       "awayTeam": "필라델피아 필리스",
-      "homeScore": 11,
+      "homeScore": 15,
       "awayScore": 1,
-      "status": "live",
-      "period": "7회초"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-07-07|mlb|탬파베이|뉴욕양키스": {
       "date": "2026-07-07",
@@ -889,7 +889,8 @@
       "awayTeam": "뉴욕 메츠",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-07|mlb|애틀랜타|뉴욕 메츠": {
       "date": "2026-07-07",
@@ -899,7 +900,8 @@
       "awayTeam": "뉴욕 메츠",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-07|mlb|애틀랜타 브레이브스|뉴욕메츠": {
       "date": "2026-07-07",
@@ -909,7 +911,8 @@
       "awayTeam": "뉴욕 메츠",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-07|mlb|애틀랜타 브레이브스|뉴욕 메츠": {
       "date": "2026-07-07",
@@ -919,7 +922,8 @@
       "awayTeam": "뉴욕 메츠",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-07|mlb|세인트루이스|밀워키": {
       "date": "2026-07-07",
@@ -929,7 +933,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-07|mlb|세인트루이스|밀워키 브루어스": {
       "date": "2026-07-07",
@@ -939,7 +944,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-07|mlb|세인트루이스 카디널스|밀워키": {
       "date": "2026-07-07",
@@ -949,7 +955,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-07|mlb|세인트루이스 카디널스|밀워키 브루어스": {
       "date": "2026-07-07",
@@ -959,7 +966,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-07|mlb|샌디에이고|애리조나": {
       "date": "2026-07-07",
@@ -1735,9 +1743,17 @@
       "homeTeam": "포르투갈",
       "awayTeam": "스페인",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 25'"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "미켈 메리노",
+          "minute": 90,
+          "addedTime": 1
+        }
+      ]
     },
     "2026-07-07|worldcup|미국|벨기에": {
       "date": "2026-07-07",
@@ -2055,10 +2071,10 @@
       "gameId": "20260707PHKC0",
       "homeTeam": "캔자스시티 로열스",
       "awayTeam": "필라델피아 필리스",
-      "homeScore": 11,
+      "homeScore": 15,
       "awayScore": 1,
-      "status": "live",
-      "period": "7회초"
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-07-07",
@@ -2090,7 +2106,8 @@
       "awayTeam": "뉴욕 메츠",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-07-07",
@@ -2100,7 +2117,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-07-07",
@@ -2366,9 +2384,17 @@
       "homeTeam": "포르투갈",
       "awayTeam": "스페인",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 25'"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "미켈 메리노",
+          "minute": 90,
+          "addedTime": 1
+        }
+      ]
     },
     {
       "date": "2026-07-07",
