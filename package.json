@@ -44,7 +44,8 @@
     "tiktok:setup": "tsx src/scripts/get-tiktok-token.ts",
     "tiktok:check": "tsx src/scripts/check-tiktok-token.ts",
     "post:tiktok": "tsx src/scripts/post-tiktok.ts",
-    "seo:indexnow": "tsx src/scripts/indexnow-ping.ts"
+    "seo:indexnow": "tsx src/scripts/indexnow-ping.ts",
+    "test:highlights": "tsx --test src/lib/highlights/youtube.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

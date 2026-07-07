@@ -4,13 +4,18 @@ import path from "node:path";
 import { crawlAllResults, SOCCER_CATEGORIES } from "@/lib/results/naver";
 import type { MatchResult, ResultsData } from "@/types/results";
 import { resultKey } from "@/lib/results/lookup";
-import { searchHighlightVideoId } from "@/lib/highlights/youtube";
+import { searchHighlightVideoId, highlightChannelFor } from "@/lib/highlights/youtube";
 
 /**
- * 종료된 축구 경기에 유튜브 하이라이트 영상ID를 부여한다.
- * 아카이브에 이미 있으면 재사용(쿼터 절약), 없으면 경기당 1회 검색.
+ * 종료된 경기에 유튜브 하이라이트 영상ID를 부여한다.
+ * 대상: 축구 전체 + 공식 채널 매핑이 있는 리그(KBO·MLB — highlightChannelFor).
+ * 아카이브에 이미 있으면 재사용(쿼터 절약), 없으면 크롤마다 재검색 —
+ * 공식 채널 업로드가 경기 종료보다 늦으므로 "올라올 때까지 재시도"가 의도된 동작.
+ * search.list는 호출당 쿼터 100(일 10,000)이라 런당 검색 수를 캡해 쿼터 고갈을 막는다.
  * YOUTUBE_API_KEY 미설정 시 전부 건너뜀(no-op).
  */
+const HIGHLIGHT_SEARCH_CAP_PER_RUN = 25;
+
 async function enrichHighlights(
   results: MatchResult[],
   archive: ResultsData,
@@ -24,14 +29,16 @@ async function enrichHighlights(
   let searched = 0;
   let found = 0;
   for (const r of results) {
-    if (r.status !== "finished" || !SOCCER_CATEGORIES.has(r.categoryId)) continue;
+    if (r.status !== "finished") continue;
+    if (!SOCCER_CATEGORIES.has(r.categoryId) && !highlightChannelFor(r.categoryId)) continue;
     const existing = prev.get(dedupKey(r));
     if (existing) {
       r.highlightVideoId = existing;
       continue;
     }
+    if (searched >= HIGHLIGHT_SEARCH_CAP_PER_RUN) continue;
     searched++;
-    const id = await searchHighlightVideoId(r.homeTeam, r.awayTeam);
+    const id = await searchHighlightVideoId(r.homeTeam, r.awayTeam, r.categoryId);
     if (id) {
       r.highlightVideoId = id;
       found++;
