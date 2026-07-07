@@ -84,7 +84,7 @@ function ScheduleCardInner({
   // 위해 카드 본체를 div로 두고 absolute Link를 inset-0으로 깐다. PlatformBadge Link는
   // z-index를 더 올려서 위에 떠 있게 두면 클릭 우선순위가 잡힌다.
   return (
-    <div className="relative cursor-pointer rounded-xl border border-zinc-800 bg-zinc-900/80 p-3 sm:p-4 transition-colors hover:border-zinc-700 hover:bg-zinc-900">
+    <div className="relative cursor-pointer rounded-xl border border-zinc-800 bg-zinc-900/80 p-3 pb-6 sm:p-4 sm:pb-8 transition-colors hover:border-zinc-700 hover:bg-zinc-900">
       <Link
         href={`/match/${matchToSlug(schedule)}`}
         className="absolute inset-0 z-0 rounded-xl"
@@ -117,7 +117,7 @@ function ScheduleCardInner({
       </div>
 
       {schedule.awayTeam ? (
-        <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 flex items-baseline justify-center gap-2 sm:gap-3 text-sm sm:text-base">
+        <div className="pointer-events-none relative z-10 mt-5 sm:mt-6 flex items-baseline justify-center gap-2 sm:gap-3 text-sm sm:text-base">
           <div className="flex-1 min-w-0 flex flex-col items-end gap-1">
             <span className={`flex w-full items-baseline justify-end gap-1.5 font-semibold ${winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}`}>
               {schedule.homeEmblem && (
@@ -153,7 +153,7 @@ function ScheduleCardInner({
           </div>
         </div>
       ) : (
-        <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 text-center text-sm sm:text-base font-semibold text-zinc-100 truncate">
+        <div className="pointer-events-none relative z-10 mt-5 sm:mt-6 text-center text-sm sm:text-base font-semibold text-zinc-100 truncate">
           <Highlight text={schedule.homeTeam} query={query} />
         </div>
       )}
@@ -172,10 +172,15 @@ function ScheduleCardInner({
             href={`https://www.youtube.com/watch?v=${result!.highlightVideoId}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="pointer-events-auto relative z-20 inline-flex items-center gap-1.5 rounded-md bg-rose-500/15 px-4 py-1.5 text-[11px] sm:text-xs font-bold text-rose-300 transition-colors hover:bg-rose-500/25"
+            className="pointer-events-auto relative z-20 inline-flex min-w-[11rem] items-center justify-center gap-2 rounded-md bg-white px-4 py-1.5 text-[11px] sm:text-xs font-bold text-zinc-900 transition-colors hover:bg-zinc-200"
             aria-label={`${schedule.homeTeam} vs ${schedule.awayTeam} 하이라이트 영상 보기`}
           >
-            ▶ 하이라이트
+            {/* 유튜브 로고 (붉은 라운드 사각 + 흰 삼각형) */}
+            <svg viewBox="0 0 28 20" className="h-3.5 w-5 shrink-0" aria-hidden>
+              <rect width="28" height="20" rx="4.5" fill="#FF0000" />
+              <path d="M11.5 5.8v8.4L19 10l-7.5-4.2z" fill="#fff" />
+            </svg>
+            하이라이트
           </a>
         </div>
       )}
