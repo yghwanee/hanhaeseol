@@ -38,7 +38,7 @@ async function enrichHighlights(
     }
     if (searched >= HIGHLIGHT_SEARCH_CAP_PER_RUN) continue;
     searched++;
-    const id = await searchHighlightVideoId(r.homeTeam, r.awayTeam, r.categoryId);
+    const id = await searchHighlightVideoId(r.homeTeam, r.awayTeam, r.categoryId, r.date);
     if (id) {
       r.highlightVideoId = id;
       found++;

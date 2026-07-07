@@ -37,7 +37,9 @@ export function titleMentionsTeam(title: string, team: string): boolean {
     .some((t) => title.includes(t));
 }
 
-/** 공식 채널 스코프 결과에서 채택할 영상 선별: 하이라이트 제목 + 두 팀 중 하나 언급. */
+/** 공식 채널 스코프 결과에서 채택할 영상 선별: 하이라이트 제목 + 두 팀 모두 언급.
+ *  한쪽만 요구하면 같은 팀의 다른 종목/다른 경기 영상이 통과한다
+ *  (실측: "브라질 vs 노르웨이" 월드컵에 2019 핸드볼 "대한민국 VS 브라질"이 잡혔음). */
 export function pickChannelScoped(
   items: YtSearchItem[],
   home: string,
@@ -47,8 +49,8 @@ export function pickChannelScoped(
     (it) =>
       it.id?.videoId &&
       HIGHLIGHT_TITLE.test(it.snippet?.title ?? "") &&
-      (titleMentionsTeam(it.snippet?.title ?? "", home) ||
-        titleMentionsTeam(it.snippet?.title ?? "", away)),
+      titleMentionsTeam(it.snippet?.title ?? "", home) &&
+      titleMentionsTeam(it.snippet?.title ?? "", away),
   );
   return hit?.id?.videoId ?? null;
 }
@@ -86,11 +88,12 @@ export async function searchHighlightVideoId(
   home: string,
   away: string,
   categoryId?: string,
+  matchDate?: string,
 ): Promise<string | null> {
   const key = process.env.YOUTUBE_API_KEY;
   if (!key) return null;
 
-  const base = {
+  const base: Record<string, string> = {
     key,
     part: "snippet",
     q: `${home} ${away} 하이라이트`,
@@ -101,6 +104,14 @@ export async function searchHighlightVideoId(
     regionCode: "KR",
     relevanceLanguage: "ko",
   };
+  // 경기일 이전 업로드 배제 — 같은 대진의 과거 경기/타 종목 옛 영상이 잡히는 것 방지
+  // (실측: 7/7 경기에 4월/6월 SPOTV 하이라이트가 붙었음). MLB는 KST 경기일이
+  // 미국 현지 전날이라 -1일 버퍼.
+  if (matchDate && /^\d{4}-\d{2}-\d{2}$/.test(matchDate)) {
+    const after = new Date(`${matchDate}T00:00:00+09:00`);
+    after.setDate(after.getDate() - 1);
+    base.publishedAfter = after.toISOString();
+  }
 
   const channelId = categoryId ? CHANNEL_BY_CATEGORY[categoryId] : undefined;
 

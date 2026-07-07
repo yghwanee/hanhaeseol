@@ -31,6 +31,12 @@ test("pickChannelScoped: 팬 클립처럼 팀 언급 없으면 null (재시도 �
   assert.equal(pickChannelScoped(items, "두산", "LG"), null);
 });
 
+test("pickChannelScoped: 한 팀만 언급된 타 종목/타 경기 영상은 거부", () => {
+  // 실측 사례: 월드컵 "브라질 vs 노르웨이"에 2019 핸드볼 영상이 잡혔던 케이스
+  const items = [item("v1", "[다시보는 2019 세계 여자 핸드볼] 대한민국 VS 브라질 하이라이트")];
+  assert.equal(pickChannelScoped(items, "브라질", "노르웨이"), null);
+});
+
 test("pickChannelScoped: 업로드 전(결과 없음)이면 null", () => {
   assert.equal(pickChannelScoped([], "두산", "LG"), null);
 });
