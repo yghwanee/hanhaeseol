@@ -37,20 +37,35 @@ export function titleMentionsTeam(title: string, team: string): boolean {
     .some((t) => title.includes(t));
 }
 
-/** 공식 채널 스코프 결과에서 채택할 영상 선별: 하이라이트 제목 + 두 팀 모두 언급.
- *  한쪽만 요구하면 같은 팀의 다른 종목/다른 경기 영상이 통과한다
- *  (실측: "브라질 vs 노르웨이" 월드컵에 2019 핸드볼 "대한민국 VS 브라질"이 잡혔음). */
+/** 제목 속 (M.DD)/(MM.DD) 날짜가 경기일(KST)과 다르면 거부. 날짜 표기 없으면 통과.
+ *  SPOTV 하이라이트 제목의 날짜는 KST 기준(실측). MLB 연전 시리즈는 같은 대진이
+ *  연일 이어져 두-팀 규칙만으론 전날 경기 영상이 통과한다(실측: 7/6 컵스전에
+ *  7/5 영상이 붙었음) — 제목 날짜가 있으면 반드시 일치해야 한다. */
+export function titleDateMatches(title: string, matchDate?: string): boolean {
+  if (!matchDate) return true;
+  const m = /\((\d{1,2})\.(\d{1,2})\)/.exec(title);
+  if (!m) return true;
+  const [, mo, day] = m;
+  const [, mm, dd] = matchDate.split("-");
+  return Number(mo) === Number(mm) && Number(day) === Number(dd);
+}
+
+/** 공식 채널 스코프 결과에서 채택할 영상 선별: 하이라이트 제목 + 두 팀 모두 언급
+ *  + 제목 날짜(있으면) 일치. 한쪽 팀만 요구하면 같은 팀의 다른 종목/다른 경기
+ *  영상이 통과한다(실측: "브라질 vs 노르웨이" 월드컵에 2019 핸드볼이 잡혔음). */
 export function pickChannelScoped(
   items: YtSearchItem[],
   home: string,
   away: string,
+  matchDate?: string,
 ): string | null {
   const hit = items.find(
     (it) =>
       it.id?.videoId &&
       HIGHLIGHT_TITLE.test(it.snippet?.title ?? "") &&
       titleMentionsTeam(it.snippet?.title ?? "", home) &&
-      titleMentionsTeam(it.snippet?.title ?? "", away),
+      titleMentionsTeam(it.snippet?.title ?? "", away) &&
+      titleDateMatches(it.snippet?.title ?? "", matchDate),
   );
   return hit?.id?.videoId ?? null;
 }
@@ -117,7 +132,7 @@ export async function searchHighlightVideoId(
 
   if (channelId) {
     const items = await ytSearch(new URLSearchParams({ ...base, channelId }));
-    return pickChannelScoped(items, home, away);
+    return pickChannelScoped(items, home, away, matchDate);
   }
 
   const items = await ytSearch(new URLSearchParams(base));

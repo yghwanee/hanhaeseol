@@ -5,6 +5,7 @@ import {
   pickChannelScoped,
   pickGeneric,
   titleMentionsTeam,
+  titleDateMatches,
   highlightChannelFor,
 } from "./youtube";
 
@@ -52,6 +53,21 @@ test("pickGeneric: 하이라이트 제목만 요구, 첫 결과 무조건 채택
     pickGeneric([item("v1", "경기 전 인터뷰"), item("v2", "EPL Highlights: 첼시 vs 아스널")]),
     "v2",
   );
+});
+
+test("titleDateMatches: 제목 (MM.DD)가 경기일과 다르면 거부, 없으면 통과", () => {
+  assert.equal(titleDateMatches("[MLB] A vs B｜하이라이트 (07.06)", "2026-07-06"), true);
+  assert.equal(titleDateMatches("[MLB] A vs B｜하이라이트 (07.05)", "2026-07-06"), false);
+  assert.equal(titleDateMatches("[MLB] A vs B｜하이라이트 (7.6)", "2026-07-06"), true);
+  assert.equal(titleDateMatches("[하이라이트] 16강 A VS B", "2026-07-06"), true);
+  assert.equal(titleDateMatches("아무 제목 (07.05)", undefined), true);
+});
+
+test("pickChannelScoped: 연전 시리즈 전날 경기 영상 거부 (제목 날짜 불일치)", () => {
+  // 실측 사례: 7/6 컵스-카디널스에 (07.05) 영상이 붙었던 케이스
+  const items = [item("v1", "[MLB] 세인트루이스 vs 시카고 컵스｜5분 하이라이트｜2026 MLB (07.05)")];
+  assert.equal(pickChannelScoped(items, "시카고 컵스", "세인트루이스 카디널스", "2026-07-06"), null);
+  assert.equal(pickChannelScoped(items, "시카고 컵스", "세인트루이스 카디널스", "2026-07-05"), "v1");
 });
 
 test("highlightChannelFor: KBO/월드컵/MLB 매핑, 그 외 undefined", () => {
