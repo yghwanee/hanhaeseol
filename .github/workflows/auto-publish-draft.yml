@@ -30,7 +30,8 @@ jobs:
       - uses: actions/checkout@v6
         with:
           ref: main
-          fetch-depth: 0
+          # 풀 히스토리 불필요(브랜치 fetch + HEAD:main push 뿐) — 팩 620MB 풀클론 방지.
+          fetch-depth: 1
 
       - uses: actions/setup-node@v6
         with:
