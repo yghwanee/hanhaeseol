@@ -1,7 +1,6 @@
 import { ImageResponse } from "next/og";
 import scheduleData from "@/data/schedule.json";
 import worldcupData from "@/data/worldcup.json";
-import archiveData from "@/data/schedule-archive.json";
 import { findMatchBySlug } from "@/lib/match-slug";
 import type { Schedule, ScheduleData } from "@/types/schedule";
 
@@ -12,7 +11,6 @@ export const contentType = "image/png";
 
 const data = scheduleData as unknown as ScheduleData;
 const worldcup = worldcupData as unknown as ScheduleData;
-const archive = archiveData as unknown as ScheduleData;
 
 const BASE = "https://haeseol.com";
 
@@ -39,12 +37,25 @@ function loadAssets() {
   return assetsPromise;
 }
 
-function findMatchAnywhere(slug: string): Schedule | undefined {
-  return (
-    findMatchBySlug(data.schedules, slug) ??
-    findMatchBySlug(worldcup.schedules, slug) ??
-    findMatchBySlug(archive.schedules, slug)
-  );
+// schedule-archive.json(수백 KB, 영구 누적)은 번들에 넣지 않고, 현재 편성·월드컵에서
+// 슬러그를 못 찾은 과거 경기일 때만 배포된 public 자산을 HTTPS 로 가져온다(폰트와 동일 패턴).
+let archivePromise: Promise<ScheduleData | null> | null = null;
+
+function loadArchive(): Promise<ScheduleData | null> {
+  if (!archivePromise) {
+    archivePromise = fetch(`${BASE}/schedule-archive.json`)
+      .then((r) => (r.ok ? (r.json() as Promise<ScheduleData>) : null))
+      .catch(() => null);
+  }
+  return archivePromise;
+}
+
+async function findMatchAnywhere(slug: string): Promise<Schedule | undefined> {
+  const current =
+    findMatchBySlug(data.schedules, slug) ?? findMatchBySlug(worldcup.schedules, slug);
+  if (current) return current;
+  const archive = await loadArchive();
+  return archive ? findMatchBySlug(archive.schedules, slug) : undefined;
 }
 
 // "2026-07-03" → "7월 3일"
@@ -66,7 +77,7 @@ function commentaryBadge(s: Schedule): Badge {
 
 export default async function Image({ params }: { params: { slug: string } }) {
   const { bold, regular, logo } = await loadAssets();
-  const match = findMatchAnywhere(params.slug);
+  const match = await findMatchAnywhere(params.slug);
 
   const badge = match ? commentaryBadge(match) : null;
   const league = match?.league ?? "";

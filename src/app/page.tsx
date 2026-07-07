@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Schedule } from "@/types/schedule";
-import { GAME_DURATION_HOURS } from "@/lib/schedule-utils";
+import { GAME_DURATION_HOURS, getTodayString } from "@/lib/schedule-utils";
 import { loadScheduleData, loadTeamRecords, loadResults, loadResultsArchive } from "@/lib/server-data";
 import { ResultsData } from "@/types/results";
 import ScheduleClient from "./ScheduleClient";
@@ -41,10 +41,8 @@ function buildSportsEventsJsonLd(schedules: Schedule[]) {
         "description": `${s.league} ${s.homeTeam} vs ${s.awayTeam} ${s.platform} 중계${s.koreanCommentary === true ? " (한국어해설)" : ""}`,
         "sport": s.sport,
         "inLanguage": lang,
-        "competitor": [
-          { "@type": "SportsTeam", "name": s.homeTeam },
-          { "@type": "SportsTeam", "name": s.awayTeam },
-        ],
+        // competitor 는 performer 와 완전 중복이라 제거(직렬화 42KB 중 ~8KB).
+        // 구글 Event 리치결과 권장 필드는 performer 쪽이다.
         "performer": [
           { "@type": "SportsTeam", "name": s.homeTeam },
           { "@type": "SportsTeam", "name": s.awayTeam },
@@ -88,6 +86,22 @@ function mergeWorldcupArchive(
   return { ...results, byKey: { ...wcByKey, ...results.byKey } };
 }
 
+/**
+ * 클라이언트로 직렬화되는 results를 홈에서 실제 조회 가능한 범위로 줄인다.
+ * 홈 날짜 탭은 오늘~+7일이라 과거 경기 결과는 안 쓰이고(과거 날짜는 datepicker →
+ * archive lazy fetch 경로), 월드컵만 메인 월드컵 뷰가 과거 조별리그 스코어를
+ * 보여주므로 전부 유지한다. results 배열은 디버깅·표시용이라 클라가 안 씀 → 비운다.
+ */
+function pruneResultsForClient(results: ResultsData | null): ResultsData | null {
+  if (!results) return null;
+  const todayStr = getTodayString();
+  const byKey: ResultsData["byKey"] = {};
+  for (const [key, r] of Object.entries(results.byKey)) {
+    if (r.categoryId === "worldcup" || r.date >= todayStr) byKey[key] = r;
+  }
+  return { lastUpdated: results.lastUpdated, byKey, results: [] };
+}
+
 export default function Home({
   searchParams,
 }: {
@@ -106,7 +120,9 @@ export default function Home({
   const teamRecords = Object.fromEntries(
     Object.entries(loadTeamRecords()).filter(([league]) => shownLeagues.has(league)),
   );
-  const results = mergeWorldcupArchive(loadResults(), loadResultsArchive());
+  const results = pruneResultsForClient(
+    mergeWorldcupArchive(loadResults(), loadResultsArchive()),
+  );
   const sportsEventsJsonLd = buildSportsEventsJsonLd(data.schedules);
   const initialCommentary: "all" | "korean" | "foreign" =
     searchParams.comm === "korean" || searchParams.comm === "foreign" ? searchParams.comm : "all";
