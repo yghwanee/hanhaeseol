@@ -91,7 +91,7 @@ function ScheduleCardInner({
         aria-label={`${schedule.homeTeam} ${schedule.awayTeam ? `vs ${schedule.awayTeam}` : ""} 경기 상세 보기`}
       />
       <div className="pointer-events-none relative z-10 flex items-start justify-between gap-2">
-        <div className="flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-zinc-400">
+        <div className="flex min-w-0 items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-zinc-400">
           <span className="font-mono font-semibold text-zinc-200">
             {schedule.time}
           </span>
@@ -106,11 +106,14 @@ function ScheduleCardInner({
             </>
           )}
         </div>
-        <StatusBadge
-          status={schedule.koreanCommentary}
-          finished={isGameFinished(schedule.date, schedule.time, schedule.sport)}
-          resultStatus={result?.status}
-        />
+        <div className="flex shrink-0 items-center gap-1.5">
+          <PlatformBadge platform={schedule.platform} />
+          <StatusBadge
+            status={schedule.koreanCommentary}
+            finished={isGameFinished(schedule.date, schedule.time, schedule.sport)}
+            resultStatus={result?.status}
+          />
+        </div>
       </div>
 
       {schedule.awayTeam ? (
@@ -163,20 +166,19 @@ function ScheduleCardInner({
 
       {showGoals && <ScorerLines goals={result!.goals!} />}
 
-      <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 flex items-center justify-between gap-2">
-        <PlatformBadge platform={schedule.platform} />
-        {showHighlight && (
+      {showHighlight && (
+        <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 flex justify-center">
           <a
             href={`https://www.youtube.com/watch?v=${result!.highlightVideoId}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="pointer-events-auto relative z-20 inline-flex shrink-0 items-center gap-1 rounded-md bg-rose-500/15 px-2 py-1 text-[10px] font-bold text-rose-300 transition-colors hover:bg-rose-500/25"
+            className="pointer-events-auto relative z-20 inline-flex items-center gap-1.5 rounded-md bg-rose-500/15 px-4 py-1.5 text-[11px] sm:text-xs font-bold text-rose-300 transition-colors hover:bg-rose-500/25"
             aria-label={`${schedule.homeTeam} vs ${schedule.awayTeam} 하이라이트 영상 보기`}
           >
             ▶ 하이라이트
           </a>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
 }
