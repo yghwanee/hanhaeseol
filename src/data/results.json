@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-07T17:36:23.437Z",
+  "lastUpdated": "2026-07-07T19:25:29.468Z",
   "byKey": {
     "2026-07-07|kbo|롯데|KIA": {
       "date": "2026-07-07",
@@ -1748,10 +1748,10 @@
       "gameId": "9qTERDtNWXTS5Z5",
       "homeTeam": "아르헨티나",
       "awayTeam": "이집트",
-      "homeScore": 0,
+      "homeScore": 3,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 28'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -1762,6 +1762,22 @@
           "team": "away",
           "player": "모스타파 지코",
           "minute": 67
+        },
+        {
+          "team": "home",
+          "player": "로메로",
+          "minute": 79
+        },
+        {
+          "team": "home",
+          "player": "메시",
+          "minute": 83
+        },
+        {
+          "team": "home",
+          "player": "엔소 페르난데스",
+          "minute": 90,
+          "addedTime": 2
         }
       ]
     },
@@ -2042,10 +2058,10 @@
       "gameId": "20260708MISL1",
       "homeTeam": "세인트루이스 카디널스",
       "awayTeam": "밀워키 브루어스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "live",
+      "period": "5회초"
     },
     {
       "date": "2026-07-08",
@@ -2412,10 +2428,10 @@
       "gameId": "9qTERDtNWXTS5Z5",
       "homeTeam": "아르헨티나",
       "awayTeam": "이집트",
-      "homeScore": 0,
+      "homeScore": 3,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 28'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2426,6 +2442,22 @@
           "team": "away",
           "player": "모스타파 지코",
           "minute": 67
+        },
+        {
+          "team": "home",
+          "player": "로메로",
+          "minute": 79
+        },
+        {
+          "team": "home",
+          "player": "메시",
+          "minute": 83
+        },
+        {
+          "team": "home",
+          "player": "엔소 페르난데스",
+          "minute": 90,
+          "addedTime": 2
         }
       ]
     },
