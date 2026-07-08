@@ -35,7 +35,7 @@
 - [x] 월드컵 한국어 해설진 누가 나오나 — JTBC·KBS·치지직 캐스터·해설위원 라인업 (slug: worldcup-korean-commentators)
 - [x] 새벽 경기 놓치지 않는 법 — 미국 시차로 늦은 밤·새벽에 몰린 월드컵 경기, 알림·다시보기 활용 팁 (slug: worldcup-late-night-viewing-tips)
 - [x] 월드컵 연장전·승부차기 룰 정리 — 토너먼트에서 무승부면 어떻게 결판 나는지, 처음 보는 분들을 위해 (slug: worldcup-overtime-shootout-rules)
-- [ ] KBO 올스타전 2026, 잠실 마지막 별들의 무대 어디서 보나 — 잠실 고별 올스타전 중계처·한국어 해설·무료 여부 (slug: kbo-allstar-2026-broadcast) (고정: 2026-07-09)
+- [x] KBO 올스타전 2026, 잠실 마지막 별들의 무대 어디서 보나 — 잠실 고별 올스타전 중계처·한국어 해설·무료 여부 (slug: kbo-allstar-2026-broadcast) (고정: 2026-07-09)
 - [ ] 월드컵 다시보기·하이라이트 어디서 보나 — 유튜브·앱 정리 (slug: worldcup-replay-highlights)
 - [ ] 치지직(CHZZK) 월드컵 완전 사용법 — 설치·로그인·경기 찾기·알림 설정까지, 폰으로 한국어 해설 보는 가장 쉬운 방법 (slug: chzzk-worldcup-guide)
 - [ ] IPTV별 JTBC 월드컵 채널 번호 총정리 — KT·SKB·LGU+·KD 가입자 기준 몇 번 채널인지 한 번에 정리 (slug: worldcup-iptv-channel-numbers)
