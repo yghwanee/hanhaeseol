@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-09T20:56:09.096Z",
+  "lastUpdated": "2026-07-09T22:42:46.530Z",
   "byKey": {
     "2026-07-09|kbo|KT|키움": {
       "date": "2026-07-09",
@@ -1007,7 +1007,7 @@
       "awayTeam": "시애틀 매리너스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
+      "status": "live",
       "period": "1회초"
     },
     "2026-07-10|mlb|마이애미|시애틀 매리너스": {
@@ -1018,7 +1018,7 @@
       "awayTeam": "시애틀 매리너스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
+      "status": "live",
       "period": "1회초"
     },
     "2026-07-10|mlb|마이애미 말린스|시애틀": {
@@ -1029,7 +1029,7 @@
       "awayTeam": "시애틀 매리너스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
+      "status": "live",
       "period": "1회초"
     },
     "2026-07-10|mlb|마이애미 말린스|시애틀 매리너스": {
@@ -1040,7 +1040,7 @@
       "awayTeam": "시애틀 매리너스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
+      "status": "live",
       "period": "1회초"
     },
     "2026-07-10|mlb|신시내티|필라델피아": {
@@ -1095,7 +1095,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-10|mlb|세인트루이스|밀워키 브루어스": {
       "date": "2026-07-10",
@@ -1105,7 +1106,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-10|mlb|세인트루이스 카디널스|밀워키": {
       "date": "2026-07-10",
@@ -1115,7 +1117,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-10|mlb|세인트루이스 카디널스|밀워키 브루어스": {
       "date": "2026-07-10",
@@ -1125,7 +1128,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-10|mlb|텍사스|LA에인절스": {
       "date": "2026-07-10",
@@ -1135,7 +1139,8 @@
       "awayTeam": "LA 에인절스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-10|mlb|텍사스|LA 에인절스": {
       "date": "2026-07-10",
@@ -1145,7 +1150,8 @@
       "awayTeam": "LA 에인절스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-10|mlb|텍사스 레인저스|LA에인절스": {
       "date": "2026-07-10",
@@ -1155,7 +1161,8 @@
       "awayTeam": "LA 에인절스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-10|mlb|텍사스 레인저스|LA 에인절스": {
       "date": "2026-07-10",
@@ -1165,7 +1172,8 @@
       "awayTeam": "LA 에인절스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-10|mlb|샌디에이고|애리조나": {
       "date": "2026-07-10",
@@ -1932,10 +1940,22 @@
       "gameId": "nvoqRVbMW4Xe1Nn",
       "homeTeam": "프랑스",
       "awayTeam": "모로코",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "음바페",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "뎀벨레",
+          "minute": 66
+        }
+      ]
     },
     "2026-07-11|worldcup|스페인|벨기에": {
       "date": "2026-07-11",
@@ -2271,7 +2291,7 @@
       "awayTeam": "시애틀 매리너스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
+      "status": "live",
       "period": "1회초"
     },
     {
@@ -2293,7 +2313,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-07-10",
@@ -2303,7 +2324,8 @@
       "awayTeam": "LA 에인절스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-07-10",
@@ -2580,10 +2602,22 @@
       "gameId": "nvoqRVbMW4Xe1Nn",
       "homeTeam": "프랑스",
       "awayTeam": "모로코",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "음바페",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "뎀벨레",
+          "minute": 66
+        }
+      ]
     },
     {
       "date": "2026-07-11",

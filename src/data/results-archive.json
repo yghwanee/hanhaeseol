@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-09T20:56:14.618Z",
+  "lastUpdated": "2026-07-09T22:42:48.047Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -15033,6 +15033,29 @@
       "awayScore": 2,
       "status": "finished",
       "period": "9회말"
+    },
+    "2026-07-10|worldcup|프랑스|모로코": {
+      "date": "2026-07-10",
+      "categoryId": "worldcup",
+      "gameId": "nvoqRVbMW4Xe1Nn",
+      "homeTeam": "프랑스",
+      "awayTeam": "모로코",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "음바페",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "뎀벨레",
+          "minute": 66
+        }
+      ]
     }
   },
   "results": [
@@ -30068,6 +30091,29 @@
       "awayScore": 2,
       "status": "finished",
       "period": "9회말"
+    },
+    {
+      "date": "2026-07-10",
+      "categoryId": "worldcup",
+      "gameId": "nvoqRVbMW4Xe1Nn",
+      "homeTeam": "프랑스",
+      "awayTeam": "모로코",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "음바페",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "뎀벨레",
+          "minute": 66
+        }
+      ]
     }
   ]
 }
