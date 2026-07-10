@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-10T07:53:27.328Z",
+  "lastUpdated": "2026-07-10T11:17:41.978Z",
   "byKey": {
     "2026-07-09|kbo|KT|키움": {
       "date": "2026-07-09",
@@ -1192,7 +1192,8 @@
       "homeScore": 1,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회말"
+      "period": "9회말",
+      "highlightVideoId": "dgrN7eq1teA"
     },
     "2026-07-10|mlb|샌디에이고|애리조나 다이아몬드백스": {
       "date": "2026-07-10",
@@ -1203,7 +1204,8 @@
       "homeScore": 1,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회말"
+      "period": "9회말",
+      "highlightVideoId": "dgrN7eq1teA"
     },
     "2026-07-10|mlb|샌디에이고 파드리스|애리조나": {
       "date": "2026-07-10",
@@ -1214,7 +1216,8 @@
       "homeScore": 1,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회말"
+      "period": "9회말",
+      "highlightVideoId": "dgrN7eq1teA"
     },
     "2026-07-10|mlb|샌디에이고 파드리스|애리조나 다이아몬드백스": {
       "date": "2026-07-10",
@@ -1225,7 +1228,8 @@
       "homeScore": 1,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회말"
+      "period": "9회말",
+      "highlightVideoId": "dgrN7eq1teA"
     },
     "2026-07-10|mlb|샌프란시스코|콜로라도": {
       "date": "2026-07-10",
@@ -1890,10 +1894,22 @@
       "gameId": "202607102907129",
       "homeTeam": "수원FC",
       "awayTeam": "전남",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 48'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김정환",
+          "minute": 11
+        },
+        {
+          "team": "home",
+          "player": "마테우스 바비",
+          "minute": 40
+        }
+      ]
     },
     "2026-07-10|kleague2|천안|김해": {
       "date": "2026-07-10",
@@ -1902,9 +1918,16 @@
       "homeTeam": "천안",
       "awayTeam": "김해",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 48'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "베카",
+          "minute": 9
+        }
+      ]
     },
     "2026-07-11|kleague2|대구|성남": {
       "date": "2026-07-11",
@@ -2354,7 +2377,8 @@
       "homeScore": 1,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회말"
+      "period": "9회말",
+      "highlightVideoId": "dgrN7eq1teA"
     },
     {
       "date": "2026-07-10",
@@ -2556,10 +2580,22 @@
       "gameId": "202607102907129",
       "homeTeam": "수원FC",
       "awayTeam": "전남",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 48'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김정환",
+          "minute": 11
+        },
+        {
+          "team": "home",
+          "player": "마테우스 바비",
+          "minute": 40
+        }
+      ]
     },
     {
       "date": "2026-07-10",
@@ -2568,9 +2604,16 @@
       "homeTeam": "천안",
       "awayTeam": "김해",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 48'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "베카",
+          "minute": 9
+        }
+      ]
     },
     {
       "date": "2026-07-11",
