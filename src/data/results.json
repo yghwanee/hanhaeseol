@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-12T09:14:58.921Z",
+  "lastUpdated": "2026-07-12T11:00:06.692Z",
   "byKey": {
     "2026-07-11|kbo|드림|나눔": {
       "date": "2026-07-11",
@@ -1973,8 +1973,8 @@
       "awayTeam": "대전",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 31'"
     },
     "2026-07-12|kleague|서울|강원": {
       "date": "2026-07-12",
@@ -1984,8 +1984,8 @@
       "awayTeam": "강원",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 31'"
     },
     "2026-07-12|kleague|인천|안양": {
       "date": "2026-07-12",
@@ -1994,9 +1994,16 @@
       "homeTeam": "인천",
       "awayTeam": "안양",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 32'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "권경원",
+          "minute": 3
+        }
+      ]
     },
     "2026-07-11|kleague2|대구|성남": {
       "date": "2026-07-11",
@@ -2124,8 +2131,8 @@
       "awayTeam": "김포",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 31'"
     },
     "2026-07-12|kleague2|충남아산|경남": {
       "date": "2026-07-12",
@@ -2133,10 +2140,17 @@
       "gameId": "202607123420135",
       "homeTeam": "충남아산",
       "awayTeam": "경남",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 31'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "손준호",
+          "minute": 11
+        }
+      ]
     },
     "2026-07-11|worldcup|스페인|벨기에": {
       "date": "2026-07-11",
@@ -2829,8 +2843,8 @@
       "awayTeam": "대전",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 31'"
     },
     {
       "date": "2026-07-12",
@@ -2840,8 +2854,8 @@
       "awayTeam": "강원",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 31'"
     },
     {
       "date": "2026-07-12",
@@ -2850,9 +2864,16 @@
       "homeTeam": "인천",
       "awayTeam": "안양",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 32'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "권경원",
+          "minute": 3
+        }
+      ]
     },
     {
       "date": "2026-07-11",
@@ -2980,8 +3001,8 @@
       "awayTeam": "김포",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 31'"
     },
     {
       "date": "2026-07-12",
@@ -2989,10 +3010,17 @@
       "gameId": "202607123420135",
       "homeTeam": "충남아산",
       "awayTeam": "경남",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 31'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "손준호",
+          "minute": 11
+        }
+      ]
     },
     {
       "date": "2026-07-11",
