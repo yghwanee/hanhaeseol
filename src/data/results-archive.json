@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-11T23:09:22.485Z",
+  "lastUpdated": "2026-07-12T00:10:07.081Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -15605,11 +15605,11 @@
     "2026-07-12|mlb|피츠버그 파이리츠|밀워키 브루어스": {
       "date": "2026-07-12",
       "categoryId": "mlb",
-      "gameId": "20260712MIPI1",
+      "gameId": "20260712MIPI2",
       "homeTeam": "피츠버그 파이리츠",
       "awayTeam": "밀워키 브루어스",
-      "homeScore": 7,
-      "awayScore": 6,
+      "homeScore": 3,
+      "awayScore": 2,
       "status": "finished",
       "period": "9회초"
     },
@@ -15656,6 +15656,68 @@
       "awayScore": 4,
       "status": "finished",
       "period": "9회말"
+    },
+    "2026-07-12|mlb|워싱턴 내셔널스|뉴욕 양키스": {
+      "date": "2026-07-12",
+      "categoryId": "mlb",
+      "gameId": "20260712NYMO0",
+      "homeTeam": "워싱턴 내셔널스",
+      "awayTeam": "뉴욕 양키스",
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-07-12|mlb|뉴욕 메츠|보스턴 레드삭스": {
+      "date": "2026-07-12",
+      "categoryId": "mlb",
+      "gameId": "20260712BONM0",
+      "homeTeam": "뉴욕 메츠",
+      "awayTeam": "보스턴 레드삭스",
+      "homeScore": 0,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-07-12|mlb|탬파베이 레이스|시애틀 매리너스": {
+      "date": "2026-07-12",
+      "categoryId": "mlb",
+      "gameId": "20260712SETB0",
+      "homeTeam": "탬파베이 레이스",
+      "awayTeam": "시애틀 매리너스",
+      "homeScore": 6,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-07-12|worldcup|노르웨이|잉글랜드": {
+      "date": "2026-07-12",
+      "categoryId": "worldcup",
+      "gameId": "OpzpScgCUi9Z2Ns",
+      "homeTeam": "노르웨이",
+      "awayTeam": "잉글랜드",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "시엘데루프",
+          "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "벨링엄",
+          "minute": 45,
+          "addedTime": 2
+        },
+        {
+          "team": "away",
+          "player": "벨링엄",
+          "minute": 93
+        }
+      ]
     }
   },
   "results": [
@@ -31263,11 +31325,11 @@
     {
       "date": "2026-07-12",
       "categoryId": "mlb",
-      "gameId": "20260712MIPI1",
+      "gameId": "20260712MIPI2",
       "homeTeam": "피츠버그 파이리츠",
       "awayTeam": "밀워키 브루어스",
-      "homeScore": 7,
-      "awayScore": 6,
+      "homeScore": 3,
+      "awayScore": 2,
       "status": "finished",
       "period": "9회초"
     },
@@ -31314,6 +31376,68 @@
       "awayScore": 4,
       "status": "finished",
       "period": "9회말"
+    },
+    {
+      "date": "2026-07-12",
+      "categoryId": "mlb",
+      "gameId": "20260712NYMO0",
+      "homeTeam": "워싱턴 내셔널스",
+      "awayTeam": "뉴욕 양키스",
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-07-12",
+      "categoryId": "mlb",
+      "gameId": "20260712BONM0",
+      "homeTeam": "뉴욕 메츠",
+      "awayTeam": "보스턴 레드삭스",
+      "homeScore": 0,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-07-12",
+      "categoryId": "mlb",
+      "gameId": "20260712SETB0",
+      "homeTeam": "탬파베이 레이스",
+      "awayTeam": "시애틀 매리너스",
+      "homeScore": 6,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-07-12",
+      "categoryId": "worldcup",
+      "gameId": "OpzpScgCUi9Z2Ns",
+      "homeTeam": "노르웨이",
+      "awayTeam": "잉글랜드",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "시엘데루프",
+          "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "벨링엄",
+          "minute": 45,
+          "addedTime": 2
+        },
+        {
+          "team": "away",
+          "player": "벨링엄",
+          "minute": 93
+        }
+      ]
     }
   ]
 }
