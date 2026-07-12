@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-12T11:00:06.692Z",
+  "lastUpdated": "2026-07-12T12:07:31.342Z",
   "byKey": {
     "2026-07-11|kbo|드림|나눔": {
       "date": "2026-07-11",
@@ -716,7 +716,8 @@
       "homeScore": 5,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "TdTAox3I2hk"
     },
     "2026-07-12|mlb|미네소타|LA 에인절스": {
       "date": "2026-07-12",
@@ -727,7 +728,8 @@
       "homeScore": 5,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "TdTAox3I2hk"
     },
     "2026-07-12|mlb|미네소타 트윈스|LA에인절스": {
       "date": "2026-07-12",
@@ -738,7 +740,8 @@
       "homeScore": 5,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "TdTAox3I2hk"
     },
     "2026-07-12|mlb|미네소타 트윈스|LA 에인절스": {
       "date": "2026-07-12",
@@ -749,7 +752,8 @@
       "homeScore": 5,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "TdTAox3I2hk"
     },
     "2026-07-12|mlb|시카고W|애슬레틱스": {
       "date": "2026-07-12",
@@ -1974,7 +1978,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'"
+      "period": "후반 32'"
     },
     "2026-07-12|kleague|서울|강원": {
       "date": "2026-07-12",
@@ -1985,7 +1989,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'"
+      "period": "후반 34'"
     },
     "2026-07-12|kleague|인천|안양": {
       "date": "2026-07-12",
@@ -1996,7 +2000,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 32'",
+      "period": "후반 32'",
       "goals": [
         {
           "team": "away",
@@ -2129,10 +2133,18 @@
       "gameId": "202607120636136",
       "homeTeam": "부산",
       "awayTeam": "김포",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'"
+      "period": "후반 30'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김민혁",
+          "minute": 45,
+          "addedTime": 3
+        }
+      ]
     },
     "2026-07-12|kleague2|충남아산|경남": {
       "date": "2026-07-12",
@@ -2141,14 +2153,19 @@
       "homeTeam": "충남아산",
       "awayTeam": "경남",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 31'",
+      "period": "후반 35'",
       "goals": [
         {
           "team": "home",
           "player": "손준호",
           "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "김현오",
+          "minute": 44
         }
       ]
     },
@@ -2445,7 +2462,8 @@
       "homeScore": 5,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "TdTAox3I2hk"
     },
     {
       "date": "2026-07-12",
@@ -2844,7 +2862,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'"
+      "period": "후반 32'"
     },
     {
       "date": "2026-07-12",
@@ -2855,7 +2873,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'"
+      "period": "후반 34'"
     },
     {
       "date": "2026-07-12",
@@ -2866,7 +2884,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 32'",
+      "period": "후반 32'",
       "goals": [
         {
           "team": "away",
@@ -2999,10 +3017,18 @@
       "gameId": "202607120636136",
       "homeTeam": "부산",
       "awayTeam": "김포",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'"
+      "period": "후반 30'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김민혁",
+          "minute": 45,
+          "addedTime": 3
+        }
+      ]
     },
     {
       "date": "2026-07-12",
@@ -3011,14 +3037,19 @@
       "homeTeam": "충남아산",
       "awayTeam": "경남",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 31'",
+      "period": "후반 35'",
       "goals": [
         {
           "team": "home",
           "player": "손준호",
           "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "김현오",
+          "minute": 44
         }
       ]
     },
