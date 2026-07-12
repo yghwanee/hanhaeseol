@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-12T12:07:31.342Z",
+  "lastUpdated": "2026-07-12T13:54:35.150Z",
   "byKey": {
     "2026-07-11|kbo|드림|나눔": {
       "date": "2026-07-11",
@@ -1977,8 +1977,8 @@
       "awayTeam": "대전",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 32'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-07-12|kleague|서울|강원": {
       "date": "2026-07-12",
@@ -1988,8 +1988,8 @@
       "awayTeam": "강원",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 34'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-07-12|kleague|인천|안양": {
       "date": "2026-07-12",
@@ -1999,8 +1999,8 @@
       "awayTeam": "안양",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 32'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2133,16 +2133,22 @@
       "gameId": "202607120636136",
       "homeTeam": "부산",
       "awayTeam": "김포",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 30'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "김민혁",
           "minute": 45,
           "addedTime": 3
+        },
+        {
+          "team": "home",
+          "player": "크리스찬",
+          "minute": 90,
+          "addedTime": 1
         }
       ]
     },
@@ -2154,8 +2160,8 @@
       "awayTeam": "경남",
       "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 35'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2861,8 +2867,8 @@
       "awayTeam": "대전",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 32'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-07-12",
@@ -2872,8 +2878,8 @@
       "awayTeam": "강원",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 34'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-07-12",
@@ -2883,8 +2889,8 @@
       "awayTeam": "안양",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 32'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -3017,16 +3023,22 @@
       "gameId": "202607120636136",
       "homeTeam": "부산",
       "awayTeam": "김포",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 30'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "김민혁",
           "minute": 45,
           "addedTime": 3
+        },
+        {
+          "team": "home",
+          "player": "크리스찬",
+          "minute": 90,
+          "addedTime": 1
         }
       ]
     },
@@ -3038,8 +3050,8 @@
       "awayTeam": "경남",
       "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 35'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",

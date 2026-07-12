@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-12T12:07:43.435Z",
+  "lastUpdated": "2026-07-12T13:54:46.563Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -15602,6 +15602,94 @@
           "team": "home",
           "player": "미켈 메리노",
           "minute": 88
+        }
+      ]
+    },
+    "2026-07-12|kleague|제주|대전": {
+      "date": "2026-07-12",
+      "categoryId": "kleague",
+      "gameId": "202607120410100",
+      "homeTeam": "제주",
+      "awayTeam": "대전",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    "2026-07-12|kleague|서울|강원": {
+      "date": "2026-07-12",
+      "categoryId": "kleague",
+      "gameId": "202607120921102",
+      "homeTeam": "서울",
+      "awayTeam": "강원",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    "2026-07-12|kleague|인천|안양": {
+      "date": "2026-07-12",
+      "categoryId": "kleague",
+      "gameId": "202607121827101",
+      "homeTeam": "인천",
+      "awayTeam": "안양",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "권경원",
+          "minute": 3
+        }
+      ]
+    },
+    "2026-07-12|kleague2|부산|김포": {
+      "date": "2026-07-12",
+      "categoryId": "kleague2",
+      "gameId": "202607120636136",
+      "homeTeam": "부산",
+      "awayTeam": "김포",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김민혁",
+          "minute": 45,
+          "addedTime": 3
+        },
+        {
+          "team": "home",
+          "player": "크리스찬",
+          "minute": 90,
+          "addedTime": 1
+        }
+      ]
+    },
+    "2026-07-12|kleague2|충남아산|경남": {
+      "date": "2026-07-12",
+      "categoryId": "kleague2",
+      "gameId": "202607123420135",
+      "homeTeam": "충남아산",
+      "awayTeam": "경남",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "손준호",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "김현오",
+          "minute": 44
         }
       ]
     },
@@ -31437,6 +31525,94 @@
           "team": "home",
           "player": "미켈 메리노",
           "minute": 88
+        }
+      ]
+    },
+    {
+      "date": "2026-07-12",
+      "categoryId": "kleague",
+      "gameId": "202607120410100",
+      "homeTeam": "제주",
+      "awayTeam": "대전",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-07-12",
+      "categoryId": "kleague",
+      "gameId": "202607120921102",
+      "homeTeam": "서울",
+      "awayTeam": "강원",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-07-12",
+      "categoryId": "kleague",
+      "gameId": "202607121827101",
+      "homeTeam": "인천",
+      "awayTeam": "안양",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "권경원",
+          "minute": 3
+        }
+      ]
+    },
+    {
+      "date": "2026-07-12",
+      "categoryId": "kleague2",
+      "gameId": "202607120636136",
+      "homeTeam": "부산",
+      "awayTeam": "김포",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김민혁",
+          "minute": 45,
+          "addedTime": 3
+        },
+        {
+          "team": "home",
+          "player": "크리스찬",
+          "minute": 90,
+          "addedTime": 1
+        }
+      ]
+    },
+    {
+      "date": "2026-07-12",
+      "categoryId": "kleague2",
+      "gameId": "202607123420135",
+      "homeTeam": "충남아산",
+      "awayTeam": "경남",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "손준호",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "김현오",
+          "minute": 44
         }
       ]
     },
