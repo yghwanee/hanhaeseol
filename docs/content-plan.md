@@ -52,7 +52,7 @@
 
 - [x] **7/3(금)** 월드컵 16강 일정·중계 총정리 (결과 반영) (slug: worldcup-round-of-16)
 - [x] **7/9(목)** 월드컵 8강 일정·중계 총정리 (결과 반영) (slug: worldcup-quarterfinals)
-- [ ] **7/14(화)** 월드컵 4강 일정·중계 총정리 — 4강 매치 일정과 JTBC·KBS·치지직 채널 배정, 한국어 해설 여부 (결과 반영) (slug: worldcup-semifinals)
+- [x] **7/14(화)** 월드컵 4강 일정·중계 총정리 — 4강 매치 일정과 JTBC·KBS·치지직 채널 배정, 한국어 해설 여부 (결과 반영) (slug: worldcup-semifinals)
 - [ ] **7/16(목)** 월드컵 3·4위전 일정·중계 완벽 가이드 — 단 한 경기, 채널·무료 여부·시청 팁 (결과 반영) (slug: worldcup-third-place)
 - [ ] **7/17(금)** 월드컵 결승 일정·중계 완벽 가이드 — 단 한 경기, 채널·무료 여부·시청 팁 (결과 반영) (slug: worldcup-final)
 
