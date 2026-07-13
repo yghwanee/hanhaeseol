@@ -37,7 +37,7 @@
 - [x] 월드컵 연장전·승부차기 룰 정리 — 토너먼트에서 무승부면 어떻게 결판 나는지, 처음 보는 분들을 위해 (slug: worldcup-overtime-shootout-rules)
 - [x] KBO 올스타전 2026, 잠실 마지막 별들의 무대 어디서 보나 — 잠실 고별 올스타전 중계처·한국어 해설·무료 여부 (slug: kbo-allstar-2026-broadcast) (고정: 2026-07-09)
 - [x] 월드컵 다시보기·하이라이트 어디서 보나 — 유튜브·앱 정리 (slug: worldcup-replay-highlights)
-- [ ] 치지직(CHZZK) 월드컵 완전 사용법 — 설치·로그인·경기 찾기·알림 설정까지, 폰으로 한국어 해설 보는 가장 쉬운 방법 (slug: chzzk-worldcup-guide)
+- [x] 치지직(CHZZK) 월드컵 완전 사용법 — 설치·로그인·경기 찾기·알림 설정까지, 폰으로 한국어 해설 보는 가장 쉬운 방법 (slug: chzzk-worldcup-guide)
 - [ ] IPTV별 JTBC 월드컵 채널 번호 총정리 — KT·SKB·LGU+·KD 가입자 기준 몇 번 채널인지 한 번에 정리 (slug: worldcup-iptv-channel-numbers)
 - [ ] 네이버플러스 멤버십, 월드컵에 쓸 만한가 — 월 4,900원에 전 경기·고화질 되는지 실제로 따져봤다 (slug: naver-plus-worldcup-worth-it)
 - [ ] 손흥민 MLS 복귀전, 엘 트라피코 중계 어디서 보나 — LAFC 컴백·LA 갤럭시 라이벌전 한국 중계·해설 (slug: son-heungmin-el-trafico-july-2026)
