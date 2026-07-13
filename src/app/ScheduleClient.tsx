@@ -17,7 +17,7 @@ import { ScheduleCard } from "./_components/ScheduleCard";
 import { CoupangTopBannerOnly, CoupangInlineBanner } from "./_components/CoupangBanners";
 import { DatePickerSheet } from "./_components/DatePickerSheet";
 import { WorldCupView } from "./_components/WorldCupView";
-import { WorldCupBanner } from "./_components/WorldCupBanner";
+import { EbookBanner } from "./_components/EbookBanner";
 import { useScrollbarDrag } from "@/lib/hooks/useScrollbarDrag";
 
 export default function ScheduleClient({
@@ -263,16 +263,6 @@ export default function ScheduleClient({
     () => data.schedules.filter((s) => s.league.startsWith("북중미 월드컵")),
     [data],
   );
-  // 헤더 아래 상시 배너용 D-day(첫 경기까지). 월드컵 편성이 없으면 null → 배너 미노출.
-  const worldcupDday = useMemo(() => {
-    const dates = worldcupSchedules.map((s) => s.date).sort();
-    if (dates.length === 0) return null;
-    const ms =
-      new Date(dates[0] + "T00:00:00+09:00").getTime() -
-      new Date(todayStr + "T00:00:00+09:00").getTime();
-    return Math.round(ms / 86400000);
-  }, [worldcupSchedules, todayStr]);
-
   const filtered = useMemo(() => {
     // 과거 날짜는 archive에서, 오늘 이후는 schedule.json에서 데이터를 가져온다.
     const source = isArchiveDate ? archive : data;
@@ -385,11 +375,11 @@ export default function ScheduleClient({
         </header>
       </StickyHeader>
 
-      {/* 월드컵 상시 배너 — 헤더 바로 아래. 초기 HTML에 /worldcup 정적 링크를 노출해
-          홈의 링크 자산 전달 + 네이버 발견을 돕는다. 월드컵 뷰에선 자체 배너가 있어 중복 제거. */}
-      {!isWorldCupView && worldcupSchedules.length > 0 && (
+      {/* 상단 프로모 배너 — 헤더 바로 아래. fadeby 전자책 시집 배너로 월드컵 배너 대체.
+          (월드컵 배너는 /worldcup·월드컵 뷰에서 유지). */}
+      {!isWorldCupView && (
         <div className="mt-4 sm:mt-6">
-          <WorldCupBanner dday={worldcupDday} href="/worldcup" />
+          <EbookBanner />
         </div>
       )}
 
