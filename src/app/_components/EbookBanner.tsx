@@ -6,12 +6,14 @@ import QUOTES from "@/data/ebook-quotes.json";
 
 /**
  * fadeby 전자책 시집 프로모션 배너. 메인 상단(월드컵 배너 자리)에 노출.
- * 유화 배경 + 세리프 인용구 + 크림색 CTA. fadeby.vercel.app으로 새 탭 이동.
- * 인용구는 매일(KST 기준) 하나씩 순환 — 정본 book.json에서 3줄·44자 이내로 추린 98편.
- * 시 자체 줄바꿈(\n)을 whitespace-pre-line으로 그대로 살려 긴 글귀도 안 깨진다.
+ * 유화 배경 + 산세리프 인용구 + 크림색 CTA. fadeby.vercel.app으로 새 탭 이동.
+ * 인용구는 매일(KST 기준) 하나씩 순환 — book.json에서 3줄·각 줄 16자 이내로 추린 72편
+ * (고정 높이 배너에서 가로 줄바꿈 없이 최대 3줄로 떨어지는 것만 남김).
+ * 시 자체 줄바꿈(\n)을 whitespace-pre-line으로 살리고, line-clamp-3으로 혹시 넘쳐도 안 깨진다.
  * 디자인 출처: fadeby/generated/ebook/store/banner-haeseol.html (.fadeby-banner).
  */
-const SERIF = "'Nanum Myeongjo','Batang',Georgia,'Times New Roman',serif";
+// 원본은 세리프(Nanum Myeongjo→Batang 폴백)였으나 미설치 환경에서 촌스러워 산세리프로 교체.
+const FONT = "-apple-system,'Apple SD Gothic Neo','Malgun Gothic','Segoe UI',sans-serif";
 
 export function EbookBanner() {
   // SSR(빌드)·최초 클라 렌더는 0번 고정 → hydration mismatch 없음.
@@ -50,14 +52,14 @@ export function EbookBanner() {
           <span
             aria-hidden
             className="-mb-2 text-2xl leading-none text-[#a2432f] sm:-mb-3 sm:text-3xl"
-            style={{ fontFamily: SERIF }}
+            style={{ fontFamily: FONT }}
           >
             &ldquo;
           </span>
           {/* 인용구 — 매일 순환. 시 자체 줄바꿈 유지. */}
           <blockquote
-            className="m-0 max-w-[26ch] whitespace-pre-line text-[15px] font-medium leading-snug text-[#f1eadc] sm:text-xl"
-            style={{ fontFamily: SERIF }}
+            className="m-0 line-clamp-3 max-w-[22rem] whitespace-pre-line text-[15px] font-medium leading-snug text-[#f1eadc] sm:max-w-[26rem] sm:text-xl"
+            style={{ fontFamily: FONT }}
           >
             {quote}
           </blockquote>
@@ -68,7 +70,7 @@ export function EbookBanner() {
             </span>
             <span className="ml-auto inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#f1eadc] px-3.5 py-1.5 text-[12px] font-semibold text-[#231a16] transition-transform duration-150 group-hover:-translate-y-px sm:text-[13px]">
               시집 읽어 보기
-              <span aria-hidden style={{ fontFamily: SERIF }}>
+              <span aria-hidden style={{ fontFamily: FONT }}>
                 →
               </span>
             </span>
