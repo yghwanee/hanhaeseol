@@ -50,8 +50,8 @@ export function EbookBanner() {
 
         {/* 인용구 영역 (오버레이). 데스크톱은 오른쪽에 CTA 공간(pr 크게), 모바일은 CTA를 하단 인라인. */}
         <div className="relative flex h-full min-w-0 flex-col justify-center gap-2 pl-6 pr-6 sm:gap-2.5 sm:pl-10 sm:pr-48">
-          {/* 여는 따옴표 (장식) */}
-          <span aria-hidden className="text-2xl leading-none text-[#a2432f] sm:text-3xl">
+          {/* 여는 따옴표 (장식) — 글귀와 간격 좁힘 */}
+          <span aria-hidden className="-mb-2.5 text-2xl leading-none text-[#a2432f] sm:-mb-3.5 sm:text-3xl">
             &ldquo;
           </span>
           {/* 인용구 — 매일 순환. 시 자체 줄바꿈 유지. */}
@@ -70,8 +70,8 @@ export function EbookBanner() {
           </div>
         </div>
 
-        {/* CTA — 데스크톱: 우측 세로 가운데 고정 */}
-        <span className="absolute right-8 top-1/2 hidden -translate-y-1/2 items-center gap-1.5 whitespace-nowrap rounded-full bg-[#f1eadc] px-4 py-2 text-[13px] font-semibold text-[#231a16] shadow-md transition-transform duration-150 group-hover:-translate-y-1/2 group-hover:scale-[1.04] sm:inline-flex">
+        {/* CTA — 데스크톱: 우측 하단 쪽 */}
+        <span className="absolute bottom-6 right-8 hidden items-center gap-1.5 whitespace-nowrap rounded-full bg-[#f1eadc] px-4 py-2 text-[13px] font-semibold text-[#231a16] shadow-md transition-transform duration-150 group-hover:scale-[1.04] sm:inline-flex">
           지금 읽어 보기
           <span aria-hidden>→</span>
         </span>
