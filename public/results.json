@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-14T20:21:44.320Z",
+  "lastUpdated": "2026-07-14T21:37:13.283Z",
   "byKey": {
     "2026-07-16|kbo|SSG|KIA": {
       "date": "2026-07-16",
@@ -64,7 +64,8 @@
       "awayTeam": "아메리칸",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-07-15|worldcup|프랑스|스페인": {
       "date": "2026-07-15",
@@ -74,8 +75,8 @@
       "awayTeam": "스페인",
       "homeScore": 0,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 15'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -165,7 +166,8 @@
       "awayTeam": "아메리칸",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-07-15",
@@ -175,8 +177,8 @@
       "awayTeam": "스페인",
       "homeScore": 0,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 15'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
