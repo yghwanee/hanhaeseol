@@ -43,7 +43,7 @@ export function EbookBanner() {
           fill
           sizes="(max-width: 640px) 100vw, 1040px"
           className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.03]"
-          style={{ objectPosition: "center 28%" }}
+          style={{ objectPosition: "center 55%" }}
         />
         {/* 좌측 어둠 베일 — 글자 가독성 */}
         <div className="absolute inset-0 bg-gradient-to-r from-[rgba(11,8,16,0.9)] via-[rgba(11,8,16,0.7)] to-[rgba(11,8,16,0.4)]" />
