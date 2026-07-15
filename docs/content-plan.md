@@ -32,13 +32,13 @@
 
 - [x] 이강인·아틀레티코 마드리드, 8월 서울 온다 — 쿠팡플레이 시리즈 티켓·일정·중계 총정리 (slug: atletico-coupang-series-2026-seoul) (고정: 2026-07-15)
 - [ ] 이강인 아틀레티코 이적 확정, 라리가 경기 이제 어디서 보나 — 쿠팡플레이 라리가 중계 정리 (slug: lee-kang-in-atletico-laliga-broadcast) (고정: 2026-07-16)
+- [ ] 오타니 쇼헤이 7월 LA 다저스 경기, 한국에서 한국어 해설로 보는 법 (slug: ohtani-dodgers-july-2026-broadcast) (고정: 2026-07-21)
 - [ ] 손흥민 MLS 복귀전, 엘 트라피코 중계 어디서 보나 — LAFC 컴백·LA 갤럭시 라이벌전 한국 중계·해설 (slug: son-heungmin-el-trafico-july-2026)
 - [ ] 이정후 MLB 경기 어디서 보나 — 샌프란시스코 자이언츠 중계·한국어 해설·시간 정리 (slug: jeong-hoo-lee-mlb-broadcast-2026)
 - [ ] 김민재 분데스리가 2026-27 중계는 어디서 — 뮌헨 경기 볼 수 있는 채널·요금 (slug: kim-min-jae-bundesliga-2026-27)
 - [ ] 이강인 아틀레티코 데뷔전 언제, 마드리드 더비는 9월 — 한국에서 어디서 보나 (slug: lee-kang-in-atletico-debut-schedule-2026)
 - [ ] 스포티비 끄고 쿠팡 켠다 — 중계권 이동으로 2026-27 시즌부터 달라지는 것들 (slug: spotv-to-coupang-sports-rights-2026)
 - [ ] 이강인 빠진 PSG 2026-27, UCL 챔피언스리그 경기 한국에서 어디서 보나 (slug: psg-ucl-2026-27-broadcast)
-- [ ] 오타니 쇼헤이 7월 LA 다저스 경기, 한국에서 한국어 해설로 보는 법 (slug: ohtani-dodgers-july-2026-broadcast)
 - [ ] IPTV별 JTBC 월드컵 채널 번호 총정리 — KT·SKB·LGU+·KD 가입자 기준 몇 번 채널인지 한 번에 정리 (slug: worldcup-iptv-channel-numbers) — 대회 종료(7/20) 후엔 수요 없음, 지났으면 건너뛸 것
 - [ ] 네이버플러스 멤버십, 월드컵에 쓸 만한가 — 월 4,900원에 전 경기·고화질 되는지 실제로 따져봤다 (slug: naver-plus-worldcup-worth-it) — 대회 종료(7/20) 후엔 수요 없음, 지났으면 건너뛸 것
 
