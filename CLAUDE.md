@@ -162,6 +162,11 @@ src/
     - **흰 번쩍 근본 원인은 따로 있었음**: 홈이 `searchParams`를 서버에서 읽어 App Router 규칙상 **동적 렌더로 강등** → `private, no-cache, no-store` + `X-Vercel-Cache: MISS` = CDN 캐시 완전 꺼짐, 매 요청 함수 실행 → TTFB가 첫 페인트 지연. SWR은 그 증상을 덮으려던 것. **해결 = `searchParams` 제거 + `export const revalidate = 60`**, 딥링크(`?sport=`·`?platform=`·`?comm=`)는 `ScheduleClient`가 마운트 후 `location.search`로 적용(내부 이동 링크 전용·sitemap에 없어 색인 영향 0). `?date=`는 middleware가 301로 떼어내 서버에 도달 못 하던 죽은 코드라 제거. **데이터는 배포 번들 안에 있어 동적 렌더의 신선도 이득은 0이었음.** 검증: `X-Vercel-Cache: HIT`+`Age` 증가, SSR 출력(인트로1·카드91·SportsEvent 100) 유지.
     - **인트로**: 7×3 고정 그리드 시도 → 사용자가 별로라 해서 **3열 티커로 복귀**. 대신 팝인만 제거 — 21개 `decode()` 완료 후 한 번에 페이드인, `animationPlayState`로 준비 전엔 0지점 정지(숨기기만 하면 그 사이 애니메이션이 흘러가 중간부터 시작). 1200ms 상한. 로고는 이미 로컬 WebP 117KB(개당 5.6KB)라 **용량은 병목이 아니었음**.
     - 커밋 `2e0a07d`·`d7c34b7`·`20edc08`·`7beb93a`. 상세 [[project_live_lineup_features]].
+52. 🔴 `/api/live`가 하루 종일 옛 스냅샷을 내보내던 버그 (2026-07-15, 커밋 `e2f8d61`) — 끝난 경기(프랑스 0-2 스페인, 04:00 KST)가 11시 넘도록 "후반 2분 0-1 진행중"으로 표시. **데이터는 다 정상이었고 `/api/live`만 틀렸음**: 네이버 원본=`RESULT`/0-2, `results.json`(매시 GH Actions 크롤)=finished 0-2, 배포된 정적 HTML=종료로 정상 렌더. 클라가 `/api/live`를 빌드 데이터 위에 머지하므로 정확한 종료 데이터가 옛 진행중 상태로 덮인 것.
+    - **원인**: `naverGet`의 `fetch`에 `cache` 옵션이 없어 **Next.js Data Cache**가 응답을 붙잡음. `dateRange()`의 from/to가 `toYmd`(KST)라 **URL이 KST 하루 내내 고정**(`fromDate=2026-07-14&toDate=2026-07-16`) → 그날 첫 폴링(04:50 KST, 경기 진행중) 응답이 캐시돼 하루 종일 재생. 라우트의 `dynamic="force-dynamic"`은 **라이브러리 내부 fetch까지 막지 못함**. `period`가 `"후반 2'"`(=`g.statusInfo`)인 것도 그 시각 스냅샷과 일치.
+    - **피해 양방향**: 끝난 경기가 진행중으로 남는 것 + 그 시점 이후 시작한 경기가 라이브에 아예 안 뜨는 것(수정 후 MLB 올스타전 `live 0-3 6회말`이 새로 나타남). 구조상 **한 번 캐시되면 그날 통째로 얼어붙음**. 매일 그랬는지는 미확인(캐시 축출 편차).
+    - **수정**: `naverGet`에 `cache: "no-store"`(핵심). `/api/lineup`·`/api/lineup-baseball`도 같은 부류라 선제 차단(미발표 상태 고정 방지). `/api/emblem`은 immutable 로고라 제외. `src/lib/crawlers/*`는 GH Actions(tsx) 전용이라 Next 캐시 무관.
+    - **교훈: Vercel(Next 런타임)에서 도는 fetch는 `cache` 옵션을 반드시 명시할 것.** `force-dynamic`을 믿지 말 것. 신선도는 응답의 `s-maxage`(엣지 캐시)로만 제어.
 
 ### 다음 작업 (예정)
 - **PWA 흰 번쩍 — 근본 원인 해결됨(작업51, 7/15).** 홈이 동적 렌더라 CDN 캐시가 꺼져 있던 게 원인이었고 `revalidate=60` 정적화로 엣지 즉시 서빙. SWR은 폐기(재도입 금지). **남은 확인**: 사용자 폰에서 앱 닫았다 열기 1~2회(옛 SW 교체) 후 번쩍 체감 확인. 그래도 남으면 iOS 런치스크린→웹뷰 핸드오프(OS레벨, 웹 제어 불가).
