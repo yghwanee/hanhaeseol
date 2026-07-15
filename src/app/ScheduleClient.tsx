@@ -24,24 +24,33 @@ export default function ScheduleClient({
   initialData,
   teamRecords = {},
   results = null,
-  initialDate,
-  initialSport,
-  initialPlatform,
-  initialCommentary = "all",
 }: {
   initialData: ScheduleData;
   teamRecords?: TeamRecordsMap;
   results?: ResultsData | null;
-  initialDate?: string;
-  initialSport?: string;
-  initialPlatform?: string;
-  initialCommentary?: "all" | "korean" | "foreign";
 }) {
   const [data] = useState<ScheduleData>(initialData);
-  const [selectedDate, setSelectedDate] = useState(initialDate || getTodayString());
-  const [sport, setSport] = useState(initialSport || "전체");
-  const [platform, setPlatform] = useState(initialPlatform || "전체");
-  const [commentaryFilter, setCommentaryFilter] = useState<"all" | "korean" | "foreign">(initialCommentary);
+  const [selectedDate, setSelectedDate] = useState(getTodayString());
+  const [sport, setSport] = useState("전체");
+  const [platform, setPlatform] = useState("전체");
+  const [commentaryFilter, setCommentaryFilter] = useState<"all" | "korean" | "foreign">("all");
+
+  // 딥링크 필터(?sport=·?platform=·?comm=)는 마운트 후 클라에서 적용한다.
+  // 서버에서 searchParams 를 읽으면 홈 전체가 동적 렌더로 강등돼 CDN 캐시가
+  // 불가능해지고(매 요청 함수 실행 → TTFB 지연 → 첫 페인트 흰 번쩍), 그 지연을
+  // 덮으려고 넣었던 서비스워커 HTML 캐시가 배포마다 옛 화면을 내놓는 원인이었다.
+  // 이 파라미터들은 내부 이동 링크(순위·월드컵 배너)에서만 오고 sitemap 에 없어
+  // 색인 대상이 아니므로, 한 프레임 뒤 적용해도 SEO 손실이 없다.
+  // (?date= 는 middleware 가 301 로 제거하므로 여기서 다루지 않는다.)
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search);
+    const qSport = q.get("sport");
+    const qPlatform = q.get("platform");
+    const qComm = q.get("comm");
+    if (qSport) setSport(qSport);
+    if (qPlatform) setPlatform(qPlatform);
+    if (qComm === "korean" || qComm === "foreign") setCommentaryFilter(qComm);
+  }, []);
   const [searchQuery, setSearchQuery] = useState("");
   const [showInfo, setShowInfo] = useState(false);
 

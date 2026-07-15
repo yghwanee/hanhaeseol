@@ -102,16 +102,17 @@ function pruneResultsForClient(results: ResultsData | null): ResultsData | null 
   return { lastUpdated: results.lastUpdated, byKey, results: [] };
 }
 
-export default function Home({
-  searchParams,
-}: {
-  searchParams: {
-    date?: string;
-    sport?: string;
-    platform?: string;
-    comm?: string;
-  };
-}) {
+/** 홈은 프리렌더 + CDN 캐시로 서빙한다(엣지에서 즉시 = 흰 번쩍 방지의 근본 처방).
+ *  searchParams 를 서버에서 읽으면 이 페이지가 동적 렌더로 강등돼 매 요청 함수가
+ *  돌고 CDN 캐시가 통째로 꺼진다(no-store). 데이터(schedule.json 등)는 배포 번들
+ *  안에 있어 동적 렌더로 얻는 신선도 이득도 0이었다. 딥링크 필터는 ScheduleClient
+ *  가 마운트 후 location.search 로 읽는다.
+ *
+ *  revalidate 로 재생성 주기를 짧게 둬, 날짜가 바뀌는 자정(KST) 직후에도
+ *  getTodayString() 기준 기본 선택일이 오래 어긋나지 않게 한다. */
+export const revalidate = 60;
+
+export default function Home() {
   const data = loadScheduleData();
   // 클라로 직렬화되는 teamRecords 를 화면(7일치)에 나오는 리그로 한정한다. 전 리그 풀맵을
   // 그대로 보내면 비시즌 리그(예: 여름의 EPL/라리가)까지 초기 HTML 에 박혀 낭비. 리그 단위로
@@ -124,8 +125,6 @@ export default function Home({
     mergeWorldcupArchive(loadResults(), loadResultsArchive()),
   );
   const sportsEventsJsonLd = buildSportsEventsJsonLd(data.schedules);
-  const initialCommentary: "all" | "korean" | "foreign" =
-    searchParams.comm === "korean" || searchParams.comm === "foreign" ? searchParams.comm : "all";
 
   return (
     <>
@@ -140,15 +139,7 @@ export default function Home({
       ))}
       <IntroAnimation />
       <main>
-        <ScheduleClient
-          initialData={data}
-          teamRecords={teamRecords}
-          results={results}
-          initialDate={searchParams.date}
-          initialSport={searchParams.sport}
-          initialPlatform={searchParams.platform}
-          initialCommentary={initialCommentary}
-        />
+        <ScheduleClient initialData={data} teamRecords={teamRecords} results={results} />
         <section className="mx-auto mt-4 sm:mt-6 max-w-2xl px-3 sm:px-4">
           <WeekHighlights
             title="이번 주 빅매치"
