@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-15T19:50:03.334Z",
+  "lastUpdated": "2026-07-15T21:14:08.226Z",
   "byKey": {
     "2026-07-16|kbo|SSG|KIA": {
       "date": "2026-07-16",
@@ -258,10 +258,28 @@
       "gameId": "fEoSpA33bh3vGU7",
       "homeTeam": "잉글랜드",
       "awayTeam": "아르헨티나",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "고든",
+          "minute": 55
+        },
+        {
+          "team": "away",
+          "player": "엔소 페르난데스",
+          "minute": 85
+        },
+        {
+          "team": "away",
+          "player": "라우타로 마르티네스",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ]
     }
   },
   "results": [
@@ -470,10 +488,28 @@
       "gameId": "fEoSpA33bh3vGU7",
       "homeTeam": "잉글랜드",
       "awayTeam": "아르헨티나",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "고든",
+          "minute": 55
+        },
+        {
+          "team": "away",
+          "player": "엔소 페르난데스",
+          "minute": 85
+        },
+        {
+          "team": "away",
+          "player": "라우타로 마르티네스",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ]
     }
   ]
 }
