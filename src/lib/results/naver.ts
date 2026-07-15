@@ -123,6 +123,12 @@ async function naverGet<T>(path: string): Promise<T | null> {
   const res = await fetch(`${BASE}${path}`, {
     headers: HEADERS,
     signal: AbortSignal.timeout(8000),
+    // 🔴 필수. 이거 없으면 Next.js Data Cache 가 응답을 붙잡는다.
+    // dateRange() 의 from/to 는 toYmd(KST) 라 URL 이 KST 하루 내내 고정이고,
+    // 라우트에 dynamic="force-dynamic" 이 있어도 라이브러리 내부 fetch 까지는
+    // 막지 못했다. 그 결과 /api/live 가 "그날 첫 폴링 시점" 스냅샷에 얼어붙어
+    // 끝난 경기를 계속 진행중으로 내보냈다(2026-07-15 발견).
+    cache: "no-store",
   });
   if (!res.ok) throw new Error(`Naver HTTP ${res.status}: ${path}`);
   const json = (await res.json()) as NaverApiResponse<T>;

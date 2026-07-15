@@ -119,6 +119,9 @@ export async function GET(request: Request): Promise<Response> {
     const res = await fetch(`${BASE}/schedule/games/${gameId}/preview`, {
       headers: HEADERS,
       signal: AbortSignal.timeout(8000),
+      // Next.js Data Cache 가 붙잡으면 선발 미발표 상태가 고정된다.
+      // 신선도는 아래 s-maxage(엣지 캐시)로만 제어한다. /api/live 와 동일 사유.
+      cache: "no-store",
     });
     if (!res.ok) throw new Error(`Naver HTTP ${res.status}`);
     const json = (await res.json()) as ApiResponse;
