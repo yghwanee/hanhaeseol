@@ -25,10 +25,17 @@ let assetsPromise: Promise<{
 function loadAssets() {
   if (!assetsPromise) {
     assetsPromise = (async () => {
+      // 배포마다 거의 안 바뀌는 에셋이라 캐시가 이득이지만, Data Cache 는
+      // 배포 간에도 유지되므로 force-cache 로 두면 로고를 교체해도 옛 게
+      // 영구히 박힌다(아이콘을 75% 로 줄인 전례 있음). 하루로 묶는다.
       const [bold, regular, logoBuf] = await Promise.all([
-        fetch(`${BASE}/fonts/Pretendard-Bold.otf`).then((r) => r.arrayBuffer()),
-        fetch(`${BASE}/fonts/Pretendard-Regular.otf`).then((r) => r.arrayBuffer()),
-        fetch(`${BASE}/logo.png`).then((r) => r.arrayBuffer()),
+        fetch(`${BASE}/fonts/Pretendard-Bold.otf`, { next: { revalidate: 86400 } }).then((r) =>
+          r.arrayBuffer(),
+        ),
+        fetch(`${BASE}/fonts/Pretendard-Regular.otf`, { next: { revalidate: 86400 } }).then((r) =>
+          r.arrayBuffer(),
+        ),
+        fetch(`${BASE}/logo.png`, { next: { revalidate: 86400 } }).then((r) => r.arrayBuffer()),
       ]);
       const logo = `data:image/png;base64,${Buffer.from(logoBuf).toString("base64")}`;
       return { bold, regular, logo };

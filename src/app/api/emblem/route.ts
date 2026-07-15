@@ -25,6 +25,9 @@ export async function GET(request: Request): Promise<Response> {
       headers: { "User-Agent": "Mozilla/5.0 (haeseol image proxy)" },
       // pstatic이 응답을 끌면 핫패스 프록시가 무한 대기하지 않도록(다른 네이버 fetch와 동일 8초).
       signal: AbortSignal.timeout(8000),
+      // 로고는 불변이고 이 라우트가 이미 1년 immutable 로 내려보내 CDN 이 캐시한다.
+      // Next.js Data Cache 에까지 이미지 바이트를 이중으로 쌓을 이유가 없다.
+      cache: "no-store",
     });
   } catch {
     return new Response("upstream fetch failed", { status: 502 });

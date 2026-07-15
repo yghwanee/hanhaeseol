@@ -1,0 +1,57 @@
+name: Test
+
+# 코드가 바뀔 때만 돈다. 매시 크롤이 src/data/*.json 만 갈아끼우는 커밋에는
+# 걸리지 않게 paths 로 걸러, 하루 수십 번 헛도는 걸 막는다.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "!src/data/**"
+      - "!src/content/**"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
+      - ".github/workflows/test.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "src/**"
+      - "!src/data/**"
+      - "!src/content/**"
+      - "package.json"
+      - "package-lock.json"
+      - "tsconfig.json"
+  workflow_dispatch:
+
+concurrency:
+  group: test-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+
+      - name: 타입 체크
+        run: npx tsc --noEmit
+
+      # 캐시 계층 가드. Next 런타임 fetch 에 cache/next 옵션이 빠지면 여기서 실패한다.
+      # 2026-07-15: 이 옵션이 없어 Next Data Cache 가 /api/live 응답을 붙잡았고,
+      # 끝난 경기가 하루 종일 "진행중"으로 나갔다. 상세는 CLAUDE.md 작업52.
+      - name: fetch 캐시 가드
+        run: npm run test:fetch-cache
+
+      - name: 유닛 테스트
+        run: |
+          npm run test:worldcup-round
+          npm run test:starters
+          npm run test:highlights
