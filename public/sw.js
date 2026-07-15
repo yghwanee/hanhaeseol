@@ -1,18 +1,20 @@
-// 한해설 서비스워커 — PWA 설치 + 웹푸시 수신 + 빠른 실행(흰 번쩍 방지).
-// 루트("/")는 stale-while-revalidate: 캐시본을 즉시 반환해 네트워크 대기 중
-// 흰 화면(웹뷰 기본색)이 번쩍이는 걸 없애고, 백그라운드로 최신본을 받아 캐시 갱신.
-// 그 외 페이지/데이터는 네트워크 우선(+오프라인 폴백)으로 stale 위험 없게 둔다.
-const CACHE = "hhs-shell-v2";
+// 한해설 서비스워커 — PWA 설치 + 웹푸시 수신 + 오프라인 폴백.
+//
+// 페이지 HTML은 캐시하지 않는다(루트 "/" 포함). 이전 v2는 루트를
+// stale-while-revalidate 로 캐시해 흰 번쩍을 줄이려 했지만, HTML은 빌드마다
+// 바뀌는 /_next/static/<buildId>/ 에셋을 참조하므로 캐시본을 그대로 내놓으면
+// 배포 직후 첫 로드에서 (a) 옛 배너·옛 편성표가 보이고 (b) 옛 청크가 404 나
+// CSS·JS 없이 렌더된다(인트로가 화면을 못 덮고 배너 이미지가 전면 확대).
+// 홈은 매시 크롤로 리빌드되므로 HTML 캐시는 항상 stale 이 된다. 캐시는
+// 오프라인 폴백 용도로만 쓴다.
+const CACHE = "hhs-shell-v3";
 const OFFLINE_URL = "/offline";
-const ROOT_URL = "/";
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
     (async () => {
       const cache = await caches.open(CACHE);
-      // 루트와 오프라인 페이지 미리 캐시(첫 실행 후부터 즉시 표시 가능).
       await cache.add(OFFLINE_URL).catch(() => {});
-      await cache.add(ROOT_URL).catch(() => {});
     })(),
   );
   self.skipWaiting();
@@ -32,29 +34,8 @@ self.addEventListener("fetch", (event) => {
   if (req.method !== "GET") return;
   if (req.mode !== "navigate") return;
 
-  const url = new URL(req.url);
-  const isRoot = url.pathname === "/";
-
-  if (isRoot) {
-    // stale-while-revalidate: 캐시본 즉시 반환(흰 번쩍 방지) + 백그라운드 최신화.
-    event.respondWith(
-      (async () => {
-        const cache = await caches.open(CACHE);
-        const cached = await cache.match(ROOT_URL);
-        const network = fetch(req)
-          .then((res) => {
-            if (res && res.ok) cache.put(ROOT_URL, res.clone());
-            return res;
-          })
-          .catch(() => null);
-        // 캐시 있으면 즉시(=흰 번쩍 없음). 없으면(첫 실행) 네트워크 대기.
-        return cached || (await network) || (await caches.match(OFFLINE_URL));
-      })(),
-    );
-    return;
-  }
-
-  // 그 외 페이지: 네트워크 우선 + 오프라인 폴백.
+  // 모든 페이지: 네트워크 우선 + 오프라인일 때만 폴백.
+  // HTML 캐시본을 내놓지 않으므로 배포 직후에도 항상 최신 배너·편성표를 본다.
   event.respondWith(fetch(req).catch(() => caches.match(OFFLINE_URL)));
 });
 

@@ -7,7 +7,9 @@ import { useEffect } from "react";
 export function ServiceWorkerRegister() {
   useEffect(() => {
     if (typeof navigator === "undefined" || !("serviceWorker" in navigator)) return;
-    navigator.serviceWorker.register("/sw.js").catch(() => {});
+    // updateViaCache:"none" — sw.js 자체를 HTTP 캐시에서 꺼내 쓰지 않게 해
+    // 워커 갱신(예: 캐시 전략 수정)이 지연 없이 반영되도록 한다.
+    navigator.serviceWorker.register("/sw.js", { updateViaCache: "none" }).catch(() => {});
   }, []);
   return null;
 }
