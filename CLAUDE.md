@@ -167,6 +167,9 @@ src/
     - **피해 양방향**: 끝난 경기가 진행중으로 남는 것 + 그 시점 이후 시작한 경기가 라이브에 아예 안 뜨는 것(수정 후 MLB 올스타전 `live 0-3 6회말`이 새로 나타남). 구조상 **한 번 캐시되면 그날 통째로 얼어붙음**. 매일 그랬는지는 미확인(캐시 축출 편차).
     - **수정**: `naverGet`에 `cache: "no-store"`(핵심). `/api/lineup`·`/api/lineup-baseball`도 같은 부류라 선제 차단(미발표 상태 고정 방지). `/api/emblem`은 immutable 로고라 제외. `src/lib/crawlers/*`는 GH Actions(tsx) 전용이라 Next 캐시 무관.
     - **교훈: Vercel(Next 런타임)에서 도는 fetch는 `cache` 옵션을 반드시 명시할 것.** `force-dynamic`을 믿지 말 것. 신선도는 응답의 `s-maxage`(엣지 캐시)로만 제어.
+    - **재발 방지 = 문서가 아니라 가드(커밋 `a89e33a`).** `src/lib/fetch-cache-guard.test.ts`(`npm run test:fetch-cache`)가 **src/app에서 전이적으로 도달 가능한 서버 파일의 GET fetch에 `cache`/`next` 옵션이 없으면 실패**시킴. "use client"·비-GET은 제외, 예외는 fetch 위 5줄 안에 `fetch-cache-ok: <이유>` 주석. **옵션은 호출부에 인라인해야 함**(정적 스캐너라 변수 참조는 못 봄). 스캐너 자체가 깨지는 회귀도 잡음(도달 파일 수·핵심 파일 존재 검증 + 위반 픽스처). 오늘 버그를 되돌려 `fail 1` 나는 것 실증함.
+    - **가드가 즉시 더 잡은 것**: `opengraph-image`의 폰트2+로고(→`next.revalidate=86400`. Data Cache는 배포 간 유지라 `force-cache`면 로고 교체가 영구히 안 먹음), `schedule-archive.json`(→`revalidate=3600`), `/api/emblem`(→`no-store`. 라우트가 이미 1년 immutable로 CDN 캐시하니 이미지 바이트 이중 적재 불필요).
+    - **CI 신설(`.github/workflows/test.yml`)** — 그동안 **코드 푸시에 도는 CI가 아예 없었음**(Vercel은 빌드만, `auto-publish-draft`의 빌드 게이트는 마크다운 초안 경로 전용). 이제 코드 변경 push/PR에서 `tsc` + 테스트 42건(fetch-cache 2·worldcup-round 13·starters 17·highlights 10). 매시 크롤이 `src/data`만 바꾸는 커밋엔 `paths` 필터로 안 걸림.
 
 ### 다음 작업 (예정)
 - **PWA 흰 번쩍 — 근본 원인 해결됨(작업51, 7/15).** 홈이 동적 렌더라 CDN 캐시가 꺼져 있던 게 원인이었고 `revalidate=60` 정적화로 엣지 즉시 서빙. SWR은 폐기(재도입 금지). **남은 확인**: 사용자 폰에서 앱 닫았다 열기 1~2회(옛 SW 교체) 후 번쩍 체감 확인. 그래도 남으면 iOS 런치스크린→웹뷰 핸드오프(OS레벨, 웹 제어 불가).
@@ -188,6 +191,8 @@ npm run lint     # ESLint 검사
 npm run crawl    # 크롤링 실행 (7일치)
 npm run crawl:worldcup   # 월드컵 편성+조별순위 재크롤 (현재 기준 맞출 때)
 npm run crawl:results    # 결과·스코어 재크롤
+npm run test:fetch-cache # 🔴 Next 런타임 fetch 캐시 가드 (CI에서도 돎)
+npm run test:worldcup-round / test:starters / test:highlights
 ```
 
 ## 배포
