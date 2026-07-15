@@ -43,7 +43,10 @@ let archivePromise: Promise<ScheduleData | null> | null = null;
 
 function loadArchive(): Promise<ScheduleData | null> {
   if (!archivePromise) {
-    archivePromise = fetch(`${BASE}/schedule-archive.json`)
+    // revalidate 명시 필수. 이 URL 은 고정인데 내용은 배포마다 커지고,
+    // Next.js Data Cache 는 배포 간에도 유지되므로 옵션이 없으면 옛 아카이브에
+    // 눌러앉아 최근 종료 경기를 못 찾는다(2026-07-15 /api/live 동결과 같은 부류).
+    archivePromise = fetch(`${BASE}/schedule-archive.json`, { next: { revalidate: 3600 } })
       .then((r) => (r.ok ? (r.json() as Promise<ScheduleData>) : null))
       .catch(() => null);
   }
