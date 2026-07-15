@@ -1,7 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { INTRO_EMBLEM_PATHS } from "./intro-emblems";
+import {
+  INTRO_COL_A as COL_A,
+  INTRO_COL_B as COL_B,
+  INTRO_COL_C as COL_C,
+  INTRO_EMBLEM_PATHS,
+} from "./intro-emblems";
 
 const STORAGE_KEY = "haeseol-intro-seen";
 const DOMAIN = "haeseol.com";
@@ -28,14 +33,67 @@ function markIntroDone() {
   }
 }
 
-/** 엠블럼 21개를 7열 x 3행 고정 그리드로 한 번에 보여준다.
+function TickerColumn({
+  items,
+  direction,
+  durationSec,
+  running,
+}: {
+  items: string[];
+  direction: "up" | "down";
+  durationSec: number;
+  running: boolean;
+}) {
+  const doubled = [...items, ...items];
+  const maskGradient =
+    "linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgb(0,0,0) 20%, rgb(0,0,0) 80%, rgba(0,0,0,0) 100%)";
+  return (
+    <div
+      className="h-full overflow-hidden"
+      style={{ maskImage: maskGradient, WebkitMaskImage: maskGradient }}
+    >
+      <div
+        className="flex flex-col gap-3 sm:gap-4"
+        style={{
+          animation: `tickerScroll${direction === "up" ? "Up" : "Down"} ${durationSec}s linear infinite`,
+          // 로고가 다 준비되기 전엔 0지점에 붙잡아 둔다. 그냥 숨기기만 하면
+          // 그 사이 애니메이션이 흘러가 페이드인 순간 이미 중간부터 시작한다.
+          animationPlayState: running ? "running" : "paused",
+          willChange: "transform",
+        }}
+      >
+        {doubled.map((src, i) => (
+          <div
+            key={i}
+            className="flex aspect-square w-24 shrink-0 items-center justify-center rounded-2xl bg-zinc-900/70 p-3 sm:w-40 sm:p-5"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={src}
+              alt=""
+              loading="eager"
+              referrerPolicy="no-referrer"
+              onError={(e) => {
+                const img = e.currentTarget;
+                if (img.dataset.fallback === "1") return;
+                img.dataset.fallback = "1";
+                img.src = "/icon.png";
+              }}
+              className="max-h-full max-w-full object-contain"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/** 3열 티커. 로고 21개가 모두 decode() 된 뒤에 한 번에 나타나고 그때부터 흐른다.
  *
- *  이전에는 3열 티커가 각각 22/26/24초로 서로 다른 속도·방향으로 무한 스크롤했는데,
- *  인트로가 몇 초짜리라 "제각각 흐르는" 인상만 남았다. 로고는 전부 로컬 WebP
- *  (21개 합계 117KB, 개당 5.6KB)라 용량이 병목이 아니었고, 문제는 움직임과
- *  타일이 하나씩 채워지는 팝인이었다. 그래서 정지 그리드로 바꾸고, 21개가 모두
- *  decode() 된 뒤에 한 번에 페이드인한다. */
-function EmblemGrid() {
+ *  로고는 전부 로컬 WebP(21개 합계 117KB, 개당 5.6KB)라 용량은 병목이 아니지만,
+ *  타일이 하나씩 채워지며 뜨는 팝인 때문에 등장 타이밍이 제각각으로 보였다.
+ *  움직임 자체는 유지하고 로드만 동기화한다. */
+function EmblemTicker() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -66,32 +124,17 @@ function EmblemGrid() {
   }, []);
 
   return (
-    <div
-      className={`grid grid-cols-7 gap-1.5 transition-opacity duration-500 sm:gap-3 ${
-        ready ? "opacity-100" : "opacity-0"
-      }`}
-    >
-      {INTRO_EMBLEM_PATHS.map((src) => (
-        <div
-          key={src}
-          className="flex aspect-square w-10 items-center justify-center rounded-lg bg-zinc-900/70 p-1.5 sm:w-20 sm:rounded-xl sm:p-3"
-        >
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={src}
-            alt=""
-            loading="eager"
-            referrerPolicy="no-referrer"
-            onError={(e) => {
-              const img = e.currentTarget;
-              if (img.dataset.fallback === "1") return;
-              img.dataset.fallback = "1";
-              img.src = "/icon.png";
-            }}
-            className="max-h-full max-w-full object-contain"
-          />
-        </div>
-      ))}
+    <div style={{ perspective: "1000px" }}>
+      <div
+        className={`flex h-[42vh] gap-3 transition-opacity duration-500 sm:h-[60vh] sm:gap-5 ${
+          ready ? "opacity-100" : "opacity-0"
+        }`}
+        style={{ transform: "rotateX(30deg)", transformStyle: "preserve-3d" }}
+      >
+        <TickerColumn items={COL_A} direction="up" durationSec={22} running={ready} />
+        <TickerColumn items={COL_B} direction="down" durationSec={26} running={ready} />
+        <TickerColumn items={COL_C} direction="up" durationSec={24} running={ready} />
+      </div>
     </div>
   );
 }
@@ -225,7 +268,7 @@ export function IntroAnimation() {
           </div>
 
           <div className="mt-10 sm:mt-14">
-            <EmblemGrid />
+            <EmblemTicker />
           </div>
         </>
       )}
