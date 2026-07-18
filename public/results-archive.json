@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-18T22:06:13.348Z",
+  "lastUpdated": "2026-07-18T23:09:04.821Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -16900,6 +16900,105 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "연기"
+    },
+    "2026-07-19|mlb|필라델피아 필리스|뉴욕 메츠": {
+      "date": "2026-07-19",
+      "categoryId": "mlb",
+      "gameId": "20260719NMPH0",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "뉴욕 메츠",
+      "homeScore": 6,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-07-19|mlb|캔자스시티 로열스|샌디에이고 파드리스": {
+      "date": "2026-07-19",
+      "categoryId": "mlb",
+      "gameId": "20260719SDKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 6,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-07-19|mlb|애리조나 다이아몬드백스|세인트루이스 카디널스": {
+      "date": "2026-07-19",
+      "categoryId": "mlb",
+      "gameId": "20260719SLAZ0",
+      "homeTeam": "애리조나 다이아몬드백스",
+      "awayTeam": "세인트루이스 카디널스",
+      "homeScore": 5,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-07-19|worldcup|프랑스|잉글랜드": {
+      "date": "2026-07-19",
+      "categoryId": "worldcup",
+      "gameId": "aYg2oo6fpHlxNlX",
+      "homeTeam": "프랑스",
+      "awayTeam": "잉글랜드",
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "라이스",
+          "minute": 3
+        },
+        {
+          "team": "away",
+          "player": "콘사",
+          "minute": 18
+        },
+        {
+          "team": "away",
+          "player": "사카",
+          "minute": 37
+        },
+        {
+          "team": "away",
+          "player": "사카",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "음바페",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "바르콜라",
+          "minute": 54
+        },
+        {
+          "team": "home",
+          "player": "음바페",
+          "minute": 66
+        },
+        {
+          "team": "away",
+          "player": "사카",
+          "minute": 87
+        },
+        {
+          "team": "home",
+          "player": "뎀벨레",
+          "minute": 90,
+          "addedTime": 6
+        },
+        {
+          "team": "away",
+          "player": "벨링엄",
+          "minute": 90,
+          "addedTime": 8
+        }
+      ]
     }
   },
   "results": [
@@ -33802,6 +33901,105 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "연기"
+    },
+    {
+      "date": "2026-07-19",
+      "categoryId": "mlb",
+      "gameId": "20260719NMPH0",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "뉴욕 메츠",
+      "homeScore": 6,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-07-19",
+      "categoryId": "mlb",
+      "gameId": "20260719SDKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 6,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-07-19",
+      "categoryId": "mlb",
+      "gameId": "20260719SLAZ0",
+      "homeTeam": "애리조나 다이아몬드백스",
+      "awayTeam": "세인트루이스 카디널스",
+      "homeScore": 5,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-07-19",
+      "categoryId": "worldcup",
+      "gameId": "aYg2oo6fpHlxNlX",
+      "homeTeam": "프랑스",
+      "awayTeam": "잉글랜드",
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "라이스",
+          "minute": 3
+        },
+        {
+          "team": "away",
+          "player": "콘사",
+          "minute": 18
+        },
+        {
+          "team": "away",
+          "player": "사카",
+          "minute": 37
+        },
+        {
+          "team": "away",
+          "player": "사카",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "음바페",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "바르콜라",
+          "minute": 54
+        },
+        {
+          "team": "home",
+          "player": "음바페",
+          "minute": 66
+        },
+        {
+          "team": "away",
+          "player": "사카",
+          "minute": 87
+        },
+        {
+          "team": "home",
+          "player": "뎀벨레",
+          "minute": 90,
+          "addedTime": 6
+        },
+        {
+          "team": "away",
+          "player": "벨링엄",
+          "minute": 90,
+          "addedTime": 8
+        }
+      ]
     }
   ]
 }
