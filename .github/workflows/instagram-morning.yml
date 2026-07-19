@@ -11,6 +11,10 @@ on:
         description: '인스타 게시 SKIP (only Youtube)'
         type: boolean
         default: false
+      instagram_only:
+        description: '인스타만 게시 (유튜브 SKIP — 부분 실패 재실행용)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -95,7 +99,7 @@ jobs:
         run: npm run post:story
 
       - name: 유튜브 쇼츠 업로드
-        if: always()
+        if: ${{ always() && inputs.instagram_only != true }}
         run: npm run post:youtube
 
       # 틱톡은 저녁 워크플로우(instagram.yml)에서만 게시. 오전엔 제외(1일 1회 = 도배 신호 완화).

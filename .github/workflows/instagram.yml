@@ -11,6 +11,10 @@ on:
         description: '인스타 게시 SKIP (only Youtube)'
         type: boolean
         default: false
+      instagram_only:
+        description: '인스타만 게시 (유튜브·틱톡 SKIP — 부분 실패 재실행용)'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -96,17 +100,17 @@ jobs:
         run: npm run post:story
 
       - name: 유튜브 쇼츠 업로드
-        if: always()
+        if: ${{ always() && inputs.instagram_only != true }}
         run: npm run post:youtube
 
       # 틱톡 전용 릴스(URL 워터마크 제거 변형) 생성 → manifest.reelTiktok 기록.
       # 유튜브 업로드 후 실행해 공용 reel-v2.mp4 / manifest.reel 은 그대로 둠.
       - name: 틱톡 전용 릴스 생성 (URL 워터마크 제거)
-        if: always()
+        if: ${{ always() && inputs.instagram_only != true }}
         run: HHS_TIKTOK_VARIANT=1 npm run reel:make:v2
 
       - name: 틱톡 업로드
-        if: always()
+        if: ${{ always() && inputs.instagram_only != true }}
         run: npm run post:tiktok
 
       - name: Telegram 성공 알림

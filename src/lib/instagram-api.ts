@@ -63,7 +63,7 @@ function withCacheBust(params: Record<string, string>, attempt: number): Record<
 
 export async function postMedia(
   params: Record<string, string>,
-  maxRetries = 5,
+  maxRetries = 8,
   retryDelayMs = 15000,
 ): Promise<string> {
   const { igId, token } = igEnv();
@@ -72,13 +72,15 @@ export async function postMedia(
     const res = await fetch(`${IG_API}/${igId}/media`, { method: "POST", body });
     const data = await res.json();
     if (res.ok && data.id) return data.id as string;
-    // raw.githubusercontent CDN가 방금 푸시한 커밋을 아직 전파 못해 Meta가
-    // 미디어 URI를 못 가져온 케이스(9004/2207052). 잠깐 뒤 재시도하면 회복됨.
+    // 일시 오류 2종: ①raw CDN 전파 지연으로 Meta가 미디어 URI를 못 가져옴(9004/2207052)
+    // ②Meta 쪽 장애(code=2, is_transient). ②는 수 분 지속될 수 있어 고정 15s×5(~75s)로는
+    // 못 버팀(2026-07-19 저녁 게시 3종 전멸) → 지수 백오프로 최대 ~10분 커버.
     if (isTransientFetch(data.error) && attempt < maxRetries) {
+      const delayMs = Math.min(retryDelayMs * 2 ** (attempt - 1), 120000);
       console.warn(
-        `⚠️  미디어 생성 ${attempt}/${maxRetries} — URI fetch 실패(CDN 전파 대기), ${retryDelayMs / 1000}s 후 재시도: ${JSON.stringify(data.error)}`,
+        `⚠️  미디어 생성 ${attempt}/${maxRetries} — 일시 오류(CDN 전파/Meta 장애), ${delayMs / 1000}s 후 재시도: ${JSON.stringify(data.error)}`,
       );
-      await sleep(retryDelayMs);
+      await sleep(delayMs);
       continue;
     }
     throw new Error(`미디어 생성 실패: ${JSON.stringify(data)}`);
@@ -114,11 +116,25 @@ export async function waitForFinished(containerId: string, maxAttempts = 20, int
   const { token } = igEnv();
   let lastData: Record<string, unknown> | null = null;
   let lastStatusCode: string | undefined;
+  let transientErrors = 0;
   for (let i = 0; i < maxAttempts; i++) {
     const res = await fetch(`${IG_API}/${containerId}?fields=status_code,status&access_token=${token}`);
     const data = (await res.json()) as Record<string, unknown>;
     lastData = data;
     const err = data.error as IgError | undefined;
+
+    // Meta 일시 장애(code=2/is_transient): 컨테이너 상태가 아니라 조회 호출 자체가 실패한 것.
+    // 폴링 예산(i)을 소모하지 않고 별도 카운터로 최대 30회×10s(+5분) 더 기다린다.
+    // (2026-07-19 캐러셀: 컨테이너는 멀쩡한데 상태 조회가 code=2만 돌려줘 60s 예산 소진 → 실패)
+    if (isTransientFetch(err)) {
+      if (++transientErrors > 30) {
+        throw new Error(`컨테이너 ${containerId} 상태 조회 일시 장애 지속(30회 초과): ${JSON.stringify(err)}`);
+      }
+      console.warn(`   [poll] ${containerId} Meta 일시 오류(${transientErrors}/30), 10s 후 재조회: ${JSON.stringify(err)}`);
+      i--;
+      await sleep(10000);
+      continue;
+    }
 
     // 노드 GET이 막혔으면 폴링이 영영 안 됨 → 남은 시간만큼 시간 기반 sleep 후 publish에 맡긴다.
     if (isNodeGetForbidden(err)) {
@@ -155,8 +171,10 @@ export async function publish(creationId: string, maxRetries = 6, retryDelayMs =
 
     // 컨테이너가 아직 처리 중이면 잠시 후 재시도. waitForFinished가 노드 GET 거부로
     // 시간 기반 폴백을 거친 경우, publish 첫 시도 시점에 IN_PROGRESS일 수 있음.
-    if (isMediaNotReady(data.error as IgError | undefined) && attempt < maxRetries) {
-      console.warn(`⚠️  publish ${attempt}/${maxRetries} — 미디어 미준비, ${retryDelayMs / 1000}s 후 재시도: ${JSON.stringify(data.error)}`);
+    // Meta 일시 장애(is_transient)도 같은 경로로 재시도.
+    const pubErr = data.error as IgError | undefined;
+    if ((isMediaNotReady(pubErr) || isTransientFetch(pubErr)) && attempt < maxRetries) {
+      console.warn(`⚠️  publish ${attempt}/${maxRetries} — 미디어 미준비/일시 오류, ${retryDelayMs / 1000}s 후 재시도: ${JSON.stringify(data.error)}`);
       await sleep(retryDelayMs);
       continue;
     }

@@ -35,8 +35,14 @@ async function main() {
   const mediaId = await publish(carouselId);
   console.log(`✅ 캐러셀 게시 완료. Media ID: ${mediaId}`);
 
-  await comment(mediaId, buildSocialComment(today));
-  console.log(`💬 댓글 작성 완료`);
+  // 댓글 실패는 비치명 처리 — 게시는 이미 완료라 여기서 exit 1 나면
+  // 재실행 시 같은 캐러셀이 중복 게시됨.
+  try {
+    await comment(mediaId, buildSocialComment(today));
+    console.log(`💬 댓글 작성 완료`);
+  } catch (e) {
+    console.warn(`⚠️  댓글 작성 실패(게시는 완료): ${e instanceof Error ? e.message : e}`);
+  }
 }
 
 main().catch((e) => {
