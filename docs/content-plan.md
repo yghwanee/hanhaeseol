@@ -38,7 +38,6 @@
 - [ ] KBO 후반기 순위 경쟁 시작 — 티빙 무료 여부·요금 한 줄 정리 (slug: kbo-second-half-2026-tving-guide)
 - [ ] 한국 축구 새 감독 공백기 — 이강인·손흥민 클럽 경기로 빈자리 채우는 법 (slug: korea-football-manager-gap-club-watching)
 - [ ] EPL 2026-27 개막 8월 22일 확정 — 쿠팡플레이 스포츠 패스 지금 가입하면 뭘 볼 수 있나 (slug: epl-2026-27-coupang-august-kickoff)
-- [ ] 손흥민 MLS 복귀전, 엘 트라피코 중계 어디서 보나 — LAFC 컴백·LA 갤럭시 라이벌전 한국 중계·해설 (slug: son-heungmin-el-trafico-july-2026)
 - [ ] 김민재 분데스리가 2026-27 중계는 어디서 — 뮌헨 경기 볼 수 있는 채널·요금 (slug: kim-min-jae-bundesliga-2026-27)
 - [ ] 이강인 아틀레티코 데뷔전 언제, 마드리드 더비는 9월 — 한국에서 어디서 보나 (slug: lee-kang-in-atletico-debut-schedule-2026)
 - [ ] 스포티비 끄고 쿠팡 켠다 — 중계권 이동으로 2026-27 시즌부터 달라지는 것들 (slug: spotv-to-coupang-sports-rights-2026)
@@ -65,6 +64,7 @@
 - [ ] 2026 KBO 중계 보는 법 — 티빙 독점(2031까지)·무료로 보는 법 (slug: kbo-2026-broadcast) — 메인 큐 `kbo-second-half-2026-tving-guide` 발행 후엔 중복, 승격 시 각도 바꿀 것
 - [ ] 프리메라리가(라리가) 중계 보는 법 2026-27 — 쿠팡 (레알·바르사) (slug: laliga-2026-27-broadcast)
 - [ ] 분데스리가 중계 보는 법 2026-27 — 쿠팡 (김민재 뮌헨) (slug: bundesliga-2026-27-broadcast)
+- [ ] 손흥민 LAFC 경기 어디서 보나 — MLS 정규시즌 중계·한국어 해설·시간 정리 (slug: son-heungmin-lafc-mls-broadcast) — 원래 "엘 트라피코 복귀전"이었으나 그 경기가 7/18 종료. 다음 빅매치 잡히면 그 각도로 승격
 - [ ] K리그 중계 보는 법 — 쿠팡플레이 (slug: kleague-broadcast)
 - [ ] 쿠팡플레이 스포츠패스 완전정리 — 요금·가입·뭘 보나 (slug: coupang-play-sports-pass)
 
