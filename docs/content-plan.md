@@ -21,7 +21,7 @@
 **오늘(KST) 날짜가 아래 목록에 있으면 평일 자동 초안(claude.ai 루틴) 작업은 아무것도 만들지 말고 즉시 종료한다.**
 라운드 편성글(`worldcup-round-article.yml`)이 새로 발행되는 날 중 **평일(화~금)에 겹치는 날**만 비워, 에버그린 초안과 이중 발행되지 않게 한다.
 
-- 2026-07-17 (3·4위전 편성글)
+- (없음 — 월드컵 종료 7/20로 라운드 편성글 자동 발행 종료)
 
 ## ★ 메인 큐
 
@@ -33,14 +33,16 @@
 - [x] 이강인·아틀레티코 마드리드, 8월 서울 온다 — 쿠팡플레이 시리즈 티켓·일정·중계 총정리 (slug: atletico-coupang-series-2026-seoul) (고정: 2026-07-15)
 - [x] 이강인 아틀레티코 이적 확정, 라리가 경기 이제 어디서 보나 — 쿠팡플레이 라리가 중계 정리 (slug: lee-kang-in-atletico-laliga-broadcast) (고정: 2026-07-16)
 - [ ] 오타니 쇼헤이 7월 LA 다저스 경기, 한국에서 한국어 해설로 보는 법 (slug: ohtani-dodgers-july-2026-broadcast) (고정: 2026-07-21)
+- [ ] 🔴 이정후 트레이드 데드라인 D-12, 거취에 따라 중계 채널 달라진다 — 새 팀 가면 SPOTV·쿠팡 어디서 보나 (slug: lee-jeong-hoo-trade-deadline-broadcast-2026) — 데드라인(7/31) 지나면 시의성 소멸, 그 전에 발행할 것
+- [ ] 월드컵 끝난 뒤 이제 뭘 보나 — 7월 말~8월 스포츠 중계 캘린더 총정리 (slug: post-worldcup-sports-watch-calendar)
+- [ ] KBO 후반기 순위 경쟁 시작 — 티빙 무료 여부·요금 한 줄 정리 (slug: kbo-second-half-2026-tving-guide)
+- [ ] 한국 축구 새 감독 공백기 — 이강인·손흥민 클럽 경기로 빈자리 채우는 법 (slug: korea-football-manager-gap-club-watching)
+- [ ] EPL 2026-27 개막 8월 22일 확정 — 쿠팡플레이 스포츠 패스 지금 가입하면 뭘 볼 수 있나 (slug: epl-2026-27-coupang-august-kickoff)
 - [ ] 손흥민 MLS 복귀전, 엘 트라피코 중계 어디서 보나 — LAFC 컴백·LA 갤럭시 라이벌전 한국 중계·해설 (slug: son-heungmin-el-trafico-july-2026)
-- [ ] 이정후 MLB 경기 어디서 보나 — 샌프란시스코 자이언츠 중계·한국어 해설·시간 정리 (slug: jeong-hoo-lee-mlb-broadcast-2026)
 - [ ] 김민재 분데스리가 2026-27 중계는 어디서 — 뮌헨 경기 볼 수 있는 채널·요금 (slug: kim-min-jae-bundesliga-2026-27)
 - [ ] 이강인 아틀레티코 데뷔전 언제, 마드리드 더비는 9월 — 한국에서 어디서 보나 (slug: lee-kang-in-atletico-debut-schedule-2026)
 - [ ] 스포티비 끄고 쿠팡 켠다 — 중계권 이동으로 2026-27 시즌부터 달라지는 것들 (slug: spotv-to-coupang-sports-rights-2026)
 - [ ] 이강인 빠진 PSG 2026-27, UCL 챔피언스리그 경기 한국에서 어디서 보나 (slug: psg-ucl-2026-27-broadcast)
-- [ ] IPTV별 JTBC 월드컵 채널 번호 총정리 — KT·SKB·LGU+·KD 가입자 기준 몇 번 채널인지 한 번에 정리 (slug: worldcup-iptv-channel-numbers) — 대회 종료(7/20) 후엔 수요 없음, 지났으면 건너뛸 것
-- [ ] 네이버플러스 멤버십, 월드컵에 쓸 만한가 — 월 4,900원에 전 경기·고화질 되는지 실제로 따져봤다 (slug: naver-plus-worldcup-worth-it) — 대회 종료(7/20) 후엔 수요 없음, 지났으면 건너뛸 것
 
 ## 라운드 편성글 (전용 워크플로가 자동 생성·발행)
 
@@ -58,9 +60,9 @@
 
 자동 초안은 이 섹션을 고르지 않는다. 새 시즌 개막·중계권 확정 등 시점이 오면 사람이 메인 큐로 올린다.
 
-- [ ] EPL 2026-27 중계 어디서 보나 — 쿠팡플레이 독점, 요금·시청법 (slug: epl-2026-27-broadcast)
+- [ ] 이정후 MLB 경기 어디서 보나 — 소속팀 중계·한국어 해설·시간 정리 (slug: jeong-hoo-lee-mlb-broadcast-2026) — 트레이드 데드라인(7/31) 결과 확정 후 사람이 승격, 데드라인 글과 내용 겹치지 않게 "새 팀 기준"으로 재정의할 것
 - [ ] 2026-27 해외축구 어디서 보나 — 쿠팡 독점 시대 총정리 (EPL·라리가·분데스·리그1=쿠팡 / 세리에A=미정 / MLS=SPOTV) (slug: overseas-football-2026-27-where-to-watch)
-- [ ] 2026 KBO 중계 보는 법 — 티빙 독점(2031까지)·무료로 보는 법 (slug: kbo-2026-broadcast)
+- [ ] 2026 KBO 중계 보는 법 — 티빙 독점(2031까지)·무료로 보는 법 (slug: kbo-2026-broadcast) — 메인 큐 `kbo-second-half-2026-tving-guide` 발행 후엔 중복, 승격 시 각도 바꿀 것
 - [ ] 프리메라리가(라리가) 중계 보는 법 2026-27 — 쿠팡 (레알·바르사) (slug: laliga-2026-27-broadcast)
 - [ ] 분데스리가 중계 보는 법 2026-27 — 쿠팡 (김민재 뮌헨) (slug: bundesliga-2026-27-broadcast)
 - [ ] K리그 중계 보는 법 — 쿠팡플레이 (slug: kleague-broadcast)
