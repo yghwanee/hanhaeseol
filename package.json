@@ -46,7 +46,8 @@
     "post:tiktok": "tsx src/scripts/post-tiktok.ts",
     "seo:indexnow": "tsx src/scripts/indexnow-ping.ts",
     "test:highlights": "tsx --test src/lib/highlights/youtube.test.ts",
-    "test:fetch-cache": "tsx --test src/lib/fetch-cache-guard.test.ts"
+    "test:fetch-cache": "tsx --test src/lib/fetch-cache-guard.test.ts",
+    "test:tiktok-caption": "tsx --test src/lib/tiktok-caption.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

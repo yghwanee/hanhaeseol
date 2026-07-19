@@ -3,9 +3,8 @@ import path from "node:path";
 import fs from "node:fs";
 import { execFileSync } from "node:child_process";
 import { getKstToday } from "@/lib/instagram";
-import { buildCaption } from "@/lib/instagram-api";
+import { buildTiktokCaption } from "@/lib/tiktok-caption";
 import { OUT_DIR, readManifest } from "@/lib/manifest";
-import { UTM_LINKS } from "@/lib/utm";
 import {
   getAccessToken,
   getCreatorInfo,
@@ -66,17 +65,12 @@ async function main() {
   }
 
   const sizeMb = (fs.statSync(filePath).size / 1024 / 1024).toFixed(2);
-  const { today, mm, dd } = getKstToday();
-  // 본문(buildCaption)에 날짜·경기·동적 콘텐츠 해시태그가 이미 포함됨.
-  // 여기엔 틱톡 스포츠 발견(FYP) 태그를 덧붙이되, 본문에 이미 있는 태그는 중복 제거.
-  // 스포츠 고유입 위주(범용 #포유 등 노이즈 태그 제거) — 틱톡 한정 적용.
-  const base = buildCaption(mm, dd, today, UTM_LINKS.tt_caption);
-  const ttDiscoveryTags = [
-    "#축구", "#해외축구", "#스포츠", "#스포츠중계", "#축구중계",
-    "#스포츠하이라이트", "#월드컵", "#fyp", "#추천",
-  ];
-  const extraTags = ttDiscoveryTags.filter((t) => !base.includes(t)).join(" ");
-  const caption = `${base}\n${extraTags}`;
+  const { today } = getKstToday();
+  // 틱톡 전용 캡션(2026-07-19, 조회수 0 대응): IG 캡션 재사용 중단.
+  // URL 없음 / 매치 기반 태그 5개만(#fyp 등 도배 제거) / 첫 줄 후킹 날짜 순환.
+  // 배경은 src/lib/tiktok-caption.ts 상단 주석 참조.
+  const caption = buildTiktokCaption(today);
+  console.log(`📝 캡션:\n${caption.split("\n").map((l) => `   ${l}`).join("\n")}`);
   const privacyLevel = resolvePrivacyLevel();
 
   console.log(`🎵 TikTok 업로드 시작 (${sizeMb} MB)`);
