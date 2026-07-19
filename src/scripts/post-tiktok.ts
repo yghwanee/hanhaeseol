@@ -83,8 +83,10 @@ async function main() {
   persistRotatedRefreshToken(oldRefreshToken, newRefreshToken);
 
   // creator_info는 best-effort (실패해도 게시는 시도)
+  let username = "hanhaeseol";
   try {
     const info = await getCreatorInfo(accessToken);
+    if (info.creatorUsername) username = info.creatorUsername;
     console.log(
       `   계정: @${info.creatorUsername ?? "?"} (${info.creatorNickname ?? "?"}) ` +
         `max ${info.maxVideoPostDurationSec}s, options=[${info.privacyLevelOptions.join(",")}]`,
@@ -99,7 +101,7 @@ async function main() {
     console.warn(`⚠️ creator_info 조회 실패 (무시하고 진행):`, (e as Error).message);
   }
 
-  const publishId = await postVideoFileUpload(accessToken, {
+  const { publishId, videoIds } = await postVideoFileUpload(accessToken, {
     filePath,
     caption,
     privacyLevel,
@@ -109,6 +111,14 @@ async function main() {
   });
 
   console.log(`✅ TikTok 업로드 완료. publish_id=${publishId}`);
+  // 영상 URL을 로그에 남겨 게시물 공개 여부를 밖에서 검증할 수 있게 한다
+  // (0조회수 진단 때 publish_id만 있고 영상을 특정할 방법이 없었음).
+  for (const id of videoIds) {
+    console.log(`   🔗 https://www.tiktok.com/@${username}/video/${id}`);
+  }
+  if (videoIds.length === 0) {
+    console.log(`   (공개 post ID 미반환 — 앱에서 게시 확인 필요)`);
+  }
   if (privacyLevel === "SELF_ONLY") {
     console.log(`   (비공개 모드 — 본인 계정에서만 보임. 심사 통과 후 PUBLIC_TO_EVERYONE으로 변경)`);
   }

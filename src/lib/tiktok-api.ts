@@ -198,7 +198,7 @@ async function pollPublishStatus(
   publishId: string,
   maxAttempts = 60,
   intervalMs = 3000,
-): Promise<void> {
+): Promise<string[]> {
   for (let i = 0; i < maxAttempts; i++) {
     // 상태 조회 자체가 일시 오류(네트워크/5xx/internal_error)로 실패해도
     // 업로드는 이미 끝난 상태라 대개 다음 폴링에서 회복된다. 즉시 throw하지 말고 재시도.
@@ -224,7 +224,9 @@ async function pollPublishStatus(
       continue;
     }
     const status = data?.data?.status;
-    if (status === "PUBLISH_COMPLETE") return;
+    // 공개 post ID(영상 URL 조립용). 0조회수 진단 때 게시 영상을 외부에서
+    // 확인할 방법이 없었어서(로그에 publish_id만 남음) 같이 반환한다.
+    if (status === "PUBLISH_COMPLETE") return data?.data?.publicaly_available_post_id ?? [];
     if (status === "FAILED") {
       throw new Error(`게시 실패: ${data?.data?.fail_reason ?? "알 수 없음"}`);
     }
@@ -235,10 +237,16 @@ async function pollPublishStatus(
 
 const CHUNK_SIZE = 10 * 1024 * 1024; // 10MB
 
+export interface PostVideoResult {
+  publishId: string;
+  /** 공개 영상 post ID들 (publicaly_available_post_id). 비어있을 수 있음. */
+  videoIds: string[];
+}
+
 export async function postVideoFileUpload(
   accessToken: string,
   p: PostVideoParams,
-): Promise<string> {
+): Promise<PostVideoResult> {
   const stat = fs.statSync(p.filePath);
   const videoSize = stat.size;
 
@@ -277,6 +285,6 @@ export async function postVideoFileUpload(
   }
   console.log(`📤 청크 업로드 완료. 게시 처리 대기 중...`);
 
-  await pollPublishStatus(accessToken, publishId);
-  return publishId;
+  const videoIds = await pollPublishStatus(accessToken, publishId);
+  return { publishId, videoIds };
 }
