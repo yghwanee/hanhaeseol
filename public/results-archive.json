@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-19T21:06:10.564Z",
+  "lastUpdated": "2026-07-19T22:08:18.433Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -17138,7 +17138,8 @@
       "homeScore": 6,
       "awayScore": 1,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "1HzPW9cRtNA"
     },
     "2026-07-19|mlb|애리조나 다이아몬드백스|세인트루이스 카디널스": {
       "date": "2026-07-19",
@@ -17370,6 +17371,68 @@
       "awayScore": 1,
       "status": "finished",
       "period": "9회말"
+    },
+    "2026-07-20|mlb|휴스턴 애스트로스|볼티모어 오리올스": {
+      "date": "2026-07-20",
+      "categoryId": "mlb",
+      "gameId": "20260720BAHO0",
+      "homeTeam": "휴스턴 애스트로스",
+      "awayTeam": "볼티모어 오리올스",
+      "homeScore": 2,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-07-20|mlb|캔자스시티 로열스|샌디에이고 파드리스": {
+      "date": "2026-07-20",
+      "categoryId": "mlb",
+      "gameId": "20260720SDKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 2,
+      "awayScore": 19,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-07-20|mlb|시카고 컵스|미네소타 트윈스": {
+      "date": "2026-07-20",
+      "categoryId": "mlb",
+      "gameId": "20260720MNCC0",
+      "homeTeam": "시카고 컵스",
+      "awayTeam": "미네소타 트윈스",
+      "homeScore": 10,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-07-20|mlb|콜로라도 로키스|신시내티 레즈": {
+      "date": "2026-07-20",
+      "categoryId": "mlb",
+      "gameId": "20260720CICO0",
+      "homeTeam": "콜로라도 로키스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 6,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-07-20|worldcup|스페인|아르헨티나": {
+      "date": "2026-07-20",
+      "categoryId": "worldcup",
+      "gameId": "IO7anHN5Us10Gzc",
+      "homeTeam": "스페인",
+      "awayTeam": "아르헨티나",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "페란 토레스",
+          "minute": 106
+        }
+      ]
     }
   },
   "results": [
@@ -34510,7 +34573,8 @@
       "homeScore": 6,
       "awayScore": 1,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "1HzPW9cRtNA"
     },
     {
       "date": "2026-07-19",
@@ -34742,6 +34806,68 @@
       "awayScore": 1,
       "status": "finished",
       "period": "9회말"
+    },
+    {
+      "date": "2026-07-20",
+      "categoryId": "mlb",
+      "gameId": "20260720BAHO0",
+      "homeTeam": "휴스턴 애스트로스",
+      "awayTeam": "볼티모어 오리올스",
+      "homeScore": 2,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-07-20",
+      "categoryId": "mlb",
+      "gameId": "20260720SDKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 2,
+      "awayScore": 19,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-07-20",
+      "categoryId": "mlb",
+      "gameId": "20260720MNCC0",
+      "homeTeam": "시카고 컵스",
+      "awayTeam": "미네소타 트윈스",
+      "homeScore": 10,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-07-20",
+      "categoryId": "mlb",
+      "gameId": "20260720CICO0",
+      "homeTeam": "콜로라도 로키스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 6,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-07-20",
+      "categoryId": "worldcup",
+      "gameId": "IO7anHN5Us10Gzc",
+      "homeTeam": "스페인",
+      "awayTeam": "아르헨티나",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "페란 토레스",
+          "minute": 106
+        }
+      ]
     }
   ]
 }
