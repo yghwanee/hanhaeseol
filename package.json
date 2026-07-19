@@ -49,6 +49,8 @@
     "test:fetch-cache": "tsx --test src/lib/fetch-cache-guard.test.ts",
     "test:tiktok-caption": "tsx --test src/lib/tiktok-caption.test.ts",
     "test:idea-dupes": "tsx --test src/lib/guides/idea-dupes.test.ts",
+    "test:naver-news": "tsx --test src/lib/news/naver-news.test.ts",
+    "news:digest": "tsx src/scripts/gen-news-digest.ts",
     "check:idea-dupes": "tsx src/scripts/check-idea-dupes.ts"
   },
   "dependencies": {

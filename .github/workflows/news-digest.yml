@@ -1,0 +1,53 @@
+name: News Digest
+
+# 감시 키워드 뉴스를 모아 docs/news-digest.md 를 갱신한다.
+# 주간 글감 루틴(claude.ai, 월 06:30 KST)이 이 파일을 근거로 글감을 만든다.
+# 루틴보다 먼저 돌아야 하므로 월요일 06:00 KST.
+#
+# 매일도 돌린다 — 뉴스는 매일 쌓이고, 나중에 뉴스잭(터진 날 즉시 발행)을 붙일 때도 이 파일을 쓴다.
+on:
+  schedule:
+    - cron: "0 21 * * *" # 매일 06:00 KST (월요일 글감 루틴 06:30 직전)
+  workflow_dispatch: {}
+
+concurrency:
+  group: news-digest
+  cancel-in-progress: false
+
+jobs:
+  digest:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+
+      - name: 뉴스 수집
+        env:
+          NAVER_API_KEY_ID: ${{ secrets.NAVER_API_KEY_ID }}
+          NAVER_API_KEY: ${{ secrets.NAVER_API_KEY }}
+        run: npm run news:digest
+
+      - name: 커밋
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          if git diff --quiet docs/news-digest.md; then
+            echo "변경 없음"
+            exit 0
+          fi
+          git add docs/news-digest.md
+          git commit -m "chore: refresh news digest"
+          # 매시 크롤과 부딪히면 리베이스 후 재시도
+          for i in 1 2 3; do
+            git pull --rebase --autostash && git push && exit 0
+            sleep 5
+          done
+          exit 1
