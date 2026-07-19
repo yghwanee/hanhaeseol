@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-19T08:58:00.973Z",
+  "lastUpdated": "2026-07-19T10:42:55.382Z",
   "byKey": {
     "2026-07-18|kbo|SSG|KIA": {
       "date": "2026-07-18",
@@ -67,10 +67,10 @@
       "gameId": "20260719HTSK02026",
       "homeTeam": "SSG",
       "awayTeam": "KIA",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "live",
+      "period": "6회초"
     },
     "2026-07-19|kbo|LG|KT": {
       "date": "2026-07-19",
@@ -79,9 +79,9 @@
       "homeTeam": "LG",
       "awayTeam": "KT",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "6회초"
     },
     "2026-07-19|kbo|삼성|롯데": {
       "date": "2026-07-19",
@@ -89,10 +89,10 @@
       "gameId": "20260719LTSS02026",
       "homeTeam": "삼성",
       "awayTeam": "롯데",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 6,
+      "status": "live",
+      "period": "6회초"
     },
     "2026-07-19|kbo|NC|두산": {
       "date": "2026-07-19",
@@ -100,10 +100,10 @@
       "gameId": "20260719OBNC02026",
       "homeTeam": "NC",
       "awayTeam": "두산",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 5,
+      "status": "live",
+      "period": "6회초"
     },
     "2026-07-19|kbo|한화|키움": {
       "date": "2026-07-19",
@@ -111,10 +111,10 @@
       "gameId": "20260719WOHH02026",
       "homeTeam": "한화",
       "awayTeam": "키움",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 6,
+      "awayScore": 1,
+      "status": "live",
+      "period": "5회말"
     },
     "2026-07-18|mlb|보스턴|탬파베이": {
       "date": "2026-07-18",
@@ -2163,8 +2163,8 @@
       "awayTeam": "서울",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 12'"
     },
     "2026-07-19|kleague|안양|광주": {
       "date": "2026-07-19",
@@ -2174,8 +2174,8 @@
       "awayTeam": "광주",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 12'"
     },
     "2026-07-18|kleague2|전남|충남아산": {
       "date": "2026-07-18",
@@ -2282,8 +2282,8 @@
       "awayTeam": "파주",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 12'"
     },
     "2026-07-19|kleague2|경남|안산": {
       "date": "2026-07-19",
@@ -2291,10 +2291,17 @@
       "gameId": "202607192032141",
       "homeTeam": "경남",
       "awayTeam": "안산",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 12'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "조상준",
+          "minute": 9
+        }
+      ]
     },
     "2026-07-19|kleague2|충북청주|천안": {
       "date": "2026-07-19",
@@ -2304,8 +2311,8 @@
       "awayTeam": "천안",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 12'"
     },
     "2026-07-19|kleague2|용인|화성": {
       "date": "2026-07-19",
@@ -2315,8 +2322,8 @@
       "awayTeam": "화성",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 12'"
     },
     "2026-07-19|worldcup|프랑스|잉글랜드": {
       "date": "2026-07-19",
@@ -2463,10 +2470,10 @@
       "gameId": "20260719HTSK02026",
       "homeTeam": "SSG",
       "awayTeam": "KIA",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "live",
+      "period": "6회초"
     },
     {
       "date": "2026-07-19",
@@ -2475,9 +2482,9 @@
       "homeTeam": "LG",
       "awayTeam": "KT",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "6회초"
     },
     {
       "date": "2026-07-19",
@@ -2485,10 +2492,10 @@
       "gameId": "20260719LTSS02026",
       "homeTeam": "삼성",
       "awayTeam": "롯데",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 6,
+      "status": "live",
+      "period": "6회초"
     },
     {
       "date": "2026-07-19",
@@ -2496,10 +2503,10 @@
       "gameId": "20260719OBNC02026",
       "homeTeam": "NC",
       "awayTeam": "두산",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 5,
+      "status": "live",
+      "period": "6회초"
     },
     {
       "date": "2026-07-19",
@@ -2507,10 +2514,10 @@
       "gameId": "20260719WOHH02026",
       "homeTeam": "한화",
       "awayTeam": "키움",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 6,
+      "awayScore": 1,
+      "status": "live",
+      "period": "5회말"
     },
     {
       "date": "2026-07-18",
@@ -3176,8 +3183,8 @@
       "awayTeam": "서울",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 12'"
     },
     {
       "date": "2026-07-19",
@@ -3187,8 +3194,8 @@
       "awayTeam": "광주",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 12'"
     },
     {
       "date": "2026-07-18",
@@ -3295,8 +3302,8 @@
       "awayTeam": "파주",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 12'"
     },
     {
       "date": "2026-07-19",
@@ -3304,10 +3311,17 @@
       "gameId": "202607192032141",
       "homeTeam": "경남",
       "awayTeam": "안산",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 12'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "조상준",
+          "minute": 9
+        }
+      ]
     },
     {
       "date": "2026-07-19",
@@ -3317,8 +3331,8 @@
       "awayTeam": "천안",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 12'"
     },
     {
       "date": "2026-07-19",
@@ -3328,8 +3342,8 @@
       "awayTeam": "화성",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 12'"
     },
     {
       "date": "2026-07-19",
