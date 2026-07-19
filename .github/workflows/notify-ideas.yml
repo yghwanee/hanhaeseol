@@ -1,8 +1,12 @@
 name: Notify Content Ideas
 
-# 월드컵 글감 제안 클라우드 루틴이 "[글감]" 제목으로 이슈를 열면 텔레그램으로 내용을 보낸다.
+# 주간 글감 제안 클라우드 루틴이 "[글감]" 제목으로 이슈를 열면
+# ① 기존 큐·발행글과 겹치는지 검사해 이슈에 코멘트를 달고
+# ② 이슈 내용 + 중복 경고를 텔레그램으로 보낸다.
+#
 # 클라우드 루틴은 텔레그램 토큰에 직접 접근 못 하므로, 토큰을 가진 GitHub Actions가 "다리" 역할.
-# (notify-draft-pr.yml과 동일 패턴, 트리거만 issues opened)
+# 루틴은 content-plan.md 도 src/content/guides/ 도 읽지 않아 이미 큐에 있는 주제를
+# 그대로 다시 제안한다(2026-07-19 이슈 #20에서 3건). 그걸 여기서 기계가 잡는다.
 on:
   issues:
     types: [opened]
@@ -12,19 +16,46 @@ jobs:
     # 글감 제안 이슈만 알린다.
     if: startsWith(github.event.issue.title, '[글감]')
     runs-on: ubuntu-latest
+    permissions:
+      issues: write
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+
+      # 겹쳐도 실패시키지 않는다 — 판정이 아니라 사람에게 주는 경고다.
+      - name: 중복 검사
+        id: dupes
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+        run: npm run check:idea-dupes
+
+      - name: 이슈에 중복 경고 코멘트
+        if: steps.dupes.outputs.count != '0' && steps.dupes.outputs.report != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPORT: ${{ steps.dupes.outputs.report }}
+        run: gh issue comment "${{ github.event.issue.number }}" --body "${REPORT}"
+
       - name: Send Telegram notification
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          ISSUE_TITLE: ${{ github.event.issue.title }}
           ISSUE_BODY: ${{ github.event.issue.body }}
           ISSUE_URL: ${{ github.event.issue.html_url }}
+          REPORT: ${{ steps.dupes.outputs.report }}
         run: |
           MSG=$(printf '%s\n' \
-            "💡 이번 주 월드컵 글감 제안이 왔어요" \
+            "💡 이번 주 글감 제안이 왔어요" \
             "" \
             "${ISSUE_BODY}" \
+            "" \
+            "${REPORT}" \
             "" \
             "고른 글감으로 큐(docs/content-plan.md) 세팅하세요:" \
             "${ISSUE_URL}")

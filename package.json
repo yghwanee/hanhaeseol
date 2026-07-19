@@ -47,7 +47,9 @@
     "seo:indexnow": "tsx src/scripts/indexnow-ping.ts",
     "test:highlights": "tsx --test src/lib/highlights/youtube.test.ts",
     "test:fetch-cache": "tsx --test src/lib/fetch-cache-guard.test.ts",
-    "test:tiktok-caption": "tsx --test src/lib/tiktok-caption.test.ts"
+    "test:tiktok-caption": "tsx --test src/lib/tiktok-caption.test.ts",
+    "test:idea-dupes": "tsx --test src/lib/guides/idea-dupes.test.ts",
+    "check:idea-dupes": "tsx src/scripts/check-idea-dupes.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",
