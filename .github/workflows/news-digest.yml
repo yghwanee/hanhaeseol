@@ -51,3 +51,20 @@ jobs:
             sleep 5
           done
           exit 1
+
+      # 다이제스트가 조용히 멈추면 월요일 글감이 근거 없이 나온다. 실패는 알려야 한다.
+      - name: 실패 알림
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        run: |
+          MSG=$(printf '%s\n' \
+            "⚠️ 뉴스 다이제스트 갱신 실패" \
+            "" \
+            "네이버 API 키·한도를 확인하세요. 기존 다이제스트는 그대로 남아 있습니다." \
+            "${RUN_URL}")
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MSG}"

@@ -52,6 +52,7 @@ async function main() {
   const sinceMs = Date.now() - WINDOW_DAYS * 24 * 60 * 60 * 1000;
   const byKeyword: { keyword: string; articles: NewsArticle[] }[] = [];
   const all: NewsArticle[] = [];
+  let failed = 0;
 
   // 키워드 십여 개면 하루 한도(25,000)에 견줘 무시할 양이라 순차로 돈다.
   for (const keyword of WATCH_KEYWORDS) {
@@ -65,7 +66,23 @@ async function main() {
       // 키워드 하나가 실패해도 나머지는 살린다 — 다이제스트가 통째로 날아가는 게 더 나쁘다.
       console.error(`  ${keyword}: 실패 — ${(err as Error).message}`);
       byKeyword.push({ keyword, articles: [] });
+      failed += 1;
     }
+  }
+
+  // 전멸이면 쓰지 않고 죽는다.
+  // 2026-07-20: 시크릿에 들어간 Client ID가 한 글자 잘려 전 키워드가 401이었는데,
+  // 키워드별 catch가 그걸 "0건"으로 삼켜 워크플로가 성공으로 끝나고
+  // 멀쩡하던 다이제스트를 빈 파일로 덮었다. 조용한 성공이 실패보다 나쁘다.
+  if (failed === WATCH_KEYWORDS.length) {
+    throw new Error(
+      `키워드 ${failed}개 전부 실패했습니다. API 키(NAVER_API_KEY_ID/NAVER_API_KEY)나 한도를 확인하세요. 기존 다이제스트는 그대로 둡니다.`,
+    );
+  }
+  if (all.length === 0) {
+    throw new Error(
+      "수집된 기사가 0건입니다. 키워드가 다 막혔거나 응답이 비었습니다. 기존 다이제스트는 그대로 둡니다.",
+    );
   }
 
   const today = kstNow().toISOString().slice(0, 10);
@@ -92,10 +109,6 @@ async function main() {
 
   for (const { keyword, articles } of byKeyword) {
     lines.push(...renderSection(keyword, articles));
-  }
-
-  if (all.length === 0) {
-    lines.push("_수집된 기사가 없습니다. API 키나 한도를 확인하세요._", "");
   }
 
   fs.writeFileSync(OUT_PATH, lines.join("\n"), "utf8");
