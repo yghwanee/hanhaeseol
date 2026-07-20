@@ -115,6 +115,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      // 한국어 해설 편성 모아보기. 네이버에서 "해설 일정" 계열 쿼리가 CTR 10~23%로
+      // 사이트 평균(0.1%)을 압도해 만든 페이지다(2026-07-20).
+      url: `${BASE}/commentary`,
+      lastModified,
+      changeFrequency: "daily",
+      priority: 0.9,
+    },
+    {
       url: `${BASE}/guide`,
       lastModified,
       changeFrequency: "daily",

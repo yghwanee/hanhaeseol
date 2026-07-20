@@ -187,6 +187,15 @@ export function HomeAboutSection() {
           매치 페이지 1,330개가 색인에서 빠진 것도 링크로 도달할 수 없어서였다. */}
       {teamsByLeague.length > 0 && (
         <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-900/60 p-5 sm:p-6">
+          <p className="mb-4">
+            <Link
+              href="/commentary"
+              className="inline-flex items-center gap-1 rounded-lg border border-emerald-700/50 bg-emerald-900/20 px-3 py-1.5 text-xs text-emerald-300 transition-colors hover:border-emerald-600 hover:text-emerald-200"
+            >
+              오늘 한국어 해설 되는 경기만 모아보기
+              <span aria-hidden>›</span>
+            </Link>
+          </p>
           <h2 className="text-base sm:text-lg font-semibold text-white">팀별 중계 일정</h2>
           <p className="mt-2 text-xs text-zinc-500">
             팀을 고르면 다음 경기 중계처와 한국어 해설 여부, 순위와 최근 전적을 볼 수 있습니다.
