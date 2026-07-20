@@ -82,6 +82,22 @@ jobs:
               echo "::endgroup::"
               continue
             fi
+
+            # 문체 게이트: 이 PR이 새로 추가한 글만 검사한다.
+            # 규칙을 문서로만 적어두면 초안이 형식으로만 충족하고 넘어간다(발행글 20편 중
+            # 9편이 똑같은 문장으로 끝나 있었다). 어긴 초안은 머지하지 않는다.
+            newfiles=$(git diff --name-only origin/main...FETCH_HEAD -- 'src/content/guides/*.md' || true)
+            if [ -n "$newfiles" ]; then
+              if ! lintout=$(npx tsx src/scripts/lint-guides.ts $newfiles 2>&1); then
+                git checkout -f main
+                tg "$(printf '%s\n' '⚠️ 토픽 글 문체 검사 실패' '' "$title" '' "$lintout" '' "머지 안 됨 — 확인 필요: $url")"
+                echo "$lintout"
+                echo "문체 검사 실패 → 스킵"
+                echo "::endgroup::"
+                continue
+              fi
+              echo "$lintout"
+            fi
             git checkout -f main
 
             # 루틴은 PR을 GitHub Draft로 연다 → ready 전환 후 머지.
