@@ -12,6 +12,10 @@ import {
   leagueSiblings,
   eligibleTeams,
   groupGames,
+  opponentOf,
+  findOpponentEntry,
+  standingContext,
+  recentFormText,
   type StandingsData,
   type TeamEntry,
 } from "./teams";
@@ -217,4 +221,38 @@ test("koreanCommentaryRatio: 플랫폼 행이 아니라 경기 수로 센다", (
     sched({ date: "2026-07-22", platform: "티빙", koreanCommentary: false }),
   ];
   assert.deepEqual(koreanCommentaryRatio(schedules, SAMSUNG), { total: 2, korean: 1 });
+});
+
+test("opponentOf: 홈이든 원정이든 반대편을 준다", () => {
+  const games = groupGames([
+    sched({ date: "2026-07-21", homeTeam: "삼성 라이온즈", awayTeam: "두산 베어스" }),
+    sched({ date: "2026-07-22", homeTeam: "롯데 자이언츠", awayTeam: "삼성 라이온즈" }),
+  ]);
+  assert.deepEqual(opponentOf(games[0], SAMSUNG), { name: "두산 베어스", home: true });
+  assert.deepEqual(opponentOf(games[1], SAMSUNG), { name: "롯데 자이언츠", home: false });
+});
+
+test("findOpponentEntry: 표기가 달라도 순위표에서 상대를 찾는다", () => {
+  const index = buildTeamIndex(STANDINGS);
+  // 순위표는 "KT", 편성표는 "KT 위즈"
+  const found = findOpponentEntry(index, SAMSUNG, "KT 위즈");
+  assert.equal(found?.name, "KT");
+  // 다른 리그 팀은 안 잡힌다
+  assert.equal(findOpponentEntry(index, SAMSUNG, "울산"), undefined);
+});
+
+test("standingContext: 야구는 게임차, 축구는 승점차", () => {
+  assert.equal(standingContext({ ...SAMSUNG, rank: 1, gameBehind: 0 }), "KBO 선두");
+  assert.equal(standingContext({ ...SAMSUNG, rank: 3, gameBehind: 4.5 }), "선두와 4.5경기 차");
+
+  const leader = { ...SAMSUNG, name: "서울", rank: 1, points: 45, gameBehind: undefined };
+  const chaser = { ...SAMSUNG, name: "강원", rank: 2, points: 31, gameBehind: undefined };
+  // 조사가 붙어야 한다: 서울 + 과
+  assert.equal(standingContext(chaser, leader), "선두 서울과 승점 14 차");
+});
+
+test("recentFormText: WWLDW를 사람 말로", () => {
+  assert.equal(recentFormText("WWLDW"), "최근 5경기 3승 1무 1패");
+  assert.equal(recentFormText("WWWWW"), "최근 5경기 5승 0패");
+  assert.equal(recentFormText(undefined), null);
 });

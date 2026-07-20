@@ -15,6 +15,7 @@ import { lookupTeamRecord } from "@/lib/team-records/lookup";
 import { LEAGUE_GUIDES } from "@/lib/league-guides";
 import { PLATFORM_GUIDES } from "@/lib/platform-guides";
 import { findLeagueBySlug, findPlatformSlugByName, LEAGUE_SEO } from "@/lib/slugs";
+import { withJosa } from "../josa";
 
 export interface H2HEntry {
   date: string;
@@ -292,7 +293,8 @@ function summaryToSentence(name: string, s?: TeamSummary): string {
     parts.push(`${s.streak.count}${s.streak.type === "W" ? "연승" : s.streak.type === "L" ? "연패" : "연속 무"} ${lastNonDraw(s.streak.type)}`);
   }
   if (parts.length === 0) return "";
-  return `${name}는 ${parts.join(", ")} 상태입니다.`;
+  // 조사를 고정하면 "아스날는 시즌 0승 0패"처럼 틀린 문장이 매치 페이지 수백 개에 박힌다.
+  return `${withJosa(name, "은/는")} ${parts.join(", ")} 상태입니다.`;
 }
 
 function h2hSentence(h2h: H2HEntry[], home: string, away: string): string {

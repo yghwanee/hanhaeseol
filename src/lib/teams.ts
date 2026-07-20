@@ -11,6 +11,7 @@
  */
 
 import type { Schedule } from "@/types/schedule";
+import { withJosa } from "@/lib/josa";
 
 export type StandingTeam = {
   rank: number;
@@ -305,4 +306,56 @@ export function leagueSiblings(
     .filter((t) => t.leagueSlug === team.leagueSlug && t.slug !== team.slug)
     .sort((a, b) => a.rank - b.rank)
     .slice(0, limit);
+}
+
+/** 경기에서 이 팀의 상대. 홈/원정 어느 쪽이든 반대편을 돌려준다. */
+export function opponentOf(game: TeamGame, team: TeamEntry): { name: string; home: boolean } {
+  const isHome = isSameTeam(game.homeTeam, team.name);
+  return { name: isHome ? game.awayTeam : game.homeTeam, home: isHome };
+}
+
+/**
+ * 순위표에서 상대 팀을 찾는다.
+ * 편성표 표기("한화 이글스")와 순위표 표기("한화")가 달라 isSameTeam으로 맞춘다.
+ */
+export function findOpponentEntry(
+  index: TeamEntry[],
+  team: TeamEntry,
+  opponentName: string,
+): TeamEntry | undefined {
+  return index.find(
+    (t) => t.leagueSlug === team.leagueSlug && isSameTeam(t.name, opponentName),
+  );
+}
+
+/**
+ * 순위 맥락 한 줄. 숫자만 나열하면 읽는 사람이 의미를 못 잡는다.
+ * 야구는 선두와의 게임차, 축구는 승점을 쓴다.
+ */
+export function standingContext(team: TeamEntry, leader?: TeamEntry): string | null {
+  if (team.rank === 1) {
+    return typeof team.gameBehind === "number"
+      ? `${team.leagueName} 선두`
+      : `${team.leagueName} 1위`;
+  }
+  if (typeof team.gameBehind === "number" && team.gameBehind > 0) {
+    return `선두와 ${team.gameBehind}경기 차`;
+  }
+  if (leader && typeof team.points === "number" && typeof leader.points === "number") {
+    const gap = leader.points - team.points;
+    if (gap > 0) return `선두 ${withJosa(leader.name, "와/과")} 승점 ${gap} 차`;
+  }
+  return null;
+}
+
+/** 최근 성적 요약. lastFive 문자열(WWLDW)을 사람 말로 바꾼다. */
+export function recentFormText(lastFive?: string): string | null {
+  if (!lastFive) return null;
+  const w = (lastFive.match(/W/g) ?? []).length;
+  const d = (lastFive.match(/D/g) ?? []).length;
+  const l = (lastFive.match(/L/g) ?? []).length;
+  const parts = [`${w}승`];
+  if (d > 0) parts.push(`${d}무`);
+  parts.push(`${l}패`);
+  return `최근 ${lastFive.length}경기 ${parts.join(" ")}`;
 }

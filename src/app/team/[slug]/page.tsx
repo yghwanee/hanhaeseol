@@ -14,6 +14,10 @@ import {
   koreanCommentaryRatio,
   leagueSiblings,
   isSameTeam,
+  opponentOf,
+  findOpponentEntry,
+  standingContext,
+  recentFormText,
   type StandingsData,
   type TeamEntry,
 } from "@/lib/teams";
@@ -193,27 +197,53 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
               <>{team.name} 경기의 국내 중계 편성이 아직 확인되지 않았습니다.</>
             )}
           </p>
-          {team.lastFive && (
-            <p className="mt-2 text-sm text-zinc-400">
-              최근 5경기 {team.lastFive.split("").join(" ")}
-              {team.streak && ` · ${team.streak.count}${team.streak.type === "W" ? "연승" : "연패"} 중`}
-            </p>
-          )}
+          <p className="mt-2 text-sm text-zinc-400">
+            {[
+              standingContext(team, all.find((t) => t.leagueSlug === team.leagueSlug && t.rank === 1)),
+              recentFormText(team.lastFive),
+              team.streak && `${team.streak.count}${team.streak.type === "W" ? "연승" : "연패"} 중`,
+            ]
+              .filter(Boolean)
+              .join(" · ")}
+          </p>
         </section>
 
         {upcoming.length > 0 && (
           <section className="mt-4 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
             <h2 className="text-sm font-semibold text-white sm:text-base">다음 경기 일정</h2>
             <ul className="mt-3 space-y-2">
-              {upcoming.map((s) => (
-                <li key={s.id} className="text-sm text-zinc-300">
-                  <span className="text-zinc-500">{formatDate(s.date)} {s.time}</span>{" "}
-                  {s.homeTeam} vs {s.awayTeam}{" "}
-                  <span className="text-zinc-400">
-                    · {s.platforms.join(", ")} · {commentaryLabel(s)}
-                  </span>
-                </li>
-              ))}
+              {upcoming.map((s) => {
+                const opp = opponentOf(s, team);
+                const oppEntry = findOpponentEntry(all, team, opp.name);
+                return (
+                  <li key={s.id} className="text-sm text-zinc-300">
+                    <span className="text-zinc-500">
+                      {formatDate(s.date)} {s.time}
+                    </span>{" "}
+                    <span className="text-zinc-400">{opp.home ? "홈" : "원정"}</span>{" "}
+                    {oppEntry ? (
+                      <Link
+                        href={`/team/${encodeURIComponent(oppEntry.slug)}`}
+                        className="text-zinc-100 underline decoration-zinc-700 underline-offset-2 hover:decoration-zinc-400"
+                      >
+                        {opp.name}
+                      </Link>
+                    ) : (
+                      opp.name
+                    )}
+                    전{" "}
+                    {oppEntry && (
+                      <span className="text-zinc-500">
+                        ({oppEntry.rank}위 {oppEntry.win}승 {oppEntry.lose}패)
+                      </span>
+                    )}
+                    <span className="block text-zinc-400 sm:inline">
+                      {" "}
+                      · {s.platforms.join(", ")} · {commentaryLabel(s)}
+                    </span>
+                  </li>
+                );
+              })}
             </ul>
           </section>
         )}
@@ -224,6 +254,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
             <ul className="mt-3 space-y-2">
               {recent.map((s) => {
                 const r = resultFor(s);
+                const goals = r?.goals ?? [];
                 return (
                   <li key={s.id} className="text-sm text-zinc-300">
                     <span className="text-zinc-500">{formatDate(s.date)}</span> {s.homeTeam}{" "}
@@ -236,6 +267,24 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
                     )}{" "}
                     {s.awayTeam}
                     <span className="text-zinc-500"> · {s.platforms.join(", ")}</span>
+                    {r?.highlightVideoId && (
+                      <>
+                        {" "}
+                        <a
+                          href={`https://www.youtube.com/watch?v=${r.highlightVideoId}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-zinc-300 underline decoration-zinc-700 underline-offset-2 hover:decoration-zinc-400"
+                        >
+                          하이라이트
+                        </a>
+                      </>
+                    )}
+                    {goals.length > 0 && (
+                      <span className="block text-xs text-zinc-500">
+                        {goals.map((g) => `${g.player} ${g.minute}'`).join(", ")}
+                      </span>
+                    )}
                   </li>
                 );
               })}
