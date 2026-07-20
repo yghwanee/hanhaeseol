@@ -150,6 +150,15 @@ test("refreshArticle: 내용 동일하면 null(불필요 커밋 방지)", () => 
   assert.equal(refreshArticle(original, t, FIXTURE, "2026-07-03"), null);
 });
 
+test("refreshArticle: 날짜만 지나도 편성표가 그대로면 null", () => {
+  // 이 케이스가 빠져 있어서 버그가 살아 있었다(2026-07-20):
+  // updated 를 먼저 갈아끼우고 비교하는 바람에, 대회가 끝난 뒤에도 매일
+  // `updated:` 한 줄만 바뀐 커밋이 쌓였다. 같은 날짜로만 검사하면 안 잡힌다.
+  const t = selectTargetRound(FIXTURE, "2026-07-03")!;
+  const original = buildArticle(t, FIXTURE, "2026-07-03").markdown;
+  assert.equal(refreshArticle(original, t, FIXTURE, "2026-07-20"), null);
+});
+
 test("refreshArticle: 마커 없으면 null(사람이 손댄 글 보호)", () => {
   const t = selectTargetRound(FIXTURE, "2026-07-03")!;
   assert.equal(refreshArticle("---\ntitle: 손으로 쓴 글\n---\n\n본문", t, FIXTURE, "2026-07-03"), null);

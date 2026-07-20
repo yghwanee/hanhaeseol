@@ -278,9 +278,14 @@ export function refreshArticle(
   if (start === -1 || end === -1 || end < start) return null;
 
   const newBlock = renderDataBlock(target, schedules);
-  let updated =
+  const swapped =
     text.slice(0, start) + newBlock + text.slice(end + DATA_END.length);
-  updated = updated.replace(/^updated: .*$/m, `updated: ${todayISO}`);
 
-  return updated === text ? null : updated;
+  // 편성표가 그대로면 아무것도 하지 않는다.
+  // updated 를 먼저 갈아끼우고 비교하면 날짜 때문에 항상 달라져서, 대회가 끝난 뒤에도
+  // 매일 `updated:` 한 줄만 바뀐 커밋이 쌓였다(2026-07-20 발견). 안 바뀐 글이
+  // 매일 갱신된 척하는 건 검색엔진에도 좋을 게 없다.
+  if (swapped === text) return null;
+
+  return swapped.replace(/^updated: .*$/m, `updated: ${todayISO}`);
 }
