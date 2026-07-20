@@ -51,6 +51,7 @@
     "test:idea-dupes": "tsx --test src/lib/guides/idea-dupes.test.ts",
     "test:naver-news": "tsx --test src/lib/news/naver-news.test.ts",
     "test:josa": "tsx --test src/lib/josa.test.ts",
+    "test:match-quality": "tsx --test src/lib/match-quality.test.ts",
     "test:teams": "tsx --test src/lib/teams.test.ts",
     "test:style-lint": "tsx --test src/lib/guides/style-lint.test.ts",
     "lint:guides": "tsx src/scripts/lint-guides.ts",
