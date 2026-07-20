@@ -17,6 +17,11 @@ import {
   isSameTeam,
   standingContext,
   recentFormText,
+  splitHomeAway,
+  platformBreakdown,
+  standingsWindow,
+  groupGames,
+  findTeamSchedules,
   type StandingsData,
   type TeamEntry,
   type TeamGame,
@@ -188,6 +193,13 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
     return results?.results?.find(match) ?? resultsArchive?.results?.find(match);
   };
 
+  // resultFor 정의 뒤에 와야 한다. splitHomeAway가 콜백을 즉시 호출해서
+  // 위로 올리면 TDZ(Cannot access before initialization)로 빌드가 깨진다.
+  const played = groupGames(findTeamSchedules(schedules, team)).filter((g) => g.date < today);
+  const homeAway = splitHomeAway(played, team, (g) => resultFor(g));
+  const breakdown = platformBreakdown(schedules, team);
+  const nearby = standingsWindow(all, team, 2);
+
   return (
     <>
       <script
@@ -262,6 +274,140 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
               .join(" · ")}
           </p>
         </section>
+
+        <section className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
+          {[
+            { label: "순위", value: `${team.rank}위` },
+            {
+              label: "전적",
+              value: `${team.win}승${team.draw > 0 ? ` ${team.draw}무` : ""} ${team.lose}패`,
+            },
+            typeof team.winRate === "number"
+              ? { label: "승률", value: team.winRate.toFixed(3) }
+              : typeof team.points === "number"
+                ? { label: "승점", value: `${team.points}` }
+                : null,
+            typeof team.goalsDifference === "number"
+              ? {
+                  label: "득실차",
+                  value: `${team.goalsDifference > 0 ? "+" : ""}${team.goalsDifference}`,
+                }
+              : typeof team.gameBehind === "number"
+                ? { label: "선두와", value: `${team.gameBehind}경기` }
+                : null,
+          ]
+            .filter((x): x is { label: string; value: string } => x !== null)
+            .map((stat) => (
+              <div
+                key={stat.label}
+                className="rounded-lg border border-zinc-800/80 bg-zinc-950/40 px-3 py-2.5 text-center"
+              >
+                <p className="text-[11px] text-zinc-500">{stat.label}</p>
+                <p className="mt-0.5 text-base font-bold text-white sm:text-lg">{stat.value}</p>
+              </div>
+            ))}
+        </section>
+
+        {(homeAway.home.win + homeAway.home.lose + homeAway.away.win + homeAway.away.lose > 0 ||
+          breakdown.length > 0) && (
+          <section className="mt-4 grid gap-2 sm:grid-cols-2">
+            {homeAway.home.win + homeAway.home.lose + homeAway.away.win + homeAway.away.lose >
+              0 && (
+              <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4">
+                <h2 className="text-sm font-semibold text-white">홈·원정 성적</h2>
+                <p className="mt-2 text-sm text-zinc-300">
+                  홈 {homeAway.home.win}승
+                  {homeAway.home.draw > 0 && ` ${homeAway.home.draw}무`} {homeAway.home.lose}패
+                </p>
+                <p className="mt-1 text-sm text-zinc-300">
+                  원정 {homeAway.away.win}승
+                  {homeAway.away.draw > 0 && ` ${homeAway.away.draw}무`} {homeAway.away.lose}패
+                </p>
+                <p className="mt-2 text-xs text-zinc-500">한해설이 수집한 결과 기준</p>
+              </div>
+            )}
+
+            {breakdown.length > 0 && (
+              <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4">
+                <h2 className="text-sm font-semibold text-white">중계 플랫폼별 경기 수</h2>
+                <ul className="mt-2 space-y-1.5">
+                  {breakdown.slice(0, 5).map((b) => (
+                    <li key={b.platform} className="flex items-center gap-2 text-sm">
+                      <span className="w-28 shrink-0 truncate text-zinc-300">{b.platform}</span>
+                      <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-800">
+                        <span
+                          className="block h-full rounded-full bg-emerald-600/70"
+                          style={{ width: `${Math.round((b.count / breakdown[0].count) * 100)}%` }}
+                        />
+                      </span>
+                      <span className="w-10 shrink-0 text-right tabular-nums text-zinc-400">
+                        {b.count}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </section>
+        )}
+
+        {nearby.length > 1 && (
+          <section className="mt-4 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+            <h2 className="text-sm font-semibold text-white sm:text-base">
+              {team.leagueName} 순위표
+            </h2>
+            <table className="mt-3 w-full text-sm">
+              <thead>
+                <tr className="text-left text-xs text-zinc-500">
+                  <th className="pb-1.5 font-normal">순위</th>
+                  <th className="pb-1.5 font-normal">팀</th>
+                  <th className="pb-1.5 text-right font-normal">전적</th>
+                  <th className="pb-1.5 text-right font-normal">
+                    {typeof team.points === "number" ? "승점" : "승률"}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {nearby.map((t) => {
+                  const me = t.slug === team.slug;
+                  return (
+                    <tr key={t.slug} className={me ? "text-white" : "text-zinc-400"}>
+                      <td className="py-1 tabular-nums">{t.rank}</td>
+                      <td className="py-1">
+                        {me ? (
+                          <strong>{t.name}</strong>
+                        ) : (
+                          <Link
+                            href={`/team/${encodeURIComponent(t.slug)}`}
+                            className="hover:text-zinc-200"
+                          >
+                            {t.name}
+                          </Link>
+                        )}
+                      </td>
+                      <td className="py-1 text-right tabular-nums">
+                        {t.win}
+                        {t.draw > 0 ? `-${t.draw}` : ""}-{t.lose}
+                      </td>
+                      <td className="py-1 text-right tabular-nums">
+                        {typeof t.points === "number"
+                          ? t.points
+                          : typeof t.winRate === "number"
+                            ? t.winRate.toFixed(3)
+                            : "-"}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+            <p className="mt-2 text-xs text-zinc-500">
+              <Link href={`/standings/${team.leagueSlug}`} className="hover:text-zinc-300">
+                {team.leagueName} 전체 순위 보기
+              </Link>
+            </p>
+          </section>
+        )}
 
         {upcoming.length > 0 && (
           <section className="mt-4">

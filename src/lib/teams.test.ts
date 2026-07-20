@@ -17,6 +17,9 @@ import {
   standingContext,
   recentFormText,
   findTeamForSchedule,
+  splitHomeAway,
+  platformBreakdown,
+  standingsWindow,
   type StandingsData,
   type TeamEntry,
 } from "./teams";
@@ -267,4 +270,58 @@ test("findTeamForSchedule: 리그가 맞으면 그 리그에서, 아니면 이�
   assert.equal(findTeamForSchedule(index, "K리그1", "울산 HD")?.slug, "k-league-1-울산");
   // 아예 없는 팀
   assert.equal(findTeamForSchedule(index, "KBO", "롯데"), undefined);
+});
+
+test("splitHomeAway: 홈·원정 성적을 따로 센다", () => {
+  const games = groupGames([
+    sched({ date: "2026-07-10", homeTeam: "삼성 라이온즈", awayTeam: "두산" }),
+    sched({ date: "2026-07-11", homeTeam: "삼성 라이온즈", awayTeam: "두산" }),
+    sched({ date: "2026-07-12", homeTeam: "롯데", awayTeam: "삼성 라이온즈" }),
+    sched({ date: "2026-07-13", homeTeam: "롯데", awayTeam: "삼성 라이온즈" }),
+  ]);
+  const scores: Record<string, { homeScore: number; awayScore: number }> = {
+    "2026-07-10": { homeScore: 5, awayScore: 1 }, // 홈 승
+    "2026-07-11": { homeScore: 2, awayScore: 7 }, // 홈 패
+    "2026-07-12": { homeScore: 0, awayScore: 3 }, // 원정 승
+    "2026-07-13": { homeScore: 4, awayScore: 4 }, // 원정 무
+  };
+  const { home, away } = splitHomeAway(games, SAMSUNG, (g) => scores[g.date]);
+
+  assert.deepEqual(home, { win: 1, draw: 0, lose: 1 });
+  assert.deepEqual(away, { win: 1, draw: 1, lose: 0 });
+});
+
+test("splitHomeAway: 스코어 없는 경기는 세지 않는다", () => {
+  const games = groupGames([sched({ date: "2026-07-21" })]);
+  const { home, away } = splitHomeAway(games, SAMSUNG, () => undefined);
+  assert.deepEqual(home, { win: 0, draw: 0, lose: 0 });
+  assert.deepEqual(away, { win: 0, draw: 0, lose: 0 });
+});
+
+test("platformBreakdown: 플랫폼별로 경기 수를 센다(중복 행 제외)", () => {
+  const schedules = [
+    sched({ date: "2026-07-21", platform: "티빙" }),
+    sched({ date: "2026-07-21", platform: "티빙", time: "18:15" }), // 같은 경기, 다른 행
+    sched({ date: "2026-07-22", platform: "티빙" }),
+    sched({ date: "2026-07-22", platform: "SPOTV2" }),
+  ];
+  assert.deepEqual(platformBreakdown(schedules, SAMSUNG), [
+    { platform: "티빙", count: 2 },
+    { platform: "SPOTV2", count: 1 },
+  ]);
+});
+
+test("standingsWindow: 자기 주변 순위만 잘라낸다", () => {
+  const index: TeamEntry[] = [1, 2, 3, 4, 5, 6].map((rank) => ({
+    ...SAMSUNG,
+    slug: `kbo-t${rank}`,
+    name: `T${rank}`,
+    rank,
+  }));
+  const me = index[3]; // 4위
+  const win = standingsWindow(index, me, 1);
+  assert.deepEqual(win.map((t) => t.rank), [3, 4, 5]);
+
+  // 1위는 위쪽이 없으니 잘려도 에러가 나면 안 된다
+  assert.deepEqual(standingsWindow(index, index[0], 2).map((t) => t.rank), [1, 2, 3]);
 });

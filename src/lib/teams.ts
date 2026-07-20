@@ -31,6 +31,7 @@ export type StandingTeam = {
   losses?: number;
   goals?: number | null;
   goalsConceded?: number | null;
+  goalsDifference?: number | null;
   points?: number;
   lastFive?: string;
   streak?: { type: string; count: number };
@@ -69,6 +70,10 @@ export type TeamEntry = {
   gameBehind?: number;
   lastFive?: string;
   streak?: { type: string; count: number };
+  /** 축구 득점/실점 */
+  goals?: number;
+  goalsConceded?: number;
+  goalsDifference?: number;
 };
 
 /** 순위표 리그명 → 우리 리그 슬러그. 여기 없는 리그는 팀 페이지를 만들지 않는다. */
@@ -137,6 +142,10 @@ export function buildTeamIndex(standings: StandingsData): TeamEntry[] {
         gameBehind: t.gameBehind,
         lastFive: t.lastFive || undefined,
         streak: t.streak && t.streak.count > 0 ? t.streak : undefined,
+        goals: typeof t.goals === "number" ? t.goals : undefined,
+        goalsConceded: typeof t.goalsConceded === "number" ? t.goalsConceded : undefined,
+        goalsDifference:
+          typeof t.goalsDifference === "number" ? t.goalsDifference : undefined,
       });
     }
   }
@@ -388,4 +397,65 @@ export function findTeamForSchedule(
   }
   const candidates = index.filter((t) => isSameTeam(t.name, teamName));
   return candidates.length === 1 ? candidates[0] : undefined;
+}
+
+export type WinLoss = { win: number; draw: number; lose: number };
+
+/**
+ * 홈·원정 성적을 나눈다. 순위표는 합계만 주므로 우리 결과 데이터로 직접 센다.
+ * "이 팀 홈에서 강한가"는 순위표에 없는 정보라 페이지 고유값이 된다.
+ */
+export function splitHomeAway(
+  games: TeamGame[],
+  team: TeamEntry,
+  scoreOf: (g: TeamGame) => { homeScore?: number; awayScore?: number } | undefined,
+): { home: WinLoss; away: WinLoss } {
+  const home: WinLoss = { win: 0, draw: 0, lose: 0 };
+  const away: WinLoss = { win: 0, draw: 0, lose: 0 };
+
+  for (const g of games) {
+    const r = scoreOf(g);
+    if (!r || typeof r.homeScore !== "number" || typeof r.awayScore !== "number") continue;
+
+    const isHome = isSameTeam(g.homeTeam, team.name);
+    const bucket = isHome ? home : away;
+    const mine = isHome ? r.homeScore : r.awayScore;
+    const theirs = isHome ? r.awayScore : r.homeScore;
+
+    if (mine > theirs) bucket.win += 1;
+    else if (mine < theirs) bucket.lose += 1;
+    else bucket.draw += 1;
+  }
+  return { home, away };
+}
+
+/** 플랫폼별 중계 경기 수. "어디서 보나"에 숫자로 답한다. */
+export function platformBreakdown(
+  schedules: Schedule[],
+  team: TeamEntry,
+): { platform: string; count: number }[] {
+  const seen = new Map<string, Set<string>>();
+  for (const s of findTeamSchedules(schedules, team)) {
+    const key = `${s.date}|${s.homeTeam}|${s.awayTeam}`;
+    const set = seen.get(s.platform) ?? new Set<string>();
+    set.add(key);
+    seen.set(s.platform, set);
+  }
+  return [...seen.entries()]
+    .map(([platform, games]) => ({ platform, count: games.size }))
+    .sort((a, b) => b.count - a.count);
+}
+
+/** 순위표에서 이 팀 주변만 잘라낸다. 전체 표를 옮기지 않고 맥락만 준다. */
+export function standingsWindow(
+  index: TeamEntry[],
+  team: TeamEntry,
+  span = 2,
+): TeamEntry[] {
+  const league = index
+    .filter((t) => t.leagueSlug === team.leagueSlug)
+    .sort((a, b) => a.rank - b.rank);
+  const i = league.findIndex((t) => t.slug === team.slug);
+  if (i === -1) return [];
+  return league.slice(Math.max(0, i - span), i + span + 1);
 }
