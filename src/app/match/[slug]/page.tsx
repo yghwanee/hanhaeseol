@@ -294,12 +294,12 @@ function TeamSide({
     <Link
       href={`/team/${encodeURIComponent(team.slug)}`}
       className="group text-center transition-opacity hover:opacity-80"
-      aria-label={`${name} 팀 페이지`}
+      aria-label={`${name} 팀 상세정보`}
     >
       {body}
       {/* 텍스트만 두면 눌러도 되는지 모른다. 알약 태그로 눌리는 것임을 드러낸다. */}
       <span className="mt-1 inline-flex items-center gap-0.5 rounded-full border border-zinc-700 bg-zinc-800/70 px-2 py-0.5 text-[10px] text-zinc-300 transition-colors group-hover:border-zinc-500 group-hover:bg-zinc-700/70 group-hover:text-white sm:text-[11px]">
-        일정 보기
+        팀 상세정보
         <span aria-hidden>›</span>
       </span>
     </Link>

@@ -1,5 +1,10 @@
 import Link from "next/link";
 import { LEAGUE_SEO, PLATFORM_SEO } from "@/lib/slugs";
+import standingsJson from "@/data/standings.json";
+import scheduleJson from "@/data/schedule.json";
+import archiveJson from "@/data/schedule-archive.json";
+import { buildTeamIndex, eligibleTeams, type StandingsData, type TeamEntry } from "@/lib/teams";
+import type { Schedule } from "@/types/schedule";
 import { StatusBadge } from "./StatusBadge";
 import { AccordionItem } from "./Accordion";
 
@@ -56,7 +61,29 @@ function FaqJsonLd() {
   );
 }
 
+/**
+ * 홈에 노출할 팀 목록.
+ * 팀 페이지와 **같은 자격 기준**을 써야 한다. 순위표만 보면 국내 중계가 없는 MLS 14개 팀까지
+ * 링크가 걸려 홈에서 404로 가는 링크가 생긴다.
+ */
+function buildTeamsByLeague(): { league: { slug: string; display: string }; teams: TeamEntry[] }[] {
+  const schedules: Schedule[] = [
+    ...((scheduleJson as unknown as { schedules: Schedule[] }).schedules ?? []),
+    ...((archiveJson as unknown as { schedules: Schedule[] }).schedules ?? []),
+  ];
+  const index = eligibleTeams(
+    buildTeamIndex(standingsJson as unknown as StandingsData),
+    schedules,
+  );
+  return LEAGUE_SEO.map((l) => ({
+    league: { slug: l.slug, display: l.display },
+    teams: index.filter((t) => t.leagueSlug === l.slug).sort((a, b) => a.rank - b.rank),
+  })).filter((g) => g.teams.length > 0);
+}
+
 export function HomeAboutSection() {
+  const teamsByLeague = buildTeamsByLeague();
+
   return (
     <section
       aria-label="한해설 서비스 소개"
@@ -155,6 +182,35 @@ export function HomeAboutSection() {
           </div>
         </div>
       </div>
+
+      {/* 팀별 진입. 팀 페이지가 리그 페이지 맨 아래에서만 닿아 사실상 아무도 못 찾았다.
+          매치 페이지 1,330개가 색인에서 빠진 것도 링크로 도달할 수 없어서였다. */}
+      {teamsByLeague.length > 0 && (
+        <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-900/60 p-5 sm:p-6">
+          <h2 className="text-base sm:text-lg font-semibold text-white">팀별 중계 일정</h2>
+          <p className="mt-2 text-xs text-zinc-500">
+            팀을 고르면 다음 경기 중계처와 한국어 해설 여부, 순위와 최근 전적을 볼 수 있습니다.
+          </p>
+          <div className="mt-4 space-y-3">
+            {teamsByLeague.map(({ league, teams }) => (
+              <div key={league.slug}>
+                <p className="mb-1.5 text-xs text-zinc-500">{league.display}</p>
+                <div className="flex flex-wrap gap-1.5">
+                  {teams.map((t) => (
+                    <Link
+                      key={t.slug}
+                      href={`/team/${encodeURIComponent(t.slug)}`}
+                      className="inline-flex items-center rounded-lg border border-zinc-700 bg-zinc-800/60 px-2.5 py-1 text-xs text-zinc-300 transition-colors hover:bg-zinc-700/60 hover:text-white"
+                    >
+                      {t.name}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       <div className="mt-4 rounded-xl border border-zinc-800 bg-zinc-900/60 p-5 sm:p-6">
         <h2 className="text-base sm:text-lg font-semibold text-white">이용 가이드</h2>
