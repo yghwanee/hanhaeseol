@@ -179,6 +179,8 @@ export type TeamGame = {
   platforms: string[];
   koreanCommentary: boolean | "unknown";
   id: string;
+  /** 카드 렌더에 쓸 대표 편성 행. 메인 경기 카드를 그대로 재사용하기 위한 것. */
+  source: Schedule;
 };
 
 /**
@@ -202,7 +204,11 @@ export function groupGames(schedules: Schedule[]): TeamGame[] {
     if (prev) {
       if (!prev.platforms.includes(s.platform)) prev.platforms.push(s.platform);
       // 한 곳이라도 한국어 해설이면 한국어로 볼 수 있다는 뜻이다
-      if (s.koreanCommentary === true) prev.koreanCommentary = true;
+      if (s.koreanCommentary === true) {
+        // 대표 행도 한국어 해설 쪽으로 바꾼다. 카드 뱃지가 실제로 볼 수 있는 조건을 보여야 한다.
+        if (prev.koreanCommentary !== true) prev.source = s;
+        prev.koreanCommentary = true;
+      }
       continue;
     }
     byKey.set(key, {
@@ -214,6 +220,7 @@ export function groupGames(schedules: Schedule[]): TeamGame[] {
       platforms: [s.platform],
       koreanCommentary: s.koreanCommentary ?? "unknown",
       id: s.id,
+      source: s,
     });
   }
 

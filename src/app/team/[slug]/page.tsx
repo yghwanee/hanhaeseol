@@ -3,7 +3,8 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import standingsData from "@/data/standings.json";
 import archiveData from "@/data/schedule-archive.json";
-import { loadScheduleData, loadResults, loadResultsArchive } from "@/lib/server-data";
+import { loadScheduleData, loadResults, loadResultsArchive, loadTeamRecords } from "@/lib/server-data";
+import { ScheduleCard } from "@/app/_components/ScheduleCard";
 import {
   buildTeamIndex,
   eligibleTeams,
@@ -14,17 +15,18 @@ import {
   koreanCommentaryRatio,
   leagueSiblings,
   isSameTeam,
-  opponentOf,
-  findOpponentEntry,
   standingContext,
   recentFormText,
   type StandingsData,
   type TeamEntry,
+  type TeamGame,
 } from "@/lib/teams";
 import { buildBreadcrumbLd } from "@/lib/structured-data";
 import { proxyLogo } from "@/lib/emblem";
 import { getTodayString } from "@/lib/schedule-utils";
 import type { Schedule } from "@/types/schedule";
+import type { TeamRecord } from "@/types/team-record";
+import type { MatchResult } from "@/types/results";
 
 export const revalidate = 600;
 
@@ -66,6 +68,51 @@ function commentaryLabel(g: { koreanCommentary: boolean | "unknown" }): string {
   if (g.koreanCommentary === true) return "한국어 해설";
   if (g.koreanCommentary === false) return "현지 해설";
   return "해설 확인중";
+}
+
+
+/**
+ * 날짜별로 묶어 렌더한다.
+ * 메인은 날짜 탭이 있어 카드에 날짜가 없어도 되지만, 팀 페이지는 여러 날이 한 화면에 섞인다.
+ * 날짜가 없으면 3연전 카드 세 장이 똑같아 보인다(실제로 그렇게 나왔다).
+ */
+function GameList({
+  games,
+  recordFor,
+  resultFor,
+}: {
+  games: TeamGame[];
+  recordFor: (league: string, name: string) => TeamRecord | undefined;
+  resultFor: (g: { date: string; homeTeam: string; awayTeam: string }) => MatchResult | undefined;
+}) {
+  const days: { date: string; items: TeamGame[] }[] = [];
+  for (const g of games) {
+    const last = days[days.length - 1];
+    if (last && last.date === g.date) last.items.push(g);
+    else days.push({ date: g.date, items: [g] });
+  }
+
+  return (
+    <div className="space-y-4">
+      {days.map((d) => (
+        <div key={d.date}>
+          <p className="mb-1.5 px-1 text-xs font-medium text-zinc-400">{formatDate(d.date)}</p>
+          <div className="space-y-2">
+            {d.items.map((g) => (
+              <ScheduleCard
+                key={g.id}
+                schedule={g.source}
+                query=""
+                homeRecord={recordFor(g.source.league, g.source.homeTeam)}
+                awayRecord={recordFor(g.source.league, g.source.awayTeam)}
+                result={resultFor(g)}
+              />
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
 }
 
 export async function generateMetadata({
@@ -110,6 +157,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
   // 최근 경기 스코어는 results.json(3일 창) 밖으로 나가면 아카이브에서 찾아야 한다.
   const results = loadResults();
   const resultsArchive = loadResultsArchive();
+  const teamRecords = loadTeamRecords();
   const today = getTodayString();
 
   const upcoming = upcomingFor(schedules, team, today, 6);
@@ -124,6 +172,13 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
     { name: team.leagueName, url: `${BASE}/league/${team.leagueSlug}` },
     { name: team.name, url },
   ]);
+
+  const recordFor = (league: string, name: string) => {
+    const byLeague = teamRecords?.[league];
+    if (!byLeague) return undefined;
+    const key = Object.keys(byLeague).find((k) => isSameTeam(k, name));
+    return key ? byLeague[key] : undefined;
+  };
 
   const resultFor = (s: { date: string; homeTeam: string; awayTeam: string }) => {
     const match = (r: { date: string; homeTeam: string; awayTeam: string }) =>
@@ -209,86 +264,20 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
         </section>
 
         {upcoming.length > 0 && (
-          <section className="mt-4 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
-            <h2 className="text-sm font-semibold text-white sm:text-base">다음 경기 일정</h2>
-            <ul className="mt-3 space-y-2">
-              {upcoming.map((s) => {
-                const opp = opponentOf(s, team);
-                const oppEntry = findOpponentEntry(all, team, opp.name);
-                return (
-                  <li key={s.id} className="text-sm text-zinc-300">
-                    <span className="text-zinc-500">
-                      {formatDate(s.date)} {s.time}
-                    </span>{" "}
-                    <span className="text-zinc-400">{opp.home ? "홈" : "원정"}</span>{" "}
-                    {oppEntry ? (
-                      <Link
-                        href={`/team/${encodeURIComponent(oppEntry.slug)}`}
-                        className="text-zinc-100 underline decoration-zinc-700 underline-offset-2 hover:decoration-zinc-400"
-                      >
-                        {opp.name}
-                      </Link>
-                    ) : (
-                      opp.name
-                    )}
-                    전{" "}
-                    {oppEntry && (
-                      <span className="text-zinc-500">
-                        ({oppEntry.rank}위 {oppEntry.win}승 {oppEntry.lose}패)
-                      </span>
-                    )}
-                    <span className="block text-zinc-400 sm:inline">
-                      {" "}
-                      · {s.platforms.join(", ")} · {commentaryLabel(s)}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
+          <section className="mt-4">
+            <h2 className="mb-2 px-1 text-sm font-semibold text-white sm:text-base">
+              다음 경기 일정
+            </h2>
+            <GameList games={upcoming} recordFor={recordFor} resultFor={resultFor} />
           </section>
         )}
 
         {recent.length > 0 && (
-          <section className="mt-4 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
-            <h2 className="text-sm font-semibold text-white sm:text-base">최근 경기 결과</h2>
-            <ul className="mt-3 space-y-2">
-              {recent.map((s) => {
-                const r = resultFor(s);
-                const goals = r?.goals ?? [];
-                return (
-                  <li key={s.id} className="text-sm text-zinc-300">
-                    <span className="text-zinc-500">{formatDate(s.date)}</span> {s.homeTeam}{" "}
-                    {r ? (
-                      <strong className="text-white">
-                        {r.homeScore} : {r.awayScore}
-                      </strong>
-                    ) : (
-                      "vs"
-                    )}{" "}
-                    {s.awayTeam}
-                    <span className="text-zinc-500"> · {s.platforms.join(", ")}</span>
-                    {r?.highlightVideoId && (
-                      <>
-                        {" "}
-                        <a
-                          href={`https://www.youtube.com/watch?v=${r.highlightVideoId}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-zinc-300 underline decoration-zinc-700 underline-offset-2 hover:decoration-zinc-400"
-                        >
-                          하이라이트
-                        </a>
-                      </>
-                    )}
-                    {goals.length > 0 && (
-                      <span className="block text-xs text-zinc-500">
-                        {goals.map((g) => `${g.player} ${g.minute}'`).join(", ")}
-                      </span>
-                    )}
-                  </li>
-                );
-              })}
-            </ul>
+          <section className="mt-5">
+            <h2 className="mb-2 px-1 text-sm font-semibold text-white sm:text-base">
+              최근 경기 결과
+            </h2>
+            <GameList games={recent} recordFor={recordFor} resultFor={resultFor} />
           </section>
         )}
 
