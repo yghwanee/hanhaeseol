@@ -99,6 +99,15 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    // 구글 디스커버는 대형 이미지 미리보기를 허용한 페이지만 카드로 띄운다.
+    // 기본값(max-image-preview:standard)이면 후보에서 빠진다.
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
   },
   manifest: "/manifest.webmanifest",
   appleWebApp: {

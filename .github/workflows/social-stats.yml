@@ -1,0 +1,51 @@
+name: Social Stats
+
+# 인스타·유튜브 쇼츠·틱톡 실적 조회. 게시는 자동으로 도는데 숫자를 본 적이 없어서 만들었다.
+# 수동 실행 + 주 1회. 결과는 로그와 텔레그램 양쪽에 남긴다.
+on:
+  schedule:
+    - cron: "0 22 * * 0" # 매주 월요일 07:00 KST
+  workflow_dispatch: {}
+
+jobs:
+  stats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+
+      - name: 실적 조회
+        id: stats
+        env:
+          YOUTUBE_CLIENT_ID: ${{ secrets.YOUTUBE_CLIENT_ID }}
+          YOUTUBE_CLIENT_SECRET: ${{ secrets.YOUTUBE_CLIENT_SECRET }}
+          YOUTUBE_REFRESH_TOKEN: ${{ secrets.YOUTUBE_REFRESH_TOKEN }}
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
+          TIKTOK_CLIENT_KEY: ${{ secrets.TIKTOK_CLIENT_KEY }}
+        run: |
+          out=$(npx tsx src/scripts/social-stats.ts)
+          echo "$out"
+          {
+            echo "report<<HHS_EOF"
+            echo "$out"
+            echo "HHS_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: 텔레그램 전송
+        if: always() && steps.stats.outputs.report != ''
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          REPORT: ${{ steps.stats.outputs.report }}
+        run: |
+          MSG=$(printf '%s\n' '📊 소셜 채널 실적' '' "${REPORT}")
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MSG}"

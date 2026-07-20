@@ -37,20 +37,13 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
       siteName: "한해설",
       locale: "ko_KR",
       type: "article",
-      images: [
-        {
-          url: "https://haeseol.com/og-default.png",
-          width: 1200,
-          height: 630,
-          alt: guide.title,
-        },
-      ],
+      // images를 여기 두지 않는다. opengraph-image.tsx(파일 컨벤션)가 글마다 다른
+      // 카드를 만들어 주입한다. 고정 og-default를 함께 두면 그게 우선한다.
     },
     twitter: {
       card: "summary_large_image",
       title: guide.title,
       description: guide.description,
-      images: ["https://haeseol.com/og-default.png"],
     },
   };
 }
