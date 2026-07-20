@@ -52,14 +52,39 @@ type Props = {
 };
 
 export default function FilteredScheduleView({ meta, kind, schedules, teamRecords = {}, results = null, guideSlot, highlightsSlot, faqSlot }: Props) {
-  const filtered = schedules
+  const matched = schedules
     .filter((s) => meta.match.includes(kind === "league" ? s.league : s.platform))
     .sort((a, b) => (a.date === b.date ? a.time.localeCompare(b.time) : a.date.localeCompare(b.date)));
 
-  const grouped = filtered.reduce<Record<string, Schedule[]>>((acc, s) => {
-    (acc[s.date] ??= []).push(s);
-    return acc;
-  }, {});
+  // 한 경기가 여러 채널에 걸리면 편성 데이터에 행이 여러 개 있다. 리그 페이지는 채널 필터가
+  // 없어서 그대로 두면 같은 경기가 두세 번 반복된다(KBO 30경기가 카드 60장). 보기에도 나쁘고
+  // /league/kbo 는 네이버 노출 1위 페이지인데 HTML 이 978KB 까지 불어 크롤 비용을 키운다.
+  // 경기 단위로 접고 채널은 한 줄에 모아 적는다. 플랫폼 페이지는 이미 한 채널만 남으므로 무영향.
+  const byGame = new Map<string, { schedule: Schedule; platforms: string[] }>();
+  for (const s of matched) {
+    // 시각을 키에 넣으면 안 된다. SPOTV 는 사전방송 때문에 18:15, 티빙은 18:30 으로 잡혀
+    // 같은 경기가 갈린다(팀 페이지에서 먼저 겪은 것과 같은 함정).
+    const key = `${s.date}|${s.homeTeam}|${s.awayTeam}`;
+    const prev = byGame.get(key);
+    if (prev) {
+      if (!prev.platforms.includes(s.platform)) prev.platforms.push(s.platform);
+      // 한 채널이라도 한국어 해설이면 그 행을 대표로 삼는다(뱃지가 실제 시청 조건을 보여야 한다).
+      if (s.koreanCommentary === true && prev.schedule.koreanCommentary !== true) {
+        prev.schedule = s;
+      }
+      continue;
+    }
+    byGame.set(key, { schedule: s, platforms: [s.platform] });
+  }
+  const filtered = [...byGame.values()];
+
+  const grouped = filtered.reduce<Record<string, { schedule: Schedule; platforms: string[] }[]>>(
+    (acc, g) => {
+      (acc[g.schedule.date] ??= []).push(g);
+      return acc;
+    },
+    {},
+  );
   const dates = Object.keys(grouped).sort();
 
   const related = kind === "league" ? LEAGUE_SEO : PLATFORM_SEO;
@@ -106,7 +131,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
               <div key={date}>
                 <h3 className="mb-2 text-sm font-semibold text-zinc-300">{formatDateHeader(date)}</h3>
                 <div className="space-y-2">
-                  {grouped[date].map((s) => {
+                  {grouped[date].map(({ schedule: s, platforms }) => {
                     const homeRec = lookupTeamRecord(teamRecords, s.league, s.homeTeam);
                     const awayRec = lookupTeamRecord(teamRecords, s.league, s.awayTeam);
                     const result = findResult(results, s);
@@ -164,7 +189,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                           <div className="mt-2.5 text-center text-sm sm:text-base font-semibold text-zinc-100 truncate">{s.homeTeam}</div>
                         )}
                         <div className="mt-2.5 flex items-center justify-between text-[11px] sm:text-xs">
-                          <span className="text-zinc-400">{s.platform}</span>
+                          <span className="truncate text-zinc-400">{platforms.join(", ")}</span>
                           <span className="text-zinc-500">{s.sport}</span>
                         </div>
                     </article>
