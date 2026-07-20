@@ -44,13 +44,13 @@ export const WATCH_KEYWORDS = [
   "이강인",
   "김민재",
   "오타니",
-  "쿠팡플레이 중계",
-  "티빙 KBO",
-  "SPOTV 중계권",
-  "EPL 중계",
-  "KBO 중계",
+  "김하성",
+  "쿠팡플레이 축구",
+  "티빙 야구 중계",
+  "EPL 개막",
+  "KBO 후반기",
   "해외축구 중계권",
-  "스포츠 중계권",
+  "MLB 중계",
 ];
 
 /**
@@ -87,8 +87,23 @@ export function toKstDate(pubDate: string): string | null {
   return new Date(ms + 9 * 60 * 60 * 1000).toISOString().slice(0, 10);
 }
 
+/**
+ * 감점 신호 — 방송·미디어 **산업** 기사.
+ * `중계권`·`티빙` 같은 단어를 그대로 갖고 있어서 가점만 두면 상위권을 통째로 차지한다.
+ * 첫 실행에서 상위 15건 중 절반이 "중앙일보 도산", "KBS 적자", "JTBC 회생"이었다(2026-07-20).
+ * 시청자가 검색할 일이 없는 기사다.
+ */
+const NOISE =
+  /적자|흑자|실적|영업이익|주가|증권|매출|기업회생|도산|인수|합병|지분|채용|위촉|앰배서더|드라마|영화|예능|오디션|아이돌|시상식|주주|상장|투자유치|가입자|이용자|점유율|정보 ?유출|시청률|MAU/;
+
+/** 스포츠 기사인지 가늠하는 신호. 하나도 없으면 우리 글감이 아니다. */
+const SPORTS = /경기|선수|구단|감독|리그|시즌|출전|선발|이적|데뷔|복귀|개막|우승|승리|패배|홈런|골|타율|방어율|중계|해설|맞대결|원정|홈경기/;
+
 export function scoreArticle(title: string, summary: string): number {
   const text = `${title} ${summary}`;
+  if (!SPORTS.test(text)) return -1;
+  if (NOISE.test(text)) return -1;
+
   let score = 0;
   for (const [pattern, weight] of ANGLE_WEIGHTS) {
     if (pattern.test(text)) score += weight;
@@ -164,9 +179,31 @@ export async function searchNews(
   return json.items ?? [];
 }
 
-/** 최근 N일 안의 기사만, 각도 점수·최신순으로. */
-export function rankArticles(articles: NewsArticle[], limit: number): NewsArticle[] {
-  return dedupe(articles)
-    .sort((a, b) => b.score - a.score || b.publishedAt - a.publishedAt)
-    .slice(0, limit);
+/**
+ * 각도 점수·최신순으로. 감점된 기사(산업 뉴스·비스포츠)는 아예 뺀다.
+ *
+ * `maxPerKeyword`를 주면 한 키워드가 목록을 독식하지 못하게 막는다.
+ * 같은 사건을 매체별로 쓴 기사(예: 홈런더비 시청자 수 3건)가 상위권을 통째로 먹던 걸 막는 용도다.
+ */
+export function rankArticles(
+  articles: NewsArticle[],
+  limit: number,
+  maxPerKeyword?: number,
+): NewsArticle[] {
+  const sorted = dedupe(articles)
+    .filter((a) => a.score >= 0)
+    .sort((a, b) => b.score - a.score || b.publishedAt - a.publishedAt);
+
+  if (!maxPerKeyword) return sorted.slice(0, limit);
+
+  const used = new Map<string, number>();
+  const out: NewsArticle[] = [];
+  for (const a of sorted) {
+    const n = used.get(a.keyword) ?? 0;
+    if (n >= maxPerKeyword) continue;
+    used.set(a.keyword, n + 1);
+    out.push(a);
+    if (out.length >= limit) break;
+  }
+  return out;
 }

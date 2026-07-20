@@ -69,7 +69,8 @@ async function main() {
   }
 
   const today = kstNow().toISOString().slice(0, 10);
-  const top = rankArticles(all, TOP_OVERALL);
+  // 한 키워드가 상위 목록을 독식하지 못하게 2건까지만
+  const top = rankArticles(all, TOP_OVERALL, 2);
 
   const lines = [
     "# 뉴스 다이제스트 (자동 생성)",
