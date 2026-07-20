@@ -52,16 +52,23 @@ async function youtube(): Promise<string> {
     `${YT_API}/playlistItems?part=contentDetails,snippet&playlistId=${uploads}&maxResults=${LIMIT}`,
     { headers: auth },
   );
-  const pl = await plRes.json();
-  const ids: string[] = (pl.items ?? []).map((i: any) => i.contentDetails.videoId);
+  const pl = (await plRes.json()) as {
+    items?: { contentDetails: { videoId: string } }[];
+  };
+  const ids: string[] = (pl.items ?? []).map((i) => i.contentDetails.videoId);
   if (ids.length === 0) return "유튜브: 업로드된 영상이 없습니다.";
 
   const vRes = await fetch(
     `${YT_API}/videos?part=statistics,snippet&id=${ids.join(",")}`,
     { headers: auth },
   );
-  const v = await vRes.json();
-  const rows: Row[] = (v.items ?? []).map((it: any) => ({
+  const v = (await vRes.json()) as {
+    items?: {
+      snippet: { publishedAt: string; title: string };
+      statistics: { viewCount?: string; likeCount?: string; commentCount?: string };
+    }[];
+  };
+  const rows: Row[] = (v.items ?? []).map((it) => ({
     when: it.snippet.publishedAt.slice(0, 10),
     title: it.snippet.title,
     views: Number(it.statistics.viewCount ?? 0),

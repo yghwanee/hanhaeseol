@@ -1,0 +1,308 @@
+/**
+ * 팀 페이지 데이터 조립.
+ *
+ * 왜 팀 단위인가: 매치 페이지 1,330개는 경기가 끝나면 수요가 사라지고, 사이트맵에만 있고,
+ * 네이버 스포츠와 같은 자리를 놓고 정면으로 싸운다(2026-07-20 GSC 확인 결과 노출 0).
+ * 팀은 시즌 내내 검색되고, 우리 데이터로 "다음 경기 어디서 보나"를 답할 수 있다.
+ *
+ * 규칙 하나가 제일 중요하다: **데이터가 비어 있는 팀은 페이지를 만들지 않는다.**
+ * 지금 유럽 리그는 개막 전이라 순위표가 전부 0승 0패다. 그대로 뽑으면
+ * "아스날는 시즌 0승 0패 상태입니다" 같은 빈 페이지를 138개 만들게 된다.
+ */
+
+import type { Schedule } from "@/types/schedule";
+
+export type StandingTeam = {
+  rank: number;
+  teamName: string;
+  teamLogo?: string;
+  /** 야구 */
+  gameCount?: number;
+  win?: number;
+  draw?: number;
+  lose?: number;
+  winRate?: number;
+  gameBehind?: number;
+  /** 축구 */
+  matchesPlayed?: number | null;
+  wins?: number;
+  draws?: number;
+  losses?: number;
+  goals?: number | null;
+  goalsConceded?: number | null;
+  points?: number;
+  lastFive?: string;
+  streak?: { type: string; count: number };
+};
+
+export type StandingLeague = { id?: string; name: string; season?: string; teams: StandingTeam[] };
+export type StandingsData = {
+  soccer?: StandingLeague[];
+  baseball?: StandingLeague[];
+  basketball?: StandingLeague[];
+};
+
+export type TeamRecord = {
+  last5?: string;
+  win: number;
+  lose: number;
+  draw: number;
+  wra?: number;
+  streak?: { count: number; type: string };
+};
+
+export type TeamEntry = {
+  slug: string;
+  leagueSlug: string;
+  leagueName: string;
+  name: string;
+  logo?: string;
+  rank: number;
+  played: number;
+  win: number;
+  draw: number;
+  lose: number;
+  /** 승률 (야구) 또는 승점 (축구) */
+  winRate?: number;
+  points?: number;
+  gameBehind?: number;
+  lastFive?: string;
+  streak?: { type: string; count: number };
+};
+
+/** 순위표 리그명 → 우리 리그 슬러그. 여기 없는 리그는 팀 페이지를 만들지 않는다. */
+export const LEAGUE_SLUG_BY_NAME: Record<string, string> = {
+  KBO: "kbo",
+  MLB: "mlb",
+  MLS: "mls",
+  K리그: "k-league-1",
+  K리그2: "k-league-2",
+  프리미어리그: "epl",
+  라리가: "laliga",
+  분데스리가: "bundesliga",
+  세리에A: "seriea",
+  리그앙: "ligue1",
+  에레디비시: "eredivisie",
+};
+
+function num(...vals: (number | null | undefined)[]): number {
+  for (const v of vals) if (typeof v === "number") return v;
+  return 0;
+}
+
+/**
+ * 경기를 한 판도 안 치른 팀은 쓸 내용이 없다.
+ * 시즌 개막 전 순위표가 통째로 0인 걸 여기서 걸러낸다.
+ */
+export function hasMeaningfulData(t: StandingTeam): boolean {
+  const played = num(t.gameCount, t.matchesPlayed);
+  if (played > 0) return true;
+  return num(t.win, t.wins) + num(t.lose, t.losses) + num(t.draw, t.draws) > 0;
+}
+
+/** URL에 쓸 팀 슬러그. 리그를 앞에 붙여 동명 팀 충돌을 막는다(KBO 삼성 vs 다른 종목). */
+export function teamSlug(leagueSlug: string, name: string): string {
+  const cleaned = name.trim().replace(/\s+/g, "-");
+  return `${leagueSlug}-${cleaned}`;
+}
+
+export function buildTeamIndex(standings: StandingsData): TeamEntry[] {
+  const out: TeamEntry[] = [];
+  const leagues = [
+    ...(standings.baseball ?? []),
+    ...(standings.soccer ?? []),
+    ...(standings.basketball ?? []),
+  ];
+
+  for (const league of leagues) {
+    const leagueSlug = LEAGUE_SLUG_BY_NAME[league.name];
+    if (!leagueSlug) continue;
+
+    for (const t of league.teams ?? []) {
+      if (!hasMeaningfulData(t)) continue;
+      out.push({
+        slug: teamSlug(leagueSlug, t.teamName),
+        leagueSlug,
+        leagueName: league.name,
+        name: t.teamName,
+        logo: t.teamLogo,
+        rank: t.rank,
+        played: num(t.gameCount, t.matchesPlayed),
+        win: num(t.win, t.wins),
+        draw: num(t.draw, t.draws),
+        lose: num(t.lose, t.losses),
+        winRate: t.winRate,
+        points: t.points,
+        gameBehind: t.gameBehind,
+        lastFive: t.lastFive || undefined,
+        streak: t.streak && t.streak.count > 0 ? t.streak : undefined,
+      });
+    }
+  }
+  return out;
+}
+
+/**
+ * 팀명 표기가 소스마다 다르다. 순위표는 "삼성", 편성표는 "삼성 라이온즈",
+ * SPOTV TV 편성은 "미네소타"처럼 더 짧게 쓰기도 한다.
+ * 한쪽이 다른 쪽으로 시작하면 같은 팀으로 본다. 공백은 무시한다.
+ *
+ * 정확 일치만 요구하면 KBO 절반이 일정을 못 찾고, 반대로 부분 포함까지 허용하면
+ * "LA 다저스"와 "LA 에인절스"가 엮인다. 접두 일치가 실측상 균형점이다.
+ */
+export function isSameTeam(a: string, b: string): boolean {
+  const x = a.replace(/\s+/g, "");
+  const y = b.replace(/\s+/g, "");
+  if (x === y) return true;
+  const [short, long] = x.length <= y.length ? [x, y] : [y, x];
+  if (short.length < 2) return false;
+  return long.startsWith(short);
+}
+
+export function findTeamSchedules(
+  schedules: Schedule[],
+  team: TeamEntry,
+): Schedule[] {
+  return schedules.filter(
+    (s) => isSameTeam(s.homeTeam, team.name) || isSameTeam(s.awayTeam, team.name),
+  );
+}
+
+export type TeamGame = {
+  date: string;
+  time: string;
+  homeTeam: string;
+  awayTeam: string;
+  league: string;
+  /** 같은 경기를 중계하는 모든 플랫폼 */
+  platforms: string[];
+  koreanCommentary: boolean | "unknown";
+  id: string;
+};
+
+/**
+ * 한 경기가 여러 플랫폼에 걸리면 편성 데이터에는 행이 여러 개 있다.
+ * 그대로 늘어놓으면 "7월 21일 KIA vs 한화"가 네 줄 반복된다(실제로 그렇게 나왔다).
+ * 경기 단위로 묶고 플랫폼을 합친다.
+ */
+export function groupGames(schedules: Schedule[]): TeamGame[] {
+  const byKey = new Map<string, TeamGame>();
+  const times = new Map<string, Map<string, number>>();
+
+  for (const s of schedules) {
+    // 시각을 키에 넣으면 안 된다. 같은 경기라도 플랫폼마다 편성 시각이 다르다
+    // (SPOTV는 사전방송 때문에 18:15, 티빙은 18:30으로 잡힌다).
+    const key = `${s.date}|${s.homeTeam}|${s.awayTeam}`;
+    const tally = times.get(key) ?? new Map<string, number>();
+    tally.set(s.time, (tally.get(s.time) ?? 0) + 1);
+    times.set(key, tally);
+
+    const prev = byKey.get(key);
+    if (prev) {
+      if (!prev.platforms.includes(s.platform)) prev.platforms.push(s.platform);
+      // 한 곳이라도 한국어 해설이면 한국어로 볼 수 있다는 뜻이다
+      if (s.koreanCommentary === true) prev.koreanCommentary = true;
+      continue;
+    }
+    byKey.set(key, {
+      date: s.date,
+      time: s.time,
+      homeTeam: s.homeTeam,
+      awayTeam: s.awayTeam,
+      league: s.league,
+      platforms: [s.platform],
+      koreanCommentary: s.koreanCommentary ?? "unknown",
+      id: s.id,
+    });
+  }
+
+  // 표시 시각은 가장 많이 잡힌 편성 시각으로. 같으면 이른 쪽.
+  for (const [key, game] of byKey) {
+    const tally = times.get(key);
+    if (!tally) continue;
+    game.time = [...tally.entries()].sort(
+      (a, b) => b[1] - a[1] || a[0].localeCompare(b[0]),
+    )[0][0];
+  }
+
+  return [...byKey.values()];
+}
+
+/** 다가오는 경기부터, 오늘 이전 것은 뺀다. */
+export function upcomingFor(
+  schedules: Schedule[],
+  team: TeamEntry,
+  todayISO: string,
+  limit = 5,
+): TeamGame[] {
+  return groupGames(findTeamSchedules(schedules, team))
+    .filter((g) => g.date >= todayISO)
+    .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))
+    .slice(0, limit);
+}
+
+/** 최근 경기부터. 지난 경기 기록용. */
+export function recentFor(
+  schedules: Schedule[],
+  team: TeamEntry,
+  todayISO: string,
+  limit = 5,
+): TeamGame[] {
+  return groupGames(findTeamSchedules(schedules, team))
+    .filter((g) => g.date < todayISO)
+    .sort((a, b) => (b.date + b.time).localeCompare(a.date + a.time))
+    .slice(0, limit);
+}
+
+/** 그 팀 경기를 실제로 중계한 플랫폼들. "어디서 보나"의 답이다. */
+export function platformsFor(schedules: Schedule[], team: TeamEntry): string[] {
+  const seen = new Map<string, number>();
+  for (const s of findTeamSchedules(schedules, team)) {
+    seen.set(s.platform, (seen.get(s.platform) ?? 0) + 1);
+  }
+  return [...seen.entries()].sort((a, b) => b[1] - a[1]).map(([p]) => p);
+}
+
+/** 한국어 해설로 볼 수 있는 경기가 있는지. 우리 사이트의 존재 이유다. */
+export function koreanCommentaryRatio(
+  schedules: Schedule[],
+  team: TeamEntry,
+): { total: number; korean: number } {
+  // 플랫폼 행이 아니라 경기 단위로 센다. 안 그러면 KBO 한 팀이 128경기로 부풀려진다.
+  const games = groupGames(findTeamSchedules(schedules, team));
+  return {
+    total: games.length,
+    korean: games.filter((g) => g.koreanCommentary === true).length,
+  };
+}
+
+/**
+ * 페이지를 낼 팀만 남긴다.
+ *
+ * 순위표에 있어도 국내 중계가 한 번도 안 잡힌 팀이 있다. MLS 14개 팀이 그렇다
+ * (SPOTV가 손흥민 경기 위주로 일부만 가져온다). 그런 팀 페이지는 "중계 없음"만
+ * 적힌 빈 페이지가 되고, 그게 1,330개 매치 페이지가 저지른 실수다.
+ */
+export function eligibleTeams(
+  index: TeamEntry[],
+  schedules: Schedule[],
+  minGames = 1,
+): TeamEntry[] {
+  return index.filter((t) => findTeamSchedules(schedules, t).length >= minGames);
+}
+
+export function findTeamBySlug(index: TeamEntry[], slug: string): TeamEntry | undefined {
+  return index.find((t) => t.slug === slug);
+}
+
+/** 같은 리그의 다른 팀들. 내부 링크로 쓴다(매치 페이지가 고아가 된 원인이 링크 부재였다). */
+export function leagueSiblings(
+  index: TeamEntry[],
+  team: TeamEntry,
+  limit = 12,
+): TeamEntry[] {
+  return index
+    .filter((t) => t.leagueSlug === team.leagueSlug && t.slug !== team.slug)
+    .sort((a, b) => a.rank - b.rank)
+    .slice(0, limit);
+}

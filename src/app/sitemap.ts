@@ -9,6 +9,8 @@ import { matchToSlug } from "@/lib/match-slug";
 import { readInsight } from "@/lib/insights/storage";
 import { isRichMatch } from "@/lib/match-quality";
 import { getAllGuides } from "@/lib/guides";
+import standingsJson from "@/data/standings.json";
+import { buildTeamIndex, eligibleTeams, type StandingsData } from "@/lib/teams";
 import type { Schedule, ScheduleData } from "@/types/schedule";
 import type { ResultsData } from "@/types/results";
 
@@ -61,6 +63,18 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // match/[slug]/page.tsx 의 generateMetadata 참고. sitemap 제외와 noindex를 일치시켜 신호 모순 방지.)
   // 인사이트가 있으면 priority 0.8/weekly, 스코어만 있으면 0.7/monthly.
   // 가이드(에디토리얼) 글 — 사람이 쓴 고유 콘텐츠라 색인 가치가 높다. weekly/0.7.
+  // 팀 페이지 — 매치와 달리 시즌 내내 수요가 붙는 상시 엔티티라 색인 가치가 높다.
+  // 데이터가 빈 팀(개막 전 리그)과 국내 중계가 없는 팀은 buildTeamIndex/eligibleTeams가 이미 걸러낸다.
+  const teamUrls = eligibleTeams(
+    buildTeamIndex(standingsJson as unknown as StandingsData),
+    [...data.schedules, ...archive.schedules],
+  ).map((t) => ({
+    url: `${BASE}/team/${encodeURIComponent(t.slug)}`,
+    lastModified: new Date(),
+    changeFrequency: "daily" as const,
+    priority: 0.8,
+  }));
+
   const guideUrls = getAllGuides().map((g) => ({
     url: `${BASE}/guide/${g.slug}`,
     lastModified: new Date(`${g.updated ?? g.date}T09:00:00+09:00`),
@@ -107,6 +121,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     ...guideUrls,
+    ...teamUrls,
     ...standingsLeagueUrls,
     ...leagueUrls,
     ...platformUrls,

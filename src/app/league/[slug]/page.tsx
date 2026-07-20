@@ -1,4 +1,7 @@
 import { notFound } from "next/navigation";
+import Link from "next/link";
+import standingsJson from "@/data/standings.json";
+import { buildTeamIndex, eligibleTeams, type StandingsData } from "@/lib/teams";
 import type { Metadata } from "next";
 import { LEAGUE_SEO, findLeagueBySlug } from "@/lib/slugs";
 import { LEAGUE_GUIDES } from "@/lib/league-guides";
@@ -64,6 +67,12 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
   const schedules = loadScheduleData().schedules;
   const teamRecords = loadTeamRecords();
   const results = loadResults();
+  const teams = eligibleTeams(
+    buildTeamIndex(standingsJson as unknown as StandingsData),
+    schedules,
+  )
+    .filter((t) => t.leagueSlug === meta.slug)
+    .sort((a, b) => a.rank - b.rank);
 
   const pageUrl = `https://haeseol.com/league/${meta.slug}`;
   const matched = schedules.filter((s) => meta.match.includes(s.league));
@@ -109,6 +118,28 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
           ) : undefined
         }
       />
+      {/* 팀 페이지로 내려가는 링크. 매치 페이지 1,330개가 색인에서 통째로 빠진 원인이
+          사이트맵에만 있고 링크로 도달할 수 없는 고아 상태였다. 같은 실수를 반복하지 않는다. */}
+      {teams.length > 0 && (
+        <section className="mx-auto w-full max-w-3xl px-4 pb-8 sm:px-6">
+          <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+            <h2 className="text-sm font-semibold text-white sm:text-base">
+              {meta.display} 팀별 중계 일정
+            </h2>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {teams.map((t) => (
+                <Link
+                  key={t.slug}
+                  href={`/team/${encodeURIComponent(t.slug)}`}
+                  className="rounded-full border border-zinc-800 px-3 py-1.5 text-xs text-zinc-300 hover:border-zinc-600 hover:text-white"
+                >
+                  {t.rank}. {t.name}
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
     </>
   );
 }
