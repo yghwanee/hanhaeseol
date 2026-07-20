@@ -16,6 +16,7 @@ import {
   findOpponentEntry,
   standingContext,
   recentFormText,
+  findTeamForSchedule,
   type StandingsData,
   type TeamEntry,
 } from "./teams";
@@ -255,4 +256,15 @@ test("recentFormText: WWLDW를 사람 말로", () => {
   assert.equal(recentFormText("WWLDW"), "최근 5경기 3승 1무 1패");
   assert.equal(recentFormText("WWWWW"), "최근 5경기 5승 0패");
   assert.equal(recentFormText(undefined), null);
+});
+
+test("findTeamForSchedule: 리그가 맞으면 그 리그에서, 아니면 이름이 유일할 때만", () => {
+  const index = buildTeamIndex(STANDINGS);
+
+  // 리그명이 같고 표기가 다른 경우
+  assert.equal(findTeamForSchedule(index, "KBO", "삼성 라이온즈")?.slug, "kbo-삼성");
+  // 편성표 리그명이 순위표와 어긋나도 이름이 유일하면 찾는다
+  assert.equal(findTeamForSchedule(index, "K리그1", "울산 HD")?.slug, "k-league-1-울산");
+  // 아예 없는 팀
+  assert.equal(findTeamForSchedule(index, "KBO", "롯데"), undefined);
 });

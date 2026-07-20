@@ -1,5 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import standingsJson from "@/data/standings.json";
+import {
+  buildTeamIndex,
+  eligibleTeams,
+  findTeamForSchedule,
+  type StandingsData as TeamStandingsData,
+  type TeamEntry,
+} from "@/lib/teams";
 import { notFound } from "next/navigation";
 import scheduleData from "@/data/schedule.json";
 import archiveData from "@/data/schedule-archive.json";
@@ -256,6 +264,46 @@ function goalLabel(g: GoalEvent): string {
   return `${g.player} ${t}${g.ownGoal ? " (OG)" : ""}`;
 }
 
+/**
+ * 엠블럼 + 팀명. 팀 페이지가 있으면 통째로 링크한다.
+ *
+ * 팀 페이지로 들어갈 입구가 리그 페이지 맨 아래뿐이라 사실상 아무도 못 찾았다.
+ * 경기를 보고 있는 사람에게 그 팀 일정을 여는 게 제일 자연스러운 동선이다.
+ */
+function TeamSide({
+  name,
+  logo,
+  team,
+}: {
+  name: string;
+  logo: string | null;
+  team?: TeamEntry;
+}) {
+  const body = (
+    <>
+      <TeamLogo name={name} src={logo} size={56} />
+      <span className="mt-1.5 block max-w-[7rem] truncate text-xs text-zinc-400 sm:text-sm">
+        {name}
+      </span>
+    </>
+  );
+
+  if (!team) return <div className="text-center">{body}</div>;
+
+  return (
+    <Link
+      href={`/team/${encodeURIComponent(team.slug)}`}
+      className="group text-center transition-opacity hover:opacity-80"
+      aria-label={`${name} 팀 페이지`}
+    >
+      {body}
+      <span className="mt-0.5 block text-[10px] text-zinc-600 group-hover:text-zinc-400 sm:text-xs">
+        일정 보기
+      </span>
+    </Link>
+  );
+}
+
 export default function MatchPage({ params }: { params: Params }) {
   const match = findMatchAnywhere(params.slug);
   if (!match) notFound();
@@ -293,6 +341,11 @@ export default function MatchPage({ params }: { params: Params }) {
   // 동일 리그 / 동일 플랫폼의 직후 매치들. 같은 매치업이 여러 플랫폼에서 중계되면
   // 슬러그가 달라서 슬러그 비교만으론 자기 경기/중복 경기를 못 거른다. 매치업 키
   // (date|home|away) 단위로 dedupe + 자기 자신 제외.
+  // 팀 페이지가 있는 팀만 링크한다(개막 전 리그·국내 미중계 팀은 페이지가 없다).
+  const teamIndex = eligibleTeams(
+    buildTeamIndex(standingsJson as unknown as TeamStandingsData),
+    allSchedules,
+  );
   const selfMatchupKey = `${match.date}|${match.homeTeam}|${match.awayTeam}`;
   const dedupByMatchup = (list: Schedule[]): Schedule[] => {
     const seen = new Set<string>([selfMatchupKey]);
@@ -488,16 +541,16 @@ export default function MatchPage({ params }: { params: Params }) {
 
           {/* 팀 엠블럼 좌우 배치 — standings.json에 로고 있으면 이미지, 없으면 initials 자동 fallback */}
           <div className="mt-4 flex items-center justify-center gap-5 sm:gap-7">
-            <TeamLogo
+            <TeamSide
               name={match.homeTeam}
-              src={findTeamLogo(match.homeTeam) ?? match.homeEmblem ?? null}
-              size={56}
+              logo={findTeamLogo(match.homeTeam) ?? match.homeEmblem ?? null}
+              team={findTeamForSchedule(teamIndex, match.league, match.homeTeam)}
             />
             <span className="text-sm font-bold text-zinc-500 sm:text-base">vs</span>
-            <TeamLogo
+            <TeamSide
               name={match.awayTeam}
-              src={findTeamLogo(match.awayTeam) ?? match.awayEmblem ?? null}
-              size={56}
+              logo={findTeamLogo(match.awayTeam) ?? match.awayEmblem ?? null}
+              team={findTeamForSchedule(teamIndex, match.league, match.awayTeam)}
             />
           </div>
 

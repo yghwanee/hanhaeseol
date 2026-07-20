@@ -366,3 +366,26 @@ export function recentFormText(lastFive?: string): string | null {
   parts.push(`${l}패`);
   return `최근 ${lastFive.length}경기 ${parts.join(" ")}`;
 }
+
+/**
+ * 편성 데이터의 팀명으로 팀 페이지를 찾는다.
+ *
+ * 편성표 리그명("K리그1")과 순위표 리그명("K리그")이 어긋날 수 있어, 리그를 먼저 맞춰보고
+ * 못 찾으면 이름만으로 찾되 **후보가 하나일 때만** 인정한다. 여러 리그에 같은 이름이 있으면
+ * (예: 여러 나라의 "유나이티드") 링크를 걸지 않는 쪽이 낫다.
+ */
+export function findTeamForSchedule(
+  index: TeamEntry[],
+  leagueName: string,
+  teamName: string,
+): TeamEntry | undefined {
+  const leagueSlug = LEAGUE_SLUG_BY_NAME[leagueName];
+  if (leagueSlug) {
+    const inLeague = index.find(
+      (t) => t.leagueSlug === leagueSlug && isSameTeam(t.name, teamName),
+    );
+    if (inLeague) return inLeague;
+  }
+  const candidates = index.filter((t) => isSameTeam(t.name, teamName));
+  return candidates.length === 1 ? candidates[0] : undefined;
+}
