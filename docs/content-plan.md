@@ -33,7 +33,7 @@
 - [x] 이강인·아틀레티코 마드리드, 8월 서울 온다 — 쿠팡플레이 시리즈 티켓·일정·중계 총정리 (slug: atletico-coupang-series-2026-seoul) (고정: 2026-07-15)
 - [x] 이강인 아틀레티코 이적 확정, 라리가 경기 이제 어디서 보나 — 쿠팡플레이 라리가 중계 정리 (slug: lee-kang-in-atletico-laliga-broadcast) (고정: 2026-07-16)
 - [x] 오타니 쇼헤이 7월 LA 다저스 경기, 한국에서 한국어 해설로 보는 법 (slug: ohtani-dodgers-july-2026-broadcast) (고정: 2026-07-21)
-- [ ] 🔴 이정후 트레이드 데드라인 D-12, 거취에 따라 중계 채널 달라진다 — 새 팀 가면 SPOTV·쿠팡 어디서 보나 (slug: lee-jeong-hoo-trade-deadline-broadcast-2026) — 데드라인(7/31) 지나면 시의성 소멸, 그 전에 발행할 것
+- [x] 🔴 이정후 트레이드 데드라인 D-12, 거취에 따라 중계 채널 달라진다 — 새 팀 가면 SPOTV·쿠팡 어디서 보나 (slug: lee-jeong-hoo-trade-deadline-broadcast-2026) — 데드라인(7/31) 지나면 시의성 소멸, 그 전에 발행할 것
 - [ ] 월드컵 끝난 뒤 이제 뭘 보나 — 7월 말~8월 스포츠 중계 캘린더 총정리 (slug: post-worldcup-sports-watch-calendar)
 - [ ] KBO 후반기 순위 경쟁 시작 — 티빙 무료 여부·요금 한 줄 정리 (slug: kbo-second-half-2026-tving-guide)
 - [ ] 한국 축구 새 감독 공백기 — 이강인·손흥민 클럽 경기로 빈자리 채우는 법 (slug: korea-football-manager-gap-club-watching)
