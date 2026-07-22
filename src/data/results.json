@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-22T22:43:03.492Z",
+  "lastUpdated": "2026-07-22T23:44:03.666Z",
   "byKey": {
     "2026-07-22|kbo|LG|NC": {
       "date": "2026-07-22",
@@ -815,8 +815,8 @@
       "awayTeam": "피츠버그 파이리츠",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "3회초"
     },
     "2026-07-23|mlb|뉴욕양키스|피츠버그 파이리츠": {
       "date": "2026-07-23",
@@ -826,8 +826,8 @@
       "awayTeam": "피츠버그 파이리츠",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "3회초"
     },
     "2026-07-23|mlb|뉴욕 양키스|피츠버그": {
       "date": "2026-07-23",
@@ -837,8 +837,8 @@
       "awayTeam": "피츠버그 파이리츠",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "3회초"
     },
     "2026-07-23|mlb|뉴욕 양키스|피츠버그 파이리츠": {
       "date": "2026-07-23",
@@ -848,8 +848,8 @@
       "awayTeam": "피츠버그 파이리츠",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "3회초"
     },
     "2026-07-23|mlb|보스턴|볼티모어": {
       "date": "2026-07-23",
@@ -858,9 +858,9 @@
       "homeTeam": "보스턴 레드삭스",
       "awayTeam": "볼티모어 오리올스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 4,
+      "status": "live",
+      "period": "2회초"
     },
     "2026-07-23|mlb|보스턴|볼티모어 오리올스": {
       "date": "2026-07-23",
@@ -869,9 +869,9 @@
       "homeTeam": "보스턴 레드삭스",
       "awayTeam": "볼티모어 오리올스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 4,
+      "status": "live",
+      "period": "2회초"
     },
     "2026-07-23|mlb|보스턴 레드삭스|볼티모어": {
       "date": "2026-07-23",
@@ -880,9 +880,9 @@
       "homeTeam": "보스턴 레드삭스",
       "awayTeam": "볼티모어 오리올스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 4,
+      "status": "live",
+      "period": "2회초"
     },
     "2026-07-23|mlb|보스턴 레드삭스|볼티모어 오리올스": {
       "date": "2026-07-23",
@@ -891,9 +891,9 @@
       "homeTeam": "보스턴 레드삭스",
       "awayTeam": "볼티모어 오리올스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 4,
+      "status": "live",
+      "period": "2회초"
     },
     "2026-07-23|mlb|밀워키|뉴욕메츠": {
       "date": "2026-07-23",
@@ -1027,28 +1027,6 @@
       "status": "finished",
       "period": "9회말"
     },
-    "2026-07-23|mlb|애리조나|애슬레틱스": {
-      "date": "2026-07-23",
-      "categoryId": "mlb",
-      "gameId": "20260723OAAZ0",
-      "homeTeam": "애리조나 다이아몬드백스",
-      "awayTeam": "애슬레틱스",
-      "homeScore": 15,
-      "awayScore": 3,
-      "status": "live",
-      "period": "9회초"
-    },
-    "2026-07-23|mlb|애리조나 다이아몬드백스|애슬레틱스": {
-      "date": "2026-07-23",
-      "categoryId": "mlb",
-      "gameId": "20260723OAAZ0",
-      "homeTeam": "애리조나 다이아몬드백스",
-      "awayTeam": "애슬레틱스",
-      "homeScore": 15,
-      "awayScore": 3,
-      "status": "live",
-      "period": "9회초"
-    },
     "2026-07-23|mlb|시애틀|신시내티": {
       "date": "2026-07-23",
       "categoryId": "mlb",
@@ -1093,6 +1071,28 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-07-23|mlb|애리조나|애슬레틱스": {
+      "date": "2026-07-23",
+      "categoryId": "mlb",
+      "gameId": "20260723OAAZ0",
+      "homeTeam": "애리조나 다이아몬드백스",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 15,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-07-23|mlb|애리조나 다이아몬드백스|애슬레틱스": {
+      "date": "2026-07-23",
+      "categoryId": "mlb",
+      "gameId": "20260723OAAZ0",
+      "homeTeam": "애리조나 다이아몬드백스",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 15,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-07-23|mlb|LA에인절스|세인트루이스": {
       "date": "2026-07-23",
       "categoryId": "mlb",
@@ -1101,7 +1101,7 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
+      "status": "finished",
       "period": "9회말"
     },
     "2026-07-23|mlb|LA에인절스|세인트루이스 카디널스": {
@@ -1112,7 +1112,7 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
+      "status": "finished",
       "period": "9회말"
     },
     "2026-07-23|mlb|LA 에인절스|세인트루이스": {
@@ -1123,7 +1123,7 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
+      "status": "finished",
       "period": "9회말"
     },
     "2026-07-23|mlb|LA 에인절스|세인트루이스 카디널스": {
@@ -1134,7 +1134,7 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
+      "status": "finished",
       "period": "9회말"
     },
     "2026-07-23|mlb|필라델피아|LA다저스": {
@@ -1143,10 +1143,10 @@
       "gameId": "20260723LAPH0",
       "homeTeam": "필라델피아 필리스",
       "awayTeam": "LA 다저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "live",
+      "period": "4회말"
     },
     "2026-07-23|mlb|필라델피아|LA 다저스": {
       "date": "2026-07-23",
@@ -1154,10 +1154,10 @@
       "gameId": "20260723LAPH0",
       "homeTeam": "필라델피아 필리스",
       "awayTeam": "LA 다저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "live",
+      "period": "4회말"
     },
     "2026-07-23|mlb|필라델피아 필리스|LA다저스": {
       "date": "2026-07-23",
@@ -1165,10 +1165,10 @@
       "gameId": "20260723LAPH0",
       "homeTeam": "필라델피아 필리스",
       "awayTeam": "LA 다저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "live",
+      "period": "4회말"
     },
     "2026-07-23|mlb|필라델피아 필리스|LA 다저스": {
       "date": "2026-07-23",
@@ -1176,10 +1176,10 @@
       "gameId": "20260723LAPH0",
       "homeTeam": "필라델피아 필리스",
       "awayTeam": "LA 다저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "live",
+      "period": "4회말"
     },
     "2026-07-23|mlb|클리블랜드|미네소타": {
       "date": "2026-07-23",
@@ -1187,10 +1187,10 @@
       "gameId": "20260723MNCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 3,
+      "awayScore": 3,
       "status": "live",
-      "period": "1회초"
+      "period": "3회말"
     },
     "2026-07-23|mlb|클리블랜드|미네소타 트윈스": {
       "date": "2026-07-23",
@@ -1198,10 +1198,10 @@
       "gameId": "20260723MNCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 3,
+      "awayScore": 3,
       "status": "live",
-      "period": "1회초"
+      "period": "3회말"
     },
     "2026-07-23|mlb|클리블랜드 가디언스|미네소타": {
       "date": "2026-07-23",
@@ -1209,10 +1209,10 @@
       "gameId": "20260723MNCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 3,
+      "awayScore": 3,
       "status": "live",
-      "period": "1회초"
+      "period": "3회말"
     },
     "2026-07-23|mlb|클리블랜드 가디언스|미네소타 트윈스": {
       "date": "2026-07-23",
@@ -1220,10 +1220,10 @@
       "gameId": "20260723MNCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 3,
+      "awayScore": 3,
       "status": "live",
-      "period": "1회초"
+      "period": "3회말"
     },
     "2026-07-23|mlb|토론토|탬파베이": {
       "date": "2026-07-23",
@@ -1231,10 +1231,10 @@
       "gameId": "20260723TBTO0",
       "homeTeam": "토론토 블루제이스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "2회말"
     },
     "2026-07-23|mlb|토론토|탬파베이 레이스": {
       "date": "2026-07-23",
@@ -1242,10 +1242,10 @@
       "gameId": "20260723TBTO0",
       "homeTeam": "토론토 블루제이스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "2회말"
     },
     "2026-07-23|mlb|토론토 블루제이스|탬파베이": {
       "date": "2026-07-23",
@@ -1253,10 +1253,10 @@
       "gameId": "20260723TBTO0",
       "homeTeam": "토론토 블루제이스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "2회말"
     },
     "2026-07-23|mlb|토론토 블루제이스|탬파베이 레이스": {
       "date": "2026-07-23",
@@ -1264,10 +1264,10 @@
       "gameId": "20260723TBTO0",
       "homeTeam": "토론토 블루제이스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "2회말"
     },
     "2026-07-23|mlb|애틀랜타|샌디에이고": {
       "date": "2026-07-23",
@@ -1275,10 +1275,10 @@
       "gameId": "20260723SDAT0",
       "homeTeam": "애틀랜타 브레이브스",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     "2026-07-23|mlb|애틀랜타|샌디에이고 파드리스": {
       "date": "2026-07-23",
@@ -1286,10 +1286,10 @@
       "gameId": "20260723SDAT0",
       "homeTeam": "애틀랜타 브레이브스",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     "2026-07-23|mlb|애틀랜타 브레이브스|샌디에이고": {
       "date": "2026-07-23",
@@ -1297,10 +1297,10 @@
       "gameId": "20260723SDAT0",
       "homeTeam": "애틀랜타 브레이브스",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     "2026-07-23|mlb|애틀랜타 브레이브스|샌디에이고 파드리스": {
       "date": "2026-07-23",
@@ -1308,10 +1308,10 @@
       "gameId": "20260723SDAT0",
       "homeTeam": "애틀랜타 브레이브스",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     "2026-07-23|mlb|텍사스|시카고W": {
       "date": "2026-07-23",
@@ -1653,8 +1653,8 @@
       "awayTeam": "토론토",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 3'"
     },
     "2026-07-23|mls|뉴잉글랜드 레볼루션|토론토": {
       "date": "2026-07-23",
@@ -1664,8 +1664,8 @@
       "awayTeam": "토론토",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 3'"
     },
     "2026-07-23|mls|신시내티|화이트캡스": {
       "date": "2026-07-23",
@@ -1675,8 +1675,8 @@
       "awayTeam": "화이트캡스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 3'"
     },
     "2026-07-23|mls|FC 신시내티|화이트캡스": {
       "date": "2026-07-23",
@@ -1686,8 +1686,8 @@
       "awayTeam": "화이트캡스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 3'"
     },
     "2026-07-23|mls|콜롬버스|NYCFC": {
       "date": "2026-07-23",
@@ -1697,8 +1697,8 @@
       "awayTeam": "뉴욕 시티 FC",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 1'"
     },
     "2026-07-23|mls|콜롬버스|뉴욕 시티 FC": {
       "date": "2026-07-23",
@@ -1708,8 +1708,8 @@
       "awayTeam": "뉴욕 시티 FC",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 1'"
     },
     "2026-07-23|mls|필라델피아|뉴욕": {
       "date": "2026-07-23",
@@ -1719,8 +1719,8 @@
       "awayTeam": "뉴욕",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 3'"
     },
     "2026-07-23|mls|마이애미|시카고": {
       "date": "2026-07-23",
@@ -1730,8 +1730,8 @@
       "awayTeam": "시카고",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 2'"
     },
     "2026-07-23|mls|인터 마이애미 CF|시카고": {
       "date": "2026-07-23",
@@ -1741,8 +1741,8 @@
       "awayTeam": "시카고",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 2'"
     },
     "2026-07-23|mls|샬럿|애틀란타": {
       "date": "2026-07-23",
@@ -2465,17 +2465,6 @@
     {
       "date": "2026-07-23",
       "categoryId": "mlb",
-      "gameId": "20260723OAAZ0",
-      "homeTeam": "애리조나 다이아몬드백스",
-      "awayTeam": "애슬레틱스",
-      "homeScore": 15,
-      "awayScore": 3,
-      "status": "live",
-      "period": "9회초"
-    },
-    {
-      "date": "2026-07-23",
-      "categoryId": "mlb",
       "gameId": "20260723CISE0",
       "homeTeam": "시애틀 매리너스",
       "awayTeam": "신시내티 레즈",
@@ -2487,12 +2476,23 @@
     {
       "date": "2026-07-23",
       "categoryId": "mlb",
+      "gameId": "20260723OAAZ0",
+      "homeTeam": "애리조나 다이아몬드백스",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 15,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-07-23",
+      "categoryId": "mlb",
       "gameId": "20260723SLAN0",
       "homeTeam": "LA 에인절스",
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
+      "status": "finished",
       "period": "9회말"
     },
     {
@@ -2501,10 +2501,10 @@
       "gameId": "20260723LAPH0",
       "homeTeam": "필라델피아 필리스",
       "awayTeam": "LA 다저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "live",
+      "period": "4회말"
     },
     {
       "date": "2026-07-23",
@@ -2512,10 +2512,10 @@
       "gameId": "20260723MNCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 3,
+      "awayScore": 3,
       "status": "live",
-      "period": "1회초"
+      "period": "3회말"
     },
     {
       "date": "2026-07-23",
@@ -2525,8 +2525,8 @@
       "awayTeam": "피츠버그 파이리츠",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "3회초"
     },
     {
       "date": "2026-07-23",
@@ -2534,10 +2534,10 @@
       "gameId": "20260723TBTO0",
       "homeTeam": "토론토 블루제이스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "2회말"
     },
     {
       "date": "2026-07-23",
@@ -2546,9 +2546,9 @@
       "homeTeam": "보스턴 레드삭스",
       "awayTeam": "볼티모어 오리올스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 4,
+      "status": "live",
+      "period": "2회초"
     },
     {
       "date": "2026-07-23",
@@ -2556,10 +2556,10 @@
       "gameId": "20260723SDAT0",
       "homeTeam": "애틀랜타 브레이브스",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     {
       "date": "2026-07-23",
@@ -2652,8 +2652,8 @@
       "awayTeam": "토론토",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 3'"
     },
     {
       "date": "2026-07-23",
@@ -2663,8 +2663,8 @@
       "awayTeam": "화이트캡스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 3'"
     },
     {
       "date": "2026-07-23",
@@ -2674,8 +2674,8 @@
       "awayTeam": "뉴욕 시티 FC",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 1'"
     },
     {
       "date": "2026-07-23",
@@ -2685,8 +2685,8 @@
       "awayTeam": "뉴욕",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 3'"
     },
     {
       "date": "2026-07-23",
@@ -2696,8 +2696,8 @@
       "awayTeam": "시카고",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 2'"
     },
     {
       "date": "2026-07-23",
