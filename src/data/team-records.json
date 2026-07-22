@@ -1,16 +1,16 @@
 {
-  "lastUpdated": "2026-07-22T12:02:55.991Z",
+  "lastUpdated": "2026-07-22T14:20:54.148Z",
   "records": {
     "KBO": {
       "삼성": {
-        "last5": "WLWWW",
+        "last5": "LWLWW",
         "win": 54,
-        "lose": 33,
+        "lose": 34,
         "draw": 2,
-        "wra": 0.621,
+        "wra": 0.614,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "L"
         }
       },
       "KT": {
@@ -36,14 +36,14 @@
         }
       },
       "KIA": {
-        "last5": "WWWWL",
+        "last5": "LWWWW",
         "win": 49,
-        "lose": 40,
+        "lose": 41,
         "draw": 2,
-        "wra": 0.551,
+        "wra": 0.544,
         "streak": {
-          "count": 4,
-          "type": "W"
+          "count": 1,
+          "type": "L"
         }
       },
       "두산": {
@@ -54,6 +54,17 @@
         "wra": 0.528,
         "streak": {
           "count": 3,
+          "type": "W"
+        }
+      },
+      "한화": {
+        "last5": "WLDLL",
+        "win": 41,
+        "lose": 44,
+        "draw": 3,
+        "wra": 0.482,
+        "streak": {
+          "count": 1,
           "type": "W"
         }
       },
@@ -68,48 +79,37 @@
           "type": "W"
         }
       },
-      "한화": {
-        "last5": "LDLLL",
-        "win": 40,
-        "lose": 44,
-        "draw": 3,
-        "wra": 0.476,
-        "streak": {
-          "count": 4,
-          "type": "L"
-        }
-      },
       "롯데": {
-        "last5": "WWLLL",
+        "last5": "LWWLL",
         "win": 40,
-        "lose": 47,
+        "lose": 48,
         "draw": 2,
-        "wra": 0.46,
-        "streak": {
-          "count": 2,
-          "type": "W"
-        }
-      },
-      "SSG": {
-        "last5": "LLLLW",
-        "win": 32,
-        "lose": 56,
-        "draw": 3,
-        "wra": 0.364,
-        "streak": {
-          "count": 4,
-          "type": "L"
-        }
-      },
-      "키움": {
-        "last5": "LDWWW",
-        "win": 32,
-        "lose": 58,
-        "draw": 2,
-        "wra": 0.356,
+        "wra": 0.455,
         "streak": {
           "count": 1,
           "type": "L"
+        }
+      },
+      "SSG": {
+        "last5": "WLLLL",
+        "win": 33,
+        "lose": 56,
+        "draw": 3,
+        "wra": 0.371,
+        "streak": {
+          "count": 1,
+          "type": "W"
+        }
+      },
+      "키움": {
+        "last5": "WLDWW",
+        "win": 33,
+        "lose": 58,
+        "draw": 2,
+        "wra": 0.363,
+        "streak": {
+          "count": 1,
+          "type": "W"
         }
       }
     },
@@ -1840,12 +1840,12 @@
     },
     "K리그": {
       "서울": {
-        "last5": "WDWWW",
+        "last5": "WWDWW",
         "win": 13,
         "lose": 3,
         "draw": 3,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "W"
         }
       },
@@ -1880,23 +1880,23 @@
         }
       },
       "포항": {
-        "last5": "LWWLW",
+        "last5": "LLWWL",
         "win": 8,
         "lose": 7,
         "draw": 4,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "L"
         }
       },
       "안양": {
-        "last5": "DWLWD",
+        "last5": "WDWLW",
         "win": 6,
         "lose": 4,
         "draw": 9,
         "streak": {
           "count": 1,
-          "type": "D"
+          "type": "W"
         }
       },
       "인천": {
@@ -1930,32 +1930,32 @@
         }
       },
       "부천": {
-        "last5": "LDDWD",
+        "last5": "LLDDW",
         "win": 4,
         "lose": 8,
         "draw": 7,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "L"
         }
       },
       "김천": {
-        "last5": "LDDLD",
+        "last5": "DLDDL",
         "win": 2,
         "lose": 6,
         "draw": 11,
         "streak": {
           "count": 1,
-          "type": "L"
+          "type": "D"
         }
       },
       "광주": {
-        "last5": "DLDLL",
+        "last5": "DDLDL",
         "win": 1,
         "lose": 11,
         "draw": 7,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "D"
         }
       }
