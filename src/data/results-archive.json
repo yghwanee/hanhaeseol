@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-23T09:13:48.417Z",
+  "lastUpdated": "2026-07-23T09:42:27.150Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -17806,8 +17806,7 @@
       "homeScore": 3,
       "awayScore": 7,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "1j967NQ0wxo"
+      "period": "9회말"
     },
     "2026-07-22|kbo|롯데|SSG": {
       "date": "2026-07-22",
@@ -17818,8 +17817,7 @@
       "homeScore": 3,
       "awayScore": 7,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "pfWUMrTiOyI"
+      "period": "9회말"
     },
     "2026-07-22|kbo|키움|삼성": {
       "date": "2026-07-22",
@@ -17830,8 +17828,7 @@
       "homeScore": 3,
       "awayScore": 1,
       "status": "finished",
-      "period": "9회초",
-      "highlightVideoId": "foEUDZzPqDs"
+      "period": "9회초"
     },
     "2026-07-22|kleague|서울|포항": {
       "date": "2026-07-22",
@@ -17865,8 +17862,7 @@
           "player": "정승원",
           "minute": 87
         }
-      ],
-      "highlightVideoId": "hKoNBFDLfQc"
+      ]
     },
     "2026-07-22|kleague|광주|김천": {
       "date": "2026-07-22",
@@ -17927,8 +17923,7 @@
           "player": "갈레고",
           "minute": 69
         }
-      ],
-      "highlightVideoId": "BRWP9cHtPEo"
+      ]
     },
     "2026-07-22|mlb|뉴욕 양키스|피츠버그 파이리츠": {
       "date": "2026-07-22",
@@ -17961,8 +17956,7 @@
       "homeScore": 1,
       "awayScore": 2,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "u_udtkJkMIg"
+      "period": "9회말"
     },
     "2026-07-22|mlb|클리블랜드 가디언스|미네소타 트윈스": {
       "date": "2026-07-22",
@@ -18149,8 +18143,7 @@
       "homeScore": 5,
       "awayScore": 4,
       "status": "finished",
-      "period": "9회초",
-      "highlightVideoId": "xbjtE02Cl5k"
+      "period": "9회초"
     },
     "2026-07-23|mlb|콜로라도 로키스|워싱턴 내셔널스": {
       "date": "2026-07-23",
@@ -18721,6 +18714,127 @@
           "player": "모라",
           "minute": 90,
           "addedTime": 2
+        }
+      ]
+    },
+    "2026-07-23|mls|로스앤젤레스 FC|레알 솔트레이크": {
+      "date": "2026-07-23",
+      "categoryId": "mls",
+      "gameId": "skOgBHg5qmtZ2d4",
+      "homeTeam": "로스앤젤레스 FC",
+      "awayTeam": "레알 솔트레이크",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "손흥민",
+          "minute": 11
+        },
+        {
+          "team": "home",
+          "player": "부앙가",
+          "minute": 40
+        },
+        {
+          "team": "home",
+          "player": "예들린",
+          "minute": 68,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "엥겔",
+          "minute": 86
+        }
+      ]
+    },
+    "2026-07-23|mls|FC 신시내티|밴쿠버 화이트캡스 FC": {
+      "date": "2026-07-23",
+      "categoryId": "mls",
+      "gameId": "NI8gvOWXNarEYrG",
+      "homeTeam": "FC 신시내티",
+      "awayTeam": "밴쿠버 화이트캡스 FC",
+      "homeScore": 4,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "부하",
+          "minute": 9
+        },
+        {
+          "team": "away",
+          "player": "바드왈",
+          "minute": 12
+        },
+        {
+          "team": "away",
+          "player": "골드",
+          "minute": 24
+        },
+        {
+          "team": "home",
+          "player": "케뱅 뎅케이",
+          "minute": 28
+        },
+        {
+          "team": "home",
+          "player": "에반데르",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "부하",
+          "minute": 56
+        },
+        {
+          "team": "away",
+          "player": "골드",
+          "minute": 58
+        }
+      ]
+    },
+    "2026-07-23|mls|인터 마이애미 CF|시카고 파이어 FC": {
+      "date": "2026-07-23",
+      "categoryId": "mls",
+      "gameId": "XzUpmPjW73XG16g",
+      "homeTeam": "인터 마이애미 CF",
+      "awayTeam": "시카고 파이어 FC",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "리오스 노보",
+          "minute": 18,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "수아레스",
+          "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "수아레스",
+          "minute": 51
+        },
+        {
+          "team": "away",
+          "player": "디테하네",
+          "minute": 67
+        },
+        {
+          "team": "home",
+          "player": "플람벡",
+          "minute": 87
         }
       ]
     }
@@ -36531,8 +36645,7 @@
       "homeScore": 3,
       "awayScore": 7,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "1j967NQ0wxo"
+      "period": "9회말"
     },
     {
       "date": "2026-07-22",
@@ -36543,8 +36656,7 @@
       "homeScore": 3,
       "awayScore": 7,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "pfWUMrTiOyI"
+      "period": "9회말"
     },
     {
       "date": "2026-07-22",
@@ -36555,8 +36667,7 @@
       "homeScore": 3,
       "awayScore": 1,
       "status": "finished",
-      "period": "9회초",
-      "highlightVideoId": "foEUDZzPqDs"
+      "period": "9회초"
     },
     {
       "date": "2026-07-22",
@@ -36590,8 +36701,7 @@
           "player": "정승원",
           "minute": 87
         }
-      ],
-      "highlightVideoId": "hKoNBFDLfQc"
+      ]
     },
     {
       "date": "2026-07-22",
@@ -36652,8 +36762,7 @@
           "player": "갈레고",
           "minute": 69
         }
-      ],
-      "highlightVideoId": "BRWP9cHtPEo"
+      ]
     },
     {
       "date": "2026-07-22",
@@ -36686,8 +36795,7 @@
       "homeScore": 1,
       "awayScore": 2,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "u_udtkJkMIg"
+      "period": "9회말"
     },
     {
       "date": "2026-07-22",
@@ -36874,8 +36982,7 @@
       "homeScore": 5,
       "awayScore": 4,
       "status": "finished",
-      "period": "9회초",
-      "highlightVideoId": "xbjtE02Cl5k"
+      "period": "9회초"
     },
     {
       "date": "2026-07-23",
@@ -37446,6 +37553,127 @@
           "player": "모라",
           "minute": 90,
           "addedTime": 2
+        }
+      ]
+    },
+    {
+      "date": "2026-07-23",
+      "categoryId": "mls",
+      "gameId": "skOgBHg5qmtZ2d4",
+      "homeTeam": "로스앤젤레스 FC",
+      "awayTeam": "레알 솔트레이크",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "손흥민",
+          "minute": 11
+        },
+        {
+          "team": "home",
+          "player": "부앙가",
+          "minute": 40
+        },
+        {
+          "team": "home",
+          "player": "예들린",
+          "minute": 68,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "엥겔",
+          "minute": 86
+        }
+      ]
+    },
+    {
+      "date": "2026-07-23",
+      "categoryId": "mls",
+      "gameId": "NI8gvOWXNarEYrG",
+      "homeTeam": "FC 신시내티",
+      "awayTeam": "밴쿠버 화이트캡스 FC",
+      "homeScore": 4,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "부하",
+          "minute": 9
+        },
+        {
+          "team": "away",
+          "player": "바드왈",
+          "minute": 12
+        },
+        {
+          "team": "away",
+          "player": "골드",
+          "minute": 24
+        },
+        {
+          "team": "home",
+          "player": "케뱅 뎅케이",
+          "minute": 28
+        },
+        {
+          "team": "home",
+          "player": "에반데르",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "부하",
+          "minute": 56
+        },
+        {
+          "team": "away",
+          "player": "골드",
+          "minute": 58
+        }
+      ]
+    },
+    {
+      "date": "2026-07-23",
+      "categoryId": "mls",
+      "gameId": "XzUpmPjW73XG16g",
+      "homeTeam": "인터 마이애미 CF",
+      "awayTeam": "시카고 파이어 FC",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "리오스 노보",
+          "minute": 18,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "수아레스",
+          "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "수아레스",
+          "minute": 51
+        },
+        {
+          "team": "away",
+          "player": "디테하네",
+          "minute": 67
+        },
+        {
+          "team": "home",
+          "player": "플람벡",
+          "minute": 87
         }
       ]
     }
