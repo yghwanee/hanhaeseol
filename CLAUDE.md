@@ -186,6 +186,7 @@ src/
     - **관측 지표(2~4주 뒤)**: ①색인 수 880 → 증가하는지 ②해설 쿼리 노출 407 → 오르는지 ③`/team/` 노출이 잡히는지.
 
 ### 다음 작업 (예정)
+- **팀명 alias 미스매치 재점검 (유럽 개막 2026-08~)** — 2026-07-23 LAFC 3-1 솔트레이크 스코어가 안 뜨던 버그(네이버 `솔트 레이크`↔스케줄 `레알 솔트레이크`/`솔트레이크` alias 다리 없음, 마이애미·신시내티도 동일) 수정 후, 오프시즌 리그(EPL·라리가·세리에A·리그1·분데스 등)는 스케줄에 경기가 없어 **오프라인 검증 불가**로 남김. 유효 검증은 스케줄↔결과 실표기 대조뿐(alias 키 vs 결과 primary 비교는 무효 — primary는 매핑 후 값이라 네이버 원본표기 모름). **개막 후 `npm run crawl && npm run crawl:results && npm run audit:aliases` 실행** → `MISS>0` 나오는 리그만 `team-name-aliases.ts`에 네이버 표기 키 보정. 감사 스크립트 = `src/scripts/audit-aliases.ts`.
 - 🔴 **네이버 지표 재확인 (2~4주 뒤)** — 2026-07-20 조치들의 효과 판정. searchadvisor.naver.com → 리포트. 볼 것: ①사이트 진단 색인 수(880 기준) ②해설 쿼리 노출(407 기준) ③`/team/`·`/commentary` 노출 발생 여부. **사용자만 뽑을 수 있음(스크린샷이면 충분).**
 - **유튜브 중복 게시 정리** — 아침·저녁 세트가 같은 제목 영상을 매일 2개 올림(작업57). 유튜브가 중복을 배포에서 누를 수 있음.
 - **팀 페이지 색인 추적(2~3주)** — 2026-07-20 배포. GSC에서 `/team/` 노출이 잡히기 시작하는지. 잡히면 다음 확장(선수 페이지·리그 페이지 재정렬)의 근거가 됨. 안 잡히면 매치 페이지와 같은 실패라 원인 재진단 필요.
@@ -214,6 +215,7 @@ npm run crawl:results    # 결과·스코어 재크롤
 npm run test:fetch-cache # 🔴 Next 런타임 fetch 캐시 가드 (CI에서도 돎)
 npm run test:worldcup-round / test:starters / test:highlights / test:tiktok-caption
 npm run test:idea-dupes / test:naver-news
+npm run audit:aliases   # 팀명 alias 미스매치 감사 (결과 있는데 스코어 안 뜨는 유형). 개막 후 crawl:results 뒤 실행
 npm run news:digest      # 네이버 뉴스 → docs/news-digest.md (NAVER_API_KEY_ID/NAVER_API_KEY 필요)
 ISSUE_BODY="$(gh issue view N --json body -q .body)" npm run check:idea-dupes  # 글감 중복 검사
 ```
