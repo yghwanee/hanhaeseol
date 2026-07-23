@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-23T11:31:39.936Z",
+  "lastUpdated": "2026-07-23T13:12:42.402Z",
   "byKey": {
     "2026-07-22|kbo|LG|NC": {
       "date": "2026-07-22",
@@ -70,16 +70,28 @@
       "status": "canceled",
       "period": "경기취소"
     },
+    "2026-07-23|kbo|키움|삼성": {
+      "date": "2026-07-23",
+      "categoryId": "kbo",
+      "gameId": "20260723SSWO02026",
+      "homeTeam": "키움",
+      "awayTeam": "삼성",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "scheduled",
+      "period": "11회말"
+    },
     "2026-07-23|kbo|KIA|한화": {
       "date": "2026-07-23",
       "categoryId": "kbo",
       "gameId": "20260723HHHT02026",
       "homeTeam": "KIA",
       "awayTeam": "한화",
-      "homeScore": 2,
-      "awayScore": 7,
-      "status": "live",
-      "period": "7회초"
+      "homeScore": 3,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말",
+      "highlightVideoId": "OU8q6VrJGzs"
     },
     "2026-07-23|kbo|LG|NC": {
       "date": "2026-07-23",
@@ -87,10 +99,10 @@
       "gameId": "20260723NCLG02026",
       "homeTeam": "LG",
       "awayTeam": "NC",
-      "homeScore": 4,
-      "awayScore": 6,
-      "status": "live",
-      "period": "6회말"
+      "homeScore": 5,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-07-23|kbo|롯데|SSG": {
       "date": "2026-07-23",
@@ -98,21 +110,11 @@
       "gameId": "20260723SKLT02026",
       "homeTeam": "롯데",
       "awayTeam": "SSG",
-      "homeScore": 0,
-      "awayScore": 3,
-      "status": "live",
-      "period": "7회초"
-    },
-    "2026-07-23|kbo|키움|삼성": {
-      "date": "2026-07-23",
-      "categoryId": "kbo",
-      "gameId": "20260723SSWO02026",
-      "homeTeam": "키움",
-      "awayTeam": "삼성",
-      "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "7회말"
+      "homeScore": 2,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말",
+      "highlightVideoId": "VBRb5krI868"
     },
     "2026-07-24|kbo|롯데|KT": {
       "date": "2026-07-24",
@@ -2996,13 +2998,25 @@
     {
       "date": "2026-07-23",
       "categoryId": "kbo",
+      "gameId": "20260723SSWO02026",
+      "homeTeam": "키움",
+      "awayTeam": "삼성",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "scheduled",
+      "period": "11회말"
+    },
+    {
+      "date": "2026-07-23",
+      "categoryId": "kbo",
       "gameId": "20260723HHHT02026",
       "homeTeam": "KIA",
       "awayTeam": "한화",
-      "homeScore": 2,
-      "awayScore": 7,
-      "status": "live",
-      "period": "7회초"
+      "homeScore": 3,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말",
+      "highlightVideoId": "OU8q6VrJGzs"
     },
     {
       "date": "2026-07-23",
@@ -3010,10 +3024,10 @@
       "gameId": "20260723NCLG02026",
       "homeTeam": "LG",
       "awayTeam": "NC",
-      "homeScore": 4,
-      "awayScore": 6,
-      "status": "live",
-      "period": "6회말"
+      "homeScore": 5,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-07-23",
@@ -3021,21 +3035,11 @@
       "gameId": "20260723SKLT02026",
       "homeTeam": "롯데",
       "awayTeam": "SSG",
-      "homeScore": 0,
-      "awayScore": 3,
-      "status": "live",
-      "period": "7회초"
-    },
-    {
-      "date": "2026-07-23",
-      "categoryId": "kbo",
-      "gameId": "20260723SSWO02026",
-      "homeTeam": "키움",
-      "awayTeam": "삼성",
-      "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "7회말"
+      "homeScore": 2,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말",
+      "highlightVideoId": "VBRb5krI868"
     },
     {
       "date": "2026-07-24",
