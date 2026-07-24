@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-24T09:59:59.768Z",
+  "lastUpdated": "2026-07-24T11:56:57.751Z",
   "records": {
     "KBO": {
       "삼성": {
@@ -1959,6 +1959,16 @@
           "type": "L"
         }
       },
+      "서울E": {
+        "last5": "DWLWW",
+        "win": 10,
+        "lose": 5,
+        "draw": 3,
+        "streak": {
+          "count": 1,
+          "type": "D"
+        }
+      },
       "수원": {
         "last5": "DLWWL",
         "win": 10,
@@ -1984,16 +1994,6 @@
         "win": 8,
         "lose": 3,
         "draw": 6,
-        "streak": {
-          "count": 1,
-          "type": "D"
-        }
-      },
-      "서울E": {
-        "last5": "DWLWW",
-        "win": 9,
-        "lose": 5,
-        "draw": 3,
         "streak": {
           "count": 1,
           "type": "D"
@@ -2048,11 +2048,21 @@
       "천안": {
         "last5": "LLLDW",
         "win": 4,
-        "lose": 6,
+        "lose": 7,
         "draw": 7,
         "streak": {
           "count": 3,
           "type": "L"
+        }
+      },
+      "충북청주": {
+        "last5": "WDLWL",
+        "win": 2,
+        "lose": 4,
+        "draw": 12,
+        "streak": {
+          "count": 1,
+          "type": "W"
         }
       },
       "파주": {
@@ -2073,16 +2083,6 @@
         "streak": {
           "count": 1,
           "type": "L"
-        }
-      },
-      "충북청주": {
-        "last5": "WDLWL",
-        "win": 2,
-        "lose": 4,
-        "draw": 11,
-        "streak": {
-          "count": 1,
-          "type": "W"
         }
       },
       "안산": {
@@ -2109,7 +2109,7 @@
         "last5": "WLDLW",
         "win": 2,
         "lose": 11,
-        "draw": 3,
+        "draw": 4,
         "streak": {
           "count": 1,
           "type": "W"
