@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { INTRO_DONE_EVENT, isIntroDone } from "./IntroAnimation";
 import { CoupangProductCard } from "./CoupangProductCard";
+import { ChaeunSideBanner } from "./ChaeunSideBanner";
 import { useShuffledProducts } from "./coupang-product-utils";
 
 /** /admin/* 같은 운영자 페이지에서는 광고 자체를 숨김.
@@ -42,22 +43,17 @@ function useShowAds() {
 export function CoupangSideBanners() {
   const showAds = useShowAds();
   const pathname = usePathname();
-  // 좌/우 다른 카드 보이도록 4개 뽑고 0-1=좌, 2-3=우 로 분배.
-  const picks = useShuffledProducts(4, { dedupeCategory: true, refreshKey: "side" });
-  if (!showAds || picks.length < 4 || isHiddenPath(pathname)) return null;
-
-  const leftCards = picks.slice(0, 2);
-  const rightCards = picks.slice(2, 4);
+  // 좌측 = 채운 프로모(자매 프로젝트), 우측 = 쿠팡 카드 2개.
+  const rightCards = useShuffledProducts(2, { dedupeCategory: true, refreshKey: "side" });
+  if (!showAds || rightCards.length < 2 || isHiddenPath(pathname)) return null;
 
   return (
     <>
       <aside
         className="hidden xl:flex fixed left-4 top-1/2 -translate-y-1/2 z-10 flex-col gap-3"
-        aria-label="쿠팡 파트너스 광고 (좌측)"
+        aria-label="채운 프로모션 (좌측)"
       >
-        {leftCards.map((p) => (
-          <CoupangProductCard key={p.id} product={p} size="lg" />
-        ))}
+        <ChaeunSideBanner />
       </aside>
       <aside
         className="hidden xl:flex fixed right-4 top-1/2 -translate-y-1/2 z-10 flex-col gap-3"
