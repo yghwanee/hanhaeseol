@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-25T17:40:52.988Z",
+  "lastUpdated": "2026-07-25T18:40:23.535Z",
   "byKey": {
     "2026-07-25|kbo|롯데|KT": {
       "date": "2026-07-25",
@@ -768,10 +768,10 @@
       "gameId": "20260726KCDE0",
       "homeTeam": "디트로이트 타이거스",
       "awayTeam": "캔자스시티 로열스",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
       "status": "live",
-      "period": "2회말"
+      "period": "7회초"
     },
     "2026-07-26|mlb|디트로이트|캔자스시티 로열스": {
       "date": "2026-07-26",
@@ -779,10 +779,10 @@
       "gameId": "20260726KCDE0",
       "homeTeam": "디트로이트 타이거스",
       "awayTeam": "캔자스시티 로열스",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
       "status": "live",
-      "period": "2회말"
+      "period": "7회초"
     },
     "2026-07-26|mlb|디트로이트 타이거스|캔자스시티": {
       "date": "2026-07-26",
@@ -790,10 +790,10 @@
       "gameId": "20260726KCDE0",
       "homeTeam": "디트로이트 타이거스",
       "awayTeam": "캔자스시티 로열스",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
       "status": "live",
-      "period": "2회말"
+      "period": "7회초"
     },
     "2026-07-26|mlb|디트로이트 타이거스|캔자스시티 로열스": {
       "date": "2026-07-26",
@@ -801,10 +801,10 @@
       "gameId": "20260726KCDE0",
       "homeTeam": "디트로이트 타이거스",
       "awayTeam": "캔자스시티 로열스",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
       "status": "live",
-      "period": "2회말"
+      "period": "7회초"
     },
     "2026-07-26|mlb|샌프란시스코|LA에인절스": {
       "date": "2026-07-26",
@@ -2616,15 +2616,20 @@
       "gameId": "8LeKoOlsLqJKUoJ",
       "homeTeam": "AGF",
       "awayTeam": "브뢴비",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 36'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "슬리시",
           "minute": 53
+        },
+        {
+          "team": "home",
+          "player": "아른스타",
+          "minute": 84
         }
       ]
     },
@@ -2951,10 +2956,10 @@
       "gameId": "20260726KCDE0",
       "homeTeam": "디트로이트 타이거스",
       "awayTeam": "캔자스시티 로열스",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
       "status": "live",
-      "period": "2회말"
+      "period": "7회초"
     },
     {
       "date": "2026-07-26",
@@ -3704,15 +3709,20 @@
       "gameId": "8LeKoOlsLqJKUoJ",
       "homeTeam": "AGF",
       "awayTeam": "브뢴비",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 36'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "슬리시",
           "minute": 53
+        },
+        {
+          "team": "home",
+          "player": "아른스타",
+          "minute": 84
         }
       ]
     },
