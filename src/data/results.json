@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-26T21:10:24.284Z",
+  "lastUpdated": "2026-07-26T22:12:20.472Z",
   "byKey": {
     "2026-07-26|kbo|롯데|KT": {
       "date": "2026-07-26",
@@ -822,7 +822,7 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
+      "status": "finished",
       "period": "11회말"
     },
     "2026-07-27|mlb|볼티모어|애틀랜타 브레이브스": {
@@ -833,7 +833,7 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
+      "status": "finished",
       "period": "11회말"
     },
     "2026-07-27|mlb|볼티모어 오리올스|애틀랜타": {
@@ -844,7 +844,7 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
+      "status": "finished",
       "period": "11회말"
     },
     "2026-07-27|mlb|볼티모어 오리올스|애틀랜타 브레이브스": {
@@ -855,7 +855,7 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
+      "status": "finished",
       "period": "11회말"
     },
     "2026-07-27|mlb|워싱턴|애리조나": {
@@ -1122,28 +1122,6 @@
       "status": "finished",
       "period": "9회말"
     },
-    "2026-07-27|mlb|미네소타|애슬레틱스": {
-      "date": "2026-07-27",
-      "categoryId": "mlb",
-      "gameId": "20260727OAMN0",
-      "homeTeam": "미네소타 트윈스",
-      "awayTeam": "애슬레틱스",
-      "homeScore": 11,
-      "awayScore": 8,
-      "status": "live",
-      "period": "9회초"
-    },
-    "2026-07-27|mlb|미네소타 트윈스|애슬레틱스": {
-      "date": "2026-07-27",
-      "categoryId": "mlb",
-      "gameId": "20260727OAMN0",
-      "homeTeam": "미네소타 트윈스",
-      "awayTeam": "애슬레틱스",
-      "homeScore": 11,
-      "awayScore": 8,
-      "status": "live",
-      "period": "9회초"
-    },
     "2026-07-27|mlb|밀워키|콜로라도": {
       "date": "2026-07-27",
       "categoryId": "mlb",
@@ -1232,15 +1210,37 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-07-27|mlb|미네소타|애슬레틱스": {
+      "date": "2026-07-27",
+      "categoryId": "mlb",
+      "gameId": "20260727OAMN0",
+      "homeTeam": "미네소타 트윈스",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 11,
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-07-27|mlb|미네소타 트윈스|애슬레틱스": {
+      "date": "2026-07-27",
+      "categoryId": "mlb",
+      "gameId": "20260727OAMN0",
+      "homeTeam": "미네소타 트윈스",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 11,
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-07-27|mlb|세인트루이스|신시내티": {
       "date": "2026-07-27",
       "categoryId": "mlb",
       "gameId": "20260727CISL0",
       "homeTeam": "세인트루이스 카디널스",
       "awayTeam": "신시내티 레즈",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 5,
-      "status": "live",
+      "status": "finished",
       "period": "10회말"
     },
     "2026-07-27|mlb|세인트루이스|신시내티 레즈": {
@@ -1249,9 +1249,9 @@
       "gameId": "20260727CISL0",
       "homeTeam": "세인트루이스 카디널스",
       "awayTeam": "신시내티 레즈",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 5,
-      "status": "live",
+      "status": "finished",
       "period": "10회말"
     },
     "2026-07-27|mlb|세인트루이스 카디널스|신시내티": {
@@ -1260,9 +1260,9 @@
       "gameId": "20260727CISL0",
       "homeTeam": "세인트루이스 카디널스",
       "awayTeam": "신시내티 레즈",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 5,
-      "status": "live",
+      "status": "finished",
       "period": "10회말"
     },
     "2026-07-27|mlb|세인트루이스 카디널스|신시내티 레즈": {
@@ -1271,9 +1271,9 @@
       "gameId": "20260727CISL0",
       "homeTeam": "세인트루이스 카디널스",
       "awayTeam": "신시내티 레즈",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 5,
-      "status": "live",
+      "status": "finished",
       "period": "10회말"
     },
     "2026-07-27|mlb|텍사스|시애틀": {
@@ -1282,10 +1282,10 @@
       "gameId": "20260727SETE0",
       "homeTeam": "텍사스 레인저스",
       "awayTeam": "시애틀 매리너스",
-      "homeScore": 3,
-      "awayScore": 5,
-      "status": "live",
-      "period": "8회초"
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-07-27|mlb|텍사스|시애틀 매리너스": {
       "date": "2026-07-27",
@@ -1293,10 +1293,10 @@
       "gameId": "20260727SETE0",
       "homeTeam": "텍사스 레인저스",
       "awayTeam": "시애틀 매리너스",
-      "homeScore": 3,
-      "awayScore": 5,
-      "status": "live",
-      "period": "8회초"
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-07-27|mlb|텍사스 레인저스|시애틀": {
       "date": "2026-07-27",
@@ -1304,10 +1304,10 @@
       "gameId": "20260727SETE0",
       "homeTeam": "텍사스 레인저스",
       "awayTeam": "시애틀 매리너스",
-      "homeScore": 3,
-      "awayScore": 5,
-      "status": "live",
-      "period": "8회초"
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-07-27|mlb|텍사스 레인저스|시애틀 매리너스": {
       "date": "2026-07-27",
@@ -1315,10 +1315,10 @@
       "gameId": "20260727SETE0",
       "homeTeam": "텍사스 레인저스",
       "awayTeam": "시애틀 매리너스",
-      "homeScore": 3,
-      "awayScore": 5,
-      "status": "live",
-      "period": "8회초"
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-07-27|mlb|샌프란시스코|LA에인절스": {
       "date": "2026-07-27",
@@ -1326,10 +1326,10 @@
       "gameId": "20260727ANSF0",
       "homeTeam": "샌프란시스코 자이언츠",
       "awayTeam": "LA 에인절스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 4,
       "status": "live",
-      "period": "4회말"
+      "period": "8회말"
     },
     "2026-07-27|mlb|샌프란시스코|LA 에인절스": {
       "date": "2026-07-27",
@@ -1337,10 +1337,10 @@
       "gameId": "20260727ANSF0",
       "homeTeam": "샌프란시스코 자이언츠",
       "awayTeam": "LA 에인절스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 4,
       "status": "live",
-      "period": "4회말"
+      "period": "8회말"
     },
     "2026-07-27|mlb|샌프란시스코 자이언츠|LA에인절스": {
       "date": "2026-07-27",
@@ -1348,10 +1348,10 @@
       "gameId": "20260727ANSF0",
       "homeTeam": "샌프란시스코 자이언츠",
       "awayTeam": "LA 에인절스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 4,
       "status": "live",
-      "period": "4회말"
+      "period": "8회말"
     },
     "2026-07-27|mlb|샌프란시스코 자이언츠|LA 에인절스": {
       "date": "2026-07-27",
@@ -1359,10 +1359,10 @@
       "gameId": "20260727ANSF0",
       "homeTeam": "샌프란시스코 자이언츠",
       "awayTeam": "LA 에인절스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 4,
       "status": "live",
-      "period": "4회말"
+      "period": "8회말"
     },
     "2026-07-27|mlb|필라델피아|뉴욕양키스": {
       "date": "2026-07-27",
@@ -3337,7 +3337,7 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
+      "status": "finished",
       "period": "11회말"
     },
     {
@@ -3409,17 +3409,6 @@
     {
       "date": "2026-07-27",
       "categoryId": "mlb",
-      "gameId": "20260727OAMN0",
-      "homeTeam": "미네소타 트윈스",
-      "awayTeam": "애슬레틱스",
-      "homeScore": 11,
-      "awayScore": 8,
-      "status": "live",
-      "period": "9회초"
-    },
-    {
-      "date": "2026-07-27",
-      "categoryId": "mlb",
       "gameId": "20260727COMI0",
       "homeTeam": "밀워키 브루어스",
       "awayTeam": "콜로라도 로키스",
@@ -3442,12 +3431,23 @@
     {
       "date": "2026-07-27",
       "categoryId": "mlb",
+      "gameId": "20260727OAMN0",
+      "homeTeam": "미네소타 트윈스",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 11,
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-07-27",
+      "categoryId": "mlb",
       "gameId": "20260727CISL0",
       "homeTeam": "세인트루이스 카디널스",
       "awayTeam": "신시내티 레즈",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 5,
-      "status": "live",
+      "status": "finished",
       "period": "10회말"
     },
     {
@@ -3456,10 +3456,10 @@
       "gameId": "20260727SETE0",
       "homeTeam": "텍사스 레인저스",
       "awayTeam": "시애틀 매리너스",
-      "homeScore": 3,
-      "awayScore": 5,
-      "status": "live",
-      "period": "8회초"
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-07-27",
@@ -3467,10 +3467,10 @@
       "gameId": "20260727ANSF0",
       "homeTeam": "샌프란시스코 자이언츠",
       "awayTeam": "LA 에인절스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 4,
       "status": "live",
-      "period": "4회말"
+      "period": "8회말"
     },
     {
       "date": "2026-07-27",
