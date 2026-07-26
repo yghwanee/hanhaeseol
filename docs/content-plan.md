@@ -36,12 +36,17 @@
 - [x] 🔴 이정후 트레이드 데드라인 D-12, 거취에 따라 중계 채널 달라진다 — 새 팀 가면 SPOTV·쿠팡 어디서 보나 (slug: lee-jeong-hoo-trade-deadline-broadcast-2026) — 데드라인(7/31) 지나면 시의성 소멸, 그 전에 발행할 것
 - [x] 월드컵 끝난 뒤 이제 뭘 보나 — 7월 말~8월 스포츠 중계 캘린더 총정리 (slug: post-worldcup-sports-watch-calendar)
 - [x] KBO 후반기 순위 경쟁 시작 — 티빙 무료 여부·요금 한 줄 정리 (slug: kbo-second-half-2026-tving-guide)
+- [ ] 🔴 김하성 MLB 복귀 임박, 팀 바뀌어도 한국 중계 이어지나 — SPOTV 채널 정리 (slug: kim-ha-seong-mlb-comeback-broadcast) — 트레이드 데드라인(7/31) 전에 발행할 것, 그래서 큐 최상단
 - [ ] 한국 축구 새 감독 공백기 — 이강인·손흥민 클럽 경기로 빈자리 채우는 법 (slug: korea-football-manager-gap-club-watching)
 - [ ] EPL 2026-27 개막 8월 22일 확정 — 쿠팡플레이 스포츠 패스 지금 가입하면 뭘 볼 수 있나 (slug: epl-2026-27-coupang-august-kickoff)
 - [ ] 김민재 분데스리가 2026-27 중계는 어디서 — 뮌헨 경기 볼 수 있는 채널·요금 (slug: kim-min-jae-bundesliga-2026-27)
 - [ ] 이강인 아틀레티코 데뷔전 언제, 마드리드 더비는 9월 — 한국에서 어디서 보나 (slug: lee-kang-in-atletico-debut-schedule-2026)
 - [ ] 스포티비 끄고 쿠팡 켠다 — 중계권 이동으로 2026-27 시즌부터 달라지는 것들 (slug: spotv-to-coupang-sports-rights-2026)
 - [ ] 이강인 빠진 PSG 2026-27, UCL 챔피언스리그 경기 한국에서 어디서 보나 (slug: psg-ucl-2026-27-broadcast)
+- [ ] 쿠팡플레이 8월 라인업, 이강인 서울 데뷔전·EPL 개막 다 보려면 (slug: coupang-play-august-2026-schedule) (고정: 2026-08-07)
+- [ ] 황인범 FC포르투 이적 확정, 포르투갈 프리메이라 리가 한국에서 볼 수 있나 (slug: hwang-in-bum-porto-broadcast)
+- [ ] 라리가 2026-27 개막일과 이강인 첫 경기, 한국에서 어디서 보나 (slug: laliga-2026-27-kickoff-broadcast)
+- [ ] 손흥민 LAFC MLS 경기 어디서 보나, 한국어 해설 있나 (slug: son-heungmin-lafc-mls-broadcast-2026)
 
 ## 라운드 편성글 (전용 워크플로가 자동 생성·발행)
 
