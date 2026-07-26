@@ -7,14 +7,23 @@ name: Notify Content Ideas
 # 클라우드 루틴은 텔레그램 토큰에 직접 접근 못 하므로, 토큰을 가진 GitHub Actions가 "다리" 역할.
 # 루틴은 content-plan.md 도 src/content/guides/ 도 읽지 않아 이미 큐에 있는 주제를
 # 그대로 다시 제안한다(2026-07-19 이슈 #20에서 3건). 그걸 여기서 기계가 잡는다.
+#
+# 텔레그램 전송이 조용히 실패한 적이 있어(2026-07-26 #25, 본문 4096자 초과 → 400 "message is too long",
+# 그런데 curl -s 라 워크플로는 success) 재전송용 workflow_dispatch 를 둔다. 이벤트/수동 둘 다
+# gh 로 이슈 본문을 직접 가져와 분기 없이 동작한다.
 on:
   issues:
     types: [opened]
+  workflow_dispatch:
+    inputs:
+      issue_number:
+        description: "재전송할 [글감] 이슈 번호"
+        required: true
 
 jobs:
   notify:
-    # 글감 제안 이슈만 알린다.
-    if: startsWith(github.event.issue.title, '[글감]')
+    # 이슈 이벤트면 글감 제안 이슈만, 수동 실행이면 무조건.
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.issue.title, '[글감]')
     runs-on: ubuntu-latest
     permissions:
       issues: write
@@ -28,37 +37,82 @@ jobs:
           cache: npm
       - run: npm ci
 
+      # 이슈 번호를 정하고 본문·URL을 gh 로 가져온다(이벤트/수동 공통 경로).
+      - name: 이슈 확보
+        id: issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            N="${{ github.event.inputs.issue_number }}"
+          else
+            N="${{ github.event.issue.number }}"
+          fi
+          gh issue view "$N" --repo "$GITHUB_REPOSITORY" --json body,url \
+            --jq '.body' > issue-body.txt
+          URL=$(gh issue view "$N" --repo "$GITHUB_REPOSITORY" --json url --jq '.url')
+          echo "number=$N" >> "$GITHUB_OUTPUT"
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+
       # 겹쳐도 실패시키지 않는다 — 판정이 아니라 사람에게 주는 경고다.
       - name: 중복 검사
         id: dupes
-        env:
-          ISSUE_BODY: ${{ github.event.issue.body }}
-        run: npm run check:idea-dupes
+        run: |
+          ISSUE_BODY="$(cat issue-body.txt)" npm run check:idea-dupes
 
       - name: 이슈에 중복 경고 코멘트
         if: steps.dupes.outputs.count != '0' && steps.dupes.outputs.report != ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPORT: ${{ steps.dupes.outputs.report }}
-        run: gh issue comment "${{ github.event.issue.number }}" --body "${REPORT}"
+        run: gh issue comment "${{ steps.issue.outputs.number }}" --body "${REPORT}"
 
+      # 텔레그램 한 메시지 한계는 4096자(UTF-8 문자 기준). 이슈 본문이 넘으면
+      # sendMessage가 400 "message is too long"으로 거부한다(2026-07-26 #25 사고).
+      # 줄 경계를 지키며 3500자 청크로 나눠 순서대로 보내고, 각 응답의 ok 를 확인해
+      # 하나라도 실패하면 스텝을 실패시킨다(curl -s 는 실패해도 exit 0 이라 조용히 넘어갔다).
       - name: Send Telegram notification
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          ISSUE_BODY: ${{ github.event.issue.body }}
-          ISSUE_URL: ${{ github.event.issue.html_url }}
+          ISSUE_URL: ${{ steps.issue.outputs.url }}
           REPORT: ${{ steps.dupes.outputs.report }}
         run: |
           MSG=$(printf '%s\n' \
             "💡 이번 주 글감 제안이 왔어요" \
             "" \
-            "${ISSUE_BODY}" \
+            "$(cat issue-body.txt)" \
             "" \
             "${REPORT}" \
             "" \
             "고른 글감으로 큐(docs/content-plan.md) 세팅하세요:" \
             "${ISSUE_URL}")
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            -d chat_id="${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text=${MSG}"
+
+          send() {
+            resp=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+              -d chat_id="${TELEGRAM_CHAT_ID}" \
+              --data-urlencode "text=$1")
+            case "$resp" in
+              *'"ok":true'*) : ;;
+              *) echo "텔레그램 전송 실패: $resp"; return 1 ;;
+            esac
+          }
+
+          # 줄 단위로 쌓다가 3500자를 넘기 직전에 한 청크로 끊어 보낸다.
+          LIMIT=3500
+          chunk=""
+          fail=0
+          while IFS= read -r line || [ -n "$line" ]; do
+            if [ "${#chunk}" -gt 0 ] && [ $(( ${#chunk} + ${#line} + 1 )) -gt "$LIMIT" ]; then
+              send "$chunk" || fail=1
+              chunk="$line"
+            elif [ "${#chunk}" -eq 0 ]; then
+              chunk="$line"
+            else
+              chunk="${chunk}"$'\n'"${line}"
+            fi
+          done <<< "$MSG"
+          if [ -n "$chunk" ]; then
+            send "$chunk" || fail=1
+          fi
+          exit "$fail"
