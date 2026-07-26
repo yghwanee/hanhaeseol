@@ -44,7 +44,7 @@
 - [ ] 스포티비 끄고 쿠팡 켠다 — 중계권 이동으로 2026-27 시즌부터 달라지는 것들 (slug: spotv-to-coupang-sports-rights-2026)
 - [ ] 이강인 빠진 PSG 2026-27, UCL 챔피언스리그 경기 한국에서 어디서 보나 (slug: psg-ucl-2026-27-broadcast)
 - [ ] 쿠팡플레이 8월 라인업, 이강인 서울 데뷔전·EPL 개막 다 보려면 (slug: coupang-play-august-2026-schedule) (고정: 2026-08-07)
-- [ ] 황인범 FC포르투 이적 확정, 포르투갈 프리메이라 리가 한국에서 볼 수 있나 (slug: hwang-in-bum-porto-broadcast)
+- [x] 황인범 FC포르투 이적 확정, 포르투갈 프리메이라 리가 한국에서 볼 수 있나 (slug: hwang-in-bum-porto-broadcast) (수동, 7/27)
 - [ ] 라리가 2026-27 개막일과 이강인 첫 경기, 한국에서 어디서 보나 (slug: laliga-2026-27-kickoff-broadcast)
 - [ ] 손흥민 LAFC MLS 경기 어디서 보나, 한국어 해설 있나 (slug: son-heungmin-lafc-mls-broadcast-2026)
 
