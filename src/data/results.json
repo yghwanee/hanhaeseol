@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-26T11:07:46.022Z",
+  "lastUpdated": "2026-07-26T12:15:31.860Z",
   "byKey": {
     "2026-07-25|kbo|롯데|KT": {
       "date": "2026-07-25",
@@ -61,27 +61,16 @@
       "period": "9회초",
       "highlightVideoId": "jnyyG9pagLc"
     },
-    "2026-07-26|kbo|롯데|KT": {
-      "date": "2026-07-26",
-      "categoryId": "kbo",
-      "gameId": "20260726KTLT02026",
-      "homeTeam": "롯데",
-      "awayTeam": "KT",
-      "homeScore": 10,
-      "awayScore": 0,
-      "status": "live",
-      "period": "6회말"
-    },
     "2026-07-26|kbo|한화|LG": {
       "date": "2026-07-26",
       "categoryId": "kbo",
       "gameId": "20260726LGHH02026",
       "homeTeam": "한화",
       "awayTeam": "LG",
-      "homeScore": 4,
-      "awayScore": 0,
+      "homeScore": 5,
+      "awayScore": 4,
       "status": "live",
-      "period": "6회초"
+      "period": "8회말"
     },
     "2026-07-26|kbo|SSG|NC": {
       "date": "2026-07-26",
@@ -89,21 +78,10 @@
       "gameId": "20260726NCSK02026",
       "homeTeam": "SSG",
       "awayTeam": "NC",
-      "homeScore": 1,
+      "homeScore": 5,
       "awayScore": 5,
       "status": "live",
-      "period": "7회말"
-    },
-    "2026-07-26|kbo|두산|삼성": {
-      "date": "2026-07-26",
-      "categoryId": "kbo",
-      "gameId": "20260726SSOB02026",
-      "homeTeam": "두산",
-      "awayTeam": "삼성",
-      "homeScore": 4,
-      "awayScore": 0,
-      "status": "live",
-      "period": "7회말"
+      "period": "9회말"
     },
     "2026-07-26|kbo|KIA|키움": {
       "date": "2026-07-26",
@@ -112,9 +90,33 @@
       "homeTeam": "KIA",
       "awayTeam": "키움",
       "homeScore": 3,
-      "awayScore": 7,
+      "awayScore": 8,
       "status": "live",
-      "period": "6회말"
+      "period": "9회말"
+    },
+    "2026-07-26|kbo|롯데|KT": {
+      "date": "2026-07-26",
+      "categoryId": "kbo",
+      "gameId": "20260726KTLT02026",
+      "homeTeam": "롯데",
+      "awayTeam": "KT",
+      "homeScore": 15,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "wu74R6HhSI0"
+    },
+    "2026-07-26|kbo|두산|삼성": {
+      "date": "2026-07-26",
+      "categoryId": "kbo",
+      "gameId": "20260726SSOB02026",
+      "homeTeam": "두산",
+      "awayTeam": "삼성",
+      "homeScore": 7,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "QFKVVrWNRI4"
     },
     "2026-07-25|mlb|밀워키|콜로라도": {
       "date": "2026-07-25",
@@ -2944,10 +2946,10 @@
       "gameId": "202607260901120",
       "homeTeam": "서울",
       "awayTeam": "울산",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 2,
       "status": "live",
-      "period": "전반 37'",
+      "period": "후반 41'",
       "goals": [
         {
           "team": "away",
@@ -2958,6 +2960,11 @@
           "team": "away",
           "player": "이동경",
           "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "정승원",
+          "minute": 60
         }
       ]
     },
@@ -2968,9 +2975,18 @@
       "homeTeam": "인천",
       "awayTeam": "부천",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 38'"
+      "period": "후반 37'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "후안 이비자",
+          "minute": 45,
+          "addedTime": 2,
+          "ownGoal": true
+        }
+      ]
     },
     "2026-07-26|kleague|광주|제주": {
       "date": "2026-07-26",
@@ -2979,14 +2995,19 @@
       "homeTeam": "광주",
       "awayTeam": "제주",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 38'",
+      "period": "후반 38'",
       "goals": [
         {
           "team": "home",
           "player": "정지훈",
           "minute": 9
+        },
+        {
+          "team": "away",
+          "player": "오재혁",
+          "minute": 39
         }
       ]
     },
@@ -2996,15 +3017,20 @@
       "gameId": "202607262721117",
       "homeTeam": "안양",
       "awayTeam": "강원",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 38'",
+      "period": "후반 32'",
       "goals": [
         {
           "team": "home",
           "player": "최건주",
           "minute": 2
+        },
+        {
+          "team": "home",
+          "player": "엘쿠라노",
+          "minute": 35
         }
       ]
     },
@@ -3148,10 +3174,22 @@
       "gameId": "202607263642151",
       "homeTeam": "김포",
       "awayTeam": "용인",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 1,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 37'"
+      "period": "후반 42'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "최치웅",
+          "minute": 74
+        },
+        {
+          "team": "home",
+          "player": "루안",
+          "minute": 79
+        }
+      ]
     },
     "2026-07-26|kleague2|파주|안산": {
       "date": "2026-07-26",
@@ -3160,9 +3198,16 @@
       "homeTeam": "파주",
       "awayTeam": "안산",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 37'"
+      "period": "후반 42'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "김인성",
+          "minute": 56
+        }
+      ]
     },
     "2026-07-25|denmark|비보리|OB": {
       "date": "2026-07-25",
@@ -3213,8 +3258,8 @@
       "awayTeam": "미트윌란",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 14'"
     },
     "2026-07-26|denmark|코펜하겐|링비": {
       "date": "2026-07-26",
@@ -3303,24 +3348,13 @@
     {
       "date": "2026-07-26",
       "categoryId": "kbo",
-      "gameId": "20260726KTLT02026",
-      "homeTeam": "롯데",
-      "awayTeam": "KT",
-      "homeScore": 10,
-      "awayScore": 0,
-      "status": "live",
-      "period": "6회말"
-    },
-    {
-      "date": "2026-07-26",
-      "categoryId": "kbo",
       "gameId": "20260726LGHH02026",
       "homeTeam": "한화",
       "awayTeam": "LG",
-      "homeScore": 4,
-      "awayScore": 0,
+      "homeScore": 5,
+      "awayScore": 4,
       "status": "live",
-      "period": "6회초"
+      "period": "8회말"
     },
     {
       "date": "2026-07-26",
@@ -3328,21 +3362,10 @@
       "gameId": "20260726NCSK02026",
       "homeTeam": "SSG",
       "awayTeam": "NC",
-      "homeScore": 1,
+      "homeScore": 5,
       "awayScore": 5,
       "status": "live",
-      "period": "7회말"
-    },
-    {
-      "date": "2026-07-26",
-      "categoryId": "kbo",
-      "gameId": "20260726SSOB02026",
-      "homeTeam": "두산",
-      "awayTeam": "삼성",
-      "homeScore": 4,
-      "awayScore": 0,
-      "status": "live",
-      "period": "7회말"
+      "period": "9회말"
     },
     {
       "date": "2026-07-26",
@@ -3351,9 +3374,33 @@
       "homeTeam": "KIA",
       "awayTeam": "키움",
       "homeScore": 3,
-      "awayScore": 7,
+      "awayScore": 8,
       "status": "live",
-      "period": "6회말"
+      "period": "9회말"
+    },
+    {
+      "date": "2026-07-26",
+      "categoryId": "kbo",
+      "gameId": "20260726KTLT02026",
+      "homeTeam": "롯데",
+      "awayTeam": "KT",
+      "homeScore": 15,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "wu74R6HhSI0"
+    },
+    {
+      "date": "2026-07-26",
+      "categoryId": "kbo",
+      "gameId": "20260726SSOB02026",
+      "homeTeam": "두산",
+      "awayTeam": "삼성",
+      "homeScore": 7,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "QFKVVrWNRI4"
     },
     {
       "date": "2026-07-25",
@@ -4279,10 +4326,10 @@
       "gameId": "202607260901120",
       "homeTeam": "서울",
       "awayTeam": "울산",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 2,
       "status": "live",
-      "period": "전반 37'",
+      "period": "후반 41'",
       "goals": [
         {
           "team": "away",
@@ -4293,6 +4340,11 @@
           "team": "away",
           "player": "이동경",
           "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "정승원",
+          "minute": 60
         }
       ]
     },
@@ -4303,9 +4355,18 @@
       "homeTeam": "인천",
       "awayTeam": "부천",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 38'"
+      "period": "후반 37'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "후안 이비자",
+          "minute": 45,
+          "addedTime": 2,
+          "ownGoal": true
+        }
+      ]
     },
     {
       "date": "2026-07-26",
@@ -4314,14 +4375,19 @@
       "homeTeam": "광주",
       "awayTeam": "제주",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 38'",
+      "period": "후반 38'",
       "goals": [
         {
           "team": "home",
           "player": "정지훈",
           "minute": 9
+        },
+        {
+          "team": "away",
+          "player": "오재혁",
+          "minute": 39
         }
       ]
     },
@@ -4331,15 +4397,20 @@
       "gameId": "202607262721117",
       "homeTeam": "안양",
       "awayTeam": "강원",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 38'",
+      "period": "후반 32'",
       "goals": [
         {
           "team": "home",
           "player": "최건주",
           "minute": 2
+        },
+        {
+          "team": "home",
+          "player": "엘쿠라노",
+          "minute": 35
         }
       ]
     },
@@ -4483,10 +4554,22 @@
       "gameId": "202607263642151",
       "homeTeam": "김포",
       "awayTeam": "용인",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 1,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 37'"
+      "period": "후반 42'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "최치웅",
+          "minute": 74
+        },
+        {
+          "team": "home",
+          "player": "루안",
+          "minute": 79
+        }
+      ]
     },
     {
       "date": "2026-07-26",
@@ -4495,9 +4578,16 @@
       "homeTeam": "파주",
       "awayTeam": "안산",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 37'"
+      "period": "후반 42'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "김인성",
+          "minute": 56
+        }
+      ]
     },
     {
       "date": "2026-07-25",
@@ -4548,8 +4638,8 @@
       "awayTeam": "미트윌란",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 14'"
     },
     {
       "date": "2026-07-26",
