@@ -37,7 +37,7 @@
 - [x] 월드컵 끝난 뒤 이제 뭘 보나 — 7월 말~8월 스포츠 중계 캘린더 총정리 (slug: post-worldcup-sports-watch-calendar)
 - [x] KBO 후반기 순위 경쟁 시작 — 티빙 무료 여부·요금 한 줄 정리 (slug: kbo-second-half-2026-tving-guide)
 - [x] 황인범 FC포르투 이적 확정, 포르투갈 프리메이라 리가 한국에서 볼 수 있나 (slug: hwang-in-bum-porto-broadcast) (수동, 7/27)
-- [ ] 🔴 김하성 MLB 복귀 임박, 팀 바뀌어도 한국 중계 이어지나 — SPOTV 채널 정리 (slug: kim-ha-seong-mlb-comeback-broadcast) — 트레이드 데드라인(7/31) 전에 발행할 것, 그래서 큐 최상단
+- [x] 🔴 김하성 MLB 복귀 임박, 팀 바뀌어도 한국 중계 이어지나 — SPOTV 채널 정리 (slug: kim-ha-seong-mlb-comeback-broadcast) — 트레이드 데드라인(7/31) 전에 발행할 것, 그래서 큐 최상단
 - [ ] 쿠팡플레이 8월 라인업, 이강인 서울 데뷔전·EPL 개막 다 보려면 (slug: coupang-play-august-2026-schedule) (고정: 2026-08-07)
 - [ ] 라리가 2026-27 개막일과 이강인 첫 경기, 한국에서 어디서 보나 (slug: laliga-2026-27-kickoff-broadcast)
 - [ ] 손흥민 LAFC MLS 경기 어디서 보나, 한국어 해설 있나 (slug: son-heungmin-lafc-mls-broadcast-2026)
