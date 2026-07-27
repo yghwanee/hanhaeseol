@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-27T16:33:41.196Z",
+  "lastUpdated": "2026-07-27T18:12:56.671Z",
   "byKey": {
     "2026-07-28|kbo|삼성|KIA": {
       "date": "2026-07-28",
@@ -1838,10 +1838,23 @@
       "gameId": "uYTwDnn6d6E3RH7",
       "homeTeam": "라네르스",
       "awayTeam": "실케보리",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 10'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "템센",
+          "minute": 10
+        },
+        {
+          "team": "away",
+          "player": "로스",
+          "minute": 45,
+          "addedTime": 1
+        }
+      ]
     }
   },
   "results": [
@@ -2424,10 +2437,23 @@
       "gameId": "uYTwDnn6d6E3RH7",
       "homeTeam": "라네르스",
       "awayTeam": "실케보리",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 10'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "템센",
+          "minute": 10
+        },
+        {
+          "team": "away",
+          "player": "로스",
+          "minute": 45,
+          "addedTime": 1
+        }
+      ]
     }
   ]
 }
