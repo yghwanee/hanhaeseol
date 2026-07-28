@@ -93,6 +93,24 @@ jobs:
         continue-on-error: true
         run: npm run crawl:worldcup
 
+      # 크롤이 만든 데이터를 가드로 검사한다.
+      #
+      # 🔴 이게 없으면 어제(2026-07-28) 만든 데이터 스캔 가드가 실제로 일하지 않는다.
+      # test.yml 은 `paths` 로 `src/data/**` 를 제외하므로(하루 수십 번 헛도는 걸 막기 위함)
+      # **정작 그 데이터를 만드는 커밋에서는 가드가 돌지 않는다.** 크롤러가 오염된 팀명이나
+      # 파싱 실패 행을 들여와도 다음에 누가 코드를 푸시할 때까지 아무도 모른다.
+      # 팀명 파싱은 이 워크플로(편성 크롤)에서만 일어나므로 여기서 검사하는 게 맞다.
+      #
+      # **실패해도 커밋은 계속한다.** 가드 하나 때문에 편성표 갱신 전체를 막으면
+      # 사용자가 보는 데이터가 하루 낡는다. 대신 텔레그램으로 알린다(아래 별도 스텝).
+      - name: 데이터 위생 가드
+        id: dataguard
+        continue-on-error: true
+        run: |
+          npm run test:team-name-hygiene
+          npm run test:schedule-quality
+          npm run test:team-full-names
+
       - name: Commit & Push
         id: commit
         run: |
@@ -203,6 +221,16 @@ jobs:
         if: steps.commit.outputs.updated == 'true' && steps.vercel.outputs.final == 'READY'
         continue-on-error: true
         run: npm run seo:indexnow
+
+      # 가드가 걸리면 알린다. 크롤러가 팀명·리그를 잘못 파싱해 들여온 것이므로,
+      # 놔두면 매치 페이지 제목·스코어 매칭·팀 페이지 목록이 조용히 어긋난다.
+      # (색인 자체는 schedule-quality 게이트가 자동으로 막아준다 — 알림은 고치라는 신호)
+      - name: Telegram 알림 (데이터 위생 가드 실패)
+        if: always() && steps.dataguard.outcome == 'failure'
+        run: |
+          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
+            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
+            -d text="⚠️ 한해설 데이터 위생 가드 실패 — 크롤러가 팀명/리그를 잘못 파싱한 행을 들여왔습니다.%0A색인은 자동 차단되지만 표시는 어긋납니다.%0A로컬에서 확인: npm run test:team-name-hygiene && npm run test:schedule-quality%0A로그: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
       - name: Telegram 알림 (1차 빌드 성공)
         if: steps.commit.outputs.updated == 'true' && steps.crawl.outputs.coupang_failed == 'false' && steps.vercel.outputs.final == 'READY' && steps.vercel.outputs.retried == 'false'
