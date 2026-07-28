@@ -9,7 +9,10 @@ const SPORT_SCHEMA_MAP: Record<string, string> = {
 };
 
 const MAX_EVENTS = 50;
-const SITE_LOGO_URL = "https://haeseol.com/logo.png";
+// logo.png 원본은 3496x3496 / 1.26MB. 구조화 데이터 image 는 리그·플랫폼 페이지의 모든
+// SportsEvent(최대 50개)에 붙으므로, 크롤러가 그 URL 을 받으면 1.26MB 다.
+// 1200px 축소본(199KB)이면 구글 권장(1200px 이상)을 충족하면서 6.5배 가볍다.
+const SITE_LOGO_URL = "https://haeseol.com/logo-1200.png";
 
 function toKstIso(ms: number): string {
   // KST = UTC+9. ISO 8601 with explicit offset.

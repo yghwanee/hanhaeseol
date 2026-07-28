@@ -35,7 +35,8 @@ function loadAssets() {
         fetch(`${BASE}/fonts/Pretendard-Regular.otf`, { next: { revalidate: 86400 } }).then((r) =>
           r.arrayBuffer(),
         ),
-        fetch(`${BASE}/logo.png`, { next: { revalidate: 86400 } }).then((r) => r.arrayBuffer()),
+        // 원본(1.26MB) 대신 1200px 축소본(199KB). OG 렌더마다 받는 바이트라 6.5배 차이가 난다.
+        fetch(`${BASE}/logo-1200.png`, { next: { revalidate: 86400 } }).then((r) => r.arrayBuffer()),
       ]);
       const logo = `data:image/png;base64,${Buffer.from(logoBuf).toString("base64")}`;
       return { bold, regular, logo };

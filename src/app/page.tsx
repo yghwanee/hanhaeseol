@@ -37,7 +37,10 @@ function buildSportsEventsJsonLd(schedules: Schedule[]) {
           "@type": "VirtualLocation",
           "url": "https://haeseol.com",
         },
-        "image": ["https://haeseol.com/logo.png"],
+        // logo.png 원본은 3496x3496 / 1.26MB 다. 구조화 데이터 이미지로 그걸 노출하면
+        // 크롤러가 매번 1.26MB 를 받는다. 1200px 축소본(199KB)으로 충분하다
+        // (구글 권장 1200px 이상 충족).
+        "image": ["https://haeseol.com/logo-1200.png"],
         "description": `${s.league} ${s.homeTeam} vs ${s.awayTeam} ${s.platform} 중계${s.koreanCommentary === true ? " (한국어해설)" : ""}`,
         "sport": s.sport,
         "inLanguage": lang,

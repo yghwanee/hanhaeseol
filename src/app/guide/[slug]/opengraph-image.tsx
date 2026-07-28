@@ -23,7 +23,8 @@ function loadAssets() {
         fetch(`${BASE}/fonts/Pretendard-Regular.otf`, { next: { revalidate: 86400 } }).then((r) =>
           r.arrayBuffer(),
         ),
-        fetch(`${BASE}/logo.png`, { next: { revalidate: 86400 } }).then((r) => r.arrayBuffer()),
+        // 원본(1.26MB) 대신 1200px 축소본(199KB).
+        fetch(`${BASE}/logo-1200.png`, { next: { revalidate: 86400 } }).then((r) => r.arrayBuffer()),
       ]);
       return {
         bold,
