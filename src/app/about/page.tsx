@@ -124,6 +124,30 @@ export default function AboutPage() {
           </p>
         </section>
 
+        {/* 생성 방식 공개.
+            Google 의 helpful-content 가이드는 "Who / How / Why" 세 질문을 평가 항목으로 두고,
+            **AI 보조 콘텐츠에는 과정 공개를 기대한다**고 명시한다(그리고 그게 정직하다).
+            사이트 전체가 어떻게 만들어지는지를 한곳에서 밝힌다. 글마다 다른 주장을 붙이려면
+            글마다 확인이 필요한데, 지금 기존 글에는 그 근거가 없어서 사이트 단위로 적는다. */}
+        <section className="mb-8">
+          <h2 className="text-xl font-semibold mb-3">이 사이트가 만들어지는 방식</h2>
+          <p className="text-gray-300 leading-relaxed mb-3">
+            편성표·순위·경기 결과는 각 플랫폼과 리그의 공개 정보를 프로그램이 자동으로
+            수집·정규화한 것입니다. 사람이 일정을 손으로 입력하지 않습니다.
+          </p>
+          <p className="text-gray-300 leading-relaxed mb-3">
+            경기 페이지의 <strong className="text-gray-100">경기 미리보기</strong>는 수집된
+            기록을 근거로 AI가 작성한 자동 생성 문장이며, 각 문장을 사람이 따로 검수하지는
+            않습니다. 해당 섹션에 생성 시점과 함께 표시됩니다.
+          </p>
+          <p className="text-gray-300 leading-relaxed">
+            <Link href="/guide" className="text-blue-400 hover:underline">한해설 Topic</Link>{" "}
+            글은 사람이 쓴 글과 AI가 초안을 작성한 글이 함께 있습니다. 어느 쪽이든 발행 전
+            자동 검사(빌드·문체 검사)를 통과해야 하며, 사실관계가 확인되지 않은 내용은
+            본문에 그렇게 표기합니다. 오류를 발견하면 아래로 알려주시면 고칩니다.
+          </p>
+        </section>
+
         <section>
           <h2 className="text-xl font-semibold mb-3">문의</h2>
           <p className="text-gray-300">

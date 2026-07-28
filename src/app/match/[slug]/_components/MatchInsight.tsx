@@ -34,6 +34,24 @@ export function MatchInsightSection({ insight }: { insight: MatchInsight }) {
           </ul>
         </div>
       </div>
+
+      {/* 생성 방식 고지.
+          Google 의 helpful-content 가이드는 "How was it created?" 를 평가 항목으로 두고,
+          **AI 보조 콘텐츠에는 과정 공개를 기대한다**고 명시한다. 이 섹션은 편성·기록
+          데이터를 근거로 LLM 이 쓴 문장이고 사람이 문장 단위로 손보지 않으므로, 그 사실을
+          그대로 적는다. "운영자가 검수합니다" 같은 문구는 실제로 하지 않는 일이라 쓰지 않는다. */}
+      <p className="mt-5 border-t border-zinc-800/80 pt-3 text-xs leading-relaxed text-zinc-500">
+        이 미리보기는 한해설이 수집한 편성·순위·최근 경기 기록을 근거로 AI가 작성한
+        자동 생성 문장입니다. 사실관계는 각 리그·플랫폼 공식 발표를 따릅니다.
+        {insight.generatedAt && (
+          <>
+            {" "}생성{" "}
+            <time dateTime={insight.generatedAt}>
+              {insight.generatedAt.slice(0, 10).replace(/-/g, ".")}
+            </time>
+          </>
+        )}
+      </p>
     </section>
   );
 }

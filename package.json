@@ -64,7 +64,8 @@
     "test:team-links": "tsx --test src/lib/team-links.test.ts",
     "test:team-name-hygiene": "tsx --test src/lib/crawlers/team-name-hygiene.test.ts",
     "test:schedule-quality": "tsx --test src/lib/schedule-quality.test.ts",
-    "test:sitemap-consistency": "tsx --test src/lib/sitemap-consistency.test.ts"
+    "test:sitemap-consistency": "tsx --test src/lib/sitemap-consistency.test.ts",
+    "test:autolink": "tsx --test src/lib/guides/autolink.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

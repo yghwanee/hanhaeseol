@@ -11,6 +11,7 @@
 import fs from "fs";
 import path from "path";
 import { marked } from "marked";
+import { autolinkGuideBody } from "./autolink";
 
 const GUIDES_DIR = path.join(process.cwd(), "src/content/guides");
 
@@ -83,9 +84,14 @@ export function getGuide(slug: string): Guide | null {
 
   const raw = fs.readFileSync(file, "utf8");
   const { data, body } = parseFrontmatter(raw);
+  // 리그·플랫폼 이름을 편성표로 자동 연결한다. 발행글 26편 중 21편이 내부 링크 0개였고
+  // (실측 2026-07-28) 글에서 허브 페이지로 넘어갈 경로가 없었다. 본문 파일은 건드리지 않고
+  // 렌더 단계에서만 붙인다 — bodyMarkdown 은 원문 그대로 유지된다.
+  const linkedBody = autolinkGuideBody(body);
+
   // breaks: true → 마크다운에서 엔터 한 번(단일 개행)도 <br>로 변환.
   // 글쓴이가 친 줄바꿈이 화면에 그대로 반영돼 직관적이고, 줄바꿈 제어가 쉬워진다.
-  const bodyHtml = marked.parse(body, {
+  const bodyHtml = marked.parse(linkedBody, {
     async: false,
     gfm: true,
     breaks: true,
