@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-07-28T18:02:40.520Z",
+  "lastUpdated": "2026-07-28T19:51:08.389Z",
   "byKey": {
     "2026-07-28|kbo|삼성|KIA": {
       "date": "2026-07-28",
@@ -925,7 +925,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "canceled",
+      "period": "연기"
     },
     "2026-07-29|mlb|뉴욕메츠|애틀랜타 브레이브스": {
       "date": "2026-07-29",
@@ -935,7 +936,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "canceled",
+      "period": "연기"
     },
     "2026-07-29|mlb|뉴욕 메츠|애틀랜타": {
       "date": "2026-07-29",
@@ -945,7 +947,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "canceled",
+      "period": "연기"
     },
     "2026-07-29|mlb|뉴욕 메츠|애틀랜타 브레이브스": {
       "date": "2026-07-29",
@@ -955,7 +958,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "canceled",
+      "period": "연기"
     },
     "2026-07-29|mlb|미네소타|캔자스시티": {
       "date": "2026-07-29",
@@ -1380,7 +1384,7 @@
     "2026-07-30|mlb|뉴욕메츠|애틀랜타": {
       "date": "2026-07-30",
       "categoryId": "mlb",
-      "gameId": "20260730ATNM0",
+      "gameId": "20260730ATNM2",
       "homeTeam": "뉴욕 메츠",
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
@@ -1390,7 +1394,7 @@
     "2026-07-30|mlb|뉴욕메츠|애틀랜타 브레이브스": {
       "date": "2026-07-30",
       "categoryId": "mlb",
-      "gameId": "20260730ATNM0",
+      "gameId": "20260730ATNM2",
       "homeTeam": "뉴욕 메츠",
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
@@ -1400,7 +1404,7 @@
     "2026-07-30|mlb|뉴욕 메츠|애틀랜타": {
       "date": "2026-07-30",
       "categoryId": "mlb",
-      "gameId": "20260730ATNM0",
+      "gameId": "20260730ATNM2",
       "homeTeam": "뉴욕 메츠",
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
@@ -1410,7 +1414,7 @@
     "2026-07-30|mlb|뉴욕 메츠|애틀랜타 브레이브스": {
       "date": "2026-07-30",
       "categoryId": "mlb",
-      "gameId": "20260730ATNM0",
+      "gameId": "20260730ATNM2",
       "homeTeam": "뉴욕 메츠",
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
@@ -2171,10 +2175,10 @@
       "gameId": "20260729CLCI1",
       "homeTeam": "신시내티 레즈",
       "awayTeam": "클리블랜드 가디언스",
-      "homeScore": 0,
-      "awayScore": 4,
+      "homeScore": 5,
+      "awayScore": 5,
       "status": "live",
-      "period": "1회말"
+      "period": "7회말"
     },
     {
       "date": "2026-07-29",
@@ -2234,7 +2238,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "canceled",
+      "period": "연기"
     },
     {
       "date": "2026-07-29",
@@ -2359,7 +2364,7 @@
     {
       "date": "2026-07-30",
       "categoryId": "mlb",
-      "gameId": "20260730ATNM0",
+      "gameId": "20260730ATNM1",
       "homeTeam": "뉴욕 메츠",
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
@@ -2402,6 +2407,16 @@
       "gameId": "20260730TETB0",
       "homeTeam": "탬파베이 레이스",
       "awayTeam": "텍사스 레인저스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    {
+      "date": "2026-07-30",
+      "categoryId": "mlb",
+      "gameId": "20260730ATNM2",
+      "homeTeam": "뉴욕 메츠",
+      "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled"
