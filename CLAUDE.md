@@ -203,6 +203,20 @@ src/
     - 검증: tsc · ESLint · 테스트 **131/131**(신규 22: seo-meta 13·team-full-names 6·robots-meta 3·team-links 4) · 빌드 442 페이지 · **라이브 샘플 25개 결함 0**. 상세 `docs/geo-analysis.md`.
     - **관측(2~4주)**: 색인 수 880 기준 · 해설 쿼리 노출 407 기준 · `/team/` 노출 발생 여부 · 매치 페이지 디스커버 노출.
 
+63. 🔴 SEO 스킬 전량 검증 2차 — 파싱 실패 색인 차단·신호 모순·자동 내부링크·AI 고지 (2026-07-28 오후, 커밋 `e045edea`·`e5c73a4b`·`7ac300d6`) — `claude-seo` 스킬(`seo-technical`·`seo-schema`·`seo-sitemap`·`seo-content`·`seo-images`) 기준으로 전수 재검증. 작업62가 "제가 볼 줄 아는 항목"이었던 반면 여기서는 안 보던 범주가 나왔다.
+    - **🔴 특수 경기 편성이 깨진 채 공개되고 있었음(13건)** — 올스타전·실업배구 챔프전은 제목 포맷이 정규 경기와 달라 `league="2026"`, `away="KBO 올스타전 나눔"`, `away="신한 SOL KBO 올스타 프라이데이 퓨처스 올스... 북부리그"`(제공처가 제목을 자름) 같은 행이 있었다. `parsers.ts stripEventPrefix()` 로 접두 제거(**`올스타`(전 없음)로 끝나는 건 팀명의 일부 — `나눔 올스타`·`MLS 올스타`가 실제 팀명이라 건드리면 안 된다**), 아카이브 복구, 그리고 `schedule-quality.ts` 게이트로 **파싱 실패 행을 `isRichMatch` 에서 색인 제외**. 크롤러 10종의 특수 포맷을 전부 역공학하는 건 수렴하지 않으므로 "설명할 수 없는 페이지는 공개하지 않는다"로 잡았다(화면 표시는 유지).
+    - **🔴 `parseMatchTitle` 의 homeTeam 이 `cleanTeam` 을 건너뛰고 있었음** (커밋 `10ef52d8`) — `leagueInHome`·`prefixMatch` 두 분기가 `.trim()` 만 걸어서 `KBO리그 LG(26.06.25) vs 삼성` 의 homeTeam 이 `LG(26.06.25)` 로 나갔다. awayTeam 은 정리되므로 **한쪽만 오염**돼 눈에 안 띄었다. "재현 불가"로 판단했다가 테스트를 써보니 정확히 재현됐다 — **추측하지 말고 테스트로 확인할 것.**
+    - **🔴 사이트맵과 매치 페이지가 같은 URL에 반대 신호를 내고 있었음** — 서로 다른 id 가 같은 슬러그를 내는 **충돌 228종**이 있는데 행별로 `isRichMatch` 를 돌려서, 사이트맵은 "색인하라"·페이지는 `noindex` 인 URL 이 1건 있었다. 사이트맵을 **슬러그 기준으로 묶고 `findMatchAnywhere` 와 동일 규칙(schedule → worldcup → archive, 각 소스의 첫 일치)으로 대표 행을 골라** 그 행만 판정. 가드 `test:sitemap-consistency`.
+    - **🔴 가이드 26편이 편성표로 가는 경로가 없었음** — 자기 링크가 글마다 1개(맨 아래 한 줄, 그마저 절대 URL)뿐이고 본문에서 EPL·티빙을 실명으로 다루면서 링크는 0개. `src/lib/guides/autolink.ts` 로 **렌더 단계에서** 붙인다(본문 파일 무수정 → 발행 산문 보존 + 향후 글 자동 적용). 결과 26편 전부 링크 보유, 자동 링크 66개. **한국어 조사가 핵심 난점** — "뒤에 한글이 오면 다른 단어"로 판정하니 조사를 붙여 쓰는 한국어 문장이 전부 걸러져 링크가 0이 됐다. 조사 화이트리스트로 해결(`고`·`다`·`요` 같은 모호한 글자는 제외). 작업55 idea-dupes 와 같은 함정.
+    - **AI 생성 고지가 없었음** — Google helpful-content 가이드가 "How was it created?" 를 평가 항목으로 두고 **AI 보조 콘텐츠에 과정 공개를 기대**한다. 매치 인사이트 섹션에 생성 방식+생성일, `/about` 에 "이 사이트가 만들어지는 방식" 추가. **"운영자가 검수합니다"는 쓰지 않았다 — 작업39에서 검수 게이트를 없앴으므로 사실이 아니다.**
+    - **로고 1.26MB 가 웹에 노출되고 있었음** — `logo.png`(3496², 1.26MB)를 구조화 데이터 `image`(페이지당 SportsEvent 최대 50개가 같은 URL)와 OG 렌더가 참조. `logo-1200.png`(199KB)로 **웹 경로만** 교체(릴스·OG 스크립트는 로컬 파일 읽기라 원본 유지). `public/icons/` 2개(1.3MB)는 전 레포 참조 0건이라 제거.
+    - **보안 헤더**: 라이브에 HSTS만 있었음 → `X-Content-Type-Options`·`X-Frame-Options`·`Referrer-Policy`·`Permissions-Policy` 추가. **CSP 는 넣지 않았다** — 임베드·광고 스크립트와 얽혀 잘못 쓰면 페이지가 깨지고 그 위험이 순위 이득(가볍다)보다 크다.
+    - **🔴 구글 FAQ 리치결과는 2026-05-07 전 사이트 대상 폐지.** 작업62에서 FAQPage 근거로 "SERP 확장"을 적었는데 틀렸다. 유지 근거는 ①AI 답변 엔진 인용 단위 ②화면에 답이 보임 두 개뿐. **구글 리치결과를 근거로 확대하지 말 것.**
+    - **조치 불필요로 확인한 것**(중요 — 다시 파지 말 것): 이미지 `alt` 누락 **0건**(219개 중 190개 빈 alt = 장식, 올바름) · width/height 없는 42개는 부모가 치수 고정(`max-h-full` + `object-contain`)이라 CLS 무관 · 리다이렉트 전부 1홉 · 구조화 데이터 28블록에 폐기 타입·플레이스홀더·상대 URL·날짜 오류 0 · IPTC DigitalSourceType 은 Merchant 피드 요구라 해당 없음 · 가이드 저자 정보는 이미 `author: Organization` + 날짜 보유 · 홈 555KB 는 원본 데이터가 112KB 고 나머지가 App Router flight 오버헤드라 이득 작음 · 사이트맵 `priority`/`changefreq` 는 구글이 무시하지만 **네이버가 유입의 78% 라 유지**.
+    - **검증 5회 반복**: 테스트 **159/159**(신규 40) · tsc · ESLint · 빌드 442 페이지 · 로컬 사이트맵 전수 1,676 URL × 11개 항목 결함 0 · 라이브 층화표본 63개 결함 0 · OG 이미지 라이브 200 확인 · IndexNow 156 URL 재통지.
+    - **새 가드**: `test:robots-meta`·`test:team-name-hygiene`·`test:schedule-quality`·`test:sitemap-consistency`·`test:autolink`·`test:seo-meta`·`test:team-full-names`·`test:team-links` (전부 CI 편입, 되돌려서 fail 실증함).
+    - 도구: `claude-seo` v2.2.4(스킬 31·에이전트 18, `~/.claude/skills/seo` 1.4GB). **`ai-seo` 스킬은 존재하지 않음** — 해당 기능은 `seo-geo`. 훅은 `settings.json` 미등록으로 **비활성**(전역 부작용 없음). 제거는 `uninstall.sh`.
+
 ### 다음 작업 (예정)
 - **팀명 alias 미스매치 재점검 (유럽 개막 2026-08~)** — 2026-07-23 LAFC 3-1 솔트레이크 스코어가 안 뜨던 버그(네이버 `솔트 레이크`↔스케줄 `레알 솔트레이크`/`솔트레이크` alias 다리 없음, 마이애미·신시내티도 동일) 수정 후, 오프시즌 리그(EPL·라리가·세리에A·리그1·분데스 등)는 스케줄에 경기가 없어 **오프라인 검증 불가**로 남김. 유효 검증은 스케줄↔결과 실표기 대조뿐(alias 키 vs 결과 primary 비교는 무효 — primary는 매핑 후 값이라 네이버 원본표기 모름). **개막 후 `npm run crawl && npm run crawl:results && npm run audit:aliases` 실행** → `MISS>0` 나오는 리그만 `team-name-aliases.ts`에 네이버 표기 키 보정. 감사 스크립트 = `src/scripts/audit-aliases.ts`.
 - 🔴 **네이버·GSC 지표 재확인 (2026-08 중순)** — 2026-07-20 + **07-28(작업62)** 조치들의 효과 판정. searchadvisor.naver.com → 리포트. 볼 것: ①사이트 진단 색인 수(880 기준) ②해설 쿼리 노출(407 기준) ③`/team/`·`/commentary` 노출 발생 여부 ④매치 페이지 디스커버 노출(작업62에서 `max-image-preview:large` 복구됨 — 그전엔 91%가 후보에서 빠져 있었으니 **여기가 가장 큰 변화 지점**). **사용자만 뽑을 수 있음(스크린샷이면 충분).**
@@ -236,6 +250,10 @@ npm run test:worldcup-round / test:starters / test:highlights / test:tiktok-capt
 npm run test:idea-dupes / test:naver-news
 npm run test:robots-meta # 🔴 색인 지시자 가드. `robots: cond ? undefined : {}` 금지(layout robots를 삭제함)
 npm run test:seo-meta / test:team-full-names / test:team-links  # description 상한·팀 정식명·순위표 팀링크
+npm run test:schedule-quality      # 파싱 실패 편성(리그=연도, 팀명에 이벤트명) 색인 차단
+npm run test:sitemap-consistency   # 🔴 사이트맵 포함 여부 ↔ 페이지 noindex 일치(슬러그 충돌 228종)
+npm run test:team-name-hygiene     # 팀명에 날짜·시간·괄호 조각 유입 차단 + 데이터 전수 스캔
+npm run test:autolink              # 가이드 자동 내부링크(한국어 조사 처리 포함)
 npm run seo:indexnow     # IndexNow 통지(리그·플랫폼·순위·가이드·팀 86 + /commentary = ~156 URL)
 npm run audit:aliases   # 팀명 alias 미스매치 감사 (결과 있는데 스코어 안 뜨는 유형). 개막 후 crawl:results 뒤 실행
 npm run news:digest      # 네이버 뉴스 → docs/news-digest.md (NAVER_API_KEY_ID/NAVER_API_KEY 필요)
