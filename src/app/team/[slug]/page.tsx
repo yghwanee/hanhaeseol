@@ -469,7 +469,8 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
         )}
 
         {/* 질문형 쿼리("두산 베어스 중계 어디서")가 이 페이지의 주 검색 의도다.
-            FAQPage 마크업이 있어야 SERP 확장·AI 답변 인용 대상이 된다. */}
+            ⚠️ 구글 FAQ 리치결과는 2026-05-07 폐지됐으므로 SERP 확장 목적이 아니다.
+            AI 답변 엔진의 인용 단위 + 화면에 답이 보이는 이득으로 유지한다. */}
         <div className="mt-6">
           <FaqSection
             title={`${full} 중계 자주 묻는 질문`}

@@ -73,3 +73,5 @@ jobs:
           npm run test:team-full-names
           npm run test:team-links
           npm run test:team-name-hygiene
+          npm run test:schedule-quality
+          npm run test:sitemap-consistency

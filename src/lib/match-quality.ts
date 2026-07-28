@@ -3,6 +3,7 @@ import type { ResultsData } from "@/types/results";
 import { readInsight } from "@/lib/insights/storage";
 import { findResult } from "@/lib/results/lookup";
 import { getTodayString } from "@/lib/schedule-utils";
+import { isReliablyParsed } from "@/lib/schedule-quality";
 
 /**
  * 매치 페이지를 색인할지 판정.
@@ -36,6 +37,13 @@ export function isRichMatch(
   results: ResultsData | null,
   todayISO: string = getTodayString(),
 ): boolean {
+  // 파싱이 실패한 행은 무엇이 채워져 있든 색인하지 않는다.
+  // 2026-07-28: 특수 경기(올스타전·실업배구 챔프전) 제목 포맷이 정규 경기와 달라
+  // `league="2026"`, `awayTeam="신한 SOL KBO 올스타전 나눔"` 같은 행이 13건 공개돼
+  // 있었다. 데이터는 복구했지만, 앞으로 생길 같은 실패까지 덮으려면 게이트가 필요하다.
+  // 설명할 수 없는 페이지를 검색엔진에 내보내지 않는다(화면 표시는 계속 유지).
+  if (!isReliablyParsed(match)) return false;
+
   if (readInsight(match.id)) return true;
 
   const r = findResult(results, match);

@@ -62,7 +62,9 @@
     "news:digest": "tsx src/scripts/gen-news-digest.ts",
     "check:idea-dupes": "tsx src/scripts/check-idea-dupes.ts",
     "test:team-links": "tsx --test src/lib/team-links.test.ts",
-    "test:team-name-hygiene": "tsx --test src/lib/crawlers/team-name-hygiene.test.ts"
+    "test:team-name-hygiene": "tsx --test src/lib/crawlers/team-name-hygiene.test.ts",
+    "test:schedule-quality": "tsx --test src/lib/schedule-quality.test.ts",
+    "test:sitemap-consistency": "tsx --test src/lib/sitemap-consistency.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

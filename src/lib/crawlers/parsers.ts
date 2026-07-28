@@ -83,6 +83,41 @@ export function normalizeLeague(raw: string): string {
   return raw.replace(/^\d{2,4}[-\s]?\d{0,2}\s*/, "").trim() || raw;
 }
 
+/**
+ * 팀명 앞에 붙은 대회·이벤트 문구 제거.
+ *
+ * 특수 경기는 제목 포맷이 정규 경기와 달라 대회명이 팀명 쪽으로 넘어온다. 실측된 형태:
+ *
+ *   "KBO 올스타전 나눔"                        → "나눔"
+ *   "신한 SOL KBO 올스타전 나눔 올스타"          → "나눔 올스타"
+ *   "올스타전 아메리칸리그"                      → "아메리칸리그"
+ *   "퓨처스 챔프전 단양대회 여자부 준결승 IBK기업은행" → "IBK기업은행"
+ *
+ * **`올스타`(전 없음)로 끝나는 건 팀명의 일부라 건드리지 않는다** — 올스타전 참가팀 이름이
+ * 실제로 `나눔 올스타`·`드림 올스타`·`MLS 올스타`다. 그래서 접두 제거는 `올스타전`(전 포함)
+ * 토큰까지만 잘라낸다. 남는 게 없으면 원본을 그대로 돌려준다(과잉 제거 방지).
+ */
+export function stripEventPrefix(name: string): string {
+  let out = name.trim();
+
+  // "…올스타전" 까지를 접두로 잘라낸다. 앞에 연도·스폰서·리그 토큰이 몇 개든 상관없다.
+  const allStar = out.match(/^.*?올스타전\s+(.+)$/);
+  if (allStar && allStar[1].trim()) out = allStar[1].trim();
+
+  // "올스타 프라이데이" 는 행사 이름이다. `올스타전` 을 잘라낸 뒤 남은 `프라이데이` 도
+  // 팀명이 아니므로 떼어낸다(실측: "신한 SOL KBO 올스타전 프라이데이 남부리그").
+  const friday = out.match(/^프라이데이\s+(.+)$/);
+  if (friday && friday[1].trim()) out = friday[1].trim();
+
+  // "…(남자부|여자부)? (결승|준결승|N강) <팀명>" — 대회명 + 부문 + 라운드가 앞에 붙은 형태.
+  const stage = out.match(
+    /^.*?(?:남자부|여자부)?\s*(?:준결승|결승|\d+강)(?:전)?\s+(.+)$/,
+  );
+  if (stage && stage[1].trim()) out = stage[1].trim();
+
+  return out || name.trim();
+}
+
 // "[EPL] 맨체스터 시티 vs 아스널" 같은 제목 파싱
 export function parseMatchTitle(title: string): {
   league: string;
@@ -110,11 +145,13 @@ export function parseMatchTitle(title: string): {
   // 전부 어긋나므로 여기서 막는 게 맞다. (`코모 1907` 처럼 연도가 들어간 정식 구단명은
   // 구분자가 없어 이 규칙에 걸리지 않는다.)
   const cleanTeam = (name: string) =>
-    name.replace(/[_]\d+\/\d+.*$/, "").replace(/\(.+?\)/g, "").replace(/[,、].*$/, "")
-      .replace(/\d{2}[.\-/]\d{2}[.\-/]\d{2}.*$/, "")
-      .replace(/^(?:8강전|4강전|준결승전?|결승전?|조별리그|조별예선|16강전?|32강전?|3[·.]?4위전?)\s*/g, "")
-      .replace(/^[)\]}\s]+|[([{\s]+$/g, "")
-      .trim();
+    stripEventPrefix(
+      name.replace(/[_]\d+\/\d+.*$/, "").replace(/\(.+?\)/g, "").replace(/[,、].*$/, "")
+        .replace(/\d{2}[.\-/]\d{2}[.\-/]\d{2}.*$/, "")
+        .replace(/^(?:8강전|4강전|준결승전?|결승전?|조별리그|조별예선|16강전?|32강전?|3[·.]?4위전?)\s*/g, "")
+        .replace(/^[)\]}\s]+|[([{\s]+$/g, "")
+        .trim(),
+    );
 
   // 패턴1: [리그] 홈 vs 원정
   // 대괄호 안이 단계명/회차(챔결1차, 8강1, 결승, 플레이오프 N차 등)이면 리그가 아니므로 스킵 → 패턴2로
