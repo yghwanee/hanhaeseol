@@ -1,4 +1,9 @@
 import { getAllGuides } from "@/lib/guides";
+import standingsData from "@/data/standings.json";
+import scheduleData from "@/data/schedule.json";
+import archiveData from "@/data/schedule-archive.json";
+import { buildTeamIndex, eligibleTeams, type StandingsData } from "@/lib/teams";
+import type { ScheduleData } from "@/types/schedule";
 
 /**
  * IndexNow ping — 검색엔진에 URL 변경을 즉시 통지.
@@ -50,12 +55,27 @@ function buildUrlList(): string[] {
   urls.add(`${BASE}/standings`);
   urls.add(`${BASE}/faq`);
   urls.add(`${BASE}/about`);
+  // 한국어 해설 허브 — 네이버에서 CTR 최상위인 "해설" 쿼리군의 착지 페이지.
+  urls.add(`${BASE}/commentary`);
   for (const s of LEAGUE_SLUGS) urls.add(`${BASE}/league/${s}`);
   for (const s of PLATFORM_SLUGS) urls.add(`${BASE}/platform/${s}`);
   for (const s of STANDINGS_SLUGS) urls.add(`${BASE}/standings/${s}`);
   // 가이드(한해설 Topic) — 새 글 빠른 색인용. 수가 적어 quota 영향 없음.
   urls.add(`${BASE}/guide`);
   for (const g of getAllGuides()) urls.add(`${BASE}/guide/${g.slug}`);
+
+  // 팀 페이지 — 색인이 가장 급한 대상인데 여기서 빠져 있었다(2026-07-28).
+  // 시즌 내내 수요가 붙는 상시 엔티티라 한 번 색인되면 오래 일한다. 유럽 리그가
+  // 개막하면 팀이 자동으로 늘어나므로 하드코딩하지 않고 실제 인덱스에서 뽑는다.
+  //
+  // 게이트는 sitemap·홈과 동일(eligibleTeams). **존재하지 않는 URL을 ping 하면
+  // 크롤러가 404를 받고 신뢰도가 깎이므로** 실제 생성되는 페이지만 보낸다.
+  for (const t of eligibleTeams(buildTeamIndex(standingsData as unknown as StandingsData), [
+    ...(scheduleData as unknown as ScheduleData).schedules,
+    ...(archiveData as unknown as ScheduleData).schedules,
+  ])) {
+    urls.add(`${BASE}/team/${encodeURIComponent(t.slug)}`);
+  }
   return [...urls];
 }
 
