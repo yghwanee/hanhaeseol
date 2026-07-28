@@ -6,8 +6,14 @@ import { SiteHeader } from "../_components/SiteHeader";
 import { StandingsView } from "./_components/StandingsView";
 import { CoupangTopBannerOnly } from "../_components/CoupangBanners";
 import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
+import { loadScheduleData } from "@/lib/server-data";
+import scheduleArchive from "@/data/schedule-archive.json";
+import { buildTeamLinkMap } from "@/lib/team-links";
+import type { StandingsData as TeamStandingsData } from "@/lib/teams";
+import type { Schedule } from "@/types/schedule";
 
 const data = standingsData as unknown as StandingsData;
+const archiveSchedules = (scheduleArchive as unknown as { schedules: Schedule[] }).schedules;
 
 const STANDINGS_INDEX_JSONLD = {
   "@context": "https://schema.org",
@@ -88,6 +94,13 @@ export default function StandingsPage({
 }: {
   searchParams: { sport?: string; league?: string };
 }) {
+  // 순위표 팀명 → 팀 페이지 링크(리그 id 로 스코프). 서버에서 계산해 내려준다.
+  // 팀 페이지가 존재하는 팀만 들어간다 — 없는 페이지로 링크하면 404를 양산한다.
+  const teamLinks = buildTeamLinkMap(data as unknown as TeamStandingsData, [
+    ...loadScheduleData().schedules,
+    ...archiveSchedules,
+  ]);
+
   // 서버 단에서 query → 초기값 결정. 클라이언트 hydration 시 default → 분데스 깜빡임 방지.
   const qSport = searchParams.sport;
   const qLeague = searchParams.league;
@@ -123,7 +136,12 @@ export default function StandingsPage({
         <CoupangTopBannerOnly />
 
         <div className="mt-4 sm:mt-6">
-          <StandingsView data={data} initialSport={initialSport} initialLeague={initialLeague} />
+          <StandingsView
+            data={data}
+            initialSport={initialSport}
+            initialLeague={initialLeague}
+            teamLinks={teamLinks}
+          />
         </div>
 
         <p className="mt-6 text-xs text-zinc-400">

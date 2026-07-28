@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import standingsData from "@/data/standings.json";
+import scheduleArchive from "@/data/schedule-archive.json";
 import type {
   BaseballLeagueStandings,
   SoccerLeagueStandings,
@@ -19,9 +20,15 @@ import {
 } from "@/lib/standings-seo";
 import { findLeagueBySlug } from "@/lib/slugs";
 import { loadScheduleData } from "@/lib/server-data";
+import type { Schedule } from "@/types/schedule";
 import UpcomingScheduleForLeague from "../_components/UpcomingScheduleForLeague";
+import { buildTeamLinkMap } from "@/lib/team-links";
+import type { StandingsData as TeamStandingsData } from "@/lib/teams";
 
 const data = standingsData as unknown as StandingsData;
+// 팀 링크 게이트는 홈·사이트맵과 같은 범위(현재 편성 + 아카이브)를 봐야 한다.
+// 현재 7일치만 보면 이번 주 경기가 없는 팀이 링크에서 빠진다.
+const archiveSchedules = (scheduleArchive as unknown as { schedules: Schedule[] }).schedules;
 
 type Params = { slug: string };
 
@@ -86,6 +93,14 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
   // 해당 리그의 schedule 매칭 키 (LEAGUE_SEO.match) — 일정 섹션 노출 여부 결정.
   const leagueSeo = meta.scheduleSlug ? findLeagueBySlug(meta.scheduleSlug) : undefined;
   const schedules = leagueSeo ? loadScheduleData().schedules : [];
+
+  // 순위표 팀명 → 팀 페이지 링크. `/standings/kbo` 는 네이버 노출 108.9만인데 팀 페이지로
+  // 나가는 링크가 0개였다(팀 페이지 86개는 색인 대기 중). 순위표는 팀명이 그대로 나열되는
+  // 자리라 링크를 붙일 가장 자연스러운 위치다. 팀 페이지가 있는 팀만 링크된다.
+  // 팀 링크 판정은 전체 편성(아카이브 포함)으로 해야 홈·사이트맵의 게이트와 일치한다.
+  const allSchedulesForLinks = [...loadScheduleData().schedules, ...archiveSchedules];
+  const teamLinks =
+    league && buildTeamLinkMap(data as unknown as TeamStandingsData, allSchedulesForLinks)[league.id];
 
   // JSON-LD: BreadcrumbList + SportsEvent collection (ItemList of teams)
   const jsonLd = {
@@ -181,14 +196,14 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
             <p className="text-zinc-400">순위 데이터를 불러오지 못했습니다.</p>
           ) : meta.sport === "soccer" ? (
             meta.dataId === "mls" ? (
-              <MlsStandingsTable teams={(league as SoccerLeagueStandings).teams} />
+              <MlsStandingsTable teams={(league as SoccerLeagueStandings).teams} teamLinks={teamLinks} />
             ) : (
-              <SoccerTable teams={(league as SoccerLeagueStandings).teams} />
+              <SoccerTable teams={(league as SoccerLeagueStandings).teams} teamLinks={teamLinks} />
             )
           ) : meta.dataId === "mlb" ? (
-            <MlbStandingsTable teams={(league as BaseballLeagueStandings).teams} />
+            <MlbStandingsTable teams={(league as BaseballLeagueStandings).teams} teamLinks={teamLinks} />
           ) : (
-            <BaseballTable teams={(league as BaseballLeagueStandings).teams} />
+            <BaseballTable teams={(league as BaseballLeagueStandings).teams} teamLinks={teamLinks} />
           )}
         </div>
 

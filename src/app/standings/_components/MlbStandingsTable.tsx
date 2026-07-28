@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { proxyLogo } from "@/lib/emblem";
 import type { BaseballStanding } from "@/types/standings";
 import { Last5Dots } from "./Last5Dots";
@@ -18,7 +19,7 @@ const DIVISIONS: { league: string; division: string; label: string }[] = [
   { league: "NL", division: "WEST", label: "내셔널리그 서부" },
 ];
 
-export function MlbStandingsTable({ teams }: { teams: BaseballStanding[] }) {
+export function MlbStandingsTable({ teams, teamLinks }: { teams: BaseballStanding[]; teamLinks?: Record<string, string> }) {
   const groups = useMemo(() => {
     return DIVISIONS.map((d) => ({
       ...d,
@@ -31,7 +32,7 @@ export function MlbStandingsTable({ teams }: { teams: BaseballStanding[] }) {
   return (
     <div className="space-y-4">
       {groups.map((g) => (
-        <DivisionTable key={`${g.league}-${g.division}`} label={g.label} teams={g.teams} />
+        <DivisionTable key={`${g.league}-${g.division}`} label={g.label} teams={g.teams} teamLinks={teamLinks} />
       ))}
     </div>
   );
@@ -40,9 +41,11 @@ export function MlbStandingsTable({ teams }: { teams: BaseballStanding[] }) {
 function DivisionTable({
   label,
   teams,
+  teamLinks,
 }: {
   label: string;
   teams: BaseballStanding[];
+  teamLinks?: Record<string, string>;
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
@@ -172,7 +175,16 @@ function DivisionTable({
                     ) : (
                       <span className="inline-block h-[18px] w-[18px] shrink-0 rounded-full bg-zinc-800 sm:h-[22px] sm:w-[22px]" />
                     )}
-                    <span className="truncate font-medium text-zinc-100">{t.teamName}</span>
+                    {teamLinks?.[t.teamName] ? (
+                        <Link
+                          href={teamLinks[t.teamName]}
+                          className="truncate font-medium text-zinc-100 hover:text-emerald-400 hover:underline underline-offset-2"
+                        >
+                          {t.teamName}
+                        </Link>
+                      ) : (
+                        <span className="truncate font-medium text-zinc-100">{t.teamName}</span>
+                      )}
                   </div>
                 </td>
                 <td className="px-1 py-2 text-center font-bold tabular-nums text-emerald-400">

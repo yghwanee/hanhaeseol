@@ -42,10 +42,13 @@ export function StandingsView({
   data,
   initialSport = "soccer",
   initialLeague = "",
+  teamLinks,
 }: {
   data: StandingsData;
   initialSport?: SportKey;
   initialLeague?: string;
+  /** 순위표 리그 id → (팀명 → 팀 페이지 href). 서버에서 계산해 내려준다. */
+  teamLinks?: Record<string, Record<string, string>>;
 }) {
   const [sport, setSport] = useState<SportKey>(initialSport);
 
@@ -269,14 +272,14 @@ export function StandingsView({
           <div className="mt-4">
             {sport === "soccer" ? (
               current.id === "mls" ? (
-                <MlsStandingsTable teams={(current as SoccerLeagueStandings).teams} />
+                <MlsStandingsTable teams={(current as SoccerLeagueStandings).teams} teamLinks={teamLinks?.[current.id]} />
               ) : (
-                <SoccerTable teams={(current as SoccerLeagueStandings).teams} />
+                <SoccerTable teams={(current as SoccerLeagueStandings).teams} teamLinks={teamLinks?.[current.id]} />
               )
             ) : current.id === "mlb" ? (
-              <MlbStandingsTable teams={(current as BaseballLeagueStandings).teams} />
+              <MlbStandingsTable teams={(current as BaseballLeagueStandings).teams} teamLinks={teamLinks?.[current.id]} />
             ) : (
-              <BaseballTable teams={(current as BaseballLeagueStandings).teams} />
+              <BaseballTable teams={(current as BaseballLeagueStandings).teams} teamLinks={teamLinks?.[current.id]} />
             )}
           </div>
         </div>

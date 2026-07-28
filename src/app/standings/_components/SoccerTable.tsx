@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { proxyLogo } from "@/lib/emblem";
 import type { SoccerStanding } from "@/types/standings";
 import { Last5Dots } from "./Last5Dots";
@@ -29,7 +30,7 @@ function displayTeamName(raw: string): string {
   return TEAM_NAME_DISPLAY[raw] ?? raw;
 }
 
-export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
+export function SoccerTable({ teams, teamLinks }: { teams: SoccerStanding[]; teamLinks?: Record<string, string> }) {
   const [sortKey, setSortKey] = useState<SortKey>("rank");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
 
@@ -201,7 +202,16 @@ export function SoccerTable({ teams }: { teams: SoccerStanding[] }) {
                         ) : (
                           <span className="inline-block h-[18px] w-[18px] shrink-0 rounded-full bg-zinc-800 sm:h-[22px] sm:w-[22px]" />
                         )}
+                        {teamLinks?.[t.teamName] ? (
+                        <Link
+                          href={teamLinks[t.teamName]}
+                          className="truncate font-medium text-zinc-100 hover:text-emerald-400 hover:underline underline-offset-2"
+                        >
+                          {displayTeamName(t.teamName)}
+                        </Link>
+                      ) : (
                         <span className="truncate font-medium text-zinc-100">{displayTeamName(t.teamName)}</span>
+                      )}
                       </div>
                     </td>
                     <td className="px-1 py-2 text-center font-bold tabular-nums text-emerald-400">

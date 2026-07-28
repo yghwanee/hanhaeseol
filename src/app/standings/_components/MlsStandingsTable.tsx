@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { proxyLogo } from "@/lib/emblem";
 import type { SoccerStanding } from "@/types/standings";
 import { Last5Dots } from "./Last5Dots";
@@ -13,7 +14,7 @@ const CONFERENCES: { conference: "EAST" | "WEST"; label: string }[] = [
   { conference: "WEST", label: "Western Conference" },
 ];
 
-export function MlsStandingsTable({ teams }: { teams: SoccerStanding[] }) {
+export function MlsStandingsTable({ teams, teamLinks }: { teams: SoccerStanding[]; teamLinks?: Record<string, string> }) {
   const groups = useMemo(() => {
     return CONFERENCES.map((c) => ({
       ...c,
@@ -28,7 +29,7 @@ export function MlsStandingsTable({ teams }: { teams: SoccerStanding[] }) {
   return (
     <div className="space-y-4">
       {groups.map((g) => (
-        <ConferenceTable key={g.conference} label={g.label} teams={g.teams} />
+        <ConferenceTable key={g.conference} label={g.label} teams={g.teams} teamLinks={teamLinks} />
       ))}
       {legend.length > 0 && (
         <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 rounded-xl border border-zinc-800/80 bg-zinc-950/40 px-3 py-2.5 text-[10px] text-zinc-400 sm:px-4 sm:text-[11px]">
@@ -47,9 +48,11 @@ export function MlsStandingsTable({ teams }: { teams: SoccerStanding[] }) {
 function ConferenceTable({
   label,
   teams,
+  teamLinks,
 }: {
   label: string;
   teams: SoccerStanding[];
+  teamLinks?: Record<string, string>;
 }) {
   const scrollerRef = useRef<HTMLDivElement>(null);
   const [showLeftFade, setShowLeftFade] = useState(false);
@@ -158,7 +161,16 @@ function ConferenceTable({
                       ) : (
                         <span className="inline-block h-[18px] w-[18px] shrink-0 rounded-full bg-zinc-800 sm:h-[22px] sm:w-[22px]" />
                       )}
-                      <span className="truncate font-medium text-zinc-100">{t.teamName}</span>
+                      {teamLinks?.[t.teamName] ? (
+                        <Link
+                          href={teamLinks[t.teamName]}
+                          className="truncate font-medium text-zinc-100 hover:text-emerald-400 hover:underline underline-offset-2"
+                        >
+                          {t.teamName}
+                        </Link>
+                      ) : (
+                        <span className="truncate font-medium text-zinc-100">{t.teamName}</span>
+                      )}
                     </div>
                   </td>
                   <td className="px-1 py-2 text-center font-bold tabular-nums text-emerald-400">

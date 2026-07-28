@@ -60,7 +60,8 @@
     "test:robots-meta": "tsx --test src/lib/robots-meta-guard.test.ts",
     "lint:guides": "tsx src/scripts/lint-guides.ts",
     "news:digest": "tsx src/scripts/gen-news-digest.ts",
-    "check:idea-dupes": "tsx src/scripts/check-idea-dupes.ts"
+    "check:idea-dupes": "tsx src/scripts/check-idea-dupes.ts",
+    "test:team-links": "tsx --test src/lib/team-links.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

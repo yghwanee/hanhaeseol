@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import { proxyLogo } from "@/lib/emblem";
 import type { BaseballStanding } from "@/types/standings";
 import { Last5Dots } from "./Last5Dots";
@@ -17,7 +18,7 @@ type SortKey =
   | "lose"
   | "gameBehind";
 
-export function BaseballTable({ teams }: { teams: BaseballStanding[] }) {
+export function BaseballTable({ teams, teamLinks }: { teams: BaseballStanding[]; teamLinks?: Record<string, string> }) {
   const [sortKey, setSortKey] = useState<SortKey>("rank");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
 
@@ -175,7 +176,16 @@ export function BaseballTable({ teams }: { teams: BaseballStanding[] }) {
                       ) : (
                         <span className="inline-block h-[18px] w-[18px] shrink-0 rounded-full bg-zinc-800 sm:h-[22px] sm:w-[22px]" />
                       )}
-                      <span className="truncate font-medium text-zinc-100">{t.teamName}</span>
+                      {teamLinks?.[t.teamName] ? (
+                        <Link
+                          href={teamLinks[t.teamName]}
+                          className="truncate font-medium text-zinc-100 hover:text-emerald-400 hover:underline underline-offset-2"
+                        >
+                          {t.teamName}
+                        </Link>
+                      ) : (
+                        <span className="truncate font-medium text-zinc-100">{t.teamName}</span>
+                      )}
                     </div>
                   </td>
                   <td className="px-1 py-2 text-center font-bold tabular-nums text-emerald-400">
