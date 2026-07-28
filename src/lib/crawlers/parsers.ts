@@ -101,9 +101,19 @@ export function parseMatchTitle(title: string): {
     .trim();
 
   // 팀명 정리: "삼성_4/6 19:00" → "삼성", "8강전 대한민국" → "대한민국"
+  //
+  // 날짜 조각 제거는 방어적으로 한다. 2026-06-25 KBS N SPORTS 편성에서 팀명이
+  // `LG26.06.25)` 로 저장된 게 있었다(같은 경기를 티빙은 `LG` 로 정상 수집). 여는 괄호가
+  // 없는 형태라 `\(.+?\)` 규칙을 통과해 버렸다. 원본 HTML 이 남아 있지 않아 정확한 입력을
+  // 재현할 수 없으므로, 입력 형태를 추측하는 대신 **출력에서 날짜꼴과 홀로 남은 괄호를
+  // 걷어낸다.** 팀명에 `26.06.25` 같은 조각이 붙으면 슬러그·스코어 매칭·팀 페이지가
+  // 전부 어긋나므로 여기서 막는 게 맞다. (`코모 1907` 처럼 연도가 들어간 정식 구단명은
+  // 구분자가 없어 이 규칙에 걸리지 않는다.)
   const cleanTeam = (name: string) =>
     name.replace(/[_]\d+\/\d+.*$/, "").replace(/\(.+?\)/g, "").replace(/[,、].*$/, "")
+      .replace(/\d{2}[.\-/]\d{2}[.\-/]\d{2}.*$/, "")
       .replace(/^(?:8강전|4강전|준결승전?|결승전?|조별리그|조별예선|16강전?|32강전?|3[·.]?4위전?)\s*/g, "")
+      .replace(/^[)\]}\s]+|[([{\s]+$/g, "")
       .trim();
 
   // 패턴1: [리그] 홈 vs 원정
@@ -130,7 +140,10 @@ export function parseMatchTitle(title: string): {
     if (leagueInHome) {
       return {
         league: normalizeLeague(leagueInHome[1]),
-        homeTeam: leagueInHome[2].trim(),
+        // cleanTeam 을 반드시 통과시킨다. 여기가 `.trim()` 만 하고 있어서
+        // `KBO리그 LG(26.06.25) vs 삼성` 의 homeTeam 이 `LG(26.06.25)` 로 그대로 나갔다
+        // (awayTeam 은 위에서 cleanTeam 을 거쳐 멀쩡했으니 한쪽만 오염되는 형태였다).
+        homeTeam: cleanTeam(leagueInHome[2]),
         awayTeam: away,
         sport: detectSport(title),
       };
@@ -140,7 +153,8 @@ export function parseMatchTitle(title: string): {
     if (prefixMatch) {
       return {
         league: normalizeLeague(prefixMatch[1]),
-        homeTeam: prefixMatch[2].trim(),
+        // 위와 같은 이유로 cleanTeam 을 통과시킨다(농구·배구 경로).
+        homeTeam: cleanTeam(prefixMatch[2]),
         awayTeam: away,
         sport: detectSport(title),
       };
