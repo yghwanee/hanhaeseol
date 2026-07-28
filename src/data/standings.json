@@ -4033,13 +4033,13 @@
           "rank": 10,
           "teamName": "히렌빈",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/jmgVqg.png?type=f92_88",
-          "matchesPlayed": null,
+          "matchesPlayed": 0,
           "wins": 0,
           "draws": 0,
           "losses": 0,
-          "goals": null,
-          "goalsConceded": null,
-          "goalsDifference": null,
+          "goals": 0,
+          "goalsConceded": 0,
+          "goalsDifference": 0,
           "points": 0,
           "lastFive": "",
           "streak": {
@@ -4471,15 +4471,15 @@
           "rank": 1,
           "teamName": "텍사스",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/TE.png?type=f92_88",
-          "gameCount": 105,
-          "win": 53,
+          "gameCount": 106,
+          "win": 54,
           "draw": 0,
           "lose": 52,
-          "winRate": 0.505,
+          "winRate": 0.509,
           "gameBehind": 0,
-          "lastFive": "LWWLW",
+          "lastFive": "WLWWL",
           "streak": {
-            "type": "L",
+            "type": "W",
             "count": 1
           },
           "league": "AL",
@@ -4541,6 +4541,24 @@
         },
         {
           "rank": 2,
+          "teamName": "휴스턴",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/HO.png?type=f92_88",
+          "gameCount": 107,
+          "win": 52,
+          "draw": 0,
+          "lose": 55,
+          "winRate": 0.486,
+          "gameBehind": 2.5,
+          "lastFive": "LWWWW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          },
+          "league": "AL",
+          "division": "WEST"
+        },
+        {
+          "rank": 2,
           "teamName": "뉴욕양키스",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/NY.png?type=f92_88",
           "gameCount": 105,
@@ -4579,15 +4597,15 @@
           "rank": 2,
           "teamName": "시애틀",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/SE.png?type=f92_88",
-          "gameCount": 106,
+          "gameCount": 107,
           "win": 52,
           "draw": 0,
-          "lose": 54,
-          "winRate": 0.491,
-          "gameBehind": 1.5,
-          "lastFive": "WLLLL",
+          "lose": 55,
+          "winRate": 0.486,
+          "gameBehind": 2.5,
+          "lastFive": "LWLLL",
           "streak": {
-            "type": "W",
+            "type": "L",
             "count": 1
           },
           "league": "AL",
@@ -4610,24 +4628,6 @@
           },
           "league": "AL",
           "division": "EAST"
-        },
-        {
-          "rank": 3,
-          "teamName": "휴스턴",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/HO.png?type=f92_88",
-          "gameCount": 107,
-          "win": 52,
-          "draw": 0,
-          "lose": 55,
-          "winRate": 0.486,
-          "gameBehind": 2,
-          "lastFive": "LWWWW",
-          "streak": {
-            "type": "L",
-            "count": 1
-          },
-          "league": "AL",
-          "division": "WEST"
         },
         {
           "rank": 3,
@@ -4764,7 +4764,7 @@
           "draw": 0,
           "lose": 61,
           "winRate": 0.419,
-          "gameBehind": 9,
+          "gameBehind": 9.5,
           "lastFive": "LLWLL",
           "streak": {
             "type": "L",
@@ -4818,7 +4818,7 @@
           "draw": 0,
           "lose": 64,
           "winRate": 0.396,
-          "gameBehind": 11.5,
+          "gameBehind": 12,
           "lastFive": "WLLLW",
           "streak": {
             "type": "W",
@@ -4921,5 +4921,5 @@
     }
   ],
   "basketball": [],
-  "lastUpdated": "2026-07-27T17:57:23.814Z"
+  "lastUpdated": "2026-07-28T00:11:28.249Z"
 }
