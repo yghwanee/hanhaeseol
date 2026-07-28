@@ -189,11 +189,26 @@ src/
 
 61. 주간 글감 루틴·텔레그램 알림 수정 + 구글 비용 진단 (2026-07-27) — **①notify-ideas 텔레그램 무성 실패 수정**(커밋 `1127958d`): 주간 글감 이슈(#20·#25) 알림이 안 왔음. 원인 = 이슈 본문(예정일정+추천5+글감10)이 텔레그램 4096자 한계 초과 → `sendMessage` 400 `"message is too long"`인데 `curl -s`라 워크플로는 success. 수정 = 3500자 청크(줄 경계 보존) 분할 전송 + 각 응답 `"ok":true` 검사(실패 시 `exit 1`). **`workflow_dispatch(issue_number)` 재전송 경로 신설** — 지난 이슈 재발화용(`issues:opened`만으론 과거 이슈 못 쏨), `gh`로 본문 가져와 이벤트/수동 공통 처리. 무성 실패 복구는 `gh workflow run notify-ideas.yml -f issue_number=N`. **②글감 루틴 요일 밀림 수정**(claude.ai `trig_01M1GZxh` 프롬프트, git 아님): 이슈 #25가 예정일정·추천 요일을 전부 하루씩 밀려 매김(07-29를 화로, 실제 수 → 토요일에 글 배치됨). 프롬프트에 **요일은 반드시 `TZ=Asia/Seoul date -d '날짜' +%a`로 계산, 손 추측 금지 + 자동 발행은 화~금뿐(토·일 배치 금지)** 규칙 3곳 삽입. 다음 실행(08-03 월)부터 적용. content-plan은 #25 추천 5개를 요일 검증된 날짜로 반영(황인범은 7/27 수동 발행, 나머지 1→3→4→5 순 큐 앞으로). **③구글 클라우드 비용 진단**: 7/2 1,504원 = 6월 Gemini Search grounding 사용분(후불). 유일 유료점이 grounding(번역·유튜브는 무료). 사용자가 결제계정 분리해 앞으로 0, 코드 조치 불필요(결제계정 없으면 유료기능은 무료한도까지만·초과시 에러). 상세 [[project-gcp-cost]].
 
+62. 🔴 SEO 전면 재검증 → 결함 4건 수정 + AEO 보강 (2026-07-28, 커밋 `f6310a32`·`2e0732c8`·`84136ae8`) — "노출이 안 된다"는 신고로 라이브 실측. **전제부터 정정됨: 네이버는 노출이 안 되는 게 아니라 클릭이 안 되는 것**(노출 366만 / CTR 0.1%, 구글은 노출 837). 그리고 노출 대부분이 CTR 0%인 "순위" 쿼리에 붙어 있고 CTR 23% 나오는 "편성표·해설" 쿼리엔 노출이 407뿐 — 거꾸로 붙어 있음.
+    - **🔴 `robots: rich ? undefined : {...}` 가 layout robots 를 삭제하고 있었음.** Next.js 는 메타데이터 객체에 **명시적으로 존재하는 `undefined` 를 "상속"이 아니라 "해제"로 처리**한다. 그래서 매치 페이지 1,571개(사이트맵의 91%)에 robots·googlebot 메타가 **전무**했고, 작업57에서 디스커버 진입용으로 넣은 `max-image-preview:large` + `max-snippet:-1` 이 사이트의 91%에 적용되지 않고 있었다. 같은 페이지에서 `naver/google-site-verification`·`og:site_name` 은 정상 상속되는 것으로 layout 미적용이 아님을 배제해 원인 확정. **조건부 스프레드 `...(rich ? {} : { robots: {...} })` 로 고쳐야 한다.** 가드 `test:robots-meta`(버그 재도입 시 fail 실증).
+    - **팀 페이지 86개가 정식 팀명을 안 쓰고 있었음** — `team.name` 이 순위표 축약 표기(`두산`·`시카고W`·`서울`)라 title·H1·keywords 전부 축약명. 실제 검색어는 정식명이라 매칭 자체가 안 됐다. `src/lib/team-full-names.ts`(KBO 10·MLB 29·K리그1 12·K리그2 12, **미매핑은 축약명 유지 — 확인 안 된 팀명을 추측해 넣으면 틀린 이름이 title 에 박힌다**). 가드 2종: ①매핑 키가 순위표 실표기와 일치 ②정식명이 **편성 데이터 표기와 일치**(이걸로 내가 쓴 `화이트소스`→`화이트삭스`, `레드소스`→`레드삭스` 오표기를 잡았다. 표기가 갈리면 같은 팀이 사이트 안에서 두 엔티티가 된다).
+    - **매치 제목 이원화 해소** — 인사이트가 있으면 headline 을 앞세워 팀명·날짜·플랫폼이 뒤로 밀렸다. 네이버 노출을 만드는 쿼리가 **팀명+날짜** 형태(`2026년 07월 16일 kia 타이거즈 ssg 랜더스` 단일 14.7만 노출)라 **정보가 더 많은 페이지가 오히려 검색에 덜 맞는 역전**이었다. 한 포맷으로 통일하고 headline 은 description 으로 이동. description 187~200자 → `clampDescription`(155자).
+    - **사이트맵 중복 URL 53건** — 서로 다른 schedule id 가 같은 슬러그를 낼 수 있어(사전방송/본방송) 같은 페이지가 두 번 등록되며 lastmod·priority 만 다르게 주장. `dedupeSitemapEntries` 로 1,730 → **1,677**.
+    - **🔴 순위표 → 팀 페이지 링크가 0개였음** — `/standings/kbo` 는 노출 108.9만인데 팀 페이지로 나가는 링크가 하나도 없었고, 정작 팀 페이지 86개는 색인 대기 중이었다. `src/lib/team-links.ts`(리그 id 로 스코프 — 팀명만으로 키를 잡으면 동명 팀이 섞임). 실측 kbo 0→10 · mlb 0→30 · k-league-1 0→12 · mls 0→17, **69개 전부 200 확인**. EPL 0 은 정상(개막 전이라 팀 페이지 없음). **게이트는 홈·사이트맵과 동일(`eligibleTeams`) — 없는 페이지로 링크를 뿌리면 404 양산, 매치 페이지에서 이미 겪은 실수.**
+    - **IndexNow 통지에서 팀 페이지 86개 + `/commentary` 가 빠져 있었음** — 목록이 하드코딩이라 색인이 가장 급한 페이지가 통째로 누락. `eligibleTeams` 로 동적 생성(유럽 개막 시 자동 편입). 통지 87개 전부 라이브 200 검증 후 실행 → 156 URL status=200.
+    - **AEO**: match/team 에 `FAQPage` 확장(사이트의 91%에 질문형 구조화 데이터가 없었음), `/commentary` 첫 문단을 수치 포함 자기완결 직답으로 교체(AI 인용의 44%가 첫 30% 구간에서 나오고 인용은 문장 단위로 잡힘), `llms.txt` 에 팀·해설 허브 섹션.
+    - **🔴 Google 은 `llms.txt` 를 무시한다** — AI optimization guide(2026-06-29): 생성형 AI 기능 포함 Google Search 에 필요하지 않고 순위·노출에 **도움도 해도 되지 않는다**. 파일은 유지하되 **비-Google AI 크롤러용 보조 자료**로만 보고 추가 투자하지 않는다. 같은 문서가 "AEO/GEO 는 SEO 의 리브랜딩"이라고 정리.
+    - **AEO 는 이미 상당히 돼 있었음**(AI 봇 20종 명시 허용·llms.txt·풍부한 JSON-LD·SSR·RSS). "AEO 아무것도 안 돼 있다"는 전제는 사실과 달랐다.
+    - 도구: `claude-seo` v2.2.4 설치(서드파티 `AgriciDaniel/claude-seo`, 스킬 31 + 에이전트 18, `~/.claude/skills/seo` 1.4GB). **`ai-seo` 라는 스킬은 존재하지 않음** — 해당 기능은 `seo-geo`. **훅은 `settings.json` 에 등록되지 않아 비활성**(수동 설치의 한계, 전역 부작용 없음). 제거는 `uninstall.sh`.
+    - 검증: tsc · ESLint · 테스트 **131/131**(신규 22: seo-meta 13·team-full-names 6·robots-meta 3·team-links 4) · 빌드 442 페이지 · **라이브 샘플 25개 결함 0**. 상세 `docs/geo-analysis.md`.
+    - **관측(2~4주)**: 색인 수 880 기준 · 해설 쿼리 노출 407 기준 · `/team/` 노출 발생 여부 · 매치 페이지 디스커버 노출.
+
 ### 다음 작업 (예정)
 - **팀명 alias 미스매치 재점검 (유럽 개막 2026-08~)** — 2026-07-23 LAFC 3-1 솔트레이크 스코어가 안 뜨던 버그(네이버 `솔트 레이크`↔스케줄 `레알 솔트레이크`/`솔트레이크` alias 다리 없음, 마이애미·신시내티도 동일) 수정 후, 오프시즌 리그(EPL·라리가·세리에A·리그1·분데스 등)는 스케줄에 경기가 없어 **오프라인 검증 불가**로 남김. 유효 검증은 스케줄↔결과 실표기 대조뿐(alias 키 vs 결과 primary 비교는 무효 — primary는 매핑 후 값이라 네이버 원본표기 모름). **개막 후 `npm run crawl && npm run crawl:results && npm run audit:aliases` 실행** → `MISS>0` 나오는 리그만 `team-name-aliases.ts`에 네이버 표기 키 보정. 감사 스크립트 = `src/scripts/audit-aliases.ts`.
-- 🔴 **네이버 지표 재확인 (2~4주 뒤)** — 2026-07-20 조치들의 효과 판정. searchadvisor.naver.com → 리포트. 볼 것: ①사이트 진단 색인 수(880 기준) ②해설 쿼리 노출(407 기준) ③`/team/`·`/commentary` 노출 발생 여부. **사용자만 뽑을 수 있음(스크린샷이면 충분).**
+- 🔴 **네이버·GSC 지표 재확인 (2026-08 중순)** — 2026-07-20 + **07-28(작업62)** 조치들의 효과 판정. searchadvisor.naver.com → 리포트. 볼 것: ①사이트 진단 색인 수(880 기준) ②해설 쿼리 노출(407 기준) ③`/team/`·`/commentary` 노출 발생 여부 ④매치 페이지 디스커버 노출(작업62에서 `max-image-preview:large` 복구됨 — 그전엔 91%가 후보에서 빠져 있었으니 **여기가 가장 큰 변화 지점**). **사용자만 뽑을 수 있음(스크린샷이면 충분).**
 - **유튜브 중복 게시 정리** — 아침·저녁 세트가 같은 제목 영상을 매일 2개 올림(작업57). 유튜브가 중복을 배포에서 누를 수 있음.
-- **팀 페이지 색인 추적(2~3주)** — 2026-07-20 배포. GSC에서 `/team/` 노출이 잡히기 시작하는지. 잡히면 다음 확장(선수 페이지·리그 페이지 재정렬)의 근거가 됨. 안 잡히면 매치 페이지와 같은 실패라 원인 재진단 필요.
+- **팀 페이지 색인 추적(2~3주)** — 2026-07-20 배포. GSC에서 `/team/` 노출이 잡히기 시작하는지. 잡히면 다음 확장(선수 페이지·리그 페이지 재정렬)의 근거가 됨. 안 잡히면 매치 페이지와 같은 실패라 원인 재진단 필요. **단, 07-20 시점엔 진입 경로가 홈·매치뿐이고 정식 팀명도 없었고 IndexNow 통지도 안 됐음 → 작업62(07-28)에서 순위표 링크 69개·정식명·IndexNow 가 붙었으니 사실상 여기가 진짜 출발선.**
+- **원본 데이터 발표 (GEO 최우선 코드 레버)** — "플랫폼별 한국어 해설 비율" 월간 집계. 10개 플랫폼의 해설 여부를 매일 수집하는 곳은 우리뿐이라 **다른 데 없는 원본 데이터**이고, AI 인용·백링크 둘 다 유발한다. 데이터는 이미 `results`·`schedule`에 다 있음. 상세 `docs/geo-analysis.md`.
 - **선수 페이지 (2026-08 이후)** — 지금은 데이터가 없어서 보류(작업58 참조). EPL·분데스 개막(8/22)으로 유럽 팀 페이지가 생기면 코리안리거 허브(이정후→샌프란시스코, 손흥민→LAFC, 이강인→아틀레티코, 김민재→뮌헨)부터 검토.
 - **유튜브 중복 게시 정리** — 아침·저녁 세트가 같은 제목 영상을 매일 2개 올림(작업57 실측). 유튜브가 중복을 배포에서 누를 수 있음. 하루 1편으로 줄이거나 제목·내용을 확실히 분리.
 - **뉴스잭(작업55 후속, 보류)** — 다이제스트를 30~60분 주기로 돌려 감시 키워드 급증 시 텔레그램 + `draft/*` PR 자동 생성. 인프라(`auto-publish-draft.yml` 빌드게이트)는 이미 있고 트리거만 추가하면 됨. **글감 질 1~2주 관찰 후 판단.**
@@ -219,6 +234,9 @@ npm run crawl:results    # 결과·스코어 재크롤
 npm run test:fetch-cache # 🔴 Next 런타임 fetch 캐시 가드 (CI에서도 돎)
 npm run test:worldcup-round / test:starters / test:highlights / test:tiktok-caption
 npm run test:idea-dupes / test:naver-news
+npm run test:robots-meta # 🔴 색인 지시자 가드. `robots: cond ? undefined : {}` 금지(layout robots를 삭제함)
+npm run test:seo-meta / test:team-full-names / test:team-links  # description 상한·팀 정식명·순위표 팀링크
+npm run seo:indexnow     # IndexNow 통지(리그·플랫폼·순위·가이드·팀 86 + /commentary = ~156 URL)
 npm run audit:aliases   # 팀명 alias 미스매치 감사 (결과 있는데 스코어 안 뜨는 유형). 개막 후 crawl:results 뒤 실행
 npm run news:digest      # 네이버 뉴스 → docs/news-digest.md (NAVER_API_KEY_ID/NAVER_API_KEY 필요)
 ISSUE_BODY="$(gh issue view N --json body -q .body)" npm run check:idea-dupes  # 글감 중복 검사
