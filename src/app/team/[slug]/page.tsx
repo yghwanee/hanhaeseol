@@ -22,11 +22,15 @@ import {
   standingsWindow,
   groupGames,
   findTeamSchedules,
+  opponentOf,
   type StandingsData,
   type TeamEntry,
   type TeamGame,
 } from "@/lib/teams";
 import { buildBreadcrumbLd } from "@/lib/structured-data";
+import { fullTeamName, hasFullName, teamNameVariants } from "@/lib/team-full-names";
+import { clampDescription, buildTeamFaqs } from "@/lib/seo-meta";
+import FaqSection from "@/app/_components/FaqSection";
 import { proxyLogo } from "@/lib/emblem";
 import { getTodayString } from "@/lib/schedule-utils";
 import type { Schedule } from "@/types/schedule";
@@ -132,24 +136,33 @@ export async function generateMetadata({
   const next = upcomingFor(schedules, team, getTodayString(), 1)[0];
   const platforms = platformsFor(schedules, team).slice(0, 3);
 
-  const title = `${team.name} 경기 중계 어디서 보나 - 일정·한국어 해설 | 한해설`;
+  // 순위표 축약명(`두산`)이 아니라 정식명(`두산 베어스`)을 앞세운다. 검색 쿼리는 정식명으로
+  // 들어오는데 축약명만 있으면 매칭이 안 된다. 축약명도 실제 검색어라 keywords에 함께 남긴다.
+  const full = fullTeamName(team.leagueSlug, team.name);
+  const variants = teamNameVariants(team.leagueSlug, team.name);
+
+  const title = `${full} 경기 중계 어디서 보나 - 일정·한국어 해설 | 한해설`;
   const description = next
-    ? `${team.name} 다음 경기는 ${formatDate(next.date)} ${next.time} ${next.awayTeam === team.name ? next.homeTeam : next.awayTeam}전. ${next.platforms.slice(0, 2).join(", ")}에서 ${commentaryLabel(next)}로 중계됩니다. ${team.leagueName} ${team.rank}위, ${team.win}승 ${team.lose}패.`
-    : `${team.name} ${team.leagueName} ${team.rank}위(${team.win}승 ${team.lose}패). 국내 중계는 ${platforms.join(", ") || "편성 확인 필요"}에서 볼 수 있습니다.`;
+    ? `${full} 다음 경기는 ${formatDate(next.date)} ${next.time} ${next.awayTeam === team.name ? next.homeTeam : next.awayTeam}전. ${next.platforms.slice(0, 2).join(", ")}에서 ${commentaryLabel(next)}로 중계됩니다. ${team.leagueName} ${team.rank}위, ${team.win}승 ${team.lose}패.`
+    : `${full} ${team.leagueName} ${team.rank}위(${team.win}승 ${team.lose}패). 국내 중계는 ${platforms.join(", ") || "편성 확인 필요"}에서 볼 수 있습니다.`;
 
   const url = `${BASE}/team/${encodeURIComponent(team.slug)}`;
   return {
     title,
-    description,
+    description: clampDescription(description),
     keywords: [
-      `${team.name} 중계`,
-      `${team.name} 경기 일정`,
-      `${team.name} 중계 어디서`,
-      `${team.name} 한국어 해설`,
+      ...variants.flatMap((n) => [`${n} 중계`, `${n} 경기 일정`, `${n} 중계 어디서`, `${n} 한국어 해설`]),
       `${team.leagueName} 중계`,
     ],
     alternates: { canonical: url },
-    openGraph: { title, description, url, siteName: "한해설", locale: "ko_KR", type: "website" },
+    openGraph: {
+      title,
+      description: clampDescription(description),
+      url,
+      siteName: "한해설",
+      locale: "ko_KR",
+      type: "website",
+    },
   };
 }
 
@@ -172,10 +185,13 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
   const siblings = leagueSiblings(all, team);
 
   const url = `${BASE}/team/${encodeURIComponent(team.slug)}`;
+  // 정식명이 본문·제목의 주 표기. 축약명은 병기해서 양쪽 검색어를 다 잡는다.
+  const full = fullTeamName(team.leagueSlug, team.name);
+  const showsShort = hasFullName(team.leagueSlug, team.name);
   const breadcrumbLd = buildBreadcrumbLd([
     { name: "한해설", url: BASE },
     { name: team.leagueName, url: `${BASE}/league/${team.leagueSlug}` },
-    { name: team.name, url },
+    { name: full, url },
   ]);
 
   const recordFor = (league: string, name: string) => {
@@ -217,7 +233,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
             {team.leagueName}
           </Link>
           <span className="px-1.5">›</span>
-          <span className="text-zinc-300">{team.name}</span>
+          <span className="text-zinc-300">{full}</span>
         </nav>
 
         <header className="flex items-center gap-4">
@@ -233,7 +249,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
           )}
           <div>
             <h1 className="text-xl font-bold text-white sm:text-2xl">
-              {team.name} 경기 중계
+              {full} 경기 중계
             </h1>
             <p className="mt-1 text-sm text-zinc-400">
               {team.leagueName} {team.rank}위 · {team.win}승 {team.draw > 0 ? `${team.draw}무 ` : ""}
@@ -246,12 +262,13 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 
         <section className="mt-6 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
           <h2 className="text-sm font-semibold text-white sm:text-base">
-            {team.name} 경기, 어디서 보나
+            {full} 경기, 어디서 보나
           </h2>
           <p className="mt-2 text-sm leading-relaxed text-zinc-300">
             {platforms.length > 0 ? (
               <>
-                최근 편성 기준으로 {team.name} 경기는{" "}
+                최근 편성 기준으로 {full}
+                {showsShort && `(${team.name})`} 경기는{" "}
                 <strong className="text-white">{platforms.slice(0, 3).join(", ")}</strong>
                 에서 중계됩니다.{" "}
                 {ratio.korean === ratio.total
@@ -261,7 +278,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
                     : `수집된 ${ratio.total}경기 중 ${ratio.korean}경기가 한국어 해설입니다.`}
               </>
             ) : (
-              <>{team.name} 경기의 국내 중계 편성이 아직 확인되지 않았습니다.</>
+              <>{full} 경기의 국내 중계 편성이 아직 확인되지 않았습니다.</>
             )}
           </p>
           <p className="mt-2 text-sm text-zinc-400">
@@ -450,6 +467,28 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
             </p>
           </section>
         )}
+
+        {/* 질문형 쿼리("두산 베어스 중계 어디서")가 이 페이지의 주 검색 의도다.
+            FAQPage 마크업이 있어야 SERP 확장·AI 답변 인용 대상이 된다. */}
+        <div className="mt-6">
+          <FaqSection
+            title={`${full} 중계 자주 묻는 질문`}
+            faqs={buildTeamFaqs({
+              fullName: full,
+              leagueName: team.leagueName,
+              platforms,
+              koreanRatio: ratio,
+              next: upcoming[0]
+                ? {
+                    dateLabel: formatDate(upcoming[0].date),
+                    time: upcoming[0].time,
+                    opponent: opponentOf(upcoming[0], team).name,
+                    platforms: upcoming[0].platforms,
+                  }
+                : null,
+            })}
+          />
+        </div>
       </main>
     </>
   );

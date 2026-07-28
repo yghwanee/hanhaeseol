@@ -50,6 +50,13 @@ jobs:
       - name: fetch 캐시 가드
         run: npm run test:fetch-cache
 
+      # 색인 지시자 가드. `robots: cond ? undefined : {...}` 는 layout 의 robots 를
+      # 상속하지 않고 **삭제**한다. 2026-07-28: 이걸로 매치 페이지 1,571개(사이트맵의 91%)가
+      # robots·googlebot 메타를 잃고 디스커버 조건 max-image-preview:large 가 빠져 있었다.
+      # 빌드·타입체크로는 안 잡히고 라이브 HTML 을 봐야 드러나는 종류라 가드로 막는다.
+      - name: robots 메타 가드
+        run: npm run test:robots-meta
+
       - name: 유닛 테스트
         run: |
           npm run test:worldcup-round
@@ -62,3 +69,5 @@ jobs:
           npm run test:teams
           npm run test:josa
           npm run test:match-quality
+          npm run test:seo-meta
+          npm run test:team-full-names

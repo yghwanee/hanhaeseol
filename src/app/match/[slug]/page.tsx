@@ -45,6 +45,8 @@ import teamRecordsData from "@/data/team-records.json";
 import type { TeamRecordsData } from "@/types/team-record";
 import { buildMatchNarrative } from "@/lib/match-content/build";
 import { isRichMatch } from "@/lib/match-quality";
+import { clampDescription, buildMatchFaqs } from "@/lib/seo-meta";
+import FaqSection from "@/app/_components/FaqSection";
 
 const data = scheduleData as unknown as ScheduleData;
 const archive = archiveData as unknown as ScheduleData;
@@ -208,24 +210,28 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   const date = formatDateHeader(match.date);
   const ko = matchKoreanLabel(match);
 
-  // 인사이트가 있으면 headline을 제목에 노출(SEO 강화).
-  // 없으면 기존 패턴 유지.
-  const title = insight
-    ? `${insight.sections.headline} | ${match.homeTeam} vs ${match.awayTeam} 한해설`
-    : `${match.homeTeam} vs ${match.awayTeam} ${ko} 중계 - ${match.platform} ${date} | 한해설`;
+  // 제목은 인사이트 유무와 무관하게 한 포맷으로 통일한다.
+  //
+  // 전에는 인사이트가 있으면 headline을 앞세웠다(`애슬레틱스의 반등과 LA 다저스의 상승세가
+  // 맞붙는 MLB 경기 | ...`). 그런데 네이버에서 실제로 노출을 만드는 쿼리는
+  // `2026년 07월 16일 kia 타이거즈 ssg 랜더스` 처럼 **팀명 + 날짜** 형태다(단일 쿼리 14.7만 노출).
+  // headline을 앞세우면 그 요소가 전부 뒤로 밀리거나 사라져서, 정보가 더 많은 페이지가
+  // 오히려 검색에 더 안 맞는 역전이 생겼다. headline은 description으로 옮긴다.
+  const title = `${match.homeTeam} vs ${match.awayTeam} ${ko} 중계 - ${match.platform} ${date} | 한해설`;
 
-  // 인사이트 keyMatchup 첫 100자를 description에 결합 → SERP snippet에 unique 문장 노출.
-  // unique한 텍스트가 SERP에 보이면 CTR ↑ + 중복 페이지로 안 잡힘.
+  // 인사이트가 있으면 고유 산문을 앞에 둔다(SERP snippet 차별화 → CTR).
+  // 길이는 clampDescription이 SERP 상한에서 자른다. 전에는 187~200자로 나가 잘렸다.
   const koSuffix = match.koreanCommentary === true ? "로" : "으로";
-  const description = insight
-    ? `${insight.sections.headline} — ${insight.sections.keyMatchup.slice(0, 100)}… ${date} ${match.time} ${match.league} ${match.homeTeam} vs ${match.awayTeam}, ${match.platform}에서 ${ko}${koSuffix} 시청.`
-    : `${date} ${match.time} ${match.league} ${match.homeTeam} vs ${match.awayTeam} 경기 중계. ${match.platform}에서 ${ko}${koSuffix} 시청 가능합니다.`;
+  const description = clampDescription(
+    insight
+      ? `${date} ${match.time} ${match.league} ${match.homeTeam} vs ${match.awayTeam}, ${match.platform} ${ko} 중계. ${insight.sections.headline}`
+      : `${date} ${match.time} ${match.league} ${match.homeTeam} vs ${match.awayTeam} 경기 중계. ${match.platform}에서 ${ko}${koSuffix} 시청 가능합니다.`,
+  );
 
   const url = `https://haeseol.com/match/${params.slug}`;
   const keywords = buildMatchKeywords(match);
 
-  // 얇은 매치(인사이트·스코어 없는 예정 경기)는 noindex. 사이트 색인 평균 품질을
-  // 끌어올려 AdSense "low value content" 판정을 피하기 위함. sitemap 제외와 일치시킨다.
+  // 얇은 매치(지난 경기인데 스코어가 없는 것)는 noindex. sitemap 제외와 일치시킨다.
   // follow는 유지해 내부 링크 equity가 허브(리그·플랫폼) 페이지로 흐르게 한다.
   const rich = isRichMatch(match, resultsArchive);
 
@@ -234,7 +240,13 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
     description,
     keywords,
     alternates: { canonical: url },
-    robots: rich ? undefined : { index: false, follow: true },
+    // 🔴 `robots: rich ? undefined : {...}` 로 쓰면 안 된다. Next.js는 메타데이터 객체에
+    // **명시적으로 존재하는 `undefined`를 "상속"이 아니라 "해제"로 처리**한다. 그래서 색인
+    // 대상 매치(=대부분)에서 layout.tsx의 robots 설정이 통째로 사라지고 있었다.
+    // 실측(2026-07-28): 매치 페이지 1,571개 전부 robots·googlebot 메타가 없었고,
+    // 디스커버 진입 조건인 `max-image-preview:large`와 `max-snippet:-1`이 사이트의 91%에
+    // 적용되지 않고 있었다. 조건부 스프레드로 키 자체를 없애야 상속된다.
+    ...(rich ? {} : { robots: { index: false, follow: true } }),
     openGraph: {
       title: insight
         ? `${insight.sections.headline} - 한해설`
@@ -806,6 +818,23 @@ export default function MatchPage({ params }: { params: Params }) {
             </time>
           </p>
         </section>
+
+        {/* 위 안내 섹션은 질문형 H2를 쓰면서도 FAQPage 마크업이 없었다. 매치 페이지는
+            사이트맵의 91%인데 질문형 구조화 데이터가 빠져 있어 SERP 확장과 AI 답변 인용
+            대상에서 벗어나 있었다. 데이터로 자동 생성하므로 사람 손이 안 든다. */}
+        <FaqSection
+          title={`${match.homeTeam} vs ${match.awayTeam} 중계 자주 묻는 질문`}
+          faqs={buildMatchFaqs({
+            homeTeam: match.homeTeam,
+            awayTeam: match.awayTeam,
+            league: match.league,
+            platform: match.platform,
+            dateLabel: date,
+            time: match.time,
+            commentaryLabel: ko,
+            koreanCommentary: match.koreanCommentary,
+          })}
+        />
       </div>
     </main>
   );

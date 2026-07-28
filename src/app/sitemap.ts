@@ -9,6 +9,7 @@ import { matchToSlug } from "@/lib/match-slug";
 import { readInsight } from "@/lib/insights/storage";
 import { isRichMatch } from "@/lib/match-quality";
 import { getAllGuides } from "@/lib/guides";
+import { dedupeSitemapEntries } from "@/lib/seo-meta";
 import standingsJson from "@/data/standings.json";
 import { buildTeamIndex, eligibleTeams, type StandingsData } from "@/lib/teams";
 import type { Schedule, ScheduleData } from "@/types/schedule";
@@ -82,17 +83,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  const matchUrls = [...matchById.values()]
-    .filter((s) => isRichMatch(s, resultsArchive))
-    .map((s) => {
-      const insight = readInsight(s.id);
-      return {
-        url: `${BASE}/match/${encodeURIComponent(matchToSlug(s))}`,
-        lastModified: insight ? new Date(insight.generatedAt) : new Date(s.date),
-        changeFrequency: insight ? ("weekly" as const) : ("monthly" as const),
-        priority: insight ? 0.8 : 0.7,
-      };
-    });
+  // 서로 다른 schedule id가 같은 슬러그를 낼 수 있어(사전방송/본방송 등) URL이 중복된다.
+  // 실측 2026-07-28: 중복 53건. 같은 페이지를 두 번 등록하면서 lastmod·priority만 다르게
+  // 주장하는 모순 신호가 되므로 dedupeSitemapEntries로 걸러낸다.
+  const matchUrls = dedupeSitemapEntries(
+    [...matchById.values()]
+      .filter((s) => isRichMatch(s, resultsArchive))
+      .map((s) => {
+        const insight = readInsight(s.id);
+        return {
+          url: `${BASE}/match/${encodeURIComponent(matchToSlug(s))}`,
+          lastModified: insight ? new Date(insight.generatedAt) : new Date(s.date),
+          changeFrequency: insight ? ("weekly" as const) : ("monthly" as const),
+          priority: insight ? 0.8 : 0.7,
+        };
+      }),
+  );
 
   return [
     {

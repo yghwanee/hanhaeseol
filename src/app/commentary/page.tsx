@@ -81,6 +81,10 @@ export default function CommentaryPage() {
   }
   const platformRanking = [...byPlatform.entries()].sort((a, b) => b[1] - a[1]);
 
+  // 첫 문단에 넣을 직답용 집계. 경기 수는 중복 편성을 제외한 경기 단위로 센다.
+  const totalGames = byDate.reduce((n, d) => n + d.games.length, 0);
+  const topPlatforms = platformRanking.slice(0, 3);
+
   const breadcrumbLd = buildBreadcrumbLd([
     { name: "한해설", url: BASE },
     { name: "한국어 해설 중계 일정", url: `${BASE}/commentary` },
@@ -100,9 +104,34 @@ export default function CommentaryPage() {
         </nav>
 
         <h1 className="text-xl font-bold text-white sm:text-2xl">한국어 해설 중계 일정</h1>
+        {/* 첫 문단은 그 자체로 답이 되게 쓴다(수치 포함, 문맥 없이 인용 가능).
+            AI 답변 인용의 약 44%가 페이지 첫 30% 구간에서 나오고, 인용은 자기완결형
+            문장 단위로 잡힌다. 전에는 이 자리에 수치 없는 설명문만 있어서 집계 데이터가
+            페이지 안에 있는데도 인용 가능한 문장이 없었다. */}
         <p className="mt-2 text-sm leading-relaxed text-zinc-300">
-          같은 경기라도 채널에 따라 한국어 해설이 붙기도 하고 현지 중계만 나가기도 합니다. 오늘부터
-          7일간 <strong className="text-white">한국어 해설로 볼 수 있는 경기만</strong> 모았습니다.
+          {totalGames > 0 ? (
+            <>
+              오늘부터 7일간 한국어 해설로 볼 수 있는 경기는{" "}
+              <strong className="text-white">총 {totalGames}경기</strong>이고,{" "}
+              {topPlatforms.length > 0 && (
+                <>
+                  가장 많은 채널은{" "}
+                  <strong className="text-white">
+                    {topPlatforms.map(([p, c]) => `${p} ${c}경기`).join(", ")}
+                  </strong>
+                  입니다.{" "}
+                </>
+              )}
+              같은 경기라도 채널에 따라 한국어 해설이 붙기도 하고 현지 중계만 나가기도 하므로,
+              아래 목록은 한국어 해설이 확인된 편성만 모았습니다.
+            </>
+          ) : (
+            <>
+              같은 경기라도 채널에 따라 한국어 해설이 붙기도 하고 현지 중계만 나가기도 합니다.
+              오늘부터 7일간{" "}
+              <strong className="text-white">한국어 해설로 볼 수 있는 경기만</strong> 모았습니다.
+            </>
+          )}
         </p>
 
         {platformRanking.length > 0 && (

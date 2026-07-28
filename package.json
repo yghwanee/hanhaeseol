@@ -55,6 +55,9 @@
     "test:match-quality": "tsx --test src/lib/match-quality.test.ts",
     "test:teams": "tsx --test src/lib/teams.test.ts",
     "test:style-lint": "tsx --test src/lib/guides/style-lint.test.ts",
+    "test:seo-meta": "tsx --test src/lib/seo-meta.test.ts",
+    "test:team-full-names": "tsx --test src/lib/team-full-names.test.ts",
+    "test:robots-meta": "tsx --test src/lib/robots-meta-guard.test.ts",
     "lint:guides": "tsx src/scripts/lint-guides.ts",
     "news:digest": "tsx src/scripts/gen-news-digest.ts",
     "check:idea-dupes": "tsx src/scripts/check-idea-dupes.ts"
