@@ -9,6 +9,7 @@ import WeekHighlights from "./_components/WeekHighlights";
 import { IntroAnimation } from "./_components/IntroAnimation";
 import { INTRO_EMBLEM_PATHS } from "./_components/intro-emblems";
 import { GuideCards } from "./_components/GuideCards";
+import { AdfitBanner } from "./_components/AdfitBanner";
 import { getAllGuides } from "@/lib/guides";
 
 function buildSportsEventsJsonLd(schedules: Schedule[]) {
@@ -143,6 +144,15 @@ export default function Home() {
       <IntroAnimation />
       <main>
         <ScheduleClient initialData={data} teamRecords={teamRecords} results={results} />
+
+        {/* 애드핏 배너.
+            편성표 목록이 끝난 자리에 둔다. 두 가지를 동시에 만족하는 위치다.
+            ① CLS: 카드 수십 장 아래라 광고가 뜨는 시점에 화면 밖이다. 상단에 넣으면
+               광고 로드가 본문을 밀어내 Core Web Vitals(CLS)를 깎는다.
+            ② 애드핏 운영정책 제5.3조: 내비게이션·닫기 버튼 근처, 실수로 클릭할 수 있는
+               위치를 금지한다. 여기는 날짜 탭·필터에서 충분히 떨어져 있다. */}
+        <AdfitBanner className="mt-6 sm:mt-8" />
+
         <section className="mx-auto mt-4 sm:mt-6 max-w-2xl px-3 sm:px-4">
           <WeekHighlights
             title="이번 주 빅매치"
