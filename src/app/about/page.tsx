@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { CoupangTopBannerOnly } from "../_components/CoupangBanners";
+import { AdfitBanner } from "../_components/AdfitBanner";
 import { SiteHeader } from "../_components/SiteHeader";
 
 export const metadata: Metadata = {
@@ -29,7 +29,7 @@ export default function AboutPage() {
 
         <h1 className="text-2xl sm:text-3xl font-bold mt-4 sm:mt-6 mb-8">한해설 소개</h1>
 
-        <CoupangTopBannerOnly />
+        <AdfitBanner className="mb-6" />
 
 
         <section className="mb-8">

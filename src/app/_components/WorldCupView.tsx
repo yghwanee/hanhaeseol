@@ -7,7 +7,7 @@ import { ResultsData } from "@/types/results";
 import { lookupTeamRecord } from "@/lib/team-records/lookup";
 import { findResult } from "@/lib/results/lookup";
 import { ScheduleCard } from "./ScheduleCard";
-import { CoupangTopBannerOnly } from "./CoupangBanners";
+import { AdfitBanner } from "./AdfitBanner";
 import { WorldCupBanner } from "./WorldCupBanner";
 
 const DOW = ["일", "월", "화", "수", "목", "금", "토"];
@@ -108,11 +108,11 @@ export function WorldCupView({
       {/* 배너 클릭 → 조별 순위·기록 페이지 */}
       <WorldCupBanner dday={dday} href="/worldcup" />
 
-      {/* 쿠팡 파트너스 고지 + 상단 배너 (메인 페이지와 동일) */}
+      {/* 쿠팡 파트너스 고지 + 애드핏 배너 (메인 페이지와 동일) */}
       <div className="mb-3 sm:mb-4 rounded-lg border border-zinc-700/50 bg-zinc-800/30 px-3 py-2 text-center">
         <p className="text-[11px] sm:text-xs text-zinc-400">이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br className="sm:hidden" /> 이에 따른 일정액의 수수료를 제공받습니다.</p>
       </div>
-      <CoupangTopBannerOnly />
+      <AdfitBanner className="mb-6" />
 
       {/* 조별리그 — 날짜별 */}
       {group.length > 0 && (

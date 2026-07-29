@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CoupangTopBannerOnly } from "../_components/CoupangBanners";
+import { AdfitBanner } from "../_components/AdfitBanner";
 import { SiteHeader } from "../_components/SiteHeader";
 
 export const metadata: Metadata = {
@@ -16,7 +16,7 @@ export default function PrivacyPage() {
 
         <h1 className="text-2xl sm:text-3xl font-bold mt-4 sm:mt-6 mb-8">개인정보처리방침</h1>
 
-        <CoupangTopBannerOnly />
+        <AdfitBanner className="mb-6" />
 
         <p className="text-gray-400 text-sm mb-8">시행일: 2026년 2월 1일</p>
 

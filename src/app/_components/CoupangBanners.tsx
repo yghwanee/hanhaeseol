@@ -106,27 +106,9 @@ function ProductCarousel({ countDesktop = 6, countMobile = 5, sizeDesktop = "sm"
   );
 }
 
-/** 매치 페이지 / about / faq / privacy / terms 상단 */
-export function CoupangTopBanner() {
-  const showAds = useShowAds();
-  if (!showAds) return null;
-  return (
-    <div className="mb-6">
-      <ProductCarousel countDesktop={6} countMobile={5} sizeDesktop="md" sizeMobile="sm" />
-    </div>
-  );
-}
-
-/** 메인 페이지 상단 / 그 외 페이지 상단 */
-export function CoupangTopBannerOnly() {
-  const showAds = useShowAds();
-  if (!showAds) return null;
-  return (
-    <div className="mb-6">
-      <ProductCarousel countDesktop={6} countMobile={5} sizeDesktop="md" sizeMobile="sm" />
-    </div>
-  );
-}
+/* 상단 캐러셀(CoupangTopBanner / CoupangTopBannerOnly)은 2026-07-30 제거했다.
+ * 그 자리(고지 문구 아래, 날짜 탭 위)는 이제 카카오 애드핏 배너가 쓴다 — `AdfitBanner`.
+ * 쿠팡은 우측 사이드 카드(CoupangSideBanners)와 홈 인라인 캐러셀(CoupangInlineBanner)로 남는다. */
 
 /* ─────────────────────────────────────────────────────────────────────────
  *  메인 페이지 인라인 광고 (필터·날짜탭 아래, 경기 카드 사이)

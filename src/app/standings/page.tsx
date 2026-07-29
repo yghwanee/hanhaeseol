@@ -4,7 +4,7 @@ import standingsData from "@/data/standings.json";
 import type { StandingsData } from "@/types/standings";
 import { SiteHeader } from "../_components/SiteHeader";
 import { StandingsView } from "./_components/StandingsView";
-import { CoupangTopBannerOnly } from "../_components/CoupangBanners";
+import { AdfitBanner } from "../_components/AdfitBanner";
 import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
 import { loadScheduleData } from "@/lib/server-data";
 import scheduleArchive from "@/data/schedule-archive.json";
@@ -133,7 +133,7 @@ export default function StandingsPage({
           <p className="text-[11px] sm:text-xs text-zinc-400">이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br className="sm:hidden" /> 이에 따른 일정액의 수수료를 제공받습니다.</p>
         </div>
 
-        <CoupangTopBannerOnly />
+        <AdfitBanner />
 
         <div className="mt-4 sm:mt-6">
           <StandingsView

@@ -14,7 +14,8 @@ import { SPORTS, PLATFORM_LIST } from "./_components/constants";
 import { PlatformIcon } from "./_components/PlatformIcon";
 import { SmoothTabs, SmoothCircleTabs } from "./_components/SmoothTabs";
 import { ScheduleCard } from "./_components/ScheduleCard";
-import { CoupangTopBannerOnly, CoupangInlineBanner } from "./_components/CoupangBanners";
+import { CoupangInlineBanner } from "./_components/CoupangBanners";
+import { AdfitBanner } from "./_components/AdfitBanner";
 import { DatePickerSheet } from "./_components/DatePickerSheet";
 import { WorldCupView } from "./_components/WorldCupView";
 import { EbookBanner } from "./_components/EbookBanner";
@@ -536,8 +537,8 @@ export default function ScheduleClient({
         <p className="text-[11px] sm:text-xs text-zinc-400">이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br className="sm:hidden" /> 이에 따른 일정액의 수수료를 제공받습니다.</p>
       </div>
 
-      {/* 쿠팡 파트너스 상단 광고 — 페이지마다 랜덤 상품 5~6개 가로 캐러셀 */}
-      <CoupangTopBannerOnly />
+      {/* 카카오 애드핏 배너 — PC 728x90 / 모바일 320x50 (뷰포트 보고 한쪽만 렌더) */}
+      <AdfitBanner className="mb-6" />
 
       {/* Date Tabs */}
       <div className="mb-6 sm:mb-10">

@@ -67,14 +67,26 @@ export function AdfitBanner({ className = "" }: { className?: string }) {
   }, [variant]);
 
   return (
-    // 본문 컬럼(max-w-2xl = 672px)보다 광고가 넓어서 컨테이너를 따로 둔다.
+    // 본문 컬럼(max-w-2xl = 672px)보다 PC 광고(728px)가 넓다. `max-w-2xl` 은
+    // border-box 라 `px-4` 를 뺀 **실제 콘텐츠 폭이 640px**이고, 그대로 두면 광고가
+    // 눌린다(실측 704px). PC 구간에서만 `-mx-12`(양쪽 48px)로 컬럼을 벗어나 640 + 96
+    // = 736 ≥ 728 을 확보한다. 모바일(320x50)은 넘칠 일이 없어 그대로 둔다 —
+    // 모바일에 negative margin 을 주면 화면 폭을 넘겨 가로 스크롤이 생긴다.
+    //
+    // `min-h` 로 자리를 미리 잡는다. 편성표 상단(날짜 탭 위)이라 광고가 채워질 때
+    // 본문을 밀면 CLS 를 그대로 깎는다. **컨테이너 높이만** 미디어쿼리로 잡는 것이고
+    // 광고 ins 자체는 여전히 한쪽만 렌더하므로 무효 노출과는 무관하다.
+    //
     // 채워지지 않으면 ins 가 display:none 인 채로 남아 아무것도 보이지 않는다
     // (대체 광고 미설정이라 흰 박스가 뜨지 않는다 — 다크 테마에 유리).
-    <div className={`flex w-full justify-center px-3 sm:px-4 ${className}`}>
+    <div
+      className={`flex justify-center min-h-[50px] min-[800px]:-mx-12 min-[800px]:min-h-[90px] ${className}`}
+    >
       {variant && (
         <ins
           ref={insRef}
-          className="kakao_ad_area"
+          // flex item 은 기본이 shrink 1 이라 컨테이너가 좁으면 728 광고가 눌린다.
+          className="kakao_ad_area shrink-0"
           style={{ display: "none" }}
           data-ad-unit={variant.unit}
           data-ad-width={String(variant.width)}

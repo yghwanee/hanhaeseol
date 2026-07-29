@@ -27,7 +27,7 @@ import {
   isGameFinished,
 } from "@/lib/schedule-utils";
 import { SiteHeader } from "../../_components/SiteHeader";
-import { CoupangTopBannerOnly } from "../../_components/CoupangBanners";
+import { AdfitBanner } from "../../_components/AdfitBanner";
 import { readInsight } from "@/lib/insights/storage";
 import { MatchInsightSection } from "./_components/MatchInsight";
 import { MatchStarters } from "./_components/MatchStarters";
@@ -715,7 +715,7 @@ export default function MatchPage({ params }: { params: Params }) {
         )}
 
         <div className="mt-6">
-          <CoupangTopBannerOnly />
+          <AdfitBanner />
         </div>
 
         {starters && (

@@ -13,7 +13,7 @@ import { MlsStandingsTable } from "../_components/MlsStandingsTable";
 import { BaseballTable } from "../_components/BaseballTable";
 import { MlbStandingsTable } from "../_components/MlbStandingsTable";
 import { SiteHeader } from "../../_components/SiteHeader";
-import { CoupangTopBannerOnly } from "../../_components/CoupangBanners";
+import { AdfitBanner } from "../../_components/AdfitBanner";
 import {
   STANDINGS_LEAGUES,
   findStandingsBySlug,
@@ -170,7 +170,7 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
           <p className="text-[11px] sm:text-xs text-zinc-400">이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br className="sm:hidden" /> 이에 따른 일정액의 수수료를 제공받습니다.</p>
         </div>
 
-        <CoupangTopBannerOnly />
+        <AdfitBanner />
 
         <div className="mt-4 flex flex-wrap items-end justify-between gap-3">
           <div>

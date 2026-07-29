@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { CoupangTopBannerOnly } from "../_components/CoupangBanners";
+import { AdfitBanner } from "../_components/AdfitBanner";
 import { SiteHeader } from "../_components/SiteHeader";
 
 export const metadata: Metadata = {
@@ -111,7 +111,7 @@ export default function FaqPage() {
           한국어 해설 중계, 한국어 중계 편성표 이용에 대해 자주 들어오는 질문을 모았습니다.
         </p>
 
-        <CoupangTopBannerOnly />
+        <AdfitBanner className="mb-6" />
 
         <div className="space-y-6">
           {FAQS.map((faq, i) => (

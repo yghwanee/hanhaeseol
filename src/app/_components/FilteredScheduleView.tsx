@@ -6,7 +6,7 @@ import { lookupTeamRecord } from "@/lib/team-records/lookup";
 import { findResult } from "@/lib/results/lookup";
 import { LEAGUE_SEO, PLATFORM_SEO, SeoMeta } from "@/lib/slugs";
 import { isGameFinished, formatDateHeader } from "@/lib/schedule-utils";
-import { CoupangTopBannerOnly } from "@/app/_components/CoupangBanners";
+import { AdfitBanner } from "@/app/_components/AdfitBanner";
 import { SiteHeader } from "@/app/_components/SiteHeader";
 import { LastFiveBadges } from "@/app/_components/LastFiveBadges";
 
@@ -108,7 +108,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
         <p className="text-[11px] sm:text-xs text-zinc-400">이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br className="sm:hidden" /> 이에 따른 일정액의 수수료를 제공받습니다.</p>
       </div>
 
-      <CoupangTopBannerOnly />
+      <AdfitBanner className="mb-6" />
 
       <section className="mb-8">
         <div className="flex items-center justify-between mb-3">
