@@ -19,16 +19,37 @@ import { useCallback, useEffect, useRef, useState } from "react";
 const BANK = process.env.NEXT_PUBLIC_DONATE_BANK;
 const ACCOUNT = process.env.NEXT_PUBLIC_DONATE_ACCOUNT;
 const HOLDER = process.env.NEXT_PUBLIC_DONATE_HOLDER;
-/** 선택. 카카오페이 송금 링크는 **금액이 고정**이라(카카오페이 앱에서 금액을 정해 만든다)
- *  아래 AMOUNT 와 짝으로만 의미가 있다. 둘 다 있어야 그 금액 티어에서만 노출한다. */
-const KAKAOPAY_URL = process.env.NEXT_PUBLIC_DONATE_KAKAOPAY_URL;
-const KAKAOPAY_AMOUNT = Number(process.env.NEXT_PUBLIC_DONATE_KAKAOPAY_AMOUNT ?? "0");
 
-/** 중계 테마 3단. 진입장벽을 낮게 잡았다(일 ~110명 트래픽엔 소액이 현실적). */
+/**
+ * 중계 테마 3단. 진입장벽을 낮게 잡았다(일 ~110명 트래픽엔 소액이 현실적).
+ *
+ * 카카오페이 송금 링크는 **만들 때 금액이 고정**된다(앱에서 금액을 정해 생성). 그래서
+ * 티어마다 링크를 따로 받는다 — **환경변수 이름에 금액을 박아** 금액 불일치가 구조적으로
+ * 불가능하게 했다. 셋 다 선택이고, 설정된 티어에서만 카카오페이 버튼이 뜬다.
+ *
+ * 🔴 `process.env.NEXT_PUBLIC_*` 는 **정적으로 쓴 자리만** 빌드시 값으로 치환된다.
+ * `process.env["..." + amount]` 처럼 동적으로 조립하면 치환이 안 돼 항상 undefined 다.
+ * 그래서 셋을 각각 리터럴로 적어야 한다(티어가 고정 목록이라 문제없다).
+ */
 const TIERS = [
-  { label: "하이라이트", amount: 1900, emoji: "⚡" },
-  { label: "풀타임", amount: 4900, emoji: "🎧" },
-  { label: "시즌권", amount: 9900, emoji: "🏆" },
+  {
+    label: "하이라이트",
+    amount: 1900,
+    emoji: "⚡",
+    kakaopay: process.env.NEXT_PUBLIC_DONATE_KAKAOPAY_1900,
+  },
+  {
+    label: "풀타임",
+    amount: 4900,
+    emoji: "🎧",
+    kakaopay: process.env.NEXT_PUBLIC_DONATE_KAKAOPAY_4900,
+  },
+  {
+    label: "시즌권",
+    amount: 9900,
+    emoji: "🏆",
+    kakaopay: process.env.NEXT_PUBLIC_DONATE_KAKAOPAY_9900,
+  },
 ] as const;
 
 /** 토스 송금 딥링크. bank 는 한글이라 반드시 인코딩해야 한다. */
@@ -44,7 +65,10 @@ function tossLink(amount: number): string {
 
 const won = (n: number) => n.toLocaleString("ko-KR");
 
-type Phase = { kind: "pick" } | { kind: "opening" } | { kind: "fallback"; amount: number };
+type Phase =
+  | { kind: "pick" }
+  | { kind: "opening" }
+  | { kind: "fallback"; amount: number; kakaopay?: string };
 
 export function DonateButton({ className = "" }: { className?: string }) {
   const [open, setOpen] = useState(false);
@@ -74,7 +98,7 @@ export function DonateButton({ className = "" }: { className?: string }) {
 
   useEffect(() => () => window.clearTimeout(timerRef.current), []);
 
-  const pick = (amount: number) => {
+  const pick = (amount: number, kakaopay?: string) => {
     if (busyRef.current) return;
     busyRef.current = true;
     setPhase({ kind: "opening" });
@@ -88,7 +112,7 @@ export function DonateButton({ className = "" }: { className?: string }) {
     timerRef.current = window.setTimeout(() => {
       busyRef.current = false;
       if (!document.hidden && Date.now() - startedAt < 2500) {
-        setPhase({ kind: "fallback", amount });
+        setPhase({ kind: "fallback", amount, kakaopay });
       } else {
         setPhase({ kind: "pick" });
       }
@@ -156,7 +180,7 @@ export function DonateButton({ className = "" }: { className?: string }) {
                   <button
                     key={t.amount}
                     type="button"
-                    onClick={() => pick(t.amount)}
+                    onClick={() => pick(t.amount, t.kakaopay)}
                     className="flex w-full items-center justify-between rounded-lg border border-zinc-700 bg-zinc-800/40 px-4 py-3 text-sm text-zinc-200 transition-colors hover:border-zinc-500 hover:bg-zinc-800"
                   >
                     <span className="flex items-center gap-2">
@@ -203,16 +227,16 @@ export function DonateButton({ className = "" }: { className?: string }) {
                   </button>
                 </div>
 
-                {/* 카카오페이 링크는 만들 때 금액이 고정된다. 그래서 그 금액 티어에서만
-                    보여준다 — 아무 티어에나 띄우면 사용자가 다른 금액을 보내게 된다. */}
-                {KAKAOPAY_URL && KAKAOPAY_AMOUNT === phase.amount && (
+                {/* 그 티어에 링크가 설정돼 있을 때만. 링크 자체가 그 금액으로 고정돼
+                    발행된 것이므로 금액이 어긋날 수 없다. */}
+                {phase.kakaopay && (
                   <a
-                    href={KAKAOPAY_URL}
+                    href={phase.kakaopay}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-2 block rounded-lg border border-zinc-700 px-4 py-2.5 text-center text-xs text-zinc-200 hover:border-zinc-500"
                   >
-                    카카오페이로 {won(KAKAOPAY_AMOUNT)}원 보내기
+                    카카오페이로 {won(phase.amount)}원 보내기
                   </a>
                 )}
 
