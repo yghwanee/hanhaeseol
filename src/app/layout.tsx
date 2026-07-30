@@ -226,7 +226,6 @@ gtag('config', 'G-F1MX6S0SGW');`}
             <Link href="/" className="hover:text-white">홈</Link>
             <Link href="/commentary" className="hover:text-white">한국어 해설</Link>
             <Link href="/guide" className="hover:text-white">한해설 Topic</Link>
-            <Link href="/worldcup" className="hover:text-white">월드컵</Link>
             <Link href="/standings" className="hover:text-white">순위</Link>
             <Link href="/about" className="hover:text-white">소개</Link>
             <Link href="/faq" className="hover:text-white">FAQ</Link>

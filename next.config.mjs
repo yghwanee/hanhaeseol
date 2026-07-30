@@ -63,6 +63,10 @@ const nextConfig = {
       { source: "/ig/story", destination: "/?utm_source=instagram&utm_medium=story", permanent: false },
       { source: "/yt", destination: "/?utm_source=youtube&utm_medium=desc", permanent: false },
       { source: "/tt", destination: "/?utm_source=tiktok&utm_medium=caption", permanent: false },
+      // 2026 북중미 월드컵 허브 제거(대회 종료, 2026-07-30). IndexNow로 통지했던 색인
+      // URL이라 404 대신 301로 홈에 흡수시킨다.
+      { source: "/worldcup", destination: "/", permanent: true },
+      { source: "/worldcup/:path*", destination: "/", permanent: true },
     ];
   },
 };

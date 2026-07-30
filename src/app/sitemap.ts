@@ -124,13 +124,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
-      // 2026 북중미 월드컵 허브(조별 순위). 대회 기간 트래픽 집중 → 높은 우선순위.
-      url: `${BASE}/worldcup`,
-      lastModified,
-      changeFrequency: "daily",
-      priority: 0.9,
-    },
-    {
       // 한국어 해설 편성 모아보기. 네이버에서 "해설 일정" 계열 쿼리가 CTR 10~23%로
       // 사이트 평균(0.1%)을 압도해 만든 페이지다(2026-07-20).
       url: `${BASE}/commentary`,

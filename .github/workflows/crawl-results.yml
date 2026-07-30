@@ -42,20 +42,11 @@ jobs:
       - name: Run team records crawl
         run: npm run crawl:records
 
-      # 월드컵 조별 순위(worldcup-standings.json)·편성(worldcup.json)도 매시 갱신.
-      # 종전엔 crawl.yml(하루 1회 아침)에만 있어 종료 경기가 다음날까지 반영 안 됐음.
-      # Naver엔 결과가 즉시 들어오므로 시간별 크롤로 옮겨 지연을 ~1h로 단축.
-      # 실패해도 results 커밋은 막지 않도록 continue-on-error.
-      # ※ 대회 종료(~7/20) 후엔 이 단계 제거 가능(crawl.yml 일일 크롤로 충분).
-      - name: Run worldcup crawl
-        continue-on-error: true
-        run: npm run crawl:worldcup
-
       - name: Commit & Push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/data/results.json public/results.json src/data/results-archive.json public/results-archive.json src/data/team-records.json public/team-records.json src/data/worldcup.json public/worldcup.json src/data/worldcup-standings.json public/worldcup-standings.json
+          git add src/data/results.json public/results.json src/data/results-archive.json public/results-archive.json src/data/team-records.json public/team-records.json
           if git diff --staged --quiet; then
             echo "변경 없음"
           else

@@ -16,7 +16,6 @@ import { SmoothTabs, SmoothCircleTabs } from "./_components/SmoothTabs";
 import { ScheduleCard } from "./_components/ScheduleCard";
 import { AdfitBanner } from "./_components/AdfitBanner";
 import { DatePickerSheet } from "./_components/DatePickerSheet";
-import { WorldCupView } from "./_components/WorldCupView";
 import { EbookBanner } from "./_components/EbookBanner";
 import { useScrollbarDrag } from "@/lib/hooks/useScrollbarDrag";
 
@@ -265,9 +264,10 @@ export default function ScheduleClient({
   const deferredCommentary = useDeferredValue(commentaryFilter);
   const deferredSearchQuery = useDeferredValue(searchQuery);
 
-  // "북중미 월드컵" 칩은 일반 날짜 필터 리스트가 아니라 전용 월드컵 뷰(전 경기+브래킷)로
-  // 분기한다. 7일 날짜 탭 제약을 받지 않고 대회 전체를 한 화면에 보여준다.
-  const isWorldCupView = sport === "북중미 월드컵";
+  // 2026 북중미 월드컵 전용 뷰(전용 필터 칩·브래킷 페이지)는 대회 종료 후 제거했다
+  // (2026-07-30). worldcup.json 자체와 이 병합은 남겨둔다 — 과거 날짜(archive 모드)에서도
+  // 월드컵 경기가 정상 표시되게 하고, 이미 발행된 가이드 글·매치 페이지 링크를 안 깨뜨리려면
+  // 데이터는 계속 필요하다.
   const worldcupSchedules = useMemo(
     () => data.schedules.filter((s) => s.league.startsWith("북중미 월드컵")),
     [data],
@@ -384,13 +384,10 @@ export default function ScheduleClient({
         </header>
       </StickyHeader>
 
-      {/* 상단 프로모 배너 — 헤더 바로 아래. fadeby 전자책 시집 배너로 월드컵 배너 대체.
-          (월드컵 배너는 /worldcup·월드컵 뷰에서 유지). */}
-      {!isWorldCupView && (
-        <div className="mt-4 sm:mt-6">
-          <EbookBanner />
-        </div>
-      )}
+      {/* 상단 프로모 배너 — 헤더 바로 아래. */}
+      <div className="mt-4 sm:mt-6">
+        <EbookBanner />
+      </div>
 
       {/* Filters */}
       <div className="mt-6 sm:mt-10 mb-6 sm:mb-10 space-y-2.5 sm:space-y-3">
@@ -402,29 +399,13 @@ export default function ScheduleClient({
           <div className="overflow-x-auto scrollbar-hide">
             <SmoothTabs
               ariaLabel="종목 필터"
-              options={SPORTS.map((s) =>
-                s === "북중미 월드컵"
-                  ? {
-                      value: s,
-                      // 월드컵 시즌 강조 — 골드 테두리 + 트로피 아이콘
-                      className: "!border-amber-400/80 bg-amber-400/5",
-                      label: (
-                        <span className="inline-flex items-center gap-1">
-                          <span aria-hidden>🏆</span>
-                          <span>{s}</span>
-                        </span>
-                      ),
-                    }
-                  : { value: s, label: s },
-              )}
+              options={SPORTS.map((s) => ({ value: s, label: s }))}
               value={sport as (typeof SPORTS)[number]}
               onChange={handleSelectSport}
             />
           </div>
         </div>
 
-        {!isWorldCupView && (
-        <>
         {/* Korean Commentary Toggle */}
         <div className="flex items-center gap-1.5 sm:gap-2">
           <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-zinc-300">
@@ -519,19 +500,8 @@ export default function ScheduleClient({
             </div>
           </div>
         </div>
-        </>
-        )}
       </div>
 
-      {isWorldCupView ? (
-        <WorldCupView
-          schedules={worldcupSchedules}
-          teamRecords={teamRecords}
-          results={liveResults}
-          today={todayStr}
-        />
-      ) : (
-      <>
       <div className="mt-4 sm:mt-6 mb-3 sm:mb-4 rounded-lg border border-zinc-700/50 bg-zinc-800/30 px-3 py-2 text-center">
         <p className="text-[11px] sm:text-xs text-zinc-400">이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br className="sm:hidden" /> 이에 따른 일정액의 수수료를 제공받습니다.</p>
       </div>
@@ -774,8 +744,6 @@ export default function ScheduleClient({
             );
           })}
         </div>
-      )}
-      </>
       )}
 
       {/* SEO 안내 섹션 — 사용자 가독성을 해치지 않는 톤으로 핵심 키워드 자연 노출 */}

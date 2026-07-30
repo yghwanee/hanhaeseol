@@ -13,7 +13,7 @@
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Directory**: `src/` 디렉토리 구조 사용
-- **자동화**: GitHub Actions — 편성·결과·순위·선발투수·월드컵·인사이트 크롤 + 소셜 3채널(인스타·유튜브 쇼츠·틱톡) 하루 2회 자동 게시
+- **자동화**: GitHub Actions — 편성·결과·순위·선발투수·인사이트 크롤 + 소셜 3채널(인스타·유튜브 쇼츠·틱톡) 하루 2회 자동 게시
 
 ## 프로젝트 구조
 
@@ -38,8 +38,7 @@ src/
 │       ├── kbs-sports.ts    # KBS N SPORTS 크롤러
 │       ├── apple-tv.ts     # Apple TV+ 크롤러
 │       ├── coupang-play.ts # 쿠팡플레이 크롤러
-│       ├── tving.ts        # 티빙 크롤러
-│       └── worldcup.ts     # 북중미 월드컵(네이버) 크롤러
+│       └── tving.ts        # 티빙 크롤러
 ├── content/
 │   └── guides/             # 한해설 Topic 에디토리얼 글(*.md)
 ├── scripts/
@@ -79,7 +78,7 @@ src/
 ## 크롤링
 
 - `npm run crawl` → 오늘부터 7일치 크롤링 → `schedule.json` 갱신
-- GitHub Actions 워크플로우: 편성(`crawl.yml`, KST 08:18 + 백업 10:48·13:48) / 결과·기록·월드컵(`crawl-results.yml`, 매시 13·43분) / 순위(`crawl-standings.yml`) / 선발투수 / 인사이트 생성·알림 / 소셜 오전(`instagram-morning.yml`)·저녁(`instagram.yml`) — 각각 인스타(캐러셀+릴스+스토리)+유튜브 쇼츠+틱톡 게시. 편성 갱신 시 텔레그램 알림
+- GitHub Actions 워크플로우: 편성(`crawl.yml`, KST 08:18 + 백업 10:48·13:48) / 결과·기록(`crawl-results.yml`, 매시 13·43분) / 순위(`crawl-standings.yml`) / 선발투수 / 인사이트 생성·알림 / 소셜 오전(`instagram-morning.yml`)·저녁(`instagram.yml`) — 각각 인스타(캐러셀+릴스+스토리)+유튜브 쇼츠+틱톡 게시. 편성 갱신 시 텔레그램 알림
 - 결과(`results.json`)는 어제~내일 3일 윈도우로 통째 덮어쓰기, 과거 종료경기는 `results-archive.json`에 영구 누적
 - 비경기 콘텐츠(하이라이트, 시상식, 스포타임 등) 자동 제외
 - SPOTV TV는 LIVE만 수집 (녹화 본방송 제외)
@@ -218,8 +217,13 @@ src/
     - 도구: `claude-seo` v2.2.4(스킬 31·에이전트 18, `~/.claude/skills/seo` 1.4GB). **`ai-seo` 스킬은 존재하지 않음** — 해당 기능은 `seo-geo`. 훅은 `settings.json` 미등록으로 **비활성**(전역 부작용 없음). 제거는 `uninstall.sh`.
 
 64. 🔴 애드핏 심사 통과 → 쿠팡 캐러셀 전량 교체 (2026-07-30, 커밋 `64fcfb6f`·`df29d43b`) — 매체 심사 통과 확인 후 상단(고지 문구 아래·날짜 탭 위) 10페이지 + 홈 인라인(오후 경기 구분선 아래) 2슬롯을 애드핏으로 전환. 상단은 기존 유닛 재사용, 인라인은 **새 유닛 필요**(SDK가 같은 `data-ad-unit` 페이지당 중복을 거부 — "광고 data-ad-unit 은 유일한 값이어야 합니다", 페이지당 최대 4개): `한해설_PC_인라인`(`DAN-lcALm7uz8M1Y77F7`) / `한해설_Mobile_인라인`(`DAN-kJ3thvrkQ3G6WyUG`) 둘 다 300x250. 쿠팡 캐러셀 계열(`ProductCarousel`·`CoupangTopBanner`·`CoupangInlineBanner`)은 전량 제거 — 쿠팡은 이제 우측 사이드 카드(`CoupangSideBanners`)로만 남는다. PC 728 광고가 본문 컬럼(실효 640px)보다 넓어 `-mx-12`로 컬럼을 벗어나게 하고 `ins`에 `shrink-0`(flex item 기본 shrink:1 이라 안 주면 눌린다). 채운 좌측 배너를 직접 조립하던 코드에서 채운이 만든 완성 시안 이미지(WebP 25KB)로 교체. 검증: tsc·ESLint·테스트 19스위트·빌드·브라우저 실측(페이지당 ins 정확히 1개, 728/320/300 정확, 가로 스크롤 0). **채운(자매 프로젝트) 애드핏 작업 상세는 `chaeun` 레포 커밋 로그 참고**(레일 SDK 스캔 타이밍 버그가 핵심 교훈 — [[reference_adfit_sdk_behavior]]). **전체 재검증(같은 날)**: 10페이지 전부 PC·모바일 라이브 실측 — ins 개수·유닛·SDK 스크립트 수·가로 스크롤 이상 없음. `/worldcup`(대진표 전용 라우트, 홈의 "북중미 월드컵" 필터 화면과는 다른 컴포넌트)은 광고 0개인데 **이건 회귀가 아니라 애초에 이 10페이지 목록에 없던 곳** — 헷갈리지 말 것.
+65. 채운 배너 로딩 개선 + 우측 쿠팡 사이드 카드 → 애드핏 교체 (2026-07-30, 커밋 `87258a6a`) — 사용자 신고 "채운 배너 로딩 느림" 진단: 원인은 `next/image`가 이미 정확한 표시크기(124x500)로 사전 최적화된 webp(25KB)를 매번 옵티마이저(`/_next/image`) 왕복시키던 것 + 기본 lazy-load. `ChaeunSideBanner.tsx`에 `unoptimized`(옵티마이저 우회)+`priority`(즉시 요청) 추가로 해결. 이어서 우측 사이드(XL≥1280) 쿠팡 상품 카드 2개를 애드핏 160x600(`한해설_PC_오른쪽`, `DAN-CF8kPxnkszA1dow9`)으로 전량 교체 — 쿠팡은 이제 사이트 어디에도 없다. `AdfitBanner.tsx`의 `SLOTS`에 슬롯별 `minWidth`(기본 800 오버라이드)와 `mobile: null` 지원 추가: 사이드 슬롯은 xl 브레이크포인트(1280)가 필요한데 기본 800을 쓰면 800~1279px 구간에서 부모 aside 는 CSS로 숨겨져 있는데(`hidden xl:flex`) 컴포넌트는 "PC 폭"이라 판단해 `<ins>`를 그려버려 **화면엔 안 보이는데 노출만 잡히는 무효노출**이 생긴다(작업64 문서화 원칙 그대로). `mobile: null`이라 1280 미만에서는 `<ins>` 자체를 안 그린다. 죽은 코드 정리: `CoupangProductCard.tsx`·`coupang-product-utils.ts` 삭제(다른 참조 0건 확인), `CoupangBanners.tsx`→`SideBanners.tsx`·`CoupangSideBanners`→`SideBanners`로 파일/컴포넌트명 변경(더 이상 쿠팡이 없어 이름이 안 맞았음). `coupang-products.json`·`fetch-coupang-meta.ts`는 재개 대비로 데이터만 유지(현재 어떤 UI도 참조 안 함). tsc·build 통과 확인 후 커밋+푸시.
+
+66. 북중미 월드컵 기능 제거 + 킥톡 후원 버튼 리서치 (2026-07-30) — **①월드컵 제거**: 대회 종료(2026-07-20) 후 사용자 요청으로 전용 UI·크롤러·워크플로 정리. **삭제**: `/worldcup` 라우트(`page.tsx`+`WorldcupTabs.tsx`+`TournamentBracket.tsx`), `WorldCupView.tsx`·`WorldCupBanner.tsx`(홈 전용 뷰·배너), `lib/crawlers/worldcup.ts`+스크립트 3개(`crawl-worldcup`·`backfill-worldcup-goals`·`gen-worldcup-round-article`), `lib/guides/worldcup-round.ts`(+테스트), `types/worldcup.ts`, `worldcup-standings.json`, GH워크플로 `worldcup-round-article.yml`, `crawl.yml`·`crawl-results.yml`의 월드컵 크롤 스텝(후자는 스스로 "대회 종료 후 제거 가능"이라 주석에 적어놨었음), `package.json`의 `crawl:worldcup`·`backfill:worldcup-goals`·`gen:worldcup-round`·`test:worldcup-round`, 홈 `SPORTS` 배열의 "북중미 월드컵" 필터칩(+연동된 `isWorldCupView` 분기·트로피 아이콘 스타일), sitemap의 `/worldcup` 허브 엔트리, 가이드 자동링크의 "북중미 월드컵"/"월드컵"→`/worldcup` 엔트리(가리킬 곳이 없어짐). **유지(의도적)**: 이미 발행된 가이드 글 20여 편(`content/guides/worldcup-*.md`, 사용자 선택), `match-insights/worldcup-*.json`, 그리고 **`worldcup.json` 자체**— `loadScheduleData()`가 이걸 `schedule.json`에 계속 병합해 매치 페이지·OG이미지·사이트맵·results lookup·가이드 백링크가 안 깨지게 유지(이미 색인된 URL·SEO 트래픽 보존). `/worldcup`은 `next.config.mjs`에 301(`/worldcup`, `/worldcup/:path*` → `/`)로 IndexNow 통지 이력 있는 URL이 404 안 나게 함. **손 안 댄 것**: `hero-pick.ts`·`hashtags.ts`·`instagram.ts`의 월드컵 히어로 선정 로직 — 각 파일 스스로 "데이터(worldcup.json) 부재/과거화 시 자동 비활성"이라 주석에 적혀 있고 실제로 향후 날짜에 월드컵 일정이 없어 이미 죽어있어 건드릴 필요·이득이 없었음(리스크만 있음). **발견(후속 과제로 남김, 미조치)**: `page.tsx`가 `worldcup.json`(50KB) 전체를 매 홈 로드마다 클라이언트 초기 payload에 무조건 실어보내고 있음 — 대회가 끝나 그 데이터가 기본 7일 뷰에 절대 안 걸리는데도, archive(과거 날짜 조회) 브랜치의 `worldcupSchedules`가 같은 `data.schedules` prop에서 파생돼 트리밍이 안 됨. 일반 archive(`schedule-archive.json`)처럼 지연 fetch로 옮기면 50KB 절감 가능하지만 이번 스코프 밖이라 미실행. 검증: tsc·build·관련 테스트(sitemap-consistency·schedule-quality·autolink·team-name-hygiene) 전부 통과, prod 서버로 `/worldcup` 301 확인. **②킥톡(kicktalk.xyz) "응원하기" 버튼 리서치**(구현은 안 함, 조사만): 백엔드 없이 순수 클라이언트 계단식 딥링크. `supertoss://send?amount=N&bank=토스뱅크&accountNo=...` 로 토스 앱 열기 시도(`document.hidden`으로 2.5초 내 앱 전환 여부 판별) → 실패시 카카오페이 고정금액 송금 QR 링크(`qr.kakaopay.com/...`, 카카오페이 앱에서 직접 생성)로 폴백 → 그것도 실패시 계좌번호 노출+복사 버튼. 토스 인앱브라우저 전용 `window.tossPay.donate(sku)` 브릿지(토스 크리에이터 후원 가맹점 등록 필요)는 최상위 경로로 시도하지만 우리가 바로 쓸 수 있는 건 아님. 이식하려면 사용자의 실제 계좌(공개 레포에 노출)와 카카오페이 고정금액 QR 링크가 필요 — 구현은 그 정보 받으면 진행.
 
 ### 다음 작업 (예정)
+- **후원 버튼 (킥톡 스타일, 작업66 리서치 완료, 구현 대기)** — 토스→카카오페이→계좌 순 계단식 딥링크 버튼. **막힘: 사용자의 받을 계좌(은행명+계좌번호, 공개 레포에 노출됨) 필요**, 카카오페이 QR/링크는 선택(폴백용, 카카오페이 앱에서 "송금→QR/링크 만들기"로 생성). 받으면 하루면 구현 가능.
+- **홈 payload에서 worldcup.json 50KB 트리밍 (작업66 발견, 미조치)** — `page.tsx`가 대회 끝난 월드컵 일정 전체를 매 홈 로드마다 클라이언트로 무조건 실어보냄(기본 7일 뷰엔 절대 안 걸리는데 archive 브랜치용으로만 필요). `schedule-archive.json`처럼 지연 fetch로 옮기면 절감되지만 `ScheduleClient`의 prop 구조를 건드려야 해서 별도 작업으로 미룸.
 - **팀명 alias 미스매치 재점검 (유럽 개막 2026-08~)** — 2026-07-23 LAFC 3-1 솔트레이크 스코어가 안 뜨던 버그(네이버 `솔트 레이크`↔스케줄 `레알 솔트레이크`/`솔트레이크` alias 다리 없음, 마이애미·신시내티도 동일) 수정 후, 오프시즌 리그(EPL·라리가·세리에A·리그1·분데스 등)는 스케줄에 경기가 없어 **오프라인 검증 불가**로 남김. 유효 검증은 스케줄↔결과 실표기 대조뿐(alias 키 vs 결과 primary 비교는 무효 — primary는 매핑 후 값이라 네이버 원본표기 모름). **개막 후 `npm run crawl && npm run crawl:results && npm run audit:aliases` 실행** → `MISS>0` 나오는 리그만 `team-name-aliases.ts`에 네이버 표기 키 보정. 감사 스크립트 = `src/scripts/audit-aliases.ts`.
 - 🔴 **네이버·GSC 지표 재확인 (2026-08 중순)** — 2026-07-20 + **07-28(작업62)** 조치들의 효과 판정. searchadvisor.naver.com → 리포트. 볼 것: ①사이트 진단 색인 수(880 기준) ②해설 쿼리 노출(407 기준) ③`/team/`·`/commentary` 노출 발생 여부 ④매치 페이지 디스커버 노출(작업62에서 `max-image-preview:large` 복구됨 — 그전엔 91%가 후보에서 빠져 있었으니 **여기가 가장 큰 변화 지점**). **사용자만 뽑을 수 있음(스크린샷이면 충분).**
 - **유튜브 중복 게시 정리** — 아침·저녁 세트가 같은 제목 영상을 매일 2개 올림(작업57). 유튜브가 중복을 배포에서 누를 수 있음.
@@ -233,9 +237,9 @@ src/
 - **하이라이트 KBO 첫 실전 확인** — 작업48 가동됨. 저녁 KBO 종료 후 티빙 채널 매핑으로 자동 채워지는지 확인. 채움율 낮으면 maxResults 5→10 완화 검토.
 - ~~애드핏 매체 심사~~ **완료(2026-07-30, 작업64)** — 상단 10페이지 + 홈 인라인 라이브 송출 확인. 유닛 4개: `한해설_PC`(728x90)·`한해설_Mobile`(320x50)·`한해설_PC_인라인`(300x250)·`한해설_Mobile_인라인`(300x250), 전부 `src/app/_components/AdfitBanner.tsx` 한 곳. 배치는 편성표 목록 끝 + 오후 경기 구분선 아래(홈 상단 아님 — CLS·제5.3조 회피). 정산: 최소 지급액 5만원, 매달 지정일 확정 적립금 전환.
   - **잔여 확인**: 실제 노출·수익 발생 여부는 대시보드 보고서에서 며칠 지켜볼 것(신규 슬롯이라 채움율 낮을 수 있음).
-- **수익화 대기 1건**: 쿠팡파트너스는 사용자가 와우멤버십 링크 가능여부+스포츠 상품 링크 ~20개 주면 `coupang-products.json` 교체+맥락 배치(링크프라이스는 티빙 없어 접음, 재조사 금지 — auto-memory `hhs-monetization-findings`).
+- **수익화 대기 1건 — 🔴 마운트 지점부터 새로 필요**: 2026-07-30(작업65)에 우측 사이드 쿠팡 카드가 애드핏로 교체되며 쿠팡 UI가 사이트에서 완전히 빠졌다. `coupang-products.json`은 데이터만 남아 있고 어떤 컴포넌트도 안 읽는다. 재개하려면 사용자가 와우멤버십 링크 가능여부+스포츠 상품 링크 ~20개를 주는 것과 별개로 **어디에 다시 넣을지부터 정해야 함**(예전처럼 사이드는 이제 애드핏 자리라 다른 위치 필요). 링크프라이스는 티빙 없어 접음, 재조사 금지 — auto-memory `hhs-monetization-findings`.
 - kicktalk 추가 후보(우선순위): 승부예측+포인트(localStorage 시작=셋업0) > ~~PWA~~(완료) > ~~팀 상세~~(완료, 작업58) > MVP투표 > 경기별 댓글(가벼운 UGC). 자유게시판 풀버전은 모더레이션 부담으로 제외. (하이라이트는 위 별도 항목으로 진행 중)
-- (상시 운영) 매주 월 글감 이슈 도착 → 5개 선택해 큐 세팅. 월요일 1편은 즉시 수동 발행, 화~금 4편은 **완전 자동(머지 불필요, 작업39)**. 월드컵 라운드 편성글(16강·8강·4강·3·4위전·결승)은 **이제 자동(작업45, `worldcup-round-article.yml`)** — 데이터 기반 편성·일정·중계 정리라 사람 손 안 탐(결과 서사 넣는 전면 재작성만 사람 몫). 단, 한국전 결과 등 특정 경기 결과·감상글은 여전히 사람 수동
+- (상시 운영) 매주 월 글감 이슈 도착 → 5개 선택해 큐 세팅. 월요일 1편은 즉시 수동 발행, 화~금 4편은 **완전 자동(머지 불필요, 작업39)**. 특정 경기 결과·감상글(한국전 결과 등)은 여전히 사람 수동. ~~월드컵 라운드 편성글 자동화(작업45)~~ 대회 종료로 2026-07-30 제거(작업66) — `worldcup-round-article.yml`·`gen:worldcup-round` 삭제
 - 틱톡 0조회수 — 캡션 스팸 신호 제거(작업54, 7/19) 후 1~2주 추이 관찰. **사용자 확인 필요: 앱에서 설정→계정 상태 + 각 영상 "추천 부적격" 표시 → 있으면 이의신청.** 안 풀리면 다음 레버 = 영상 독창성(TTS 보이스오버, AI컷→실사), inbox 수동게시 실험. 계정 warmup은 사람 몫
 - (운영 메모) 핵심 미해결은 기술 아닌 **트래픽/수익화** — AdSense·애드핏 다 트래픽 미달이 병목(일 ~110명)
 
@@ -247,10 +251,9 @@ npm run build    # 프로덕션 빌드
 npm run start    # 프로덕션 서버
 npm run lint     # ESLint 검사
 npm run crawl    # 크롤링 실행 (7일치)
-npm run crawl:worldcup   # 월드컵 편성+조별순위 재크롤 (현재 기준 맞출 때)
 npm run crawl:results    # 결과·스코어 재크롤
 npm run test:fetch-cache # 🔴 Next 런타임 fetch 캐시 가드 (CI에서도 돎)
-npm run test:worldcup-round / test:starters / test:highlights / test:tiktok-caption
+npm run test:starters / test:highlights / test:tiktok-caption
 npm run test:idea-dupes / test:naver-news
 npm run test:robots-meta # 🔴 색인 지시자 가드. `robots: cond ? undefined : {}` 금지(layout robots를 삭제함)
 npm run test:seo-meta / test:team-full-names / test:team-links  # description 상한·팀 정식명·순위표 팀링크

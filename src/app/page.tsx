@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { Schedule } from "@/types/schedule";
 import { GAME_DURATION_HOURS, getTodayString } from "@/lib/schedule-utils";
-import { loadScheduleData, loadTeamRecords, loadResults, loadResultsArchive } from "@/lib/server-data";
+import { loadScheduleData, loadTeamRecords, loadResults } from "@/lib/server-data";
 import { ResultsData } from "@/types/results";
 import ScheduleClient from "./ScheduleClient";
 import { HomeAboutSection } from "./_components/HomeAboutSection";
@@ -68,39 +68,16 @@ function buildSportsEventsJsonLd(schedules: Schedule[]) {
 }
 
 /**
- * 월드컵 과거 스코어 채우기: results.json은 3일 윈도우라 대회 초반 경기 스코어가 빠진다.
- * 영구 누적 아카이브에서 categoryId=worldcup 결과만 골라 results.byKey의 베이스로 깔고,
- * 그 위에 최신 results.json을 덮어써 라이브/당일 경기는 신선한 상태를 유지한다.
- * (월드컵은 팀명이 네이버와 정확히 일치해 alias 없이 byKey 매칭됨 — lookup.ts 참고)
- */
-function mergeWorldcupArchive(
-  results: ResultsData | null,
-  archive: ResultsData | null,
-): ResultsData | null {
-  if (!archive) return results;
-  const wcByKey: Record<string, ResultsData["results"][number]> = {};
-  for (const [key, r] of Object.entries(archive.byKey)) {
-    if (r.categoryId === "worldcup") wcByKey[key] = r;
-  }
-  if (Object.keys(wcByKey).length === 0) return results;
-  if (!results) {
-    return { lastUpdated: archive.lastUpdated, byKey: wcByKey, results: [] };
-  }
-  return { ...results, byKey: { ...wcByKey, ...results.byKey } };
-}
-
-/**
  * 클라이언트로 직렬화되는 results를 홈에서 실제 조회 가능한 범위로 줄인다.
- * 홈 날짜 탭은 오늘~+7일이라 과거 경기 결과는 안 쓰이고(과거 날짜는 datepicker →
- * archive lazy fetch 경로), 월드컵만 메인 월드컵 뷰가 과거 조별리그 스코어를
- * 보여주므로 전부 유지한다. results 배열은 디버깅·표시용이라 클라가 안 씀 → 비운다.
+ * 홈 날짜 탭은 오늘~+7일이라 과거 경기 결과는 안 쓴다(과거 날짜는 datepicker →
+ * archive lazy fetch 경로). results 배열은 디버깅·표시용이라 클라가 안 씀 → 비운다.
  */
 function pruneResultsForClient(results: ResultsData | null): ResultsData | null {
   if (!results) return null;
   const todayStr = getTodayString();
   const byKey: ResultsData["byKey"] = {};
   for (const [key, r] of Object.entries(results.byKey)) {
-    if (r.categoryId === "worldcup" || r.date >= todayStr) byKey[key] = r;
+    if (r.date >= todayStr) byKey[key] = r;
   }
   return { lastUpdated: results.lastUpdated, byKey, results: [] };
 }
@@ -124,9 +101,7 @@ export default function Home() {
   const teamRecords = Object.fromEntries(
     Object.entries(loadTeamRecords()).filter(([league]) => shownLeagues.has(league)),
   );
-  const results = pruneResultsForClient(
-    mergeWorldcupArchive(loadResults(), loadResultsArchive()),
-  );
+  const results = pruneResultsForClient(loadResults());
   const sportsEventsJsonLd = buildSportsEventsJsonLd(data.schedules);
 
   return (
