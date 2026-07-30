@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
-import { Noto_Serif_KR } from "next/font/google";
 import Link from "next/link";
 import Script from "next/script";
 import { loadScheduleLastUpdated } from "@/lib/server-data";
@@ -32,15 +31,6 @@ const pretendard = localFont({
   preload: false,
 });
 
-// Noto Serif KR — 채운 자매 프로젝트 배너 전용(채운 사이트와 동일 폰트). XL 좌측 배너
-// 한 곳만 써서 preload 안 함, display:swap.
-const notoSerifKr = Noto_Serif_KR({
-  weight: ["700", "900"],
-  subsets: ["latin"],
-  variable: "--font-serif-kr",
-  display: "swap",
-  preload: false,
-});
 
 // iOS PWA 런치스크린(흰 화면 방지). 기기 해상도별 어두운 스플래시 이미지를
 // media 쿼리로 매칭해야 흰 번쩍 없이 어두운 스플래시가 뜬다. [cssW, cssH, dpr] portrait.
@@ -223,7 +213,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
           }}
         />
       </head>
-      <body className={`${geistSans.variable} ${pretendard.variable} ${notoSerifKr.variable} antialiased`} style={{ backgroundColor: "#0a0a0a" }}>
+      <body className={`${geistSans.variable} ${pretendard.variable} antialiased`} style={{ backgroundColor: "#0a0a0a" }}>
         <CoupangSideBanners />
         <CapsStripeClickHandler />
         <ServiceWorkerRegister />
