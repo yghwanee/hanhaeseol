@@ -169,20 +169,29 @@ export function DonateButton({ className = "" }: { className?: string }) {
   return (
     <>
       {/* 띠배너. 문구만 있으면 눌렀을 때 후원 모달이 뜨는 걸 예상할 수 없으니
-          오른쪽에 `응원하기 ›` 를 붙여 무엇이 열리는지 알 수 있게 한다. */}
+          우측에 `응원하기` 를 붙여 무엇이 열리는지 알 수 있게 한다.
+
+          문구를 **박스 기준 정중앙**에 두려면 flex 로 둘을 나란히 놓으면 안 된다
+          (그러면 둘 사이의 가운데가 된다). 문구만 중앙에 두고 CTA 는 absolute 로
+          오른쪽에 띄운다.
+          테두리 네온은 이미 있던 `.border-glow`(conic-gradient + border-rotate)를 쓴다. */}
       <button
         type="button"
         onClick={() => setOpen(true)}
         aria-label="개발자 응원하기"
-        className={`liquid-glass flex w-full items-center justify-center gap-2 rounded-xl px-3.5 py-4 text-white transition-transform hover:scale-[1.01] active:scale-[0.99] [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] sm:px-4 sm:py-5 ${className}`}
+        className={`border-glow relative flex w-full items-center justify-center rounded-xl px-3.5 py-4 text-white transition-transform hover:scale-[1.01] active:scale-[0.99] sm:px-4 sm:py-5 ${className}`}
       >
-        <span className="min-w-0 truncate text-[11px] font-medium sm:text-xs">
-          내가 응원하는 팀이 지고있다면?
+        {/* CTA 가 absolute 라 문구가 그 아래로 파고들 수 있다. 실측으로 390px 는
+            여유 7px, 360px 는 8px 겹침, 320px 는 28px 겹침이었다. 좁은 폭에서는
+            문구를 짧은 쪽으로 바꿔 겹침을 없앤다(잘라내는 것보다 읽힌다). */}
+        <span className="text-[13px] font-medium sm:text-[15px]">
+          <span className="min-[400px]:hidden">응원하는 팀이 지고있다면?</span>
+          <span className="hidden min-[400px]:inline">내가 응원하는 팀이 지고있다면?</span>
         </span>
-        <span className="flex shrink-0 items-center gap-1 whitespace-nowrap text-[11px] text-white/70 sm:text-xs">
+        <span className="absolute right-3.5 flex items-center gap-1 whitespace-nowrap text-[12px] text-white/80 sm:right-4 sm:text-sm">
           <span aria-hidden>🎉</span>
-          <span>응원하기</span>
-          <span>›</span>
+          {/* 320px(구형 SE 급)에서는 CTA 라벨까지 줄여야 문구와 안 겹친다. */}
+          <span className="hidden min-[340px]:inline">응원하기</span>
         </span>
       </button>
 
