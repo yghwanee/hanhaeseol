@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 /**
@@ -168,30 +169,46 @@ export function DonateButton({ className = "" }: { className?: string }) {
 
   return (
     <>
-      {/* 띠배너. 문구만 있으면 눌렀을 때 후원 모달이 뜨는 걸 예상할 수 없으니
-          우측에 `응원하기` 를 붙여 무엇이 열리는지 알 수 있게 한다.
+      {/* 띠배너 — 카카오페이 홈 광고 행과 같은 구조다:
+          [아이콘 타일] + [작은 회색 윗줄 / 굵은 강조 아랫줄 `›`]. 닫기(X)는 두지 않는다.
 
-          문구를 **박스 기준 정중앙**에 두려면 flex 로 둘을 나란히 놓으면 안 된다
-          (그러면 둘 사이의 가운데가 된다). 문구만 중앙에 두고 CTA 는 absolute 로
-          오른쪽에 띄운다.
-          테두리 네온은 이미 있던 `.border-glow`(conic-gradient + border-rotate)를 쓴다. */}
+          **모바일 치수는 카카오페이 캡처 실측을 그대로 옮겼다**(카드 높이 ~76px =
+          아이콘 44 + 상하 16, 좌우 14, 윗줄 13px / 아랫줄 16px 볼드, radius 16).
+          PC 는 같은 비율로 키운다(아이콘 56, 높이 96px). 종전엔 문구를 박스 정중앙에
+          두고 CTA 를 absolute 로 띄우느라 좁은 폭에서 겹침을 폭별로 막아야 했는데,
+          좌측 정렬 2줄 구조라 그 문제 자체가 사라졌다.
+
+          배경은 카카오 노랑(#FEE500) 단색이다. 페이지가 거의 검정이라 이 한 덩어리만
+          노랗게 두면 시선이 확실히 잡힌다(네온 테두리 `.border-glow` 는 제거 —
+          노랑 위에서는 회전 그라데이션이 오히려 지저분해진다).
+          글자는 노랑 위 대비 때문에 검정 계열로 간다(윗줄 옅은 검정, 아랫줄 진한 볼드). */}
       <button
         type="button"
         onClick={() => setOpen(true)}
         aria-label="개발자 응원하기"
-        className={`border-glow relative flex w-full items-center justify-center rounded-xl px-3.5 py-4 text-white transition-transform hover:scale-[1.01] active:scale-[0.99] sm:px-4 sm:py-5 ${className}`}
+        className={`flex w-full items-center gap-3 rounded-2xl bg-[#FEE500] px-3.5 py-4 text-left transition-transform hover:scale-[1.01] active:scale-[0.99] sm:gap-4 sm:px-5 sm:py-5 ${className}`}
       >
-        {/* CTA 가 absolute 라 문구가 그 아래로 파고들 수 있다. 실측으로 390px 는
-            여유 7px, 360px 는 8px 겹침, 320px 는 28px 겹침이었다. 좁은 폭에서는
-            문구를 짧은 쪽으로 바꿔 겹침을 없앤다(잘라내는 것보다 읽힌다). */}
-        <span className="text-[13px] font-medium sm:text-[15px]">
-          <span className="min-[400px]:hidden">응원하는 팀이 지고있다면?</span>
-          <span className="hidden min-[400px]:inline">내가 응원하는 팀이 지고있다면?</span>
-        </span>
-        <span className="absolute right-3.5 flex items-center gap-1 whitespace-nowrap text-[12px] text-white/80 sm:right-4 sm:text-sm">
-          <span aria-hidden>🎉</span>
-          {/* 320px(구형 SE 급)에서는 CTA 라벨까지 줄여야 문구와 안 겹친다. */}
-          <span className="hidden min-[340px]:inline">응원하기</span>
+        {/* 선물 아이콘. 원본 500px PNG(164KB)를 표시 크기의 3배(168px) webp 로 미리
+            줄여 뒀다(8KB). 이미 정확한 치수라 `unoptimized` 로 옵티마이저 왕복을 건너뛰고,
+            첫 화면에 보이므로 `priority` 로 즉시 요청한다(채운 배너와 같은 처리).
+            타일 배경은 두지 않는다 — 3D 아이콘이라 카드 위에 그대로 떠 있는 게 낫다. */}
+        <Image
+          src="/donate-icon.webp"
+          alt=""
+          width={56}
+          height={56}
+          unoptimized
+          priority
+          className="h-11 w-11 shrink-0 sm:h-14 sm:w-14"
+        />
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-[13px] text-black/60 sm:text-[14px]">
+            오늘만큼은 꼭 이겨야 한다면
+          </span>
+          <span className="mt-0.5 flex items-center gap-1 text-[16px] font-bold text-[#191600] sm:text-[18px]">
+            승리 기원 응원하기
+            <span aria-hidden>›</span>
+          </span>
         </span>
       </button>
 
