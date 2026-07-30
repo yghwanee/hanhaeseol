@@ -67,61 +67,7 @@ export function CoupangSideBanners() {
   );
 }
 
-/* ─────────────────────────────────────────────────────────────────────────
- *  가로 스크롤 캐러셀 (728x90 자리 대체)
- *  - 모바일: 작은 카드 가로 스와이프
- *  - PC: 카드 5~6개 가로 정렬
- *  - 1:2 비율(120x240) 유지하느라 자리 높이가 기존 90보다 큼 — 시각적
- *    클릭률을 위해 의도된 조정.
- * ──────────────────────────────────────────────────────────────────────── */
-function ProductCarousel({ countDesktop = 6, countMobile = 5, sizeDesktop = "sm", sizeMobile = "sm" }: {
-  countDesktop?: number;
-  countMobile?: number;
-  sizeDesktop?: "xs" | "sm" | "md" | "lg";
-  sizeMobile?: "xs" | "sm" | "md" | "lg";
-}) {
-  const picks = useShuffledProducts(Math.max(countDesktop, countMobile), {
-    dedupeCategory: true,
-    refreshKey: "carousel",
-  });
-  return (
-    <>
-      {/* 모바일 */}
-      <div className="sm:hidden -mx-3 overflow-x-auto px-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-        <div className="flex gap-2.5 pb-1">
-          {picks.slice(0, countMobile).map((p) => (
-            <CoupangProductCard key={p.id} product={p} size={sizeMobile} />
-          ))}
-        </div>
-      </div>
-      {/* PC */}
-      <div className="hidden sm:block">
-        <div className="flex justify-center gap-3">
-          {picks.slice(0, countDesktop).map((p) => (
-            <CoupangProductCard key={p.id} product={p} size={sizeDesktop} />
-          ))}
-        </div>
-      </div>
-    </>
-  );
-}
-
-/* 상단 캐러셀(CoupangTopBanner / CoupangTopBannerOnly)은 2026-07-30 제거했다.
- * 그 자리(고지 문구 아래, 날짜 탭 위)는 이제 카카오 애드핏 배너가 쓴다 — `AdfitBanner`.
- * 쿠팡은 우측 사이드 카드(CoupangSideBanners)와 홈 인라인 캐러셀(CoupangInlineBanner)로 남는다. */
-
-/* ─────────────────────────────────────────────────────────────────────────
- *  메인 페이지 인라인 광고 (필터·날짜탭 아래, 경기 카드 사이)
- *  - ScheduleClient.tsx 의 인라인 iframe(320x100 / 680x140) 자리 대체
- *  - 모바일: 가로 스크롤
- *  - PC: 카드 6~7개 가로 정렬
- * ──────────────────────────────────────────────────────────────────────── */
-export function CoupangInlineBanner() {
-  const showAds = useShowAds();
-  if (!showAds) return null;
-  return (
-    <div className="my-4 sm:my-6">
-      <ProductCarousel countDesktop={7} countMobile={5} sizeDesktop="md" sizeMobile="sm" />
-    </div>
-  );
-}
+/* 2026-07-30: 캐러셀 계열(CoupangTopBanner / CoupangTopBannerOnly / CoupangInlineBanner)과
+ * 그 공용 ProductCarousel 을 전부 제거했다. 상단(고지 문구 아래·날짜 탭 위)과 홈 인라인
+ * (오후 경기 구분선 아래) 자리는 이제 카카오 애드핏 배너가 쓴다 — `AdfitBanner`.
+ * 쿠팡은 우측 사이드 카드(CoupangSideBanners)로만 남는다. */

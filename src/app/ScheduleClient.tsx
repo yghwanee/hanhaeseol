@@ -14,7 +14,6 @@ import { SPORTS, PLATFORM_LIST } from "./_components/constants";
 import { PlatformIcon } from "./_components/PlatformIcon";
 import { SmoothTabs, SmoothCircleTabs } from "./_components/SmoothTabs";
 import { ScheduleCard } from "./_components/ScheduleCard";
-import { CoupangInlineBanner } from "./_components/CoupangBanners";
 import { AdfitBanner } from "./_components/AdfitBanner";
 import { DatePickerSheet } from "./_components/DatePickerSheet";
 import { WorldCupView } from "./_components/WorldCupView";
@@ -761,7 +760,7 @@ export default function ScheduleClient({
                       <span className="text-[11px] sm:text-xs font-medium text-zinc-500">오후 경기</span>
                       <div className="h-px flex-1 bg-zinc-700/60" />
                     </div>
-                    <CoupangInlineBanner />
+                    <AdfitBanner slot="inline" className="my-4 sm:my-6" />
                   </>
                 )}
                 <ScheduleCard

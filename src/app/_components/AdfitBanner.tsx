@@ -19,73 +19,137 @@ import { useEffect, useRef, useState } from "react";
  * 판정을 유지한다.
  */
 
-const PC = { unit: "DAN-STkkoddKPkuh5cwy", width: 728, height: 90 } as const;
-const MOBILE = { unit: "DAN-sevERV2qTEmuNFC7", width: 320, height: 50 } as const;
+type Variant = { unit: string; width: number; height: number };
 
 /**
- * PC 단위로 갈아타는 최소 폭.
- *
- * 광고가 728px 인데 본문 컬럼은 `max-w-2xl`(672px)이다. 좁은 화면에서 PC 배너를 쓰면
- * 가로 스크롤이 생긴다.
+ * 슬롯별 광고단위. 애드핏은 **같은 `data-ad-unit` 을 한 페이지에 두 번 두면 거부**하므로
+ * (SDK: "광고 data-ad-unit 은 유일한 값이어야 합니다", 페이지당 최대 4개) 홈 상단과
+ * 홈 인라인은 서로 다른 단위를 쓴다.
+ */
+const SLOTS = {
+  /** 고지 문구 아래 · 날짜 탭 위. PC 728x90 / 모바일 320x50. */
+  top: {
+    pc: { unit: "DAN-STkkoddKPkuh5cwy", width: 728, height: 90 },
+    mobile: { unit: "DAN-sevERV2qTEmuNFC7", width: 320, height: 50 },
+    // PC 광고(728)가 본문 컬럼보다 넓다. `max-w-2xl` 은 border-box 라 `px-4` 를 뺀
+    // **실제 콘텐츠 폭이 640px**이고, 그대로 두면 광고가 눌린다(실측 704px).
+    // PC 구간만 `-mx-12`(양쪽 48px)로 컬럼을 벗어나 640 + 96 = 736 ≥ 728 을 확보한다.
+    // 모바일에 negative margin 을 주면 화면 폭을 넘겨 가로 스크롤이 생기므로 PC 한정.
+    //
+    // `min-h` 는 자리 선점이다. 편성표 상단이라 광고가 채워질 때 본문을 밀면 CLS 를
+    // 그대로 깎는다. **컨테이너 높이만** 미디어쿼리이고 광고 ins 는 여전히 한쪽만 렌더한다.
+    wrapper: "min-h-[50px] min-[800px]:-mx-12 min-[800px]:min-h-[90px]",
+  },
+  /** 홈 편성표 "오후 경기" 구분선 아래. PC·모바일 둘 다 300x250(단위만 다름). */
+  inline: {
+    pc: { unit: "DAN-lcALm7uz8M1Y77F7", width: 300, height: 250 },
+    mobile: { unit: "DAN-kJ3thvrkQ3G6WyUG", width: 300, height: 250 },
+    // 300 은 본문 컬럼(실효 640) 안에 들어가 breakout 이 필요 없다.
+    // 경기 카드 사이라 채워질 때 아래 카드가 밀리지 않도록 250 을 미리 잡는다.
+    wrapper: "min-h-[250px]",
+  },
+} as const;
+
+export type AdfitSlot = keyof typeof SLOTS;
+
+/** PC 단위로 갈아타는 최소 폭.
  *
  * 처음엔 768(= Tailwind `md`)로 잡았는데 계산해 보니 부족했다. 컨테이너 좌우 패딩이
- * 16px씩이라 실제 필요 폭이 **728 + 32 = 760px**이고, 데스크톱 브라우저는 세로 스크롤바로
- * 15~17px 을 더 먹는다. 768px 창에서는 가용폭이 ~753px 이라 7px 넘친다
+ * 16px씩이라 728 배너에 필요한 폭이 **728 + 32 = 760px**이고, 데스크톱 브라우저는 세로
+ * 스크롤바로 15~17px 을 더 먹는다. 768px 창에서는 가용폭이 ~753px 이라 7px 넘친다
  * (Playwright 기본 뷰포트에는 스크롤바가 없어서 이 조건이 테스트에서 안 잡혔다).
  * 800 이면 스크롤바까지 감안해도 여유가 있다. 768~799 구간(태블릿 세로)은 모바일 배너를
  * 쓰는데, 그쪽이 그 폭에서 더 자연스럽기도 하다.
- */
+ *
+ * 인라인 슬롯은 300x250 이라 이 폭이 필요 없지만, 등록된 단위가 PC/모바일로 나뉘어 있어
+ * 같은 기준으로 고른다. */
 const PC_MIN_WIDTH = 800;
 
 const SDK_SRC = "//t1.kakaocdn.net/kas/static/ba.min.js";
 
-export function AdfitBanner({ className = "" }: { className?: string }) {
-  const [variant, setVariant] = useState<typeof PC | typeof MOBILE | null>(null);
+/* ─────────────────────────────────────────────────────────────────────────────
+ *  SDK 는 **페이지당 한 번만** 붙인다.
+ *
+ *  SDK 는 `document.body.querySelectorAll("ins.kakao_ad_area")` 로 문서 전체를 훑는다
+ *  (2026-07-30 ba.min.js 확인). 배너마다 스크립트를 붙이면 스캔이 그 횟수만큼 돌고,
+ *  이미 채워진 단위를 다시 렌더하면 **중복 노출**이 된다. 무효 노출은 정책 위반 축이라
+ *  피해야 한다. 그래서 첫 배너만 붙이고 나머지는 그 스캔에 얹힌다 — ins 는 스크립트보다
+ *  먼저 DOM 에 들어간다(각 인스턴스가 variant 상태를 세팅한 뒤 두 번째 effect 에서
+ *  스크립트를 붙이므로 같은 커밋의 ins 는 전부 존재한다).
+ * ──────────────────────────────────────────────────────────────────────────── */
+let sdkScript: HTMLScriptElement | null = null;
+let mountedCount = 0;
+
+function appendSdk() {
+  const script = document.createElement("script");
+  script.type = "text/javascript";
+  script.src = SDK_SRC;
+  script.async = true;
+  document.head.appendChild(script);
+  sdkScript = script;
+}
+
+/** 페이지에 이미 채워진 광고가 있는지. 있으면 재삽입(=재스캔)하지 않는다. */
+function hasFilledAd() {
+  return Array.from(document.querySelectorAll("ins.kakao_ad_area")).some(
+    (el) => el.childElementCount > 0,
+  );
+}
+
+export function AdfitBanner({
+  className = "",
+  slot = "top",
+}: {
+  className?: string;
+  slot?: AdfitSlot;
+}) {
+  const config = SLOTS[slot];
+  const [variant, setVariant] = useState<Variant | null>(null);
   const insRef = useRef<HTMLModElement>(null);
 
   useEffect(() => {
-    setVariant(window.innerWidth >= PC_MIN_WIDTH ? PC : MOBILE);
-  }, []);
+    setVariant(window.innerWidth >= PC_MIN_WIDTH ? config.pc : config.mobile);
+  }, [config]);
 
   useEffect(() => {
     // ins 가 DOM 에 들어간 뒤에 SDK 를 붙여야 스캔 대상이 된다.
     if (!variant || !insRef.current) return;
 
-    // SDK 는 document 전체에서 `ins.kakao_ad_area` 를 찾으므로 위치는 무관하다.
-    // React 가 관리하는 트리 안에 raw DOM 노드를 끼우면 재조정과 충돌할 수 있어 head 에 붙인다.
-    const script = document.createElement("script");
-    script.type = "text/javascript";
-    script.src = SDK_SRC;
-    script.async = true;
-    document.head.appendChild(script);
+    mountedCount += 1;
+    if (!sdkScript) appendSdk();
 
-    // 클라이언트 라우팅으로 페이지를 벗어나면 제거한다. 다시 들어올 때 새로 붙어야
-    // 그때 마운트된 ins 를 SDK 가 다시 잡는다(스크립트가 남아 있으면 재실행되지 않는다).
+    // 클라이언트 라우팅 대비. 새 페이지의 배너가 이전 페이지 배너보다 먼저 마운트되면
+    // 스크립트가 이미 있어 재스캔이 안 돌고 이 ins 가 빈 채로 남을 수 있다. 그때만
+    // 다시 붙인다 — **채워진 광고가 하나도 없을 때로 한정**해서 중복 노출을 만들지 않는다.
+    const rescan = window.setTimeout(() => {
+      const el = insRef.current;
+      if (!el || el.childElementCount > 0) return;
+      if (hasFilledAd()) return;
+      sdkScript?.remove();
+      appendSdk();
+    }, 2500);
+
     return () => {
-      script.remove();
+      window.clearTimeout(rescan);
+      mountedCount -= 1;
+      // 마지막 배너가 사라질 때만 스크립트를 걷는다. 다시 들어올 때 새로 붙어야
+      // 그때 마운트된 ins 를 SDK 가 잡는다(스크립트가 남아 있으면 재실행되지 않는다).
+      if (mountedCount <= 0) {
+        mountedCount = 0;
+        sdkScript?.remove();
+        sdkScript = null;
+      }
     };
   }, [variant]);
 
   return (
-    // 본문 컬럼(max-w-2xl = 672px)보다 PC 광고(728px)가 넓다. `max-w-2xl` 은
-    // border-box 라 `px-4` 를 뺀 **실제 콘텐츠 폭이 640px**이고, 그대로 두면 광고가
-    // 눌린다(실측 704px). PC 구간에서만 `-mx-12`(양쪽 48px)로 컬럼을 벗어나 640 + 96
-    // = 736 ≥ 728 을 확보한다. 모바일(320x50)은 넘칠 일이 없어 그대로 둔다 —
-    // 모바일에 negative margin 을 주면 화면 폭을 넘겨 가로 스크롤이 생긴다.
-    //
-    // `min-h` 로 자리를 미리 잡는다. 편성표 상단(날짜 탭 위)이라 광고가 채워질 때
-    // 본문을 밀면 CLS 를 그대로 깎는다. **컨테이너 높이만** 미디어쿼리로 잡는 것이고
-    // 광고 ins 자체는 여전히 한쪽만 렌더하므로 무효 노출과는 무관하다.
-    //
     // 채워지지 않으면 ins 가 display:none 인 채로 남아 아무것도 보이지 않는다
     // (대체 광고 미설정이라 흰 박스가 뜨지 않는다 — 다크 테마에 유리).
-    <div
-      className={`flex justify-center min-h-[50px] min-[800px]:-mx-12 min-[800px]:min-h-[90px] ${className}`}
-    >
+    <div className={`flex justify-center ${config.wrapper} ${className}`}>
       {variant && (
         <ins
           ref={insRef}
-          // flex item 은 기본이 shrink 1 이라 컨테이너가 좁으면 728 광고가 눌린다.
+          // flex item 은 기본이 shrink 1 이라 컨테이너가 좁으면 광고가 눌린다.
           className="kakao_ad_area shrink-0"
           style={{ display: "none" }}
           data-ad-unit={variant.unit}
