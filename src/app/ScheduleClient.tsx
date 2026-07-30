@@ -17,6 +17,7 @@ import { ScheduleCard } from "./_components/ScheduleCard";
 import { AdfitBanner } from "./_components/AdfitBanner";
 import { DatePickerSheet } from "./_components/DatePickerSheet";
 import { EbookBanner } from "./_components/EbookBanner";
+import { DonateButton } from "./_components/DonateButton";
 import { useScrollbarDrag } from "@/lib/hooks/useScrollbarDrag";
 
 export default function ScheduleClient({
@@ -365,18 +366,20 @@ export default function ScheduleClient({
             <Image src="/icon.png" alt="한해설 아이콘" width={32} height={32} className="h-6 w-6 sm:h-8 sm:w-8 self-center" />
             <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
           </h1>
-          <div className="flex items-center gap-3 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4">
+            {/* 계좌 환경변수 미설정이면 스스로 렌더 안 함 → 헤더가 2버튼 그대로 유지된다. */}
+            <DonateButton />
             <Link
               href="/guide"
               aria-label="한해설 Topic · 중계 가이드"
-              className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-4 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs"
+              className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-3 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs"
             >
               한해설 Topic
             </Link>
             <Link
               href="/standings"
               aria-label="팀 순위"
-              className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-4 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs"
+              className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-3 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs"
             >
               순위 +
             </Link>
