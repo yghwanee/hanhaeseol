@@ -67,31 +67,45 @@ function tossLink(amount: number): string {
 
 const won = (n: number) => n.toLocaleString("ko-KR");
 
-type Phase =
-  /** 금액 고르기 */
-  | { kind: "pick" }
-  /** 앱 고르기 */
-  | { kind: "method"; amount: number; kakaopay?: string }
-  /** 딥링크 던지고 앱 전환 대기 */
-  | { kind: "opening"; amount: number; kakaopay?: string }
-  /** 앱이 안 열림 → 계좌 안내 */
-  | { kind: "fallback"; amount: number; kakaopay?: string };
+/* 결제 앱 심볼. 외부 이미지 대신 인라인 SVG 로 둔다 — CSP·CDN 의존이 없고 용량도 0 이다.
+   각 브랜드의 공개 심볼 형태만 단색으로 옮겼고, 브랜드 컬러는 타일 배경이 담당한다. */
 
-/**
- * `pill` = 헤더용 작은 알약, `strip` = 헤더 아래 가로 띠배너.
- * 현재 홈은 strip 만 쓴다(헤더에 버튼이 3개가 되면 모바일에서 빡빡해서 띠로 옮겼다).
- */
-type Variant = "pill" | "strip";
+/** 토스 심볼 — 흰 배경 위 파란 원 안의 흰 물결(간략화). 파란 타일 위에 흰색으로 얹는다. */
+function TossMark() {
+  return (
+    <svg viewBox="0 0 48 48" className="h-7 w-7" aria-hidden focusable="false">
+      <circle cx="24" cy="24" r="22" fill="currentColor" opacity="0.18" />
+      <path
+        d="M13 30c4.2 0 6.2-2.4 8.4-5.2 2.3-2.9 4.1-5 7.1-5 2.8 0 4.6 1.9 4.6 4.6 0 3.2-2.3 5.6-5.7 5.6-1.7 0-3-.5-4.3-1.5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="3.4"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
 
-export function DonateButton({
-  className = "",
-  variant = "pill",
-}: {
-  className?: string;
-  variant?: Variant;
-}) {
+/** 카카오 심볼 — 말풍선. 노란 타일 위에 검정으로 얹는다. */
+function KakaoMark() {
+  return (
+    <svg viewBox="0 0 48 48" className="h-7 w-7" aria-hidden focusable="false">
+      <path
+        d="M24 9C14.6 9 7 14.9 7 22.2c0 4.7 3.1 8.8 7.8 11.1l-1.9 7c-.2.6.5 1.1 1 .8l8.3-5.5c.6.1 1.2.1 1.8.1 9.4 0 17-5.9 17-13.5S33.4 9 24 9z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+/** 고른 금액은 `tier` 하나로 들고 다니고, 화면은 `step` 으로만 가른다.
+ *  (금액·카카오링크를 단계마다 복사해 넘기면 단계 전환 때마다 어긋날 여지가 생긴다.) */
+type Step = "pick" | "method" | "opening" | "fallback";
+
+export function DonateButton({ className = "" }: { className?: string }) {
   const [open, setOpen] = useState(false);
-  const [phase, setPhase] = useState<Phase>({ kind: "pick" });
+  const [step, setStep] = useState<Step>("pick");
+  const [tier, setTier] = useState<(typeof TIERS)[number] | null>(null);
   const [copied, setCopied] = useState(false);
   // 딥링크 재진입 방지(연타로 앱 전환이 꼬이는 것 차단).
   const busyRef = useRef(false);
@@ -99,7 +113,8 @@ export function DonateButton({
 
   const close = useCallback(() => {
     setOpen(false);
-    setPhase({ kind: "pick" });
+    setStep("pick");
+    setTier(null);
     setCopied(false);
     busyRef.current = false;
     window.clearTimeout(timerRef.current);
@@ -118,10 +133,10 @@ export function DonateButton({
   useEffect(() => () => window.clearTimeout(timerRef.current), []);
 
   /** 앱 열기 시도. 열렸는지 판별하는 유일한 실마리가 **탭이 백그라운드로 갔는지**다. */
-  const openApp = (url: string, amount: number, kakaopay?: string) => {
+  const openApp = (url: string) => {
     if (busyRef.current) return;
     busyRef.current = true;
-    setPhase({ kind: "opening", amount, kakaopay });
+    setStep("opening");
 
     const startedAt = Date.now();
     window.location.href = url;
@@ -130,11 +145,7 @@ export function DonateButton({
     // (앱이 열렸다면 document.hidden 이 true 가 되거나 복귀까지 2.5초를 넘긴다.)
     timerRef.current = window.setTimeout(() => {
       busyRef.current = false;
-      if (!document.hidden && Date.now() - startedAt < 2500) {
-        setPhase({ kind: "fallback", amount, kakaopay });
-      } else {
-        setPhase({ kind: "method", amount, kakaopay });
-      }
+      setStep(!document.hidden && Date.now() - startedAt < 2500 ? "fallback" : "method");
     }, 2000);
   };
 
@@ -151,40 +162,29 @@ export function DonateButton({
   // 계좌가 설정되지 않은 환경(로컬·미설정 배포)에서는 버튼을 아예 노출하지 않는다.
   if (!BANK || !ACCOUNT) return null;
 
-  const amount = phase.kind === "pick" ? 0 : phase.amount;
-  const kakaopay = phase.kind === "pick" ? undefined : phase.kakaopay;
+  // 지역 const 로 받아 두면 아래 클로저 안에서도 좁혀진 타입이 유지된다
+  // (`tier.kakaopay` 를 그대로 쓰면 state 필드 접근이라 non-null 단정이 필요해진다).
+  const kakaopayUrl = tier?.kakaopay;
 
   return (
     <>
-      {variant === "pill" ? (
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label="개발자 응원하기"
-          /* 옆의 캡슐 버튼(btn-caps-stripe)들과 달리 글래스로 처리해 CTA 로 구분한다.
-             `.liquid-glass` 는 radius 를 안 갖고 있어 rounded-full 을 같이 준다. */
-          className={`liquid-glass inline-flex items-center justify-center gap-1 whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] font-medium text-white transition-transform hover:scale-[1.04] active:scale-[0.97] [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] sm:px-5 sm:py-2 sm:text-xs ${className}`}
-        >
-          <span aria-hidden>💰</span>
-          <span>응원</span>
-        </button>
-      ) : (
-        /* 띠배너. 문구만 있으면 눌렀을 때 후원 모달이 뜨는 걸 예상할 수 없으니
-           오른쪽에 `응원 ›` 를 붙여 무엇이 열리는지 알 수 있게 한다. */
-        <button
-          type="button"
-          onClick={() => setOpen(true)}
-          aria-label="개발자 응원하기"
-          className={`liquid-glass flex w-full items-center justify-between gap-2 rounded-xl px-3.5 py-2.5 text-white transition-transform hover:scale-[1.01] active:scale-[0.99] [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] sm:px-4 sm:py-3 ${className}`}
-        >
-          <span className="truncate text-[11px] font-medium sm:text-xs">
-            오늘 보실 경기, 원하는 팀이 이기길 <span aria-hidden>🙏</span>
-          </span>
-          <span className="shrink-0 whitespace-nowrap text-[11px] text-white/70 sm:text-xs">
-            응원 ›
-          </span>
-        </button>
-      )}
+      {/* 띠배너. 문구만 있으면 눌렀을 때 후원 모달이 뜨는 걸 예상할 수 없으니
+          오른쪽에 `응원하기 ›` 를 붙여 무엇이 열리는지 알 수 있게 한다. */}
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        aria-label="개발자 응원하기"
+        className={`liquid-glass flex w-full items-center justify-center gap-2 rounded-xl px-3.5 py-4 text-white transition-transform hover:scale-[1.01] active:scale-[0.99] [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] sm:px-4 sm:py-5 ${className}`}
+      >
+        <span className="min-w-0 truncate text-[11px] font-medium sm:text-xs">
+          내가 응원하는 팀이 지고있다면?
+        </span>
+        <span className="flex shrink-0 items-center gap-1 whitespace-nowrap text-[11px] text-white/70 sm:text-xs">
+          <span aria-hidden>🎉</span>
+          <span>응원하기</span>
+          <span>›</span>
+        </span>
+      </button>
 
       {open && (
         <div
@@ -219,15 +219,16 @@ export function DonateButton({
             </p>
 
             {/* 1단계 — 금액 */}
-            {phase.kind === "pick" && (
+            {step === "pick" && (
               <div className="mt-5 space-y-2">
                 {TIERS.map((t) => (
                   <button
                     key={t.amount}
                     type="button"
-                    onClick={() =>
-                      setPhase({ kind: "method", amount: t.amount, kakaopay: t.kakaopay })
-                    }
+                    onClick={() => {
+                      setTier(t);
+                      setStep("method");
+                    }}
                     className="flex w-full items-center justify-between rounded-lg border border-zinc-700 bg-zinc-800/40 px-4 py-3 text-sm text-zinc-200 transition-colors hover:border-zinc-500 hover:bg-zinc-800"
                   >
                     <span className="flex items-center gap-2">
@@ -240,63 +241,52 @@ export function DonateButton({
               </div>
             )}
 
-            {/* 2단계 — 보낼 앱 */}
-            {phase.kind === "method" && (
+            {/* 2단계 — 보낼 앱. tier 는 pick 을 거쳐야만 채워지므로 함께 좁힌다. */}
+            {step === "method" && tier && (
               <div className="mt-5">
                 <p className="text-center text-sm text-zinc-300">
-                  <b className="text-white">{won(amount)}원</b> · 어떤 앱으로 보낼까요?
+                  <b className="text-white">{won(tier.amount)}원</b> · 어떤 앱으로 보낼까요?
                 </p>
 
                 <div className="mt-3 flex justify-center gap-3">
                   <button
                     type="button"
-                    onClick={() => openApp(tossLink(amount), amount, kakaopay)}
-                    className="flex h-24 w-28 flex-col items-center justify-center gap-2 rounded-xl bg-[#3182F6] text-white transition-transform hover:scale-[1.03]"
+                    onClick={() => openApp(tossLink(tier.amount))}
+                    className="flex h-24 w-28 flex-col items-center justify-center gap-1.5 rounded-xl bg-[#3182F6] text-white transition-transform hover:scale-[1.03]"
                   >
-                    <span aria-hidden className="text-2xl font-black leading-none">
-                      toss
-                    </span>
-                    <span className="text-[11px] font-medium opacity-90">토스</span>
+                    <TossMark />
+                    <span className="text-xs font-semibold">토스</span>
                   </button>
 
                   {/* 링크가 설정된 티어에서만. 눌러도 안 되는 버튼은 보여주지 않는다. */}
-                  {kakaopay && (
+                  {kakaopayUrl && (
                     <button
                       type="button"
-                      onClick={() => openApp(kakaopay, amount, kakaopay)}
-                      className="flex h-24 w-28 flex-col items-center justify-center gap-2 rounded-xl bg-[#FEE500] text-[#191600] transition-transform hover:scale-[1.03]"
+                      onClick={() => openApp(kakaopayUrl)}
+                      className="flex h-24 w-28 flex-col items-center justify-center gap-1.5 rounded-xl bg-[#FEE500] text-[#191600] transition-transform hover:scale-[1.03]"
                     >
-                      <span aria-hidden className="text-2xl font-black leading-none">
-                        pay
-                      </span>
-                      <span className="text-[11px] font-medium opacity-80">카카오페이</span>
+                      <KakaoMark />
+                      <span className="text-xs font-semibold">카카오페이</span>
                     </button>
                   )}
                 </div>
 
                 <button
                   type="button"
-                  onClick={() => setPhase({ kind: "fallback", amount, kakaopay })}
+                  onClick={() => setStep("fallback")}
                   className="mt-4 w-full text-center text-[11px] text-zinc-500 underline-offset-2 hover:text-zinc-300 hover:underline"
                 >
                   계좌번호로 직접 보내기
                 </button>
-                <button
-                  type="button"
-                  onClick={() => setPhase({ kind: "pick" })}
-                  className="mt-2 w-full text-center text-[11px] text-zinc-500 hover:text-zinc-300"
-                >
-                  금액 다시 고르기
-                </button>
               </div>
             )}
 
-            {phase.kind === "opening" && (
+            {step === "opening" && (
               <p className="mt-8 mb-6 text-center text-sm text-zinc-300">앱 여는 중...</p>
             )}
 
-            {/* 3단계(또는 직접 진입) — 계좌 */}
-            {phase.kind === "fallback" && (
+            {/* 3단계 — 계좌 */}
+            {step === "fallback" && tier && (
               <div className="mt-5">
                 <div className="rounded-lg border border-zinc-700 bg-zinc-800/40 px-4 py-3 text-center">
                   <p className="text-sm font-bold text-white">
@@ -306,7 +296,7 @@ export function DonateButton({
                     <p className="mt-0.5 text-[11px] text-zinc-400">예금주 {HOLDER}</p>
                   )}
                   <p className="mt-1 text-[11px] text-zinc-500">
-                    보내실 금액 {won(amount)}원
+                    보내실 금액 {won(tier.amount)}원
                   </p>
                   <button
                     type="button"
@@ -319,7 +309,7 @@ export function DonateButton({
 
                 <button
                   type="button"
-                  onClick={() => setPhase({ kind: "method", amount, kakaopay })}
+                  onClick={() => setStep("method")}
                   className="mt-3 w-full text-center text-[11px] text-zinc-500 hover:text-zinc-300"
                 >
                   앱으로 보내기

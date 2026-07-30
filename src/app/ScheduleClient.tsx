@@ -387,7 +387,7 @@ export default function ScheduleClient({
 
       {/* 응원 띠배너 — 헤더와 프로모 배너 사이. 계좌 환경변수 미설정이면 스스로 렌더 안 함. */}
       <div className="mt-3 sm:mt-4">
-        <DonateButton variant="strip" />
+        <DonateButton />
       </div>
 
       {/* 상단 프로모 배너 — 헤더 바로 아래. */}
