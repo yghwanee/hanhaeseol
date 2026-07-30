@@ -3,7 +3,7 @@ import localFont from "next/font/local";
 import Link from "next/link";
 import Script from "next/script";
 import { loadScheduleLastUpdated } from "@/lib/server-data";
-import { CoupangSideBanners } from "./_components/CoupangBanners";
+import { SideBanners } from "./_components/SideBanners";
 import { CapsStripeClickHandler } from "./_components/CapsStripeClickHandler";
 import { PageTransition } from "./_components/PageTransition";
 import { ServiceWorkerRegister } from "./_components/ServiceWorkerRegister";
@@ -214,7 +214,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
         />
       </head>
       <body className={`${geistSans.variable} ${pretendard.variable} antialiased`} style={{ backgroundColor: "#0a0a0a" }}>
-        <CoupangSideBanners />
+        <SideBanners />
         <CapsStripeClickHandler />
         <ServiceWorkerRegister />
         <FocusRefresh />

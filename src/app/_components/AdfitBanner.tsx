@@ -48,6 +48,17 @@ const SLOTS = {
     // 경기 카드 사이라 채워질 때 아래 카드가 밀리지 않도록 250 을 미리 잡는다.
     wrapper: "min-h-[250px]",
   },
+  /** 좌우 고정 사이드(XL≥1280px) 우측 자리. PC 전용 160x600, 모바일 단위 없음.
+   *  `minWidth` 를 xl 브레이크포인트(1280)에 맞춰야 한다 — 기본 800 을 쓰면 800~1279px
+   *  구간에서 부모 aside 는 `hidden`(비표시)인데 이 컴포넌트는 "PC 폭이다" 판단해 `<ins>`
+   *  를 그대로 그려 SDK 가 스캔한다. 화면엔 안 보이는데 노출만 잡히는, 이 파일이 경계하는
+   *  바로 그 무효노출 패턴. `mobile` 이 없으므로 1280 미만에서는 아예 `<ins>` 를 그리지 않는다. */
+  sideRight: {
+    pc: { unit: "DAN-CF8kPxnkszA1dow9", width: 160, height: 600 },
+    mobile: null,
+    wrapper: "min-h-[600px]",
+    minWidth: 1280,
+  },
 } as const;
 
 export type AdfitSlot = keyof typeof SLOTS;
@@ -108,7 +119,12 @@ export function AdfitBanner({
   const insRef = useRef<HTMLModElement>(null);
 
   useEffect(() => {
-    setVariant(window.innerWidth >= PC_MIN_WIDTH ? config.pc : config.mobile);
+    const threshold = "minWidth" in config ? config.minWidth : PC_MIN_WIDTH;
+    if (window.innerWidth >= threshold) {
+      setVariant(config.pc);
+    } else {
+      setVariant(config.mobile);
+    }
   }, [config]);
 
   useEffect(() => {

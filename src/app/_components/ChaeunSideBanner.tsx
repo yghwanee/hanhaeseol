@@ -29,9 +29,11 @@ export function ChaeunSideBanner() {
         alt="채운 — 내 사주에 비어 있는 기운, 배경화면 한 장 무료로 받기"
         width={124}
         height={500}
-        sizes="124px"
-        // 기본 q=75 는 이미 lossy 인 WebP 를 다시 인코딩해 글자(로고·카피·CTA)가 뭉갠다.
-        quality={90}
+        priority
+        // 원본이 이미 정확한 표시크기(124x500)로 사전 최적화된 WebP(25KB) —
+        // next/image 옵티마이저(/_next/image)를 한 번 더 태우면 콜드 캐시에서
+        // 왕복 지연만 늘어난다. unoptimized 로 그 서버 왕복을 건너뛴다.
+        unoptimized
         className="rounded-xl ring-1 ring-white/10 transition-transform duration-200 group-hover:scale-[1.02] group-hover:ring-white/25"
       />
     </a>
