@@ -35,21 +35,21 @@ const HOLDER = process.env.NEXT_PUBLIC_DONATE_HOLDER;
  */
 const TIERS = [
   {
-    label: "하이라이트",
+    label: "air",
     amount: 1900,
     emoji: "⚡",
     kakaopay: process.env.NEXT_PUBLIC_DONATE_KAKAOPAY_1900,
   },
   {
-    label: "풀타임",
+    label: "pro",
     amount: 4900,
-    emoji: "🎧",
+    emoji: "🔥",
     kakaopay: process.env.NEXT_PUBLIC_DONATE_KAKAOPAY_4900,
   },
   {
-    label: "시즌권",
+    label: "max",
     amount: 9900,
-    emoji: "🏆",
+    emoji: "👑",
     kakaopay: process.env.NEXT_PUBLIC_DONATE_KAKAOPAY_9900,
   },
 ] as const;
@@ -77,7 +77,19 @@ type Phase =
   /** 앱이 안 열림 → 계좌 안내 */
   | { kind: "fallback"; amount: number; kakaopay?: string };
 
-export function DonateButton({ className = "" }: { className?: string }) {
+/**
+ * `pill` = 헤더용 작은 알약, `strip` = 헤더 아래 가로 띠배너.
+ * 현재 홈은 strip 만 쓴다(헤더에 버튼이 3개가 되면 모바일에서 빡빡해서 띠로 옮겼다).
+ */
+type Variant = "pill" | "strip";
+
+export function DonateButton({
+  className = "",
+  variant = "pill",
+}: {
+  className?: string;
+  variant?: Variant;
+}) {
   const [open, setOpen] = useState(false);
   const [phase, setPhase] = useState<Phase>({ kind: "pick" });
   const [copied, setCopied] = useState(false);
@@ -144,17 +156,35 @@ export function DonateButton({ className = "" }: { className?: string }) {
 
   return (
     <>
-      <button
-        type="button"
-        onClick={() => setOpen(true)}
-        aria-label="개발자 응원하기"
-        /* 옆의 캡슐 버튼(btn-caps-stripe)들과 달리 글래스로 처리해 CTA 로 구분한다.
-           `.liquid-glass` 는 radius 를 안 갖고 있어 rounded-full 을 같이 준다. */
-        className={`liquid-glass inline-flex items-center justify-center gap-1 whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] font-medium text-white transition-transform hover:scale-[1.04] active:scale-[0.97] [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] sm:px-5 sm:py-2 sm:text-xs ${className}`}
-      >
-        <span aria-hidden>💰</span>
-        <span>응원</span>
-      </button>
+      {variant === "pill" ? (
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label="개발자 응원하기"
+          /* 옆의 캡슐 버튼(btn-caps-stripe)들과 달리 글래스로 처리해 CTA 로 구분한다.
+             `.liquid-glass` 는 radius 를 안 갖고 있어 rounded-full 을 같이 준다. */
+          className={`liquid-glass inline-flex items-center justify-center gap-1 whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] font-medium text-white transition-transform hover:scale-[1.04] active:scale-[0.97] [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] sm:px-5 sm:py-2 sm:text-xs ${className}`}
+        >
+          <span aria-hidden>💰</span>
+          <span>응원</span>
+        </button>
+      ) : (
+        /* 띠배너. 문구만 있으면 눌렀을 때 후원 모달이 뜨는 걸 예상할 수 없으니
+           오른쪽에 `응원 ›` 를 붙여 무엇이 열리는지 알 수 있게 한다. */
+        <button
+          type="button"
+          onClick={() => setOpen(true)}
+          aria-label="개발자 응원하기"
+          className={`liquid-glass flex w-full items-center justify-between gap-2 rounded-xl px-3.5 py-2.5 text-white transition-transform hover:scale-[1.01] active:scale-[0.99] [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] sm:px-4 sm:py-3 ${className}`}
+        >
+          <span className="truncate text-[11px] font-medium sm:text-xs">
+            오늘 보실 경기, 원하는 팀이 이기길 <span aria-hidden>🙏</span>
+          </span>
+          <span className="shrink-0 whitespace-nowrap text-[11px] text-white/70 sm:text-xs">
+            응원 ›
+          </span>
+        </button>
+      )}
 
       {open && (
         <div
@@ -183,7 +213,9 @@ export function DonateButton({ className = "" }: { className?: string }) {
               한해설을 응원해 주세요
             </p>
             <p className="mt-1.5 text-center text-xs leading-relaxed text-zinc-400">
-              편성표는 계속 무료입니다. 보내주신 마음은 서버비와 개선에 씁니다.
+              편성표는 계속 무료입니다.
+              <br />
+              보내주신 마음은 서버비와 개선에 씁니다.
             </p>
 
             {/* 1단계 — 금액 */}

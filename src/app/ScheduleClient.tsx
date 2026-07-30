@@ -367,8 +367,6 @@ export default function ScheduleClient({
             <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
           </h1>
           <div className="flex items-center gap-2 sm:gap-4">
-            {/* 계좌 환경변수 미설정이면 스스로 렌더 안 함 → 헤더가 2버튼 그대로 유지된다. */}
-            <DonateButton />
             <Link
               href="/guide"
               aria-label="한해설 Topic · 중계 가이드"
@@ -387,8 +385,13 @@ export default function ScheduleClient({
         </header>
       </StickyHeader>
 
+      {/* 응원 띠배너 — 헤더와 프로모 배너 사이. 계좌 환경변수 미설정이면 스스로 렌더 안 함. */}
+      <div className="mt-3 sm:mt-4">
+        <DonateButton variant="strip" />
+      </div>
+
       {/* 상단 프로모 배너 — 헤더 바로 아래. */}
-      <div className="mt-4 sm:mt-6">
+      <div className="mt-3 sm:mt-4">
         <EbookBanner />
       </div>
 
@@ -503,10 +506,6 @@ export default function ScheduleClient({
             </div>
           </div>
         </div>
-      </div>
-
-      <div className="mt-4 sm:mt-6 mb-3 sm:mb-4 rounded-lg border border-zinc-700/50 bg-zinc-800/30 px-3 py-2 text-center">
-        <p className="text-[11px] sm:text-xs text-zinc-400">이 포스팅은 쿠팡 파트너스 활동의 일환으로,<br className="sm:hidden" /> 이에 따른 일정액의 수수료를 제공받습니다.</p>
       </div>
 
       {/* 카카오 애드핏 배너 — PC 728x90 / 모바일 320x50 (뷰포트 보고 한쪽만 렌더) */}
