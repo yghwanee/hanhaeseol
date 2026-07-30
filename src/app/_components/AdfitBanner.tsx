@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useAdsReady } from "./ads-ready";
 
 /**
  * 카카오 애드핏 배너.
@@ -40,13 +41,22 @@ const SLOTS = {
     // 그대로 깎는다. **컨테이너 높이만** 미디어쿼리이고 광고 ins 는 여전히 한쪽만 렌더한다.
     wrapper: "min-h-[50px] min-[800px]:-mx-12 min-[800px]:min-h-[90px]",
   },
-  /** 홈 편성표 "오후 경기" 구분선 아래. PC·모바일 둘 다 300x250(단위만 다름). */
+  /** 홈 편성표 "오후 경기" 구분선 아래. PC 728x90 / 모바일 300x250.
+   *
+   *  🔴 이 크기는 **애드핏 대시보드의 광고단위 유형과 반드시 일치해야 한다.** SDK 는
+   *  `data-ad-width/height` 로 소재를 요청하므로 어긋나면 채워지지 않는다. 대시보드에서
+   *  규격을 바꿨으면 여기도 같이 바꿔야 한다(2026-07-30: PC 인라인을 300x250 → 728x90 으로
+   *  변경했고, 모바일 인라인은 300x250 그대로다). */
   inline: {
-    pc: { unit: "DAN-lcALm7uz8M1Y77F7", width: 300, height: 250 },
+    pc: { unit: "DAN-lcALm7uz8M1Y77F7", width: 728, height: 90 },
     mobile: { unit: "DAN-kJ3thvrkQ3G6WyUG", width: 300, height: 250 },
-    // 300 은 본문 컬럼(실효 640) 안에 들어가 breakout 이 필요 없다.
-    // 경기 카드 사이라 채워질 때 아래 카드가 밀리지 않도록 250 을 미리 잡는다.
-    wrapper: "min-h-[250px]",
+    // PC 728 은 본문 컬럼(실효 640)보다 넓어 상단 슬롯과 같은 breakout 이 필요하다
+    // (640 + 96 = 736 ≥ 728). 모바일에 negative margin 을 주면 화면 폭을 넘겨 가로
+    // 스크롤이 생기므로 PC 한정이다.
+    //
+    // `min-h` 는 자리 선점(CLS). 경기 카드 사이라 채워질 때 아래 카드가 밀리면 안 된다.
+    // 모바일 300x250 → 250, PC 728x90 → 90 으로 규격별 높이를 잡는다.
+    wrapper: "min-h-[250px] min-[800px]:-mx-12 min-[800px]:min-h-[90px]",
   },
   /** 좌우 고정 사이드(XL≥1280px) 우측 자리. PC 전용 160x600, 모바일 단위 없음.
    *  `minWidth` 를 xl 브레이크포인트(1280)에 맞춰야 한다 — 기본 800 을 쓰면 800~1279px
@@ -117,15 +127,19 @@ export function AdfitBanner({
   const config = SLOTS[slot];
   const [variant, setVariant] = useState<Variant | null>(null);
   const insRef = useRef<HTMLModElement>(null);
+  // 🔴 페이지의 모든 슬롯이 같은 신호로 함께 마운트돼야 한다. SDK 스캔이 한 번뿐이라
+  // 슬롯마다 마운트 시점이 다르면 늦은 슬롯이 영구히 빈칸으로 남는다(ads-ready.ts 참고).
+  const adsReady = useAdsReady();
 
   useEffect(() => {
+    if (!adsReady) return;
     const threshold = "minWidth" in config ? config.minWidth : PC_MIN_WIDTH;
     if (window.innerWidth >= threshold) {
       setVariant(config.pc);
     } else {
       setVariant(config.mobile);
     }
-  }, [config]);
+  }, [config, adsReady]);
 
   useEffect(() => {
     // ins 가 DOM 에 들어간 뒤에 SDK 를 붙여야 스캔 대상이 된다.

@@ -1,10 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { INTRO_DONE_EVENT, isIntroDone } from "./IntroAnimation";
 import { ChaeunSideBanner } from "./ChaeunSideBanner";
 import { AdfitBanner } from "./AdfitBanner";
+import { useAdsReady } from "./ads-ready";
 
 /** /admin/* 같은 운영자 페이지에서는 광고 자체를 숨김.
  *  audit 데모 영상에 광고가 끼면 reviewer 가 혼란스러워질 수 있어서. */
@@ -13,36 +12,16 @@ function isHiddenPath(pathname: string | null): boolean {
   return pathname.startsWith("/admin");
 }
 
-/** 인트로(fixed z-[100] bg-zinc-950) 가 끝난 뒤 광고 노출.
- *  - 메인 페이지: IntroAnimation 마운트되니 INTRO_DONE_EVENT 받아 즉시 표시.
- *  - 매치/about/faq 등 인트로 없는 페이지: 이벤트가 절대 안 오므로 500ms
- *    fallback timer 로 표시. (이 페이지엔 인트로 깜빡임 자체가 없으니 안전.) */
-function useShowAds() {
-  const [showAds, setShowAds] = useState(false);
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    if (isIntroDone()) {
-      setShowAds(true);
-      return;
-    }
-    const reveal = () => setShowAds(true);
-    window.addEventListener(INTRO_DONE_EVENT, reveal);
-    const fallback = window.setTimeout(reveal, 500);
-    return () => {
-      window.removeEventListener(INTRO_DONE_EVENT, reveal);
-      window.clearTimeout(fallback);
-    };
-  }, []);
-  return showAds;
-}
-
 /* ─────────────────────────────────────────────────────────────────────────
  *  PC 좌/우 사이드 (XL≥1280px) - 좌측 채운 프로모 + 우측 애드핏 160x600
  * ──────────────────────────────────────────────────────────────────────── */
 export function SideBanners() {
-  const showAds = useShowAds();
+  // 🔴 우측 애드핏 슬롯이 홈 상단 슬롯과 **같은 커밋에** 마운트돼야 한다.
+  // 종전엔 이 컴포넌트만 인트로 종료를 기다려서, 먼저 뜬 상단 슬롯이 SDK 스캔을
+  // 끝내버리고 우측 배너가 영구히 빈칸으로 남았다(ads-ready.ts 참고).
+  const adsReady = useAdsReady();
   const pathname = usePathname();
-  if (!showAds || isHiddenPath(pathname)) return null;
+  if (!adsReady || isHiddenPath(pathname)) return null;
 
   return (
     <>
