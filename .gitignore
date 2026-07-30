@@ -31,7 +31,10 @@ yarn-error.log*
 .coupang-cookies.json
 
 # claude code
-.claude/
+# 디렉터리째(`.claude/`) 무시하면 git 이 안으로 안 들어가 예외가 안 먹는다.
+# 그래서 내용물만 무시하고 공통 설정 하나만 되살린다(개인 권한 기록 settings.local.json 은 계속 제외).
+.claude/*
+!.claude/settings.json
 
 # generated instagram cards
 /generated/

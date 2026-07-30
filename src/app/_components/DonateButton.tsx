@@ -36,21 +36,21 @@ const HOLDER = process.env.NEXT_PUBLIC_DONATE_HOLDER;
  */
 const TIERS = [
   {
-    label: "air",
+    label: "Air",
     amount: 1900,
-    emoji: "⚡",
+    emoji: "☁️",
     kakaopay: process.env.NEXT_PUBLIC_DONATE_KAKAOPAY_1900,
   },
   {
-    label: "pro",
+    label: "Pro",
     amount: 4900,
-    emoji: "🔥",
+    emoji: "⚡",
     kakaopay: process.env.NEXT_PUBLIC_DONATE_KAKAOPAY_4900,
   },
   {
-    label: "max",
+    label: "Max",
     amount: 9900,
-    emoji: "👑",
+    emoji: "🔥",
     kakaopay: process.env.NEXT_PUBLIC_DONATE_KAKAOPAY_9900,
   },
 ] as const;
@@ -68,24 +68,10 @@ function tossLink(amount: number): string {
 
 const won = (n: number) => n.toLocaleString("ko-KR");
 
-/* 결제 앱 심볼. 외부 이미지 대신 인라인 SVG 로 둔다 — CSP·CDN 의존이 없고 용량도 0 이다.
-   각 브랜드의 공개 심볼 형태만 단색으로 옮겼고, 브랜드 컬러는 타일 배경이 담당한다. */
-
-/** 토스 심볼 — 흰 배경 위 파란 원 안의 흰 물결(간략화). 파란 타일 위에 흰색으로 얹는다. */
-function TossMark() {
-  return (
-    <svg viewBox="0 0 48 48" className="h-7 w-7" aria-hidden focusable="false">
-      <circle cx="24" cy="24" r="22" fill="currentColor" opacity="0.18" />
-      <path
-        d="M13 30c4.2 0 6.2-2.4 8.4-5.2 2.3-2.9 4.1-5 7.1-5 2.8 0 4.6 1.9 4.6 4.6 0 3.2-2.3 5.6-5.7 5.6-1.7 0-3-.5-4.3-1.5"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="3.4"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
+/* 결제 앱 심볼.
+   토스는 배포된 공식 심볼(Toss_Symbol_Primary)을 그대로 쓴다 — 파란 그라데이션이라
+   단색 SVG 로는 흉내가 안 나고, 토스 앱 아이콘처럼 **흰 타일 위 파란 심볼**이 원형이다.
+   카카오는 말풍선 하나라 인라인 SVG 로 충분하다(CSP·CDN 의존 0, 용량 0). */
 
 /** 카카오 심볼 — 말풍선. 노란 타일 위에 검정으로 얹는다. */
 function KakaoMark() {
@@ -191,7 +177,11 @@ export function DonateButton({ className = "" }: { className?: string }) {
         {/* 선물 아이콘. 원본 500px PNG(164KB)를 표시 크기의 3배(168px) webp 로 미리
             줄여 뒀다(8KB). 이미 정확한 치수라 `unoptimized` 로 옵티마이저 왕복을 건너뛰고,
             첫 화면에 보이므로 `priority` 로 즉시 요청한다(채운 배너와 같은 처리).
-            타일 배경은 두지 않는다 — 3D 아이콘이라 카드 위에 그대로 떠 있는 게 낫다. */}
+            타일 배경은 두지 않는다 — 3D 아이콘이라 카드 위에 그대로 떠 있는 게 낫다.
+
+            (LottieFiles 선물 애니메이션 2종을 애니메이션 WebP 로 구워 넣어 봤지만
+            폭죽 장면이라 상자가 캔버스의 27% 밖에 안 돼 정지 아이콘보다 작게 보였다.
+            정지 아이콘 유지로 결론.) */}
         <Image
           src="/donate-icon.webp"
           alt=""
@@ -270,17 +260,26 @@ export function DonateButton({ className = "" }: { className?: string }) {
             {/* 2단계 — 보낼 앱. tier 는 pick 을 거쳐야만 채워지므로 함께 좁힌다. */}
             {step === "method" && tier && (
               <div className="mt-5">
-                <p className="text-center text-sm text-zinc-300">
-                  <b className="text-white">{won(tier.amount)}원</b> · 어떤 앱으로 보낼까요?
+                <p className="text-center text-sm leading-relaxed text-zinc-300">
+                  <b className="text-white">{won(tier.amount)}원</b>
+                  <br />
+                  어떤 앱으로 보낼까요?
                 </p>
 
                 <div className="mt-3 flex justify-center gap-3">
                   <button
                     type="button"
                     onClick={() => openApp(tossLink(tier.amount))}
-                    className="flex h-24 w-28 flex-col items-center justify-center gap-1.5 rounded-xl bg-[#3182F6] text-white transition-transform hover:scale-[1.03]"
+                    className="flex h-24 w-28 flex-col items-center justify-center gap-1.5 rounded-xl bg-white text-zinc-900 transition-transform hover:scale-[1.03]"
                   >
-                    <TossMark />
+                    <Image
+                      src="/toss-symbol.webp"
+                      alt=""
+                      width={96}
+                      height={96}
+                      unoptimized
+                      className="h-7 w-7"
+                    />
                     <span className="text-xs font-semibold">토스</span>
                   </button>
 
