@@ -148,9 +148,11 @@ export function DonateButton({ className = "" }: { className?: string }) {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="개발자 응원하기"
-        className={`btn-caps-stripe inline-flex items-center justify-center gap-1 whitespace-nowrap px-3 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs ${className}`}
+        /* 옆의 캡슐 버튼(btn-caps-stripe)들과 달리 글래스로 처리해 CTA 로 구분한다.
+           `.liquid-glass` 는 radius 를 안 갖고 있어 rounded-full 을 같이 준다. */
+        className={`liquid-glass inline-flex items-center justify-center gap-1 whitespace-nowrap rounded-full px-3 py-1.5 text-[11px] font-medium text-white transition-transform hover:scale-[1.04] active:scale-[0.97] [text-shadow:0_1px_2px_rgba(0,0,0,0.5)] sm:px-5 sm:py-2 sm:text-xs ${className}`}
       >
-        <span aria-hidden>☕</span>
+        <span aria-hidden>💰</span>
         <span>응원</span>
       </button>
 
