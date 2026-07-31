@@ -20,6 +20,41 @@ import { EbookBanner } from "./_components/EbookBanner";
 import { DonateButton } from "./_components/DonateButton";
 import { useScrollbarDrag } from "@/lib/hooks/useScrollbarDrag";
 
+/* 아래 SEO 안내 문단에 들어가는 나열. 줄바꿈이 이상하게 잡히는 걸 문자 단위로 막는다.
+   (섹션에 걸린 `break-keep` 만으로는 이 둘이 안 잡힌다.) */
+
+/** 리그 나열. `·` **뒤**에 zero-width space 를 넣어 줄바꿈이 점 뒤에서 일어나게 한다.
+ *  안 넣으면 이 전체가 공백 없는 한 덩어리라 브라우저가 점 앞에서 끊고,
+ *  다음 줄이 "·KBO·MLB…" 처럼 가운뎃점으로 시작한다(실측). */
+const SEO_LEAGUES = [
+  "EPL",
+  "라리가",
+  "세리에A",
+  "분데스리가",
+  "챔피언스리그",
+  "KBO",
+  "MLB",
+  "NBA",
+  "K리그",
+].join("\u00B7\u200B"); // 가운뎃점 + zero-width space
+
+/** 플랫폼 나열. 이름 안의 공백을 nbsp 로 바꿔 "SBS / Sports" 처럼 한 이름이
+ *  두 줄로 갈리지 않게 한다(실측에서 SBS 와 Sports 가 갈렸다). */
+const SEO_PLATFORMS = [
+  "SPOTV NOW",
+  "쿠팡플레이",
+  "티빙",
+  "Apple TV+",
+  "SPOTV",
+  "SPOTV2",
+  "tvN SPORTS",
+  "KBS N SPORTS",
+  "MBC SPORTS+",
+  "SBS Sports",
+]
+  .map((name) => name.replace(/ /g, "\u00A0")) // nbsp
+  .join(", ");
+
 export default function ScheduleClient({
   initialData,
   teamRecords = {},
@@ -748,15 +783,23 @@ export default function ScheduleClient({
         </div>
       )}
 
-      {/* SEO 안내 섹션 — 사용자 가독성을 해치지 않는 톤으로 핵심 키워드 자연 노출 */}
-      <section className="mt-10 sm:mt-14 border-t border-zinc-800/60 pt-6 sm:pt-8 text-[12px] sm:text-sm leading-relaxed text-zinc-500">
+      {/* SEO 안내 섹션 — 사용자 가독성을 해치지 않는 톤으로 핵심 키워드 자연 노출.
+          🔴 줄바꿈 처리: `break-keep`(word-break: keep-all)이 핵심이다. 기본값은 한글을
+          글자 단위로 끊어서 "쿠팡플\n레이", "편성표\n를" 처럼 어절 한가운데가 갈린다.
+          keep-all 이면 공백에서만 끊어져 어절이 통째로 넘어간다. `text-pretty` 는
+          마지막 줄에 한 단어만 남는 것(orphan)을 줄인다(미지원 브라우저는 무시).
+          `max-w-[38rem]` 은 데스크톱에서 한 줄이 너무 길어지지 않게 하는 measure 제한.
+          <br> 로 손수 끊지 않는다 — 폭이 바뀌면 그 자리가 그대로 어색해진다. */}
+      <section className="mt-10 sm:mt-14 max-w-[38rem] break-keep text-pretty border-t border-zinc-800/60 pt-6 sm:pt-8 text-[12px] sm:text-sm leading-relaxed sm:leading-7 text-zinc-500">
         <h2 className="mb-3 text-sm sm:text-base font-medium text-zinc-300">한국어 해설 중계, 한곳에서 확인하세요</h2>
         <p className="mb-2.5">
-          한해설은 EPL·라리가·세리에A·분데스리가·챔피언스리그·KBO·MLB·NBA·K리그 등 주요 스포츠의
+          한해설은 {SEO_LEAGUES} 등 주요 스포츠의
           <strong className="font-medium text-zinc-300"> 한국어 해설 중계</strong>와
           <strong className="font-medium text-zinc-300"> 한국어 중계 편성표</strong>를
-          SPOTV NOW, 쿠팡플레이, 티빙, Apple TV+, SPOTV, SPOTV2, tvN SPORTS, KBS N SPORTS, MBC SPORTS+, SBS Sports의
-          공식 편성을 바탕으로 매일 업데이트합니다.
+          매일 업데이트합니다.
+        </p>
+        <p className="mb-2.5">
+          편성 정보는 {SEO_PLATFORMS}의 공식 편성을 바탕으로 합니다.
         </p>
         <p>
           각 경기마다 한국어해설 여부를 초록·빨강·노랑 뱃지로 표시해,
