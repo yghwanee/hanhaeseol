@@ -38,19 +38,19 @@ const TIERS = [
   {
     label: "Air",
     amount: 1900,
-    emoji: "☁️",
+    icon: "/tier-air.webp",
     kakaopay: process.env.NEXT_PUBLIC_DONATE_KAKAOPAY_1900,
   },
   {
     label: "Pro",
     amount: 4900,
-    emoji: "⚡",
+    icon: "/tier-pro.webp",
     kakaopay: process.env.NEXT_PUBLIC_DONATE_KAKAOPAY_4900,
   },
   {
     label: "Max",
     amount: 9900,
-    emoji: "🔥",
+    icon: "/tier-max.webp",
     kakaopay: process.env.NEXT_PUBLIC_DONATE_KAKAOPAY_9900,
   },
 ] as const;
@@ -247,8 +247,27 @@ export function DonateButton({ className = "" }: { className?: string }) {
                     }}
                     className="flex w-full items-center justify-between rounded-lg border border-zinc-700 bg-zinc-800/40 px-4 py-3 text-sm text-zinc-200 transition-colors hover:border-zinc-500 hover:bg-zinc-800"
                   >
+                    {/* 티어 아이콘 — 배너 선물 상자와 같은 3D 아이콘 세트(달·번개·불).
+                        원본 500px PNG 을 투명 여백 트림 후 표시 크기의 4배(96px) 정사각
+                        webp 로 미리 구워 뒀다(~3KB). 정확한 치수라 `unoptimized` 로
+                        옵티마이저 왕복을 건너뛴다.
+
+                        🔴 **세 아이콘을 같은 높이로 맞추면 크기가 달라 보인다** — 트림 후
+                        비율이 제각각(달 361×406, 번개 244×434, 불 324×423)이라 높이를
+                        통일하면 번개만 홀쭉해 작아 보인다. 그래서 굽는 단계에서
+                        **높이 맞춤과 면적(불투명 픽셀 수) 맞춤의 중간값**으로 각각
+                        확대·축소해 캔버스 정중앙에 놓았다(달 76×86 / 번개 54×96 / 불 64×84).
+                        면적만으로 맞추면 이번엔 번개가 제일 커 보여서 중간을 택했다.
+                        아이콘을 갈아끼울 땐 같은 방식으로 다시 구워야 한다. */}
                     <span className="flex items-center gap-2">
-                      <span aria-hidden>{t.emoji}</span>
+                      <Image
+                        src={t.icon}
+                        alt=""
+                        width={96}
+                        height={96}
+                        unoptimized
+                        className="h-6 w-6 shrink-0 object-contain"
+                      />
                       {t.label}
                     </span>
                     <b className="font-bold text-white">{won(t.amount)}원</b>

@@ -1,15 +1,10 @@
-import Link from "next/link";
 import { Schedule } from "@/types/schedule";
 import { GAME_DURATION_HOURS, getTodayString } from "@/lib/schedule-utils";
 import { loadScheduleData, loadTeamRecords, loadResults } from "@/lib/server-data";
 import { ResultsData } from "@/types/results";
 import ScheduleClient from "./ScheduleClient";
-import { HomeAboutSection } from "./_components/HomeAboutSection";
-import WeekHighlights from "./_components/WeekHighlights";
 import { IntroAnimation } from "./_components/IntroAnimation";
 import { INTRO_EMBLEM_PATHS } from "./_components/intro-emblems";
-import { GuideCards } from "./_components/GuideCards";
-import { getAllGuides } from "@/lib/guides";
 
 function buildSportsEventsJsonLd(schedules: Schedule[]) {
   const todayStr = new Date().toISOString().slice(0, 10);
@@ -116,32 +111,19 @@ export default function Home() {
         <link key={src} rel="preload" as="image" href={src} />
       ))}
       <IntroAnimation />
+      {/* 홈 본문은 편성표 하나로 끝난다.
+          종전엔 편성표 아래로 "이번 주 빅매치" → "한해설 Topic" → 서비스 소개(한해설이란?·
+          지원 종목·지원 플랫폼·리그별·팀별·이용 가이드·자주 묻는 질문)가 이어져 스크롤이 길었다.
+          전부 걷어내되 **내부 링크는 잃지 않도록** 리그·플랫폼 허브를 전역 푸터(`SiteFooter`)로
+          옮겼다. 나머지는 이미 다른 곳에 같은 내용이 있어 중복이었다:
+          "한해설이란?"·이용 가이드 = `/about`, 자주 묻는 질문 = `/faq`(질문 세트가 더 많다),
+          "이번 주 빅매치" = 편성표 카드가 이미 경기마다 매치 페이지로 링크한다(중복 링크),
+          팀 링크 85개 = 순위표 팀 링크와 매치 페이지 팀 태그.
+          홈에 있던 FAQPage JSON-LD 도 함께 사라지는데, `/faq` 가 자기 세트로 이미 내보내므로
+          같은 사이트에서 두 벌이 도는 상태가 정리된 것이다. */}
       <main>
         <ScheduleClient initialData={data} teamRecords={teamRecords} results={results} />
-
-        <section className="mx-auto mt-4 sm:mt-6 max-w-2xl px-3 sm:px-4">
-          <WeekHighlights
-            title="이번 주 빅매치"
-            schedules={data.schedules}
-            days={7}
-            emptyText="이번 주 한국어 해설 빅매치 정보가 아직 갱신되지 않았습니다."
-          />
-        </section>
-        <section className="mx-auto mt-6 sm:mt-8 max-w-2xl px-3 sm:px-4">
-          <GuideCards title="한해설 Topic" guides={getAllGuides().slice(0, 4)} />
-        </section>
-        <HomeAboutSection />
       </main>
-      <footer className="mt-8 border-t border-zinc-800 py-6 px-4 text-center text-xs text-gray-500">
-        <div className="flex flex-wrap justify-center gap-4 mb-2">
-          <Link href="/standings" className="hover:text-gray-300">팀 순위</Link>
-          <Link href="/about" className="hover:text-gray-300">한해설 소개</Link>
-          <Link href="/faq" className="hover:text-gray-300">자주 묻는 질문</Link>
-          <Link href="/privacy" className="hover:text-gray-300">개인정보처리방침</Link>
-          <Link href="/terms" className="hover:text-gray-300">이용약관</Link>
-        </div>
-        <p>&copy; 2026 한해설. All rights reserved.</p>
-      </footer>
     </>
   );
 }
