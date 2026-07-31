@@ -1,5 +1,4 @@
 import Link from "next/link";
-import { LEAGUE_SEO, PLATFORM_SEO } from "@/lib/slugs";
 import { PushSubscribeButton } from "./PushSubscribeButton";
 
 /**
@@ -11,17 +10,16 @@ import { PushSubscribeButton } from "./PushSubscribeButton";
  * (순위/팀 순위, 소개/한해설 소개, FAQ/자주 묻는 질문), 반대로 개인정보처리방침·이용약관은
  * 홈에만 있어 나머지 페이지에서는 닿을 수 없었다. 하나로 합치면서 정책 링크를 전역으로 올렸다.
  *
- * 리그·플랫폼 허브 링크는 원래 홈 본문(`HomeAboutSection`)에 있던 것이다. 본문에서는
- * 걷어냈지만 내부 링크 자체는 색인에 필요하므로 푸터로 옮겼다.
- *
- * 🔴 **팀 링크 85개는 여기에 넣지 않았다.** 홈 본문에 있던 것이지만 전역 푸터에 두면
- * 매치 페이지 1,600여 장을 포함한 전 페이지에 같은 칩 85개가 실린다. 팀 페이지 진입은
- * 순위표(`/standings/*`)의 팀 링크와 매치 페이지의 팀 태그가 이미 담당하고
- * (그쪽이 문맥도 맞다), 사이트맵·IndexNow 에도 전부 들어 있다.
+ * 🔴 **허브 칩(리그 13·플랫폼 10·팀 85)은 넣지 않는다.** 홈 본문(`HomeAboutSection`)에
+ * 있던 것이라 잠깐 푸터로 옮겼다가 걷어냈다. 전역 푸터에 두면 매치 페이지 1,600여 장을
+ * 포함한 전 페이지에 같은 칩이 실리는데, 정작 그 링크는 이미 문맥이 맞는 자리에 다 있다:
+ *   - 플랫폼 → 경기 카드의 `PlatformBadge` 가 전부 `/platform/{slug}` 링크다.
+ *     빌드된 홈 HTML 기준 본문 9개 / 푸터 10개로 사실상 중복이었다. `/commentary` 에도 있다.
+ *   - 리그 → 매치 페이지(브레드크럼·컨텍스트)·순위표·팀 페이지에서 링크한다.
+ *     리그당 매치 페이지 수백 장이 걸려 있어 홈 링크가 빠져도 고아가 되지 않는다.
+ *   - 팀 → 순위표(`/standings/*`)의 팀 링크와 매치 페이지의 팀 태그.
+ * 셋 다 사이트맵·IndexNow 에도 들어 있다. 다시 넣고 싶어지면 이 문단을 먼저 읽을 것.
  */
-
-const OTT_SLUGS = ["spotv-now", "coupang-play", "tving", "apple-tv"];
-const TV_SLUGS = ["spotv", "spotv2", "tvn-sports", "kbs-n-sports", "mbc-sports-plus", "sbs-sports"];
 
 const MENU: { href: string; label: string }[] = [
   { href: "/", label: "홈" },
@@ -33,17 +31,6 @@ const MENU: { href: string; label: string }[] = [
   { href: "/privacy", label: "개인정보처리방침" },
   { href: "/terms", label: "이용약관" },
 ];
-
-function Chip({ href, children }: { href: string; children: React.ReactNode }) {
-  return (
-    <Link
-      href={href}
-      className="inline-flex items-center rounded-lg border border-zinc-800 bg-zinc-900/60 px-2.5 py-1 text-xs text-zinc-400 transition-colors hover:border-zinc-600 hover:text-zinc-100"
-    >
-      {children}
-    </Link>
-  );
-}
 
 export function SiteFooter() {
   return (
@@ -60,30 +47,6 @@ export function SiteFooter() {
           ))}
           <PushSubscribeButton />
         </nav>
-
-        <div className="mt-6 border-t border-zinc-900 pt-5">
-          <p className="mb-2 text-xs text-zinc-500">리그별 편성표</p>
-          <div className="flex flex-wrap gap-1.5">
-            {LEAGUE_SEO.map((l) => (
-              <Chip key={l.slug} href={`/league/${l.slug}`}>
-                {l.display}
-              </Chip>
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-5">
-          <p className="mb-2 text-xs text-zinc-500">플랫폼별 편성표</p>
-          <div className="flex flex-wrap gap-1.5">
-            {PLATFORM_SEO.filter((p) => OTT_SLUGS.includes(p.slug) || TV_SLUGS.includes(p.slug)).map(
-              (p) => (
-                <Chip key={p.slug} href={`/platform/${p.slug}`}>
-                  {p.display}
-                </Chip>
-              ),
-            )}
-          </div>
-        </div>
 
         <p className="mt-6 border-t border-zinc-900 pt-5 text-xs leading-relaxed text-zinc-500">
           편성표 데이터는 각 플랫폼의 공식 편성 정보를 기반으로 매일 자동 수집되며, 실시간 편성
