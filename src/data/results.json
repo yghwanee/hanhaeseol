@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-01T07:13:55.885Z",
+  "lastUpdated": "2026-08-01T09:35:17.756Z",
   "byKey": {
     "2026-07-31|kbo|KT|한화": {
       "date": "2026-07-31",
@@ -61,17 +61,6 @@
       "period": "9회말",
       "highlightVideoId": "_YdxNSTEDHE"
     },
-    "2026-08-01|kbo|KT|한화": {
-      "date": "2026-08-01",
-      "categoryId": "kbo",
-      "gameId": "20260801HHKT02026",
-      "homeTeam": "KT",
-      "awayTeam": "한화",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
-    },
     "2026-08-01|kbo|NC|KIA": {
       "date": "2026-08-01",
       "categoryId": "kbo",
@@ -83,28 +72,6 @@
       "status": "canceled",
       "period": "경기취소"
     },
-    "2026-08-01|kbo|두산|LG": {
-      "date": "2026-08-01",
-      "categoryId": "kbo",
-      "gameId": "20260801LGOB02026",
-      "homeTeam": "두산",
-      "awayTeam": "LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
-    },
-    "2026-08-01|kbo|키움|SSG": {
-      "date": "2026-08-01",
-      "categoryId": "kbo",
-      "gameId": "20260801SKWO02026",
-      "homeTeam": "키움",
-      "awayTeam": "SSG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
-    },
     "2026-08-01|kbo|롯데|삼성": {
       "date": "2026-08-01",
       "categoryId": "kbo",
@@ -115,6 +82,39 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기취소"
+    },
+    "2026-08-01|kbo|KT|한화": {
+      "date": "2026-08-01",
+      "categoryId": "kbo",
+      "gameId": "20260801HHKT02026",
+      "homeTeam": "KT",
+      "awayTeam": "한화",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "live",
+      "period": "3회초"
+    },
+    "2026-08-01|kbo|두산|LG": {
+      "date": "2026-08-01",
+      "categoryId": "kbo",
+      "gameId": "20260801LGOB02026",
+      "homeTeam": "두산",
+      "awayTeam": "LG",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "live",
+      "period": "3회초"
+    },
+    "2026-08-01|kbo|키움|SSG": {
+      "date": "2026-08-01",
+      "categoryId": "kbo",
+      "gameId": "20260801SKWO02026",
+      "homeTeam": "키움",
+      "awayTeam": "SSG",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "live",
+      "period": "3회초"
     },
     "2026-08-02|kbo|키움|SSG": {
       "date": "2026-08-02",
@@ -2474,17 +2474,6 @@
     {
       "date": "2026-08-01",
       "categoryId": "kbo",
-      "gameId": "20260801HHKT02026",
-      "homeTeam": "KT",
-      "awayTeam": "한화",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
-    },
-    {
-      "date": "2026-08-01",
-      "categoryId": "kbo",
       "gameId": "20260801HTNC02026",
       "homeTeam": "NC",
       "awayTeam": "KIA",
@@ -2496,13 +2485,35 @@
     {
       "date": "2026-08-01",
       "categoryId": "kbo",
+      "gameId": "20260801SSLT02026",
+      "homeTeam": "롯데",
+      "awayTeam": "삼성",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
+    },
+    {
+      "date": "2026-08-01",
+      "categoryId": "kbo",
+      "gameId": "20260801HHKT02026",
+      "homeTeam": "KT",
+      "awayTeam": "한화",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "live",
+      "period": "3회초"
+    },
+    {
+      "date": "2026-08-01",
+      "categoryId": "kbo",
       "gameId": "20260801LGOB02026",
       "homeTeam": "두산",
       "awayTeam": "LG",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "3회초"
     },
     {
       "date": "2026-08-01",
@@ -2512,19 +2523,8 @@
       "awayTeam": "SSG",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
-    },
-    {
-      "date": "2026-08-01",
-      "categoryId": "kbo",
-      "gameId": "20260801SSLT02026",
-      "homeTeam": "롯데",
-      "awayTeam": "삼성",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "canceled",
-      "period": "경기취소"
+      "status": "live",
+      "period": "3회초"
     },
     {
       "date": "2026-08-02",
