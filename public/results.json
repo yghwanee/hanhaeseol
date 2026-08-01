@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-01T15:17:13.213Z",
+  "lastUpdated": "2026-08-01T16:36:44.211Z",
   "byKey": {
     "2026-08-01|kbo|NC|KIA": {
       "date": "2026-08-01",
@@ -764,7 +764,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-02|mlb|토론토|세인트루이스 카디널스": {
       "date": "2026-08-02",
@@ -774,7 +775,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-02|mlb|토론토 블루제이스|세인트루이스": {
       "date": "2026-08-02",
@@ -784,7 +786,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-02|mlb|토론토 블루제이스|세인트루이스 카디널스": {
       "date": "2026-08-02",
@@ -794,7 +797,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-02|mlb|탬파베이|시카고W": {
       "date": "2026-08-02",
@@ -2593,9 +2597,16 @@
       "homeTeam": "링비",
       "awayTeam": "AGF",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 35'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아른스타",
+          "minute": 33
+        }
+      ]
     },
     "2026-08-02|denmark|미트윌란|호르센스": {
       "date": "2026-08-02",
@@ -2930,7 +2941,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-08-02",
@@ -3677,9 +3689,16 @@
       "homeTeam": "링비",
       "awayTeam": "AGF",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 35'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아른스타",
+          "minute": 33
+        }
+      ]
     },
     {
       "date": "2026-08-02",
