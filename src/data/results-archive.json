@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-02T03:53:50.382Z",
+  "lastUpdated": "2026-08-02T06:44:12.363Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -21894,6 +21894,17 @@
         }
       ]
     },
+    "2026-08-02|kbo|NC|KIA": {
+      "date": "2026-08-02",
+      "categoryId": "kbo",
+      "gameId": "20260802HTNC02026",
+      "homeTeam": "NC",
+      "awayTeam": "KIA",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
+    },
     "2026-08-02|mlb|토론토 블루제이스|세인트루이스 카디널스": {
       "date": "2026-08-02",
       "categoryId": "mlb",
@@ -22034,6 +22045,28 @@
       "awayTeam": "보스턴 레드삭스",
       "homeScore": 2,
       "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-02|mlb|LA 에인절스|밀워키 브루어스": {
+      "date": "2026-08-02",
+      "categoryId": "mlb",
+      "gameId": "20260802MIAN0",
+      "homeTeam": "LA 에인절스",
+      "awayTeam": "밀워키 브루어스",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-02|mlb|애슬레틱스|디트로이트 타이거스": {
+      "date": "2026-08-02",
+      "categoryId": "mlb",
+      "gameId": "20260802DEOA0",
+      "homeTeam": "애슬레틱스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 6,
+      "awayScore": 8,
       "status": "finished",
       "period": "9회말"
     },
@@ -22396,6 +22429,45 @@
           "player": "자바리",
           "minute": 90,
           "addedTime": 5
+        }
+      ]
+    },
+    "2026-08-02|mls|갤럭시|댈러스": {
+      "date": "2026-08-02",
+      "categoryId": "mls",
+      "gameId": "LKOgK1vG8A9FWvM",
+      "homeTeam": "갤럭시",
+      "awayTeam": "댈러스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    "2026-08-02|mls|포틀랜드|시애틀 사운더스 FC": {
+      "date": "2026-08-02",
+      "categoryId": "mls",
+      "gameId": "ziakM6pY0hnz300",
+      "homeTeam": "포틀랜드",
+      "awayTeam": "시애틀 사운더스 FC",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "코사-리엔치",
+          "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "켈시",
+          "minute": 41
+        },
+        {
+          "team": "home",
+          "player": "바이",
+          "minute": 82
         }
       ]
     }
@@ -44296,6 +44368,17 @@
     },
     {
       "date": "2026-08-02",
+      "categoryId": "kbo",
+      "gameId": "20260802HTNC02026",
+      "homeTeam": "NC",
+      "awayTeam": "KIA",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
+    },
+    {
+      "date": "2026-08-02",
       "categoryId": "mlb",
       "gameId": "20260802SLTO0",
       "homeTeam": "토론토 블루제이스",
@@ -44434,6 +44517,28 @@
       "awayTeam": "보스턴 레드삭스",
       "homeScore": 2,
       "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-02",
+      "categoryId": "mlb",
+      "gameId": "20260802MIAN0",
+      "homeTeam": "LA 에인절스",
+      "awayTeam": "밀워키 브루어스",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-02",
+      "categoryId": "mlb",
+      "gameId": "20260802DEOA0",
+      "homeTeam": "애슬레틱스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 6,
+      "awayScore": 8,
       "status": "finished",
       "period": "9회말"
     },
@@ -44796,6 +44901,45 @@
           "player": "자바리",
           "minute": 90,
           "addedTime": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "categoryId": "mls",
+      "gameId": "LKOgK1vG8A9FWvM",
+      "homeTeam": "갤럭시",
+      "awayTeam": "댈러스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-08-02",
+      "categoryId": "mls",
+      "gameId": "ziakM6pY0hnz300",
+      "homeTeam": "포틀랜드",
+      "awayTeam": "시애틀 사운더스 FC",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "코사-리엔치",
+          "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "켈시",
+          "minute": 41
+        },
+        {
+          "team": "home",
+          "player": "바이",
+          "minute": 82
         }
       ]
     }

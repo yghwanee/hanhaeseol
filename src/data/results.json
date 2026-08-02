@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-02T03:53:48.979Z",
+  "lastUpdated": "2026-08-02T06:44:11.514Z",
   "byKey": {
     "2026-08-01|kbo|NC|KIA": {
       "date": "2026-08-01",
@@ -65,10 +65,10 @@
       "gameId": "20260802SKWO02026",
       "homeTeam": "키움",
       "awayTeam": "SSG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "live",
+      "period": "4회말"
     },
     "2026-08-02|kbo|KT|한화": {
       "date": "2026-08-02",
@@ -89,8 +89,8 @@
       "awayTeam": "KIA",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "canceled",
+      "period": "경기취소"
     },
     "2026-08-02|kbo|두산|LG": {
       "date": "2026-08-02",
@@ -1335,9 +1335,9 @@
       "homeTeam": "LA 에인절스",
       "awayTeam": "밀워키 브루어스",
       "homeScore": 1,
-      "awayScore": 2,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-02|mlb|LA에인절스|밀워키 브루어스": {
       "date": "2026-08-02",
@@ -1346,9 +1346,9 @@
       "homeTeam": "LA 에인절스",
       "awayTeam": "밀워키 브루어스",
       "homeScore": 1,
-      "awayScore": 2,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-02|mlb|LA 에인절스|밀워키": {
       "date": "2026-08-02",
@@ -1357,9 +1357,9 @@
       "homeTeam": "LA 에인절스",
       "awayTeam": "밀워키 브루어스",
       "homeScore": 1,
-      "awayScore": 2,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-02|mlb|LA 에인절스|밀워키 브루어스": {
       "date": "2026-08-02",
@@ -1368,9 +1368,9 @@
       "homeTeam": "LA 에인절스",
       "awayTeam": "밀워키 브루어스",
       "homeScore": 1,
-      "awayScore": 2,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-02|mlb|애슬레틱스|디트로이트": {
       "date": "2026-08-02",
@@ -1378,10 +1378,10 @@
       "gameId": "20260802DEOA0",
       "homeTeam": "애슬레틱스",
       "awayTeam": "디트로이트 타이거스",
-      "homeScore": 2,
-      "awayScore": 7,
-      "status": "live",
-      "period": "7회말"
+      "homeScore": 6,
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-02|mlb|애슬레틱스|디트로이트 타이거스": {
       "date": "2026-08-02",
@@ -1389,10 +1389,10 @@
       "gameId": "20260802DEOA0",
       "homeTeam": "애슬레틱스",
       "awayTeam": "디트로이트 타이거스",
-      "homeScore": 2,
-      "awayScore": 7,
-      "status": "live",
-      "period": "7회말"
+      "homeScore": 6,
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-03|mlb|애틀랜타|워싱턴": {
       "date": "2026-08-03",
@@ -2918,8 +2918,8 @@
       "awayTeam": "댈러스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 10'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-08-02|mls|포틀랜드|시애틀": {
       "date": "2026-08-02",
@@ -2927,10 +2927,10 @@
       "gameId": "ziakM6pY0hnz300",
       "homeTeam": "포틀랜드",
       "awayTeam": "시애틀 사운더스 FC",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "status": "live",
-      "period": "전반종료",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2941,6 +2941,11 @@
           "team": "home",
           "player": "켈시",
           "minute": 41
+        },
+        {
+          "team": "home",
+          "player": "바이",
+          "minute": 82
         }
       ]
     },
@@ -2950,10 +2955,10 @@
       "gameId": "ziakM6pY0hnz300",
       "homeTeam": "포틀랜드",
       "awayTeam": "시애틀 사운더스 FC",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "status": "live",
-      "period": "전반종료",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2964,6 +2969,11 @@
           "team": "home",
           "player": "켈시",
           "minute": 41
+        },
+        {
+          "team": "home",
+          "player": "바이",
+          "minute": 82
         }
       ]
     },
@@ -3383,10 +3393,10 @@
       "gameId": "20260802SKWO02026",
       "homeTeam": "키움",
       "awayTeam": "SSG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "live",
+      "period": "4회말"
     },
     {
       "date": "2026-08-02",
@@ -3407,8 +3417,8 @@
       "awayTeam": "KIA",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "canceled",
+      "period": "경기취소"
     },
     {
       "date": "2026-08-02",
@@ -3748,9 +3758,9 @@
       "homeTeam": "LA 에인절스",
       "awayTeam": "밀워키 브루어스",
       "homeScore": 1,
-      "awayScore": 2,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-08-02",
@@ -3758,10 +3768,10 @@
       "gameId": "20260802DEOA0",
       "homeTeam": "애슬레틱스",
       "awayTeam": "디트로이트 타이거스",
-      "homeScore": 2,
-      "awayScore": 7,
-      "status": "live",
-      "period": "7회말"
+      "homeScore": 6,
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-08-03",
@@ -4307,8 +4317,8 @@
       "awayTeam": "댈러스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 10'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-08-02",
@@ -4316,10 +4326,10 @@
       "gameId": "ziakM6pY0hnz300",
       "homeTeam": "포틀랜드",
       "awayTeam": "시애틀 사운더스 FC",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "status": "live",
-      "period": "전반종료",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -4330,6 +4340,11 @@
           "team": "home",
           "player": "켈시",
           "minute": 41
+        },
+        {
+          "team": "home",
+          "player": "바이",
+          "minute": 82
         }
       ]
     },
