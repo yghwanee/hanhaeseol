@@ -7,18 +7,12 @@ on:
     - cron: '0 20 * * *'
   workflow_dispatch:
     inputs:
+      # 종전의 skip_instagram / instagram_only 를 대체한다.
+      # 인스타만 = carousel,reel,story / 유튜브만 = youtube
       only:
         description: '이 채널만 게시 (쉼표 구분: carousel,reel,story,youtube). 비우면 전부'
         type: string
         default: ''
-      skip_instagram:
-        description: '인스타 게시 SKIP (only Youtube)'
-        type: boolean
-        default: false
-      instagram_only:
-        description: '인스타만 게시 (유튜브 SKIP — 부분 실패 재실행용)'
-        type: boolean
-        default: false
 
 permissions:
   contents: write
@@ -56,8 +50,8 @@ jobs:
         run: |
           ALL="carousel reel story youtube"
           ONLY="${{ inputs.only }}"
-          PICKED=""
           if [ -n "$ONLY" ]; then
+            PICKED=""
             for c in $(echo "$ONLY" | tr ',' ' '); do
               case " $ALL " in
                 *" $c "*) PICKED="$PICKED $c" ;;
@@ -65,15 +59,10 @@ jobs:
               esac
             done
           else
-            for c in $ALL; do
-              case "$c" in
-                carousel|reel|story) [ "${{ inputs.skip_instagram }}" = "true" ] && continue ;;
-                youtube) [ "${{ inputs.instagram_only }}" = "true" ] && continue ;;
-              esac
-              PICKED="$PICKED $c"
-            done
+            PICKED="$ALL"
           fi
-          if [ -z "$PICKED" ]; then echo "::error::게시할 채널이 없습니다."; exit 1; fi
+          # only="," 처럼 유효 채널이 하나도 안 남으면, 아무것도 안 올리고 "성공"으로 끝난다.
+          if [ -z "$PICKED" ]; then echo "::error::only 에서 유효한 채널을 못 찾음: '$ONLY'"; exit 1; fi
           LIST=",$(echo $PICKED | tr ' ' ','),"
           echo "channels=$LIST" >> "$GITHUB_OUTPUT"
           echo "HHS_CHANNELS=$LIST" >> "$GITHUB_ENV"

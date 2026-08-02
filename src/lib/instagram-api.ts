@@ -61,7 +61,10 @@ function withCacheBust(params: Record<string, string>, attempt: number, salt = "
   return out;
 }
 
-export async function postMedia(
+// 🔴 export 하지 않는다. 이걸 직접 부르면 컨테이너 트랜스코딩 실패(2207052 등) 재시도가
+// 빠진 경로가 만들어진다 — 2026-08-02 릴스 미게시가 정확히 그 구조였다.
+// 밖에서는 항상 createFinishedContainer / publishSingleMedia 를 쓴다.
+async function postMedia(
   params: Record<string, string>,
   maxRetries = 8,
   retryDelayMs = 15000,
@@ -170,7 +173,8 @@ function isMediaNotReady(err: IgError | undefined): boolean {
   return /not available|still being processed|is being processed|media is not ready/i.test(msg);
 }
 
-export async function waitForFinished(containerId: string, maxAttempts = 20, intervalMs = 3000) {
+// postMedia 와 같은 이유로 비공개 — 재시도 없는 경로를 밖에 열어두지 않는다.
+async function waitForFinished(containerId: string, maxAttempts = 20, intervalMs = 3000) {
   const { token } = igEnv();
   let lastData: Record<string, unknown> | null = null;
   let lastStatusCode: string | undefined;
