@@ -1,9 +1,9 @@
 "use client";
 
-import React, { useState, useMemo, useEffect, useRef, useCallback, useDeferredValue } from "react";
+import { useState, useMemo, useEffect, useRef, useCallback, useDeferredValue } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ScheduleData } from "@/types/schedule";
+import { Schedule, ScheduleData } from "@/types/schedule";
 import { TeamRecordsMap } from "@/types/team-record";
 import { ResultsData } from "@/types/results";
 import { lookupTeamRecord } from "@/lib/team-records/lookup";
@@ -364,6 +364,30 @@ export default function ScheduleClient({
 
   // 카드 결과 표시: archive 모드는 archiveResults, 그 외는 라이브 머지된 결과.
   const effectiveResults = isArchiveDate ? archiveResults : liveResults;
+
+  // 오전(00~11시) / 오후(12시~) 두 덩어리로 나눈다. 사이에 인라인 광고가 들어가는데,
+  // 그 광고는 날짜·필터가 바뀌어도 리마운트되면 안 되므로(아래 렌더 주석 참고) 목록 자체를
+  // 둘로 쪼개고 광고를 그 사이 고정 위치에 둔다. filtered 는 time 오름차순 정렬이라
+  // 첫 오후 경기 인덱스 하나로 갈린다.
+  const [amGames, pmGames] = useMemo(() => {
+    const idx = filtered.findIndex((s) => parseInt(s.time.split(":")[0], 10) >= 12);
+    if (idx === -1) return [filtered, [] as typeof filtered];
+    return [filtered.slice(0, idx), filtered.slice(idx)];
+  }, [filtered]);
+
+  const renderCard = useCallback(
+    (schedule: Schedule) => (
+      <ScheduleCard
+        key={schedule.id}
+        schedule={schedule}
+        query={searchQuery}
+        homeRecord={lookupTeamRecord(teamRecords, schedule.league, schedule.homeTeam)}
+        awayRecord={lookupTeamRecord(teamRecords, schedule.league, schedule.awayTeam)}
+        result={findResult(effectiveResults, schedule)}
+      />
+    ),
+    [searchQuery, teamRecords, effectiveResults],
+  );
 
   // datepicker 버튼 라벨: archive 날짜면 그 날짜를 한국 포맷으로, 아니면 placeholder.
   const datepickerLabel = useMemo(() => {
@@ -753,33 +777,43 @@ export default function ScheduleClient({
               <span className="font-medium">{filtered.length}개 경기</span>
             </div>
           </div>
-          {filtered.map((schedule, idx) => {
-            const prev = idx > 0 ? filtered[idx - 1] : null;
-            const prevHour = prev ? parseInt(prev.time.split(":")[0], 10) : -1;
-            const currHour = parseInt(schedule.time.split(":")[0], 10);
-            const showMidBanner = prev && prevHour < 12 && currHour >= 12;
-            return (
-              <React.Fragment key={schedule.id}>
-                {showMidBanner && (
-                  <>
-                    <div className="flex items-center gap-3 py-1">
-                      <div className="h-px flex-1 bg-zinc-700/60" />
-                      <span className="text-[11px] sm:text-xs font-medium text-zinc-500">오후 경기</span>
-                      <div className="h-px flex-1 bg-zinc-700/60" />
-                    </div>
-                    <AdfitBanner slot="inline" className="my-4 sm:my-6" />
-                  </>
-                )}
-                <ScheduleCard
-                  schedule={schedule}
-                  query={searchQuery}
-                  homeRecord={lookupTeamRecord(teamRecords, schedule.league, schedule.homeTeam)}
-                  awayRecord={lookupTeamRecord(teamRecords, schedule.league, schedule.awayTeam)}
-                  result={findResult(effectiveResults, schedule)}
-                />
-              </React.Fragment>
-            );
-          })}
+          {amGames.map(renderCard)}
+        </div>
+      )}
+
+      {/* 🔴 인라인 광고는 이 자리에 **항상 마운트된 채로** 있어야 한다.
+          예전에는 오전/오후 경계 카드 사이(위 목록 안)에 끼워 넣었는데, 그 목록은 날짜·필터가
+          바뀔 때마다 `key` 가 달라져 통째로 리마운트된다. 애드핏 SDK 는 페이지당 **한 번만**
+          문서를 훑으므로(ads-ready.ts 참고) 새로 태어난 `<ins>` 는 아무도 스캔하지 않고,
+          `AdfitBanner` 의 재스캔 안전망도 "이미 채워진 광고가 있으면 재삽입 안 함"(상단 배너가
+          채워져 있음) 조건에 걸려 구제하지 못한다. 결과: **첫 렌더에서만 광고가 뜨고 날짜 탭을
+          한 번이라도 누르면 그 뒤로 영구히 빈칸.**
+
+          그래서 광고를 키 밖 고정 위치로 꺼냈다. 위(오전)·아래(오후) 목록만 리마운트되고
+          이 `<ins>` 는 DOM 에 그대로 남는다. **DOM 이동도 없어야 한다** — 위치가 바뀌면
+          브라우저가 광고 iframe 을 다시 로드해 중복 노출이 될 수 있으므로, 형제 순서가
+          고정되도록 아래 오후 목록은 이 블록 뒤에 별도 자식으로 둔다.
+
+          구분선은 오전·오후가 둘 다 있을 때만 보인다(광고 자체는 항상 렌더). 한쪽만 있는
+          날에는 광고가 목록 끝(또는 머리)에 붙는데, 어차피 화면에 보이는 자리라 무효 노출이
+          아니다. 감춰 두는 것이 오히려 정책상 위험한 쪽이다. */}
+      <div className="my-4 sm:my-6">
+        {amGames.length > 0 && pmGames.length > 0 && (
+          <div className="mb-4 flex items-center gap-3 sm:mb-6">
+            <div className="h-px flex-1 bg-zinc-700/60" />
+            <span className="text-[11px] sm:text-xs font-medium text-zinc-500">오후 경기</span>
+            <div className="h-px flex-1 bg-zinc-700/60" />
+          </div>
+        )}
+        <AdfitBanner slot="inline" />
+      </div>
+
+      {pmGames.length > 0 && (
+        <div
+          key={`list-pm:${selectedDate}|${sport}|${platform}|${commentaryFilter}`}
+          className="tab-content-anim space-y-2.5 sm:space-y-3"
+        >
+          {pmGames.map(renderCard)}
         </div>
       )}
 
