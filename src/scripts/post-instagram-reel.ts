@@ -1,10 +1,11 @@
 import { getKstToday } from "@/lib/instagram";
 import { buildCaption, comment, mediaBaseUrl, publishSingleMedia } from "@/lib/instagram-api";
 import { readManifest } from "@/lib/manifest";
+import { runWithReport } from "@/lib/post-report";
 import { buildSocialComment } from "@/lib/social-comment";
 import { UTM_LINKS } from "@/lib/utm";
 
-async function main() {
+async function main(): Promise<string> {
   const manifest = readManifest();
   if (!manifest.reel) throw new Error("매니페스트에 reel 필드 없음 — 먼저 reel:make 실행 필요");
 
@@ -37,9 +38,8 @@ async function main() {
   } catch (e) {
     console.warn(`⚠️  댓글 작성 실패(게시는 완료): ${e instanceof Error ? e.message : e}`);
   }
+
+  return `Media ID ${mediaId}`;
 }
 
-main().catch((e) => {
-  console.error("❌", e.message || e);
-  process.exit(1);
-});
+runWithReport("reel", main);

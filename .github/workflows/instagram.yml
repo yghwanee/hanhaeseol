@@ -21,6 +21,10 @@ on:
     - cron: '18 7 * * *'
   workflow_dispatch:
     inputs:
+      only:
+        description: '이 채널만 게시 (쉼표 구분: carousel,reel,story,youtube,tiktok). 비우면 전부'
+        type: string
+        default: ''
       skip_instagram:
         description: '인스타 게시 SKIP (only Youtube)'
         type: boolean
@@ -52,8 +56,41 @@ jobs:
       TIKTOK_PRIVACY_LEVEL: ${{ vars.TIKTOK_PRIVACY_LEVEL || 'PUBLIC_TO_EVERYONE' }}
       GH_PAT_SECRETS_WRITE: ${{ secrets.GH_PAT_SECRETS_WRITE }}
       GITHUB_REPOSITORY: ${{ github.repository }}
+      HHS_REPORT_TITLE: '🌙 [저녁] 내일 경기'
+      HHS_WORKFLOW: instagram.yml
     steps:
       - uses: actions/checkout@v6
+
+      # 이번 실행에서 게시할 채널을 한 곳에서 정한다.
+      # 부분 실패(예: 릴스만 ERROR) 시 워크플로를 통째 재실행하면 성공했던 채널이
+      # 중복 게시되므로, 실패 알림이 알려주는 `-f only=reel` 로 그것만 다시 돌린다.
+      - name: 게시 대상 채널 결정
+        id: plan
+        run: |
+          ALL="carousel reel story youtube tiktok"
+          ONLY="${{ inputs.only }}"
+          PICKED=""
+          if [ -n "$ONLY" ]; then
+            for c in $(echo "$ONLY" | tr ',' ' '); do
+              case " $ALL " in
+                *" $c "*) PICKED="$PICKED $c" ;;
+                *) echo "::error::알 수 없는 채널: $c (가능: $ALL)"; exit 1 ;;
+              esac
+            done
+          else
+            for c in $ALL; do
+              case "$c" in
+                carousel|reel|story) [ "${{ inputs.skip_instagram }}" = "true" ] && continue ;;
+                youtube|tiktok) [ "${{ inputs.instagram_only }}" = "true" ] && continue ;;
+              esac
+              PICKED="$PICKED $c"
+            done
+          fi
+          if [ -z "$PICKED" ]; then echo "::error::게시할 채널이 없습니다."; exit 1; fi
+          LIST=",$(echo $PICKED | tr ' ' ','),"
+          echo "channels=$LIST" >> "$GITHUB_OUTPUT"
+          echo "HHS_CHANNELS=$LIST" >> "$GITHUB_ENV"
+          echo "📋 게시 대상: $LIST"
 
       - uses: actions/setup-node@v6
         with:
@@ -101,39 +138,39 @@ jobs:
       - name: raw.githubusercontent CDN 반영 대기
         run: sleep 30
 
+      # 아래 게시 스텝은 전부 always() — 하나가 실패해도 나머지는 시도한다.
+      # 그래야 "5개 중 1개만 실패" 상태로 끝나고, 그 1개만 재실행할 수 있다.
       - name: 캐러셀 게시
-        if: ${{ inputs.skip_instagram != true }}
+        if: ${{ always() && contains(steps.plan.outputs.channels, ',carousel,') }}
         run: npm run post:ig
 
       - name: 릴스 게시
-        if: ${{ always() && inputs.skip_instagram != true }}
+        if: ${{ always() && contains(steps.plan.outputs.channels, ',reel,') }}
         run: npm run post:reel
 
       - name: 스토리 게시
-        if: ${{ always() && inputs.skip_instagram != true }}
+        if: ${{ always() && contains(steps.plan.outputs.channels, ',story,') }}
         run: npm run post:story
 
       - name: 유튜브 쇼츠 업로드
-        if: ${{ always() && inputs.instagram_only != true }}
+        if: ${{ always() && contains(steps.plan.outputs.channels, ',youtube,') }}
         run: npm run post:youtube
 
       # 틱톡 전용 릴스(URL 워터마크 제거 변형) 생성 → manifest.reelTiktok 기록.
       # 유튜브 업로드 후 실행해 공용 reel-v2.mp4 / manifest.reel 은 그대로 둠.
       - name: 틱톡 전용 릴스 생성 (URL 워터마크 제거)
-        if: ${{ always() && inputs.instagram_only != true }}
+        if: ${{ always() && contains(steps.plan.outputs.channels, ',tiktok,') }}
         run: HHS_TIKTOK_VARIANT=1 npm run reel:make:v2
 
       - name: 틱톡 업로드
-        if: ${{ always() && inputs.instagram_only != true }}
+        if: ${{ always() && contains(steps.plan.outputs.channels, ',tiktok,') }}
         run: npm run post:tiktok
 
-      - name: Telegram 성공 알림
+      # 성공/실패 모두 채널별 결과를 보고한다. 실패면 안 올라간 채널의 원본 파일도 첨부.
+      - name: Telegram 성공 보고
         if: success()
-        run: |
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            -d chat_id="${TELEGRAM_CHAT_ID}" \
-            -d text="🌙 [저녁] 내일 경기 v2 업로드 완료 (인스타 캐러셀+릴스+스토리, 유튜브 쇼츠, 틱톡)"
+        run: npm run telegram:report
 
-      - name: Telegram 실패 알림 + 카드 전송
+      - name: Telegram 실패 보고 (채널별 + 원본 첨부)
         if: failure()
         run: npm run telegram:failure

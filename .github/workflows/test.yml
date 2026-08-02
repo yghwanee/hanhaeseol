@@ -62,6 +62,8 @@ jobs:
           npm run test:starters
           npm run test:highlights
           npm run test:tiktok-caption
+          npm run test:post-report
+          npm run test:instagram-api
           npm run test:idea-dupes
           npm run test:naver-news
           npm run test:style-lint

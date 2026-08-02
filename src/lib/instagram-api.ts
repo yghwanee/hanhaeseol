@@ -49,9 +49,9 @@ export function buildCaption(mm: string, dd: string, today: string, link: string
 // 전파 레이스로 한번 404가 캐시되면, 재시도 예산(~105초)으로는 그 캐시를 못 넘겨
 // 같은 9004/2207052를 계속 맞고 실패한다. 재시도마다 cb 쿼리를 바꿔 캐시 키를
 // 새로 만들면 캐시된 404를 즉시 우회한다. 캐러셀 미디어 URL에만 적용.
-function withCacheBust(params: Record<string, string>, attempt: number): Record<string, string> {
+function withCacheBust(params: Record<string, string>, attempt: number, salt = ""): Record<string, string> {
   const runId = process.env.GITHUB_RUN_ID ?? "local";
-  const cb = `${runId}-${attempt}`;
+  const cb = `${runId}-${salt}${attempt}`;
   const out = { ...params };
   for (const key of ["image_url", "video_url", "cover_url"] as const) {
     const url = out[key];
@@ -65,10 +65,11 @@ export async function postMedia(
   params: Record<string, string>,
   maxRetries = 8,
   retryDelayMs = 15000,
+  cbSalt = "",
 ): Promise<string> {
   const { igId, token } = igEnv();
   for (let attempt = 1; ; attempt++) {
-    const body = new URLSearchParams({ ...withCacheBust(params, attempt), access_token: token });
+    const body = new URLSearchParams({ ...withCacheBust(params, attempt, cbSalt), access_token: token });
     const res = await fetch(`${IG_API}/${igId}/media`, { method: "POST", body });
     const data = await res.json();
     if (res.ok && data.id) return data.id as string;
@@ -102,6 +103,63 @@ function isTransientFetch(err: IgError | undefined): boolean {
 // 5/23부터 모든 컨테이너 GET이 code=100/subcode=33으로 거부됨.
 function isNodeGetForbidden(err: IgError | undefined): boolean {
   return !!err && err.code === 100 && err.error_subcode === 33;
+}
+
+/**
+ * 컨테이너가 `status_code=ERROR/EXPIRED` 로 끝난 경우. API 호출 자체는 200 이라
+ * `data.error` 가 없고 에러 코드가 `status` **문자열** 안에 들어온다
+ * (예: `Error: Media upload has failed with error code 2207052`).
+ * 그래서 isTransientFetch(=error 객체 검사)로는 절대 안 잡힌다.
+ */
+export class ContainerFailedError extends Error {
+  constructor(
+    readonly containerId: string,
+    readonly statusCode: string,
+    readonly statusText: string,
+    readonly retryable: boolean,
+  ) {
+    super(`컨테이너 ${containerId} 처리 실패: ${statusCode} (${statusText})`);
+    this.name = "ContainerFailedError";
+  }
+}
+
+// Meta 가 업로드/트랜스코딩 중에 내는 코드 중 **일시적인 것**.
+// 같은 파일·같은 URL 로 컨테이너를 새로 만들면 통과하는 부류다.
+const RETRYABLE_CONTAINER_CODES = [
+  2207001, // Video download error
+  2207003, // Media fetch error
+  2207008, // Media fetch timeout
+  2207020, // Unknown error (transcode)
+  2207032, // Create media failed
+  2207052, // Unknown upload error  ← 2026-08-02 저녁 릴스 실패
+  2207053, // Unknown error
+  9004, // 미디어 URI fetch 불가
+];
+
+// 파일 자체가 규격 위반인 것들. 재시도해도 100% 같은 결과라 즉시 실패해야 한다.
+const PERMANENT_CONTAINER_CODES = [
+  2207004, // 파일 용량 초과
+  2207005, // 지원하지 않는 포맷
+  2207006, // 재생 시간 위반
+  2207009, // 화면비 위반
+  2207010, // 해상도 위반
+  2207026, // 지원하지 않는 비디오 포맷
+];
+
+/** 컨테이너 status 문자열에서 Meta 에러 코드를 뽑는다. 없으면 null. */
+export function parseContainerErrorCode(statusText: string): number | null {
+  const m = /error code (\d+)/i.exec(statusText);
+  return m ? Number(m[1]) : null;
+}
+
+/** 컨테이너 실패가 재시도로 풀릴 수 있는 종류인지. 코드를 못 읽으면 재시도 쪽으로 둔다. */
+export function isRetryableContainerFailure(statusCode: string, statusText: string): boolean {
+  // EXPIRED = 24시간 내 게시 안 됨. 새 컨테이너를 만들면 된다.
+  if (statusCode === "EXPIRED") return true;
+  const code = parseContainerErrorCode(statusText);
+  if (code === null) return true; // 원인 불명 → 한 번은 더 해본다
+  if (PERMANENT_CONTAINER_CODES.includes(code)) return false;
+  return RETRYABLE_CONTAINER_CODES.includes(code);
 }
 
 // publish 호출 시 컨테이너가 아직 IN_PROGRESS면 받는 종류의 에러
@@ -151,7 +209,13 @@ export async function waitForFinished(containerId: string, maxAttempts = 20, int
     }
     if (statusCode === "FINISHED") return;
     if (statusCode === "ERROR" || statusCode === "EXPIRED") {
-      throw new Error(`컨테이너 ${containerId} 처리 실패: ${statusCode} raw=${JSON.stringify(data)}`);
+      const statusText = typeof data.status === "string" ? data.status : JSON.stringify(data);
+      throw new ContainerFailedError(
+        containerId,
+        statusCode,
+        statusText,
+        isRetryableContainerFailure(statusCode, statusText),
+      );
     }
     await sleep(intervalMs);
   }
@@ -217,13 +281,46 @@ export function mediaBaseUrl() {
   return `https://raw.githubusercontent.com/${repo}/insta-media`;
 }
 
+/**
+ * 컨테이너를 만들고 FINISHED 까지 기다린다. 트랜스코딩이 일시 오류로 죽으면
+ * **컨테이너를 새로 만들어** 다시 시도한다.
+ *
+ * 2026-08-02 저녁 릴스가 이걸로 실패했다 — 컨테이너 생성(postMedia)은 성공하고
+ * 그 다음 트랜스코딩에서 `status_code=ERROR / error code 2207052`(일시 오류)가
+ * 났는데, 재시도가 postMedia 안에만 있어서 한 번 만에 포기했다.
+ * ERROR 는 컨테이너의 최종 상태라 같은 컨테이너를 다시 폴링해봐야 소용없고,
+ * 반드시 새 컨테이너를 만들어야 한다.
+ */
+export async function createFinishedContainer(
+  params: Record<string, string>,
+  waitMaxAttempts = 20,
+  maxContainerAttempts = 3,
+  retryDelayMs = 20000,
+): Promise<string> {
+  for (let attempt = 1; ; attempt++) {
+    // 시도마다 캐시버스터 salt 를 바꿔, 혹시 CDN 에 물린 깨진 응답을 물려받지 않게 한다.
+    const containerId = await postMedia(params, 8, 15000, `c${attempt}-`);
+    try {
+      await waitForFinished(containerId, waitMaxAttempts);
+      return containerId;
+    } catch (e) {
+      const failed = e instanceof ContainerFailedError;
+      if (!failed || !e.retryable || attempt >= maxContainerAttempts) throw e;
+      const delayMs = retryDelayMs * attempt;
+      console.warn(
+        `⚠️  컨테이너 처리 실패 ${attempt}/${maxContainerAttempts} — 일시 오류, ${delayMs / 1000}s 후 새 컨테이너로 재시도: ${e.message}`,
+      );
+      await sleep(delayMs);
+    }
+  }
+}
+
 /** 단일 미디어(릴스/스토리) 컨테이너 생성 → 대기 → 게시 */
 export async function publishSingleMedia(
   params: Record<string, string>,
   waitMaxAttempts = 20,
 ): Promise<string> {
-  const containerId = await postMedia(params);
-  await waitForFinished(containerId, waitMaxAttempts);
+  const containerId = await createFinishedContainer(params, waitMaxAttempts);
   return publish(containerId);
 }
 

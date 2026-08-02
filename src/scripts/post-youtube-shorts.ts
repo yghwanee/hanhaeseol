@@ -3,9 +3,10 @@ import fs from "node:fs";
 import { getKstToday } from "@/lib/instagram";
 import { addComment, buildShortsMeta, setThumbnail, uploadShorts } from "@/lib/youtube-api";
 import { OUT_DIR, readManifest } from "@/lib/manifest";
+import { runWithReport } from "@/lib/post-report";
 import { buildSocialComment } from "@/lib/social-comment";
 
-async function main() {
+async function main(): Promise<string> {
   const manifest = readManifest();
   if (!manifest.reel) throw new Error("매니페스트에 reel 필드 없음 — 먼저 reel:make 실행 필요");
 
@@ -41,9 +42,8 @@ async function main() {
 
   await addComment(videoId, buildSocialComment(today));
   console.log(`💬 댓글 작성 완료`);
+
+  return `https://youtube.com/shorts/${videoId}`;
 }
 
-main().catch((e) => {
-  console.error("❌", e.message || e);
-  process.exit(1);
-});
+runWithReport("youtube", main);

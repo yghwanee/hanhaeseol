@@ -7,6 +7,10 @@ on:
     - cron: '0 20 * * *'
   workflow_dispatch:
     inputs:
+      only:
+        description: '이 채널만 게시 (쉼표 구분: carousel,reel,story,youtube). 비우면 전부'
+        type: string
+        default: ''
       skip_instagram:
         description: '인스타 게시 SKIP (only Youtube)'
         type: boolean
@@ -41,8 +45,39 @@ jobs:
       TIKTOK_PRIVACY_LEVEL: ${{ vars.TIKTOK_PRIVACY_LEVEL || 'PUBLIC_TO_EVERYONE' }}
       GH_PAT_SECRETS_WRITE: ${{ secrets.GH_PAT_SECRETS_WRITE }}
       GITHUB_REPOSITORY: ${{ github.repository }}
+      HHS_REPORT_TITLE: '☀️ [오전] 당일 경기'
+      HHS_WORKFLOW: instagram-morning.yml
     steps:
       - uses: actions/checkout@v6
+
+      # 저녁 워크플로와 같은 규칙. 다만 오전은 틱톡을 올리지 않는다(1일 1회 = 도배 신호 완화).
+      - name: 게시 대상 채널 결정
+        id: plan
+        run: |
+          ALL="carousel reel story youtube"
+          ONLY="${{ inputs.only }}"
+          PICKED=""
+          if [ -n "$ONLY" ]; then
+            for c in $(echo "$ONLY" | tr ',' ' '); do
+              case " $ALL " in
+                *" $c "*) PICKED="$PICKED $c" ;;
+                *) echo "::error::알 수 없는 채널: $c (가능: $ALL)"; exit 1 ;;
+              esac
+            done
+          else
+            for c in $ALL; do
+              case "$c" in
+                carousel|reel|story) [ "${{ inputs.skip_instagram }}" = "true" ] && continue ;;
+                youtube) [ "${{ inputs.instagram_only }}" = "true" ] && continue ;;
+              esac
+              PICKED="$PICKED $c"
+            done
+          fi
+          if [ -z "$PICKED" ]; then echo "::error::게시할 채널이 없습니다."; exit 1; fi
+          LIST=",$(echo $PICKED | tr ' ' ','),"
+          echo "channels=$LIST" >> "$GITHUB_OUTPUT"
+          echo "HHS_CHANNELS=$LIST" >> "$GITHUB_ENV"
+          echo "📋 게시 대상: $LIST"
 
       - uses: actions/setup-node@v6
         with:
@@ -87,30 +122,27 @@ jobs:
         run: sleep 10
 
       - name: 캐러셀 게시
-        if: ${{ inputs.skip_instagram != true }}
+        if: ${{ always() && contains(steps.plan.outputs.channels, ',carousel,') }}
         run: npm run post:ig
 
       - name: 릴스 게시
-        if: ${{ always() && inputs.skip_instagram != true }}
+        if: ${{ always() && contains(steps.plan.outputs.channels, ',reel,') }}
         run: npm run post:reel
 
       - name: 스토리 게시
-        if: ${{ always() && inputs.skip_instagram != true }}
+        if: ${{ always() && contains(steps.plan.outputs.channels, ',story,') }}
         run: npm run post:story
 
       - name: 유튜브 쇼츠 업로드
-        if: ${{ always() && inputs.instagram_only != true }}
+        if: ${{ always() && contains(steps.plan.outputs.channels, ',youtube,') }}
         run: npm run post:youtube
 
       # 틱톡은 저녁 워크플로우(instagram.yml)에서만 게시. 오전엔 제외(1일 1회 = 도배 신호 완화).
 
-      - name: Telegram 성공 알림
+      - name: Telegram 성공 보고
         if: success()
-        run: |
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            -d chat_id="${TELEGRAM_CHAT_ID}" \
-            -d text="☀️ [오전] 당일 경기 업로드 완료 (인스타 캐러셀+릴스+스토리, 유튜브 쇼츠)"
+        run: npm run telegram:report
 
-      - name: Telegram 실패 알림 + 카드 전송
+      - name: Telegram 실패 보고 (채널별 + 원본 첨부)
         if: failure()
         run: npm run telegram:failure

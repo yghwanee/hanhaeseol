@@ -5,6 +5,7 @@ import { execFileSync } from "node:child_process";
 import { getKstToday } from "@/lib/instagram";
 import { buildTiktokCaption } from "@/lib/tiktok-caption";
 import { OUT_DIR, readManifest } from "@/lib/manifest";
+import { runWithReport } from "@/lib/post-report";
 import {
   getAccessToken,
   getCreatorInfo,
@@ -51,7 +52,7 @@ function persistRotatedRefreshToken(oldToken: string, newToken: string) {
   }
 }
 
-async function main() {
+async function main(): Promise<string> {
   const manifest = readManifest();
   // 틱톡 전용 릴스(URL 워터마크 제거 변형)가 있으면 그걸 우선 사용, 없으면 공용 reel 폴백.
   const reelFile = manifest.reelTiktok ?? manifest.reel;
@@ -122,9 +123,10 @@ async function main() {
   if (privacyLevel === "SELF_ONLY") {
     console.log(`   (비공개 모드 — 본인 계정에서만 보임. 심사 통과 후 PUBLIC_TO_EVERYONE으로 변경)`);
   }
+
+  return videoIds.length > 0
+    ? `https://www.tiktok.com/@${username}/video/${videoIds[0]}`
+    : `publish_id ${publishId}`;
 }
 
-main().catch((e) => {
-  console.error("❌", e.message || e);
-  process.exit(1);
-});
+runWithReport("tiktok", main);

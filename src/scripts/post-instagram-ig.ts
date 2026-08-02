@@ -1,12 +1,13 @@
 import { getKstToday } from "@/lib/instagram";
-import { buildCaption, comment, mediaBaseUrl, postMedia, publish, waitForFinished } from "@/lib/instagram-api";
+import { buildCaption, comment, createFinishedContainer, mediaBaseUrl, publish } from "@/lib/instagram-api";
 import { readManifest } from "@/lib/manifest";
+import { runWithReport } from "@/lib/post-report";
 import { buildSocialComment } from "@/lib/social-comment";
 import { UTM_LINKS } from "@/lib/utm";
 
 const MAX_CAROUSEL = 10;
 
-async function main() {
+async function main(): Promise<string> {
   const { files } = readManifest();
   if (files.length === 0) throw new Error("매니페스트에 파일이 없습니다.");
 
@@ -19,18 +20,17 @@ async function main() {
 
   console.log(`📸 캐러셀 ${urls.length}장 게시 시작`);
 
+  // 개별 아이템도 트랜스코딩 실패(2207052 등)를 맞을 수 있어 컨테이너 단위 재시도를 태운다.
   const itemIds = await Promise.all(
-    urls.map((image_url) => postMedia({ image_url, is_carousel_item: "true" })),
+    urls.map((image_url) => createFinishedContainer({ image_url, is_carousel_item: "true" })),
   );
-  await Promise.all(itemIds.map((id) => waitForFinished(id)));
 
   const { today, mm, dd } = getKstToday();
-  const carouselId = await postMedia({
+  const carouselId = await createFinishedContainer({
     media_type: "CAROUSEL",
     children: itemIds.join(","),
     caption: buildCaption(mm, dd, today, UTM_LINKS.ig_post),
   });
-  await waitForFinished(carouselId);
 
   const mediaId = await publish(carouselId);
   console.log(`✅ 캐러셀 게시 완료. Media ID: ${mediaId}`);
@@ -43,9 +43,8 @@ async function main() {
   } catch (e) {
     console.warn(`⚠️  댓글 작성 실패(게시는 완료): ${e instanceof Error ? e.message : e}`);
   }
+
+  return `Media ID ${mediaId} (${urls.length}장)`;
 }
 
-main().catch((e) => {
-  console.error("❌", e.message || e);
-  process.exit(1);
-});
+runWithReport("carousel", main);
