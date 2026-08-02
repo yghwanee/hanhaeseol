@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-02T17:43:48.252Z",
+  "lastUpdated": "2026-08-02T19:32:36.601Z",
   "byKey": {
     "2026-08-02|kbo|키움|SSG": {
       "date": "2026-08-02",
@@ -761,50 +761,6 @@
       "status": "finished",
       "period": "9회말"
     },
-    "2026-08-03|mlb|애틀랜타|워싱턴": {
-      "date": "2026-08-03",
-      "categoryId": "mlb",
-      "gameId": "20260803MOAT0",
-      "homeTeam": "애틀랜타 브레이브스",
-      "awayTeam": "워싱턴 내셔널스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1회말"
-    },
-    "2026-08-03|mlb|애틀랜타|워싱턴 내셔널스": {
-      "date": "2026-08-03",
-      "categoryId": "mlb",
-      "gameId": "20260803MOAT0",
-      "homeTeam": "애틀랜타 브레이브스",
-      "awayTeam": "워싱턴 내셔널스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1회말"
-    },
-    "2026-08-03|mlb|애틀랜타 브레이브스|워싱턴": {
-      "date": "2026-08-03",
-      "categoryId": "mlb",
-      "gameId": "20260803MOAT0",
-      "homeTeam": "애틀랜타 브레이브스",
-      "awayTeam": "워싱턴 내셔널스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1회말"
-    },
-    "2026-08-03|mlb|애틀랜타 브레이브스|워싱턴 내셔널스": {
-      "date": "2026-08-03",
-      "categoryId": "mlb",
-      "gameId": "20260803MOAT0",
-      "homeTeam": "애틀랜타 브레이브스",
-      "awayTeam": "워싱턴 내셔널스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1회말"
-    },
     "2026-08-03|mlb|볼티모어|필라델피아": {
       "date": "2026-08-03",
       "categoryId": "mlb",
@@ -812,9 +768,9 @@
       "homeTeam": "볼티모어 오리올스",
       "awayTeam": "필라델피아 필리스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1회말"
+      "awayScore": 2,
+      "status": "scheduled",
+      "period": "지연"
     },
     "2026-08-03|mlb|볼티모어|필라델피아 필리스": {
       "date": "2026-08-03",
@@ -823,9 +779,9 @@
       "homeTeam": "볼티모어 오리올스",
       "awayTeam": "필라델피아 필리스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1회말"
+      "awayScore": 2,
+      "status": "scheduled",
+      "period": "지연"
     },
     "2026-08-03|mlb|볼티모어 오리올스|필라델피아": {
       "date": "2026-08-03",
@@ -834,9 +790,9 @@
       "homeTeam": "볼티모어 오리올스",
       "awayTeam": "필라델피아 필리스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1회말"
+      "awayScore": 2,
+      "status": "scheduled",
+      "period": "지연"
     },
     "2026-08-03|mlb|볼티모어 오리올스|필라델피아 필리스": {
       "date": "2026-08-03",
@@ -845,9 +801,53 @@
       "homeTeam": "볼티모어 오리올스",
       "awayTeam": "필라델피아 필리스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 2,
+      "status": "scheduled",
+      "period": "지연"
+    },
+    "2026-08-03|mlb|애틀랜타|워싱턴": {
+      "date": "2026-08-03",
+      "categoryId": "mlb",
+      "gameId": "20260803MOAT0",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "워싱턴 내셔널스",
+      "homeScore": 3,
+      "awayScore": 2,
       "status": "live",
-      "period": "1회말"
+      "period": "7회말"
+    },
+    "2026-08-03|mlb|애틀랜타|워싱턴 내셔널스": {
+      "date": "2026-08-03",
+      "categoryId": "mlb",
+      "gameId": "20260803MOAT0",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "워싱턴 내셔널스",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "live",
+      "period": "7회말"
+    },
+    "2026-08-03|mlb|애틀랜타 브레이브스|워싱턴": {
+      "date": "2026-08-03",
+      "categoryId": "mlb",
+      "gameId": "20260803MOAT0",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "워싱턴 내셔널스",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "live",
+      "period": "7회말"
+    },
+    "2026-08-03|mlb|애틀랜타 브레이브스|워싱턴 내셔널스": {
+      "date": "2026-08-03",
+      "categoryId": "mlb",
+      "gameId": "20260803MOAT0",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "워싱턴 내셔널스",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "live",
+      "period": "7회말"
     },
     "2026-08-03|mlb|토론토|세인트루이스": {
       "date": "2026-08-03",
@@ -856,9 +856,9 @@
       "homeTeam": "토론토 블루제이스",
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "8회말"
     },
     "2026-08-03|mlb|토론토|세인트루이스 카디널스": {
       "date": "2026-08-03",
@@ -867,9 +867,9 @@
       "homeTeam": "토론토 블루제이스",
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "8회말"
     },
     "2026-08-03|mlb|토론토 블루제이스|세인트루이스": {
       "date": "2026-08-03",
@@ -878,9 +878,9 @@
       "homeTeam": "토론토 블루제이스",
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "8회말"
     },
     "2026-08-03|mlb|토론토 블루제이스|세인트루이스 카디널스": {
       "date": "2026-08-03",
@@ -889,9 +889,9 @@
       "homeTeam": "토론토 블루제이스",
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "8회말"
     },
     "2026-08-03|mlb|클리블랜드|애리조나": {
       "date": "2026-08-03",
@@ -899,10 +899,10 @@
       "gameId": "20260803AZCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "애리조나 다이아몬드백스",
-      "homeScore": 0,
+      "homeScore": 5,
       "awayScore": 0,
-      "status": "live",
-      "period": "1회초"
+      "status": "scheduled",
+      "period": "지연"
     },
     "2026-08-03|mlb|클리블랜드|애리조나 다이아몬드백스": {
       "date": "2026-08-03",
@@ -910,10 +910,10 @@
       "gameId": "20260803AZCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "애리조나 다이아몬드백스",
-      "homeScore": 0,
+      "homeScore": 5,
       "awayScore": 0,
-      "status": "live",
-      "period": "1회초"
+      "status": "scheduled",
+      "period": "지연"
     },
     "2026-08-03|mlb|클리블랜드 가디언스|애리조나": {
       "date": "2026-08-03",
@@ -921,10 +921,10 @@
       "gameId": "20260803AZCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "애리조나 다이아몬드백스",
-      "homeScore": 0,
+      "homeScore": 5,
       "awayScore": 0,
-      "status": "live",
-      "period": "1회초"
+      "status": "scheduled",
+      "period": "지연"
     },
     "2026-08-03|mlb|클리블랜드 가디언스|애리조나 다이아몬드백스": {
       "date": "2026-08-03",
@@ -932,10 +932,10 @@
       "gameId": "20260803AZCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "애리조나 다이아몬드백스",
-      "homeScore": 0,
+      "homeScore": 5,
       "awayScore": 0,
-      "status": "live",
-      "period": "1회초"
+      "status": "scheduled",
+      "period": "지연"
     },
     "2026-08-03|mlb|탬파베이|시카고W": {
       "date": "2026-08-03",
@@ -944,9 +944,9 @@
       "homeTeam": "탬파베이 레이스",
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 5,
       "status": "live",
-      "period": "1회초"
+      "period": "7회말"
     },
     "2026-08-03|mlb|탬파베이|시카고 화이트삭스": {
       "date": "2026-08-03",
@@ -955,9 +955,9 @@
       "homeTeam": "탬파베이 레이스",
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 5,
       "status": "live",
-      "period": "1회초"
+      "period": "7회말"
     },
     "2026-08-03|mlb|탬파베이 레이스|시카고W": {
       "date": "2026-08-03",
@@ -966,9 +966,9 @@
       "homeTeam": "탬파베이 레이스",
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 5,
       "status": "live",
-      "period": "1회초"
+      "period": "7회말"
     },
     "2026-08-03|mlb|탬파베이 레이스|시카고 화이트삭스": {
       "date": "2026-08-03",
@@ -977,9 +977,9 @@
       "homeTeam": "탬파베이 레이스",
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 5,
       "status": "live",
-      "period": "1회초"
+      "period": "7회말"
     },
     "2026-08-03|mlb|뉴욕메츠|마이애미": {
       "date": "2026-08-03",
@@ -988,9 +988,9 @@
       "homeTeam": "뉴욕 메츠",
       "awayTeam": "마이애미 말린스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "7회말"
     },
     "2026-08-03|mlb|뉴욕메츠|마이애미 말린스": {
       "date": "2026-08-03",
@@ -999,9 +999,9 @@
       "homeTeam": "뉴욕 메츠",
       "awayTeam": "마이애미 말린스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "7회말"
     },
     "2026-08-03|mlb|뉴욕 메츠|마이애미": {
       "date": "2026-08-03",
@@ -1010,9 +1010,9 @@
       "homeTeam": "뉴욕 메츠",
       "awayTeam": "마이애미 말린스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "7회말"
     },
     "2026-08-03|mlb|뉴욕 메츠|마이애미 말린스": {
       "date": "2026-08-03",
@@ -1021,9 +1021,9 @@
       "homeTeam": "뉴욕 메츠",
       "awayTeam": "마이애미 말린스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "7회말"
     },
     "2026-08-03|mlb|신시내티|피츠버그": {
       "date": "2026-08-03",
@@ -1031,10 +1031,10 @@
       "gameId": "20260803PICI0",
       "homeTeam": "신시내티 레즈",
       "awayTeam": "피츠버그 파이리츠",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 7,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "4회말"
     },
     "2026-08-03|mlb|신시내티|피츠버그 파이리츠": {
       "date": "2026-08-03",
@@ -1042,10 +1042,10 @@
       "gameId": "20260803PICI0",
       "homeTeam": "신시내티 레즈",
       "awayTeam": "피츠버그 파이리츠",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 7,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "4회말"
     },
     "2026-08-03|mlb|신시내티 레즈|피츠버그": {
       "date": "2026-08-03",
@@ -1053,10 +1053,10 @@
       "gameId": "20260803PICI0",
       "homeTeam": "신시내티 레즈",
       "awayTeam": "피츠버그 파이리츠",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 7,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "4회말"
     },
     "2026-08-03|mlb|신시내티 레즈|피츠버그 파이리츠": {
       "date": "2026-08-03",
@@ -1064,10 +1064,10 @@
       "gameId": "20260803PICI0",
       "homeTeam": "신시내티 레즈",
       "awayTeam": "피츠버그 파이리츠",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 7,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "4회말"
     },
     "2026-08-03|mlb|휴스턴|텍사스": {
       "date": "2026-08-03",
@@ -1075,10 +1075,10 @@
       "gameId": "20260803TEHO0",
       "homeTeam": "휴스턴 애스트로스",
       "awayTeam": "텍사스 레인저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "live",
+      "period": "5회말"
     },
     "2026-08-03|mlb|휴스턴|텍사스 레인저스": {
       "date": "2026-08-03",
@@ -1086,10 +1086,10 @@
       "gameId": "20260803TEHO0",
       "homeTeam": "휴스턴 애스트로스",
       "awayTeam": "텍사스 레인저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "live",
+      "period": "5회말"
     },
     "2026-08-03|mlb|휴스턴 애스트로스|텍사스": {
       "date": "2026-08-03",
@@ -1097,10 +1097,10 @@
       "gameId": "20260803TEHO0",
       "homeTeam": "휴스턴 애스트로스",
       "awayTeam": "텍사스 레인저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "live",
+      "period": "5회말"
     },
     "2026-08-03|mlb|휴스턴 애스트로스|텍사스 레인저스": {
       "date": "2026-08-03",
@@ -1108,10 +1108,10 @@
       "gameId": "20260803TEHO0",
       "homeTeam": "휴스턴 애스트로스",
       "awayTeam": "텍사스 레인저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "live",
+      "period": "5회말"
     },
     "2026-08-03|mlb|시카고컵스|뉴욕양키스": {
       "date": "2026-08-03",
@@ -1119,10 +1119,10 @@
       "gameId": "20260803NYCC0",
       "homeTeam": "시카고 컵스",
       "awayTeam": "뉴욕 양키스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "live",
+      "period": "5회초"
     },
     "2026-08-03|mlb|시카고컵스|뉴욕 양키스": {
       "date": "2026-08-03",
@@ -1130,10 +1130,10 @@
       "gameId": "20260803NYCC0",
       "homeTeam": "시카고 컵스",
       "awayTeam": "뉴욕 양키스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "live",
+      "period": "5회초"
     },
     "2026-08-03|mlb|시카고 컵스|뉴욕양키스": {
       "date": "2026-08-03",
@@ -1141,10 +1141,10 @@
       "gameId": "20260803NYCC0",
       "homeTeam": "시카고 컵스",
       "awayTeam": "뉴욕 양키스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "live",
+      "period": "5회초"
     },
     "2026-08-03|mlb|시카고 컵스|뉴욕 양키스": {
       "date": "2026-08-03",
@@ -1152,10 +1152,10 @@
       "gameId": "20260803NYCC0",
       "homeTeam": "시카고 컵스",
       "awayTeam": "뉴욕 양키스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "live",
+      "period": "5회초"
     },
     "2026-08-03|mlb|콜로라도|캔자스시티": {
       "date": "2026-08-03",
@@ -1163,10 +1163,10 @@
       "gameId": "20260803KCCO0",
       "homeTeam": "콜로라도 로키스",
       "awayTeam": "캔자스시티 로열스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     "2026-08-03|mlb|콜로라도|캔자스시티 로열스": {
       "date": "2026-08-03",
@@ -1174,10 +1174,10 @@
       "gameId": "20260803KCCO0",
       "homeTeam": "콜로라도 로키스",
       "awayTeam": "캔자스시티 로열스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     "2026-08-03|mlb|콜로라도 로키스|캔자스시티": {
       "date": "2026-08-03",
@@ -1185,10 +1185,10 @@
       "gameId": "20260803KCCO0",
       "homeTeam": "콜로라도 로키스",
       "awayTeam": "캔자스시티 로열스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     "2026-08-03|mlb|콜로라도 로키스|캔자스시티 로열스": {
       "date": "2026-08-03",
@@ -1196,10 +1196,10 @@
       "gameId": "20260803KCCO0",
       "homeTeam": "콜로라도 로키스",
       "awayTeam": "캔자스시티 로열스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     "2026-08-03|mlb|LA에인절스|밀워키": {
       "date": "2026-08-03",
@@ -1209,8 +1209,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     "2026-08-03|mlb|LA에인절스|밀워키 브루어스": {
       "date": "2026-08-03",
@@ -1220,8 +1220,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     "2026-08-03|mlb|LA 에인절스|밀워키": {
       "date": "2026-08-03",
@@ -1231,8 +1231,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     "2026-08-03|mlb|LA 에인절스|밀워키 브루어스": {
       "date": "2026-08-03",
@@ -1242,8 +1242,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     "2026-08-03|mlb|애슬레틱스|디트로이트": {
       "date": "2026-08-03",
@@ -2995,8 +2995,8 @@
       "awayTeam": "코펜하겐",
       "homeScore": 1,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 39'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -3318,24 +3318,24 @@
     {
       "date": "2026-08-03",
       "categoryId": "mlb",
-      "gameId": "20260803MOAT0",
-      "homeTeam": "애틀랜타 브레이브스",
-      "awayTeam": "워싱턴 내셔널스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1회말"
-    },
-    {
-      "date": "2026-08-03",
-      "categoryId": "mlb",
       "gameId": "20260803PHBA0",
       "homeTeam": "볼티모어 오리올스",
       "awayTeam": "필라델피아 필리스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 2,
+      "status": "scheduled",
+      "period": "지연"
+    },
+    {
+      "date": "2026-08-03",
+      "categoryId": "mlb",
+      "gameId": "20260803MOAT0",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "워싱턴 내셔널스",
+      "homeScore": 3,
+      "awayScore": 2,
       "status": "live",
-      "period": "1회말"
+      "period": "7회말"
     },
     {
       "date": "2026-08-03",
@@ -3344,9 +3344,9 @@
       "homeTeam": "토론토 블루제이스",
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "8회말"
     },
     {
       "date": "2026-08-03",
@@ -3354,10 +3354,10 @@
       "gameId": "20260803AZCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "애리조나 다이아몬드백스",
-      "homeScore": 0,
+      "homeScore": 5,
       "awayScore": 0,
-      "status": "live",
-      "period": "1회초"
+      "status": "scheduled",
+      "period": "지연"
     },
     {
       "date": "2026-08-03",
@@ -3366,9 +3366,9 @@
       "homeTeam": "탬파베이 레이스",
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 5,
       "status": "live",
-      "period": "1회초"
+      "period": "7회말"
     },
     {
       "date": "2026-08-03",
@@ -3377,9 +3377,9 @@
       "homeTeam": "뉴욕 메츠",
       "awayTeam": "마이애미 말린스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "7회말"
     },
     {
       "date": "2026-08-03",
@@ -3387,10 +3387,10 @@
       "gameId": "20260803PICI0",
       "homeTeam": "신시내티 레즈",
       "awayTeam": "피츠버그 파이리츠",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 7,
+      "awayScore": 1,
       "status": "live",
-      "period": "1회초"
+      "period": "4회말"
     },
     {
       "date": "2026-08-03",
@@ -3398,10 +3398,10 @@
       "gameId": "20260803TEHO0",
       "homeTeam": "휴스턴 애스트로스",
       "awayTeam": "텍사스 레인저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "live",
+      "period": "5회말"
     },
     {
       "date": "2026-08-03",
@@ -3409,10 +3409,10 @@
       "gameId": "20260803NYCC0",
       "homeTeam": "시카고 컵스",
       "awayTeam": "뉴욕 양키스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "live",
+      "period": "5회초"
     },
     {
       "date": "2026-08-03",
@@ -3420,10 +3420,10 @@
       "gameId": "20260803KCCO0",
       "homeTeam": "콜로라도 로키스",
       "awayTeam": "캔자스시티 로열스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     {
       "date": "2026-08-03",
@@ -3433,8 +3433,8 @@
       "awayTeam": "밀워키 브루어스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회초"
     },
     {
       "date": "2026-08-03",
@@ -4282,8 +4282,8 @@
       "awayTeam": "코펜하겐",
       "homeScore": 1,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 39'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
