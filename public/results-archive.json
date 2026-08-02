@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-02T12:14:39.885Z",
+  "lastUpdated": "2026-08-02T14:13:41.036Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -21895,6 +21895,53 @@
         }
       ]
     },
+    "2026-08-02|denmark|미트윌란|호르센스": {
+      "date": "2026-08-02",
+      "categoryId": "denmark",
+      "gameId": "qbTNjjnQU5ZFxFG",
+      "homeTeam": "미트윌란",
+      "awayTeam": "호르센스",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "프랑쿨리노 지유",
+          "minute": 33
+        },
+        {
+          "team": "home",
+          "player": "에팀",
+          "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "에히바티오만",
+          "minute": 78
+        }
+      ]
+    },
+    "2026-08-02|denmark|노르셸란|라네르스": {
+      "date": "2026-08-02",
+      "categoryId": "denmark",
+      "gameId": "YvVNZ3GZMetPPjw",
+      "homeTeam": "노르셸란",
+      "awayTeam": "라네르스",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "노르헤임",
+          "minute": 90,
+          "addedTime": 5
+        }
+      ]
+    },
     "2026-08-02|kbo|NC|KIA": {
       "date": "2026-08-02",
       "categoryId": "kbo",
@@ -21929,6 +21976,244 @@
       "status": "finished",
       "period": "9회초",
       "highlightVideoId": "9OTJOY5-usI"
+    },
+    "2026-08-02|kbo|KT|한화": {
+      "date": "2026-08-02",
+      "categoryId": "kbo",
+      "gameId": "20260802HHKT02026",
+      "homeTeam": "KT",
+      "awayTeam": "한화",
+      "homeScore": 12,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "KZDz1QJwq80"
+    },
+    "2026-08-02|kbo|롯데|삼성": {
+      "date": "2026-08-02",
+      "categoryId": "kbo",
+      "gameId": "20260802SSLT02026",
+      "homeTeam": "롯데",
+      "awayTeam": "삼성",
+      "homeScore": 10,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "ZROX33rYD6M"
+    },
+    "2026-08-02|kleague|울산|안양": {
+      "date": "2026-08-02",
+      "categoryId": "kleague",
+      "gameId": "202608020127124",
+      "homeTeam": "울산",
+      "awayTeam": "안양",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "마테우스",
+          "minute": 55
+        },
+        {
+          "team": "home",
+          "player": "야고",
+          "minute": 62
+        },
+        {
+          "team": "home",
+          "player": "이동경",
+          "minute": 72
+        },
+        {
+          "team": "home",
+          "player": "이동경",
+          "minute": 77
+        }
+      ]
+    },
+    "2026-08-02|kleague|제주|인천": {
+      "date": "2026-08-02",
+      "categoryId": "kleague",
+      "gameId": "202608020418126",
+      "homeTeam": "제주",
+      "awayTeam": "인천",
+      "homeScore": 3,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김신진",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "김건희",
+          "minute": 33
+        },
+        {
+          "team": "away",
+          "player": "김건희",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "토비아스",
+          "minute": 45
+        },
+        {
+          "team": "home",
+          "player": "아이아스",
+          "minute": 55
+        },
+        {
+          "team": "away",
+          "player": "이주용",
+          "minute": 61
+        }
+      ]
+    },
+    "2026-08-02|kleague|대전|광주": {
+      "date": "2026-08-02",
+      "categoryId": "kleague",
+      "gameId": "202608021022125",
+      "homeTeam": "대전",
+      "awayTeam": "광주",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루빅손",
+          "minute": 74
+        },
+        {
+          "team": "home",
+          "player": "엄원상",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ]
+    },
+    "2026-08-02|kleague2|부산|서울E": {
+      "date": "2026-08-02",
+      "categoryId": "kleague2",
+      "gameId": "202608020631157",
+      "homeTeam": "부산",
+      "awayTeam": "서울E",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "크리스찬",
+          "minute": 51
+        },
+        {
+          "team": "away",
+          "player": "백지웅",
+          "minute": 71
+        },
+        {
+          "team": "away",
+          "player": "박재용",
+          "minute": 83
+        }
+      ]
+    },
+    "2026-08-02|kleague2|전남|파주": {
+      "date": "2026-08-02",
+      "categoryId": "kleague2",
+      "gameId": "202608020740159",
+      "homeTeam": "전남",
+      "awayTeam": "파주",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "보르하 바스톤",
+          "minute": 64
+        },
+        {
+          "team": "away",
+          "player": "김범수",
+          "minute": 73,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "하남",
+          "minute": 88
+        }
+      ]
+    },
+    "2026-08-02|kleague2|안산|김해": {
+      "date": "2026-08-02",
+      "categoryId": "kleague2",
+      "gameId": "202608023241160",
+      "homeTeam": "안산",
+      "awayTeam": "김해",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "장현수",
+          "minute": 8
+        },
+        {
+          "team": "away",
+          "player": "우제욱",
+          "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "우제욱",
+          "minute": 44
+        },
+        {
+          "team": "home",
+          "player": "류승우",
+          "minute": 90,
+          "addedTime": 4
+        }
+      ]
+    },
+    "2026-08-02|kleague2|김포|경남": {
+      "date": "2026-08-02",
+      "categoryId": "kleague2",
+      "gameId": "202608023620158",
+      "homeTeam": "김포",
+      "awayTeam": "경남",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루이스",
+          "minute": 2
+        },
+        {
+          "team": "away",
+          "player": "김현오",
+          "minute": 37
+        }
+      ]
     },
     "2026-08-02|mlb|토론토 블루제이스|세인트루이스 카디널스": {
       "date": "2026-08-02",
@@ -44395,6 +44680,53 @@
     },
     {
       "date": "2026-08-02",
+      "categoryId": "denmark",
+      "gameId": "qbTNjjnQU5ZFxFG",
+      "homeTeam": "미트윌란",
+      "awayTeam": "호르센스",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "프랑쿨리노 지유",
+          "minute": 33
+        },
+        {
+          "team": "home",
+          "player": "에팀",
+          "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "에히바티오만",
+          "minute": 78
+        }
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "categoryId": "denmark",
+      "gameId": "YvVNZ3GZMetPPjw",
+      "homeTeam": "노르셸란",
+      "awayTeam": "라네르스",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "노르헤임",
+          "minute": 90,
+          "addedTime": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-08-02",
       "categoryId": "kbo",
       "gameId": "20260802HTNC02026",
       "homeTeam": "NC",
@@ -44427,6 +44759,244 @@
       "status": "finished",
       "period": "9회초",
       "highlightVideoId": "9OTJOY5-usI"
+    },
+    {
+      "date": "2026-08-02",
+      "categoryId": "kbo",
+      "gameId": "20260802HHKT02026",
+      "homeTeam": "KT",
+      "awayTeam": "한화",
+      "homeScore": 12,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "KZDz1QJwq80"
+    },
+    {
+      "date": "2026-08-02",
+      "categoryId": "kbo",
+      "gameId": "20260802SSLT02026",
+      "homeTeam": "롯데",
+      "awayTeam": "삼성",
+      "homeScore": 10,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "ZROX33rYD6M"
+    },
+    {
+      "date": "2026-08-02",
+      "categoryId": "kleague",
+      "gameId": "202608020127124",
+      "homeTeam": "울산",
+      "awayTeam": "안양",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "마테우스",
+          "minute": 55
+        },
+        {
+          "team": "home",
+          "player": "야고",
+          "minute": 62
+        },
+        {
+          "team": "home",
+          "player": "이동경",
+          "minute": 72
+        },
+        {
+          "team": "home",
+          "player": "이동경",
+          "minute": 77
+        }
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "categoryId": "kleague",
+      "gameId": "202608020418126",
+      "homeTeam": "제주",
+      "awayTeam": "인천",
+      "homeScore": 3,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김신진",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "김건희",
+          "minute": 33
+        },
+        {
+          "team": "away",
+          "player": "김건희",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "토비아스",
+          "minute": 45
+        },
+        {
+          "team": "home",
+          "player": "아이아스",
+          "minute": 55
+        },
+        {
+          "team": "away",
+          "player": "이주용",
+          "minute": 61
+        }
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "categoryId": "kleague",
+      "gameId": "202608021022125",
+      "homeTeam": "대전",
+      "awayTeam": "광주",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루빅손",
+          "minute": 74
+        },
+        {
+          "team": "home",
+          "player": "엄원상",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "categoryId": "kleague2",
+      "gameId": "202608020631157",
+      "homeTeam": "부산",
+      "awayTeam": "서울E",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "크리스찬",
+          "minute": 51
+        },
+        {
+          "team": "away",
+          "player": "백지웅",
+          "minute": 71
+        },
+        {
+          "team": "away",
+          "player": "박재용",
+          "minute": 83
+        }
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "categoryId": "kleague2",
+      "gameId": "202608020740159",
+      "homeTeam": "전남",
+      "awayTeam": "파주",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "보르하 바스톤",
+          "minute": 64
+        },
+        {
+          "team": "away",
+          "player": "김범수",
+          "minute": 73,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "하남",
+          "minute": 88
+        }
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "categoryId": "kleague2",
+      "gameId": "202608023241160",
+      "homeTeam": "안산",
+      "awayTeam": "김해",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "장현수",
+          "minute": 8
+        },
+        {
+          "team": "away",
+          "player": "우제욱",
+          "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "우제욱",
+          "minute": 44
+        },
+        {
+          "team": "home",
+          "player": "류승우",
+          "minute": 90,
+          "addedTime": 4
+        }
+      ]
+    },
+    {
+      "date": "2026-08-02",
+      "categoryId": "kleague2",
+      "gameId": "202608023620158",
+      "homeTeam": "김포",
+      "awayTeam": "경남",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루이스",
+          "minute": 2
+        },
+        {
+          "team": "away",
+          "player": "김현오",
+          "minute": 37
+        }
+      ]
     },
     {
       "date": "2026-08-02",
