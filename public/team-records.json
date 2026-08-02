@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-02T09:19:58.524Z",
+  "lastUpdated": "2026-08-02T11:06:37.651Z",
   "records": {
     "KBO": {
       "KT": {
@@ -1847,6 +1847,16 @@
           "type": "D"
         }
       },
+      "울산": {
+        "last5": "WLDLD",
+        "win": 9,
+        "lose": 7,
+        "draw": 5,
+        "streak": {
+          "count": 1,
+          "type": "W"
+        }
+      },
       "강원": {
         "last5": "LLDWD",
         "win": 8,
@@ -1857,30 +1867,30 @@
           "type": "L"
         }
       },
-      "울산": {
-        "last5": "WLDLD",
-        "win": 9,
-        "lose": 7,
-        "draw": 4,
-        "streak": {
-          "count": 1,
-          "type": "W"
-        }
-      },
       "안양": {
         "last5": "WWDWL",
         "win": 7,
         "lose": 4,
-        "draw": 9,
+        "draw": 10,
         "streak": {
           "count": 2,
+          "type": "W"
+        }
+      },
+      "제주": {
+        "last5": "WDWDD",
+        "win": 8,
+        "lose": 7,
+        "draw": 6,
+        "streak": {
+          "count": 1,
           "type": "W"
         }
       },
       "인천": {
         "last5": "DWWLL",
         "win": 8,
-        "lose": 8,
+        "lose": 9,
         "draw": 4,
         "streak": {
           "count": 1,
@@ -1895,16 +1905,6 @@
         "streak": {
           "count": 4,
           "type": "L"
-        }
-      },
-      "제주": {
-        "last5": "WDWDD",
-        "win": 7,
-        "lose": 7,
-        "draw": 6,
-        "streak": {
-          "count": 1,
-          "type": "W"
         }
       },
       "김천": {
@@ -1931,7 +1931,7 @@
         "last5": "LDDDD",
         "win": 4,
         "lose": 8,
-        "draw": 8,
+        "draw": 9,
         "streak": {
           "count": 1,
           "type": "L"
@@ -1941,7 +1941,7 @@
         "last5": "LDDLD",
         "win": 1,
         "lose": 12,
-        "draw": 7,
+        "draw": 8,
         "streak": {
           "count": 1,
           "type": "L"
@@ -1949,6 +1949,16 @@
       }
     },
     "K리그2": {
+      "부산": {
+        "last5": "LLWDD",
+        "win": 11,
+        "lose": 4,
+        "draw": 4,
+        "streak": {
+          "count": 2,
+          "type": "L"
+        }
+      },
       "수원": {
         "last5": "DWDLW",
         "win": 11,
@@ -1957,16 +1967,6 @@
         "streak": {
           "count": 1,
           "type": "D"
-        }
-      },
-      "부산": {
-        "last5": "LLWDD",
-        "win": 11,
-        "lose": 4,
-        "draw": 3,
-        "streak": {
-          "count": 2,
-          "type": "L"
         }
       },
       "화성": {
@@ -1979,21 +1979,21 @@
           "type": "W"
         }
       },
-      "수원FC": {
-        "last5": "WDWWD",
-        "win": 9,
-        "lose": 3,
-        "draw": 6,
+      "서울E": {
+        "last5": "WDWLW",
+        "win": 10,
+        "lose": 5,
+        "draw": 4,
         "streak": {
           "count": 1,
           "type": "W"
         }
       },
-      "서울E": {
-        "last5": "WDWLW",
-        "win": 10,
-        "lose": 5,
-        "draw": 3,
+      "수원FC": {
+        "last5": "WDWWD",
+        "win": 9,
+        "lose": 3,
+        "draw": 6,
         "streak": {
           "count": 1,
           "type": "W"
@@ -2009,6 +2009,12 @@
           "type": "L"
         }
       },
+      "김포": {
+        "last5": "DDLLD",
+        "win": 7,
+        "lose": 4,
+        "draw": 8
+      },
       "충남아산": {
         "last5": "WLLDW",
         "win": 7,
@@ -2019,16 +2025,10 @@
           "type": "W"
         }
       },
-      "김포": {
-        "last5": "DDLLD",
-        "win": 6,
-        "lose": 4,
-        "draw": 8
-      },
       "경남": {
         "last5": "DWDWD",
         "win": 6,
-        "lose": 6,
+        "lose": 7,
         "draw": 6,
         "streak": {
           "count": 1,
@@ -2079,7 +2079,7 @@
         "last5": "LDWLL",
         "win": 5,
         "lose": 10,
-        "draw": 3,
+        "draw": 4,
         "streak": {
           "count": 1,
           "type": "L"
@@ -2089,7 +2089,7 @@
         "last5": "WLWLL",
         "win": 5,
         "lose": 11,
-        "draw": 2,
+        "draw": 3,
         "streak": {
           "count": 1,
           "type": "W"
@@ -2099,7 +2099,7 @@
         "last5": "DWLDD",
         "win": 2,
         "lose": 9,
-        "draw": 7,
+        "draw": 8,
         "streak": {
           "count": 1,
           "type": "D"
@@ -2109,7 +2109,7 @@
         "last5": "DWLDL",
         "win": 2,
         "lose": 11,
-        "draw": 4,
+        "draw": 5,
         "streak": {
           "count": 1,
           "type": "D"

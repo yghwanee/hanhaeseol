@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-02T09:19:43.624Z",
+  "lastUpdated": "2026-08-02T11:06:23.412Z",
   "byKey": {
     "2026-08-01|kbo|NC|KIA": {
       "date": "2026-08-01",
@@ -88,10 +88,10 @@
       "gameId": "20260802HHKT02026",
       "homeTeam": "KT",
       "awayTeam": "한화",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "1회말"
+      "period": "6회말"
     },
     "2026-08-02|kbo|두산|LG": {
       "date": "2026-08-02",
@@ -99,10 +99,10 @@
       "gameId": "20260802LGOB02026",
       "homeTeam": "두산",
       "awayTeam": "LG",
-      "homeScore": 1,
-      "awayScore": 0,
+      "homeScore": 6,
+      "awayScore": 3,
       "status": "live",
-      "period": "2회초"
+      "period": "7회초"
     },
     "2026-08-02|kbo|롯데|삼성": {
       "date": "2026-08-02",
@@ -110,10 +110,10 @@
       "gameId": "20260802SSLT02026",
       "homeTeam": "롯데",
       "awayTeam": "삼성",
-      "homeScore": 0,
+      "homeScore": 7,
       "awayScore": 0,
       "status": "live",
-      "period": "1회초"
+      "period": "5회말"
     },
     "2026-08-01|mlb|시카고컵스|뉴욕양키스": {
       "date": "2026-08-01",
@@ -2772,7 +2772,7 @@
         {
           "team": "home",
           "player": "발로우",
-          "minute": 80
+          "minute": 79
         },
         {
           "team": "home",
@@ -2816,7 +2816,7 @@
         {
           "team": "home",
           "player": "발로우",
-          "minute": 80
+          "minute": 79
         },
         {
           "team": "home",
@@ -2860,7 +2860,7 @@
         {
           "team": "home",
           "player": "발로우",
-          "minute": 80
+          "minute": 79
         },
         {
           "team": "home",
@@ -2904,7 +2904,7 @@
         {
           "team": "home",
           "player": "발로우",
-          "minute": 80
+          "minute": 79
         },
         {
           "team": "home",
@@ -3052,8 +3052,8 @@
       "awayTeam": "안양",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 36'"
     },
     "2026-08-02|kleague|제주|인천": {
       "date": "2026-08-02",
@@ -3061,10 +3061,22 @@
       "gameId": "202608020418126",
       "homeTeam": "제주",
       "awayTeam": "인천",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 37'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김신진",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "김건희",
+          "minute": 33
+        }
+      ]
     },
     "2026-08-02|kleague|대전|광주": {
       "date": "2026-08-02",
@@ -3074,8 +3086,8 @@
       "awayTeam": "광주",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 36'"
     },
     "2026-08-01|kleague2|충남아산|성남": {
       "date": "2026-08-01",
@@ -3222,8 +3234,8 @@
       "awayTeam": "서울E",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 37'"
     },
     "2026-08-02|kleague2|전남|파주": {
       "date": "2026-08-02",
@@ -3233,8 +3245,8 @@
       "awayTeam": "파주",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 37'"
     },
     "2026-08-02|kleague2|안산|김해": {
       "date": "2026-08-02",
@@ -3242,10 +3254,22 @@
       "gameId": "202608023241160",
       "homeTeam": "안산",
       "awayTeam": "김해",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 37'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "장현수",
+          "minute": 9
+        },
+        {
+          "team": "away",
+          "player": "우제욱",
+          "minute": 14
+        }
+      ]
     },
     "2026-08-02|kleague2|김포|경남": {
       "date": "2026-08-02",
@@ -3253,10 +3277,17 @@
       "gameId": "202608023620158",
       "homeTeam": "김포",
       "awayTeam": "경남",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 36'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루이스",
+          "minute": 2
+        }
+      ]
     },
     "2026-08-02|denmark|링비|AGF": {
       "date": "2026-08-02",
@@ -3425,10 +3456,10 @@
       "gameId": "20260802HHKT02026",
       "homeTeam": "KT",
       "awayTeam": "한화",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "1회말"
+      "period": "6회말"
     },
     {
       "date": "2026-08-02",
@@ -3436,10 +3467,10 @@
       "gameId": "20260802LGOB02026",
       "homeTeam": "두산",
       "awayTeam": "LG",
-      "homeScore": 1,
-      "awayScore": 0,
+      "homeScore": 6,
+      "awayScore": 3,
       "status": "live",
-      "period": "2회초"
+      "period": "7회초"
     },
     {
       "date": "2026-08-02",
@@ -3447,10 +3478,10 @@
       "gameId": "20260802SSLT02026",
       "homeTeam": "롯데",
       "awayTeam": "삼성",
-      "homeScore": 0,
+      "homeScore": 7,
       "awayScore": 0,
       "status": "live",
-      "period": "1회초"
+      "period": "5회말"
     },
     {
       "date": "2026-08-01",
@@ -4306,7 +4337,7 @@
         {
           "team": "home",
           "player": "발로우",
-          "minute": 80
+          "minute": 79
         },
         {
           "team": "home",
@@ -4426,8 +4457,8 @@
       "awayTeam": "안양",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 36'"
     },
     {
       "date": "2026-08-02",
@@ -4435,10 +4466,22 @@
       "gameId": "202608020418126",
       "homeTeam": "제주",
       "awayTeam": "인천",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 37'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김신진",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "김건희",
+          "minute": 33
+        }
+      ]
     },
     {
       "date": "2026-08-02",
@@ -4448,8 +4491,8 @@
       "awayTeam": "광주",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 36'"
     },
     {
       "date": "2026-08-01",
@@ -4596,8 +4639,8 @@
       "awayTeam": "서울E",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 37'"
     },
     {
       "date": "2026-08-02",
@@ -4607,8 +4650,8 @@
       "awayTeam": "파주",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 37'"
     },
     {
       "date": "2026-08-02",
@@ -4616,10 +4659,22 @@
       "gameId": "202608023241160",
       "homeTeam": "안산",
       "awayTeam": "김해",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 37'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "장현수",
+          "minute": 9
+        },
+        {
+          "team": "away",
+          "player": "우제욱",
+          "minute": 14
+        }
+      ]
     },
     {
       "date": "2026-08-02",
@@ -4627,10 +4682,17 @@
       "gameId": "202608023620158",
       "homeTeam": "김포",
       "awayTeam": "경남",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 36'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루이스",
+          "minute": 2
+        }
+      ]
     },
     {
       "date": "2026-08-02",
