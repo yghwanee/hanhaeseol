@@ -107,6 +107,7 @@ jobs:
         run: npm run story:make
 
       - name: 이미지/영상을 insta-media 브랜치에 푸시
+        id: media
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -127,32 +128,37 @@ jobs:
       - name: raw.githubusercontent CDN 반영 대기
         run: sleep 30
 
-      # 아래 게시 스텝은 전부 always() — 하나가 실패해도 나머지는 시도한다.
+      # 아래 게시 스텝은 서로 독립이다 — 하나가 실패해도 나머지는 시도한다.
       # 그래야 "5개 중 1개만 실패" 상태로 끝나고, 그 1개만 재실행할 수 있다.
+      #
+      # 🔴 다만 조건이 `always()` 이면 **미디어 준비가 실패했을 때도 게시가 돌았다.**
+      # 카드/릴스/스토리 생성이나 insta-media push 가 깨지면 그 브랜치엔 **어제 미디어**가
+      # 그대로 남아 있고, 게시 스크립트는 raw CDN URL 을 보므로 어제 것을 오늘 다시 올린다.
+      # 그래서 미디어 스텝 성공을 전제로 건다(취소는 그대로 존중 = `!cancelled()`).
       - name: 캐러셀 게시
-        if: ${{ always() && contains(steps.plan.outputs.channels, ',carousel,') }}
+        if: ${{ !cancelled() && steps.media.outcome == 'success' && contains(steps.plan.outputs.channels, ',carousel,') }}
         run: npm run post:ig
 
       - name: 릴스 게시
-        if: ${{ always() && contains(steps.plan.outputs.channels, ',reel,') }}
+        if: ${{ !cancelled() && steps.media.outcome == 'success' && contains(steps.plan.outputs.channels, ',reel,') }}
         run: npm run post:reel
 
       - name: 스토리 게시
-        if: ${{ always() && contains(steps.plan.outputs.channels, ',story,') }}
+        if: ${{ !cancelled() && steps.media.outcome == 'success' && contains(steps.plan.outputs.channels, ',story,') }}
         run: npm run post:story
 
       - name: 유튜브 쇼츠 업로드
-        if: ${{ always() && contains(steps.plan.outputs.channels, ',youtube,') }}
+        if: ${{ !cancelled() && steps.media.outcome == 'success' && contains(steps.plan.outputs.channels, ',youtube,') }}
         run: npm run post:youtube
 
       # 틱톡 전용 릴스(URL 워터마크 제거 변형) 생성 → manifest.reelTiktok 기록.
       # 유튜브 업로드 후 실행해 공용 reel-v2.mp4 / manifest.reel 은 그대로 둠.
       - name: 틱톡 전용 릴스 생성 (URL 워터마크 제거)
-        if: ${{ always() && contains(steps.plan.outputs.channels, ',tiktok,') }}
+        if: ${{ !cancelled() && steps.media.outcome == 'success' && contains(steps.plan.outputs.channels, ',tiktok,') }}
         run: HHS_TIKTOK_VARIANT=1 npm run reel:make:v2
 
       - name: 틱톡 업로드
-        if: ${{ always() && contains(steps.plan.outputs.channels, ',tiktok,') }}
+        if: ${{ !cancelled() && steps.media.outcome == 'success' && contains(steps.plan.outputs.channels, ',tiktok,') }}
         run: npm run post:tiktok
 
       # 성공/실패 모두 채널별 결과를 보고한다. 실패면 안 올라간 채널의 원본 파일도 첨부.

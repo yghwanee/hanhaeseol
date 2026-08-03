@@ -33,11 +33,21 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase --autostash origin main
           git add src/data/starters.json
           if git diff --staged --quiet; then
             echo "No starter changes"
           else
             git commit -m "chore: update starting pitchers"
-            git push
+            # 🔴 재시도 필요. 이 워크플로는 :47 에 돌고 매시 결과 크롤은 :43 에 돈다 —
+            # 결과 크롤이 몇 분 걸리므로 그 push 와 겹쳐 non-fast-forward 로 거절되는 창이 있다.
+            # 종전엔 pull 한 번 뒤 push 한 번이라 그 사이에 끼면 그대로 실패했다.
+            pushed=false
+            for i in 1 2 3 4 5; do
+              if git pull --rebase --autostash origin main && git push; then pushed=true; break; fi
+              echo "push 충돌, 재시도 $i/5..."; sleep 5
+            done
+            if [ "$pushed" != true ]; then
+              echo "::error::5회 재시도에도 push 실패 — 선발투수 데이터가 반영되지 않았습니다."
+              exit 1
+            fi
           fi

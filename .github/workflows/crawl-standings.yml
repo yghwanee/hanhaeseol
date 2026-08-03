@@ -34,8 +34,14 @@ jobs:
             echo "변경 없음"
           else
             git commit -m "chore: update standings data (extra 01:00 KST)"
+            # 5회를 다 쓰고도 실패하면 실패시킨다(루프 마지막이 sleep 이라 무성 성공하던 것 수정).
+            pushed=false
             for i in 1 2 3 4 5; do
-              git pull --rebase --autostash origin main && git push && break
+              if git pull --rebase --autostash origin main && git push; then pushed=true; break; fi
               echo "push 충돌, 재시도 $i/5..."; sleep 5
             done
+            if [ "$pushed" != true ]; then
+              echo "::error::5회 재시도에도 push 실패 — 순위 데이터가 반영되지 않았습니다."
+              exit 1
+            fi
           fi

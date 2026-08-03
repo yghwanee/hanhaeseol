@@ -298,9 +298,19 @@ src/
     - **검증 요령(재사용)**: 헤드리스에서는 SDK 가 광고를 안 채워 "뜨는지"는 못 보지만 **리마운트 여부는 볼 수 있다.** 광고와 목록 안 카드에 각각 `dataset` 표식을 박고 날짜를 8/03→8/04→8/03 로 옮기면, **카드 표식만 사라지고 광고 표식은 남아야** 정상(실측 그대로 나옴). ins 개수 PC 3·모바일 2 중복 없음, 위치는 마지막 오전(10:50)과 첫 오후(15:00) 사이, PC 728 breakout 정상(x=356 = 1440 정중앙), 가로 스크롤 0. tsc·ESLint·build 통과. 실제 채워짐은 사용자가 라이브에서 확인 완료.
     - **남은 관측**: 애드핏 대시보드에서 인라인 유닛(`한해설_PC_인라인`·`한해설_Mobile_인라인`) 노출수가 뛰는지. 그동안 첫 렌더 1회분만 잡히고 있었으므로 수치가 눈에 띄게 올라야 진짜 검증이다.
 
+78. 🔴 스케줄러 무성 실패 3종 + 홈 payload 49.5KB 절감 (2026-08-03) — 전체 코드/워크플로 최종 점검. 라이브 장애는 없었지만 **실패해도 초록으로 끝나는 경로**가 여럿 있었다.
+    - **🔴 push 재시도 루프가 소진돼도 스텝이 exit 0 이었다** (`crawl.yml`·`crawl-results.yml`·`crawl-standings.yml`). 루프의 마지막 명령이 `sleep` 이라 종료코드가 0. 편성·결과·순위가 몇 시간째 안 올라가도 Actions 는 계속 초록. `crawl.yml` 은 그 위에 `updated=true` 까지 찍어, **push 도 안 된 SHA 로 Vercel 배포를 6분 기다리다 TIMEOUT** — 실패 원인이 "빌드 실패"로 잘못 보고되는 경로였다. → `pushed` 플래그 + 소진 시 `exit 1`. **버그 버전을 실제로 돌려 exit 0 이 나오는 것, 고친 버전이 exit 1 을 내는 것 둘 다 `bash -e` 로 실증했다.**
+    - **재시도가 아예 없던 곳 둘** (`crawl-starters.yml` :47 / `generate-match-insights.yml`). 매시 결과 크롤이 :13·:43 에 돌고 몇 분 걸리므로 겹치는 창이 실재한다. pull 한 번 → push 한 번이라 그 사이에 끼면 그대로 실패. → 같은 재시도 루프로 통일. starters 는 `pull` 을 `add` 앞에서 뒤로 옮겨 **커밋 후 리베이스**(autostash 의존 제거).
+    - **🔴 미디어 준비가 실패해도 게시가 돌았다** (인스타 오전·저녁). 게시 스텝 조건이 `always()` 라, 카드/릴스/스토리 생성이나 `insta-media` push 가 깨져도 게시가 진행된다. 그 브랜치엔 **어제 미디어가 그대로 남아 있고** 게시 스크립트는 raw CDN URL 을 보므로 **어제 것을 오늘 다시 올린다.** → push 스텝에 `id: media` 를 주고 조건을 `!cancelled() && steps.media.outcome == 'success'` 로. 게시 채널끼리의 독립성(작업76)은 그대로 유지된다.
+    - **텔레그램 `curl -s` 무성 실패 2곳**(`notify-match-insights`·`social-stats`). 400 이어도 exit 0 이라 알림이 안 가도 초록. → 응답 `"ok":true` 검사 + 실패 시 `exit 1`. social-stats 는 4096자 초과 대비 **node 로 문자 단위 자르기**(`cut`/`head` 는 바이트·줄 단위라 한글에서 어긋난다).
+    - **최적화 — 홈 초기 payload 369.5KB → 327.1KB (42.4KB, 11.5%)**: `loadScheduleData()` 가 `schedule.json`(46KB)에 `worldcup.json`(104경기·49.5KB)을 합쳐 돌려주는데, 대회가 끝나(~2026-07-20) 홈 기본 뷰엔 한 경기도 안 걸리면서 **편성표 본체보다 큰 무게**가 매 로드마다 실려 나갔다(작업66에서 발견만 하고 미룬 항목). → `page.tsx pruneSchedulesForClient`(오늘 이후만) + `ScheduleClient` 가 과거 날짜를 열 때 `schedule-archive.json` 과 **같은 지연 fetch 로 `/worldcup.json` 을 받는다.** 리그명이 아니라 **날짜로 자르므로** 다음 대회의 미래 경기는 그대로 통과한다. JSON-LD 는 원본에서 만들어 색인 영향 0.
+    - **재발 방지 가드 `test:workflow-push`**(CI 편입, `test.yml` `paths` 에 `.github/workflows/**` 추가 — 안 넣으면 워크플로만 고친 커밋에서 가드가 안 돈다). 숫자 재시도 루프(`for i in 1 2 3 4 5; do`)만 대상으로 잡는다 — `for row in $rows; do` 같은 **반복 처리 루프**까지 잡으면 항목별 실패 처리(`auto-publish-draft` 의 `|| tg`)가 오탐된다(실제로 걸려서 좁혔다). 버그를 되돌려 fail 나는 것 실증.
+    - **확인만 하고 안 건드린 것**: 8/02 저녁 릴스 실패는 **작업76 이전 워크플로로 돈 마지막 실행**이었고(스텝 이름이 옛것) 원인도 그때 고친 2207052 → 재발 아님. `GH_PAT_SECRETS_WRITE` 는 비어 있지만 틱톡이 refresh token 을 회전시키지 않아 경고만 뜨고 통과(수개월 무사고). `middleware` 가 `?date=` 를 301 로 떼는데 `ScheduleClient` 는 여전히 그 파라미터를 URL 에 쓴다 — 공유 링크에서 날짜가 빠질 뿐 크래시는 없어 이번 스코프 밖.
+    - 검증: tsc · ESLint · **테스트 159/159**(신규 3) · 빌드 425 페이지 · 워크플로 13개 YAML 파싱 · 재시도 루프 `bash -e` 동작 실측(성공/pull실패/push실패) · **프로덕션 서버 헤드리스 실측 13항목 전부 통과**(홈에 월드컵 0건, 초기 로드에서 `worldcup.json` 미요청, 과거 날짜 진입 시 지연 fetch 발생 + 결승 `스페인 vs 아르헨티나` 표시, 콘솔 에러 0).
+
 ### 다음 작업 (예정)
 - **후원 버튼 — 라이브 가동 중**(작업67·73). Vercel 환경변수 주입 완료(라이브 홈에 배너 렌더 확인). 변수는 `NEXT_PUBLIC_DONATE_BANK`·`_ACCOUNT`(필수) / `_HOLDER`(선택) / 카카오페이는 **티어별 `_KAKAOPAY_1900`·`_4900`·`_9900`**(`_URL`+`_AMOUNT` 쌍은 폐기, 작업68). 값 바꾸면 **재배포 필요**(`NEXT_PUBLIC_*` 는 빌드시 인라인). ~~남은 것: 채운에 같은 컴포넌트 이식~~ **완료(2026-07-31, 작업75)** — 두 사이트가 **같은 계좌·같은 카카오 링크 3개**를 쓰므로 계좌를 바꾸면 **양쪽 Vercel 환경변수를 다 고쳐야 한다.**
-- **홈 payload에서 worldcup.json 50KB 트리밍 (작업66 발견, 미조치)** — `page.tsx`가 대회 끝난 월드컵 일정 전체를 매 홈 로드마다 클라이언트로 무조건 실어보냄(기본 7일 뷰엔 절대 안 걸리는데 archive 브랜치용으로만 필요). `schedule-archive.json`처럼 지연 fetch로 옮기면 절감되지만 `ScheduleClient`의 prop 구조를 건드려야 해서 별도 작업으로 미룸.
+- ~~**홈 payload에서 worldcup.json 50KB 트리밍 (작업66 발견)**~~ **완료(2026-08-03, 작업78)** — 369.5KB → 327.1KB. 오늘 이후만 클라로 보내고, 과거 날짜를 열 때 `/worldcup.json` 을 지연 fetch 한다.
 - **팀명 alias 미스매치 재점검 (유럽 개막 2026-08~)** — 2026-07-23 LAFC 3-1 솔트레이크 스코어가 안 뜨던 버그(네이버 `솔트 레이크`↔스케줄 `레알 솔트레이크`/`솔트레이크` alias 다리 없음, 마이애미·신시내티도 동일) 수정 후, 오프시즌 리그(EPL·라리가·세리에A·리그1·분데스 등)는 스케줄에 경기가 없어 **오프라인 검증 불가**로 남김. 유효 검증은 스케줄↔결과 실표기 대조뿐(alias 키 vs 결과 primary 비교는 무효 — primary는 매핑 후 값이라 네이버 원본표기 모름). **개막 후 `npm run crawl && npm run crawl:results && npm run audit:aliases` 실행** → `MISS>0` 나오는 리그만 `team-name-aliases.ts`에 네이버 표기 키 보정. 감사 스크립트 = `src/scripts/audit-aliases.ts`.
 - 🔴 **네이버·GSC 지표 재확인 (2026-08 중순)** — 2026-07-20 + **07-28(작업62)** 조치들의 효과 판정. searchadvisor.naver.com → 리포트. 볼 것: ①사이트 진단 색인 수(880 기준) ②해설 쿼리 노출(407 기준) ③`/team/`·`/commentary` 노출 발생 여부 ④매치 페이지 디스커버 노출(작업62에서 `max-image-preview:large` 복구됨 — 그전엔 91%가 후보에서 빠져 있었으니 **여기가 가장 큰 변화 지점**). **사용자만 뽑을 수 있음(스크린샷이면 충분).**
 - **유튜브 중복 게시 정리** — 아침·저녁 세트가 같은 제목 영상을 매일 2개 올림(작업57). 유튜브가 중복을 배포에서 누를 수 있음.
@@ -352,6 +362,7 @@ npm run test:schedule-quality      # 파싱 실패 편성(리그=연도, 팀명�
 npm run test:sitemap-consistency   # 🔴 사이트맵 포함 여부 ↔ 페이지 noindex 일치(슬러그 충돌 228종)
 npm run test:team-name-hygiene     # 팀명에 날짜·시간·괄호 조각 유입 차단 + 데이터 전수 스캔
 npm run test:autolink              # 가이드 자동 내부링크(한국어 조사 처리 포함)
+npm run test:workflow-push         # 🔴 스케줄러 push 재시도 루프가 소진 시 실패하는지(무성 실패 차단)
 npm run seo:indexnow     # IndexNow 통지(리그·플랫폼·순위·가이드·팀 86 + /commentary = ~156 URL)
 npm run audit:aliases   # 팀명 alias 미스매치 감사 (결과 있는데 스코어 안 뜨는 유형). 개막 후 crawl:results 뒤 실행
 npm run news:digest      # 네이버 뉴스 → docs/news-digest.md (NAVER_API_KEY_ID/NAVER_API_KEY 필요)

@@ -62,13 +62,21 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git pull --rebase --autostash origin main
           git add src/data/match-insights/ src/data/insights-summary.json
           if git diff --staged --quiet; then
             echo "updated=false" >> $GITHUB_OUTPUT
             echo "No insight changes"
           else
             git commit -m "chore: regenerate match insights"
-            git push
+            # 매시 결과 크롤(:13/:43)과 겹치면 non-fast-forward 로 거절된다 → 재시도.
+            pushed=false
+            for i in 1 2 3 4 5; do
+              if git pull --rebase --autostash origin main && git push; then pushed=true; break; fi
+              echo "push 충돌, 재시도 $i/5..."; sleep 5
+            done
+            if [ "$pushed" != true ]; then
+              echo "::error::5회 재시도에도 push 실패 — 인사이트가 반영되지 않았습니다."
+              exit 1
+            fi
             echo "updated=true" >> $GITHUB_OUTPUT
           fi

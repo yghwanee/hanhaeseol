@@ -93,6 +93,9 @@ export default function ScheduleClient({
   // 영구 누적 데이터라 크기가 크므로 초기 로드에 포함하지 않음.
   const [archive, setArchive] = useState<ScheduleData | null>(null);
   const [archiveResults, setArchiveResults] = useState<ResultsData | null>(null);
+  // 월드컵 편성(worldcup.json). 끝난 대회라 오늘 이후 뷰엔 한 경기도 안 걸리는데 49.5KB 나
+  // 되므로 초기 payload 에서 빼고(page.tsx pruneSchedulesForClient) 과거 날짜에서만 받는다.
+  const [worldcupArchive, setWorldcupArchive] = useState<Schedule[]>([]);
   const [archiveLoading, setArchiveLoading] = useState(false);
   const [archiveError, setArchiveError] = useState(false);
   const [datepickerOpen, setDatepickerOpen] = useState(false);
@@ -108,12 +111,16 @@ export default function ScheduleClient({
     Promise.all([
       fetch("/schedule-archive.json").then((r) => (r.ok ? r.json() : null)),
       fetch("/results-archive.json").then((r) => (r.ok ? r.json() : null)).catch(() => null),
+      // 월드컵은 schedule-archive.json 에 누적되지 않아 별도 파일이 필요하다.
+      // 실패해도 나머지 과거 편성은 정상 표시돼야 하므로 에러로 올리지 않는다.
+      fetch("/worldcup.json").then((r) => (r.ok ? r.json() : null)).catch(() => null),
     ])
-      .then(([sch, res]) => {
+      .then(([sch, res, wc]) => {
         // schedule-archive 를 못 받으면 빈 목록이 "편성 없음"으로 잘못 보이므로 에러로 구분.
         if (sch) setArchive(sch);
         else setArchiveError(true);
         if (res) setArchiveResults(res);
+        if (wc?.schedules) setWorldcupArchive(wc.schedules as Schedule[]);
       })
       .catch((e) => {
         console.error("archive fetch failed", e);
@@ -303,21 +310,17 @@ export default function ScheduleClient({
   // 2026 북중미 월드컵 전용 뷰(전용 필터 칩·브래킷 페이지)는 대회 종료 후 제거했다
   // (2026-07-30). worldcup.json 자체와 이 병합은 남겨둔다 — 과거 날짜(archive 모드)에서도
   // 월드컵 경기가 정상 표시되게 하고, 이미 발행된 가이드 글·매치 페이지 링크를 안 깨뜨리려면
-  // 데이터는 계속 필요하다.
-  const worldcupSchedules = useMemo(
-    () => data.schedules.filter((s) => s.league.startsWith("북중미 월드컵")),
-    [data],
-  );
+  // 데이터는 계속 필요하다. 다만 **초기 payload 가 아니라 과거 날짜를 열 때 받는다**(위 effect).
   const filtered = useMemo(() => {
     // 과거 날짜는 archive에서, 오늘 이후는 schedule.json에서 데이터를 가져온다.
     const source = isArchiveDate ? archive : data;
     if (!source) return [];
     const q = deferredSearchQuery.trim().toLowerCase();
     // 월드컵은 worldcup.json으로 분리 관리돼 schedule-archive.json에 누적되지 않는다.
-    // 과거 날짜(archive 모드)에서도 월드컵 경기가 보이도록, data에 병합돼 있는 대회 전체
-    // 일정(worldcupSchedules)을 합친다. (worldcup id는 archive와 겹치지 않아 중복 없음)
+    // 과거 날짜(archive 모드)에서도 월드컵 경기가 보이도록, 지연 fetch 로 받아둔 대회 전체
+    // 일정(worldcupArchive)을 합친다. (worldcup id는 archive와 겹치지 않아 중복 없음)
     const sourceSchedules = isArchiveDate
-      ? [...source.schedules, ...worldcupSchedules]
+      ? [...source.schedules, ...worldcupArchive]
       : source.schedules;
     return sourceSchedules
       .filter((s) => s.date === selectedDate)
@@ -343,7 +346,7 @@ export default function ScheduleClient({
         );
       })
       .sort((a, b) => a.time.localeCompare(b.time));
-  }, [data, archive, worldcupSchedules, isArchiveDate, selectedDate, deferredSport, deferredPlatform, deferredCommentary, deferredSearchQuery]);
+  }, [data, archive, worldcupArchive, isArchiveDate, selectedDate, deferredSport, deferredPlatform, deferredCommentary, deferredSearchQuery]);
 
   // 라이브 폴링 결과를 빌드시 results 위에 머지(진행중 경기 byKey만 덮어씀).
   // 키 단위로 "필드 병합"한다(통째 교체 X): 라이브 엔트리에 없는 필드(예: 종료 경기의

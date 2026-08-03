@@ -1,4 +1,4 @@
-import { Schedule } from "@/types/schedule";
+import { Schedule, ScheduleData } from "@/types/schedule";
 import { GAME_DURATION_HOURS, getTodayString } from "@/lib/schedule-utils";
 import { loadScheduleData, loadTeamRecords, loadResults } from "@/lib/server-data";
 import { ResultsData } from "@/types/results";
@@ -77,6 +77,22 @@ function pruneResultsForClient(results: ResultsData | null): ResultsData | null 
   return { lastUpdated: results.lastUpdated, byKey, results: [] };
 }
 
+/**
+ * 클라이언트로 직렬화되는 편성을 홈 날짜 탭 범위(오늘~+6일)로 줄인다.
+ *
+ * `loadScheduleData()` 는 `schedule.json`(7일치, 46KB)에 `worldcup.json`(104경기, 49.5KB)을
+ * 합쳐서 돌려준다. 월드컵은 이미 끝난 대회(~2026-07-20)라 홈 기본 뷰에 **한 경기도** 안 걸리는데
+ * 초기 HTML 에는 통째로 실려 있었다 — 편성표 본체보다 큰 죽은 무게다.
+ * 과거 날짜(archive 모드)에서만 필요하므로, schedule-archive.json 과 같은 지연 fetch 로 옮긴다.
+ *
+ * 날짜 기준으로 자르므로 리그명에 의존하지 않는다 — 다음 대회가 생겨 worldcup.json 에
+ * 미래 경기가 들어오면 그건 그대로 통과한다.
+ */
+function pruneSchedulesForClient(data: ScheduleData): ScheduleData {
+  const todayStr = getTodayString();
+  return { ...data, schedules: data.schedules.filter((s) => s.date >= todayStr) };
+}
+
 /** 홈은 프리렌더 + CDN 캐시로 서빙한다(엣지에서 즉시 = 흰 번쩍 방지의 근본 처방).
  *  searchParams 를 서버에서 읽으면 이 페이지가 동적 렌더로 강등돼 매 요청 함수가
  *  돌고 CDN 캐시가 통째로 꺼진다(no-store). 데이터(schedule.json 등)는 배포 번들
@@ -89,14 +105,18 @@ export const revalidate = 60;
 
 export default function Home() {
   const data = loadScheduleData();
+  const clientData = pruneSchedulesForClient(data);
   // 클라로 직렬화되는 teamRecords 를 화면(7일치)에 나오는 리그로 한정한다. 전 리그 풀맵을
   // 그대로 보내면 비시즌 리그(예: 여름의 EPL/라리가)까지 초기 HTML 에 박혀 낭비. 리그 단위로
   // 통째 보존하므로 lookupTeamRecord 의 league 내 normalize 폴백은 그대로 동작한다.
-  const shownLeagues = new Set(data.schedules.map((s) => s.league));
+  // (기준은 클라로 실제 나가는 목록 — 끝난 대회 리그까지 세면 다시 죽은 무게가 붙는다.)
+  const shownLeagues = new Set(clientData.schedules.map((s) => s.league));
   const teamRecords = Object.fromEntries(
     Object.entries(loadTeamRecords()).filter(([league]) => shownLeagues.has(league)),
   );
   const results = pruneResultsForClient(loadResults());
+  // JSON-LD 는 원본(data)에서 만든다 — 자체적으로 오늘 이후만 고르므로 결과는 같고,
+  // 앞으로 미래 대회가 worldcup.json 으로 들어와도 색인에서 빠지지 않는다.
   const sportsEventsJsonLd = buildSportsEventsJsonLd(data.schedules);
 
   return (
@@ -122,7 +142,11 @@ export default function Home() {
           홈에 있던 FAQPage JSON-LD 도 함께 사라지는데, `/faq` 가 자기 세트로 이미 내보내므로
           같은 사이트에서 두 벌이 도는 상태가 정리된 것이다. */}
       <main>
-        <ScheduleClient initialData={data} teamRecords={teamRecords} results={results} />
+        <ScheduleClient
+          initialData={clientData}
+          teamRecords={teamRecords}
+          results={results}
+        />
       </main>
     </>
   );

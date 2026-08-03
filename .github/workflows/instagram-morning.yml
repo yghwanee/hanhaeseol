@@ -94,6 +94,7 @@ jobs:
         run: npm run story:make
 
       - name: 이미지/영상을 insta-media 브랜치에 푸시
+        id: media
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
@@ -110,20 +111,22 @@ jobs:
       - name: raw.githubusercontent CDN 반영 대기
         run: sleep 10
 
+      # 저녁 워크플로와 같은 규칙: 게시 스텝끼리는 독립이되, 미디어 준비(생성 + insta-media
+      # push)가 실패하면 게시하지 않는다. 그 브랜치엔 어제 미디어가 남아 있어 그대로 재게시된다.
       - name: 캐러셀 게시
-        if: ${{ always() && contains(steps.plan.outputs.channels, ',carousel,') }}
+        if: ${{ !cancelled() && steps.media.outcome == 'success' && contains(steps.plan.outputs.channels, ',carousel,') }}
         run: npm run post:ig
 
       - name: 릴스 게시
-        if: ${{ always() && contains(steps.plan.outputs.channels, ',reel,') }}
+        if: ${{ !cancelled() && steps.media.outcome == 'success' && contains(steps.plan.outputs.channels, ',reel,') }}
         run: npm run post:reel
 
       - name: 스토리 게시
-        if: ${{ always() && contains(steps.plan.outputs.channels, ',story,') }}
+        if: ${{ !cancelled() && steps.media.outcome == 'success' && contains(steps.plan.outputs.channels, ',story,') }}
         run: npm run post:story
 
       - name: 유튜브 쇼츠 업로드
-        if: ${{ always() && contains(steps.plan.outputs.channels, ',youtube,') }}
+        if: ${{ !cancelled() && steps.media.outcome == 'success' && contains(steps.plan.outputs.channels, ',youtube,') }}
         run: npm run post:youtube
 
       # 틱톡은 저녁 워크플로우(instagram.yml)에서만 게시. 오전엔 제외(1일 1회 = 도배 신호 완화).

@@ -52,6 +52,12 @@ jobs:
               console.log(lines.join("\n"));
             ' "$SUMMARY_PATH")
           fi
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+          # curl -s 는 API 가 400 을 줘도 exit 0 이라, 응답의 ok 를 직접 본다.
+          # (2026-07-26 글감 알림이 이 방식으로 조용히 안 가고 있었다 — 같은 함정을 여기서도 막는다.)
+          RESP=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d chat_id="${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text=${MSG}"
+            --data-urlencode "text=${MSG}")
+          case "$RESP" in
+            *'"ok":true'*) echo "텔레그램 전송 완료" ;;
+            *) echo "::error::텔레그램 전송 실패: $RESP"; exit 1 ;;
+          esac

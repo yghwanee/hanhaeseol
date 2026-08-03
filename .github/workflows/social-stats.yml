@@ -46,6 +46,14 @@ jobs:
           REPORT: ${{ steps.stats.outputs.report }}
         run: |
           MSG=$(printf '%s\n' '📊 소셜 채널 실적' '' "${REPORT}")
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+          # 텔레그램 한 메시지 한계 4096자(UTF-8 문자 기준). 넘으면 400 "message is too long"
+          # 인데 curl -s 는 exit 0 이라 조용히 안 간다(2026-07-26 #25 사고와 같은 함정).
+          # cut/head 는 바이트나 줄 단위라 한글에서 어긋난다 → node 로 문자 단위 자르기.
+          MSG=$(node -e 'const s=process.argv[1];process.stdout.write(s.length>3800?s.slice(0,3800)+"\n…(생략)":s)' "$MSG")
+          RESP=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d chat_id="${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text=${MSG}"
+            --data-urlencode "text=${MSG}")
+          case "$RESP" in
+            *'"ok":true'*) echo "텔레그램 전송 완료" ;;
+            *) echo "::error::텔레그램 전송 실패: $RESP"; exit 1 ;;
+          esac
