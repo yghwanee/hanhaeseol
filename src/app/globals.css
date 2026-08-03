@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* 스타일시트 로드 확인용 센티널. head 인라인 스크립트가 이 값을 읽어
+   CSS 가 실제로 적용됐는지 판별한다(에셋 스큐로 /_next/static/css/*.css 가
+   404 나면 값이 비어 있다). document.styleSheets 대신 이 방식을 쓰는 이유:
+   404 응답도 styleSheets 에는 항목으로 잡혀서 개수로는 구분이 안 된다. */
+:root {
+  --hhs-css: 1;
+}
+
 /* 키보드 포커스 가시화 — 여러 컴포넌트가 focus:outline-none 으로 포커스 표시를
    지워, 탭/버튼/입력을 키보드로 탐색할 때 현재 위치가 안 보였다(WCAG 2.4.7).
    focus-visible(키보드 포커스)에만, outline-none(:focus) 보다 우선하도록 !important.

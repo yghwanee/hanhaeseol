@@ -145,6 +145,25 @@ export default function RootLayout({
               "try{if(sessionStorage.getItem('hhs-skip-intro-once'))document.documentElement.classList.add('skip-intro')}catch(e){}",
           }}
         />
+        {/* CSS 유실 자가복구.
+            브라우저가 옛 HTML 을 들고 있으면 그 HTML 이 가리키는
+            /_next/static/css/<contenthash>.css 가 이미 지워져 404 난다(Vercel 은
+            이전 배포의 정적 파일을 안 남긴다). 그러면 Tailwind 가 통째로 없는 채로
+            렌더돼 인트로가 화면을 못 덮고, next/image fill 의 인라인
+            position:absolute;inset:0 이 뷰포트 기준이 되어 상단 배너가 전면 확대된다.
+            (아이폰 사파리에서 실제 신고 — 새로고침하면 정상으로 돌아옴.)
+
+            이 스크립트는 스타일시트 link 뒤에 있고, 스크립트는 앞선 스타일시트 로드를
+            기다리므로 여기서 이미 성패가 갈려 있다. 실패면 첫 페인트 전에 한 번만
+            리로드해 새 HTML 을 받는다. 세션당 1회 — 진짜로 CSS 가 깨진 배포에서
+            무한 새로고침이 되지 않게. sessionStorage 를 못 쓰면(프라이빗 등)
+            리로드하지 않는다. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "try{if(!getComputedStyle(document.documentElement).getPropertyValue('--hhs-css').trim()&&!sessionStorage.getItem('hhs-css-retry')){sessionStorage.setItem('hhs-css-retry','1');location.reload()}}catch(e){}",
+          }}
+        />
         {/* Pretendard CDN 제거 — 브라우저에선 인트로 타이틀만 쓰던 걸 Geist로 바꿔
             더 이상 필요 없음. (렌더 차단 @import도, 폰트 스왑 FOUT 깜빡도 없앰.
             인스타/릴스 이미지 생성용 Pretendard는 node-canvas 로컬 폰트라 무관.) */}

@@ -34,7 +34,14 @@ export function EbookBanner() {
       className="group block"
       style={{ fontFamily: FONT }}
     >
-      <div className="relative mb-6 h-[136px] overflow-hidden rounded-2xl bg-[#150f1b] transition-[filter] group-hover:brightness-[1.06] sm:mb-8 sm:h-[160px]">
+      {/* position/overflow 를 인라인으로도 박는다 — 스타일시트가 유실되면(에셋 스큐로
+          CSS 404) next/image fill 의 인라인 position:absolute;inset:0 이 뷰포트를
+          기준으로 잡아 표지 이미지가 전면 확대된다. 클래스와 같은 값이라 정상 로드
+          시 동작 변화 없음. 높이는 sm 브레이크포인트로 갈려서 클래스에만 둔다. */}
+      <div
+        className="relative mb-6 h-[136px] overflow-hidden rounded-2xl bg-[#150f1b] transition-[filter] group-hover:brightness-[1.06] sm:mb-8 sm:h-[160px]"
+        style={{ position: "relative", overflow: "hidden" }}
+      >
         {/* 표지 유화 — 배너 전체 배경(full-bleed). */}
         <Image
           src="/ebook-banner.jpg"
