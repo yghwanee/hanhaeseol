@@ -27,7 +27,12 @@ export function EbookBanner() {
 
   return (
     <a
-      href="https://fadeby.vercel.app"
+      // 🔴 `fadeby.vercel.app` 이 아니다(2026-08-04 교체). 그 옛 주소는 리다이렉트 없이
+      // 같은 사이트를 200 으로 서빙하고 있어서, 한해설에서 가장 눈에 띄는 이 자리의 링크
+      // 가치가 정작 키우려는 도메인(`fadeby.haeseol.com`)에 안 쌓이고 있었다.
+      // 지금은 옛 주소에 301 을 걸어 뒀지만(fadeby `next.config.mjs`), 링크는 처음부터
+      // 최종 주소를 가리키는 게 맞다 — 리다이렉트를 한 번 타면 그만큼 새기 때문이다.
+      href="https://fadeby.haeseol.com"
       target="_blank"
       rel="noopener noreferrer"
       aria-label="fadeby 『현재가 없는 사람들에게』 읽어 보기 (새 창)"
