@@ -43,7 +43,7 @@
 - [x] 손흥민 LAFC MLS 경기 어디서 보나, 한국어 해설 있나 (slug: son-heungmin-lafc-mls-broadcast-2026)
 - [x] 한국 축구 새 감독 공백기 — 이강인·손흥민 클럽 경기로 빈자리 채우는 법 (slug: korea-football-manager-gap-club-watching)
 - [x] EPL 2026-27 개막 8월 22일 확정 — 쿠팡플레이 스포츠 패스 지금 가입하면 뭘 볼 수 있나 (slug: epl-2026-27-coupang-august-kickoff)
-- [ ] 김민재 분데스리가 2026-27 중계는 어디서 — 뮌헨 경기 볼 수 있는 채널·요금 (slug: kim-min-jae-bundesliga-2026-27)
+- [x] 김민재 분데스리가 2026-27 중계는 어디서 — 뮌헨 경기 볼 수 있는 채널·요금 (slug: kim-min-jae-bundesliga-2026-27)
 - [ ] 이강인 아틀레티코 데뷔전 언제, 마드리드 더비는 9월 — 한국에서 어디서 보나 (slug: lee-kang-in-atletico-debut-schedule-2026)
 - [ ] 스포티비 끄고 쿠팡 켠다 — 중계권 이동으로 2026-27 시즌부터 달라지는 것들 (slug: spotv-to-coupang-sports-rights-2026)
 - [ ] 이강인 빠진 PSG 2026-27, UCL 챔피언스리그 경기 한국에서 어디서 보나 (slug: psg-ucl-2026-27-broadcast)
