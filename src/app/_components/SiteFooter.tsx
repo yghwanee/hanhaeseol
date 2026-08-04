@@ -48,6 +48,23 @@ export function SiteFooter() {
           <PushSubscribeButton />
         </nav>
 
+        {/* 🔴 자매 사이트(채운) 링크는 **여기(서버 렌더 푸터)** 에 있어야 한다.
+         *  좌측 `ChaeunSideBanner` 는 `SideBanners` 가 "use client" + `useAdsReady()`
+         *  게이트라 서버 HTML 에 아예 안 실리고, 그나마도 `hidden xl:flex`(≥1280px)라
+         *  모바일 우선 색인을 하는 구글에는 렌더 후에도 보이지 않는다. 그래서 채운은
+         *  외부 인바운드 링크가 사실상 0 이었고 색인이 잡히지 않았다(2026-08-04 실측:
+         *  haeseol.com 라이브 HTML 에 "chaeun" 문자열 0회). 이 줄이 유일한 발견 경로다.
+         *  배너를 손보더라도 이 링크는 지우지 말 것. */}
+        <p className="mt-6 text-center text-xs text-zinc-500">
+          <a
+            href="https://chaeun.haeseol.com"
+            className="text-zinc-400 underline underline-offset-2 hover:text-white"
+          >
+            채운 彩運
+          </a>
+          {" — 사주 오행으로 보는 배경화면. 같은 사람이 만든 자매 사이트입니다."}
+        </p>
+
         <p className="mt-6 border-t border-zinc-900 pt-5 text-xs leading-relaxed text-zinc-500">
           편성표 데이터는 각 플랫폼의 공식 편성 정보를 기반으로 매일 자동 수집되며, 실시간 편성
           변경이나 우천 취소 등은 반영이 지연될 수 있습니다. 오류 제보·문의는{" "}
