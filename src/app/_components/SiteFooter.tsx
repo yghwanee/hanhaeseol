@@ -48,21 +48,32 @@ export function SiteFooter() {
           <PushSubscribeButton />
         </nav>
 
-        {/* 🔴 자매 사이트(채운) 링크는 **여기(서버 렌더 푸터)** 에 있어야 한다.
+        {/* 🔴 자매 사이트 링크는 **여기(서버 렌더 푸터)** 에 있어야 한다.
          *  좌측 `ChaeunSideBanner` 는 `SideBanners` 가 "use client" + `useAdsReady()`
          *  게이트라 서버 HTML 에 아예 안 실리고, 그나마도 `hidden xl:flex`(≥1280px)라
          *  모바일 우선 색인을 하는 구글에는 렌더 후에도 보이지 않는다. 그래서 채운은
          *  외부 인바운드 링크가 사실상 0 이었고 색인이 잡히지 않았다(2026-08-04 실측:
          *  haeseol.com 라이브 HTML 에 "chaeun" 문자열 0회). 이 줄이 유일한 발견 경로다.
-         *  배너를 손보더라도 이 링크는 지우지 말 것. */}
-        <p className="mt-6 text-center text-xs text-zinc-500">
+         *  배너를 손보더라도 이 링크는 지우지 말 것.
+         *  fadeby 도 같은 이유로 여기 있다 — 그쪽은 배너조차 없었다. */}
+        <p className="mt-6 text-center text-xs leading-relaxed text-zinc-500">
           <a
             href="https://chaeun.haeseol.com"
             className="text-zinc-400 underline underline-offset-2 hover:text-white"
           >
             채운 彩運
           </a>
-          {" — 사주 오행으로 보는 배경화면. 같은 사람이 만든 자매 사이트입니다."}
+          {" — 사주 오행으로 보는 배경화면."}
+          <br />
+          <a
+            href="https://fadeby.haeseol.com"
+            className="text-zinc-400 underline underline-offset-2 hover:text-white"
+          >
+            fadeby
+          </a>
+          {" — 조용한 위로의 시집."}
+          <br />
+          {"같은 사람이 만든 자매 사이트입니다."}
         </p>
 
         <p className="mt-6 border-t border-zinc-900 pt-5 text-xs leading-relaxed text-zinc-500">
