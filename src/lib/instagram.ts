@@ -221,11 +221,56 @@ export function loadAllMatchesForDate(today: string): Schedule[] {
   }
 }
 
+/** YYYY-MM-DD 를 days 만큼 민다. */
+function shiftYmd(ymd: string, days: number): string {
+  const [y, m, d] = ymd.split("-").map(Number);
+  return new Date(Date.UTC(y, m - 1, d + days)).toISOString().slice(0, 10);
+}
+
+// 582KB 라 매번 파싱하지 않는다. 스크립트 1회 실행 동안 파일이 바뀌지 않는다.
+let archiveCache: Schedule[] | null = null;
+
+/**
+ * 아카이브에서 특정 날짜의 한국어 해설 경기를 읽는다.
+ * schedule.json 은 오늘부터 7일치라 어제가 없다 — 과거는 여기서만 나온다.
+ */
+function archivedKoreanMatches(date: string): Schedule[] {
+  if (archiveCache === null) {
+    try {
+      const data: ScheduleData = JSON.parse(
+        fs.readFileSync(path.resolve("public/schedule-archive.json"), "utf-8"),
+      );
+      archiveCache = data.schedules ?? [];
+    } catch {
+      archiveCache = [];
+    }
+  }
+  return archiveCache.filter((s) => s.date === date && s.koreanCommentary === true);
+}
+
+/**
+ * 직전 2일 히어로에 등장한 팀(공백 제거 표기).
+ * 같은 팀이 사흘 내리 주인공이 되는 것을 막는다.
+ *
+ * 여기서 뽑을 때는 감점을 걸지 않는다 — 또 과거를 보면 재귀가 끝나지 않는다.
+ */
+export function recentHeroTeams(today: string): Set<string> {
+  const teams = new Set<string>();
+  for (let back = 1; back <= 2; back++) {
+    const hero = pickHeroMatch(archivedKoreanMatches(shiftYmd(today, -back)));
+    if (!hero) continue;
+    teams.add(hero.homeTeam.replace(/\s+/g, ""));
+    if (hero.awayTeam) teams.add(hero.awayTeam.replace(/\s+/g, ""));
+  }
+  return teams;
+}
+
 /** 그날 히어로 매치: 한국어해설 경기 우선, 없으면 그날 전체 경기에서 폴백. (카드 렌더러 공용) */
 export function pickHeroForDate(today: string): Schedule | null {
+  const recent = recentHeroTeams(today);
   return (
-    pickHeroMatch(loadKoreanMatchesAll(today)) ??
-    pickHeroMatch(loadAllMatchesForDate(today))
+    pickHeroMatch(loadKoreanMatchesAll(today), recent) ??
+    pickHeroMatch(loadAllMatchesForDate(today), recent)
   );
 }
 

@@ -122,3 +122,20 @@ test("내한 가점은 글로벌 빅클럽이 낀 쿠팡플레이 시리즈에�
   // 내한 10 + 한쪽 빅클럽 12 = 22 차이
   assert.equal(heroScore(withBig) - heroScore(withoutBig), 22);
 });
+
+test("직전 2일에 나온 팀은 감점을 받는다", () => {
+  const repeat = club("샌프란시스코 자이언츠", "휴스턴 애스트로스", "MLB", "10:45");
+  const fresh = club("LA 다저스", "캔자스시티 로열스", "MLB", "11:10");
+  // recentTeams 는 정규화(공백 제거) 표기다.
+  const recent = new Set(["샌프란시스코자이언츠", "디트로이트타이거스"]);
+
+  // 감점이 없으면 샌프란시스코가 이긴다(휴스턴도 BIG_TEAMS.MLB 라 bigVsBig).
+  assert.equal(pickHeroMatch([repeat, fresh])?.homeTeam, "샌프란시스코 자이언츠");
+  // 감점이 붙으면 뒤집힌다.
+  assert.equal(pickHeroMatch([repeat, fresh], recent)?.homeTeam, "LA 다저스");
+});
+
+test("recentTeams 가 비면 감점이 없다", () => {
+  const m = club("샌프란시스코 자이언츠", "휴스턴 애스트로스", "MLB", "10:45");
+  assert.equal(heroScore(m, new Set()), heroScore(m));
+});
