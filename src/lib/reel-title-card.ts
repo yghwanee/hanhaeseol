@@ -29,6 +29,25 @@ function aspectSize(aspect: ReelTitleAspect): { W: number; H: number } {
   return aspect === "9:16" ? { W: 1080, H: 1920 } : { W: 1080, H: 1350 };
 }
 
+/**
+ * 아침 커버의 사진/블록 경계.
+ *
+ * 두 슬롯이 같은 날짜·같은 히어로를 대상으로 하다 보니(작업82) 색·정렬·문구 순서만으로는
+ * 썸네일 크기에서 구분이 안 됐다. 아침만 구도를 쪼개 실루엣부터 다르게 한다 —
+ * 아침은 경계선이 있고, 저녁은 풀블리드라 경계선이 없다.
+ *
+ * 폭(W)은 두 비율 모두 1080 이라 글자 크기는 안 바꾸고 Y 좌표만 H 비율로 잡는다.
+ */
+const MORNING_SPLIT_RATIO = 0.665;
+function morningSplitY(H: number): number {
+  return Math.round(H * MORNING_SPLIT_RATIO);
+}
+
+/** 아침 블록·본문 좌우 여백 */
+const MORNING_PAD = 72;
+/** 아침 블록 바탕 */
+const MORNING_BLOCK_BG = "#0b0d12";
+
 function dayOfWeekKr(today: string): string {
   const [y, m, d] = today.split("-").map(Number);
   const dt = new Date(Date.UTC(y, m - 1, d));
@@ -95,27 +114,36 @@ function wrapByWord(ctx: SKRSContext2D, text: string, maxWidth: number): string[
   return lines;
 }
 
-/** 강조 조각만 액센트 색으로 칠하며 중앙 정렬로 그린다. */
+/**
+ * 강조 조각만 액센트 색으로 칠해 그린다.
+ * `anchor` 는 align 이 "center" 면 중심 x, "left" 면 시작 x.
+ */
 function drawAccented(
   ctx: SKRSContext2D,
   text: string,
   accentPart: string,
   accentColor: string,
-  cx: number,
+  anchor: number,
   y: number,
+  align: "center" | "left" = "center",
 ): void {
+  const prev = ctx.textAlign;
+  ctx.textAlign = "left";
+
   if (!accentPart || !text.includes(accentPart)) {
+    const x = align === "center" ? anchor - ctx.measureText(text).width / 2 : anchor;
     ctx.fillStyle = "#ffffff";
-    ctx.fillText(text, cx, y);
+    ctx.fillText(text, x, y);
+    ctx.textAlign = prev;
     return;
   }
+
   const [head, tail] = text.split(accentPart);
   const hw = ctx.measureText(head).width;
   const aw = ctx.measureText(accentPart).width;
   const tw = ctx.measureText(tail).width;
-  let x = cx - (hw + aw + tw) / 2;
-  const prev = ctx.textAlign;
-  ctx.textAlign = "left";
+  let x = align === "center" ? anchor - (hw + aw + tw) / 2 : anchor;
+
   ctx.fillStyle = "#ffffff";
   ctx.fillText(head, x, y);
   x += hw;
@@ -134,10 +162,39 @@ function drawAccented(
 export async function renderReelTitleBackground(
   imagePath: string,
   aspect: ReelTitleAspect = "9:16",
+  slot: PostSlot = "evening",
 ): Promise<Buffer> {
   const { W, H } = aspectSize(aspect);
   const canvas = createCanvas(W, H);
   const ctx = canvas.getContext("2d");
+
+  if (slot === "morning") {
+    // 아침 = 사진 + 솔리드 블록. 경계선이 저녁(풀블리드)과 갈리는 축이다.
+    const split = morningSplitY(H);
+    const img = await loadImage(imagePath);
+    drawCover(ctx, img, 0, 0, W, split, 0.16);
+
+    ctx.fillStyle = MORNING_BLOCK_BG;
+    ctx.fillRect(0, split, W, H - split);
+    ctx.fillStyle = SLOT_ACCENT.morning;
+    ctx.fillRect(0, split, W, 5);
+
+    // 경계 위쪽을 살짝 어둡게 — 사진이 밝은 컷이어도 선이 튀지 않는다
+    const seam = ctx.createLinearGradient(0, split - 180, 0, split);
+    seam.addColorStop(0, "rgba(11,13,18,0)");
+    seam.addColorStop(1, "rgba(11,13,18,0.6)");
+    ctx.fillStyle = seam;
+    ctx.fillRect(0, split - 180, W, 180);
+
+    // 상단 브랜드 가독성용
+    const top = ctx.createLinearGradient(0, 0, 0, 260);
+    top.addColorStop(0, "rgba(8,8,13,0.55)");
+    top.addColorStop(1, "rgba(8,8,13,0)");
+    ctx.fillStyle = top;
+    ctx.fillRect(0, 0, W, 260);
+
+    return canvas.toBuffer("image/png");
+  }
 
   const img = await loadImage(imagePath);
   drawCover(ctx, img, 0, 0, W, H, 0.32);
@@ -204,6 +261,52 @@ export async function renderReelTitleText(
     ctx.fillText(".com", 80 + haeW, 130);
   }
 
+  // ── 아침 = 하단 솔리드 블록 안, 좌측 정렬 · 세로 중앙 ──────────────
+  // 저녁(풀블리드 중앙 정렬)과 구도부터 갈린다. 블록 안이라 shadow 는 필요 없다.
+  if (slot === "morning") {
+    ctx.shadowColor = "transparent";
+    ctx.shadowBlur = 0;
+    ctx.shadowOffsetY = 0;
+    ctx.textAlign = "left";
+
+    const split = morningSplitY(H);
+    const maxW = W - MORNING_PAD * 2;
+    const [, mMM, mDD] = today.split("-");
+    const mDate = `${Number(mMM)}/${Number(mDD)}`;
+    const mDow = `${dayOfWeekKr(today)}요일`;
+
+    const bigSize = fitText(ctx, hook.big, maxW, 112, "900", 72);
+    // 날짜(80) + 간격(76) + 작은 줄 + 간격(34) + 큰 줄
+    const blockH = 80 + 76 + 46 + 34 + bigSize;
+    let y = split + (H - split - blockH) / 2 + 80;
+
+    ctx.font = "80px Anton";
+    ctx.fillStyle = "#ffffff";
+    ctx.fillText(mDate, MORNING_PAD, y);
+    const mDateW = ctx.measureText(mDate).width;
+    ctx.font = "800 42px Pretendard";
+    ctx.fillStyle = "rgba(255,255,255,0.58)";
+    ctx.fillText(mDow, MORNING_PAD + mDateW + 18, y - 6);
+
+    y += 76;
+    const smallSize = fitText(ctx, hook.small, maxW, 46, "600", 34);
+    ctx.fillStyle = "rgba(255,255,255,0.75)";
+    ctx.font = `600 ${smallSize}px Pretendard`;
+    ctx.fillText(hook.small, MORNING_PAD, y);
+
+    y += 34 + bigSize;
+    ctx.font = `900 ${bigSize}px Pretendard`;
+    drawAccented(ctx, hook.big, hook.accent, accent, MORNING_PAD, y, "left");
+
+    // 하단 우측 브랜드 — 저녁은 가운데 로고+텍스트라 여기서도 갈린다
+    ctx.textAlign = "right";
+    ctx.fillStyle = "rgba(255,255,255,0.45)";
+    ctx.font = "700 28px Pretendard";
+    ctx.fillText(noUrl ? "한해설" : "haeseol.com", W - MORNING_PAD, H - 40);
+
+    return canvas.toBuffer("image/png");
+  }
+
   ctx.textAlign = "center";
   const centerX = W / 2;
 
@@ -227,20 +330,15 @@ export async function renderReelTitleText(
   const totalW = dateW + gap + dowW;
   const startX = (W - totalW) / 2;
 
-  // 아침은 큰 줄이 맨 아래라 로고와 25px 까지 붙는다(저녁은 설명 줄이 완충 역할을 한다).
-  // 블록 전체를 조금 올려 숨통을 틔우고, 긴 문구가 두 줄로 접히는 날 로고를 파고드는 것도 막는다.
-  // 비율로 두어 4:5(28px)와 9:16(40px) 모두 같은 비주얼이 나오게 한다.
-  const LIFT = slot === "morning" ? Math.round(H * 0.021) : 0;
-
   // 날짜는 흰색. 액센트 색은 후킹의 강조 조각에만 준다 —
   // 강조가 둘이면 시선이 갈려 어느 쪽도 안 읽힌다.
   ctx.textAlign = "left";
   ctx.fillStyle = "#ffffff";
   ctx.font = "160px Anton";
-  ctx.fillText(dateText, startX, DATE_BASELINE - LIFT);
+  ctx.fillText(dateText, startX, DATE_BASELINE);
   ctx.fillStyle = "rgba(255,255,255,0.72)";
   ctx.font = "800 96px Pretendard";
-  ctx.fillText(dowText, startX + dateW + gap, DATE_BASELINE - 20 - LIFT);
+  ctx.fillText(dowText, startX + dateW + gap, DATE_BASELINE - 20);
   ctx.textAlign = "center";
 
   const drawBig = (text: string, y: number) => {
@@ -267,15 +365,9 @@ export async function renderReelTitleText(
     }
   };
 
-  if (slot === "morning") {
-    // 아침 = 작은 윗줄 → 큰 아랫줄 (대비 2줄)
-    drawSmall(hook.small, BIG_Y - 30 - LIFT);
-    drawBig(hook.big, BIG_Y + 90 - LIFT);
-  } else {
-    // 저녁 = 큰 줄 → 설명 줄
-    drawBig(hook.big, BIG_Y);
-    drawSmall(hook.small, SUB_Y);
-  }
+  // 저녁 = 큰 줄 → 설명 줄 (아침은 위에서 이미 return 했다)
+  drawBig(hook.big, BIG_Y);
+  drawSmall(hook.small, SUB_Y);
 
   // 하단 — 한해설 로고 + haeseol.com (영상이라 스와이프 CTA는 의미 없음)
   const LOGO_SIZE = 88;
@@ -335,7 +427,8 @@ export async function renderReelTitleCard(
   opts: ReelBrandOpts = {},
 ): Promise<Buffer> {
   const { W, H } = aspectSize(aspect);
-  const bg = await renderReelTitleBackground(imagePath, aspect);
+  const slot = opts.slot ?? getPostSlot(today);
+  const bg = await renderReelTitleBackground(imagePath, aspect, slot);
   const txt = await renderReelTitleText(today, aspect, opts);
 
   const canvas = createCanvas(W, H);
