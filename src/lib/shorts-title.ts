@@ -15,9 +15,9 @@
 // 문구는 날짜 기반 결정적 순환이라 같은 날 재실행해도 동일하다.
 
 import { getMainHighlight, SPORT_EMOJI } from "./hashtags";
-import { KOREAN_PLAYERS, inferDayLabel, loadKoreanMatchesAll, pickHeroMatch } from "./instagram";
+import { inferDayLabel, pickHeroForDate } from "./instagram";
+import { coverHookContext } from "./cover-hook";
 import { getPostSlot, rotateIndex, type PostSlot } from "./post-slot";
-import { speakTime } from "./tiktok-caption";
 
 /** 유튜브 제목 상한. 넘으면 업로드가 거부된다. */
 export const TITLE_MAX = 100;
@@ -46,42 +46,44 @@ const start = (c: HookCtx) => (c.isPlayer ? "출격" : "시작");
 const appear = (c: HookCtx) => (c.isPlayer ? "나옵니다" : "열립니다");
 
 // 아침 = 오늘 경기. "지금 확인" 프레임.
-const MORNING_HOOKS: Array<(c: HookCtx) => string> = [
+// 풀은 8개다 — 4개면 같은 틀이 나흘마다 돌아와 몰아 보면 티가 난다.
+export const MORNING_HOOKS: Array<(c: HookCtx) => string> = [
   (c) => `오늘 ${c.who} 경기 ${c.emoji} 한국어 중계 어디서 봐요?`,
   (c) => `${c.who} 오늘 ${c.time} ${start(c)} ${c.emoji} 한국어 중계 채널은`,
   (c) => `오늘 한국어 해설 ${c.games}경기 ${c.emoji} ${c.who}부터 확인`,
   (c) => `${c.who} 오늘 중계 ${c.emoji} 채널 하나로 정리했습니다`,
+  (c) => `${c.who} 오늘 어디서 보나 ${c.emoji} 한국어 해설 채널 정리`,
+  (c) => `오늘 ${c.time} ${c.who} ${c.emoji} 한국어 중계 되는 곳`,
+  (c) => `오늘 볼 경기 골랐습니다 ${c.emoji} ${c.who} 한국어 중계`,
+  (c) => `${c.who} 한국어 해설 ${c.emoji} 오늘 ${c.time} ${start(c)}`,
 ];
 
 // 저녁 = 내일 경기. "예고·알람" 프레임.
-const EVENING_HOOKS: Array<(c: HookCtx) => string> = [
+export const EVENING_HOOKS: Array<(c: HookCtx) => string> = [
   (c) => `내일 ${c.who} ${appear(c)} ${c.emoji} ${c.time} 한국어 중계`,
   (c) => `${c.who} 내일 ${c.time} ${c.emoji} 한국어 중계 미리 확인`,
   (c) => `내일 놓치면 아까운 경기 ${c.emoji} ${c.who} 한국어 중계`,
   (c) => `내일 한국어 해설 ${c.games}경기 ${c.emoji} ${c.who} 알람 맞추세요`,
+  (c) => `내일치 편성 나왔습니다 ${c.emoji} ${c.who} ${c.time} 한국어 중계`,
+  (c) => `${c.who} 내일 어디서 보나 ${c.emoji} ${c.time} 한국어 해설`,
+  (c) => `내일 볼 거 미리 찍어두세요 ${c.emoji} ${c.who} ${c.time}`,
+  (c) => `내일 ${c.time} ${c.who} ${c.emoji} 한국어 중계 채널 정리`,
 ];
 
-/** 히어로 경기에서 후킹 재료를 뽑는다. 경기가 없으면 null. */
+/**
+ * 히어로 재료는 커버와 공유한다 — 커버와 제목의 주인공이 갈리면 안 된다.
+ * (coverHookContext 는 pickHeroForDate 를 쓰므로 연속 방지 감점도 함께 적용된다.)
+ */
 function hookContext(today: string): HookCtx | null {
-  const games = loadKoreanMatchesAll(today);
-  const hero = games.length ? pickHeroMatch(games) : null;
-  if (!hero) return null;
-
-  const home = hero.homeTeam !== "미정" ? hero.homeTeam : null;
-  const away = hero.awayTeam && hero.awayTeam !== "미정" ? hero.awayTeam : null;
-  if (!home && !away) return null;
-
-  const player = KOREAN_PLAYERS.find(
-    (p) => p.team === hero.homeTeam || p.team === hero.awayTeam,
-  );
-  const matchup = home && away ? `${home} vs ${away}` : (home ?? away)!;
-
+  const c = coverHookContext(today);
+  if (!c) return null;
+  const hero = pickHeroForDate(today);
   return {
-    who: player ? player.name : matchup,
-    isPlayer: Boolean(player),
-    time: speakTime(hero.time),
-    games: games.length,
-    emoji: SPORT_EMOJI[hero.sport],
+    who: c.who,
+    isPlayer: c.isPlayer,
+    time: c.time,
+    games: c.games,
+    emoji: hero ? SPORT_EMOJI[hero.sport] : "⚽",
   };
 }
 

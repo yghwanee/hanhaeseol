@@ -81,4 +81,5 @@ jobs:
           npm run test:schedule-quality
           npm run test:sitemap-consistency
           npm run test:autolink
+          npm run test:cover-hook
           npm run test:workflow-push
