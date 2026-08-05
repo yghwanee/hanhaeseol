@@ -227,15 +227,20 @@ export async function renderReelTitleText(
   const totalW = dateW + gap + dowW;
   const startX = (W - totalW) / 2;
 
+  // 아침은 큰 줄이 맨 아래라 로고와 25px 까지 붙는다(저녁은 설명 줄이 완충 역할을 한다).
+  // 블록 전체를 조금 올려 숨통을 틔우고, 긴 문구가 두 줄로 접히는 날 로고를 파고드는 것도 막는다.
+  // 비율로 두어 4:5(28px)와 9:16(40px) 모두 같은 비주얼이 나오게 한다.
+  const LIFT = slot === "morning" ? Math.round(H * 0.021) : 0;
+
   // 날짜는 흰색. 액센트 색은 후킹의 강조 조각에만 준다 —
   // 강조가 둘이면 시선이 갈려 어느 쪽도 안 읽힌다.
   ctx.textAlign = "left";
   ctx.fillStyle = "#ffffff";
   ctx.font = "160px Anton";
-  ctx.fillText(dateText, startX, DATE_BASELINE);
+  ctx.fillText(dateText, startX, DATE_BASELINE - LIFT);
   ctx.fillStyle = "rgba(255,255,255,0.72)";
   ctx.font = "800 96px Pretendard";
-  ctx.fillText(dowText, startX + dateW + gap, DATE_BASELINE - 20);
+  ctx.fillText(dowText, startX + dateW + gap, DATE_BASELINE - 20 - LIFT);
   ctx.textAlign = "center";
 
   const drawBig = (text: string, y: number) => {
@@ -264,8 +269,8 @@ export async function renderReelTitleText(
 
   if (slot === "morning") {
     // 아침 = 작은 윗줄 → 큰 아랫줄 (대비 2줄)
-    drawSmall(hook.small, BIG_Y - 30);
-    drawBig(hook.big, BIG_Y + 90);
+    drawSmall(hook.small, BIG_Y - 30 - LIFT);
+    drawBig(hook.big, BIG_Y + 90 - LIFT);
   } else {
     // 저녁 = 큰 줄 → 설명 줄
     drawBig(hook.big, BIG_Y);
