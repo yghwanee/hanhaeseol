@@ -11,6 +11,7 @@
 
 import { KOREAN_PLAYERS, loadKoreanMatchesAll, pickHeroForDate } from "./instagram";
 import { GLOBAL_BIG_CLUBS } from "./hero-pick";
+import { withJosa } from "./josa";
 import { getPostSlot, rotateIndex, type PostSlot } from "./post-slot";
 import { speakTime } from "./tiktok-caption";
 
@@ -68,7 +69,8 @@ export const MORNING_COVER_HOOKS: HookTemplate[] = [
   {
     build: (c) => ({
       small: "오늘 중계 어디서 보나",
-      big: `${c.who}는 ${c.platform}`,
+      // 조사를 고정하면 `김혜성는`·`아스날는` 이 나온다. 받침으로 골라야 한다(작업58).
+      big: `${withJosa(c.who, "은/는")} ${c.platform}`,
       accent: c.platform,
     }),
   },
