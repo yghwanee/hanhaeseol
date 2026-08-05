@@ -7,11 +7,24 @@
 
 import test from "node:test";
 import assert from "node:assert/strict";
-import { TITLE_MAX, buildHookLine, buildShortsTitle } from "./shorts-title";
+import {
+  TITLE_MAX,
+  buildHookLine,
+  buildShortsTitle,
+  MORNING_HOOKS,
+  EVENING_HOOKS,
+} from "./shorts-title";
 import { rotateIndex } from "./post-slot";
 
 /** 편성 데이터에 실제로 경기가 있는 날짜를 쓴다(없으면 폴백 경로만 타서 검증이 약해진다). */
 const DATES = ["2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08"];
+
+test("제목 풀은 슬롯당 8개다", () => {
+  // 4개면 같은 틀이 나흘마다 돌아온다.
+  // 생성 결과로는 셀 수 없다 — 팀명·시각이 매일 달라 풀이 4개여도 문자열은 다 다르게 나온다.
+  assert.equal(MORNING_HOOKS.length, 8);
+  assert.equal(EVENING_HOOKS.length, 8);
+});
 
 test("같은 날짜라도 아침·저녁 제목이 다르다", () => {
   for (const d of DATES) {
