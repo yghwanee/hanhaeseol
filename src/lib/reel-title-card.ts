@@ -1,16 +1,16 @@
 import { createCanvas, loadImage, type SKRSContext2D, type Image } from "@napi-rs/canvas";
-import type { Schedule } from "@/types/schedule";
-import {
-  loadKoreanMatchesAll,
-  loadAllMatchesForDate,
-  KOREAN_PLAYERS,
-  pickHeroMatch,
-  inferDayLabel,
-} from "./instagram";
-import { eventWord } from "./hero-pick";
-import { getPostSlot, rotateIndex, type PostSlot } from "./post-slot";
+import { buildCoverHook } from "./cover-hook";
+import { getPostSlot, type PostSlot } from "./post-slot";
 
-const ACCENT = "#8fff3d";
+/**
+ * 슬롯별 액센트 — 레이아웃이 같아져도 썸네일 그리드에서 한눈에 갈린다.
+ * 저녁판과 다음날 아침판은 대상 날짜·히어로가 같아서(작업82) 색이 실질적인 구분선이다.
+ */
+export const SLOT_ACCENT: Record<PostSlot, string> = {
+  morning: "#ffb02e",
+  evening: "#8fff3d",
+};
+
 const KST_DOW = ["일", "월", "화", "수", "목", "금", "토"];
 
 export type ReelTitleAspect = "9:16" | "4:5";
@@ -75,6 +75,59 @@ function fitText(
 }
 
 /**
+ * 어절 단위로 줄을 나눈다.
+ * 강조 조각 기준으로 자르면 `맨시티가` 가 `맨시티 / 가` 로 조사가 떨어져 나간다 —
+ * 한국어에서 조사는 앞말에 붙여 쓴다.
+ */
+function wrapByWord(ctx: SKRSContext2D, text: string, maxWidth: number): string[] {
+  const lines: string[] = [];
+  let cur = "";
+  for (const word of text.split(" ")) {
+    const test = cur ? `${cur} ${word}` : word;
+    if (ctx.measureText(test).width > maxWidth && cur) {
+      lines.push(cur);
+      cur = word;
+    } else {
+      cur = test;
+    }
+  }
+  if (cur) lines.push(cur);
+  return lines;
+}
+
+/** 강조 조각만 액센트 색으로 칠하며 중앙 정렬로 그린다. */
+function drawAccented(
+  ctx: SKRSContext2D,
+  text: string,
+  accentPart: string,
+  accentColor: string,
+  cx: number,
+  y: number,
+): void {
+  if (!accentPart || !text.includes(accentPart)) {
+    ctx.fillStyle = "#ffffff";
+    ctx.fillText(text, cx, y);
+    return;
+  }
+  const [head, tail] = text.split(accentPart);
+  const hw = ctx.measureText(head).width;
+  const aw = ctx.measureText(accentPart).width;
+  const tw = ctx.measureText(tail).width;
+  let x = cx - (hw + aw + tw) / 2;
+  const prev = ctx.textAlign;
+  ctx.textAlign = "left";
+  ctx.fillStyle = "#ffffff";
+  ctx.fillText(head, x, y);
+  x += hw;
+  ctx.fillStyle = accentColor;
+  ctx.fillText(accentPart, x, y);
+  x += aw;
+  ctx.fillStyle = "#ffffff";
+  ctx.fillText(tail, x, y);
+  ctx.textAlign = prev;
+}
+
+/**
  * title 카드 배경 PNG — 풀스크린 AI 이미지 + 어두운 vignette.
  * 텍스트는 renderReelTitleText()로 별도 PNG 생성 후 ffmpeg overlay에서 모션 적용.
  */
@@ -124,6 +177,10 @@ export async function renderReelTitleText(
   const canvas = createCanvas(W, H);
   const ctx = canvas.getContext("2d");
 
+  const slot = opts.slot ?? getPostSlot(today);
+  const accent = SLOT_ACCENT[slot];
+  const hook = buildCoverHook(today, slot);
+
   ctx.textBaseline = "alphabetic";
   ctx.textAlign = "left";
 
@@ -133,7 +190,7 @@ export async function renderReelTitleText(
   ctx.shadowOffsetY = 4;
 
   // 상단 브랜드
-  ctx.fillStyle = ACCENT;
+  ctx.fillStyle = accent;
   ctx.fillRect(60, 130 - 30, 6, 38);
   ctx.fillStyle = "#ffffff";
   ctx.font = "800 38px Pretendard";
@@ -143,60 +200,8 @@ export async function renderReelTitleText(
   } else {
     ctx.fillText("haeseol", 80, 130);
     const haeW = ctx.measureText("haeseol").width;
-    ctx.fillStyle = ACCENT;
+    ctx.fillStyle = accent;
     ctx.fillText(".com", 80 + haeW, 130);
-  }
-
-  // 타이틀 콘텐츠 결정
-  const koreanMatches = loadKoreanMatchesAll(today);
-  const n = koreanMatches.length;
-  let hero: Schedule | null = pickHeroMatch(koreanMatches);
-  if (!hero) hero = pickHeroMatch(loadAllMatchesForDate(today));
-
-  const playerOnHero = hero
-    ? KOREAN_PLAYERS.find(
-        (p) => p.team === hero!.homeTeam || p.team === hero!.awayTeam,
-      )
-    : undefined;
-
-  const dayLabel = inferDayLabel(today);
-  const slot = opts.slot ?? getPostSlot(today);
-  // 첫 프레임 문구도 슬롯별로 가른다. 저녁(내일 경기)과 다음날 아침(오늘 경기)은
-  // 대상 날짜가 같아서, 날짜만 쓰면 두 영상의 첫 프레임이 사실상 같은 그림이 된다.
-  // 문구는 예고(저녁) / 지금 확인(아침) 프레임으로 나눠 쓴다.
-  let bigLine = "";
-  let subLine = "";
-
-  if (playerOnHero) {
-    const who = playerOnHero.name;
-    const pool =
-      slot === "morning"
-        ? [
-            { big: `오늘 ${who} 출전`, sub: `한국어 해설 ${n}경기, 채널 확인` },
-            { big: `${who} 오늘 ${hero!.time}`, sub: `어디서 보는지 3초면 끝` },
-            { big: `${who} 나오는 날`, sub: `오늘 한국어 해설 ${n}경기` },
-          ]
-        : [
-            { big: `내일 ${who} 출전`, sub: `${hero!.time} 알람 맞추세요` },
-            { big: `${who} 내일 ${hero!.time}`, sub: `내일 한국어 해설 ${n}경기` },
-            { big: `내일 이건 챙기세요`, sub: `${who} ${hero!.time} 한국어 해설` },
-          ];
-    const picked = pool[rotateIndex(today, slot, pool.length)];
-    bigLine = picked.big;
-    subLine = picked.sub;
-  } else if (n > 0 && hero) {
-    // 월드컵 경기가 히어로면 "빅매치" 대신 "월드컵"으로 (월드컵 기간에만 자연히 적용 — 평시엔 히어로가 월드컵일 수 없음).
-    bigLine = `${hero.time} ${eventWord(hero)}`;
-    subLine =
-      slot === "morning"
-        ? `오늘 한국어 해설 ${n}경기, 채널 확인`
-        : `내일 한국어 해설 ${n}경기, 알람 맞추기`;
-  } else if (n > 0) {
-    bigLine = `한국어 해설 ${n}경기`;
-    subLine = slot === "morning" ? `오늘 볼 경기 한 번에` : `내일 볼 경기 미리보기`;
-  } else {
-    bigLine = `${dayLabel}의 한국어 중계`;
-    subLine = noUrl ? "한국어 해설 편성표" : "haeseol.com";
   }
 
   ctx.textAlign = "center";
@@ -222,26 +227,50 @@ export async function renderReelTitleText(
   const totalW = dateW + gap + dowW;
   const startX = (W - totalW) / 2;
 
+  // 날짜는 흰색. 액센트 색은 후킹의 강조 조각에만 준다 —
+  // 강조가 둘이면 시선이 갈려 어느 쪽도 안 읽힌다.
   ctx.textAlign = "left";
-  ctx.fillStyle = ACCENT;
+  ctx.fillStyle = "#ffffff";
   ctx.font = "160px Anton";
   ctx.fillText(dateText, startX, DATE_BASELINE);
-  ctx.fillStyle = "#ffffff";
+  ctx.fillStyle = "rgba(255,255,255,0.72)";
   ctx.font = "800 96px Pretendard";
   ctx.fillText(dowText, startX + dateW + gap, DATE_BASELINE - 20);
   ctx.textAlign = "center";
 
-  // 큰 타이틀
-  const bigSize = fitText(ctx, bigLine, W - 120, 140, "900", 88);
-  ctx.fillStyle = "#ffffff";
-  ctx.font = `900 ${bigSize}px Pretendard`;
-  ctx.fillText(bigLine, centerX, BIG_Y);
+  const drawBig = (text: string, y: number) => {
+    const size = fitText(ctx, text, W - 120, 140, "900", 88);
+    ctx.font = `900 ${size}px Pretendard`;
+    const lines = wrapByWord(ctx, text, W - 120);
+    let ly = y - (lines.length - 1) * (size + 12);
+    for (const line of lines) {
+      drawAccented(ctx, line, hook.accent, accent, centerX, ly);
+      ly += size + 12;
+    }
+  };
 
-  // 서브 라인
-  const subSize = fitText(ctx, subLine, W - 160, 60, "600", 44);
-  ctx.fillStyle = "rgba(255,255,255,0.85)";
-  ctx.font = `600 ${subSize}px Pretendard`;
-  ctx.fillText(subLine, centerX, SUB_Y);
+  // 작은 줄도 액센트를 그린다. 저녁 풀 8번(`미리 알려드립니다` / `내일 {time} {who}`)처럼
+  // 강조 조각이 작은 줄에 들어가는 템플릿이 있어서, 큰 줄만 처리하면 액센트가 안 보인다.
+  const drawSmall = (text: string, y: number) => {
+    const size = fitText(ctx, text, W - 160, 60, "600", 44);
+    ctx.font = `600 ${size}px Pretendard`;
+    if (hook.accent && text.includes(hook.accent) && !hook.big.includes(hook.accent)) {
+      drawAccented(ctx, text, hook.accent, accent, centerX, y);
+    } else {
+      ctx.fillStyle = "rgba(255,255,255,0.85)";
+      ctx.fillText(text, centerX, y);
+    }
+  };
+
+  if (slot === "morning") {
+    // 아침 = 작은 윗줄 → 큰 아랫줄 (대비 2줄)
+    drawSmall(hook.small, BIG_Y - 30);
+    drawBig(hook.big, BIG_Y + 90);
+  } else {
+    // 저녁 = 큰 줄 → 설명 줄
+    drawBig(hook.big, BIG_Y);
+    drawSmall(hook.small, SUB_Y);
+  }
 
   // 하단 — 한해설 로고 + haeseol.com (영상이라 스와이프 CTA는 의미 없음)
   const LOGO_SIZE = 88;
