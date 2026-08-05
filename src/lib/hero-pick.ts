@@ -18,6 +18,41 @@ export const KOREAN_PLAYERS: Array<{ name: string; team: string }> = [
 
 const KOREAN_PLAYER_TEAMS = new Set(KOREAN_PLAYERS.map((p) => p.team));
 
+/** 표기 흔들림 흡수 — 데이터는 `AT. 마드리드`(공백 있음), 상수는 `AT.마드리드` 로 갈린다. */
+function norm(s: string): string {
+  return s.replace(/\s+/g, "");
+}
+
+/**
+ * 리그 무관 글로벌 빅클럽 (유럽 축구).
+ *
+ * BIG_TEAMS 는 리그별 맵이라 리그명이 `클럽 친선경기`·`쿠팡플레이 시리즈` 면
+ * 맨시티도 첼시도 조회 자체가 안 돼 0점을 받았다(2026-08-05 실측: 팀 K리그 vs 맨시티
+ * 20점 = 롯데 vs 키움과 동점, 후보 16위). 리그가 아니라 팀이 값어치인 경기가 실재한다.
+ *
+ * MLB·KBO·NBA 팀은 넣지 않는다. 이미 리그 스코프 BIG_TEAMS 로 점수를 받고 있고,
+ * 여기 또 넣으면 코리안리거 MLB 가 다시 부풀어 이번 개편 목적이 뒤집힌다.
+ */
+const GLOBAL_BIG_CLUBS = new Set(
+  [
+    "맨시티", "맨유", "리버풀", "아스날", "첼시", "토트넘",
+    "레알 마드리드", "바르셀로나", "아틀레티코 마드리드", "AT.마드리드",
+    "바이에른 뮌헨", "도르트문트",
+    "유벤투스", "인터 밀란", "AC 밀란", "나폴리",
+    "PSG", "파리 생제르망",
+  ].map(norm),
+);
+
+/** 등급표에 없어 최하 5점을 받던 이벤트성 대회 */
+const EVENT_LEAGUE_TIER: Record<string, number> = {
+  "쿠팡플레이 시리즈": 15,
+  "클럽 친선경기": 10,
+  "카라바오컵": 10,
+};
+
+/** 국내 개최 — 상대가 누구냐보다 "그 팀이 한국에 온다"가 화제성이다 */
+const HOME_EVENT_LEAGUES = new Set(["쿠팡플레이 시리즈"]);
+
 // ====================================================================
 // Hero 매치 선정 — 종합 점수화
 // ====================================================================
@@ -27,7 +62,9 @@ const KOREAN_PLAYER_TEAMS = new Set(KOREAN_PLAYERS.map((p) => p.team));
 // 운영하면서 가중치 조정 시 이 상수만 만지면 됨.
 
 export const HERO_WEIGHTS = {
-  koreanPlayer: 30,
+  // 30 → 18 (2026-08-05). 30 일 때는 글로벌 빅클럽 세트와 이벤트 등급을 넣어도
+  // 7일 시뮬레이션 결과가 현행과 완전히 동일했다. 이 값이 실제로 작동한 유일한 레버다.
+  koreanPlayer: 18,
 
   leagueS: 20,
   leagueA: 15,
@@ -42,6 +79,14 @@ export const HERO_WEIGHTS = {
   rivalry: 10,
   bigVsBig: 10,
   bigVsMid: 5,
+
+  // 리그 무관 빅클럽. 리그 기반 점수와 max 로 합친다(중복 가산 금지).
+  globalBigBoth: 20,
+  globalBigOne: 12,
+  // 국내 개최 이벤트에 빅클럽이 끼면 붙는 가점.
+  homeEvent: 10,
+  // 직전 2일 히어로에 나온 팀이면 깎는다. 같은 얼굴이 사흘 내리 나오는 것을 막는다.
+  repeatPenalty: 12,
 };
 
 // 리그 등급 (S/A/B/C)
@@ -145,8 +190,9 @@ const RIVALRIES: RivalryEntry[] = [
   { teams: ["울산", "전북"], name: "#현대더비" },
 ];
 
+/** 표기 정규화를 거친 팀쌍 키. `AT. 마드리드` ↔ `AT.마드리드` 를 같은 것으로 본다. */
 function pairKey(a: string, b: string): string {
-  return [a, b].sort().join("|");
+  return [norm(a), norm(b)].sort().join("|");
 }
 
 const RIVALRY_KEYS = new Set(RIVALRIES.map((r) => pairKey(...r.teams)));
@@ -182,6 +228,8 @@ function scoreLeagueTier(m: Schedule): number {
   if (LEAGUE_TIER_S.has(m.league)) return HERO_WEIGHTS.leagueS;
   if (LEAGUE_TIER_A.has(m.league)) return HERO_WEIGHTS.leagueA;
   if (LEAGUE_TIER_B.has(m.league)) return HERO_WEIGHTS.leagueB;
+  const event = EVENT_LEAGUE_TIER[m.league];
+  if (event !== undefined) return event;
   return HERO_WEIGHTS.leagueC;
 }
 
@@ -195,25 +243,58 @@ function scorePrimeTimeKr(m: Schedule): number {
   return HERO_WEIGHTS.primeDawn;
 }
 
-function scoreBigMatchup(m: Schedule): number {
-  if (isRivalry(m)) return HERO_WEIGHTS.rivalry;
-  const bigs = BIG_TEAMS[m.league];
-  if (!bigs) return 0;
-  const homeBig = bigs.has(m.homeTeam);
-  const awayBig = m.awayTeam ? bigs.has(m.awayTeam) : false;
-  if (homeBig && awayBig) return HERO_WEIGHTS.bigVsBig;
-  if (homeBig || awayBig) return HERO_WEIGHTS.bigVsMid;
+/** 리그명과 무관하게 팀명만으로 잡는다. 친선·내한경기에서도 맨시티는 맨시티다. */
+function scoreGlobalBig(m: Schedule): number {
+  const homeBig = GLOBAL_BIG_CLUBS.has(norm(m.homeTeam));
+  const awayBig = m.awayTeam ? GLOBAL_BIG_CLUBS.has(norm(m.awayTeam)) : false;
+  if (homeBig && awayBig) return HERO_WEIGHTS.globalBigBoth;
+  if (homeBig || awayBig) return HERO_WEIGHTS.globalBigOne;
   return 0;
 }
 
-/** 종합 점수. 디버깅/로그용으로도 export. */
-export function heroScore(m: Schedule): number {
-  return (
+function scoreBigMatchup(m: Schedule): number {
+  if (isRivalry(m)) return HERO_WEIGHTS.rivalry;
+
+  let league = 0;
+  const bigs = BIG_TEAMS[m.league];
+  if (bigs) {
+    const homeBig = bigs.has(m.homeTeam);
+    const awayBig = m.awayTeam ? bigs.has(m.awayTeam) : false;
+    league = homeBig && awayBig
+      ? HERO_WEIGHTS.bigVsBig
+      : homeBig || awayBig
+        ? HERO_WEIGHTS.bigVsMid
+        : 0;
+  }
+  // 리그 기반과 글로벌 기반은 같은 성격의 점수라 큰 쪽만 취한다.
+  return Math.max(league, scoreGlobalBig(m));
+}
+
+function scoreHomeEvent(m: Schedule): number {
+  if (!HOME_EVENT_LEAGUES.has(m.league)) return 0;
+  return scoreGlobalBig(m) > 0 ? HERO_WEIGHTS.homeEvent : 0;
+}
+
+function inRecent(m: Schedule, recentTeams: ReadonlySet<string>): boolean {
+  if (recentTeams.has(norm(m.homeTeam))) return true;
+  return m.awayTeam ? recentTeams.has(norm(m.awayTeam)) : false;
+}
+
+/**
+ * 종합 점수. 디버깅/로그용으로도 export.
+ * `recentTeams` 는 정규화(공백 제거)된 팀명 집합이다 — `recentHeroTeams()` 가 만든다.
+ */
+export function heroScore(m: Schedule, recentTeams?: ReadonlySet<string>): number {
+  const base =
     scoreKoreanPlayer(m) +
     scoreLeagueTier(m) +
     scorePrimeTimeKr(m) +
-    scoreBigMatchup(m)
-  );
+    scoreBigMatchup(m) +
+    scoreHomeEvent(m);
+  if (recentTeams && recentTeams.size > 0 && inRecent(m, recentTeams)) {
+    return base - HERO_WEIGHTS.repeatPenalty;
+  }
+  return base;
 }
 
 // ====================================================================
@@ -275,7 +356,11 @@ function wcMatchupTier(m: Schedule): number {
  * 2) 둘 다 월드컵 → 라운드 티어 desc → 매치업 티어 desc → 시간 asc
  * 3) 둘 다 비월드컵 → heroScore desc → 시간 asc
  */
-export function compareHero(a: Schedule, b: Schedule): number {
+export function compareHero(
+  a: Schedule,
+  b: Schedule,
+  recentTeams?: ReadonlySet<string>,
+): number {
   const wa = isWorldCup(a);
   const wb = isWorldCup(b);
   if (wa !== wb) return wa ? -1 : 1;
@@ -290,8 +375,8 @@ export function compareHero(a: Schedule, b: Schedule): number {
     return a.time.localeCompare(b.time);
   }
 
-  const sa = heroScore(a);
-  const sb = heroScore(b);
+  const sa = heroScore(a, recentTeams);
+  const sb = heroScore(b, recentTeams);
   if (sa !== sb) return sb - sa;
   return a.time.localeCompare(b.time);
 }
@@ -300,9 +385,12 @@ export function compareHero(a: Schedule, b: Schedule): number {
  * 매치 배열에서 가장 점수 높은 hero 매치 1개를 픽.
  * 동점이면 시간 빠른 순.
  */
-export function pickHeroMatch(matches: Schedule[]): Schedule | null {
+export function pickHeroMatch(
+  matches: Schedule[],
+  recentTeams?: ReadonlySet<string>,
+): Schedule | null {
   if (matches.length === 0) return null;
-  return [...matches].sort(compareHero)[0];
+  return [...matches].sort((a, b) => compareHero(a, b, recentTeams))[0];
 }
 
 /**
@@ -313,10 +401,11 @@ export function pickHeroMatch(matches: Schedule[]): Schedule | null {
 export function pickHeroMatchesTop(
   matches: Schedule[],
   max: number,
+  recentTeams?: ReadonlySet<string>,
 ): Schedule[] {
   if (matches.length === 0 || max <= 0) return [];
 
-  const sorted = [...matches].sort(compareHero);
+  const sorted = [...matches].sort((a, b) => compareHero(a, b, recentTeams));
 
   const out: Schedule[] = [];
   const seenSports = new Set<Sport>();
