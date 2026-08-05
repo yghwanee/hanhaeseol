@@ -1,8 +1,8 @@
 import fs from "node:fs";
 import sharp from "sharp";
-import { getHeroMatchLines, getHierarchicalTags, getMainHighlight, getPlainTags, getHeroEventWord } from "./hashtags";
+import { getHeroMatchLines, getHierarchicalTags, getPlainTags, getHeroEventWord } from "./hashtags";
 import { inferDayLabel } from "./instagram";
-import { dayOfWeekKr } from "./instagram";
+import { buildHookLine, buildShortsTitle } from "./shorts-title";
 import { UTM_LINKS } from "./utm";
 
 const OAUTH_TOKEN_URL = "https://oauth2.googleapis.com/token";
@@ -185,29 +185,27 @@ export async function getChannelInfo(): Promise<{ id: string; title: string }> {
 }
 
 export function buildShortsMeta(mm: string, dd: string, today: string) {
-  const mNum = parseInt(mm, 10);
-  const dNum = parseInt(dd, 10);
-  // today 인자 기준으로 요일을 파싱. 시계로 다시 계산하면 자정 직전 호출에서 어긋날 수 있음.
-  const wd = dayOfWeekKr(today);
-
-  // 제목: 키워드를 맨 앞에 두어 검색 매칭 우선 (2026 YouTube SEO 권장: 첫 7단어에 핵심 키워드).
-  // 예) "이정후 MLB 한국어 중계 ⚾ 5/27(화) #Shorts"
-  //     "EPL 빅매치 한국어 중계 ⚽ 5/27(화) #Shorts"
-  //     "한국어 중계 편성표 5/27(화) #Shorts" (한국어해설 0경기 폴백)
-  const highlight = getMainHighlight(today);
-  const title = `${highlight} ${mNum}/${dNum}(${wd}) #Shorts`;
+  // 제목: 아침(오늘 경기)/저녁(내일 경기) 슬롯별 후킹 문장 + 날짜 + #Shorts.
+  // 종전엔 대상 날짜만 써서 두 슬롯의 제목이 글자까지 같았고, 그게 2026-08-04
+  // Shorts 피드 배포 중단의 유력 원인이었다. 상세는 shorts-title.ts 주석.
+  //   아침) "오늘 이정후 경기 ⚾ 한국어 중계 어디서 봐요? 8/5(수) #Shorts"
+  //   저녁) "내일 이정후 나옵니다 ⚾ 새벽 4시 한국어 중계 8/5(수) #Shorts"
+  const title = buildShortsTitle(mm, dd, today);
 
   const { lines: heroLines, totalGames } = getHeroMatchLines(today, 3);
   const hashtagLine = getHierarchicalTags(today).tags.join(" ");
   const dayLabel = inferDayLabel(today);
 
   const desc: string[] = [];
-  // 첫 줄에 #Shorts 명시 — Shorts 알고리즘 분류 강화 (description hashtag 보장)
-  if (totalGames > 0) {
-    desc.push(`${mm}/${dd} 한국어 해설 ${totalGames}경기 편성표 #Shorts`);
-  } else {
-    desc.push(`${mm}/${dd} 한국어 해설 편성표 #Shorts`);
-  }
+  // 첫 줄 = 후킹 문장 + #Shorts. 해시태그는 Shorts 분류용으로 유지하되,
+  // 문장 자체는 슬롯별로 갈라 아침·저녁 설명이 같은 텍스트가 되지 않게 한다.
+  desc.push(`${buildHookLine(today)} #Shorts`);
+  desc.push(``);
+  desc.push(
+    totalGames > 0
+      ? `${mm}/${dd} 한국어 해설 ${totalGames}경기 편성표`
+      : `${mm}/${dd} 한국어 해설 편성표`,
+  );
   desc.push(``);
   if (heroLines.length > 0) {
     desc.push(`🎯 ${dayLabel}의 ${getHeroEventWord(today)}`);

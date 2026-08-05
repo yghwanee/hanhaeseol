@@ -1,5 +1,6 @@
 import { getHeroMatchLines, getHierarchicalTags, getMainHighlight, getHeroEventWord } from "./hashtags";
 import { inferDayLabel } from "./instagram";
+import { buildHookLine } from "./shorts-title";
 
 const IG_API = "https://graph.facebook.com/v21.0";
 
@@ -22,6 +23,10 @@ export function buildCaption(mm: string, dd: string, today: string, link: string
   const { lines: heroLines, totalGames } = getHeroMatchLines(today, 3);
 
   const body: string[] = [];
+  // 첫 줄 = 슬롯별 후킹. 저녁(내일 경기)/다음날 아침(오늘 경기)은 대상 날짜가 같아
+  // 종전 `📺 08/05 이정후 MLB 한국어 중계` 한 줄이 두 게시물에서 글자까지 같았다.
+  body.push(buildHookLine(today));
+  body.push(``);
   body.push(`📺 ${mm}/${dd} ${highlight}`);
   body.push(``);
 

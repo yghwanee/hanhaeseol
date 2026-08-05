@@ -2,7 +2,7 @@ import type { Sport } from "@/types/schedule";
 import { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop, loadKoreanMatchesAll } from "./instagram";
 import { getRivalryName, isWorldCup, eventWord } from "./hero-pick";
 
-const SPORT_EMOJI: Record<Sport, string> = {
+export const SPORT_EMOJI: Record<Sport, string> = {
   축구: "⚽",
   야구: "⚾",
   농구: "🏀",

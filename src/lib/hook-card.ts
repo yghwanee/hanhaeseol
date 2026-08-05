@@ -9,6 +9,7 @@ import {
   inferDayLabel,
 } from "./instagram";
 import { eventWord } from "./hero-pick";
+import { getPostSlot, type PostSlot } from "./post-slot";
 import { findEnglishTeamName } from "@/data/team-names";
 
 const ACCENT = "#8fff3d";
@@ -357,13 +358,29 @@ export async function renderHookV7(imagePath: string, mm: string, dd: string, to
 
 export const HOOKS_DIR = path.resolve("templates/instagram/hooks");
 
+function hashOf(key: string): number {
+  let hash = 0;
+  for (let i = 0; i < key.length; i++) {
+    hash = ((hash << 5) - hash) + key.charCodeAt(i);
+    hash |= 0;
+  }
+  return hash;
+}
+
 /** 특정 날짜에 강제로 사용할 이미지 — 자동 픽보다 우선. 사용 후 라인 제거. */
 const DATE_OVERRIDES: Record<string, string> = {
   "2026-04-30": "ChatGPT Image 2026년 4월 29일 오후 04_23_18.png",
 };
 
-/** 날짜 기반 결정적 픽 — 같은 날 재실행 시 같은 이미지 반환 */
-export function pickHookImage(today: string): string {
+/**
+ * 날짜 + 슬롯 기반 결정적 픽 — 같은 날 같은 슬롯을 재실행하면 같은 이미지가 나온다.
+ *
+ * 슬롯을 키에 넣는 이유(2026-08-05): 저녁(내일 경기)과 다음날 아침(오늘 경기)은
+ * 대상 날짜가 같아서, 날짜만으로 뽑으면 두 게시물의 커버·영상 첫 프레임이 같은
+ * 배경 이미지가 된다. 유튜브가 8/4 저녁분부터 Shorts 피드 배포를 끊은 뒤라
+ * 배경부터 갈라 둔다.
+ */
+export function pickHookImage(today: string, slot: PostSlot = getPostSlot(today)): string {
   if (!fs.existsSync(HOOKS_DIR)) {
     throw new Error(`후킹 이미지 폴더 없음: ${HOOKS_DIR}`);
   }
@@ -386,12 +403,12 @@ export function pickHookImage(today: string): string {
     throw new Error(`후킹 이미지 없음: ${HOOKS_DIR}`);
   }
 
-  let hash = 0;
-  for (let i = 0; i < today.length; i++) {
-    hash = ((hash << 5) - hash) + today.charCodeAt(i);
-    hash |= 0;
+  let idx = Math.abs(hashOf(`${today}|${slot}`)) % files.length;
+  // 해시가 우연히 같은 칸을 가리켜도 두 슬롯이 같은 이미지를 쓰지 않게 한 칸 민다.
+  if (files.length > 1 && slot === "evening") {
+    const morningIdx = Math.abs(hashOf(`${today}|morning`)) % files.length;
+    if (idx === morningIdx) idx = (idx + 1) % files.length;
   }
-  const idx = Math.abs(hash) % files.length;
   const picked = path.join(HOOKS_DIR, files[idx]);
 
   const sizeKB = fs.statSync(picked).size / 1024;

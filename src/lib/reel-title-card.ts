@@ -8,6 +8,7 @@ import {
   inferDayLabel,
 } from "./instagram";
 import { eventWord } from "./hero-pick";
+import { getPostSlot, rotateIndex, type PostSlot } from "./post-slot";
 
 const ACCENT = "#8fff3d";
 const KST_DOW = ["일", "월", "화", "수", "목", "금", "토"];
@@ -17,6 +18,8 @@ export type ReelTitleAspect = "9:16" | "4:5";
 export interface ReelBrandOpts {
   /** true면 URL(haeseol.com) 대신 한글 브랜드(한해설) 사용 — 틱톡 워터마크/URL 억제 회피용. */
   noUrl?: boolean;
+  /** 슬롯 강제 지정 — 미지정이면 대상 날짜로 판정한다. 미리보기·테스트용. */
+  slot?: PostSlot;
 }
 
 // 9:16 (1080x1920): 릴스 영상 본 비율.
@@ -157,19 +160,40 @@ export async function renderReelTitleText(
     : undefined;
 
   const dayLabel = inferDayLabel(today);
+  const slot = opts.slot ?? getPostSlot(today);
+  // 첫 프레임 문구도 슬롯별로 가른다. 저녁(내일 경기)과 다음날 아침(오늘 경기)은
+  // 대상 날짜가 같아서, 날짜만 쓰면 두 영상의 첫 프레임이 사실상 같은 그림이 된다.
+  // 문구는 예고(저녁) / 지금 확인(아침) 프레임으로 나눠 쓴다.
   let bigLine = "";
   let subLine = "";
 
   if (playerOnHero) {
-    bigLine = `${playerOnHero.name} 출전`;
-    subLine = `${dayLabel} 한국어 해설 ${n}경기`;
+    const who = playerOnHero.name;
+    const pool =
+      slot === "morning"
+        ? [
+            { big: `오늘 ${who} 출전`, sub: `한국어 해설 ${n}경기, 채널 확인` },
+            { big: `${who} 오늘 ${hero!.time}`, sub: `어디서 보는지 3초면 끝` },
+            { big: `${who} 나오는 날`, sub: `오늘 한국어 해설 ${n}경기` },
+          ]
+        : [
+            { big: `내일 ${who} 출전`, sub: `${hero!.time} 알람 맞추세요` },
+            { big: `${who} 내일 ${hero!.time}`, sub: `내일 한국어 해설 ${n}경기` },
+            { big: `내일 이건 챙기세요`, sub: `${who} ${hero!.time} 한국어 해설` },
+          ];
+    const picked = pool[rotateIndex(today, slot, pool.length)];
+    bigLine = picked.big;
+    subLine = picked.sub;
   } else if (n > 0 && hero) {
     // 월드컵 경기가 히어로면 "빅매치" 대신 "월드컵"으로 (월드컵 기간에만 자연히 적용 — 평시엔 히어로가 월드컵일 수 없음).
     bigLine = `${hero.time} ${eventWord(hero)}`;
-    subLine = `${dayLabel} 한국어 해설 ${n}경기`;
+    subLine =
+      slot === "morning"
+        ? `오늘 한국어 해설 ${n}경기, 채널 확인`
+        : `내일 한국어 해설 ${n}경기, 알람 맞추기`;
   } else if (n > 0) {
     bigLine = `한국어 해설 ${n}경기`;
-    subLine = `${dayLabel}의 중계 편성표`;
+    subLine = slot === "morning" ? `오늘 볼 경기 한 번에` : `내일 볼 경기 미리보기`;
   } else {
     bigLine = `${dayLabel}의 한국어 중계`;
     subLine = noUrl ? "한국어 해설 편성표" : "haeseol.com";
