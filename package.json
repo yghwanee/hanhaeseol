@@ -66,6 +66,7 @@
     "test:schedule-quality": "tsx --test src/lib/schedule-quality.test.ts",
     "test:sitemap-consistency": "tsx --test src/lib/sitemap-consistency.test.ts",
     "test:autolink": "tsx --test src/lib/guides/autolink.test.ts",
+    "test:cover-hook": "tsx --test src/lib/cover-hook.test.ts",
     "test:workflow-push": "tsx --test src/lib/workflow-push-guard.test.ts"
   },
   "dependencies": {

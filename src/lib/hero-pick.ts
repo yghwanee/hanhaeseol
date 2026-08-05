@@ -33,7 +33,7 @@ function norm(s: string): string {
  * MLB·KBO·NBA 팀은 넣지 않는다. 이미 리그 스코프 BIG_TEAMS 로 점수를 받고 있고,
  * 여기 또 넣으면 코리안리거 MLB 가 다시 부풀어 이번 개편 목적이 뒤집힌다.
  */
-const GLOBAL_BIG_CLUBS = new Set(
+export const GLOBAL_BIG_CLUBS = new Set(
   [
     "맨시티", "맨유", "리버풀", "아스날", "첼시", "토트넘",
     "레알 마드리드", "바르셀로나", "아틀레티코 마드리드", "AT.마드리드",
