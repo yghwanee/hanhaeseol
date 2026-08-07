@@ -16,8 +16,17 @@ import {
 } from "./shorts-title";
 import { rotateIndex } from "./post-slot";
 
-/** 편성 데이터에 실제로 경기가 있는 날짜를 쓴다(없으면 폴백 경로만 타서 검증이 약해진다). */
-const DATES = ["2026-08-05", "2026-08-06", "2026-08-07", "2026-08-08"];
+/**
+ * 편성 데이터에 실제로 경기가 있는 날짜를 쓴다(없으면 폴백 경로만 타서 검증이 약해진다).
+ * 🔴 날짜를 하드코딩하면 안 된다 — schedule.json 은 오늘부터 7일치라, 박아 둔 날짜가
+ * 과거가 되는 순간 조용히 폴백만 검사하게 된다(2026-08-07 에 실제로 그 상태였다).
+ */
+const DATES = Array.from({ length: 4 }, (_, i) => kstDatePlus(i));
+
+function kstDatePlus(days: number): string {
+  const kst = new Date(Date.now() + 9 * 3600_000 + days * 86400_000);
+  return kst.toISOString().slice(0, 10);
+}
 
 test("제목 풀은 슬롯당 8개다", () => {
   // 4개면 같은 틀이 나흘마다 돌아온다.
@@ -81,6 +90,30 @@ test("후킹 문장은 제목과 같은 문장을 재사용하지 않는다", ()
       const title = buildShortsTitle("08", d.slice(8, 10), d, slot);
       const hook = buildHookLine(d, slot);
       assert.ok(!title.startsWith(hook), `${d}/${slot}: 제목·설명 첫 줄이 동일 문장 — ${hook}`);
+    }
+  }
+});
+
+// 2026-08-07: 슬롯만 갈라 놨더니 같은 실행 안에서 캐러셀·릴스 캡션이 글자까지 같았다
+// (실측 `[REELS] 오늘 KIA 경기 …` = `[FEED] 오늘 KIA 경기 …`). 한 번의 게시로 나가는
+// 네 텍스트(제목·유튜브 설명·캐러셀·릴스)가 전부 달라야 한다.
+test("같은 실행에서 나가는 후킹 문장이 게시면별로 모두 다르다", () => {
+  for (const d of DATES) {
+    for (const slot of ["morning", "evening"] as const) {
+      const title = buildShortsTitle("08", d.slice(8, 10), d, slot);
+      const lines = [
+        buildHookLine(d, slot, "youtube-desc"),
+        buildHookLine(d, slot, "ig-feed"),
+        buildHookLine(d, slot, "ig-reel"),
+      ];
+      assert.equal(
+        new Set(lines).size,
+        lines.length,
+        `${d}/${slot}: 게시면 후킹이 겹침 — ${JSON.stringify(lines)}`,
+      );
+      for (const line of lines) {
+        assert.ok(!title.startsWith(line), `${d}/${slot}: 제목과 겹침 — ${line}`);
+      }
     }
   }
 });

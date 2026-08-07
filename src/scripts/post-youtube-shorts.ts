@@ -36,14 +36,37 @@ async function main(): Promise<string> {
 
   console.log(`✅ 유튜브 쇼츠 업로드 완료: https://youtube.com/shorts/${videoId}`);
 
-  console.log(`🖼  썸네일 설정 중... (${thumbFile})`);
-  await setThumbnail(videoId, thumbPath);
-  console.log(`✅ 썸네일 설정 완료`);
-
-  await addComment(videoId, buildSocialComment(today));
-  console.log(`💬 댓글 작성 완료`);
+  // 🔴 여기서부터는 영상이 이미 공개된 뒤다. 실패해도 throw 하지 않는다 —
+  // exit 1 로 끝나면 워크플로가 빨갛게 뜨고, 그걸 보고 재실행하면 같은 영상이
+  // 한 번 더 업로드된다. 인스타 댓글에 이미 내린 결정과 같다(2026-08-02).
+  //
+  // 실제로 2026-08-07 아침에 업로드는 성공했는데 썸네일이 403 하나로 스텝이 죽었다.
+  // 직전 6회는 전부 성공했으니 일시 오류다. 그래서 재시도 + 비치명으로 바꾼다.
+  await afterPublish("썸네일 설정", () => setThumbnail(videoId, thumbPath), thumbFile);
+  await afterPublish("댓글 작성", () => addComment(videoId, buildSocialComment(today)));
 
   return `https://youtube.com/shorts/${videoId}`;
+}
+
+/** 게시 완료 뒤 부가 작업 — 짧게 재시도하고, 끝내 실패해도 경고만 남긴다. */
+async function afterPublish(label: string, run: () => Promise<unknown>, note?: string) {
+  const delays = [5000, 15000];
+  console.log(`🔧 ${label} 중...${note ? ` (${note})` : ""}`);
+  for (let attempt = 0; attempt <= delays.length; attempt++) {
+    try {
+      await run();
+      console.log(`✅ ${label} 완료`);
+      return;
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : String(e);
+      if (attempt === delays.length) {
+        console.warn(`⚠️  ${label} 실패(영상 게시는 완료, 계속 진행): ${msg}`);
+        return;
+      }
+      console.warn(`⚠️  ${label} 실패 — ${delays[attempt] / 1000}초 뒤 재시도: ${msg}`);
+      await new Promise((r) => setTimeout(r, delays[attempt]));
+    }
+  }
 }
 
 runWithReport("youtube", main);

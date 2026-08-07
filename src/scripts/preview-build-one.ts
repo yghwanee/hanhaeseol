@@ -56,8 +56,8 @@ for (const f of fs.readdirSync(src)) {
 
 // 3) 캡션 + 첫 댓글 텍스트 (게시 시 실제로 들어갈 텍스트)
 const { today, mm, dd } = getKstToday();
-const captionFeed = buildCaption(mm, dd, today, UTM_LINKS.ig_post);
-const captionReel = buildCaption(mm, dd, today, UTM_LINKS.ig_reel);
+const captionFeed = buildCaption(mm, dd, today, UTM_LINKS.ig_post, "feed");
+const captionReel = buildCaption(mm, dd, today, UTM_LINKS.ig_reel, "reel");
 const comment = buildSocialComment(today);
 
 fs.writeFileSync(

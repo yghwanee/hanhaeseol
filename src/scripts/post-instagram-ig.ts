@@ -29,7 +29,7 @@ async function main(): Promise<string> {
   const carouselId = await createFinishedContainer({
     media_type: "CAROUSEL",
     children: itemIds.join(","),
-    caption: buildCaption(mm, dd, today, UTM_LINKS.ig_post),
+    caption: buildCaption(mm, dd, today, UTM_LINKS.ig_post, "feed"),
   });
 
   const mediaId = await publish(carouselId);

@@ -88,16 +88,56 @@ function hookContext(today: string): HookCtx | null {
 }
 
 /**
- * 캡션·설명 첫 줄용 후킹 문장(날짜·해시태그 없음).
- * 제목과 같은 풀을 쓰되 한 칸 밀어, 제목과 설명이 같은 문장으로 겹치지 않게 한다.
+ * 후킹 문장을 쓰는 게시면. 한 번의 실행에서 이 셋이 **동시에** 나간다.
+ *
+ * 2026-08-07: 슬롯(아침/저녁)만 갈라 놨더니 같은 실행 안에서 인스타 캐러셀과 릴스가
+ * 글자까지 같은 캡션으로 나가고 있었다(실측 — `[REELS] 오늘 KIA 경기 …` = `[FEED] 오늘 KIA 경기 …`).
+ * 유튜브 피드 배포를 끊었던 것과 같은 중복 신호라 게시면도 축으로 세운다.
  */
-export function buildHookLine(today: string, slot: PostSlot = getPostSlot(today)): string {
+export type HookSurface = "youtube-desc" | "ig-feed" | "ig-reel";
+
+/** 제목(0)과도, 서로와도 겹치지 않도록 풀에서 떨어뜨리는 간격. 풀 크기 8 기준. */
+const SURFACE_OFFSET: Record<HookSurface, number> = {
+  "youtube-desc": 1,
+  "ig-feed": 3,
+  "ig-reel": 5,
+};
+
+/**
+ * 히어로 재료가 없는 날(경기 0·편성 미수집)용.
+ * 🔴 슬롯 × 게시면 둘 다 갈라야 한다. 종전엔 한 문장이라, 편성이 안 잡힌 날에는
+ * 여섯 게시물이 전부 같은 첫 줄로 나갔다 — 정작 중복이 제일 위험한 날이다.
+ */
+const FALLBACK_HOOKS: Record<HookSurface, Record<PostSlot, string>> = {
+  "youtube-desc": {
+    morning: "오늘 한국어 해설 편성, 한 번에 정리했습니다",
+    evening: "내일 한국어 해설 편성, 미리 정리해 뒀습니다",
+  },
+  "ig-feed": {
+    morning: "오늘 한국어 중계되는 경기, 채널까지 같이 봤어요",
+    evening: "내일 한국어 중계되는 경기, 채널까지 미리 확인하세요",
+  },
+  "ig-reel": {
+    morning: "오늘 뭐 볼지 정하기 전에 30초만",
+    evening: "내일 볼 거 지금 정해 두실 분",
+  },
+};
+
+/**
+ * 캡션·설명 첫 줄용 후킹 문장(날짜·해시태그 없음).
+ * 제목과 같은 풀을 쓰되 게시면별로 다른 칸을 집어, 제목·유튜브설명·캐러셀·릴스 넷이
+ * 같은 문장으로 겹치지 않게 한다.
+ */
+export function buildHookLine(
+  today: string,
+  slot: PostSlot = getPostSlot(today),
+  surface: HookSurface = "youtube-desc",
+): string {
   const ctx = hookContext(today);
-  const day = inferDayLabel(today);
-  if (!ctx) return `${day} 한국어 해설 편성, 한 번에 정리했습니다`;
+  if (!ctx) return FALLBACK_HOOKS[surface][slot];
 
   const pool = slot === "morning" ? MORNING_HOOKS : EVENING_HOOKS;
-  const idx = (rotateIndex(today, slot, pool.length) + 1) % pool.length;
+  const idx = (rotateIndex(today, slot, pool.length) + SURFACE_OFFSET[surface]) % pool.length;
   return pool[idx](ctx);
 }
 

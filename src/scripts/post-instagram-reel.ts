@@ -18,7 +18,7 @@ async function main(): Promise<string> {
   const params: Record<string, string> = {
     media_type: "REELS",
     video_url: videoUrl,
-    caption: buildCaption(mm, dd, today, UTM_LINKS.ig_reel),
+    caption: buildCaption(mm, dd, today, UTM_LINKS.ig_reel, "reel"),
     share_to_feed: "false",
   };
   if (manifest.cover) {

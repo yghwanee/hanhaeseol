@@ -1,5 +1,5 @@
 import { getHeroMatchLines, getHierarchicalTags, getMainHighlight, getHeroEventWord } from "./hashtags";
-import { inferDayLabel } from "./instagram";
+import { inferDayLabel, pickHeroForDate } from "./instagram";
 import { buildHookLine } from "./shorts-title";
 
 const IG_API = "https://graph.facebook.com/v21.0";
@@ -16,36 +16,96 @@ export function igEnv() {
 
 export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
-export function buildCaption(mm: string, dd: string, today: string, link: string) {
+/** 캐러셀(피드) / 릴스 — 같은 실행에서 나란히 올라가는 두 게시물. */
+export type CaptionSurface = "feed" | "reel";
+
+/**
+ * 후킹 문장의 주인공(pickHeroForDate — 연속 방지 감점 적용)에 해당하는 줄을 목록에서 찾는다.
+ * 못 찾으면 첫 줄로 떨어진다.
+ */
+function pickHeroOwnLine(today: string, lines: string[]): string[] {
+  if (lines.length === 0) return [];
+  const hero = pickHeroForDate(today);
+  if (hero) {
+    const own = lines.find(
+      (l) => l.includes(hero.homeTeam) && (!hero.awayTeam || l.includes(hero.awayTeam)),
+    );
+    if (own) return [own];
+  }
+  return [lines[0]];
+}
+
+/**
+ * 해시태그 묶음은 같아도 순서를 게시면별로 돌린다.
+ * 인스타 중복 판정은 캡션 문자열 기준이라, 본문을 갈라 놓고 태그 줄만 글자까지 같으면
+ * 그 줄이 다시 동일 신호가 된다. 태그 자체를 빼면 도달을 잃으므로 순서만 바꾼다.
+ */
+function rotateTags(tags: string[], surface: CaptionSurface): string {
+  if (tags.length < 2 || surface === "feed") return tags.join(" ");
+  // 🔴 고정 상수로 나누면 몫이 0 이 되는 길이가 생긴다(태그 3개에 shift 3 → 회전 없음,
+  // 실제로 가드에 걸렸다). 길이에 비례시켜 1 이상을 보장한다.
+  const k = Math.max(1, Math.floor(tags.length / 2));
+  return [...tags.slice(k), ...tags.slice(0, k)].join(" ");
+}
+
+/**
+ * 인스타 캡션.
+ *
+ * 🔴 게시면별로 **본문 구조가 다르다**. 2026-08-07 실측에서 캐러셀과 릴스가 링크의 UTM
+ * 파라미터만 빼고 글자까지 같은 캡션으로 매일 두 번씩 올라가고 있었다. 유튜브 피드
+ * 배포를 끊었던 중복 신호와 같은 구조라, 첫 줄만이 아니라 담는 내용 자체를 갈랐다.
+ *   · 캐러셀 = 편성표 전체가 매체다 → 주요 경기 3줄 + 총 경기 수
+ *   · 릴스   = 히어로 한 경기가 매체다 → 그 경기 1줄에 집중
+ */
+export function buildCaption(
+  mm: string,
+  dd: string,
+  today: string,
+  link: string,
+  surface: CaptionSurface = "feed",
+) {
   const dayLabel = inferDayLabel(today);
-  const hashtagLine = getHierarchicalTags(today).tags.join(" ");
+  const tags = getHierarchicalTags(today).tags;
   const highlight = getMainHighlight(today);
-  const { lines: heroLines, totalGames } = getHeroMatchLines(today, 3);
+  // 릴스는 히어로 한 경기만 싣지만 후보를 넉넉히 받아 그중 히어로 경기를 골라낸다
+  // (아래 주석 참조 — 목록 순서와 후킹 주인공이 갈릴 수 있다).
+  const { lines: allLines, totalGames } = getHeroMatchLines(today, surface === "feed" ? 3 : 6);
+  const heroLines = surface === "feed" ? allLines : pickHeroOwnLine(today, allLines);
 
   const body: string[] = [];
-  // 첫 줄 = 슬롯별 후킹. 저녁(내일 경기)/다음날 아침(오늘 경기)은 대상 날짜가 같아
-  // 종전 `📺 08/05 이정후 MLB 한국어 중계` 한 줄이 두 게시물에서 글자까지 같았다.
-  body.push(buildHookLine(today));
-  body.push(``);
-  body.push(`📺 ${mm}/${dd} ${highlight}`);
+  // 첫 줄 = 슬롯 × 게시면별 후킹. 저녁(내일 경기)/다음날 아침(오늘 경기)은 대상 날짜가
+  // 같고, 캐러셀·릴스는 대상 날짜와 슬롯이 둘 다 같다. 두 축을 모두 갈라야 안 겹친다.
+  body.push(buildHookLine(today, undefined, surface === "feed" ? "ig-feed" : "ig-reel"));
   body.push(``);
 
-  if (heroLines.length > 0) {
+  if (heroLines.length === 0) {
+    body.push(`${dayLabel}은 한국어 해설 편성이 없어요.`);
+  } else if (surface === "feed") {
+    body.push(`📺 ${mm}/${dd} ${highlight}`);
+    body.push(``);
     body.push(`🎯 ${dayLabel}의 ${getHeroEventWord(today)}`);
     for (const line of heroLines) body.push(line);
     body.push(``);
-    if (totalGames > heroLines.length) {
-      body.push(`+ ${totalGames - heroLines.length}경기 더보기`);
-    } else {
-      body.push(`총 ${totalGames}경기`);
-    }
+    body.push(
+      totalGames > heroLines.length
+        ? `+ ${totalGames - heroLines.length}경기 더보기`
+        : `총 ${totalGames}경기`,
+    );
   } else {
-    body.push(`${dayLabel}은 한국어 해설 편성이 없어요.`);
+    // 🔴 첫 줄을 그냥 쓰면 안 된다. 후킹 문장의 주인공은 pickHeroForDate(연속 방지 감점 적용)
+    // 가 고르고, 이 목록은 pickHeroMatchesTop(감점 없음) 순서라 둘이 갈릴 수 있다.
+    // 실측(2026-08-08): 후킹은 "이정후"인데 목록 첫 줄은 다저스 경기였다 —
+    // 캐러셀은 3줄이라 그 안에 섞여 안 보였지만, 릴스는 한 줄이라 캡션이 자기모순이 된다.
+    body.push(`🎯 ${dayLabel} 주목 경기`);
+    body.push(heroLines[0]);
+    body.push(``);
+    body.push(`${dayLabel} 한국어 해설 총 ${totalGames}경기`);
   }
+
   body.push(``);
   body.push(link);
   body.push(``);
-  body.push(hashtagLine);
+  body.push(rotateTags(tags, surface));
 
   return body.join("\n");
 }
