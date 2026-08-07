@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-07T12:27:20.235Z",
+  "lastUpdated": "2026-08-07T13:58:05.319Z",
   "byKey": {
     "2026-08-06|kbo|삼성|한화": {
       "date": "2026-08-06",
@@ -1921,8 +1921,8 @@
       "awayTeam": "김해",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 23'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -1938,9 +1938,17 @@
       "homeTeam": "경남",
       "awayTeam": "대구",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 23'"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "데커스",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ]
     },
     "2026-08-07|kleague2|충남아산|안산": {
       "date": "2026-08-07",
@@ -1949,15 +1957,20 @@
       "homeTeam": "충남아산",
       "awayTeam": "안산",
       "homeScore": 1,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 25'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "연제민",
           "minute": 20,
           "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "마촙",
+          "minute": 78
         }
       ]
     },
@@ -1969,8 +1982,8 @@
       "awayTeam": "충북청주",
       "homeScore": 3,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 21'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -1998,8 +2011,8 @@
       "awayTeam": "서울E",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 24'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-08-07|kleague2|용인|부산": {
       "date": "2026-08-07",
@@ -2007,10 +2020,22 @@
       "gameId": "202608074206166",
       "homeTeam": "용인",
       "awayTeam": "부산",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 22'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김보섭",
+          "minute": 66
+        },
+        {
+          "team": "home",
+          "player": "강신명",
+          "minute": 89
+        }
+      ]
     },
     "2026-08-08|kleague2|성남|천안": {
       "date": "2026-08-08",
@@ -2736,8 +2761,8 @@
       "awayTeam": "김해",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 23'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2753,9 +2778,17 @@
       "homeTeam": "경남",
       "awayTeam": "대구",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 23'"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "데커스",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ]
     },
     {
       "date": "2026-08-07",
@@ -2764,15 +2797,20 @@
       "homeTeam": "충남아산",
       "awayTeam": "안산",
       "homeScore": 1,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 25'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "연제민",
           "minute": 20,
           "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "마촙",
+          "minute": 78
         }
       ]
     },
@@ -2784,8 +2822,8 @@
       "awayTeam": "충북청주",
       "homeScore": 3,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 21'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2813,8 +2851,8 @@
       "awayTeam": "서울E",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 24'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-08-07",
@@ -2822,10 +2860,22 @@
       "gameId": "202608074206166",
       "homeTeam": "용인",
       "awayTeam": "부산",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 22'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김보섭",
+          "minute": 66
+        },
+        {
+          "team": "home",
+          "player": "강신명",
+          "minute": 89
+        }
+      ]
     },
     {
       "date": "2026-08-08",
