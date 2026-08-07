@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-07T11:30:30.560Z",
+  "lastUpdated": "2026-08-07T12:27:20.235Z",
   "byKey": {
     "2026-08-06|kbo|삼성|한화": {
       "date": "2026-08-06",
@@ -1919,10 +1919,17 @@
       "gameId": "202608070241165",
       "homeTeam": "수원",
       "awayTeam": "김해",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'"
+      "period": "후반 23'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "고종현",
+          "minute": 56
+        }
+      ]
     },
     "2026-08-07|kleague2|경남|대구": {
       "date": "2026-08-07",
@@ -1933,7 +1940,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'"
+      "period": "후반 23'"
     },
     "2026-08-07|kleague2|충남아산|안산": {
       "date": "2026-08-07",
@@ -1944,7 +1951,7 @@
       "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'",
+      "period": "후반 25'",
       "goals": [
         {
           "team": "home",
@@ -1960,15 +1967,26 @@
       "gameId": "202608073637162",
       "homeTeam": "김포",
       "awayTeam": "충북청주",
-      "homeScore": 1,
+      "homeScore": 3,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'",
+      "period": "후반 21'",
       "goals": [
         {
           "team": "home",
           "player": "루이스",
           "minute": 8
+        },
+        {
+          "team": "home",
+          "player": "디자우마",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "파울리뇨",
+          "minute": 54
         }
       ]
     },
@@ -1981,7 +1999,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'"
+      "period": "후반 24'"
     },
     "2026-08-07|kleague2|용인|부산": {
       "date": "2026-08-07",
@@ -1992,7 +2010,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'"
+      "period": "후반 22'"
     },
     "2026-08-08|kleague2|성남|천안": {
       "date": "2026-08-08",
@@ -2716,10 +2734,17 @@
       "gameId": "202608070241165",
       "homeTeam": "수원",
       "awayTeam": "김해",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'"
+      "period": "후반 23'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "고종현",
+          "minute": 56
+        }
+      ]
     },
     {
       "date": "2026-08-07",
@@ -2730,7 +2755,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'"
+      "period": "후반 23'"
     },
     {
       "date": "2026-08-07",
@@ -2741,7 +2766,7 @@
       "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'",
+      "period": "후반 25'",
       "goals": [
         {
           "team": "home",
@@ -2757,15 +2782,26 @@
       "gameId": "202608073637162",
       "homeTeam": "김포",
       "awayTeam": "충북청주",
-      "homeScore": 1,
+      "homeScore": 3,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'",
+      "period": "후반 21'",
       "goals": [
         {
           "team": "home",
           "player": "루이스",
           "minute": 8
+        },
+        {
+          "team": "home",
+          "player": "디자우마",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "파울리뇨",
+          "minute": 54
         }
       ]
     },
@@ -2778,7 +2814,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'"
+      "period": "후반 24'"
     },
     {
       "date": "2026-08-07",
@@ -2789,7 +2825,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 31'"
+      "period": "후반 22'"
     },
     {
       "date": "2026-08-08",
