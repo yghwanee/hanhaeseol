@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-08T21:44:38.919Z",
+  "lastUpdated": "2026-08-08T22:45:19.371Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -24524,6 +24524,41 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기취소"
+    },
+    "2026-08-09|mlb|뉴욕 양키스|애틀랜타 브레이브스": {
+      "date": "2026-08-09",
+      "categoryId": "mlb",
+      "gameId": "20260809ATNY0",
+      "homeTeam": "뉴욕 양키스",
+      "awayTeam": "애틀랜타 브레이브스",
+      "homeScore": 5,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-08-09|mls|뉴잉글랜드 레볼루션|휴스턴": {
+      "date": "2026-08-09",
+      "categoryId": "mls",
+      "gameId": "COdXIVS0XSH1Ggd",
+      "homeTeam": "뉴잉글랜드 레볼루션",
+      "awayTeam": "휴스턴",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "기엘르미",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "away",
+          "player": "레쉬",
+          "minute": 63
+        }
+      ]
     }
   },
   "results": [
@@ -49050,6 +49085,41 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기취소"
+    },
+    {
+      "date": "2026-08-09",
+      "categoryId": "mlb",
+      "gameId": "20260809ATNY0",
+      "homeTeam": "뉴욕 양키스",
+      "awayTeam": "애틀랜타 브레이브스",
+      "homeScore": 5,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-09",
+      "categoryId": "mls",
+      "gameId": "COdXIVS0XSH1Ggd",
+      "homeTeam": "뉴잉글랜드 레볼루션",
+      "awayTeam": "휴스턴",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "기엘르미",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "away",
+          "player": "레쉬",
+          "minute": 63
+        }
+      ]
     }
   ]
 }
