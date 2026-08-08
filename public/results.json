@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-08T12:01:57.415Z",
+  "lastUpdated": "2026-08-08T13:10:33.686Z",
   "byKey": {
     "2026-08-07|kbo|LG|KIA": {
       "date": "2026-08-07",
@@ -1879,9 +1879,21 @@
       "homeTeam": "포항",
       "awayTeam": "울산",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "서명관",
+          "minute": 64
+        },
+        {
+          "team": "away",
+          "player": "야고",
+          "minute": 66
+        }
+      ]
     },
     "2026-08-08|kleague|전북|제주": {
       "date": "2026-08-08",
@@ -1889,15 +1901,31 @@
       "gameId": "202608080504131",
       "homeTeam": "전북",
       "awayTeam": "제주",
-      "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "전반종료",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "네게바",
           "minute": 22
+        },
+        {
+          "team": "home",
+          "player": "이승우",
+          "minute": 57
+        },
+        {
+          "team": "away",
+          "player": "네게바",
+          "minute": 69
+        },
+        {
+          "team": "away",
+          "player": "네게바",
+          "minute": 90,
+          "addedTime": 7
         }
       ]
     },
@@ -1909,8 +1937,8 @@
       "awayTeam": "광주",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-08-08|kleague|안양|대전": {
       "date": "2026-08-08",
@@ -1918,10 +1946,10 @@
       "gameId": "202608082710127",
       "homeTeam": "안양",
       "awayTeam": "대전",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 2,
-      "status": "live",
-      "period": "전반종료",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -1932,6 +1960,11 @@
           "team": "away",
           "player": "안톤",
           "minute": 39
+        },
+        {
+          "team": "home",
+          "player": "이창용",
+          "minute": 60
         }
       ]
     },
@@ -1943,8 +1976,8 @@
       "awayTeam": "서울",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-08-07|kleague2|수원|김해": {
       "date": "2026-08-07",
@@ -2076,15 +2109,15 @@
       "gameId": "202608080838168",
       "homeTeam": "성남",
       "awayTeam": "천안",
-      "homeScore": 2,
-      "awayScore": 1,
-      "status": "live",
-      "period": "전반 61'",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "툰가라",
-          "minute": 6
+          "minute": 5
         },
         {
           "team": "home",
@@ -2093,9 +2126,21 @@
         },
         {
           "team": "home",
-          "player": "정승용",
+          "player": "최준혁",
           "minute": 45,
-          "addedTime": 1
+          "addedTime": 1,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "권용승",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "양태양",
+          "minute": 90,
+          "addedTime": 3
         }
       ]
     },
@@ -2106,9 +2151,16 @@
       "homeTeam": "파주",
       "awayTeam": "수원FC",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "프리조",
+          "minute": 62
+        }
+      ]
     },
     "2026-08-08|eredivisie|캄부르|엑셀시오르": {
       "date": "2026-08-08",
@@ -2875,9 +2927,21 @@
       "homeTeam": "포항",
       "awayTeam": "울산",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "서명관",
+          "minute": 64
+        },
+        {
+          "team": "away",
+          "player": "야고",
+          "minute": 66
+        }
+      ]
     },
     {
       "date": "2026-08-08",
@@ -2885,15 +2949,31 @@
       "gameId": "202608080504131",
       "homeTeam": "전북",
       "awayTeam": "제주",
-      "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "전반종료",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "네게바",
           "minute": 22
+        },
+        {
+          "team": "home",
+          "player": "이승우",
+          "minute": 57
+        },
+        {
+          "team": "away",
+          "player": "네게바",
+          "minute": 69
+        },
+        {
+          "team": "away",
+          "player": "네게바",
+          "minute": 90,
+          "addedTime": 7
         }
       ]
     },
@@ -2905,8 +2985,8 @@
       "awayTeam": "광주",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-08-08",
@@ -2914,10 +2994,10 @@
       "gameId": "202608082710127",
       "homeTeam": "안양",
       "awayTeam": "대전",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 2,
-      "status": "live",
-      "period": "전반종료",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2928,6 +3008,11 @@
           "team": "away",
           "player": "안톤",
           "minute": 39
+        },
+        {
+          "team": "home",
+          "player": "이창용",
+          "minute": 60
         }
       ]
     },
@@ -2939,8 +3024,8 @@
       "awayTeam": "서울",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-08-07",
@@ -3072,15 +3157,15 @@
       "gameId": "202608080838168",
       "homeTeam": "성남",
       "awayTeam": "천안",
-      "homeScore": 2,
-      "awayScore": 1,
-      "status": "live",
-      "period": "전반 61'",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "툰가라",
-          "minute": 6
+          "minute": 5
         },
         {
           "team": "home",
@@ -3089,9 +3174,21 @@
         },
         {
           "team": "home",
-          "player": "정승용",
+          "player": "최준혁",
           "minute": 45,
-          "addedTime": 1
+          "addedTime": 1,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "권용승",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "양태양",
+          "minute": 90,
+          "addedTime": 3
         }
       ]
     },
@@ -3102,9 +3199,16 @@
       "homeTeam": "파주",
       "awayTeam": "수원FC",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "프리조",
+          "minute": 62
+        }
+      ]
     },
     {
       "date": "2026-08-08",
