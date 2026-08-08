@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-08T16:50:17.514Z",
+  "lastUpdated": "2026-08-08T17:45:02.043Z",
   "byKey": {
     "2026-08-08|kbo|LG|KIA": {
       "date": "2026-08-08",
@@ -757,7 +757,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-09|mlb|뉴욕양키스|애틀랜타 브레이브스": {
       "date": "2026-08-09",
@@ -767,7 +768,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-09|mlb|뉴욕 양키스|애틀랜타": {
       "date": "2026-08-09",
@@ -777,7 +779,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-09|mlb|뉴욕 양키스|애틀랜타 브레이브스": {
       "date": "2026-08-09",
@@ -787,7 +790,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-09|mlb|마이애미|LA에인절스": {
       "date": "2026-08-09",
@@ -797,7 +801,8 @@
       "awayTeam": "LA 에인절스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-09|mlb|마이애미|LA 에인절스": {
       "date": "2026-08-09",
@@ -807,7 +812,8 @@
       "awayTeam": "LA 에인절스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-09|mlb|마이애미 말린스|LA에인절스": {
       "date": "2026-08-09",
@@ -817,7 +823,8 @@
       "awayTeam": "LA 에인절스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-09|mlb|마이애미 말린스|LA 에인절스": {
       "date": "2026-08-09",
@@ -827,7 +834,8 @@
       "awayTeam": "LA 에인절스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-09|mlb|보스턴|애슬레틱스": {
       "date": "2026-08-09",
@@ -837,7 +845,8 @@
       "awayTeam": "애슬레틱스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-09|mlb|보스턴 레드삭스|애슬레틱스": {
       "date": "2026-08-09",
@@ -847,7 +856,8 @@
       "awayTeam": "애슬레틱스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-09|mlb|필라델피아|토론토": {
       "date": "2026-08-09",
@@ -2164,10 +2174,22 @@
       "gameId": "dJANoDCmUxebZQK",
       "homeTeam": "고 어헤드 이글스",
       "awayTeam": "빌럼 II",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 1,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 1'"
+      "period": "전반종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "하엔",
+          "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "텡스테트",
+          "minute": 30
+        }
+      ]
     },
     "2026-08-09|eredivisie|PSV 아인트호벤|시타르트": {
       "date": "2026-08-09",
@@ -2553,7 +2575,8 @@
       "awayTeam": "애틀랜타 브레이브스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-08-09",
@@ -2563,7 +2586,8 @@
       "awayTeam": "LA 에인절스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-08-09",
@@ -2573,7 +2597,8 @@
       "awayTeam": "애슬레틱스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-08-09",
@@ -3089,10 +3114,22 @@
       "gameId": "dJANoDCmUxebZQK",
       "homeTeam": "고 어헤드 이글스",
       "awayTeam": "빌럼 II",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 1,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 1'"
+      "period": "전반종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "하엔",
+          "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "텡스테트",
+          "minute": 30
+        }
+      ]
     },
     {
       "date": "2026-08-09",
