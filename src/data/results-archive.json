@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-09T14:19:18.414Z",
+  "lastUpdated": "2026-08-09T15:06:08.139Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -24489,6 +24489,58 @@
         }
       ]
     },
+    "2026-08-09|eredivisie|즈볼레|아약스": {
+      "date": "2026-08-09",
+      "categoryId": "eredivisie",
+      "gameId": "0Jb19jX3GXVf1rk",
+      "homeTeam": "즈볼레",
+      "awayTeam": "아약스",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "모키오",
+          "minute": 76
+        },
+        {
+          "team": "away",
+          "player": "브란트",
+          "minute": 90,
+          "addedTime": 5
+        }
+      ]
+    },
+    "2026-08-09|eredivisie|흐로닝언|위트레흐트": {
+      "date": "2026-08-09",
+      "categoryId": "eredivisie",
+      "gameId": "im5u5AeOqgTasqA",
+      "homeTeam": "흐로닝언",
+      "awayTeam": "위트레흐트",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "윌룸손",
+          "minute": 8
+        },
+        {
+          "team": "home",
+          "player": "반 베르헨",
+          "minute": 48
+        },
+        {
+          "team": "away",
+          "player": "블레이크",
+          "minute": 79
+        }
+      ]
+    },
     "2026-08-09|kbo|LG|KIA": {
       "date": "2026-08-09",
       "categoryId": "kbo",
@@ -24630,7 +24682,8 @@
       "homeScore": 4,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "-F_nks3gR_w"
     },
     "2026-08-09|mlb|텍사스 레인저스|볼티모어 오리올스": {
       "date": "2026-08-09",
@@ -49225,6 +49278,58 @@
     },
     {
       "date": "2026-08-09",
+      "categoryId": "eredivisie",
+      "gameId": "0Jb19jX3GXVf1rk",
+      "homeTeam": "즈볼레",
+      "awayTeam": "아약스",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "모키오",
+          "minute": 76
+        },
+        {
+          "team": "away",
+          "player": "브란트",
+          "minute": 90,
+          "addedTime": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-08-09",
+      "categoryId": "eredivisie",
+      "gameId": "im5u5AeOqgTasqA",
+      "homeTeam": "흐로닝언",
+      "awayTeam": "위트레흐트",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "윌룸손",
+          "minute": 8
+        },
+        {
+          "team": "home",
+          "player": "반 베르헨",
+          "minute": 48
+        },
+        {
+          "team": "away",
+          "player": "블레이크",
+          "minute": 79
+        }
+      ]
+    },
+    {
+      "date": "2026-08-09",
       "categoryId": "kbo",
       "gameId": "20260809HTLG02026",
       "homeTeam": "LG",
@@ -49364,7 +49469,8 @@
       "homeScore": 4,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "-F_nks3gR_w"
     },
     {
       "date": "2026-08-09",
