@@ -51,7 +51,7 @@ export const MORNING_HOOKS: Array<(c: HookCtx) => string> = [
   (c) => `오늘 ${c.who} 경기 ${c.emoji} 한국어 중계 어디서 봐요?`,
   (c) => `${c.who} 오늘 ${c.time} ${start(c)} ${c.emoji} 한국어 중계 채널은`,
   (c) => `오늘 한국어 해설 ${c.games}경기 ${c.emoji} ${c.who}부터 확인`,
-  (c) => `${c.who} 오늘 중계 ${c.emoji} 채널 하나로 정리했습니다`,
+  (c) => `${c.who} 오늘 한국어 중계 ${c.emoji} 채널 하나로 정리했습니다`,
   (c) => `${c.who} 오늘 어디서 보나 ${c.emoji} 한국어 해설 채널 정리`,
   (c) => `오늘 ${c.time} ${c.who} ${c.emoji} 한국어 중계 되는 곳`,
   (c) => `오늘 볼 경기 골랐습니다 ${c.emoji} ${c.who} 한국어 중계`,
@@ -66,7 +66,7 @@ export const EVENING_HOOKS: Array<(c: HookCtx) => string> = [
   (c) => `내일 한국어 해설 ${c.games}경기 ${c.emoji} ${c.who} 알람 맞추세요`,
   (c) => `내일치 편성 나왔습니다 ${c.emoji} ${c.who} ${c.time} 한국어 중계`,
   (c) => `${c.who} 내일 어디서 보나 ${c.emoji} ${c.time} 한국어 해설`,
-  (c) => `내일 볼 거 미리 찍어두세요 ${c.emoji} ${c.who} ${c.time}`,
+  (c) => `내일 볼 거 미리 찍어두세요 ${c.emoji} ${c.who} 한국어 중계 ${c.time}`,
   (c) => `내일 ${c.time} ${c.who} ${c.emoji} 한국어 중계 채널 정리`,
 ];
 

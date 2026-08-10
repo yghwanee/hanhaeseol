@@ -13,6 +13,15 @@ export function formatDateHeader(isoDate: string): string {
   return `${m}월 ${d}일 (${DAY_NAMES[dt.getUTCDay()]})`;
 }
 
+/**
+ * 요일 없는 짧은 날짜(`8월 10일`). 검색 쿼리에 요일이 안 들어가는데
+ * `<title>` 에서는 4글자를 먹어서, 제목 전용으로 뺀다(seo-meta.buildMatchTitle 참조).
+ */
+export function formatShortDate(isoDate: string): string {
+  const [, m, d] = isoDate.split("-").map(Number);
+  return `${m}월 ${d}일`;
+}
+
 export function getUpcomingDates(): { label: string; value: string }[] {
   const dates: { label: string; value: string }[] = [];
   // KST 기준 오늘을 UTC 자정으로 취급해 일수만 더한다(달/요일 계산은 getUTC*).

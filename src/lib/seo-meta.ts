@@ -78,6 +78,35 @@ export function dedupeSitemapEntries<T extends SitemapEntry>(entries: T[]): T[] 
   return [...best.values()];
 }
 
+/**
+ * 매치 페이지 `<title>`.
+ *
+ * 순서가 전부다. 네이버 SERP 는 제목을 30자 안팎에서 자르는데, 실측(2026-08-10) 매치 제목이
+ * **평균 49.8자**였고 그중 1,894개가 40자를 넘었다. 그런데 네이버에서 우리 노출을 가장 많이
+ * 만드는 쿼리는 `2026년 07월 16일 kia 타이거즈 ssg 랜더스` 처럼 **날짜 + 팀명** 형태다
+ * (단일 쿼리 14.7만 노출). 종전 포맷은 날짜를 45번째 글자 근처에 두고 있어서, 날짜로 검색한
+ * 사용자에게 정작 날짜가 안 보이는 제목이 나갔다. 노출은 366만인데 CTR 이 0.1% 인 상황에서
+ * 이건 그냥 버리는 자리다.
+ *
+ * 그래서 **날짜를 맨 앞으로** 옮기고, 쿼리에 안 들어가는 요일 `(월)` 을 제목에서 뺐다
+ * (본문 H1·description 에는 그대로 남는다). 결과 평균 45.5자 / 40자 초과 1,410개.
+ *
+ * 해설 라벨이 `"unknown"` 일 때는 라벨 자체를 뺀다. 종전엔 `해설 정보 미확인 중계` 라는
+ * 말이 안 되는 구절이 제목에 박혀 나갔다 — 검색 결과에서 "정보 없음"으로 읽히는 제목이다.
+ */
+export function buildMatchTitle(input: {
+  homeTeam: string;
+  awayTeam: string;
+  platform: string;
+  /** 요일 없는 짧은 날짜. 예: `8월 10일` */
+  shortDate: string;
+  /** `한국어 해설` / `현지 해설`. 확인 안 된 경우는 빈 문자열. */
+  commentaryLabel: string;
+}): string {
+  const ko = input.commentaryLabel ? `${input.commentaryLabel} ` : "";
+  return `${input.shortDate} ${input.homeTeam} vs ${input.awayTeam} ${ko}중계 - ${input.platform} | 한해설`;
+}
+
 export type Faq = { q: string; a: string };
 
 /** 빈 답변은 구조화 데이터에서 빼야 한다(Google이 불완전 FAQ를 무시한다). */

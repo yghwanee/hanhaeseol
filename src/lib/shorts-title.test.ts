@@ -67,6 +67,32 @@ test("제목은 유튜브 상한(100자) 이내이고 날짜·#Shorts를 유지�
   }
 });
 
+test("🔴 모든 후킹 문구가 검색 키워드 '한국어'+'중계/해설'을 갖는다", () => {
+  // 종전 가드는 DATES 를 돌며 **그날 회전이 집은 문구만** 검사해서, 풀 안에 키워드 없는
+  // 문구가 섞여 있어도 회전이 그 칸에 닿는 날에만 빨개졌다. 실제로 2026-08-10 실행에서
+  // `EVENING_HOOKS[6]`(`내일 볼 거 미리 찍어두세요 ⚾ 김혜성 낮 11시 10분`)과
+  // `MORNING_HOOKS[3]`(`… 오늘 중계 … 채널 하나로 정리했습니다`) 두 개가 이 상태였다.
+  // 쇼츠는 제목이 검색 대상이라 키워드가 빠진 날은 그 업로드 하나가 통째로 검색에서 샌다.
+  // 풀 전체를 직접 훑어 날짜와 무관하게 잡는다.
+  const ctx = {
+    who: "김혜성",
+    isPlayer: true,
+    time: "낮 11시 10분",
+    games: 4,
+    emoji: "⚾",
+  };
+  for (const [name, pool] of [
+    ["MORNING", MORNING_HOOKS],
+    ["EVENING", EVENING_HOOKS],
+  ] as const) {
+    pool.forEach((fn, i) => {
+      const s = fn(ctx);
+      assert.ok(s.includes("한국어"), `${name}_HOOKS[${i}] 에 '한국어' 없음 — ${s}`);
+      assert.ok(/중계|해설/.test(s), `${name}_HOOKS[${i}] 에 '중계/해설' 없음 — ${s}`);
+    });
+  }
+});
+
 test("제목 문구가 날짜마다 고정되지 않는다(박제 방지)", () => {
   const titles = new Set(
     DATES.map((d) => buildShortsTitle("08", d.slice(8, 10), d, "evening")),

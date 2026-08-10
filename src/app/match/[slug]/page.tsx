@@ -23,6 +23,7 @@ import { matchToSlug, findMatchBySlug } from "@/lib/match-slug";
 import { findResult } from "@/lib/results/lookup";
 import {
   formatDateHeader,
+  formatShortDate,
   GAME_DURATION_HOURS,
   isGameFinished,
 } from "@/lib/schedule-utils";
@@ -45,7 +46,7 @@ import teamRecordsData from "@/data/team-records.json";
 import type { TeamRecordsData } from "@/types/team-record";
 import { buildMatchNarrative } from "@/lib/match-content/build";
 import { isRichMatch } from "@/lib/match-quality";
-import { clampDescription, buildMatchFaqs } from "@/lib/seo-meta";
+import { clampDescription, buildMatchFaqs, buildMatchTitle } from "@/lib/seo-meta";
 import FaqSection from "@/app/_components/FaqSection";
 
 const data = scheduleData as unknown as ScheduleData;
@@ -210,6 +211,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   const date = formatDateHeader(match.date);
   const ko = matchKoreanLabel(match);
 
+  // 제목 조립·순서 근거는 seo-meta.buildMatchTitle 주석 참조(날짜를 맨 앞으로).
   // 제목은 인사이트 유무와 무관하게 한 포맷으로 통일한다.
   //
   // 전에는 인사이트가 있으면 headline을 앞세웠다(`애슬레틱스의 반등과 LA 다저스의 상승세가
@@ -217,7 +219,14 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   // `2026년 07월 16일 kia 타이거즈 ssg 랜더스` 처럼 **팀명 + 날짜** 형태다(단일 쿼리 14.7만 노출).
   // headline을 앞세우면 그 요소가 전부 뒤로 밀리거나 사라져서, 정보가 더 많은 페이지가
   // 오히려 검색에 더 안 맞는 역전이 생겼다. headline은 description으로 옮긴다.
-  const title = `${match.homeTeam} vs ${match.awayTeam} ${ko} 중계 - ${match.platform} ${date} | 한해설`;
+  const title = buildMatchTitle({
+    homeTeam: match.homeTeam,
+    awayTeam: match.awayTeam,
+    platform: match.platform,
+    shortDate: formatShortDate(match.date),
+    // 확인 안 된 경우는 라벨을 뺀다. `해설 정보 미확인 중계` 가 제목에 박히면 안 된다.
+    commentaryLabel: match.koreanCommentary === true || match.koreanCommentary === false ? ko : "",
+  });
 
   // 인사이트가 있으면 고유 산문을 앞에 둔다(SERP snippet 차별화 → CTR).
   // 길이는 clampDescription이 SERP 상한에서 자른다. 전에는 187~200자로 나가 잘렸다.
