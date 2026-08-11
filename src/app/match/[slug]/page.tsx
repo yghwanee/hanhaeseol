@@ -34,6 +34,7 @@ import { MatchInsightSection } from "./_components/MatchInsight";
 import { MatchStarters } from "./_components/MatchStarters";
 import { MatchLineup } from "./_components/MatchLineup";
 import { MatchBaseballLineup } from "./_components/MatchBaseballLineup";
+import { MatchLiveScore } from "./_components/MatchLiveScore";
 import { getStartersForMatch } from "@/lib/starters/lookup";
 import type { StartersData } from "@/types/starter";
 import startersData from "@/data/starters.json";
@@ -576,6 +577,9 @@ export default function MatchPage({ params }: { params: Params }) {
               team={findTeamForSchedule(teamIndex, match.league, match.awayTeam)}
             />
           </div>
+
+          {/* 빌드 데이터에 최종 스코어가 아직 없는 구간(진행 중 · 종료 직후)은 클라에서 채운다. */}
+          {!hasScore && <MatchLiveScore schedule={match} />}
 
           {hasScore && (
             <div className="mt-4 rounded-lg border border-emerald-700/40 bg-emerald-900/15 px-4 py-3">

@@ -3,6 +3,7 @@ const NBA = (abbr: string) => `https://a.espncdn.com/i/teamlogos/nba/500/${abbr}
 const SOC = (id: number) => `https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png`;
 const SDB = (slug: string) => `https://r2.thesportsdb.com/images/media/team/badge/${slug}.png`;
 const KBO_LOGO = (code: string) => `/logos/kbo/${code}.png`;
+const FLAG = (iso: string) => `https://flagcdn.com/w160/${iso}.png`;
 
 export const TEAM_LOGOS: Record<string, string> = {
   // MLB
@@ -34,6 +35,10 @@ export const TEAM_LOGOS: Record<string, string> = {
   "세인트루이스 카디널스": MLB("stl"),
   "클리블랜드 가디언스": MLB("cle"),
   "밀워키 브루어스": MLB("mil"),
+  // SPOTV(TV) 편성은 도시명만 쓴다 — 같은 팀인데 로고가 안 붙던 표기(2026-08-11 확인).
+  "밀워키": MLB("mil"),
+  "샌디에이고": MLB("sd"),
+  "애리조나": MLB("ari"),
   "토론토 블루제이스": MLB("tor"),
   "디트로이트 타이거스": MLB("det"),
   "캔자스시티 로열스": MLB("kc"),
@@ -301,6 +306,45 @@ export const TEAM_LOGOS: Record<string, string> = {
   "이바라키 로보츠": SDB("nscmq91642097142"),
   "파이팅 이글스 나고야": SDB("b0rwjq1659455177"),
   "알티리 치바": SDB("3mfjwn1759500326"),
+
+  // 2026-08-11 로고 감사에서 비어 있던 팀들(편성엔 있는데 매핑이 없어 이니셜만 뜨던 것).
+  // id 는 ESPN 팀 목록 API 에서 그대로 받아왔다 — 추측한 값 없음.
+  // 세리에 B·리그컵(Leagues Cup)처럼 컵 대회로 잠깐 들어오는 팀도 포함.
+  "셰필드 유나이티드": SOC(398),
+  "라싱 산탄데르": SOC(87),
+  "아약스": SOC(139),
+  "헤이렌베인": SOC(146),
+  "드레스덴": SOC(7017),
+  "다름슈타트": SOC(3812),
+  "내슈빌 SC": SOC(18986),
+  "세인트루이스 시티 SC": SOC(21812),
+  "올랜도 시티 SC": SOC(12011),
+  "시애틀 사운더스 FC": SOC(9726),
+  "시카고 파이어 FC": SOC(182),
+  "오스틴 FC": SOC(20906),
+  "Club Tigres": SOC(232),
+  "치바스 과달라하라": SOC(219),
+  "크루스 아술": SOC(218),
+  "클루브 레온": SOC(228),
+  "클루브 아메리카": SOC(227),
+  "푸마스": SOC(233),
+  "AC 몬차": SOC(4007),
+  "아스콜리 칼초": SOC(3346),
+  "베네벤토 칼초": SOC(4059),
+  "카라레세 칼초": SOC(3988),
+  "카탄차로": SOC(3257),
+  "만토바 1911": SOC(3991),
+  "칼초 파도바": SOC(3952),
+  "쥐트티롤": SOC(11139),
+  "아벨리노": SOC(4055),
+  "팔레르모": SOC(2923),
+  대구: SDB("xzjzn11579473073"),
+  파주: SDB("aveaki1769010784"),
+  // 국가대표(아세안 현대 컵 등)는 클럽 로고가 없어 국기를 쓴다 — country-flags.ts 와 같은 출처.
+  베트남: FLAG("vn"),
+  태국: FLAG("th"),
+  싱가포르: FLAG("sg"),
+  말레이시아: FLAG("my"),
 
   // WKBL (프로농구)
   "삼성생명 블루밍스": "https://www.wkbl.or.kr/static/images/team/teamlogo_03.png",

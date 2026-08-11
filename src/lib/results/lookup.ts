@@ -40,6 +40,11 @@ export const LEAGUE_TO_CATEGORY: Record<string, string | string[]> = {
   "남자축구 국가대표팀": "amatch",
   "친선 경기": ["amatch", "amatchfriendly"],
   "국가 친선경기": ["amatch", "amatchfriendly"],
+  // 클럽 친선(프리시즌)·단판 슈퍼컵. 매핑이 없어 스코어가 아예 안 붙던 리그들
+  // (2026-08-11 확인 — 네이버에 categoryId 는 있는데 우리 표만 비어 있었다).
+  "클럽 친선경기": "clubfriendly",
+  "FA 커뮤니티 실드": "communityshield",
+  "UEFA 슈퍼컵": "uefasupercup",
 };
 
 /** league 문자열 → 후보 categoryId 목록 (단일 값/배열 모두 배열로 정규화). 매핑 없으면 빈 배열. */

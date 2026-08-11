@@ -106,6 +106,9 @@ const CATEGORY_TO_LEAGUE_KEYS: Record<string, string[]> = {
   acl: ["ACL"],
   amatch: ["남자축구 국가대표팀", "친선 경기", "국가 친선경기"],
   amatchfriendly: ["친선 경기", "국가 친선경기"],
+  clubfriendly: ["클럽 친선경기"],
+  communityshield: ["FA 커뮤니티 실드"],
+  uefasupercup: ["UEFA 슈퍼컵"],
 };
 
 function findAliasMapByCategory(categoryId: string): Record<string, string | string[]> {
@@ -247,9 +250,12 @@ export const SOCCER_CATEGORIES = new Set([
   "epl", "england2", "facup", "primera", "seria", "coppaitalia", "bundesliga",
   "ligue1", "mls", "kleague", "kleague2", "champs", "europa", "eredivisie",
   "denmark", "acl", "amatch", "amatchfriendly", "worldcup",
+  "clubfriendly", "communityshield", "uefasupercup",
 ]);
 
-const LEAGUES: Array<{ categoryId: string; label: string }> = [
+/** 결과 크롤 대상. LEAGUE_TO_CATEGORY 가 가리키는 categoryId 는 전부 여기 있어야 한다
+ *  (매핑만 있고 크롤을 안 하면 스코어가 영영 안 붙는다 — league-coverage.test.ts 가 검사). */
+export const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "kbo", label: "KBO" },
   { categoryId: "mlb", label: "MLB" },
   { categoryId: "kbl", label: "KBL" },
@@ -272,6 +278,9 @@ const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "acl", label: "ACL" },
   { categoryId: "amatch", label: "A매치(한국)" },
   { categoryId: "amatchfriendly", label: "국가대표 친선" },
+  { categoryId: "clubfriendly", label: "클럽 친선" },
+  { categoryId: "communityshield", label: "커뮤니티 실드" },
+  { categoryId: "uefasupercup", label: "UEFA 슈퍼컵" },
   { categoryId: "worldcup", label: "월드컵" },
 ];
 

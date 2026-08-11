@@ -58,12 +58,15 @@ function ScheduleCardInner({
   awayRecord?: TeamRecord;
   result?: MatchResult;
 }) {
-  // 종료 경기는 항상 스코어 표시. 축구는 진행 중에도 스코어+득점자를 보여준다
-  // (타 종목은 진행 중 스코어가 어긋날 수 있어 종전대로 종료만 표시).
+  // 종료·진행 중 모두 스코어를 표시한다. 진행 중 값은 종료 스코어와 같은 네이버 필드
+  // (homeTeamScore/awayTeamScore)에서 오고, /api/live 와 원본을 대조해 일치를 확인했다
+  // (2026-08-11). 종전에는 축구만 진행 중 표시였는데 그 게이트가 득점자 기능 커밋에
+  // 딸려 들어간 것이라, 야구가 대부분인 이 사이트에서는 라이브 스코어가 사실상
+  // 한 건도 안 보이고 있었다. 득점자(goals)는 축구에만 있으므로 그쪽만 축구 한정.
   const isSoccer = schedule.sport === "축구";
   const numeric = hasNumericScores(result);
   const showScores =
-    numeric && (result.status === "finished" || (isSoccer && result.status === "live"));
+    numeric && (result.status === "finished" || result.status === "live");
   const home = result?.homeScore;
   const away = result?.awayScore;
   // 승부차기로 갈린 경기는 스코어가 같아도(1-1) result.winner로 승패를 가른다.

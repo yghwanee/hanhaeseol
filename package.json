@@ -67,7 +67,8 @@
     "test:sitemap-consistency": "tsx --test src/lib/sitemap-consistency.test.ts",
     "test:autolink": "tsx --test src/lib/guides/autolink.test.ts",
     "test:cover-hook": "tsx --test src/lib/cover-hook.test.ts",
-    "test:workflow-push": "tsx --test src/lib/workflow-push-guard.test.ts"
+    "test:workflow-push": "tsx --test src/lib/workflow-push-guard.test.ts",
+    "test:league-coverage": "tsx --test src/lib/results/league-coverage.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",
