@@ -29,6 +29,10 @@ const KNOWN_UNSUPPORTED = new Set([
   "분데스리가 2",
   "트로페 데 샹피옹",
   "V리그",
+  // 아시아대학농구리그(쿠팡플레이 중계, 예: 국립정치대 vs 상하이교통대).
+  // 네이버 후보 id 5개(aubl/asiabasketball/abl/eabl/asialeague) 중 abl 만 200 인데
+  // 3개월 조회에 경기가 0건이라 다른 대회다 — 추측으로 붙이면 영영 안 맞는 키를 만든다.
+  "AUBL",
 ]);
 
 const schedules = (scheduleData as unknown as ScheduleData).schedules;
