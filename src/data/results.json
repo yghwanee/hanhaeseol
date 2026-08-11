@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-11T11:55:18.782Z",
+  "lastUpdated": "2026-08-11T13:40:19.313Z",
   "byKey": {
     "2026-08-11|kbo|두산|한화": {
       "date": "2026-08-11",
@@ -7,10 +7,11 @@
       "gameId": "20260811HHOB02026",
       "homeTeam": "두산",
       "awayTeam": "한화",
-      "homeScore": 3,
-      "awayScore": 1,
-      "status": "live",
-      "period": "7회초"
+      "homeScore": 6,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "bEHHpUlvl-8"
     },
     "2026-08-11|kbo|NC|KT": {
       "date": "2026-08-11",
@@ -19,9 +20,9 @@
       "homeTeam": "NC",
       "awayTeam": "KT",
       "homeScore": 3,
-      "awayScore": 1,
-      "status": "live",
-      "period": "6회말"
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-11|kbo|키움|LG": {
       "date": "2026-08-11",
@@ -29,10 +30,10 @@
       "gameId": "20260811LGWO02026",
       "homeTeam": "키움",
       "awayTeam": "LG",
-      "homeScore": 2,
-      "awayScore": 4,
-      "status": "live",
-      "period": "6회말"
+      "homeScore": 3,
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-11|kbo|SSG|롯데": {
       "date": "2026-08-11",
@@ -41,9 +42,9 @@
       "homeTeam": "SSG",
       "awayTeam": "롯데",
       "homeScore": 8,
-      "awayScore": 3,
-      "status": "live",
-      "period": "6회말"
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-08-11|kbo|KIA|삼성": {
       "date": "2026-08-11",
@@ -53,8 +54,8 @@
       "awayTeam": "삼성",
       "homeScore": 3,
       "awayScore": 1,
-      "status": "live",
-      "period": "6회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-08-12|kbo|두산|한화": {
       "date": "2026-08-12",
@@ -1827,9 +1828,16 @@
       "homeTeam": "강원",
       "awayTeam": "감바 오사카",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 20'"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "나와타",
+          "minute": 103
+        }
+      ]
     },
     "2026-08-12|acl|파흐타코르|알 후세인": {
       "date": "2026-08-12",
@@ -1892,15 +1900,20 @@
       "gameId": "zAwEisMhwcmjzlz",
       "homeTeam": "유벤투스",
       "awayTeam": "팔레르모",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 41'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "이을디즈",
           "minute": 44
+        },
+        {
+          "team": "home",
+          "player": "밀리크",
+          "minute": 86
         }
       ]
     }
@@ -1912,10 +1925,11 @@
       "gameId": "20260811HHOB02026",
       "homeTeam": "두산",
       "awayTeam": "한화",
-      "homeScore": 3,
-      "awayScore": 1,
-      "status": "live",
-      "period": "7회초"
+      "homeScore": 6,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "bEHHpUlvl-8"
     },
     {
       "date": "2026-08-11",
@@ -1924,9 +1938,9 @@
       "homeTeam": "NC",
       "awayTeam": "KT",
       "homeScore": 3,
-      "awayScore": 1,
-      "status": "live",
-      "period": "6회말"
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-08-11",
@@ -1934,10 +1948,10 @@
       "gameId": "20260811LGWO02026",
       "homeTeam": "키움",
       "awayTeam": "LG",
-      "homeScore": 2,
-      "awayScore": 4,
-      "status": "live",
-      "period": "6회말"
+      "homeScore": 3,
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-08-11",
@@ -1946,9 +1960,9 @@
       "homeTeam": "SSG",
       "awayTeam": "롯데",
       "homeScore": 8,
-      "awayScore": 3,
-      "status": "live",
-      "period": "6회말"
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-08-11",
@@ -1958,8 +1972,8 @@
       "awayTeam": "삼성",
       "homeScore": 3,
       "awayScore": 1,
-      "status": "live",
-      "period": "6회말"
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-08-12",
@@ -2515,9 +2529,16 @@
       "homeTeam": "강원",
       "awayTeam": "감바 오사카",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 20'"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "나와타",
+          "minute": 103
+        }
+      ]
     },
     {
       "date": "2026-08-12",
@@ -2580,15 +2601,20 @@
       "gameId": "zAwEisMhwcmjzlz",
       "homeTeam": "유벤투스",
       "awayTeam": "팔레르모",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 41'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "이을디즈",
           "minute": 44
+        },
+        {
+          "team": "home",
+          "player": "밀리크",
+          "minute": 86
         }
       ]
     }

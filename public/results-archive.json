@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-11T11:55:21.146Z",
+  "lastUpdated": "2026-08-11T13:40:21.787Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -25076,6 +25076,47 @@
         }
       ]
     },
+    "2026-08-11|acl|강원|감바 오사카": {
+      "date": "2026-08-11",
+      "categoryId": "acl",
+      "gameId": "YpbUO7dCFvE7N31",
+      "homeTeam": "강원",
+      "awayTeam": "감바 오사카",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "나와타",
+          "minute": 103
+        }
+      ]
+    },
+    "2026-08-11|clubfriendly|유벤투스|팔레르모": {
+      "date": "2026-08-11",
+      "categoryId": "clubfriendly",
+      "gameId": "zAwEisMhwcmjzlz",
+      "homeTeam": "유벤투스",
+      "awayTeam": "팔레르모",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이을디즈",
+          "minute": 44
+        },
+        {
+          "team": "home",
+          "player": "밀리크",
+          "minute": 86
+        }
+      ]
+    },
     "2026-08-11|denmark|실케보리|OB": {
       "date": "2026-08-11",
       "categoryId": "denmark",
@@ -25093,6 +25134,62 @@
           "minute": 51
         }
       ]
+    },
+    "2026-08-11|kbo|두산|한화": {
+      "date": "2026-08-11",
+      "categoryId": "kbo",
+      "gameId": "20260811HHOB02026",
+      "homeTeam": "두산",
+      "awayTeam": "한화",
+      "homeScore": 6,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "bEHHpUlvl-8"
+    },
+    "2026-08-11|kbo|NC|KT": {
+      "date": "2026-08-11",
+      "categoryId": "kbo",
+      "gameId": "20260811KTNC02026",
+      "homeTeam": "NC",
+      "awayTeam": "KT",
+      "homeScore": 3,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-11|kbo|키움|LG": {
+      "date": "2026-08-11",
+      "categoryId": "kbo",
+      "gameId": "20260811LGWO02026",
+      "homeTeam": "키움",
+      "awayTeam": "LG",
+      "homeScore": 3,
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-11|kbo|SSG|롯데": {
+      "date": "2026-08-11",
+      "categoryId": "kbo",
+      "gameId": "20260811LTSK02026",
+      "homeTeam": "SSG",
+      "awayTeam": "롯데",
+      "homeScore": 8,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-08-11|kbo|KIA|삼성": {
+      "date": "2026-08-11",
+      "categoryId": "kbo",
+      "gameId": "20260811SSHT02026",
+      "homeTeam": "KIA",
+      "awayTeam": "삼성",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-08-11|mlb|토론토 블루제이스|보스턴 레드삭스": {
       "date": "2026-08-11",
@@ -50283,6 +50380,47 @@
     },
     {
       "date": "2026-08-11",
+      "categoryId": "acl",
+      "gameId": "YpbUO7dCFvE7N31",
+      "homeTeam": "강원",
+      "awayTeam": "감바 오사카",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "나와타",
+          "minute": 103
+        }
+      ]
+    },
+    {
+      "date": "2026-08-11",
+      "categoryId": "clubfriendly",
+      "gameId": "zAwEisMhwcmjzlz",
+      "homeTeam": "유벤투스",
+      "awayTeam": "팔레르모",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이을디즈",
+          "minute": 44
+        },
+        {
+          "team": "home",
+          "player": "밀리크",
+          "minute": 86
+        }
+      ]
+    },
+    {
+      "date": "2026-08-11",
       "categoryId": "denmark",
       "gameId": "DDjDJh7UbpN39sU",
       "homeTeam": "실케보리",
@@ -50298,6 +50436,62 @@
           "minute": 51
         }
       ]
+    },
+    {
+      "date": "2026-08-11",
+      "categoryId": "kbo",
+      "gameId": "20260811HHOB02026",
+      "homeTeam": "두산",
+      "awayTeam": "한화",
+      "homeScore": 6,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "bEHHpUlvl-8"
+    },
+    {
+      "date": "2026-08-11",
+      "categoryId": "kbo",
+      "gameId": "20260811KTNC02026",
+      "homeTeam": "NC",
+      "awayTeam": "KT",
+      "homeScore": 3,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-11",
+      "categoryId": "kbo",
+      "gameId": "20260811LGWO02026",
+      "homeTeam": "키움",
+      "awayTeam": "LG",
+      "homeScore": 3,
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-11",
+      "categoryId": "kbo",
+      "gameId": "20260811LTSK02026",
+      "homeTeam": "SSG",
+      "awayTeam": "롯데",
+      "homeScore": 8,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-11",
+      "categoryId": "kbo",
+      "gameId": "20260811SSHT02026",
+      "homeTeam": "KIA",
+      "awayTeam": "삼성",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-08-11",
