@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-12T19:18:16.868Z",
+  "lastUpdated": "2026-08-12T20:21:45.390Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -25420,7 +25420,8 @@
       "homeScore": 9,
       "awayScore": 1,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "H3-_ZrjTMdU"
     },
     "2026-08-12|kbo|KIA|삼성": {
       "date": "2026-08-12",
@@ -25598,6 +25599,52 @@
       "awayScore": 4,
       "status": "finished",
       "period": "10회말"
+    },
+    "2026-08-13|clubfriendly|맨유|리즈": {
+      "date": "2026-08-13",
+      "categoryId": "clubfriendly",
+      "gameId": "gqoki73ZYETDi7y",
+      "homeTeam": "맨유",
+      "awayTeam": "리즈",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "지르크제이",
+          "minute": 16
+        },
+        {
+          "team": "away",
+          "player": "애런슨",
+          "minute": 29
+        }
+      ]
+    },
+    "2026-08-13|clubfriendly|아스날|코모": {
+      "date": "2026-08-13",
+      "categoryId": "clubfriendly",
+      "gameId": "iXmcgqmziWV7nmY",
+      "homeTeam": "아스날",
+      "awayTeam": "코모",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루이스 스켈리",
+          "minute": 33
+        },
+        {
+          "team": "away",
+          "player": "바투리나",
+          "minute": 43
+        }
+      ]
     }
   },
   "results": [
@@ -51020,7 +51067,8 @@
       "homeScore": 9,
       "awayScore": 1,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "H3-_ZrjTMdU"
     },
     {
       "date": "2026-08-12",
@@ -51198,6 +51246,52 @@
       "awayScore": 4,
       "status": "finished",
       "period": "10회말"
+    },
+    {
+      "date": "2026-08-13",
+      "categoryId": "clubfriendly",
+      "gameId": "gqoki73ZYETDi7y",
+      "homeTeam": "맨유",
+      "awayTeam": "리즈",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "지르크제이",
+          "minute": 16
+        },
+        {
+          "team": "away",
+          "player": "애런슨",
+          "minute": 29
+        }
+      ]
+    },
+    {
+      "date": "2026-08-13",
+      "categoryId": "clubfriendly",
+      "gameId": "iXmcgqmziWV7nmY",
+      "homeTeam": "아스날",
+      "awayTeam": "코모",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루이스 스켈리",
+          "minute": 33
+        },
+        {
+          "team": "away",
+          "player": "바투리나",
+          "minute": 43
+        }
+      ]
     }
   ]
 }
