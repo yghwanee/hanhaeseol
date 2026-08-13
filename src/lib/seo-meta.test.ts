@@ -1,5 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
 import {
   DESCRIPTION_MAX,
   buildMatchTitle,
@@ -205,4 +207,44 @@ test("우선순위가 같으면 lastModified 최신을 남긴다", () => {
 test("중복이 없으면 순서와 개수를 유지한다", () => {
   const src = [{ url: "/a", priority: 1 }, { url: "/b", priority: 1 }, { url: "/c", priority: 1 }];
   assert.deepEqual(dedupeSitemapEntries(src).map((e) => e.url), ["/a", "/b", "/c"]);
+});
+
+/**
+ * 네이버 사이트 간단 체크 길이 상한.
+ *
+ * 2026-08-13 실측 — 간단체크(서치어드바이저 › 웹마스터 도구 › 간단체크)가
+ * **제목 40자 · 설명 80자**를 넘으면 경고한다. 실제로 세 사이트가 다 걸렸다:
+ * 한해설 설명 116자, 채운 설명 85자, fadeby 는 제목 50 · 설명 139 · og 둘 다 초과.
+ *
+ * 홈 제목은 지금 39자다 — 상한까지 여유가 한 글자뿐이라 다음 편집에서 조용히 넘긴다.
+ * 키워드를 미리 깎는 대신 가드로 막는다. 걸리면 자를 것을 고르는 건 사람이 한다.
+ *
+ * 🔴 서브페이지가 아니라 **홈(layout.tsx 의 기본값)** 만 검사한다. 간단체크는
+ * 호스트 단위로 홈만 보고, 매치 페이지 제목은 별도 규칙(buildMatchTitle)이 있다.
+ */
+test("홈 메타는 네이버 상한(제목 40자·설명 80자) 안에 있다", () => {
+  const src = readFileSync(join(process.cwd(), "src", "app", "layout.tsx"), "utf8");
+
+  const pick = (re: RegExp, label: string) => {
+    const m = src.match(re);
+    assert.ok(m, `${label} 을 layout.tsx 에서 못 찾음 — 가드 자체가 깨진 것`);
+    return m![1];
+  };
+
+  const title = pick(/\n\s*title:\s*"([^"]+)"/, "title");
+  const desc = pick(/\n\s*description:\s*\n?\s*"([^"]+)"/, "description");
+  const ogTitle = pick(/openGraph:[\s\S]*?\n\s*title:\s*"([^"]+)"/, "og:title");
+  const ogDesc = pick(/openGraph:[\s\S]*?\n\s*description:\s*\n?\s*"([^"]+)"/, "og:description");
+
+  for (const [label, value, limit] of [
+    ["title", title, 40],
+    ["description", desc, 80],
+    ["og:title", ogTitle, 40],
+    ["og:description", ogDesc, 80],
+  ] as const) {
+    assert.ok(
+      value.length <= limit,
+      `${label} 이 ${value.length}자로 네이버 상한 ${limit}자를 넘었다: ${value}`,
+    );
+  }
 });
