@@ -141,7 +141,16 @@ export async function generateMetadata({
   const full = fullTeamName(team.leagueSlug, team.name);
   const variants = teamNameVariants(team.leagueSlug, team.name);
 
-  const title = `${full} 경기 중계 어디서 보나 - 일정·한국어 해설 | 한해설`;
+  // 🔴 `일정` 을 팀명 바로 뒤로 올린다.
+  //
+  // 네이버 실측(2026-08-13) — `로스앤젤레스 fc 일정` 이 노출 14,701 에 CTR 0.1% 다.
+  // 팀 페이지가 실제로 받는 쿼리는 **팀명 + 일정** 형태인데, 종전 제목은
+  // `… 경기 중계 어디서 보나 - 일정·한국어 해설` 이라 `일정` 이 20번째 글자 뒤에 있었다.
+  // 앞자리는 검색엔진이 가장 무겁게 보는 자리이고, 한글 제목은 SERP 에서 30자 안팎에 잘린다.
+  //
+  // ⚠️ 순위 자체를 올리는 레버가 아니다. CTR 0.1% 의 원인이 제목이 아니라 순위일 수 있어
+  // 효과를 보장하지 못한다 — 매치 제목(작업85)과 같은 성격의 변경이고 같이 관측한다.
+  const title = `${full} 일정·중계 - 한국어 해설 편성표 | 한해설`;
   const description = next
     ? `${full} 다음 경기는 ${formatDate(next.date)} ${next.time} ${next.awayTeam === team.name ? next.homeTeam : next.awayTeam}전. ${next.platforms.slice(0, 2).join(", ")}에서 ${commentaryLabel(next)}로 중계됩니다. ${team.leagueName} ${team.rank}위, ${team.win}승 ${team.lose}패.`
     : `${full} ${team.leagueName} ${team.rank}위(${team.win}승 ${team.lose}패). 국내 중계는 ${platforms.join(", ") || "편성 확인 필요"}에서 볼 수 있습니다.`;
