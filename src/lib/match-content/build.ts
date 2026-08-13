@@ -258,7 +258,26 @@ export function buildTeamSummary(
     }
   }
 
+  // 🔴 한 경기도 안 치른 팀은 요약을 내지 않는다.
+  //
+  // 개막 전 리그는 순위표에 팀이 이미 들어 있고 전적만 0이라, 그대로 문장으로 만들면
+  // `에버턴은 리그 9위, 시즌 0승 0무 0패, 득실차 +0 상태입니다.` 가 나온다(2026-08-13
+  // 라이브 실측). "9위인데 0승 0무 0패"는 서로 모순으로 읽히고, 검색 사용자에게
+  // 아무것도 알려주지 않으면서 페이지만 길어진다. 순위는 이 시점에 의미가 없다
+  // (알파벳/전년도 순서로 매겨진 자리다).
+  //
+  // 팀 페이지에서 개막 전 리그 138팀을 통째로 제외한 것과 같은 판단이다.
+  if (summary && !hasPlayedAnyGame(summary)) return undefined;
+
   return summary;
+}
+
+/** `recordLine` 의 승/무/패 숫자를 모두 더해 0이면 아직 안 치른 것으로 본다. */
+function hasPlayedAnyGame(s: TeamSummary): boolean {
+  if (!s.recordLine) return true; // 전적 표기가 없으면 판단 근거가 없다 — 통과시킨다.
+  const nums = s.recordLine.match(/\d+/g);
+  if (!nums) return true;
+  return nums.some((n) => Number(n) > 0);
 }
 
 function normalizeTeamName(s: string): string {
@@ -337,7 +356,6 @@ export function buildPreviewParagraph(
   awaySummary: TeamSummary | undefined,
   h2h: H2HEntry[],
   leagueGuide: ReturnType<typeof getLeagueGuide>,
-  platformGuide: ReturnType<typeof getPlatformGuide>,
 ): string {
   const ko = match.koreanCommentary === true ? "한국어 해설" : match.koreanCommentary === false ? "현지 해설" : "해설 정보 미확인";
   const opening = `${match.league} ${match.homeTeam} vs ${match.awayTeam} 경기가 ${match.date} ${match.time} (KST)에 ${match.platform}에서 ${ko}로 중계됩니다.`;
@@ -354,12 +372,16 @@ export function buildPreviewParagraph(
     leagueLine = `${match.league}는 ${tags.join(", ")} 일정으로 진행됩니다.`;
   }
 
-  let platformLine = "";
-  if (platformGuide?.howToWatch) {
-    platformLine = platformGuide.howToWatch;
-  }
-
-  return [opening, homeSentence, awaySentence, h2h0, leagueLine, platformLine]
+  // 🔴 `platformGuide.howToWatch` 를 여기 붙이지 않는다.
+  //
+  // 바로 아래 "○○에서 시청하기" 섹션이 **같은 문장을 그대로** 출력한다. 붙이면 한
+  // 페이지에 `쿠팡 로켓와우 회원이면 쿠팡플레이 앱에서 바로 시청 가능합니다…` 가 두 번
+  // 나온다(2026-08-13 라이브 실측). 글자수는 늘지만 정보량은 그대로고, 같은 문장이
+  // 플랫폼별로 수백 페이지에 두 번씩 박히면 기계가 찍어낸 티만 난다.
+  //
+  // 시청 방법은 전용 섹션이 맡고, 이 단락은 **이 경기에만 해당하는 것**(양팀 성적·상대전적)
+  // 을 말한다.
+  return [opening, homeSentence, awaySentence, h2h0, leagueLine]
     .filter(Boolean)
     .join(" ");
 }
@@ -377,14 +399,7 @@ export function buildMatchNarrative(
   const awayRecent = buildRecentGames(results, match, match.awayTeam);
   const leagueGuide = getLeagueGuide(match.league);
   const platformGuide = getPlatformGuide(match.platform);
-  const paragraph = buildPreviewParagraph(
-    match,
-    homeSummary,
-    awaySummary,
-    h2h,
-    leagueGuide,
-    platformGuide,
-  );
+  const paragraph = buildPreviewParagraph(match, homeSummary, awaySummary, h2h, leagueGuide);
   return {
     paragraph,
     homeSummary,

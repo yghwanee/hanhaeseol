@@ -152,26 +152,18 @@ export function MatchContextSection({
         </div>
       )}
 
+      {/* 🔴 없는 값을 "준비 중입니다" 로 채우지 않는다. 종전에는 한쪽 팀 성적이 없으면
+          `뉴캐슬 시즌 성적 데이터를 준비 중입니다.` 라는 빈 카드를 그렸는데(2026-08-13
+          라이브 실측), 그건 검색 사용자에게 아무것도 알려주지 않으면서 페이지만 길게 만든다.
+          있는 쪽만 그리고, 둘 다 없으면 섹션째 뺀다. */}
       {(homeSummary || awaySummary) && (
         <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
           <h2 className="mb-3 text-sm font-semibold text-white sm:text-base">
             양 팀 시즌 성적
           </h2>
           <div className="flex flex-col gap-2 sm:flex-row">
-            {homeSummary ? (
-              <TeamSummaryCard name={homeTeam} summary={homeSummary} />
-            ) : (
-              <div className="flex-1 rounded-lg border border-zinc-800/80 bg-zinc-900/40 p-3 text-xs text-zinc-500">
-                {homeTeam} 시즌 성적 데이터를 준비 중입니다.
-              </div>
-            )}
-            {awaySummary ? (
-              <TeamSummaryCard name={awayTeam} summary={awaySummary} />
-            ) : (
-              <div className="flex-1 rounded-lg border border-zinc-800/80 bg-zinc-900/40 p-3 text-xs text-zinc-500">
-                {awayTeam} 시즌 성적 데이터를 준비 중입니다.
-              </div>
-            )}
+            {homeSummary && <TeamSummaryCard name={homeTeam} summary={homeSummary} />}
+            {awaySummary && <TeamSummaryCard name={awayTeam} summary={awaySummary} />}
           </div>
         </div>
       )}

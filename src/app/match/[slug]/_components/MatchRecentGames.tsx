@@ -94,15 +94,12 @@ function TeamRecentCard({
         <TeamLogo name={team} src={logoFor(team)} size={20} />
         <span className="truncate text-sm font-semibold text-zinc-100">{team}</span>
       </div>
-      {games.length > 0 ? (
-        <ul className="space-y-1.5">
-          {games.map((g, i) => (
-            <GameRow key={`${g.date}-${i}`} game={g} logoFor={logoFor} />
-          ))}
-        </ul>
-      ) : (
-        <p className="text-xs text-zinc-500">최근 경기 결과 데이터를 준비 중입니다.</p>
-      )}
+      {/* 호출부가 games.length > 0 일 때만 이 카드를 그린다 — 빈 문구 분기가 필요 없다. */}
+      <ul className="space-y-1.5">
+        {games.map((g, i) => (
+          <GameRow key={`${g.date}-${i}`} game={g} logoFor={logoFor} />
+        ))}
+      </ul>
     </div>
   );
 }
@@ -123,9 +120,15 @@ export function MatchRecentGames({
         <h2 className="mb-3 text-sm font-semibold text-white sm:text-base">
           최근 5경기
         </h2>
+        {/* 한쪽만 데이터가 있으면 그쪽만 그린다 — "준비 중입니다" 빈 카드를 만들지 않는다.
+            섹션 전체가 빌 때는 위에서 이미 null 을 돌려준다. */}
         <div className="flex flex-col gap-2 sm:flex-row">
-          <TeamRecentCard team={homeTeam} games={homeRecent} logoFor={logoFor} />
-          <TeamRecentCard team={awayTeam} games={awayRecent} logoFor={logoFor} />
+          {homeRecent.length > 0 && (
+            <TeamRecentCard team={homeTeam} games={homeRecent} logoFor={logoFor} />
+          )}
+          {awayRecent.length > 0 && (
+            <TeamRecentCard team={awayTeam} games={awayRecent} logoFor={logoFor} />
+          )}
         </div>
       </div>
     </section>

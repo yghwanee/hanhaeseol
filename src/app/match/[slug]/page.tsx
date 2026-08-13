@@ -49,6 +49,7 @@ import { buildMatchNarrative } from "@/lib/match-content/build";
 import { isRichMatch } from "@/lib/match-quality";
 import { clampDescription, buildMatchFaqs, buildMatchTitle } from "@/lib/seo-meta";
 import FaqSection from "@/app/_components/FaqSection";
+import { dedupeReversedFixtures } from "@/lib/fixture-dedupe";
 
 const data = scheduleData as unknown as ScheduleData;
 const archive = archiveData as unknown as ScheduleData;
@@ -125,12 +126,22 @@ const results = resultsData as unknown as ResultsData;
  * archive에는 schedule.json에 한 번이라도 들어온 모든 경기가 누적되므로,
  * 7일이 지나 schedule.json에서 빠진 과거 경기도 archive에서 부활시켜 404를 막는다.
  */
+/**
+ * 슬러그 해석용 목록. **순서가 계약이다** — 사이트맵의 `bySlug` 와 정확히 같은 순서
+ * (schedule → worldcup → archive)로 만들어야 슬러그 충돌 228종에서 사이트맵과 페이지가
+ * 같은 행을 고른다. 순서를 바꾸면 `test:sitemap-consistency` 가 깨진다.
+ *
+ * 반전 중복은 여기서 접히므로 접힌 쪽 슬러그는 404 가 된다 — 의도한 동작이다.
+ * 같은 경기를 두 URL 로 두는 것보다 낫고, 어느 쪽이 남는지는 사이트맵과 일치한다.
+ */
+const slugLookup: Schedule[] = dedupeReversedFixtures([
+  ...data.schedules,
+  ...worldcup.schedules,
+  ...archive.schedules,
+]);
+
 function findMatchAnywhere(slug: string): Schedule | undefined {
-  return (
-    findMatchBySlug(data.schedules, slug) ??
-    findMatchBySlug(worldcup.schedules, slug) ??
-    findMatchBySlug(archive.schedules, slug)
-  );
+  return findMatchBySlug(slugLookup, slug);
 }
 
 // 관련 경기 검색용 통합 목록 (schedule + archive, id 기준 dedupe).
@@ -140,7 +151,10 @@ const allSchedules: Schedule[] = (() => {
   for (const s of archive.schedules) byId.set(s.id, s);
   for (const s of worldcup.schedules) byId.set(s.id, s);
   for (const s of data.schedules) byId.set(s.id, s); // schedule이 최신
-  return [...byId.values()];
+  // 🔴 id dedupe 만으로는 홈/원정이 뒤집힌 같은 경기가 안 접힌다. 그대로 두면
+  // "다음 경기"·"플랫폼 다른 중계" 목록에 `리즈 vs 맨유` 와 `맨유 vs 리즈` 가 나란히
+  // 뜬다(2026-08-13 라이브 실측). 사이트맵도 같은 함수를 쓰므로 신호가 일치한다.
+  return dedupeReversedFixtures([...byId.values()]);
 })();
 
 type Params = { slug: string };
@@ -152,7 +166,9 @@ type Params = { slug: string };
 export function generateStaticParams(): Params[] {
   const seen = new Set<string>();
   const params: Params[] = [];
-  for (const s of [...data.schedules, ...worldcup.schedules]) {
+  // 반전 중복에서 접힌 슬러그를 그대로 넣으면 그 URL 을 프리렌더했다가 notFound 로
+  // 떨어진다. slugLookup 과 같은 규칙을 태워 실제로 해석되는 슬러그만 생성한다.
+  for (const s of dedupeReversedFixtures([...data.schedules, ...worldcup.schedules])) {
     const slug = matchToSlug(s);
     if (seen.has(slug)) continue;
     seen.add(slug);
@@ -383,8 +399,17 @@ export default function MatchPage({ params }: { params: Params }) {
   const relatedByLeague = dedupByMatchup(
     allSchedules.filter((s) => s.league === match.league && s.date >= match.date),
   ).slice(0, 6);
+  // 🔴 리그 목록에 이미 나온 경기를 플랫폼 목록에서 뺀다.
+  //
+  // 한 플랫폼이 한 리그를 독점 중계하면(쿠팡플레이-K리그, 쿠팡플레이-클럽 친선 등) 두
+  // 목록이 **같은 경기를 그대로 반복**한다. 2026-08-13 라이브 실측에서 `리즈 vs 맨유` 와
+  // `마르세유 vs AT. 마드리드` 가 위아래로 두 번씩 나왔다. 사용자에게 새 정보가 아니고,
+  // 내부 링크도 같은 URL 을 두 번 가리켜 얻는 게 없다.
+  const leagueShown = new Set(relatedByLeague.map((s) => s.id));
   const relatedByPlatform = dedupByMatchup(
-    allSchedules.filter((s) => s.platform === match.platform && s.date >= match.date),
+    allSchedules.filter(
+      (s) => s.platform === match.platform && s.date >= match.date && !leagueShown.has(s.id),
+    ),
   ).slice(0, 6);
 
   // SportsEvent JSON-LD

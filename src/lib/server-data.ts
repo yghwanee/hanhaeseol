@@ -4,6 +4,7 @@ import path from "path";
 import type { ScheduleData } from "@/types/schedule";
 import type { TeamRecordsData, TeamRecordsMap } from "@/types/team-record";
 import type { ResultsData } from "@/types/results";
+import { dedupeReversedFixtures } from "@/lib/fixture-dedupe";
 
 export function loadScheduleData(): ScheduleData {
   const filePath = path.join(process.cwd(), "public", "schedule.json");
@@ -19,6 +20,10 @@ export function loadScheduleData(): ScheduleData {
   } catch {
     // worldcup.json 없으면 무시
   }
+
+  // 홈/원정만 뒤집힌 같은 경기를 접는다. 안 접으면 사이트맵에 URL 이 두 개 올라가고
+  // 매치 페이지 "다음 경기" 목록에 같은 경기가 두 줄로 뜬다(2026-08-13 실측 2건).
+  data.schedules = dedupeReversedFixtures(data.schedules);
 
   return data;
 }

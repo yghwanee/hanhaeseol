@@ -14,6 +14,7 @@ import standingsJson from "@/data/standings.json";
 import { buildTeamIndex, eligibleTeams, type StandingsData } from "@/lib/teams";
 import type { Schedule, ScheduleData } from "@/types/schedule";
 import type { ResultsData } from "@/types/results";
+import { dedupeReversedFixtures } from "@/lib/fixture-dedupe";
 
 const data = scheduleData as unknown as ScheduleData;
 const archive = archiveData as unknown as ScheduleData;
@@ -90,8 +91,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // findMatchAnywhere 는 각 소스에서 **첫 번째** 일치를 고르고 schedule → worldcup → archive
   // 순으로 시도한다. 그 순서대로 훑으면서 **이미 있으면 건너뛴다**(먼저 넣은 쪽이 이긴다).
   // Map.set 으로 덮어쓰면 같은 소스 안의 마지막 행이 이겨서 페이지 해석과 어긋난다.
+  //
+  // 🔴 슬러그로 묶기 **전에** 홈/원정 반전 중복을 접는다. 그건 슬러그가 서로 달라
+  // (`리즈-vs-맨유` / `맨유-vs-리즈`) 이 Map 을 그냥 통과해 URL 이 두 개 올라간다
+  // (2026-08-13 실측 2건). 매치 페이지도 같은 함수를 거친 목록을 보므로 신호가 일치한다.
   const bySlug = new Map<string, Schedule>();
-  for (const s of [...data.schedules, ...worldcup.schedules, ...archive.schedules]) {
+  for (const s of dedupeReversedFixtures([
+    ...data.schedules,
+    ...worldcup.schedules,
+    ...archive.schedules,
+  ])) {
     const slug = matchToSlug(s);
     if (!bySlug.has(slug)) bySlug.set(slug, s);
   }
