@@ -33,6 +33,10 @@ const KNOWN_UNSUPPORTED = new Set([
   // 네이버 후보 id 5개(aubl/asiabasketball/abl/eabl/asialeague) 중 abl 만 200 인데
   // 3개월 조회에 경기가 0건이라 다른 대회다 — 추측으로 붙이면 영영 안 맞는 키를 만든다.
   "AUBL",
+  // KBO 퓨처스리그(2군). 후보 id 중 futures 만 200 이지만 8/01~8/20 조회에 경기가
+  // 0건이라 우리가 찾는 대회가 아니다(kbofutures 는 400). 200 이어도 경기가 0이면
+  // 붙이지 않는다 — 안 맞는 키를 영구히 만든다.
+  "퓨처스리그",
 ]);
 
 const schedules = (scheduleData as unknown as ScheduleData).schedules;

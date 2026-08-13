@@ -22,7 +22,10 @@ import { PushSubscribeButton } from "./PushSubscribeButton";
  */
 
 const MENU: { href: string; label: string }[] = [
-  { href: "/", label: "홈" },
+  // 🔴 앵커는 `홈` 이 아니라 `한해설` 이다. 2026-08-13 실측에서 사이트 전체를 통틀어
+  // `/` 로 가는 내부 링크가 이 한 개뿐이었고 앵커가 `홈` 이라, 구글이 "한해설 = 홈"
+  // 을 배울 경로가 없었다(브랜드 검색에서 `/about` 이 홈을 이긴 이유 중 하나).
+  { href: "/", label: "한해설" },
   { href: "/commentary", label: "한국어 해설" },
   { href: "/guide", label: "한해설 Topic" },
   { href: "/standings", label: "팀 순위" },

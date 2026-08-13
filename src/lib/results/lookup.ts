@@ -45,6 +45,9 @@ export const LEAGUE_TO_CATEGORY: Record<string, string | string[]> = {
   "클럽 친선경기": "clubfriendly",
   "FA 커뮤니티 실드": "communityshield",
   "UEFA 슈퍼컵": "uefasupercup",
+  // 코리아컵(구 FA컵 국내대회) — 2026-08-13 편성에 새로 들어와 league-coverage 가드가
+  // 잡았다. 네이버 categoryId=koreacup 실측 8경기(8/19 울산시민 vs 광주 등).
+  코리아컵: "koreacup",
 };
 
 /** league 문자열 → 후보 categoryId 목록 (단일 값/배열 모두 배열로 정규화). 매핑 없으면 빈 배열. */

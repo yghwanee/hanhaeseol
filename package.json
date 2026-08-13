@@ -68,7 +68,9 @@
     "test:autolink": "tsx --test src/lib/guides/autolink.test.ts",
     "test:cover-hook": "tsx --test src/lib/cover-hook.test.ts",
     "test:workflow-push": "tsx --test src/lib/workflow-push-guard.test.ts",
-    "test:league-coverage": "tsx --test src/lib/results/league-coverage.test.ts"
+    "test:league-coverage": "tsx --test src/lib/results/league-coverage.test.ts",
+    "test:head-script": "tsx --test src/lib/head-script-guard.test.ts",
+    "test:hero-pick": "tsx --test src/lib/hero-pick.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

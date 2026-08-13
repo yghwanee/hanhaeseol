@@ -108,12 +108,12 @@ test("AT. 마드리드 표기(공백 있음)도 빅클럽으로 잡힌다", () =
   assert.ok(heroScore(spaced) > heroScore(oneBig));
 });
 
-test("코리안리거 가중치는 18 이다", () => {
+test("코리안리거 가중치는 26 이다", () => {
   // 김하성 탬파베이·상대 캔자스시티 둘 다 BIG_TEAMS.MLB 밖이라 팀 점수가 안 섞인다.
   // (LA 다저스로 재면 bigVsMid 5점이 딸려와 차이가 23 이 된다.)
   const withKorean = club("탬파베이 레이스", "캔자스시티 로열스", "MLB", "11:10");
   const withoutKorean = club("미네소타 트윈스", "캔자스시티 로열스", "MLB", "11:10");
-  assert.equal(heroScore(withKorean) - heroScore(withoutKorean), 18);
+  assert.equal(heroScore(withKorean) - heroScore(withoutKorean), 26);
 });
 
 test("내한 가점은 글로벌 빅클럽이 낀 쿠팡플레이 시리즈에만 붙는다", () => {

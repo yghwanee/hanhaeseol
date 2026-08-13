@@ -84,3 +84,5 @@ jobs:
           npm run test:cover-hook
           npm run test:workflow-push
           npm run test:league-coverage
+          npm run test:head-script
+          npm run test:hero-pick

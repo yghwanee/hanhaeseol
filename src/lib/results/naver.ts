@@ -109,6 +109,7 @@ const CATEGORY_TO_LEAGUE_KEYS: Record<string, string[]> = {
   clubfriendly: ["클럽 친선경기"],
   communityshield: ["FA 커뮤니티 실드"],
   uefasupercup: ["UEFA 슈퍼컵"],
+  koreacup: ["코리아컵"],
 };
 
 function findAliasMapByCategory(categoryId: string): Record<string, string | string[]> {
@@ -250,7 +251,7 @@ export const SOCCER_CATEGORIES = new Set([
   "epl", "england2", "facup", "primera", "seria", "coppaitalia", "bundesliga",
   "ligue1", "mls", "kleague", "kleague2", "champs", "europa", "eredivisie",
   "denmark", "acl", "amatch", "amatchfriendly", "worldcup",
-  "clubfriendly", "communityshield", "uefasupercup",
+  "clubfriendly", "communityshield", "uefasupercup", "koreacup",
 ]);
 
 /** 결과 크롤 대상. LEAGUE_TO_CATEGORY 가 가리키는 categoryId 는 전부 여기 있어야 한다
@@ -281,6 +282,7 @@ export const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "clubfriendly", label: "클럽 친선" },
   { categoryId: "communityshield", label: "커뮤니티 실드" },
   { categoryId: "uefasupercup", label: "UEFA 슈퍼컵" },
+  { categoryId: "koreacup", label: "코리아컵" },
   { categoryId: "worldcup", label: "월드컵" },
 ];
 

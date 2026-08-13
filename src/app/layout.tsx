@@ -47,9 +47,17 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://haeseol.com"),
-  title: "한국어 해설 중계 편성표 - 오늘 EPL·KBO·MLB·라리가 일정 | 한해설",
+  // 🔴 브랜드가 선두에 와야 한다. 종전 제목은 `한해설` 이 35번째 글자(파이프 뒤)였고
+  // description 에는 아예 없었다. 반면 `/about` 은 제목·설명 둘 다 첫 글자가 `한해설`
+  // 이라, 브랜드 검색 `한해설` 에서 구글이 홈 대신 `/about` 을 골랐다(2026-08-13 실측).
+  // 시킨 대로 동작한 것이지 이상 동작이 아니다.
+  //
+  // 다만 주력 쿼리군은 `한국어 해설 중계 편성표` 계열(네이버 CTR 23%)이라 브랜드를
+  // 앞세우면서 그 구절을 **6번째 글자**에 둬, 앞 30자 안에 둘 다 들어가게 했다.
+  // 이 순서를 뒤집을 때는 브랜드 검색과 편성표 쿼리 중 무엇을 버리는지 먼저 볼 것.
+  title: "한해설 - 한국어 해설 중계 편성표 | 오늘 EPL·KBO·MLB 일정",
   description:
-    "EPL·KBO·MLB·라리가·UCL 등 한국어 해설 중계 일정을 SPOTV NOW·쿠팡플레이·티빙·SPOTV 등 10개 플랫폼에서 한 페이지에. 오늘부터 7일치 편성표, 어디서 시청할지 한눈에.",
+    "한해설은 EPL·KBO·MLB·라리가·UCL 등 한국어 해설 중계 일정을 SPOTV NOW·쿠팡플레이·티빙·SPOTV 등 10개 플랫폼에서 한 페이지에 모읍니다. 오늘부터 7일치 편성표로 어디서 볼지 한눈에.",
   keywords: [
     "한국어중계", "한국어 중계", "한국어 해설", "한국어해설", "스포츠 중계 편성표", "스포츠 편성표",
     "해외축구 한국어중계", "해외축구 한국어 해설", "해외축구 중계", "EPL 중계", "EPL 한국어중계", "라리가 중계",
@@ -154,14 +162,29 @@ export default function RootLayout({
             (아이폰 사파리에서 실제 신고 — 새로고침하면 정상으로 돌아옴.)
 
             이 스크립트는 스타일시트 link 뒤에 있고, 스크립트는 앞선 스타일시트 로드를
-            기다리므로 여기서 이미 성패가 갈려 있다. 실패면 첫 페인트 전에 한 번만
-            리로드해 새 HTML 을 받는다. 세션당 1회 — 진짜로 CSS 가 깨진 배포에서
-            무한 새로고침이 되지 않게. sessionStorage 를 못 쓰면(프라이빗 등)
-            리로드하지 않는다. */}
+            기다리므로 여기서 이미 성패가 갈려 있다.
+
+            🔴 **`location.reload()` 를 쓰지 않는다.** 종전 구현이 head 인라인에서
+            리로드를 걸었는데, 네이버 서치어드바이저 사이트 간단체크가 홈을
+            **"JavaScript를 활용한 redirect"** 로 판정해 **사이트 제목·설명·Open Graph
+            를 전부 "없음"** 으로 처리하고 있었다(2026-08-13 실측). Yeti 로 직접 받아
+            보면 title·description·og:title 이 멀쩡히 들어 있으므로, 못 받은 게 아니라
+            **읽고 버린 것**이다. 유입의 78% 가 네이버인데 홈 메타가 색인에 통째로
+            비어 있었고, 브랜드 검색 `한해설` 에서 홈 대신 하위 페이지가 뜨던 직접 원인이다.
+
+            그래서 리로드 대신 **스타일시트를 그 자리에서 다시 주입**한다. 페이지 이동이
+            아니라 리다이렉트로 오인될 여지가 없고, 화면이 안 끊겨 사용자 경험도 낫다.
+            현재 배포의 해시를 stale HTML 은 모르므로 홈 HTML 을 새로 받아 거기 적힌
+            css 경로를 그대로 쓴다. 실패해도 조용히 넘어간다 — 인트로 오버레이와 배너
+            컨테이너에는 클래스와 같은 값이 인라인으로도 박혀 있어, 자가복구가 실패해도
+            전면 확대 같은 파국은 나지 않는다.
+
+            🔴 이 스크립트에 `location` 을 다시 넣지 말 것. 넣는 순간 네이버가 홈
+            메타를 다시 버린다. */}
         <script
           dangerouslySetInnerHTML={{
             __html:
-              "try{if(!getComputedStyle(document.documentElement).getPropertyValue('--hhs-css').trim()&&!sessionStorage.getItem('hhs-css-retry')){sessionStorage.setItem('hhs-css-retry','1');location.reload()}}catch(e){}",
+              "try{if(!getComputedStyle(document.documentElement).getPropertyValue('--hhs-css').trim()){fetch('/',{cache:'reload'}).then(function(r){return r.text()}).then(function(t){var m=t.match(/\\/_next\\/static\\/css\\/[^\"']+\\.css/g)||[];var s={};m.forEach(function(h){if(s[h])return;s[h]=1;var l=document.createElement('link');l.rel='stylesheet';l.href=h;document.head.appendChild(l)})}).catch(function(){})}}catch(e){}",
           }}
         />
         {/* Pretendard CDN 제거 — 브라우저에선 인트로 타이틀만 쓰던 걸 Geist로 바꿔
@@ -204,9 +227,15 @@ gtag('config', 'G-F1MX6S0SGW');`}
               "@graph": [
                 {
                   "@type": "WebSite",
+                  "@id": "https://haeseol.com/#website",
                   "name": "한해설",
-                  "alternateName": "한국어 해설 편성표",
+                  // 🔴 `한해설` 은 구글이 `한해`+`설` 로 쪼개 읽어 설날·어원 문서와 경쟁한다
+                  // (2026-08-13 SERP 실측). 브랜드 문자열 변형을 전부 적어 같은 엔티티로
+                  // 묶이게 한다. 실제로 쓰이는 표기만 넣을 것 — 없는 별칭을 지어내면
+                  // 엔티티가 오히려 흐려진다.
+                  "alternateName": ["한국어 해설 편성표", "한해설닷컴", "haeseol", "haeseol.com", "HanHaesul"],
                   "url": "https://haeseol.com",
+                  "publisher": { "@id": "https://haeseol.com/#organization" },
                   "description": "축구, 야구, 농구, 배구 한국어중계 편성표. 10개 플랫폼의 한국어 해설 중계를 한눈에 확인하세요.",
                   "inLanguage": "ko",
                   "datePublished": "2026-02-01T00:00:00+09:00",
@@ -214,8 +243,9 @@ gtag('config', 'G-F1MX6S0SGW');`}
                 },
                 {
                   "@type": "Organization",
+                  "@id": "https://haeseol.com/#organization",
                   "name": "한해설",
-                  "alternateName": "HanHaesul",
+                  "alternateName": ["HanHaesul", "한해설닷컴", "haeseol.com"],
                   "url": "https://haeseol.com",
                   "logo": "https://haeseol.com/icon.png",
                   // sameAs: Google/AI Overviews가 같은 entity로 인식하도록 다른 채널 연결.

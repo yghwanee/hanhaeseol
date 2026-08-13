@@ -57,6 +57,31 @@ const nextConfig = {
         destination: "https://haeseol.com/:path*",
         permanent: true,
       },
+      // 🔴 Vercel 프로덕션 별칭(`hanhaeseol.vercel.app`)이 사이트 전체를 200 + robots
+      // `index, follow` 로 서빙하고 있었다(2026-08-13 실측: 홈 바이트가 haeseol.com 과
+      // 동일한 377,267). canonical 이 haeseol.com 을 가리켜도 canonical 은 제안이지
+      // 명령이 아니라, 사이트맵 2,011 URL 이 통째로 중복 후보가 된다. 301 로 한쪽만 남긴다.
+      //
+      // 프리뷰 배포(`hanhaeseol-git-*.vercel.app` 등)는 Vercel 이 자동으로 noindex 를
+      // 붙이므로 **정확히 이 호스트만** 매칭한다(와일드카드로 잡으면 프리뷰가 깨진다).
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "hanhaeseol.vercel.app" }],
+        destination: "https://haeseol.com/:path*",
+        permanent: true,
+      },
+      // www 도 같은 이유. Vercel 도메인 설정이 기본 307(임시)이라 신호가 합쳐지지 않는다.
+      // 대시보드 쪽 리다이렉트가 먼저 먹으면 이 규칙은 안 타지만, 비용이 0이라 남겨 둔다.
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "www.haeseol.com" }],
+        destination: "https://haeseol.com/:path*",
+        permanent: true,
+      },
+      // Vercel 파일시스템 라우팅이 `/index` 를 `/` 로 해석해 홈과 **바이트가 같은**
+      // 응답을 200 으로 준다(2026-08-13 실측). 앱 라우터에 `/index` 라우트는 없다.
+      // 색인 중복이라 301 로 접는다.
+      { source: "/index", destination: "/", permanent: true },
       { source: "/ig", destination: "/?utm_source=instagram&utm_medium=bio", permanent: false },
       { source: "/ig/post", destination: "/?utm_source=instagram&utm_medium=post", permanent: false },
       { source: "/ig/reel", destination: "/?utm_source=instagram&utm_medium=reel", permanent: false },

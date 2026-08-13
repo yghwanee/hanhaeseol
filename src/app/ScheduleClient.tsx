@@ -841,7 +841,13 @@ export default function ScheduleClient({
         <p>
           각 경기마다 한국어해설 여부를 초록·빨강·노랑 뱃지로 표시해,
           한국어 중계가 있는 경기만 골라 보거나 종목·플랫폼별로 필터링할 수 있습니다.
-          오늘부터 7일치 한국어해설 편성을 한 페이지에서 확인하세요.
+          해설 경기만 모아서 보려면{" "}
+          {/* `/commentary` 로 가는 유일한 문맥 링크. 푸터 메뉴 링크는 전 페이지 공통이라
+              문맥 가중치가 없다. 앵커를 키워드 그대로 둘 것 — 이 페이지가 노리는 쿼리다. */}
+          <Link href="/commentary" className="text-zinc-300 underline underline-offset-2 hover:text-white">
+            한국어 해설 중계 일정
+          </Link>
+          을 확인하세요.
         </p>
       </section>
 
