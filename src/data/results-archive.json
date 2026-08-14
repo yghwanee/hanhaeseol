@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-14T20:43:47.246Z",
+  "lastUpdated": "2026-08-14T21:38:15.185Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -26156,6 +26156,40 @@
         }
       ]
     },
+    "2026-08-15|england2|울버햄튼|블랙번": {
+      "date": "2026-08-15",
+      "categoryId": "england2",
+      "gameId": "0SncKSZ7T5SYFLg",
+      "homeTeam": "울버햄튼",
+      "awayTeam": "블랙번",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "무네트시",
+          "minute": 18
+        },
+        {
+          "team": "away",
+          "player": "맥러플린",
+          "minute": 27
+        },
+        {
+          "team": "away",
+          "player": "그뷔드욘센",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "라울 히메네스",
+          "minute": 90,
+          "addedTime": 3
+        }
+      ]
+    },
     "2026-08-15|eredivisie|텔스타|스파르타": {
       "date": "2026-08-15",
       "categoryId": "eredivisie",
@@ -26190,6 +26224,17 @@
           "addedTime": 7
         }
       ]
+    },
+    "2026-08-15|mlb|시카고 컵스|세인트루이스 카디널스": {
+      "date": "2026-08-15",
+      "categoryId": "mlb",
+      "gameId": "20260815SLCC0",
+      "homeTeam": "시카고 컵스",
+      "awayTeam": "세인트루이스 카디널스",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
     }
   },
   "results": [
@@ -52350,6 +52395,40 @@
     },
     {
       "date": "2026-08-15",
+      "categoryId": "england2",
+      "gameId": "0SncKSZ7T5SYFLg",
+      "homeTeam": "울버햄튼",
+      "awayTeam": "블랙번",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "무네트시",
+          "minute": 18
+        },
+        {
+          "team": "away",
+          "player": "맥러플린",
+          "minute": 27
+        },
+        {
+          "team": "away",
+          "player": "그뷔드욘센",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "라울 히메네스",
+          "minute": 90,
+          "addedTime": 3
+        }
+      ]
+    },
+    {
+      "date": "2026-08-15",
       "categoryId": "eredivisie",
       "gameId": "TwVxSUwhmBEnONP",
       "homeTeam": "텔스타",
@@ -52382,6 +52461,17 @@
           "addedTime": 7
         }
       ]
+    },
+    {
+      "date": "2026-08-15",
+      "categoryId": "mlb",
+      "gameId": "20260815SLCC0",
+      "homeTeam": "시카고 컵스",
+      "awayTeam": "세인트루이스 카디널스",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
     }
   ]
 }
