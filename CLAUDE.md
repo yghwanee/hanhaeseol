@@ -473,6 +473,16 @@ src/
       - **죽은 유닛은 2026-08-15 사용자가 대시보드에서 전부 삭제했다.** 코드가 참조하는 유닛은 위 "최종 구성" 4개뿐이라 영향 없다. **인라인을 728x90 으로 되돌리려면 유닛을 새로 만들어야 한다**(옛 `DAN-5jZ75p7iWhBxfPY5` 도 삭제 대상에 포함됐을 수 있다).
       - **채운(`chaeun.haeseol.com`)도 같은 증상이 있었다** — 좌측 160x600 과 상단 728x90 이 `NO_AD`. 상단은 새 유닛 `DAN-gkSvrzAzCGQc9xJX` 로 교체해 해결했고, 좌측은 **손대지 않았는데 스스로 `OK` 로 돌아왔다**(위 ③의 근거). 채운에도 노필 접기를 이식했다. 상세는 그 레포 `CLAUDE.md`.
 
+91. 🔴 캐러셀 전멸 — Meta 의 PNG→JPEG 변환에 의존하고 있었다 (2026-08-15, 커밋 `5e8c4953`) — 아침 워크플로에서 **캐러셀만** 실패하고 릴스·스토리·유튜브는 정상 게시됐다.
+    - **원인은 우리 파일이 아니었다.** `/media` 컨테이너 생성이 `36001 / 2207084 — "image/png 이미지 형식이 감지되었으나 처리를 위해 JPEG 로 변환하지 못했습니다 ... Telephoto call failed (PNG chunk is missing required data)"` 로 죽었는데, 그때 올린 PNG 8장을 **서명·청크 구성·CRC·전체 길이까지 전수 검사해 오류 0** 이었다(trailing 바이트 0, crcBad 0). 즉 Meta 쪽 변환기가 실패한 것이다.
+    - **🔴 Meta 공식 인스타 이미지 포맷은 JPEG 하나뿐이다.** PNG 도 그동안 받아 줬지만 그건 **비공식 경로**였고, 우리는 몇 달을 거기 얹혀 있었다. 우리가 통제할 수 있는 건 "변환을 시키지 않는 것" 하나뿐이라 **JPEG 로 올린다**(`src/lib/ig-image.ts` + `npm run ig:jpeg`). PNG 원본은 남긴다 — 릴스·틱톡 영상이 ffmpeg 입력으로 쓴다.
+    - 대상 = 캐러셀 전체 + 스토리 + 릴스 커버. 실측 카드 2.8MB → 0.9MB(전체 17~33%). **글자가 많아 `chromaSubsampling: "4:4:4"`** 로 굽는다(4:2:0 이면 형광 라임·앰버 글자 경계가 번진다). 알파는 `flatten({background:"#0a0a0a"})` 으로 명시적으로 깐다.
+    - **트윈이 없으면 PNG 로 폴백한다**(경고만 남기고). 변환 스텝이 빠졌다고 게시를 통째로 멈추는 것보다, 몇 달간 실제로 돌던 경로로 한 번 더 가는 게 낫다. 대신 **스텝 존재·순서는 가드가 본다.**
+    - **`postMedia` 가 2207084 를 재시도 대상으로 본다.** `is_transient: false` 로 오지만 우리 파일 문제가 아니라 재시도로 풀리는 부류다 — 종전엔 첫 시도에 바로 `exit 1` 이었다. 작업76 의 `isRetryableContainerFailure`(컨테이너 status 문자열)와는 **다른 층**이다: 이건 `/media` **응답의 error 객체**라 `isRetryableMediaCreate` 로 따로 판정한다.
+    - **가드 `test:ig-image` 8건 + instagram-api 3건 CI 편입.** 핵심은 **워크플로 2종이 `ig:jpeg` 를 `id: media`(insta-media push) 앞에서 돌리는지** — 라이브러리가 아무리 맞아도 push 뒤에 돌면 JPEG 가 CDN 에 없어 조용히 PNG 로 폴백한다. 스텝을 지워 `fail 1` 나는 것 실증했다. 실제 변환 검증(JPEG 매직 `FFD8`·해상도 유지·알파 없음)도 포함.
+    - 검증: tsc · ESLint · **테스트 234/234** · 빌드 · 실제 0815 카드 9장 변환 후 육안 확인(글자 선명, 라임 액센트 번짐 없음) · **`only=carousel` 재게시 성공**(Media ID `17889872913607859`, 나머지 4스텝 skipped = 중복 0).
+    - **🔴 진단 요령(재사용)**: `gh run view <id> --log-failed` 로 에러 코드를 뽑고, **파일을 직접 받아 PNG 청크·CRC 를 전수 검사**하면 "우리 파일 / 그쪽 변환" 이 한 번에 갈린다. 이번엔 파일이 멀쩡했으므로 파일 재생성이나 재시도는 답이 아니었다.
+
 ### 다음 작업 (예정)
 
 - ~~🔴 애드핏 유닛 노필~~ **완결(2026-08-15, 작업90)** — 한해설 3슬롯 · 채운 4슬롯 **전부 정상 송출**, 죽은 유닛 삭제까지 끝. 전 페이지 검증(한해설 26조합 + 채운 2조합) 이상 없음.
@@ -535,6 +545,8 @@ npm run crawl    # 크롤링 실행 (7일치)
 npm run crawl:results    # 결과·스코어 재크롤
 npm run test:fetch-cache # 🔴 Next 런타임 fetch 캐시 가드 (CI에서도 돎)
 npm run test:starters / test:highlights / test:tiktok-caption
+npm run ig:jpeg          # 🔴 인스타 업로드용 JPEG 굽기(캐러셀+스토리+릴스커버). PNG 로 올리면 Meta 변환에서 죽는다
+npm run test:ig-image    # 🔴 위 변환 + 워크플로가 그걸 insta-media push **앞**에서 돌리는지
 npm run test:shorts-title    # 🔴 아침·저녁 쇼츠 제목이 같아지면 실패(피드 배포 중단 재발 방지)
 npm run test:cover-hook      # 🔴 아침·저녁 커버 문구가 같아지면 실패 + 조사 고정 금지(josa.ts 사용 강제)
 npm run test:idea-dupes / test:naver-news
