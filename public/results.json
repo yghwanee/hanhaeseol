@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-14T18:05:22.847Z",
+  "lastUpdated": "2026-08-14T19:12:06.306Z",
   "byKey": {
     "2026-08-14|kbo|삼성|한화": {
       "date": "2026-08-14",
@@ -576,8 +576,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "4회말"
     },
     "2026-08-15|mlb|시카고컵스|세인트루이스 카디널스": {
       "date": "2026-08-15",
@@ -587,8 +587,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "4회말"
     },
     "2026-08-15|mlb|시카고 컵스|세인트루이스": {
       "date": "2026-08-15",
@@ -598,8 +598,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "4회말"
     },
     "2026-08-15|mlb|시카고 컵스|세인트루이스 카디널스": {
       "date": "2026-08-15",
@@ -609,8 +609,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "4회말"
     },
     "2026-08-15|mlb|신시내티|마이애미": {
       "date": "2026-08-15",
@@ -1700,8 +1700,8 @@
       "awayTeam": "블랙번",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 11'"
     },
     "2026-08-15|england2|볼튼|프레스턴": {
       "date": "2026-08-15",
@@ -2293,9 +2293,16 @@
       "homeTeam": "텔스타",
       "awayTeam": "스파르타",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 4'"
+      "period": "후반 7'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "영",
+          "minute": 6
+        }
+      ]
     },
     "2026-08-15|eredivisie|빌럼 II|NEC 네이메헌": {
       "date": "2026-08-15",
@@ -2391,10 +2398,10 @@
       "gameId": "WYaKnolqcLOtRVE",
       "homeTeam": "비보리",
       "awayTeam": "AGF",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 1'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2405,6 +2412,11 @@
           "team": "away",
           "player": "에머리",
           "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "쇤더가르드",
+          "minute": 60
         }
       ]
     },
@@ -2901,8 +2913,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "4회말"
     },
     {
       "date": "2026-08-15",
@@ -3192,8 +3204,8 @@
       "awayTeam": "블랙번",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 11'"
     },
     {
       "date": "2026-08-15",
@@ -3598,9 +3610,16 @@
       "homeTeam": "텔스타",
       "awayTeam": "스파르타",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 4'"
+      "period": "후반 7'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "영",
+          "minute": 6
+        }
+      ]
     },
     {
       "date": "2026-08-15",
@@ -3696,10 +3715,10 @@
       "gameId": "WYaKnolqcLOtRVE",
       "homeTeam": "비보리",
       "awayTeam": "AGF",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 1'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -3710,6 +3729,11 @@
           "team": "away",
           "player": "에머리",
           "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "쇤더가르드",
+          "minute": 60
         }
       ]
     },
