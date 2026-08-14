@@ -117,6 +117,14 @@ function hasFilledAd() {
   );
 }
 
+/**
+ * 노필(`NO_AD`) 판정까지 기다리는 시간.
+ *
+ * 위 재스캔 안전망이 2.5초에 한 번 더 기회를 주므로 그보다 뒤여야 한다. 실측(2026-08-14)
+ * 기준 애드핏 응답은 첫 요청 후 1~2초 안에 오고, 채워지는 유닛은 그 안에 자식이 생긴다.
+ */
+const COLLAPSE_DELAY_MS = 4000;
+
 export function AdfitBanner({
   className = "",
   slot = "top",
@@ -126,6 +134,8 @@ export function AdfitBanner({
 }) {
   const config = SLOTS[slot];
   const [variant, setVariant] = useState<Variant | null>(null);
+  // 채워짐 여부. "pending" 동안은 자리를 잡아 두고(CLS), 노필로 확정되면 접는다.
+  const [fill, setFill] = useState<"pending" | "filled" | "empty">("pending");
   const insRef = useRef<HTMLModElement>(null);
   // 🔴 페이지의 모든 슬롯이 같은 신호로 함께 마운트돼야 한다. SDK 스캔이 한 번뿐이라
   // 슬롯마다 마운트 시점이 다르면 늦은 슬롯이 영구히 빈칸으로 남는다(ads-ready.ts 참고).
@@ -172,10 +182,47 @@ export function AdfitBanner({
     };
   }, [variant]);
 
+  /* ───────────────────────────────────────────────────────────────────────────
+   *  노필이면 자리를 접는다.
+   *
+   *  애드핏은 광고가 없으면 `{"status":"NO_AD"}` 를 돌려주고 SDK 는 `<ins>` 를
+   *  `display:none` 인 채로 둔다. 그런데 `config.wrapper` 의 `min-h` 는 자리를 계속
+   *  잡고 있어서 **빈 박스가 그대로 남는다**(우측 600px · 인라인 90~250px).
+   *  2026-08-14 실측에서 PC 인라인·우측 두 유닛이 노필이라 그 자리가 종일 비어 있었다.
+   *
+   *  `<ins>` 자체는 지우지 않는다 — 애드핏 응답에 `refreshInterval` 이 들어 있어
+   *  SDK 가 나중에 다시 채울 수 있고, 그때 `MutationObserver` 가 잡아 자리를 되돌린다.
+   * ─────────────────────────────────────────────────────────────────────────── */
+  useEffect(() => {
+    const el = insRef.current;
+    if (!variant || !el) return;
+
+    const observer = new MutationObserver(() => {
+      if (el.childElementCount > 0) setFill("filled");
+    });
+    observer.observe(el, { childList: true });
+
+    const verdict = window.setTimeout(() => {
+      setFill(el.childElementCount > 0 ? "filled" : "empty");
+    }, COLLAPSE_DELAY_MS);
+
+    return () => {
+      observer.disconnect();
+      window.clearTimeout(verdict);
+    };
+  }, [variant]);
+
   return (
     // 채워지지 않으면 ins 가 display:none 인 채로 남아 아무것도 보이지 않는다
     // (대체 광고 미설정이라 흰 박스가 뜨지 않는다 — 다크 테마에 유리).
-    <div className={`flex justify-center ${config.wrapper} ${className}`}>
+    //
+    // 노필 확정(`empty`)이면 wrapper 클래스를 통째로 뺀다. `min-h` 만 지우면 호출부가 준
+    // `mb-6` 같은 여백이 남아 빈 틈이 그대로 보인다. ins 는 display:none 이라 높이 0.
+    <div
+      className={
+        fill === "empty" ? undefined : `flex justify-center ${config.wrapper} ${className}`
+      }
+    >
       {variant && (
         <ins
           ref={insRef}
