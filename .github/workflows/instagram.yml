@@ -106,6 +106,12 @@ jobs:
       - name: 스토리 이미지 생성
         run: npm run story:make
 
+      # 🔴 push 앞에 있어야 한다. 인스타에 올리는 이미지는 JPEG 로 굽는다 — Meta 공식
+      # 이미지 포맷은 JPEG 뿐이고 PNG 는 그쪽 변환기를 태우는 비공식 경로다.
+      # 2026-08-15 아침 캐러셀 8장이 그 변환에서 통째로 죽었다(36001/2207084).
+      - name: 인스타 업로드용 JPEG 변환
+        run: npm run ig:jpeg
+
       - name: 이미지/영상을 insta-media 브랜치에 푸시
         id: media
         env:

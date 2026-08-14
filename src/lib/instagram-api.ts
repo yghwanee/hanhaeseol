@@ -144,10 +144,10 @@ async function postMedia(
     // 일시 오류 2종: ①raw CDN 전파 지연으로 Meta가 미디어 URI를 못 가져옴(9004/2207052)
     // ②Meta 쪽 장애(code=2, is_transient). ②는 수 분 지속될 수 있어 고정 15s×5(~75s)로는
     // 못 버팀(2026-07-19 저녁 게시 3종 전멸) → 지수 백오프로 최대 ~10분 커버.
-    if (isTransientFetch(data.error) && attempt < maxRetries) {
+    if (isRetryableMediaCreate(data.error) && attempt < maxRetries) {
       const delayMs = Math.min(retryDelayMs * 2 ** (attempt - 1), 120000);
       console.warn(
-        `⚠️  미디어 생성 ${attempt}/${maxRetries} — 일시 오류(CDN 전파/Meta 장애), ${delayMs / 1000}s 후 재시도: ${JSON.stringify(data.error)}`,
+        `⚠️  미디어 생성 ${attempt}/${maxRetries} — 일시 오류(CDN 전파/Meta 장애/이미지 변환), ${delayMs / 1000}s 후 재시도: ${JSON.stringify(data.error)}`,
       );
       await sleep(delayMs);
       continue;
@@ -165,6 +165,23 @@ function isTransientFetch(err: IgError | undefined): boolean {
   if (err.is_transient) return true;
   const msg = err.message ?? "";
   return /can(no| )?t be fetched|could not be fetched|fetch the media/i.test(msg);
+}
+
+/**
+ * Meta 쪽 이미지 변환기(Telephoto)가 죽은 케이스. 2026-08-15 아침 캐러셀이 여기서 전멸했다:
+ * `36001 / 2207084 — image/png ... JPEG 로 변환하지 못했습니다 (PNG chunk is missing
+ * required data)`. 그때 올린 PNG 8장은 CRC 까지 전수 검사해 전부 멀쩡했다.
+ *
+ * `is_transient: false` 로 오지만 **우리 파일 문제가 아니므로** 재시도 대상으로 둔다.
+ * 근본 대책은 애초에 변환을 안 시키는 것(JPEG 업로드) — `src/lib/ig-image.ts` 참조.
+ */
+const IMAGE_CONVERT_FAILED_SUBCODE = 2207084;
+
+/** `/media` 컨테이너 생성 실패 중 다시 걸어 볼 만한 것. postMedia 전용. */
+export function isRetryableMediaCreate(err: IgError | undefined): boolean {
+  if (!err) return false;
+  if (err.error_subcode === IMAGE_CONVERT_FAILED_SUBCODE) return true;
+  return isTransientFetch(err);
 }
 
 // Meta가 Page Access Token으로 미디어 컨테이너 노드 직접 GET 호출을 막은 케이스.

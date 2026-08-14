@@ -1,6 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { buildCaption, isRetryableContainerFailure, parseContainerErrorCode } from "./instagram-api";
+import { buildCaption, isRetryableContainerFailure, isRetryableMediaCreate, parseContainerErrorCode } from "./instagram-api";
 import { pickHeroForDate } from "./instagram";
 
 // 2026-08-02 저녁 릴스 실패의 실제 status 문자열.
@@ -101,4 +101,30 @@ test("릴스 캡션의 '주목 경기' 줄은 후킹 문장의 주인공과 같�
       `${d}: 후킹 주인공(${hero.homeTeam})과 다른 경기가 실림 — ${matchLine}`,
     );
   }
+});
+
+// 2026-08-15 아침 캐러셀 전멸의 실제 에러(로그 그대로). Meta 의 PNG→JPEG 변환이 죽었고,
+// is_transient:false 라 재시도 없이 첫 시도에 exit 1 났다. 파일은 CRC 까지 멀쩡했다.
+const REAL_2207084 = {
+  message: "The image format is not supported.",
+  type: "OAuthException",
+  code: 36001,
+  error_subcode: 2207084,
+  is_transient: false,
+};
+
+test("이미지 변환 실패(2207084)는 재시도 대상 — 이걸 놓쳐서 캐러셀이 안 올라갔다", () => {
+  assert.equal(isRetryableMediaCreate(REAL_2207084), true);
+});
+
+test("진짜 영구 오류는 재시도하지 않는다(못 올릴 파일에 10분을 쓰지 않는다)", () => {
+  assert.equal(isRetryableMediaCreate(undefined), false);
+  // 토큰 만료 — 재시도해도 같은 결과
+  assert.equal(isRetryableMediaCreate({ code: 190, message: "Invalid OAuth access token" }), false);
+});
+
+test("기존 일시 오류 분류(9004 / 2207052 / is_transient)는 그대로 유지된다", () => {
+  assert.equal(isRetryableMediaCreate({ code: 9004 }), true);
+  assert.equal(isRetryableMediaCreate({ error_subcode: 2207052 }), true);
+  assert.equal(isRetryableMediaCreate({ code: 2, is_transient: true }), true);
 });

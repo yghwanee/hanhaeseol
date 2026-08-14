@@ -10,6 +10,11 @@ export type Manifest = {
   story?: string;
   /** 인스타 REELS API의 cover_url용 9:16 PNG 파일명 (있으면 publishSingleMedia가 사용). */
   cover?: string;
+  /**
+   * 인스타 업로드용 JPEG 트윈 파일명들 (`npm run ig:jpeg` 가 채운다).
+   * 게시 스크립트는 PNG 대신 여기 있는 이름을 올린다 — 이유는 `ig-image.ts` 참조.
+   */
+  jpeg?: string[];
 };
 
 export const OUT_DIR = path.resolve("generated/instagram");

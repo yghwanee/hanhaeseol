@@ -1,3 +1,4 @@
+import { igImageName } from "@/lib/ig-image";
 import { getKstToday } from "@/lib/instagram";
 import { buildCaption, comment, mediaBaseUrl, publishSingleMedia } from "@/lib/instagram-api";
 import { readManifest } from "@/lib/manifest";
@@ -22,7 +23,7 @@ async function main(): Promise<string> {
     share_to_feed: "false",
   };
   if (manifest.cover) {
-    params.cover_url = `${mediaBaseUrl()}/${manifest.cover}`;
+    params.cover_url = `${mediaBaseUrl()}/${igImageName(manifest.cover, manifest)}`;
     console.log(`🖼  cover_url: ${params.cover_url}`);
   }
 

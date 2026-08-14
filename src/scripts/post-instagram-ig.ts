@@ -1,3 +1,4 @@
+import { igImageName } from "@/lib/ig-image";
 import { getKstToday } from "@/lib/instagram";
 import { buildCaption, comment, createFinishedContainer, mediaBaseUrl, publish } from "@/lib/instagram-api";
 import { readManifest } from "@/lib/manifest";
@@ -8,7 +9,8 @@ import { UTM_LINKS } from "@/lib/utm";
 const MAX_CAROUSEL = 10;
 
 async function main(): Promise<string> {
-  const { files } = readManifest();
+  const manifest = readManifest();
+  const { files } = manifest;
   if (files.length === 0) throw new Error("매니페스트에 파일이 없습니다.");
 
   const selected = files.length > MAX_CAROUSEL
@@ -16,7 +18,9 @@ async function main(): Promise<string> {
     : files;
 
   const base = mediaBaseUrl();
-  const urls = selected.map((f) => `${base}/${f}`);
+  // PNG 가 아니라 JPEG 트윈을 올린다 — Meta 의 PNG→JPEG 변환이 2026-08-15 아침에
+  // 통째로 죽었다(36001/2207084). 상세는 `src/lib/ig-image.ts`.
+  const urls = selected.map((f) => `${base}/${igImageName(f, manifest)}`);
 
   console.log(`📸 캐러셀 ${urls.length}장 게시 시작`);
 
