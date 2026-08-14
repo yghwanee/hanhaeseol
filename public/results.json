@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-14T16:04:35.405Z",
+  "lastUpdated": "2026-08-14T17:09:29.296Z",
   "byKey": {
     "2026-08-14|kbo|삼성|한화": {
       "date": "2026-08-14",
@@ -575,7 +575,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-15|mlb|시카고컵스|세인트루이스 카디널스": {
       "date": "2026-08-15",
@@ -585,7 +586,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-15|mlb|시카고 컵스|세인트루이스": {
       "date": "2026-08-15",
@@ -595,7 +597,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-15|mlb|시카고 컵스|세인트루이스 카디널스": {
       "date": "2026-08-15",
@@ -605,7 +608,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-15|mlb|신시내티|마이애미": {
       "date": "2026-08-15",
@@ -2388,8 +2392,8 @@
       "awayTeam": "AGF",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 8'"
     },
     "2026-08-16|denmark|OB|호르센스": {
       "date": "2026-08-16",
@@ -2431,14 +2435,19 @@
       "homeTeam": "마르세유",
       "awayTeam": "AT 마드리드",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 33'",
+      "period": "후반 31'",
       "goals": [
         {
           "team": "home",
           "player": "이고르 파이샤오",
           "minute": 22
+        },
+        {
+          "team": "away",
+          "player": "로드리고 멘도자",
+          "minute": 39
         }
       ]
     },
@@ -2872,7 +2881,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-08-15",
@@ -3668,8 +3678,8 @@
       "awayTeam": "AGF",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 8'"
     },
     {
       "date": "2026-08-16",
@@ -3711,14 +3721,19 @@
       "homeTeam": "마르세유",
       "awayTeam": "AT 마드리드",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 33'",
+      "period": "후반 31'",
       "goals": [
         {
           "team": "home",
           "player": "이고르 파이샤오",
           "minute": 22
+        },
+        {
+          "team": "away",
+          "player": "로드리고 멘도자",
+          "minute": 39
         }
       ]
     },
