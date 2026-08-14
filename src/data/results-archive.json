@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-14T17:09:30.278Z",
+  "lastUpdated": "2026-08-14T18:05:24.144Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -25974,7 +25974,8 @@
       "homeScore": 8,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "KTLNFv_bAIM"
     },
     "2026-08-14|kbo|롯데|NC": {
       "date": "2026-08-14",
@@ -26097,6 +26098,35 @@
       "awayScore": 5,
       "status": "finished",
       "period": "9회말"
+    },
+    "2026-08-15|clubfriendly|마르세유|AT 마드리드": {
+      "date": "2026-08-15",
+      "categoryId": "clubfriendly",
+      "gameId": "QyRcDHa8DA07hWz",
+      "homeTeam": "마르세유",
+      "awayTeam": "AT 마드리드",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이고르 파이샤오",
+          "minute": 22
+        },
+        {
+          "team": "away",
+          "player": "로드리고 멘도자",
+          "minute": 39
+        },
+        {
+          "team": "away",
+          "player": "카를로스 마르틴",
+          "minute": 78
+        }
+      ],
+      "highlightVideoId": "ipsm9LeUGkc"
     }
   },
   "results": [
@@ -52073,7 +52103,8 @@
       "homeScore": 8,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "KTLNFv_bAIM"
     },
     {
       "date": "2026-08-14",
@@ -52196,6 +52227,35 @@
       "awayScore": 5,
       "status": "finished",
       "period": "9회말"
+    },
+    {
+      "date": "2026-08-15",
+      "categoryId": "clubfriendly",
+      "gameId": "QyRcDHa8DA07hWz",
+      "homeTeam": "마르세유",
+      "awayTeam": "AT 마드리드",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이고르 파이샤오",
+          "minute": 22
+        },
+        {
+          "team": "away",
+          "player": "로드리고 멘도자",
+          "minute": 39
+        },
+        {
+          "team": "away",
+          "player": "카를로스 마르틴",
+          "minute": 78
+        }
+      ],
+      "highlightVideoId": "ipsm9LeUGkc"
     }
   ]
 }
