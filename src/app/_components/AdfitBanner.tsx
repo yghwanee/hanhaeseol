@@ -67,7 +67,9 @@ const SLOTS = {
    *  를 그대로 그려 SDK 가 스캔한다. 화면엔 안 보이는데 노출만 잡히는, 이 파일이 경계하는
    *  바로 그 무효노출 패턴. `mobile` 이 없으므로 1280 미만에서는 아예 `<ins>` 를 그리지 않는다. */
   sideRight: {
-    pc: { unit: "DAN-CF8kPxnkszA1dow9", width: 160, height: 600 },
+    // 2026-08-14 교체. 옛 유닛 `DAN-CF8kPxnkszA1dow9` 은 대시보드상 `승인`·160x600
+    // 정상인데도 애드핏 서버가 `NO_AD` 만 돌려줬다(작업90). 같은 규격으로 새로 만든 유닛.
+    pc: { unit: "DAN-1fL2TxxOBIE9A7nT", width: 160, height: 600 },
     mobile: null,
     wrapper: "min-h-[600px]",
     minWidth: 1280,
