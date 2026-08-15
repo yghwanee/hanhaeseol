@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-15T10:58:07.946Z",
+  "lastUpdated": "2026-08-15T11:32:47.401Z",
   "records": {
     "KBO": {
       "KT": {
@@ -1830,8 +1830,8 @@
       "서울": {
         "last5": "DDLWW",
         "win": 13,
-        "lose": 4,
-        "draw": 6,
+        "lose": 5,
+        "draw": 5,
         "streak": {
           "count": 1,
           "type": "D"
@@ -1857,6 +1857,16 @@
           "type": "D"
         }
       },
+      "제주": {
+        "last5": "WDWDW",
+        "win": 9,
+        "lose": 7,
+        "draw": 7,
+        "streak": {
+          "count": 1,
+          "type": "D"
+        }
+      },
       "강원": {
         "last5": "LLDWD",
         "win": 8,
@@ -1867,21 +1877,21 @@
           "type": "L"
         }
       },
-      "제주": {
-        "last5": "WDWDW",
-        "win": 8,
-        "lose": 7,
-        "draw": 8,
+      "포항": {
+        "last5": "LLLLL",
+        "win": 9,
+        "lose": 10,
+        "draw": 4,
         "streak": {
-          "count": 1,
-          "type": "D"
+          "count": 4,
+          "type": "L"
         }
       },
       "안양": {
         "last5": "LLWWD",
         "win": 7,
-        "lose": 6,
-        "draw": 10,
+        "lose": 7,
+        "draw": 9,
         "streak": {
           "count": 1,
           "type": "L"
@@ -1897,21 +1907,11 @@
           "type": "D"
         }
       },
-      "포항": {
-        "last5": "LLLLL",
-        "win": 8,
-        "lose": 10,
-        "draw": 5,
-        "streak": {
-          "count": 4,
-          "type": "L"
-        }
-      },
       "대전": {
         "last5": "WWLDD",
-        "win": 6,
+        "win": 7,
         "lose": 8,
-        "draw": 9,
+        "draw": 8,
         "streak": {
           "count": 1,
           "type": "W"
@@ -1940,8 +1940,8 @@
       "광주": {
         "last5": "DLLDD",
         "win": 1,
-        "lose": 13,
-        "draw": 9,
+        "lose": 14,
+        "draw": 8,
         "streak": {
           "count": 2,
           "type": "L"
@@ -1951,9 +1951,19 @@
     "K리그2": {
       "수원": {
         "last5": "WDWDL",
-        "win": 13,
+        "win": 12,
         "lose": 4,
-        "draw": 4,
+        "draw": 5,
+        "streak": {
+          "count": 1,
+          "type": "W"
+        }
+      },
+      "수원FC": {
+        "last5": "WWDWW",
+        "win": 10,
+        "lose": 3,
+        "draw": 7,
         "streak": {
           "count": 1,
           "type": "W"
@@ -1977,16 +1987,6 @@
         "streak": {
           "count": 1,
           "type": "D"
-        }
-      },
-      "수원FC": {
-        "last5": "WWDWW",
-        "win": 10,
-        "lose": 4,
-        "draw": 6,
-        "streak": {
-          "count": 1,
-          "type": "W"
         }
       },
       "화성": {
