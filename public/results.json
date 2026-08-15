@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-15T17:56:27.831Z",
+  "lastUpdated": "2026-08-15T18:46:05.389Z",
   "byKey": {
     "2026-08-15|kbo|삼성|한화": {
       "date": "2026-08-15",
@@ -714,10 +714,10 @@
       "gameId": "20260816CWDE0",
       "homeTeam": "디트로이트 타이거스",
       "awayTeam": "시카고 화이트삭스",
-      "homeScore": 1,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 3,
       "status": "live",
-      "period": "3회초"
+      "period": "5회말"
     },
     "2026-08-16|mlb|디트로이트|시카고 화이트삭스": {
       "date": "2026-08-16",
@@ -725,10 +725,10 @@
       "gameId": "20260816CWDE0",
       "homeTeam": "디트로이트 타이거스",
       "awayTeam": "시카고 화이트삭스",
-      "homeScore": 1,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 3,
       "status": "live",
-      "period": "3회초"
+      "period": "5회말"
     },
     "2026-08-16|mlb|디트로이트 타이거스|시카고W": {
       "date": "2026-08-16",
@@ -736,10 +736,10 @@
       "gameId": "20260816CWDE0",
       "homeTeam": "디트로이트 타이거스",
       "awayTeam": "시카고 화이트삭스",
-      "homeScore": 1,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 3,
       "status": "live",
-      "period": "3회초"
+      "period": "5회말"
     },
     "2026-08-16|mlb|디트로이트 타이거스|시카고 화이트삭스": {
       "date": "2026-08-16",
@@ -747,10 +747,10 @@
       "gameId": "20260816CWDE0",
       "homeTeam": "디트로이트 타이거스",
       "awayTeam": "시카고 화이트삭스",
-      "homeScore": 1,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 3,
       "status": "live",
-      "period": "3회초"
+      "period": "5회말"
     },
     "2026-08-16|mlb|시카고컵스|세인트루이스": {
       "date": "2026-08-16",
@@ -759,9 +759,9 @@
       "homeTeam": "시카고 컵스",
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 3,
+      "status": "live",
+      "period": "2회말"
     },
     "2026-08-16|mlb|시카고컵스|세인트루이스 카디널스": {
       "date": "2026-08-16",
@@ -770,9 +770,9 @@
       "homeTeam": "시카고 컵스",
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 3,
+      "status": "live",
+      "period": "2회말"
     },
     "2026-08-16|mlb|시카고 컵스|세인트루이스": {
       "date": "2026-08-16",
@@ -781,9 +781,9 @@
       "homeTeam": "시카고 컵스",
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 3,
+      "status": "live",
+      "period": "2회말"
     },
     "2026-08-16|mlb|시카고 컵스|세인트루이스 카디널스": {
       "date": "2026-08-16",
@@ -792,9 +792,9 @@
       "homeTeam": "시카고 컵스",
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 3,
+      "status": "live",
+      "period": "2회말"
     },
     "2026-08-16|mlb|토론토|뉴욕양키스": {
       "date": "2026-08-16",
@@ -2129,8 +2129,8 @@
       "awayTeam": "버밍엄",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 25'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-08-16|england2|왓퍼드|사우샘프턴": {
       "date": "2026-08-16",
@@ -2174,7 +2174,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 25'"
+      "period": "후반 10'"
     },
     "2026-08-16|primera|세비야|바예카노": {
       "date": "2026-08-16",
@@ -2957,10 +2957,10 @@
       "gameId": "7Tj7zNpjqu4TXY8",
       "homeTeam": "위트레흐트",
       "awayTeam": "알크마르 잔스트리크",
-      "homeScore": 0,
-      "awayScore": 3,
-      "status": "live",
-      "period": "후반 5'",
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2977,6 +2977,16 @@
           "team": "away",
           "player": "미어딩크",
           "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "스테파노프",
+          "minute": 62
+        },
+        {
+          "team": "away",
+          "player": "우프키르",
+          "minute": 84
         }
       ]
     },
@@ -2987,9 +2997,16 @@
       "homeTeam": "엑셀시오르",
       "awayTeam": "PSV 아인트호벤",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 46'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "반 봄멜",
+          "minute": 5
+        }
+      ]
     },
     "2026-08-16|eredivisie|시타르트|캄부르": {
       "date": "2026-08-16",
@@ -3213,17 +3230,6 @@
         }
       ]
     },
-    "2026-08-15|clubfriendly|뉴캐슬|레버쿠젠": {
-      "date": "2026-08-15",
-      "categoryId": "clubfriendly",
-      "gameId": "FWSkdYq2NRY5Hym",
-      "homeTeam": "뉴캐슬",
-      "awayTeam": "레버쿠젠",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
-    },
     "2026-08-15|clubfriendly|토트넘|호펜하임": {
       "date": "2026-08-15",
       "categoryId": "clubfriendly",
@@ -3251,6 +3257,17 @@
           "minute": 79
         }
       ]
+    },
+    "2026-08-15|clubfriendly|뉴캐슬|레버쿠젠": {
+      "date": "2026-08-15",
+      "categoryId": "clubfriendly",
+      "gameId": "FWSkdYq2NRY5Hym",
+      "homeTeam": "뉴캐슬",
+      "awayTeam": "레버쿠젠",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-08-15|clubfriendly|브렌트퍼드|프랑크푸르트": {
       "date": "2026-08-15",
@@ -3433,7 +3450,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 23'"
+      "period": "후반 6'"
     },
     "2026-08-16|clubfriendly|리버풀|코모": {
       "date": "2026-08-16",
@@ -3787,10 +3804,10 @@
       "gameId": "20260816CWDE0",
       "homeTeam": "디트로이트 타이거스",
       "awayTeam": "시카고 화이트삭스",
-      "homeScore": 1,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 3,
       "status": "live",
-      "period": "3회초"
+      "period": "5회말"
     },
     {
       "date": "2026-08-16",
@@ -3799,9 +3816,9 @@
       "homeTeam": "시카고 컵스",
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 3,
+      "status": "live",
+      "period": "2회말"
     },
     {
       "date": "2026-08-16",
@@ -4327,8 +4344,8 @@
       "awayTeam": "버밍엄",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 25'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-08-16",
@@ -4361,7 +4378,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 25'"
+      "period": "후반 10'"
     },
     {
       "date": "2026-08-16",
@@ -4913,10 +4930,10 @@
       "gameId": "7Tj7zNpjqu4TXY8",
       "homeTeam": "위트레흐트",
       "awayTeam": "알크마르 잔스트리크",
-      "homeScore": 0,
-      "awayScore": 3,
-      "status": "live",
-      "period": "후반 5'",
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -4933,6 +4950,16 @@
           "team": "away",
           "player": "미어딩크",
           "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "스테파노프",
+          "minute": 62
+        },
+        {
+          "team": "away",
+          "player": "우프키르",
+          "minute": 84
         }
       ]
     },
@@ -4943,9 +4970,16 @@
       "homeTeam": "엑셀시오르",
       "awayTeam": "PSV 아인트호벤",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 46'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "반 봄멜",
+          "minute": 5
+        }
+      ]
     },
     {
       "date": "2026-08-16",
@@ -5172,17 +5206,6 @@
     {
       "date": "2026-08-15",
       "categoryId": "clubfriendly",
-      "gameId": "FWSkdYq2NRY5Hym",
-      "homeTeam": "뉴캐슬",
-      "awayTeam": "레버쿠젠",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
-    },
-    {
-      "date": "2026-08-15",
-      "categoryId": "clubfriendly",
       "gameId": "FIgF3kzUWDYT2ch",
       "homeTeam": "토트넘",
       "awayTeam": "호펜하임",
@@ -5207,6 +5230,17 @@
           "minute": 79
         }
       ]
+    },
+    {
+      "date": "2026-08-15",
+      "categoryId": "clubfriendly",
+      "gameId": "FWSkdYq2NRY5Hym",
+      "homeTeam": "뉴캐슬",
+      "awayTeam": "레버쿠젠",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-08-15",
@@ -5341,7 +5375,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 23'"
+      "period": "후반 6'"
     },
     {
       "date": "2026-08-16",

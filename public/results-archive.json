@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-15T17:56:28.594Z",
+  "lastUpdated": "2026-08-15T18:46:07.121Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -26317,6 +26317,17 @@
         }
       ]
     },
+    "2026-08-15|clubfriendly|뉴캐슬|레버쿠젠": {
+      "date": "2026-08-15",
+      "categoryId": "clubfriendly",
+      "gameId": "FWSkdYq2NRY5Hym",
+      "homeTeam": "뉴캐슬",
+      "awayTeam": "레버쿠젠",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료"
+    },
     "2026-08-15|denmark|비보리|AGF": {
       "date": "2026-08-15",
       "categoryId": "denmark",
@@ -27089,6 +27100,56 @@
           "team": "home",
           "player": "기라시",
           "minute": 28
+        }
+      ]
+    },
+    "2026-08-16|england2|셰필드|버밍엄": {
+      "date": "2026-08-16",
+      "categoryId": "england2",
+      "gameId": "mH9rr16l9crEvI9",
+      "homeTeam": "셰필드",
+      "awayTeam": "버밍엄",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    "2026-08-16|eredivisie|위트레흐트|알크마르 잔스트리크": {
+      "date": "2026-08-16",
+      "categoryId": "eredivisie",
+      "gameId": "7Tj7zNpjqu4TXY8",
+      "homeTeam": "위트레흐트",
+      "awayTeam": "알크마르 잔스트리크",
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "쿱마이너스",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "away",
+          "player": "웨슬리 파타티",
+          "minute": 47
+        },
+        {
+          "team": "away",
+          "player": "미어딩크",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "스테파노프",
+          "minute": 62
+        },
+        {
+          "team": "away",
+          "player": "우프키르",
+          "minute": 84
         }
       ]
     }
@@ -53412,6 +53473,17 @@
     },
     {
       "date": "2026-08-15",
+      "categoryId": "clubfriendly",
+      "gameId": "FWSkdYq2NRY5Hym",
+      "homeTeam": "뉴캐슬",
+      "awayTeam": "레버쿠젠",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-08-15",
       "categoryId": "denmark",
       "gameId": "WYaKnolqcLOtRVE",
       "homeTeam": "비보리",
@@ -54182,6 +54254,56 @@
           "team": "home",
           "player": "기라시",
           "minute": 28
+        }
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "categoryId": "england2",
+      "gameId": "mH9rr16l9crEvI9",
+      "homeTeam": "셰필드",
+      "awayTeam": "버밍엄",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-08-16",
+      "categoryId": "eredivisie",
+      "gameId": "7Tj7zNpjqu4TXY8",
+      "homeTeam": "위트레흐트",
+      "awayTeam": "알크마르 잔스트리크",
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "쿱마이너스",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "away",
+          "player": "웨슬리 파타티",
+          "minute": 47
+        },
+        {
+          "team": "away",
+          "player": "미어딩크",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "스테파노프",
+          "minute": 62
+        },
+        {
+          "team": "away",
+          "player": "우프키르",
+          "minute": 84
         }
       ]
     }
