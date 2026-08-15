@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-15T18:46:07.121Z",
+  "lastUpdated": "2026-08-15T19:32:40.403Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -27103,6 +27103,24 @@
         }
       ]
     },
+    "2026-08-16|clubfriendly|인테르|베티스": {
+      "date": "2026-08-16",
+      "categoryId": "clubfriendly",
+      "gameId": "t9ySmF0wzvylVzc",
+      "homeTeam": "인테르",
+      "awayTeam": "베티스",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "스톤스",
+          "minute": 82
+        }
+      ]
+    },
     "2026-08-16|england2|셰필드|버밍엄": {
       "date": "2026-08-16",
       "categoryId": "england2",
@@ -27150,6 +27168,36 @@
           "team": "away",
           "player": "우프키르",
           "minute": 84
+        }
+      ]
+    },
+    "2026-08-16|primera|알라베스|헤타페": {
+      "date": "2026-08-16",
+      "categoryId": "primera",
+      "gameId": "cT8uhjIoc43rtDe",
+      "homeTeam": "알라베스",
+      "awayTeam": "헤타페",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "테나글리아",
+          "minute": 73
+        },
+        {
+          "team": "home",
+          "player": "마리아노 디아스",
+          "minute": 90,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "미켈 로드리게스",
+          "minute": 90,
+          "addedTime": 4
         }
       ]
     }
@@ -54259,6 +54307,24 @@
     },
     {
       "date": "2026-08-16",
+      "categoryId": "clubfriendly",
+      "gameId": "t9ySmF0wzvylVzc",
+      "homeTeam": "인테르",
+      "awayTeam": "베티스",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "스톤스",
+          "minute": 82
+        }
+      ]
+    },
+    {
+      "date": "2026-08-16",
       "categoryId": "england2",
       "gameId": "mH9rr16l9crEvI9",
       "homeTeam": "셰필드",
@@ -54304,6 +54370,36 @@
           "team": "away",
           "player": "우프키르",
           "minute": 84
+        }
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "categoryId": "primera",
+      "gameId": "cT8uhjIoc43rtDe",
+      "homeTeam": "알라베스",
+      "awayTeam": "헤타페",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "테나글리아",
+          "minute": 73
+        },
+        {
+          "team": "home",
+          "player": "마리아노 디아스",
+          "minute": 90,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "미켈 로드리게스",
+          "minute": 90,
+          "addedTime": 4
         }
       ]
     }
