@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-15T19:32:49.946Z",
+  "lastUpdated": "2026-08-15T19:54:25.606Z",
   "records": {
     "KBO": {
       "KT": {
@@ -137,24 +137,24 @@
         }
       },
       "시카고W": {
-        "last5": "WLWLW",
-        "win": 63,
+        "last5": "WWLWL",
+        "win": 64,
         "lose": 58,
         "draw": 0,
-        "wra": 0.521,
+        "wra": 0.525,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "W"
         }
       },
       "시카고 화이트삭스": {
-        "last5": "WLWLW",
-        "win": 63,
+        "last5": "WWLWL",
+        "win": 64,
         "lose": 58,
         "draw": 0,
-        "wra": 0.521,
+        "wra": 0.525,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "W"
         }
       },
@@ -269,22 +269,44 @@
         }
       },
       "디트로이트": {
-        "last5": "LWLWW",
+        "last5": "LLWLW",
         "win": 60,
-        "lose": 62,
+        "lose": 63,
         "draw": 0,
-        "wra": 0.492,
+        "wra": 0.488,
+        "streak": {
+          "count": 2,
+          "type": "L"
+        }
+      },
+      "디트로이트 타이거스": {
+        "last5": "LLWLW",
+        "win": 60,
+        "lose": 63,
+        "draw": 0,
+        "wra": 0.488,
+        "streak": {
+          "count": 2,
+          "type": "L"
+        }
+      },
+      "미네소타": {
+        "last5": "LWLWL",
+        "win": 60,
+        "lose": 63,
+        "draw": 0,
+        "wra": 0.488,
         "streak": {
           "count": 1,
           "type": "L"
         }
       },
-      "디트로이트 타이거스": {
-        "last5": "LWLWW",
+      "미네소타 트윈스": {
+        "last5": "LWLWL",
         "win": 60,
-        "lose": 62,
+        "lose": 63,
         "draw": 0,
-        "wra": 0.492,
+        "wra": 0.488,
         "streak": {
           "count": 1,
           "type": "L"
@@ -441,28 +463,6 @@
         "wra": 0.504,
         "streak": {
           "count": 2,
-          "type": "L"
-        }
-      },
-      "미네소타": {
-        "last5": "LWLWL",
-        "win": 60,
-        "lose": 63,
-        "draw": 0,
-        "wra": 0.488,
-        "streak": {
-          "count": 1,
-          "type": "L"
-        }
-      },
-      "미네소타 트윈스": {
-        "last5": "LWLWL",
-        "win": 60,
-        "lose": 63,
-        "draw": 0,
-        "wra": 0.488,
-        "streak": {
-          "count": 1,
           "type": "L"
         }
       },
@@ -959,6 +959,18 @@
         "lose": 0,
         "draw": 0
       },
+      "바예카노": {
+        "last5": "",
+        "win": 1,
+        "lose": 0,
+        "draw": 0
+      },
+      "라요 바예카노": {
+        "last5": "",
+        "win": 1,
+        "lose": 0,
+        "draw": 0
+      },
       "아틀레틱 빌바오": {
         "last5": "",
         "win": 0,
@@ -1043,18 +1055,6 @@
         "lose": 0,
         "draw": 0
       },
-      "바예카노": {
-        "last5": "",
-        "win": 0,
-        "lose": 0,
-        "draw": 0
-      },
-      "라요 바예카노": {
-        "last5": "",
-        "win": 0,
-        "lose": 0,
-        "draw": 0
-      },
       "레알 베티스": {
         "last5": "",
         "win": 0,
@@ -1073,12 +1073,6 @@
         "lose": 0,
         "draw": 0
       },
-      "세비야": {
-        "last5": "",
-        "win": 0,
-        "lose": 0,
-        "draw": 0
-      },
       "발렌시아": {
         "last5": "",
         "win": 0,
@@ -1089,6 +1083,12 @@
         "last5": "",
         "win": 0,
         "lose": 0,
+        "draw": 0
+      },
+      "세비야": {
+        "last5": "",
+        "win": 0,
+        "lose": 1,
         "draw": 0
       },
       "헤타페": {

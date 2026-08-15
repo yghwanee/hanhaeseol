@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-15T19:32:39.406Z",
+  "lastUpdated": "2026-08-15T19:54:14.954Z",
   "byKey": {
     "2026-08-15|kbo|삼성|한화": {
       "date": "2026-08-15",
@@ -716,8 +716,8 @@
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 3,
       "awayScore": 4,
-      "status": "live",
-      "period": "9회초"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-16|mlb|디트로이트|시카고 화이트삭스": {
       "date": "2026-08-16",
@@ -727,8 +727,8 @@
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 3,
       "awayScore": 4,
-      "status": "live",
-      "period": "9회초"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-16|mlb|디트로이트 타이거스|시카고W": {
       "date": "2026-08-16",
@@ -738,8 +738,8 @@
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 3,
       "awayScore": 4,
-      "status": "live",
-      "period": "9회초"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-16|mlb|디트로이트 타이거스|시카고 화이트삭스": {
       "date": "2026-08-16",
@@ -749,8 +749,8 @@
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 3,
       "awayScore": 4,
-      "status": "live",
-      "period": "9회초"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-16|mlb|시카고컵스|세인트루이스": {
       "date": "2026-08-16",
@@ -761,7 +761,7 @@
       "homeScore": 3,
       "awayScore": 4,
       "status": "live",
-      "period": "4회말"
+      "period": "6회초"
     },
     "2026-08-16|mlb|시카고컵스|세인트루이스 카디널스": {
       "date": "2026-08-16",
@@ -772,7 +772,7 @@
       "homeScore": 3,
       "awayScore": 4,
       "status": "live",
-      "period": "4회말"
+      "period": "6회초"
     },
     "2026-08-16|mlb|시카고 컵스|세인트루이스": {
       "date": "2026-08-16",
@@ -783,7 +783,7 @@
       "homeScore": 3,
       "awayScore": 4,
       "status": "live",
-      "period": "4회말"
+      "period": "6회초"
     },
     "2026-08-16|mlb|시카고 컵스|세인트루이스 카디널스": {
       "date": "2026-08-16",
@@ -794,7 +794,7 @@
       "homeScore": 3,
       "awayScore": 4,
       "status": "live",
-      "period": "4회말"
+      "period": "6회초"
     },
     "2026-08-16|mlb|토론토|뉴욕양키스": {
       "date": "2026-08-16",
@@ -805,7 +805,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "2회초"
+      "period": "3회말"
     },
     "2026-08-16|mlb|토론토|뉴욕 양키스": {
       "date": "2026-08-16",
@@ -816,7 +816,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "2회초"
+      "period": "3회말"
     },
     "2026-08-16|mlb|토론토 블루제이스|뉴욕양키스": {
       "date": "2026-08-16",
@@ -827,7 +827,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "2회초"
+      "period": "3회말"
     },
     "2026-08-16|mlb|토론토 블루제이스|뉴욕 양키스": {
       "date": "2026-08-16",
@@ -838,7 +838,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "2회초"
+      "period": "3회말"
     },
     "2026-08-16|mlb|샌프란시스코|콜로라도": {
       "date": "2026-08-16",
@@ -2206,9 +2206,16 @@
       "homeTeam": "세비야",
       "awayTeam": "라요 바예카노",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 15'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "알바로 가르시아",
+          "minute": 4
+        }
+      ]
     },
     "2026-08-16|primera|세비야|라요 바예카노": {
       "date": "2026-08-16",
@@ -2217,9 +2224,16 @@
       "homeTeam": "세비야",
       "awayTeam": "라요 바예카노",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 15'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "알바로 가르시아",
+          "minute": 4
+        }
+      ]
     },
     "2026-08-17|primera|라싱|비야레알": {
       "date": "2026-08-17",
@@ -3021,8 +3035,8 @@
       "awayTeam": "PSV 아인트호벤",
       "homeScore": 1,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 30'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -3050,7 +3064,7 @@
       "homeScore": 2,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 31'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
@@ -3863,8 +3877,8 @@
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 3,
       "awayScore": 4,
-      "status": "live",
-      "period": "9회초"
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-08-16",
@@ -3875,7 +3889,7 @@
       "homeScore": 3,
       "awayScore": 4,
       "status": "live",
-      "period": "4회말"
+      "period": "6회초"
     },
     {
       "date": "2026-08-16",
@@ -3886,7 +3900,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "2회초"
+      "period": "3회말"
     },
     {
       "date": "2026-08-16",
@@ -4464,9 +4478,16 @@
       "homeTeam": "세비야",
       "awayTeam": "라요 바예카노",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 15'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "알바로 가르시아",
+          "minute": 4
+        }
+      ]
     },
     {
       "date": "2026-08-17",
@@ -5048,8 +5069,8 @@
       "awayTeam": "PSV 아인트호벤",
       "homeScore": 1,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 30'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -5077,7 +5098,7 @@
       "homeScore": 2,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 31'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
