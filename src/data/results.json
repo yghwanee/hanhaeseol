@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-15T17:34:08.296Z",
+  "lastUpdated": "2026-08-15T17:56:27.831Z",
   "byKey": {
     "2026-08-15|kbo|삼성|한화": {
       "date": "2026-08-15",
@@ -717,7 +717,7 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "1회말"
+      "period": "3회초"
     },
     "2026-08-16|mlb|디트로이트|시카고 화이트삭스": {
       "date": "2026-08-16",
@@ -728,7 +728,7 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "1회말"
+      "period": "3회초"
     },
     "2026-08-16|mlb|디트로이트 타이거스|시카고W": {
       "date": "2026-08-16",
@@ -739,7 +739,7 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "1회말"
+      "period": "3회초"
     },
     "2026-08-16|mlb|디트로이트 타이거스|시카고 화이트삭스": {
       "date": "2026-08-16",
@@ -750,7 +750,7 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "1회말"
+      "period": "3회초"
     },
     "2026-08-16|mlb|시카고컵스|세인트루이스": {
       "date": "2026-08-16",
@@ -892,7 +892,8 @@
       "awayTeam": "워싱턴 내셔널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-16|mlb|뉴욕메츠|워싱턴 내셔널스": {
       "date": "2026-08-16",
@@ -902,7 +903,8 @@
       "awayTeam": "워싱턴 내셔널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-16|mlb|뉴욕 메츠|워싱턴": {
       "date": "2026-08-16",
@@ -912,7 +914,8 @@
       "awayTeam": "워싱턴 내셔널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-16|mlb|뉴욕 메츠|워싱턴 내셔널스": {
       "date": "2026-08-16",
@@ -922,7 +925,8 @@
       "awayTeam": "워싱턴 내셔널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-16|mlb|탬파베이|볼티모어": {
       "date": "2026-08-16",
@@ -2126,7 +2130,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "후반 2'"
+      "period": "후반 25'"
     },
     "2026-08-16|england2|왓퍼드|사우샘프턴": {
       "date": "2026-08-16",
@@ -2170,7 +2174,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 2'"
+      "period": "전반 25'"
     },
     "2026-08-16|primera|세비야|바예카노": {
       "date": "2026-08-16",
@@ -2954,9 +2958,27 @@
       "homeTeam": "위트레흐트",
       "awayTeam": "알크마르 잔스트리크",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 3,
       "status": "live",
-      "period": "전반 44'"
+      "period": "후반 5'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "쿱마이너스",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "away",
+          "player": "웨슬리 파타티",
+          "minute": 47
+        },
+        {
+          "team": "away",
+          "player": "미어딩크",
+          "minute": 49
+        }
+      ]
     },
     "2026-08-16|eredivisie|엑셀시오르|PSV 아인트호벤": {
       "date": "2026-08-16",
@@ -3410,8 +3432,8 @@
       "awayTeam": "베티스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 23'"
     },
     "2026-08-16|clubfriendly|리버풀|코모": {
       "date": "2026-08-16",
@@ -3768,7 +3790,7 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "1회말"
+      "period": "3회초"
     },
     {
       "date": "2026-08-16",
@@ -3811,7 +3833,8 @@
       "awayTeam": "워싱턴 내셔널스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-08-16",
@@ -4305,7 +4328,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "후반 2'"
+      "period": "후반 25'"
     },
     {
       "date": "2026-08-16",
@@ -4338,7 +4361,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 2'"
+      "period": "전반 25'"
     },
     {
       "date": "2026-08-16",
@@ -4891,9 +4914,27 @@
       "homeTeam": "위트레흐트",
       "awayTeam": "알크마르 잔스트리크",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 3,
       "status": "live",
-      "period": "전반 44'"
+      "period": "후반 5'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "쿱마이너스",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "away",
+          "player": "웨슬리 파타티",
+          "minute": 47
+        },
+        {
+          "team": "away",
+          "player": "미어딩크",
+          "minute": 49
+        }
+      ]
     },
     {
       "date": "2026-08-16",
@@ -5299,8 +5340,8 @@
       "awayTeam": "베티스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 23'"
     },
     {
       "date": "2026-08-16",
