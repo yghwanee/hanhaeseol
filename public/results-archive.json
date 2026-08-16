@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16T01:56:22.340Z",
+  "lastUpdated": "2026-08-16T03:11:52.966Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -27332,6 +27332,50 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-08-16|mlb|미네소타 트윈스|필라델피아 필리스": {
+      "date": "2026-08-16",
+      "categoryId": "mlb",
+      "gameId": "20260816PHMN0",
+      "homeTeam": "미네소타 트윈스",
+      "awayTeam": "필라델피아 필리스",
+      "homeScore": 1,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-16|mlb|휴스턴 애스트로스|시애틀 매리너스": {
+      "date": "2026-08-16",
+      "categoryId": "mlb",
+      "gameId": "20260816SEHO0",
+      "homeTeam": "휴스턴 애스트로스",
+      "awayTeam": "시애틀 매리너스",
+      "homeScore": 5,
+      "awayScore": 10,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-16|mlb|애틀랜타 브레이브스|애리조나 다이아몬드백스": {
+      "date": "2026-08-16",
+      "categoryId": "mlb",
+      "gameId": "20260816AZAT0",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "애리조나 다이아몬드백스",
+      "homeScore": 3,
+      "awayScore": 10,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-16|mlb|피츠버그 파이리츠|보스턴 레드삭스": {
+      "date": "2026-08-16",
+      "categoryId": "mlb",
+      "gameId": "20260816BOPI0",
+      "homeTeam": "피츠버그 파이리츠",
+      "awayTeam": "보스턴 레드삭스",
+      "homeScore": 0,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-08-16|mls|토론토|뉴잉글랜드 레볼루션": {
       "date": "2026-08-16",
       "categoryId": "mls",
@@ -27466,6 +27510,63 @@
           "team": "home",
           "player": "피코",
           "minute": 82
+        }
+      ]
+    },
+    "2026-08-16|mls|내슈빌 SC|인터 마이애미 CF": {
+      "date": "2026-08-16",
+      "categoryId": "mls",
+      "gameId": "kC3RzhKPgXhZcuw",
+      "homeTeam": "내슈빌 SC",
+      "awayTeam": "인터 마이애미 CF",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "나자르",
+          "minute": 17
+        },
+        {
+          "team": "away",
+          "player": "세고비아",
+          "minute": 45,
+          "addedTime": 3
+        },
+        {
+          "team": "home",
+          "player": "무크타르",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "서리지",
+          "minute": 56
+        },
+        {
+          "team": "home",
+          "player": "무크타르",
+          "minute": 63
+        }
+      ]
+    },
+    "2026-08-16|mls|휴스턴|갤럭시": {
+      "date": "2026-08-16",
+      "categoryId": "mls",
+      "gameId": "Xan8OWKq9yjFbLd",
+      "homeTeam": "휴스턴",
+      "awayTeam": "갤럭시",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "기엘르미",
+          "minute": 21
         }
       ]
     },
@@ -54863,6 +54964,50 @@
     },
     {
       "date": "2026-08-16",
+      "categoryId": "mlb",
+      "gameId": "20260816PHMN0",
+      "homeTeam": "미네소타 트윈스",
+      "awayTeam": "필라델피아 필리스",
+      "homeScore": 1,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-16",
+      "categoryId": "mlb",
+      "gameId": "20260816SEHO0",
+      "homeTeam": "휴스턴 애스트로스",
+      "awayTeam": "시애틀 매리너스",
+      "homeScore": 5,
+      "awayScore": 10,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-16",
+      "categoryId": "mlb",
+      "gameId": "20260816AZAT0",
+      "homeTeam": "애틀랜타 브레이브스",
+      "awayTeam": "애리조나 다이아몬드백스",
+      "homeScore": 3,
+      "awayScore": 10,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-16",
+      "categoryId": "mlb",
+      "gameId": "20260816BOPI0",
+      "homeTeam": "피츠버그 파이리츠",
+      "awayTeam": "보스턴 레드삭스",
+      "homeScore": 0,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-16",
       "categoryId": "mls",
       "gameId": "1WIuYZBxI8o9HLz",
       "homeTeam": "토론토",
@@ -54995,6 +55140,63 @@
           "team": "home",
           "player": "피코",
           "minute": 82
+        }
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "categoryId": "mls",
+      "gameId": "kC3RzhKPgXhZcuw",
+      "homeTeam": "내슈빌 SC",
+      "awayTeam": "인터 마이애미 CF",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "나자르",
+          "minute": 17
+        },
+        {
+          "team": "away",
+          "player": "세고비아",
+          "minute": 45,
+          "addedTime": 3
+        },
+        {
+          "team": "home",
+          "player": "무크타르",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "서리지",
+          "minute": 56
+        },
+        {
+          "team": "home",
+          "player": "무크타르",
+          "minute": 63
+        }
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "categoryId": "mls",
+      "gameId": "Xan8OWKq9yjFbLd",
+      "homeTeam": "휴스턴",
+      "awayTeam": "갤럭시",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "기엘르미",
+          "minute": 21
         }
       ]
     },
