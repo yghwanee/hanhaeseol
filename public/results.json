@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16T16:40:54.575Z",
+  "lastUpdated": "2026-08-16T17:00:49.124Z",
   "byKey": {
     "2026-08-16|kbo|삼성|한화": {
       "date": "2026-08-16",
@@ -44,7 +44,8 @@
       "homeScore": 0,
       "awayScore": 6,
       "status": "finished",
-      "period": "9회말"
+      "period": "9회말",
+      "highlightVideoId": "-UZ-qZzybT0"
     },
     "2026-08-16|kbo|KT|키움": {
       "date": "2026-08-16",
@@ -759,7 +760,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "2회말"
+      "period": "4회초"
     },
     "2026-08-17|mlb|탬파베이|볼티모어 오리올스": {
       "date": "2026-08-17",
@@ -770,7 +771,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "2회말"
+      "period": "4회초"
     },
     "2026-08-17|mlb|탬파베이 레이스|볼티모어": {
       "date": "2026-08-17",
@@ -781,7 +782,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "2회말"
+      "period": "4회초"
     },
     "2026-08-17|mlb|탬파베이 레이스|볼티모어 오리올스": {
       "date": "2026-08-17",
@@ -792,7 +793,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "2회말"
+      "period": "4회초"
     },
     "2026-08-17|mlb|애틀랜타|애리조나": {
       "date": "2026-08-17",
@@ -1819,10 +1820,10 @@
       "gameId": "06skIp3jNtT9u2c",
       "homeTeam": "번리",
       "awayTeam": "웨스트햄",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 36'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -1833,6 +1834,17 @@
           "team": "away",
           "player": "솔로몬",
           "minute": 72
+        },
+        {
+          "team": "home",
+          "player": "플레밍",
+          "minute": 83
+        },
+        {
+          "team": "home",
+          "player": "플레밍",
+          "minute": 90,
+          "addedTime": 2
         }
       ]
     },
@@ -1943,8 +1955,8 @@
       "awayTeam": "비야레알",
       "homeScore": 2,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 31'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -3355,9 +3367,9 @@
       "homeTeam": "라네르스",
       "awayTeam": "코펜하겐",
       "homeScore": 0,
-      "awayScore": 2,
+      "awayScore": 3,
       "status": "live",
-      "period": "전반 40'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -3368,6 +3380,12 @@
           "team": "away",
           "player": "멜링",
           "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "에밀 매드슨",
+          "minute": 45,
+          "addedTime": 1
         }
       ]
     },
@@ -3535,8 +3553,8 @@
       "awayTeam": "레알 마드리드",
       "homeScore": 0,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 39'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -3667,7 +3685,8 @@
       "homeScore": 0,
       "awayScore": 6,
       "status": "finished",
-      "period": "9회말"
+      "period": "9회말",
+      "highlightVideoId": "-UZ-qZzybT0"
     },
     {
       "date": "2026-08-16",
@@ -3909,7 +3928,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "2회말"
+      "period": "4회초"
     },
     {
       "date": "2026-08-17",
@@ -4214,10 +4233,10 @@
       "gameId": "06skIp3jNtT9u2c",
       "homeTeam": "번리",
       "awayTeam": "웨스트햄",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 36'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -4228,6 +4247,17 @@
           "team": "away",
           "player": "솔로몬",
           "minute": 72
+        },
+        {
+          "team": "home",
+          "player": "플레밍",
+          "minute": 83
+        },
+        {
+          "team": "home",
+          "player": "플레밍",
+          "minute": 90,
+          "addedTime": 2
         }
       ]
     },
@@ -4309,8 +4339,8 @@
       "awayTeam": "비야레알",
       "homeScore": 2,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 31'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -5218,9 +5248,9 @@
       "homeTeam": "라네르스",
       "awayTeam": "코펜하겐",
       "homeScore": 0,
-      "awayScore": 2,
+      "awayScore": 3,
       "status": "live",
-      "period": "전반 40'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -5231,6 +5261,12 @@
           "team": "away",
           "player": "멜링",
           "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "에밀 매드슨",
+          "minute": 45,
+          "addedTime": 1
         }
       ]
     },
@@ -5398,8 +5434,8 @@
       "awayTeam": "레알 마드리드",
       "homeScore": 0,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 39'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
