@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16T04:00:20.289Z",
+  "lastUpdated": "2026-08-16T04:48:46.794Z",
   "byKey": {
     "2026-08-15|kbo|삼성|한화": {
       "date": "2026-08-15",
@@ -1331,9 +1331,9 @@
       "homeTeam": "애슬레틱스",
       "awayTeam": "텍사스 레인저스",
       "homeScore": 3,
-      "awayScore": 4,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-16|mlb|애슬레틱스|텍사스 레인저스": {
       "date": "2026-08-16",
@@ -1342,9 +1342,9 @@
       "homeTeam": "애슬레틱스",
       "awayTeam": "텍사스 레인저스",
       "homeScore": 3,
-      "awayScore": 4,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-17|mlb|탬파베이|볼티모어": {
       "date": "2026-08-17",
@@ -2959,8 +2959,8 @@
       "awayTeam": "세인트루이스",
       "homeScore": 1,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 16'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2992,8 +2992,8 @@
       "awayTeam": "세인트루이스",
       "homeScore": 1,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 16'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -3024,9 +3024,16 @@
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "샌디에고",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 16'"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "드레이어",
+          "minute": 89
+        }
+      ]
     },
     "2026-08-16|mls|로스앤젤레스 FC|샌디에고": {
       "date": "2026-08-16",
@@ -3035,9 +3042,16 @@
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "샌디에고",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 16'"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "드레이어",
+          "minute": 89
+        }
+      ]
     },
     "2026-08-17|mls|시카고|포틀랜드": {
       "date": "2026-08-17",
@@ -4532,9 +4546,9 @@
       "homeTeam": "애슬레틱스",
       "awayTeam": "텍사스 레인저스",
       "homeScore": 3,
-      "awayScore": 4,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-08-17",
@@ -5282,8 +5296,8 @@
       "awayTeam": "세인트루이스",
       "homeScore": 1,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 16'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -5314,9 +5328,16 @@
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "샌디에고",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 16'"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "드레이어",
+          "minute": 89
+        }
+      ]
     },
     {
       "date": "2026-08-17",

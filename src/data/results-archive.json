@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16T04:00:21.786Z",
+  "lastUpdated": "2026-08-16T04:48:47.841Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -27387,6 +27387,17 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-08-16|mlb|애슬레틱스|텍사스 레인저스": {
+      "date": "2026-08-16",
+      "categoryId": "mlb",
+      "gameId": "20260816TEOA0",
+      "homeTeam": "애슬레틱스",
+      "awayTeam": "텍사스 레인저스",
+      "homeScore": 3,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-08-16|mls|토론토|뉴잉글랜드 레볼루션": {
       "date": "2026-08-16",
       "categoryId": "mls",
@@ -27625,6 +27636,57 @@
           "player": "라파엘 나바로",
           "minute": 90,
           "addedTime": 5
+        }
+      ]
+    },
+    "2026-08-16|mls|산호세 어스퀘이크스|세인트루이스": {
+      "date": "2026-08-16",
+      "categoryId": "mls",
+      "gameId": "aESwKgGwWBu45T7",
+      "homeTeam": "산호세 어스퀘이크스",
+      "awayTeam": "세인트루이스",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에델만",
+          "minute": 8
+        },
+        {
+          "team": "away",
+          "player": "베처",
+          "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "르루",
+          "minute": 47
+        },
+        {
+          "team": "away",
+          "player": "베처",
+          "minute": 55
+        }
+      ]
+    },
+    "2026-08-16|mls|로스앤젤레스 FC|샌디에고": {
+      "date": "2026-08-16",
+      "categoryId": "mls",
+      "gameId": "qFZZwGhboSoG2v3",
+      "homeTeam": "로스앤젤레스 FC",
+      "awayTeam": "샌디에고",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "드레이어",
+          "minute": 89
         }
       ]
     },
@@ -55077,6 +55139,17 @@
     },
     {
       "date": "2026-08-16",
+      "categoryId": "mlb",
+      "gameId": "20260816TEOA0",
+      "homeTeam": "애슬레틱스",
+      "awayTeam": "텍사스 레인저스",
+      "homeScore": 3,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-16",
       "categoryId": "mls",
       "gameId": "1WIuYZBxI8o9HLz",
       "homeTeam": "토론토",
@@ -55313,6 +55386,57 @@
           "player": "라파엘 나바로",
           "minute": 90,
           "addedTime": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "categoryId": "mls",
+      "gameId": "aESwKgGwWBu45T7",
+      "homeTeam": "산호세 어스퀘이크스",
+      "awayTeam": "세인트루이스",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에델만",
+          "minute": 8
+        },
+        {
+          "team": "away",
+          "player": "베처",
+          "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "르루",
+          "minute": 47
+        },
+        {
+          "team": "away",
+          "player": "베처",
+          "minute": 55
+        }
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "categoryId": "mls",
+      "gameId": "qFZZwGhboSoG2v3",
+      "homeTeam": "로스앤젤레스 FC",
+      "awayTeam": "샌디에고",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "드레이어",
+          "minute": 89
         }
       ]
     },
