@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16T09:59:14.901Z",
+  "lastUpdated": "2026-08-16T10:37:54.102Z",
   "records": {
     "KBO": {
       "KT": {
@@ -1841,7 +1841,7 @@
         "last5": "WWWLD",
         "win": 11,
         "lose": 7,
-        "draw": 4,
+        "draw": 5,
         "streak": {
           "count": 3,
           "type": "W"
@@ -1851,7 +1851,7 @@
         "last5": "LDWDL",
         "win": 9,
         "lose": 6,
-        "draw": 7,
+        "draw": 8,
         "streak": {
           "count": 1,
           "type": "L"
@@ -1871,7 +1871,7 @@
         "last5": "LLDWD",
         "win": 8,
         "lose": 5,
-        "draw": 8,
+        "draw": 9,
         "streak": {
           "count": 2,
           "type": "L"
@@ -1901,7 +1901,7 @@
         "last5": "DDWWL",
         "win": 8,
         "lose": 8,
-        "draw": 5,
+        "draw": 6,
         "streak": {
           "count": 2,
           "type": "D"
@@ -1921,7 +1921,7 @@
         "last5": "DWWDL",
         "win": 4,
         "lose": 6,
-        "draw": 12,
+        "draw": 13,
         "streak": {
           "count": 1,
           "type": "D"
@@ -1931,7 +1931,7 @@
         "last5": "DWDLL",
         "win": 5,
         "lose": 8,
-        "draw": 9,
+        "draw": 10,
         "streak": {
           "count": 1,
           "type": "D"
@@ -1959,6 +1959,16 @@
           "type": "D"
         }
       },
+      "서울E": {
+        "last5": "DWWDW",
+        "win": 11,
+        "lose": 5,
+        "draw": 5,
+        "streak": {
+          "count": 1,
+          "type": "D"
+        }
+      },
       "수원FC": {
         "last5": "DWWDW",
         "win": 10,
@@ -1979,14 +1989,14 @@
           "type": "D"
         }
       },
-      "서울E": {
-        "last5": "DWWDW",
-        "win": 11,
+      "대구": {
+        "last5": "WLLDW",
+        "win": 10,
         "lose": 5,
-        "draw": 4,
+        "draw": 6,
         "streak": {
           "count": 1,
-          "type": "D"
+          "type": "W"
         }
       },
       "화성": {
@@ -1999,27 +2009,17 @@
           "type": "D"
         }
       },
-      "대구": {
-        "last5": "WLLDW",
-        "win": 10,
-        "lose": 5,
-        "draw": 5,
-        "streak": {
-          "count": 1,
-          "type": "W"
-        }
-      },
       "김포": {
         "last5": "WDDDL",
         "win": 7,
         "lose": 4,
-        "draw": 9
+        "draw": 10
       },
       "충남아산": {
         "last5": "DWLLD",
         "win": 7,
         "lose": 6,
-        "draw": 7,
+        "draw": 8,
         "streak": {
           "count": 1,
           "type": "D"
@@ -2039,7 +2039,7 @@
         "last5": "WLWLL",
         "win": 5,
         "lose": 6,
-        "draw": 8,
+        "draw": 9,
         "streak": {
           "count": 1,
           "type": "W"
@@ -2069,7 +2069,7 @@
         "last5": "LWLDW",
         "win": 6,
         "lose": 11,
-        "draw": 3,
+        "draw": 4,
         "streak": {
           "count": 1,
           "type": "L"
@@ -2079,7 +2079,7 @@
         "last5": "LDLLL",
         "win": 4,
         "lose": 8,
-        "draw": 8,
+        "draw": 9,
         "streak": {
           "count": 1,
           "type": "L"
@@ -2089,7 +2089,7 @@
         "last5": "DDWLW",
         "win": 5,
         "lose": 11,
-        "draw": 4,
+        "draw": 5,
         "streak": {
           "count": 2,
           "type": "D"
@@ -2451,6 +2451,12 @@
         "lose": 0,
         "draw": 0
       },
+      "흐로닝언": {
+        "last5": "W",
+        "win": 2,
+        "lose": 0,
+        "draw": 0
+      },
       "포르투나 시타르트": {
         "last5": "WD",
         "win": 1,
@@ -2476,12 +2482,6 @@
         "draw": 0
       },
       "아약스": {
-        "last5": "W",
-        "win": 1,
-        "lose": 0,
-        "draw": 0
-      },
-      "흐로닝언": {
         "last5": "W",
         "win": 1,
         "lose": 0,
@@ -2529,12 +2529,6 @@
         "lose": 1,
         "draw": 0
       },
-      "ADO 덴 하그": {
-        "last5": "L",
-        "win": 0,
-        "lose": 1,
-        "draw": 0
-      },
       "PEC 즈볼레": {
         "last5": "L",
         "win": 0,
@@ -2545,6 +2539,12 @@
         "last5": "L",
         "win": 0,
         "lose": 1,
+        "draw": 0
+      },
+      "ADO 덴 하그": {
+        "last5": "L",
+        "win": 0,
+        "lose": 2,
         "draw": 0
       },
       "위트레흐트": {
