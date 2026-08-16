@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16T15:34:19.570Z",
+  "lastUpdated": "2026-08-16T15:56:49.640Z",
   "byKey": {
     "2026-08-16|kbo|삼성|한화": {
       "date": "2026-08-16",
@@ -1106,7 +1106,8 @@
       "awayTeam": "필라델피아 필리스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-17|mlb|미네소타|필라델피아 필리스": {
       "date": "2026-08-17",
@@ -1116,7 +1117,8 @@
       "awayTeam": "필라델피아 필리스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-17|mlb|미네소타 트윈스|필라델피아": {
       "date": "2026-08-17",
@@ -1126,7 +1128,8 @@
       "awayTeam": "필라델피아 필리스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-17|mlb|미네소타 트윈스|필라델피아 필리스": {
       "date": "2026-08-17",
@@ -1136,7 +1139,8 @@
       "awayTeam": "필라델피아 필리스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-17|mlb|시카고컵스|세인트루이스": {
       "date": "2026-08-17",
@@ -1814,7 +1818,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 34'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -1928,15 +1932,31 @@
       "gameId": "XLhyn1YnZLFqOfn",
       "homeTeam": "라싱",
       "awayTeam": "비야레알",
-      "homeScore": 1,
-      "awayScore": 0,
+      "homeScore": 2,
+      "awayScore": 2,
       "status": "live",
-      "period": "전반 33'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
           "player": "안드레스 마르틴",
           "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "세르히오 마르티네스",
+          "minute": 34
+        },
+        {
+          "team": "away",
+          "player": "파페 게예",
+          "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "페페",
+          "minute": 45,
+          "addedTime": 1
         }
       ]
     },
@@ -3224,7 +3244,7 @@
       "homeScore": 2,
       "awayScore": 1,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 10'",
       "goals": [
         {
           "team": "home",
@@ -3299,8 +3319,8 @@
       "awayTeam": "미트윌란",
       "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 31'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -3439,9 +3459,9 @@
       "homeTeam": "바젤",
       "awayTeam": "바르셀로나",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 2,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 19'",
       "goals": [
         {
           "team": "away",
@@ -3450,8 +3470,13 @@
         },
         {
           "team": "home",
-          "player": "말루다",
+          "player": "두쿠레",
           "minute": 43
+        },
+        {
+          "team": "away",
+          "player": "함자 압델카림",
+          "minute": 49
         }
       ]
     },
@@ -3464,7 +3489,7 @@
       "homeScore": 0,
       "awayScore": 2,
       "status": "live",
-      "period": "전반 34'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -3497,8 +3522,8 @@
       "awayTeam": "맨시티",
       "homeScore": 3,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 27'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -3525,8 +3550,8 @@
       "awayTeam": "맨시티",
       "homeScore": 3,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 27'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -3918,7 +3943,8 @@
       "awayTeam": "필라델피아 필리스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-08-17",
@@ -4138,7 +4164,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 34'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -4223,15 +4249,31 @@
       "gameId": "XLhyn1YnZLFqOfn",
       "homeTeam": "라싱",
       "awayTeam": "비야레알",
-      "homeScore": 1,
-      "awayScore": 0,
+      "homeScore": 2,
+      "awayScore": 2,
       "status": "live",
-      "period": "전반 33'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
           "player": "안드레스 마르틴",
           "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "세르히오 마르티네스",
+          "minute": 34
+        },
+        {
+          "team": "away",
+          "player": "파페 게예",
+          "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "페페",
+          "minute": 45,
+          "addedTime": 1
         }
       ]
     },
@@ -5016,7 +5058,7 @@
       "homeScore": 2,
       "awayScore": 1,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 10'",
       "goals": [
         {
           "team": "home",
@@ -5091,8 +5133,8 @@
       "awayTeam": "미트윌란",
       "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 31'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -5231,9 +5273,9 @@
       "homeTeam": "바젤",
       "awayTeam": "바르셀로나",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 2,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 19'",
       "goals": [
         {
           "team": "away",
@@ -5242,8 +5284,13 @@
         },
         {
           "team": "home",
-          "player": "말루다",
+          "player": "두쿠레",
           "minute": 43
+        },
+        {
+          "team": "away",
+          "player": "함자 압델카림",
+          "minute": 49
         }
       ]
     },
@@ -5256,7 +5303,7 @@
       "homeScore": 0,
       "awayScore": 2,
       "status": "live",
-      "period": "전반 34'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -5289,8 +5336,8 @@
       "awayTeam": "맨시티",
       "homeScore": 3,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 27'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
