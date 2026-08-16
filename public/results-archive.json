@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16T15:56:50.681Z",
+  "lastUpdated": "2026-08-16T16:40:55.654Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -27168,6 +27168,55 @@
         }
       ]
     },
+    "2026-08-16|clubfriendly|바젤|바르셀로나": {
+      "date": "2026-08-16",
+      "categoryId": "clubfriendly",
+      "gameId": "4ak5g0ATNsi9Rz5",
+      "homeTeam": "바젤",
+      "awayTeam": "바르셀로나",
+      "homeScore": 2,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아데예미",
+          "minute": 34
+        },
+        {
+          "team": "home",
+          "player": "두쿠레",
+          "minute": 43
+        },
+        {
+          "team": "away",
+          "player": "함자 압델카림",
+          "minute": 49
+        },
+        {
+          "team": "away",
+          "player": "라민 야말",
+          "minute": 81
+        },
+        {
+          "team": "home",
+          "player": "올라이즈비",
+          "minute": 84
+        },
+        {
+          "team": "away",
+          "player": "비시우",
+          "minute": 89
+        },
+        {
+          "team": "away",
+          "player": "비시우",
+          "minute": 90,
+          "addedTime": 1
+        }
+      ]
+    },
     "2026-08-16|communityshield|아스날|맨시티": {
       "date": "2026-08-16",
       "categoryId": "communityshield",
@@ -27509,6 +27558,40 @@
           "team": "home",
           "player": "로츠",
           "minute": 69
+        }
+      ]
+    },
+    "2026-08-16|eredivisie|아약스|히렌빈": {
+      "date": "2026-08-16",
+      "categoryId": "eredivisie",
+      "gameId": "vYjf16TuuC2phoE",
+      "homeTeam": "아약스",
+      "awayTeam": "히렌빈",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "클라베르부르",
+          "minute": 7,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "우아잔",
+          "minute": 33
+        },
+        {
+          "team": "away",
+          "player": "트렌스코",
+          "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "리베라",
+          "minute": 82
         }
       ]
     },
@@ -55462,6 +55545,55 @@
     },
     {
       "date": "2026-08-16",
+      "categoryId": "clubfriendly",
+      "gameId": "4ak5g0ATNsi9Rz5",
+      "homeTeam": "바젤",
+      "awayTeam": "바르셀로나",
+      "homeScore": 2,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아데예미",
+          "minute": 34
+        },
+        {
+          "team": "home",
+          "player": "두쿠레",
+          "minute": 43
+        },
+        {
+          "team": "away",
+          "player": "함자 압델카림",
+          "minute": 49
+        },
+        {
+          "team": "away",
+          "player": "라민 야말",
+          "minute": 81
+        },
+        {
+          "team": "home",
+          "player": "올라이즈비",
+          "minute": 84
+        },
+        {
+          "team": "away",
+          "player": "비시우",
+          "minute": 89
+        },
+        {
+          "team": "away",
+          "player": "비시우",
+          "minute": 90,
+          "addedTime": 1
+        }
+      ]
+    },
+    {
+      "date": "2026-08-16",
       "categoryId": "communityshield",
       "gameId": "uZiLBssabpPNGN6",
       "homeTeam": "아스날",
@@ -55801,6 +55933,40 @@
           "team": "home",
           "player": "로츠",
           "minute": 69
+        }
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "categoryId": "eredivisie",
+      "gameId": "vYjf16TuuC2phoE",
+      "homeTeam": "아약스",
+      "awayTeam": "히렌빈",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "클라베르부르",
+          "minute": 7,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "우아잔",
+          "minute": 33
+        },
+        {
+          "team": "away",
+          "player": "트렌스코",
+          "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "리베라",
+          "minute": 82
         }
       ]
     },
