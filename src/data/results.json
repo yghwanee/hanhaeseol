@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16T12:59:23.597Z",
+  "lastUpdated": "2026-08-16T13:43:54.548Z",
   "byKey": {
     "2026-08-15|kbo|삼성|한화": {
       "date": "2026-08-15",
@@ -83,28 +83,6 @@
       "status": "canceled",
       "period": "경기취소"
     },
-    "2026-08-16|kbo|LG|SSG": {
-      "date": "2026-08-16",
-      "categoryId": "kbo",
-      "gameId": "20260816SKLG02026",
-      "homeTeam": "LG",
-      "awayTeam": "SSG",
-      "homeScore": 0,
-      "awayScore": 6,
-      "status": "live",
-      "period": "9회말"
-    },
-    "2026-08-16|kbo|KT|키움": {
-      "date": "2026-08-16",
-      "categoryId": "kbo",
-      "gameId": "20260816WOKT02026",
-      "homeTeam": "KT",
-      "awayTeam": "키움",
-      "homeScore": 4,
-      "awayScore": 2,
-      "status": "live",
-      "period": "8회말"
-    },
     "2026-08-16|kbo|KIA|두산": {
       "date": "2026-08-16",
       "categoryId": "kbo",
@@ -113,6 +91,28 @@
       "awayTeam": "두산",
       "homeScore": 2,
       "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-08-16|kbo|LG|SSG": {
+      "date": "2026-08-16",
+      "categoryId": "kbo",
+      "gameId": "20260816SKLG02026",
+      "homeTeam": "LG",
+      "awayTeam": "SSG",
+      "homeScore": 0,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-16|kbo|KT|키움": {
+      "date": "2026-08-16",
+      "categoryId": "kbo",
+      "gameId": "20260816WOKT02026",
+      "homeTeam": "KT",
+      "awayTeam": "키움",
+      "homeScore": 6,
+      "awayScore": 2,
       "status": "finished",
       "period": "9회초"
     },
@@ -2178,15 +2178,20 @@
       "gameId": "lXBOyAG1OsSGV1x",
       "homeTeam": "왓퍼드",
       "awayTeam": "사우스햄튼",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 27'",
+      "period": "후반 6'",
       "goals": [
         {
           "team": "home",
           "player": "이케르 브라보",
           "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "나비자다",
+          "minute": 29
         }
       ]
     },
@@ -2196,15 +2201,20 @@
       "gameId": "lXBOyAG1OsSGV1x",
       "homeTeam": "왓퍼드",
       "awayTeam": "사우스햄튼",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 27'",
+      "period": "후반 6'",
       "goals": [
         {
           "team": "home",
           "player": "이케르 브라보",
           "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "나비자다",
+          "minute": 29
         }
       ]
     },
@@ -3790,10 +3800,22 @@
       "gameId": "063wFGAm2h8hHNj",
       "homeTeam": "페예노르트",
       "awayTeam": "고 어헤드 이글스",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'"
+      "period": "후반 10'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "제키엘",
+          "minute": 32
+        },
+        {
+          "team": "home",
+          "player": "우에다",
+          "minute": 38
+        }
+      ]
     },
     "2026-08-16|eredivisie|트벤터|즈볼레": {
       "date": "2026-08-16",
@@ -3801,15 +3823,20 @@
       "gameId": "oBo4I8fVZHFhuWx",
       "homeTeam": "트벤터",
       "awayTeam": "즈볼레",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 28'",
+      "period": "후반 9'",
       "goals": [
         {
           "team": "away",
           "player": "쇠렌센",
           "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "바이드만",
+          "minute": 38
         }
       ]
     },
@@ -3859,9 +3886,9 @@
       "homeTeam": "OB",
       "awayTeam": "호르센스",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 2,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 40'",
       "goals": [
         {
           "team": "home",
@@ -3873,6 +3900,11 @@
           "team": "away",
           "player": "우오루",
           "minute": 38
+        },
+        {
+          "team": "away",
+          "player": "커르케가르드",
+          "minute": 65
         }
       ]
     },
@@ -3882,10 +3914,17 @@
       "gameId": "PYlokr1XgEeDv68",
       "homeTeam": "노르셸란",
       "awayTeam": "실케보리",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반종료"
+      "period": "후반 42'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이브라힘 아델",
+          "minute": 80
+        }
+      ]
     },
     "2026-08-16|denmark|링비|미트윌란": {
       "date": "2026-08-16",
@@ -4420,12 +4459,23 @@
     {
       "date": "2026-08-16",
       "categoryId": "kbo",
+      "gameId": "20260816OBHT02026",
+      "homeTeam": "KIA",
+      "awayTeam": "두산",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-16",
+      "categoryId": "kbo",
       "gameId": "20260816SKLG02026",
       "homeTeam": "LG",
       "awayTeam": "SSG",
       "homeScore": 0,
       "awayScore": 6,
-      "status": "live",
+      "status": "finished",
       "period": "9회말"
     },
     {
@@ -4434,19 +4484,8 @@
       "gameId": "20260816WOKT02026",
       "homeTeam": "KT",
       "awayTeam": "키움",
-      "homeScore": 4,
+      "homeScore": 6,
       "awayScore": 2,
-      "status": "live",
-      "period": "8회말"
-    },
-    {
-      "date": "2026-08-16",
-      "categoryId": "kbo",
-      "gameId": "20260816OBHT02026",
-      "homeTeam": "KIA",
-      "awayTeam": "두산",
-      "homeScore": 2,
-      "awayScore": 1,
       "status": "finished",
       "period": "9회초"
     },
@@ -5169,15 +5208,20 @@
       "gameId": "lXBOyAG1OsSGV1x",
       "homeTeam": "왓퍼드",
       "awayTeam": "사우스햄튼",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 27'",
+      "period": "후반 6'",
       "goals": [
         {
           "team": "home",
           "player": "이케르 브라보",
           "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "나비자다",
+          "minute": 29
         }
       ]
     },
@@ -6231,10 +6275,22 @@
       "gameId": "063wFGAm2h8hHNj",
       "homeTeam": "페예노르트",
       "awayTeam": "고 어헤드 이글스",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'"
+      "period": "후반 10'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "제키엘",
+          "minute": 32
+        },
+        {
+          "team": "home",
+          "player": "우에다",
+          "minute": 38
+        }
+      ]
     },
     {
       "date": "2026-08-16",
@@ -6242,15 +6298,20 @@
       "gameId": "oBo4I8fVZHFhuWx",
       "homeTeam": "트벤터",
       "awayTeam": "즈볼레",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 28'",
+      "period": "후반 9'",
       "goals": [
         {
           "team": "away",
           "player": "쇠렌센",
           "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "바이드만",
+          "minute": 38
         }
       ]
     },
@@ -6300,9 +6361,9 @@
       "homeTeam": "OB",
       "awayTeam": "호르센스",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 2,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 40'",
       "goals": [
         {
           "team": "home",
@@ -6314,6 +6375,11 @@
           "team": "away",
           "player": "우오루",
           "minute": 38
+        },
+        {
+          "team": "away",
+          "player": "커르케가르드",
+          "minute": 65
         }
       ]
     },
@@ -6323,10 +6389,17 @@
       "gameId": "PYlokr1XgEeDv68",
       "homeTeam": "노르셸란",
       "awayTeam": "실케보리",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반종료"
+      "period": "후반 42'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이브라힘 아델",
+          "minute": 80
+        }
+      ]
     },
     {
       "date": "2026-08-16",
