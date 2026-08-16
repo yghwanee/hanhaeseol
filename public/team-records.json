@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16T22:35:54.419Z",
+  "lastUpdated": "2026-08-16T22:57:13.823Z",
   "records": {
     "KBO": {
       "KT": {
@@ -379,25 +379,25 @@
         }
       },
       "텍사스": {
-        "last5": "WLLLL",
+        "last5": "LWLLL",
         "win": 61,
-        "lose": 63,
+        "lose": 64,
         "draw": 0,
-        "wra": 0.492,
+        "wra": 0.488,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "L"
         }
       },
       "텍사스 레인저스": {
-        "last5": "WLLLL",
+        "last5": "LWLLL",
         "win": 61,
-        "lose": 63,
+        "lose": 64,
         "draw": 0,
-        "wra": 0.492,
+        "wra": 0.488,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "L"
         }
       },
       "애리조나": {
@@ -423,25 +423,25 @@
         }
       },
       "보스턴": {
-        "last5": "WLWLL",
+        "last5": "LWLWL",
         "win": 66,
-        "lose": 57,
+        "lose": 58,
         "draw": 0,
-        "wra": 0.537,
+        "wra": 0.532,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "L"
         }
       },
       "보스턴 레드삭스": {
-        "last5": "WLWLL",
+        "last5": "LWLWL",
         "win": 66,
-        "lose": 57,
+        "lose": 58,
         "draw": 0,
-        "wra": 0.537,
+        "wra": 0.532,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "L"
         }
       },
       "마이애미": {
@@ -510,28 +510,6 @@
           "type": "W"
         }
       },
-      "LA에인절스": {
-        "last5": "LWLWW",
-        "win": 49,
-        "lose": 76,
-        "draw": 0,
-        "wra": 0.392,
-        "streak": {
-          "count": 1,
-          "type": "L"
-        }
-      },
-      "LA 에인절스": {
-        "last5": "LWLWW",
-        "win": 49,
-        "lose": 76,
-        "draw": 0,
-        "wra": 0.392,
-        "streak": {
-          "count": 1,
-          "type": "L"
-        }
-      },
       "볼티모어": {
         "last5": "WWWLW",
         "win": 61,
@@ -552,28 +530,6 @@
         "streak": {
           "count": 3,
           "type": "W"
-        }
-      },
-      "신시내티": {
-        "last5": "LLWWL",
-        "win": 59,
-        "lose": 64,
-        "draw": 0,
-        "wra": 0.48,
-        "streak": {
-          "count": 2,
-          "type": "L"
-        }
-      },
-      "신시내티 레즈": {
-        "last5": "LLWWL",
-        "win": 59,
-        "lose": 64,
-        "draw": 0,
-        "wra": 0.48,
-        "streak": {
-          "count": 2,
-          "type": "L"
         }
       },
       "미네소타": {
@@ -620,26 +576,37 @@
           "type": "L"
         }
       },
-      "피츠버그": {
-        "last5": "LWWLL",
-        "win": 60,
-        "lose": 65,
+      "애슬레틱스": {
+        "last5": "WLWLL",
+        "win": 49,
+        "lose": 75,
         "draw": 0,
-        "wra": 0.48,
+        "wra": 0.395,
         "streak": {
           "count": 1,
-          "type": "L"
+          "type": "W"
+        }
+      },
+      "피츠버그": {
+        "last5": "WLWWL",
+        "win": 61,
+        "lose": 65,
+        "draw": 0,
+        "wra": 0.484,
+        "streak": {
+          "count": 1,
+          "type": "W"
         }
       },
       "피츠버그 파이리츠": {
-        "last5": "LWWLL",
-        "win": 60,
+        "last5": "WLWWL",
+        "win": 61,
         "lose": 65,
         "draw": 0,
-        "wra": 0.48,
+        "wra": 0.484,
         "streak": {
           "count": 1,
-          "type": "L"
+          "type": "W"
         }
       },
       "샌프란시스코": {
@@ -662,6 +629,50 @@
         "streak": {
           "count": 1,
           "type": "W"
+        }
+      },
+      "LA에인절스": {
+        "last5": "LWLWW",
+        "win": 49,
+        "lose": 76,
+        "draw": 0,
+        "wra": 0.392,
+        "streak": {
+          "count": 1,
+          "type": "L"
+        }
+      },
+      "LA 에인절스": {
+        "last5": "LWLWW",
+        "win": 49,
+        "lose": 76,
+        "draw": 0,
+        "wra": 0.392,
+        "streak": {
+          "count": 1,
+          "type": "L"
+        }
+      },
+      "신시내티": {
+        "last5": "LLWWL",
+        "win": 59,
+        "lose": 64,
+        "draw": 0,
+        "wra": 0.48,
+        "streak": {
+          "count": 2,
+          "type": "L"
+        }
+      },
+      "신시내티 레즈": {
+        "last5": "LLWWL",
+        "win": 59,
+        "lose": 64,
+        "draw": 0,
+        "wra": 0.48,
+        "streak": {
+          "count": 2,
+          "type": "L"
         }
       },
       "콜로라도": {
@@ -728,17 +739,6 @@
         "streak": {
           "count": 3,
           "type": "W"
-        }
-      },
-      "애슬레틱스": {
-        "last5": "LWLLL",
-        "win": 48,
-        "lose": 75,
-        "draw": 0,
-        "wra": 0.39,
-        "streak": {
-          "count": 1,
-          "type": "L"
         }
       },
       "토론토": {
