@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16T14:36:59.799Z",
+  "lastUpdated": "2026-08-16T14:58:08.406Z",
   "byKey": {
     "2026-08-15|kbo|삼성|한화": {
       "date": "2026-08-15",
@@ -92,7 +92,8 @@
       "homeScore": 2,
       "awayScore": 1,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "1jWubhz-isY"
     },
     "2026-08-16|kbo|LG|SSG": {
       "date": "2026-08-16",
@@ -3877,10 +3878,18 @@
       "gameId": "vYjf16TuuC2phoE",
       "homeTeam": "아약스",
       "awayTeam": "히렌빈",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 11'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "클라베르부르",
+          "minute": 7,
+          "ownGoal": true
+        }
+      ]
     },
     "2026-08-15|denmark|비보리|AGF": {
       "date": "2026-08-15",
@@ -3966,7 +3975,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 36'"
+      "period": "전반종료"
     },
     "2026-08-17|denmark|라네르스|코펜하겐": {
       "date": "2026-08-17",
@@ -4357,7 +4366,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 4'"
+      "period": "전반 25'"
     },
     "2026-08-17|clubfriendly|샬케|레알 마드리드": {
       "date": "2026-08-17",
@@ -4390,7 +4399,7 @@
       "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 33'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
@@ -4413,7 +4422,7 @@
       "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 33'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
@@ -4520,7 +4529,8 @@
       "homeScore": 2,
       "awayScore": 1,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "1jWubhz-isY"
     },
     {
       "date": "2026-08-16",
@@ -6402,10 +6412,18 @@
       "gameId": "vYjf16TuuC2phoE",
       "homeTeam": "아약스",
       "awayTeam": "히렌빈",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 11'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "클라베르부르",
+          "minute": 7,
+          "ownGoal": true
+        }
+      ]
     },
     {
       "date": "2026-08-15",
@@ -6491,7 +6509,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 36'"
+      "period": "전반종료"
     },
     {
       "date": "2026-08-17",
@@ -6834,7 +6852,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 4'"
+      "period": "전반 25'"
     },
     {
       "date": "2026-08-17",
@@ -6867,7 +6885,7 @@
       "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 33'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
