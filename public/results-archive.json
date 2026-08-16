@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16T03:11:52.966Z",
+  "lastUpdated": "2026-08-16T04:00:21.786Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -27376,6 +27376,17 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-08-16|mlb|LA 에인절스|캔자스시티 로열스": {
+      "date": "2026-08-16",
+      "categoryId": "mlb",
+      "gameId": "20260816KCAN0",
+      "homeTeam": "LA 에인절스",
+      "awayTeam": "캔자스시티 로열스",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-08-16|mls|토론토|뉴잉글랜드 레볼루션": {
       "date": "2026-08-16",
       "categoryId": "mls",
@@ -27567,6 +27578,53 @@
           "team": "home",
           "player": "기엘르미",
           "minute": 21
+        }
+      ]
+    },
+    "2026-08-16|mls|레알 솔트레이크|미네소타": {
+      "date": "2026-08-16",
+      "categoryId": "mls",
+      "gameId": "DqWYsr6QwUZbPC7",
+      "homeTeam": "레알 솔트레이크",
+      "awayTeam": "미네소타",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "세르지 솔란스",
+          "minute": 82
+        },
+        {
+          "team": "away",
+          "player": "페레이라",
+          "minute": 89
+        }
+      ]
+    },
+    "2026-08-16|mls|콜로라도|스포팅 캔자스시티": {
+      "date": "2026-08-16",
+      "categoryId": "mls",
+      "gameId": "Ruc1TLbVyEMKXdA",
+      "homeTeam": "콜로라도",
+      "awayTeam": "스포팅 캔자스시티",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "캐논",
+          "minute": 65
+        },
+        {
+          "team": "home",
+          "player": "라파엘 나바로",
+          "minute": 90,
+          "addedTime": 5
         }
       ]
     },
@@ -55008,6 +55066,17 @@
     },
     {
       "date": "2026-08-16",
+      "categoryId": "mlb",
+      "gameId": "20260816KCAN0",
+      "homeTeam": "LA 에인절스",
+      "awayTeam": "캔자스시티 로열스",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-16",
       "categoryId": "mls",
       "gameId": "1WIuYZBxI8o9HLz",
       "homeTeam": "토론토",
@@ -55197,6 +55266,53 @@
           "team": "home",
           "player": "기엘르미",
           "minute": 21
+        }
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "categoryId": "mls",
+      "gameId": "DqWYsr6QwUZbPC7",
+      "homeTeam": "레알 솔트레이크",
+      "awayTeam": "미네소타",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "세르지 솔란스",
+          "minute": 82
+        },
+        {
+          "team": "away",
+          "player": "페레이라",
+          "minute": 89
+        }
+      ]
+    },
+    {
+      "date": "2026-08-16",
+      "categoryId": "mls",
+      "gameId": "Ruc1TLbVyEMKXdA",
+      "homeTeam": "콜로라도",
+      "awayTeam": "스포팅 캔자스시티",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "캐논",
+          "minute": 65
+        },
+        {
+          "team": "home",
+          "player": "라파엘 나바로",
+          "minute": 90,
+          "addedTime": 5
         }
       ]
     },
