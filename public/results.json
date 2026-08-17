@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-17T19:59:55.778Z",
+  "lastUpdated": "2026-08-17T20:42:05.255Z",
   "byKey": {
     "2026-08-18|kbo|한화|KIA": {
       "date": "2026-08-18",
@@ -841,7 +841,8 @@
       "awayTeam": "마이애미 말린스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-18|mlb|필라델피아|마이애미 말린스": {
       "date": "2026-08-18",
@@ -851,7 +852,8 @@
       "awayTeam": "마이애미 말린스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-18|mlb|필라델피아 필리스|마이애미": {
       "date": "2026-08-18",
@@ -861,7 +863,8 @@
       "awayTeam": "마이애미 말린스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-18|mlb|필라델피아 필리스|마이애미 말린스": {
       "date": "2026-08-18",
@@ -871,7 +874,8 @@
       "awayTeam": "마이애미 말린스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-18|mlb|피츠버그|디트로이트": {
       "date": "2026-08-18",
@@ -881,7 +885,8 @@
       "awayTeam": "디트로이트 타이거스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-18|mlb|피츠버그|디트로이트 타이거스": {
       "date": "2026-08-18",
@@ -891,7 +896,8 @@
       "awayTeam": "디트로이트 타이거스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-18|mlb|피츠버그 파이리츠|디트로이트": {
       "date": "2026-08-18",
@@ -901,7 +907,8 @@
       "awayTeam": "디트로이트 타이거스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-18|mlb|피츠버그 파이리츠|디트로이트 타이거스": {
       "date": "2026-08-18",
@@ -911,7 +918,8 @@
       "awayTeam": "디트로이트 타이거스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-18|mlb|보스턴|애리조나": {
       "date": "2026-08-18",
@@ -1756,7 +1764,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 37'",
       "goals": [
         {
           "team": "away",
@@ -1834,14 +1842,19 @@
       "homeTeam": "데포르티보",
       "awayTeam": "엘체",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 37'",
       "goals": [
         {
           "team": "home",
           "player": "오바메양",
           "minute": 21
+        },
+        {
+          "team": "away",
+          "player": "마르크 아구아도",
+          "minute": 76
         }
       ]
     },
@@ -2609,8 +2622,8 @@
       "awayTeam": "세인트루이스 카디널스",
       "homeScore": 1,
       "awayScore": 2,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-08-18",
@@ -2618,16 +2631,6 @@
       "gameId": "20260818BATB0",
       "homeTeam": "탬파베이 레이스",
       "awayTeam": "볼티모어 오리올스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
-    },
-    {
-      "date": "2026-08-18",
-      "categoryId": "mlb",
-      "gameId": "20260818FLPH0",
-      "homeTeam": "필라델피아 필리스",
-      "awayTeam": "마이애미 말린스",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled"
@@ -2645,12 +2648,24 @@
     {
       "date": "2026-08-18",
       "categoryId": "mlb",
+      "gameId": "20260818FLPH0",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "마이애미 말린스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "1회초"
+    },
+    {
+      "date": "2026-08-18",
+      "categoryId": "mlb",
       "gameId": "20260818DEPI0",
       "homeTeam": "피츠버그 파이리츠",
       "awayTeam": "디트로이트 타이거스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-08-18",
@@ -2905,7 +2920,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 37'",
       "goals": [
         {
           "team": "away",
@@ -2983,14 +2998,19 @@
       "homeTeam": "데포르티보",
       "awayTeam": "엘체",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 37'",
       "goals": [
         {
           "team": "home",
           "player": "오바메양",
           "minute": 21
+        },
+        {
+          "team": "away",
+          "player": "마르크 아구아도",
+          "minute": 76
         }
       ]
     },
