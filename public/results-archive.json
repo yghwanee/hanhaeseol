@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-17T20:42:06.722Z",
+  "lastUpdated": "2026-08-17T21:03:58.145Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -28884,6 +28884,30 @@
         }
       ]
     },
+    "2026-08-18|england2|카디프|렉섬": {
+      "date": "2026-08-18",
+      "categoryId": "england2",
+      "gameId": "s5jaOADxvhWl2EM",
+      "homeTeam": "카디프",
+      "awayTeam": "렉섬",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "무어",
+          "minute": 3
+        },
+        {
+          "team": "home",
+          "player": "콜윌",
+          "minute": 90,
+          "addedTime": 8
+        }
+      ]
+    },
     "2026-08-18|mlb|신시내티 레즈|세인트루이스 카디널스": {
       "date": "2026-08-18",
       "categoryId": "mlb",
@@ -28894,6 +28918,29 @@
       "awayScore": 2,
       "status": "finished",
       "period": "9회말"
+    },
+    "2026-08-18|primera|데포르티보|엘체": {
+      "date": "2026-08-18",
+      "categoryId": "primera",
+      "gameId": "Z84exbzFl6E0JwM",
+      "homeTeam": "데포르티보",
+      "awayTeam": "엘체",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오바메양",
+          "minute": 21
+        },
+        {
+          "team": "away",
+          "player": "마르크 아구아도",
+          "minute": 76
+        }
+      ]
     }
   },
   "results": [
@@ -57782,6 +57829,30 @@
     },
     {
       "date": "2026-08-18",
+      "categoryId": "england2",
+      "gameId": "s5jaOADxvhWl2EM",
+      "homeTeam": "카디프",
+      "awayTeam": "렉섬",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "무어",
+          "minute": 3
+        },
+        {
+          "team": "home",
+          "player": "콜윌",
+          "minute": 90,
+          "addedTime": 8
+        }
+      ]
+    },
+    {
+      "date": "2026-08-18",
       "categoryId": "mlb",
       "gameId": "20260818SLCI1",
       "homeTeam": "신시내티 레즈",
@@ -57790,6 +57861,29 @@
       "awayScore": 2,
       "status": "finished",
       "period": "9회말"
+    },
+    {
+      "date": "2026-08-18",
+      "categoryId": "primera",
+      "gameId": "Z84exbzFl6E0JwM",
+      "homeTeam": "데포르티보",
+      "awayTeam": "엘체",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오바메양",
+          "minute": 21
+        },
+        {
+          "team": "away",
+          "player": "마르크 아구아도",
+          "minute": 76
+        }
+      ]
     }
   ]
 }
