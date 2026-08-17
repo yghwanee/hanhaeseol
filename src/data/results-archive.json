@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-17T01:54:08.191Z",
+  "lastUpdated": "2026-08-17T03:12:14.413Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -28648,6 +28648,17 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-08-17|mlb|휴스턴 애스트로스|시애틀 매리너스": {
+      "date": "2026-08-17",
+      "categoryId": "mlb",
+      "gameId": "20260817SEHO0",
+      "homeTeam": "휴스턴 애스트로스",
+      "awayTeam": "시애틀 매리너스",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-08-17|mls|시카고 파이어 FC|포틀랜드": {
       "date": "2026-08-17",
       "categoryId": "mls",
@@ -28712,6 +28723,35 @@
           "team": "away",
           "player": "다미아니",
           "minute": 75
+        }
+      ]
+    },
+    "2026-08-17|mls|오스틴|댈러스": {
+      "date": "2026-08-17",
+      "categoryId": "mls",
+      "gameId": "gT7EMC0E1g3taox",
+      "homeTeam": "오스틴",
+      "awayTeam": "댈러스",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아부바카르",
+          "minute": 45,
+          "addedTime": 2
+        },
+        {
+          "team": "home",
+          "player": "토레스",
+          "minute": 57
+        },
+        {
+          "team": "away",
+          "player": "무사",
+          "minute": 73
         }
       ]
     },
@@ -57428,6 +57468,17 @@
     },
     {
       "date": "2026-08-17",
+      "categoryId": "mlb",
+      "gameId": "20260817SEHO0",
+      "homeTeam": "휴스턴 애스트로스",
+      "awayTeam": "시애틀 매리너스",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-17",
       "categoryId": "mls",
       "gameId": "0jTMGTIA38z8yDf",
       "homeTeam": "시카고 파이어 FC",
@@ -57490,6 +57541,35 @@
           "team": "away",
           "player": "다미아니",
           "minute": 75
+        }
+      ]
+    },
+    {
+      "date": "2026-08-17",
+      "categoryId": "mls",
+      "gameId": "gT7EMC0E1g3taox",
+      "homeTeam": "오스틴",
+      "awayTeam": "댈러스",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아부바카르",
+          "minute": 45,
+          "addedTime": 2
+        },
+        {
+          "team": "home",
+          "player": "토레스",
+          "minute": 57
+        },
+        {
+          "team": "away",
+          "player": "무사",
+          "minute": 73
         }
       ]
     },

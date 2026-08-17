@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-17T01:54:06.515Z",
+  "lastUpdated": "2026-08-17T03:12:12.852Z",
   "byKey": {
     "2026-08-16|kbo|삼성|한화": {
       "date": "2026-08-16",
@@ -1353,8 +1353,8 @@
       "awayTeam": "시애틀 매리너스",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-17|mlb|휴스턴|시애틀 매리너스": {
       "date": "2026-08-17",
@@ -1364,8 +1364,8 @@
       "awayTeam": "시애틀 매리너스",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-17|mlb|휴스턴 애스트로스|시애틀": {
       "date": "2026-08-17",
@@ -1375,8 +1375,8 @@
       "awayTeam": "시애틀 매리너스",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-17|mlb|휴스턴 애스트로스|시애틀 매리너스": {
       "date": "2026-08-17",
@@ -1386,8 +1386,8 @@
       "awayTeam": "시애틀 매리너스",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-18|mlb|신시내티|세인트루이스": {
       "date": "2026-08-18",
@@ -2922,16 +2922,26 @@
       "gameId": "gT7EMC0E1g3taox",
       "homeTeam": "오스틴",
       "awayTeam": "댈러스",
-      "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 5'",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "아부바카르",
           "minute": 45,
           "addedTime": 2
+        },
+        {
+          "team": "home",
+          "player": "토레스",
+          "minute": 57
+        },
+        {
+          "team": "away",
+          "player": "무사",
+          "minute": 73
         }
       ]
     },
@@ -2943,8 +2953,8 @@
       "awayTeam": "밴쿠버 화이트캡스 FC",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 28'"
     },
     "2026-08-17|mls|시애틀|밴쿠버 화이트캡스 FC": {
       "date": "2026-08-17",
@@ -2954,8 +2964,8 @@
       "awayTeam": "밴쿠버 화이트캡스 FC",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 28'"
     },
     "2026-08-17|mls|시애틀 사운더스 FC|화이트캡스": {
       "date": "2026-08-17",
@@ -2965,8 +2975,8 @@
       "awayTeam": "밴쿠버 화이트캡스 FC",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 28'"
     },
     "2026-08-17|mls|시애틀 사운더스 FC|밴쿠버 화이트캡스 FC": {
       "date": "2026-08-17",
@@ -2976,8 +2986,8 @@
       "awayTeam": "밴쿠버 화이트캡스 FC",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 28'"
     },
     "2026-08-16|kleague|울산|강원": {
       "date": "2026-08-16",
@@ -4235,8 +4245,8 @@
       "awayTeam": "시애틀 매리너스",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-08-18",
@@ -4929,16 +4939,26 @@
       "gameId": "gT7EMC0E1g3taox",
       "homeTeam": "오스틴",
       "awayTeam": "댈러스",
-      "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 5'",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "아부바카르",
           "minute": 45,
           "addedTime": 2
+        },
+        {
+          "team": "home",
+          "player": "토레스",
+          "minute": 57
+        },
+        {
+          "team": "away",
+          "player": "무사",
+          "minute": 73
         }
       ]
     },
@@ -4950,8 +4970,8 @@
       "awayTeam": "밴쿠버 화이트캡스 FC",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 28'"
     },
     {
       "date": "2026-08-16",
