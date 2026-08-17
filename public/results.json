@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-16T23:55:12.528Z",
+  "lastUpdated": "2026-08-17T01:54:06.515Z",
   "byKey": {
     "2026-08-16|kbo|삼성|한화": {
       "date": "2026-08-16",
@@ -1351,10 +1351,10 @@
       "gameId": "20260817SEHO0",
       "homeTeam": "휴스턴 애스트로스",
       "awayTeam": "시애틀 매리너스",
-      "homeScore": 0,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 3,
       "status": "live",
-      "period": "3회초"
+      "period": "8회말"
     },
     "2026-08-17|mlb|휴스턴|시애틀 매리너스": {
       "date": "2026-08-17",
@@ -1362,10 +1362,10 @@
       "gameId": "20260817SEHO0",
       "homeTeam": "휴스턴 애스트로스",
       "awayTeam": "시애틀 매리너스",
-      "homeScore": 0,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 3,
       "status": "live",
-      "period": "3회초"
+      "period": "8회말"
     },
     "2026-08-17|mlb|휴스턴 애스트로스|시애틀": {
       "date": "2026-08-17",
@@ -1373,10 +1373,10 @@
       "gameId": "20260817SEHO0",
       "homeTeam": "휴스턴 애스트로스",
       "awayTeam": "시애틀 매리너스",
-      "homeScore": 0,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 3,
       "status": "live",
-      "period": "3회초"
+      "period": "8회말"
     },
     "2026-08-17|mlb|휴스턴 애스트로스|시애틀 매리너스": {
       "date": "2026-08-17",
@@ -1384,10 +1384,10 @@
       "gameId": "20260817SEHO0",
       "homeTeam": "휴스턴 애스트로스",
       "awayTeam": "시애틀 매리너스",
-      "homeScore": 0,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 3,
       "status": "live",
-      "period": "3회초"
+      "period": "8회말"
     },
     "2026-08-18|mlb|신시내티|세인트루이스": {
       "date": "2026-08-18",
@@ -2789,9 +2789,9 @@
       "homeTeam": "시카고 파이어 FC",
       "awayTeam": "포틀랜드",
       "homeScore": 2,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 39'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2802,6 +2802,11 @@
           "team": "home",
           "player": "다빌라",
           "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "서먼",
+          "minute": 85
         }
       ]
     },
@@ -2812,9 +2817,9 @@
       "homeTeam": "시카고 파이어 FC",
       "awayTeam": "포틀랜드",
       "homeScore": 2,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 39'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2825,6 +2830,11 @@
           "team": "home",
           "player": "다빌라",
           "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "서먼",
+          "minute": 85
         }
       ]
     },
@@ -2836,8 +2846,8 @@
       "awayTeam": "필라델피아",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 34'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2875,8 +2885,8 @@
       "awayTeam": "필라델피아",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 34'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2913,9 +2923,17 @@
       "homeTeam": "오스틴",
       "awayTeam": "댈러스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 5'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아부바카르",
+          "minute": 45,
+          "addedTime": 2
+        }
+      ]
     },
     "2026-08-17|mls|시애틀|화이트캡스": {
       "date": "2026-08-17",
@@ -4215,10 +4233,10 @@
       "gameId": "20260817SEHO0",
       "homeTeam": "휴스턴 애스트로스",
       "awayTeam": "시애틀 매리너스",
-      "homeScore": 0,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 3,
       "status": "live",
-      "period": "3회초"
+      "period": "8회말"
     },
     {
       "date": "2026-08-18",
@@ -4845,9 +4863,9 @@
       "homeTeam": "시카고 파이어 FC",
       "awayTeam": "포틀랜드",
       "homeScore": 2,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 39'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -4858,6 +4876,11 @@
           "team": "home",
           "player": "다빌라",
           "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "서먼",
+          "minute": 85
         }
       ]
     },
@@ -4869,8 +4892,8 @@
       "awayTeam": "필라델피아",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 34'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -4907,9 +4930,17 @@
       "homeTeam": "오스틴",
       "awayTeam": "댈러스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 5'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아부바카르",
+          "minute": 45,
+          "addedTime": 2
+        }
+      ]
     },
     {
       "date": "2026-08-17",
