@@ -99,9 +99,17 @@ function pruneSchedulesForClient(data: ScheduleData): ScheduleData {
  *  안에 있어 동적 렌더로 얻는 신선도 이득도 0이었다. 딥링크 필터는 ScheduleClient
  *  가 마운트 후 location.search 로 읽는다.
  *
- *  revalidate 로 재생성 주기를 짧게 둬, 날짜가 바뀌는 자정(KST) 직후에도
- *  getTodayString() 기준 기본 선택일이 오래 어긋나지 않게 한다. */
-export const revalidate = 60;
+ *  🔴 revalidate 는 2026-08-18 에 60 → 3600 으로 올렸다. Vercel Hobby 계정이
+ *  한도 초과로 잠겼는데(Fluid Active CPU 12h21m/4h · ISR Writes 311K/200K ·
+ *  Fast Origin Transfer 12.63/10GB) 세 수치가 전부 "한 달 약 43,000회"로 수렴했고,
+ *  그게 정확히 60초마다 도는 이 홈 재생성 횟수(1,440/일 × 30일)다.
+ *  홈 HTML 305KB × 43,200 ≈ 12.6GB 로 Origin Transfer 와도 맞아떨어진다.
+ *
+ *  그리고 그 재생성은 **아무 이득이 없었다** — schedule.json 등 데이터는 배포 번들
+ *  안에 있어서 재생성해도 같은 HTML 이 다시 나온다. 신선도는 배포가 만든다.
+ *  자정(KST) 날짜 넘김은 ①KST 00:10 예약 배포(deploy.yml)가 캐시를 갈아주고
+ *  ②ScheduleClient 가 마운트 때 getTodayString() 으로 다시 고르므로 화면은 정확하다. */
+export const revalidate = 3600;
 
 export default function Home() {
   const data = loadScheduleData();

@@ -10,7 +10,9 @@ import PlatformGuideSection from "@/app/_components/PlatformGuideSection";
 import FaqSection from "@/app/_components/FaqSection";
 import WeekHighlights from "@/app/_components/WeekHighlights";
 
-export const revalidate = 600;
+// 데이터가 빌드 번들에 있어 재생성해도 같은 HTML 이다. 신선도는 배포가 만든다.
+// (2026-08-18 Hobby 한도 초과로 600 → 3600. 상세는 page.tsx 주석)
+export const revalidate = 3600;
 
 export function generateStaticParams() {
   return PLATFORM_SEO.map((p) => ({ slug: p.slug }));

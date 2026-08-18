@@ -33,7 +33,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "변경 없음"
           else
-            git commit -m "chore: update standings data (extra 01:00 KST)"
+            git commit -m "chore: update standings data (extra 01:00 KST) [vercel skip]"
             # 5회를 다 쓰고도 실패하면 실패시킨다(루프 마지막이 sleep 이라 무성 성공하던 것 수정).
             pushed=false
             for i in 1 2 3 4 5; do

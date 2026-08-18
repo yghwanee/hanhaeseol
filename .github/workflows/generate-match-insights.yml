@@ -67,7 +67,7 @@ jobs:
             echo "updated=false" >> $GITHUB_OUTPUT
             echo "No insight changes"
           else
-            git commit -m "chore: regenerate match insights"
+            git commit -m "chore: regenerate match insights [vercel skip]"
             # 매시 결과 크롤(:13/:43)과 겹치면 non-fast-forward 로 거절된다 → 재시도.
             pushed=false
             for i in 1 2 3 4 5; do

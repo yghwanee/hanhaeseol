@@ -6,7 +6,9 @@ import { getTodayString, getUpcomingDates } from "@/lib/schedule-utils";
 import { buildBreadcrumbLd } from "@/lib/structured-data";
 import type { Schedule } from "@/types/schedule";
 
-export const revalidate = 600;
+// 데이터가 빌드 번들에 있어 재생성해도 같은 HTML 이다. 신선도는 배포가 만든다.
+// (2026-08-18 Hobby 한도 초과로 600 → 3600. 상세는 page.tsx 주석)
+export const revalidate = 3600;
 
 const BASE = "https://haeseol.com";
 

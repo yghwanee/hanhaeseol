@@ -1,0 +1,68 @@
+name: Scheduled Deploy
+
+# 🔴 배포 횟수를 사람이 정한다 (2026-08-18 신설).
+#
+# 종전에는 데이터 크롤 워크플로가 push 할 때마다 Vercel 이 빌드했다 — 매시 결과 크롤이
+# :13·:43 두 번 도니까 그것만 하루 48회, 실측 프로덕션 배포가 **하루 30~46회**였다.
+# 한 번 배포할 때마다 440페이지를 프리렌더하고 ISR 캐시가 통째로 무효화돼, 그 뒤 크롤러가
+# 훑는 매치 페이지 1,600여 장이 전부 다시 렌더된다. 이게 Hobby 무료 한도를 넘겨
+# 계정이 잠긴(2026-08-17) 구조적 원인이다.
+#
+# 그래서 크롤 커밋에는 전부 `[vercel skip]` 을 붙여 배포를 끊고, 배포는 여기서
+# 하루 4회만 몰아서 한다. 편성 크롤(crawl.yml)이 KST 08:18 에 한 번 더 배포하므로
+# 실제 프로덕션 빌드는 하루 5회 남짓 = 종전의 약 1/9.
+#
+# 데이터 신선도 손실은 이렇게 메운다:
+#  - 진행 중·직후 스코어는 /api/live 가 클라이언트에서 덮어쓴다(정적 HTML 무관)
+#  - 그 외 결과는 최대 6시간 뒤 배포에 반영된다
+#  - KST 00:10 배포가 자정 날짜 넘김을 담당한다(홈 revalidate 를 3600 으로 올린 근거)
+on:
+  schedule:
+    - cron: '10 15 * * *'  # KST 00:10 — 자정 날짜 넘김 + 밤경기 결과
+    - cron: '10 21 * * *'  # KST 06:10
+    - cron: '10 3 * * *'   # KST 12:10 — MLB 오전 경기 결과
+    - cron: '10 9 * * *'   # KST 18:10 — 낮경기 결과
+  workflow_dispatch: {}
+
+concurrency:
+  group: scheduled-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Vercel Deploy Hook 호출
+        env:
+          VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+        run: |
+          set -euo pipefail
+          if [ -z "${VERCEL_DEPLOY_HOOK_URL:-}" ]; then
+            echo "::error::VERCEL_DEPLOY_HOOK_URL 시크릿이 비어 있습니다."
+            exit 1
+          fi
+          # 🔴 curl 실패를 삼키지 않는다. 종전에 `curl -s` 로 호출하고 종료코드를 안 봐서
+          #    알림이 안 가도 워크플로가 초록이던 사례가 여러 번 있었다(작업61·78).
+          code=$(curl -sS -o /tmp/hook.json -w '%{http_code}' -X POST "$VERCEL_DEPLOY_HOOK_URL")
+          echo "deploy hook http=$code"
+          cat /tmp/hook.json || true
+          echo
+          if [ "$code" -lt 200 ] || [ "$code" -ge 300 ]; then
+            echo "::error::Deploy Hook 호출 실패(http=$code)"
+            exit 1
+          fi
+
+      - name: Telegram 알림 (배포 트리거 실패)
+        if: failure()
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          MSG=$(printf '%s\n' \
+            "🚨 예약 배포 트리거 실패" \
+            "" \
+            "크롤 커밋은 [vercel skip] 이라 이 워크플로가 안 돌면 사이트 데이터가 갱신되지 않습니다." \
+            "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}")
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MSG}"
