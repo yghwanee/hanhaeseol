@@ -1,0 +1,101 @@
+name: Uptime 감시
+
+# 🔴 2026-08-18 신설. haeseol.com·chaeun·fadeby 가 8시간 넘게 402 로 죽어 있었는데
+# 그 사이 온 신호가 "빌드 실패" 오진 알림 하나뿐이었다(작업92). 사이트가 살아 있는지
+# 재는 장치가 아예 없었던 게 문제라서, 30분마다 직접 찔러본다.
+#
+# 알림은 **이슈로 중복을 막는다** — 30분마다 텔레그램을 쏘면 하루 48통이 된다.
+# `uptime` 라벨의 열린 이슈가 있으면 이미 알린 것이므로 조용히 넘어가고,
+# 복구되면 그 이슈를 닫으면서 "복구됨"을 한 번 알린다. 계정 정지처럼 며칠~몇 주
+# 이어지는 장애에서 **복구 순간을 자동으로 알려주는 게 이 설계의 핵심**이다.
+on:
+  schedule:
+    - cron: '7,37 * * * *'   # 30분마다(정각 회피)
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: uptime
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 사이트 상태 확인
+        id: probe
+        run: |
+          set -uo pipefail
+          SITES="https://haeseol.com/ https://chaeun.haeseol.com/ https://fadeby.haeseol.com/"
+          down=""
+          detail=""
+          for u in $SITES; do
+            # 일시적 네트워크 오류로 오탐하지 않게 2회까지 재시도
+            code=000
+            for i in 1 2; do
+              code=$(curl -sS -o /dev/null -w '%{http_code}' --max-time 20 "$u" || echo 000)
+              case "$code" in 2*|3*) break ;; esac
+              sleep 5
+            done
+            err=$(curl -sS -o /dev/null -D - --max-time 20 "$u" 2>/dev/null | tr -d '\r' \
+                  | awk -F': ' 'tolower($1)=="x-vercel-error"{print $2}' | head -1)
+            echo "$u -> $code ${err:-}"
+            case "$code" in
+              2*|3*) ;;
+              *) down="yes"; detail="${detail}${u} → HTTP ${code}${err:+ (${err})}"$'\n' ;;
+            esac
+          done
+          echo "down=${down:-no}" >> $GITHUB_OUTPUT
+          {
+            echo "detail<<EOF"
+            echo "${detail:-}"
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
+
+      - name: 이슈로 중복 알림 억제 + 텔레그램
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          DOWN: ${{ steps.probe.outputs.down }}
+          DETAIL: ${{ steps.probe.outputs.detail }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+
+          tg() {
+            resp=$(curl -sS -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+              -d chat_id="${TELEGRAM_CHAT_ID}" --data-urlencode "text=$1")
+            case "$resp" in *'"ok":true'*) ;; *) echo "::error::텔레그램 전송 실패: $resp"; exit 1 ;; esac
+          }
+
+          # 열려 있는 uptime 이슈 번호(없으면 빈 문자열)
+          OPEN=$(gh issue list --repo "$REPO" --label uptime --state open --limit 1 --json number -q '.[0].number' 2>/dev/null || echo "")
+
+          if [ "$DOWN" = "yes" ]; then
+            if [ -n "$OPEN" ]; then
+              echo "이미 알린 장애(이슈 #$OPEN) — 조용히 넘어감"
+              exit 0
+            fi
+            # 라벨이 없으면 만든다(없는 라벨로 create 하면 실패한다)
+            gh label create uptime --repo "$REPO" --color B60205 --description "사이트 다운 감지" 2>/dev/null || true
+            BODY=$(printf '%s\n' "$DETAIL" "" "감지 시각: $(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M KST')" \
+              "" "복구되면 이 이슈는 자동으로 닫히고 텔레그램으로 알립니다.")
+            NUM=$(gh issue create --repo "$REPO" --label uptime \
+              --title "🚨 사이트 다운 감지" --body "$BODY" | grep -o '[0-9]*$')
+            tg "$(printf '%s\n' "🚨 사이트가 응답하지 않습니다" "" "$DETAIL" \
+              "이슈 #${NUM} 로 기록했습니다. 복구되면 다시 알립니다." \
+              "https://github.com/${REPO}/issues/${NUM}")"
+          else
+            if [ -n "$OPEN" ]; then
+              gh issue close "$OPEN" --repo "$REPO" --comment "복구 확인 — 전 사이트 정상 응답" >/dev/null
+              tg "$(printf '%s\n' "✅ 사이트가 복구됐습니다" "" \
+                "haeseol.com · chaeun · fadeby 전부 정상 응답합니다." \
+                "복구 시각: $(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M KST')")"
+            else
+              echo "정상 — 알릴 것 없음"
+            fi
+          fi
