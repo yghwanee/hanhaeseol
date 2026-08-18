@@ -34,10 +34,17 @@ jobs:
           # Pro 면 비용 데이터가 있어 usage 가 동작한다(Hobby 에선 404 였다).
           out=$(npx --yes vercel@latest usage --token "$VERCEL_TOKEN" --scope yghwanees-projects 2>&1 || true)
           echo "$out"
-          # 텔레그램에 넣을 수 있게 앞부분만 잘라 output 으로
+          # 🔴 Hobby 에선 "Costs not found (404)" 였다. Pro 인데도 404 면 CLI 로는 못 읽는
+          #    것이므로 **숫자를 못 줬다는 걸 분명히** 말하고 대시보드를 보게 한다.
+          #    조용히 빈 값을 보내면 "확인했다"고 착각하게 된다.
+          if echo "$out" | grep -qiE "not found|404|error"; then
+            body="(CLI 로는 사용량을 못 읽습니다 — 아래 대시보드에서 직접 확인하세요)"
+          else
+            body=$(echo "$out" | grep -viE "telemetry|npm warn|^>|Vercel CLI" | head -20)
+          fi
           {
             echo "text<<EOF"
-            echo "$out" | grep -viE "telemetry|npm warn|^>|Vercel CLI" | head -25
+            echo "$body"
             echo "EOF"
           } >> $GITHUB_OUTPUT
 
@@ -64,8 +71,16 @@ jobs:
             "▶ 현재 사용량" \
             "${USAGE}" \
             "" \
-            "내리기 전에 이 숫자가 Hobby 한도 안인지 확인할 것:" \
-            "Fluid Active CPU 4h · ISR Writes 200K · Fast Origin Transfer 10GB · ISR Reads 1M")
+            "" \
+            "▶ 내리기 전 확인 (이게 핵심)" \
+            "vercel.com > Usage > 기간 Last 30 Days 로 두고 아래 4개가 한도 안인지:" \
+            "  Fluid Active CPU     < 4h     (사고 때 12h21m)" \
+            "  ISR Writes           < 200K   (사고 때 311K)" \
+            "  Fast Origin Transfer < 10GB   (사고 때 12.63GB)" \
+            "  ISR Reads            < 1M     (사고 때 1M)" \
+            "" \
+            "4개 다 여유 있으면 내려도 안전합니다." \
+            "하나라도 아슬아슬하면 내리지 말고 알려주세요.")
           resp=$(curl -sS -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d chat_id="${TELEGRAM_CHAT_ID}" --data-urlencode "text=${MSG}")
           case "$resp" in *'"ok":true'*) echo "알림 전송됨" ;; *) echo "::error::텔레그램 전송 실패: $resp"; exit 1 ;; esac
