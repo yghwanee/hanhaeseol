@@ -496,6 +496,12 @@ src/
     - **`vercel usage` 는 Hobby 에서 `Costs not found (404)`** — 무료 플랜엔 비용 데이터가 없다. **Pro 면 동작하므로 이 한 달이 절감 효과를 숫자로 재는 유일한 창**이다. 조회는 `gh workflow run vercel-usage.yml`(`vercel-usage.yml` 신설, 결제 주기까지 같이 찍는다).
     - **`uptime.yml` 신설 — 이번 사건의 진짜 재발 방지책.** 8시간 다운 동안 온 신호가 "빌드 실패" 오진 하나뿐이었다. 30분마다 세 사이트를 찌르고, 중복 알림은 `uptime` 라벨 이슈로 막고, **복구되면 이슈를 닫으며 한 번 더 알린다.** 실제로 이번에 다운 감지 → 이슈 #42 생성 → 복구 후 자동 close + 알림까지 end-to-end 돌았다.
     - **Spend Management**: Pro 는 한도 초과 시 정지가 아니라 **과금**이다. On-Demand Budget 기본값이 **$200** 이라 그대로 두면 사고 시 27만원까지 조용히 청구된다 → **$5** 로 낮춤. **`Pause Projects` 는 끈 채로 둔다** — 켜면 예산 도달 시 오늘과 똑같은 402 다운이 재발한다.
+    - **🔴 정정 — `[vercel skip]` 은 안 먹는다(같은 날 실측).** 위 조치 ②(데이터 크롤 커밋에 `[vercel skip]`)는 **실제로 작동하지 않았을 것**이다. main 의 skip 커밋 `ea34f729` 의 GitHub deployment status 가 `state=success / Deployment has completed` = 프로덕션 풀빌드가 그대로 돌았다(5개 중 4개가 그랬고, 나머지 1개는 후속 커밋에 밀려 auto-cancel 된 것이라 skip 이 먹은 게 아니다). **커밋 메시지 토큰으로 배포를 막으려 하지 말 것.**
+      - **대체 = `vercel.json` 의 `git.deploymentEnabled: false`.** push 로는 어떤 브랜치도 빌드를 안 만들고, 배포는 **Deploy Hook 을 부르는 곳에서만** 일어난다. 실측으로 양쪽 다 확인했다 — `f68286a4` push 는 배포 0건, 이어 부른 훅은 10:33 KST `READY` 생성. **훅 배포도 `meta.githubCommitSha` 를 갖는다**(그 시점 브랜치 HEAD).
+      - 훅을 부르는 곳은 셋뿐이다: `deploy.yml`(하루 4회) · `crawl.yml`(편성 갱신 시) · `auto-publish-draft.yml`(가이드 발행 시). **하루 약 6회.** 나머지 데이터 크롤은 예약 배포까지 기다린다(최대 6시간).
+      - 🔴 `crawl.yml` 의 판정은 **훅을 부르기 전의 최신 배포 id 를 기준으로 잡아 "새 배포가 생겼는지"로 본다.** 안 그러면 직전 배포(이미 READY)를 보고 즉시 성공이라 오판한다. 가짜 curl 로 6개 시나리오 실측(훅→READY / 새배포없음+402 / 새배포없음+정상 / 훅실패=HOOK_FAILED / 계속BUILDING / ERROR→재훅→READY).
+      - **새 가드 `test:deploy-budget`(CI 편입)** — `deploymentEnabled=false` · 훅 호출처 정확히 3곳 · 예약 배포 cron 4개(`*/` 금지) · 페이지 `revalidate ≥ 3600` · `/api/live` `s-maxage ≥ 클라 폴링 간격`. **5개 회귀를 각각 되돌려 fail 나는 것 실증했다.** `test.yml` paths 에 `vercel.json` 추가(안 넣으면 그 파일만 고친 커밋에서 가드가 안 돈다).
+      - 확인만 하고 안 건드린 것: `middleware` 는 matcher 가 `"/"` 하나뿐이라 요청당 낭비 없음. `/api/emblem` 은 1년 캐시.
     - **관측**: ①리셋 후 Usage 가 한도 안으로 들어오는지 — **Fluid Active CPU 4h 가 가장 빡빡한 기준**이다 ②`deploy.yml` 4회가 실제로 도는지(실패 시 텔레그램) ③결과 반영 지연이 사용자 체감으로 문제 되는지. 안 되면 다음 레버 = 홈 HTML 305KB 축소, `/api/live` 폴링 45→90초, 예약 배포 4→3회.
 
 ### 다음 작업 (예정)
