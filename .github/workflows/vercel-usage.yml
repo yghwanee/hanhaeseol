@@ -1,0 +1,42 @@
+name: Vercel Usage 조회
+
+# 사용량과 **현재 결제 주기(리셋 날짜)** 를 찍어보는 수동 워크플로.
+#
+# 2026-08-18 계정이 Hobby 무료 한도 초과로 잠겼을 때(작업92) 리셋 날짜를 알 방법이
+# 대시보드 어디에도 안 보여서 만들었다. Billing 페이지는 무료 플랜이라 인보이스가
+# 없고, Usage 페이지 상단 날짜는 보기 필터("Last 30 Days")라 주기가 아니다.
+# `vercel usage` 는 현재 결제 주기 기준으로 출력하므로 기간이 그대로 찍힌다.
+#
+# 리셋 후 절감 작업(홈 revalidate 3600 · 배포 하루 4회)이 실제로 먹었는지
+# 확인할 때도 이걸 쓴다.
+on:
+  workflow_dispatch:
+    inputs:
+      breakdown:
+        description: '일별 내역까지 볼지'
+        type: boolean
+        default: true
+
+jobs:
+  usage:
+    runs-on: ubuntu-latest
+    steps:
+      - name: vercel usage
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          SCOPE: yghwanees-projects
+        run: |
+          set -uo pipefail
+          if [ -z "${VERCEL_TOKEN:-}" ]; then
+            echo "::error::VERCEL_TOKEN 시크릿이 비어 있습니다."
+            exit 1
+          fi
+
+          echo "===== 현재 결제 주기 사용량 ====="
+          npx --yes vercel@latest usage --token "$VERCEL_TOKEN" --scope "$SCOPE" 2>&1 || true
+
+          if [ "${{ inputs.breakdown }}" = "true" ]; then
+            echo
+            echo "===== 일별 내역 ====="
+            npx --yes vercel@latest usage --breakdown daily --token "$VERCEL_TOKEN" --scope "$SCOPE" 2>&1 || true
+          fi
