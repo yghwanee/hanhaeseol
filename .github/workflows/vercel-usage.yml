@@ -25,6 +25,7 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           SCOPE: yghwanees-projects
+          TEAM_ID: team_nPF3curWDtmBYzfVw4KgrTFa
         run: |
           set -uo pipefail
           if [ -z "${VERCEL_TOKEN:-}" ]; then
@@ -40,3 +41,28 @@ jobs:
             echo "===== 일별 내역 ====="
             npx --yes vercel@latest usage --breakdown daily --token "$VERCEL_TOKEN" --scope "$SCOPE" 2>&1 || true
           fi
+
+          # 🔴 Hobby 는 `vercel usage` 가 "Costs not found (404)" 다 — 무료 플랜엔 비용
+          #    데이터가 없다. 결제 주기는 Team 객체에 붙어 있으므로 REST 로 직접 읽는다.
+          echo
+          echo "===== Team 객체의 결제 주기 =====" 
+          curl -sS -H "Authorization: Bearer $VERCEL_TOKEN"             "https://api.vercel.com/v2/teams/$TEAM_ID"             | node -e "
+              let s='';process.stdin.on('data',d=>s+=d);process.stdin.on('end',()=>{
+                let j; try{ j=JSON.parse(s); }catch(e){ return console.log('PARSE_ERR', s.slice(0,300)); }
+                if (j.error) return console.log('API_ERR', JSON.stringify(j.error));
+                console.log('plan       :', j.billing && j.billing.plan);
+                console.log('period     :', JSON.stringify(j.billing && j.billing.period));
+                console.log('trial      :', JSON.stringify(j.billing && j.billing.trial));
+                console.log('createdAt  :', j.createdAt, j.createdAt ? new Date(j.createdAt).toISOString() : '');
+                // 주기 관련 키가 다른 이름으로 있을 수 있어 전수로 훑는다
+                const hit=[];
+                (function walk(o,path){
+                  if(!o||typeof o!=='object') return;
+                  for(const k of Object.keys(o)){
+                    if(/period|cycle|reset|renew|expir|billingStart|billingEnd/i.test(k)) hit.push(path+k+' = '+JSON.stringify(o[k]));
+                    if(o[k]&&typeof o[k]==='object'&&path.split('.').length<4) walk(o[k],path+k+'.');
+                  }
+                })(j,'');
+                console.log('--- 주기 관련 키 전수 ---');
+                console.log(hit.length? hit.join('\n') : '(없음)');
+              });"
