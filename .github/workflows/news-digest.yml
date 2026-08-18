@@ -44,7 +44,7 @@ jobs:
             exit 0
           fi
           git add docs/news-digest.md
-          git commit -m "chore: refresh news digest [vercel skip]"
+          git commit -m "chore: refresh news digest"
           # 매시 크롤과 부딪히면 리베이스 후 재시도
           for i in 1 2 3; do
             git pull --rebase --autostash && git push && exit 0

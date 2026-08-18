@@ -8,9 +8,15 @@ name: Scheduled Deploy
 # 훑는 매치 페이지 1,600여 장이 전부 다시 렌더된다. 이게 Hobby 무료 한도를 넘겨
 # 계정이 잠긴(2026-08-17) 구조적 원인이다.
 #
-# 그래서 크롤 커밋에는 전부 `[vercel skip]` 을 붙여 배포를 끊고, 배포는 여기서
-# 하루 4회만 몰아서 한다. 편성 크롤(crawl.yml)이 KST 08:18 에 한 번 더 배포하므로
-# 실제 프로덕션 빌드는 하루 5회 남짓 = 종전의 약 1/9.
+# 🔴 처음엔 크롤 커밋에 `[vercel skip]` 을 붙여 막으려 했는데 **그 토큰은 실제로
+# 안 먹는다** (main 의 skip 커밋 ea34f729 의 GitHub deployment status 가
+# state=success / Deployment has completed = 풀빌드가 그대로 돌았다).
+# 그래서 vercel.json 의 git.deploymentEnabled=false 로 **git push 배포를 통째로 끄고**,
+# 배포는 Deploy Hook 으로만 일어나게 했다. 배포 횟수가 커밋 메시지가 아니라
+# 우리가 훅을 부르는 횟수로 결정된다.
+#
+# 훅을 부르는 곳은 셋뿐이다: 여기(하루 4회) · crawl.yml(편성 갱신 시) ·
+# auto-publish-draft.yml(가이드 발행 시). 하루 약 6회 = 종전 30~46회의 1/6~1/8.
 #
 # 데이터 신선도 손실은 이렇게 메운다:
 #  - 진행 중·직후 스코어는 /api/live 가 클라이언트에서 덮어쓴다(정적 HTML 무관)
@@ -61,7 +67,8 @@ jobs:
           MSG=$(printf '%s\n' \
             "🚨 예약 배포 트리거 실패" \
             "" \
-            "크롤 커밋은 [vercel skip] 이라 이 워크플로가 안 돌면 사이트 데이터가 갱신되지 않습니다." \
+            "git push 로는 배포가 안 되므로 이 워크플로가 안 돌면" \
+            "사이트 데이터가 갱신되지 않습니다." \
             "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}")
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d chat_id="${TELEGRAM_CHAT_ID}" \

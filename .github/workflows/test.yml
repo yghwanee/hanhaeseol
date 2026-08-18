@@ -15,6 +15,10 @@ on:
       # 워크플로 자체도 검사 대상이다 — test:workflow-push 가 .github/workflows/*.yml 의
       # push 재시도 루프를 훑으므로, 워크플로만 고친 커밋에서도 가드가 돌아야 한다.
       - ".github/workflows/**"
+      - "vercel.json"
+      # deploy-budget 가드가 읽는다 — 이게 없으면 vercel.json 만 고친 커밋에서
+      # git.deploymentEnabled 가 조용히 되돌아가도 CI 가 안 돈다.
+      - "vercel.json"
   pull_request:
     branches: [main]
     paths:
@@ -88,3 +92,4 @@ jobs:
           npm run test:head-script
           npm run test:hero-pick
           npm run test:fixture-dedupe
+          npm run test:deploy-budget

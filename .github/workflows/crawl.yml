@@ -134,82 +134,95 @@ jobs:
             echo "sha=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
           fi
 
-      - name: Vercel 빌드 확인 & 실패 시 1회 재시도
+      - name: Vercel 배포 트리거 & 확인
         id: vercel
         if: steps.commit.outputs.updated == 'true'
         timeout-minutes: 25
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
-          # 🔴 github.sha 가 아니라 **이 워크플로가 방금 push 한 커밋**을 추적한다.
-          #   github.sha 는 트리거 시점의 main HEAD 라 우리가 만든 커밋이 아니다.
-          #   2026-08-18 실측: push 한 건 2917adb7 인데 57243c6c 를 6분간 찾다 TIMEOUT.
-          #   그전까지 통과하던 건 매시 결과 크롤이 직전에 push 한 커밋의 배포가 마침
-          #   BUILDING 이라 **우연히** 맞았던 것뿐이다(= 남의 배포 상태를 보고 있었다).
           SHA: ${{ steps.commit.outputs.sha }}
           PROJECT: hanhaeseol
           SITE_URL: https://haeseol.com/
         run: |
           set -uo pipefail
-          echo "추적 대상 commit: $SHA"
+          echo "push 한 commit: $SHA"
 
-          # Vercel API 에서 production deployment 상태 조회.
-          # MODE=sha    → $SHA 커밋의 배포
-          # MODE=latest → 이 프로젝트의 가장 최신 배포(커밋 무관. Deploy Hook 재시도용 —
-          #               훅 배포는 우리 SHA 가 아니라 그 시점 브랜치 HEAD 로 잡힌다)
-          # 반환: READY / ERROR / CANCELED / BUILDING / QUEUED / ... / NOT_FOUND / API_ERR
-          # 🔴 NOT_FOUND 와 API 오류를 구분한다. 종전엔 API 가 {"error":{...}} 를 돌려줘도
-          #    deployments 배열이 없다는 이유로 NOT_FOUND 가 돼 원인을 가릴 수 없었다.
-          fetch_state() {
+          # 🔴 2026-08-18: git push 로는 더 이상 배포가 안 된다(vercel.json
+          #    git.deploymentEnabled=false). 커밋 메시지 [vercel skip] 이 실제로는
+          #    안 먹는 걸 실측으로 확인해서, 배포를 커밋이 아니라 **우리가 부르는
+          #    횟수**로 결정하도록 바꿨기 때문이다. 그래서 편성이 갱신되면
+          #    여기서 Deploy Hook 을 직접 불러야 사이트에 올라간다.
+
+          # 최신 프로덕션 배포의 id/state 를 돌려준다.
+          # 반환 예: "dpl_abc READY" / "NONE NOT_FOUND" / "NONE API_ERR"
+          latest() {
             curl -sS -H "Authorization: Bearer $VERCEL_TOKEN" \
-              "https://api.vercel.com/v6/deployments?limit=40&target=production" \
-              | MODE="$1" node -e "
+              "https://api.vercel.com/v6/deployments?limit=1&target=production&projectId=$PROJECT" \
+              | node -e "
                 let s='';process.stdin.on('data',d=>s+=d);process.stdin.on('end',()=>{
-                  let j;
-                  try{ j=JSON.parse(s); }catch(e){ return process.stdout.write('API_ERR'); }
-                  if(j.error || !Array.isArray(j.deployments)) return process.stdout.write('API_ERR');
-                  const mine=j.deployments.filter(x=>!x.name || x.name===process.env.PROJECT);
-                  const m = process.env.MODE==='latest'
-                    ? mine[0]
-                    : mine.find(x=>x.meta && x.meta.githubCommitSha===process.env.SHA);
-                  process.stdout.write(m ? m.state : 'NOT_FOUND');
+                  let j; try{ j=JSON.parse(s); }catch(e){ return process.stdout.write('NONE API_ERR'); }
+                  if(j.error || !Array.isArray(j.deployments)) return process.stdout.write('NONE API_ERR');
+                  const d=j.deployments[0];
+                  process.stdout.write(d ? (d.uid||d.id)+' '+d.state : 'NONE NOT_FOUND');
                 });"
           }
 
-          # 계정 차단(402 DEPLOYMENT_DISABLED) 판별.
-          # 사용량 초과·결제 문제로 계정이 잠기면 Vercel 은 배포를 **아예 만들지 않는다**
-          # → 폴링은 영원히 NOT_FOUND 다. 이때 Redeploy·Deploy Hook 은 전부 무의미하므로
-          # 다른 문구로 알려야 한다. 2026-08-17 16:48Z 이후 실제로 이 상태였고,
-          # 워크플로는 그걸 "빌드 실패, 대시보드에서 Redeploy" 로 잘못 보고했다.
+          # 계정 차단(402 DEPLOYMENT_DISABLED) 판별. 사용량 초과·결제 문제로 계정이
+          # 잠기면 배포가 **아예 생기지 않아** 폴링이 영원히 헛돈다. 이때는 Redeploy 도
+          # Deploy Hook 도 무의미하므로 안내 문구가 달라야 한다(2026-08-17 실제 사례).
           site_error() {
             curl -sS -o /dev/null -D - "$SITE_URL" 2>/dev/null \
               | tr -d '\r' | awk -F': ' 'tolower($1)=="x-vercel-error"{print $2}' | head -1
           }
 
-          # 종료 상태(READY/ERROR/CANCELED) 나올 때까지 폴링. 인자: timeout(분) mode
-          # 반환 코드: 0=READY, 1=ERROR/CANCELED, 2=TIMEOUT.
-          # stdout: READY/ERROR/CANCELED, 또는 타임아웃 시 TIMEOUT_<마지막 state>
-          # (마지막 state 를 붙이는 이유 — "아직 빌드 중"과 "배포가 아예 없음"은 다른 사건이다)
+          # 🔴 훅을 부르기 **전에** 현재 최신 배포 id 를 기억한다. 이게 없으면
+          #    훅 배포가 생기기 전에 폴링이 직전 배포(이미 READY)를 보고 곧바로
+          #    "성공"이라 판정한다.
+          BASE_ID=$(latest | cut -d' ' -f1)
+          echo "기준 배포 id: $BASE_ID"
+
+          # 새 배포가 생겨서 종료 상태가 될 때까지 폴링. 인자: timeout(분)
+          # 반환 0=READY, 1=ERROR/CANCELED, 2=TIMEOUT(stdout 에 TIMEOUT_<state>)
           poll() {
-            local timeout_min=$1 mode=$2
+            local timeout_min=$1
             local end=$(( $(date +%s) + timeout_min*60 ))
             local state="NONE"
             while [ "$(date +%s)" -lt "$end" ]; do
-              state=$(fetch_state "$mode")
-              echo "[$(date -u +%H:%M:%S)] state=$state" >&2
-              case "$state" in
-                READY) echo "$state"; return 0 ;;
-                ERROR|CANCELED) echo "$state"; return 1 ;;
-                *) sleep 20 ;;
-              esac
+              local row id
+              row=$(latest); id=${row%% *}; state=${row##* }
+              if [ "$id" = "$BASE_ID" ]; then
+                echo "[$(date -u +%H:%M:%S)] 새 배포 아직 없음(id=$id)" >&2
+                state="NO_NEW"
+              else
+                echo "[$(date -u +%H:%M:%S)] id=$id state=$state" >&2
+                case "$state" in
+                  READY) echo "$state"; return 0 ;;
+                  ERROR|CANCELED) echo "$state"; return 1 ;;
+                esac
+              fi
+              sleep 20
             done
             echo "TIMEOUT_$state"
             return 2
           }
 
-          # 1차: Vercel 자동 빌드 결과 대기 (최대 8분)
+          trigger() {
+            code=$(curl -sS -o /tmp/hook.json -w '%{http_code}' -X POST "$VERCEL_DEPLOY_HOOK_URL")
+            echo "Deploy Hook http=$code $(cat /tmp/hook.json 2>/dev/null)"
+            [ "$code" -ge 200 ] && [ "$code" -lt 300 ]
+          }
+
+          if ! trigger; then
+            echo "::error::Deploy Hook 호출 실패 — 편성 데이터가 사이트에 반영되지 않습니다."
+            echo "retried=false" >> $GITHUB_OUTPUT
+            echo "final=HOOK_FAILED" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          sleep 10
+
           set +e
-          FIRST=$(poll 8 sha)
+          FIRST=$(poll 8)
           rc=$?
           set -e
           echo "1차 결과: $FIRST (rc=$rc)"
@@ -221,20 +234,19 @@ jobs:
           fi
 
           case "$FIRST" in
-            TIMEOUT_NOT_FOUND|TIMEOUT_API_ERR|TIMEOUT_NONE)
-              # 배포가 목록에 나타나지도 않았다 → 계정 차단부터 가른다.
+            TIMEOUT_NO_NEW|TIMEOUT_NOT_FOUND|TIMEOUT_API_ERR|TIMEOUT_NONE)
+              # 훅은 201 을 줬는데 배포가 안 생겼다 → 계정 차단부터 가른다.
               ERR=$(site_error)
               echo "사이트 x-vercel-error: ${ERR:-(없음)}"
               if [ "$ERR" = "DEPLOYMENT_DISABLED" ]; then
-                echo "::error::Vercel 계정이 차단돼 배포가 생성되지 않습니다(402 DEPLOYMENT_DISABLED). 사용량·결제 확인 필요."
+                echo "::error::Vercel 계정이 차단돼 배포가 생성되지 않습니다(402). 사용량·결제 확인 필요."
                 echo "retried=false" >> $GITHUB_OUTPUT
                 echo "final=ACCOUNT_BLOCKED" >> $GITHUB_OUTPUT
                 exit 1
               fi
-              # 차단이 아니면 배포가 유실된 것 → Deploy Hook 으로 살린다(아래로 진행).
               ;;
             TIMEOUT_*)
-              # 아직 BUILDING/QUEUED = 그냥 느린 것. 실패로 보고하지 않는다(오탐 방지).
+              # BUILDING/QUEUED 인 채로 창이 끝났다 = 느린 것뿐. 실패로 보고하지 않는다.
               echo "빌드가 아직 진행 중(${FIRST#TIMEOUT_}) — 실패 아님."
               echo "retried=false" >> $GITHUB_OUTPUT
               echo "final=BUILDING" >> $GITHUB_OUTPUT
@@ -242,14 +254,13 @@ jobs:
               ;;
           esac
 
-          echo "1차 결과 $FIRST → Deploy Hook 호출하여 재시도."
-          curl -sS -X POST "$VERCEL_DEPLOY_HOOK_URL" >/dev/null
-          sleep 30
+          echo "1차 결과 $FIRST → Deploy Hook 재호출."
+          BASE_ID=$(latest | cut -d' ' -f1)
+          trigger || true
+          sleep 20
 
-          # 2차: 재시도 빌드 결과 대기 (최대 10분)
-          # 훅 배포는 우리 커밋 SHA 로 안 잡히므로 latest 모드로 본다.
           set +e
-          SECOND=$(poll 10 latest)
+          SECOND=$(poll 10)
           rc=$?
           set -e
           echo "2차 결과: $SECOND (rc=$rc)"
@@ -261,9 +272,8 @@ jobs:
           fi
 
           case "$SECOND" in
-            TIMEOUT_NOT_FOUND|TIMEOUT_API_ERR|TIMEOUT_NONE)
+            TIMEOUT_NO_NEW|TIMEOUT_NOT_FOUND|TIMEOUT_API_ERR|TIMEOUT_NONE)
               ERR=$(site_error)
-              echo "사이트 x-vercel-error: ${ERR:-(없음)}"
               if [ "$ERR" = "DEPLOYMENT_DISABLED" ]; then
                 echo "final=ACCOUNT_BLOCKED" >> $GITHUB_OUTPUT
                 exit 1

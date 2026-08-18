@@ -50,7 +50,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "변경 없음"
           else
-            git commit -m "chore: update results & team records (hourly) [vercel skip]"
+            git commit -m "chore: update results & team records (hourly)"
             # 동일 시간대에 다른 워크플로가 push했을 가능성 → rebase로 흡수. 사이에 또 끼면 재시도.
             # 🔴 5회를 다 쓰고도 실패하면 **반드시 실패시킨다**. 종전엔 루프의 마지막 명령이
             # sleep 이라 스텝이 exit 0 으로 끝나, 스코어가 몇 시간째 안 올라가도 워크플로는

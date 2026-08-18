@@ -73,7 +73,8 @@
     "test:league-coverage": "tsx --test src/lib/results/league-coverage.test.ts",
     "test:head-script": "tsx --test src/lib/head-script-guard.test.ts",
     "test:hero-pick": "tsx --test src/lib/hero-pick.test.ts",
-    "test:fixture-dedupe": "tsx --test src/lib/fixture-dedupe.test.ts"
+    "test:fixture-dedupe": "tsx --test src/lib/fixture-dedupe.test.ts",
+    "test:deploy-budget": "tsx --test src/lib/deploy-budget.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

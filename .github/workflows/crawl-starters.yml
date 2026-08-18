@@ -37,7 +37,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "No starter changes"
           else
-            git commit -m "chore: update starting pitchers [vercel skip]"
+            git commit -m "chore: update starting pitchers"
             # 🔴 재시도 필요. 이 워크플로는 :47 에 돌고 매시 결과 크롤은 :43 에 돈다 —
             # 결과 크롤이 몇 분 걸리므로 그 push 와 겹쳐 non-fast-forward 로 거절되는 창이 있다.
             # 종전엔 pull 한 번 뒤 push 한 번이라 그 사이에 끼면 그대로 실패했다.
