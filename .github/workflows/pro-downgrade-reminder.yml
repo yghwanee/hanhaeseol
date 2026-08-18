@@ -1,0 +1,71 @@
+name: Pro 다운그레이드 리마인더
+
+# 🔴 2026-08-18 신설. 한시적 워크플로 — **다운그레이드하고 나면 이 파일을 지운다.**
+#
+# 배경(작업92): Hobby 무료 한도 초과로 계정이 잠겨 세 사이트가 8시간 다운됐고,
+# 3주를 기다리는 대신 Pro 한 달($20)로 즉시 복구했다. Pro 는 자동 갱신 구독이라
+# **아무것도 안 하면 매달 $20 이 계속 나간다.** 예약 해지 기능은 Vercel 에 없다
+# (문서·CLI·API 전부 확인). 그래서 사람이 직접 눌러야 하고, 그걸 잊지 않게 알린다.
+#
+# 실측한 Pro 결제 주기: 2026-08-17 16:00 KST ~ 2026-09-17 16:00 KST
+#   (team 객체 billing.period = 1786950000000 ~ 1789628400000)
+#
+# 9/15 를 목표일로 잡은 이유 — Hobby 는 최근 30일 사용량으로 재는데, 9/15 시점의
+# 30일 창(8/16~9/15)에는 절감 전 사용량이 하루 이틀치밖에 안 남는다. 그보다 일찍
+# 내리면 8월 초의 옛 사용량이 창에 남아 **다시 잠길 수 있다.**
+on:
+  schedule:
+    - cron: '0 0 10 9 *'   # 9/10 09:00 KST — 예고
+    - cron: '0 0 14 9 *'   # 9/14 09:00 KST — 하루 전
+    - cron: '0 0 15 9 *'   # 9/15 09:00 KST — D-day
+    - cron: '0 0 16 9 *'   # 9/16 09:00 KST — 마지막 경고(주기 종료 9/17 16:00)
+  workflow_dispatch: {}
+
+jobs:
+  remind:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 현재 사용량 조회
+        id: usage
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          set -uo pipefail
+          # Pro 면 비용 데이터가 있어 usage 가 동작한다(Hobby 에선 404 였다).
+          out=$(npx --yes vercel@latest usage --token "$VERCEL_TOKEN" --scope yghwanees-projects 2>&1 || true)
+          echo "$out"
+          # 텔레그램에 넣을 수 있게 앞부분만 잘라 output 으로
+          {
+            echo "text<<EOF"
+            echo "$out" | grep -viE "telemetry|npm warn|^>|Vercel CLI" | head -25
+            echo "EOF"
+          } >> $GITHUB_OUTPUT
+
+      - name: 텔레그램 알림
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          USAGE: ${{ steps.usage.outputs.text }}
+        run: |
+          set -uo pipefail
+          TODAY=$(TZ=Asia/Seoul date +%m-%d)
+          LEFT=$(( ( $(date -d '2026-09-17 16:00 KST' +%s) - $(date +%s) ) / 86400 ))
+          MSG=$(printf '%s\n' \
+            "💸 Vercel Pro 다운그레이드 알림 (${TODAY})" \
+            "" \
+            "다음 청구까지 ${LEFT}일 남았습니다." \
+            "주기 종료: 2026-09-17 16:00 KST" \
+            "내리지 않으면 \$20 이 또 청구됩니다." \
+            "" \
+            "▶ 할 일" \
+            "vercel.com > yghwanee's projects > Settings > Billing" \
+            "> Hobby 로 다운그레이드" \
+            "" \
+            "▶ 현재 사용량" \
+            "${USAGE}" \
+            "" \
+            "내리기 전에 이 숫자가 Hobby 한도 안인지 확인할 것:" \
+            "Fluid Active CPU 4h · ISR Writes 200K · Fast Origin Transfer 10GB · ISR Reads 1M")
+          resp=$(curl -sS -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" --data-urlencode "text=${MSG}")
+          case "$resp" in *'"ok":true'*) echo "알림 전송됨" ;; *) echo "::error::텔레그램 전송 실패: $resp"; exit 1 ;; esac
