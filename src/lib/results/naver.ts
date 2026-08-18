@@ -110,6 +110,8 @@ const CATEGORY_TO_LEAGUE_KEYS: Record<string, string[]> = {
   communityshield: ["FA 커뮤니티 실드"],
   uefasupercup: ["UEFA 슈퍼컵"],
   koreacup: ["코리아컵"],
+  dfbpokal: ["DFB-포칼"],
+  germansupercup: ["프란츠 베켄바워 슈퍼컵"],
 };
 
 function findAliasMapByCategory(categoryId: string): Record<string, string | string[]> {
@@ -252,6 +254,7 @@ export const SOCCER_CATEGORIES = new Set([
   "ligue1", "mls", "kleague", "kleague2", "champs", "europa", "eredivisie",
   "denmark", "acl", "amatch", "amatchfriendly", "worldcup",
   "clubfriendly", "communityshield", "uefasupercup", "koreacup",
+  "dfbpokal", "germansupercup",
 ]);
 
 /** 결과 크롤 대상. LEAGUE_TO_CATEGORY 가 가리키는 categoryId 는 전부 여기 있어야 한다
@@ -284,6 +287,8 @@ export const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "uefasupercup", label: "UEFA 슈퍼컵" },
   { categoryId: "koreacup", label: "코리아컵" },
   { categoryId: "worldcup", label: "월드컵" },
+  { categoryId: "dfbpokal", label: "DFB-포칼" },
+  { categoryId: "germansupercup", label: "독일 슈퍼컵" },
 ];
 
 /** NaverGame → MatchResult 매핑(득점자 상세 제외). 유효하지 않으면 null.

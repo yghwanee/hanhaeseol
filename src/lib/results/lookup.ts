@@ -48,6 +48,12 @@ export const LEAGUE_TO_CATEGORY: Record<string, string | string[]> = {
   // 코리아컵(구 FA컵 국내대회) — 2026-08-13 편성에 새로 들어와 league-coverage 가드가
   // 잡았다. 네이버 categoryId=koreacup 실측 8경기(8/19 울산시민 vs 광주 등).
   코리아컵: "koreacup",
+  // 독일 컵·슈퍼컵 — 2026-08-23 편성(쿠팡플레이)에 새로 들어와 league-coverage 가드가 잡았다.
+  // 실측: germansupercup 은 8/23 도르트문트 vs 바이에른 뮌헨 1건이 그대로 잡힌다.
+  // dfbpokal 은 2026-27 1라운드 일정이 네이버에 아직 안 올라와 조회가 0건이지만,
+  // 2025-26 시즌으로 조회하면 31경기가 나온다 = 대회 자체는 맞다(다른 대회 오매칭 아님).
+  "DFB-포칼": "dfbpokal",
+  "프란츠 베켄바워 슈퍼컵": "germansupercup",
 };
 
 /** league 문자열 → 후보 categoryId 목록 (단일 값/배열 모두 배열로 정규화). 매핑 없으면 빈 배열. */

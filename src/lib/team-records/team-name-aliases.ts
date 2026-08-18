@@ -217,6 +217,9 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   "클럽 친선경기": { ...EURO_CLUB_ALIASES },
   "FA 커뮤니티 실드": { ...EURO_CLUB_ALIASES },
   "UEFA 슈퍼컵": { ...EURO_CLUB_ALIASES },
+  // 독일 컵·슈퍼컵도 여러 리그(1·2·3부, 지역리그) 팀이 한 카테고리에 섞인다.
+  "DFB-포칼": { ...EURO_CLUB_ALIASES },
+  "프란츠 베켄바워 슈퍼컵": { ...EURO_CLUB_ALIASES },
   // 덴마크 1부 Superliga. schedule.json엔 아직 매치 없지만 미래 대비.
   // 들어올 때 league 표기는 "수페르리가" 가정.
   수페르리가: {},
