@@ -25,6 +25,7 @@ jobs:
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           SCOPE: yghwanees-projects
+          PROJECT: hanhaeseol
           TEAM_ID: team_nPF3curWDtmBYzfVw4KgrTFa
         run: |
           set -uo pipefail
@@ -44,6 +45,23 @@ jobs:
 
           # 🔴 Hobby 는 `vercel usage` 가 "Costs not found (404)" 다 — 무료 플랜엔 비용
           #    데이터가 없다. 결제 주기는 Team 객체에 붙어 있으므로 REST 로 직접 읽는다.
+          echo
+          echo "===== 최근 프로덕션 배포 10건 ====="
+          # 🔴 git.deploymentEnabled=false 로 바꾼 뒤에는 GitHub 쪽 deployment 기록이
+          #    안 남을 수 있다(Git 연동 배포가 아니므로). 배포가 실제로 생겼는지는
+          #    여기서 Vercel API 로 직접 본다. 하루 몇 번 도는지 세는 용도로도 쓴다.
+          curl -sS -H "Authorization: Bearer $VERCEL_TOKEN"             "https://api.vercel.com/v6/deployments?limit=10&target=production&projectId=$PROJECT"             | node -e "
+              let s='';process.stdin.on('data',d=>s+=d);process.stdin.on('end',()=>{
+                let j; try{ j=JSON.parse(s); }catch(e){ return console.log('PARSE_ERR', s.slice(0,300)); }
+                if (j.error) return console.log('API_ERR', JSON.stringify(j.error));
+                for (const d of (j.deployments||[])) {
+                  const t=new Date(d.createdAt);
+                  const kst=new Date(d.createdAt+9*3600e3).toISOString().replace('T',' ').slice(0,16);
+                  console.log(kst+' KST', String(d.state).padEnd(12),
+                              (d.meta&&d.meta.githubCommitSha||'(hook)').slice(0,8));
+                }
+              });"
+
           echo
           echo "===== Team 객체의 결제 주기 =====" 
           curl -sS -H "Authorization: Bearer $VERCEL_TOKEN"             "https://api.vercel.com/v2/teams/$TEAM_ID"             | node -e "
