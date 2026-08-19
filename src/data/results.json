@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-19T11:59:39.514Z",
+  "lastUpdated": "2026-08-19T13:07:01.893Z",
   "byKey": {
     "2026-08-18|kbo|한화|KIA": {
       "date": "2026-08-18",
@@ -66,10 +66,43 @@
       "gameId": "20260819HTHH02026",
       "homeTeam": "한화",
       "awayTeam": "KIA",
-      "homeScore": 0,
+      "homeScore": 2,
+      "awayScore": 6,
+      "status": "live",
+      "period": "9회초"
+    },
+    "2026-08-19|kbo|NC|두산": {
+      "date": "2026-08-19",
+      "categoryId": "kbo",
+      "gameId": "20260819OBNC02026",
+      "homeTeam": "NC",
+      "awayTeam": "두산",
+      "homeScore": 2,
+      "awayScore": 8,
+      "status": "live",
+      "period": "9회말"
+    },
+    "2026-08-19|kbo|삼성|SSG": {
+      "date": "2026-08-19",
+      "categoryId": "kbo",
+      "gameId": "20260819SKSS02026",
+      "homeTeam": "삼성",
+      "awayTeam": "SSG",
+      "homeScore": 18,
       "awayScore": 2,
       "status": "live",
-      "period": "7회말"
+      "period": "9회초"
+    },
+    "2026-08-19|kbo|롯데|키움": {
+      "date": "2026-08-19",
+      "categoryId": "kbo",
+      "gameId": "20260819WOLT02026",
+      "homeTeam": "롯데",
+      "awayTeam": "키움",
+      "homeScore": 3,
+      "awayScore": 4,
+      "status": "live",
+      "period": "8회말"
     },
     "2026-08-19|kbo|LG|KT": {
       "date": "2026-08-19",
@@ -79,41 +112,8 @@
       "awayTeam": "KT",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "7회초"
-    },
-    "2026-08-19|kbo|NC|두산": {
-      "date": "2026-08-19",
-      "categoryId": "kbo",
-      "gameId": "20260819OBNC02026",
-      "homeTeam": "NC",
-      "awayTeam": "두산",
-      "homeScore": 2,
-      "awayScore": 7,
-      "status": "live",
-      "period": "6회초"
-    },
-    "2026-08-19|kbo|삼성|SSG": {
-      "date": "2026-08-19",
-      "categoryId": "kbo",
-      "gameId": "20260819SKSS02026",
-      "homeTeam": "삼성",
-      "awayTeam": "SSG",
-      "homeScore": 12,
-      "awayScore": 2,
-      "status": "live",
-      "period": "5회말"
-    },
-    "2026-08-19|kbo|롯데|키움": {
-      "date": "2026-08-19",
-      "categoryId": "kbo",
-      "gameId": "20260819WOLT02026",
-      "homeTeam": "롯데",
-      "awayTeam": "키움",
-      "homeScore": 3,
-      "awayScore": 1,
-      "status": "live",
-      "period": "7회초"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-08-20|kbo|한화|KIA": {
       "date": "2026-08-20",
@@ -2416,52 +2416,6 @@
         }
       ]
     },
-    "2026-08-19|koreacup|전북|당진": {
-      "date": "2026-08-19",
-      "categoryId": "koreacup",
-      "gameId": "PqjBHgjjAlA7yPA",
-      "homeTeam": "전북",
-      "awayTeam": "당진시민",
-      "homeScore": 2,
-      "awayScore": 2,
-      "status": "live",
-      "period": "연장전반 1'",
-      "goals": [
-        {
-          "team": "away",
-          "player": "류연준",
-          "minute": 11
-        },
-        {
-          "team": "away",
-          "player": "최시온",
-          "minute": 50
-        }
-      ]
-    },
-    "2026-08-19|koreacup|전북|당진시민": {
-      "date": "2026-08-19",
-      "categoryId": "koreacup",
-      "gameId": "PqjBHgjjAlA7yPA",
-      "homeTeam": "전북",
-      "awayTeam": "당진시민",
-      "homeScore": 2,
-      "awayScore": 2,
-      "status": "live",
-      "period": "연장전반 1'",
-      "goals": [
-        {
-          "team": "away",
-          "player": "류연준",
-          "minute": 11
-        },
-        {
-          "team": "away",
-          "player": "최시온",
-          "minute": 50
-        }
-      ]
-    },
     "2026-08-19|koreacup|울산시민|광주": {
       "date": "2026-08-19",
       "categoryId": "koreacup",
@@ -2479,6 +2433,58 @@
           "minute": 35
         }
       ]
+    },
+    "2026-08-19|koreacup|전북|당진": {
+      "date": "2026-08-19",
+      "categoryId": "koreacup",
+      "gameId": "PqjBHgjjAlA7yPA",
+      "homeTeam": "전북",
+      "awayTeam": "당진시민",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "goals": [
+        {
+          "team": "away",
+          "player": "류연준",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "최시온",
+          "minute": 50
+        }
+      ],
+      "homePtScore": 3,
+      "awayPtScore": 5
+    },
+    "2026-08-19|koreacup|전북|당진시민": {
+      "date": "2026-08-19",
+      "categoryId": "koreacup",
+      "gameId": "PqjBHgjjAlA7yPA",
+      "homeTeam": "전북",
+      "awayTeam": "당진시민",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "goals": [
+        {
+          "team": "away",
+          "player": "류연준",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "최시온",
+          "minute": 50
+        }
+      ],
+      "homePtScore": 3,
+      "awayPtScore": 5
     },
     "2026-08-19|koreacup|포항|진주시민": {
       "date": "2026-08-19",
@@ -2520,9 +2526,24 @@
       "period": "경기종료",
       "goals": [
         {
+          "team": "away",
+          "player": "디오고 올리베이라",
+          "minute": 22
+        },
+        {
           "team": "home",
           "player": "박성우",
           "minute": 42
+        },
+        {
+          "team": "away",
+          "player": "이시다",
+          "minute": 51
+        },
+        {
+          "team": "away",
+          "player": "정재희",
+          "minute": 87
         },
         {
           "team": "home",
@@ -2552,6 +2573,11 @@
           "team": "home",
           "player": "채프먼",
           "minute": 63
+        },
+        {
+          "team": "home",
+          "player": "장부성",
+          "minute": 78
         }
       ]
     },
@@ -2564,30 +2590,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "후반 25'"
-    },
-    "2026-08-19|koreacup|안양|제주": {
-      "date": "2026-08-19",
-      "categoryId": "koreacup",
-      "gameId": "hIcr0II3UYNyQTZ",
-      "homeTeam": "안양",
-      "awayTeam": "제주",
-      "homeScore": 2,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 25'",
-      "goals": [
-        {
-          "team": "away",
-          "player": "최병욱",
-          "minute": 31
-        },
-        {
-          "team": "home",
-          "player": "김영찬",
-          "minute": 49
-        }
-      ]
+      "period": "연장후반종료"
     },
     "2026-08-19|koreacup|강원|성남": {
       "date": "2026-08-19",
@@ -2598,7 +2601,35 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "후반 27'"
+      "period": "승부차기"
+    },
+    "2026-08-19|koreacup|안양|제주": {
+      "date": "2026-08-19",
+      "categoryId": "koreacup",
+      "gameId": "hIcr0II3UYNyQTZ",
+      "homeTeam": "안양",
+      "awayTeam": "제주",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "최병욱",
+          "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "김영찬",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "이진용",
+          "minute": 68
+        }
+      ]
     }
   },
   "results": [
@@ -2667,10 +2698,43 @@
       "gameId": "20260819HTHH02026",
       "homeTeam": "한화",
       "awayTeam": "KIA",
-      "homeScore": 0,
+      "homeScore": 2,
+      "awayScore": 6,
+      "status": "live",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-19",
+      "categoryId": "kbo",
+      "gameId": "20260819OBNC02026",
+      "homeTeam": "NC",
+      "awayTeam": "두산",
+      "homeScore": 2,
+      "awayScore": 8,
+      "status": "live",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-19",
+      "categoryId": "kbo",
+      "gameId": "20260819SKSS02026",
+      "homeTeam": "삼성",
+      "awayTeam": "SSG",
+      "homeScore": 18,
       "awayScore": 2,
       "status": "live",
-      "period": "7회말"
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-19",
+      "categoryId": "kbo",
+      "gameId": "20260819WOLT02026",
+      "homeTeam": "롯데",
+      "awayTeam": "키움",
+      "homeScore": 3,
+      "awayScore": 4,
+      "status": "live",
+      "period": "8회말"
     },
     {
       "date": "2026-08-19",
@@ -2680,41 +2744,8 @@
       "awayTeam": "KT",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "7회초"
-    },
-    {
-      "date": "2026-08-19",
-      "categoryId": "kbo",
-      "gameId": "20260819OBNC02026",
-      "homeTeam": "NC",
-      "awayTeam": "두산",
-      "homeScore": 2,
-      "awayScore": 7,
-      "status": "live",
-      "period": "6회초"
-    },
-    {
-      "date": "2026-08-19",
-      "categoryId": "kbo",
-      "gameId": "20260819SKSS02026",
-      "homeTeam": "삼성",
-      "awayTeam": "SSG",
-      "homeScore": 12,
-      "awayScore": 2,
-      "status": "live",
-      "period": "5회말"
-    },
-    {
-      "date": "2026-08-19",
-      "categoryId": "kbo",
-      "gameId": "20260819WOLT02026",
-      "homeTeam": "롯데",
-      "awayTeam": "키움",
-      "homeScore": 3,
-      "awayScore": 1,
-      "status": "live",
-      "period": "7회초"
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-08-20",
@@ -3517,29 +3548,6 @@
     {
       "date": "2026-08-19",
       "categoryId": "koreacup",
-      "gameId": "PqjBHgjjAlA7yPA",
-      "homeTeam": "전북",
-      "awayTeam": "당진시민",
-      "homeScore": 2,
-      "awayScore": 2,
-      "status": "live",
-      "period": "연장전반 1'",
-      "goals": [
-        {
-          "team": "away",
-          "player": "류연준",
-          "minute": 11
-        },
-        {
-          "team": "away",
-          "player": "최시온",
-          "minute": 50
-        }
-      ]
-    },
-    {
-      "date": "2026-08-19",
-      "categoryId": "koreacup",
       "gameId": "1oYXXUDku6UMiHR",
       "homeTeam": "울산시민",
       "awayTeam": "광주",
@@ -3554,6 +3562,32 @@
           "minute": 35
         }
       ]
+    },
+    {
+      "date": "2026-08-19",
+      "categoryId": "koreacup",
+      "gameId": "PqjBHgjjAlA7yPA",
+      "homeTeam": "전북",
+      "awayTeam": "당진시민",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "goals": [
+        {
+          "team": "away",
+          "player": "류연준",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "최시온",
+          "minute": 50
+        }
+      ],
+      "homePtScore": 3,
+      "awayPtScore": 5
     },
     {
       "date": "2026-08-19",
@@ -3595,9 +3629,24 @@
       "period": "경기종료",
       "goals": [
         {
+          "team": "away",
+          "player": "디오고 올리베이라",
+          "minute": 22
+        },
+        {
           "team": "home",
           "player": "박성우",
           "minute": 42
+        },
+        {
+          "team": "away",
+          "player": "이시다",
+          "minute": 51
+        },
+        {
+          "team": "away",
+          "player": "정재희",
+          "minute": 87
         },
         {
           "team": "home",
@@ -3627,6 +3676,11 @@
           "team": "home",
           "player": "채프먼",
           "minute": 63
+        },
+        {
+          "team": "home",
+          "player": "장부성",
+          "minute": 78
         }
       ]
     },
@@ -3639,30 +3693,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "후반 25'"
-    },
-    {
-      "date": "2026-08-19",
-      "categoryId": "koreacup",
-      "gameId": "hIcr0II3UYNyQTZ",
-      "homeTeam": "안양",
-      "awayTeam": "제주",
-      "homeScore": 2,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 25'",
-      "goals": [
-        {
-          "team": "away",
-          "player": "최병욱",
-          "minute": 31
-        },
-        {
-          "team": "home",
-          "player": "김영찬",
-          "minute": 49
-        }
-      ]
+      "period": "연장후반종료"
     },
     {
       "date": "2026-08-19",
@@ -3673,7 +3704,35 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "후반 27'"
+      "period": "승부차기"
+    },
+    {
+      "date": "2026-08-19",
+      "categoryId": "koreacup",
+      "gameId": "hIcr0II3UYNyQTZ",
+      "homeTeam": "안양",
+      "awayTeam": "제주",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "최병욱",
+          "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "김영찬",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "이진용",
+          "minute": 68
+        }
+      ]
     }
   ]
 }
