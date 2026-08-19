@@ -327,7 +327,9 @@ function h2hSentence(h2h: H2HEntry[], home: string, away: string): string {
       : null;
   if (h2h.length === 1) {
     if (!winner) return `직전 ${home} vs ${away} 맞대결은 ${last.homeScore}-${last.awayScore} 무승부였습니다.`;
-    return `직전 맞대결에서는 ${winner}가 ${Math.max(last.homeScore, last.awayScore)}-${Math.min(last.homeScore, last.awayScore)}로 승리했습니다.`;
+    // 조사를 고정하면 받침 있는 팀명에서 깨진다 — `강원가`·`서울가`(K리그는
+    // 받침으로 끝나는 팀명이 흔하다). josa 로 고른다.
+    return `직전 맞대결에서는 ${withJosa(winner, "이/가")} ${Math.max(last.homeScore, last.awayScore)}-${Math.min(last.homeScore, last.awayScore)}로 승리했습니다.`;
   }
   let homeWins = 0;
   let awayWins = 0;
@@ -358,7 +360,9 @@ export function buildPreviewParagraph(
   leagueGuide: ReturnType<typeof getLeagueGuide>,
 ): string {
   const ko = match.koreanCommentary === true ? "한국어 해설" : match.koreanCommentary === false ? "현지 해설" : "해설 정보 미확인";
-  const opening = `${match.league} ${match.homeTeam} vs ${match.awayTeam} 경기가 ${match.date} ${match.time} (KST)에 ${match.platform}에서 ${ko}로 중계됩니다.`;
+  // `${ko}로` 고정이면 `해설 정보 미확인로` 가 된다(받침 ㄴ). 나머지 두 값은
+  // 받침이 없어 `로` 가 맞아서 눈에 안 띄던 자리다.
+  const opening = `${match.league} ${match.homeTeam} vs ${match.awayTeam} 경기가 ${match.date} ${match.time} (KST)에 ${match.platform}에서 ${withJosa(ko, "으로/로")} 중계됩니다.`;
 
   const homeSentence = summaryToSentence(match.homeTeam, homeSummary);
   const awaySentence = summaryToSentence(match.awayTeam, awaySummary);

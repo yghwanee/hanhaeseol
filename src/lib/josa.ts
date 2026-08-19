@@ -25,6 +25,21 @@ const DIGIT_HAS_FINAL: Record<string, boolean> = {
   "9": false,
 };
 
+/**
+ * 한글 마지막 글자의 종성 인덱스. 한글이 아니면 -1.
+ * ㄹ 받침(8)을 따로 알아야 하는 조사가 있다 — 아래 `josa` 의 `으로/로` 참고.
+ */
+function finalConsonantIndex(word: string): number {
+  const last = word.trim().slice(-1);
+  if (last === "") return -1;
+  const code = last.charCodeAt(0);
+  if (code < HANGUL_START || code > HANGUL_END) return -1;
+  return (code - HANGUL_START) % 28;
+}
+
+/** ㄹ 종성 인덱스. `설`·`울`·`물` 처럼 ㄹ 로 끝나는 글자. */
+const RIEUL = 8;
+
 export function hasFinalConsonant(word: string): boolean {
   const last = word.trim().slice(-1);
   if (last === "") return false;
@@ -50,6 +65,16 @@ export function josa(word: string, pair: string): string {
   // 표기 순서를 그대로 믿지 않고 잘 알려진 짝을 명시한다.
   const FINAL_FIRST = new Set(["은/는", "이/가", "을/를", "으로/로", "과/와"]);
   const has = hasFinalConsonant(word);
+
+  // 🔴 `으로/로` 만 규칙이 다르다. **ㄹ 받침 뒤에는 `로`** 가 붙는다
+  // ("서울로", "물로", "한국어 해설로"). 받침 유무만 보면 `한국어 해설으로` 가
+  // 나온다 — 2026-08-19 에 이 짝을 처음 쓰면서 드러났다(그전까지 쓰는 곳이 없어
+  // 기존 페이지 피해는 없었다).
+  if (pair === "으로/로") {
+    if (!has || finalConsonantIndex(word) === RIEUL) return withoutFinal;
+    return withFinal;
+  }
+
   if (FINAL_FIRST.has(pair)) return has ? withFinal : withoutFinal;
   return has ? withoutFinal : withFinal;
 }

@@ -57,6 +57,19 @@ export type TeamEntry = {
   slug: string;
   leagueSlug: string;
   leagueName: string;
+  /**
+   * 편성 데이터(`Schedule.sport`)와 같은 표기: "축구" | "야구" | "농구".
+   *
+   * 🔴 경기 매칭을 종목으로 스코프하려고 둔다. `isSameTeam` 은 접두 매칭이라
+   * `isSameTeam("토론토 블루제이스", "토론토")` 가 참이 된다 — 순위표의 MLS
+   * `토론토`(=토론토 FC)가 MLB 토론토 경기를 자기 경기로 끌어왔다(2026-08-19
+   * 라이브 실측: 토론토 FC 팀 페이지의 다음 경기가 "뉴욕 양키스전"). 도시명을
+   * 공유하는 MLS↔MLB 조합에서 통째로 일어난다(뉴욕·LA·시카고…).
+   *
+   * 리그로 자르지 않고 종목으로 자르는 이유: 컵대회(코리아컵·DFB-포칼·UCL)는
+   * 리그명이 달라서, 리그로 자르면 그 경기들이 팀 페이지에서 사라진다.
+   */
+  sport: string;
   name: string;
   logo?: string;
   rank: number;
@@ -114,13 +127,14 @@ export function teamSlug(leagueSlug: string, name: string): string {
 
 export function buildTeamIndex(standings: StandingsData): TeamEntry[] {
   const out: TeamEntry[] = [];
+  // 편성 데이터의 `sport` 표기와 맞춘다.
   const leagues = [
-    ...(standings.baseball ?? []),
-    ...(standings.soccer ?? []),
-    ...(standings.basketball ?? []),
+    ...(standings.baseball ?? []).map((l) => ({ league: l, sport: "야구" })),
+    ...(standings.soccer ?? []).map((l) => ({ league: l, sport: "축구" })),
+    ...(standings.basketball ?? []).map((l) => ({ league: l, sport: "농구" })),
   ];
 
-  for (const league of leagues) {
+  for (const { league, sport } of leagues) {
     const leagueSlug = LEAGUE_SLUG_BY_NAME[league.name];
     if (!leagueSlug) continue;
 
@@ -130,6 +144,7 @@ export function buildTeamIndex(standings: StandingsData): TeamEntry[] {
         slug: teamSlug(leagueSlug, t.teamName),
         leagueSlug,
         leagueName: league.name,
+        sport,
         name: t.teamName,
         logo: t.teamLogo,
         rank: t.rank,
@@ -174,7 +189,13 @@ export function findTeamSchedules(
   team: TeamEntry,
 ): Schedule[] {
   return schedules.filter(
-    (s) => isSameTeam(s.homeTeam, team.name) || isSameTeam(s.awayTeam, team.name),
+    (s) =>
+      // 🔴 종목 스코프가 없으면 도시명을 공유하는 다른 종목 팀의 경기가 섞인다.
+      // `isSameTeam` 이 접두 매칭이라 `토론토 블루제이스`(MLB)가 순위표의
+      // `토론토`(MLS)와 같은 팀으로 잡혔다. 실측 15개 팀이 영향받았다.
+      // `sport` 가 비어 있으면(옛 데이터) 거르지 않는다 — 경기를 통째로 잃는 것보다 낫다.
+      (!team.sport || !s.sport || s.sport === team.sport) &&
+      (isSameTeam(s.homeTeam, team.name) || isSameTeam(s.awayTeam, team.name)),
   );
 }
 

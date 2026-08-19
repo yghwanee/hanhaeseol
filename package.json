@@ -76,7 +76,8 @@
     "test:fixture-dedupe": "tsx --test src/lib/fixture-dedupe.test.ts",
     "test:deploy-budget": "tsx --test src/lib/deploy-budget.test.ts",
     "test:sitemap-lastmod": "tsx --test src/lib/sitemap-lastmod.test.ts",
-    "test:indexnow-coverage": "tsx --test src/lib/indexnow-coverage.test.ts"
+    "test:indexnow-coverage": "tsx --test src/lib/indexnow-coverage.test.ts",
+    "test:team-description": "tsx --test src/lib/team-description.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
 import standingsData from "@/data/standings.json";
+import { withJosa } from "@/lib/josa";
 import archiveData from "@/data/schedule-archive.json";
 import { loadScheduleData, loadResults, loadResultsArchive, loadTeamRecords } from "@/lib/server-data";
 import { ScheduleCard } from "@/app/_components/ScheduleCard";
@@ -153,9 +154,22 @@ export async function generateMetadata({
   // ⚠️ 순위 자체를 올리는 레버가 아니다. CTR 0.1% 의 원인이 제목이 아니라 순위일 수 있어
   // 효과를 보장하지 못한다 — 매치 제목(작업85)과 같은 성격의 변경이고 같이 관측한다.
   const title = `${full} 일정·중계 - 한국어 해설 편성표 | 한해설`;
+  // 🔴 상대 팀은 반드시 `opponentOf` 로 고른다.
+  //
+  // 종전엔 `next.awayTeam === team.name ? …` 로 손수 비교했는데, `team.name` 은
+  // **순위표 축약 표기**(`두산`·`서울`)이고 `next.awayTeam` 은 **편성 표기**
+  // (`두산 베어스`·`FC서울`)라 이 비교는 사실상 항상 거짓이었다. 그래서 팀이
+  // 원정일 때 자기 자신이 상대로 찍혔다 — 라이브 실측(2026-08-19)에서
+  // `토론토 FC 다음 경기는 … 토론토전`, `세인트루이스 카디널스 … 세인트루이스
+  // 카디널스전` 이 그대로 나가고 있었다. `opponentOf` 는 `isSameTeam` 으로
+  // 표기 차이를 흡수한다(같은 파일의 JSON-LD 는 이미 그걸 쓰고 있었다).
+  //
+  // 조사도 `josa` 로 붙인다. `${commentaryLabel(next)}로` 를 고정해 두면
+  // "해설 확인중" 뒤에 `해설 확인중로` 가 나온다(받침이 있으면 `으로`).
+  const nextOpponent = next ? opponentOf(next, team) : undefined;
   const description = next
-    ? `${full} 다음 경기는 ${formatDate(next.date)} ${next.time} ${next.awayTeam === team.name ? next.homeTeam : next.awayTeam}전. ${next.platforms.slice(0, 2).join(", ")}에서 ${commentaryLabel(next)}로 중계됩니다. ${team.leagueName} ${team.rank}위, ${team.win}승 ${team.lose}패.`
-    : `${full} ${team.leagueName} ${team.rank}위(${team.win}승 ${team.lose}패). 국내 중계는 ${platforms.join(", ") || "편성 확인 필요"}에서 볼 수 있습니다.`;
+    ? `${full} 다음 경기는 ${formatDate(next.date)} ${next.time} ${nextOpponent!.name}전(${nextOpponent!.home ? "홈" : "원정"}). ${next.platforms.slice(0, 2).join(", ")}에서 ${withJosa(commentaryLabel(next), "으로/로")} 중계됩니다. ${team.leagueName} ${team.rank}위, ${team.win}승 ${team.lose}패. 국내 중계 일정과 한국어 해설 여부를 7일치로 확인하세요.`
+    : `${full} ${team.leagueName} ${team.rank}위(${team.win}승 ${team.lose}패). 국내 중계는 ${platforms.join(", ") || "편성 확인 필요"}에서 볼 수 있습니다. 경기 일정과 한국어 해설 여부, 홈·원정 성적을 한눈에 확인하세요.`;
 
   const url = `${BASE}/team/${encodeURIComponent(team.slug)}`;
   return {

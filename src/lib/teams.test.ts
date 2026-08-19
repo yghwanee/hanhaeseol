@@ -86,6 +86,7 @@ const SAMSUNG: TeamEntry = {
   slug: "kbo-삼성",
   leagueSlug: "kbo",
   leagueName: "KBO",
+  sport: "야구",
   name: "삼성",
   rank: 1,
   played: 88,
