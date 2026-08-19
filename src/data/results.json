@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-19T04:50:08.117Z",
+  "lastUpdated": "2026-08-19T05:36:03.341Z",
   "byKey": {
     "2026-08-18|kbo|한화|KIA": {
       "date": "2026-08-18",
@@ -1824,8 +1824,7 @@
           "minute": 90,
           "addedTime": 8
         }
-      ],
-      "highlightVideoId": "X6BxMI6PntQ"
+      ]
     },
     "2026-08-18|primera|데포르티보|엘체": {
       "date": "2026-08-18",
@@ -1848,14 +1847,24 @@
           "player": "마르크 아구아도",
           "minute": 76
         }
-      ],
-      "highlightVideoId": "pEMR70VbWMc"
+      ]
     },
     "2026-08-20|primera|AT 마드리드|말라가": {
       "date": "2026-08-20",
       "categoryId": "primera",
       "gameId": "Z5BQDTTiMjv6iBO",
-      "homeTeam": "AT.마드리드",
+      "homeTeam": "AT. 마드리드",
+      "awayTeam": "말라가",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-08-20|primera|AT. 마드리드|말라가": {
+      "date": "2026-08-20",
+      "categoryId": "primera",
+      "gameId": "Z5BQDTTiMjv6iBO",
+      "homeTeam": "AT. 마드리드",
       "awayTeam": "말라가",
       "homeScore": 0,
       "awayScore": 0,
@@ -1866,7 +1875,7 @@
       "date": "2026-08-20",
       "categoryId": "primera",
       "gameId": "Z5BQDTTiMjv6iBO",
-      "homeTeam": "AT.마드리드",
+      "homeTeam": "AT. 마드리드",
       "awayTeam": "말라가",
       "homeScore": 0,
       "awayScore": 0,
@@ -2020,7 +2029,7 @@
       "date": "2026-08-20",
       "categoryId": "mls",
       "gameId": "rqQQYMta2bQNAsS",
-      "homeTeam": "뉴욕",
+      "homeTeam": "레드불 뉴욕",
       "awayTeam": "내슈빌 SC",
       "homeScore": 0,
       "awayScore": 0,
@@ -2031,7 +2040,7 @@
       "date": "2026-08-20",
       "categoryId": "mls",
       "gameId": "rqQQYMta2bQNAsS",
-      "homeTeam": "뉴욕",
+      "homeTeam": "레드불 뉴욕",
       "awayTeam": "내슈빌 SC",
       "homeScore": 0,
       "awayScore": 0,
@@ -2042,7 +2051,40 @@
       "date": "2026-08-20",
       "categoryId": "mls",
       "gameId": "rqQQYMta2bQNAsS",
-      "homeTeam": "뉴욕",
+      "homeTeam": "레드불 뉴욕",
+      "awayTeam": "내슈빌 SC",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-08-20|mls|레드불 뉴욕|내쉬빌": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "rqQQYMta2bQNAsS",
+      "homeTeam": "레드불 뉴욕",
+      "awayTeam": "내슈빌 SC",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-08-20|mls|레드불 뉴욕|내슈빌 SC": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "rqQQYMta2bQNAsS",
+      "homeTeam": "레드불 뉴욕",
+      "awayTeam": "내슈빌 SC",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-08-20|mls|레드불 뉴욕|내슈빌": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "rqQQYMta2bQNAsS",
+      "homeTeam": "레드불 뉴욕",
       "awayTeam": "내슈빌 SC",
       "homeScore": 0,
       "awayScore": 0,
@@ -2196,7 +2238,7 @@
       "date": "2026-08-20",
       "categoryId": "mls",
       "gameId": "dPYHVvt64A6y4ga",
-      "homeTeam": "갤럭시",
+      "homeTeam": "LA 갤럭시",
       "awayTeam": "산호세 어스퀘이크스",
       "homeScore": 0,
       "awayScore": 0,
@@ -2207,7 +2249,29 @@
       "date": "2026-08-20",
       "categoryId": "mls",
       "gameId": "dPYHVvt64A6y4ga",
-      "homeTeam": "갤럭시",
+      "homeTeam": "LA 갤럭시",
+      "awayTeam": "산호세 어스퀘이크스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-08-20|mls|LA 갤럭시|어스퀘이크": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "dPYHVvt64A6y4ga",
+      "homeTeam": "LA 갤럭시",
+      "awayTeam": "산호세 어스퀘이크스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-08-20|mls|LA 갤럭시|산호세 어스퀘이크스": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "dPYHVvt64A6y4ga",
+      "homeTeam": "LA 갤럭시",
       "awayTeam": "산호세 어스퀘이크스",
       "homeScore": 0,
       "awayScore": 0,
@@ -2219,7 +2283,18 @@
       "categoryId": "mls",
       "gameId": "lKVFee7kzmaX1JS",
       "homeTeam": "밴쿠버 화이트캡스 FC",
-      "awayTeam": "휴스턴",
+      "awayTeam": "휴스턴 다이너모 FC",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-08-20|mls|화이트캡스|휴스턴 다이너모 FC": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "lKVFee7kzmaX1JS",
+      "homeTeam": "밴쿠버 화이트캡스 FC",
+      "awayTeam": "휴스턴 다이너모 FC",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -2230,7 +2305,18 @@
       "categoryId": "mls",
       "gameId": "lKVFee7kzmaX1JS",
       "homeTeam": "밴쿠버 화이트캡스 FC",
-      "awayTeam": "휴스턴",
+      "awayTeam": "휴스턴 다이너모 FC",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-08-20|mls|밴쿠버 화이트캡스 FC|휴스턴 다이너모 FC": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "lKVFee7kzmaX1JS",
+      "homeTeam": "밴쿠버 화이트캡스 FC",
+      "awayTeam": "휴스턴 다이너모 FC",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -2334,7 +2420,18 @@
       "categoryId": "koreacup",
       "gameId": "PqjBHgjjAlA7yPA",
       "homeTeam": "전북",
-      "awayTeam": "당진",
+      "awayTeam": "당진시민",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-08-19|koreacup|전북|당진시민": {
+      "date": "2026-08-19",
+      "categoryId": "koreacup",
+      "gameId": "PqjBHgjjAlA7yPA",
+      "homeTeam": "전북",
+      "awayTeam": "당진시민",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -3031,8 +3128,7 @@
           "minute": 90,
           "addedTime": 8
         }
-      ],
-      "highlightVideoId": "X6BxMI6PntQ"
+      ]
     },
     {
       "date": "2026-08-18",
@@ -3055,14 +3151,13 @@
           "player": "마르크 아구아도",
           "minute": 76
         }
-      ],
-      "highlightVideoId": "pEMR70VbWMc"
+      ]
     },
     {
       "date": "2026-08-20",
       "categoryId": "primera",
       "gameId": "Z5BQDTTiMjv6iBO",
-      "homeTeam": "AT.마드리드",
+      "homeTeam": "AT. 마드리드",
       "awayTeam": "말라가",
       "homeScore": 0,
       "awayScore": 0,
@@ -3128,7 +3223,7 @@
       "date": "2026-08-20",
       "categoryId": "mls",
       "gameId": "rqQQYMta2bQNAsS",
-      "homeTeam": "뉴욕",
+      "homeTeam": "레드불 뉴욕",
       "awayTeam": "내슈빌 SC",
       "homeScore": 0,
       "awayScore": 0,
@@ -3216,7 +3311,7 @@
       "date": "2026-08-20",
       "categoryId": "mls",
       "gameId": "dPYHVvt64A6y4ga",
-      "homeTeam": "갤럭시",
+      "homeTeam": "LA 갤럭시",
       "awayTeam": "산호세 어스퀘이크스",
       "homeScore": 0,
       "awayScore": 0,
@@ -3228,7 +3323,7 @@
       "categoryId": "mls",
       "gameId": "lKVFee7kzmaX1JS",
       "homeTeam": "밴쿠버 화이트캡스 FC",
-      "awayTeam": "휴스턴",
+      "awayTeam": "휴스턴 다이너모 FC",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -3332,7 +3427,7 @@
       "categoryId": "koreacup",
       "gameId": "PqjBHgjjAlA7yPA",
       "homeTeam": "전북",
-      "awayTeam": "당진",
+      "awayTeam": "당진시민",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
