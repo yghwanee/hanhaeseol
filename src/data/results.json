@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-19T13:07:01.893Z",
+  "lastUpdated": "2026-08-19T13:55:58.999Z",
   "byKey": {
     "2026-08-18|kbo|한화|KIA": {
       "date": "2026-08-18",
@@ -66,43 +66,10 @@
       "gameId": "20260819HTHH02026",
       "homeTeam": "한화",
       "awayTeam": "KIA",
-      "homeScore": 2,
-      "awayScore": 6,
-      "status": "live",
-      "period": "9회초"
-    },
-    "2026-08-19|kbo|NC|두산": {
-      "date": "2026-08-19",
-      "categoryId": "kbo",
-      "gameId": "20260819OBNC02026",
-      "homeTeam": "NC",
-      "awayTeam": "두산",
-      "homeScore": 2,
-      "awayScore": 8,
-      "status": "live",
-      "period": "9회말"
-    },
-    "2026-08-19|kbo|삼성|SSG": {
-      "date": "2026-08-19",
-      "categoryId": "kbo",
-      "gameId": "20260819SKSS02026",
-      "homeTeam": "삼성",
-      "awayTeam": "SSG",
-      "homeScore": 18,
-      "awayScore": 2,
-      "status": "live",
-      "period": "9회초"
-    },
-    "2026-08-19|kbo|롯데|키움": {
-      "date": "2026-08-19",
-      "categoryId": "kbo",
-      "gameId": "20260819WOLT02026",
-      "homeTeam": "롯데",
-      "awayTeam": "키움",
       "homeScore": 3,
-      "awayScore": 4,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-19|kbo|LG|KT": {
       "date": "2026-08-19",
@@ -114,6 +81,41 @@
       "awayScore": 0,
       "status": "finished",
       "period": "9회초"
+    },
+    "2026-08-19|kbo|NC|두산": {
+      "date": "2026-08-19",
+      "categoryId": "kbo",
+      "gameId": "20260819OBNC02026",
+      "homeTeam": "NC",
+      "awayTeam": "두산",
+      "homeScore": 2,
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-19|kbo|삼성|SSG": {
+      "date": "2026-08-19",
+      "categoryId": "kbo",
+      "gameId": "20260819SKSS02026",
+      "homeTeam": "삼성",
+      "awayTeam": "SSG",
+      "homeScore": 18,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "McsH0tZoKXU"
+    },
+    "2026-08-19|kbo|롯데|키움": {
+      "date": "2026-08-19",
+      "categoryId": "kbo",
+      "gameId": "20260819WOLT02026",
+      "homeTeam": "롯데",
+      "awayTeam": "키움",
+      "homeScore": 5,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말",
+      "highlightVideoId": "DmiJoYqiAY8"
     },
     "2026-08-20|kbo|한화|KIA": {
       "date": "2026-08-20",
@@ -2452,9 +2454,19 @@
           "minute": 11
         },
         {
+          "team": "home",
+          "player": "이탈로",
+          "minute": 20
+        },
+        {
           "team": "away",
           "player": "최시온",
           "minute": 50
+        },
+        {
+          "team": "home",
+          "player": "한석진",
+          "minute": 65
         }
       ],
       "homePtScore": 3,
@@ -2478,9 +2490,19 @@
           "minute": 11
         },
         {
+          "team": "home",
+          "player": "이탈로",
+          "minute": 20
+        },
+        {
           "team": "away",
           "player": "최시온",
           "minute": 50
+        },
+        {
+          "team": "home",
+          "player": "한석진",
+          "minute": 65
         }
       ],
       "homePtScore": 3,
@@ -2497,6 +2519,11 @@
       "status": "finished",
       "period": "경기종료",
       "goals": [
+        {
+          "team": "away",
+          "player": "이호영",
+          "minute": 12
+        },
         {
           "team": "home",
           "player": "황서웅",
@@ -2589,19 +2616,11 @@
       "awayTeam": "부천",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "연장후반종료"
-    },
-    "2026-08-19|koreacup|강원|성남": {
-      "date": "2026-08-19",
-      "categoryId": "koreacup",
-      "gameId": "I3LjLiAFMzVW351",
-      "homeTeam": "강원",
-      "awayTeam": "성남",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "승부차기"
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "homePtScore": 3,
+      "awayPtScore": 5
     },
     "2026-08-19|koreacup|안양|제주": {
       "date": "2026-08-19",
@@ -2630,6 +2649,20 @@
           "minute": 68
         }
       ]
+    },
+    "2026-08-19|koreacup|강원|성남": {
+      "date": "2026-08-19",
+      "categoryId": "koreacup",
+      "gameId": "I3LjLiAFMzVW351",
+      "homeTeam": "강원",
+      "awayTeam": "성남",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "home",
+      "homePtScore": 4,
+      "awayPtScore": 3
     }
   },
   "results": [
@@ -2698,43 +2731,10 @@
       "gameId": "20260819HTHH02026",
       "homeTeam": "한화",
       "awayTeam": "KIA",
-      "homeScore": 2,
-      "awayScore": 6,
-      "status": "live",
-      "period": "9회초"
-    },
-    {
-      "date": "2026-08-19",
-      "categoryId": "kbo",
-      "gameId": "20260819OBNC02026",
-      "homeTeam": "NC",
-      "awayTeam": "두산",
-      "homeScore": 2,
-      "awayScore": 8,
-      "status": "live",
-      "period": "9회말"
-    },
-    {
-      "date": "2026-08-19",
-      "categoryId": "kbo",
-      "gameId": "20260819SKSS02026",
-      "homeTeam": "삼성",
-      "awayTeam": "SSG",
-      "homeScore": 18,
-      "awayScore": 2,
-      "status": "live",
-      "period": "9회초"
-    },
-    {
-      "date": "2026-08-19",
-      "categoryId": "kbo",
-      "gameId": "20260819WOLT02026",
-      "homeTeam": "롯데",
-      "awayTeam": "키움",
       "homeScore": 3,
-      "awayScore": 4,
-      "status": "live",
-      "period": "8회말"
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-08-19",
@@ -2746,6 +2746,41 @@
       "awayScore": 0,
       "status": "finished",
       "period": "9회초"
+    },
+    {
+      "date": "2026-08-19",
+      "categoryId": "kbo",
+      "gameId": "20260819OBNC02026",
+      "homeTeam": "NC",
+      "awayTeam": "두산",
+      "homeScore": 2,
+      "awayScore": 8,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-19",
+      "categoryId": "kbo",
+      "gameId": "20260819SKSS02026",
+      "homeTeam": "삼성",
+      "awayTeam": "SSG",
+      "homeScore": 18,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "McsH0tZoKXU"
+    },
+    {
+      "date": "2026-08-19",
+      "categoryId": "kbo",
+      "gameId": "20260819WOLT02026",
+      "homeTeam": "롯데",
+      "awayTeam": "키움",
+      "homeScore": 5,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말",
+      "highlightVideoId": "DmiJoYqiAY8"
     },
     {
       "date": "2026-08-20",
@@ -3581,9 +3616,19 @@
           "minute": 11
         },
         {
+          "team": "home",
+          "player": "이탈로",
+          "minute": 20
+        },
+        {
           "team": "away",
           "player": "최시온",
           "minute": 50
+        },
+        {
+          "team": "home",
+          "player": "한석진",
+          "minute": 65
         }
       ],
       "homePtScore": 3,
@@ -3600,6 +3645,11 @@
       "status": "finished",
       "period": "경기종료",
       "goals": [
+        {
+          "team": "away",
+          "player": "이호영",
+          "minute": 12
+        },
         {
           "team": "home",
           "player": "황서웅",
@@ -3692,19 +3742,11 @@
       "awayTeam": "부천",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "연장후반종료"
-    },
-    {
-      "date": "2026-08-19",
-      "categoryId": "koreacup",
-      "gameId": "I3LjLiAFMzVW351",
-      "homeTeam": "강원",
-      "awayTeam": "성남",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "승부차기"
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "homePtScore": 3,
+      "awayPtScore": 5
     },
     {
       "date": "2026-08-19",
@@ -3733,6 +3775,20 @@
           "minute": 68
         }
       ]
+    },
+    {
+      "date": "2026-08-19",
+      "categoryId": "koreacup",
+      "gameId": "I3LjLiAFMzVW351",
+      "homeTeam": "강원",
+      "awayTeam": "성남",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "home",
+      "homePtScore": 4,
+      "awayPtScore": 3
     }
   ]
 }
