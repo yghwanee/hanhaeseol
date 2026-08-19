@@ -26,6 +26,16 @@ const BASE = "https://haeseol.com";
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date(scheduleData.lastUpdated);
 
+  // 🔴 lastmod 는 **미래일 수 없다**. 매치 URL 은 경기일을 lastmod 로 쓰고 있었는데,
+  // 편성이 오늘부터 7일치라 예정 경기 수십 건이 항상 미래 날짜를 주장했다(2026-08-19
+  // 실측 92건, 최대 오늘+6일). Google 은 lastmod 가 부정확하면 사이트맵의 lastmod 를
+  // 통째로 무시한다 — 실제로 GSC 의 "마지막으로 읽은 날짜"가 2026-06-22 에서
+  // 58일째 멈춰 있었고 발견 페이지도 848 로 고정이었다(사이트맵 실제 URL 2,164).
+  //
+  // 예정 경기 페이지의 진짜 갱신 시각은 경기일이 아니라 **편성 데이터가 마지막으로
+  // 바뀐 시각**이다. 그래서 데이터 갱신 시각으로 클램프한다. 과거 경기는 그대로 통과.
+  const clamp = (d: Date) => (d.getTime() > lastModified.getTime() ? lastModified : d);
+
   const leagueUrls = LEAGUE_SEO.map((l) => ({
     url: `${BASE}/league/${l.slug}`,
     lastModified,
@@ -69,14 +79,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     [...data.schedules, ...archive.schedules],
   ).map((t) => ({
     url: `${BASE}/team/${encodeURIComponent(t.slug)}`,
-    lastModified: new Date(),
+    // new Date() 였다. 그러면 팀 86개가 **매 배포마다** "방금 바뀜"을 주장한다.
+    // 실제 갱신원은 편성·순위 데이터라 그 시각을 쓴다.
+    lastModified,
     changeFrequency: "daily" as const,
     priority: 0.8,
   }));
 
   const guideUrls = getAllGuides().map((g) => ({
     url: `${BASE}/guide/${g.slug}`,
-    lastModified: new Date(`${g.updated ?? g.date}T09:00:00+09:00`),
+    lastModified: clamp(new Date(`${g.updated ?? g.date}T09:00:00+09:00`)),
     changeFrequency: "weekly" as const,
     priority: 0.7,
   }));
@@ -112,7 +124,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
         const insight = readInsight(s.id);
         return {
           url: `${BASE}/match/${encodeURIComponent(matchToSlug(s))}`,
-          lastModified: insight ? new Date(insight.generatedAt) : new Date(s.date),
+          lastModified: clamp(
+            insight ? new Date(insight.generatedAt) : new Date(s.date),
+          ),
           changeFrequency: insight ? ("weekly" as const) : ("monthly" as const),
           priority: insight ? 0.8 : 0.7,
         };
