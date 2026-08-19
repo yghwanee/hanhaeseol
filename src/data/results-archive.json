@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-19T20:44:04.443Z",
+  "lastUpdated": "2026-08-19T21:38:13.911Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -29156,7 +29156,8 @@
       "homeScore": 1,
       "awayScore": 0,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "yRyIXCUSNuU"
     },
     "2026-08-19|kbo|한화|KIA": {
       "date": "2026-08-19",
@@ -29611,6 +29612,40 @@
       "awayScore": 4,
       "status": "finished",
       "period": "9회초"
+    },
+    "2026-08-20|mlb|시카고 컵스|시카고 화이트삭스": {
+      "date": "2026-08-20",
+      "categoryId": "mlb",
+      "gameId": "20260820CWCC0",
+      "homeTeam": "시카고 컵스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-20|primera|AT. 마드리드|말라가": {
+      "date": "2026-08-20",
+      "categoryId": "primera",
+      "gameId": "Z5BQDTTiMjv6iBO",
+      "homeTeam": "AT. 마드리드",
+      "awayTeam": "말라가",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이강인",
+          "minute": 70
+        },
+        {
+          "team": "home",
+          "player": "알렉스 바에나",
+          "minute": 85
+        }
+      ]
     }
   },
   "results": [
@@ -58769,7 +58804,8 @@
       "homeScore": 1,
       "awayScore": 0,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "yRyIXCUSNuU"
     },
     {
       "date": "2026-08-19",
@@ -59224,6 +59260,40 @@
       "awayScore": 4,
       "status": "finished",
       "period": "9회초"
+    },
+    {
+      "date": "2026-08-20",
+      "categoryId": "mlb",
+      "gameId": "20260820CWCC0",
+      "homeTeam": "시카고 컵스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-20",
+      "categoryId": "primera",
+      "gameId": "Z5BQDTTiMjv6iBO",
+      "homeTeam": "AT. 마드리드",
+      "awayTeam": "말라가",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이강인",
+          "minute": 70
+        },
+        {
+          "team": "home",
+          "player": "알렉스 바에나",
+          "minute": 85
+        }
+      ]
     }
   ]
 }
