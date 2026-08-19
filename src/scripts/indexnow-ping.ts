@@ -65,6 +65,7 @@ export function buildUrlList(): string[] {
   urls.add(`${BASE}/about`);
   // 한국어 해설 허브 — 네이버에서 CTR 최상위인 "해설" 쿼리군의 착지 페이지.
   urls.add(`${BASE}/commentary`);
+  urls.add(`${BASE}/commentary/stats`);
   for (const s of LEAGUE_SLUGS) urls.add(`${BASE}/league/${s}`);
   for (const s of PLATFORM_SLUGS) urls.add(`${BASE}/platform/${s}`);
   for (const s of STANDINGS_SLUGS) urls.add(`${BASE}/standings/${s}`);

@@ -166,6 +166,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     {
+      // 플랫폼별 한국어 해설 비율 — 우리만 가진 원본 데이터. 인용 대상이라 색인 가치가 높다.
+      url: `${BASE}/commentary/stats`,
+      lastModified,
+      changeFrequency: "weekly",
+      priority: 0.8,
+    },
+    {
       url: `${BASE}/guide`,
       lastModified,
       changeFrequency: "daily",
