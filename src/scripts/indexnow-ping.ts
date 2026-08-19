@@ -1,9 +1,16 @@
+import { pathToFileURL } from "node:url";
 import { getAllGuides } from "@/lib/guides";
 import standingsData from "@/data/standings.json";
 import scheduleData from "@/data/schedule.json";
 import archiveData from "@/data/schedule-archive.json";
+import resultsArchiveData from "@/data/results-archive.json";
 import { buildTeamIndex, eligibleTeams, type StandingsData } from "@/lib/teams";
-import type { ScheduleData } from "@/types/schedule";
+import { matchToSlug } from "@/lib/match-slug";
+import { isRichMatch } from "@/lib/match-quality";
+import { dedupeReversedFixtures } from "@/lib/fixture-dedupe";
+import { getTodayString } from "@/lib/schedule-utils";
+import type { Schedule, ScheduleData } from "@/types/schedule";
+import type { ResultsData } from "@/types/results";
 
 /**
  * IndexNow ping — 검색엔진에 URL 변경을 즉시 통지.
@@ -49,7 +56,7 @@ const STANDINGS_SLUGS = [
   "kbo", "mlb",
 ];
 
-function buildUrlList(): string[] {
+export function buildUrlList(): string[] {
   const urls = new Set<string>();
   urls.add(`${BASE}/`);
   urls.add(`${BASE}/standings`);
@@ -76,6 +83,35 @@ function buildUrlList(): string[] {
   ])) {
     urls.add(`${BASE}/team/${encodeURIComponent(t.slug)}`);
   }
+
+  // 예정 경기 매치 페이지 — 여기서 빠져 있었다(2026-08-19까지).
+  //
+  // 근거: GA4 28일 실측에서 **Bing 171세션 / Google 66세션**으로 빙이 구글의 2.6배다.
+  // 빙은 IndexNow 를 실제로 크롤 신호로 쓰는데, 정작 매일 새로 생기는 URL(매치)이
+  // 통지 목록에 없었다. 구글은 IndexNow 를 안 쓰므로 sitemap 이 계속 담당한다.
+  //
+  // **오늘 이후 경기만** 보낸다. 과거 경기는 URL 이 안 바뀌고 이미 통지된 것이라
+  // 매번 다시 보내면 quota(호스트당 약 10,000/일)만 태우고 신호도 흐려진다.
+  //
+  // 게이트는 sitemap 과 동일해야 한다 — dedupeReversedFixtures → 슬러그 묶기 →
+  // isRichMatch. **존재하지 않거나 noindex 인 URL 을 ping 하면 크롤러가 404·noindex 를
+  // 받고 신뢰도가 깎인다**(팀 페이지에서 이미 지킨 규칙).
+  const today = getTodayString();
+  const bySlug = new Map<string, Schedule>();
+  for (const s of dedupeReversedFixtures([
+    ...(scheduleData as unknown as ScheduleData).schedules,
+    ...(archiveData as unknown as ScheduleData).schedules,
+  ])) {
+    const slug = matchToSlug(s);
+    if (!bySlug.has(slug)) bySlug.set(slug, s);
+  }
+  const resultsArchive = resultsArchiveData as unknown as ResultsData;
+  for (const [slug, s] of bySlug) {
+    if (s.date < today) continue;
+    if (!isRichMatch(s, resultsArchive)) continue;
+    urls.add(`${BASE}/match/${encodeURIComponent(slug)}`);
+  }
+
   return [...urls];
 }
 
@@ -89,6 +125,21 @@ async function main() {
   };
 
   console.log(`[indexnow] ping ${urlList.length} URLs to ${ENDPOINT}`);
+
+  // 목록만 확인하고 실제 통지는 하지 않는다. quota 를 태우지 않고 게이트 변경의
+  // 영향을 재는 용도 — 잘못된 목록을 보내면 되돌릴 방법이 없다.
+  if (process.env.INDEXNOW_DRY_RUN === "1") {
+    const byType = new Map<string, number>();
+    for (const u of urlList) {
+      const seg = u.replace(BASE, "").split("/")[1] || "(root)";
+      byType.set(seg, (byType.get(seg) ?? 0) + 1);
+    }
+    console.log("[indexnow] DRY RUN — 통지하지 않음");
+    for (const [k, v] of [...byType].sort((a, b) => b[1] - a[1])) {
+      console.log(`  ${k}: ${v}`);
+    }
+    return;
+  }
 
   const res = await fetch(ENDPOINT, {
     method: "POST",
@@ -113,7 +164,12 @@ async function main() {
   process.exit(1);
 }
 
-main().catch((err) => {
-  console.error("[indexnow] exception", err);
-  process.exit(1);
-});
+// 🔴 직접 실행일 때만 통지한다. top-level 에서 무조건 main() 을 부르면 이 파일을
+// import 하는 것만으로 ping 이 나간다 — 가드 테스트를 붙이자마자 실제로 통지가
+// 나갔고, 그대로 뒀으면 CI 가 커밋마다 검색엔진을 때렸을 자리다.
+if (import.meta.url === pathToFileURL(process.argv[1] ?? "").href) {
+  main().catch((err) => {
+    console.error("[indexnow] exception", err);
+    process.exit(1);
+  });
+}
