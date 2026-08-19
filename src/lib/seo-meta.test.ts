@@ -1,6 +1,8 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { readFileSync } from "node:fs";
+import { LEAGUE_SEO, PLATFORM_SEO } from "@/lib/slugs";
+import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
 import { join } from "node:path";
 import {
   DESCRIPTION_MAX,
@@ -248,3 +250,61 @@ test("홈 메타는 네이버 상한(제목 40자·설명 80자) 안에 있다",
     );
   }
 });
+
+/**
+ * 허브 페이지(리그·플랫폼·순위) 제목 가드.
+ *
+ * 네이버 30일 실측(2026-08-19)에서 나온 두 가지를 고정한다.
+ *
+ * 1) **40자 상한.** 네이버는 제목을 40자에서 자른다. 실측 시점에 리그 3개·순위 1개·
+ *    플랫폼 9개가 41~44자였고, 잘리는 자리가 하필 브랜드(`| 한해설`)였다.
+ *
+ * 2) **"해설"을 앞으로.** 같은 채널인데 `kbs n sports 해설` 2,918노출 CTR 7.3% ↔
+ *    `kbs n sports 편성표` 3,288노출 CTR 0.7% 로 10배 차이다. "해설" 쿼리는 우리가
+ *    이기고 "편성표" 쿼리는 공식 채널 사이트에 밀린다(`spotv 편성표` 30,762노출
+ *    CTR 0.1%). 그래서 플랫폼 제목은 채널명 바로 뒤에 "해설"이 와야 한다.
+ *
+ * 🔴 Apple TV+ 는 **현지 해설만** 제공한다. 여기에 "한국어 해설"을 넣으면 거짓이
+ *    되므로 예외다 — 예외를 늘릴 때는 그 플랫폼이 실제로 한국어 해설을 안 하는지
+ *    먼저 확인할 것.
+ */
+{
+  /** 한국어 해설을 제공하지 않아 "해설" 을 앞세울 수 없는 플랫폼. */
+  const LOCAL_COMMENTARY_ONLY = new Set(["apple-tv"]);
+
+  test("허브 제목이 네이버 상한 40자 안에 있다", () => {
+    const over = [...LEAGUE_SEO, ...PLATFORM_SEO, ...STANDINGS_LEAGUES]
+      .map((m) => m.title)
+      .filter((t) => t.length > 40);
+    assert.deepEqual(
+      over,
+      [],
+      `40자 초과 ${over.length}건: ${over.map((t) => `${t.length}자 ${t}`).join(" / ")}`,
+    );
+  });
+
+  test("플랫폼 제목은 '해설' 을 앞쪽에 둔다", () => {
+    const bad = PLATFORM_SEO.filter((p) => !LOCAL_COMMENTARY_ONLY.has(p.slug)).filter(
+      (p) => {
+        const i = p.title.indexOf("해설");
+        return i < 0 || i > 25;
+      },
+    );
+    assert.deepEqual(
+      bad.map((p) => `${p.slug}: ${p.title}`),
+      [],
+      "플랫폼 제목에서 '해설' 이 앞 25자 밖이거나 없다",
+    );
+  });
+
+  test("현지 해설만 제공하는 플랫폼은 '한국어 해설' 을 주장하지 않는다", () => {
+    for (const slug of LOCAL_COMMENTARY_ONLY) {
+      const p = PLATFORM_SEO.find((x) => x.slug === slug);
+      assert.ok(p, `${slug} 이 PLATFORM_SEO 에 없다 — 가드가 깨진 것`);
+      assert.ok(
+        !p!.title.includes("한국어 해설"),
+        `${slug} 제목이 한국어 해설을 주장한다: ${p!.title}`,
+      );
+    }
+  });
+}

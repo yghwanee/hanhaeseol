@@ -120,7 +120,7 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
     short: "리그앙",
     seasonLabel: "2025-26",
     scheduleSlug: "ligue1",
-    title: "리그앙 순위 - 프랑스 1부(리그 1) 팀 순위표 2025-26 | 한해설",
+    title: "리그앙 순위 - 프랑스 1부 팀 순위표 2025-26 | 한해설",
     description:
       "2025-26 프랑스 리그 1(리그앙) 팀 순위. PSG(이강인)·마르세유·모나코 등 승점·득실·연속 결과를 한눈에.",
     keywords: [

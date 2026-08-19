@@ -95,7 +95,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
 
       <div className="mt-4 sm:mt-6 mb-6">
         <h1 className="text-xl sm:text-2xl font-bold text-white">
-          {meta.display} {kind === "league" ? "중계 편성표" : "편성표"}
+          {meta.h1 ?? `${meta.display} ${kind === "league" ? "중계 편성표" : "편성표"}`}
         </h1>
         <p className="mt-2 text-sm text-zinc-400 leading-relaxed">{meta.intro}</p>
       </div>
