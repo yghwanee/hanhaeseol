@@ -9,6 +9,7 @@ import { matchToSlug } from "@/lib/match-slug";
 import { isRichMatch } from "@/lib/match-quality";
 import { dedupeReversedFixtures } from "@/lib/fixture-dedupe";
 import { getTodayString } from "@/lib/schedule-utils";
+import { eligibleSports } from "@/lib/sport-seo";
 import type { Schedule, ScheduleData } from "@/types/schedule";
 import type { ResultsData } from "@/types/results";
 
@@ -67,6 +68,11 @@ export function buildUrlList(): string[] {
   for (const s of LEAGUE_SLUGS) urls.add(`${BASE}/league/${s}`);
   for (const s of PLATFORM_SLUGS) urls.add(`${BASE}/platform/${s}`);
   for (const s of STANDINGS_SLUGS) urls.add(`${BASE}/standings/${s}`);
+  // 종목 허브 — 게이트는 sitemap·페이지와 동일(eligibleSports).
+  for (const s of eligibleSports((scheduleData as unknown as ScheduleData).schedules, getTodayString())) {
+    urls.add(`${BASE}/sport/${s.slug}`);
+  }
+
   // 가이드(한해설 Topic) — 새 글 빠른 색인용. 수가 적어 quota 영향 없음.
   urls.add(`${BASE}/guide`);
   for (const g of getAllGuides()) urls.add(`${BASE}/guide/${g.slug}`);

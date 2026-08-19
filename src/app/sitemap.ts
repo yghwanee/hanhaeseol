@@ -15,6 +15,8 @@ import { buildTeamIndex, eligibleTeams, type StandingsData } from "@/lib/teams";
 import type { Schedule, ScheduleData } from "@/types/schedule";
 import type { ResultsData } from "@/types/results";
 import { dedupeReversedFixtures } from "@/lib/fixture-dedupe";
+import { eligibleSports } from "@/lib/sport-seo";
+import { getTodayString } from "@/lib/schedule-utils";
 
 const data = scheduleData as unknown as ScheduleData;
 const archive = archiveData as unknown as ScheduleData;
@@ -84,6 +86,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
     lastModified,
     changeFrequency: "daily" as const,
     priority: 0.8,
+  }));
+
+  // 종목 허브. 게이트는 페이지의 generateStaticParams 와 **같은 함수**여야 한다 —
+  // 어긋나면 사이트맵이 없는 URL 을 올리거나(404) 있는 URL 을 빠뜨린다.
+  const sportUrls = eligibleSports(data.schedules, getTodayString()).map((s) => ({
+    url: `${BASE}/sport/${s.slug}`,
+    lastModified,
+    changeFrequency: "daily" as const,
+    priority: 0.85,
   }));
 
   const guideUrls = getAllGuides().map((g) => ({
@@ -160,6 +171,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.8,
     },
+    ...sportUrls,
     ...guideUrls,
     ...teamUrls,
     ...standingsLeagueUrls,

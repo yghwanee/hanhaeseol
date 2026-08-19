@@ -77,7 +77,8 @@
     "test:deploy-budget": "tsx --test src/lib/deploy-budget.test.ts",
     "test:sitemap-lastmod": "tsx --test src/lib/sitemap-lastmod.test.ts",
     "test:indexnow-coverage": "tsx --test src/lib/indexnow-coverage.test.ts",
-    "test:team-description": "tsx --test src/lib/team-description.test.ts"
+    "test:team-description": "tsx --test src/lib/team-description.test.ts",
+    "test:sport-seo": "tsx --test src/lib/sport-seo.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

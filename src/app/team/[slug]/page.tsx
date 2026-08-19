@@ -3,6 +3,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import standingsData from "@/data/standings.json";
 import { withJosa } from "@/lib/josa";
+import { PlatformBreakdown } from "@/app/_components/PlatformBreakdown";
 import archiveData from "@/data/schedule-archive.json";
 import { loadScheduleData, loadResults, loadResultsArchive, loadTeamRecords } from "@/lib/server-data";
 import { ScheduleCard } from "@/app/_components/ScheduleCard";
@@ -369,27 +370,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
               </div>
             )}
 
-            {breakdown.length > 0 && (
-              <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4">
-                <h2 className="text-sm font-semibold text-white">중계 플랫폼별 경기 수</h2>
-                <ul className="mt-2 space-y-1.5">
-                  {breakdown.slice(0, 5).map((b) => (
-                    <li key={b.platform} className="flex items-center gap-2 text-sm">
-                      <span className="w-28 shrink-0 truncate text-zinc-300">{b.platform}</span>
-                      <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-800">
-                        <span
-                          className="block h-full rounded-full bg-emerald-600/70"
-                          style={{ width: `${Math.round((b.count / breakdown[0].count) * 100)}%` }}
-                        />
-                      </span>
-                      <span className="w-10 shrink-0 text-right tabular-nums text-zinc-400">
-                        {b.count}
-                      </span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
+            <PlatformBreakdown items={breakdown} />
           </section>
         )}
 

@@ -5,6 +5,8 @@ import { MatchResult, ResultsData } from "@/types/results";
 import { lookupTeamRecord } from "@/lib/team-records/lookup";
 import { findResult } from "@/lib/results/lookup";
 import { LEAGUE_SEO, PLATFORM_SEO, SeoMeta } from "@/lib/slugs";
+import { SPORT_SEO, leaguesOfSport, eligibleSports } from "@/lib/sport-seo";
+import { getTodayString } from "@/lib/schedule-utils";
 import { isGameFinished, formatDateHeader } from "@/lib/schedule-utils";
 import { AdfitBanner } from "@/app/_components/AdfitBanner";
 import { SiteHeader } from "@/app/_components/SiteHeader";
@@ -42,7 +44,7 @@ function hasScores(r?: MatchResult): r is MatchResult & { homeScore: number; awa
 
 type Props = {
   meta: SeoMeta;
-  kind: "league" | "platform";
+  kind: "league" | "platform" | "sport";
   schedules: Schedule[];
   teamRecords?: TeamRecordsMap;
   results?: ResultsData | null;
@@ -52,8 +54,11 @@ type Props = {
 };
 
 export default function FilteredScheduleView({ meta, kind, schedules, teamRecords = {}, results = null, guideSlot, highlightsSlot, faqSlot }: Props) {
+  // meta.match 는 kind 에 따라 리그명 / 플랫폼명 / 종목명을 담는다.
   const matched = schedules
-    .filter((s) => meta.match.includes(kind === "league" ? s.league : s.platform))
+    .filter((s) =>
+      meta.match.includes(kind === "league" ? s.league : kind === "platform" ? s.platform : s.sport),
+    )
     .sort((a, b) => (a.date === b.date ? a.time.localeCompare(b.time) : a.date.localeCompare(b.date)));
 
   // 한 경기가 여러 채널에 걸리면 편성 데이터에 행이 여러 개 있다. 리그 페이지는 채널 필터가
@@ -87,7 +92,22 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
   );
   const dates = Object.keys(grouped).sort();
 
-  const related = kind === "league" ? LEAGUE_SEO : PLATFORM_SEO;
+  const related =
+    kind === "league" ? LEAGUE_SEO : kind === "platform" ? PLATFORM_SEO : SPORT_SEO;
+
+  // 종목 페이지는 "그 종목의 리그" 를 내려보낸다 — 축구 페이지에 KBO 를 걸면
+  // 없는 경기를 약속하는 셈이다. 리그·플랫폼 페이지는 종전대로 서로를 가리킨다.
+  const crossKind = kind === "league" ? "platform" : "league";
+  const crossList =
+    kind === "league" ? PLATFORM_SEO : kind === "platform" ? LEAGUE_SEO : leaguesOfSport(meta);
+  const crossLabel =
+    kind === "league" ? "플랫폼별" : kind === "platform" ? "리그별" : `${meta.display} 리그별`;
+
+  // 종목 페이지가 고아로 태어나지 않게 리그·플랫폼 페이지에서 링크한다.
+  // 🔴 게이트는 sitemap·generateStaticParams 와 같은 `eligibleSports` 다 —
+  //    없는 페이지로 링크를 뿌리면 404 를 양산한다(팀 페이지에서 지킨 규칙).
+  //    푸터에는 넣지 않는다: 전역 푸터면 매치 1,600여 장에 전부 실린다(작업74).
+  const sportLinks = kind === "sport" ? [] : eligibleSports(schedules, getTodayString());
 
   return (
     <main className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12">
@@ -95,7 +115,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
 
       <div className="mt-4 sm:mt-6 mb-6">
         <h1 className="text-xl sm:text-2xl font-bold text-white">
-          {meta.h1 ?? `${meta.display} ${kind === "league" ? "중계 편성표" : "편성표"}`}
+          {meta.h1 ?? `${meta.display} ${kind === "platform" ? "편성표" : "중계 편성표"}`}
         </h1>
         <p className="mt-2 text-sm text-zinc-400 leading-relaxed">{meta.intro}</p>
       </div>
@@ -203,7 +223,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
       <section className="mb-8 space-y-4">
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
           <h2 className="mb-3 text-sm font-semibold text-zinc-200">
-            다른 {kind === "league" ? "리그" : "플랫폼"} 보기
+            다른 {kind === "league" ? "리그" : kind === "platform" ? "플랫폼" : "종목"} 보기
           </h2>
           <div className="flex flex-wrap gap-1.5">
             {related
@@ -222,13 +242,13 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
 
         <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
           <h2 className="mb-3 text-sm font-semibold text-zinc-200">
-            {kind === "league" ? "플랫폼별" : "리그별"} 편성표 보기
+            {crossLabel} 편성표 보기
           </h2>
           <div className="flex flex-wrap gap-1.5">
-            {(kind === "league" ? PLATFORM_SEO : LEAGUE_SEO).map((r) => (
+            {crossList.map((r) => (
               <Link
                 key={r.slug}
-                href={`/${kind === "league" ? "platform" : "league"}/${r.slug}`}
+                href={`/${crossKind}/${r.slug}`}
                 className="inline-flex items-center rounded-lg border border-zinc-700 bg-zinc-800/60 px-2.5 py-1 text-xs text-zinc-300 hover:bg-zinc-700/60 hover:text-white"
               >
                 {r.display}
@@ -236,6 +256,22 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
             ))}
           </div>
         </div>
+        {sportLinks.length > 0 && (
+          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
+            <h2 className="mb-3 text-sm font-semibold text-zinc-200">종목별 편성표 보기</h2>
+            <div className="flex flex-wrap gap-1.5">
+              {sportLinks.map((r) => (
+                <Link
+                  key={r.slug}
+                  href={`/sport/${r.slug}`}
+                  className="inline-flex items-center rounded-lg border border-zinc-700 bg-zinc-800/60 px-2.5 py-1 text-xs text-zinc-300 hover:bg-zinc-700/60 hover:text-white"
+                >
+                  {r.display} 중계 편성표
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </section>
 
     </main>
