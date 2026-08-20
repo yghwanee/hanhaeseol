@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-20T03:57:23.623Z",
+  "lastUpdated": "2026-08-20T04:51:35.106Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -29734,6 +29734,17 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-08-20|mlb|콜로라도 로키스|LA 다저스": {
+      "date": "2026-08-20",
+      "categoryId": "mlb",
+      "gameId": "20260820LACO0",
+      "homeTeam": "콜로라도 로키스",
+      "awayTeam": "LA 다저스",
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "10회말"
+    },
     "2026-08-20|mls|FC 신시내티|뉴욕 시티 FC": {
       "date": "2026-08-20",
       "categoryId": "mls",
@@ -30087,6 +30098,76 @@
           "team": "home",
           "player": "호킨스",
           "minute": 90
+        }
+      ]
+    },
+    "2026-08-20|mls|포틀랜드|샌디에고": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "65xXG4FVezOIWi9",
+      "homeTeam": "포틀랜드",
+      "awayTeam": "샌디에고",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "벨데",
+          "minute": 29
+        },
+        {
+          "team": "away",
+          "player": "가브리엘 피라니",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "라시터",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "다비드 페레이라 다 코스타",
+          "minute": 68
+        }
+      ]
+    },
+    "2026-08-20|mls|LA 갤럭시|산호세 어스퀘이크스": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "dPYHVvt64A6y4ga",
+      "homeTeam": "LA 갤럭시",
+      "awayTeam": "산호세 어스퀘이크스",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "페인트실",
+          "minute": 79
+        }
+      ]
+    },
+    "2026-08-20|mls|밴쿠버 화이트캡스 FC|휴스턴 다이너모 FC": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "lKVFee7kzmaX1JS",
+      "homeTeam": "밴쿠버 화이트캡스 FC",
+      "awayTeam": "휴스턴 다이너모 FC",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "네그리",
+          "minute": 34
         }
       ]
     },
@@ -59850,6 +59931,17 @@
     },
     {
       "date": "2026-08-20",
+      "categoryId": "mlb",
+      "gameId": "20260820LACO0",
+      "homeTeam": "콜로라도 로키스",
+      "awayTeam": "LA 다저스",
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "10회말"
+    },
+    {
+      "date": "2026-08-20",
       "categoryId": "mls",
       "gameId": "FmyVTjf1cPx332D",
       "homeTeam": "FC 신시내티",
@@ -60201,6 +60293,76 @@
           "team": "home",
           "player": "호킨스",
           "minute": 90
+        }
+      ]
+    },
+    {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "65xXG4FVezOIWi9",
+      "homeTeam": "포틀랜드",
+      "awayTeam": "샌디에고",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "벨데",
+          "minute": 29
+        },
+        {
+          "team": "away",
+          "player": "가브리엘 피라니",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "라시터",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "다비드 페레이라 다 코스타",
+          "minute": 68
+        }
+      ]
+    },
+    {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "dPYHVvt64A6y4ga",
+      "homeTeam": "LA 갤럭시",
+      "awayTeam": "산호세 어스퀘이크스",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "페인트실",
+          "minute": 79
+        }
+      ]
+    },
+    {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "lKVFee7kzmaX1JS",
+      "homeTeam": "밴쿠버 화이트캡스 FC",
+      "awayTeam": "휴스턴 다이너모 FC",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "네그리",
+          "minute": 34
         }
       ]
     },

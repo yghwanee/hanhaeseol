@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-20T03:57:21.935Z",
+  "lastUpdated": "2026-08-20T04:51:33.541Z",
   "byKey": {
     "2026-08-19|kbo|한화|KIA": {
       "date": "2026-08-19",
@@ -1409,7 +1409,7 @@
       "awayTeam": "LA 다저스",
       "homeScore": 4,
       "awayScore": 6,
-      "status": "live",
+      "status": "finished",
       "period": "10회말"
     },
     "2026-08-20|mlb|콜로라도|LA 다저스": {
@@ -1420,7 +1420,7 @@
       "awayTeam": "LA 다저스",
       "homeScore": 4,
       "awayScore": 6,
-      "status": "live",
+      "status": "finished",
       "period": "10회말"
     },
     "2026-08-20|mlb|콜로라도 로키스|LA다저스": {
@@ -1431,7 +1431,7 @@
       "awayTeam": "LA 다저스",
       "homeScore": 4,
       "awayScore": 6,
-      "status": "live",
+      "status": "finished",
       "period": "10회말"
     },
     "2026-08-20|mlb|콜로라도 로키스|LA 다저스": {
@@ -1442,7 +1442,7 @@
       "awayTeam": "LA 다저스",
       "homeScore": 4,
       "awayScore": 6,
-      "status": "live",
+      "status": "finished",
       "period": "10회말"
     },
     "2026-08-21|mlb|신시내티|세인트루이스": {
@@ -2775,10 +2775,10 @@
       "gameId": "65xXG4FVezOIWi9",
       "homeTeam": "포틀랜드",
       "awayTeam": "샌디에고",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 12'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2795,6 +2795,11 @@
           "team": "home",
           "player": "라시터",
           "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "다비드 페레이라 다 코스타",
+          "minute": 68
         }
       ]
     },
@@ -2804,10 +2809,17 @@
       "gameId": "dPYHVvt64A6y4ga",
       "homeTeam": "LA 갤럭시",
       "awayTeam": "산호세 어스퀘이크스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 13'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "페인트실",
+          "minute": 79
+        }
+      ]
     },
     "2026-08-20|mls|갤럭시|산호세 어스퀘이크스": {
       "date": "2026-08-20",
@@ -2815,10 +2827,17 @@
       "gameId": "dPYHVvt64A6y4ga",
       "homeTeam": "LA 갤럭시",
       "awayTeam": "산호세 어스퀘이크스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 13'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "페인트실",
+          "minute": 79
+        }
+      ]
     },
     "2026-08-20|mls|LA 갤럭시|어스퀘이크": {
       "date": "2026-08-20",
@@ -2826,10 +2845,17 @@
       "gameId": "dPYHVvt64A6y4ga",
       "homeTeam": "LA 갤럭시",
       "awayTeam": "산호세 어스퀘이크스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 13'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "페인트실",
+          "minute": 79
+        }
+      ]
     },
     "2026-08-20|mls|LA 갤럭시|산호세 어스퀘이크스": {
       "date": "2026-08-20",
@@ -2837,10 +2863,17 @@
       "gameId": "dPYHVvt64A6y4ga",
       "homeTeam": "LA 갤럭시",
       "awayTeam": "산호세 어스퀘이크스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 13'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "페인트실",
+          "minute": 79
+        }
+      ]
     },
     "2026-08-20|mls|화이트캡스|휴스턴": {
       "date": "2026-08-20",
@@ -2850,8 +2883,8 @@
       "awayTeam": "휴스턴 다이너모 FC",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 12'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2868,8 +2901,8 @@
       "awayTeam": "휴스턴 다이너모 FC",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 12'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2886,8 +2919,8 @@
       "awayTeam": "휴스턴 다이너모 FC",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 12'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2904,8 +2937,8 @@
       "awayTeam": "휴스턴 다이너모 FC",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 12'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -3700,7 +3733,7 @@
       "awayTeam": "LA 다저스",
       "homeScore": 4,
       "awayScore": 6,
-      "status": "live",
+      "status": "finished",
       "period": "10회말"
     },
     {
@@ -4189,10 +4222,10 @@
       "gameId": "65xXG4FVezOIWi9",
       "homeTeam": "포틀랜드",
       "awayTeam": "샌디에고",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 12'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -4209,6 +4242,11 @@
           "team": "home",
           "player": "라시터",
           "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "다비드 페레이라 다 코스타",
+          "minute": 68
         }
       ]
     },
@@ -4218,10 +4256,17 @@
       "gameId": "dPYHVvt64A6y4ga",
       "homeTeam": "LA 갤럭시",
       "awayTeam": "산호세 어스퀘이크스",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 13'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "페인트실",
+          "minute": 79
+        }
+      ]
     },
     {
       "date": "2026-08-20",
@@ -4231,8 +4276,8 @@
       "awayTeam": "휴스턴 다이너모 FC",
       "homeScore": 0,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 12'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
