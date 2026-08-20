@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-20T01:50:04.021Z",
+  "lastUpdated": "2026-08-20T03:09:14.827Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -29679,6 +29679,50 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-08-20|mlb|볼티모어 오리올스|뉴욕 양키스": {
+      "date": "2026-08-20",
+      "categoryId": "mlb",
+      "gameId": "20260820NYBA0",
+      "homeTeam": "볼티모어 오리올스",
+      "awayTeam": "뉴욕 양키스",
+      "homeScore": 3,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-20|mlb|캔자스시티 로열스|애슬레틱스": {
+      "date": "2026-08-20",
+      "categoryId": "mlb",
+      "gameId": "20260820OAKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 9,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-08-20|mlb|밀워키 브루어스|시애틀 매리너스": {
+      "date": "2026-08-20",
+      "categoryId": "mlb",
+      "gameId": "20260820SEMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "시애틀 매리너스",
+      "homeScore": 5,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-20|mlb|텍사스 레인저스|워싱턴 내셔널스": {
+      "date": "2026-08-20",
+      "categoryId": "mlb",
+      "gameId": "20260820MOTE0",
+      "homeTeam": "텍사스 레인저스",
+      "awayTeam": "워싱턴 내셔널스",
+      "homeScore": 0,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-08-20|mls|FC 신시내티|뉴욕 시티 FC": {
       "date": "2026-08-20",
       "categoryId": "mls",
@@ -29857,6 +29901,58 @@
           "team": "home",
           "player": "도어쉬",
           "minute": 90
+        }
+      ]
+    },
+    "2026-08-20|mls|스포팅 캔자스시티|세인트루이스": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "CY0gnPtByV2rGQe",
+      "homeTeam": "스포팅 캔자스시티",
+      "awayTeam": "세인트루이스",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "뢰벤",
+          "minute": 45,
+          "addedTime": 2
+        },
+        {
+          "team": "home",
+          "player": "해리스",
+          "minute": 55
+        }
+      ]
+    },
+    "2026-08-20|mls|미네소타|애틀란타": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "v3T0A6XsEQU7OMm",
+      "homeTeam": "미네소타",
+      "awayTeam": "애틀란타",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "자콥",
+          "minute": 37
+        },
+        {
+          "team": "home",
+          "player": "매르카니치",
+          "minute": 58
+        },
+        {
+          "team": "away",
+          "player": "무윰바",
+          "minute": 78
         }
       ]
     },
@@ -59565,6 +59661,50 @@
     },
     {
       "date": "2026-08-20",
+      "categoryId": "mlb",
+      "gameId": "20260820NYBA0",
+      "homeTeam": "볼티모어 오리올스",
+      "awayTeam": "뉴욕 양키스",
+      "homeScore": 3,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-20",
+      "categoryId": "mlb",
+      "gameId": "20260820OAKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 9,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-20",
+      "categoryId": "mlb",
+      "gameId": "20260820SEMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "시애틀 매리너스",
+      "homeScore": 5,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-20",
+      "categoryId": "mlb",
+      "gameId": "20260820MOTE0",
+      "homeTeam": "텍사스 레인저스",
+      "awayTeam": "워싱턴 내셔널스",
+      "homeScore": 0,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-20",
       "categoryId": "mls",
       "gameId": "FmyVTjf1cPx332D",
       "homeTeam": "FC 신시내티",
@@ -59741,6 +59881,58 @@
           "team": "home",
           "player": "도어쉬",
           "minute": 90
+        }
+      ]
+    },
+    {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "CY0gnPtByV2rGQe",
+      "homeTeam": "스포팅 캔자스시티",
+      "awayTeam": "세인트루이스",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "뢰벤",
+          "minute": 45,
+          "addedTime": 2
+        },
+        {
+          "team": "home",
+          "player": "해리스",
+          "minute": 55
+        }
+      ]
+    },
+    {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "v3T0A6XsEQU7OMm",
+      "homeTeam": "미네소타",
+      "awayTeam": "애틀란타",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "자콥",
+          "minute": 37
+        },
+        {
+          "team": "home",
+          "player": "매르카니치",
+          "minute": 58
+        },
+        {
+          "team": "away",
+          "player": "무윰바",
+          "minute": 78
         }
       ]
     },
