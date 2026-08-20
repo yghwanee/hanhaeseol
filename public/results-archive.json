@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-20T20:44:40.716Z",
+  "lastUpdated": "2026-08-20T21:42:12.502Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -30300,6 +30300,51 @@
       "awayScore": 2,
       "status": "finished",
       "period": "9회말"
+    },
+    "2026-08-21|mlb|캔자스시티 로열스|애슬레틱스": {
+      "date": "2026-08-21",
+      "categoryId": "mlb",
+      "gameId": "20260821OAKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 6,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-08-21|mlb|밀워키 브루어스|시애틀 매리너스": {
+      "date": "2026-08-21",
+      "categoryId": "mlb",
+      "gameId": "20260821SEMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "시애틀 매리너스",
+      "homeScore": 7,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-08-21|primera|라요 바예카노|알라베스": {
+      "date": "2026-08-21",
+      "categoryId": "primera",
+      "gameId": "IUpVGbjAIk4QNNX",
+      "homeTeam": "라요 바예카노",
+      "awayTeam": "알라베스",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "세르히오 카메요",
+          "minute": 48
+        },
+        {
+          "team": "away",
+          "player": "마리아노 디아스",
+          "minute": 84
+        }
+      ]
     }
   },
   "results": [
@@ -60602,6 +60647,51 @@
       "awayScore": 2,
       "status": "finished",
       "period": "9회말"
+    },
+    {
+      "date": "2026-08-21",
+      "categoryId": "mlb",
+      "gameId": "20260821OAKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 6,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-21",
+      "categoryId": "mlb",
+      "gameId": "20260821SEMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "시애틀 매리너스",
+      "homeScore": 7,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-21",
+      "categoryId": "primera",
+      "gameId": "IUpVGbjAIk4QNNX",
+      "homeTeam": "라요 바예카노",
+      "awayTeam": "알라베스",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "세르히오 카메요",
+          "minute": 48
+        },
+        {
+          "team": "away",
+          "player": "마리아노 디아스",
+          "minute": 84
+        }
+      ]
     }
   ]
 }
