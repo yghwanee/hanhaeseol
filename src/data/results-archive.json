@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-20T03:09:14.827Z",
+  "lastUpdated": "2026-08-20T03:57:23.623Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -29723,6 +29723,17 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-08-20|mlb|휴스턴 애스트로스|LA 에인절스": {
+      "date": "2026-08-20",
+      "categoryId": "mlb",
+      "gameId": "20260820ANHO0",
+      "homeTeam": "휴스턴 애스트로스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-08-20|mls|FC 신시내티|뉴욕 시티 FC": {
       "date": "2026-08-20",
       "categoryId": "mls",
@@ -29953,6 +29964,129 @@
           "team": "away",
           "player": "무윰바",
           "minute": 78
+        }
+      ]
+    },
+    "2026-08-20|mls|올랜도 시티 SC|시카고 파이어 FC": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "6U5yPvQKSEnDykT",
+      "homeTeam": "올랜도 시티 SC",
+      "awayTeam": "시카고 파이어 FC",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "디테하네",
+          "minute": 4
+        },
+        {
+          "team": "home",
+          "player": "브레칼로",
+          "minute": 52
+        },
+        {
+          "team": "away",
+          "player": "레반도프스키",
+          "minute": 69
+        }
+      ]
+    },
+    "2026-08-20|mls|레알 솔트레이크|댈러스": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "8y9GE0HnudWx7ZG",
+      "homeTeam": "레알 솔트레이크",
+      "awayTeam": "댈러스",
+      "homeScore": 3,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "발리엔테",
+          "minute": 16
+        },
+        {
+          "team": "away",
+          "player": "무사",
+          "minute": 20
+        },
+        {
+          "team": "home",
+          "player": "세르지 솔란스",
+          "minute": 38
+        },
+        {
+          "team": "away",
+          "player": "무사",
+          "minute": 45
+        },
+        {
+          "team": "home",
+          "player": "길라보기",
+          "minute": 50
+        },
+        {
+          "team": "home",
+          "player": "루나",
+          "minute": 64
+        },
+        {
+          "team": "away",
+          "player": "비냐민",
+          "minute": 90
+        }
+      ]
+    },
+    "2026-08-20|mls|콜로라도|로스앤젤레스 FC": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "eooG3P2KIgUOgX9",
+      "homeTeam": "콜로라도",
+      "awayTeam": "로스앤젤레스 FC",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "에보비세",
+          "minute": 22,
+          "ownGoal": true
+        }
+      ]
+    },
+    "2026-08-20|mls|시애틀 사운더스 FC|오스틴": {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "loSX3gUqPR9s36C",
+      "homeTeam": "시애틀 사운더스 FC",
+      "awayTeam": "오스틴",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "토레스",
+          "minute": 66
+        },
+        {
+          "team": "away",
+          "player": "길례르미 비로",
+          "minute": 87
+        },
+        {
+          "team": "home",
+          "player": "호킨스",
+          "minute": 90
         }
       ]
     },
@@ -59705,6 +59839,17 @@
     },
     {
       "date": "2026-08-20",
+      "categoryId": "mlb",
+      "gameId": "20260820ANHO0",
+      "homeTeam": "휴스턴 애스트로스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-20",
       "categoryId": "mls",
       "gameId": "FmyVTjf1cPx332D",
       "homeTeam": "FC 신시내티",
@@ -59933,6 +60078,129 @@
           "team": "away",
           "player": "무윰바",
           "minute": 78
+        }
+      ]
+    },
+    {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "6U5yPvQKSEnDykT",
+      "homeTeam": "올랜도 시티 SC",
+      "awayTeam": "시카고 파이어 FC",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "디테하네",
+          "minute": 4
+        },
+        {
+          "team": "home",
+          "player": "브레칼로",
+          "minute": 52
+        },
+        {
+          "team": "away",
+          "player": "레반도프스키",
+          "minute": 69
+        }
+      ]
+    },
+    {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "8y9GE0HnudWx7ZG",
+      "homeTeam": "레알 솔트레이크",
+      "awayTeam": "댈러스",
+      "homeScore": 3,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "발리엔테",
+          "minute": 16
+        },
+        {
+          "team": "away",
+          "player": "무사",
+          "minute": 20
+        },
+        {
+          "team": "home",
+          "player": "세르지 솔란스",
+          "minute": 38
+        },
+        {
+          "team": "away",
+          "player": "무사",
+          "minute": 45
+        },
+        {
+          "team": "home",
+          "player": "길라보기",
+          "minute": 50
+        },
+        {
+          "team": "home",
+          "player": "루나",
+          "minute": 64
+        },
+        {
+          "team": "away",
+          "player": "비냐민",
+          "minute": 90
+        }
+      ]
+    },
+    {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "eooG3P2KIgUOgX9",
+      "homeTeam": "콜로라도",
+      "awayTeam": "로스앤젤레스 FC",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "에보비세",
+          "minute": 22,
+          "ownGoal": true
+        }
+      ]
+    },
+    {
+      "date": "2026-08-20",
+      "categoryId": "mls",
+      "gameId": "loSX3gUqPR9s36C",
+      "homeTeam": "시애틀 사운더스 FC",
+      "awayTeam": "오스틴",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "토레스",
+          "minute": 66
+        },
+        {
+          "team": "away",
+          "player": "길례르미 비로",
+          "minute": 87
+        },
+        {
+          "team": "home",
+          "player": "호킨스",
+          "minute": 90
         }
       ]
     },
