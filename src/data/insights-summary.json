@@ -1,11 +1,13 @@
 {
-  "created": 19,
-  "skipped": 82,
+  "created": 12,
+  "skipped": 91,
   "skipReasons": {
-    "already-exists": 65,
+    "already-exists": 58,
     "betting-terms-detected": 1,
-    "gemini-429": 16
+    "unexpected-This operation was aborted": 3,
+    "gemini-err": 1,
+    "gemini-429": 28
   },
-  "targets": 101,
-  "timestamp": "2026-08-21T19:54:06.813Z"
+  "targets": 103,
+  "timestamp": "2026-08-22T20:06:10.397Z"
 }
