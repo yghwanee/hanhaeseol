@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-22T14:36:35.631Z",
+  "lastUpdated": "2026-08-22T14:57:43.099Z",
   "byKey": {
     "2026-08-21|kbo|키움|KIA": {
       "date": "2026-08-21",
@@ -1853,7 +1853,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 36'"
+      "period": "전반종료"
     },
     "2026-08-22|epl|에버턴|크리스털": {
       "date": "2026-08-22",
@@ -1861,10 +1861,17 @@
       "gameId": "FkH1XutwHkVY8IH",
       "homeTeam": "에버턴",
       "awayTeam": "크리스털",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 37'"
+      "period": "전반종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "듀스버리-홀",
+          "minute": 42
+        }
+      ]
     },
     "2026-08-22|epl|입스위치|선덜랜드": {
       "date": "2026-08-22",
@@ -1873,14 +1880,19 @@
       "homeTeam": "입스위치",
       "awayTeam": "선덜랜드",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 37'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
           "player": "에메르손",
           "minute": 24
+        },
+        {
+          "team": "away",
+          "player": "앙굴로",
+          "minute": 39
         }
       ]
     },
@@ -2044,7 +2056,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 37'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -2062,7 +2074,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 36'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -2078,9 +2090,9 @@
       "homeTeam": "더비 카운티",
       "awayTeam": "카디프",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 2,
       "status": "live",
-      "period": "전반 37'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -2091,6 +2103,11 @@
           "team": "home",
           "player": "모리스",
           "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "살레흐",
+          "minute": 39
         }
       ]
     },
@@ -2103,7 +2120,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 37'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -2121,7 +2138,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 36'"
+      "period": "전반종료"
     },
     "2026-08-22|england2|렉섬|왓퍼드": {
       "date": "2026-08-22",
@@ -2132,7 +2149,7 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 36'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -2155,7 +2172,7 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 36'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
@@ -2178,7 +2195,7 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 36'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
@@ -2201,7 +2218,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 36'"
+      "period": "전반종료"
     },
     "2026-08-23|england2|웨스트 브롬|번리": {
       "date": "2026-08-23",
@@ -3235,7 +3252,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 4'"
+      "period": "전반 24'"
     },
     "2026-08-23|eredivisie|스파르타|위트레흐트": {
       "date": "2026-08-23",
@@ -4005,7 +4022,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 36'"
+      "period": "전반종료"
     },
     {
       "date": "2026-08-22",
@@ -4013,10 +4030,17 @@
       "gameId": "FkH1XutwHkVY8IH",
       "homeTeam": "에버턴",
       "awayTeam": "크리스털",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 37'"
+      "period": "전반종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "듀스버리-홀",
+          "minute": 42
+        }
+      ]
     },
     {
       "date": "2026-08-22",
@@ -4025,14 +4049,19 @@
       "homeTeam": "입스위치",
       "awayTeam": "선덜랜드",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 37'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
           "player": "에메르손",
           "minute": 24
+        },
+        {
+          "team": "away",
+          "player": "앙굴로",
+          "minute": 39
         }
       ]
     },
@@ -4174,7 +4203,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 37'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -4192,7 +4221,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 36'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -4208,9 +4237,9 @@
       "homeTeam": "더비 카운티",
       "awayTeam": "카디프",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 2,
       "status": "live",
-      "period": "전반 37'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -4221,6 +4250,11 @@
           "team": "home",
           "player": "모리스",
           "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "살레흐",
+          "minute": 39
         }
       ]
     },
@@ -4233,7 +4267,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 37'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -4251,7 +4285,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 36'"
+      "period": "전반종료"
     },
     {
       "date": "2026-08-22",
@@ -4262,7 +4296,7 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 36'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -4285,7 +4319,7 @@
       "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 36'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
@@ -4308,7 +4342,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 36'"
+      "period": "전반종료"
     },
     {
       "date": "2026-08-23",
@@ -4956,7 +4990,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 4'"
+      "period": "전반 24'"
     },
     {
       "date": "2026-08-23",
