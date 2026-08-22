@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-22T12:58:58.313Z",
+  "lastUpdated": "2026-08-22T13:43:39.731Z",
   "byKey": {
     "2026-08-21|kbo|키움|KIA": {
       "date": "2026-08-21",
@@ -112,9 +112,9 @@
       "homeTeam": "NC",
       "awayTeam": "삼성",
       "homeScore": 6,
-      "awayScore": 5,
-      "status": "live",
-      "period": "8회초"
+      "awayScore": 8,
+      "status": "scheduled",
+      "period": "9회말"
     },
     "2026-08-23|kbo|키움|KIA": {
       "date": "2026-08-23",
@@ -1829,8 +1829,8 @@
       "awayTeam": "맨유",
       "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 26'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -1938,10 +1938,10 @@
       "gameId": "kgyQpa3hulwSaY8",
       "homeTeam": "밀월",
       "awayTeam": "노리치",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 26'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -1952,6 +1952,11 @@
           "team": "home",
           "player": "아르콘테",
           "minute": 58
+        },
+        {
+          "team": "home",
+          "player": "컨들",
+          "minute": 84
         }
       ]
     },
@@ -1963,8 +1968,8 @@
       "awayTeam": "포츠머스",
       "homeScore": 1,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 26'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -1994,10 +1999,10 @@
       "gameId": "Zwi2LRT5seU6olP",
       "homeTeam": "버밍엄",
       "awayTeam": "브리스톨 C",
-      "homeScore": 1,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 26'",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2009,6 +2014,17 @@
           "player": "티클",
           "minute": 42,
           "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "발라르드",
+          "minute": 85
+        },
+        {
+          "team": "home",
+          "player": "그레이",
+          "minute": 90,
+          "addedTime": 5
         }
       ]
     },
@@ -3379,9 +3395,9 @@
       "homeTeam": "NC",
       "awayTeam": "삼성",
       "homeScore": 6,
-      "awayScore": 5,
-      "status": "live",
-      "period": "8회초"
+      "awayScore": 8,
+      "status": "scheduled",
+      "period": "9회말"
     },
     {
       "date": "2026-08-23",
@@ -3889,8 +3905,8 @@
       "awayTeam": "맨유",
       "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 26'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -3976,10 +3992,10 @@
       "gameId": "kgyQpa3hulwSaY8",
       "homeTeam": "밀월",
       "awayTeam": "노리치",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 26'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -3990,6 +4006,11 @@
           "team": "home",
           "player": "아르콘테",
           "minute": 58
+        },
+        {
+          "team": "home",
+          "player": "컨들",
+          "minute": 84
         }
       ]
     },
@@ -4001,8 +4022,8 @@
       "awayTeam": "포츠머스",
       "homeScore": 1,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 26'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -4032,10 +4053,10 @@
       "gameId": "Zwi2LRT5seU6olP",
       "homeTeam": "버밍엄",
       "awayTeam": "브리스톨 C",
-      "homeScore": 1,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 26'",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -4047,6 +4068,17 @@
           "player": "티클",
           "minute": 42,
           "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "발라르드",
+          "minute": 85
+        },
+        {
+          "team": "home",
+          "player": "그레이",
+          "minute": 90,
+          "addedTime": 5
         }
       ]
     },
