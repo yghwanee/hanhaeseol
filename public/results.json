@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-22T17:34:20.742Z",
+  "lastUpdated": "2026-08-22T17:57:13.994Z",
   "byKey": {
     "2026-08-22|kbo|키움|KIA": {
       "date": "2026-08-22",
@@ -756,9 +756,9 @@
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "토론토 블루제이스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 1,
+      "status": "live",
+      "period": "1회말"
     },
     "2026-08-23|mlb|뉴욕양키스|토론토 블루제이스": {
       "date": "2026-08-23",
@@ -767,9 +767,9 @@
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "토론토 블루제이스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 1,
+      "status": "live",
+      "period": "1회말"
     },
     "2026-08-23|mlb|뉴욕 양키스|토론토": {
       "date": "2026-08-23",
@@ -778,9 +778,9 @@
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "토론토 블루제이스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 1,
+      "status": "live",
+      "period": "1회말"
     },
     "2026-08-23|mlb|뉴욕 양키스|토론토 블루제이스": {
       "date": "2026-08-23",
@@ -789,9 +789,9 @@
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "토론토 블루제이스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 1,
+      "status": "live",
+      "period": "1회말"
     },
     "2026-08-23|mlb|밀워키|애틀랜타": {
       "date": "2026-08-23",
@@ -2077,10 +2077,10 @@
       "gameId": "H8VJfF8YleL5HLM",
       "homeTeam": "브렌트포드",
       "awayTeam": "토트넘",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 0,
       "status": "live",
-      "period": "후반 1'",
+      "period": "후반 24'",
       "goals": [
         {
           "team": "home",
@@ -2091,6 +2091,11 @@
           "team": "home",
           "player": "야넬트",
           "minute": 33
+        },
+        {
+          "team": "home",
+          "player": "카요데",
+          "minute": 49
         }
       ]
     },
@@ -2100,10 +2105,10 @@
       "gameId": "H8VJfF8YleL5HLM",
       "homeTeam": "브렌트포드",
       "awayTeam": "토트넘",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 0,
       "status": "live",
-      "period": "후반 1'",
+      "period": "후반 24'",
       "goals": [
         {
           "team": "home",
@@ -2114,6 +2119,11 @@
           "team": "home",
           "player": "야넬트",
           "minute": 33
+        },
+        {
+          "team": "home",
+          "player": "카요데",
+          "minute": 49
         }
       ]
     },
@@ -2651,7 +2661,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 1'"
+      "period": "전반 24'"
     },
     "2026-08-23|primera|발렌시아|셀타 비고": {
       "date": "2026-08-23",
@@ -2662,7 +2672,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 1'"
+      "period": "전반 24'"
     },
     "2026-08-23|primera|에스파뇰|레알 마드리드": {
       "date": "2026-08-23",
@@ -2737,14 +2747,19 @@
       "homeTeam": "우디네세 칼초",
       "awayTeam": "코모 1907",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 17'",
       "goals": [
         {
           "team": "home",
           "player": "카마라",
           "minute": 29
+        },
+        {
+          "team": "away",
+          "player": "두비카스",
+          "minute": 54
         }
       ]
     },
@@ -2755,14 +2770,19 @@
       "homeTeam": "우디네세 칼초",
       "awayTeam": "코모 1907",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 17'",
       "goals": [
         {
           "team": "home",
           "player": "카마라",
           "minute": 29
+        },
+        {
+          "team": "away",
+          "player": "두비카스",
+          "minute": 54
         }
       ]
     },
@@ -2773,14 +2793,19 @@
       "homeTeam": "우디네세 칼초",
       "awayTeam": "코모 1907",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 17'",
       "goals": [
         {
           "team": "home",
           "player": "카마라",
           "minute": 29
+        },
+        {
+          "team": "away",
+          "player": "두비카스",
+          "minute": 54
         }
       ]
     },
@@ -2791,14 +2816,19 @@
       "homeTeam": "우디네세 칼초",
       "awayTeam": "코모 1907",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 17'",
       "goals": [
         {
           "team": "home",
           "player": "카마라",
           "minute": 29
+        },
+        {
+          "team": "away",
+          "player": "두비카스",
+          "minute": 54
         }
       ]
     },
@@ -2808,10 +2838,10 @@
       "gameId": "o8ZAi7PGNwb2ZMD",
       "homeTeam": "인테르",
       "awayTeam": "몬차",
-      "homeScore": 1,
+      "homeScore": 4,
       "awayScore": 1,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 21'",
       "goals": [
         {
           "team": "home",
@@ -2822,6 +2852,21 @@
           "team": "away",
           "player": "구스타보 바렐라",
           "minute": 29
+        },
+        {
+          "team": "home",
+          "player": "지엘린스키",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "에스포지토",
+          "minute": 55
+        },
+        {
+          "team": "home",
+          "player": "비세크",
+          "minute": 63
         }
       ]
     },
@@ -3840,9 +3885,9 @@
       "homeTeam": "스파르타",
       "awayTeam": "위트레흐트",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 2,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 10'",
       "goals": [
         {
           "team": "away",
@@ -3853,6 +3898,11 @@
           "team": "home",
           "player": "영",
           "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "스테파노프",
+          "minute": 46
         }
       ]
     },
@@ -4261,9 +4311,9 @@
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "토론토 블루제이스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 1,
+      "status": "live",
+      "period": "1회말"
     },
     {
       "date": "2026-08-23",
@@ -4684,10 +4734,10 @@
       "gameId": "H8VJfF8YleL5HLM",
       "homeTeam": "브렌트포드",
       "awayTeam": "토트넘",
-      "homeScore": 2,
+      "homeScore": 3,
       "awayScore": 0,
       "status": "live",
-      "period": "후반 1'",
+      "period": "후반 24'",
       "goals": [
         {
           "team": "home",
@@ -4698,6 +4748,11 @@
           "team": "home",
           "player": "야넬트",
           "minute": 33
+        },
+        {
+          "team": "home",
+          "player": "카요데",
+          "minute": 49
         }
       ]
     },
@@ -5103,7 +5158,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 1'"
+      "period": "전반 24'"
     },
     {
       "date": "2026-08-23",
@@ -5156,14 +5211,19 @@
       "homeTeam": "우디네세 칼초",
       "awayTeam": "코모 1907",
       "homeScore": 1,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 17'",
       "goals": [
         {
           "team": "home",
           "player": "카마라",
           "minute": 29
+        },
+        {
+          "team": "away",
+          "player": "두비카스",
+          "minute": 54
         }
       ]
     },
@@ -5173,10 +5233,10 @@
       "gameId": "o8ZAi7PGNwb2ZMD",
       "homeTeam": "인테르",
       "awayTeam": "몬차",
-      "homeScore": 1,
+      "homeScore": 4,
       "awayScore": 1,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 21'",
       "goals": [
         {
           "team": "home",
@@ -5187,6 +5247,21 @@
           "team": "away",
           "player": "구스타보 바렐라",
           "minute": 29
+        },
+        {
+          "team": "home",
+          "player": "지엘린스키",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "에스포지토",
+          "minute": 55
+        },
+        {
+          "team": "home",
+          "player": "비세크",
+          "minute": 63
         }
       ]
     },
@@ -5875,9 +5950,9 @@
       "homeTeam": "스파르타",
       "awayTeam": "위트레흐트",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 2,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 10'",
       "goals": [
         {
           "team": "away",
@@ -5888,6 +5963,11 @@
           "team": "home",
           "player": "영",
           "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "스테파노프",
+          "minute": 46
         }
       ]
     },
