@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-22T16:38:55.431Z",
+  "lastUpdated": "2026-08-22T16:59:08.497Z",
   "byKey": {
     "2026-08-22|kbo|키움|KIA": {
       "date": "2026-08-22",
@@ -757,7 +757,8 @@
       "awayTeam": "토론토 블루제이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-23|mlb|뉴욕양키스|토론토 블루제이스": {
       "date": "2026-08-23",
@@ -767,7 +768,8 @@
       "awayTeam": "토론토 블루제이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-23|mlb|뉴욕 양키스|토론토": {
       "date": "2026-08-23",
@@ -777,7 +779,8 @@
       "awayTeam": "토론토 블루제이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-23|mlb|뉴욕 양키스|토론토 블루제이스": {
       "date": "2026-08-23",
@@ -787,7 +790,8 @@
       "awayTeam": "토론토 블루제이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-23|mlb|밀워키|애틀랜타": {
       "date": "2026-08-23",
@@ -2069,10 +2073,17 @@
       "gameId": "H8VJfF8YleL5HLM",
       "homeTeam": "브렌트포드",
       "awayTeam": "토트넘",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 9'"
+      "period": "전반 29'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루이스-포터",
+          "minute": 12
+        }
+      ]
     },
     "2026-08-23|epl|브렌트포드|토트넘": {
       "date": "2026-08-23",
@@ -2080,10 +2091,17 @@
       "gameId": "H8VJfF8YleL5HLM",
       "homeTeam": "브렌트포드",
       "awayTeam": "토트넘",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 9'"
+      "period": "전반 29'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루이스-포터",
+          "minute": 12
+        }
+      ]
     },
     "2026-08-23|epl|맨시티|본머스": {
       "date": "2026-08-23",
@@ -2553,7 +2571,7 @@
       "homeScore": 1,
       "awayScore": 3,
       "status": "live",
-      "period": "후반 30'",
+      "period": "후반 50'",
       "goals": [
         {
           "team": "away",
@@ -2586,7 +2604,7 @@
       "homeScore": 1,
       "awayScore": 3,
       "status": "live",
-      "period": "후반 30'",
+      "period": "후반 50'",
       "goals": [
         {
           "team": "away",
@@ -2707,7 +2725,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 6'"
+      "period": "전반 26'"
     },
     "2026-08-23|seria|우디네세|코모 1907": {
       "date": "2026-08-23",
@@ -2718,7 +2736,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 6'"
+      "period": "전반 26'"
     },
     "2026-08-23|seria|우디네세 칼초|코모": {
       "date": "2026-08-23",
@@ -2729,7 +2747,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 6'"
+      "period": "전반 26'"
     },
     "2026-08-23|seria|우디네세 칼초|코모 1907": {
       "date": "2026-08-23",
@@ -2740,7 +2758,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 6'"
+      "period": "전반 26'"
     },
     "2026-08-23|seria|인테르|몬차": {
       "date": "2026-08-23",
@@ -2748,10 +2766,17 @@
       "gameId": "o8ZAi7PGNwb2ZMD",
       "homeTeam": "인테르",
       "awayTeam": "몬차",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 6'"
+      "period": "전반 26'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "찰하놀루",
+          "minute": 6
+        }
+      ]
     },
     "2026-08-23|seria|제노아|나폴리": {
       "date": "2026-08-23",
@@ -2914,10 +2939,10 @@
       "gameId": "q9AkHBn9V1ek1zL",
       "homeTeam": "랑스",
       "awayTeam": "오세르",
-      "homeScore": 3,
-      "awayScore": 1,
+      "homeScore": 4,
+      "awayScore": 2,
       "status": "live",
-      "period": "후반 20'",
+      "period": "후반 40'",
       "goals": [
         {
           "team": "home",
@@ -2938,6 +2963,16 @@
           "team": "away",
           "player": "나마소",
           "minute": 61
+        },
+        {
+          "team": "home",
+          "player": "가니우",
+          "minute": 66
+        },
+        {
+          "team": "away",
+          "player": "시",
+          "minute": 69
         }
       ]
     },
@@ -3754,8 +3789,8 @@
       "awayTeam": "위트레흐트",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 14'"
     },
     "2026-08-23|eredivisie|NEC 네이메헌|엑셀시오르": {
       "date": "2026-08-23",
@@ -4163,7 +4198,8 @@
       "awayTeam": "토론토 블루제이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-08-23",
@@ -4583,10 +4619,17 @@
       "gameId": "H8VJfF8YleL5HLM",
       "homeTeam": "브렌트포드",
       "awayTeam": "토트넘",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 9'"
+      "period": "전반 29'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루이스-포터",
+          "minute": 12
+        }
+      ]
     },
     {
       "date": "2026-08-23",
@@ -4957,7 +5000,7 @@
       "homeScore": 1,
       "awayScore": 3,
       "status": "live",
-      "period": "후반 30'",
+      "period": "후반 50'",
       "goals": [
         {
           "team": "away",
@@ -5045,7 +5088,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 6'"
+      "period": "전반 26'"
     },
     {
       "date": "2026-08-23",
@@ -5053,10 +5096,17 @@
       "gameId": "o8ZAi7PGNwb2ZMD",
       "homeTeam": "인테르",
       "awayTeam": "몬차",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 6'"
+      "period": "전반 26'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "찰하놀루",
+          "minute": 6
+        }
+      ]
     },
     {
       "date": "2026-08-23",
@@ -5164,10 +5214,10 @@
       "gameId": "q9AkHBn9V1ek1zL",
       "homeTeam": "랑스",
       "awayTeam": "오세르",
-      "homeScore": 3,
-      "awayScore": 1,
+      "homeScore": 4,
+      "awayScore": 2,
       "status": "live",
-      "period": "후반 20'",
+      "period": "후반 40'",
       "goals": [
         {
           "team": "home",
@@ -5188,6 +5238,16 @@
           "team": "away",
           "player": "나마소",
           "minute": 61
+        },
+        {
+          "team": "home",
+          "player": "가니우",
+          "minute": 66
+        },
+        {
+          "team": "away",
+          "player": "시",
+          "minute": 69
         }
       ]
     },
@@ -5729,8 +5789,8 @@
       "awayTeam": "위트레흐트",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 14'"
     },
     {
       "date": "2026-08-23",
