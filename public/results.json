@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-22T13:43:39.731Z",
+  "lastUpdated": "2026-08-22T14:36:35.631Z",
   "byKey": {
     "2026-08-21|kbo|키움|KIA": {
       "date": "2026-08-21",
@@ -113,7 +113,7 @@
       "awayTeam": "삼성",
       "homeScore": 6,
       "awayScore": 8,
-      "status": "scheduled",
+      "status": "finished",
       "period": "9회말"
     },
     "2026-08-23|kbo|키움|KIA": {
@@ -1852,8 +1852,8 @@
       "awayTeam": "리즈",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 36'"
     },
     "2026-08-22|epl|에버턴|크리스털": {
       "date": "2026-08-22",
@@ -1863,8 +1863,8 @@
       "awayTeam": "크리스털",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 37'"
     },
     "2026-08-22|epl|입스위치|선덜랜드": {
       "date": "2026-08-22",
@@ -1872,10 +1872,17 @@
       "gameId": "lxSn1VvRqMqOBDO",
       "homeTeam": "입스위치",
       "awayTeam": "선덜랜드",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 37'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "에메르손",
+          "minute": 24
+        }
+      ]
     },
     "2026-08-23|epl|브렌트퍼드|토트넘": {
       "date": "2026-08-23",
@@ -2035,9 +2042,16 @@
       "homeTeam": "프레스턴",
       "awayTeam": "울버햄튼",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 37'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "페르 로페스",
+          "minute": 8
+        }
+      ]
     },
     "2026-08-22|england2|웨스트햄|찰튼": {
       "date": "2026-08-22",
@@ -2046,9 +2060,16 @@
       "homeTeam": "웨스트햄",
       "awayTeam": "찰튼",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 36'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "존스",
+          "minute": 7
+        }
+      ]
     },
     "2026-08-22|england2|더비 카운티|카디프": {
       "date": "2026-08-22",
@@ -2056,10 +2077,22 @@
       "gameId": "AOnYKEn5lwq4No7",
       "homeTeam": "더비 카운티",
       "awayTeam": "카디프",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 37'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "애쉬포드",
+          "minute": 19
+        },
+        {
+          "team": "home",
+          "player": "모리스",
+          "minute": 26
+        }
+      ]
     },
     "2026-08-22|england2|블랙번|미들즈브러": {
       "date": "2026-08-22",
@@ -2068,9 +2101,16 @@
       "homeTeam": "블랙번",
       "awayTeam": "미들즈브러",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 37'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "사르미엔토",
+          "minute": 12
+        }
+      ]
     },
     "2026-08-22|england2|스완지|셰필드": {
       "date": "2026-08-22",
@@ -2080,8 +2120,8 @@
       "awayTeam": "셰필드",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 36'"
     },
     "2026-08-22|england2|렉섬|왓퍼드": {
       "date": "2026-08-22",
@@ -2089,10 +2129,22 @@
       "gameId": "MYvrNFGj5C5uFBz",
       "homeTeam": "렉섬",
       "awayTeam": "왓퍼드",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 36'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "셰룸고르",
+          "minute": 14
+        },
+        {
+          "team": "home",
+          "player": "아임레이",
+          "minute": 22
+        }
+      ]
     },
     "2026-08-22|england2|사우샘프턴|스토크": {
       "date": "2026-08-22",
@@ -2100,10 +2152,22 @@
       "gameId": "OluFKwMf81gW5Om",
       "homeTeam": "사우스햄튼",
       "awayTeam": "스토크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 36'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "래린",
+          "minute": 8
+        },
+        {
+          "team": "away",
+          "player": "갈브레이스",
+          "minute": 26
+        }
+      ]
     },
     "2026-08-22|england2|사우스햄튼|스토크": {
       "date": "2026-08-22",
@@ -2111,10 +2175,22 @@
       "gameId": "OluFKwMf81gW5Om",
       "homeTeam": "사우스햄튼",
       "awayTeam": "스토크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 36'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "래린",
+          "minute": 8
+        },
+        {
+          "team": "away",
+          "player": "갈브레이스",
+          "minute": 26
+        }
+      ]
     },
     "2026-08-22|england2|QPR|볼튼": {
       "date": "2026-08-22",
@@ -2124,8 +2200,8 @@
       "awayTeam": "볼튼",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 36'"
     },
     "2026-08-23|england2|웨스트 브롬|번리": {
       "date": "2026-08-23",
@@ -3158,8 +3234,8 @@
       "awayTeam": "알크마르 잔스트리크",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 4'"
     },
     "2026-08-23|eredivisie|스파르타|위트레흐트": {
       "date": "2026-08-23",
@@ -3396,7 +3472,7 @@
       "awayTeam": "삼성",
       "homeScore": 6,
       "awayScore": 8,
-      "status": "scheduled",
+      "status": "finished",
       "period": "9회말"
     },
     {
@@ -3928,8 +4004,8 @@
       "awayTeam": "리즈",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 36'"
     },
     {
       "date": "2026-08-22",
@@ -3939,8 +4015,8 @@
       "awayTeam": "크리스털",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 37'"
     },
     {
       "date": "2026-08-22",
@@ -3948,10 +4024,17 @@
       "gameId": "lxSn1VvRqMqOBDO",
       "homeTeam": "입스위치",
       "awayTeam": "선덜랜드",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 37'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "에메르손",
+          "minute": 24
+        }
+      ]
     },
     {
       "date": "2026-08-23",
@@ -4089,9 +4172,16 @@
       "homeTeam": "프레스턴",
       "awayTeam": "울버햄튼",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 37'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "페르 로페스",
+          "minute": 8
+        }
+      ]
     },
     {
       "date": "2026-08-22",
@@ -4100,9 +4190,16 @@
       "homeTeam": "웨스트햄",
       "awayTeam": "찰튼",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 36'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "존스",
+          "minute": 7
+        }
+      ]
     },
     {
       "date": "2026-08-22",
@@ -4110,10 +4207,22 @@
       "gameId": "AOnYKEn5lwq4No7",
       "homeTeam": "더비 카운티",
       "awayTeam": "카디프",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 37'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "애쉬포드",
+          "minute": 19
+        },
+        {
+          "team": "home",
+          "player": "모리스",
+          "minute": 26
+        }
+      ]
     },
     {
       "date": "2026-08-22",
@@ -4122,9 +4231,16 @@
       "homeTeam": "블랙번",
       "awayTeam": "미들즈브러",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 37'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "사르미엔토",
+          "minute": 12
+        }
+      ]
     },
     {
       "date": "2026-08-22",
@@ -4134,8 +4250,8 @@
       "awayTeam": "셰필드",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 36'"
     },
     {
       "date": "2026-08-22",
@@ -4143,10 +4259,22 @@
       "gameId": "MYvrNFGj5C5uFBz",
       "homeTeam": "렉섬",
       "awayTeam": "왓퍼드",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 36'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "셰룸고르",
+          "minute": 14
+        },
+        {
+          "team": "home",
+          "player": "아임레이",
+          "minute": 22
+        }
+      ]
     },
     {
       "date": "2026-08-22",
@@ -4154,10 +4282,22 @@
       "gameId": "OluFKwMf81gW5Om",
       "homeTeam": "사우스햄튼",
       "awayTeam": "스토크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 36'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "래린",
+          "minute": 8
+        },
+        {
+          "team": "away",
+          "player": "갈브레이스",
+          "minute": 26
+        }
+      ]
     },
     {
       "date": "2026-08-22",
@@ -4167,8 +4307,8 @@
       "awayTeam": "볼튼",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 36'"
     },
     {
       "date": "2026-08-23",
@@ -4815,8 +4955,8 @@
       "awayTeam": "알크마르 잔스트리크",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 4'"
     },
     {
       "date": "2026-08-23",
