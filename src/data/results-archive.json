@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-22T11:56:42.387Z",
+  "lastUpdated": "2026-08-22T12:59:00.048Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -30505,6 +30505,215 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기취소"
+    },
+    "2026-08-22|kbo|키움|KIA": {
+      "date": "2026-08-22",
+      "categoryId": "kbo",
+      "gameId": "20260822HTWO02026",
+      "homeTeam": "키움",
+      "awayTeam": "KIA",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-08-22|kleague|제주|김천": {
+      "date": "2026-08-22",
+      "categoryId": "kleague",
+      "gameId": "202608220435142",
+      "homeTeam": "제주",
+      "awayTeam": "김천",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    "2026-08-22|kleague|전북|울산": {
+      "date": "2026-08-22",
+      "categoryId": "kleague",
+      "gameId": "202608220501140",
+      "homeTeam": "전북",
+      "awayTeam": "울산",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "모따",
+          "minute": 54
+        }
+      ]
+    },
+    "2026-08-22|kleague|부천|포항": {
+      "date": "2026-08-22",
+      "categoryId": "kleague",
+      "gameId": "202608222603141",
+      "homeTeam": "부천",
+      "awayTeam": "포항",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "갈레고",
+          "minute": 15
+        },
+        {
+          "team": "home",
+          "player": "가브리엘",
+          "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "김상준",
+          "minute": 88
+        }
+      ]
+    },
+    "2026-08-22|kleague|안양|서울": {
+      "date": "2026-08-22",
+      "categoryId": "kleague",
+      "gameId": "202608222709139",
+      "homeTeam": "안양",
+      "awayTeam": "서울",
+      "homeScore": 0,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "문선민",
+          "minute": 6
+        },
+        {
+          "team": "away",
+          "player": "바베츠",
+          "minute": 12
+        },
+        {
+          "team": "away",
+          "player": "문선민",
+          "minute": 30
+        },
+        {
+          "team": "away",
+          "player": "클리말라",
+          "minute": 34
+        },
+        {
+          "team": "away",
+          "player": "안데르손",
+          "minute": 43
+        },
+        {
+          "team": "away",
+          "player": "정승원",
+          "minute": 52
+        },
+        {
+          "team": "away",
+          "player": "이승모",
+          "minute": 57
+        }
+      ]
+    },
+    "2026-08-22|kleague2|대구|부산": {
+      "date": "2026-08-22",
+      "categoryId": "kleague2",
+      "gameId": "202608221706177",
+      "homeTeam": "대구",
+      "awayTeam": "부산",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "크리스찬",
+          "minute": 65
+        },
+        {
+          "team": "home",
+          "player": "데커스",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ]
+    },
+    "2026-08-22|kleague2|수원FC|김해": {
+      "date": "2026-08-22",
+      "categoryId": "kleague2",
+      "gameId": "202608222941178",
+      "homeTeam": "수원FC",
+      "awayTeam": "김해",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "프리조",
+          "minute": 43
+        },
+        {
+          "team": "home",
+          "player": "하정우",
+          "minute": 87
+        }
+      ]
+    },
+    "2026-08-22|kleague2|안산|성남": {
+      "date": "2026-08-22",
+      "categoryId": "kleague2",
+      "gameId": "202608223208180",
+      "homeTeam": "안산",
+      "awayTeam": "성남",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김정현",
+          "minute": 39
+        },
+        {
+          "team": "away",
+          "player": "안젤로티",
+          "minute": 76
+        },
+        {
+          "team": "away",
+          "player": "전민규",
+          "minute": 89
+        }
+      ]
+    },
+    "2026-08-22|kleague2|천안|수원": {
+      "date": "2026-08-22",
+      "categoryId": "kleague2",
+      "gameId": "202608223802179",
+      "homeTeam": "천안",
+      "awayTeam": "수원",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "루이스",
+          "minute": 56
+        }
+      ]
     },
     "2026-08-22|ligue1|마르세유|스트라스부르": {
       "date": "2026-08-22",
@@ -61240,6 +61449,215 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기취소"
+    },
+    {
+      "date": "2026-08-22",
+      "categoryId": "kbo",
+      "gameId": "20260822HTWO02026",
+      "homeTeam": "키움",
+      "awayTeam": "KIA",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-22",
+      "categoryId": "kleague",
+      "gameId": "202608220435142",
+      "homeTeam": "제주",
+      "awayTeam": "김천",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-08-22",
+      "categoryId": "kleague",
+      "gameId": "202608220501140",
+      "homeTeam": "전북",
+      "awayTeam": "울산",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "모따",
+          "minute": 54
+        }
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "categoryId": "kleague",
+      "gameId": "202608222603141",
+      "homeTeam": "부천",
+      "awayTeam": "포항",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "갈레고",
+          "minute": 15
+        },
+        {
+          "team": "home",
+          "player": "가브리엘",
+          "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "김상준",
+          "minute": 88
+        }
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "categoryId": "kleague",
+      "gameId": "202608222709139",
+      "homeTeam": "안양",
+      "awayTeam": "서울",
+      "homeScore": 0,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "문선민",
+          "minute": 6
+        },
+        {
+          "team": "away",
+          "player": "바베츠",
+          "minute": 12
+        },
+        {
+          "team": "away",
+          "player": "문선민",
+          "minute": 30
+        },
+        {
+          "team": "away",
+          "player": "클리말라",
+          "minute": 34
+        },
+        {
+          "team": "away",
+          "player": "안데르손",
+          "minute": 43
+        },
+        {
+          "team": "away",
+          "player": "정승원",
+          "minute": 52
+        },
+        {
+          "team": "away",
+          "player": "이승모",
+          "minute": 57
+        }
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "categoryId": "kleague2",
+      "gameId": "202608221706177",
+      "homeTeam": "대구",
+      "awayTeam": "부산",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "크리스찬",
+          "minute": 65
+        },
+        {
+          "team": "home",
+          "player": "데커스",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "categoryId": "kleague2",
+      "gameId": "202608222941178",
+      "homeTeam": "수원FC",
+      "awayTeam": "김해",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "프리조",
+          "minute": 43
+        },
+        {
+          "team": "home",
+          "player": "하정우",
+          "minute": 87
+        }
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "categoryId": "kleague2",
+      "gameId": "202608223208180",
+      "homeTeam": "안산",
+      "awayTeam": "성남",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김정현",
+          "minute": 39
+        },
+        {
+          "team": "away",
+          "player": "안젤로티",
+          "minute": 76
+        },
+        {
+          "team": "away",
+          "player": "전민규",
+          "minute": 89
+        }
+      ]
+    },
+    {
+      "date": "2026-08-22",
+      "categoryId": "kleague2",
+      "gameId": "202608223802179",
+      "homeTeam": "천안",
+      "awayTeam": "수원",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "루이스",
+          "minute": 56
+        }
+      ]
     },
     {
       "date": "2026-08-22",
