@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-22T20:58:45.432Z",
+  "lastUpdated": "2026-08-22T21:34:28.588Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -31630,6 +31630,17 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-08-23|mlb|뉴욕 양키스|토론토 블루제이스": {
+      "date": "2026-08-23",
+      "categoryId": "mlb",
+      "gameId": "20260823TONY0",
+      "homeTeam": "뉴욕 양키스",
+      "awayTeam": "토론토 블루제이스",
+      "homeScore": 3,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-08-23|primera|아틀레틱|세비야": {
       "date": "2026-08-23",
       "categoryId": "primera",
@@ -31673,6 +31684,34 @@
       "awayScore": 0,
       "status": "finished",
       "period": "경기종료"
+    },
+    "2026-08-23|primera|에스파뇰|레알 마드리드": {
+      "date": "2026-08-23",
+      "categoryId": "primera",
+      "gameId": "luLFAGfjCRT4PmQ",
+      "homeTeam": "에스파뇰",
+      "awayTeam": "레알 마드리드",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "벨링엄",
+          "minute": 9
+        },
+        {
+          "team": "home",
+          "player": "칼라",
+          "minute": 30
+        },
+        {
+          "team": "away",
+          "player": "카를로스 에스피",
+          "minute": 90
+        }
+      ]
     },
     "2026-08-23|seria|우디네세 칼초|코모 1907": {
       "date": "2026-08-23",
@@ -63409,6 +63448,17 @@
     },
     {
       "date": "2026-08-23",
+      "categoryId": "mlb",
+      "gameId": "20260823TONY0",
+      "homeTeam": "뉴욕 양키스",
+      "awayTeam": "토론토 블루제이스",
+      "homeScore": 3,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-23",
       "categoryId": "primera",
       "gameId": "qyn3ZZrcysqvzhO",
       "homeTeam": "아틀레틱",
@@ -63450,6 +63500,34 @@
       "awayScore": 0,
       "status": "finished",
       "period": "경기종료"
+    },
+    {
+      "date": "2026-08-23",
+      "categoryId": "primera",
+      "gameId": "luLFAGfjCRT4PmQ",
+      "homeTeam": "에스파뇰",
+      "awayTeam": "레알 마드리드",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "벨링엄",
+          "minute": 9
+        },
+        {
+          "team": "home",
+          "player": "칼라",
+          "minute": 30
+        },
+        {
+          "team": "away",
+          "player": "카를로스 에스피",
+          "minute": 90
+        }
+      ]
     },
     {
       "date": "2026-08-23",
