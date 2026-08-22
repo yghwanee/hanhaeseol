@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-22T16:59:09.811Z",
+  "lastUpdated": "2026-08-22T17:34:22.473Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -31367,6 +31367,87 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기연기"
+    },
+    "2026-08-23|ligue1|랑스|오세르": {
+      "date": "2026-08-23",
+      "categoryId": "ligue1",
+      "gameId": "q9AkHBn9V1ek1zL",
+      "homeTeam": "랑스",
+      "awayTeam": "오세르",
+      "homeScore": 5,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "토빈",
+          "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "이바노비치",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "사우드 압둘하미드",
+          "minute": 54
+        },
+        {
+          "team": "away",
+          "player": "나마소",
+          "minute": 61
+        },
+        {
+          "team": "home",
+          "player": "가니우",
+          "minute": 66
+        },
+        {
+          "team": "away",
+          "player": "시",
+          "minute": 69
+        },
+        {
+          "team": "home",
+          "player": "토빈",
+          "minute": 88
+        }
+      ]
+    },
+    "2026-08-23|primera|아틀레틱|세비야": {
+      "date": "2026-08-23",
+      "categoryId": "primera",
+      "gameId": "qyn3ZZrcysqvzhO",
+      "homeTeam": "아틀레틱",
+      "awayTeam": "세비야",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "오소",
+          "minute": 15
+        },
+        {
+          "team": "away",
+          "player": "에주케",
+          "minute": 50
+        },
+        {
+          "team": "away",
+          "player": "이삭 로메로",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "아이토르 파레데스",
+          "minute": 70
+        }
+      ]
     }
   },
   "results": [
@@ -62736,6 +62817,87 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기연기"
+    },
+    {
+      "date": "2026-08-23",
+      "categoryId": "ligue1",
+      "gameId": "q9AkHBn9V1ek1zL",
+      "homeTeam": "랑스",
+      "awayTeam": "오세르",
+      "homeScore": 5,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "토빈",
+          "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "이바노비치",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "사우드 압둘하미드",
+          "minute": 54
+        },
+        {
+          "team": "away",
+          "player": "나마소",
+          "minute": 61
+        },
+        {
+          "team": "home",
+          "player": "가니우",
+          "minute": 66
+        },
+        {
+          "team": "away",
+          "player": "시",
+          "minute": 69
+        },
+        {
+          "team": "home",
+          "player": "토빈",
+          "minute": 88
+        }
+      ]
+    },
+    {
+      "date": "2026-08-23",
+      "categoryId": "primera",
+      "gameId": "qyn3ZZrcysqvzhO",
+      "homeTeam": "아틀레틱",
+      "awayTeam": "세비야",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "오소",
+          "minute": 15
+        },
+        {
+          "team": "away",
+          "player": "에주케",
+          "minute": 50
+        },
+        {
+          "team": "away",
+          "player": "이삭 로메로",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "아이토르 파레데스",
+          "minute": 70
+        }
+      ]
     }
   ]
 }
