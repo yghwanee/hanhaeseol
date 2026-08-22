@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-22T10:58:19.149Z",
+  "lastUpdated": "2026-08-22T11:33:54.328Z",
   "byKey": {
     "2026-08-21|kbo|키움|KIA": {
       "date": "2026-08-21",
@@ -67,10 +67,10 @@
       "gameId": "20260822HTWO02026",
       "homeTeam": "키움",
       "awayTeam": "KIA",
-      "homeScore": 1,
+      "homeScore": 3,
       "awayScore": 0,
       "status": "live",
-      "period": "7회초"
+      "period": "8회초"
     },
     "2026-08-22|kbo|SSG|KT": {
       "date": "2026-08-22",
@@ -112,9 +112,9 @@
       "homeTeam": "NC",
       "awayTeam": "삼성",
       "homeScore": 3,
-      "awayScore": 2,
+      "awayScore": 5,
       "status": "live",
-      "period": "3회말"
+      "period": "4회말"
     },
     "2026-08-23|kbo|키움|KIA": {
       "date": "2026-08-23",
@@ -1829,8 +1829,8 @@
       "awayTeam": "맨유",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 4'"
     },
     "2026-08-22|epl|노팅엄|리즈": {
       "date": "2026-08-22",
@@ -1928,8 +1928,8 @@
       "awayTeam": "노리치",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 4'"
     },
     "2026-08-22|england2|링컨|포츠머스": {
       "date": "2026-08-22",
@@ -1939,8 +1939,8 @@
       "awayTeam": "포츠머스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 4'"
     },
     "2026-08-22|england2|버밍엄|브리스톨 C": {
       "date": "2026-08-22",
@@ -1950,8 +1950,8 @@
       "awayTeam": "브리스톨 C",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 3'"
     },
     "2026-08-22|england2|프레스턴|울버햄튼": {
       "date": "2026-08-22",
@@ -2820,7 +2820,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'"
+      "period": "전반종료"
     },
     "2026-08-22|kleague|전북|울산": {
       "date": "2026-08-22",
@@ -2831,7 +2831,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'"
+      "period": "전반종료"
     },
     "2026-08-22|kleague|부천|포항": {
       "date": "2026-08-22",
@@ -2839,15 +2839,20 @@
       "gameId": "202608222603141",
       "homeTeam": "부천",
       "awayTeam": "포항",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 28'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
           "player": "갈레고",
           "minute": 15
+        },
+        {
+          "team": "home",
+          "player": "가브리엘",
+          "minute": 31
         }
       ]
     },
@@ -2858,9 +2863,9 @@
       "homeTeam": "안양",
       "awayTeam": "서울",
       "homeScore": 0,
-      "awayScore": 2,
+      "awayScore": 5,
       "status": "live",
-      "period": "전반 29'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -2871,6 +2876,21 @@
           "team": "away",
           "player": "바베츠",
           "minute": 12
+        },
+        {
+          "team": "away",
+          "player": "문선민",
+          "minute": 30
+        },
+        {
+          "team": "away",
+          "player": "클리말라",
+          "minute": 34
+        },
+        {
+          "team": "away",
+          "player": "안데르손",
+          "minute": 43
         }
       ]
     },
@@ -2905,7 +2925,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'"
+      "period": "전반종료"
     },
     "2026-08-22|kleague2|수원FC|김해": {
       "date": "2026-08-22",
@@ -2913,10 +2933,17 @@
       "gameId": "202608222941178",
       "homeTeam": "수원FC",
       "awayTeam": "김해",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'"
+      "period": "전반종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "프리조",
+          "minute": 43
+        }
+      ]
     },
     "2026-08-22|kleague2|안산|성남": {
       "date": "2026-08-22",
@@ -2924,10 +2951,17 @@
       "gameId": "202608223208180",
       "homeTeam": "안산",
       "awayTeam": "성남",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'"
+      "period": "전반종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김정현",
+          "minute": 39
+        }
+      ]
     },
     "2026-08-22|kleague2|천안|수원": {
       "date": "2026-08-22",
@@ -2938,7 +2972,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'"
+      "period": "전반종료"
     },
     "2026-08-23|kleague2|전남|화성": {
       "date": "2026-08-23",
@@ -3184,10 +3218,10 @@
       "gameId": "20260822HTWO02026",
       "homeTeam": "키움",
       "awayTeam": "KIA",
-      "homeScore": 1,
+      "homeScore": 3,
       "awayScore": 0,
       "status": "live",
-      "period": "7회초"
+      "period": "8회초"
     },
     {
       "date": "2026-08-22",
@@ -3229,9 +3263,9 @@
       "homeTeam": "NC",
       "awayTeam": "삼성",
       "homeScore": 3,
-      "awayScore": 2,
+      "awayScore": 5,
       "status": "live",
-      "period": "3회말"
+      "period": "4회말"
     },
     {
       "date": "2026-08-23",
@@ -3739,8 +3773,8 @@
       "awayTeam": "맨유",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 4'"
     },
     {
       "date": "2026-08-22",
@@ -3816,8 +3850,8 @@
       "awayTeam": "노리치",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 4'"
     },
     {
       "date": "2026-08-22",
@@ -3827,8 +3861,8 @@
       "awayTeam": "포츠머스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 4'"
     },
     {
       "date": "2026-08-22",
@@ -3838,8 +3872,8 @@
       "awayTeam": "브리스톨 C",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 3'"
     },
     {
       "date": "2026-08-22",
@@ -4311,7 +4345,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'"
+      "period": "전반종료"
     },
     {
       "date": "2026-08-22",
@@ -4322,7 +4356,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'"
+      "period": "전반종료"
     },
     {
       "date": "2026-08-22",
@@ -4330,15 +4364,20 @@
       "gameId": "202608222603141",
       "homeTeam": "부천",
       "awayTeam": "포항",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 28'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
           "player": "갈레고",
           "minute": 15
+        },
+        {
+          "team": "home",
+          "player": "가브리엘",
+          "minute": 31
         }
       ]
     },
@@ -4349,9 +4388,9 @@
       "homeTeam": "안양",
       "awayTeam": "서울",
       "homeScore": 0,
-      "awayScore": 2,
+      "awayScore": 5,
       "status": "live",
-      "period": "전반 29'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -4362,6 +4401,21 @@
           "team": "away",
           "player": "바베츠",
           "minute": 12
+        },
+        {
+          "team": "away",
+          "player": "문선민",
+          "minute": 30
+        },
+        {
+          "team": "away",
+          "player": "클리말라",
+          "minute": 34
+        },
+        {
+          "team": "away",
+          "player": "안데르손",
+          "minute": 43
         }
       ]
     },
@@ -4396,7 +4450,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'"
+      "period": "전반종료"
     },
     {
       "date": "2026-08-22",
@@ -4404,10 +4458,17 @@
       "gameId": "202608222941178",
       "homeTeam": "수원FC",
       "awayTeam": "김해",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'"
+      "period": "전반종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "프리조",
+          "minute": 43
+        }
+      ]
     },
     {
       "date": "2026-08-22",
@@ -4415,10 +4476,17 @@
       "gameId": "202608223208180",
       "homeTeam": "안산",
       "awayTeam": "성남",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'"
+      "period": "전반종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김정현",
+          "minute": 39
+        }
+      ]
     },
     {
       "date": "2026-08-22",
@@ -4429,7 +4497,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 29'"
+      "period": "전반종료"
     },
     {
       "date": "2026-08-23",
