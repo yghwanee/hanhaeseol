@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-22T11:34:04.311Z",
+  "lastUpdated": "2026-08-22T11:56:50.869Z",
   "records": {
     "KBO": {
       "KT": {
@@ -779,21 +779,9 @@
       },
       "헐 시티": {
         "last5": "",
-        "win": 0,
+        "win": 1,
         "lose": 0,
-        "draw": 1
-      },
-      "맨체스터 유나이티드": {
-        "last5": "",
-        "win": 0,
-        "lose": 0,
-        "draw": 1
-      },
-      "맨유": {
-        "last5": "",
-        "win": 0,
-        "lose": 0,
-        "draw": 1
+        "draw": 0
       },
       "애스턴 빌라": {
         "last5": "",
@@ -943,6 +931,18 @@
         "last5": "",
         "win": 0,
         "lose": 0,
+        "draw": 0
+      },
+      "맨체스터 유나이티드": {
+        "last5": "",
+        "win": 0,
+        "lose": 1,
+        "draw": 0
+      },
+      "맨유": {
+        "last5": "",
+        "win": 0,
+        "lose": 1,
         "draw": 0
       },
       "코벤트리 시티": {
@@ -1840,8 +1840,8 @@
       "울산": {
         "last5": "LWWWL",
         "win": 11,
-        "lose": 8,
-        "draw": 5,
+        "lose": 9,
+        "draw": 4,
         "streak": {
           "count": 1,
           "type": "L"
@@ -1849,9 +1849,9 @@
       },
       "전북": {
         "last5": "LLDWD",
-        "win": 9,
+        "win": 10,
         "lose": 7,
-        "draw": 8,
+        "draw": 7,
         "streak": {
           "count": 2,
           "type": "L"
@@ -1951,9 +1951,9 @@
     "K리그2": {
       "수원": {
         "last5": "DWDWD",
-        "win": 12,
+        "win": 13,
         "lose": 4,
-        "draw": 6,
+        "draw": 5,
         "streak": {
           "count": 1,
           "type": "D"
@@ -2055,16 +2055,6 @@
           "type": "L"
         }
       },
-      "천안": {
-        "last5": "DLDLL",
-        "win": 4,
-        "lose": 8,
-        "draw": 10,
-        "streak": {
-          "count": 1,
-          "type": "D"
-        }
-      },
       "용인": {
         "last5": "WDDLD",
         "win": 4,
@@ -2093,6 +2083,16 @@
         "streak": {
           "count": 1,
           "type": "L"
+        }
+      },
+      "천안": {
+        "last5": "DLDLL",
+        "win": 4,
+        "lose": 9,
+        "draw": 9,
+        "streak": {
+          "count": 1,
+          "type": "D"
         }
       },
       "전남": {
