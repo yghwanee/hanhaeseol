@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-23T16:41:28.294Z",
+  "lastUpdated": "2026-08-23T17:01:45.700Z",
   "byKey": {
     "2026-08-23|kbo|키움|KIA": {
       "date": "2026-08-23",
@@ -1903,15 +1903,25 @@
       "gameId": "akorPY6nnbKcOS5",
       "homeTeam": "뉴캐슬",
       "awayTeam": "리버풀",
-      "homeScore": 1,
-      "awayScore": 0,
+      "homeScore": 2,
+      "awayScore": 1,
       "status": "live",
-      "period": "후반 7'",
+      "period": "후반 27'",
       "goals": [
         {
           "team": "home",
           "player": "엘랑가",
           "minute": 5
+        },
+        {
+          "team": "away",
+          "player": "학포",
+          "minute": 55
+        },
+        {
+          "team": "home",
+          "player": "윌록",
+          "minute": 57
         }
       ]
     },
@@ -2082,10 +2092,10 @@
       "gameId": "nSpr6NeOefWQhYU",
       "homeTeam": "AT. 마드리드",
       "awayTeam": "비야레알",
-      "homeScore": 1,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 2,
       "status": "live",
-      "period": "후반 31'",
+      "period": "후반 51'",
       "goals": [
         {
           "team": "home",
@@ -2096,6 +2106,16 @@
           "team": "away",
           "player": "제라르 모레노",
           "minute": 66
+        },
+        {
+          "team": "away",
+          "player": "미카우타제",
+          "minute": 78
+        },
+        {
+          "team": "home",
+          "player": "시메오네",
+          "minute": 85
         }
       ]
     },
@@ -2105,10 +2125,10 @@
       "gameId": "nSpr6NeOefWQhYU",
       "homeTeam": "AT. 마드리드",
       "awayTeam": "비야레알",
-      "homeScore": 1,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 2,
       "status": "live",
-      "period": "후반 31'",
+      "period": "후반 51'",
       "goals": [
         {
           "team": "home",
@@ -2119,6 +2139,16 @@
           "team": "away",
           "player": "제라르 모레노",
           "minute": 66
+        },
+        {
+          "team": "away",
+          "player": "미카우타제",
+          "minute": 78
+        },
+        {
+          "team": "home",
+          "player": "시메오네",
+          "minute": 85
         }
       ]
     },
@@ -2128,10 +2158,10 @@
       "gameId": "nSpr6NeOefWQhYU",
       "homeTeam": "AT. 마드리드",
       "awayTeam": "비야레알",
-      "homeScore": 1,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 2,
       "status": "live",
-      "period": "후반 31'",
+      "period": "후반 51'",
       "goals": [
         {
           "team": "home",
@@ -2142,6 +2172,16 @@
           "team": "away",
           "player": "제라르 모레노",
           "minute": 66
+        },
+        {
+          "team": "away",
+          "player": "미카우타제",
+          "minute": 78
+        },
+        {
+          "team": "home",
+          "player": "시메오네",
+          "minute": 85
         }
       ]
     },
@@ -2423,7 +2463,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 7'"
+      "period": "전반 27'"
     },
     "2026-08-24|seria|프로시노네|유벤투스": {
       "date": "2026-08-24",
@@ -2432,9 +2472,16 @@
       "homeTeam": "프로시노네",
       "awayTeam": "유벤투스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 8'"
+      "period": "전반 28'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "브레메르",
+          "minute": 22
+        }
+      ]
     },
     "2026-08-24|seria|토리노|밀란": {
       "date": "2026-08-24",
@@ -2672,7 +2719,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "후반 21'",
+      "period": "후반 40'",
       "goals": [
         {
           "team": "away",
@@ -4082,10 +4129,10 @@
       "gameId": "MrvFsodYArYqZMx",
       "homeTeam": "캄부르",
       "awayTeam": "페예노르트",
-      "homeScore": 0,
-      "awayScore": 4,
+      "homeScore": 2,
+      "awayScore": 5,
       "status": "live",
-      "period": "후반 22'",
+      "period": "후반 42'",
       "goals": [
         {
           "team": "away",
@@ -4108,6 +4155,21 @@
           "player": "우에다",
           "minute": 45,
           "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "엘 아르기우이",
+          "minute": 70
+        },
+        {
+          "team": "home",
+          "player": "엘 아르기우이",
+          "minute": 80
+        },
+        {
+          "team": "away",
+          "player": "제키엘",
+          "minute": 83
         }
       ]
     },
@@ -4227,7 +4289,7 @@
       "homeScore": 3,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 41'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
@@ -4921,15 +4983,25 @@
       "gameId": "akorPY6nnbKcOS5",
       "homeTeam": "뉴캐슬",
       "awayTeam": "리버풀",
-      "homeScore": 1,
-      "awayScore": 0,
+      "homeScore": 2,
+      "awayScore": 1,
       "status": "live",
-      "period": "후반 7'",
+      "period": "후반 27'",
       "goals": [
         {
           "team": "home",
           "player": "엘랑가",
           "minute": 5
+        },
+        {
+          "team": "away",
+          "player": "학포",
+          "minute": 55
+        },
+        {
+          "team": "home",
+          "player": "윌록",
+          "minute": 57
         }
       ]
     },
@@ -5056,10 +5128,10 @@
       "gameId": "nSpr6NeOefWQhYU",
       "homeTeam": "AT. 마드리드",
       "awayTeam": "비야레알",
-      "homeScore": 1,
-      "awayScore": 1,
+      "homeScore": 2,
+      "awayScore": 2,
       "status": "live",
-      "period": "후반 31'",
+      "period": "후반 51'",
       "goals": [
         {
           "team": "home",
@@ -5070,6 +5142,16 @@
           "team": "away",
           "player": "제라르 모레노",
           "minute": 66
+        },
+        {
+          "team": "away",
+          "player": "미카우타제",
+          "minute": 78
+        },
+        {
+          "team": "home",
+          "player": "시메오네",
+          "minute": 85
         }
       ]
     },
@@ -5228,7 +5310,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 7'"
+      "period": "전반 27'"
     },
     {
       "date": "2026-08-24",
@@ -5237,9 +5319,16 @@
       "homeTeam": "프로시노네",
       "awayTeam": "유벤투스",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 8'"
+      "period": "전반 28'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "브레메르",
+          "minute": 22
+        }
+      ]
     },
     {
       "date": "2026-08-24",
@@ -5444,7 +5533,7 @@
       "homeScore": 0,
       "awayScore": 1,
       "status": "live",
-      "period": "후반 21'",
+      "period": "후반 40'",
       "goals": [
         {
           "team": "away",
@@ -6214,10 +6303,10 @@
       "gameId": "MrvFsodYArYqZMx",
       "homeTeam": "캄부르",
       "awayTeam": "페예노르트",
-      "homeScore": 0,
-      "awayScore": 4,
+      "homeScore": 2,
+      "awayScore": 5,
       "status": "live",
-      "period": "후반 22'",
+      "period": "후반 42'",
       "goals": [
         {
           "team": "away",
@@ -6240,6 +6329,21 @@
           "player": "우에다",
           "minute": 45,
           "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "엘 아르기우이",
+          "minute": 70
+        },
+        {
+          "team": "home",
+          "player": "엘 아르기우이",
+          "minute": 80
+        },
+        {
+          "team": "away",
+          "player": "제키엘",
+          "minute": 83
         }
       ]
     },
@@ -6359,7 +6463,7 @@
       "homeScore": 3,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 41'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "home",
