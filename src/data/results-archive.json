@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-23T13:44:56.871Z",
+  "lastUpdated": "2026-08-23T14:37:07.252Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -31389,6 +31389,57 @@
         }
       ]
     },
+    "2026-08-23|denmark|AGF|OB": {
+      "date": "2026-08-23",
+      "categoryId": "denmark",
+      "gameId": "3GRo5cKE7rB5M0i",
+      "homeTeam": "AGF",
+      "awayTeam": "OB",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "보게레",
+          "minute": 21
+        },
+        {
+          "team": "away",
+          "player": "아르프",
+          "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "아르프",
+          "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "카르스텐센",
+          "minute": 75
+        }
+      ]
+    },
+    "2026-08-23|denmark|미트윌란|라네르스": {
+      "date": "2026-08-23",
+      "categoryId": "denmark",
+      "gameId": "AMhof1HFYyPOE6l",
+      "homeTeam": "미트윌란",
+      "awayTeam": "라네르스",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오소리오",
+          "minute": 28
+        }
+      ]
+    },
     "2026-08-23|england2|웨스트 브롬|번리": {
       "date": "2026-08-23",
       "categoryId": "england2",
@@ -31560,6 +31611,51 @@
           "player": "시구르다르손",
           "minute": 90,
           "addedTime": 1
+        }
+      ]
+    },
+    "2026-08-23|eredivisie|PSV 아인트호벤|흐로닝언": {
+      "date": "2026-08-23",
+      "categoryId": "eredivisie",
+      "gameId": "Hlkr1BjRInM83Po",
+      "homeTeam": "PSV 아인트호벤",
+      "awayTeam": "흐로닝언",
+      "homeScore": 5,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "윌룸손",
+          "minute": 9
+        },
+        {
+          "team": "home",
+          "player": "블록사일",
+          "minute": 11,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "페리시치",
+          "minute": 35
+        },
+        {
+          "team": "home",
+          "player": "페피",
+          "minute": 45,
+          "addedTime": 3
+        },
+        {
+          "team": "home",
+          "player": "페리시치",
+          "minute": 53
+        },
+        {
+          "team": "home",
+          "player": "데스트",
+          "minute": 56
         }
       ]
     },
@@ -64039,6 +64135,57 @@
     },
     {
       "date": "2026-08-23",
+      "categoryId": "denmark",
+      "gameId": "3GRo5cKE7rB5M0i",
+      "homeTeam": "AGF",
+      "awayTeam": "OB",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "보게레",
+          "minute": 21
+        },
+        {
+          "team": "away",
+          "player": "아르프",
+          "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "아르프",
+          "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "카르스텐센",
+          "minute": 75
+        }
+      ]
+    },
+    {
+      "date": "2026-08-23",
+      "categoryId": "denmark",
+      "gameId": "AMhof1HFYyPOE6l",
+      "homeTeam": "미트윌란",
+      "awayTeam": "라네르스",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오소리오",
+          "minute": 28
+        }
+      ]
+    },
+    {
+      "date": "2026-08-23",
       "categoryId": "england2",
       "gameId": "5FcUL5gLsnGvuQk",
       "homeTeam": "웨스트 브롬",
@@ -64208,6 +64355,51 @@
           "player": "시구르다르손",
           "minute": 90,
           "addedTime": 1
+        }
+      ]
+    },
+    {
+      "date": "2026-08-23",
+      "categoryId": "eredivisie",
+      "gameId": "Hlkr1BjRInM83Po",
+      "homeTeam": "PSV 아인트호벤",
+      "awayTeam": "흐로닝언",
+      "homeScore": 5,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "윌룸손",
+          "minute": 9
+        },
+        {
+          "team": "home",
+          "player": "블록사일",
+          "minute": 11,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "페리시치",
+          "minute": 35
+        },
+        {
+          "team": "home",
+          "player": "페피",
+          "minute": 45,
+          "addedTime": 3
+        },
+        {
+          "team": "home",
+          "player": "페리시치",
+          "minute": 53
+        },
+        {
+          "team": "home",
+          "player": "데스트",
+          "minute": 56
         }
       ]
     },
