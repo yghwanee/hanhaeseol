@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-23T20:58:14.220Z",
+  "lastUpdated": "2026-08-23T21:34:17.610Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -33081,6 +33081,39 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-08-24|mlb|캔자스시티 로열스|디트로이트 타이거스": {
+      "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824DEKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 11,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-08-24|mlb|휴스턴 애스트로스|애슬레틱스": {
+      "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824OAHO0",
+      "homeTeam": "휴스턴 애스트로스",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 6,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-24|mlb|텍사스 레인저스|LA 에인절스": {
+      "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824ANTE0",
+      "homeTeam": "텍사스 레인저스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 5,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-08-24|primera|AT. 마드리드|비야레알": {
       "date": "2026-08-24",
       "categoryId": "primera",
@@ -33129,6 +33162,45 @@
           "team": "home",
           "player": "위날",
           "minute": 81
+        }
+      ]
+    },
+    "2026-08-24|primera|엘체|바르셀로나": {
+      "date": "2026-08-24",
+      "categoryId": "primera",
+      "gameId": "2ovhlqIEQkFCduz",
+      "homeTeam": "엘체",
+      "awayTeam": "바르셀로나",
+      "homeScore": 0,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "하피냐",
+          "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "아데예미",
+          "minute": 45,
+          "addedTime": 3
+        },
+        {
+          "team": "away",
+          "player": "하피냐",
+          "minute": 67
+        },
+        {
+          "team": "away",
+          "player": "페르민 로페스",
+          "minute": 71
+        },
+        {
+          "team": "away",
+          "player": "페르민 로페스",
+          "minute": 79
         }
       ]
     },
@@ -66314,6 +66386,39 @@
     },
     {
       "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824DEKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 11,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824OAHO0",
+      "homeTeam": "휴스턴 애스트로스",
+      "awayTeam": "애슬레틱스",
+      "homeScore": 6,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824ANTE0",
+      "homeTeam": "텍사스 레인저스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 5,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-24",
       "categoryId": "primera",
       "gameId": "nSpr6NeOefWQhYU",
       "homeTeam": "AT. 마드리드",
@@ -66360,6 +66465,45 @@
           "team": "home",
           "player": "위날",
           "minute": 81
+        }
+      ]
+    },
+    {
+      "date": "2026-08-24",
+      "categoryId": "primera",
+      "gameId": "2ovhlqIEQkFCduz",
+      "homeTeam": "엘체",
+      "awayTeam": "바르셀로나",
+      "homeScore": 0,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "하피냐",
+          "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "아데예미",
+          "minute": 45,
+          "addedTime": 3
+        },
+        {
+          "team": "away",
+          "player": "하피냐",
+          "minute": 67
+        },
+        {
+          "team": "away",
+          "player": "페르민 로페스",
+          "minute": 71
+        },
+        {
+          "team": "away",
+          "player": "페르민 로페스",
+          "minute": 79
         }
       ]
     },
