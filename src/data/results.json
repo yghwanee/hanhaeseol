@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-23T04:22:01.621Z",
+  "lastUpdated": "2026-08-23T05:06:33.983Z",
   "byKey": {
     "2026-08-22|kbo|키움|KIA": {
       "date": "2026-08-22",
@@ -64,8 +64,8 @@
       "awayTeam": "KIA",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회초"
     },
     "2026-08-23|kbo|SSG|KT": {
       "date": "2026-08-23",
@@ -4124,8 +4124,8 @@
       "awayTeam": "콜로라도",
       "homeScore": 3,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 35'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -4152,8 +4152,8 @@
       "awayTeam": "포틀랜드",
       "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 36'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -4175,8 +4175,8 @@
       "awayTeam": "포틀랜드",
       "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 36'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -4197,9 +4197,9 @@
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "미네소타",
       "homeScore": 1,
-      "awayScore": 4,
-      "status": "live",
-      "period": "후반 35'",
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -4225,6 +4225,11 @@
           "team": "away",
           "player": "칼데이라",
           "minute": 65
+        },
+        {
+          "team": "away",
+          "player": "곤살레스",
+          "minute": 86
         }
       ]
     },
@@ -4235,9 +4240,9 @@
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "미네소타",
       "homeScore": 1,
-      "awayScore": 4,
-      "status": "live",
-      "period": "후반 35'",
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -4263,6 +4268,11 @@
           "team": "away",
           "player": "칼데이라",
           "minute": 65
+        },
+        {
+          "team": "away",
+          "player": "곤살레스",
+          "minute": 86
         }
       ]
     },
@@ -4880,8 +4890,8 @@
       "awayTeam": "KIA",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회초"
     },
     {
       "date": "2026-08-23",
@@ -6667,8 +6677,8 @@
       "awayTeam": "콜로라도",
       "homeScore": 3,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 35'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -6695,8 +6705,8 @@
       "awayTeam": "포틀랜드",
       "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 36'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -6717,9 +6727,9 @@
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "미네소타",
       "homeScore": 1,
-      "awayScore": 4,
-      "status": "live",
-      "period": "후반 35'",
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -6745,6 +6755,11 @@
           "team": "away",
           "player": "칼데이라",
           "minute": 65
+        },
+        {
+          "team": "away",
+          "player": "곤살레스",
+          "minute": 86
         }
       ]
     },
