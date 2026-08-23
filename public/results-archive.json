@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-23T20:37:29.426Z",
+  "lastUpdated": "2026-08-23T20:58:14.220Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -32993,6 +32993,39 @@
         }
       ]
     },
+    "2026-08-24|ligue1|스타드 렌|PSG": {
+      "date": "2026-08-24",
+      "categoryId": "ligue1",
+      "gameId": "0hKflpppVzXwDCX",
+      "homeTeam": "스타드 렌",
+      "awayTeam": "PSG",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "스지만스키",
+          "minute": 9
+        },
+        {
+          "team": "home",
+          "player": "르폴",
+          "minute": 38
+        },
+        {
+          "team": "away",
+          "player": "페란 토레스",
+          "minute": 71
+        },
+        {
+          "team": "away",
+          "player": "페란 토레스",
+          "minute": 82
+        }
+      ]
+    },
     "2026-08-24|mlb|필라델피아 필리스|세인트루이스 카디널스": {
       "date": "2026-08-24",
       "categoryId": "mlb",
@@ -33036,6 +33069,17 @@
       "awayScore": 2,
       "status": "finished",
       "period": "9회초"
+    },
+    "2026-08-24|mlb|시카고 화이트삭스|뉴욕 메츠": {
+      "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824NMCW0",
+      "homeTeam": "시카고 화이트삭스",
+      "awayTeam": "뉴욕 메츠",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-08-24|primera|AT. 마드리드|비야레알": {
       "date": "2026-08-24",
@@ -33154,6 +33198,35 @@
           "team": "home",
           "player": "크르스토비치",
           "minute": 65
+        }
+      ]
+    },
+    "2026-08-24|seria|토리노|AC 밀란": {
+      "date": "2026-08-24",
+      "categoryId": "seria",
+      "gameId": "gLlQfXEitgVgenc",
+      "homeTeam": "토리노",
+      "awayTeam": "AC 밀란",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "시세",
+          "minute": 64
+        },
+        {
+          "team": "away",
+          "player": "라비오",
+          "minute": 66
+        },
+        {
+          "team": "home",
+          "player": "애덤스",
+          "minute": 90,
+          "addedTime": 3
         }
       ]
     }
@@ -66153,6 +66226,39 @@
     },
     {
       "date": "2026-08-24",
+      "categoryId": "ligue1",
+      "gameId": "0hKflpppVzXwDCX",
+      "homeTeam": "스타드 렌",
+      "awayTeam": "PSG",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "스지만스키",
+          "minute": 9
+        },
+        {
+          "team": "home",
+          "player": "르폴",
+          "minute": 38
+        },
+        {
+          "team": "away",
+          "player": "페란 토레스",
+          "minute": 71
+        },
+        {
+          "team": "away",
+          "player": "페란 토레스",
+          "minute": 82
+        }
+      ]
+    },
+    {
+      "date": "2026-08-24",
       "categoryId": "mlb",
       "gameId": "20260824SLPH0",
       "homeTeam": "필라델피아 필리스",
@@ -66194,6 +66300,17 @@
       "awayScore": 2,
       "status": "finished",
       "period": "9회초"
+    },
+    {
+      "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824NMCW0",
+      "homeTeam": "시카고 화이트삭스",
+      "awayTeam": "뉴욕 메츠",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-08-24",
@@ -66312,6 +66429,35 @@
           "team": "home",
           "player": "크르스토비치",
           "minute": 65
+        }
+      ]
+    },
+    {
+      "date": "2026-08-24",
+      "categoryId": "seria",
+      "gameId": "gLlQfXEitgVgenc",
+      "homeTeam": "토리노",
+      "awayTeam": "AC 밀란",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "시세",
+          "minute": 64
+        },
+        {
+          "team": "away",
+          "player": "라비오",
+          "minute": 66
+        },
+        {
+          "team": "home",
+          "player": "애덤스",
+          "minute": 90,
+          "addedTime": 3
         }
       ]
     }

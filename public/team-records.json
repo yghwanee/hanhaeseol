@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-23T20:37:38.070Z",
+  "lastUpdated": "2026-08-23T20:58:23.214Z",
   "records": {
     "KBO": {
       "KT": {
@@ -137,25 +137,25 @@
         }
       },
       "시카고W": {
-        "last5": "LWLWL",
-        "win": 67,
+        "last5": "WLWLW",
+        "win": 68,
         "lose": 62,
         "draw": 0,
-        "wra": 0.519,
+        "wra": 0.523,
         "streak": {
           "count": 1,
-          "type": "L"
+          "type": "W"
         }
       },
       "시카고 화이트삭스": {
-        "last5": "LWLWL",
-        "win": 67,
+        "last5": "WLWLW",
+        "win": 68,
         "lose": 62,
         "draw": 0,
-        "wra": 0.519,
+        "wra": 0.523,
         "streak": {
           "count": 1,
-          "type": "L"
+          "type": "W"
         }
       },
       "휴스턴": {
@@ -731,25 +731,25 @@
         }
       },
       "뉴욕메츠": {
-        "last5": "WLWLW",
+        "last5": "LWLWL",
         "win": 59,
-        "lose": 71,
+        "lose": 72,
         "draw": 0,
-        "wra": 0.454,
+        "wra": 0.45,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "L"
         }
       },
       "뉴욕 메츠": {
-        "last5": "WLWLW",
+        "last5": "LWLWL",
         "win": 59,
-        "lose": 71,
+        "lose": 72,
         "draw": 0,
-        "wra": 0.454,
+        "wra": 0.45,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "L"
         }
       },
       "애슬레틱스": {
@@ -1105,18 +1105,6 @@
         "lose": 0,
         "draw": 0
       },
-      "밀란": {
-        "last5": "",
-        "win": 1,
-        "lose": 0,
-        "draw": 0
-      },
-      "AC 밀란": {
-        "last5": "",
-        "win": 1,
-        "lose": 0,
-        "draw": 0
-      },
       "레체": {
         "last5": "W",
         "win": 1,
@@ -1129,8 +1117,20 @@
         "lose": 0,
         "draw": 0
       },
+      "밀란": {
+        "last5": "W",
+        "win": 1,
+        "lose": 0,
+        "draw": 0
+      },
+      "AC 밀란": {
+        "last5": "W",
+        "win": 1,
+        "lose": 0,
+        "draw": 0
+      },
       "아탈란타": {
-        "last5": "",
+        "last5": "W",
         "win": 1,
         "lose": 0,
         "draw": 0
@@ -1208,13 +1208,19 @@
         "draw": 0
       },
       "사수올로": {
-        "last5": "",
+        "last5": "L",
         "win": 0,
         "lose": 1,
         "draw": 0
       },
       "사수올로 칼초": {
-        "last5": "",
+        "last5": "L",
+        "win": 0,
+        "lose": 1,
+        "draw": 0
+      },
+      "토리노": {
+        "last5": "L",
         "win": 0,
         "lose": 1,
         "draw": 0
@@ -1239,12 +1245,6 @@
       },
       "제노아": {
         "last5": "L",
-        "win": 0,
-        "lose": 1,
-        "draw": 0
-      },
-      "토리노": {
-        "last5": "",
         "win": 0,
         "lose": 1,
         "draw": 0
@@ -1476,25 +1476,25 @@
         "draw": 1
       },
       "파리 생제르맹": {
-        "last5": "",
+        "last5": "D",
         "win": 0,
         "lose": 0,
         "draw": 1
       },
       "PSG": {
-        "last5": "",
+        "last5": "D",
         "win": 0,
         "lose": 0,
         "draw": 1
       },
       "렌": {
-        "last5": "",
+        "last5": "D",
         "win": 0,
         "lose": 0,
         "draw": 1
       },
       "스타드 렌": {
-        "last5": "",
+        "last5": "D",
         "win": 0,
         "lose": 0,
         "draw": 1
@@ -1625,7 +1625,7 @@
         "last5": "WLLDW",
         "win": 10,
         "lose": 7,
-        "draw": 3
+        "draw": 4
       },
       "SJ 어스퀘이크": {
         "last5": "LLLLD",
@@ -1685,7 +1685,7 @@
         "last5": "LLDWW",
         "win": 7,
         "lose": 8,
-        "draw": 5
+        "draw": 6
       },
       "리얼 솔트 레이크": {
         "last5": "LLDDL",
