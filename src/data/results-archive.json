@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-23T14:37:07.252Z",
+  "lastUpdated": "2026-08-23T14:59:18.583Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -31502,6 +31502,69 @@
         }
       ]
     },
+    "2026-08-23|epl|맨시티|본머스": {
+      "date": "2026-08-23",
+      "categoryId": "epl",
+      "gameId": "NKvkHC3ylFK9fnx",
+      "homeTeam": "맨시티",
+      "awayTeam": "본머스",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "태버니어",
+          "minute": 26
+        },
+        {
+          "team": "home",
+          "player": "게히",
+          "minute": 84
+        },
+        {
+          "team": "home",
+          "player": "그바르디올",
+          "minute": 90,
+          "addedTime": 1
+        }
+      ]
+    },
+    "2026-08-23|epl|브라이턴|아스톤 빌라": {
+      "date": "2026-08-23",
+      "categoryId": "epl",
+      "gameId": "yWIBiqK6whCa880",
+      "homeTeam": "브라이턴",
+      "awayTeam": "아스톤 빌라",
+      "homeScore": 4,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "린델뢰프",
+          "minute": 8,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "더 카위퍼르",
+          "minute": 18
+        },
+        {
+          "team": "home",
+          "player": "하인셀우드",
+          "minute": 30
+        },
+        {
+          "team": "home",
+          "player": "하인셀우드",
+          "minute": 31
+        }
+      ]
+    },
     "2026-08-23|eredivisie|NEC 네이메헌|엑셀시오르": {
       "date": "2026-08-23",
       "categoryId": "eredivisie",
@@ -32008,6 +32071,29 @@
           "team": "away",
           "player": "둠비아",
           "minute": 62
+        }
+      ]
+    },
+    "2026-08-23|ligue1|앙제|릴": {
+      "date": "2026-08-23",
+      "categoryId": "ligue1",
+      "gameId": "BWGJifZa4OPHbrr",
+      "homeTeam": "앙제",
+      "awayTeam": "릴",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "지루",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "티아고 산토스",
+          "minute": 31
         }
       ]
     },
@@ -64248,6 +64334,69 @@
     },
     {
       "date": "2026-08-23",
+      "categoryId": "epl",
+      "gameId": "NKvkHC3ylFK9fnx",
+      "homeTeam": "맨시티",
+      "awayTeam": "본머스",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "태버니어",
+          "minute": 26
+        },
+        {
+          "team": "home",
+          "player": "게히",
+          "minute": 84
+        },
+        {
+          "team": "home",
+          "player": "그바르디올",
+          "minute": 90,
+          "addedTime": 1
+        }
+      ]
+    },
+    {
+      "date": "2026-08-23",
+      "categoryId": "epl",
+      "gameId": "yWIBiqK6whCa880",
+      "homeTeam": "브라이턴",
+      "awayTeam": "아스톤 빌라",
+      "homeScore": 4,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "린델뢰프",
+          "minute": 8,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "더 카위퍼르",
+          "minute": 18
+        },
+        {
+          "team": "home",
+          "player": "하인셀우드",
+          "minute": 30
+        },
+        {
+          "team": "home",
+          "player": "하인셀우드",
+          "minute": 31
+        }
+      ]
+    },
+    {
+      "date": "2026-08-23",
       "categoryId": "eredivisie",
       "gameId": "krkVwQN1k0lgnRQ",
       "homeTeam": "NEC 네이메헌",
@@ -64752,6 +64901,29 @@
           "team": "away",
           "player": "둠비아",
           "minute": 62
+        }
+      ]
+    },
+    {
+      "date": "2026-08-23",
+      "categoryId": "ligue1",
+      "gameId": "BWGJifZa4OPHbrr",
+      "homeTeam": "앙제",
+      "awayTeam": "릴",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "지루",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "티아고 산토스",
+          "minute": 31
         }
       ]
     },
