@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-23T03:14:15.982Z",
+  "lastUpdated": "2026-08-23T04:22:01.621Z",
   "byKey": {
     "2026-08-22|kbo|키움|KIA": {
       "date": "2026-08-22",
@@ -1349,10 +1349,10 @@
       "gameId": "20260823MNSD0",
       "homeTeam": "샌디에이고 파드리스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 6,
+      "homeScore": 7,
       "awayScore": 5,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-08-23|mlb|샌디에이고|미네소타 트윈스": {
       "date": "2026-08-23",
@@ -1360,10 +1360,10 @@
       "gameId": "20260823MNSD0",
       "homeTeam": "샌디에이고 파드리스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 6,
+      "homeScore": 7,
       "awayScore": 5,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-08-23|mlb|샌디에이고 파드리스|미네소타": {
       "date": "2026-08-23",
@@ -1371,10 +1371,10 @@
       "gameId": "20260823MNSD0",
       "homeTeam": "샌디에이고 파드리스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 6,
+      "homeScore": 7,
       "awayScore": 5,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-08-23|mlb|샌디에이고 파드리스|미네소타 트윈스": {
       "date": "2026-08-23",
@@ -1382,10 +1382,10 @@
       "gameId": "20260823MNSD0",
       "homeTeam": "샌디에이고 파드리스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 6,
+      "homeScore": 7,
       "awayScore": 5,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-08-24|mlb|필라델피아|세인트루이스": {
       "date": "2026-08-24",
@@ -4046,8 +4046,8 @@
       "awayTeam": "댈러스",
       "homeScore": 5,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 25'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -4085,8 +4085,8 @@
       "awayTeam": "댈러스",
       "homeScore": 5,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 25'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -4122,15 +4122,25 @@
       "gameId": "17BLrI5uFOk4jVK",
       "homeTeam": "샌디에고",
       "awayTeam": "콜로라도",
-      "homeScore": 1,
+      "homeScore": 3,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 34'",
+      "period": "후반 35'",
       "goals": [
         {
           "team": "home",
           "player": "발라카리",
           "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "아슈리",
+          "minute": 35
+        },
+        {
+          "team": "home",
+          "player": "가브리엘 피라니",
+          "minute": 71
         }
       ]
     },
@@ -4140,15 +4150,20 @@
       "gameId": "IOUR0wWPyGendoy",
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "포틀랜드",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 34'",
+      "period": "후반 36'",
       "goals": [
         {
           "team": "away",
           "player": "다비드 페레이라 다 코스타",
           "minute": 4
+        },
+        {
+          "team": "home",
+          "player": "부앙가",
+          "minute": 79
         }
       ]
     },
@@ -4158,15 +4173,20 @@
       "gameId": "IOUR0wWPyGendoy",
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "포틀랜드",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 34'",
+      "period": "후반 36'",
       "goals": [
         {
           "team": "away",
           "player": "다비드 페레이라 다 코스타",
           "minute": 4
+        },
+        {
+          "team": "home",
+          "player": "부앙가",
+          "minute": 79
         }
       ]
     },
@@ -4177,9 +4197,9 @@
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "미네소타",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 4,
       "status": "live",
-      "period": "전반 34'",
+      "period": "후반 35'",
       "goals": [
         {
           "team": "home",
@@ -4190,6 +4210,21 @@
           "team": "away",
           "player": "페레이라",
           "minute": 10
+        },
+        {
+          "team": "away",
+          "player": "예보아",
+          "minute": 40
+        },
+        {
+          "team": "away",
+          "player": "예보아",
+          "minute": 44
+        },
+        {
+          "team": "away",
+          "player": "칼데이라",
+          "minute": 65
         }
       ]
     },
@@ -4200,9 +4235,9 @@
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "미네소타",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 4,
       "status": "live",
-      "period": "전반 34'",
+      "period": "후반 35'",
       "goals": [
         {
           "team": "home",
@@ -4213,6 +4248,21 @@
           "team": "away",
           "player": "페레이라",
           "minute": 10
+        },
+        {
+          "team": "away",
+          "player": "예보아",
+          "minute": 40
+        },
+        {
+          "team": "away",
+          "player": "예보아",
+          "minute": 44
+        },
+        {
+          "team": "away",
+          "player": "칼데이라",
+          "minute": 65
         }
       ]
     },
@@ -5202,10 +5252,10 @@
       "gameId": "20260823MNSD0",
       "homeTeam": "샌디에이고 파드리스",
       "awayTeam": "미네소타 트윈스",
-      "homeScore": 6,
+      "homeScore": 7,
       "awayScore": 5,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-08-24",
@@ -6578,8 +6628,8 @@
       "awayTeam": "댈러스",
       "homeScore": 5,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 25'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -6615,15 +6665,25 @@
       "gameId": "17BLrI5uFOk4jVK",
       "homeTeam": "샌디에고",
       "awayTeam": "콜로라도",
-      "homeScore": 1,
+      "homeScore": 3,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 34'",
+      "period": "후반 35'",
       "goals": [
         {
           "team": "home",
           "player": "발라카리",
           "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "아슈리",
+          "minute": 35
+        },
+        {
+          "team": "home",
+          "player": "가브리엘 피라니",
+          "minute": 71
         }
       ]
     },
@@ -6633,15 +6693,20 @@
       "gameId": "IOUR0wWPyGendoy",
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "포틀랜드",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 34'",
+      "period": "후반 36'",
       "goals": [
         {
           "team": "away",
           "player": "다비드 페레이라 다 코스타",
           "minute": 4
+        },
+        {
+          "team": "home",
+          "player": "부앙가",
+          "minute": 79
         }
       ]
     },
@@ -6652,9 +6717,9 @@
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "미네소타",
       "homeScore": 1,
-      "awayScore": 1,
+      "awayScore": 4,
       "status": "live",
-      "period": "전반 34'",
+      "period": "후반 35'",
       "goals": [
         {
           "team": "home",
@@ -6665,6 +6730,21 @@
           "team": "away",
           "player": "페레이라",
           "minute": 10
+        },
+        {
+          "team": "away",
+          "player": "예보아",
+          "minute": 40
+        },
+        {
+          "team": "away",
+          "player": "예보아",
+          "minute": 44
+        },
+        {
+          "team": "away",
+          "player": "칼데이라",
+          "minute": 65
         }
       ]
     },

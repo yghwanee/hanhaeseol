@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-23T03:14:17.485Z",
+  "lastUpdated": "2026-08-23T04:22:03.340Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -31773,6 +31773,17 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-08-23|mlb|샌디에이고 파드리스|미네소타 트윈스": {
+      "date": "2026-08-23",
+      "categoryId": "mlb",
+      "gameId": "20260823MNSD0",
+      "homeTeam": "샌디에이고 파드리스",
+      "awayTeam": "미네소타 트윈스",
+      "homeScore": 7,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-08-23|mls|레드불 뉴욕|시카고 파이어 FC": {
       "date": "2026-08-23",
       "categoryId": "mls",
@@ -32029,6 +32040,45 @@
           "team": "home",
           "player": "하인스-이케",
           "minute": 21
+        }
+      ]
+    },
+    "2026-08-23|mls|밴쿠버 화이트캡스 FC|댈러스": {
+      "date": "2026-08-23",
+      "categoryId": "mls",
+      "gameId": "84SeFvBwzxe5IDj",
+      "homeTeam": "밴쿠버 화이트캡스 FC",
+      "awayTeam": "댈러스",
+      "homeScore": 5,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "사비",
+          "minute": 11
+        },
+        {
+          "team": "home",
+          "player": "화이트",
+          "minute": 23
+        },
+        {
+          "team": "home",
+          "player": "화이트",
+          "minute": 37
+        },
+        {
+          "team": "home",
+          "player": "오캄포",
+          "minute": 45,
+          "addedTime": 6
+        },
+        {
+          "team": "home",
+          "player": "카이세도",
+          "minute": 68
         }
       ]
     },
@@ -63982,6 +64032,17 @@
     },
     {
       "date": "2026-08-23",
+      "categoryId": "mlb",
+      "gameId": "20260823MNSD0",
+      "homeTeam": "샌디에이고 파드리스",
+      "awayTeam": "미네소타 트윈스",
+      "homeScore": 7,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-23",
       "categoryId": "mls",
       "gameId": "0ZJgbtsb6LzANn5",
       "homeTeam": "레드불 뉴욕",
@@ -64236,6 +64297,45 @@
           "team": "home",
           "player": "하인스-이케",
           "minute": 21
+        }
+      ]
+    },
+    {
+      "date": "2026-08-23",
+      "categoryId": "mls",
+      "gameId": "84SeFvBwzxe5IDj",
+      "homeTeam": "밴쿠버 화이트캡스 FC",
+      "awayTeam": "댈러스",
+      "homeScore": 5,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "사비",
+          "minute": 11
+        },
+        {
+          "team": "home",
+          "player": "화이트",
+          "minute": 23
+        },
+        {
+          "team": "home",
+          "player": "화이트",
+          "minute": 37
+        },
+        {
+          "team": "home",
+          "player": "오캄포",
+          "minute": 45,
+          "addedTime": 6
+        },
+        {
+          "team": "home",
+          "player": "카이세도",
+          "minute": 68
         }
       ]
     },
