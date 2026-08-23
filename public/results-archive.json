@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-23T19:54:54.719Z",
+  "lastUpdated": "2026-08-23T20:37:29.426Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -32993,6 +32993,50 @@
         }
       ]
     },
+    "2026-08-24|mlb|필라델피아 필리스|세인트루이스 카디널스": {
+      "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824SLPH0",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "세인트루이스 카디널스",
+      "homeScore": 6,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-24|mlb|볼티모어 오리올스|탬파베이 레이스": {
+      "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824TBBA0",
+      "homeTeam": "볼티모어 오리올스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-24|mlb|뉴욕 양키스|토론토 블루제이스": {
+      "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824TONY0",
+      "homeTeam": "뉴욕 양키스",
+      "awayTeam": "토론토 블루제이스",
+      "homeScore": 8,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-08-24|mlb|마이애미 말린스|워싱턴 내셔널스": {
+      "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824MOFL0",
+      "homeTeam": "마이애미 말린스",
+      "awayTeam": "워싱턴 내셔널스",
+      "homeScore": 6,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-08-24|primera|AT. 마드리드|비야레알": {
       "date": "2026-08-24",
       "categoryId": "primera",
@@ -33082,6 +33126,34 @@
           "team": "away",
           "player": "브레메르",
           "minute": 22
+        }
+      ]
+    },
+    "2026-08-24|seria|아탈란타|사수올로 칼초": {
+      "date": "2026-08-24",
+      "categoryId": "seria",
+      "gameId": "JHHHSC2q0NkCiDB",
+      "homeTeam": "아탈란타",
+      "awayTeam": "사수올로 칼초",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "라스파도리",
+          "minute": 6
+        },
+        {
+          "team": "away",
+          "player": "오덴탈",
+          "minute": 55
+        },
+        {
+          "team": "home",
+          "player": "크르스토비치",
+          "minute": 65
         }
       ]
     }
@@ -66081,6 +66153,50 @@
     },
     {
       "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824SLPH0",
+      "homeTeam": "필라델피아 필리스",
+      "awayTeam": "세인트루이스 카디널스",
+      "homeScore": 6,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824TBBA0",
+      "homeTeam": "볼티모어 오리올스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824TONY0",
+      "homeTeam": "뉴욕 양키스",
+      "awayTeam": "토론토 블루제이스",
+      "homeScore": 8,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-24",
+      "categoryId": "mlb",
+      "gameId": "20260824MOFL0",
+      "homeTeam": "마이애미 말린스",
+      "awayTeam": "워싱턴 내셔널스",
+      "homeScore": 6,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-24",
       "categoryId": "primera",
       "gameId": "nSpr6NeOefWQhYU",
       "homeTeam": "AT. 마드리드",
@@ -66168,6 +66284,34 @@
           "team": "away",
           "player": "브레메르",
           "minute": 22
+        }
+      ]
+    },
+    {
+      "date": "2026-08-24",
+      "categoryId": "seria",
+      "gameId": "JHHHSC2q0NkCiDB",
+      "homeTeam": "아탈란타",
+      "awayTeam": "사수올로 칼초",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "라스파도리",
+          "minute": 6
+        },
+        {
+          "team": "away",
+          "player": "오덴탈",
+          "minute": 55
+        },
+        {
+          "team": "home",
+          "player": "크르스토비치",
+          "minute": 65
         }
       ]
     }
