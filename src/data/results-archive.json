@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-23T17:01:46.818Z",
+  "lastUpdated": "2026-08-23T17:33:16.914Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -31750,6 +31750,56 @@
         }
       ]
     },
+    "2026-08-23|eredivisie|캄부르|페예노르트": {
+      "date": "2026-08-23",
+      "categoryId": "eredivisie",
+      "gameId": "MrvFsodYArYqZMx",
+      "homeTeam": "캄부르",
+      "awayTeam": "페예노르트",
+      "homeScore": 2,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "제키엘",
+          "minute": 17
+        },
+        {
+          "team": "away",
+          "player": "발렌테",
+          "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "얀센",
+          "minute": 42,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "우에다",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "엘 아르기우이",
+          "minute": 70
+        },
+        {
+          "team": "home",
+          "player": "엘 아르기우이",
+          "minute": 80
+        },
+        {
+          "team": "away",
+          "player": "제키엘",
+          "minute": 83
+        }
+      ]
+    },
     "2026-08-23|germansupercup|도르트문트|바이에른 뮌헨": {
       "date": "2026-08-23",
       "categoryId": "germansupercup",
@@ -32854,6 +32904,91 @@
           "team": "away",
           "player": "로마노",
           "minute": 79
+        }
+      ]
+    },
+    "2026-08-24|epl|뉴캐슬|리버풀": {
+      "date": "2026-08-24",
+      "categoryId": "epl",
+      "gameId": "akorPY6nnbKcOS5",
+      "homeTeam": "뉴캐슬",
+      "awayTeam": "리버풀",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "엘랑가",
+          "minute": 5
+        },
+        {
+          "team": "away",
+          "player": "학포",
+          "minute": 55
+        },
+        {
+          "team": "home",
+          "player": "윌록",
+          "minute": 57
+        },
+        {
+          "team": "away",
+          "player": "소보슬러이",
+          "minute": 90,
+          "addedTime": 9
+        }
+      ]
+    },
+    "2026-08-24|ligue1|르 아브르|모나코": {
+      "date": "2026-08-24",
+      "categoryId": "ligue1",
+      "gameId": "YMM6WIm6haWuKdK",
+      "homeTeam": "르 아브르",
+      "awayTeam": "모나코",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "다이어",
+          "minute": 14
+        }
+      ]
+    },
+    "2026-08-24|primera|AT. 마드리드|비야레알": {
+      "date": "2026-08-24",
+      "categoryId": "primera",
+      "gameId": "nSpr6NeOefWQhYU",
+      "homeTeam": "AT. 마드리드",
+      "awayTeam": "비야레알",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "마르크 푸빌",
+          "minute": 59
+        },
+        {
+          "team": "away",
+          "player": "제라르 모레노",
+          "minute": 66
+        },
+        {
+          "team": "away",
+          "player": "미카우타제",
+          "minute": 78
+        },
+        {
+          "team": "home",
+          "player": "시메오네",
+          "minute": 85
         }
       ]
     }
@@ -64610,6 +64745,56 @@
     },
     {
       "date": "2026-08-23",
+      "categoryId": "eredivisie",
+      "gameId": "MrvFsodYArYqZMx",
+      "homeTeam": "캄부르",
+      "awayTeam": "페예노르트",
+      "homeScore": 2,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "제키엘",
+          "minute": 17
+        },
+        {
+          "team": "away",
+          "player": "발렌테",
+          "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "얀센",
+          "minute": 42,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "우에다",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "엘 아르기우이",
+          "minute": 70
+        },
+        {
+          "team": "home",
+          "player": "엘 아르기우이",
+          "minute": 80
+        },
+        {
+          "team": "away",
+          "player": "제키엘",
+          "minute": 83
+        }
+      ]
+    },
+    {
+      "date": "2026-08-23",
       "categoryId": "germansupercup",
       "gameId": "4T1ExnbjsBbzy7T",
       "homeTeam": "도르트문트",
@@ -65712,6 +65897,91 @@
           "team": "away",
           "player": "로마노",
           "minute": 79
+        }
+      ]
+    },
+    {
+      "date": "2026-08-24",
+      "categoryId": "epl",
+      "gameId": "akorPY6nnbKcOS5",
+      "homeTeam": "뉴캐슬",
+      "awayTeam": "리버풀",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "엘랑가",
+          "minute": 5
+        },
+        {
+          "team": "away",
+          "player": "학포",
+          "minute": 55
+        },
+        {
+          "team": "home",
+          "player": "윌록",
+          "minute": 57
+        },
+        {
+          "team": "away",
+          "player": "소보슬러이",
+          "minute": 90,
+          "addedTime": 9
+        }
+      ]
+    },
+    {
+      "date": "2026-08-24",
+      "categoryId": "ligue1",
+      "gameId": "YMM6WIm6haWuKdK",
+      "homeTeam": "르 아브르",
+      "awayTeam": "모나코",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "다이어",
+          "minute": 14
+        }
+      ]
+    },
+    {
+      "date": "2026-08-24",
+      "categoryId": "primera",
+      "gameId": "nSpr6NeOefWQhYU",
+      "homeTeam": "AT. 마드리드",
+      "awayTeam": "비야레알",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "마르크 푸빌",
+          "minute": 59
+        },
+        {
+          "team": "away",
+          "player": "제라르 모레노",
+          "minute": 66
+        },
+        {
+          "team": "away",
+          "player": "미카우타제",
+          "minute": 78
+        },
+        {
+          "team": "home",
+          "player": "시메오네",
+          "minute": 85
         }
       ]
     }
