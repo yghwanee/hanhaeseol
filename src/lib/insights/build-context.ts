@@ -2,6 +2,7 @@ import type { Schedule } from "@/types/schedule";
 import type { TeamRecordsMap } from "@/types/team-record";
 import type { StandingsData } from "@/types/standings";
 import type { MatchResult } from "@/types/results";
+import { deriveFlow, streakFromLast5, type Flow } from "./form-claim";
 
 export interface InsightContext {
   matchId: string;
@@ -18,6 +19,9 @@ export interface InsightContext {
   awayRecentForm?: string;
   homeStreak?: string; // e.g. "현재 2연패", "현재 3연승"
   awayStreak?: string;
+  /** 생성문 검사에 쓰는 방향. 프롬프트에도 사람 말로 같이 넣는다. */
+  homeFlow: Flow;
+  awayFlow: Flow;
   headToHead?: string; // e.g. "최근 5번 맞대결: 홈 3승 2패"
 }
 
@@ -47,6 +51,11 @@ export function buildInsightContext({
     standingsData,
   );
 
+  // 🔴 네이버는 continuousGameResult 를 KBO/MLB/K리그에만 준다. 축구 상위리그는 비어 있어서
+  // streak 이 통째로 없었고, 모델이 "WWLDW" 만 보고 흐름을 지어내던 자리가 여기다.
+  const homeStreak = home?.streak ?? streakFromLast5(home?.last5);
+  const awayStreak = away?.streak ?? streakFromLast5(away?.last5);
+
   const h2h = buildHeadToHead(
     resultsArchive,
     schedule.homeTeam,
@@ -66,8 +75,10 @@ export function buildInsightContext({
     awayRank,
     homeRecentForm: home?.last5,
     awayRecentForm: away?.last5,
-    homeStreak: formatStreak(home?.streak),
-    awayStreak: formatStreak(away?.streak),
+    homeStreak: formatStreak(homeStreak),
+    awayStreak: formatStreak(awayStreak),
+    homeFlow: deriveFlow(home?.last5, homeStreak),
+    awayFlow: deriveFlow(away?.last5, awayStreak),
     headToHead: h2h,
   };
 }

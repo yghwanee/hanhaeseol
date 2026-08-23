@@ -37,6 +37,16 @@ const KNOWN_UNSUPPORTED = new Set([
   // 0건이라 우리가 찾는 대회가 아니다(kbofutures 는 400). 200 이어도 경기가 0이면
   // 붙이지 않는다 — 안 맞는 키를 영구히 만든다.
   "퓨처스리그",
+  // 2026-08-23 실측. statistics/categories/{id}/seasons 와 schedule/games?categoryId={id} 에
+  // 후보 id 를 던져 전부 400(또는 빈 시즌)을 받았다.
+  //   카라바오컵: eflcup·carabao·carabaocup·leaguecup·englandcup·englandleaguecup·efl_cup
+  //   쉬페르리그: superlig·turkey·turkishsuperlig·turkeysuperlig·superleague
+  //   FIBA 남자농구 월드컵: fibawc·fiba·fibaworldcup·basketworldcup
+  //   고교야구: highschool·highschoolbaseball·hsbaseball
+  "카라바오컵",
+  "쉬페르리그",
+  "FIBA 남자농구 월드컵",
+  "고교야구",
 ]);
 
 const schedules = (scheduleData as unknown as ScheduleData).schedules;

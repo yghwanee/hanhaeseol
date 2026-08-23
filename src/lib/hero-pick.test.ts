@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { heroScore, pickHeroMatch } from "./hero-pick";
+import { heroScore, pickHeroMatch, GLOBAL_BIG_CLUBS } from "./hero-pick";
+import { getKoreanPlayers } from "./korean-players/load";
 import type { Schedule } from "@/types/schedule";
 
 function wc(
@@ -91,8 +92,11 @@ test("월드컵 없는 날: 기존 heroScore 순위 유지 (회귀 없음)", () 
 
 test("내한경기 맨시티가 코리안리거 MLB 를 이긴다", () => {
   const manCity = club("팀 K리그", "맨시티", "쿠팡플레이 시리즈", "19:00");
-  const leeJungHoo = club("텍사스 레인저스", "샌프란시스코 자이언츠", "MLB", "09:05");
-  const hero = pickHeroMatch([leeJungHoo, manCity]);
+  // 코리안리거 팀도 로스터에서 뽑는다(하드코딩하면 이적 때마다 이 테스트가 거짓말을 한다).
+  const korean = getKoreanPlayers()[0];
+  assert.ok(korean, "로스터가 비었다 — crawl:korean-players 확인");
+  const koreanMatch = club("텍사스 레인저스", korean.team, "MLB", "09:05");
+  const hero = pickHeroMatch([koreanMatch, manCity]);
   assert.equal(hero?.awayTeam, "맨시티");
 });
 
@@ -109,10 +113,17 @@ test("AT. 마드리드 표기(공백 있음)도 빅클럽으로 잡힌다", () =
 });
 
 test("코리안리거 가중치는 26 이다", () => {
-  // 김하성 탬파베이·상대 캔자스시티 둘 다 BIG_TEAMS.MLB 밖이라 팀 점수가 안 섞인다.
-  // (LA 다저스로 재면 bigVsMid 5점이 딸려와 차이가 23 이 된다.)
-  const withKorean = club("탬파베이 레이스", "캔자스시티 로열스", "MLB", "11:10");
-  const withoutKorean = club("미네소타 트윈스", "캔자스시티 로열스", "MLB", "11:10");
+  // 🔴 팀명을 손으로 박지 않는다. 로스터는 이적으로 바뀌므로(2026-08-23 김하성 탬파베이→
+  // 애틀랜타, 김혜성은 마이너行) 박아 두면 테스트가 사람 잘못 없이 빨개진다.
+  // 크롤된 로스터에서 "빅클럽이 아닌" 선수를 하나 골라, 그 팀만 바꿔치기해 차이를 잰다.
+  const norm = (t: string) => t.replace(/\s+/g, "");
+  const player = getKoreanPlayers().find(
+    (p) => !p.teams.some((t) => GLOBAL_BIG_CLUBS.has(norm(t))),
+  );
+  assert.ok(player, "로스터가 비었거나 전원 빅클럽이다 — crawl:korean-players 확인");
+  // MLS 는 BIG_TEAMS 에 없는 리그라 팀 점수가 안 섞인다.
+  const withKorean = club(player.team, "가상 유나이티드", "MLS", "11:10");
+  const withoutKorean = club("가상 시티", "가상 유나이티드", "MLS", "11:10");
   assert.equal(heroScore(withKorean) - heroScore(withoutKorean), 26);
 });
 
@@ -124,18 +135,19 @@ test("내한 가점은 글로벌 빅클럽이 낀 쿠팡플레이 시리즈에�
 });
 
 test("직전 2일에 나온 팀은 감점을 받는다", () => {
-  const repeat = club("샌프란시스코 자이언츠", "휴스턴 애스트로스", "MLB", "10:45");
-  const fresh = club("LA 다저스", "캔자스시티 로열스", "MLB", "11:10");
+  // 로스터와 무관한 가상 팀으로 잰다 — 실제 팀을 쓰면 이적 한 번에 전제가 깨진다.
+  const repeat = club("가상 자이언츠", "가상 애스트로스", "MLB", "10:45");
+  const fresh = club("가상 다저스", "가상 로열스", "MLB", "11:10");
   // recentTeams 는 정규화(공백 제거) 표기다.
-  const recent = new Set(["샌프란시스코자이언츠", "디트로이트타이거스"]);
+  const recent = new Set(["가상자이언츠"]);
 
-  // 감점이 없으면 샌프란시스코가 이긴다(휴스턴도 BIG_TEAMS.MLB 라 bigVsBig).
-  assert.equal(pickHeroMatch([repeat, fresh])?.homeTeam, "샌프란시스코 자이언츠");
+  // 감점이 없으면 시간이 빠른 쪽(동점)이 이긴다.
+  assert.equal(pickHeroMatch([repeat, fresh])?.homeTeam, "가상 자이언츠");
   // 감점이 붙으면 뒤집힌다.
-  assert.equal(pickHeroMatch([repeat, fresh], recent)?.homeTeam, "LA 다저스");
+  assert.equal(pickHeroMatch([repeat, fresh], recent)?.homeTeam, "가상 다저스");
 });
 
 test("recentTeams 가 비면 감점이 없다", () => {
-  const m = club("샌프란시스코 자이언츠", "휴스턴 애스트로스", "MLB", "10:45");
+  const m = club("가상 자이언츠", "가상 애스트로스", "MLB", "10:45");
   assert.equal(heroScore(m, new Set()), heroScore(m));
 });

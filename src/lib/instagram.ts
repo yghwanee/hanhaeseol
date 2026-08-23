@@ -69,8 +69,8 @@ export const MAIN_CARD_SIZE = { width: 1080, height: 1350 };
 
 // hero 매치 선정 로직은 src/lib/hero-pick.ts로 분리 (RSC에서 canvas/fs 의존 없이 import 가능하도록).
 // 본문에서도 사용하므로 import + 외부 호환 위한 re-export 둘 다 필요.
-import { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop, eventWord } from "./hero-pick";
-export { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop };
+import { findKoreanPlayerOnMatch, pickHeroMatch, pickHeroMatchesTop, eventWord } from "./hero-pick";
+export { findKoreanPlayerOnMatch, pickHeroMatch, pickHeroMatchesTop };
 
 export const SPORT_META: Record<Sport, { emoji: string; template: string; filePrefix: string }> = {
   축구: { emoji: "⚽", template: "soccer-base.png", filePrefix: "soccer" },

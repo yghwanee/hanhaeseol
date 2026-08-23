@@ -3,7 +3,7 @@ import path from "node:path";
 import type { Schedule } from "@/types/schedule";
 import {
   fetchTeamLogoImage,
-  KOREAN_PLAYERS,
+  findKoreanPlayerOnMatch,
   pickHeroForDate,
   inferDayLabel,
 } from "./instagram";
@@ -79,9 +79,7 @@ export async function renderReelBigMatchCard(today: string): Promise<{
   ctx.shadowBlur = 12;
   ctx.shadowOffsetY = 3;
 
-  const playerOnHero = KOREAN_PLAYERS.find(
-    (p) => p.team === hero!.homeTeam || p.team === hero!.awayTeam,
-  );
+  const playerOnHero = findKoreanPlayerOnMatch(hero!.homeTeam, hero!.awayTeam);
 
   const labelText = playerOnHero
     ? `🇰🇷 ${playerOnHero.name} 출전`

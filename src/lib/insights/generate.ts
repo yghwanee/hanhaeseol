@@ -3,6 +3,7 @@ import { buildInsightContext, type ContextInputs } from "./build-context";
 import { buildPrompt } from "./prompt";
 import { callGemini, GEMINI_MODEL, GeminiError } from "./gemini-client";
 import { containsBettingTerms } from "./safety-filter";
+import { findFormContradictions } from "./form-claim";
 import { writeInsight, readInsight } from "./storage";
 
 export type GenerateOutcome =
@@ -10,7 +11,8 @@ export type GenerateOutcome =
   | { status: "skipped"; matchId: string; reason: string };
 
 const MIN_TOTAL_LENGTH = 300;
-const MAX_RETRIES = 1;
+// 흐름 검사에 걸리면 한 번 더 기회를 준다(무료 티어라 호출 수를 늘리진 않는다 — 상한 3회).
+const MAX_RETRIES = 2;
 
 export async function generateInsightForMatch(
   inputs: ContextInputs,
@@ -51,6 +53,21 @@ export async function generateInsightForMatch(
       }
       if (containsBettingTerms(fullText)) {
         lastError = "betting-terms-detected";
+        continue;
+      }
+      // 🔴 흐름 주장이 전적과 반대면 버린다. 프롬프트로 부탁만 해서는 안 막혔다
+      // (2026-08-23: 2연승 팀에 "연패를 기록하며"라고 쓴 글이 실제로 게시돼 있었다).
+      const contradictions = findFormContradictions(fullText, [
+        { name: ctx.homeTeam, flow: ctx.homeFlow },
+        { name: ctx.awayTeam, flow: ctx.awayFlow },
+      ]);
+      if (contradictions.length > 0) {
+        lastError = "form-claim-contradiction";
+        for (const c of contradictions) {
+          console.warn(
+            `[form-claim] ${ctx.matchId} ${c.team}: 실제 ${c.actual} ↔ 주장 ${c.claimed} — "${c.sentence}"`,
+          );
+        }
         continue;
       }
 

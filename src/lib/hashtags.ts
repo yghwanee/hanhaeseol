@@ -1,5 +1,5 @@
 import type { Sport } from "@/types/schedule";
-import { KOREAN_PLAYERS, pickHeroMatch, pickHeroMatchesTop, loadKoreanMatchesAll } from "./instagram";
+import { findKoreanPlayerOnMatch, pickHeroMatch, pickHeroMatchesTop, loadKoreanMatchesAll } from "./instagram";
 import { getRivalryName, isWorldCup, eventWord } from "./hero-pick";
 
 export const SPORT_EMOJI: Record<Sport, string> = {
@@ -175,8 +175,7 @@ function countryHashtag(name: string): string | null {
 }
 
 function findKoreanPlayerOnTeam(team: string): string | null {
-  const found = KOREAN_PLAYERS.find((p) => p.team === team);
-  return found ? found.name : null;
+  return findKoreanPlayerOnMatch(team, undefined)?.name ?? null;
 }
 
 const LEAGUE_SHORT_NAME: Record<string, string> = {

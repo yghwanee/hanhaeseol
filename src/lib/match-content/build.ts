@@ -15,6 +15,7 @@ import { lookupTeamRecord } from "@/lib/team-records/lookup";
 import { LEAGUE_GUIDES } from "@/lib/league-guides";
 import { PLATFORM_GUIDES } from "@/lib/platform-guides";
 import { findLeagueBySlug, findPlatformSlugByName, LEAGUE_SEO } from "@/lib/slugs";
+import { recentFormText } from "@/lib/teams";
 import { withJosa } from "../josa";
 
 export interface H2HEntry {
@@ -307,7 +308,11 @@ function summaryToSentence(name: string, s?: TeamSummary): string {
   if (typeof s.goalDiff === "number") {
     parts.push(`득실차 ${s.goalDiff >= 0 ? "+" : ""}${s.goalDiff}`);
   }
-  if (s.last5) parts.push(`최근 5경기 ${s.last5}`);
+  // 🔴 "최근 5경기 DDDWW" 처럼 원문자를 그대로 내보내고 있었다. 읽는 사람에겐 암호다.
+  // (경기가 한 개뿐이면 "최근 5경기 D" 로 나와 개수까지 거짓말이 됐다 — recentFormText 는
+  // 실제 길이로 "최근 1경기 0승 1무 0패" 를 만든다.)
+  const formText = recentFormText(s.last5 ?? undefined);
+  if (formText) parts.push(formText);
   if (s.streak && s.streak.count >= 2) {
     parts.push(`${s.streak.count}${s.streak.type === "W" ? "연승" : s.streak.type === "L" ? "연패" : "연속 무"} ${lastNonDraw(s.streak.type)}`);
   }

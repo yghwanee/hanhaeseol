@@ -1,22 +1,13 @@
 import type { Schedule, Sport } from "@/types/schedule";
+import { getKoreanPlayers } from "./korean-players/load";
+import type { KoreanPlayer as KoreanPlayerEntry } from "./korean-players/types";
 
-// 한국 선수 → 소속 팀 (시즌마다 갱신 필요)
-// schedule.json의 팀명 표기와 일치해야 함.
-export const KOREAN_PLAYERS: Array<{ name: string; team: string }> = [
-  // 축구 — 유럽
-  { name: "황희찬", team: "울버햄튼" },
-  { name: "이강인", team: "PSG" },
-  { name: "김민재", team: "바이에른 뮌헨" },
-  { name: "양민혁", team: "토트넘" },
-  { name: "정우영", team: "슈투트가르트" },
-  // 야구 — MLB
-  { name: "김혜성", team: "LA 다저스" },
-  { name: "이정후", team: "샌프란시스코 자이언츠" },
-  { name: "김하성", team: "탬파베이 레이스" },
-  { name: "배지환", team: "피츠버그 파이리츠" },
-];
+// 코리안리거 로스터는 `src/data/korean-players.json`(매일 크롤)에서 온다.
+// 🔴 여기에 선수→팀을 다시 하드코딩하지 말 것. 손으로 적은 표는 이적 때마다 낡고,
+// 낡은 줄 아무도 모른다(2026-08-23: 이강인 PSG→AT 마드리드 이적을 한 달 넘게 못 따라가
+// 히어로가 엉뚱한 새벽 경기를 골랐다). 로스터가 낡으면 loader 가 통째로 비운다.
+export type { KoreanPlayer } from "./korean-players/load";
 
-const KOREAN_PLAYER_TEAMS = new Set(KOREAN_PLAYERS.map((p) => p.team));
 
 /** 표기 흔들림 흡수 — 데이터는 `AT. 마드리드`(공백 있음), 상수는 `AT.마드리드` 로 갈린다. */
 function norm(s: string): string {
@@ -220,10 +211,25 @@ export function getRivalryName(
   return RIVALRY_NAME_MAP.get(pairKey(home, away));
 }
 
+/**
+ * 이 경기에 뛰는 팀 소속 코리안리거를 찾는다. 없으면 null.
+ * 팀명은 제공처마다 표기가 갈리므로(`AT. 마드리드` ↔ `AT.마드리드`) 공백을 지우고 비교한다.
+ */
+export function findKoreanPlayerOnMatch(
+  home: string | undefined,
+  away: string | undefined,
+  now?: Date,
+): KoreanPlayerEntry | null {
+  const sides = [home, away].filter((t): t is string => Boolean(t)).map(norm);
+  if (sides.length === 0) return null;
+  for (const p of getKoreanPlayers(now)) {
+    if (p.teams.some((t) => sides.includes(norm(t)))) return p;
+  }
+  return null;
+}
+
 function hasKoreanPlayer(m: Schedule): boolean {
-  if (KOREAN_PLAYER_TEAMS.has(m.homeTeam)) return true;
-  if (m.awayTeam && KOREAN_PLAYER_TEAMS.has(m.awayTeam)) return true;
-  return false;
+  return findKoreanPlayerOnMatch(m.homeTeam, m.awayTeam) !== null;
 }
 
 function isRivalry(m: Schedule): boolean {

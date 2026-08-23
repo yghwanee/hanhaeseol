@@ -1,11 +1,29 @@
 import type { InsightContext } from "./build-context";
+import type { Flow } from "./form-claim";
+
+/**
+ * 모델에게 "WWLDW" 같은 원문자열을 던지면 방향을 뒤집어 읽는다(실측).
+ * 사람 말로 못 박아서 준다.
+ */
+function flowText(flow: Flow, streak?: string): string | null {
+  const word =
+    flow === "up"
+      ? "상승 흐름(좋다)"
+      : flow === "down"
+        ? "하락 흐름(안 좋다)"
+        : flow === "flat"
+          ? "무승부로 끊긴 흐름"
+          : null;
+  if (!word) return null;
+  return streak ? `${streak} = ${word}` : word;
+}
 
 export function buildPrompt(ctx: InsightContext): string {
   const homeInfo = [
     ctx.homeTeam,
     ctx.homeRank ? `현재 ${ctx.homeRank}위` : null,
-    ctx.homeRecentForm ? `최근 5경기 ${ctx.homeRecentForm}` : null,
-    ctx.homeStreak,
+    ctx.homeRecentForm ? `최근 5경기 ${ctx.homeRecentForm}(왼쪽이 최신)` : null,
+    flowText(ctx.homeFlow, ctx.homeStreak),
   ]
     .filter(Boolean)
     .join(", ");
@@ -13,8 +31,8 @@ export function buildPrompt(ctx: InsightContext): string {
   const awayInfo = [
     ctx.awayTeam,
     ctx.awayRank ? `현재 ${ctx.awayRank}위` : null,
-    ctx.awayRecentForm ? `최근 5경기 ${ctx.awayRecentForm}` : null,
-    ctx.awayStreak,
+    ctx.awayRecentForm ? `최근 5경기 ${ctx.awayRecentForm}(왼쪽이 최신)` : null,
+    flowText(ctx.awayFlow, ctx.awayStreak),
   ]
     .filter(Boolean)
     .join(", ");
@@ -28,7 +46,10 @@ export function buildPrompt(ctx: InsightContext): string {
 - 종목: ${ctx.sport}
 - 홈팀: ${homeInfo}
 - 원정팀: ${awayInfo}
-- 참고: "최근 5경기" 문자열은 왼쪽이 가장 최근 경기다. 팀의 현재 흐름은 "현재 N연승/연패"(streak)를 절대 기준으로 삼는다.
+- [흐름·절대 규칙] 각 팀 뒤에 "상승 흐름"/"하락 흐름"이라고 적어 뒀다. **그 반대 방향 표현을 쓰면 그 글은 폐기된다.**
+  - 상승 흐름인 팀에 "연패·부진·주춤·반등이 필요·분위기 전환이 필요" 금지.
+  - 하락 흐름인 팀에 "연승·상승세·좋은 흐름·직전 경기 승리" 금지.
+  - 흐름 표시가 없는 팀은 흐름을 아예 언급하지 않는다.
 ${ctx.headToHead ? `- ${ctx.headToHead}` : ""}
 - 한국 시간 킥오프: ${ctx.date} ${ctx.time} KST
 - 한국어 해설 플랫폼: ${ctx.platform}

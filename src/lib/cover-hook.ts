@@ -9,7 +9,7 @@
 // 풀은 슬롯당 8개다. 3~4개면 같은 틀이 사나흘마다 돌아와 몰아 보면 티가 난다.
 // 문장 틀은 사람이 쓰고 코드는 값만 채운다 — LLM 생성은 비용·검증 부담만 붙는다.
 
-import { KOREAN_PLAYERS, loadKoreanMatchesAll, pickHeroForDate } from "./instagram";
+import { findKoreanPlayerOnMatch, loadKoreanMatchesAll, pickHeroForDate } from "./instagram";
 import { GLOBAL_BIG_CLUBS } from "./hero-pick";
 import { withJosa } from "./josa";
 import { getPostSlot, rotateIndex, type PostSlot } from "./post-slot";
@@ -178,9 +178,7 @@ export function coverHookContext(today: string): CoverHookCtx | null {
   const away = hero.awayTeam && hero.awayTeam !== "미정" ? hero.awayTeam : null;
   if (!home && !away) return null;
 
-  const player = KOREAN_PLAYERS.find(
-    (p) => p.team === hero.homeTeam || p.team === hero.awayTeam,
-  );
+  const player = findKoreanPlayerOnMatch(hero.homeTeam, hero.awayTeam);
 
   return {
     who: player ? player.name : pickHeadliner(home, away),
