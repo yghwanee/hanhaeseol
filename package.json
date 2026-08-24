@@ -57,6 +57,7 @@
     "test:josa": "tsx --test src/lib/josa.test.ts",
     "test:match-quality": "tsx --test src/lib/match-quality.test.ts",
     "test:teams": "tsx --test src/lib/teams.test.ts",
+    "test:emblem-check": "tsx --test src/lib/standings/emblem-check.test.ts",
     "test:style-lint": "tsx --test src/lib/guides/style-lint.test.ts",
     "test:seo-meta": "tsx --test src/lib/seo-meta.test.ts",
     "test:team-full-names": "tsx --test src/lib/team-full-names.test.ts",

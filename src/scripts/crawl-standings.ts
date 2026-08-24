@@ -7,6 +7,7 @@ import {
   fetchBaseballLeague,
   fetchSoccerLeague,
 } from "@/lib/standings/naver";
+import { pruneDeadEmblems } from "@/lib/standings/emblem-check";
 import type {
   BaseballLeagueStandings,
   SoccerLeagueStandings,
@@ -61,6 +62,13 @@ async function main() {
     basketball: [], // 다음 단계에서 NBA·KBL 추가
     lastUpdated: new Date().toISOString(),
   };
+
+  // 네이버가 준 앰블럼 URL 중 404 인 것만 null 로 떨군다(근거는 emblem-check.ts 주석).
+  // 죽은 URL 을 그대로 두면 화면에 깨진 이미지가 뜨고 /api/emblem 이 502 를 낸다.
+  console.log("[앰블럼 검증]");
+  const pruned = await pruneDeadEmblems(data);
+  console.log(`  ${pruned.checked}개 확인 · 죽은 URL ${pruned.dead.length}개 · ${pruned.cleared}팀 정리`);
+  for (const u of pruned.dead) console.log(`    404 ${u}`);
 
   const jsonStr = JSON.stringify(data, null, 2);
   const srcPath = path.join(process.cwd(), "src/data/standings.json");
