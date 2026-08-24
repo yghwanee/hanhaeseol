@@ -1,5 +1,12 @@
 # 한해설 robots.txt
 # /ig, /yt, /tt 는 단축 UTM 라우팅이라 모든 봇에서 색인 제외.
+#
+# 🔴 /match/ 제외 (2026-08-24) — sitemap.ts 의 INCLUDE_MATCH_URLS=false 와 한 쌍.
+# Vercel Observability 7일 실측: ISR Writes 16K/16.6K(96%) 가 /match/[slug] 였고
+# Write Utilization 0.1x(10번 쓰고 1번 읽힘), Unique Paths 2.5K = archive 2,418건.
+# Active CPU 도 /match/[slug] 38분 + /match/[slug]/opengraph-image 17분이 최상위.
+# 색인 가치는 실측 0 (GSC 3개월, 매치 1,330장 노출 0 클릭 0 — 작업58).
+# 페이지는 살아 있다. 크롤러만 막는다. 되돌리려면 각 블록의 이 줄을 지운다.
 
 User-agent: *
 Allow: /
@@ -8,6 +15,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 # === 검색 엔진 ===
 User-agent: Googlebot
@@ -17,6 +25,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 User-agent: bingbot
 Allow: /
@@ -25,6 +34,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 User-agent: Yeti
 Allow: /
@@ -33,6 +43,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 User-agent: Daumoa
 Allow: /
@@ -41,6 +52,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 # === AI 답변/검색 봇 ===
 # 한해설은 공개 정보 기반 편성표 서비스라 AI 답변에 인용되는 것이 트래픽 채널 확대에
@@ -54,6 +66,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 User-agent: OAI-SearchBot
 Allow: /
@@ -62,6 +75,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 User-agent: ChatGPT-User
 Allow: /
@@ -70,6 +84,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 # Anthropic / Claude
 User-agent: ClaudeBot
@@ -79,6 +94,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 User-agent: Claude-SearchBot
 Allow: /
@@ -87,6 +103,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 User-agent: Claude-User
 Allow: /
@@ -95,6 +112,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 # Google Gemini / Bard (Google 검색과 별개 토큰)
 User-agent: Google-Extended
@@ -104,6 +122,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 # Perplexity
 User-agent: PerplexityBot
@@ -113,6 +132,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 User-agent: Perplexity-User
 Allow: /
@@ -121,6 +141,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 # Apple Intelligence
 User-agent: Applebot
@@ -130,6 +151,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 User-agent: Applebot-Extended
 Allow: /
@@ -138,6 +160,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 # Meta AI (Llama)
 User-agent: Meta-ExternalAgent
@@ -147,6 +170,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 User-agent: Meta-ExternalFetcher
 Allow: /
@@ -155,6 +179,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 # ByteDance (Doubao / TikTok AI)
 User-agent: Bytespider
@@ -164,6 +189,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 # Amazon (Alexa, Q)
 User-agent: Amazonbot
@@ -173,6 +199,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 # Cohere
 User-agent: cohere-ai
@@ -182,6 +209,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 User-agent: cohere-training-data-crawler
 Allow: /
@@ -190,6 +218,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 # Mistral
 User-agent: MistralAI-User
@@ -199,6 +228,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 # You.com
 User-agent: YouBot
@@ -208,6 +238,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 # Diffbot (LLM citation source)
 User-agent: Diffbot
@@ -217,6 +248,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 # DuckDuckGo Assist
 User-agent: DuckAssistBot
@@ -226,6 +258,7 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
+Disallow: /match/
 
 Sitemap: https://haeseol.com/sitemap.xml
 Sitemap: https://haeseol.com/rss.xml

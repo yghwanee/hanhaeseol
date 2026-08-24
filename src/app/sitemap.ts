@@ -128,6 +128,19 @@ export default function sitemap(): MetadataRoute.Sitemap {
     if (!bySlug.has(slug)) bySlug.set(slug, s);
   }
 
+  // 🔴 2026-08-24 — 매치 URL 을 사이트맵에 올리지 않는다(`robots.txt` 의 `Disallow: /match/`
+  // 와 한 쌍). 근거는 Vercel Observability 7일 실측(8/17~8/24):
+  //   · ISR Writes 16K / 전체 16.6K = **96%** 가 `/match/[slug]` 였다
+  //   · 그 라우트의 **Write Utilization 0.1×** — 10번 쓰고 1번 읽힌다
+  //   · Unique Paths 2.5K = `schedule-archive.json` 2,418건과 일치 = 크롤러가 archive 를 훑는다
+  //   · Active CPU 도 `/match/[slug]` 38분 + `/match/[slug]/opengraph-image` 17분이 최상위
+  // archive 매치는 `generateStaticParams` 가 7일치만 프리렌더하고 `dynamicParams=true` 라
+  // 나머지 2,400여 장이 **크롤러 요청마다 온디맨드 SSR + ISR write** 를 낸다.
+  // 색인 가치는 실측 0 이다 — GSC 3개월 전수(작업58)에서 매치 1,330장이 노출 0 · 클릭 0.
+  // 페이지 자체는 살아 있다(사람이 사이트 안에서 눌러 들어가는 경로는 그대로).
+  // 되돌리려면 이 값만 true 로.
+  const INCLUDE_MATCH_URLS = false;
+
   const matchUrls = dedupeSitemapEntries(
     [...bySlug.values()]
       .filter((s) => isRichMatch(s, resultsArchive))
@@ -184,7 +197,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...standingsLeagueUrls,
     ...leagueUrls,
     ...platformUrls,
-    ...matchUrls,
+    // 🔴 2026-08-24: 매치 URL 을 사이트맵에서 뺀다. 되돌리려면 위 상수를 true 로.
+    ...(INCLUDE_MATCH_URLS ? matchUrls : []),
     {
       url: `${BASE}/about`,
       changeFrequency: "monthly",
