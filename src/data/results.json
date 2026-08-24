@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-24T19:44:08.487Z",
+  "lastUpdated": "2026-08-24T20:04:49.434Z",
   "byKey": {
     "2026-08-25|kbo|SSG|한화": {
       "date": "2026-08-25",
@@ -1761,7 +1761,7 @@
       "homeScore": 1,
       "awayScore": 2,
       "status": "live",
-      "period": "전반 43'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -1954,9 +1954,16 @@
       "homeTeam": "말라가",
       "awayTeam": "데포르티보",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 11'"
+      "period": "전반 33'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "오바메양",
+          "minute": 21
+        }
+      ]
     },
     "2026-08-26|primera|발렌시아|베티스": {
       "date": "2026-08-26",
@@ -2159,15 +2166,20 @@
       "gameId": "D7OYT4AXNoFmqHQ",
       "homeTeam": "AS 로마",
       "awayTeam": "피오렌티나",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 14'",
       "goals": [
         {
           "team": "home",
           "player": "말런",
           "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "말런",
+          "minute": 52
         }
       ]
     },
@@ -2177,15 +2189,20 @@
       "gameId": "D7OYT4AXNoFmqHQ",
       "homeTeam": "AS 로마",
       "awayTeam": "피오렌티나",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 14'",
       "goals": [
         {
           "team": "home",
           "player": "말런",
           "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "말런",
+          "minute": 52
         }
       ]
     },
@@ -3131,7 +3148,7 @@
       "homeScore": 1,
       "awayScore": 2,
       "status": "live",
-      "period": "전반 43'",
+      "period": "전반종료",
       "goals": [
         {
           "team": "away",
@@ -3258,9 +3275,16 @@
       "homeTeam": "말라가",
       "awayTeam": "데포르티보",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 11'"
+      "period": "전반 33'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "오바메양",
+          "minute": 21
+        }
+      ]
     },
     {
       "date": "2026-08-26",
@@ -3395,15 +3419,20 @@
       "gameId": "D7OYT4AXNoFmqHQ",
       "homeTeam": "AS 로마",
       "awayTeam": "피오렌티나",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 14'",
       "goals": [
         {
           "team": "home",
           "player": "말런",
           "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "말런",
+          "minute": 52
         }
       ]
     },
