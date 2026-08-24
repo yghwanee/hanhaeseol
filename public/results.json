@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-24T20:04:49.434Z",
+  "lastUpdated": "2026-08-24T20:46:49.028Z",
   "byKey": {
     "2026-08-25|kbo|SSG|한화": {
       "date": "2026-08-25",
@@ -765,7 +765,8 @@
       "awayTeam": "보스턴 레드삭스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-25|mlb|마이애미|보스턴 레드삭스": {
       "date": "2026-08-25",
@@ -775,7 +776,8 @@
       "awayTeam": "보스턴 레드삭스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-25|mlb|마이애미 말린스|보스턴": {
       "date": "2026-08-25",
@@ -785,7 +787,8 @@
       "awayTeam": "보스턴 레드삭스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-25|mlb|마이애미 말린스|보스턴 레드삭스": {
       "date": "2026-08-25",
@@ -795,7 +798,8 @@
       "awayTeam": "보스턴 레드삭스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-25|mlb|디트로이트|탬파베이": {
       "date": "2026-08-25",
@@ -805,7 +809,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-25|mlb|디트로이트|탬파베이 레이스": {
       "date": "2026-08-25",
@@ -815,7 +820,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-25|mlb|디트로이트 타이거스|탬파베이": {
       "date": "2026-08-25",
@@ -825,7 +831,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-25|mlb|디트로이트 타이거스|탬파베이 레이스": {
       "date": "2026-08-25",
@@ -835,7 +842,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-25|mlb|워싱턴|콜로라도": {
       "date": "2026-08-25",
@@ -845,7 +853,8 @@
       "awayTeam": "콜로라도 로키스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-25|mlb|워싱턴|콜로라도 로키스": {
       "date": "2026-08-25",
@@ -855,7 +864,8 @@
       "awayTeam": "콜로라도 로키스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-25|mlb|워싱턴 내셔널스|콜로라도": {
       "date": "2026-08-25",
@@ -865,7 +875,8 @@
       "awayTeam": "콜로라도 로키스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-25|mlb|워싱턴 내셔널스|콜로라도 로키스": {
       "date": "2026-08-25",
@@ -875,7 +886,8 @@
       "awayTeam": "콜로라도 로키스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-08-25|mlb|시카고W|텍사스": {
       "date": "2026-08-25",
@@ -1758,10 +1770,10 @@
       "gameId": "WhQGPKQR7byuPfJ",
       "homeTeam": "풀럼",
       "awayTeam": "첼시",
-      "homeScore": 1,
-      "awayScore": 2,
+      "homeScore": 2,
+      "awayScore": 3,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 42'",
       "goals": [
         {
           "team": "away",
@@ -1777,6 +1789,16 @@
           "team": "away",
           "player": "로저스",
           "minute": 41
+        },
+        {
+          "team": "away",
+          "player": "파머",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "곤살로 가르시아",
+          "minute": 54
         }
       ]
     },
@@ -1953,15 +1975,20 @@
       "gameId": "QZvKjXEduYKls0l",
       "homeTeam": "말라가",
       "awayTeam": "데포르티보",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 33'",
+      "period": "후반 12'",
       "goals": [
         {
           "team": "away",
           "player": "오바메양",
           "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "추페",
+          "minute": 34
         }
       ]
     },
@@ -2166,10 +2193,10 @@
       "gameId": "D7OYT4AXNoFmqHQ",
       "homeTeam": "AS 로마",
       "awayTeam": "피오렌티나",
-      "homeScore": 2,
+      "homeScore": 4,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 14'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2180,6 +2207,16 @@
           "team": "home",
           "player": "말런",
           "minute": 52
+        },
+        {
+          "team": "home",
+          "player": "말런",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "피실리",
+          "minute": 86
         }
       ]
     },
@@ -2189,10 +2226,10 @@
       "gameId": "D7OYT4AXNoFmqHQ",
       "homeTeam": "AS 로마",
       "awayTeam": "피오렌티나",
-      "homeScore": 2,
+      "homeScore": 4,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 14'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2203,6 +2240,16 @@
           "team": "home",
           "player": "말런",
           "minute": 52
+        },
+        {
+          "team": "home",
+          "player": "말런",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "피실리",
+          "minute": 86
         }
       ]
     },
@@ -2862,7 +2909,8 @@
       "awayTeam": "보스턴 레드삭스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-08-25",
@@ -2872,7 +2920,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-08-25",
@@ -2882,7 +2931,8 @@
       "awayTeam": "콜로라도 로키스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-08-25",
@@ -3145,10 +3195,10 @@
       "gameId": "WhQGPKQR7byuPfJ",
       "homeTeam": "풀럼",
       "awayTeam": "첼시",
-      "homeScore": 1,
-      "awayScore": 2,
+      "homeScore": 2,
+      "awayScore": 3,
       "status": "live",
-      "period": "전반종료",
+      "period": "후반 42'",
       "goals": [
         {
           "team": "away",
@@ -3164,6 +3214,16 @@
           "team": "away",
           "player": "로저스",
           "minute": 41
+        },
+        {
+          "team": "away",
+          "player": "파머",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "곤살로 가르시아",
+          "minute": 54
         }
       ]
     },
@@ -3274,15 +3334,20 @@
       "gameId": "QZvKjXEduYKls0l",
       "homeTeam": "말라가",
       "awayTeam": "데포르티보",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
       "status": "live",
-      "period": "전반 33'",
+      "period": "후반 12'",
       "goals": [
         {
           "team": "away",
           "player": "오바메양",
           "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "추페",
+          "minute": 34
         }
       ]
     },
@@ -3419,10 +3484,10 @@
       "gameId": "D7OYT4AXNoFmqHQ",
       "homeTeam": "AS 로마",
       "awayTeam": "피오렌티나",
-      "homeScore": 2,
+      "homeScore": 4,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 14'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -3433,6 +3498,16 @@
           "team": "home",
           "player": "말런",
           "minute": 52
+        },
+        {
+          "team": "home",
+          "player": "말런",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "피실리",
+          "minute": 86
         }
       ]
     },
