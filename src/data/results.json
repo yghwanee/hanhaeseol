@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-24T18:57:38.214Z",
+  "lastUpdated": "2026-08-24T19:44:08.487Z",
   "byKey": {
     "2026-08-25|kbo|SSG|한화": {
       "date": "2026-08-25",
@@ -1749,7 +1749,8 @@
           "minute": 90,
           "addedTime": 9
         }
-      ]
+      ],
+      "highlightVideoId": "E0Cmm9QlvdI"
     },
     "2026-08-25|epl|풀럼|첼시": {
       "date": "2026-08-25",
@@ -1757,10 +1758,27 @@
       "gameId": "WhQGPKQR7byuPfJ",
       "homeTeam": "풀럼",
       "awayTeam": "첼시",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "live",
+      "period": "전반 43'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "주앙 페드로",
+          "minute": 1
+        },
+        {
+          "team": "home",
+          "player": "킹",
+          "minute": 23
+        },
+        {
+          "team": "away",
+          "player": "로저스",
+          "minute": 41
+        }
+      ]
     },
     "2026-08-24|primera|AT 마드리드|비야레알": {
       "date": "2026-08-24",
@@ -1926,8 +1944,8 @@
       "awayTeam": "레반테",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 24'"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-08-25|primera|말라가|데포르티보": {
       "date": "2026-08-25",
@@ -1937,8 +1955,8 @@
       "awayTeam": "데포르티보",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 11'"
     },
     "2026-08-26|primera|발렌시아|베티스": {
       "date": "2026-08-26",
@@ -2141,10 +2159,17 @@
       "gameId": "D7OYT4AXNoFmqHQ",
       "homeTeam": "AS 로마",
       "awayTeam": "피오렌티나",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 10'"
+      "period": "전반종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "말런",
+          "minute": 27
+        }
+      ]
     },
     "2026-08-25|seria|AS 로마|피오렌티나": {
       "date": "2026-08-25",
@@ -2152,10 +2177,17 @@
       "gameId": "D7OYT4AXNoFmqHQ",
       "homeTeam": "AS 로마",
       "awayTeam": "피오렌티나",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 10'"
+      "period": "전반종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "말런",
+          "minute": 27
+        }
+      ]
     },
     "2026-08-24|ligue1|르 아브르|모나코": {
       "date": "2026-08-24",
@@ -3087,7 +3119,8 @@
           "minute": 90,
           "addedTime": 9
         }
-      ]
+      ],
+      "highlightVideoId": "E0Cmm9QlvdI"
     },
     {
       "date": "2026-08-25",
@@ -3095,10 +3128,27 @@
       "gameId": "WhQGPKQR7byuPfJ",
       "homeTeam": "풀럼",
       "awayTeam": "첼시",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "live",
+      "period": "전반 43'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "주앙 페드로",
+          "minute": 1
+        },
+        {
+          "team": "home",
+          "player": "킹",
+          "minute": 23
+        },
+        {
+          "team": "away",
+          "player": "로저스",
+          "minute": 41
+        }
+      ]
     },
     {
       "date": "2026-08-24",
@@ -3198,8 +3248,8 @@
       "awayTeam": "레반테",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 24'"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-08-25",
@@ -3209,8 +3259,8 @@
       "awayTeam": "데포르티보",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 11'"
     },
     {
       "date": "2026-08-26",
@@ -3345,10 +3395,17 @@
       "gameId": "D7OYT4AXNoFmqHQ",
       "homeTeam": "AS 로마",
       "awayTeam": "피오렌티나",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 10'"
+      "period": "전반종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "말런",
+          "minute": 27
+        }
+      ]
     },
     {
       "date": "2026-08-24",
