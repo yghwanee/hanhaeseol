@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-24T16:53:58.201Z",
+  "lastUpdated": "2026-08-24T17:45:25.664Z",
   "byKey": {
     "2026-08-25|kbo|SSG|한화": {
       "date": "2026-08-25",
@@ -1926,8 +1926,8 @@
       "awayTeam": "레반테",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 14'"
     },
     "2026-08-25|primera|말라가|데포르티보": {
       "date": "2026-08-25",
@@ -2126,7 +2126,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 20'"
+      "period": "후반 6'"
     },
     "2026-08-25|seria|로마|피오렌티나": {
       "date": "2026-08-25",
@@ -2493,9 +2493,16 @@
       "homeTeam": "브뢴비",
       "awayTeam": "실케보리",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 45'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "맥코왓",
+          "minute": 44
+        }
+      ]
     }
   },
   "results": [
@@ -3169,8 +3176,8 @@
       "awayTeam": "레반테",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 14'"
     },
     {
       "date": "2026-08-25",
@@ -3301,7 +3308,7 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 20'"
+      "period": "후반 6'"
     },
     {
       "date": "2026-08-25",
@@ -3524,9 +3531,16 @@
       "homeTeam": "브뢴비",
       "awayTeam": "실케보리",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 45'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "맥코왓",
+          "minute": 44
+        }
+      ]
     }
   ]
 }
