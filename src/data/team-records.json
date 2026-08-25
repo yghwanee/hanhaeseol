@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-25T10:48:35.237Z",
+  "lastUpdated": "2026-08-25T11:41:40.186Z",
   "records": {
     "KBO": {
       "KT": {
@@ -1829,9 +1829,9 @@
     "K리그": {
       "서울": {
         "last5": "WWDDL",
-        "win": 15,
+        "win": 16,
         "lose": 4,
-        "draw": 6,
+        "draw": 5,
         "streak": {
           "count": 2,
           "type": "W"
@@ -1857,21 +1857,31 @@
           "type": "L"
         }
       },
-      "제주": {
-        "last5": "DWWDW",
-        "win": 9,
-        "lose": 7,
-        "draw": 9,
-        "streak": {
-          "count": 1,
-          "type": "D"
-        }
-      },
       "강원": {
         "last5": "LWLLD",
         "win": 9,
         "lose": 6,
         "draw": 8,
+        "streak": {
+          "count": 1,
+          "type": "L"
+        }
+      },
+      "제주": {
+        "last5": "DWWDW",
+        "win": 9,
+        "lose": 8,
+        "draw": 8,
+        "streak": {
+          "count": 1,
+          "type": "D"
+        }
+      },
+      "포항": {
+        "last5": "LWLLL",
+        "win": 10,
+        "lose": 11,
+        "draw": 4,
         "streak": {
           "count": 1,
           "type": "L"
@@ -1887,26 +1897,6 @@
           "type": "W"
         }
       },
-      "포항": {
-        "last5": "LWLLL",
-        "win": 9,
-        "lose": 11,
-        "draw": 5,
-        "streak": {
-          "count": 1,
-          "type": "L"
-        }
-      },
-      "부천": {
-        "last5": "WWDWD",
-        "win": 7,
-        "lose": 8,
-        "draw": 10,
-        "streak": {
-          "count": 2,
-          "type": "W"
-        }
-      },
       "안양": {
         "last5": "LLLLW",
         "win": 7,
@@ -1915,6 +1905,16 @@
         "streak": {
           "count": 4,
           "type": "L"
+        }
+      },
+      "부천": {
+        "last5": "WWDWD",
+        "win": 7,
+        "lose": 9,
+        "draw": 9,
+        "streak": {
+          "count": 2,
+          "type": "W"
         }
       },
       "대전": {
