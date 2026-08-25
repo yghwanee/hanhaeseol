@@ -415,6 +415,25 @@
         },
         {
           "rank": 2,
+          "teamName": "레알 베티스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26314.png?type=f92_88",
+          "matchesPlayed": 2,
+          "wins": 2,
+          "draws": 0,
+          "losses": 0,
+          "goals": 2,
+          "goalsConceded": 0,
+          "goalsDifference": 2,
+          "points": 6,
+          "lastFive": "WW",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 3,
           "teamName": "알라베스",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26476.png?type=f92_88",
           "matchesPlayed": 2,
@@ -433,7 +452,7 @@
           "rankStatus": "UEFA Champions League"
         },
         {
-          "rank": 3,
+          "rank": 4,
           "teamName": "아틀레티코 마드리드",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26305.png?type=f92_88",
           "matchesPlayed": 2,
@@ -452,7 +471,7 @@
           "rankStatus": "UEFA Champions League"
         },
         {
-          "rank": 4,
+          "rank": 5,
           "teamName": "바르셀로나",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26300.png?type=f92_88",
           "matchesPlayed": 1,
@@ -468,10 +487,10 @@
             "type": "W",
             "count": 1
           },
-          "rankStatus": "UEFA Champions League"
+          "rankStatus": "UEFA Europa League"
         },
         {
-          "rank": 5,
+          "rank": 6,
           "teamName": "에스파뇰",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26306.png?type=f92_88",
           "matchesPlayed": 2,
@@ -487,10 +506,10 @@
             "type": "L",
             "count": 1
           },
-          "rankStatus": "UEFA Europa League"
+          "rankStatus": "UEFA Conference League Qualifiers"
         },
         {
-          "rank": 6,
+          "rank": 7,
           "teamName": "레알 마드리드",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26303.png?type=f92_88",
           "matchesPlayed": 1,
@@ -499,25 +518,6 @@
           "losses": 0,
           "goals": 2,
           "goalsConceded": 1,
-          "goalsDifference": 1,
-          "points": 3,
-          "lastFive": "W",
-          "streak": {
-            "type": "W",
-            "count": 1
-          },
-          "rankStatus": "UEFA Conference League Qualifiers"
-        },
-        {
-          "rank": 7,
-          "teamName": "레알 베티스",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26314.png?type=f92_88",
-          "matchesPlayed": 1,
-          "wins": 1,
-          "draws": 0,
-          "losses": 0,
-          "goals": 1,
-          "goalsConceded": 0,
           "goalsDifference": 1,
           "points": 3,
           "lastFive": "W",
@@ -605,25 +605,6 @@
         },
         {
           "rank": 12,
-          "teamName": "발렌시아",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26316.png?type=f92_88",
-          "matchesPlayed": 1,
-          "wins": 0,
-          "draws": 1,
-          "losses": 0,
-          "goals": 0,
-          "goalsConceded": 0,
-          "goalsDifference": 0,
-          "points": 1,
-          "lastFive": "D",
-          "streak": {
-            "type": "D",
-            "count": 1
-          },
-          "rankStatus": null
-        },
-        {
-          "rank": 13,
           "teamName": "셀타 데 비고",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26302.png?type=f92_88",
           "matchesPlayed": 1,
@@ -642,7 +623,7 @@
           "rankStatus": null
         },
         {
-          "rank": 14,
+          "rank": 13,
           "teamName": "라싱 산탄데르",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/VFUWfV.png?type=f92_88",
           "matchesPlayed": 2,
@@ -661,7 +642,7 @@
           "rankStatus": null
         },
         {
-          "rank": 15,
+          "rank": 14,
           "teamName": "바예카노",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/35724.png?type=f92_88",
           "matchesPlayed": 2,
@@ -675,6 +656,25 @@
           "lastFive": "DL",
           "streak": {
             "type": "D",
+            "count": 1
+          },
+          "rankStatus": null
+        },
+        {
+          "rank": 15,
+          "teamName": "발렌시아",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26316.png?type=f92_88",
+          "matchesPlayed": 2,
+          "wins": 0,
+          "draws": 1,
+          "losses": 1,
+          "goals": 0,
+          "goalsConceded": 1,
+          "goalsDifference": -1,
+          "points": 1,
+          "lastFive": "LD",
+          "streak": {
+            "type": "L",
             "count": 1
           },
           "rankStatus": null
@@ -4997,5 +4997,5 @@
     }
   ],
   "basketball": [],
-  "lastUpdated": "2026-08-25T16:58:03.246Z"
+  "lastUpdated": "2026-08-25T23:38:39.887Z"
 }
