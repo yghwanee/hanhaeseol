@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-25T09:50:29.282Z",
+  "lastUpdated": "2026-08-25T10:48:35.237Z",
   "records": {
     "KBO": {
       "KT": {
@@ -1831,9 +1831,19 @@
         "last5": "WWDDL",
         "win": 15,
         "lose": 4,
-        "draw": 5,
+        "draw": 6,
         "streak": {
           "count": 2,
+          "type": "W"
+        }
+      },
+      "전북": {
+        "last5": "WLLDW",
+        "win": 10,
+        "lose": 7,
+        "draw": 8,
+        "streak": {
+          "count": 1,
           "type": "W"
         }
       },
@@ -1847,14 +1857,14 @@
           "type": "L"
         }
       },
-      "전북": {
-        "last5": "WLLDW",
-        "win": 10,
+      "제주": {
+        "last5": "DWWDW",
+        "win": 9,
         "lose": 7,
-        "draw": 7,
+        "draw": 9,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "D"
         }
       },
       "강원": {
@@ -1865,16 +1875,6 @@
         "streak": {
           "count": 1,
           "type": "L"
-        }
-      },
-      "제주": {
-        "last5": "DWWDW",
-        "win": 9,
-        "lose": 7,
-        "draw": 8,
-        "streak": {
-          "count": 1,
-          "type": "D"
         }
       },
       "인천": {
@@ -1891,10 +1891,20 @@
         "last5": "LWLLL",
         "win": 9,
         "lose": 11,
-        "draw": 4,
+        "draw": 5,
         "streak": {
           "count": 1,
           "type": "L"
+        }
+      },
+      "부천": {
+        "last5": "WWDWD",
+        "win": 7,
+        "lose": 8,
+        "draw": 10,
+        "streak": {
+          "count": 2,
+          "type": "W"
         }
       },
       "안양": {
@@ -1905,16 +1915,6 @@
         "streak": {
           "count": 4,
           "type": "L"
-        }
-      },
-      "부천": {
-        "last5": "WWDWD",
-        "win": 7,
-        "lose": 8,
-        "draw": 9,
-        "streak": {
-          "count": 2,
-          "type": "W"
         }
       },
       "대전": {
@@ -1931,7 +1931,7 @@
         "last5": "DDDWW",
         "win": 4,
         "lose": 6,
-        "draw": 14,
+        "draw": 15,
         "streak": {
           "count": 3,
           "type": "D"
