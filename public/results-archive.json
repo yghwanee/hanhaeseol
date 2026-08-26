@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-26T19:16:52.616Z",
+  "lastUpdated": "2026-08-26T22:30:27.795Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -34167,6 +34167,66 @@
         }
       ],
       "highlightVideoId": "2ewX1vbFChA"
+    },
+    "2026-08-27|mlb|디트로이트 타이거스|탬파베이 레이스": {
+      "date": "2026-08-27",
+      "categoryId": "mlb",
+      "gameId": "20260827TBDE0",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-08-27|mlb|애리조나 다이아몬드백스|시카고 컵스": {
+      "date": "2026-08-27",
+      "categoryId": "mlb",
+      "gameId": "20260827CCAZ0",
+      "homeTeam": "애리조나 다이아몬드백스",
+      "awayTeam": "시카고 컵스",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-08-27|primera|레알 마드리드|레알 소시에다드": {
+      "date": "2026-08-27",
+      "categoryId": "primera",
+      "gameId": "IqTQvKwKr8W2gpd",
+      "homeTeam": "레알 마드리드",
+      "awayTeam": "레알 소시에다드",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "음바페",
+          "minute": 40
+        },
+        {
+          "team": "away",
+          "player": "루카 수치치",
+          "minute": 44
+        },
+        {
+          "team": "home",
+          "player": "음바페",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "비니시우스",
+          "minute": 68
+        },
+        {
+          "team": "home",
+          "player": "음바페",
+          "minute": 80
+        }
+      ]
     }
   },
   "results": [
@@ -68336,6 +68396,66 @@
         }
       ],
       "highlightVideoId": "2ewX1vbFChA"
+    },
+    {
+      "date": "2026-08-27",
+      "categoryId": "mlb",
+      "gameId": "20260827TBDE0",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "탬파베이 레이스",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-08-27",
+      "categoryId": "mlb",
+      "gameId": "20260827CCAZ0",
+      "homeTeam": "애리조나 다이아몬드백스",
+      "awayTeam": "시카고 컵스",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-27",
+      "categoryId": "primera",
+      "gameId": "IqTQvKwKr8W2gpd",
+      "homeTeam": "레알 마드리드",
+      "awayTeam": "레알 소시에다드",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "음바페",
+          "minute": 40
+        },
+        {
+          "team": "away",
+          "player": "루카 수치치",
+          "minute": 44
+        },
+        {
+          "team": "home",
+          "player": "음바페",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "비니시우스",
+          "minute": 68
+        },
+        {
+          "team": "home",
+          "player": "음바페",
+          "minute": 80
+        }
+      ]
     }
   ]
 }
