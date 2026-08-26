@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-26T10:50:33.636Z",
+  "lastUpdated": "2026-08-26T11:43:16.716Z",
   "byKey": {
     "2026-08-25|kbo|SSG|한화": {
       "date": "2026-08-25",
@@ -67,10 +67,10 @@
       "gameId": "20260826HHSK02026",
       "homeTeam": "SSG",
       "awayTeam": "한화",
-      "homeScore": 1,
-      "awayScore": 0,
+      "homeScore": 6,
+      "awayScore": 1,
       "status": "live",
-      "period": "5회말"
+      "period": "7회말"
     },
     "2026-08-26|kbo|KIA|롯데": {
       "date": "2026-08-26",
@@ -78,10 +78,10 @@
       "gameId": "20260826LTHT02026",
       "homeTeam": "KIA",
       "awayTeam": "롯데",
-      "homeScore": 5,
+      "homeScore": 11,
       "awayScore": 3,
       "status": "live",
-      "period": "4회초"
+      "period": "5회말"
     },
     "2026-08-26|kbo|LG|NC": {
       "date": "2026-08-26",
@@ -92,7 +92,7 @@
       "homeScore": 5,
       "awayScore": 0,
       "status": "live",
-      "period": "5회초"
+      "period": "7회말"
     },
     "2026-08-26|kbo|KT|두산": {
       "date": "2026-08-26",
@@ -101,9 +101,9 @@
       "homeTeam": "KT",
       "awayTeam": "두산",
       "homeScore": 3,
-      "awayScore": 1,
+      "awayScore": 3,
       "status": "live",
-      "period": "5회초"
+      "period": "7회초"
     },
     "2026-08-26|kbo|키움|삼성": {
       "date": "2026-08-26",
@@ -112,9 +112,9 @@
       "homeTeam": "키움",
       "awayTeam": "삼성",
       "homeScore": 2,
-      "awayScore": 5,
+      "awayScore": 10,
       "status": "live",
-      "period": "4회초"
+      "period": "6회초"
     },
     "2026-08-27|kbo|SSG|한화": {
       "date": "2026-08-27",
@@ -2095,7 +2095,8 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "highlightVideoId": "KXUo4rgw6aA"
     },
     "2026-08-26|kleague|대전|울산": {
       "date": "2026-08-26",
@@ -2104,9 +2105,16 @@
       "homeTeam": "대전",
       "awayTeam": "울산",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 21'"
+      "period": "후반 8'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "이진현",
+          "minute": 48
+        }
+      ]
     },
     "2026-08-26|kleague|강원|광주": {
       "date": "2026-08-26",
@@ -2115,14 +2123,19 @@
       "homeTeam": "강원",
       "awayTeam": "광주",
       "homeScore": 0,
-      "awayScore": 1,
+      "awayScore": 2,
       "status": "live",
-      "period": "전반 21'",
+      "period": "후반 9'",
       "goals": [
         {
           "team": "away",
           "player": "문민서",
           "minute": 4
+        },
+        {
+          "team": "away",
+          "player": "문민서",
+          "minute": 44
         }
       ]
     },
@@ -2132,10 +2145,22 @@
       "gameId": "202608262718148",
       "homeTeam": "안양",
       "awayTeam": "인천",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 1,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 21'"
+      "period": "후반 7'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "이동률",
+          "minute": 39
+        },
+        {
+          "team": "home",
+          "player": "마테우스",
+          "minute": 45
+        }
+      ]
     },
     "2026-08-25|denmark|브뢴비|실케보리": {
       "date": "2026-08-25",
@@ -2238,10 +2263,10 @@
       "gameId": "20260826HHSK02026",
       "homeTeam": "SSG",
       "awayTeam": "한화",
-      "homeScore": 1,
-      "awayScore": 0,
+      "homeScore": 6,
+      "awayScore": 1,
       "status": "live",
-      "period": "5회말"
+      "period": "7회말"
     },
     {
       "date": "2026-08-26",
@@ -2249,10 +2274,10 @@
       "gameId": "20260826LTHT02026",
       "homeTeam": "KIA",
       "awayTeam": "롯데",
-      "homeScore": 5,
+      "homeScore": 11,
       "awayScore": 3,
       "status": "live",
-      "period": "4회초"
+      "period": "5회말"
     },
     {
       "date": "2026-08-26",
@@ -2263,7 +2288,7 @@
       "homeScore": 5,
       "awayScore": 0,
       "status": "live",
-      "period": "5회초"
+      "period": "7회말"
     },
     {
       "date": "2026-08-26",
@@ -2272,9 +2297,9 @@
       "homeTeam": "KT",
       "awayTeam": "두산",
       "homeScore": 3,
-      "awayScore": 1,
+      "awayScore": 3,
       "status": "live",
-      "period": "5회초"
+      "period": "7회초"
     },
     {
       "date": "2026-08-26",
@@ -2283,9 +2308,9 @@
       "homeTeam": "키움",
       "awayTeam": "삼성",
       "homeScore": 2,
-      "awayScore": 5,
+      "awayScore": 10,
       "status": "live",
-      "period": "4회초"
+      "period": "6회초"
     },
     {
       "date": "2026-08-27",
@@ -2985,7 +3010,8 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "finished",
-      "period": "경기종료"
+      "period": "경기종료",
+      "highlightVideoId": "KXUo4rgw6aA"
     },
     {
       "date": "2026-08-26",
@@ -2994,9 +3020,16 @@
       "homeTeam": "대전",
       "awayTeam": "울산",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 21'"
+      "period": "후반 8'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "이진현",
+          "minute": 48
+        }
+      ]
     },
     {
       "date": "2026-08-26",
@@ -3005,14 +3038,19 @@
       "homeTeam": "강원",
       "awayTeam": "광주",
       "homeScore": 0,
-      "awayScore": 1,
+      "awayScore": 2,
       "status": "live",
-      "period": "전반 21'",
+      "period": "후반 9'",
       "goals": [
         {
           "team": "away",
           "player": "문민서",
           "minute": 4
+        },
+        {
+          "team": "away",
+          "player": "문민서",
+          "minute": 44
         }
       ]
     },
@@ -3022,10 +3060,22 @@
       "gameId": "202608262718148",
       "homeTeam": "안양",
       "awayTeam": "인천",
-      "homeScore": 0,
-      "awayScore": 0,
+      "homeScore": 1,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 21'"
+      "period": "후반 7'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "이동률",
+          "minute": 39
+        },
+        {
+          "team": "home",
+          "player": "마테우스",
+          "minute": 45
+        }
+      ]
     },
     {
       "date": "2026-08-25",
