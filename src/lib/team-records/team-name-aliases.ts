@@ -237,6 +237,14 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   // 독일 컵·슈퍼컵도 여러 리그(1·2·3부, 지역리그) 팀이 한 카테고리에 섞인다.
   "DFB-포칼": { ...EURO_CLUB_ALIASES },
   "프란츠 베켄바워 슈퍼컵": { ...EURO_CLUB_ALIASES },
+  // 스코티시 프리미어십. 네이버는 접미사 없이 주고(애버딘·레인저스) SPOTV NOW 편성은
+  // "FC" 를 붙인다. 🔴 감사가 "같은 경기"로 확인해 준 것만 넣는다 — 나머지 구단(셀틱·하츠·
+  // 킬마녹 등)은 우리 편성에 아직 안 들어왔고, 들어오면 audit:aliases 가 잡는다.
+  "스코티시 프리미어십": {
+    애버딘: "애버딘 FC",
+    레인저스: "레인저스 FC",
+  },
+
   // 덴마크 1부 Superliga. schedule.json엔 아직 매치 없지만 미래 대비.
   // 들어올 때 league 표기는 "수페르리가" 가정.
   수페르리가: {},

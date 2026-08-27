@@ -54,6 +54,11 @@ export const LEAGUE_TO_CATEGORY: Record<string, string | string[]> = {
   // 2025-26 시즌으로 조회하면 31경기가 나온다 = 대회 자체는 맞다(다른 대회 오매칭 아님).
   "DFB-포칼": "dfbpokal",
   "프란츠 베켄바워 슈퍼컵": "germansupercup",
+  // 스코티시 프리미어십 — 2026-08-24 편성(SPOTV NOW)에 새로 들어와 league-coverage
+  // 가드가 CI 를 빨갛게 만들고 있었다. 후보 8개(scottish/scottishpremiership/spl/
+  // scotland/scottishpl/sco1/premiership/scottishleague) 중 **spl 만** 경기가 잡힌다
+  // (실측 8/20~9/05 18경기, 8/30 애버딘 vs 레인저스 = 우리 편성과 같은 경기).
+  "스코티시 프리미어십": "spl",
 };
 
 /** league 문자열 → 후보 categoryId 목록 (단일 값/배열 모두 배열로 정규화). 매핑 없으면 빈 배열. */

@@ -3,15 +3,10 @@ import { getAllGuides } from "@/lib/guides";
 import standingsData from "@/data/standings.json";
 import scheduleData from "@/data/schedule.json";
 import archiveData from "@/data/schedule-archive.json";
-import resultsArchiveData from "@/data/results-archive.json";
 import { buildTeamIndex, eligibleTeams, type StandingsData } from "@/lib/teams";
-import { matchToSlug } from "@/lib/match-slug";
-import { isRichMatch } from "@/lib/match-quality";
-import { dedupeReversedFixtures } from "@/lib/fixture-dedupe";
 import { getTodayString } from "@/lib/schedule-utils";
 import { eligibleSports } from "@/lib/sport-seo";
-import type { Schedule, ScheduleData } from "@/types/schedule";
-import type { ResultsData } from "@/types/results";
+import type { ScheduleData } from "@/types/schedule";
 
 /**
  * IndexNow ping — 검색엔진에 URL 변경을 즉시 통지.
@@ -24,9 +19,9 @@ import type { ResultsData } from "@/types/results";
  *
  * 키: public/a7c2f9e1b5d8c3f6e0a4b7c1d9e2f5a8.txt (사이트 소유 증명용, 공개 정보).
  *
- * Quota: per-host 약 10,000 URL/day. 정적 핵심 페이지(~30개)만 보내면 충분.
- * 매치 페이지 수천개 일괄 ping은 묶음3(sitemap 분할) 단계에서 신규 매치 diff로
- * 좁혀서 추가 예정.
+ * Quota: per-host 약 10,000 URL/day.
+ * 통지 대상 = 허브(리그·플랫폼·순위·종목·팀) + 가이드. **매치 페이지는 제외**한다
+ * (2026-08-24 부터 robots.txt 가 `/match/` 를 막는다 — buildUrlList 안의 주석 참조).
  */
 
 const KEY = "a7c2f9e1b5d8c3f6e0a4b7c1d9e2f5a8";
@@ -91,34 +86,19 @@ export function buildUrlList(): string[] {
     urls.add(`${BASE}/team/${encodeURIComponent(t.slug)}`);
   }
 
-  // 예정 경기 매치 페이지 — 여기서 빠져 있었다(2026-08-19까지).
+  // 🔴 매치 페이지는 통지하지 않는다(2026-08-24 결정과 한 쌍).
   //
-  // 근거: GA4 28일 실측에서 **Bing 171세션 / Google 66세션**으로 빙이 구글의 2.6배다.
-  // 빙은 IndexNow 를 실제로 크롤 신호로 쓰는데, 정작 매일 새로 생기는 URL(매치)이
-  // 통지 목록에 없었다. 구글은 IndexNow 를 안 쓰므로 sitemap 이 계속 담당한다.
+  // `sitemap.ts` 의 `INCLUDE_MATCH_URLS = false` + `robots.txt` 의 `Disallow: /match/` 로
+  // 매치 URL 을 크롤러에서 통째로 뺐다(Vercel Observability 실측: ISR Writes 의 96% 가
+  // `/match/[slug]`, Write Utilization 0.1×, 색인 가치는 GSC 3개월 실측 0). 그런데 통지
+  // 목록만 2026-08-19 버전 그대로 남아 **robots 가 막은 URL 을 계속 ping** 하고 있었다
+  // (2026-08-27 발견 — `test:indexnow-coverage` 가 8/24부터 CI 를 빨갛게 만들고 있었다).
   //
-  // **오늘 이후 경기만** 보낸다. 과거 경기는 URL 이 안 바뀌고 이미 통지된 것이라
-  // 매번 다시 보내면 quota(호스트당 약 10,000/일)만 태우고 신호도 흐려진다.
+  // 존재는 하지만 크롤 금지인 URL 을 통지하면 크롤러가 헛걸음을 하고 호스트 신뢰도가
+  // 깎인다 — 이 스크립트가 원래 지키려던 규칙 그 자체다.
   //
-  // 게이트는 sitemap 과 동일해야 한다 — dedupeReversedFixtures → 슬러그 묶기 →
-  // isRichMatch. **존재하지 않거나 noindex 인 URL 을 ping 하면 크롤러가 404·noindex 를
-  // 받고 신뢰도가 깎인다**(팀 페이지에서 이미 지킨 규칙).
-  const today = getTodayString();
-  const bySlug = new Map<string, Schedule>();
-  for (const s of dedupeReversedFixtures([
-    ...(scheduleData as unknown as ScheduleData).schedules,
-    ...(archiveData as unknown as ScheduleData).schedules,
-  ])) {
-    const slug = matchToSlug(s);
-    if (!bySlug.has(slug)) bySlug.set(slug, s);
-  }
-  const resultsArchive = resultsArchiveData as unknown as ResultsData;
-  for (const [slug, s] of bySlug) {
-    if (s.date < today) continue;
-    if (!isRichMatch(s, resultsArchive)) continue;
-    urls.add(`${BASE}/match/${encodeURIComponent(slug)}`);
-  }
-
+  // 되살리려면 `INCLUDE_MATCH_URLS`·`robots.txt` 와 **함께** 되돌릴 것. 셋이 따로 놀면
+  // 사이트맵·robots·IndexNow 가 같은 URL 에 서로 다른 신호를 낸다.
   return [...urls];
 }
 
