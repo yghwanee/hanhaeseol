@@ -717,6 +717,9 @@ npm run crawl:korean-players       # 🔴 코리안리거 로스터(네이버+ML
 npm run test:korean-players        # 🔴 로스터 하드코딩 금지 + 낡으면 비우기 + MLB 팀 표기
 npm run test:form-claim            # 🔴 "2연승인데 연패" 같은 흐름 뒤집기 차단
 npm run prune:bad-insights -- --apply  # 저장된 인사이트 중 흐름이 전적과 반대인 글 삭제(오늘 이후만)
+npm run toss:check                 # 🔴 토스 쉐어링크 Open API 연동 점검(자격증명·IP·스코프 한 번에)
+npm run toss:link -- <tacaItemId>  # 쉐어링크 1건 발급. 같은 조합은 같은 링크 — 저장해 재사용할 것
+npm run test:toss                  # 🔴 Secret Key 가 src/app 으로 새지 않는지 + 토큰 캐시 gitignore
 npm run test:commentary-stats      # 🔴 해설 비율 산수 + 미확인 분모 제외 + 조사. 밖으로 인용되는 수치라 틀리면 못 되돌린다
 npm run test:safety-filter         # 인사이트 베팅 용어 필터(2026-08-27 전까지 CI 에서 한 번도 안 돌고 있었다)
 npm run fonts:subset               # 🔴 ebook 배너 Pretendard 서브셋 재생성(pyftsubset 필요). 인용구·배너 문구 바꾸면 필수

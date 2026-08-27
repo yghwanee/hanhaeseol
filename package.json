@@ -87,7 +87,10 @@
     "test:commentary-stats": "tsx --test src/lib/commentary-stats.test.ts",
     "fonts:subset": "node src/scripts/subset-pretendard.mjs",
     "test:ebook-font": "tsx --test src/lib/ebook-font.test.ts",
-    "test:safety-filter": "tsx --test src/lib/insights/safety-filter.test.ts"
+    "test:safety-filter": "tsx --test src/lib/insights/safety-filter.test.ts",
+    "toss:check": "tsx src/scripts/toss-check.ts",
+    "toss:link": "tsx src/scripts/toss-link.ts",
+    "test:toss": "tsx --test src/lib/toss/sharelink.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

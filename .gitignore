@@ -29,6 +29,8 @@ yarn-error.log*
 .env
 .env*.local
 .coupang-cookies.json
+# 토스 쉐어링크 액세스 토큰 캐시(약 1년 유효한 베어러 토큰 — 절대 커밋 금지)
+.toss-sharelink-token.json
 
 # claude code
 # 디렉터리째(`.claude/`) 무시하면 git 이 안으로 안 들어가 예외가 안 먹는다.
