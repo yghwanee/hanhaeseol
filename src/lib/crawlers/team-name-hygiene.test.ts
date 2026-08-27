@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { parseMatchTitle } from "./parsers";
+import { trimNames } from "./_utils";
 import scheduleData from "@/data/schedule.json";
 import archiveData from "@/data/schedule-archive.json";
 import worldcupData from "@/data/worldcup.json";
@@ -17,8 +18,12 @@ import type { ScheduleData } from "@/types/schedule";
  * 아무도 에러를 못 보는 종류라 가드가 필요하다.
  */
 
-/** 팀명에 있으면 안 되는 것: 날짜꼴, 홀로 남은 괄호, 시간꼴. */
+/** 팀명에 있으면 안 되는 것: 날짜꼴, 홀로 남은 괄호, 시간꼴, 앞뒤 공백. */
 function pollution(name: string): string | null {
+  // 🔴 앞뒤 공백은 화면에 안 보이는데 스코어를 통째로 못 붙게 한다.
+  // `resultKey` 가 `date|categoryId|home|away` 를 정규화 없이 조합하기 때문이다.
+  // 쿠팡플레이 API 가 `"찰턴 "` 을 그대로 내려주고 있었다(2026-08-27).
+  if (name !== name.trim()) return "앞뒤 공백";
   if (/\d{2}[.\-/]\d{2}[.\-/]\d{2}/.test(name)) return "날짜 조각";
   if (/^[)\]}]|[([{]$/.test(name.trim())) return "홀로 남은 괄호";
   if (/\d{1,2}:\d{2}/.test(name)) return "시간 조각";
@@ -76,4 +81,24 @@ test("현재 데이터에 오염된 팀명이 없다", () => {
     }
   }
   assert.deepEqual(bad, [], `오염된 팀명:\n  ${bad.join("\n  ")}`);
+});
+
+test("크롤 파이프라인이 앞뒤 공백을 걷어낸다", () => {
+  // 쿠팡플레이 API 는 `"찰턴 "` 처럼 뒤에 공백을 붙여 준다. 크롤러별로 고치면
+  // 새 소스가 들어올 때 또 새므로 `crawlAll` 마지막 관문에서 한 번에 막는다.
+  const row = {
+    id: "coupang-2026-08-27-03:45-카라바오컵-토트넘-찰턴 ",
+    date: "2026-08-27",
+    time: "03:45",
+    sport: "축구",
+    league: " 카라바오컵 ",
+    homeTeam: "토트넘",
+    awayTeam: "찰턴 ",
+    platform: "쿠팡플레이",
+  } as unknown as ScheduleData["schedules"][number];
+  const out = trimNames(row);
+  assert.equal(out.awayTeam, "찰턴");
+  assert.equal(out.league, "카라바오컵");
+  assert.equal(out.id.endsWith("찰턴"), true, `id 미정리: ${out.id}`);
+  assert.equal(pollution(out.awayTeam), null);
 });

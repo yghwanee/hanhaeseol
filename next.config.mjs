@@ -82,6 +82,11 @@ const nextConfig = {
       // 응답을 200 으로 준다(2026-08-13 실측). 앱 라우터에 `/index` 라우트는 없다.
       // 색인 중복이라 301 로 접는다.
       { source: "/index", destination: "/", permanent: true },
+      // 원본 로고(3496x3496 / 1.26MB)는 소셜 카드 렌더 전용이라 `assets/logo.png` 로
+      // 옮겼다 — public 에 두면 배포 정적 자산에 1.26MB 가 그대로 실리고, 봇이 그 URL 을
+      // 그대로 받아 간다. 웹에서 쓰는 건 `logo-1200.png`(199KB) 하나뿐이지만,
+      // 예전 구조화 데이터가 이 주소를 참조했을 수 있어 404 대신 301 로 넘긴다.
+      { source: "/logo.png", destination: "/logo-1200.png", permanent: true },
       { source: "/ig", destination: "/?utm_source=instagram&utm_medium=bio", permanent: false },
       { source: "/ig/post", destination: "/?utm_source=instagram&utm_medium=post", permanent: false },
       { source: "/ig/reel", destination: "/?utm_source=instagram&utm_medium=reel", permanent: false },

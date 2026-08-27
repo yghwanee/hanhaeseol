@@ -2,7 +2,10 @@ const MLB = (abbr: string) => `https://a.espncdn.com/i/teamlogos/mlb/500/${abbr}
 const NBA = (abbr: string) => `https://a.espncdn.com/i/teamlogos/nba/500/${abbr}.png`;
 const SOC = (id: number) => `https://a.espncdn.com/i/teamlogos/soccer/500/${id}.png`;
 const SDB = (slug: string) => `https://r2.thesportsdb.com/images/media/team/badge/${slug}.png`;
-const KBO_LOGO = (code: string) => `/logos/kbo/${code}.png`;
+// KBO 로고는 로컬 파일이라 우리가 포맷을 고를 수 있다. 같은 184x184 인데 webp 가
+// png 의 1/3 이다(예: HH 23KB → 7KB). 카드·매치·팀 페이지가 전부 이 경로를 쓰고,
+// 소셜 카드 렌더(@napi-rs/canvas)도 webp 를 디코드한다(실측 확인).
+const KBO_LOGO = (code: string) => `/logos/kbo/${code}.webp`;
 const FLAG = (iso: string) => `https://flagcdn.com/w160/${iso}.png`;
 
 export const TEAM_LOGOS: Record<string, string> = {

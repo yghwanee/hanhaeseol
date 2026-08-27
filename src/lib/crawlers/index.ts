@@ -10,6 +10,7 @@ import { crawlKbsSports } from "./kbs-sports";
 import { crawlAppleTv } from "./apple-tv";
 import { crawlCoupangPlay } from "./coupang-play";
 import { crawlTving } from "./tving";
+import { trimNames } from "./_utils";
 
 // 각 크롤러가 담당하는 플랫폼 목록
 const CRAWLER_PLATFORMS: Platform[][] = [
@@ -75,6 +76,7 @@ export async function crawlAll(date: string, existingSchedules: Schedule[]): Pro
 
   // 4종목만 + 팀 대 팀 경기만 + 시간순 정렬
   const filtered = allSchedules
+    .map(trimNames)
     .filter((s) => ALLOWED_SPORTS.has(s.sport))
     .filter((s) => s.homeTeam && s.awayTeam)
     .filter((s) => s.homeTeam !== "미정" && s.awayTeam !== "미정");

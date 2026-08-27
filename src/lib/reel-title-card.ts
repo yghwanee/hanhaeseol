@@ -375,7 +375,7 @@ export async function renderReelTitleText(
 
   let logoImg = null;
   try {
-    logoImg = await loadImage("public/logo.png");
+    logoImg = await loadImage("assets/logo.png");
   } catch {
     // 로고 로드 실패 시 텍스트만
   }

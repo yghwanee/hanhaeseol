@@ -592,6 +592,25 @@ src/
     - 검증: tsc · ESLint · **테스트 36스위트 전부 통과**(신규 `test:korean-players` 6 · `test:form-claim` 7) · 빌드 532 페이지 · 하드코딩 가드 되돌려 fail 실증 · 히어로/커버/쇼츠 제목 실제 생성물 확인 · 렌더된 매치 HTML 에 원문자 잔존 0.
     - **판단 끝난 것 — 다시 꺼내지 말 것**: 커버·쇼츠의 `이강인 출전`·`출격` 은 **소속팀이 경기한다는 뜻이지 선발 출전 보장이 아니다**(라인업은 경기 1시간 전에나 나와서 전날 저녁 게시 시점엔 알 수 없다). `소속팀 경기` 로 낮추면 정확해지지만 후킹이 죽는다 — **2026-08-23 사용자가 "놔둬"로 현행 유지 결정**했다.
 
+98. 🔴 전면 코드 점검 — 팀명 뒤 공백이 스코어를 막고 있었다 + 웹 폰트 3MB (2026-08-27) — "돌아가는 것 싹 점검하고 불필요한 것 지워라"로 시작해 전체를 훑었다. 라이브 장애는 없었지만 **조용히 틀린 것 하나**와 **조용히 무거운 것 여럿**이 나왔다.
+    - **🔴 팀명 끝 공백 한 칸 = 스코어가 영영 안 붙는다.** 쿠팡플레이 API 가 `"찰턴 "`·`"파더보른 "` 을 그대로 내려주고 있었다. `resultKey` 는 `date|categoryId|home|away` 를 **정규화 없이** 조합하므로 네이버의 `찰턴` 과 절대 안 맞는다. 화면엔 편성이 멀쩡히 보여 아무도 눈치채지 못한다(작업62·87 에서 alias 로 겪은 것과 같은 실패류인데, 이번엔 표기 차이가 아니라 **공백**이라 alias 표로는 못 잡는다).
+      - 고친 자리 = **`crawlAll` 마지막 관문 한 곳**(`trimNames`, `_utils.ts`). 크롤러 10종을 각각 고치면 새 소스가 들어올 때 또 샌다. 슬러그는 `matchToSlug` 가 이미 `trim()` 하므로 **URL 은 안 바뀐다**(그래서 색인 영향 0).
+      - 기존 데이터도 정리했다(schedule 4 · schedule-archive 18 필드). 🔴 **`id` 를 트림하면 인사이트 파일명이 어긋난다** — `readInsight` 는 `matchId` 로 파일을 찾는데 저장된 파일명엔 공백이 남아 있어 그 경기 인사이트가 통째로 사라진다. 실제로 2건(`…토트넘-찰턴 .json`·`…KBO 올스타 .json`) 있어 같이 이름을 고쳤고, 빌드 산출물에서 해당 매치에 `관전 포인트` 가 다시 렌더되는 것을 확인했다.
+      - 가드는 기존 `test:team-name-hygiene` 을 넓혔다. **종전 `pollution()` 이 검사마다 `.trim()` 을 걸고 있어서 공백은 구조적으로 통과했다** — 검사 함수가 스스로 증상을 지우고 있던 셈이다.
+    - **🔴 Pretendard 원본 OTF 3.0MB 가 브라우저로 나가고 있었다.** `layout.tsx` 가 `Pretendard-{Regular,Bold}.otf`(각 1.5MB)를 `localFont` 로 걸었는데, 화면에서 이 폰트를 쓰는 곳은 **ebook 배너 인용구 하나**다. `preload:false` 라 렌더 블로킹은 아니지만 배너가 홈에 항상 있어 방문자마다 받아 갔다.
+      - **서브셋 woff2 로 교체 — 3,072KB → 118KB(-96%).** 글자 집합 = 인용구 원본(`ebook-quotes.json`) + `EbookBanner.tsx` 에 등장하는 한글 전부 + ASCII/기호 = 562자. 컴포넌트 파일을 **주석까지 통째로** 넣는다 — 몇백 자 더 넣어도 용량은 그대로고, 그 대신 "배너 문구를 고쳤는데 폰트를 안 구워 두부가 뜨는" 사고를 구조로 막는다.
+      - **원본 OTF 는 지우지 않는다** — OG 이미지 라우트가 임의의 팀명·제목을 그리므로 전체 글리프가 필요하다. 그쪽은 서버에서 한 번 받아 24시간 캐시한다(브라우저와 무관).
+      - 도구 `npm run fonts:subset`(pyftsubset 필요, 로컬 전용) + 가드 `npm run test:ebook-font`(CI). 가드는 **구운 글자 목록(`public/fonts/subset-chars.json`)과 대조**한다 — woff2 는 압축돼 있어 cmap 을 직접 못 읽는다. 없는 글자를 인용구에 넣어 `fail` 나는 것 실증했다.
+      - 🔴 **`src/data/**` 를 CI `paths` 에서 빼 놨던 게 여기선 독이다.** 인용구 JSON 이 바뀌어도 가드가 안 돌아 두부가 그대로 나간다 → `test.yml` 에 `src/data/ebook-quotes.json`·`public/fonts/**` 를 예외로 되살렸다.
+    - **iOS 스플래시 11장이 611KB 였다 → 4.7KB.** 전부 `#0a0a0a` **단색**(작업38-1 에서 로고를 뺐다)인데 RGBA 무압축에 가깝게 저장돼 있었다. 픽셀이 실제로 균일한지 `sharp().stats()` 로 확인한 뒤에만 다시 구웠다(팔레트 2색). 화면 변화 0.
+    - **KBO 팀 로고가 png 로 서빙되고 있었다** — 같은 184×184 webp 가 이미 옆에 있는데(작업 어디선가 만들어 두고 인트로만 쓰고 있었다) `team-logos.ts` 의 `KBO_LOGO` 만 `.png` 였다. 카드·매치·팀 페이지가 전부 이 경로다. `.webp` 로 바꾸고 png 10장 삭제(개당 23KB → 7KB). 소셜 카드 렌더(`@napi-rs/canvas`)가 webp 를 디코드하는지 **먼저 실측**하고 바꿨다.
+    - **`public/logo.png`(1.26MB)를 `assets/` 로 옮겼다.** 웹에서 쓰는 건 `logo-1200.png`(199KB)뿐이고(작업63), 원본은 릴스·OG 스크립트가 **로컬 파일로** 읽을 뿐인데 `public/` 에 있어 배포 정적 자산에 1.26MB 가 실리고 봇이 그 URL 을 그대로 받아 갔다. 옛 구조화 데이터가 참조했을 수 있어 `/logo.png` → `/logo-1200.png` **301** 을 걸었다.
+    - **죽은 것 삭제**: `src/lib/translate.ts`(비공식 구글 번역, 참조 0) · `AdSkeleton.tsx`·`FilterButton.tsx`(참조 0) · `migrate-insight-filenames.ts`(끝난 마이그레이션) · `.skeleton-shimmer` CSS + `@keyframes shimmer`(AdSkeleton 이 유일 사용처였다) · `worldcup-hero.jpg`(대회 종료) · `미디어 (2).jfif`(잡파일) · 안 쓰는 플랫폼 이미지 4장.
+    - **🔴 CI 에서 안 돌던 테스트가 있었다** — `src/lib/insights/safety-filter.test.ts`(베팅 용어 필터, 7건)는 package.json 스크립트조차 없어 **한 번도 안 돌고 있었다.** `test:safety-filter` 로 편입. `test.yml` push `paths` 의 `vercel.json` 중복도 정리.
+    - **손대지 않기로 한 것(다시 파지 말 것)**: ①`/api/push/*` 의 868KB 서버 청크(`@vercel/blob`+`web-push`+undici) — **그 두 라우트에만 들어가고** 기능이 아직 셋업 대기라 다른 라우트에 영향 0 ②`match/[slug]/page.tsx` 가 `results-archive.json`(1.8MB)+`schedule-archive.json`(776KB)을 정적 import 하는 것 — 파싱은 콜드스타트당 1회고, OG 처럼 런타임 fetch 로 바꾸면 빌드 때 자기 도메인을 때려야 해서 위험이 이득보다 크다 ③`hook-card.ts` 의 `renderHookV6/V7` — 게시 경로에선 빠졌지만 `npm run hook:test`(`HOOK_VARIANTS`)가 쓴다. **스캐너가 "미사용"이라 해도 문자열로 spawn 되는 것이 있다**(`preview-posts.ts` → `preview-build-one.ts` 도 같은 경우라 살렸다) ④인트로 엠블럼 preload 가 head 에 21개씩 **두 번** 들어가는 것 — 하나는 `page.tsx` 의 명시적 `<link>`, 하나는 React 가 `<img loading="eager">` 에서 자동으로 띄우는 것이다. href 가 같아 브라우저가 합치므로 네트워크 낭비는 0(HTML 1.9KB). 자동 쪽은 문서화된 동작이 아니라 명시적 쪽을 남긴다.
+    - **결과**: `public/` 추적 용량 **8,938KB → 6,870KB(-23%)**, 브라우저가 받는 폰트 **3,072KB → 118KB**, `.next/static` 의 폰트 미디어 3.1MB → 184KB. 홈 HTML·번들 크기·프리렌더 532 페이지는 그대로(기능 변화 0).
+    - 검증: tsc · ESLint · **테스트 39스위트 284건 fail 0**(신규 `test:ebook-font` 3 · 되살린 `test:safety-filter` 7 · 공백 가드 1) · 빌드 532 페이지 · **프로덕션 헤드리스 실측**(배너 인용구가 Pretendard 로 렌더 = 두부 없음, 두 weight 모두 `loaded`, 폰트 요청 3건 전부 서브셋/Geist, 콘솔 에러 0, 가로 스크롤 0) · 고친 매치 페이지에 `관전 포인트` 재렌더 확인.
+
 ### 다음 작업 (예정)
 
 - ~~🔴 애드핏 유닛 노필~~ **완결(2026-08-15, 작업90)** — 한해설 3슬롯 · 채운 4슬롯 **전부 정상 송출**, 죽은 유닛 삭제까지 끝. 전 페이지 검증(한해설 26조합 + 채운 2조합) 이상 없음.
@@ -682,6 +701,9 @@ npm run test:korean-players        # 🔴 로스터 하드코딩 금지 + 낡으
 npm run test:form-claim            # 🔴 "2연승인데 연패" 같은 흐름 뒤집기 차단
 npm run prune:bad-insights -- --apply  # 저장된 인사이트 중 흐름이 전적과 반대인 글 삭제(오늘 이후만)
 npm run test:commentary-stats      # 🔴 해설 비율 산수 + 미확인 분모 제외 + 조사. 밖으로 인용되는 수치라 틀리면 못 되돌린다
+npm run test:safety-filter         # 인사이트 베팅 용어 필터(2026-08-27 전까지 CI 에서 한 번도 안 돌고 있었다)
+npm run fonts:subset               # 🔴 ebook 배너 Pretendard 서브셋 재생성(pyftsubset 필요). 인용구·배너 문구 바꾸면 필수
+npm run test:ebook-font            # 🔴 서브셋에 없는 글자가 배너에 나오는지(두부 방지). 위 명령을 안 돌리면 여기서 막힌다
 npm run seo:indexnow     # IndexNow 통지(리그·플랫폼·순위·가이드·팀 86 + /commentary = ~156 URL)
 npm run audit:aliases   # 팀명 alias 미스매치 감사 (결과 있는데 스코어 안 뜨는 유형). 개막 후 crawl:results 뒤 실행
 npm run news:digest      # 네이버 뉴스 → docs/news-digest.md (NAVER_API_KEY_ID/NAVER_API_KEY 필요)

@@ -20,10 +20,17 @@ const geistSans = localFont({
 
 // Pretendard — ebook 배너 인용구 전용. preload 안 함(배너 한 곳만 써서 전 페이지
 // 블로킹 방지), display:swap 이라 폰트 로드 전엔 시스템 산세리프로 보이다 교체.
+//
+// 🔴 원본 OTF(각 1.5MB)가 아니라 **서브셋 woff2(각 58KB)** 를 쓴다. 화면에서 이 폰트를
+// 쓰는 곳은 배너 인용구 하나뿐인데 그 배너가 홈에 항상 렌더되므로, 원본을 걸어 두면
+// 방문자마다 3MB 를 받는다. 서브셋 글자 집합 = 인용구 원본 + 배너 컴포넌트에 등장하는
+// 한글 전부(`src/scripts/_ebook-font-chars.mjs`). 배너 문구나 인용구가 바뀌면
+// `npm run fonts:subset` 으로 다시 굽는다 — 안 구우면 `npm run test:ebook-font` 가 CI 에서 막는다.
+// 원본 OTF 는 지우지 않는다: OG 이미지 라우트가 임의의 팀명을 그려서 전체 글리프가 필요하다.
 const pretendard = localFont({
   src: [
-    { path: "../../public/fonts/Pretendard-Regular.otf", weight: "400", style: "normal" },
-    { path: "../../public/fonts/Pretendard-Bold.otf", weight: "700", style: "normal" },
+    { path: "../../public/fonts/Pretendard-Regular.subset.woff2", weight: "400", style: "normal" },
+    { path: "../../public/fonts/Pretendard-Bold.subset.woff2", weight: "700", style: "normal" },
   ],
   variable: "--font-pretendard",
   display: "swap",

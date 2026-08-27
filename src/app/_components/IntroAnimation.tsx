@@ -12,13 +12,13 @@ const STORAGE_KEY = "haeseol-intro-seen";
 const DOMAIN = "haeseol.com";
 const SUBTITLE = "한국어 중계 편성표";
 
-/** 인트로 종료 시점을 다른 컴포넌트(예: CoupangSideBanners)에게 알림.
- *  사이드 배너의 AdSkeleton 이 인트로 fadeout 중 z-index 차이로 비치는 것을
- *  방지하기 위해 이 이벤트를 듣고 그때부터 배너 렌더링.
+/** 인트로 종료 시점을 다른 컴포넌트(`SideBanners`)에게 알림.
+ *  사이드 배너가 인트로 fadeout 중 z-index 차이로 비치는 것을 방지하기 위해
+ *  이 이벤트를 듣고 그때부터 배너를 렌더한다.
  *
  *  글로벌 플래그도 같이 노출 — race-safe 체크 용. React effect 실행 순서가
  *  children 부터라(IntroAnimation 이 page tree 안에 있어 더 깊고
- *  CoupangSideBanners 가 layout body 직속이라 더 얕음), IntroAnimation 의
+ *  SideBanners 가 layout body 직속이라 더 얕음), IntroAnimation 의
  *  useEffect 가 먼저 실행되어 동기 dispatch 가 listener 등록보다 빠를 수
  *  있음. CoupangBanners 가 mount 시 isIntroDone() 으로 직접 확인 가능. */
 export const INTRO_DONE_EVENT = "haeseol:intro-done";
@@ -178,7 +178,7 @@ export function IntroAnimation() {
     // 내부 SPA 네비게이션 재진입(또는 dev strict mode 두번째 effect 실행): 첫번째
     // effect 가 시작한 animation 이 그대로 진행 중이므로 mode 를 건드리지 않음.
     // setMode("done") 을 호출하면 dev strict mode 에서 인트로가 즉시 사라져 미리보기 불가.
-    // CoupangSideBanners 가 mount 시 listener 이미 등록한 상태일 수 있어 done 이벤트는 즉시.
+    // SideBanners 가 mount 시 listener 이미 등록한 상태일 수 있어 done 이벤트는 즉시.
     if (handledInThisSession) {
       markIntroDone();
       return;

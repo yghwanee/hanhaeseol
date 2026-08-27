@@ -6,7 +6,7 @@ import { registerFonts } from "@/lib/instagram";
 const WIDTH = 1200;
 const HEIGHT = 630;
 const OUTPUT = path.resolve("public/og-default.png");
-const LOGO = path.resolve("public/logo.png");
+const LOGO = path.resolve("assets/logo.png");
 
 async function main() {
   registerFonts();

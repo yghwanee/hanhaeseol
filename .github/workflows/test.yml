@@ -15,10 +15,14 @@ on:
       # 워크플로 자체도 검사 대상이다 — test:workflow-push 가 .github/workflows/*.yml 의
       # push 재시도 루프를 훑으므로, 워크플로만 고친 커밋에서도 가드가 돌아야 한다.
       - ".github/workflows/**"
-      - "vercel.json"
       # deploy-budget 가드가 읽는다 — 이게 없으면 vercel.json 만 고친 커밋에서
       # git.deploymentEnabled 가 조용히 되돌아가도 CI 가 안 돈다.
       - "vercel.json"
+      # 🔴 src/data/** 는 위에서 제외했지만 이 둘은 예외다. ebook 배너 폰트는
+      # **서브셋**이라(글자를 고르는 근거가 이 JSON), 인용구가 바뀌었는데 폰트를 다시
+      # 굽지 않으면 홈 최상단 글자가 두부로 뜬다. 그 가드가 돌아야 하므로 되살린다.
+      - "src/data/ebook-quotes.json"
+      - "public/fonts/**"
   pull_request:
     branches: [main]
     paths:
@@ -29,6 +33,9 @@ on:
       - "package-lock.json"
       - "tsconfig.json"
       - ".github/workflows/**"
+      - "vercel.json"
+      - "src/data/ebook-quotes.json"
+      - "public/fonts/**"
   workflow_dispatch:
 
 concurrency:
@@ -101,3 +108,5 @@ jobs:
           npm run test:form-claim
           npm run test:korean-players
           npm run test:emblem-check
+          npm run test:safety-filter
+          npm run test:ebook-font

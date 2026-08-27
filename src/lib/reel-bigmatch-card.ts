@@ -198,7 +198,7 @@ export async function renderReelBigMatchCard(today: string): Promise<{
 
   if (hasKorean) {
     try {
-      const logo = await loadImage(path.resolve("public/logo.png"));
+      const logo = await loadImage(path.resolve("assets/logo.png"));
       ctx.drawImage(
         logo,
         startX + textW + logoGap,
