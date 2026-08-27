@@ -4479,52 +4479,36 @@
           "rank": 1,
           "teamName": "KT",
           "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/KT.png?type=f92_88",
-          "gameCount": 110,
-          "win": 65,
+          "gameCount": 111,
+          "win": 66,
           "draw": 3,
           "lose": 42,
-          "winRate": 0.607,
+          "winRate": 0.611,
           "gameBehind": 0,
-          "lastFive": "WLWDW",
+          "lastFive": "WWLWD",
           "streak": {
             "type": "W",
-            "count": 1
+            "count": 2
           }
         },
         {
           "rank": 2,
           "teamName": "삼성",
           "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/SS.png?type=f92_88",
-          "gameCount": 113,
-          "win": 66,
+          "gameCount": 114,
+          "win": 67,
           "draw": 3,
           "lose": 44,
-          "winRate": 0.6,
+          "winRate": 0.604,
           "gameBehind": 0.5,
-          "lastFive": "WDWWL",
+          "lastFive": "WWDWW",
           "streak": {
             "type": "W",
-            "count": 3
+            "count": 4
           }
         },
         {
           "rank": 3,
-          "teamName": "LG",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/LG.png?type=f92_88",
-          "gameCount": 114,
-          "win": 63,
-          "draw": 1,
-          "lose": 50,
-          "winRate": 0.558,
-          "gameBehind": 5,
-          "lastFive": "WWWLL",
-          "streak": {
-            "type": "W",
-            "count": 3
-          }
-        },
-        {
-          "rank": 4,
           "teamName": "KIA",
           "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/HT.png?type=f92_88",
           "gameCount": 114,
@@ -4532,7 +4516,7 @@
           "draw": 2,
           "lose": 50,
           "winRate": 0.554,
-          "gameBehind": 5.5,
+          "gameBehind": 6,
           "lastFive": "WWLLW",
           "streak": {
             "type": "W",
@@ -4540,23 +4524,55 @@
           }
         },
         {
-          "rank": 5,
-          "teamName": "두산",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/OB.png?type=f92_88",
-          "gameCount": 114,
-          "win": 59,
-          "draw": 4,
+          "rank": 4,
+          "teamName": "LG",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/LG.png?type=f92_88",
+          "gameCount": 115,
+          "win": 63,
+          "draw": 1,
           "lose": 51,
-          "winRate": 0.536,
-          "gameBehind": 7.5,
-          "lastFive": "LWWLL",
+          "winRate": 0.553,
+          "gameBehind": 6,
+          "lastFive": "LWWWL",
           "streak": {
             "type": "L",
             "count": 1
           }
         },
         {
+          "rank": 5,
+          "teamName": "두산",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/OB.png?type=f92_88",
+          "gameCount": 115,
+          "win": 59,
+          "draw": 4,
+          "lose": 52,
+          "winRate": 0.532,
+          "gameBehind": 8.5,
+          "lastFive": "LLWWL",
+          "streak": {
+            "type": "L",
+            "count": 2
+          }
+        },
+        {
           "rank": 6,
+          "teamName": "NC",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/NC.png?type=f92_88",
+          "gameCount": 109,
+          "win": 49,
+          "draw": 2,
+          "lose": 58,
+          "winRate": 0.458,
+          "gameBehind": 16.5,
+          "lastFive": "WLLLL",
+          "streak": {
+            "type": "W",
+            "count": 1
+          }
+        },
+        {
+          "rank": 7,
           "teamName": "롯데",
           "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/LT.png?type=f92_88",
           "gameCount": 112,
@@ -4564,7 +4580,7 @@
           "draw": 2,
           "lose": 60,
           "winRate": 0.455,
-          "gameBehind": 16.5,
+          "gameBehind": 17,
           "lastFive": "LLLWW",
           "streak": {
             "type": "L",
@@ -4572,31 +4588,15 @@
           }
         },
         {
-          "rank": 7,
+          "rank": 8,
           "teamName": "한화",
           "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/HH.png?type=f92_88",
-          "gameCount": 111,
+          "gameCount": 112,
           "win": 49,
           "draw": 3,
-          "lose": 59,
-          "winRate": 0.454,
-          "gameBehind": 16.5,
-          "lastFive": "LLLWL",
-          "streak": {
-            "type": "L",
-            "count": 3
-          }
-        },
-        {
-          "rank": 8,
-          "teamName": "NC",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/NC.png?type=f92_88",
-          "gameCount": 108,
-          "win": 48,
-          "draw": 2,
-          "lose": 58,
-          "winRate": 0.453,
-          "gameBehind": 16.5,
+          "lose": 60,
+          "winRate": 0.45,
+          "gameBehind": 17.5,
           "lastFive": "LLLLW",
           "streak": {
             "type": "L",
@@ -4607,32 +4607,32 @@
           "rank": 9,
           "teamName": "SSG",
           "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/SK.png?type=f92_88",
-          "gameCount": 116,
-          "win": 47,
+          "gameCount": 117,
+          "win": 48,
           "draw": 5,
           "lose": 64,
-          "winRate": 0.423,
+          "winRate": 0.429,
           "gameBehind": 20,
-          "lastFive": "WWLDW",
+          "lastFive": "WWWLD",
           "streak": {
             "type": "W",
-            "count": 2
+            "count": 3
           }
         },
         {
           "rank": 10,
           "teamName": "키움",
           "teamLogo": "https://sports-phinf.pstatic.net/team/kbo/default/WO.png?type=f92_88",
-          "gameCount": 118,
+          "gameCount": 119,
           "win": 42,
           "draw": 3,
-          "lose": 73,
-          "winRate": 0.365,
-          "gameBehind": 27,
-          "lastFive": "LDWWL",
+          "lose": 74,
+          "winRate": 0.362,
+          "gameBehind": 28,
+          "lastFive": "LLDWW",
           "streak": {
             "type": "L",
-            "count": 1
+            "count": 2
           }
         }
       ]
@@ -5187,5 +5187,5 @@
     }
   ],
   "basketball": [],
-  "lastUpdated": "2026-08-27T04:32:03.424Z"
+  "lastUpdated": "2026-08-27T15:33:49.630Z"
 }
