@@ -95,20 +95,52 @@ export function registerFonts() {
   GlobalFonts.registerFromPath(path.resolve("templates/fonts/Pretendard-Regular.otf"), "Pretendard");
 }
 
+/** KST 로 환산한 현재 시각(또는 주입된 시각). */
+export function kstNow(now: Date = new Date()): Date {
+  return new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+}
+
+/**
+ * 저녁 게시 사이클의 시작 시각(KST). 저녁 cron 은 KST 16:18 이라 여유가 크다.
+ *
+ * 🔴 이 값보다 이른 시각에 도는 저녁 실행은 "오늘 저녁분"이 아니라
+ * **전날 저녁분이 자정을 넘겨 밀린 것**으로 본다. 아래 anchor 보정의 기준.
+ */
+export const EVENING_CYCLE_START_HOUR = 12;
+
 /**
  * 게시할 컨텐츠의 대상 날짜를 KST 기준으로 반환.
  *
  * offsetDays:
- *  - 1 (기본) → 내일 — 저녁 19:18 게시 시 "내일 새벽/낮 경기" 미리보기
- *  - 0        → 당일 — 오전 05:00 게시 시 "오늘 저녁/밤 경기" 안내
+ *  - 1 (기본) → 내일 — 저녁 게시 시 "내일 새벽/낮 경기" 미리보기
+ *  - 0        → 당일 — 오전 게시 시 "오늘 저녁/밤 경기" 안내
  *
  * 인자 안 주면 env `KST_OFFSET_DAYS`를 읽음 (워크플로우별 분기). 둘 다 없으면 1(내일).
+ *
+ * 🔴 사이클 보정 (2026-08-28) — 대상 날짜는 "실행 시각"이 아니라
+ * **그 실행이 속한 게시 사이클**로 정한다.
+ *
+ * 2026-08-27 저녁 워크플로가 GH Actions cron 지연으로 **11시간** 밀려
+ * UTC 18:18(= KST 8/28 03:18)에 발화했다. 종전 코드는 실행 시각 그대로
+ * `KST 오늘(8/28) + 1` 을 잡아 **8/29 경기**를 5채널 전부에 올렸다
+ * (로그의 `main-0829.png`). 8/28 게시는 하루 통째로 비었다.
+ *
+ * 평소 지연은 29~48분이라 안 걸리던 자리인데, 지연이 자정을 넘기는 순간
+ * 하루가 통째로 밀린다. 그래서 저녁 실행이 KST 정오 이전이면
+ * 기준일을 하루 물려(= 전날 저녁분으로) 계산한다.
  */
-export function getKstToday(offsetDays?: number) {
+export function getKstToday(offsetDays?: number, now: Date = new Date()) {
   const offset =
     offsetDays !== undefined ? offsetDays : readKstOffsetFromEnv();
-  const kstStr = new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" });
-  const d = new Date(kstStr);
+  const d = kstNow(now);
+
+  // 저녁 사이클(offset >= 1)이 자정을 넘겨 돈 경우 기준일을 전날로 물린다.
+  // 아침 사이클(offset 0)은 보정하지 않는다 — 12시간 밀려도 날짜가 그대로 맞고,
+  // 24시간 밀리는 경우는 GH Actions 가 실행 자체를 스킵한다.
+  if (offset >= 1 && d.getHours() < EVENING_CYCLE_START_HOUR) {
+    d.setDate(d.getDate() - 1);
+  }
+
   d.setDate(d.getDate() + offset);
   const yyyy = d.getFullYear();
   const mm = String(d.getMonth() + 1).padStart(2, "0");
@@ -128,9 +160,8 @@ function readKstOffsetFromEnv(): number {
  * 카드/캡션의 "오늘" 표현을 데이터 옵셋에 맞춰 분기할 때 사용.
  * (offset이 2 이상이어도 일단 "내일"로 처리 — 운영상 0/1만 사용)
  */
-export function inferDayLabel(today: string): "오늘" | "내일" {
-  const kstStr = new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" });
-  const d = new Date(kstStr);
+export function inferDayLabel(today: string, now: Date = new Date()): "오늘" | "내일" {
+  const d = kstNow(now);
   const yyyy = d.getFullYear();
   const mm = String(d.getMonth() + 1).padStart(2, "0");
   const dd = String(d.getDate()).padStart(2, "0");

@@ -9,15 +9,27 @@
 // 유튜브가 8/4 저녁분부터 Shorts 피드 배포를 끊었고(피드 조회 3, 정상은 400+),
 // 채널 위반은 없었다 → 중복 업로드 신호로 판단해 슬롯별로 문구·이미지를 가른다.
 //
-// 슬롯 판정은 env 가 아니라 데이터로 한다. 대상 날짜가 실행 시점의 KST 오늘이면
-// 아침(=오늘 경기), 아니면 저녁(=내일 경기). 워크플로의 KST_OFFSET_DAYS(0/1)와
-// 결과가 같지만, 로컬 재현·테스트가 쉬운 쪽을 택했다.
+// 🔴 슬롯 판정은 워크플로 정체성(KST_OFFSET_DAYS)을 우선한다 (2026-08-28).
+//
+// 종전에는 "대상 날짜가 KST 오늘이면 아침"이라는 데이터 비교만 썼다. 그런데
+// getKstToday 에 사이클 보정이 들어가면서(저녁분이 자정을 넘겨 돌면 기준일 -1)
+// **저녁 실행인데 대상 날짜가 KST 오늘과 같아지는 경우**가 생긴다.
+// 그때 날짜만 보면 morning 으로 오판하고, 몇 시간 뒤 진짜 아침 게시가
+// 같은 풀·같은 날짜로 뽑아 문구가 글자까지 같아진다 — 작업82 에서 유튜브
+// Shorts 피드 배포가 끊겼던 바로 그 조건이다.
+//
+// env 가 없으면(로컬·테스트) 종전 날짜 비교로 폴백한다.
 
 import { inferDayLabel } from "./instagram";
 
 export type PostSlot = "morning" | "evening";
 
 export function getPostSlot(today: string): PostSlot {
+  const raw = process.env.KST_OFFSET_DAYS;
+  if (raw !== undefined && raw !== "") {
+    const n = Number.parseInt(raw, 10);
+    if (Number.isFinite(n)) return n === 0 ? "morning" : "evening";
+  }
   return inferDayLabel(today) === "오늘" ? "morning" : "evening";
 }
 

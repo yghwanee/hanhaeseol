@@ -97,6 +97,11 @@ jobs:
       - name: 토큰 헬스체크
         run: npm run ig:check && npm run tiktok:check
 
+      # 이 실행이 어느 날짜를 대상으로 하는지 남긴다. 2026-08-27 사고 때
+      # 로그에 대상 날짜가 없어 생성 파일명으로 역추적해야 했다.
+      - name: 대상 날짜 확인 (사이클 보정 포함)
+        run: npm run post:target
+
       - name: 카드 생성
         run: npm run post:all -- --no-send
 

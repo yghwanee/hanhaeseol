@@ -49,6 +49,8 @@
     "test:fetch-cache": "tsx --test src/lib/fetch-cache-guard.test.ts",
     "test:tiktok-caption": "tsx --test src/lib/tiktok-caption.test.ts",
     "test:shorts-title": "tsx --test src/lib/shorts-title.test.ts",
+    "post:target": "tsx src/scripts/print-post-target.ts",
+    "test:post-cycle": "tsx --test src/lib/post-cycle.test.ts",
     "test:post-report": "tsx --test src/lib/post-report.test.ts",
     "test:instagram-api": "tsx --test src/lib/instagram-api.test.ts",
     "test:ig-image": "tsx --test src/lib/ig-image.test.ts",

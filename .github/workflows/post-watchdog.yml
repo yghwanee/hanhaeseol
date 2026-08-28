@@ -1,0 +1,127 @@
+name: 소셜 게시 감시
+
+# 🔴 2026-08-28 신설. 그날 아침 게시가 **아예 안 돌았는데** 아무 신호도 없었다.
+# GH Actions cron 은 발화를 보장하지 않는다(지연·스킵). 같은 날 저녁 워크플로는
+# 11시간 밀려 자정을 넘겨 돌았고, 그 바람에 하루 앞선 날짜를 게시했다.
+#
+# 날짜 밀림 자체는 코드로 막았다(getKstToday 사이클 보정 + test:post-cycle).
+# 여기서 막는 건 **발화 자체가 없는 경우** — 코드로는 못 막고 감지만 할 수 있다.
+#
+# 판정 창은 사이클 정의와 같다(post-slot / EVENING_CYCLE_START_HOUR = 12):
+#   아침 = KST 00:00~12:00 / 저녁 = KST 12:00~24:00
+# 그래서 자정을 넘겨 밀린 저녁분을 "오늘 저녁분"으로 오인하지 않는다.
+on:
+  schedule:
+    - cron: '7 3 * * *'    # KST 12:07 — 아침 사이클(예정 04:53) 마감 점검
+    - cron: '7 14 * * *'   # KST 23:07 — 저녁 사이클(예정 16:18) 마감 점검
+  workflow_dispatch:
+    inputs:
+      cycle:
+        description: '점검할 사이클 (morning | evening). 비우면 현재 KST 시각으로 판단'
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: post-watchdog
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 게시 발화 여부 확인
+        id: probe
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          INPUT_CYCLE: ${{ github.event.inputs.cycle }}
+        run: |
+          set -uo pipefail
+
+          CYCLE="${INPUT_CYCLE:-}"
+          if [ -z "$CYCLE" ]; then
+            if [ "$(TZ=Asia/Seoul date '+%-H')" -lt 12 ]; then CYCLE=morning; else CYCLE=evening; fi
+          fi
+
+          DAY_START=$(TZ=Asia/Seoul date -d "$(TZ=Asia/Seoul date '+%Y-%m-%d') 00:00:00" +%s)
+          if [ "$CYCLE" = "morning" ]; then
+            WINDOW_START=$DAY_START
+            WINDOW_END=$((DAY_START + 12 * 3600))
+            WF=instagram-morning.yml
+            LABEL="아침(당일 경기)"
+            CRON_KST="04:53"
+          else
+            WINDOW_START=$((DAY_START + 12 * 3600))
+            WINDOW_END=$((DAY_START + 24 * 3600))
+            WF=instagram.yml
+            LABEL="저녁(내일 경기)"
+            CRON_KST="16:18"
+          fi
+
+          # 🔴 상한이 없으면 창 밖(= 다음 사이클로 밀린) 실행까지 세어 미발화를 놓친다.
+          # 2026-08-27 저녁분은 KST 8/28 03:18 에 돌았으므로 8/27 저녁 창에 없어야 맞다.
+          # 다만 점검 시각이 창 끝보다 조금 늦으므로(12:07 / 23:07) 그만큼은 열어 둔다.
+          NOW_EPOCH=$(date +%s)
+          if [ "$NOW_EPOCH" -gt "$WINDOW_END" ] && [ "$NOW_EPOCH" -lt "$((WINDOW_END + 3600))" ]; then
+            WINDOW_END=$NOW_EPOCH
+          fi
+
+          echo "사이클=$CYCLE  워크플로=$WF"
+          echo "창: $(TZ=Asia/Seoul date -d @${WINDOW_START} '+%F %H:%M') ~ $(TZ=Asia/Seoul date -d @${WINDOW_END} '+%F %H:%M') KST"
+
+          # 창 안에서 시작된 실행 수. 성공뿐 아니라 진행 중도 정상으로 본다.
+          COUNT=$(gh run list --repo "$REPO" --workflow "$WF" --limit 20 \
+            --json createdAt,status,conclusion \
+            --jq "[.[] | select((.createdAt|fromdateiso8601) >= ${WINDOW_START} and (.createdAt|fromdateiso8601) <= ${WINDOW_END}) | select(.conclusion == \"success\" or .status == \"in_progress\" or .status == \"queued\" or .status == \"waiting\")] | length" \
+            2>/dev/null || echo "ERR")
+
+          if [ "$COUNT" = "ERR" ] || [ -z "$COUNT" ]; then
+            echo "::warning::실행 목록 조회 실패 — 오탐을 피하려 정상으로 처리한다"
+            COUNT=1
+          fi
+
+          echo "창 안의 정상 실행: $COUNT 건"
+          {
+            echo "cycle=$CYCLE"
+            echo "label=$LABEL"
+            echo "workflow=$WF"
+            echo "cron_kst=$CRON_KST"
+            if [ "$COUNT" -eq 0 ]; then echo "missing=yes"; else echo "missing=no"; fi
+          } >> $GITHUB_OUTPUT
+
+      - name: 미발화 알림
+        if: steps.probe.outputs.missing == 'yes'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          REPO: ${{ github.repository }}
+          LABEL: ${{ steps.probe.outputs.label }}
+          WF: ${{ steps.probe.outputs.workflow }}
+          CRON_KST: ${{ steps.probe.outputs.cron_kst }}
+        run: |
+          set -uo pipefail
+          NOW=$(TZ=Asia/Seoul date '+%Y-%m-%d %H:%M')
+          MSG=$(printf '%s\n' \
+            "⚠️ 소셜 게시가 안 나갔습니다 — ${LABEL}" \
+            "" \
+            "예정 KST ${CRON_KST} 인데 이 사이클에 실행 기록이 없습니다." \
+            "GH Actions cron 이 발화하지 않았거나 크게 밀린 상태입니다." \
+            "" \
+            "지금 올리려면:  gh workflow run ${WF}" \
+            "" \
+            "점검 시각: ${NOW} KST" \
+            "https://github.com/${REPO}/actions/workflows/${WF}")
+          resp=$(curl -sS -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" --data-urlencode "text=${MSG}")
+          case "$resp" in
+            *'"ok":true'*) echo "알림 전송 완료" ;;
+            *) echo "::error::텔레그램 전송 실패: $resp"; exit 1 ;;
+          esac
+
+      - name: 정상
+        if: steps.probe.outputs.missing != 'yes'
+        run: echo "✅ ${{ steps.probe.outputs.label }} 사이클 정상 — 알릴 것 없음"
