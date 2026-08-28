@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-08-27T14:46:11.526Z",
+  "lastUpdated": "2026-08-28T00:24:53.233Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -34261,7 +34261,8 @@
       "homeScore": 9,
       "awayScore": 10,
       "status": "finished",
-      "period": "9회말"
+      "period": "9회말",
+      "highlightVideoId": "ZMkCwuYGL1g"
     },
     "2026-08-27|mlb|LA 에인절스|클리블랜드 가디언스": {
       "date": "2026-08-27",
@@ -34327,7 +34328,8 @@
       "homeScore": 9,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "7pbwvJyekpw"
     },
     "2026-08-27|mlb|토론토 블루제이스|캔자스시티 로열스": {
       "date": "2026-08-27",
@@ -34431,7 +34433,83 @@
           "player": "음바페",
           "minute": 80
         }
-      ]
+      ],
+      "highlightVideoId": "xoTROKBfNDA"
+    },
+    "2026-08-28|mlb|워싱턴 내셔널스|콜로라도 로키스": {
+      "date": "2026-08-28",
+      "categoryId": "mlb",
+      "gameId": "20260828COMO0",
+      "homeTeam": "워싱턴 내셔널스",
+      "awayTeam": "콜로라도 로키스",
+      "homeScore": 7,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-08-28|mlb|세인트루이스 카디널스|볼티모어 오리올스": {
+      "date": "2026-08-28",
+      "categoryId": "mlb",
+      "gameId": "20260828BASL0",
+      "homeTeam": "세인트루이스 카디널스",
+      "awayTeam": "볼티모어 오리올스",
+      "homeScore": 7,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-08-28|primera|셀타 비고|오사수나": {
+      "date": "2026-08-28",
+      "categoryId": "primera",
+      "gameId": "25BvwOdfTQmPEsc",
+      "homeTeam": "셀타 비고",
+      "awayTeam": "오사수나",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이아고 아스파스",
+          "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "키케 바르하",
+          "minute": 54
+        },
+        {
+          "team": "away",
+          "player": "부디미르",
+          "minute": 64
+        }
+      ],
+      "highlightVideoId": "jN1RVdhMWzs"
+    },
+    "2026-08-28|primera|바르셀로나|아틀레틱": {
+      "date": "2026-08-28",
+      "categoryId": "primera",
+      "gameId": "zJYgTcVVILKPXcc",
+      "homeTeam": "바르셀로나",
+      "awayTeam": "아틀레틱",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "하피냐",
+          "minute": 37
+        },
+        {
+          "team": "home",
+          "player": "페르민 로페스",
+          "minute": 82
+        }
+      ],
+      "highlightVideoId": "ojWmYLwyVuA"
     }
   },
   "results": [
@@ -68695,7 +68773,8 @@
       "homeScore": 9,
       "awayScore": 10,
       "status": "finished",
-      "period": "9회말"
+      "period": "9회말",
+      "highlightVideoId": "ZMkCwuYGL1g"
     },
     {
       "date": "2026-08-27",
@@ -68761,7 +68840,8 @@
       "homeScore": 9,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "7pbwvJyekpw"
     },
     {
       "date": "2026-08-27",
@@ -68865,7 +68945,83 @@
           "player": "음바페",
           "minute": 80
         }
-      ]
+      ],
+      "highlightVideoId": "xoTROKBfNDA"
+    },
+    {
+      "date": "2026-08-28",
+      "categoryId": "mlb",
+      "gameId": "20260828COMO0",
+      "homeTeam": "워싱턴 내셔널스",
+      "awayTeam": "콜로라도 로키스",
+      "homeScore": 7,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-28",
+      "categoryId": "mlb",
+      "gameId": "20260828BASL0",
+      "homeTeam": "세인트루이스 카디널스",
+      "awayTeam": "볼티모어 오리올스",
+      "homeScore": 7,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-08-28",
+      "categoryId": "primera",
+      "gameId": "25BvwOdfTQmPEsc",
+      "homeTeam": "셀타 비고",
+      "awayTeam": "오사수나",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이아고 아스파스",
+          "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "키케 바르하",
+          "minute": 54
+        },
+        {
+          "team": "away",
+          "player": "부디미르",
+          "minute": 64
+        }
+      ],
+      "highlightVideoId": "jN1RVdhMWzs"
+    },
+    {
+      "date": "2026-08-28",
+      "categoryId": "primera",
+      "gameId": "zJYgTcVVILKPXcc",
+      "homeTeam": "바르셀로나",
+      "awayTeam": "아틀레틱",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "하피냐",
+          "minute": 37
+        },
+        {
+          "team": "home",
+          "player": "페르민 로페스",
+          "minute": 82
+        }
+      ],
+      "highlightVideoId": "ojWmYLwyVuA"
     }
   ]
 }
