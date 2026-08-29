@@ -1,6 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { heroScore, pickHeroMatch, GLOBAL_BIG_CLUBS } from "./hero-pick";
+import { heroScore, pickHeroMatch, isTopPriority, GLOBAL_BIG_CLUBS } from "./hero-pick";
+import { loadKoreanMatchesAll, pickHeroForDate, getKstToday } from "./instagram";
 import { getKoreanPlayers } from "./korean-players/load";
 import type { Schedule } from "@/types/schedule";
 
@@ -150,4 +151,85 @@ test("직전 2일에 나온 팀은 감점을 받는다", () => {
 test("recentTeams 가 비면 감점이 없다", () => {
   const m = club("가상 자이언츠", "가상 애스트로스", "MLB", "10:45");
   assert.equal(heroScore(m, new Set()), heroScore(m));
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 최우선 클럽 (2026-08-29, 운영자 지정)
+//   "이제는 프리미어리그가 더 보고 싶다. 맨유·맨시티·첼시·리버풀·아스날은 1순위."
+// 점수가 아니라 티어다 — 가중치로 표현하려 하면 다른 날 선정이 통째로 흔들린다.
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** 코리안리거가 뛰는 프라임타임 MLB — 종전 체계에서 가장 강한 후보. */
+function koreanPrime(time = "20:00"): Schedule {
+  const players = getKoreanPlayers();
+  const team = players.find((p) => p.teams.length > 0)?.teams[0];
+  return {
+    id: "mlb-korean",
+    date: "2026-08-30",
+    time,
+    sport: "야구",
+    league: "MLB",
+    homeTeam: team ?? "샌프란시스코 자이언츠",
+    awayTeam: "애리조나 다이아몬드백스",
+    platform: "SPOTV NOW",
+    koreanCommentary: true,
+  };
+}
+
+test("🔴 최우선 클럽은 코리안리거 프라임타임 경기보다 앞선다", () => {
+  const rival = koreanPrime("20:00");
+  for (const name of ["맨유", "맨시티", "첼시", "리버풀", "아스날"]) {
+    // 최악 조건을 준다 — 새벽 경기 + 약체 상대 + 이벤트성 대회.
+    const epl = club("아스톤 빌라", name, "프리미어리그", "04:00");
+    const hero = pickHeroMatch([rival, epl]);
+    assert.equal(
+      hero?.id,
+      epl.id,
+      `${name} 새벽 경기가 코리안리거 프라임타임에 밀렸다 (score ${heroScore(epl)} vs ${heroScore(rival)})`,
+    );
+  }
+});
+
+test("최우선 클럽끼리는 heroScore 로 갈린다 — 프라임타임이 이긴다", () => {
+  const dawn = club("크리스탈 팰리스", "맨시티", "프리미어리그", "04:00");
+  const prime = club("리버풀", "노팅엄", "프리미어리그", "20:30");
+  assert.equal(pickHeroMatch([dawn, prime])?.id, prime.id);
+});
+
+test("지목되지 않은 팀(토트넘·뉴캐슬)은 티어를 받지 않는다", () => {
+  // 티어가 아니어도 기존 점수 체계에서는 강하다 — 그래서 '티어가 없다'만 확인한다.
+  const spurs = club("토트넘", "뉴캐슬", "프리미어리그", "04:00");
+  assert.equal(isTopPriority(spurs), false);
+  assert.equal(isTopPriority(club("아스톤 빌라", "아스날", "프리미어리그")), true);
+});
+
+test("대회를 가리지 않는다 — 컵·친선에서도 최우선", () => {
+  for (const league of ["카라바오컵", "챔피언스리그", "클럽 친선경기", "쿠팡플레이 시리즈"]) {
+    assert.equal(isTopPriority(club("팀 K리그", "맨시티", league)), true, league);
+  }
+});
+
+test("🔴 실데이터 — 최우선 클럽 경기가 있는 날은 히어로가 그 중 하나다", () => {
+  // 날짜를 박지 않는다. schedule.json 은 오늘부터 7일치라, 박아 두면 지나가는 순간
+  // 조용히 아무것도 검사하지 않게 된다(작업84 에서 실제로 겪었다).
+  const base = getKstToday(0).today;
+  const days = Array.from({ length: 7 }, (_, i) => {
+    const d = new Date(`${base}T00:00:00Z`);
+    d.setUTCDate(d.getUTCDate() + i);
+    return d.toISOString().slice(0, 10);
+  });
+  let checked = 0;
+  for (const d of days) {
+    const matches = loadKoreanMatchesAll(d);
+    const top = matches.filter(isTopPriority);
+    if (top.length === 0) continue;
+    checked++;
+    const hero = pickHeroForDate(d);
+    assert.ok(
+      hero && isTopPriority(hero),
+      `${d}: 최우선 클럽 경기가 ${top.length}개인데 히어로는 ` +
+        `${hero?.league} ${hero?.homeTeam} vs ${hero?.awayTeam} 였다`,
+    );
+  }
+  assert.ok(checked > 0, "7일 안에 최우선 클럽 경기가 하나도 없어 검증이 비었다(비시즌이면 정상)");
 });

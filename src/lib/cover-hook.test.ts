@@ -82,3 +82,29 @@ test("조사가 앞말에서 떨어지지 않는다", () => {
     }
   }
 });
+
+test("🔴 주어가 팀일 때 선수용 서술어가 붙지 않는다", () => {
+  // who 는 매치업이 아니라 이름 하나다(선수명 또는 팀명 하나). 팀에 선수용 서술어를
+  // 붙이면 "첼시 열립니다"·"첼시 출격"·"첼시 옵니다" 같은 비문이 나간다
+  // (2026-08-29 시뮬레이션에서 실제로 나왔다).
+  const team = {
+    who: "첼시",
+    isPlayer: false,
+    time: "밤 10시",
+    daypart: "저녁" as const,
+    games: 26,
+    platform: "쿠팡플레이",
+    isWeekday: true,
+    dayWord: "내일" as const,
+  };
+  const bad = ["첼시 열립니다", "첼시 출격", "첼시 옵니다", "첼시 나옵니다", "첼시 출전"];
+  for (const pool of [MORNING_COVER_HOOKS, EVENING_COVER_HOOKS]) {
+    for (const t of pool) {
+      const h = t.build(team);
+      const line = `${h.small} ${h.big}`;
+      for (const b of bad) {
+        assert.ok(!line.includes(b), `팀에 선수용 서술어 — "${b}" in "${line}"`);
+      }
+    }
+  }
+});

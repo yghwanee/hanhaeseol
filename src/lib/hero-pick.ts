@@ -34,6 +34,30 @@ export const GLOBAL_BIG_CLUBS = new Set(
   ].map(norm),
 );
 
+/**
+ * 🔴 최우선 클럽 (2026-08-29, 운영자 지정).
+ *
+ * "이제는 프리미어리그가 더 보고 싶다. 맨유·맨시티·첼시·리버풀·아스날은 1순위."
+ *
+ * 가중치를 올리는 방식으로는 이걸 표현할 수 없다 — 코리안리거(26) + 프라임타임(15)
+ * 이 붙은 MLB 새벽 경기를 확실히 이기려면 값을 계속 올려야 하고, 그러면 다른 날
+ * 선정이 통째로 흔들린다(작업83 에서 실측한 함정). 그래서 **점수가 아니라 티어**로
+ * 둔다 — 월드컵 모드와 같은 구조다.
+ *
+ * 대회는 안 가린다. 리그·컵·친선 어디서 뛰든 맨유는 맨유다(작업83 의 GLOBAL_BIG_CLUBS
+ * 와 같은 판단). 토트넘·뉴캐슬은 **일부러 뺐다** — 운영자가 지목한 다섯 팀만이다.
+ * 늘리려면 여기에 이름을 더하면 된다.
+ *
+ * 🔴 이 티어에는 repeatPenalty 를 걸지 않는다. 처음엔 "직전 2일 히어로면 티어 제외"로
+ * 짰다가 8/30 시뮬레이션에서 **프라임타임(22:00) 첼시가 새벽 4:30 라리가에 밀렸다** —
+ * 8/28 첼시 · 8/29 리버풀 · 8/30 첼시는 "같은 얼굴 사흘 연속"이 아닌데도 걸렸다.
+ * 그리고 이 다섯 팀은 이틀 연속 경기가 물리적으로 없어서 연속 노출 자체가 안 생긴다.
+ * 티어 안에서 후보가 둘 이상이면 heroScore 로 갈리고, 거기엔 repeatPenalty 가 들어 있다.
+ */
+export const TOP_PRIORITY_CLUBS = new Set(
+  ["맨유", "맨시티", "첼시", "리버풀", "아스날"].map(norm),
+);
+
 /** 등급표에 없어 최하 5점을 받던 이벤트성 대회 */
 const EVENT_LEAGUE_TIER: Record<string, number> = {
   "쿠팡플레이 시리즈": 15,
@@ -367,11 +391,18 @@ function wcMatchupTier(m: Schedule): number {
   return 0;
 }
 
+/** 최우선 클럽(맨유·맨시티·첼시·리버풀·아스날)이 뛰는 경기인가. */
+export function isTopPriority(m: Schedule): boolean {
+  const sides = [m.homeTeam, m.awayTeam].filter((t): t is string => Boolean(t)).map(norm);
+  return sides.some((t) => TOP_PRIORITY_CLUBS.has(t));
+}
+
 /**
  * Hero 정렬 비교자. 음수면 a가 우선.
  * 1) 월드컵 vs 비월드컵 → 월드컵 우선
  * 2) 둘 다 월드컵 → 라운드 티어 desc → 매치업 티어 desc → 시간 asc
- * 3) 둘 다 비월드컵 → heroScore desc → 시간 asc
+ * 3) 최우선 클럽(맨유·맨시티·첼시·리버풀·아스날) → 다른 무엇보다 앞
+ * 4) 나머지 → heroScore desc → 시간 asc
  */
 export function compareHero(
   a: Schedule,
@@ -391,6 +422,10 @@ export function compareHero(
     if (ma !== mb) return mb - ma;
     return a.time.localeCompare(b.time);
   }
+
+  const pa = isTopPriority(a);
+  const pb = isTopPriority(b);
+  if (pa !== pb) return pa ? -1 : 1;
 
   const sa = heroScore(a, recentTeams);
   const sb = heroScore(b, recentTeams);

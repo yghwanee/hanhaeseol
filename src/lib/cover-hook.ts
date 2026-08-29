@@ -63,8 +63,9 @@ interface HookTemplate {
   when?: (c: CoverHookCtx) => boolean;
 }
 
-/** 선수면 "나옵니다", 팀이면 "옵니다" — 주어에 맞는 서술어. */
-const comes = (c: CoverHookCtx) => (c.isPlayer ? "나옵니다" : "옵니다");
+// 🔴 who 는 이름 하나다(선수명 또는 팀명 하나). 팀에 "옵니다"를 붙이면 내한경기가
+// 아닌 이상 비문이 된다 — "첼시 내일 옵니다". 팀에는 "경기 있습니다"를 쓴다.
+const comes = (c: CoverHookCtx) => (c.isPlayer ? "나옵니다" : "경기 있습니다");
 
 export const MORNING_COVER_HOOKS: HookTemplate[] = [
   {
@@ -124,7 +125,7 @@ export const EVENING_COVER_HOOKS: HookTemplate[] = [
   {
     build: (c) => ({
       big: `${c.dayWord} ${c.time}`,
-      small: `${c.who} 출전 · 한국어 해설 ${c.games}경기`,
+      small: `${c.who} ${c.isPlayer ? "출전" : "경기"} · 한국어 해설 ${c.games}경기`,
       accent: c.time,
     }),
   },

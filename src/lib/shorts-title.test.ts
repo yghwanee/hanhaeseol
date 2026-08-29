@@ -173,3 +173,21 @@ test("rotateIndex는 결정적이고 풀 범위를 벗어나지 않는다", () =
     }
   }
 });
+
+test("🔴 주어가 팀일 때 선수용 서술어가 붙지 않는다", () => {
+  const team = {
+    who: "첼시",
+    isPlayer: false,
+    time: "밤 10시",
+    games: 26,
+    emoji: "⚽",
+    dayWord: "내일" as const,
+  };
+  const bad = ["첼시 열립니다", "첼시 출격", "첼시 나옵니다"];
+  for (const pool of [MORNING_HOOKS, EVENING_HOOKS]) {
+    for (const fn of pool) {
+      const s = fn(team);
+      for (const b of bad) assert.ok(!s.includes(b), `팀에 선수용 서술어 — "${b}" in "${s}"`);
+    }
+  }
+});
