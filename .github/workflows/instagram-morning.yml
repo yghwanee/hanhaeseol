@@ -91,25 +91,52 @@ jobs:
 
       # 이 실행이 어느 날짜를 대상으로 하는지 남긴다. 2026-08-27 사고 때
       # 로그에 대상 날짜가 없어 생성 파일명으로 역추적해야 했다.
+      # 🔴 같은 대상 날짜를 두 번 올리는 것을 막는다 (2026-08-29).
+      # cron 이 12시간 밀려 저녁분이 자정을 넘겨 돌면, 사이클 보정 덕에 날짜는
+      # 맞지만 그 몇 시간 뒤 아침분이 **같은 날짜**를 또 올린다.
+      # 워크플로 이름이 아니라 대상 날짜로 비교하므로 정상 운영은 안 막는다.
+      # 조회 실패 시엔 게시를 진행한다(fail-open).
+      - name: 사이클 창·중복 검사
+        id: dup
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+        run: npm run post:cyclecheck
+
+      - name: 게시 건너뜀 (Telegram 알림)
+        if: ${{ steps.dup.outputs.skip == 'true' }}
+        env:
+          TG_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TG_CHAT: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          TEXT="⏭️ ${{ env.HHS_REPORT_TITLE }} 건너뜀%0A대상: ${{ steps.dup.outputs.target }}%0A사유: ${{ steps.dup.outputs.reason }}"
+          RES=$(curl -s -X POST "https://api.telegram.org/bot${TG_TOKEN}/sendMessage"             -d chat_id="${TG_CHAT}" -d text="$TEXT") || true
+          echo "$RES" | grep -q '"ok":true' || echo "::warning::텔레그램 알림 실패"
+
       - name: 대상 날짜 확인 (사이클 보정 포함)
         run: npm run post:target
 
       - name: 카드 생성 (당일 경기)
+        if: ${{ steps.dup.outputs.skip != 'true' }}
         run: npm run post:all -- --no-send
 
       - name: 릴스 영상 생성 (기존 슬라이드쇼)
+        if: ${{ steps.dup.outputs.skip != 'true' }}
         run: npm run reel:make
 
       - name: 스토리 이미지 생성
+        if: ${{ steps.dup.outputs.skip != 'true' }}
         run: npm run story:make
 
       # 🔴 push 앞에 있어야 한다. 인스타에 올리는 이미지는 JPEG 로 굽는다 — Meta 공식
       # 이미지 포맷은 JPEG 뿐이고 PNG 는 그쪽 변환기를 태우는 비공식 경로다.
       # 2026-08-15 아침 캐러셀 8장이 그 변환에서 통째로 죽었다(36001/2207084).
       - name: 인스타 업로드용 JPEG 변환
+        if: ${{ steps.dup.outputs.skip != 'true' }}
         run: npm run ig:jpeg
 
       - name: 이미지/영상을 insta-media 브랜치에 푸시
+        if: ${{ steps.dup.outputs.skip != 'true' }}
         id: media
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -125,6 +152,7 @@ jobs:
           echo "✅ insta-media 브랜치 업데이트 완료"
 
       - name: raw.githubusercontent CDN 반영 대기
+        if: ${{ steps.dup.outputs.skip != 'true' }}
         run: sleep 10
 
       # 저녁 워크플로와 같은 규칙: 게시 스텝끼리는 독립이되, 미디어 준비(생성 + insta-media
@@ -148,7 +176,7 @@ jobs:
       # 틱톡은 저녁 워크플로우(instagram.yml)에서만 게시. 오전엔 제외(1일 1회 = 도배 신호 완화).
 
       - name: Telegram 성공 보고
-        if: success()
+        if: ${{ success() && steps.dup.outputs.skip != 'true' }}
         run: npm run telegram:report
 
       - name: Telegram 실패 보고 (채널별 + 원본 첨부)

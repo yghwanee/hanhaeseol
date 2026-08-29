@@ -15,6 +15,7 @@ import {
   EVENING_HOOKS,
 } from "./shorts-title";
 import { rotateIndex } from "./post-slot";
+import { inferDayLabel } from "./instagram";
 
 /**
  * 편성 데이터에 실제로 경기가 있는 날짜를 쓴다(없으면 폴백 경로만 타서 검증이 약해진다).
@@ -43,13 +44,30 @@ test("같은 날짜라도 아침·저녁 제목이 다르다", () => {
   }
 });
 
-test("아침 제목은 '오늘', 저녁 제목은 '내일'로 시작 프레임이 갈린다", () => {
+test("🔴 제목의 '오늘/내일'은 슬롯이 아니라 **게시 시점**을 따른다", () => {
+  // 종전에는 아침 풀에 "오늘", 저녁 풀에 "내일"이 박혀 있었다.
+  // cron 이 12시간 밀려 저녁분이 KST 04:27 에 나가자, 그날 밤 경기를
+  // "내일"이라 부르며 업로드됐다(2026-08-29 실측).
+  //   `내일 밤 10시 30분 이재성 ⚽ 한국어 중계 채널 정리 8/29(토) #Shorts`
+  // 세트 정의(아침=오늘치 / 저녁=내일치)는 그대로 두되, 부르는 말은 실제 시각을 따른다.
   for (const d of DATES) {
-    const morning = buildShortsTitle("08", d.slice(8, 10), d, "morning");
-    const evening = buildShortsTitle("08", d.slice(8, 10), d, "evening");
-    assert.ok(morning.includes("오늘"), `${d}: 아침 제목에 '오늘' 없음 — ${morning}`);
-    assert.ok(evening.includes("내일"), `${d}: 저녁 제목에 '내일' 없음 — ${evening}`);
+    for (const slot of ["morning", "evening"] as const) {
+      const now = new Date();
+      const t = buildShortsTitle("08", d.slice(8, 10), d, slot, now);
+      const expected = inferDayLabel(d, now);
+      const wrong = expected === "오늘" ? "내일" : "오늘";
+      assert.ok(!t.includes(wrong), `${d}/${slot}: '${wrong}'이라 부른다(정답 '${expected}') — ${t}`);
+    }
   }
+});
+
+test("정상 운영(저녁=내일치)에서는 저녁 제목이 '내일'로 나간다", () => {
+  // KST 18:00 에 다음 날짜를 대상으로 도는, 지연 없는 저녁 실행.
+  const now = new Date(Date.UTC(2026, 7, 28, 9, 0)); // KST 2026-08-28 18:00
+  const target = "2026-08-29";
+  assert.equal(inferDayLabel(target, now), "내일");
+  const t = buildShortsTitle("08", "29", target, "evening", now);
+  assert.ok(t.includes("내일"), `정상 저녁인데 '내일'이 없다 — ${t}`);
 });
 
 test("제목은 유튜브 상한(100자) 이내이고 날짜·#Shorts를 유지한다", () => {
@@ -80,6 +98,7 @@ test("🔴 모든 후킹 문구가 검색 키워드 '한국어'+'중계/해설'�
     time: "낮 11시 10분",
     games: 4,
     emoji: "⚾",
+    dayWord: "내일" as const,
   };
   for (const [name, pool] of [
     ["MORNING", MORNING_HOOKS],

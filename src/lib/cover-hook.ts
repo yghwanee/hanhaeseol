@@ -9,7 +9,12 @@
 // 풀은 슬롯당 8개다. 3~4개면 같은 틀이 사나흘마다 돌아와 몰아 보면 티가 난다.
 // 문장 틀은 사람이 쓰고 코드는 값만 채운다 — LLM 생성은 비용·검증 부담만 붙는다.
 
-import { findKoreanPlayerOnMatch, loadKoreanMatchesAll, pickHeroForDate } from "./instagram";
+import {
+  findKoreanPlayerOnMatch,
+  inferDayLabel,
+  loadKoreanMatchesAll,
+  pickHeroForDate,
+} from "./instagram";
 import { GLOBAL_BIG_CLUBS } from "./hero-pick";
 import { withJosa } from "./josa";
 import { getPostSlot, rotateIndex, type PostSlot } from "./post-slot";
@@ -28,6 +33,16 @@ export interface CoverHookCtx {
   games: number;
   platform: string;
   isWeekday: boolean;
+  /**
+   * 🔴 대상 날짜를 **게시 시점 기준**으로 부르는 말. 슬롯에 박아 두면 안 된다.
+   *
+   * 2026-08-28 저녁 워크플로가 12시간 밀려 KST 8/29 04:27 에 발화했다.
+   * 사이클 보정 덕에 대상 날짜(8/29)는 맞았지만 문구는 저녁 풀에 "내일"이
+   * 하드코딩돼 있어 **오늘 밤 경기를 "내일"이라고 부르며** 나갔다
+   * (실제 업로드된 쇼츠 제목: `내일 밤 10시 30분 이재성 … 8/29(토)`).
+   * 날짜만 맞추고 부르는 말을 안 맞추면 사용자 눈에는 여전히 틀린 게시물이다.
+   */
+  dayWord: "오늘" | "내일";
 }
 
 export interface CoverHook {
@@ -54,13 +69,13 @@ const comes = (c: CoverHookCtx) => (c.isPlayer ? "나옵니다" : "옵니다");
 export const MORNING_COVER_HOOKS: HookTemplate[] = [
   {
     build: (c) => ({
-      small: `오늘 ${c.time} · ${c.platform}`,
-      big: `${c.who} 오늘 ${comes(c)}`,
+      small: `${c.dayWord} ${c.time} · ${c.platform}`,
+      big: `${c.who} ${c.dayWord} ${comes(c)}`,
       accent: c.who,
     }),
   },
   {
-    build: (c) => ({ small: "오늘 뭐 보지 싶을 때", big: `${c.who} 보세요`, accent: c.who }),
+    build: (c) => ({ small: `${c.dayWord} 뭐 보지 싶을 때`, big: `${c.who} 보세요`, accent: c.who }),
   },
   {
     build: (c) => ({ small: "퇴근하고 볼 거 있습니다", big: `${c.who} ${c.time}`, accent: c.who }),
@@ -68,25 +83,37 @@ export const MORNING_COVER_HOOKS: HookTemplate[] = [
   },
   {
     build: (c) => ({
-      small: "오늘 중계 어디서 보나",
+      small: `${c.dayWord} 중계 어디서 보나`,
       // 조사를 고정하면 `김혜성는`·`아스날는` 이 나온다. 받침으로 골라야 한다(작업58).
       big: `${withJosa(c.who, "은/는")} ${c.platform}`,
       accent: c.platform,
     }),
   },
   {
-    build: (c) => ({ small: "한국어 해설 됩니다", big: `${c.who} 오늘 ${c.time}`, accent: c.who }),
+    build: (c) => ({
+      small: "한국어 해설 됩니다",
+      big: `${c.who} ${c.dayWord} ${c.time}`,
+      accent: c.who,
+    }),
   },
   {
-    build: (c) => ({ small: "이 시간 비워두세요", big: `오늘 ${c.time} ${c.who}`, accent: c.time }),
+    build: (c) => ({
+      small: "이 시간 비워두세요",
+      big: `${c.dayWord} ${c.time} ${c.who}`,
+      accent: c.time,
+    }),
   },
   {
-    build: (c) => ({ small: "아침에 봐두면 편합니다", big: `오늘은 ${c.who}`, accent: c.who }),
+    build: (c) => ({
+      small: "아침에 봐두면 편합니다",
+      big: `${c.dayWord}은 ${c.who}`,
+      accent: c.who,
+    }),
   },
   {
     build: (c) => ({
       small: "평일에 이런 게 다 있네요",
-      big: `${c.who} 오늘 ${c.time}`,
+      big: `${c.who} ${c.dayWord} ${c.time}`,
       accent: c.who,
     }),
     when: (c) => c.isWeekday,
@@ -96,48 +123,58 @@ export const MORNING_COVER_HOOKS: HookTemplate[] = [
 export const EVENING_COVER_HOOKS: HookTemplate[] = [
   {
     build: (c) => ({
-      big: `내일 ${c.time}`,
+      big: `${c.dayWord} ${c.time}`,
       small: `${c.who} 출전 · 한국어 해설 ${c.games}경기`,
       accent: c.time,
     }),
   },
   {
     build: (c) => ({
-      big: `${c.who} 내일 ${comes(c)}`,
+      big: `${c.who} ${c.dayWord} ${comes(c)}`,
       small: `${c.time} · ${c.platform}`,
       accent: c.who,
     }),
   },
   {
-    build: (c) => ({ big: "내일 놓치면 아까운 경기", small: `${c.who} ${c.time}`, accent: c.who }),
+    build: (c) => ({
+      big: `${c.dayWord} 놓치면 아까운 경기`,
+      small: `${c.who} ${c.time}`,
+      accent: c.who,
+    }),
   },
   {
     build: (c) => ({
-      big: "내일 볼 거 미리 찍어두세요",
+      big: `${c.dayWord} 볼 거 미리 찍어두세요`,
       small: `${c.who} ${c.time} · ${c.platform}`,
       accent: c.who,
     }),
   },
   {
     build: (c) => ({
-      big: `내일 ${c.who} 나오는 날`,
+      big: `${c.dayWord} ${c.who} 나오는 날`,
       small: `${c.time} · 한국어 해설`,
       accent: c.who,
     }),
   },
   {
     build: (c) => ({ big: "오늘 밤 지나면 바로", small: `${c.who} ${c.time}`, accent: c.who }),
-    when: (c) => c.daypart === "새벽",
+    // "오늘 밤 지나면" 은 대상이 **내일**일 때만 참이다. 저녁분이 자정을 넘겨
+    // 밀려 대상이 당일이 되면 이 문장은 거짓이 된다.
+    when: (c) => c.daypart === "새벽" && c.dayWord === "내일",
   },
   {
     build: (c) => ({
-      big: "내일치 편성 나왔습니다",
+      big: `${c.dayWord}치 편성 나왔습니다`,
       small: `${c.who} ${c.time} · ${c.platform}`,
       accent: c.who,
     }),
   },
   {
-    build: (c) => ({ big: "미리 알려드립니다", small: `내일 ${c.time} ${c.who}`, accent: c.time }),
+    build: (c) => ({
+      big: c.dayWord === "내일" ? "미리 알려드립니다" : "바로 알려드립니다",
+      small: `${c.dayWord} ${c.time} ${c.who}`,
+      accent: c.time,
+    }),
   },
 ];
 
@@ -170,7 +207,7 @@ function pickHeadliner(home: string | null, away: string | null): string {
 }
 
 /** 히어로에서 후킹 재료를 뽑는다. 경기가 없으면 null. */
-export function coverHookContext(today: string): CoverHookCtx | null {
+export function coverHookContext(today: string, now: Date = new Date()): CoverHookCtx | null {
   const hero = pickHeroForDate(today);
   if (!hero) return null;
 
@@ -188,19 +225,24 @@ export function coverHookContext(today: string): CoverHookCtx | null {
     games: loadKoreanMatchesAll(today).length,
     platform: hero.platform,
     isWeekday: isWeekdayKst(today),
+    dayWord: inferDayLabel(today, now),
   };
 }
 
 /** 후킹 재료가 없는 날(경기 0)에 쓰는 문구. */
-function fallbackHook(slot: PostSlot): CoverHook {
+function fallbackHook(slot: PostSlot, dayWord: "오늘" | "내일"): CoverHook {
   return slot === "morning"
-    ? { small: "오늘 편성 정리했습니다", big: "한국어 해설 확인", accent: "한국어 해설" }
-    : { big: "내일치 편성 나왔습니다", small: "한국어 해설 편성표", accent: "한국어 해설" };
+    ? { small: `${dayWord} 편성 정리했습니다`, big: "한국어 해설 확인", accent: "한국어 해설" }
+    : { big: `${dayWord}치 편성 나왔습니다`, small: "한국어 해설 편성표", accent: "한국어 해설" };
 }
 
-export function buildCoverHook(today: string, slot: PostSlot = getPostSlot(today)): CoverHook {
-  const ctx = coverHookContext(today);
-  if (!ctx) return fallbackHook(slot);
+export function buildCoverHook(
+  today: string,
+  slot: PostSlot = getPostSlot(today),
+  now: Date = new Date(),
+): CoverHook {
+  const ctx = coverHookContext(today, now);
+  if (!ctx) return fallbackHook(slot, inferDayLabel(today, now));
 
   const pool = slot === "morning" ? MORNING_COVER_HOOKS : EVENING_COVER_HOOKS;
   const eligible = pool.filter((t) => !t.when || t.when(ctx));
@@ -212,7 +254,7 @@ export function buildCoverHook(today: string, slot: PostSlot = getPostSlot(today
   // 두 슬롯이 같은 문구를 낼 수 있어(풀 길이가 갈리면 밀기가 무의미해진다) 직접 막는다.
   // morning 은 재귀하지 않으므로 무한 루프가 없다.
   if (slot === "evening") {
-    const morning = buildCoverHook(today, "morning");
+    const morning = buildCoverHook(today, "morning", now);
     if (`${picked.small}|${picked.big}` === `${morning.small}|${morning.big}`) {
       return usable[(idx + 1) % usable.length].build(ctx);
     }

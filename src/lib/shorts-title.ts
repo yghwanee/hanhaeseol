@@ -39,6 +39,12 @@ interface HookCtx {
   /** 그날 한국어 해설 경기 수 */
   games: number;
   emoji: string;
+  /**
+   * 🔴 대상 날짜를 **게시 시점 기준**으로 부르는 말(작업101).
+   * 슬롯에 "내일"을 박아 두면, 저녁분이 자정을 넘겨 밀렸을 때
+   * 오늘 밤 경기를 "내일"이라고 부르며 나간다(2026-08-29 실제 업로드).
+   */
+  dayWord: "오늘" | "내일";
 }
 
 /** 선수면 "출격", 매치업이면 "시작" — 주어에 맞는 서술어. */
@@ -48,34 +54,34 @@ const appear = (c: HookCtx) => (c.isPlayer ? "나옵니다" : "열립니다");
 // 아침 = 오늘 경기. "지금 확인" 프레임.
 // 풀은 8개다 — 4개면 같은 틀이 나흘마다 돌아와 몰아 보면 티가 난다.
 export const MORNING_HOOKS: Array<(c: HookCtx) => string> = [
-  (c) => `오늘 ${c.who} 경기 ${c.emoji} 한국어 중계 어디서 봐요?`,
-  (c) => `${c.who} 오늘 ${c.time} ${start(c)} ${c.emoji} 한국어 중계 채널은`,
-  (c) => `오늘 한국어 해설 ${c.games}경기 ${c.emoji} ${c.who}부터 확인`,
-  (c) => `${c.who} 오늘 한국어 중계 ${c.emoji} 채널 하나로 정리했습니다`,
-  (c) => `${c.who} 오늘 어디서 보나 ${c.emoji} 한국어 해설 채널 정리`,
-  (c) => `오늘 ${c.time} ${c.who} ${c.emoji} 한국어 중계 되는 곳`,
-  (c) => `오늘 볼 경기 골랐습니다 ${c.emoji} ${c.who} 한국어 중계`,
-  (c) => `${c.who} 한국어 해설 ${c.emoji} 오늘 ${c.time} ${start(c)}`,
+  (c) => `${c.dayWord} ${c.who} 경기 ${c.emoji} 한국어 중계 어디서 봐요?`,
+  (c) => `${c.who} ${c.dayWord} ${c.time} ${start(c)} ${c.emoji} 한국어 중계 채널은`,
+  (c) => `${c.dayWord} 한국어 해설 ${c.games}경기 ${c.emoji} ${c.who}부터 확인`,
+  (c) => `${c.who} ${c.dayWord} 한국어 중계 ${c.emoji} 채널 하나로 정리했습니다`,
+  (c) => `${c.who} ${c.dayWord} 어디서 보나 ${c.emoji} 한국어 해설 채널 정리`,
+  (c) => `${c.dayWord} ${c.time} ${c.who} ${c.emoji} 한국어 중계 되는 곳`,
+  (c) => `${c.dayWord} 볼 경기 골랐습니다 ${c.emoji} ${c.who} 한국어 중계`,
+  (c) => `${c.who} 한국어 해설 ${c.emoji} ${c.dayWord} ${c.time} ${start(c)}`,
 ];
 
 // 저녁 = 내일 경기. "예고·알람" 프레임.
 export const EVENING_HOOKS: Array<(c: HookCtx) => string> = [
-  (c) => `내일 ${c.who} ${appear(c)} ${c.emoji} ${c.time} 한국어 중계`,
-  (c) => `${c.who} 내일 ${c.time} ${c.emoji} 한국어 중계 미리 확인`,
-  (c) => `내일 놓치면 아까운 경기 ${c.emoji} ${c.who} 한국어 중계`,
-  (c) => `내일 한국어 해설 ${c.games}경기 ${c.emoji} ${c.who} 알람 맞추세요`,
-  (c) => `내일치 편성 나왔습니다 ${c.emoji} ${c.who} ${c.time} 한국어 중계`,
-  (c) => `${c.who} 내일 어디서 보나 ${c.emoji} ${c.time} 한국어 해설`,
-  (c) => `내일 볼 거 미리 찍어두세요 ${c.emoji} ${c.who} 한국어 중계 ${c.time}`,
-  (c) => `내일 ${c.time} ${c.who} ${c.emoji} 한국어 중계 채널 정리`,
+  (c) => `${c.dayWord} ${c.who} ${appear(c)} ${c.emoji} ${c.time} 한국어 중계`,
+  (c) => `${c.who} ${c.dayWord} ${c.time} ${c.emoji} 한국어 중계 미리 확인`,
+  (c) => `${c.dayWord} 놓치면 아까운 경기 ${c.emoji} ${c.who} 한국어 중계`,
+  (c) => `${c.dayWord} 한국어 해설 ${c.games}경기 ${c.emoji} ${c.who} 알람 맞추세요`,
+  (c) => `${c.dayWord}치 편성 나왔습니다 ${c.emoji} ${c.who} ${c.time} 한국어 중계`,
+  (c) => `${c.who} ${c.dayWord} 어디서 보나 ${c.emoji} ${c.time} 한국어 해설`,
+  (c) => `${c.dayWord} 볼 거 미리 찍어두세요 ${c.emoji} ${c.who} 한국어 중계 ${c.time}`,
+  (c) => `${c.dayWord} ${c.time} ${c.who} ${c.emoji} 한국어 중계 채널 정리`,
 ];
 
 /**
  * 히어로 재료는 커버와 공유한다 — 커버와 제목의 주인공이 갈리면 안 된다.
  * (coverHookContext 는 pickHeroForDate 를 쓰므로 연속 방지 감점도 함께 적용된다.)
  */
-function hookContext(today: string): HookCtx | null {
-  const c = coverHookContext(today);
+function hookContext(today: string, now: Date = new Date()): HookCtx | null {
+  const c = coverHookContext(today, now);
   if (!c) return null;
   const hero = pickHeroForDate(today);
   return {
@@ -84,6 +90,7 @@ function hookContext(today: string): HookCtx | null {
     time: c.time,
     games: c.games,
     emoji: hero ? SPORT_EMOJI[hero.sport] : "⚽",
+    dayWord: c.dayWord,
   };
 }
 
@@ -108,18 +115,20 @@ const SURFACE_OFFSET: Record<HookSurface, number> = {
  * 🔴 슬롯 × 게시면 둘 다 갈라야 한다. 종전엔 한 문장이라, 편성이 안 잡힌 날에는
  * 여섯 게시물이 전부 같은 첫 줄로 나갔다 — 정작 중복이 제일 위험한 날이다.
  */
-const FALLBACK_HOOKS: Record<HookSurface, Record<PostSlot, string>> = {
+type DayWord = "오늘" | "내일";
+
+const FALLBACK_HOOKS: Record<HookSurface, Record<PostSlot, (d: DayWord) => string>> = {
   "youtube-desc": {
-    morning: "오늘 한국어 해설 편성, 한 번에 정리했습니다",
-    evening: "내일 한국어 해설 편성, 미리 정리해 뒀습니다",
+    morning: (d) => `${d} 한국어 해설 편성, 한 번에 정리했습니다`,
+    evening: (d) => `${d} 한국어 해설 편성, 미리 정리해 뒀습니다`,
   },
   "ig-feed": {
-    morning: "오늘 한국어 중계되는 경기, 채널까지 같이 봤어요",
-    evening: "내일 한국어 중계되는 경기, 채널까지 미리 확인하세요",
+    morning: (d) => `${d} 한국어 중계되는 경기, 채널까지 같이 봤어요`,
+    evening: (d) => `${d} 한국어 중계되는 경기, 채널까지 미리 확인하세요`,
   },
   "ig-reel": {
-    morning: "오늘 뭐 볼지 정하기 전에 30초만",
-    evening: "내일 볼 거 지금 정해 두실 분",
+    morning: (d) => `${d} 뭐 볼지 정하기 전에 30초만`,
+    evening: (d) => `${d} 볼 거 지금 정해 두실 분`,
   },
 };
 
@@ -132,9 +141,10 @@ export function buildHookLine(
   today: string,
   slot: PostSlot = getPostSlot(today),
   surface: HookSurface = "youtube-desc",
+  now: Date = new Date(),
 ): string {
-  const ctx = hookContext(today);
-  if (!ctx) return FALLBACK_HOOKS[surface][slot];
+  const ctx = hookContext(today, now);
+  if (!ctx) return FALLBACK_HOOKS[surface][slot](inferDayLabel(today, now));
 
   const pool = slot === "morning" ? MORNING_HOOKS : EVENING_HOOKS;
   const idx = (rotateIndex(today, slot, pool.length) + SURFACE_OFFSET[surface]) % pool.length;
@@ -150,9 +160,10 @@ export function buildShortsTitle(
   dd: string,
   today: string,
   slot: PostSlot = getPostSlot(today),
+  now: Date = new Date(),
 ): string {
   const dateTag = `${parseInt(mm, 10)}/${parseInt(dd, 10)}(${dayOfWeekKr(today)}) #Shorts`;
-  const ctx = hookContext(today);
+  const ctx = hookContext(today, now);
 
   if (ctx) {
     const pool = slot === "morning" ? MORNING_HOOKS : EVENING_HOOKS;
@@ -163,5 +174,5 @@ export function buildShortsTitle(
 
   // 폴백: 후킹 재료가 없거나(경기 0) 제목이 너무 길 때.
   // 종전 포맷에 슬롯 라벨만 앞에 붙여 중복은 여전히 피한다.
-  return `${inferDayLabel(today)} ${getMainHighlight(today)} ${dateTag}`.slice(0, TITLE_MAX);
+  return `${inferDayLabel(today, now)} ${getMainHighlight(today)} ${dateTag}`.slice(0, TITLE_MAX);
 }

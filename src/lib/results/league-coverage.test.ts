@@ -46,6 +46,10 @@ const KNOWN_UNSUPPORTED = new Set([
   "카라바오컵",
   "쉬페르리그",
   "FIBA 남자농구 월드컵",
+  // 2026-08-29 실측. fibawwc·fibawomen·fibawomensworldcup·womensbasketballworldcup·
+  // fibaw·fiba_women·wfibawc·fibawomenworldcup 전부 400. 남자 대회와 마찬가지로
+  // 네이버가 카테고리를 안 갖고 있다. 재조사 금지.
+  "FIBA 여자농구 월드컵",
   "고교야구",
   // 국내 대학축구(U리그, SPOTV NOW 중계 — 예: 동명대 vs 선문대). 2026-08-27 실측으로
   // uleague·universityleague·koreauniversity·ufl·kufl·universityfootball 전부 400.

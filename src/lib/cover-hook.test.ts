@@ -52,6 +52,7 @@ test("템플릿이 조사를 고정하지 않는다", () => {
     games: 12,
     platform: "티빙",
     isWeekday: true,
+    dayWord: "내일" as const,
   };
   const withFinal = { ...base, who: "김혜성" }; // 받침 O
   const withoutFinal = { ...base, who: "맨시티", isPlayer: false }; // 받침 X

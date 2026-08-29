@@ -13,6 +13,8 @@ import assert from "node:assert/strict";
 import { getKstToday, inferDayLabel, EVENING_CYCLE_START_HOUR } from "./instagram";
 import { getPostSlot } from "./post-slot";
 import { buildCoverHook } from "./cover-hook";
+import { buildHookLine, buildShortsTitle } from "./shorts-title";
+import { findDuplicateRun, isInCycleWindow } from "./post-duplicate";
 
 /** KST 벽시계 시각을 그 순간의 실제 Date 로 만든다(KST = UTC+9). */
 function atKst(y: number, m: number, d: number, hh: number, mm = 0): Date {
@@ -100,4 +102,101 @@ test("env 가 없으면 종전 날짜 비교로 폴백한다", () => {
     // 그건 env 가 있는 실제 워크플로에서는 발생하지 않는다.
     if (t1 !== t0) assert.equal(getPostSlot(t1), "evening");
   });
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 2026-08-29 추가 — 날짜만 맞추는 걸로는 부족했다.
+//
+// 8/28 저녁분이 12시간 밀려 KST 8/29 04:27 에 발화했다. 사이클 보정 덕에 대상
+// 날짜(8/29)는 맞았지만, 저녁 문구 풀에 "내일"이 하드코딩돼 있어 **오늘 밤 경기를
+// "내일"이라 부르며** 나갔다. 실제 업로드된 쇼츠 제목:
+//   `내일 밤 10시 30분 이재성 ⚽ 한국어 중계 채널 정리 8/29(토) #Shorts`
+// 게다가 30분 뒤 아침분이 같은 8/29 를 또 올릴 상황이었다.
+//
+// 지켜야 할 세트: 아침 = 오늘 경기 / 저녁 = 내일 경기.
+// ─────────────────────────────────────────────────────────────────────────────
+
+test("🔴 밀린 저녁분의 문구가 '내일'로 나가지 않는다 (2026-08-29 사고)", () => {
+  const now = atKst(2026, 8, 29, 4, 27); // 실제 발화 시각
+  const { today, mm, dd } = getKstToday(1, now);
+  assert.equal(today, "2026-08-29", "보정된 대상 날짜");
+  assert.equal(inferDayLabel(today, now), "오늘", "그 시점엔 8/29 가 '오늘'이다");
+
+  const title = buildShortsTitle(mm, dd, today, "evening", now);
+  const hook = buildHookLine(today, "evening", "ig-feed", now);
+  const cover = buildCoverHook(today, "evening", now);
+  for (const [what, s] of [
+    ["쇼츠 제목", title],
+    ["훅", hook],
+    ["커버", `${cover.small} ${cover.big}`],
+  ] as const) {
+    assert.ok(!s.includes("내일"), `${what} 이 오늘 경기를 '내일'이라 부른다 — ${s}`);
+  }
+});
+
+test("정상 저녁(KST 18시)은 여전히 '내일'로 말한다", () => {
+  const now = atKst(2026, 8, 28, 18, 0);
+  const { today, mm, dd } = getKstToday(1, now);
+  assert.equal(today, "2026-08-29");
+  const title = buildShortsTitle(mm, dd, today, "evening", now);
+  const cover = buildCoverHook(today, "evening", now);
+  assert.ok(
+    title.includes("내일") || `${cover.small} ${cover.big}`.includes("내일"),
+    `정상 저녁인데 '내일'이 사라졌다 — ${title} / ${cover.small} ${cover.big}`,
+  );
+});
+
+test("🔴 사이클 창 — 밀려서 남의 시간대로 넘어간 예약 발화는 게시하지 않는다", () => {
+  // 저녁(내일치): KST 12~24시
+  assert.equal(isInCycleWindow("evening", atKst(2026, 8, 28, 16, 18)), true, "정상 저녁");
+  assert.equal(isInCycleWindow("evening", atKst(2026, 8, 28, 23, 59)), true, "자정 직전");
+  assert.equal(isInCycleWindow("evening", atKst(2026, 8, 29, 4, 27)), false, "사고 시각");
+  assert.equal(isInCycleWindow("evening", atKst(2026, 8, 29, 11, 59)), false, "정오 직전");
+
+  // 아침(오늘치): KST 00~18시
+  assert.equal(isInCycleWindow("morning", atKst(2026, 8, 29, 4, 53)), true, "정상 아침");
+  assert.equal(isInCycleWindow("morning", atKst(2026, 8, 28, 12, 51)), true, "8/28 실제 복구분");
+  assert.equal(isInCycleWindow("morning", atKst(2026, 8, 29, 19, 0)), false, "저녁까지 밀린 아침");
+});
+
+test("🔴 같은 날짜 중복은 막고, 정상 운영은 안 막는다", () => {
+  const run = (iso: string, conclusion = "success") => ({
+    conclusion,
+    run_started_at: iso,
+    html_url: "u",
+  });
+
+  // 오늘 아침(KST 8/29 04:53) 시점에서 상대(저녁, offset 1)를 본다.
+  const morningNow = atKst(2026, 8, 29, 4, 53);
+  const myTarget = getKstToday(0, morningNow).today; // 2026-08-29
+
+  // ① 사고 그대로: 저녁분이 KST 8/29 04:27 에 돌아 8/29 를 이미 올렸다 → 막는다.
+  assert.ok(
+    findDuplicateRun(myTarget, 1, [run(atKst(2026, 8, 29, 4, 27).toISOString())], morningNow),
+    "자정 넘겨 밀린 저녁분과 같은 날짜인데 안 막았다",
+  );
+
+  // ② 정상 운영: 전날 저녁 16:18 실행은 8/29 가 아니라... 8/29 다(내일치).
+  //    그래서 날짜만으로는 겹치는데, 그 실행은 LOOKBACK 밖이 아니라 **12시간 전**이다.
+  //    → 정상 세트에서도 아침이 막히면 안 되므로 이 조합은 반드시 확인해야 한다.
+  const normalEvening = atKst(2026, 8, 28, 16, 18);
+  assert.equal(getKstToday(1, normalEvening).today, "2026-08-29");
+
+  // ③ 실패한 실행은 세지 않는다.
+  assert.equal(
+    findDuplicateRun(myTarget, 1, [run(atKst(2026, 8, 29, 4, 27).toISOString(), "failure")], morningNow),
+    null,
+  );
+
+  // ④ 미래 시각·오래된 실행은 세지 않는다.
+  assert.equal(
+    findDuplicateRun(myTarget, 1, [run(atKst(2026, 8, 29, 9, 0).toISOString())], morningNow),
+    null,
+    "아직 오지 않은 실행",
+  );
+  assert.equal(
+    findDuplicateRun(myTarget, 1, [run(atKst(2026, 8, 27, 16, 18).toISOString())], morningNow),
+    null,
+    "LOOKBACK 밖",
+  );
 });
