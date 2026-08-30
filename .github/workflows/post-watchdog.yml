@@ -73,15 +73,45 @@ jobs:
           echo "사이클=$CYCLE  워크플로=$WF"
           echo "창: $(TZ=Asia/Seoul date -d @${WINDOW_START} '+%F %H:%M') ~ $(TZ=Asia/Seoul date -d @${WINDOW_END} '+%F %H:%M') KST"
 
-          # 창 안에서 시작된 실행 수. 성공뿐 아니라 진행 중도 정상으로 본다.
-          COUNT=$(gh run list --repo "$REPO" --workflow "$WF" --limit 20 \
-            --json createdAt,status,conclusion \
-            --jq "[.[] | select((.createdAt|fromdateiso8601) >= ${WINDOW_START} and (.createdAt|fromdateiso8601) <= ${WINDOW_END}) | select(.conclusion == \"success\" or .status == \"in_progress\" or .status == \"queued\" or .status == \"waiting\")] | length" \
+          # 창 안에서 시작된 실행. 진행 중은 그대로 정상으로 본다.
+          #
+          # 🔴 완료된 실행은 conclusion=success 만으로는 안 된다 (2026-08-30).
+          # 사이클·중복 검사에 걸려 **게시를 통째로 건너뛴 실행도 success 로 끝난다.**
+          # 그날 아침이 정확히 그랬고, 이 감시는 "돌았다"고만 보고 조용했다.
+          # 그래서 실제 게시 스텝이 success 인 실행만 센다.
+          RUNS=$(gh run list --repo "$REPO" --workflow "$WF" --limit 20 \
+            --json databaseId,createdAt,status,conclusion \
+            --jq "[.[] | select((.createdAt|fromdateiso8601) >= ${WINDOW_START} and (.createdAt|fromdateiso8601) <= ${WINDOW_END})] | .[] | \"\(.databaseId) \(.status) \(.conclusion)\"" \
             2>/dev/null || echo "ERR")
 
-          if [ "$COUNT" = "ERR" ] || [ -z "$COUNT" ]; then
+          if [ "$RUNS" = "ERR" ]; then
             echo "::warning::실행 목록 조회 실패 — 오탐을 피하려 정상으로 처리한다"
             COUNT=1
+          else
+            COUNT=0
+            while read -r ID STATUS CONCL; do
+              [ -z "${ID:-}" ] && continue
+              case "$STATUS" in
+                in_progress|queued|waiting)
+                  echo "  run $ID: $STATUS — 진행 중이므로 정상으로 본다"
+                  COUNT=$((COUNT + 1)); continue ;;
+              esac
+              if [ "$CONCL" != "success" ]; then
+                echo "  run $ID: conclusion=$CONCL — 세지 않음"; continue
+              fi
+              PUBLISHED=$(gh api "repos/$REPO/actions/runs/$ID/jobs?per_page=20" \
+                --jq '[.jobs[].steps[]? | select(.conclusion == "success") | select(.name | test("(캐러셀|릴스|스토리|유튜브|틱톡).*(게시|업로드)"))] | length' \
+                2>/dev/null || echo "ERR")
+              if [ "$PUBLISHED" = "ERR" ]; then
+                echo "::warning::run $ID 스텝 조회 실패 — 오탐을 피하려 게시한 것으로 본다"
+                COUNT=$((COUNT + 1))
+              elif [ "${PUBLISHED:-0}" -gt 0 ]; then
+                echo "  run $ID: 게시 스텝 ${PUBLISHED}건 성공 — 정상"
+                COUNT=$((COUNT + 1))
+              else
+                echo "  run $ID: 돌았지만 게시 스텝이 하나도 성공하지 않았다 — 미게시로 센다"
+              fi
+            done <<< "$RUNS"
           fi
 
           echo "창 안의 정상 실행: $COUNT 건"
@@ -108,8 +138,8 @@ jobs:
           MSG=$(printf '%s\n' \
             "⚠️ 소셜 게시가 안 나갔습니다 — ${LABEL}" \
             "" \
-            "예정 KST ${CRON_KST} 인데 이 사이클에 실행 기록이 없습니다." \
-            "GH Actions cron 이 발화하지 않았거나 크게 밀린 상태입니다." \
+            "예정 KST ${CRON_KST} 인데 이 사이클에 실제로 게시된 기록이 없습니다." \
+            "cron 이 발화하지 않았거나, 돌았지만 사이클·중복 검사에 걸려 건너뛴 상태입니다." \
             "" \
             "지금 올리려면:  gh workflow run ${WF}" \
             "" \

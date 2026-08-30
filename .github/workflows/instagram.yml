@@ -30,6 +30,8 @@ on:
 
 permissions:
   contents: write
+  # 사이클·중복 검사가 상대 워크플로의 실행·스텝 결과를 읽는다.
+  actions: read
 
 jobs:
   instagram:

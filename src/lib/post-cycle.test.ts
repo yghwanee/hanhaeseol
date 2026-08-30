@@ -14,7 +14,13 @@ import { getKstToday, inferDayLabel, EVENING_CYCLE_START_HOUR } from "./instagra
 import { getPostSlot } from "./post-slot";
 import { buildCoverHook } from "./cover-hook";
 import { buildHookLine, buildShortsTitle } from "./shorts-title";
-import { findDuplicateRun, isInCycleWindow } from "./post-duplicate";
+import {
+  findSameSlotDuplicate,
+  findTooCloseRun,
+  isInCycleWindow,
+  runDidPost,
+  MIN_GAP_HOURS,
+} from "./post-duplicate";
 
 /** KST 벽시계 시각을 그 순간의 실제 Date 로 만든다(KST = UTC+9). */
 function atKst(y: number, m: number, d: number, hh: number, mm = 0): Date {
@@ -159,44 +165,141 @@ test("🔴 사이클 창 — 밀려서 남의 시간대로 넘어간 예약 발�
   assert.equal(isInCycleWindow("morning", atKst(2026, 8, 29, 19, 0)), false, "저녁까지 밀린 아침");
 });
 
-test("🔴 같은 날짜 중복은 막고, 정상 운영은 안 막는다", () => {
-  const run = (iso: string, conclusion = "success") => ({
-    conclusion,
-    run_started_at: iso,
-    html_url: "u",
-  });
+// ─────────────────────────────────────────────────────────────────────────────
+// 2026-08-30 — 중복 검사가 **정상 운영을 매일 죽이고 있었다**.
+//
+// 세트 정의상 저녁(D)과 다음날 아침(D+1)은 대상 날짜가 항상 같다.
+// 그런데 종전 검사는 "상대가 20시간 안에 같은 날짜를 올렸으면 중단"이라
+// 아침이 매일 스킵됐다(2026-08-30 07:01 실행 로그로 확인).
+//
+// 🔴 종전 테스트에도 이 조합이 "반드시 확인해야 한다"고 적혀 있었는데,
+// 대상 날짜만 계산해 보고 **검사 함수를 호출하지 않은 채 끝났다.**
+// 여기서는 반드시 호출해서 단언한다.
+// ─────────────────────────────────────────────────────────────────────────────
 
-  // 오늘 아침(KST 8/29 04:53) 시점에서 상대(저녁, offset 1)를 본다.
-  const morningNow = atKst(2026, 8, 29, 4, 53);
-  const myTarget = getKstToday(0, morningNow).today; // 2026-08-29
+const run = (at: Date, conclusion = "success", posted?: boolean) => ({
+  conclusion,
+  run_started_at: at.toISOString(),
+  html_url: "u",
+  ...(posted === undefined ? {} : { posted }),
+});
 
-  // ① 사고 그대로: 저녁분이 KST 8/29 04:27 에 돌아 8/29 를 이미 올렸다 → 막는다.
-  assert.ok(
-    findDuplicateRun(myTarget, 1, [run(atKst(2026, 8, 29, 4, 27).toISOString())], morningNow),
-    "자정 넘겨 밀린 저녁분과 같은 날짜인데 안 막았다",
+test("🔴 정상 세트(저녁 D → 다음날 아침 D)를 막지 않는다 — 2026-08-30 사고", () => {
+  // 실제 사고: 저녁 08-29 22:10 KST(대상 08-30) → 아침 08-30 07:01 KST(대상 08-30).
+  const morningNow = atKst(2026, 8, 30, 7, 1);
+  const myTarget = getKstToday(0, morningNow).today;
+  assert.equal(myTarget, "2026-08-30");
+
+  const eveningRun = run(atKst(2026, 8, 29, 22, 10));
+  assert.equal(getKstToday(1, atKst(2026, 8, 29, 22, 10)).today, myTarget, "날짜가 같은 게 정상이다");
+
+  assert.equal(
+    findTooCloseRun(myTarget, 1, [eveningRun], morningNow),
+    null,
+    "8시간 51분 떨어진 정상 세트를 막았다 — 아침 게시가 매일 죽는다",
   );
 
-  // ② 정상 운영: 전날 저녁 16:18 실행은 8/29 가 아니라... 8/29 다(내일치).
-  //    그래서 날짜만으로는 겹치는데, 그 실행은 LOOKBACK 밖이 아니라 **12시간 전**이다.
-  //    → 정상 세트에서도 아침이 막히면 안 되므로 이 조합은 반드시 확인해야 한다.
-  const normalEvening = atKst(2026, 8, 28, 16, 18);
-  assert.equal(getKstToday(1, normalEvening).today, "2026-08-29");
-
-  // ③ 실패한 실행은 세지 않는다.
+  // cron 이 제시간에 돌아도 마찬가지(저녁 16:18 → 아침 04:53, 12h35m).
+  const onTimeMorning = atKst(2026, 8, 30, 4, 53);
   assert.equal(
-    findDuplicateRun(myTarget, 1, [run(atKst(2026, 8, 29, 4, 27).toISOString(), "failure")], morningNow),
+    findTooCloseRun(getKstToday(0, onTimeMorning).today, 1, [run(atKst(2026, 8, 29, 16, 18))], onTimeMorning),
+    null,
+    "정시 운영도 막혔다",
+  );
+});
+
+test("🔴 너무 붙어서 나가는 것은 막는다 (2026-08-28 사고 형태)", () => {
+  // 저녁분이 KST 04:27 에 발화해 8/29 를 올렸고, 30분 뒤 아침분이 같은 날짜를 올리려 한다.
+  const morningNow = atKst(2026, 8, 29, 5, 0);
+  const myTarget = getKstToday(0, morningNow).today;
+  const hit = findTooCloseRun(myTarget, 1, [run(atKst(2026, 8, 29, 4, 27))], morningNow);
+  assert.ok(hit, `${MIN_GAP_HOURS}시간 안에 같은 날짜가 나갔는데 안 막았다`);
+
+  // 경계: MIN_GAP_HOURS 를 지나면 통과한다.
+  const later = atKst(2026, 8, 29, 4 + MIN_GAP_HOURS, 28);
+  assert.equal(findTooCloseRun(myTarget, 1, [run(atKst(2026, 8, 29, 4, 27))], later), null);
+});
+
+test("🔴 같은 슬롯이 같은 날짜를 두 번 올리는 것은 막는다", () => {
+  // 어제 cron 이 24시간 밀려 오늘 cron 과 같은 날짜를 잡는 경우.
+  const now = atKst(2026, 8, 30, 4, 53);
+  const myTarget = getKstToday(0, now).today;
+  assert.ok(
+    findSameSlotDuplicate(myTarget, 0, [run(atKst(2026, 8, 30, 1, 0))], now),
+    "같은 아침 워크플로가 오늘치를 이미 올렸는데 또 올린다",
+  );
+  // 어제분(대상 08-29)은 날짜가 달라 안 막는다.
+  assert.equal(
+    findSameSlotDuplicate(myTarget, 0, [run(atKst(2026, 8, 29, 12, 0))], now),
     null,
   );
+});
 
-  // ④ 미래 시각·오래된 실행은 세지 않는다.
+test("🔴 게시하지 않고 스킵된 실행은 '이미 올렸다'로 세지 않는다", () => {
+  // 이걸 세면 스킵이 다음 스킵을 부른다(무한 침묵).
+  const now = atKst(2026, 8, 29, 5, 0);
+  const myTarget = getKstToday(0, now).today;
+  const skipped = run(atKst(2026, 8, 29, 4, 27), "success", false);
+  assert.equal(findTooCloseRun(myTarget, 1, [skipped], now), null);
+  assert.equal(findSameSlotDuplicate(myTarget, 0, [skipped], now), null);
+});
+
+test("실패·미래·창 밖 실행은 세지 않는다", () => {
+  const now = atKst(2026, 8, 29, 5, 0);
+  const myTarget = getKstToday(0, now).today;
   assert.equal(
-    findDuplicateRun(myTarget, 1, [run(atKst(2026, 8, 29, 9, 0).toISOString())], morningNow),
+    findTooCloseRun(myTarget, 1, [run(atKst(2026, 8, 29, 4, 27), "failure")], now),
+    null,
+    "실패한 실행",
+  );
+  assert.equal(
+    findTooCloseRun(myTarget, 1, [run(atKst(2026, 8, 29, 9, 0))], now),
     null,
     "아직 오지 않은 실행",
   );
   assert.equal(
-    findDuplicateRun(myTarget, 1, [run(atKst(2026, 8, 27, 16, 18).toISOString())], morningNow),
+    findSameSlotDuplicate(myTarget, 0, [run(atKst(2026, 8, 28, 4, 53))], now),
     null,
     "LOOKBACK 밖",
+  );
+});
+
+test("🔴 게시 여부 판정 — '게시 대상 채널 결정'을 게시로 오판하지 않는다", () => {
+  // 2026-08-30 스킵 실행의 실제 스텝 구성.
+  const skippedRun = [
+    { name: "게시 대상 채널 결정", conclusion: "success" },
+    { name: "사이클 창·중복 검사", conclusion: "success" },
+    { name: "게시 건너뜀 (Telegram 알림)", conclusion: "success" },
+    { name: "카드 생성 (당일 경기)", conclusion: "skipped" },
+    { name: "인스타 업로드용 JPEG 변환", conclusion: "skipped" },
+    { name: "캐러셀 게시", conclusion: "skipped" },
+    { name: "릴스 게시", conclusion: "skipped" },
+    { name: "스토리 게시", conclusion: "skipped" },
+    { name: "유튜브 쇼츠 업로드", conclusion: "skipped" },
+  ];
+  assert.equal(runDidPost(skippedRun), false, "스킵된 실행을 게시했다고 봤다");
+
+  // 정상 게시 실행.
+  assert.equal(
+    runDidPost([...skippedRun.slice(0, 5), { name: "캐러셀 게시", conclusion: "success" }]),
+    true,
+  );
+  // only=reel 재실행 — 한 채널만 성공해도 게시한 것이다.
+  assert.equal(
+    runDidPost([
+      { name: "게시 대상 채널 결정", conclusion: "success" },
+      { name: "캐러셀 게시", conclusion: "skipped" },
+      { name: "릴스 게시", conclusion: "success" },
+    ]),
+    true,
+  );
+  // 준비 단계만 돌고 게시 직전에 죽은 실행.
+  assert.equal(
+    runDidPost([
+      { name: "릴스 영상 생성 (신규 v2 — punch + xfade zoomin)", conclusion: "success" },
+      { name: "인스타 업로드용 JPEG 변환", conclusion: "success" },
+      { name: "캐러셀 게시", conclusion: "failure" },
+    ]),
+    false,
   );
 });
