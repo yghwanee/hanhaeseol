@@ -1,7 +1,7 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import fs from "fs";
-import { TIKTOK_SCOPES } from "./tiktok-api";
+import { TIKTOK_SCOPES, TIKTOK_DISPLAY_SCOPES, authorizeScopes } from "./tiktok-api";
 
 // 🔴 2026-09-01. @hanhaeseol 은 2026-06 게시 시작 이후 **모든 영상이 조회수 0** 이었다.
 // 게시 자체는 정상이었다 — 옛 publish_id 를 다시 조회하니 7건 전부
@@ -61,11 +61,25 @@ test("IG·유튜브 경로는 AI 사진을 그대로 쓴다(틱톡만 바꾼 것
   assert.doesNotMatch(reel, /noAiImage:\s*true/);
 });
 
-test("🔴 조회수를 읽을 수 있는 스코프를 유지한다", () => {
-  // 이게 빠지면 다시 "고쳤는데 효과를 잴 수 없는" 상태로 돌아간다.
-  assert.ok(TIKTOK_SCOPES.includes("video.list"), `video.list 없음: ${TIKTOK_SCOPES.join(",")}`);
-  assert.ok(TIKTOK_SCOPES.includes("video.publish"));
-  assert.ok(TIKTOK_SCOPES.includes("user.info.basic"));
+test("🔴 authorize 스코프에 미승인 제품 스코프를 섞지 않는다", () => {
+  // 2026-09-01 실제로 막혔다. video.list 는 Display API 제품에 딸려 오는데
+  // 이 앱에는 그 제품이 안 붙어 있어서, authorize URL 에 넣는 순간 TikTok 이
+  // "문제가 발생했습니다 · scope" 로 **로그인 자체를 거부**한다 = 재인증 불가.
+  // 앱 심사로 Display API 가 붙기 전까지는 기본 셋만 나가야 한다.
+  delete process.env.TIKTOK_ENABLE_DISPLAY_API;
+  assert.deepEqual(authorizeScopes(), TIKTOK_SCOPES);
+  for (const s of TIKTOK_DISPLAY_SCOPES) {
+    assert.ok(!TIKTOK_SCOPES.includes(s), `${s} 는 심사 전이라 기본 셋에 들어가면 안 된다`);
+  }
+});
+
+test("Display API 승인 후에는 플래그로 조회 스코프를 켤 수 있다", () => {
+  process.env.TIKTOK_ENABLE_DISPLAY_API = "1";
+  const got = authorizeScopes();
+  delete process.env.TIKTOK_ENABLE_DISPLAY_API;
+  assert.ok(got.includes("video.list"));
+  assert.ok(got.includes("user.info.stats"));
+  assert.ok(got.includes("video.publish"), "게시 스코프는 항상 유지");
 });
 
 test("그래픽 배경은 날짜마다 달라진다(매일 같은 프레임 = 중복 신호)", async () => {

@@ -4,19 +4,30 @@ import fs from "node:fs";
 const TIKTOK_API = "https://open.tiktokapis.com";
 export const TIKTOK_AUTH_URL = "https://www.tiktok.com/v2/auth/authorize/";
 export const TIKTOK_TOKEN_URL = `${TIKTOK_API}/v2/oauth/token/`;
-// 🔴 video.list / user.info.stats 는 **조회 전용** 스코프다 (2026-09-01 추가).
-// 그전까지 우리 토큰은 게시만 가능해서, 몇 달째 조회수 0 인 걸 앱을 켜야만 알 수 있었다
-// (작업57 에서 "틱톡은 API로 읽기 불가"로 기록된 그 자리). 이 스코프가 붙어야
-// `npm run tiktok:stats` 가 게시물별 조회수를 읽는다.
-// 🔴 스코프를 늘려도 **이미 발급된 토큰에는 소급 적용되지 않는다** — 사용자가
-// `npm run tiktok:auth` 로 한 번 재인증해야 한다.
-export const TIKTOK_SCOPES = [
-  "user.info.basic",
-  "user.info.stats",
-  "video.publish",
-  "video.upload",
-  "video.list",
-];
+// 🔴 스코프는 개별로 켜는 게 아니라 **Products 에 딸려 온다** (2026-09-01 콘솔 확인).
+// 지금 앱 haeseol 에 붙은 Products = Login Kit + Content Posting API 뿐이고,
+// 그래서 허용 스코프도 이 셋이 전부다. 여기에 없는 값을 authorize URL 에 넣으면
+// TikTok 이 "문제가 발생했습니다 · scope" 로 **로그인 자체를 거부**한다.
+// = 재인증이 통째로 막힌다. 실제로 한 번 그렇게 만들었다가 되돌렸다.
+export const TIKTOK_SCOPES = ["user.info.basic", "video.publish", "video.upload"];
+
+/**
+ * 조회 전용 스코프. `video.list` 는 **Display API** 제품에 딸려 있는데 이 앱에는
+ * 안 붙어 있다. 붙이려면 Create Revision → Display API 추가 → 데모 영상과 함께
+ * 앱 심사 재제출이 필요하다(심사 대기 발생, 그동안 Direct Post 승인 상태를 건드림).
+ *
+ * 조회수를 자동으로 읽으려면 그 심사를 통과한 뒤 `TIKTOK_ENABLE_DISPLAY_API=1` 로
+ * 재인증하면 된다. 그 전에는 **켜지 말 것** — 켜는 순간 재인증이 막힌다.
+ */
+export const TIKTOK_DISPLAY_SCOPES = ["user.info.stats", "video.list"];
+
+/** authorize URL 에 실을 스코프. Display API 심사 전에는 기본 셋만 나간다. */
+export function authorizeScopes(): string[] {
+  return process.env.TIKTOK_ENABLE_DISPLAY_API === "1"
+    ? [...TIKTOK_SCOPES, ...TIKTOK_DISPLAY_SCOPES]
+    : TIKTOK_SCOPES;
+}
+
 export const TIKTOK_REDIRECT_URI = "https://haeseol.com/api/tiktok/callback";
 
 function env(key: string): string {

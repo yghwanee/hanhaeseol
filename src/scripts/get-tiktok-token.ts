@@ -15,7 +15,7 @@ import crypto from "node:crypto";
 import {
   TIKTOK_AUTH_URL,
   TIKTOK_TOKEN_URL,
-  TIKTOK_SCOPES,
+  authorizeScopes,
   TIKTOK_REDIRECT_URI,
 } from "@/lib/tiktok-api";
 
@@ -35,7 +35,7 @@ async function main() {
 
   const authUrl = new URL(TIKTOK_AUTH_URL);
   authUrl.searchParams.set("client_key", clientKey);
-  authUrl.searchParams.set("scope", TIKTOK_SCOPES.join(","));
+  authUrl.searchParams.set("scope", authorizeScopes().join(","));
   authUrl.searchParams.set("response_type", "code");
   authUrl.searchParams.set("redirect_uri", TIKTOK_REDIRECT_URI);
   authUrl.searchParams.set("state", state);
