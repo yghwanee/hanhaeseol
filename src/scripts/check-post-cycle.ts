@@ -11,18 +11,20 @@
  *   ③ 상대 슬롯이 같은 날짜를 MIN_GAP_HOURS 안에 올림 — 너무 붙어서 나가는 것.
  *
  * 🔴 수동 실행(workflow_dispatch)은 전부 통과시킨다. 그게 복구 수단이다.
+ *    단 **따라잡기(post-catchup)가 건 실행은 예외** — `HHS_FORCE_GATE=1` 이면
+ *    예약 발화와 똑같이 검사한다. 따라잡기는 자동이라, 그것까지 무검사로 통과시키면
+ *    사람이 개입하지 않은 중복 게시가 생긴다.
  * 🔴 fail-open. 조회가 실패하면 게시를 막지 않는다. 감시가 잘못 돌아
  *    하루치 게시가 통째로 사라지는 쪽이, 중복 한 번보다 나쁘다.
  */
 import fs from "fs";
+import { fetchPostRuns } from "./_post-runs";
 import { getKstToday, kstNow } from "../lib/instagram";
 import { getPostSlot } from "../lib/post-slot";
 import {
   findSameSlotDuplicate,
   findTooCloseRun,
   isInCycleWindow,
-  runDidPost,
-  LOOKBACK_HOURS,
   MIN_GAP_HOURS,
   MORNING_LATEST_HOUR,
   type OtherRun,
@@ -51,52 +53,6 @@ function skip(reason: string) {
   if (summary) fs.appendFileSync(summary, `⏭️ 게시 중단 — ${reason}\n\n`);
 }
 
-async function gh<T>(path: string): Promise<T> {
-  // fetch-cache-ok: GH Actions 전용 스크립트라 Next 런타임 캐시와 무관하다.
-  const res = await fetch(`https://api.github.com${path}`, {
-    headers: { authorization: `Bearer ${TOKEN}`, accept: "application/vnd.github+json" },
-  });
-  if (!res.ok) throw new Error(`${path} → ${res.status} ${res.statusText}`);
-  return (await res.json()) as T;
-}
-
-interface RawRun extends OtherRun {
-  id: number;
-}
-
-/**
- * 워크플로의 최근 완료 실행을 가져오고, 각각이 **실제로 게시했는지** 스텝으로 판정한다.
- *
- * 🔴 conclusion=success 만으로는 안 된다. 사이클 검사에 걸려 스킵된 실행도
- * success 로 끝난다(2026-08-30 아침이 그랬다). 그걸 "이미 올렸다"고 세면
- * 스킵이 다음 스킵을 부른다.
- */
-async function fetchRuns(wf: string): Promise<OtherRun[]> {
-  const data = await gh<{ workflow_runs?: RawRun[] }>(
-    `/repos/${REPO}/actions/workflows/${wf}/runs?per_page=10&status=completed`,
-  );
-  const runs = (data.workflow_runs ?? []).filter((r) => String(r.id) !== MY_RUN_ID);
-  const recent = runs.filter((r) => {
-    const t = new Date(r.run_started_at).getTime();
-    return Number.isFinite(t) && t >= Date.now() - LOOKBACK_HOURS * 3600_000;
-  });
-  return Promise.all(
-    recent.map(async (r) => {
-      if (r.conclusion !== "success") return r;
-      try {
-        const jobs = await gh<{ jobs?: { steps?: { name?: string; conclusion?: string }[] }[] }>(
-          `/repos/${REPO}/actions/runs/${r.id}/jobs?per_page=20`,
-        );
-        const steps = (jobs.jobs ?? []).flatMap((j) => j.steps ?? []);
-        // 스텝을 못 읽었으면 판정하지 않는다(=게시한 것으로 본다).
-        return steps.length === 0 ? r : { ...r, posted: runDidPost(steps) };
-      } catch {
-        return r;
-      }
-    }),
-  );
-}
-
 async function main() {
   const now = new Date();
   const k = kstNow(now);
@@ -106,7 +62,10 @@ async function main() {
   console.log(`🗓️  대상 ${myTarget} · slot=${slot} · KST ${k.getHours()}시 (${MY_WF || "unset"})`);
 
   // 🔴 수동 실행(workflow_dispatch)은 **모든 검사** 통과. 사고 복구 경로다.
-  if (process.env.GITHUB_EVENT_NAME === "workflow_dispatch") {
+  // 따라잡기가 건 실행은 사람이 아니므로 이 면제를 주지 않는다.
+  const forced = process.env.HHS_FORCE_GATE === "1";
+  if (forced) console.log("🤖 따라잡기 발동분 — 예약 발화와 동일하게 검사한다.");
+  if (!forced && process.env.GITHUB_EVENT_NAME === "workflow_dispatch") {
     console.log("🖐️  수동 실행 — 사이클 창·중복 검사를 건너뛴다(복구 경로).");
     out("skip", "false");
     return;
@@ -132,8 +91,8 @@ async function main() {
   let others: OtherRun[];
   try {
     [mine, others] = await Promise.all([
-      MY_WF ? fetchRuns(MY_WF) : Promise.resolve([]),
-      fetchRuns(OTHER_WF),
+      MY_WF ? fetchPostRuns(MY_WF, MY_RUN_ID) : Promise.resolve([]),
+      fetchPostRuns(OTHER_WF, MY_RUN_ID),
     ]);
   } catch (e) {
     console.log(`⚠️  실행 목록 조회 실패 — 중복 검사를 건너뛴다: ${(e as Error).message}`);

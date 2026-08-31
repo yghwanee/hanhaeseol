@@ -7,7 +7,10 @@ on:
     # 시간당 2번으로 분산해 누락 확률을 낮춘다. concurrency가 직렬화하므로
     # 두 트리거가 겹쳐도 데이터 중복 없이 순차 실행.
     # 비용 우려는 없음(퍼블릭 리포는 Actions 무제한).
-    - cron: '13,43 * * * *'
+    # 🔴 2026-09-01: 매시 2회(13,43) → 1회. 배포가 하루 4회뿐이라(작업92) 30분마다
+    # 크롤해도 사이트에 반영되는 시점은 같다. 반대로 고빈도 cron 은 GH 가 먼저 버려서
+    # 레포 전체 예약 발화를 깎아먹고 있었다(하루 48회 요구에 실측 4~6회 발화).
+    - cron: '13 * * * *'
   workflow_dispatch: {}
 
 # 동시 실행 방지: 이전 잡이 끝나기 전에 다음 cron이 트리거되면 큐에 쌓지 않고 스킵.
@@ -18,7 +21,17 @@ concurrency:
 permissions:
   contents: write
 
-jobs:
+
+  # 🔴 소셜 게시 따라잡기 (2026-09-01). 이 워크플로가 도는 김에, 놓친 게시가 있으면
+  # 대신 걸어 준다. GH Actions 가 예약 발화를 대량으로 버리기 때문에, 게시 cron 하나에
+  # 하루를 걸지 않고 **그날 살아남은 실행 아무거나**에 구제를 얹는다.
+  catchup:
+    permissions:
+      actions: write
+      contents: read
+    uses: ./.github/workflows/post-catchup.yml
+    secrets: inherit
+
   crawl:
     runs-on: ubuntu-latest
     steps:

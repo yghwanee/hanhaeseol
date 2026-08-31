@@ -14,6 +14,10 @@ on:
     inputs:
       # 종전의 skip_instagram / instagram_only 를 대체한다.
       # 인스타만 = carousel,reel,story / 유튜브만 = youtube
+      gated:
+        description: '창·중복 검사를 그대로 적용한다 (따라잡기 자동 발동용). 사람이 쓸 일 없음'
+        type: string
+        default: ''
       only:
         description: '이 채널만 게시 (쉼표 구분: carousel,reel,story,youtube). 비우면 전부'
         type: string
@@ -48,6 +52,8 @@ jobs:
       GITHUB_REPOSITORY: ${{ github.repository }}
       HHS_REPORT_TITLE: '☀️ [오전] 당일 경기'
       HHS_WORKFLOW: instagram-morning.yml
+      # 따라잡기가 건 실행은 수동 실행 면제를 주지 않는다(자동 중복 방지).
+      HHS_FORCE_GATE: ${{ inputs.gated == 'true' && '1' || '' }}
     steps:
       - uses: actions/checkout@v6
 

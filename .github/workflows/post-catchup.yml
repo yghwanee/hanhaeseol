@@ -1,0 +1,45 @@
+name: 소셜 게시 따라잡기
+
+# 🔴 2026-09-01 신설. 자기 cron 이 없다 — 일부러 그렇다.
+#
+# GH Actions 가 이 레포의 schedule 이벤트를 대량으로 버린다(실측: 30분 주기
+# 워크플로가 하루 48회 기대에 2~6회 발화, 하루 1회 cron 도 5~12시간 밀림).
+# 따라잡기 전용 cron 을 만들면 그것도 같이 버려지므로, **그날 살아남아 실제로 도는**
+# 워크플로들이 끝에서 이걸 호출한다(deploy 4회 · crawl-results · uptime).
+# 하나만 살아남아도 그 사이클이 구제된다.
+#
+# 판정은 게시 게이트(check-post-cycle)와 같은 함수를 쓴다. 조건이 갈리면 여기서
+# 발동시킨 실행이 정작 게이트에 걸려 죽는다 — 발동만 하고 게시는 안 되는 최악.
+on:
+  workflow_call: {}
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: '판정만 하고 발동하지 않는다'
+        type: boolean
+        default: false
+
+jobs:
+  catchup:
+    runs-on: ubuntu-latest
+    permissions:
+      # 놓친 게시 워크플로를 workflow_dispatch 로 건다.
+      # (GITHUB_TOKEN 이 만든 이벤트는 보통 새 실행을 안 만들지만,
+      #  workflow_dispatch / repository_dispatch 는 문서에 명시된 예외다.)
+      actions: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+          cache: npm
+      - run: npm ci
+      - name: 놓친 사이클 판정 · 발동
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          HHS_CATCHUP_DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
+        run: npm run post:catchup

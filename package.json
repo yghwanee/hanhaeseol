@@ -93,7 +93,9 @@
     "test:safety-filter": "tsx --test src/lib/insights/safety-filter.test.ts",
     "toss:check": "tsx src/scripts/toss-check.ts",
     "toss:link": "tsx src/scripts/toss-link.ts",
-    "test:toss": "tsx --test src/lib/toss/sharelink.test.ts"
+    "test:toss": "tsx --test src/lib/toss/sharelink.test.ts",
+    "post:catchup": "tsx src/scripts/post-catchup.ts",
+    "test:post-catchup": "tsx --test src/lib/post-catchup.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

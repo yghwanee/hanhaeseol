@@ -10,7 +10,11 @@ name: Uptime 감시
 # 이어지는 장애에서 **복구 순간을 자동으로 알려주는 게 이 설계의 핵심**이다.
 on:
   schedule:
-    - cron: '7,37 * * * *'   # 30분마다(정각 회피)
+    # 🔴 2026-09-01: 30분(7,37) → 1시간. GH 가 이 레포의 예약 발화를 대량으로 버리는데,
+    # 고빈도 cron 이 먼저 버려진다(하루 48회 요구에 실측 2~6회 발화). 요구를 줄여 부하를
+    # 낮춘다. 다운 감지가 30분 → 60분으로 늦어지는 건 감수한다 — 어차피 지금은 30분마다
+    # 도는 게 아니라 하루 서너 번밖에 안 돌고 있었다.
+    - cron: '7 * * * *'   # 매시 7분(정각 회피)
   workflow_dispatch: {}
 
 permissions:
@@ -21,7 +25,17 @@ concurrency:
   group: uptime
   cancel-in-progress: false
 
-jobs:
+
+  # 🔴 소셜 게시 따라잡기 (2026-09-01). 이 워크플로가 도는 김에, 놓친 게시가 있으면
+  # 대신 걸어 준다. GH Actions 가 예약 발화를 대량으로 버리기 때문에, 게시 cron 하나에
+  # 하루를 걸지 않고 **그날 살아남은 실행 아무거나**에 구제를 얹는다.
+  catchup:
+    permissions:
+      actions: write
+      contents: read
+    uses: ./.github/workflows/post-catchup.yml
+    secrets: inherit
+
   check:
     runs-on: ubuntu-latest
     steps:
