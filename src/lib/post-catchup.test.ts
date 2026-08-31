@@ -120,6 +120,29 @@ test("정상 세트 간격(저녁 16:18 → 아침 04:53)은 막지 않는다", 
 
 const read = (p: string) => fs.readFileSync(p, "utf8");
 
+test("🔴 모든 워크플로가 최상위 jobs 를 갖는다(YAML 파싱만으로는 못 잡는다)", () => {
+  // 2026-09-01 실제 사고: 따라잡기 잡을 끼워 넣으면서 `jobs:` 키를 지웠는데,
+  // YAML 은 여전히 **문법적으로 유효**해서(최상위 키가 catchup/deploy 가 됐을 뿐)
+  // js-yaml 파싱 검사를 통과했다. deploy·uptime·crawl-results 셋이 동시에 죽었고,
+  // workflow_dispatch 를 해 보고서야 422 로 드러났다. 파싱은 검증이 아니다.
+  //
+  // YAML 라이브러리를 쓰지 않고 최상위 키만 본다 — 타입 없는 전이 의존성에
+  // 가드를 매달면 그 의존성이 빠지는 날 가드도 같이 사라진다.
+  const ALLOWED = new Set([
+    "name", "on", "run-name", "permissions", "env", "defaults", "concurrency", "jobs",
+  ]);
+  const bad: string[] = [];
+  for (const f of fs.readdirSync(".github/workflows").filter((n) => n.endsWith(".yml"))) {
+    const top = read(`.github/workflows/${f}`)
+      .split(/\r?\n/)
+      .filter((l) => /^[A-Za-z_][A-Za-z0-9_-]*:/.test(l))
+      .map((l) => l.slice(0, l.indexOf(":")));
+    if (!top.includes("jobs")) bad.push(`${f}: 최상위 jobs 없음`);
+    for (const k of top) if (!ALLOWED.has(k)) bad.push(`${f}: 알 수 없는 최상위 키 '${k}'`);
+  }
+  assert.deepEqual(bad, [], "워크플로 구조가 깨졌다: " + bad.join(", "));
+});
+
 test("🔴 따라잡기를 호출하는 워크플로가 최소 3개 있어야 한다", () => {
   // cron 하나에 하루를 걸지 않는 게 이 설계의 전부다. 호출처가 하나로 줄면
   // 그 하나가 버려지는 날 게시가 통째로 사라진다.
