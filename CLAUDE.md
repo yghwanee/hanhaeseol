@@ -673,7 +673,32 @@ src/
     - 검증: tsc · ESLint · **41스위트 전 통과(종료 코드 기준)** · 빌드 · 워크플로 3종 YAML 파싱 · **라이브 GH API 로 실제 판정 재현**(오늘 아침 통과, 오늘 저녁·내일 아침 시뮬레이션도 통과, 8/30 스킵 실행은 `posted=false` 로 정확히 걸러짐) · CI success.
     - **관측**: 내일(8/31) 아침이 **예약 실행으로** 나가는지가 판정 기준이다. 지금까지는 수동 실행으로만 나갔다.
 
+104. 🔴 GH Actions 가 예약 발화를 대량으로 버린다 → cron 시각을 안 믿는 구조 (2026-09-01, 커밋 `f28ded3c`·`867c7ca5` 앞)
+    - 사용자 신고 "컨텐츠 또 안 올라갔네". 8/31 저녁분은 KST 9/1 **00:09** 에 발화해(+7h51m) 작업101 의 사이클 창 검사에 걸려 중단됐고, 9/1 아침분은 **아예 발화하지 않았다.** 감시(`post-watchdog`)는 정상 작동해 텔레그램을 보냈다.
+    - **원인은 우리 코드가 아니다.** `uptime.yml`(cron `7,37 * * * *` = 하루 48회 기대) 실측 발화 수 — 8/18~8/26 24~34회 → **8/27부터 2~6회**. `crawl-results` 도 같다. **실패·취소가 아니라 실행 자체가 생성되지 않는다**(최근 40건 40/40 success · 워크플로 19개 전부 active · `cancel-in-progress:false`). 같은 계정 `fadeby`(private, 하루 1 cron)는 8/27 이후도 매일 정상이라 **계정 차단도 아니다.** 다른 점은 이 레포가 하루 약 **110회**를 요구한다는 것뿐. 하루 1회 cron 은 대체로 살아남지만 5~12시간 밀린다. **8/27 에 GH 쪽에서 뭐가 바뀌었는지는 모른다 — 상관관계만 확실하다.**
+    - **`post-catchup.yml` 신설 — 자기 cron 이 없다.** 따라잡기 전용 cron 을 만들면 그것도 같이 버려진다. 대신 **그날 살아남아 실제로 도는** `deploy`(하루 4회, 발화율 가장 안정)·`crawl-results`·`uptime` 이 끝에서 호출한다. 하나만 살아남아도 그 사이클이 구제된다.
+    - **발동은 `gated=true`**(→ 대상 워크플로 env `HHS_FORCE_GATE=1`). 그래야 수동 실행 면제를 받지 않고 창·중복 검사를 다시 통과해야 게시한다. **사람 수동 실행은 종전대로 무조건 통과**(작업101 의 복구 경로 유지).
+    - 🔴 **판정은 게시 게이트와 같은 함수**(`src/lib/post-catchup.ts` ↔ `check-post-cycle`). 조건이 갈리면 발동만 하고 게시는 게이트에 걸려 죽는다 — `post-watchdog` 이 같은 로직을 bash 로 따로 갖고 있다가 2026-08-30 에 실제로 어긋났던 그 실수다. 실행 조회도 `src/scripts/_post-runs.ts` 로 추출해 공유한다.
+    - **cron 감축**: `uptime` `7,37`→`7` / `crawl-results` `13,43`→`13`. 요구 **110 → 62회/일**. 배포가 하루 4회뿐이라(작업92) 30분 크롤은 사이트 반영 시점을 앞당기지 못했다.
+    - 🔴 **내가 낸 사고**: 잡을 끼워 넣으면서 최상위 **`jobs:` 키를 지웠다.** `deploy`·`uptime`·`crawl-results` 셋이 `Required property is missing: jobs`(HTTP 422)로 실행 불가였는데, **js-yaml 파싱은 20개 파일을 전부 ok 로 통과시켰다** — `jobs:` 가 없어도 문법은 유효하고 최상위 키가 `catchup`/`deploy` 가 될 뿐이다. `workflow_dispatch` 를 실제로 해 보고서야 드러났다. **파싱은 검증이 아니다.** 가드는 YAML 라이브러리 없이 최상위 키를 직접 훑는다(타입 없는 전이 의존성에 가드를 매달면 그게 빠지는 날 가드도 사라진다).
+    - 가드 `test:post-catchup` 17건(CI). 되돌려 fail 실증: 30분 cron 복원 / `HHS_FORCE_GATE` 면제 해제 되돌림 / 호출처 하나 제거 / `jobs:` 한 줄 삭제.
+    - **라이브 실측**: `deploy` dispatch → `deploy: success` + `catchup/catchup: success`, 판정 로그 "아침 이미 올림 / 저녁 창 밖 / 발동 안 함" 정확. 당일 9/1 아침분은 `gh workflow run instagram-morning.yml` 로 4채널 복구 게시.
+    - **증상 오진 주의**: "게시가 안 됐다"를 코드 버그로 먼저 의심하지 말 것. `gh run list --workflow=X` 로 **발화 자체가 있었는지**부터 본다.
+
+105. 🔴 틱톡 0 조회수 — 게시는 완벽히 정상, For You 부적격 조건 둘 제거 (2026-09-01, 커밋 `3c7db21a`·`867c7ca5`)
+    - **게시가 정상이라는 걸 이번엔 증명했다.** 옛 `publish_id` 7건(8/24~8/30)을 `status/fetch` 로 재조회 → 전부 `PUBLISH_COMPLETE` + `publicaly_available_post_id` 채워짐. 문서상 그 필드는 *"공개로 게시되고 **모더레이션을 통과**해야만 반환"* 이다. oEmbed 도 200(제목·author 정상). **문제는 게시가 아니라 배포다.**
+    - 🔴 **발행 직후에는 그 필드가 비어 있는 게 정상이다**(모더레이션 전). 게시 로그의 `(공개 post ID 미반환)` 을 이상 신호로 읽지 말 것 — 하마터면 그걸 근거로 오진할 뻔했다.
+    - **고친 것 둘**: ①`brand_organic_toggle` 을 **한 번도 안 보냈다.** 아웃트로가 매번 "한해설 검색"으로 우리 서비스를 홍보하는데 TikTok 은 **미표기 마케팅 콘텐츠를 For You 피드 부적격**으로 명시한다 → 항상 `true`. ②`is_aigc: true` 가 **상수 고정**이었고, 후킹 이미지 183장이 전부 ChatGPT 생성물이라 뗄 수도 없었다 → **틱톡판 릴스만 AI 사진을 안 쓴다**(`noAiImage` = 날짜별 글로우·각도 그래픽 + 히어로 팀 엠블럼). `is_aigc` 는 `manifest.reelTiktokAigc` 의 사실값에서 읽는다(없으면 `true` — 라벨 누락이 더 나쁘다). **IG·유튜브판 무변경.** 부수로 BGM 시작 오프셋을 날짜로 흔든다(같은 곡 같은 구간이 매일 = 오디오 지문 동일).
+    - 🔴 **조회수 API 는 막혔다. 다시 시도하지 말 것.** `video.list`·`user.info.stats` 는 **Display API 제품**에 딸려 오는데 앱 `haeseol` 에 붙은 Products 는 Login Kit + Content Posting API 둘뿐이다(콘솔 실물 확인). **스코프는 개별 체크가 아니라 제품에 딸려 온다.** 허용 밖 스코프를 authorize URL 에 실으면 TikTok 이 "문제가 발생했습니다 · scope" 로 **로그인 자체를 거부** = 재인증 불가. 실제로 그렇게 만들었다가 되돌렸다(`TIKTOK_DISPLAY_SCOPES` + `authorizeScopes()`, `TIKTOK_ENABLE_DISPLAY_API=1` 일 때만 합침). 붙이려면 Create Revision → Display API 추가 → 데모 영상 포함 앱 심사인데, 승인된 `Direct Post` 를 건드리므로 조회수 하나 때문에 돌리지 않는다. `npm run tiktok:stats`·social-stats 코드는 심사 통과하면 플래그만 켜면 동작하도록 남겨 뒀다.
+    - **배제된 것**: 계정 제재 아님(앱 계정 상태에 아무 표시 없음 — 사용자 확인) · 계정 비공개 아님(`privacy_level_options` 에 PUBLIC 포함) · 규격 정상(1080x1920·30fps·AAC·15.6s·mean_volume −11.2dB).
+    - 가드 `test:tiktok-policy` 10건(CI). 되돌려 fail 실증 4건(`is_aigc` 상수 / `noAiImage` 제거 / `brandOrganicToggle` 제거 / 기본 스코프에 미승인 스코프 혼입).
+    - 검증: 틱톡판 릴스 실제 생성 후 ffprobe·첫 프레임 육안(AI 사진 없음, 아스톤 빌라 vs 아스날 엠블럼) · IG판 재생성해 AI 사진 유지 확인 · 현재 토큰으로 `video.list` 호출해 `scope_not_authorized` 안내 경로 실측.
+    - **다음 = 코드가 아니라 실험(미완).** 저녁 자동 게시분 영상 파일을 그대로 **폰에서 손으로 업로드**(캡션 한 줄만). 손으로도 0 → 계정 문제(새 계정 판단). 조회수 나옴 → API 게시 경로·라벨 문제(= 이번에 고친 자리). **이 실험 전에는 추가 코드 레버를 쓰지 말 것.**
+
 ### 다음 작업 (예정)
+
+- 🔴 **틱톡 수동 업로드 실험 (작업105, 대기 중)** — 저녁 자동 게시분 영상 파일을 폰에서 손으로 올려 계정 문제인지 코드 문제인지 가른다. 지금까지 두 달 넘게 추측만 했고 이게 유일한 결정적 실험이다. **결과 나오기 전에 틱톡 코드를 더 건드리지 말 것.**
+- 🔴 **관측 (작업104)** — 내일부터 아침·저녁 게시가 **예약 실행으로** 나가는지, 안 나가면 `catchup` 이 대신 걸어주는지. 텔레그램에 "🚑 소셜 게시 따라잡기" 가 오면 그건 정상 동작이지 사고가 아니다. GH 발화율이 회복되면 `catchup` 은 조용히 아무것도 안 한다.
 
 - 🔴 **토스쇼핑 쉐어링크 붙이기 — 내일 이어서 (2026-08-27 중단, 커밋 `40374e87`)**
   쿠팡 파트너스를 걷어낸 뒤(작업64·65·70) 비어 있던 제휴 자리를 채우는 작업. 문서는 다 읽었고
@@ -784,6 +809,9 @@ npm run ig:jpeg          # 🔴 인스타 업로드용 JPEG 굽기(캐러셀+스
 npm run test:ig-image    # 🔴 위 변환 + 워크플로가 그걸 insta-media push **앞**에서 돌리는지
 npm run test:shorts-title    # 🔴 아침·저녁 쇼츠 제목이 같아지면 실패(피드 배포 중단 재발 방지)
 npm run test:post-cycle      # 🔴 cron 이 자정을 넘겨 밀려도 대상 날짜가 하루 앞서지 않는지(2026-08-27 사고)
+npm run test:post-catchup    # 🔴 놓친 게시 따라잡기 판정 + 워크플로 최상위 jobs 존재 + 고빈도 cron 금지
+npm run test:tiktok-policy   # 🔴 is_aigc 상수 금지 · brand_organic_toggle · 미승인 스코프 혼입 금지
+npm run tiktok:stats         # 틱톡 조회수(🔴 Display API 심사 전이라 지금은 안내만 나온다)
 npm run post:target          # 이 실행의 대상 날짜·슬롯·사이클 보정 여부 출력(워크플로가 게시 전에 찍는다)
 npm run test:cover-hook      # 🔴 아침·저녁 커버 문구가 같아지면 실패 + 조사 고정 금지(josa.ts 사용 강제)
 npm run test:idea-dupes / test:naver-news
