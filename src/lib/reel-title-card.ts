@@ -1,5 +1,6 @@
 import { createCanvas, loadImage, type SKRSContext2D, type Image } from "@napi-rs/canvas";
 import { buildCoverHook } from "./cover-hook";
+import { fetchTeamLogoImage, pickHeroForDate } from "./instagram";
 import { getPostSlot, type PostSlot } from "./post-slot";
 
 /**
@@ -20,6 +21,117 @@ export interface ReelBrandOpts {
   noUrl?: boolean;
   /** 슬롯 강제 지정 — 미지정이면 대상 날짜로 판정한다. 미리보기·테스트용. */
   slot?: PostSlot;
+  /**
+   * true 면 AI 생성 사진을 쓰지 않고 **그래픽 배경**을 그린다(틱톡 전용).
+   *
+   * 🔴 배경 사진 183장이 전부 ChatGPT 생성물이라, 이걸 쓰는 한 `is_aigc` 를
+   * 정직하게 붙여야 한다. 틱톡에서는 그 라벨과 "AI 양산 계정" 분류가 도달을
+   * 깎는 쪽으로 관측돼(2026-09-01 조사) 틱톡판만 사진을 뺀다.
+   * IG·유튜브판은 그대로다.
+   */
+  noAiImage?: boolean;
+}
+
+/**
+ * 날짜마다 달라지는 그래픽 배경. 사진 없이도 밋밋하지 않게, 그리고
+ * **매일 같은 프레임이 나가지 않게**(중복 신호) 각도·위치를 날짜로 흔든다.
+ */
+function drawSyntheticBackground(
+  ctx: SKRSContext2D,
+  W: number,
+  H: number,
+  accent: string,
+  today: string,
+) {
+  const seed = today.split("-").reduce((a, p) => a * 31 + Number(p), 7);
+  const gx = 0.25 + ((seed * 7) % 50) / 100; // 0.25~0.75
+  const gy = 0.18 + ((seed * 13) % 30) / 100; // 0.18~0.48
+
+  ctx.fillStyle = "#0b0d12";
+  ctx.fillRect(0, 0, W, H);
+
+  // 액센트 글로우 — 위치가 날마다 움직인다
+  const glow = ctx.createRadialGradient(
+    W * gx, H * gy, 0,
+    W * gx, H * gy, Math.max(W, H) * 0.72,
+  );
+  glow.addColorStop(0, hexWithAlpha(accent, 0.3));
+  glow.addColorStop(0.45, hexWithAlpha(accent, 0.08));
+  glow.addColorStop(1, "rgba(11,13,18,0)");
+  ctx.fillStyle = glow;
+  ctx.fillRect(0, 0, W, H);
+
+  // 대각 스트라이프 — 각도도 날마다 조금씩 다르다
+  ctx.save();
+  ctx.globalAlpha = 0.05;
+  ctx.strokeStyle = "#ffffff";
+  ctx.lineWidth = 2;
+  ctx.translate(W / 2, H / 2);
+  ctx.rotate(((seed % 24) - 12) * (Math.PI / 180) - Math.PI / 5);
+  for (let x = -H; x < H * 1.4; x += 52) {
+    ctx.beginPath();
+    ctx.moveTo(x, -H);
+    ctx.lineTo(x, H);
+    ctx.stroke();
+  }
+  ctx.restore();
+
+  // 아래쪽을 어둡게 — 본문 텍스트 가독성
+  const bottom = ctx.createLinearGradient(0, H * 0.45, 0, H);
+  bottom.addColorStop(0, "rgba(8,8,13,0)");
+  bottom.addColorStop(1, "rgba(8,8,13,0.85)");
+  ctx.fillStyle = bottom;
+  ctx.fillRect(0, H * 0.45, W, H * 0.55);
+}
+
+/**
+ * 히어로 경기의 두 팀 엠블럼을 가운데 크게. 원격 로고는 실패할 수 있으므로
+ * 호출부에서 catch 한다 — 배경이 없는 것보다 엠블럼이 없는 게 낫다.
+ */
+async function drawHeroEmblems(ctx: SKRSContext2D, W: number, H: number, today: string) {
+  const hero = pickHeroForDate(today);
+  if (!hero) return;
+
+  const [home, away] = await Promise.all([
+    fetchTeamLogoImage(hero.homeTeam).catch(() => null),
+    hero.awayTeam ? fetchTeamLogoImage(hero.awayTeam).catch(() => null) : null,
+  ]);
+  if (!home && !away) return;
+
+  const size = Math.round(W * 0.3);
+  const cy = Math.round(H * 0.4);
+  const both = Boolean(home && away);
+  const gap = Math.round(W * 0.1);
+
+  ctx.save();
+  ctx.globalAlpha = 0.92;
+  ctx.shadowColor = "rgba(0,0,0,0.55)";
+  ctx.shadowBlur = 28;
+  if (both) {
+    ctx.drawImage(home!, W / 2 - size - gap / 2, cy - size / 2, size, size);
+    ctx.drawImage(away!, W / 2 + gap / 2, cy - size / 2, size, size);
+  } else {
+    const one = (home ?? away)!;
+    ctx.drawImage(one, W / 2 - size / 2, cy - size / 2, size, size);
+  }
+  ctx.restore();
+
+  if (both) {
+    ctx.save();
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = "rgba(255,255,255,0.5)";
+    ctx.font = "800 44px Pretendard";
+    ctx.fillText("VS", W / 2, cy);
+    ctx.restore();
+  }
+}
+
+/** "#rrggbb" + alpha → rgba(). accent 상수가 hex 라 이 변환이 필요하다. */
+function hexWithAlpha(hex: string, alpha: number): string {
+  const h = hex.replace("#", "");
+  const n = Number.parseInt(h.length === 3 ? h.replace(/./g, (c) => c + c) : h, 16);
+  return `rgba(${(n >> 16) & 255}, ${(n >> 8) & 255}, ${n & 255}, ${alpha})`;
 }
 
 // 9:16 (1080x1920): 릴스 영상 본 비율.
@@ -163,10 +275,21 @@ export async function renderReelTitleBackground(
   imagePath: string,
   aspect: ReelTitleAspect = "9:16",
   slot: PostSlot = "evening",
+  opts: { noAiImage?: boolean; today?: string } = {},
 ): Promise<Buffer> {
   const { W, H } = aspectSize(aspect);
   const canvas = createCanvas(W, H);
   const ctx = canvas.getContext("2d");
+
+  if (opts.noAiImage) {
+    const today = opts.today ?? "2026-01-01";
+    drawSyntheticBackground(ctx, W, H, SLOT_ACCENT[slot], today);
+    // 가운데를 히어로 경기의 팀 엠블럼으로 채운다 — 비-AI 이고, 매일 달라지고,
+    // 정보 가치도 있다(그래디언트만 두면 가운데가 통째로 비어 저품질로 읽힌다).
+    // best-effort: 엠블럼을 못 받으면 배경만 쓴다.
+    await drawHeroEmblems(ctx, W, H, today).catch(() => {});
+    return canvas.toBuffer("image/png");
+  }
 
   if (slot === "morning") {
     // 아침 = 사진 + 솔리드 블록. 경계선이 저녁(풀블리드)과 갈리는 축이다.
@@ -428,7 +551,10 @@ export async function renderReelTitleCard(
 ): Promise<Buffer> {
   const { W, H } = aspectSize(aspect);
   const slot = opts.slot ?? getPostSlot(today);
-  const bg = await renderReelTitleBackground(imagePath, aspect, slot);
+  const bg = await renderReelTitleBackground(imagePath, aspect, slot, {
+    noAiImage: opts.noAiImage,
+    today,
+  });
   const txt = await renderReelTitleText(today, aspect, opts);
 
   const canvas = createCanvas(W, H);

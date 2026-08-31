@@ -4,7 +4,19 @@ import fs from "node:fs";
 const TIKTOK_API = "https://open.tiktokapis.com";
 export const TIKTOK_AUTH_URL = "https://www.tiktok.com/v2/auth/authorize/";
 export const TIKTOK_TOKEN_URL = `${TIKTOK_API}/v2/oauth/token/`;
-export const TIKTOK_SCOPES = ["user.info.basic", "video.publish", "video.upload"];
+// 🔴 video.list / user.info.stats 는 **조회 전용** 스코프다 (2026-09-01 추가).
+// 그전까지 우리 토큰은 게시만 가능해서, 몇 달째 조회수 0 인 걸 앱을 켜야만 알 수 있었다
+// (작업57 에서 "틱톡은 API로 읽기 불가"로 기록된 그 자리). 이 스코프가 붙어야
+// `npm run tiktok:stats` 가 게시물별 조회수를 읽는다.
+// 🔴 스코프를 늘려도 **이미 발급된 토큰에는 소급 적용되지 않는다** — 사용자가
+// `npm run tiktok:auth` 로 한 번 재인증해야 한다.
+export const TIKTOK_SCOPES = [
+  "user.info.basic",
+  "user.info.stats",
+  "video.publish",
+  "video.upload",
+  "video.list",
+];
 export const TIKTOK_REDIRECT_URI = "https://haeseol.com/api/tiktok/callback";
 
 function env(key: string): string {
@@ -115,6 +127,25 @@ export interface PostVideoParams {
   disableDuet?: boolean;
   disableComment?: boolean;
   disableStitch?: boolean;
+  /**
+   * 영상에 AI 생성 이미지가 **실제로** 들어 있는가.
+   *
+   * 🔴 상수로 박지 말 것. 2026-06~08 내내 `true` 로 고정돼 있었는데, 그 라벨은
+   * 붙이는 순간 되돌릴 수 없고 도달에도 불리하다(TikTok 공식 입장은 "라벨은 순위
+   * 신호가 아니다"지만, 라벨된 AI 콘텐츠가 실제로 덜 퍼진다는 관측이 일관된다).
+   * 반대로 AI 컷이 들어 있는데 안 붙이면 정책 위반이다. 그래서 **영상을 만든 쪽이
+   * 사실을 넘겨준다**(manifest).
+   */
+  isAigc: boolean;
+  /**
+   * 이 영상이 **우리 사업(한해설)을 홍보**하는가.
+   *
+   * 🔴 TikTok 커뮤니티 가이드라인은 미표기 마케팅 콘텐츠를 For You 피드
+   * **부적격**으로 명시한다. 우리 영상은 전부 아웃트로에서 "한해설 검색"을
+   * 유도하므로 여기 해당하는데, 2026-06 게시 시작 이후 이 값을 한 번도 보내지
+   * 않았다. 조회수가 처음부터 0 이었던 것과 시점이 맞는다.
+   */
+  brandOrganicToggle?: boolean;
 }
 
 interface InitResponse {
@@ -136,9 +167,11 @@ async function initFileUpload(
       disable_duet: p.disableDuet ?? false,
       disable_comment: p.disableComment ?? false,
       disable_stitch: p.disableStitch ?? false,
-      // AI 합성 이미지(ChatGPT 생성 후킹 컷)가 영상에 포함됨.
-      // 게시 후 변경 불가. 미부착 상태에서 자동 감지되면 정책 위반.
-      is_aigc: true,
+      // 게시 후 변경 불가. 미부착 상태에서 자동 감지되면 정책 위반이므로
+      // **AI 컷이 들어 있을 때만** 붙인다(사실을 영상 생성 쪽에서 받는다).
+      is_aigc: p.isAigc,
+      // 우리 사업 홍보 표기. 미표기 마케팅은 For You 피드 부적격이다.
+      brand_organic_toggle: p.brandOrganicToggle ?? false,
     },
     source_info: {
       source: "FILE_UPLOAD",

@@ -7,6 +7,8 @@
  * 채널마다 권한이 달라서, 막힌 건 막혔다고 그대로 출력한다(빈 값으로 얼버무리지 않는다).
  * 실행: GitHub Actions의 social-stats.yml (토큰이 레포 시크릿에 있다)
  */
+import { getAccessToken } from "../lib/tiktok-api";
+import { fetchTiktokVideos } from "./check-tiktok-stats";
 import { getAccessToken as ytAccessToken } from "../lib/youtube-api";
 
 const IG_API = "https://graph.facebook.com/v21.0";
@@ -133,15 +135,39 @@ async function instagram(): Promise<string> {
 }
 
 async function tiktok(): Promise<string> {
-  // 우리 토큰 스코프는 user.info.basic / video.publish / video.upload 뿐이다.
-  // 조회수를 읽으려면 video.list 스코프로 다시 인증해야 한다(get-tiktok-token.ts 수정 + 재승인).
   const clientKey = process.env.TIKTOK_CLIENT_KEY;
   if (!clientKey) return "틱톡: TIKTOK_CLIENT_KEY 없음";
-  return [
-    "틱톡: 조회수 조회 불가 (video.list 스코프 없음)",
-    "  지금 토큰은 게시 전용이다. 숫자를 보려면 스코프를 추가해 재인증해야 한다.",
-    "  앱에서 직접 확인: 프로필 > 각 영상 > 조회수, 설정 > 계정 상태",
-  ].join("\n");
+
+  // 🔴 2026-09-01: TIKTOK_SCOPES 에 video.list 를 추가했지만, 스코프는 **발급 시점에
+  // 토큰에 박힌다**. 기존 refresh token 으로는 여전히 못 읽으므로 재인증 안내를 낸다.
+  try {
+    const { accessToken } = await getAccessToken();
+    const videos = await fetchTiktokVideos(accessToken, 15);
+    if (videos.length === 0) return "틱톡: 게시물 없음(또는 조회 권한 밖)";
+    const views = videos.map((v) => v.view_count ?? 0);
+    const sum = views.reduce((a, b) => a + b, 0);
+    const sorted = [...views].sort((a, b) => a - b);
+    const median = sorted[Math.floor(sorted.length / 2)];
+    const out = [
+      `틱톡: 최근 ${videos.length}개 · 합계 ${sum} · 중앙값 ${median}`,
+      ...videos.slice(0, 5).map((v) => {
+        const when = v.create_time
+          ? new Date(v.create_time * 1000).toISOString().slice(5, 10)
+          : "?";
+        return `  ${when}  조회 ${v.view_count ?? 0} · ♥${v.like_count ?? 0}`;
+      }),
+    ];
+    if (sum === 0) {
+      out.push("  🔴 전부 0 = 게시는 되는데 배포가 안 되고 있다.");
+      out.push("  앱에서 [설정 > 계정 > 계정 상태] 와 영상별 '추천 부적격' 확인 필요.");
+    }
+    return out.join("\n");
+  } catch (e) {
+    return [
+      `틱톡: 조회수 조회 실패 — ${(e as Error).message.split("\n")[0]}`,
+      "  npm run tiktok:setup 으로 재인증하면 숫자가 나온다(스코프는 토큰 발급 시점에 박힌다).",
+    ].join("\n");
+  }
 }
 
 async function main() {

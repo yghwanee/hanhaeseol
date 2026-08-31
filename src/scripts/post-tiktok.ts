@@ -76,6 +76,7 @@ async function main(): Promise<string> {
 
   console.log(`🎵 TikTok 업로드 시작 (${sizeMb} MB)`);
   console.log(`   privacy_level: ${privacyLevel}`);
+  console.log(`   is_aigc: ${manifest.reelTiktokAigc ?? true} · brand_organic_toggle: true`);
 
   const oldRefreshToken = process.env.TIKTOK_REFRESH_TOKEN!;
   const { accessToken, refreshToken: newRefreshToken } = await getAccessToken();
@@ -109,6 +110,11 @@ async function main(): Promise<string> {
     disableDuet: false,
     disableComment: false,
     disableStitch: false,
+    // 필드가 없으면 true — 라벨을 빠뜨리는 쪽이 정책 위반이라 더 나쁘다.
+    isAigc: manifest.reelTiktokAigc ?? true,
+    // 아웃트로가 "한해설 검색"으로 우리 서비스를 홍보한다. 미표기 마케팅은
+    // For You 피드 부적격이라, 몇 달째 조회수 0 이던 것과 시점이 맞는다.
+    brandOrganicToggle: true,
   });
 
   console.log(`✅ TikTok 업로드 완료. publish_id=${publishId}`);

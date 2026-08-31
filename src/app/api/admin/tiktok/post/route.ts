@@ -83,6 +83,10 @@ export async function POST(req: NextRequest) {
       disableComment: !allowComment,
       disableDuet: !allowDuet,
       disableStitch: !allowStitch,
+      // 사람이 손으로 올리는 경로 — 무엇을 올릴지 모르므로 AI 라벨은 보수적으로
+      // 붙인다(빠뜨리면 정책 위반). 자동 게시는 manifest 의 사실값을 쓴다.
+      isAigc: true,
+      brandOrganicToggle: true,
     });
     return NextResponse.json({
       ok: true,

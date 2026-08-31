@@ -95,7 +95,9 @@
     "toss:link": "tsx src/scripts/toss-link.ts",
     "test:toss": "tsx --test src/lib/toss/sharelink.test.ts",
     "post:catchup": "tsx src/scripts/post-catchup.ts",
-    "test:post-catchup": "tsx --test src/lib/post-catchup.test.ts"
+    "test:post-catchup": "tsx --test src/lib/post-catchup.test.ts",
+    "tiktok:stats": "tsx src/scripts/check-tiktok-stats.ts",
+    "test:tiktok-policy": "tsx --test src/lib/tiktok-post-policy.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

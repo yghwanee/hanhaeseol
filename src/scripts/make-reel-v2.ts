@@ -29,7 +29,10 @@ const CTA_FADE_IN_D = 0.8;
 const TIKTOK = process.env.HHS_TIKTOK_VARIANT === "1";
 const OUTPUT = TIKTOK ? "reel-v2-tiktok.mp4" : "reel-v2.mp4";
 const SFX = TIKTOK ? "-tt" : ""; // temp 파일 충돌 방지(같은 잡에서 v2 후 실행돼도 안전)
-const brandOpts = { noUrl: TIKTOK };
+// 🔴 틱톡판은 AI 사진을 쓰지 않는다 (2026-09-01). 후킹 이미지 183장이 전부
+// ChatGPT 생성물이라 쓰는 순간 is_aigc 를 붙여야 하고, 그 라벨과 "AI 양산 계정"
+// 분류가 도달을 깎는 쪽으로 관측된다. IG/유튜브판은 그대로 사진을 쓴다.
+const brandOpts = { noUrl: TIKTOK, noAiImage: TIKTOK };
 
 async function main() {
   registerFonts();
@@ -39,7 +42,8 @@ async function main() {
   if (files.length === 0) throw new Error("매니페스트에 카드 없음");
 
   // title 카드 (영상 첫 프레임) — 9:16. 자막 박혀 있어야 썸네일 흰색 회피.
-  const hookImg = pickHookImage(today);
+  // 틱톡판은 그래픽 배경이라 사진을 고르지 않는다.
+  const hookImg = TIKTOK ? "" : pickHookImage(today);
   const titleFile = `_reel-title${SFX}.png`;
   const titleBuf = await renderReelTitleCard(hookImg, today, "9:16", brandOpts);
   fs.writeFileSync(path.join(OUT_DIR, titleFile), titleBuf);
@@ -111,7 +115,12 @@ async function main() {
   const ctaIdx = baseFiles.length;
   const bgmIdx = baseFiles.length + 1;
   inputArgs.push(`-loop 1 -framerate ${FPS} -t ${total} -i "${ctaFile}"`);
-  inputArgs.push(`-i "${bgmPath}"`);
+  // 🔴 매일 같은 트랙의 같은 구간이 나가면 오디오 지문까지 동일해진다.
+  // 날짜로 시작점을 흔들어 같은 곡이라도 구간이 달라지게 한다(저작권 안전).
+  const bgmOffset = TIKTOK
+    ? (today.split("-").reduce((a, x) => a * 31 + Number(x), 5) % 40)
+    : 0;
+  inputArgs.push(`${bgmOffset ? `-ss ${bgmOffset} ` : ""}-i "${bgmPath}"`);
 
   // 다른 컷용 1x scale (정적)
   const scaleAndPad =
@@ -266,7 +275,7 @@ async function main() {
 
   if (TIKTOK) {
     // 틱톡 변형은 reel/cover를 덮어쓰지 않음 (IG/YT가 쓰는 값 보존).
-    patchManifest({ reelTiktok: OUTPUT });
+    patchManifest({ reelTiktok: OUTPUT, reelTiktokAigc: false });
   } else {
     patchManifest({ reel: OUTPUT, cover: coverFile });
   }
