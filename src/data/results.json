@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-01T18:25:51.382Z",
+  "lastUpdated": "2026-09-01T21:44:31.183Z",
   "byKey": {
     "2026-09-01|kbo|KT|한화": {
       "date": "2026-09-01",
@@ -717,46 +717,6 @@
       "awayScore": 0,
       "status": "scheduled"
     },
-    "2026-09-02|mlb|신시내티|샌디에이고": {
-      "date": "2026-09-02",
-      "categoryId": "mlb",
-      "gameId": "20260902SDCI0",
-      "homeTeam": "신시내티 레즈",
-      "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
-    },
-    "2026-09-02|mlb|신시내티|샌디에이고 파드리스": {
-      "date": "2026-09-02",
-      "categoryId": "mlb",
-      "gameId": "20260902SDCI0",
-      "homeTeam": "신시내티 레즈",
-      "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
-    },
-    "2026-09-02|mlb|신시내티 레즈|샌디에이고": {
-      "date": "2026-09-02",
-      "categoryId": "mlb",
-      "gameId": "20260902SDCI0",
-      "homeTeam": "신시내티 레즈",
-      "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
-    },
-    "2026-09-02|mlb|신시내티 레즈|샌디에이고 파드리스": {
-      "date": "2026-09-02",
-      "categoryId": "mlb",
-      "gameId": "20260902SDCI0",
-      "homeTeam": "신시내티 레즈",
-      "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
-    },
     "2026-09-02|mlb|피츠버그|샌프란시스코": {
       "date": "2026-09-02",
       "categoryId": "mlb",
@@ -836,6 +796,50 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled"
+    },
+    "2026-09-02|mlb|신시내티|샌디에이고": {
+      "date": "2026-09-02",
+      "categoryId": "mlb",
+      "gameId": "20260902SDCI0",
+      "homeTeam": "신시내티 레즈",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "1회초"
+    },
+    "2026-09-02|mlb|신시내티|샌디에이고 파드리스": {
+      "date": "2026-09-02",
+      "categoryId": "mlb",
+      "gameId": "20260902SDCI0",
+      "homeTeam": "신시내티 레즈",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "1회초"
+    },
+    "2026-09-02|mlb|신시내티 레즈|샌디에이고": {
+      "date": "2026-09-02",
+      "categoryId": "mlb",
+      "gameId": "20260902SDCI0",
+      "homeTeam": "신시내티 레즈",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "1회초"
+    },
+    "2026-09-02|mlb|신시내티 레즈|샌디에이고 파드리스": {
+      "date": "2026-09-02",
+      "categoryId": "mlb",
+      "gameId": "20260902SDCI0",
+      "homeTeam": "신시내티 레즈",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-09-02|mlb|워싱턴|애틀랜타": {
       "date": "2026-09-02",
@@ -1919,10 +1923,43 @@
       "gameId": "4GG7p5AiEaTLrfY",
       "homeTeam": "웨스트햄",
       "awayTeam": "울버햄튼",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 4,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "무카사",
+          "minute": 33
+        },
+        {
+          "team": "home",
+          "player": "보웬",
+          "minute": 42
+        },
+        {
+          "team": "away",
+          "player": "무네트시",
+          "minute": 44
+        },
+        {
+          "team": "home",
+          "player": "무카사",
+          "minute": 53
+        },
+        {
+          "team": "home",
+          "player": "마브로파노",
+          "minute": 64
+        },
+        {
+          "team": "away",
+          "player": "마브로파노",
+          "minute": 69,
+          "ownGoal": true
+        }
+      ]
     },
     "2026-09-02|england2|프레스턴|브리스톨 C": {
       "date": "2026-09-02",
@@ -1930,10 +1967,32 @@
       "gameId": "9iYxBgsYB3Im6eZ",
       "homeTeam": "프레스턴",
       "awayTeam": "브리스톨 C",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "트와인",
+          "minute": 4
+        },
+        {
+          "team": "home",
+          "player": "와일리",
+          "minute": 51
+        },
+        {
+          "team": "away",
+          "player": "이사트",
+          "minute": 79
+        },
+        {
+          "team": "away",
+          "player": "발라르드",
+          "minute": 86
+        }
+      ]
     },
     "2026-09-02|england2|셰필드|볼튼": {
       "date": "2026-09-02",
@@ -1941,10 +2000,38 @@
       "gameId": "AQ328O5zLhPxtfP",
       "homeTeam": "셰필드",
       "awayTeam": "볼튼",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "시몬스",
+          "minute": 1
+        },
+        {
+          "team": "home",
+          "player": "탕강가",
+          "minute": 4
+        },
+        {
+          "team": "away",
+          "player": "달비",
+          "minute": 67
+        },
+        {
+          "team": "home",
+          "player": "뱀포드",
+          "minute": 68
+        },
+        {
+          "team": "home",
+          "player": "도너번",
+          "minute": 90,
+          "addedTime": 3
+        }
+      ]
     },
     "2026-09-02|england2|스완지|왓퍼드": {
       "date": "2026-09-02",
@@ -1952,10 +2039,22 @@
       "gameId": "cb3JP0TCYlppjKk",
       "homeTeam": "스완지",
       "awayTeam": "왓퍼드",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "엄지성",
+          "minute": 8
+        },
+        {
+          "team": "home",
+          "player": "아이다",
+          "minute": 29
+        }
+      ]
     },
     "2026-09-02|england2|포츠머스|더비 카운티": {
       "date": "2026-09-02",
@@ -1964,9 +2063,21 @@
       "homeTeam": "포츠머스",
       "awayTeam": "더비 카운티",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "스즈모딕스",
+          "minute": 16
+        },
+        {
+          "team": "away",
+          "player": "살베센",
+          "minute": 62
+        }
+      ]
     },
     "2026-09-02|england2|링컨|블랙번": {
       "date": "2026-09-02",
@@ -1976,8 +2087,8 @@
       "awayTeam": "블랙번",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-09-02|england2|스토크|노리치": {
       "date": "2026-09-02",
@@ -1985,10 +2096,17 @@
       "gameId": "814EnjNVgIKkgqf",
       "homeTeam": "스토크",
       "awayTeam": "노리치",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "갈브레이스",
+          "minute": 13
+        }
+      ]
     },
     "2026-09-02|england2|버밍엄|사우샘프턴": {
       "date": "2026-09-02",
@@ -1996,10 +2114,23 @@
       "gameId": "m9mQ4053PBCGHC8",
       "homeTeam": "버밍엄",
       "awayTeam": "사우스햄튼",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "슐로터벡",
+          "minute": 45,
+          "addedTime": 3
+        },
+        {
+          "team": "home",
+          "player": "프리스케",
+          "minute": 55
+        }
+      ]
     },
     "2026-09-02|england2|버밍엄|사우스햄튼": {
       "date": "2026-09-02",
@@ -2007,10 +2138,23 @@
       "gameId": "m9mQ4053PBCGHC8",
       "homeTeam": "버밍엄",
       "awayTeam": "사우스햄튼",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "슐로터벡",
+          "minute": 45,
+          "addedTime": 3
+        },
+        {
+          "team": "home",
+          "player": "프리스케",
+          "minute": 55
+        }
+      ]
     },
     "2026-09-03|england2|QPR|카디프": {
       "date": "2026-09-03",
@@ -2703,16 +2847,6 @@
     {
       "date": "2026-09-02",
       "categoryId": "mlb",
-      "gameId": "20260902SDCI0",
-      "homeTeam": "신시내티 레즈",
-      "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
-    },
-    {
-      "date": "2026-09-02",
-      "categoryId": "mlb",
       "gameId": "20260902SFPI0",
       "homeTeam": "피츠버그 파이리츠",
       "awayTeam": "샌프란시스코 자이언츠",
@@ -2729,6 +2863,17 @@
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled"
+    },
+    {
+      "date": "2026-09-02",
+      "categoryId": "mlb",
+      "gameId": "20260902SDCI0",
+      "homeTeam": "신시내티 레즈",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-09-02",
@@ -3015,10 +3160,43 @@
       "gameId": "4GG7p5AiEaTLrfY",
       "homeTeam": "웨스트햄",
       "awayTeam": "울버햄튼",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 4,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "무카사",
+          "minute": 33
+        },
+        {
+          "team": "home",
+          "player": "보웬",
+          "minute": 42
+        },
+        {
+          "team": "away",
+          "player": "무네트시",
+          "minute": 44
+        },
+        {
+          "team": "home",
+          "player": "무카사",
+          "minute": 53
+        },
+        {
+          "team": "home",
+          "player": "마브로파노",
+          "minute": 64
+        },
+        {
+          "team": "away",
+          "player": "마브로파노",
+          "minute": 69,
+          "ownGoal": true
+        }
+      ]
     },
     {
       "date": "2026-09-02",
@@ -3026,10 +3204,32 @@
       "gameId": "9iYxBgsYB3Im6eZ",
       "homeTeam": "프레스턴",
       "awayTeam": "브리스톨 C",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "트와인",
+          "minute": 4
+        },
+        {
+          "team": "home",
+          "player": "와일리",
+          "minute": 51
+        },
+        {
+          "team": "away",
+          "player": "이사트",
+          "minute": 79
+        },
+        {
+          "team": "away",
+          "player": "발라르드",
+          "minute": 86
+        }
+      ]
     },
     {
       "date": "2026-09-02",
@@ -3037,10 +3237,38 @@
       "gameId": "AQ328O5zLhPxtfP",
       "homeTeam": "셰필드",
       "awayTeam": "볼튼",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "시몬스",
+          "minute": 1
+        },
+        {
+          "team": "home",
+          "player": "탕강가",
+          "minute": 4
+        },
+        {
+          "team": "away",
+          "player": "달비",
+          "minute": 67
+        },
+        {
+          "team": "home",
+          "player": "뱀포드",
+          "minute": 68
+        },
+        {
+          "team": "home",
+          "player": "도너번",
+          "minute": 90,
+          "addedTime": 3
+        }
+      ]
     },
     {
       "date": "2026-09-02",
@@ -3048,10 +3276,22 @@
       "gameId": "cb3JP0TCYlppjKk",
       "homeTeam": "스완지",
       "awayTeam": "왓퍼드",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "엄지성",
+          "minute": 8
+        },
+        {
+          "team": "home",
+          "player": "아이다",
+          "minute": 29
+        }
+      ]
     },
     {
       "date": "2026-09-02",
@@ -3060,9 +3300,21 @@
       "homeTeam": "포츠머스",
       "awayTeam": "더비 카운티",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "스즈모딕스",
+          "minute": 16
+        },
+        {
+          "team": "away",
+          "player": "살베센",
+          "minute": 62
+        }
+      ]
     },
     {
       "date": "2026-09-02",
@@ -3072,8 +3324,8 @@
       "awayTeam": "블랙번",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-09-02",
@@ -3081,10 +3333,17 @@
       "gameId": "814EnjNVgIKkgqf",
       "homeTeam": "스토크",
       "awayTeam": "노리치",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "갈브레이스",
+          "minute": 13
+        }
+      ]
     },
     {
       "date": "2026-09-02",
@@ -3092,10 +3351,23 @@
       "gameId": "m9mQ4053PBCGHC8",
       "homeTeam": "버밍엄",
       "awayTeam": "사우스햄튼",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "슐로터벡",
+          "minute": 45,
+          "addedTime": 3
+        },
+        {
+          "team": "home",
+          "player": "프리스케",
+          "minute": 55
+        }
+      ]
     },
     {
       "date": "2026-09-03",
