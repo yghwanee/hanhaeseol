@@ -23,6 +23,10 @@ on:
       # 굽지 않으면 홈 최상단 글자가 두부로 뜬다. 그 가드가 돌아야 하므로 되살린다.
       - "src/data/ebook-quotes.json"
       - "public/fonts/**"
+      # 🔴 CLAUDE.md 크기 가드가 읽는다. 이게 없으면 문서만 고친 커밋에서 가드가 안 돌고,
+      # 파일이 조용히 다시 불어나 클라우드 루틴이 또 죽는다(2026-08-20~09-02, 2주 발행 0건).
+      - "CLAUDE.md"
+      - "docs/worklog.md"
   pull_request:
     branches: [main]
     paths:
@@ -36,6 +40,10 @@ on:
       - "vercel.json"
       - "src/data/ebook-quotes.json"
       - "public/fonts/**"
+      # 🔴 CLAUDE.md 크기 가드가 읽는다. 이게 없으면 문서만 고친 커밋에서 가드가 안 돌고,
+      # 파일이 조용히 다시 불어나 클라우드 루틴이 또 죽는다(2026-08-20~09-02, 2주 발행 0건).
+      - "CLAUDE.md"
+      - "docs/worklog.md"
   workflow_dispatch:
 
 concurrency:
@@ -80,6 +88,7 @@ jobs:
           npm run test:shorts-title
           npm run test:post-cycle
           npm run test:post-log
+          npm run test:claude-md-size
           npm run test:post-catchup
           npm run test:post-report
           npm run test:instagram-api
