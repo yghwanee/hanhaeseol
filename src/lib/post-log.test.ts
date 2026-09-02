@@ -85,6 +85,18 @@ test("병합은 원격을 지우지 않는다 — 지우면 그쪽 게시 사실
   assert.equal(wasPosted(merged, "2026-09-02", "evening", "story"), true);
 });
 
+test("🔴 병합은 추가 전용 — 지운 키가 되살아난다(의도)", () => {
+  // 2026-09-02 자체 검증에서 실측한 성질. 게시 사실이 실수로 사라지면 그 채널이
+  // 다시 올라가 중복 게시가 되므로, 삭제는 되지 않는 쪽이 안전하다.
+  // 기록을 줄이는 경로는 pruneLog 하나뿐이다.
+  const remote = markPosted(base(), "2026-09-02", "evening", "reel", { at: "t" });
+  const dropped: PostLog = { posted: {}, notified: {} };
+  assert.equal(wasPosted(mergeLogs(remote, dropped), "2026-09-02", "evening", "reel"), true);
+  // 반대로 보관 기간이 지난 것은 병합 뒤 pruneLog 가 실제로 걷어낸다.
+  const old = markPosted(base(), "2026-01-01", "evening", "reel", { at: "t" });
+  assert.equal(wasPosted(pruneLog(mergeLogs(old, old), "2026-09-02"), "2026-01-01", "evening", "reel"), false);
+});
+
 test("같은 키가 양쪽에 있으면 먼저 올라간 시각을 남긴다", () => {
   const remote = markPosted(base(), "2026-09-02", "evening", "reel", { at: "2026-09-02T10:00:00Z" });
   const local = markPosted(base(), "2026-09-02", "evening", "reel", { at: "2026-09-02T11:00:00Z" });
