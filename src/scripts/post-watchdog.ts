@@ -66,10 +66,11 @@ async function main() {
   console.log(`🗓️  ${label} · 대상 ${target} · KST ${kstNow(now).getHours()}시`);
 
   const log = await loadPostLog();
-  const missing = missingChannels(log, target, slot, channelsForSlot(slot));
+  const expected = channelsForSlot(slot);
+  const missing = missingChannels(log, target, slot, expected);
 
   if (missing.length === 0) {
-    console.log(`✅ ${target}(${slot}) 5개 채널 전부 올라감 — 알릴 것 없음.`);
+    console.log(`✅ ${target}(${slot}) ${expected.length}개 채널 전부 올라감 — 알릴 것 없음.`);
     return;
   }
   console.log(`⚠️  빠진 채널: ${missing.map((c) => CHANNEL_LABEL[c]).join(", ")}`);
