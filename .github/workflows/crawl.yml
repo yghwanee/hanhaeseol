@@ -306,42 +306,20 @@ jobs:
             -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
             -d text="⚠️ 한해설 데이터 위생 가드 실패 — 크롤러가 팀명/리그를 잘못 파싱한 행을 들여왔습니다.%0A색인은 자동 차단되지만 표시는 어긋납니다.%0A로컬에서 확인: npm run test:team-name-hygiene && npm run test:schedule-quality%0A로그: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}"
 
-      - name: Telegram 알림 (1차 빌드 성공)
-        if: steps.commit.outputs.updated == 'true' && steps.crawl.outputs.coupang_failed == 'false' && steps.vercel.outputs.final == 'READY' && steps.vercel.outputs.retried == 'false'
-        run: |
-          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
-            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-            -d text="✅ 한해설 편성표가 업데이트되었습니다." \
-            -d parse_mode=HTML
-
-      - name: Telegram 알림 (재시도 후 성공)
-        if: steps.commit.outputs.updated == 'true' && steps.crawl.outputs.coupang_failed == 'false' && steps.vercel.outputs.final == 'READY' && steps.vercel.outputs.retried == 'true'
-        run: |
-          curl -s -X POST "https://api.telegram.org/bot${{ secrets.TELEGRAM_BOT_TOKEN }}/sendMessage" \
-            -d chat_id=${{ secrets.TELEGRAM_CHAT_ID }} \
-            -d text="✅ 한해설 편성표가 업데이트되었습니다. (Vercel 1차 빌드 실패 → 자동 재시도 성공)" \
-            -d parse_mode=HTML
-
-      - name: Telegram 알림 (빌드가 아직 진행 중)
-        # final=BUILDING 은 실패가 아니다. 폴링 창(8분/10분) 안에 안 끝났을 뿐이라
-        # 대개 몇 분 뒤 스스로 READY 가 된다. 조용히 넘기면 "알림이 없다"가
-        # 성공인지 유실인지 구분이 안 되므로 한 줄만 알린다.
-        if: steps.commit.outputs.updated == 'true' && steps.vercel.outputs.final == 'BUILDING'
-        env:
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-        run: |
-          MSG=$(printf '%s\n' \
-            "⏳ 한해설 편성표 push 완료 — Vercel 빌드가 아직 진행 중입니다." \
-            "" \
-            "실패는 아닙니다. 잠시 뒤 사이트에 반영됩니다." \
-            "https://vercel.com/yghwanees-projects/hanhaeseol/deployments")
-          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
-            -d chat_id="${TELEGRAM_CHAT_ID}" \
-            --data-urlencode "text=${MSG}"
+      # 🔴 성공 알림 3종(1차 빌드 성공 · 재시도 후 성공 · 빌드 진행 중)을 제거했다 (2026-09-02).
+      #
+      # 편성 크롤은 하루 3회(08:18 + 백업 10:48·13:48) 돌고, 갱신이 있으면 그때마다
+      # "✅ 편성표가 업데이트되었습니다" 가 갔다. 조치할 게 하나도 없는 문장이라
+      # 알림을 읽지 않는 습관만 만든다. 진짜 신호(배포 실패·계정 차단·쿠팡 토큰
+      # 만료·데이터 위생 가드)는 아래에 그대로 남아 있다.
+      #
+      # 정상이 조용해졌으므로 "알림이 없다 = 성공" 이 성립한다. 사이트가 실제로
+      # 죽으면 uptime.yml 이 30분 안에 잡는다. BUILDING(폴링 창 안에 안 끝남)도
+      # 실패가 아니라 몇 분 뒤 스스로 READY 가 되는 상태라 알리지 않는다.
 
       - name: Telegram 알림 (Vercel 배포 실패)
-        # 🔴 BUILDING 은 제외한다(위 스텝이 따로 알린다). 여기 오는 건 진짜 실패뿐이다.
+        # 🔴 BUILDING 은 제외한다 — 폴링 창 안에 안 끝났을 뿐 대개 몇 분 뒤 스스로 READY 가 된다.
+        # 여기 오는 건 진짜 실패뿐이다.
         if: always() && steps.commit.outputs.updated == 'true' && steps.vercel.outputs.final != 'READY' && steps.vercel.outputs.final != 'BUILDING' && steps.vercel.outputs.final != ''
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}

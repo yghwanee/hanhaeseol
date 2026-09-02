@@ -10,6 +10,10 @@ name: 소셜 게시 따라잡기
 #
 # 판정은 게시 게이트(check-post-cycle)와 같은 함수를 쓴다. 조건이 갈리면 여기서
 # 발동시킨 실행이 정작 게이트에 걸려 죽는다 — 발동만 하고 게시는 안 되는 최악.
+#
+# 🔴 텔레그램을 보내지 않는다 (2026-09-02). GH 가 예약 발화를 대량으로 버리는 지금
+# 따라잡기는 예외가 아니라 정상 경로라, 알리면 그게 곧 알림 폭풍이다. 사람이 볼
+# 통지는 게시 결과 보고(하루 한 통)와 감시견 마지막 경고 둘로 충분하다.
 on:
   workflow_call: {}
   workflow_dispatch:
@@ -22,6 +26,13 @@ on:
 jobs:
   catchup:
     runs-on: ubuntu-latest
+    # 🔴 호출처가 셋(deploy·crawl-results·uptime)이라 GH 크론 드리프트로 몇십 초 안에
+    # 같이 깨어난다. 2026-09-01 에 그 셋이 각각 dispatch 를 걸어 아침 콘텐츠가
+    # **세 번 게시**됐다. 직렬화해서 동시에 판정하지 못하게 한다.
+    concurrency:
+      group: post-catchup
+      cancel-in-progress: false
+    timeout-minutes: 10
     permissions:
       # 놓친 게시 워크플로를 workflow_dispatch 로 건다.
       # (GITHUB_TOKEN 이 만든 이벤트는 보통 새 실행을 안 만들지만,
@@ -39,7 +50,5 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GITHUB_REPOSITORY: ${{ github.repository }}
-          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
           HHS_CATCHUP_DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
         run: npm run post:catchup

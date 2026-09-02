@@ -26,7 +26,7 @@
 // 안 되는 최악의 조합). post-watchdog.yml 이 같은 로직을 bash 로 따로 갖고 있다가
 // 2026-08-30 에 실제로 어긋났다 — 그 실수를 반복하지 않는다.
 
-import { getKstToday } from "./instagram";
+import { getKstToday, kstNow } from "./instagram";
 import type { PostSlot } from "./post-slot";
 import {
   findSameSlotDuplicate,
@@ -44,6 +44,20 @@ export interface CatchupCandidate {
   target: string;
 }
 
+export interface CatchupContext {
+  /**
+   * 그 사이클이 이미 다 올라갔는가 (post-log 기준).
+   *
+   * 🔴 GH 실행 이력보다 이게 먼저다. 이력은 **완료된 실행만** 보이므로, 따라잡기
+   *    호출처 셋이 몇십 초 안에 같이 깨어나면 셋 다 "기록 없음" 으로 통과해
+   *    같은 콘텐츠를 세 번 올린다(2026-09-01 실측). post-log 는 채널이 올라간
+   *    그 순간 기록되므로 그 창이 없다.
+   */
+  isCycleComplete?: (slot: PostSlot, target: string) => boolean;
+  /** 그 워크플로가 지금 돌고 있는가(queued/in_progress). 돌고 있으면 또 걸지 않는다. */
+  isRunning?: (workflow: string) => boolean;
+}
+
 export interface CatchupDecision {
   /** 발동할 사이클. 없으면 null. */
   pick: CatchupCandidate | null;
@@ -53,6 +67,23 @@ export interface CatchupDecision {
 
 export const MORNING_WF = "instagram-morning.yml";
 export const EVENING_WF = "instagram.yml";
+
+/**
+ * 따라잡기는 이 시각(KST) 전에는 걸지 않는다.
+ *
+ * 🔴 왜 필요한가 (2026-09-02 실측). 종전에는 사이클 창이 열리자마자(아침 00시,
+ * 저녁 12시) 따라잡기가 발동할 수 있었다. 그래서 2026-09-02 저녁분(내일 경기)이
+ * **KST 09-01 13:59** 에 나갔다 — 예약 cron 은 16:18 이고 목표 게시 창은 18~19시다
+ * (instagram.yml 머리말: 그 시간대 조회수가 높다는 운영자 관측).
+ * 따라잡기가 정상 예약을 앞질러 버리면 매일 그 시간대를 잃는다.
+ *
+ * 값은 "예약 발화 + 통상 지연" 이 지난 시각이다. 아침 cron 04:53(실측 지연 23~36분),
+ * 저녁 cron 16:18(실측 지연 중위 2.0h). 그 뒤에도 안 나갔으면 그때 대신 건다.
+ */
+export const CATCHUP_EARLIEST_HOUR: Record<PostSlot, number> = {
+  morning: 6,
+  evening: 17,
+};
 
 const SLOTS: CatchupCandidate[] = [
   { slot: "morning", workflow: MORNING_WF, offsetDays: 0, target: "" },
@@ -71,6 +102,7 @@ const SLOTS: CatchupCandidate[] = [
 export function pickCatchupCycle(
   now: Date,
   runsByWorkflow: Record<string, OtherRun[]>,
+  ctx: CatchupContext = {},
 ): CatchupDecision {
   const lines: string[] = [];
 
@@ -83,6 +115,23 @@ export function pickCatchupCycle(
 
     if (!isInCycleWindow(base.slot, now)) {
       lines.push(`${base.slot}: 사이클 창 밖 — 건너뜀`);
+      continue;
+    }
+    // 🔴 예약 발화를 앞지르지 않는다. 이걸 안 걸면 저녁분이 낮에 나간다.
+    const hour = kstNow(now).getHours();
+    if (hour < CATCHUP_EARLIEST_HOUR[base.slot]) {
+      lines.push(
+        `${base.slot}: KST ${hour}시 — 예약(${CATCHUP_EARLIEST_HOUR[base.slot]}시 전)을 기다린다`,
+      );
+      continue;
+    }
+    // 🔴 실행 이력보다 먼저 본다. 이유는 CatchupContext 주석 참조.
+    if (ctx.isCycleComplete?.(base.slot, target)) {
+      lines.push(`${base.slot}: ${target} 채널이 전부 올라가 있다(post-log) — 정상`);
+      continue;
+    }
+    if (ctx.isRunning?.(base.workflow)) {
+      lines.push(`${base.slot}: ${base.workflow} 가 지금 돌고 있다 — 또 걸지 않는다`);
       continue;
     }
     const dup = findSameSlotDuplicate(target, base.offsetDays, mine, now);

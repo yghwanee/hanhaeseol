@@ -23,6 +23,10 @@ jobs:
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
         run: |
           SUMMARY_PATH="src/data/insights-summary.json"
+          # 🔴 정상인 날은 보내지 않는다 (2026-09-02). 종전엔 매일 한 통씩
+          # "생성 N · 재활용 M · 실패 0 ✅" 가 갔는데 조치할 게 없는 문장이다.
+          # 실패가 있을 때만 알린다 — 알림이 없으면 정상이다.
+          MSG=""
           if [ ! -f "$SUMMARY_PATH" ]; then
             MSG="❌ 관전 포인트 요약 파일 없음 (생성 워크플로우가 안 돌았을 수 있음)"
           else
@@ -34,7 +38,14 @@ jobs:
               const reused = reasons["already-exists"] || 0;
               const fails = Object.entries(reasons).filter(([k]) => k !== "already-exists");
               const failCount = fails.reduce((a, [, n]) => a + n, 0);
-              const health = failCount === 0 ? "✅" : "⚠️";
+              // 🔴 gemini-429 는 매일 나는 정상 상태다. 무료 티어 한도가 실측 20요청/일인데
+              // 대상이 100경기 넘으므로 소진이 기본값이다(CLAUDE.md 인사이트 항목).
+              // 이걸 알림 조건에 넣으면 매일 ⚠️ 가 한 통씩 간다 — 조치할 게 없는 알림이다.
+              const alertable = fails.filter(([k]) => k !== "gemini-429");
+              const alertCount = alertable.reduce((a, [, n]) => a + n, 0);
+              // 알릴 실패가 없으면 아무것도 출력하지 않는다 → 아래에서 전송을 건너뛴다.
+              if (alertCount === 0) process.exit(0);
+              const health = "⚠️";
               const lines = [
                 "✨ AI 관전 포인트 (오늘)",
                 "",
@@ -51,6 +62,10 @@ jobs:
               lines.push("", `생성 시각: ${s.timestamp}`);
               console.log(lines.join("\n"));
             ' "$SUMMARY_PATH")
+          fi
+          if [ -z "$MSG" ]; then
+            echo "✅ 관전 포인트 생성 정상 — 알릴 것 없음."
+            exit 0
           fi
           # curl -s 는 API 가 400 을 줘도 exit 0 이라, 응답의 ok 를 직접 본다.
           # (2026-07-26 글감 알림이 이 방식으로 조용히 안 가고 있었다 — 같은 함정을 여기서도 막는다.)

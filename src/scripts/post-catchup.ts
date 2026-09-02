@@ -14,27 +14,15 @@
 import { pickCatchupCycle } from "../lib/post-catchup";
 import type { OtherRun } from "../lib/post-duplicate";
 import { MORNING_WF, EVENING_WF } from "../lib/post-catchup";
-import { fetchPostRuns, gh, ghReady } from "./_post-runs";
+import { fetchPostRuns, gh, ghReady, isWorkflowRunning } from "./_post-runs";
+import { missingChannels } from "../lib/post-log";
+import { channelsForSlot } from "../lib/post-report";
+import type { PostSlot } from "../lib/post-slot";
+import { loadPostLog } from "./_post-log-store";
 
 const REPO = process.env.GITHUB_REPOSITORY ?? "";
 const REF = process.env.HHS_CATCHUP_REF ?? "main";
 const DRY = process.env.HHS_CATCHUP_DRY_RUN === "1";
-
-async function tg(text: string) {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chat = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chat) return;
-  try {
-    // fetch-cache-ok: GH Actions 전용 스크립트.
-    await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-      method: "POST",
-      headers: { "content-type": "application/json" },
-      body: JSON.stringify({ chat_id: chat, text }),
-    });
-  } catch {
-    /* 알림 실패로 따라잡기를 죽이지 않는다 */
-  }
-}
 
 async function main() {
   if (!ghReady()) {
@@ -49,7 +37,21 @@ async function main() {
   ]);
   const runs: Record<string, OtherRun[]> = { [MORNING_WF]: morning, [EVENING_WF]: evening };
 
-  const { pick, lines } = pickCatchupCycle(now, runs);
+  const log = await loadPostLog();
+  const [morningBusy, eveningBusy] = await Promise.all([
+    isWorkflowRunning(MORNING_WF),
+    isWorkflowRunning(EVENING_WF),
+  ]);
+  const busy: Record<string, boolean> = {
+    [MORNING_WF]: morningBusy,
+    [EVENING_WF]: eveningBusy,
+  };
+
+  const { pick, lines } = pickCatchupCycle(now, runs, {
+    isCycleComplete: (slot: PostSlot, target: string) =>
+      missingChannels(log, target, slot, channelsForSlot(slot)).length === 0,
+    isRunning: (wf: string) => busy[wf] === true,
+  });
   for (const l of lines) console.log(`  ${l}`);
 
   if (!pick) {
@@ -68,18 +70,12 @@ async function main() {
     body: JSON.stringify({ ref: REF, inputs: { gated: "true" } }),
   });
 
-  const label = pick.slot === "morning" ? "☀️ 아침(오늘 경기)" : "🌙 저녁(내일 경기)";
-  await tg(
-    [
-      `🚑 소셜 게시 따라잡기 — ${label}`,
-      "",
-      `예약 cron 이 안 돌아서 ${pick.target} 게시가 비어 있었습니다.`,
-      `${pick.workflow} 를 대신 발동했습니다.`,
-      "",
-      `https://github.com/${REPO}/actions/workflows/${pick.workflow}`,
-    ].join("\n"),
-  );
-  console.log("✅ 발동 완료.");
+  // 🔴 여기서 텔레그램을 보내지 않는다 (2026-09-02).
+  // GH 가 예약 발화를 대량으로 버리는 지금, 따라잡기는 예외 상황이 아니라 **정상
+  // 경로**다. 하루에 여러 번 걸리는 것이 정상이므로 알리면 그게 곧 알림 폭풍이다.
+  // 게시가 실제로 되면 telegram:report 가 한 통 보내고, 끝내 안 되면
+  // post-watchdog 이 사이클 마감에 한 통 보낸다. 사람이 볼 통지는 그 둘로 충분하다.
+  console.log("✅ 발동 완료 (알림 없음 — 정상 경로).");
 }
 
 main().catch((e) => {

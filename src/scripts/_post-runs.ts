@@ -64,3 +64,28 @@ export async function fetchPostRuns(wf: string, excludeRunId = ""): Promise<Othe
     }),
   );
 }
+
+/**
+ * 그 워크플로가 지금 돌고 있는가(queued / in_progress / waiting).
+ *
+ * 🔴 따라잡기가 이걸 안 보면 삼중 발동이 난다. 호출처 셋(deploy·crawl-results·uptime)이
+ * 몇십 초 안에 같이 깨어나는 일이 실제로 있었고(2026-09-01), 그때 완료된 실행이
+ * 하나도 없어 셋 다 dispatch 했다.
+ *
+ * 조회 실패는 "돌고 있다"로 본다 — 중복 발동보다 한 사이클 늦는 쪽이 낫다.
+ * 어차피 다음 따라잡기 호출(같은 날 여러 번 온다)이 다시 잡는다.
+ */
+export async function isWorkflowRunning(wf: string): Promise<boolean> {
+  try {
+    const data = await gh<{ workflow_runs?: { id: number; status: string }[] }>(
+      `/repos/${REPO}/actions/workflows/${wf}/runs?per_page=20&status=in_progress`,
+    );
+    if ((data.workflow_runs ?? []).length > 0) return true;
+    const queued = await gh<{ workflow_runs?: { id: number }[] }>(
+      `/repos/${REPO}/actions/workflows/${wf}/runs?per_page=20&status=queued`,
+    );
+    return (queued.workflow_runs ?? []).length > 0;
+  } catch {
+    return true;
+  }
+}

@@ -2,7 +2,7 @@ import { igImageName } from "@/lib/ig-image";
 import { getKstToday } from "@/lib/instagram";
 import { buildCaption, comment, mediaBaseUrl, publishSingleMedia } from "@/lib/instagram-api";
 import { readManifest } from "@/lib/manifest";
-import { runWithReport } from "@/lib/post-report";
+import { runChannel } from "./_run-channel";
 import { buildSocialComment } from "@/lib/social-comment";
 import { UTM_LINKS } from "@/lib/utm";
 
@@ -43,4 +43,4 @@ async function main(): Promise<string> {
   return `Media ID ${mediaId}`;
 }
 
-runWithReport("reel", main);
+runChannel("reel", main);

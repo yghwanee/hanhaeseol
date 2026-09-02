@@ -1,7 +1,7 @@
 import { igImageName } from "@/lib/ig-image";
 import { mediaBaseUrl, publishSingleMedia } from "@/lib/instagram-api";
 import { readManifest } from "@/lib/manifest";
-import { runWithReport } from "@/lib/post-report";
+import { runChannel } from "./_run-channel";
 import { UTM_LINKS } from "@/lib/utm";
 
 const STORY_LINK = UTM_LINKS.ig_story;
@@ -35,4 +35,4 @@ async function main(): Promise<string> {
   return `Media ID ${mediaId} (link sticker X, 폴백)`;
 }
 
-runWithReport("story", main);
+runChannel("story", main);

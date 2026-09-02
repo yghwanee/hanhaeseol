@@ -79,6 +79,7 @@ jobs:
           npm run test:tiktok-policy
           npm run test:shorts-title
           npm run test:post-cycle
+          npm run test:post-log
           npm run test:post-catchup
           npm run test:post-report
           npm run test:instagram-api

@@ -42,8 +42,9 @@ test("창이 겹치는 시간(KST 15시)에는 아침을 먼저 구제한다", (
 });
 
 test("아침이 끝났으면 겹치는 시간에 저녁을 발동한다", () => {
+  // KST 18시 — 저녁 예약(16:18)이 지났으므로 따라잡기가 걸 수 있다.
   const { pick } = pickCatchupCycle(
-    kst("2026-09-01T15:00:00"),
+    kst("2026-09-01T18:00:00"),
     R([posted("2026-09-01T06:00:00")]),
   );
   assert.equal(pick?.slot, "evening");
@@ -66,9 +67,21 @@ test("아침 창 마감(KST 18시) 이후에는 아침을 발동하지 않는다
   assert.equal(pick?.slot, "evening");
 });
 
-test("KST 새벽 3시(저녁 창 밖)에는 저녁을 발동하지 않는다", () => {
-  const { pick } = pickCatchupCycle(kst("2026-09-01T03:00:00"), R());
-  assert.equal(pick?.slot, "morning", "새벽은 아침 창이므로 아침만 잡혀야 한다");
+test("KST 새벽 3시에는 아무것도 발동하지 않는다 — 예약을 앞지르지 않는다", () => {
+  // 🔴 2026-09-02 실측: 저녁분(내일 경기)이 KST 13:59 에 나갔다. 예약은 16:18,
+  // 목표 게시 창은 18~19시다. 따라잡기가 창이 열리자마자 걸어서 그 시간대를 잃었다.
+  // 아침도 마찬가지 — 새벽 3시에 대신 걸면 예약(04:53)이 올 자리를 뺏는다.
+  assert.equal(pickCatchupCycle(kst("2026-09-01T03:00:00"), R()).pick, null);
+  // 예약 시각 + 통상 지연이 지난 뒤에는 정상 발동한다.
+  assert.equal(pickCatchupCycle(kst("2026-09-01T07:00:00"), R()).pick?.slot, "morning");
+});
+
+test("저녁은 KST 17시 전에 발동하지 않는다 — 낮에 내일 경기를 올리지 않는다", () => {
+  // 아침은 이미 올라간 상태로 두어 저녁만 후보로 남긴다.
+  const done = R([posted("2026-09-01T06:00:00")]);
+  assert.equal(pickCatchupCycle(kst("2026-09-01T13:00:00"), done).pick, null);
+  assert.equal(pickCatchupCycle(kst("2026-09-01T16:00:00"), done).pick, null);
+  assert.equal(pickCatchupCycle(kst("2026-09-01T17:00:00"), done).pick?.slot, "evening");
 });
 
 test("🔴 스킵된 실행(게시 스텝 0건)은 '이미 올렸다'로 세지 않는다", () => {

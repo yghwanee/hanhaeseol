@@ -3,7 +3,7 @@ import fs from "node:fs";
 import { getKstToday } from "@/lib/instagram";
 import { addComment, buildShortsMeta, setThumbnail, uploadShorts } from "@/lib/youtube-api";
 import { OUT_DIR, readManifest } from "@/lib/manifest";
-import { runWithReport } from "@/lib/post-report";
+import { runChannel } from "./_run-channel";
 import { buildSocialComment } from "@/lib/social-comment";
 
 async function main(): Promise<string> {
@@ -69,4 +69,4 @@ async function afterPublish(label: string, run: () => Promise<unknown>, note?: s
   }
 }
 
-runWithReport("youtube", main);
+runChannel("youtube", main);

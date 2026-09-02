@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import type { PostSlot } from "./post-slot";
 
 /**
  * 소셜 게시 채널별 성공/실패 기록.
@@ -13,6 +14,24 @@ import path from "node:path";
 
 export const CHANNELS = ["carousel", "reel", "story", "youtube", "tiktok"] as const;
 export type Channel = (typeof CHANNELS)[number];
+
+/**
+ * 🔴 슬롯별 기대 채널 — **분모의 단일 출처**.
+ *
+ * 아침은 틱톡을 올리지 않는다(하루 1회 = 도배 신호 완화, 작업36). 종전에는 이
+ * 목록이 워크플로 bash(`ALL="carousel reel story youtube"`)에 적혀 있었고,
+ * 게시 계획·감시견·따라잡기가 각자 따로 알고 있었다. 한쪽만 고치면 감시견이
+ * "틱톡이 안 올라갔다"고 매일 짖거나, 반대로 빠진 걸 못 본다.
+ * 여기 한 곳만 고친다.
+ */
+export const SLOT_CHANNELS: Record<PostSlot, Channel[]> = {
+  morning: ["carousel", "reel", "story", "youtube"],
+  evening: ["carousel", "reel", "story", "youtube", "tiktok"],
+};
+
+export function channelsForSlot(slot: PostSlot): Channel[] {
+  return [...SLOT_CHANNELS[slot]];
+}
 
 export const CHANNEL_LABEL: Record<Channel, string> = {
   carousel: "인스타 캐러셀",
@@ -30,6 +49,12 @@ export type PostEntry = {
   /** 성공이면 media id 등, 실패면 에러 메시지 */
   detail: string;
   at: string;
+  /**
+   * 이번 실행에서 **실제로 새로 올렸는가**. `false` 면 post-log 에 이미 있어
+   * 건너뛴 것이다(재실행). 텔레그램이 "하루 한 통" 을 판정할 때 이걸 본다 —
+   * 새로 올린 게 없고 이미 알렸으면 침묵한다.
+   */
+  fresh?: boolean;
 };
 
 export const REPORT_DIR = path.resolve("generated/instagram");
@@ -45,11 +70,16 @@ export function readReport(): PostEntry[] {
   }
 }
 
-export function recordResult(channel: Channel, status: PostStatus, detail: string) {
+export function recordResult(
+  channel: Channel,
+  status: PostStatus,
+  detail: string,
+  fresh = true,
+) {
   fs.mkdirSync(REPORT_DIR, { recursive: true });
   // 같은 채널을 재시도하면 마지막 결과만 남긴다.
   const entries = readReport().filter((e) => e.channel !== channel);
-  entries.push({ channel, status, detail, at: new Date().toISOString() });
+  entries.push({ channel, status, detail, at: new Date().toISOString(), fresh });
   fs.writeFileSync(REPORT_PATH, JSON.stringify(entries, null, 2));
 }
 
@@ -75,6 +105,8 @@ export type ChannelOutcome = {
   label: string;
   status: PostStatus | "skipped";
   detail: string;
+  /** 이번 실행에서 새로 올린 것인가(재실행에서 건너뛴 건 false) */
+  fresh: boolean;
 };
 
 export type Summary = {
@@ -83,6 +115,8 @@ export type Summary = {
   failed: Channel[];
   /** 대상이었는데 기록이 없는 채널 = 선행 단계 실패 등으로 아예 실행되지 않음 */
   skipped: Channel[];
+  /** 이번 실행에서 실제로 새로 올린 채널 */
+  fresh: Channel[];
   total: number;
 };
 
@@ -98,6 +132,7 @@ export function summarize(
       label: CHANNEL_LABEL[channel],
       status: entry?.status ?? "skipped",
       detail: entry?.detail ?? "실행되지 않음 (선행 단계 실패 가능)",
+      fresh: entry?.fresh !== false,
     };
   });
   return {
@@ -105,6 +140,7 @@ export function summarize(
     ok: outcomes.filter((o) => o.status === "ok").map((o) => o.channel),
     failed: outcomes.filter((o) => o.status === "fail").map((o) => o.channel),
     skipped: outcomes.filter((o) => o.status === "skipped").map((o) => o.channel),
+    fresh: outcomes.filter((o) => o.status === "ok" && o.fresh).map((o) => o.channel),
     total: expected.length,
   };
 }
@@ -139,36 +175,29 @@ export function formatReport(opts: {
 
   const lines = [head, ""];
   for (const o of summary.outcomes) {
-    lines.push(
-      o.status === "ok"
-        ? `${ICON[o.status]} ${o.label}`
-        : `${ICON[o.status]} ${o.label} — ${short(o.detail)}`,
-    );
+    if (o.status === "ok") {
+      lines.push(`${ICON[o.status]} ${o.label}${o.fresh ? "" : " (이미 올라가 있어 건너뜀)"}`);
+    } else {
+      lines.push(`${ICON[o.status]} ${o.label} — ${short(o.detail)}`);
+    }
   }
 
   if (bad.length > 0) {
     lines.push("");
-    lines.push("🔁 안 올라간 것만 재실행 (성공분 중복 방지):");
-    lines.push(`gh workflow run ${workflow} -f only=${bad.join(",")}`);
+    // 🔴 이제 통째 재실행이 안전하다. post-log 에 채널별 게시 사실이 남아 있어
+    // 이미 올라간 채널은 스스로 건너뛴다(중복 게시 없음).
+    lines.push("🔁 재실행 — 안 올라간 것만 자동으로 다시 시도한다:");
+    lines.push(`gh workflow run ${workflow}`);
+    lines.push(`(특정 채널만 찍으려면: gh workflow run ${workflow} -f only=${bad.join(",")})`);
   }
   return lines.join("\n");
 }
 
 /**
- * 게시 스크립트 공통 래퍼. 성공/실패를 기록하고, 실패는 그대로 프로세스를 죽인다
- * (워크플로 스텝이 빨간불이어야 실패 알림이 돈다).
+ * 🔴 종전에 여기 있던 `runWithReport` 는 제거했다 (2026-09-02).
+ *
+ * 중복 방지(post-log 조회·기록)가 붙은 진입점은 `src/scripts/_run-channel.ts`
+ * 의 `runChannel` 하나뿐이어야 한다. 중복 방지가 없는 래퍼를 남겨 두면
+ * 새 채널을 붙일 때 그쪽을 부르게 되고, 그게 2026-09-01 삼중 게시의 구조다.
+ * (작업76 에서 postMedia 를 비공개로 돌린 것과 같은 판단.)
  */
-export async function runWithReport(
-  channel: Channel,
-  fn: () => Promise<string | void>,
-): Promise<void> {
-  try {
-    const detail = (await fn()) || "게시 완료";
-    recordResult(channel, "ok", detail);
-  } catch (e) {
-    const msg = e instanceof Error ? e.message : String(e);
-    recordResult(channel, "fail", msg);
-    console.error("❌", msg);
-    process.exit(1);
-  }
-}

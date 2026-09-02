@@ -5,7 +5,7 @@ import { execFileSync } from "node:child_process";
 import { getKstToday } from "@/lib/instagram";
 import { buildTiktokCaption } from "@/lib/tiktok-caption";
 import { OUT_DIR, readManifest } from "@/lib/manifest";
-import { runWithReport } from "@/lib/post-report";
+import { runChannel } from "./_run-channel";
 import {
   getAccessToken,
   getCreatorInfo,
@@ -135,4 +135,4 @@ async function main(): Promise<string> {
     : `publish_id ${publishId}`;
 }
 
-runWithReport("tiktok", main);
+runChannel("tiktok", main);

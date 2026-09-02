@@ -7,6 +7,10 @@ import {
 } from "@/lib/instagram";
 import { MANIFEST_PATH, OUT_DIR, readManifest } from "@/lib/manifest";
 import { formatReport, summarize, type Channel } from "@/lib/post-report";
+import { getKstToday } from "@/lib/instagram";
+import { getPostSlot } from "@/lib/post-slot";
+import { markNotified, wasNotified } from "@/lib/post-log";
+import { loadPostLog, updatePostLog } from "./_post-log-store";
 
 /**
  * 소셜 게시 결과를 텔레그램으로 보고한다.
@@ -17,6 +21,18 @@ import { formatReport, summarize, type Channel } from "@/lib/post-report";
  *
  * 사용: `tsx src/scripts/telegram-social-report.ts [--failure]`
  * `--failure` 면 안 올라간 채널의 원본 파일도 첨부해 수동 업로드가 가능하게 한다.
+ *
+ * 🔴 하루 한 통 규칙 (2026-09-02)
+ *
+ * GH 크론 드리프트로 따라잡기가 같은 사이클을 여러 번 걸면, 종전에는 실행마다
+ * 보고가 나가 하루에 대여섯 통이 쌓였다. 이제 **새 정보가 있을 때만** 보낸다:
+ *
+ *   · 이번 실행에서 새로 올린 채널이 있다  → 보낸다(복구 결과는 알아야 한다)
+ *   · 이 사이클에 아직 한 번도 안 알렸다   → 보낸다(첫 통)
+ *   · 둘 다 아니다                          → 침묵
+ *
+ * 즉 "전부 이미 올라가 있어 건너뛴 재실행" 은 조용하다. 알림 표시는 post-log 의
+ * `notified` 에 남으므로 실행이 갈려도 유지된다.
  */
 
 const isFailure = process.argv.includes("--failure");
@@ -85,8 +101,29 @@ async function main() {
   const bad = [...summary.failed, ...summary.skipped];
   const icon = bad.length === 0 ? "✅" : "❌";
 
+  const { today } = getKstToday();
+  const slot = getPostSlot(today);
+  const log = await loadPostLog();
+  const alreadyNotified = wasNotified(log, today, slot, "report");
+
+  if (summary.fresh.length === 0 && alreadyNotified) {
+    console.log(
+      `🔇 새로 올린 채널이 없고 ${today}(${slot}) 보고는 이미 보냈다 — 알리지 않는다.`,
+    );
+    return;
+  }
+
   await sendText(`${icon} ${formatReport({ summary, title: TITLE, workflow: WORKFLOW })}`);
-  console.log(`✅ 보고 전송: ${summary.ok.length}/${summary.total} 성공`);
+  console.log(
+    `✅ 보고 전송: ${summary.ok.length}/${summary.total} 성공 (새로 올림 ${summary.fresh.length})`,
+  );
+
+  // 🔴 보낸 뒤에 기록한다. 전송이 실패하면 표시가 남지 않아 다음 실행이 다시 시도한다.
+  await updatePostLog(
+    (remote) => markNotified(remote, today, slot, "report"),
+    `chore(post-log): notified ${today} ${slot}`,
+    today,
+  );
 
   if (isFailure && bad.length > 0) {
     await sendAssetsFor(bad);
