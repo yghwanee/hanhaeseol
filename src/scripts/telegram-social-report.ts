@@ -7,10 +7,10 @@ import {
 } from "@/lib/instagram";
 import { MANIFEST_PATH, OUT_DIR, readManifest } from "@/lib/manifest";
 import { formatReport, summarize, type Channel } from "@/lib/post-report";
-import { getKstToday } from "@/lib/instagram";
-import { getPostSlot } from "@/lib/post-slot";
+import { currentCycle } from "@/lib/post-slot";
 import { markNotified, wasNotified } from "@/lib/post-log";
 import { loadPostLog, updatePostLog } from "./_post-log-store";
+import { sendTelegramText } from "./_telegram";
 
 /**
  * 소셜 게시 결과를 텔레그램으로 보고한다.
@@ -38,24 +38,6 @@ import { loadPostLog, updatePostLog } from "./_post-log-store";
 const isFailure = process.argv.includes("--failure");
 const TITLE = process.env.HHS_REPORT_TITLE || "소셜";
 const WORKFLOW = process.env.HHS_WORKFLOW || "instagram.yml";
-
-async function sendText(text: string) {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chatId = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chatId) throw new Error("TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID 없음");
-
-  // 텔레그램 본문 한도는 4096자. 채널 보고는 짧지만 에러 메시지가 길어질 수 있어 자른다.
-  const body = text.length > 4000 ? `${text.slice(0, 3990)}\n…(생략)` : text;
-  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ chat_id: chatId, text: body }),
-  });
-  const json = (await res.json().catch(() => ({}))) as { ok?: boolean };
-  if (!res.ok || json.ok !== true) {
-    throw new Error(`Telegram 텍스트 전송 실패: ${res.status} ${JSON.stringify(json)}`);
-  }
-}
 
 /** 안 올라간 채널의 원본 파일만 골라 보낸다 (성공한 채널 파일까지 보내면 노이즈). */
 async function sendAssetsFor(channels: Channel[]) {
@@ -101,8 +83,7 @@ async function main() {
   const bad = [...summary.failed, ...summary.skipped];
   const icon = bad.length === 0 ? "✅" : "❌";
 
-  const { today } = getKstToday();
-  const slot = getPostSlot(today);
+  const { today, slot } = currentCycle();
   const log = await loadPostLog();
   const alreadyNotified = wasNotified(log, today, slot, "report");
 
@@ -113,7 +94,7 @@ async function main() {
     return;
   }
 
-  await sendText(`${icon} ${formatReport({ summary, title: TITLE, workflow: WORKFLOW })}`);
+  await sendTelegramText(`${icon} ${formatReport({ summary, title: TITLE, workflow: WORKFLOW })}`);
   console.log(
     `✅ 보고 전송: ${summary.ok.length}/${summary.total} 성공 (새로 올림 ${summary.fresh.length})`,
   );

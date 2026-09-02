@@ -18,8 +18,7 @@
  *   slot       morning|evening
  */
 import fs from "node:fs";
-import { getKstToday } from "../lib/instagram";
-import { getPostSlot } from "../lib/post-slot";
+import { currentCycle } from "../lib/post-slot";
 import { missingChannels, wasPosted } from "../lib/post-log";
 import { CHANNEL_LABEL, channelsForSlot, type Channel } from "../lib/post-report";
 import { loadPostLog } from "./_post-log-store";
@@ -56,8 +55,7 @@ function parseOnly(raw: string, fallback: Channel[]): Channel[] {
 }
 
 async function main() {
-  const { today } = getKstToday();
-  const slot = getPostSlot(today);
+  const { today, slot } = currentCycle();
   // 분모는 슬롯이 정한다(아침엔 틱톡 없음). only 입력은 그 안에서 더 좁히는 용도다.
   const requested = parseOnly(process.env.HHS_ONLY ?? "", channelsForSlot(slot));
 

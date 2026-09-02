@@ -20,7 +20,7 @@
 //
 // env 가 없으면(로컬·테스트) 종전 날짜 비교로 폴백한다.
 
-import { inferDayLabel } from "./instagram";
+import { getKstToday, inferDayLabel } from "./instagram";
 
 export type PostSlot = "morning" | "evening";
 
@@ -41,4 +41,17 @@ export function rotateIndex(today: string, slot: PostSlot, poolSize: number): nu
   // 형태가 비슷한 문장이 아침·저녁에 같이 뽑히는 날이 생긴다(실측으로 확인).
   const base = day + month * 3 + (slot === "morning" ? 0 : 2);
   return base % poolSize;
+}
+
+/**
+ * 지금 실행이 다루는 사이클(대상 날짜 + 슬롯).
+ *
+ * `getKstToday()` 와 `getPostSlot()` 을 따로 부르는 곳이 다섯 군데였다. 둘은 항상
+ * 같이 쓰이고 **순서가 있다**(슬롯은 대상 날짜에서 나온다). 한 곳으로 모아 두면
+ * 한쪽만 고쳐서 어긋나는 일이 없다 — 게시 게이트·채널 계획·보고·감시견이 전부
+ * 같은 값을 봐야 중복 방지가 성립한다.
+ */
+export function currentCycle(now: Date = new Date()): { today: string; slot: PostSlot } {
+  const { today } = getKstToday(undefined, now);
+  return { today, slot: getPostSlot(today) };
 }

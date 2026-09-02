@@ -31,25 +31,42 @@ async function main() {
   }
 
   const now = new Date();
-  const [morning, evening] = await Promise.all([
+  const log = await loadPostLog();
+  const complete = (slot: PostSlot, target: string) =>
+    missingChannels(log, target, slot, channelsForSlot(slot)).length === 0;
+
+  // 🔴 실행 이력 조회를 뒤로 미룬다 (2026-09-02 최적화).
+  //
+  // 이 스크립트는 살아남은 워크플로들이 부르므로 하루 20회 넘게 돈다. 그런데
+  // `fetchPostRuns` 는 워크플로당 실행 목록 1회 + **완료된 실행마다 jobs 조회 1회**라
+  // 한 번에 20건 넘게 API 를 때린다. 거의 모든 호출에서 답은 "놓친 것 없음"인데
+  // 그걸 알아내려고 매번 그 비용을 냈다.
+  //
+  // post-log 와 사이클 창만으로 후보가 아예 없으면 거기서 끝낸다. 후보가 있을 때만
+  // 실행 이력·진행 중 여부를 확인해 최종 판정한다. **판정 함수는 그대로**라
+  // 게이트(check-post-cycle)와 조건이 갈릴 여지는 없다.
+  const empty: Record<string, OtherRun[]> = {};
+  const rough = pickCatchupCycle(now, empty, { isCycleComplete: complete });
+  if (!rough.pick) {
+    for (const l of rough.lines) console.log(`  ${l}`);
+    console.log("✅ 놓친 사이클 없음 — 발동하지 않는다(실행 이력 조회 생략).");
+    return;
+  }
+
+  const [morning, evening, morningBusy, eveningBusy] = await Promise.all([
     fetchPostRuns(MORNING_WF),
     fetchPostRuns(EVENING_WF),
-  ]);
-  const runs: Record<string, OtherRun[]> = { [MORNING_WF]: morning, [EVENING_WF]: evening };
-
-  const log = await loadPostLog();
-  const [morningBusy, eveningBusy] = await Promise.all([
     isWorkflowRunning(MORNING_WF),
     isWorkflowRunning(EVENING_WF),
   ]);
+  const runs: Record<string, OtherRun[]> = { [MORNING_WF]: morning, [EVENING_WF]: evening };
   const busy: Record<string, boolean> = {
     [MORNING_WF]: morningBusy,
     [EVENING_WF]: eveningBusy,
   };
 
   const { pick, lines } = pickCatchupCycle(now, runs, {
-    isCycleComplete: (slot: PostSlot, target: string) =>
-      missingChannels(log, target, slot, channelsForSlot(slot)).length === 0,
+    isCycleComplete: complete,
     isRunning: (wf: string) => busy[wf] === true,
   });
   for (const l of lines) console.log(`  ${l}`);

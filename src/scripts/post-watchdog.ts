@@ -17,42 +17,33 @@
  * 실행: `npm run post:watchdog`  (입력: HHS_WATCHDOG_CYCLE=morning|evening, HHS_WATCHDOG_DRY_RUN=1)
  */
 import { getKstToday, kstNow } from "../lib/instagram";
-import { EVENING_CYCLE_START_HOUR } from "../lib/instagram";
 import type { PostSlot } from "../lib/post-slot";
 import { missingChannels, markNotified, wasNotified } from "../lib/post-log";
+import { MORNING_LATEST_HOUR } from "../lib/post-duplicate";
+import { CATCHUP_EARLIEST_HOUR } from "../lib/post-catchup";
 import { CHANNEL_LABEL, channelsForSlot } from "../lib/post-report";
 import { MORNING_WF, EVENING_WF } from "../lib/post-catchup";
 import { gh, ghReady, isWorkflowRunning } from "./_post-runs";
 import { loadPostLog, updatePostLog } from "./_post-log-store";
+import { sendTelegramText, telegramConfigured } from "./_telegram";
 
 const REPO = process.env.GITHUB_REPOSITORY ?? "";
 const REF = process.env.HHS_CATCHUP_REF ?? "main";
 const DRY = process.env.HHS_WATCHDOG_DRY_RUN === "1";
 
+/**
+ * 점검할 사이클.
+ *
+ * 🔴 시각 판정을 `hour < 12 ? morning : evening` 으로 두면 **정오 점검이 저녁을 본다.**
+ * 낮 크론이 KST 12:07 이라 12시가 evening 으로 떨어지고, 저녁 예약(16:18)이 오기도
+ * 전에 복구를 걸어 낮에 내일치를 올려 버린다(2026-09-02 검증에서 잡았다).
+ * 낮 점검은 **아침 사이클 마감**용이므로 아침 창이 닫히는 시각(MORNING_LATEST_HOUR)을
+ * 경계로 쓴다. 워크플로가 크론별로 HHS_WATCHDOG_CYCLE 을 넘겨주면 그게 우선이다.
+ */
 function pickCycle(now: Date): PostSlot {
   const forced = process.env.HHS_WATCHDOG_CYCLE?.trim();
   if (forced === "morning" || forced === "evening") return forced;
-  return kstNow(now).getHours() < EVENING_CYCLE_START_HOUR ? "morning" : "evening";
-}
-
-async function tg(text: string): Promise<boolean> {
-  const token = process.env.TELEGRAM_BOT_TOKEN;
-  const chat = process.env.TELEGRAM_CHAT_ID;
-  if (!token || !chat) {
-    console.log("ℹ️  텔레그램 설정이 없어 알림을 건너뛴다.");
-    return false;
-  }
-  // fetch-cache-ok: GH Actions 전용 스크립트.
-  const res = await fetch(`https://api.telegram.org/bot${token}/sendMessage`, {
-    method: "POST",
-    headers: { "content-type": "application/json" },
-    body: JSON.stringify({ chat_id: chat, text }),
-  });
-  const json = (await res.json().catch(() => ({}))) as { ok?: boolean };
-  if (!res.ok || json.ok !== true) {
-    throw new Error(`텔레그램 전송 실패: ${res.status} ${JSON.stringify(json)}`);
-  }
-  return true;
+  return kstNow(now).getHours() < MORNING_LATEST_HOUR ? "morning" : "evening";
 }
 
 async function main() {
@@ -81,6 +72,14 @@ async function main() {
   }
 
   const triedRecover = wasNotified(log, target, slot, "recover");
+
+  // 🔴 예약 발화를 앞지르지 않는다. 따라잡기와 같은 기준을 쓴다 — 여기만 다르면
+  // 감시견이 낮에 내일치를 올려 버린다.
+  const hour = kstNow(now).getHours();
+  if (hour < CATCHUP_EARLIEST_HOUR[slot]) {
+    console.log(`ℹ️  KST ${hour}시 — 예약(${CATCHUP_EARLIEST_HOUR[slot]}시 전)이라 아직 판단하지 않는다.`);
+    return;
+  }
 
   // ① 아직 복구를 안 걸었다 → 조용히 한 번 건다.
   if (!triedRecover) {
@@ -116,7 +115,11 @@ async function main() {
     return;
   }
 
-  const sent = await tg(
+  if (!telegramConfigured()) {
+    console.log("ℹ️  텔레그램 설정이 없어 경고를 건너뛴다(로컬 실행).");
+    return;
+  }
+  await sendTelegramText(
     [
       `⚠️ 소셜 게시가 끝내 안 올라갔습니다 — ${label} ${target}`,
       "",
@@ -129,13 +132,11 @@ async function main() {
       `https://github.com/${REPO}/actions/workflows/${workflow}`,
     ].join("\n"),
   );
-  if (sent) {
-    await updatePostLog(
-      (remote) => markNotified(remote, target, slot, "watchdog"),
-      `chore(post-log): watchdog notified ${target} ${slot}`,
-      target,
-    );
-  }
+  await updatePostLog(
+    (remote) => markNotified(remote, target, slot, "watchdog"),
+    `chore(post-log): watchdog notified ${target} ${slot}`,
+    target,
+  );
 }
 
 main().catch((e) => {

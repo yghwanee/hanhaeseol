@@ -8,8 +8,8 @@
  * `GITHUB_STEP_SUMMARY` 에도 적는다. 게시는 막지 않는다 — 보정된 날짜가 맞기 때문.
  */
 import fs from "fs";
-import { getKstToday, kstNow, EVENING_CYCLE_START_HOUR } from "../lib/instagram";
-import { getPostSlot } from "../lib/post-slot";
+import { kstNow, EVENING_CYCLE_START_HOUR } from "../lib/instagram";
+import { currentCycle } from "../lib/post-slot";
 
 const now = new Date();
 const k = kstNow(now);
@@ -18,8 +18,7 @@ const kstStamp = `${k.getFullYear()}-${pad(k.getMonth() + 1)}-${pad(k.getDate())
 
 const offsetRaw = process.env.KST_OFFSET_DAYS ?? "(unset)";
 const offset = Number.parseInt(process.env.KST_OFFSET_DAYS ?? "1", 10);
-const { today } = getKstToday(undefined, now);
-const slot = getPostSlot(today);
+const { today, slot } = currentCycle(now);
 
 const delayed = offset >= 1 && k.getHours() < EVENING_CYCLE_START_HOUR;
 

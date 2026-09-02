@@ -19,8 +19,8 @@
  */
 import fs from "fs";
 import { fetchPostRuns } from "./_post-runs";
-import { getKstToday, kstNow } from "../lib/instagram";
-import { getPostSlot } from "../lib/post-slot";
+import { kstNow } from "../lib/instagram";
+import { currentCycle } from "../lib/post-slot";
 import {
   findSameSlotDuplicate,
   findTooCloseRun,
@@ -56,8 +56,7 @@ function skip(reason: string) {
 async function main() {
   const now = new Date();
   const k = kstNow(now);
-  const { today: myTarget } = getKstToday(undefined, now);
-  const slot = getPostSlot(myTarget);
+  const { today: myTarget, slot } = currentCycle(now);
   out("target", myTarget);
   console.log(`🗓️  대상 ${myTarget} · slot=${slot} · KST ${k.getHours()}시 (${MY_WF || "unset"})`);
 

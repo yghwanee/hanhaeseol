@@ -164,6 +164,35 @@ test("따라잡기·감시견은 조용하다 — 발동 자체는 정상 경로
   assert.match(wf, /group:\s*post-catchup/, "따라잡기도 직렬화한다");
 });
 
+test("🔴 감시견이 정오에 저녁 사이클을 보지 않는다 — 예약을 앞지르는 사고", () => {
+  // post-watchdog 크론 '7 3 * * *' 은 KST 12:07 이고 아침 사이클 마감용이다.
+  // 판정이 `hour < 12 ? morning : evening` 이면 12시가 evening 으로 떨어져,
+  // 저녁 예약(16:18)이 오기도 전에 복구를 걸어 낮에 내일치를 올린다.
+  const src = fs.readFileSync(path.resolve("src/scripts/post-watchdog.ts"), "utf8");
+  assert.doesNotMatch(
+    src,
+    /getHours\(\)\s*<\s*EVENING_CYCLE_START_HOUR/,
+    "정오 경계로 사이클을 가르면 낮 점검이 저녁을 본다. MORNING_LATEST_HOUR 를 쓸 것",
+  );
+  assert.match(src, /MORNING_LATEST_HOUR/);
+  // 복구 발동도 따라잡기와 같은 시각 기준을 써야 한다.
+  assert.match(src, /CATCHUP_EARLIEST_HOUR\[slot\]/);
+  // 워크플로가 크론별로 사이클을 명시해 유추 자체를 안 하게 한다.
+  const wf = fs.readFileSync(path.resolve(".github/workflows/post-watchdog.yml"), "utf8");
+  assert.match(wf, /github\.event\.schedule == '7 3 \* \* \*' && 'morning'/);
+  assert.match(wf, /github\.event\.schedule == '7 14 \* \* \*' && 'evening'/);
+});
+
+test("텔레그램 전송은 한 곳으로 모여 있고 ok 를 검사한다", () => {
+  // 무성 실패가 이 레포의 단골 함정이라(작업61·78) 전송 구현을 늘리지 않는다.
+  const tg = fs.readFileSync(path.resolve("src/scripts/_telegram.ts"), "utf8");
+  assert.match(tg, /json\.ok !== true/);
+  for (const f of ["telegram-social-report.ts", "post-watchdog.ts", "post-catchup.ts"]) {
+    const src = fs.readFileSync(path.resolve("src/scripts", f), "utf8");
+    assert.doesNotMatch(src, /api\.telegram\.org/, `${f}: 전송은 _telegram.ts 를 쓸 것`);
+  }
+});
+
 test("보고는 하루 한 통으로 막혀 있다", () => {
   const src = fs.readFileSync(path.resolve("src/scripts/telegram-social-report.ts"), "utf8");
   assert.match(src, /wasNotified\(/);

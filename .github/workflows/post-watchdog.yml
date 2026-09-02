@@ -54,6 +54,12 @@ jobs:
           GITHUB_REPOSITORY: ${{ github.repository }}
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
-          HHS_WATCHDOG_CYCLE: ${{ inputs.cycle }}
+          # 🔴 크론별로 사이클을 명시한다. 시각으로 유추하면 낮 크론(KST 12:07)이
+          # 저녁으로 떨어져, 저녁 예약(16:18)이 오기도 전에 복구를 걸어 버린다.
+          HHS_WATCHDOG_CYCLE: >-
+            ${{ inputs.cycle
+                || (github.event.schedule == '7 3 * * *' && 'morning')
+                || (github.event.schedule == '7 14 * * *' && 'evening')
+                || '' }}
           HHS_WATCHDOG_DRY_RUN: ${{ inputs.dry_run && '1' || '' }}
         run: npm run post:watchdog

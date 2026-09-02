@@ -12,8 +12,7 @@
  * 🔴 기록 실패로 프로세스를 죽이지 않는다. 게시는 이미 끝났으므로 여기서 빨간불을
  *    내면 사람이 재실행해서 중복 게시를 만든다.
  */
-import { getKstToday } from "@/lib/instagram";
-import { getPostSlot } from "@/lib/post-slot";
+import { currentCycle } from "@/lib/post-slot";
 import { markPosted, wasPosted, type PostLog } from "@/lib/post-log";
 import { recordResult, CHANNEL_LABEL, type Channel } from "@/lib/post-report";
 import { loadPostLog, updatePostLog } from "./_post-log-store";
@@ -22,8 +21,7 @@ export async function runChannel(
   channel: Channel,
   fn: () => Promise<string | void>,
 ): Promise<void> {
-  const { today } = getKstToday();
-  const slot = getPostSlot(today);
+  const { today, slot } = currentCycle();
 
   let log: PostLog;
   try {
