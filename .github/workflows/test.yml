@@ -124,3 +124,5 @@ jobs:
           npm run test:safety-filter
           npm run test:ebook-font
           npm run test:toss
+          npm run test:follows
+          npm run test:push-notify

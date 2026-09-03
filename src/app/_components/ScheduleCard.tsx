@@ -8,6 +8,7 @@ import { matchToSlug } from "@/lib/match-slug";
 import { proxyLogo } from "@/lib/emblem";
 import { StatusBadge } from "./StatusBadge";
 import { PlatformBadge } from "./PlatformBadge";
+import { FollowStar } from "./FollowStar";
 import { Highlight } from "./Highlight";
 import { LastFiveBadges } from "./LastFiveBadges";
 
@@ -51,12 +52,19 @@ function ScheduleCardInner({
   homeRecord,
   awayRecord,
   result,
+  homeFollowed,
+  awayFollowed,
+  onToggleTeam,
 }: {
   schedule: Schedule;
   query: string;
   homeRecord?: TeamRecord;
   awayRecord?: TeamRecord;
   result?: MatchResult;
+  /** ⭐찜한 팀 여부. `onToggleTeam` 을 안 넘기면 별 자체를 안 그린다(서버 렌더 화면). */
+  homeFollowed?: boolean;
+  awayFollowed?: boolean;
+  onToggleTeam?: (sport: Schedule["sport"], teamName: string) => void;
 }) {
   // 종료·진행 중 모두 스코어를 표시한다. 진행 중 값은 종료 스코어와 같은 네이버 필드
   // (homeTeamScore/awayTeamScore)에서 오고, /api/live 와 원본을 대조해 일치를 확인했다
@@ -123,6 +131,14 @@ function ScheduleCardInner({
         <div className="pointer-events-none relative z-10 mt-5 sm:mt-6 flex items-baseline justify-center gap-2 sm:gap-3 text-sm sm:text-base">
           <div className="flex-1 min-w-0 flex flex-col items-end gap-1">
             <span className={`flex w-full items-baseline justify-end gap-1.5 font-semibold ${winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}`}>
+              {onToggleTeam && (
+                <FollowStar
+                  followed={!!homeFollowed}
+                  onToggle={() => onToggleTeam(schedule.sport, schedule.homeTeam)}
+                  label={schedule.homeTeam}
+                  className="self-center"
+                />
+              )}
               {schedule.homeEmblem && (
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img src={proxyLogo(schedule.homeEmblem)} alt="" referrerPolicy="no-referrer" loading="lazy" className="h-3.5 w-5 shrink-0 self-center rounded-[2px] object-cover" />
@@ -149,6 +165,14 @@ function ScheduleCardInner({
                 /* eslint-disable-next-line @next/next/no-img-element */
                 <img src={proxyLogo(schedule.awayEmblem)} alt="" referrerPolicy="no-referrer" loading="lazy" className="h-3.5 w-5 shrink-0 self-center rounded-[2px] object-cover" />
               )}
+              {onToggleTeam && (
+                <FollowStar
+                  followed={!!awayFollowed}
+                  onToggle={() => onToggleTeam(schedule.sport, schedule.awayTeam)}
+                  label={schedule.awayTeam}
+                  className="self-center"
+                />
+              )}
             </span>
             {awayRecord?.last5 && (
               <LastFiveBadges form={awayRecord.last5} streak={awayRecord.streak} />
@@ -156,8 +180,17 @@ function ScheduleCardInner({
           </div>
         </div>
       ) : (
-        <div className="pointer-events-none relative z-10 mt-5 sm:mt-6 text-center text-sm sm:text-base font-semibold text-zinc-100 truncate">
-          <Highlight text={schedule.homeTeam} query={query} />
+        <div className="pointer-events-none relative z-10 mt-5 sm:mt-6 flex items-center justify-center gap-1.5 text-sm sm:text-base font-semibold text-zinc-100">
+          {onToggleTeam && (
+            <FollowStar
+              followed={!!homeFollowed}
+              onToggle={() => onToggleTeam(schedule.sport, schedule.homeTeam)}
+              label={schedule.homeTeam}
+            />
+          )}
+          <span className="min-w-0 truncate">
+            <Highlight text={schedule.homeTeam} query={query} />
+          </span>
         </div>
       )}
 

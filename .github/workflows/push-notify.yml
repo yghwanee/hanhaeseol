@@ -1,0 +1,63 @@
+name: 경기 알림 발송
+
+# ⭐찜한 팀 경기 푸시 알림. 실제 발송은 Vercel 라우트(`/api/push/dispatch`)가 한다 —
+# 구독자·발송기록이 Blob 에 있고 VAPID 비밀키도 거기에만 있기 때문이다.
+# 이 워크플로는 그 URL 을 때려서 깨우는 일만 한다.
+#
+# 🔴 cron 은 **시간당 1회를 넘기지 않는다.** GH 가 이 레포의 예약 발화를 대량으로 버리는데
+# 고빈도 cron 이 먼저 버려진다(2026-09-01 실측, 하루 48회 요구에 2~6회 발화).
+# `test:post-catchup` 가드가 이걸 강제한다.
+#
+# 발화가 밀려도 알림을 통째로 놓치지 않게 판정 창을 넓게 잡았다:
+#   · 킥오프 임박 = 시작 60분 전부터
+#   · 하루 전 예고 = 24~25시간 전 한 시간 폭
+# 그리고 `crawl-results.yml` 이 결과를 갱신한 직후에도 같은 URL 을 때린다(그쪽이 본선이다 —
+# 득점·종료 알림은 결과 데이터가 막 새로 들어온 그 순간이 가장 이르다).
+on:
+  schedule:
+    - cron: '27 * * * *'   # 매시 27분(다른 워크플로와 겹치지 않게)
+  workflow_dispatch:
+    inputs:
+      dry:
+        description: '보내지 않고 무엇이 나갈지만 출력'
+        required: false
+        default: 'false'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: push-notify
+  cancel-in-progress: false
+
+jobs:
+  dispatch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: 알림 발송 요청
+        env:
+          PUSH_KEY: ${{ secrets.PUSH_TEST_KEY }}
+          DRY: ${{ github.event.inputs.dry }}
+        run: |
+          if [ -z "$PUSH_KEY" ]; then
+            echo "PUSH_TEST_KEY 시크릿이 없다 — 아직 셋업 전이므로 조용히 종료한다."
+            exit 0
+          fi
+          url="https://haeseol.com/api/push/dispatch"
+          if [ "$DRY" = "true" ]; then url="$url?dry=1"; fi
+
+          # 🔴 응답 본문과 상태 코드를 **둘 다** 본다. 이 레포 단골 함정이 무성 실패다
+          # (응답을 안 보고 성공으로 넘어가 몇 시간째 안 나가는 걸 아무도 모른다).
+          body=$(curl -sS -m 60 -w '\n%{http_code}' -X POST "$url" -H "x-push-key: $PUSH_KEY")
+          code=$(printf '%s' "$body" | tail -n1)
+          payload=$(printf '%s' "$body" | sed '$d')
+          echo "$payload"
+          if [ "$code" != "200" ]; then
+            echo "::error::발송 요청 실패 (HTTP $code)"
+            exit 1
+          fi
+          case "$payload" in
+            *'"ok":true'*) ;;
+            *) echo "::error::응답이 ok 가 아니다"; exit 1 ;;
+          esac

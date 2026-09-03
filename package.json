@@ -101,7 +101,9 @@
     "test:claude-md-size": "tsx --test src/lib/claude-md-size.test.ts",
     "test:post-catchup": "tsx --test src/lib/post-catchup.test.ts",
     "tiktok:stats": "tsx src/scripts/check-tiktok-stats.ts",
-    "test:tiktok-policy": "tsx --test src/lib/tiktok-post-policy.test.ts"
+    "test:tiktok-policy": "tsx --test src/lib/tiktok-post-policy.test.ts",
+    "test:follows": "tsx --test src/lib/follows.test.ts",
+    "test:push-notify": "tsx --test src/lib/push/notify.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

@@ -9,6 +9,9 @@ import { ResultsData } from "@/types/results";
 import { lookupTeamRecord } from "@/lib/team-records/lookup";
 import { findResult } from "@/lib/results/lookup";
 import { getUpcomingDates, getTodayString, isGameLive } from "@/lib/schedule-utils";
+import { teamKey, isFollowedGame } from "@/lib/follows";
+import { useFollows } from "./_components/use-follows";
+import { MyTeamsSection } from "./_components/MyTeamsSection";
 import { StickyHeader } from "./_components/StickyHeader";
 import { SPORTS, PLATFORM_LIST } from "./_components/constants";
 import { PlatformIcon } from "./_components/PlatformIcon";
@@ -69,6 +72,8 @@ export default function ScheduleClient({
   const [sport, setSport] = useState("전체");
   const [platform, setPlatform] = useState("전체");
   const [commentaryFilter, setCommentaryFilter] = useState<"all" | "korean" | "foreign">("all");
+  // ⭐찜. URL 에는 안 싣는다 — 기기 로컬 값이라 공유된 링크에 실리면 남의 화면에서 빈 목록이 된다.
+  const [followsOnly, setFollowsOnly] = useState(false);
 
   // 딥링크 필터(?sport=·?platform=·?comm=)는 마운트 후 클라에서 적용한다.
   // 서버에서 searchParams 를 읽으면 홈 전체가 동적 렌더로 강등돼 CDN 캐시가
@@ -103,6 +108,19 @@ export default function ScheduleClient({
   const [polledResults, setPolledResults] = useState<ResultsData | null>(null);
   const todayStr = useMemo(() => getTodayString(), []);
   const isArchiveDate = selectedDate < todayStr;
+
+  // ⭐찜한 팀. 첫 렌더는 항상 빈 배열이라(하이드레이션) followReady 전에는 칩을 안 그린다.
+  const { keys: followKeys, toggle: toggleFollow, ready: followReady } = useFollows();
+  const followSet = useMemo(() => new Set(followKeys), [followKeys]);
+  const hasFollows = followReady && followKeys.length > 0;
+  const onToggleTeam = useCallback(
+    (sport: Schedule["sport"], teamName: string) => toggleFollow(teamKey(sport, teamName)),
+    [toggleFollow],
+  );
+  // 찜을 다 지웠는데 "내 팀만" 이 켜져 있으면 빈 화면에 갇힌다.
+  useEffect(() => {
+    if (followReady && followKeys.length === 0) setFollowsOnly(false);
+  }, [followReady, followKeys.length]);
 
   useEffect(() => {
     if (!isArchiveDate || archive || archiveLoading) return;
@@ -345,8 +363,13 @@ export default function ScheduleClient({
           s.league.toLowerCase().includes(q)
         );
       })
+      // ⭐내 팀만. 🔴 여기서 **정렬은 건드리지 않는다** — 아래 오전/오후 분할이
+      // `time` 오름차순을 전제로 첫 오후 경기 인덱스 하나로 갈리고, 그 사이에 리마운트되면
+      // 안 되는 인라인 광고가 끼어 있다(작업78). 찜한 경기를 위로 올리고 싶으면
+      // 목록을 재정렬하지 말고 아래 "내 팀" 섹션을 쓴다.
+      .filter((s) => !followsOnly || isFollowedGame(s, followSet))
       .sort((a, b) => a.time.localeCompare(b.time));
-  }, [data, archive, worldcupArchive, isArchiveDate, selectedDate, deferredSport, deferredPlatform, deferredCommentary, deferredSearchQuery]);
+  }, [data, archive, worldcupArchive, isArchiveDate, selectedDate, deferredSport, deferredPlatform, deferredCommentary, deferredSearchQuery, followsOnly, followSet]);
 
   // 라이브 폴링 결과를 빌드시 results 위에 머지(진행중 경기 byKey만 덮어씀).
   // 키 단위로 "필드 병합"한다(통째 교체 X): 라이브 엔트리에 없는 필드(예: 종료 경기의
@@ -387,9 +410,14 @@ export default function ScheduleClient({
         homeRecord={lookupTeamRecord(teamRecords, schedule.league, schedule.homeTeam)}
         awayRecord={lookupTeamRecord(teamRecords, schedule.league, schedule.awayTeam)}
         result={findResult(effectiveResults, schedule)}
+        homeFollowed={followSet.has(teamKey(schedule.sport, schedule.homeTeam))}
+        awayFollowed={
+          !!schedule.awayTeam && followSet.has(teamKey(schedule.sport, schedule.awayTeam))
+        }
+        onToggleTeam={onToggleTeam}
       />
     ),
-    [searchQuery, teamRecords, effectiveResults],
+    [searchQuery, teamRecords, effectiveResults, followSet, onToggleTeam],
   );
 
   // datepicker 버튼 라벨: archive 날짜면 그 날짜를 한국 포맷으로, 아니면 placeholder.
@@ -490,6 +518,25 @@ export default function ScheduleClient({
             onChange={setCommentaryFilter}
           />
         </div>
+
+        {/* ⭐내 팀 필터 — 찜한 팀이 하나라도 있을 때만 나온다. 아무것도 안 찜한 사람에게는
+            빈 칩이 자리만 차지한다. 발견 경로는 카드 팀명 옆의 별이다. */}
+        {hasFollows && (
+          <div className="flex items-center gap-1.5 sm:gap-2">
+            <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-zinc-300">
+              내 팀
+            </span>
+            <SmoothTabs<"all" | "mine">
+              ariaLabel="내 팀 필터"
+              options={[
+                { value: "all", label: "전체" },
+                { value: "mine", label: `내 팀만 (${followKeys.length})` },
+              ]}
+              value={followsOnly ? "mine" : "all"}
+              onChange={(v) => setFollowsOnly(v === "mine")}
+            />
+          </div>
+        )}
 
         {/* Platform Filter - Circle Icons */}
         <div className="pt-2 sm:-ml-[21px]">
@@ -733,6 +780,16 @@ export default function ScheduleClient({
         onSelect={setSelectedDate}
         maxDate={todayStr}
       />
+
+      {/* ⭐내 팀 다음 경기 — 날짜 탭과 무관하다. 7일 편성 전체에서 찾는다.
+          과거 날짜를 보고 있을 때는 숨긴다(그 화면의 맥락은 "지난 경기"다). */}
+      {!isArchiveDate && (
+        <MyTeamsSection
+          schedules={data.schedules}
+          followKeys={followKeys}
+          onToggleTeam={onToggleTeam}
+        />
+      )}
 
       {/* archive 로딩 중 표시 */}
       {isArchiveDate && archiveLoading && (

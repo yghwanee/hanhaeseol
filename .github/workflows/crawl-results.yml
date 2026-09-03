@@ -80,3 +80,18 @@ jobs:
               exit 1
             fi
           fi
+
+      # ⭐찜한 팀 경기 알림. 결과가 막 갱신된 **이 순간**이 득점·종료 알림을 보낼 수 있는
+      # 가장 이른 시점이라, 예약(push-notify.yml)에만 맡기지 않고 여기서도 깨운다.
+      # 🔴 실패해도 크롤을 실패시키지 않는다 — 알림은 부수 기능이고, 편성·결과 갱신이 본선이다.
+      - name: 경기 알림 발송 요청
+        continue-on-error: true
+        env:
+          PUSH_KEY: ${{ secrets.PUSH_TEST_KEY }}
+        run: |
+          if [ -z "$PUSH_KEY" ]; then
+            echo "PUSH_TEST_KEY 없음 — 알림 셋업 전이라 건너뛴다."
+            exit 0
+          fi
+          curl -sS -m 60 -X POST "https://haeseol.com/api/push/dispatch" \
+            -H "x-push-key: $PUSH_KEY" || echo "알림 요청 실패(무시)"
