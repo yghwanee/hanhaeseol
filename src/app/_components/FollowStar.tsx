@@ -8,6 +8,15 @@ import React from "react";
  * 🔴 카드 전체에 매치 페이지로 가는 absolute Link 가 깔려 있다(z-0). 이 버튼은
  * `pointer-events-auto` + z-20 으로 그 위에 떠야 하고, 클릭이 카드 링크로 새지 않게
  * `preventDefault` + `stopPropagation` 을 둘 다 건다.
+ *
+ * 🔴 **히트영역은 44px 이다(`after:inset-[-13px]`).** 종전엔 아이콘 18px + `-m-1 p-1`
+ * = 약 26px 이었고, 바로 밑에 카드 전체 링크가 깔려 있어서 **손가락이 조금만 빗나가면
+ * 별이 아니라 매치 페이지로 이동**했다. 화면이 바뀌니 사람은 찜한 줄 안다 — 다음 날
+ * 홈에 와서 "찜이 반영이 안 됐다"가 된다(2026-09-04 iOS 사파리 사용자 지적).
+ * 마우스로는 거의 안 나는 증상이라 PC 확인만으로는 못 잡는다. iOS 권장 최소치가 44px.
+ *
+ * 넓힌 영역이 팀명 쪽을 조금 덮지만, 팀명은 `pointer-events-none` 이라 그 아래 있는 건
+ * 카드 링크뿐이다. 카드 어디를 눌러도 매치로 가므로 잃는 게 없다.
  */
 function FollowStarInner({
   followed,
@@ -32,7 +41,7 @@ function FollowStarInner({
         e.stopPropagation();
         onToggle();
       }}
-      className={`pointer-events-auto relative z-20 -m-1 shrink-0 rounded-md p-1 transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-400 ${
+      className={`pointer-events-auto relative z-20 -m-1 shrink-0 touch-manipulation rounded-md p-1 transition-colors after:absolute after:inset-[-13px] after:content-[''] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-400 ${
         followed
           ? "text-amber-400 hover:text-amber-300"
           : "text-zinc-600 hover:text-zinc-300"

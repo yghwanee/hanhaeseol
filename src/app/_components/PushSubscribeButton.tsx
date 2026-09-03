@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
 import { useFollows } from "./use-follows";
 
 // VAPID 공개키(빌드시 인라인). 미설정이면 버튼 자체를 숨김.
@@ -15,7 +15,44 @@ function urlBase64ToUint8Array(base64: string): Uint8Array {
   return arr;
 }
 
-type State = "init" | "unsupported" | "idle" | "busy" | "subscribed" | "denied";
+type State =
+  | "init"
+  | "unsupported"
+  | "iosInstall"
+  | "inApp"
+  | "idle"
+  | "busy"
+  | "subscribed"
+  | "denied";
+
+/**
+ * 푸시를 못 쓰는 환경을 **이유별로** 가른다.
+ *
+ * 🔴 종전에는 `PushManager` 가 없으면 전부 `unsupported` 로 묶어 **아무 표시 없이 사라졌다.**
+ * 그런데 iOS 사파리는 유입의 대부분이 오는 환경이고, 거기서는 홈 화면에 추가하기만 하면
+ * 실제로 알림이 된다 — 즉 "못 쓰는 환경"이 아니라 **한 단계가 남은 환경**이다.
+ * 아무것도 안 그리면 사용자는 별을 눌러 놓고 알림이 왜 안 오는지 알 방법이 없다
+ * (2026-09-04 사용자 지적: "알림받기도 안 보이던데").
+ *
+ * 인앱 웹뷰(네이버·카카오 등)는 홈 화면 추가 자체가 없으므로 안내가 다르다.
+ * 유입의 81% 가 네이버라 이 갈래를 뭉뚱그리면 안 된다.
+ */
+function unsupportedReason(): "iosInstall" | "inApp" | "unsupported" {
+  const ua = navigator.userAgent;
+  // 인앱 웹뷰. iOS·안드로이드 공통으로 여기서는 구독 자체가 안 걸린다.
+  if (/NAVER|DaumApps|KAKAOTALK|KAKAOSTORY|Instagram|FBAN|FBAV|FB_IAB|Line\//i.test(ua)) {
+    return "inApp";
+  }
+  // 아이패드는 iPadOS 13+ 부터 UA 가 Macintosh 다. 터치 포인트로 가른다.
+  const isIOS =
+    /iP(hone|od|ad)/.test(ua) ||
+    (/Macintosh/.test(ua) && typeof navigator.maxTouchPoints === "number" && navigator.maxTouchPoints > 1);
+  const standalone =
+    window.matchMedia?.("(display-mode: standalone)").matches === true ||
+    (navigator as Navigator & { standalone?: boolean }).standalone === true;
+  if (isIOS && !standalone) return "iosInstall";
+  return "unsupported";
+}
 
 /**
  * 🔴 이 컴포넌트는 한 화면에 **둘** 걸려 있다(푸터·내 팀 섹션). 구독 상태를 각자
@@ -66,8 +103,13 @@ export function PushSubscribeButton({
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-    if (!("serviceWorker" in navigator) || !("PushManager" in window) || !VAPID) {
+    // VAPID 미설정은 셋업 문제라 사용자에게 보일 게 없다 — 그때만 조용히 숨는다.
+    if (!VAPID) {
       setState("unsupported");
+      return;
+    }
+    if (!("serviceWorker" in navigator) || !("PushManager" in window)) {
+      setState(unsupportedReason());
       return;
     }
     if (Notification.permission === "denied") {
@@ -171,6 +213,18 @@ export function PushSubscribeButton({
   if (state === "denied")
     return <span className="text-zinc-500">알림 차단됨 (브라우저 설정에서 허용)</span>;
 
+  // 🔴 여기서 `null` 을 돌려주면 종전 상태로 돌아간다 — 별은 눌리는데 알림 자리는
+  // 비어 있어서, 사용자는 자기가 뭘 더 해야 하는지 영영 모른다. `test:push-toggle` 이 막는다.
+  if (state === "iosInstall")
+    return (
+      <Hint>
+        아이폰은 <b className="font-semibold text-zinc-300">공유 → 홈 화면에 추가</b> 후
+        알림을 켤 수 있어요
+      </Hint>
+    );
+  if (state === "inApp")
+    return <Hint>알림은 앱 안 브라우저에서 안 돼요. 사파리·크롬으로 열어 주세요</Hint>;
+
   if (state === "subscribed") {
     // 🔴 종전에는 `ctaOnly` 면 **아무것도 안 그렸다**(중복 표시를 피하려고). 그런데 남는
     // 표시가 푸터 하나뿐이라, 방금 별을 누른 사람은 **켜졌는지 알 방법이 없었다** —
@@ -189,6 +243,22 @@ export function PushSubscribeButton({
   }
 
   return <Toggle on={false} onClick={subscribe} busy={state === "busy"} />;
+}
+
+/**
+ * 푸시를 아직 못 쓰는 환경에 남길 한 줄.
+ *
+ * 버튼처럼 보이면 안 된다 — 누를 게 없다. 종모양만 같이 둬서 "알림 자리"라는 건 알린다.
+ */
+function Hint({ children }: { children: ReactNode }) {
+  return (
+    <span className="inline-flex items-center gap-1.5 text-zinc-500">
+      <svg viewBox="0 0 24 24" className="h-3 w-3 shrink-0" fill="currentColor" aria-hidden>
+        <path d="M12 2a6 6 0 00-6 6v3.6l-1.7 3.2A1 1 0 005.2 17h13.6a1 1 0 00.9-1.2l-1.7-3.2V8a6 6 0 00-6-6zm0 19a2.8 2.8 0 002.7-2h-5.4A2.8 2.8 0 0012 21z" />
+      </svg>
+      <span className="break-keep">{children}</span>
+    </span>
+  );
 }
 
 /**
@@ -226,7 +296,7 @@ function Toggle({
       <svg viewBox="0 0 24 24" className="h-3 w-3 shrink-0" fill="currentColor" aria-hidden>
         <path d="M12 2a6 6 0 00-6 6v3.6l-1.7 3.2A1 1 0 005.2 17h13.6a1 1 0 00.9-1.2l-1.7-3.2V8a6 6 0 00-6-6zm0 19a2.8 2.8 0 002.7-2h-5.4A2.8 2.8 0 0012 21z" />
       </svg>
-      <span>{busy ? "잠시만" : on ? "알림 켜짐" : "알림 받기"}</span>
+      <span>{busy ? "적용중" : on ? "알림 켜짐" : "알림 받기"}</span>
       {/* 스위치 — 글자를 안 읽어도 상태가 보인다 */}
       <span
         className={`ml-0.5 flex h-3 w-5 shrink-0 items-center rounded-full px-[2px] transition-colors ${

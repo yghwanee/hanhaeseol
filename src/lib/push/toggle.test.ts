@@ -87,3 +87,46 @@ test("🔴 알림 권한을 코드로 되돌리려 하지 않는다", () => {
     "켤 때 권한을 요청하지 않는다",
   );
 });
+
+/**
+ * 🔴 별 히트영역 가드 (2026-09-04).
+ *
+ * 아이콘 18px + `-m-1 p-1` = 약 26px 이었고, 바로 밑에 매치 페이지로 가는 카드 전체
+ * 링크가 깔려 있다. 손가락이 조금만 빗나가면 별이 아니라 **페이지 이동**이 일어나고,
+ * 화면이 바뀌니 사람은 찜한 줄 안다 — 다음 날 "찜이 반영이 안 됐다"가 된다.
+ * 마우스로는 거의 안 나는 증상이라 PC 확인만으로는 못 잡는다.
+ */
+test("🔴 ⭐찜 버튼 히트영역이 44px 이다", () => {
+  const src = read(path.join(ROOT, "src/app/_components/FollowStar.tsx"));
+  assert.match(
+    src,
+    /after:inset-\[-13px\]/,
+    "히트영역 확장(after:inset-[-13px])이 없다 — 18px 아이콘 + 26px 는 iOS 최소치(44px) 미만이고, 빗나간 탭이 카드 링크로 샌다",
+  );
+  assert.match(src, /after:content-\[''\]/, "::after 에 content 가 없으면 영역이 안 생긴다");
+  assert.match(src, /touch-manipulation/, "더블탭 확대 지연이 남는다");
+});
+
+/**
+ * 🔴 푸시 미지원 환경에서 **아무것도 안 그리지 않는다** (2026-09-04 사용자 지적).
+ *
+ * iOS 사파리는 홈 화면에 추가해야 `PushManager` 가 생긴다. 종전에는 그때 컴포넌트가
+ * 통째로 사라져서, 별을 눌러 둔 사용자가 "알림받기가 안 보인다"로 끝났다. 유입의 81%가
+ * 네이버(인앱 웹뷰)라 그 갈래도 따로 안내해야 한다.
+ */
+test("🔴 iOS 미설치·인앱 웹뷰는 숨지 말고 다음 할 일을 안내한다", () => {
+  const src = read(BTN);
+  assert.match(src, /iosInstall/, "iOS 미설치 상태를 따로 안 가른다");
+  assert.match(src, /inApp/, "인앱 웹뷰 상태를 따로 안 가른다");
+  assert.match(src, /홈 화면에 추가/, "아이폰이 무엇을 해야 하는지 안 알려준다");
+  assert.match(src, /maxTouchPoints/, "iPadOS 는 UA 가 Macintosh 라 터치포인트로 갈라야 한다");
+
+  // 숨는 건 VAPID 미설정(셋업 문제)일 때뿐이어야 한다.
+  const hide = src.match(/if \(state === "init" \|\| state === "unsupported"\) return null;/);
+  assert.ok(hide, "렌더 분기가 바뀌었다 — 이 가드를 같이 고칠 것");
+  assert.doesNotMatch(
+    src,
+    /setState\("unsupported"\);\s*\n\s*return;\s*\n\s*\}\s*\n\s*if \(Notification/,
+    "PushManager 부재를 다시 unsupported 로 뭉뚱그렸다",
+  );
+});

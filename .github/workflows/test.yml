@@ -126,3 +126,10 @@ jobs:
           npm run test:toss
           npm run test:follows
           npm run test:push-notify
+          # 🔴 아래 넷은 package.json·CLAUDE.md 에 가드로 적혀 있으면서 CI 에서는
+          # 한 번도 안 돌고 있었다(2026-09-04). 안 도는 가드는 없는 가드다 —
+          # test:safety-filter 가 정확히 같은 이유로 방치됐던 전례가 있다.
+          npm run test:push-toggle
+          npm run test:push-live
+          npm run test:font-mixing
+          npm run test:workflow-yaml
