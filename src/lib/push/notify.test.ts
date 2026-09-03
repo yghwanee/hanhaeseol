@@ -247,3 +247,34 @@ test("🔴 알림 판정이 `Date.now()` 를 직접 읽지 않는다 (시각 분
     "판정이 실제 시계를 읽으면 그 시각에만 검증할 수 있다(작업108 감시견 버그)",
   );
 });
+
+// ── 취소·연기 ────────────────────────────────────────────────────────────────
+
+test("🔴 취소된 경기에는 킥오프·예고 알림을 안 보낸다", () => {
+  const kick = build({
+    now: KICKOFF - 30 * 60000,
+    results: resultsWith({ status: "canceled" }),
+  });
+  const day = build({
+    now: KICKOFF - 24.5 * 60 * 60000,
+    results: resultsWith({ status: "canceled" }),
+  });
+  assert.deepEqual(kick, []);
+  assert.deepEqual(day, []);
+});
+
+test("🔴 연기된 경기도 마찬가지다", () => {
+  const out = build({
+    now: KICKOFF - 30 * 60000,
+    results: resultsWith({ status: "postponed" }),
+  });
+  assert.deepEqual(out, []);
+});
+
+test("🔴 하루 전 창이 발화 주기(1시간)보다 넓다", () => {
+  // 좁으면 GH 예약 발화가 한 번 빠질 때 그 경기 예고가 영구히 사라진다.
+  const early = build({ now: KICKOFF - 25.5 * 60 * 60000 });
+  const late = build({ now: KICKOFF - 24.2 * 60 * 60000 });
+  assert.equal(early[0]?.kind, "dayBefore", "24h+ 이른 쪽에서도 잡혀야 한다");
+  assert.equal(late[0]?.kind, "dayBefore", "24h 직후에도 잡혀야 한다");
+});

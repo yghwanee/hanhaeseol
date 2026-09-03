@@ -40,6 +40,18 @@ export function isFollowedGame(s: Schedule, followed: Set<string>): boolean {
   return teamKeysOf(s).some((k) => followed.has(k));
 }
 
+/**
+ * 찜한 팀이 홈이면 원정을, 원정이면 홈을 돌려준다.
+ *
+ * 🔴 **생 문자열로 비교하면 안 된다.** 저장된 팀명은 trim·NFC 를 거친 값이고
+ * `s.homeTeam` 은 크롤 원본이다. 팀명 뒤 공백이 실제로 흘러 들어온 적이 있어
+ * (2026-08-27) 생 비교를 쓰면 홈 팀을 찜했는데 상대로 **홈 팀 이름**이 뜬다.
+ */
+export function opponentOf(s: Schedule, teamName: string): string {
+  const isHome = teamKey(s.sport, s.homeTeam) === teamKey(s.sport, teamName);
+  return isHome ? s.awayTeam : s.homeTeam;
+}
+
 /** 키에서 팀명만 꺼낸다. 형식이 아니면 null. */
 export function keyTeamName(key: string): string | null {
   const i = key.indexOf("|");
@@ -54,7 +66,13 @@ function norm(v: string | undefined): string {
   return (v ?? "").trim().normalize("NFC");
 }
 
-/** 중복 제거 + 정렬 + 상한. 상한을 넘으면 **나중에 넣은 것부터** 버린다(먼저 고른 팀 우선). */
+/**
+ * 중복 제거 + 정렬 + 상한.
+ *
+ * 🔴 상한을 넘으면 **가장 오래된 것부터** 버린다. 반대로 하면(먼저 고른 팀 우선)
+ * 60팀을 채운 사용자가 별을 눌러도 방금 누른 키가 잘려서 **아무 일도 안 일어난다.**
+ * 무반응 클릭은 어떤 정책보다 나쁘다.
+ */
 export function normalizeFollows(keys: string[]): string[] {
   const seen = new Set<string>();
   const out: string[] = [];
@@ -65,7 +83,7 @@ export function normalizeFollows(keys: string[]): string[] {
     seen.add(k);
     out.push(k);
   }
-  return out.slice(0, MAX_FOLLOWS).sort();
+  return out.slice(-MAX_FOLLOWS).sort();
 }
 
 /** 있으면 빼고 없으면 넣는다. 원본을 건드리지 않는다. */

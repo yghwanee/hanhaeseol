@@ -26,6 +26,10 @@ export function useFollows() {
   useEffect(() => {
     const load = () => {
       const next = readFollows();
+      // 🔴 찜이 없는 사람(대다수)에게 마운트 직후 불필요한 리렌더를 만들지 않는다.
+      // 홈은 카드가 90장 넘게 깔리는 화면이라 빈 배열로 상태를 갈아끼우는 것만으로도
+      // 목록 전체가 한 번 더 계산된다. 내용이 같으면 그냥 넘어간다.
+      if (next.length === 0 && keysRef.current.length === 0) return;
       keysRef.current = next;
       setKeys(next);
     };

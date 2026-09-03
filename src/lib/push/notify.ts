@@ -35,11 +35,15 @@ export interface Notice {
 export const KICKOFF_LEAD_MINUTES = 60;
 
 /**
- * 하루 전 예고를 보낼 구간(분). 24시간 전후 한 시간 폭.
- * 🔴 폭이 워크플로 주기보다 넓어야 한다 — 좁으면 실행이 한 번 밀릴 때 통째로 건너뛴다.
+ * 하루 전 예고를 보낼 구간(분).
+ *
+ * 🔴 **폭이 발화 주기보다 넓어야 한다.** 이 레포는 GH 예약 발화가 대량으로 버려지는 게
+ * 실측된 곳이라(하루 48회 요구에 2~6회 발화) 한 시간 폭이면 발화 하나가 빠지는 순간
+ * 그 경기의 예고가 영구히 안 나간다. 예약(매시 27분)과 결과크롤(매시 13분)이 둘 다
+ * 빠져도 살아남게 **두 시간**으로 잡는다. 중복은 dedupKey 가 막는다.
  */
 export const DAY_BEFORE_FROM_MINUTES = 24 * 60;
-export const DAY_BEFORE_TO_MINUTES = 25 * 60;
+export const DAY_BEFORE_TO_MINUTES = 26 * 60;
 
 /** 레퍼런스 표기(`6월 12일 (금) 11:00`)를 맞춘다. */
 export function whenLabel(s: Schedule): string {
@@ -135,8 +139,13 @@ export function buildNotices(input: BuildInput): Notice[] {
     const startsInMin = (kickoffAt(s) - now) / 60000;
     const where = `${platforms.join(", ")} · ${commentaryLabel(s)}`;
 
+    // 🔴 취소·연기된 경기에 "곧 시작"을 보내면 안 된다. 홈 카드는 이미 이 상태를
+    // 구분해 표시하고 있으므로 데이터가 없어서 못 하는 게 아니다.
+    const called = result?.status === "canceled" || result?.status === "postponed";
+
     // ── 5-a. 하루 전 예고 ─────────────────────────────────────────────────
     if (
+      !called &&
       startsInMin >= DAY_BEFORE_FROM_MINUTES &&
       startsInMin < DAY_BEFORE_TO_MINUTES
     ) {
@@ -156,7 +165,7 @@ export function buildNotices(input: BuildInput): Notice[] {
     }
 
     // ── 5-b. 킥오프 임박 ──────────────────────────────────────────────────
-    if (startsInMin > 0 && startsInMin <= KICKOFF_LEAD_MINUTES) {
+    if (!called && startsInMin > 0 && startsInMin <= KICKOFF_LEAD_MINUTES) {
       const key = `${gk}|kickoff`;
       if (!sent.has(key)) {
         out.push({

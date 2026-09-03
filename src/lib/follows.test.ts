@@ -7,6 +7,7 @@ import {
   MAX_FOLLOWS,
   isFollowedGame,
   keyTeamName,
+  opponentOf,
   normalizeFollows,
   readFollows,
   teamKey,
@@ -76,6 +77,17 @@ test("찜이 비어 있으면 아무 경기도 안 잡힌다", () => {
   assert.equal(isFollowedGame(s({}), new Set()), false);
 });
 
+test("상대 팀을 홈·원정 어느 쪽에서든 바르게 집는다", () => {
+  assert.equal(opponentOf(s({}), "한화"), "두산");
+  assert.equal(opponentOf(s({}), "두산"), "한화");
+});
+
+test("🔴 팀명 뒤 공백이 있어도 상대를 뒤집지 않는다", () => {
+  // 생 문자열로 비교하면 홈 팀을 찜했는데 상대로 **홈 팀 이름**이 나온다.
+  assert.equal(opponentOf(s({ homeTeam: "한화 " }), "한화"), "두산");
+  assert.equal(opponentOf(s({ homeTeam: "한화".normalize("NFD") }), "한화"), "두산");
+});
+
 // ── 목록 ──────────────────────────────────────────────────────────────────────
 
 test("중복은 접히고 정렬된다", () => {
@@ -89,12 +101,21 @@ test("형식이 깨진 키는 버린다", () => {
   ]);
 });
 
-test(`🔴 상한 ${MAX_FOLLOWS} 을 넘으면 나중에 넣은 것부터 버린다`, () => {
+test(`🔴 상한 ${MAX_FOLLOWS} 에서 방금 누른 팀이 조용히 버려지면 안 된다`, () => {
+  // 오래된 것부터 버려야 한다. 반대로 하면 60팀을 채운 사용자가 별을 눌러도
+  // 아무 일도 안 일어난다(무반응 클릭).
   const many = Array.from({ length: MAX_FOLLOWS + 5 }, (_, i) => `야구|t${i}`);
   const out = normalizeFollows(many);
   assert.equal(out.length, MAX_FOLLOWS);
-  assert.ok(out.includes("야구|t0"), "먼저 고른 팀이 살아남아야 한다");
-  assert.ok(!out.includes(`야구|t${MAX_FOLLOWS + 4}`));
+  assert.ok(out.includes(`야구|t${MAX_FOLLOWS + 4}`), "마지막에 넣은 팀이 살아남아야 한다");
+  assert.ok(!out.includes("야구|t0"), "가장 오래된 팀이 밀려나야 한다");
+});
+
+test("🔴 상한이 꽉 차도 토글은 반드시 반영된다", () => {
+  const full = Array.from({ length: MAX_FOLLOWS }, (_, i) => `야구|t${i}`);
+  const out = toggleFollow(full, "축구|맨체스터 시티");
+  assert.ok(out.includes("축구|맨체스터 시티"), "방금 누른 팀이 목록에 있어야 한다");
+  assert.equal(out.length, MAX_FOLLOWS);
 });
 
 test("토글은 넣고 빼며 원본을 건드리지 않는다", () => {
@@ -171,4 +192,37 @@ test("🔴 팀명을 순위표 표기로 옮기지 않는다 (alias 다리를 �
     !/isSameTeam|teamSlug|standings/i.test(src),
     "찜 키는 schedule.json 의 팀명 그대로여야 한다",
   );
+});
+
+test("🔴 발송 기록을 보내기 전에 저장한다 (중복 발송 금지)", () => {
+  // 반대 순서면 저장이 실패한 실행에서 이미 나간 알림이 기록에 안 남고,
+  // 다음 실행이 같은 알림을 통째로 다시 보낸다.
+  const src = readFileSync(
+    join(process.cwd(), "src/app/api/push/dispatch/route.ts"),
+    "utf8",
+  );
+  const save = src.indexOf("await savePushLog");
+  const send = src.indexOf("await sendPush");
+  assert.ok(save > 0 && send > 0, "두 호출이 다 있어야 한다");
+  assert.ok(save < send, "savePushLog 가 sendPush 보다 먼저 와야 한다");
+});
+
+test("🔴 알림 데이터를 배포본이 아니라 레포 raw 에서 읽는다", () => {
+  // 배포본(public/*.json)은 하루 4번 배포까지 얼어붙는다. 득점·종료 알림이 최대
+  // 6시간 늦거나 아예 안 맞는다.
+  const src = readFileSync(
+    join(process.cwd(), "src/app/api/push/dispatch/route.ts"),
+    "utf8",
+  );
+  assert.match(src, /raw\.githubusercontent\.com/, "raw 를 1순위로 읽어야 한다");
+  const raw = src.indexOf("raw.githubusercontent.com");
+  const origin = src.indexOf('ORIGIN = "https://haeseol.com"');
+  assert.ok(raw < origin || raw > 0, "raw 상수가 있어야 한다");
+  assert.match(src, /\[RAW, ORIGIN\]/, "raw 를 먼저, 배포본을 폴백으로 써야 한다");
+});
+
+test("🔴 서비스워커가 같은 tag 에서 재알림을 켠다", () => {
+  // 규격상 같은 tag 는 재알림 없이 교체된다. 이게 없으면 킥오프 뒤 득점 알림이 무음이다.
+  const sw = readFileSync(join(process.cwd(), "public/sw.js"), "utf8");
+  assert.match(sw, /renotify/, "renotify 가 없으면 득점 알림이 조용히 교체된다");
 });

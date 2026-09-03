@@ -55,6 +55,11 @@ self.addEventListener("push", (event) => {
       badge: "/favicon-192x192.png",
       data: { url: payload.url || "/" },
       tag: payload.tag,
+      // 🔴 같은 tag 는 규격상 **재알림 없이** 기존 알림을 교체한다. 한 경기의 킥오프·
+      // 득점·종료가 전부 같은 tag 라, 이게 없으면 첫 알림만 소리가 나고 그 뒤 득점은
+      // 알림창을 직접 열어야 보인다. 득점 알림이 이 기능의 핵심이라 무음이면 안 된다.
+      // (renotify 는 tag 가 있어야만 허용된다)
+      renotify: Boolean(payload.tag),
     }),
   );
 });

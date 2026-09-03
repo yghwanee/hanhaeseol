@@ -49,7 +49,17 @@ export async function listSubscriptions(): Promise<StoredSubscription[]> {
       const res = await get(b.pathname, { access: "private" });
       if (!res?.stream) continue;
       const data = (await new Response(res.stream).json()) as StoredSubscription;
-      if (data?.subscription?.endpoint) out.push(data);
+      // 🔴 `follows` 를 정규화해서 넣는다. 옛 스키마·수동 편집으로 이 필드가 없는
+      // 블롭이 하나라도 있으면 `shouldReceive` 가 `follows.length` 에서 던져
+      // **전 구독자 발송이 통째로 멈춘다.**
+      if (data?.subscription?.endpoint) {
+        out.push({
+          ...data,
+          follows: Array.isArray(data.follows)
+            ? data.follows.filter((x): x is string => typeof x === "string")
+            : [],
+        });
+      }
     } catch {
       /* 깨진 블롭은 건너뜀 */
     }

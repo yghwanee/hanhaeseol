@@ -18,6 +18,13 @@ function urlBase64ToUint8Array(base64: string): Uint8Array {
 type State = "init" | "unsupported" | "idle" | "busy" | "subscribed" | "denied";
 
 /**
+ * 🔴 이 컴포넌트는 한 화면에 **둘** 걸려 있다(푸터·내 팀 섹션). 구독 상태를 각자
+ * 마운트 때 한 번만 읽으면, 한쪽에서 구독을 켜도 다른 쪽은 계속 "알림 받기" 버튼을
+ * 보여준다. 켠 순간 서로에게 알린다.
+ */
+const SUB_EVENT = "hhs:push-sub";
+
+/**
  * ⭐찜한 팀 경기 알림 구독 버튼.
  *
  * 🔴 **찜한 팀이 없으면 알림도 없다.** 서버는 구독에 실린 팀 키와 겹치는 경기만 보낸다
@@ -27,7 +34,14 @@ type State = "init" | "unsupported" | "idle" | "busy" | "subscribed" | "denied";
  * 플랫폼: 안드로이드·PC 는 설치 없이 이 버튼만으로 된다. 아이폰은 홈 화면에 추가해야
  * `PushManager` 가 생긴다(그전에는 `unsupported` 로 떨어져 버튼이 숨는다).
  */
-export function PushSubscribeButton() {
+export function PushSubscribeButton({
+  /**
+   * 구독을 이미 켠 뒤에는 렌더하지 않는다. 이 버튼이 **푸터와 내 팀 섹션 두 곳**에
+   * 걸려 있어서, 켜고 나면 같은 문구가 한 화면에 두 번 뜬다. 내 팀 섹션 쪽은
+   * "켜라"는 권유가 목적이므로 켜진 뒤에는 빠지고, 상태 표시는 푸터 하나가 맡는다.
+   */
+  ctaOnly = false,
+}: { ctaOnly?: boolean } = {}) {
   const [state, setState] = useState<State>("init");
   const { keys: follows, ready } = useFollows();
   const lastSynced = useRef<string | null>(null);
@@ -59,15 +73,34 @@ export function PushSubscribeButton() {
       .then((reg) => reg.pushManager.getSubscription())
       .then((sub) => setState(sub ? "subscribed" : "idle"))
       .catch(() => setState("idle"));
+
+    const resync = () => {
+      navigator.serviceWorker.ready
+        .then((reg) => reg.pushManager.getSubscription())
+        .then((sub) => setState(sub ? "subscribed" : "idle"))
+        .catch(() => {});
+    };
+    window.addEventListener(SUB_EVENT, resync);
+    return () => window.removeEventListener(SUB_EVENT, resync);
   }, []);
 
   // 찜 목록이 바뀌면 서버의 구독 정보를 갱신한다.
+  //
+  // 🔴 두 가지를 막는다.
+  //   ① 이 컴포넌트는 한 화면에 **둘** 걸려 있다(푸터·내 팀 섹션). 둘 다 동기화하면
+  //      찜 한 번에 서버 쓰기가 두 번 간다. `ctaOnly` 쪽은 동기화에서 빠진다
+  //      (`return null` 은 훅 뒤에 실행되므로 렌더를 막아도 effect 는 돈다).
+  //   ② 별을 연타하면 그 횟수만큼 쓰기가 나간다. 마지막 상태 하나만 보내면 된다.
   useEffect(() => {
+    if (ctaOnly) return;
     if (state !== "subscribed" || !ready) return;
     const snapshot = JSON.stringify(follows);
     if (lastSynced.current === snapshot) return;
-    void putFollows(follows).catch(() => {});
-  }, [state, ready, follows, putFollows]);
+    const id = setTimeout(() => {
+      void putFollows(follows).catch(() => {});
+    }, 600);
+    return () => clearTimeout(id);
+  }, [ctaOnly, state, ready, follows, putFollows]);
 
   const subscribe = async () => {
     if (!VAPID) return;
@@ -85,6 +118,7 @@ export function PushSubscribeButton() {
       });
       const ok = await putFollows(follows);
       setState(ok ? "subscribed" : "idle");
+      if (ok) window.dispatchEvent(new Event(SUB_EVENT));
     } catch {
       setState("idle");
     }
@@ -95,6 +129,7 @@ export function PushSubscribeButton() {
     return <span className="text-zinc-500">알림 차단됨 (브라우저 설정에서 허용)</span>;
 
   if (state === "subscribed") {
+    if (ctaOnly) return null;
     return (
       <span className="text-emerald-400">
         {follows.length > 0

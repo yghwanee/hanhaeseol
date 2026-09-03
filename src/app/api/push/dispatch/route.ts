@@ -24,6 +24,19 @@ import { getTodayString } from "@/lib/schedule-utils";
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
+/**
+ * 🔴 편성·결과는 **레포 raw** 에서 읽는다. `haeseol.com/results.json` 은 `public/` 정적
+ * 자산이라 **배포 시점에 구워진 사본**이고, 이 프로젝트는 `git.deploymentEnabled:false`
+ * 라 `deploy.yml` 이 하루 4번만 배포한다(KST 00:10·06:10·12:10·18:10).
+ *
+ * 그러면 20:15 에 끝난 경기를 20:13 크롤이 커밋해도 dispatch 가 읽는 파일은 18:10
+ * 배포본이라 그 경기가 아직 `scheduled` 다 — 종료 알림이 최대 6시간 늦고, 진행 중
+ * 스냅샷을 봐야 하는 **득점 알림은 사실상 영영 안 맞는다.** `cache:"no-store"` 는
+ * Next Data Cache 만 끄지 CDN 이 들고 있는 배포본을 바꾸지 못한다.
+ *
+ * raw 는 매시 크롤 커밋을 그대로 따라간다. 레포가 공개라 인증도 필요 없다.
+ */
+const RAW = "https://raw.githubusercontent.com/yghwanee/hanhaeseol/main/src/data";
 const ORIGIN = "https://haeseol.com";
 
 export async function POST(request: Request): Promise<Response> {
@@ -53,11 +66,6 @@ export async function POST(request: Request): Promise<Response> {
     hasStore ? loadPushLog() : Promise.resolve({ sent: {}, scores: {} }),
   ]);
 
-  // 구독자가 없으면 만들 필요도 없다. 단 dry-run 은 문구 확인이 목적이라 그대로 진행한다.
-  if (subs.length === 0 && !dryRun) {
-    return json({ ok: true, subscribers: 0, notices: 0, sent: 0 });
-  }
-
   const notices = buildNotices({
     schedules,
     results,
@@ -81,18 +89,38 @@ export async function POST(request: Request): Promise<Response> {
 
   const next: PushLog = { sent: { ...log.sent }, scores: { ...log.scores } };
   const now = new Date().toISOString();
+
+  // 🔴 받는 사람이 없어도 **기록은 남긴다.** 안 그러면 같은 알림을 매 실행마다 다시
+  // 만들고, 나중에 누가 그 팀을 찜하는 순간 지나간 경기의 알림이 한꺼번에 터진다.
+  for (const notice of notices) {
+    next.sent[notice.dedupKey] = now;
+    if (notice.score) next.scores[notice.gameKey] = notice.score;
+  }
+
+  // 🔴 기록을 **보내기 전에** 저장한다. 반대 순서면 저장이 실패한 실행에서 이미 나간
+  // 알림이 기록에 안 남고, 다음 실행이 같은 알림을 통째로 다시 보낸다. 못 받는 것보다
+  // 같은 알림을 두 번 받는 쪽이 훨씬 나쁘다(2026-09-02 삼중 게시와 같은 판단).
+  // 저장이 실패하면 아예 안 보내고 다음 실행에 맡긴다.
+  //
+  // 🔴 그리고 저장 직전에 **다시 읽어 병합한다.** 이 라우트를 부르는 워크플로가 둘
+  // (`push-notify.yml`·`crawl-results.yml`)이라 GH 쪽 concurrency 로는 겹침을 못 막는다.
+  // 통째 덮어쓰기면 나중에 저장하는 쪽이 앞 실행의 기록을 날려 그 알림들이 재발송된다.
+  const fresh = await loadPushLog();
+  await savePushLog(
+    prunePushLog(
+      {
+        sent: { ...fresh.sent, ...next.sent },
+        scores: { ...fresh.scores, ...next.scores },
+      },
+      getTodayString(),
+    ),
+  );
+
   let sentCount = 0;
   const gone = new Set<string>();
 
   for (const notice of notices) {
-    const targets = subs.filter((s) => shouldReceive(notice, s.follows));
-
-    // 🔴 받는 사람이 없어도 **기록은 남긴다.** 안 그러면 같은 알림을 매 실행마다 다시
-    // 만들고, 나중에 누가 그 팀을 찜하는 순간 지나간 경기의 알림이 한꺼번에 터진다.
-    next.sent[notice.dedupKey] = now;
-    if (notice.score) next.scores[notice.gameKey] = notice.score;
-
-    for (const t of targets) {
+    for (const t of subs.filter((s) => shouldReceive(notice, s.follows))) {
       const res = await sendPush(t.subscription, {
         title: notice.title,
         body: notice.body,
@@ -104,7 +132,6 @@ export async function POST(request: Request): Promise<Response> {
     }
   }
 
-  await savePushLog(prunePushLog(next, getTodayString()));
   // 만료된 구독은 지운다. 실패해도 발송 결과에는 영향 없다.
   await Promise.all([...gone].map((e) => removeSubscription(e).catch(() => {})));
 
@@ -118,30 +145,29 @@ export async function POST(request: Request): Promise<Response> {
 }
 
 /**
- * 편성·결과는 배포된 정적 JSON 에서 읽는다.
- *
  * 🔴 `cache: "no-store"` 가 필수다. 없으면 Next Data Cache 가 붙잡아 그날 첫 스냅샷에
  * 하루 종일 동결된다(2026-07-15 에 `/api/live` 가 그렇게 죽어 있었다).
  */
-async function fetchSchedules(): Promise<Schedule[]> {
-  try {
-    const res = await fetch(`${ORIGIN}/schedule.json`, { cache: "no-store" });
-    if (!res.ok) return [];
-    const data = (await res.json()) as ScheduleData;
-    return Array.isArray(data?.schedules) ? data.schedules : [];
-  } catch {
-    return [];
+async function fetchJson<T>(name: string): Promise<T | null> {
+  // raw 가 죽으면 배포본으로 떨어진다. 낡을지언정 아예 못 읽는 것보다 낫다.
+  for (const base of [RAW, ORIGIN]) {
+    try {
+      const res = await fetch(`${base}/${name}`, { cache: "no-store" });
+      if (res.ok) return (await res.json()) as T;
+    } catch {
+      /* 다음 후보로 */
+    }
   }
+  return null;
+}
+
+async function fetchSchedules(): Promise<Schedule[]> {
+  const data = await fetchJson<ScheduleData>("schedule.json");
+  return Array.isArray(data?.schedules) ? data.schedules : [];
 }
 
 async function fetchResults(): Promise<ResultsData | null> {
-  try {
-    const res = await fetch(`${ORIGIN}/results.json`, { cache: "no-store" });
-    if (!res.ok) return null;
-    return (await res.json()) as ResultsData;
-  } catch {
-    return null;
-  }
+  return fetchJson<ResultsData>("results.json");
 }
 
 function json(body: unknown, status = 200): Response {

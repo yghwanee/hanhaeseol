@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import type { Schedule } from "@/types/schedule";
-import { keyTeamName, teamKey } from "@/lib/follows";
+import { keyTeamName, opponentOf, teamKey } from "@/lib/follows";
 import { matchToSlug } from "@/lib/match-slug";
 import { isGameFinished, formatDateHeader } from "@/lib/schedule-utils";
 import { StatusBadge } from "./StatusBadge";
@@ -40,9 +40,18 @@ export function MyTeamsSection({
   followKeys: string[];
   onToggleTeam: (sport: Schedule["sport"], teamName: string) => void;
 }) {
+  // 🔴 기준 시각을 분마다 갱신한다. useMemo 안에서 한 번 읽고 말면 마운트 시점에
+  // 얼어붙어, 홈을 열어 둔 채로 경기가 끝나도 "다음 경기"가 안 넘어간다(카운트다운은
+  // 0 에서 사라지므로 시간 단서마저 없어진다).
+  const [minuteTick, setMinuteTick] = useState(() => kstNowKey());
+  useEffect(() => {
+    const id = setInterval(() => setMinuteTick(kstNowKey()), 30_000);
+    return () => clearInterval(id);
+  }, []);
+
   const rows = useMemo<Row[]>(() => {
     if (followKeys.length === 0) return [];
-    const now = kstNowKey();
+    const now = minuteTick;
 
     // 같은 경기가 채널마다 한 행씩 들어온다. 경기 단위로 접고 채널은 모아 적는다
     // (FilteredScheduleView 와 같은 키 — 시각은 사전방송 때문에 갈리므로 넣지 않는다).
@@ -83,7 +92,7 @@ export function MyTeamsSection({
         platforms: hit?.platforms ?? [],
       };
     });
-  }, [schedules, followKeys]);
+  }, [schedules, followKeys, minuteTick]);
 
   // 가장 가까운 경기 하나만 카운트다운한다. 여러 개 세면 시선이 흩어진다.
   const soonest = useMemo(() => {
@@ -165,16 +174,13 @@ export function MyTeamsSection({
           없어서, 팀을 고른 **바로 그 자리**에 둔다. 미지원 환경(VAPID 미설정, 아이폰
           미설치, 인앱 웹뷰)에서는 컴포넌트가 스스로 숨는다. */}
       <div className="mt-2.5 flex justify-end text-[11px] text-zinc-400">
-        <PushSubscribeButton />
+        <PushSubscribeButton ctaOnly />
       </div>
     </section>
   );
 }
 
-/** 찜한 팀이 홈이면 원정을, 원정이면 홈을 돌려준다. */
-function opponentOf(g: Schedule, teamName: string): string {
-  return g.homeTeam === teamName ? g.awayTeam : g.homeTeam;
-}
+
 
 /**
  * 가장 가까운 경기까지 남은 시간.
