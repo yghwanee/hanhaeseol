@@ -52,8 +52,7 @@ jobs:
             echo "PUSH_TEST_KEY 시크릿이 없다 — 조용히 종료한다."
             exit 0
           fi
-          body=$(curl -sS -m 60 -w '
-%{http_code}' "https://haeseol.com/api/push/test?key=$PUSH_KEY")
+          body=$(curl -sS -m 60 -w '\n%{http_code}' "https://haeseol.com/api/push/test?key=$PUSH_KEY")
           code=$(printf '%s' "$body" | tail -n1)
           payload=$(printf '%s' "$body" | sed '$d')
           echo "$payload"
