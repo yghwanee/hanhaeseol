@@ -175,9 +175,12 @@ export function buildNotices(input: BuildInput): Notice[] {
     // ── 6. 득점 ──────────────────────────────────────────────────────────
     // 진행 중이고, 직전에 알린 스코어보다 **골 합계가 늘었을 때만**. 스코어가 줄거나
     // 그대로면 크롤 흔들림이지 득점이 아니다.
+    // 🔴 `0-0` 은 어떤 경우에도 득점이 아니다. 기준선이 비어 있으면(그 경기를 처음 보는
+    // 실행) `totalGoals("0-0") = 0 > -1` 이 성립해 **0-0 짜리 득점 알림**이 나간다.
+    // 2026-09-03 실전 dry-run 에서 "키움 0-0 SSG · 1회초" 로 실제로 잡혔다.
     if (result?.status === "live" && score) {
       const prev = lastScores[gk] ?? null;
-      if (totalGoals(score) > totalGoals(prev)) {
+      if (totalGoals(score) > 0 && totalGoals(score) > totalGoals(prev)) {
         const key = `${gk}|goal|${score}`;
         if (!sent.has(key)) {
           out.push({

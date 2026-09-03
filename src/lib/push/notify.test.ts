@@ -160,6 +160,17 @@ test("🔴 시작 전 0-0 은 득점이 아니다 (네이버는 시작 전에도
   );
 });
 
+test("🔴 진행 중 0-0 은 득점이 아니다 (기준선이 비어 있어도)", () => {
+  // 2026-09-03 실전 dry-run 에서 "키움 0-0 SSG · 1회초" 가 실제로 나갔다.
+  // 그 경기를 처음 보는 실행은 lastScores 가 비어 있어 0 > -1 이 성립해 버린다.
+  const out = build({
+    now: KICKOFF + 10 * 60000,
+    results: resultsWith({ status: "live", homeScore: 0, awayScore: 0 }),
+    lastScores: {},
+  });
+  assert.deepEqual(out, []);
+});
+
 test("득점자가 있으면 본문에 가장 늦은 골이 들어간다", () => {
   const out = build({
     now: KICKOFF + 30 * 60000,

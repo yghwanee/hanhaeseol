@@ -261,5 +261,6 @@ ISSUE_BODY="$(gh issue view N --json body -q .body)" npm run check:idea-dupes  #
 
 ## 배포
 
-- **Vercel Git 연동**으로 `main` 푸시 시 자동 프로덕션 배포(`vercel.json` 존재, 별도 deploy 워크플로 없음). 가이드 등 콘텐츠 발행 = main 직접 푸시.
+- 🔴 **`main` 푸시로는 배포가 안 나간다.** `vercel.json` 이 `git.deploymentEnabled: false` 라 Vercel Git 자동 배포가 꺼져 있고, **`deploy.yml` 이 Deploy Hook 으로만** 배포한다(KST 00:10·06:10·12:10·18:10 하루 4번). 지금 바로 내보내려면 `gh workflow run deploy.yml`.
+  - 2026-09-03 에 이 문서가 "main 푸시 시 자동 배포"라고 적혀 있어 푸시해 놓고 라이브에 안 뜨는 걸 한참 확인했다. 가이드 등 콘텐츠도 **푸시만으로는 안 뜬다.**
 - 데이터 JSON의 `lastUpdated`는 **UTC(Z)** 표기(KST=+9). 로컬 "현재 기준"은 위 crawl 명령으로 재크롤(src/data·public 양쪽 기록).
