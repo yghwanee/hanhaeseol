@@ -47,3 +47,19 @@ test("데이터 없는 야구 경기는 home/away 모두 null", () => {
   assert.equal(v!.home, null);
   assert.equal(v!.away, null);
 });
+
+test("선발 소스가 없는 야구 리그는 null — 영원히 빈 '선발 미발표' 섹션을 막는다", () => {
+  for (const league of ["퓨처스리그", "마이너리그", "고교야구"]) {
+    const v = getStartersForMatch(DATA, {
+      date: "2026-06-02", homeTeam: "상무", awayTeam: "한화", sport: "야구", league,
+    });
+    assert.equal(v, null, `${league} 는 선발 섹션을 띄우면 안 된다`);
+  }
+});
+
+test("KBO·MLB 는 league 를 줘도 그대로 동작", () => {
+  const v = getStartersForMatch(DATA, {
+    date: "2026-06-02", homeTeam: "롯데", awayTeam: "KIA", sport: "야구", league: "KBO",
+  });
+  assert.equal(v!.home!.name, "나균안");
+});

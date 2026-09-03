@@ -63,12 +63,30 @@ async function main() {
     lastUpdated: new Date().toISOString(),
   };
 
-  // 네이버가 준 앰블럼 URL 중 404 인 것만 null 로 떨군다(근거는 emblem-check.ts 주석).
+  // 네이버가 준 앰블럼 URL 중 404 인 것은 대체 경로를 먼저 찔러 보고, 그래도 없으면
+  // null 로 떨군다(근거는 emblem-check.ts 주석).
   // 죽은 URL 을 그대로 두면 화면에 깨진 이미지가 뜨고 /api/emblem 이 502 를 낸다.
   console.log("[앰블럼 검증]");
   const pruned = await pruneDeadEmblems(data);
-  console.log(`  ${pruned.checked}개 확인 · 죽은 URL ${pruned.dead.length}개 · ${pruned.cleared}팀 정리`);
-  for (const u of pruned.dead) console.log(`    404 ${u}`);
+  const restored = Object.keys(pruned.replaced).length;
+  console.log(
+    `  ${pruned.checked}개 확인 · 죽은 URL ${pruned.dead.length}개 · ${restored}개 대체 경로로 복구 · ${pruned.cleared}팀 정리`,
+  );
+  for (const u of pruned.dead) {
+    const alt = pruned.replaced[u];
+    console.log(alt ? `    404→복구 ${u}
+           → ${alt}` : `    404 ${u}`);
+  }
+
+  // 로고가 하나도 없는 팀이 남았는지 표로 보여 준다. 조용히 비는 게 제일 나쁘다.
+  const empty = [...data.soccer, ...data.baseball, ...data.basketball]
+    .flatMap((l) => l.teams.map((t) => ({ league: l.name, team: t.teamName, logo: t.teamLogo })))
+    .filter((r) => !r.logo);
+  console.log(
+    empty.length === 0
+      ? "  로고 없는 팀 0"
+      : `  🔴 로고 없는 팀 ${empty.length}: ${empty.map((r) => `${r.league}/${r.team}`).join(", ")}`,
+  );
 
   const jsonStr = JSON.stringify(data, null, 2);
   const srcPath = path.join(process.cwd(), "src/data/standings.json");

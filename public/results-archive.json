@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-03T09:41:39.459Z",
+  "lastUpdated": "2026-09-03T12:39:12.918Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -39019,8 +39019,7 @@
       "homeScore": 9,
       "awayScore": 6,
       "status": "finished",
-      "period": "9회초",
-      "highlightVideoId": "-55sz3dkkf8"
+      "period": "9회초"
     },
     "2026-09-02|kbo|NC|KIA": {
       "date": "2026-09-02",
@@ -39031,8 +39030,7 @@
       "homeScore": 3,
       "awayScore": 2,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "G9D2f8QL8gw"
+      "period": "9회말"
     },
     "2026-09-02|kbo|두산|LG": {
       "date": "2026-09-02",
@@ -39043,8 +39041,7 @@
       "homeScore": 1,
       "awayScore": 5,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "2uBMm5ncr6s"
+      "period": "9회말"
     },
     "2026-09-02|kbo|삼성|롯데": {
       "date": "2026-09-02",
@@ -39055,8 +39052,7 @@
       "homeScore": 8,
       "awayScore": 5,
       "status": "finished",
-      "period": "9회초",
-      "highlightVideoId": "eLu_gGEjzDI"
+      "period": "9회초"
     },
     "2026-09-02|kbo|키움|SSG": {
       "date": "2026-09-02",
@@ -39067,8 +39063,7 @@
       "homeScore": 6,
       "awayScore": 9,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "b_mwR-Mkxgk"
+      "period": "9회말"
     },
     "2026-09-02|mlb|탬파베이 레이스|뉴욕 메츠": {
       "date": "2026-09-02",
@@ -39233,8 +39228,7 @@
       "homeScore": 8,
       "awayScore": 13,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "zu3Ll5h6zEM"
+      "period": "9회말"
     },
     "2026-09-03|denmark|AGF|미트윌란": {
       "date": "2026-09-03",
@@ -39373,6 +39367,28 @@
       "status": "canceled",
       "period": "경기취소"
     },
+    "2026-09-03|kbo|두산|LG": {
+      "date": "2026-09-03",
+      "categoryId": "kbo",
+      "gameId": "20260903LGOB02026",
+      "homeTeam": "두산",
+      "awayTeam": "LG",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-09-03|kbo|삼성|롯데": {
+      "date": "2026-09-03",
+      "categoryId": "kbo",
+      "gameId": "20260903LTSS02026",
+      "homeTeam": "삼성",
+      "awayTeam": "롯데",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-09-03|mlb|신시내티 레즈|샌디에이고 파드리스": {
       "date": "2026-09-03",
       "categoryId": "mlb",
@@ -39382,8 +39398,7 @@
       "homeScore": 7,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회초",
-      "highlightVideoId": "ZZ2d_LcD1d0"
+      "period": "9회초"
     },
     "2026-09-03|mlb|워싱턴 내셔널스|애틀랜타 브레이브스": {
       "date": "2026-09-03",
@@ -39394,8 +39409,7 @@
       "homeScore": 0,
       "awayScore": 9,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "z1RwwxQh7Lc"
+      "period": "9회말"
     },
     "2026-09-03|mlb|텍사스 레인저스|애슬레틱스": {
       "date": "2026-09-03",
@@ -39643,6 +39657,82 @@
       "categoryId": "spl",
       "gameId": "jLkUM5TIMA3XJgf",
       "homeTeam": "팰커크",
+      "awayTeam": "레인저스 FC",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "샹클랜드",
+          "minute": 8
+        },
+        {
+          "team": "home",
+          "player": "네델코비치",
+          "minute": 44,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "샹클랜드",
+          "minute": 79
+        }
+      ]
+    },
+    "2026-09-03|spl|킬마녹|세인트 미렌 FC": {
+      "date": "2026-09-03",
+      "categoryId": "spl",
+      "gameId": "sIzMfhEkyvSfnSA",
+      "homeTeam": "킬마녹",
+      "awayTeam": "세인트 미렌 FC",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "테일러",
+          "minute": 4
+        }
+      ]
+    },
+    "2026-09-03|spl|셀틱 FC|애버딘 FC": {
+      "date": "2026-09-03",
+      "categoryId": "spl",
+      "gameId": "uGfWXwETC8oGoeH",
+      "homeTeam": "셀틱 FC",
+      "awayTeam": "애버딘 FC",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "두란",
+          "minute": 14
+        },
+        {
+          "team": "home",
+          "player": "뉘그렌",
+          "minute": 34
+        },
+        {
+          "team": "home",
+          "player": "양현준",
+          "minute": 45,
+          "addedTime": 1
+        }
+      ]
+    },
+    "2026-09-03|spl|폴커크|레인저스 FC": {
+      "date": "2026-09-03",
+      "categoryId": "spl",
+      "gameId": "jLkUM5TIMA3XJgf",
+      "homeTeam": "폴커크",
       "awayTeam": "레인저스 FC",
       "homeScore": 1,
       "awayScore": 2,
@@ -78687,8 +78777,7 @@
       "homeScore": 9,
       "awayScore": 6,
       "status": "finished",
-      "period": "9회초",
-      "highlightVideoId": "-55sz3dkkf8"
+      "period": "9회초"
     },
     {
       "date": "2026-09-02",
@@ -78699,8 +78788,7 @@
       "homeScore": 3,
       "awayScore": 2,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "G9D2f8QL8gw"
+      "period": "9회말"
     },
     {
       "date": "2026-09-02",
@@ -78711,8 +78799,7 @@
       "homeScore": 1,
       "awayScore": 5,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "2uBMm5ncr6s"
+      "period": "9회말"
     },
     {
       "date": "2026-09-02",
@@ -78723,8 +78810,7 @@
       "homeScore": 8,
       "awayScore": 5,
       "status": "finished",
-      "period": "9회초",
-      "highlightVideoId": "eLu_gGEjzDI"
+      "period": "9회초"
     },
     {
       "date": "2026-09-02",
@@ -78735,8 +78821,7 @@
       "homeScore": 6,
       "awayScore": 9,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "b_mwR-Mkxgk"
+      "period": "9회말"
     },
     {
       "date": "2026-09-02",
@@ -78901,8 +78986,7 @@
       "homeScore": 8,
       "awayScore": 13,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "zu3Ll5h6zEM"
+      "period": "9회말"
     },
     {
       "date": "2026-09-03",
@@ -79043,6 +79127,28 @@
     },
     {
       "date": "2026-09-03",
+      "categoryId": "kbo",
+      "gameId": "20260903LGOB02026",
+      "homeTeam": "두산",
+      "awayTeam": "LG",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-09-03",
+      "categoryId": "kbo",
+      "gameId": "20260903LTSS02026",
+      "homeTeam": "삼성",
+      "awayTeam": "롯데",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-09-03",
       "categoryId": "mlb",
       "gameId": "20260903SDCI0",
       "homeTeam": "신시내티 레즈",
@@ -79050,8 +79156,7 @@
       "homeScore": 7,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회초",
-      "highlightVideoId": "ZZ2d_LcD1d0"
+      "period": "9회초"
     },
     {
       "date": "2026-09-03",
@@ -79062,8 +79167,7 @@
       "homeScore": 0,
       "awayScore": 9,
       "status": "finished",
-      "period": "9회말",
-      "highlightVideoId": "z1RwwxQh7Lc"
+      "period": "9회말"
     },
     {
       "date": "2026-09-03",
@@ -79311,6 +79415,82 @@
       "categoryId": "spl",
       "gameId": "jLkUM5TIMA3XJgf",
       "homeTeam": "팰커크",
+      "awayTeam": "레인저스 FC",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "샹클랜드",
+          "minute": 8
+        },
+        {
+          "team": "home",
+          "player": "네델코비치",
+          "minute": 44,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "샹클랜드",
+          "minute": 79
+        }
+      ]
+    },
+    {
+      "date": "2026-09-03",
+      "categoryId": "spl",
+      "gameId": "sIzMfhEkyvSfnSA",
+      "homeTeam": "킬마녹",
+      "awayTeam": "세인트 미렌 FC",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "테일러",
+          "minute": 4
+        }
+      ]
+    },
+    {
+      "date": "2026-09-03",
+      "categoryId": "spl",
+      "gameId": "uGfWXwETC8oGoeH",
+      "homeTeam": "셀틱 FC",
+      "awayTeam": "애버딘 FC",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "두란",
+          "minute": 14
+        },
+        {
+          "team": "home",
+          "player": "뉘그렌",
+          "minute": 34
+        },
+        {
+          "team": "home",
+          "player": "양현준",
+          "minute": 45,
+          "addedTime": 1
+        }
+      ]
+    },
+    {
+      "date": "2026-09-03",
+      "categoryId": "spl",
+      "gameId": "jLkUM5TIMA3XJgf",
+      "homeTeam": "폴커크",
       "awayTeam": "레인저스 FC",
       "homeScore": 1,
       "awayScore": 2,

@@ -73,6 +73,8 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   },
 
   프리미어리그: {
+    // 순위표(네이버)는 풀네임, 편성은 축약 — 로고가 안 붙던 표기(2026-09-03 감사).
+    "입스위치 타운": "입스위치",
     "노팅엄 포레스트": "노팅엄",
     "뉴캐슬 유나이티드": "뉴캐슬",
     "리즈 유나이티드": "리즈",
@@ -91,6 +93,8 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   },
 
   라리가: {
+    // 네이버 순위표 표기가 "데포르티보 라 코루냐 A" 다(A 는 네이버가 붙인 꼬리표).
+    "데포르티보 라 코루냐 A": "데포르티보",
     "아틀레티코 마드리드": "AT.마드리드",
     "아틀레틱 빌바오": "아틀레틱",
     "셀타 데 비고": "셀타 비고",
@@ -108,6 +112,7 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   },
 
   세리에A: {
+    "프로시노네": "프로시노네 칼초",
     "로마": "AS 로마",
     "밀란": "AC 밀란",
     "베로나": "헬라스 베로나",
@@ -120,6 +125,9 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   },
 
   분데스리가: {
+    // 창단연도 접미사 유무 차이. 편성은 떼고 온다(2026-09-03 감사).
+    "파더보른 07": "파더보른",
+    "샬케 04": "샬케",
     "FC 쾰른": "쾰른",
     "RB 라이프치히": "라이프치히",
     "TSG 호펜하임": "호펜하임",
@@ -139,6 +147,10 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   },
 
   MLS: {
+    // 네이버 "애틀란타"(란) / 편성 "애틀랜타"(랜). 한 글자 차이로 로고가 안 붙었다.
+    "애틀란타 유나이티드": "애틀랜타 유나이티드",
+    // 위의 "솔트 레이크" 항목과 별개로, 네이버 순위표 표기는 "리얼 솔트 레이크" 다.
+    "리얼 솔트 레이크": ["솔트레이크", "레알 솔트레이크"],
     // 네이버는 짧게 "LAFC"로 옴. Apple TV+는 "로스앤젤레스 FC"로,
     // 쿠팡플레이는 "LAFC"로 와서 schedule에 두 표기가 공존한다.
     "LAFC": "로스앤젤레스 FC",
@@ -204,6 +216,8 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   },
 
   유로파리그: {
+    // SPOTV NOW 스코티시 편성은 "FC" 를 붙여 온다.
+    "셀틱": "셀틱 FC",
     "노팅엄 포레스트": "노팅엄",
     "애스턴 빌라": "아스톤 빌라",
     "셀타 데 비고": "셀타 비고",
@@ -214,6 +228,8 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   },
 
   에레디비시: {
+    // 네이버 "아인트호벤" / 편성 "에인트호번" — 같은 PSV 다.
+    "아인트호벤": "에인트호번",
     "포르투나 시타르트": "포르튀나",
     "PEC 즈볼레": "즈볼러",
   },
@@ -243,6 +259,13 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   "스코티시 프리미어십": {
     애버딘: "애버딘 FC",
     레인저스: "레인저스 FC",
+    // 2026-09-03 audit:aliases 가 MISS 로 잡은 2건. 예고대로 편성에 들어오면서 드러났다.
+    // 네이버는 "팰커크"(패), 편성(SPOTV NOW)은 "폴커크"(포) — 표기가 갈린다.
+    팰커크: "폴커크",
+    하이버니언: "하이버니언 FC",
+    셀틱: "셀틱 FC",
+    "세인트 미렌": "세인트 미렌 FC",
+    "세인트 존스톤": "세인트 존스톤 FC",
   },
 
   // 덴마크 1부 Superliga. schedule.json엔 아직 매치 없지만 미래 대비.

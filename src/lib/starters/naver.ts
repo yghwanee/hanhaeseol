@@ -23,15 +23,34 @@ export interface NaverGame {
   awayTeamName: string;
 }
 
+/**
+ * 🔴 `size` 를 안 붙이면 네이버는 **10건만** 준다(응답의 `gameTotalCount` 는 전체 수를 알려준다).
+ * MLB 는 하루 15경기라 매일 5경기가 조용히 잘려 나갔고, 그 경기들은 선발이 preview 에
+ * 멀쩡히 있는데도 `starters.json` 에 안 들어가 화면에 "선발 미발표" 로 떴다.
+ * (2026-09-03 실측: mlb 2026-09-03 → games 10 / gameTotalCount 15. 잘린 5건 중 3건이
+ *  우리 편성에 있던 컵스·에인절스·다저스 경기다.)
+ *
+ * `results/naver.ts` 의 `fetchLeagueGames` 는 처음부터 `size=500` 을 붙여 이 문제가 없었다.
+ * 같은 상한을 쓴다. 하루치 조회라 500 이면 어떤 리그도 넘지 않는다.
+ */
+const LIST_SIZE = 500;
+
 export async function fetchGameList(
   categoryId: string,
   fromDate: string,
   toDate: string,
 ): Promise<NaverGame[]> {
-  const r = await naverGet<{ games?: NaverGame[] }>(
-    `/schedule/games?categoryId=${categoryId}&fromDate=${fromDate}&toDate=${toDate}`,
+  const r = await naverGet<{ games?: NaverGame[]; gameTotalCount?: number }>(
+    `/schedule/games?categoryId=${categoryId}&fromDate=${fromDate}&toDate=${toDate}&size=${LIST_SIZE}`,
   );
-  return (r.games ?? []).map((g) => ({
+  const games = r.games ?? [];
+  // 상한을 올려도 잘렸다면 조용히 넘어가지 않는다 — 다시 선발이 통째로 비는 사고가 된다.
+  if (typeof r.gameTotalCount === "number" && games.length < r.gameTotalCount) {
+    console.warn(
+      `[starters] ${categoryId} ${fromDate}: ${games.length}/${r.gameTotalCount} 건만 받았다 (size=${LIST_SIZE})`,
+    );
+  }
+  return games.map((g) => ({
     gameId: g.gameId,
     gameDate: g.gameDate,
     homeTeamName: g.homeTeamName,

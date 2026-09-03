@@ -1,6 +1,7 @@
 // 서버 컴포넌트 전용 데이터 로더. fs 직접 접근하므로 클라이언트에서 import 금지.
 import fs from "fs";
 import path from "path";
+import { resolveTeamLogo } from "@/lib/team-logo";
 import type { ScheduleData } from "@/types/schedule";
 import type { TeamRecordsData, TeamRecordsMap } from "@/types/team-record";
 import type { ResultsData } from "@/types/results";
@@ -24,6 +25,27 @@ export function loadScheduleData(): ScheduleData {
   // 홈/원정만 뒤집힌 같은 경기를 접는다. 안 접으면 사이트맵에 URL 이 두 개 올라가고
   // 매치 페이지 "다음 경기" 목록에 같은 경기가 두 줄로 뜬다(2026-08-13 실측 2건).
   data.schedules = dedupeReversedFixtures(data.schedules);
+
+  // 카드에 쓸 앰블럼을 여기서 붙인다.
+  //
+  // `ScheduleCard` 는 `homeEmblem`/`awayEmblem` 이 있을 때만 앰블럼을 그리는데, 그 필드를
+  // 채워 주는 곳이 `worldcup.json` 뿐이었다 — `schedule.json` 189경기는 전부 비어 있어서
+  // **카드 앰블럼이 월드컵 경기에만** 보였다(2026-09-03 실측).
+  //
+  // 크롤러가 아니라 읽는 쪽에서 붙이는 이유: 로고 출처(순위표·수기표)가 바뀌면 다음 배포에
+  // 바로 반영된다. 크롤 결과에 구워 두면 다음 크롤까지 낡은 URL 이 남는다.
+  //
+  // 월드컵 행이 이미 갖고 있던 값은 네이버의 generic placeholder(`wfootball/default/...`)라
+  // 사실상 빈 칸이다. 리졸버가 국기를 찾아 주면 그쪽이 낫고, 못 찾으면 원래 값을 남긴다.
+  data.schedules = data.schedules.map((s) => {
+    const home = resolveTeamLogo(s.homeTeam) ?? s.homeEmblem;
+    const away = resolveTeamLogo(s.awayTeam) ?? s.awayEmblem;
+    return {
+      ...s,
+      ...(home ? { homeEmblem: home } : {}),
+      ...(away ? { awayEmblem: away } : {}),
+    };
+  });
 
   return data;
 }

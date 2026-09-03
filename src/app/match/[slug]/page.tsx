@@ -36,13 +36,12 @@ import { MatchLineup } from "./_components/MatchLineup";
 import { MatchBaseballLineup } from "./_components/MatchBaseballLineup";
 import { MatchLiveScore } from "./_components/MatchLiveScore";
 import { getStartersForMatch } from "@/lib/starters/lookup";
+import { resolveTeamLogo } from "@/lib/team-logo";
 import type { StartersData } from "@/types/starter";
 import startersData from "@/data/starters.json";
 import { MatchContextSection } from "./_components/MatchContext";
 import { MatchRecentGames } from "./_components/MatchRecentGames";
 import { TeamLogo } from "../../_components/TeamLogo";
-import { NAVER_TO_SCHEDULE_TEAM_NAME } from "@/lib/team-records/team-name-aliases";
-import { getTeamLogo } from "@/data/team-logos";
 import teamRecordsData from "@/data/team-records.json";
 import type { TeamRecordsData } from "@/types/team-record";
 import { buildMatchNarrative } from "@/lib/match-content/build";
@@ -68,56 +67,11 @@ const LAST_UPDATED_KST_DISPLAY = new Intl.DateTimeFormat("sv-SE", {
 }).format(new Date(data.lastUpdated));
 
 /**
- * standings teamName → logo URL. 모듈 로드 시 1회 평탄화해서 O(1) 조회.
- * standings 표기는 네이버 원본(예: "맨체스터 시티").
+ * schedule 표기로 팀 로고 찾기. 규칙 본체는 `@/lib/team-logo` 로 옮겼다 —
+ * 홈 카드(`ScheduleCard`)도 같은 규칙이 필요한데 여기 갇혀 있어서 카드 앰블럼이
+ * 월드컵 경기에만 보였다(2026-09-03). 이름은 호출부 diff 를 줄이려고 그대로 둔다.
  */
-const STANDINGS_LOGOS: Map<string, string | null> = (() => {
-  const m = new Map<string, string | null>();
-  const all = [
-    ...standings.soccer,
-    ...standings.baseball,
-    ...standings.basketball,
-  ];
-  for (const league of all) {
-    for (const team of league.teams) {
-      m.set(team.teamName, team.teamLogo ?? null);
-    }
-  }
-  return m;
-})();
-
-/**
- * schedule 표기 → standings(네이버) 표기 reverse map.
- * 원본은 naver→schedule 매핑이라 여기서 뒤집어준다. 한 schedule 이름이
- * 여러 standings 이름과 매칭될 수 있는 충돌 케이스는 마지막 정의가 wins.
- */
-const SCHEDULE_TO_STANDINGS_NAME: Map<string, string> = (() => {
-  const m = new Map<string, string>();
-  for (const leagueAliases of Object.values(NAVER_TO_SCHEDULE_TEAM_NAME)) {
-    for (const [naverName, scheduleNames] of Object.entries(leagueAliases)) {
-      const names = Array.isArray(scheduleNames) ? scheduleNames : [scheduleNames];
-      for (const sn of names) m.set(sn, naverName);
-    }
-  }
-  return m;
-})();
-
-/**
- * schedule 표기로 팀 로고 찾기.
- * 1순위: team-logos.ts (schedule 표기 기준, 로컬/ESPN/SDB 등 안정적 소스).
- *   네이버 sports-phinf CDN은 외부 사이트 핫링크가 차단되는 경우가 있어 standings보다 우선.
- * 2순위: standings.json 직접 매칭 → alias 역매핑.
- */
-function findTeamLogo(teamName: string): string | null {
-  const mapped = getTeamLogo(teamName);
-  if (mapped) return mapped;
-  if (STANDINGS_LOGOS.has(teamName)) return STANDINGS_LOGOS.get(teamName) ?? null;
-  const standingsName = SCHEDULE_TO_STANDINGS_NAME.get(teamName);
-  if (standingsName && STANDINGS_LOGOS.has(standingsName)) {
-    return STANDINGS_LOGOS.get(standingsName) ?? null;
-  }
-  return null;
-}
+const findTeamLogo = resolveTeamLogo;
 const resultsArchive = resultsArchiveData as unknown as ResultsData;
 const results = resultsData as unknown as ResultsData;
 

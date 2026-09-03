@@ -349,6 +349,36 @@ export const TEAM_LOGOS: Record<string, string> = {
   싱가포르: FLAG("sg"),
   말레이시아: FLAG("my"),
 
+  // ── 순위표가 커버하지 않는 리그 (2026-09-03 편성 감사에서 로고가 통째로 비던 팀들) ──
+  // 우리 순위표는 EPL·라리가·분데스1·세리에A·리그앙·UCL·UEL·MLS·K리그1/2·에레디비시까지다.
+  // 스코티시·EFL 챔피언십·분데스2·멕시코 리그는 순위표가 없어 팀명을 아무리 맞춰도
+  // 끌어올 로고가 없다. ESPN 팀 ID 는 각 리그 teams API 로 조회해 확인했고
+  // (sco.1 / eng.2 / ger.2 / mex.1), 받은 이미지도 육안으로 대조했다.
+
+  // 스코티시 프리미어십 — SPOTV NOW 편성은 "FC" 를 붙여 온다.
+  "셀틱 FC": SOC(256),
+  "레인저스 FC": SOC(257),
+  "하이버니언 FC": SOC(258),
+  하츠: SOC(262), // Heart of Midlothian
+  "세인트 미렌 FC": SOC(250),
+  "세인트 존스톤 FC": SOC(267),
+  폴커크: SOC(254), // Falkirk
+
+  // EFL 챔피언십 · 카라바오컵
+  스완지: SOC(318), // Swansea City
+  밀월: SOC(391), // Millwall
+
+  // 분데스리가 2 · DFB-포칼
+  오스나브뤼크: SOC(7013), // VfL Osnabrück
+  카이저슬라우테른: SOC(130),
+
+  // 리그컵(멕시코 · Leagues Cup)
+  "톨루카 FC": SOC(223),
+  "CF 몬테레이": SOC(220),
+
+  // MLB — 편성이 도시 풀네임으로 주는 표기. "LA 에인절스" 만 있어 안 붙었다.
+  "로스앤젤레스 에인절스": MLB("laa"),
+
   // WKBL (프로농구)
   "삼성생명 블루밍스": "https://www.wkbl.or.kr/static/images/team/teamlogo_03.png",
   "삼성생명": "https://www.wkbl.or.kr/static/images/team/teamlogo_03.png",
