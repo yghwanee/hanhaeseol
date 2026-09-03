@@ -177,7 +177,8 @@ export function MyTeamsSection({
 
       {/* 🔴 알림 구독 버튼은 원래 푸터에만 있었다. 찜을 막 한 사람이 그걸 찾아 내려갈 리
           없어서, 팀을 고른 **바로 그 자리**에 둔다. 미지원 환경(VAPID 미설정, 아이폰
-          미설치, 인앱 웹뷰)에서는 컴포넌트가 스스로 숨는다. */}
+          미설치, 인앱 웹뷰)에서는 컴포넌트가 스스로 숨는다.
+          켠 뒤에도 이 자리에 "알림 켜짐" 이 남는다 — 상태를 푸터에만 두면 아무도 못 본다. */}
       <div className="mt-2.5 flex justify-end text-[11px] text-zinc-400">
         <PushSubscribeButton ctaOnly />
       </div>

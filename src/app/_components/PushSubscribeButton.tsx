@@ -36,9 +36,14 @@ const SUB_EVENT = "hhs:push-sub";
  */
 export function PushSubscribeButton({
   /**
-   * 구독을 이미 켠 뒤에는 렌더하지 않는다. 이 버튼이 **푸터와 내 팀 섹션 두 곳**에
-   * 걸려 있어서, 켜고 나면 같은 문구가 한 화면에 두 번 뜬다. 내 팀 섹션 쪽은
-   * "켜라"는 권유가 목적이므로 켜진 뒤에는 빠지고, 상태 표시는 푸터 하나가 맡는다.
+   * 내 팀 섹션(카드 안)에 놓는 축약형. 푸터 쪽은 이 값을 주지 않는다.
+   *
+   * 🔴 켜진 뒤에도 **숨지 않는다.** 종전에는 중복을 피하려고 `null` 을 돌려줬는데,
+   * 그러면 상태 표시가 푸터 하나만 남고 그 푸터는 편성 카드 수십 장 아래라 방금 별을
+   * 누른 사람이 켜졌는지 알 수 없었다(2026-09-04 사용자 지적). 두 곳은 같은 화면에
+   * 안 걸리므로 카드 안에는 짧게("알림 켜짐"), 푸터에는 전체 문구를 그린다.
+   *
+   * 찜 목록 재동기는 이쪽에서 하지 않는다 — 푸터 인스턴스가 맡는다(아래 effect).
    */
   ctaOnly = false,
 }: { ctaOnly?: boolean } = {}) {
@@ -124,28 +129,115 @@ export function PushSubscribeButton({
     }
   };
 
+  /**
+   * 알림 끄기.
+   *
+   * 🔴 **서버에서 먼저 지우고, 그다음 로컬 구독을 해제한다.** 반대 순서면 로컬을 지운 뒤
+   * 서버 삭제가 실패했을 때 endpoint 를 잃어버려 **영영 지울 수 없는 유령 구독**이 남는다
+   * (화면은 "꺼짐"인데 알림은 계속 온다). 서버 삭제가 실패하면 아예 끄지 않고 되돌린다.
+   *
+   * 🔴 알림 **권한**은 코드로 못 되돌린다(한 번 granted 면 브라우저 설정에서만 바꾼다).
+   * 그래서 끄기는 구독을 지우는 것이고, 다시 켤 때는 프롬프트 없이 바로 켜진다.
+   */
+  const unsubscribe = async () => {
+    setState("busy");
+    try {
+      const reg = await navigator.serviceWorker.ready;
+      const sub = await reg.pushManager.getSubscription();
+      if (!sub) {
+        setState("idle");
+        window.dispatchEvent(new Event(SUB_EVENT));
+        return;
+      }
+      const res = await fetch("/api/push/subscribe", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ endpoint: sub.endpoint }),
+      });
+      if (!res.ok) {
+        setState("subscribed");
+        return;
+      }
+      await sub.unsubscribe().catch(() => {});
+      lastSynced.current = null;
+      setState("idle");
+      window.dispatchEvent(new Event(SUB_EVENT));
+    } catch {
+      setState("subscribed");
+    }
+  };
+
   if (state === "init" || state === "unsupported") return null;
   if (state === "denied")
     return <span className="text-zinc-500">알림 차단됨 (브라우저 설정에서 허용)</span>;
 
   if (state === "subscribed") {
-    if (ctaOnly) return null;
+    // 🔴 종전에는 `ctaOnly` 면 **아무것도 안 그렸다**(중복 표시를 피하려고). 그런데 남는
+    // 표시가 푸터 하나뿐이라, 방금 별을 누른 사람은 **켜졌는지 알 방법이 없었다** —
+    // 푸터는 편성 카드 수십 장 아래라 아무도 안 내려간다(2026-09-04 사용자 지적).
+    // 두 곳은 애초에 같은 화면에 없어서 "두 번 뜬다"는 걱정이 과했다.
+    // 카드 안에서는 짧게(팀 목록이 바로 위에 있으니 개수는 군더더기), 푸터에서는 전체를.
+    if (ctaOnly) return <Toggle on onClick={unsubscribe} />;
     return (
-      <span className="text-emerald-400">
-        {follows.length > 0
-          ? `🔔 내 팀 ${follows.length}개 알림 켜짐`
-          : "🔔 알림 켜짐 · 팀을 찜하면 알림이 옵니다"}
+      <span className="inline-flex items-center gap-2">
+        <Toggle on onClick={unsubscribe} />
+        <span className="text-emerald-400/70">
+          {follows.length > 0 ? `내 팀 ${follows.length}개` : "팀을 찜하면 알림이 옵니다"}
+        </span>
       </span>
     );
   }
 
+  return <Toggle on={false} onClick={subscribe} busy={state === "busy"} />;
+}
+
+/**
+ * 알림 on/off 토글.
+ *
+ * 🔴 **상태와 동작을 한 컨트롤로 합친다.** 종전에는 꺼진 상태만 버튼("알림 받기")이고 켜진
+ * 뒤에는 글자("알림 켜짐")로 바뀌어, 켠 사람이 **끌 방법이 화면에 없었다**(2026-09-04
+ * 사용자 지적). 한 번 누르면 켜지고 다시 누르면 꺼지는 게 사람이 기대하는 동작이다.
+ *
+ * 스위치 손잡이가 좌↔우로 움직여 지금 어느 상태인지 글자를 안 읽어도 보인다.
+ * `aria-pressed` 로 스크린리더에도 같은 정보를 준다.
+ */
+function Toggle({
+  on,
+  onClick,
+  busy = false,
+}: {
+  on: boolean;
+  onClick: () => void;
+  busy?: boolean;
+}) {
   return (
     <button
-      onClick={subscribe}
-      disabled={state === "busy"}
-      className="transition-colors hover:text-white disabled:opacity-50"
+      type="button"
+      onClick={onClick}
+      disabled={busy}
+      aria-pressed={on}
+      aria-label={on ? "경기 알림 끄기" : "경기 알림 받기"}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-[3px] transition-colors disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-400 ${
+        on
+          ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:border-emerald-400/60"
+          : "border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-zinc-200"
+      }`}
     >
-      🔔 알림 받기
+      <svg viewBox="0 0 24 24" className="h-3 w-3 shrink-0" fill="currentColor" aria-hidden>
+        <path d="M12 2a6 6 0 00-6 6v3.6l-1.7 3.2A1 1 0 005.2 17h13.6a1 1 0 00.9-1.2l-1.7-3.2V8a6 6 0 00-6-6zm0 19a2.8 2.8 0 002.7-2h-5.4A2.8 2.8 0 0012 21z" />
+      </svg>
+      <span>{busy ? "잠시만" : on ? "알림 켜짐" : "알림 받기"}</span>
+      {/* 스위치 — 글자를 안 읽어도 상태가 보인다 */}
+      <span
+        className={`ml-0.5 flex h-3 w-5 shrink-0 items-center rounded-full px-[2px] transition-colors ${
+          on ? "bg-emerald-500/70" : "bg-zinc-700"
+        }`}
+        aria-hidden
+      >
+        <span
+          className={`h-2 w-2 rounded-full bg-white transition-transform ${on ? "translate-x-[10px]" : "translate-x-0"}`}
+        />
+      </span>
     </button>
   );
 }

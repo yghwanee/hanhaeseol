@@ -22,6 +22,10 @@ on:
         description: '보내지 않고 무엇이 나갈지만 출력'
         required: false
         default: 'false'
+      test:
+        description: '구독자 전원에게 테스트 푸시 1발 (경로가 끝까지 도는지 확인)'
+        required: false
+        default: 'false'
 
 permissions:
   contents: read
@@ -35,7 +39,36 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
+      # 🔴 실제 발송이 폰까지 도는지 확인할 방법이 **CI 에 없었다.** `/api/push/test` 라우트는
+      # 있는데 부를 곳이 사람 노트북뿐이라, 그 IP 가 막히면(2026-09-04 에 반복 curl 로
+      # Vercel 방화벽 챌린지가 걸렸다) 확인 자체가 불가능해진다. 여기서 부를 수 있게 한다.
+      # 테스트 라우트를 없앨 때 이 스텝도 같이 지운다.
+      - name: 테스트 푸시 1발
+        if: ${{ inputs.test == 'true' }}
+        env:
+          PUSH_KEY: ${{ secrets.PUSH_TEST_KEY }}
+        run: |
+          if [ -z "$PUSH_KEY" ]; then
+            echo "PUSH_TEST_KEY 시크릿이 없다 — 조용히 종료한다."
+            exit 0
+          fi
+          body=$(curl -sS -m 60 -w '
+%{http_code}' "https://haeseol.com/api/push/test?key=$PUSH_KEY")
+          code=$(printf '%s' "$body" | tail -n1)
+          payload=$(printf '%s' "$body" | sed '$d')
+          echo "$payload"
+          if [ "$code" != "200" ]; then
+            echo "::error::테스트 발송 실패 (HTTP $code)"
+            exit 1
+          fi
+          # 🔴 `sent` 가 0 이면 실패로 본다. 구독자가 있는데 한 통도 못 갔다는 뜻이고,
+          #    그걸 성공으로 넘기면 "확인했다"고 착각하게 된다(이 레포 단골 함정).
+          case "$payload" in
+            *'"sent":0'*) echo "::error::구독자에게 한 통도 못 갔다 — 발송 경로를 확인할 것"; exit 1 ;;
+          esac
+
       - name: 알림 발송 요청
+        if: ${{ inputs.test != 'true' }}
         env:
           PUSH_KEY: ${{ secrets.PUSH_TEST_KEY }}
           DRY: ${{ github.event.inputs.dry }}
