@@ -145,7 +145,7 @@ export function PushSubscribeButton({
       disabled={state === "busy"}
       className="transition-colors hover:text-white disabled:opacity-50"
     >
-      🔔 내 팀 경기 알림 받기
+      🔔 알림 받기
     </button>
   );
 }

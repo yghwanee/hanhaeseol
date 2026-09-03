@@ -359,9 +359,15 @@ async function fillDetails(jobs: { gameId: string; result: MatchResult }[]): Pro
  * ③득점자 상세는 "진행중 축구"만 추가 조회(종료 경기 득점자는 30분 주기 결과 크롤이 채움).
  * 반환은 동일한 ResultsData 모양 → 클라가 빌드시 results 위에 byKey로 머지해 카드 스코어만 갱신.
  */
-export async function crawlLiveResults(): Promise<ResultsData> {
+export async function crawlLiveResults(categoryIds?: string[]): Promise<ResultsData> {
+  // 🔴 `categoryIds` 는 **실시간 골 폴러**가 쓴다. 폴러는 60초마다 도는데 전 리그(30여 개)를
+  // 매번 훑으면 6시간 창에서 네이버 요청이 만 건을 넘어 차단을 부른다. 찜한 팀이 걸린
+  // 리그만 넘기면 KBO 하나면 요청 1건이다. 인자가 없으면 종전대로 전 리그(=`/api/live`).
+  const targets = categoryIds?.length
+    ? LEAGUES.filter((lg) => categoryIds.includes(lg.categoryId))
+    : LEAGUES;
   const lists = await Promise.all(
-    LEAGUES.map((lg) => fetchLeagueGames(lg.categoryId).catch(() => [] as NaverGame[])),
+    targets.map((lg) => fetchLeagueGames(lg.categoryId).catch(() => [] as NaverGame[])),
   );
   const allGames = lists.flat();
 

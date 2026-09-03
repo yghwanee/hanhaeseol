@@ -11,6 +11,9 @@ import {
 } from "@/lib/push/log-store";
 import { matchToSlug } from "@/lib/match-slug";
 import { getTodayString } from "@/lib/schedule-utils";
+import { crawlLiveResults } from "@/lib/results/naver";
+import { categoriesForLeague } from "@/lib/results/lookup";
+import { isFollowedGame } from "@/lib/follows";
 
 /**
  * ⭐찜한 팀 경기 알림 발송.
@@ -49,7 +52,22 @@ export async function POST(request: Request): Promise<Response> {
     return json({ ok: true, skipped: "VAPID 미설정" });
   }
 
-  const dryRun = new URL(request.url).searchParams.get("dry") === "1";
+  const params = new URL(request.url).searchParams;
+  const dryRun = params.get("dry") === "1";
+
+  /**
+   * 🔴 `live=1` — 결과를 레포 raw 가 아니라 **네이버에서 직접** 가져온다.
+   *
+   * raw 는 매시 13분 크롤 커밋만 따라가므로 득점 알림이 최대 한 시간 늦는다. 실시간 골
+   * 폴러(`push-live.yml`)는 스코어가 실제로 바뀐 순간에만 이 라우트를 부르는데, 그때
+   * raw 를 읽으면 **아직 그 득점이 안 들어와 있어** 알림이 안 나간다. 그래서 이 모드에선
+   * 같은 순간의 네이버 스냅샷을 본다.
+   *
+   * 🔴 raw 를 **버리지 않고 덮어쓴다.** 라이브 크롤은 진행중·종료만 담아서(payload 축소)
+   * 취소·연기 상태가 빠지는데, `buildNotices` 는 그걸 보고 "곧 시작"을 막는다. 통째로
+   * 갈아치우면 취소된 경기에 킥오프 알림이 나간다.
+   */
+  const live = params.get("live") === "1";
 
   // 🔴 Blob 스토어가 없으면 구독자도 발송기록도 못 읽는다. 던지게 두면 워크플로가
   // 매시 빨개져서 진짜 고장을 못 알아본다. dry-run 은 저장소 없이도 돌게 둔다 —
@@ -59,12 +77,19 @@ export async function POST(request: Request): Promise<Response> {
     return json({ ok: true, skipped: "Blob 스토어 미설정" });
   }
 
-  const [schedules, results, subs, log] = await Promise.all([
+  const [schedules, rawResults, subs, log] = await Promise.all([
     fetchSchedules(),
     fetchResults(),
     hasStore ? listSubscriptions().catch(() => []) : Promise.resolve([]),
     hasStore ? loadPushLog() : Promise.resolve({ sent: {}, scores: {} }),
   ]);
+
+  /** 구독자들이 찜한 팀 키의 합집합. 폴러가 무엇을 지켜볼지 정하는 데 쓴다. */
+  const watch = [...new Set(subs.flatMap((t) => t.follows))].sort();
+
+  const results = live
+    ? mergeLive(rawResults, await crawlLiveScoped(schedules, watch))
+    : rawResults;
 
   const notices = buildNotices({
     schedules,
@@ -76,13 +101,14 @@ export async function POST(request: Request): Promise<Response> {
   });
 
   if (notices.length === 0) {
-    return json({ ok: true, subscribers: subs.length, notices: 0, sent: 0 });
+    return json({ ok: true, subscribers: subs.length, notices: 0, sent: 0, watch });
   }
   if (dryRun) {
     return json({
       ok: true,
       dryRun: true,
       subscribers: subs.length,
+      watch,
       notices: notices.map((n) => ({ kind: n.kind, title: n.title, body: n.body })),
     });
   }
@@ -138,6 +164,7 @@ export async function POST(request: Request): Promise<Response> {
   return json({
     ok: true,
     subscribers: subs.length,
+    watch,
     notices: notices.length,
     sent: sentCount,
     removed: gone.size,
@@ -168,6 +195,49 @@ async function fetchSchedules(): Promise<Schedule[]> {
 
 async function fetchResults(): Promise<ResultsData | null> {
   return fetchJson<ResultsData>("results.json");
+}
+
+/**
+ * 찜한 팀이 걸린 경기의 리그만 골라 라이브 크롤한다.
+ *
+ * 전 리그(30여 개)를 훑을 이유가 없다 — 알림은 찜한 팀 경기에만 나가므로 그 리그만 보면
+ * 되고, 폴러가 60초마다 부르는 경로라 요청 수가 그대로 네이버 부하가 된다.
+ * 감시 목록이 비었으면(구독자 0명) 크롤 자체를 건너뛴다.
+ */
+async function crawlLiveScoped(
+  schedules: Schedule[],
+  watch: string[],
+): Promise<ResultsData | null> {
+  if (watch.length === 0) return null;
+  const followed = new Set(watch);
+  const cats = new Set<string>();
+  for (const s of schedules) {
+    if (!isFollowedGame(s, followed)) continue;
+    for (const c of categoriesForLeague(s.league)) cats.add(c);
+  }
+  if (cats.size === 0) return null;
+  try {
+    return await crawlLiveResults([...cats]);
+  } catch {
+    // 네이버가 흔들리면 raw 로 판정한다. 늦을 뿐이지 틀리지는 않는다.
+    return null;
+  }
+}
+
+/**
+ * raw 결과 위에 라이브 스냅샷을 덮는다. `byKey` 는 라이브가 이기고, raw 에만 있는 키
+ * (예정·취소)는 그대로 남는다.
+ */
+function mergeLive(raw: ResultsData | null, live: ResultsData | null): ResultsData | null {
+  if (!live) return raw;
+  if (!raw) return live;
+  const byKey = { ...raw.byKey, ...live.byKey };
+  const liveIds = new Set(live.results.map((r) => `${r.date}|${r.categoryId}|${r.homeTeam}|${r.awayTeam}`));
+  const results = [
+    ...live.results,
+    ...raw.results.filter((r) => !liveIds.has(`${r.date}|${r.categoryId}|${r.homeTeam}|${r.awayTeam}`)),
+  ];
+  return { lastUpdated: live.lastUpdated, byKey, results };
 }
 
 function json(body: unknown, status = 200): Response {

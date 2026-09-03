@@ -5,12 +5,26 @@ import { TeamRecord } from "@/types/team-record";
 import { GoalEvent, MatchResult } from "@/types/results";
 import { isGameFinished } from "@/lib/schedule-utils";
 import { matchToSlug } from "@/lib/match-slug";
-import { proxyLogo } from "@/lib/emblem";
+import { isFlagEmblem, proxyLogo } from "@/lib/emblem";
 import { StatusBadge } from "./StatusBadge";
 import { PlatformBadge } from "./PlatformBadge";
 import { FollowStar } from "./FollowStar";
 import { Highlight } from "./Highlight";
 import { LastFiveBadges } from "./LastFiveBadges";
+
+/**
+ * 앰블럼 한 칸의 클래스. 국기와 클럽 엠블럼은 **비율이 달라 같은 박스에 못 담는다.**
+ *
+ * - 국기(3:2): 20×14 를 `cover` 로 꽉 채운다. 여백이 없어 깔끔하고, 잘려도 티가 안 난다.
+ * - 클럽 엠블럼(정사각): 18×18 을 `contain` 으로 담는다. 🔴 `cover` 로 두면 위아래가
+ *   21% 잘려 둥근 로고가 뭉개진다(2026-09-03 사용자 지적). 자르지 않는 게 유일한 답이다.
+ */
+function emblemClass(url: string): string {
+  const base = "shrink-0 self-center rounded-[2px]";
+  return isFlagEmblem(url)
+    ? `${base} h-3.5 w-5 object-cover`
+    : `${base} h-[18px] w-[18px] object-contain`;
+}
 
 /** "이름 45+2'" 형태 라벨. 자책골은 (OG) 표기. */
 function goalLabel(g: GoalEvent): string {
@@ -141,7 +155,7 @@ function ScheduleCardInner({
               )}
               {schedule.homeEmblem && (
                 /* eslint-disable-next-line @next/next/no-img-element */
-                <img src={proxyLogo(schedule.homeEmblem)} alt="" referrerPolicy="no-referrer" loading="lazy" className="h-3.5 w-5 shrink-0 self-center rounded-[2px] object-cover" />
+                <img src={proxyLogo(schedule.homeEmblem)} alt="" referrerPolicy="no-referrer" loading="lazy" className={emblemClass(schedule.homeEmblem)} />
               )}
               <span className="min-w-0 truncate"><Highlight text={schedule.homeTeam} query={query} /></span>
             </span>
@@ -163,7 +177,7 @@ function ScheduleCardInner({
               <span className="min-w-0 truncate"><Highlight text={schedule.awayTeam} query={query} /></span>
               {schedule.awayEmblem && (
                 /* eslint-disable-next-line @next/next/no-img-element */
-                <img src={proxyLogo(schedule.awayEmblem)} alt="" referrerPolicy="no-referrer" loading="lazy" className="h-3.5 w-5 shrink-0 self-center rounded-[2px] object-cover" />
+                <img src={proxyLogo(schedule.awayEmblem)} alt="" referrerPolicy="no-referrer" loading="lazy" className={emblemClass(schedule.awayEmblem)} />
               )}
               {onToggleTeam && (
                 <FollowStar

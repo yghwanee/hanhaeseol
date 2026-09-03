@@ -264,7 +264,12 @@ export function IntroAnimation() {
         <>
           <div
             className="text-3xl font-semibold tracking-tight text-zinc-100 sm:text-5xl"
-            style={{ fontFamily: "var(--font-geist-sans), system-ui, -apple-system, sans-serif" }}
+            /* 인트로 타이틀은 "한해설" — 한글이다. Geist 로 두면 글리프가 없어
+               시스템 폰트로 떨어져 본문과 다른 폰트로 보인다(2026-09-03). */
+            style={{
+              fontFamily:
+                'var(--font-pretendard-ui), "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif',
+            }}
           >
             <span>{text}</span>
             <span className="ml-1 inline-block h-[0.95em] w-[2px] translate-y-[0.08em] bg-red-500 align-middle motion-safe:animate-[introBlink_1s_steps(2,end)_infinite]" />

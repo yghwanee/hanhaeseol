@@ -316,5 +316,10 @@ html {
 body {
   color: #ededed;
   background: #0a0a0a;
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  /* 🔴 Pretendard 서브셋이 1순위. 서브셋에 없는 희귀 글자는 두부(□)가 아니라 아래
+     시스템 한글 폰트로 떨어진다 — 그래서 폴백 체인에 한글 폰트를 반드시 둔다.
+     (종전 `var(--font-geist-sans), Arial, Helvetica` 는 한글 폰트가 하나도 없어
+      브라우저가 아무 폰트나 골랐다.) */
+  font-family: var(--font-pretendard-ui), "Apple SD Gothic Neo", "Malgun Gothic",
+    "맑은 고딕", system-ui, -apple-system, sans-serif;
 }

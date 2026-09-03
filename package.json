@@ -103,7 +103,10 @@
     "tiktok:stats": "tsx src/scripts/check-tiktok-stats.ts",
     "test:tiktok-policy": "tsx --test src/lib/tiktok-post-policy.test.ts",
     "test:follows": "tsx --test src/lib/follows.test.ts",
-    "test:push-notify": "tsx --test src/lib/push/notify.test.ts"
+    "test:push-notify": "tsx --test src/lib/push/notify.test.ts",
+    "fonts:subset:ui": "node src/scripts/subset-pretendard-ui.mjs",
+    "push:live": "tsx src/scripts/push-live-poller.ts",
+    "test:push-live": "tsx --test src/lib/push/live-poller.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

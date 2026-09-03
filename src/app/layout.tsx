@@ -18,6 +18,30 @@ const geistSans = localFont({
   weight: "100 900",
 });
 
+/**
+ * 화면 전역 본문 폰트.
+ *
+ * 🔴 종전에는 Geist 였는데 **Geist 에 한글 글리프가 없다.** 그래서 모든 한글이 OS 기본
+ * 폰트로 떨어져(윈도우 맑은 고딕 / 맥 Apple SD Gothic Neo) 기기마다 다르게 보였고,
+ * 한 줄 안에서 라틴은 Geist·한글은 시스템 폰트로 섞였다(2026-09-03 사용자 지적).
+ *
+ * 🔴 원본이 아니라 **서브셋(각 120KB)** 이다. 전체는 771KB × 2 = 1.5MB 인데, 이 프로젝트는
+ * Hobby 전송량 한도를 넘겨 계정이 잠긴 이력이 있다(2026-08-17). 생성·근거는
+ * `src/scripts/subset-pretendard-ui.mjs` 주석에 실측치와 함께 있다.
+ *
+ * `preload: true` — 이제 본문 폰트라 늦게 오면 화면 전체가 폴백으로 한 번 그려진다.
+ * 프리로드로 교체 시점을 첫 페인트 앞으로 당겨 FOUT 깜빡임을 줄인다.
+ */
+const pretendardUi = localFont({
+  src: [
+    { path: "../../public/fonts/Pretendard-Regular.ui.woff2", weight: "400", style: "normal" },
+    { path: "../../public/fonts/Pretendard-Bold.ui.woff2", weight: "700", style: "normal" },
+  ],
+  variable: "--font-pretendard-ui",
+  display: "swap",
+  preload: true,
+});
+
 // Pretendard — ebook 배너 인용구 전용. preload 안 함(배너 한 곳만 써서 전 페이지
 // 블로킹 방지), display:swap 이라 폰트 로드 전엔 시스템 산세리프로 보이다 교체.
 //
@@ -272,7 +296,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
           }}
         />
       </head>
-      <body className={`${geistSans.variable} ${pretendard.variable} antialiased`} style={{ backgroundColor: "#0a0a0a" }}>
+      <body className={`${geistSans.variable} ${pretendardUi.variable} ${pretendard.variable} antialiased`} style={{ backgroundColor: "#0a0a0a" }}>
         <SideBanners />
         <CapsStripeClickHandler />
         <ServiceWorkerRegister />

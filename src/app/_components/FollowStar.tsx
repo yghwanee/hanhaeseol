@@ -40,7 +40,9 @@ function FollowStarInner({
     >
       <svg
         viewBox="0 0 24 24"
-        className="h-4 w-4 sm:h-[18px] sm:w-[18px]"
+        /* 16/18 → 18/20. 팀명(13.5~16px) 옆에서 너무 작아 눌러야 할 것으로 안 보였다
+           (2026-09-03 사용자 지적). 버튼 히트영역은 -m-1 p-1 로 아이콘보다 크다. */
+        className="h-[18px] w-[18px] sm:h-5 sm:w-5"
         fill={followed ? "currentColor" : "none"}
         stroke="currentColor"
         strokeWidth={followed ? 0 : 1.8}

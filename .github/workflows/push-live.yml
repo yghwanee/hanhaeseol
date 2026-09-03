@@ -1,0 +1,62 @@
+name: 실시간 득점 폴러
+
+# 🔴 이 워크플로의 존재 이유 = **득점 알림 지연 최대 1시간 → 30~60초.**
+#
+# 종전 경로는 `crawl-results.yml`(매시 13분)이 스코어를 커밋하고 dispatch 가 그 레포 raw
+# 를 읽는 구조라, 18:50 에 난 점수가 19:13 에 나갔다.
+#
+# 🔴 **cron 을 자주 걸어서 푸는 문제가 아니다.** 이 레포는 GH 예약 발화가 대량으로
+# 버려지는 게 실측된 곳이다 — 하루 48회 요구에 실제 발화 **2~6회**(2026-09-01).
+# 그리고 고빈도 cron 이 **먼저** 버려진다. 그래서 발화를 하루 몇 번으로 줄이고,
+# 한 번 켜진 잡 **안에서** 루프를 돌아 주기를 만든다.
+#
+# 🔴 **비용이 이 설계의 핵심이다.** 레포가 public 이라 Actions 분은 무료·무제한이다.
+# 반대로 Vercel 에서 매분 폴링하면 월 43,200 호출 = Hobby 의 Fluid Active CPU 4시간
+# 한도를 60% 먹는다(2026-08-17 계정 잠김이 정확히 이 종류의 반복 실행 때문이었다).
+# 폴링은 여기서(무료), 발송만 Vercel 에서 — 스코어가 **실제로 바뀐 순간에만** 부르므로
+# Vercel 호출은 하루 몇 건이다.
+#
+# 발화 시각은 찜한 팀 경기가 몰리는 창의 **앞**에 둔다. 폴러는 지켜볼 경기가 없으면
+# 스스로 즉시 끝내므로(IDLE_EXIT_POLLS) 헛도는 비용이 없다.
+on:
+  schedule:
+    # KST 08:05 — MLB 오전 경기 창(대개 08:00~14:00)
+    - cron: '5 23 * * *'
+    # KST 12:05 — MLB 늦은 경기 + 주말 낮 국내 경기
+    - cron: '5 3 * * *'
+    # KST 17:05 — KBO·K리그 저녁 창(18:00~22:30)
+    - cron: '5 8 * * *'
+    # KST 22:05 — 유럽 축구 창(23:00~06:00). 다음 날 새벽까지 5시간 돈다
+    - cron: '5 13 * * *'
+  workflow_dispatch:
+    inputs:
+      minutes:
+        description: '이 실행의 수명(분). 기본 300'
+        required: false
+        default: '300'
+
+# 🔴 겹치면 같은 득점을 두 프로세스가 감지해 dispatch 를 두 번 부른다. 발송 자체는
+# dispatch 의 dedupKey 가 막지만 호출이 낭비되고 로그가 읽기 어려워진다.
+# cancel-in-progress 는 쓰지 않는다 — 돌고 있는 창을 새 발화가 죽이면 그 시간대가 빈다.
+concurrency:
+  group: push-live
+  cancel-in-progress: false
+
+jobs:
+  poll:
+    runs-on: ubuntu-latest
+    # 🔴 잡 상한을 스크립트 수명보다 넉넉히 둔다. 여기서 잘리면 정리 로그도 못 남는다.
+    timeout-minutes: 330
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 20
+          cache: npm
+      - run: npm ci
+      - name: 폴링
+        env:
+          PUSH_TEST_KEY: ${{ secrets.PUSH_TEST_KEY }}
+          MAX_MINUTES: ${{ inputs.minutes || '300' }}
+          POLL_MS: '60000'
+        run: npm run push:live
