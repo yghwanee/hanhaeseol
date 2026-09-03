@@ -140,10 +140,15 @@ src/
     - 찜한 팀이 걸린 **리그만** 크롤한다(실측: kbo 1개 56ms/1요청 vs 전 리그 244ms/30요청).
     - `live=1` 은 raw 를 **버리지 않고 덮는다** — 라이브 크롤엔 취소·연기가 없어 통째로
       갈아치우면 취소 경기에 킥오프 알림이 나간다.
-  - 🔴 **구독자 2명 · 찜한 팀 0개 (2026-09-03 실측).** 구독은 걸렸는데 아무도 팀을 찜하지
-    않아 `shouldReceive` 가 전부 false = **알림이 한 통도 못 나간다.** 확인 =
-    `curl -X POST -H "x-push-key: $KEY" haeseol.com/api/push/dispatch?dry=1` 의 `watch`.
+  - 🔴 **구독자 2명 · 찜 `["야구|KT"]` (2026-09-04 실측).** 확인 = dispatch 응답의 `watch`
+    (비어 있으면 `shouldReceive` 가 전부 false 라 한 통도 못 나간다).
     구독자가 생겼으므로 **`VAPID_PRIVATE_KEY` 를 잃으면 이제 그 구독이 죽는다**(전엔 무해했다).
+  - ✅ **실제 발송이 처음으로 끝까지 돌았다 (2026-09-04).** `gh workflow run push-notify.yml
+    -f test=true` → `{"ok":true,"total":2,"sent":2,"removed":0}`. 이 입력은 `/api/push/test`
+    를 CI 에서 부른다 — 부를 곳이 사람 노트북뿐이면 그 IP 가 막힐 때 확인 자체가 불가능하다.
+  - 🔴 **알림 토글은 서버를 먼저 지우고 로컬 구독을 해제한다.** 반대 순서면 서버 삭제 실패
+    시 endpoint 를 잃어 **영영 못 지우는 유령 구독**이 남는다(화면은 꺼짐, 알림은 계속 옴).
+    알림 **권한**은 코드로 못 되돌리므로 끄기는 구독 삭제다. `test:push-toggle` 이 막는다.
   - 관측: ①찜한 팀이 생기는지(위 `watch` 가 비어 있으면 알림 경로가 안 돈다)
     ②찜이 재방문으로 이어지는지(GA4)
   - 🔴 **인앱 웹뷰(네이버 앱 경유)에서는 푸시 구독이 안 걸린다.** 유입의 81%가 네이버라
@@ -296,6 +301,8 @@ npm run push:live                  # 실시간 득점 폴러(로컬 확인용. P
 npm run test:push-live             # 🔴 분 단위 cron 금지 · 폴링은 GH · 리그 좁히기 · 겹침 방지
 npm run fonts:subset:ui            # 🔴 본문 Pretendard 서브셋 재생성(pyftsubset 필요). 새 팀·선수 유입 후 실행
 npm run test:font-mixing           # 🔴 font-mono 자리에 한글 금지(한 문자열에 두 폰트) + 서브셋 존재·크기
+npm run test:push-toggle           # 🔴 알림 해제 순서(서버→로컬) · 켜진 뒤 컨트롤 유지
+npm run test:workflow-yaml         # 🔴 워크플로 22개 전수 파싱. 문자열 검사로는 못 잡는다(아래 참조)
 npm run test:head-script           # 🔴 head 인라인에 location 계열 금지(넣으면 네이버가 홈 메타를 통째로 버린다)
 npm run test:hero-pick             # 히어로 선정 가중치
 npm run test:fixture-dedupe        # 🔴 홈/원정 반전 중복이 같은 경기를 두 URL 로 내보내는지(실데이터 회귀 포함)
@@ -319,6 +326,26 @@ npm run audit:aliases   # 팀명 alias 미스매치 감사 (결과 있는데 스
 npm run news:digest      # 네이버 뉴스 → docs/news-digest.md (NAVER_API_KEY_ID/NAVER_API_KEY 필요)
 ISSUE_BODY="$(gh issue view N --json body -q .body)" npm run check:idea-dupes  # 글감 중복 검사
 ```
+
+## 운영 함정 (2026-09-04 에 실제로 겪은 것)
+
+- 🔴 **로컬에서 프로덕션에 반복 curl 하면 Vercel 방화벽 챌린지가 걸린다.**
+  응답 헤더 `X-Vercel-Mitigated: challenge` 와 함께 **전 경로가 403** 이 된다.
+  **사이트 장애가 아니다 — IP 스코프다.** 실제 브라우저는 JS 챌린지를 자동으로 풀고,
+  GitHub 러너에서는 그대로 200 이다(2026-09-04 실측: `uptime.yml` 세 사이트 전부 200,
+  `push-notify.yml` dispatch 정상). 로컬이 403 이면 **먼저 GH 에서 확인할 것** —
+  `gh workflow run uptime.yml` · `gh workflow run push-notify.yml -f dry=true`.
+  curl 로 프로덕션을 두들기는 검증은 GH 워크플로로 옮기는 게 안전하다.
+
+- 🔴 **워크플로 YAML 이 깨지면 GitHub 은 파싱 오류로 안 알려준다.**
+  `HTTP 422: Workflow does not have 'workflow_dispatch' trigger` 로 나온다 — 파일을 아예
+  못 읽어서 트리거가 없다고 답하는 것이라 **트리거 설정 문제로 착각한다.** 그리고 없는
+  트리거(push 등)로 실패 런이 하나 생기는 것도 같은 신호다.
+  탭·키워드 문자열 검사로는 못 잡는다. `test:workflow-yaml` 이 실제 파서로 읽는다.
+
+- 🔴 **`cmd | grep -q` 를 `set -o pipefail` 과 같이 쓰지 말 것.** grep 이 첫 매치에서
+  파이프를 닫아 앞 명령이 SIGPIPE(141)로 죽고, pipefail 이 그 141 을 파이프라인 상태로
+  올린다 → **성공한 빌드가 실패로 보인다.** 파이프 대신 파일로 받아 판정할 것.
 
 ## 배포
 
