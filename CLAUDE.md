@@ -109,6 +109,10 @@ src/
   → 레포 코퍼스에서 실제 쓰는 글자만 구운 **각 120KB**. 새 리그·선수가 많이 들어오면
   `npm run fonts:subset:ui` 를 다시 돌린다(pyftsubset 필요). 서브셋에 없는 글자는 두부가
   아니라 시스템 한글 폰트로 떨어진다 — 그래서 `globals.css` 폴백에 한글 폰트를 반드시 둔다.
+  - 🔴 **`font-mono` 자리에 한글을 넣지 말 것.** Tailwind 기본 mono(Consolas·Menlo…)엔
+    한글 글리프가 없어 한 문자열 안에서 폰트가 갈린다 — "9월 4일 (금) 18:15" 와 카운트다운
+    "2일 05:12:33" 이 그렇게 깨져 있었다(2026-09-03). 자리 정렬이 목적이면 `tabular-nums`
+    를 쓴다. `test:font-mixing` 이 막고, mono 스택 끝에 Pretendard 폴백도 깔아 뒀다.
 
 - 🔴 **카드 앰블럼은 `loadScheduleData()` 가 붙인다 (2026-09-03).** `ScheduleCard` 는
   `homeEmblem` 이 있을 때만 그리는데 그 필드를 채우는 곳이 `worldcup.json` 뿐이라 앰블럼이
@@ -291,6 +295,7 @@ npm run test:workflow-push         # 🔴 스케줄러 push 재시도 루프가 
 npm run push:live                  # 실시간 득점 폴러(로컬 확인용. PUSH_TEST_KEY 필요, .env.local 은 안 읽는다)
 npm run test:push-live             # 🔴 분 단위 cron 금지 · 폴링은 GH · 리그 좁히기 · 겹침 방지
 npm run fonts:subset:ui            # 🔴 본문 Pretendard 서브셋 재생성(pyftsubset 필요). 새 팀·선수 유입 후 실행
+npm run test:font-mixing           # 🔴 font-mono 자리에 한글 금지(한 문자열에 두 폰트) + 서브셋 존재·크기
 npm run test:head-script           # 🔴 head 인라인에 location 계열 금지(넣으면 네이버가 홈 메타를 통째로 버린다)
 npm run test:hero-pick             # 히어로 선정 가중치
 npm run test:fixture-dedupe        # 🔴 홈/원정 반전 중복이 같은 경기를 두 URL 로 내보내는지(실데이터 회귀 포함)

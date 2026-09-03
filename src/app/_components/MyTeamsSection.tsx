@@ -144,7 +144,12 @@ export function MyTeamsSection({
                     </span>
                   </div>
                   <div className="flex min-w-0 items-center gap-1.5 text-[11px] text-zinc-500">
-                    <span className="shrink-0 font-mono text-zinc-300">
+                    {/* 🔴 `font-mono` 금지. 이 문자열엔 한글이 들어간다("9월 4일 (금) 18:15").
+                        Tailwind 기본 mono 스택(Consolas·Menlo…)엔 **한글 글리프가 없어서**
+                        숫자는 Consolas, 한글은 시스템 폰트로 한 문자열 안에서 갈렸다
+                        (2026-09-03 사용자 지적). 자리 정렬만 필요하므로 본문 폰트 +
+                        `tabular-nums` 로 충분하다. */}
+                    <span className="shrink-0 tabular-nums text-zinc-300">
                       {formatDateHeader(r.game.date)} {r.game.time}
                     </span>
                     <span className="text-zinc-700">|</span>
@@ -211,9 +216,13 @@ function Countdown({ target }: { target: Schedule }) {
   const s = total % 60;
   const pad = (v: number) => String(v).padStart(2, "0");
 
+  // 🔴 `font-mono` 를 쓰지 않는다. "2일 05:12:33" 처럼 **한글 한 글자가 섞이는데**
+  // Tailwind 기본 mono 스택(Consolas·Menlo…)엔 한글 글리프가 없어 "일" 만 다른 폰트로
+  // 튄다(2026-09-03). 초 단위로 흐르는 자리라 폭 흔들림을 막아야 하는데, 그건 mono 가
+  // 아니라 `tabular-nums` 가 하는 일이다 — 이미 붙어 있었다.
   return (
     <span
-      className="shrink-0 font-mono text-[11px] sm:text-xs tabular-nums text-amber-200/80"
+      className="shrink-0 text-[11px] sm:text-xs tabular-nums text-amber-200/80"
       aria-label="다음 경기까지 남은 시간"
     >
       {d > 0 ? `${d}일 ` : ""}
