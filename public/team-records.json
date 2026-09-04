@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-04T18:21:00.964Z",
+  "lastUpdated": "2026-09-04T21:24:50.563Z",
   "records": {
     "KBO": {
       "KT": {
@@ -801,6 +801,12 @@
         "lose": 0,
         "draw": 0
       },
+      "리버풀": {
+        "last5": "WDD",
+        "win": 1,
+        "lose": 0,
+        "draw": 2
+      },
       "브렌트퍼드": {
         "last5": "DW",
         "win": 1,
@@ -874,22 +880,16 @@
         "draw": 0
       },
       "입스위치 타운": {
-        "last5": "LW",
+        "last5": "LLW",
         "win": 1,
-        "lose": 1,
+        "lose": 2,
         "draw": 0
       },
       "입스위치": {
-        "last5": "LW",
+        "last5": "LLW",
         "win": 1,
-        "lose": 1,
+        "lose": 2,
         "draw": 0
-      },
-      "리버풀": {
-        "last5": "DD",
-        "win": 0,
-        "lose": 0,
-        "draw": 2
       },
       "본머스": {
         "last5": "DL",
@@ -966,9 +966,15 @@
         "draw": 0
       },
       "레알 마드리드": {
-        "last5": "WWW",
+        "last5": "LWWW",
         "win": 3,
-        "lose": 0,
+        "lose": 1,
+        "draw": 0
+      },
+      "레알 베티스": {
+        "last5": "WLWW",
+        "win": 3,
+        "lose": 1,
         "draw": 0
       },
       "아틀레티코 마드리드": {
@@ -996,12 +1002,6 @@
         "draw": 1
       },
       "세비야": {
-        "last5": "LWW",
-        "win": 2,
-        "lose": 1,
-        "draw": 0
-      },
-      "레알 베티스": {
         "last5": "LWW",
         "win": 2,
         "lose": 1,
@@ -1111,6 +1111,18 @@
       }
     },
     "세리에A": {
+      "코모": {
+        "last5": "WWD",
+        "win": 2,
+        "lose": 0,
+        "draw": 1
+      },
+      "코모 1907": {
+        "last5": "WWD",
+        "win": 2,
+        "lose": 0,
+        "draw": 1
+      },
       "로마": {
         "last5": "WW",
         "win": 2,
@@ -1166,18 +1178,6 @@
         "draw": 1
       },
       "우디네세 칼초": {
-        "last5": "WD",
-        "win": 1,
-        "lose": 0,
-        "draw": 1
-      },
-      "코모": {
-        "last5": "WD",
-        "win": 1,
-        "lose": 0,
-        "draw": 1
-      },
-      "코모 1907": {
         "last5": "WD",
         "win": 1,
         "lose": 0,
@@ -1243,12 +1243,6 @@
         "lose": 2,
         "draw": 0
       },
-      "제노아": {
-        "last5": "LL",
-        "win": 0,
-        "lose": 2,
-        "draw": 0
-      },
       "파르마": {
         "last5": "LL",
         "win": 0,
@@ -1277,6 +1271,12 @@
         "last5": "LL",
         "win": 0,
         "lose": 2,
+        "draw": 0
+      },
+      "제노아": {
+        "last5": "LLL",
+        "win": 0,
+        "lose": 3,
         "draw": 0
       }
     },
@@ -1329,16 +1329,22 @@
         "lose": 0,
         "draw": 0
       },
-      "FC 쾰른": {
-        "last5": "W",
+      "슈투트가르트": {
+        "last5": "WL",
         "win": 1,
-        "lose": 0,
+        "lose": 1,
+        "draw": 0
+      },
+      "FC 쾰른": {
+        "last5": "LW",
+        "win": 1,
+        "lose": 1,
         "draw": 0
       },
       "쾰른": {
-        "last5": "W",
+        "last5": "LW",
         "win": 1,
-        "lose": 0,
+        "lose": 1,
         "draw": 0
       },
       "프랑크푸르트": {
@@ -1442,23 +1448,23 @@
         "win": 0,
         "lose": 1,
         "draw": 0
-      },
-      "슈투트가르트": {
-        "last5": "L",
-        "win": 0,
-        "lose": 1,
-        "draw": 0
       }
     },
     "리그 1": {
+      "모나코": {
+        "last5": "WWW",
+        "win": 3,
+        "lose": 0,
+        "draw": 0
+      },
       "올랭피크 리옹": {
-        "last5": "DW",
+        "last5": "WDW",
         "win": 2,
         "lose": 0,
         "draw": 1
       },
       "리옹": {
-        "last5": "DW",
+        "last5": "WDW",
         "win": 2,
         "lose": 0,
         "draw": 1
@@ -1468,12 +1474,6 @@
         "win": 2,
         "lose": 0,
         "draw": 1
-      },
-      "모나코": {
-        "last5": "WW",
-        "win": 2,
-        "lose": 0,
-        "draw": 0
       },
       "파리 FC": {
         "last5": "WD",
@@ -1536,15 +1536,15 @@
         "draw": 2
       },
       "파리 생제르맹": {
-        "last5": "DD",
+        "last5": "LDD",
         "win": 0,
-        "lose": 0,
+        "lose": 1,
         "draw": 2
       },
       "PSG": {
-        "last5": "DD",
+        "last5": "LDD",
         "win": 0,
-        "lose": 0,
+        "lose": 1,
         "draw": 2
       },
       "르 망": {
@@ -1578,7 +1578,7 @@
         "draw": 1
       },
       "오세르": {
-        "last5": "LL",
+        "last5": "LLL",
         "win": 0,
         "lose": 3,
         "draw": 0
@@ -2740,19 +2740,19 @@
         "draw": 2
       },
       "스파르타 로테르담": {
-        "last5": "LDWL",
+        "last5": "DLDWL",
         "win": 1,
         "lose": 2,
         "draw": 2
       },
       "PEC 즈볼레": {
-        "last5": "LWLL",
+        "last5": "DLWLL",
         "win": 1,
         "lose": 3,
         "draw": 1
       },
       "즈볼러": {
-        "last5": "LWLL",
+        "last5": "DLWLL",
         "win": 1,
         "lose": 3,
         "draw": 1
