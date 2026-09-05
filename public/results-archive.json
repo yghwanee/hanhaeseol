@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-05T18:13:14.335Z",
+  "lastUpdated": "2026-09-05T20:19:05.151Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -41480,6 +41480,17 @@
         }
       ]
     },
+    "2026-09-06|bundesliga|샬케|바이에른 뮌헨": {
+      "date": "2026-09-06",
+      "categoryId": "bundesliga",
+      "gameId": "NGR2WqGHsI3Jf4K",
+      "homeTeam": "샬케",
+      "awayTeam": "바이에른 뮌헨",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
     "2026-09-06|denmark|AGF|실케보리": {
       "date": "2026-09-06",
       "categoryId": "denmark",
@@ -41514,6 +41525,52 @@
         }
       ]
     },
+    "2026-09-06|epl|헐 시티|아스톤 빌라": {
+      "date": "2026-09-06",
+      "categoryId": "epl",
+      "gameId": "O7X32WY9gRR2zNN",
+      "homeTeam": "헐 시티",
+      "awayTeam": "아스톤 빌라",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    "2026-09-06|eredivisie|아약스|PSV 아인트호벤": {
+      "date": "2026-09-06",
+      "categoryId": "eredivisie",
+      "gameId": "JYNmPcgpDJR0MAT",
+      "homeTeam": "아약스",
+      "awayTeam": "PSV 아인트호벤",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "페피",
+          "minute": 5
+        },
+        {
+          "team": "home",
+          "player": "아로코다레",
+          "minute": 23
+        },
+        {
+          "team": "away",
+          "player": "헤르트루이다",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "away",
+          "player": "바즈락타레비치",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ]
+    },
     "2026-09-06|ligue1|랑스|로리앙": {
       "date": "2026-09-06",
       "categoryId": "ligue1",
@@ -41529,6 +41586,44 @@
           "team": "away",
           "player": "코네",
           "minute": 54
+        }
+      ]
+    },
+    "2026-09-06|primera|라요 바예카노|라싱": {
+      "date": "2026-09-06",
+      "categoryId": "primera",
+      "gameId": "IDpyR65KRTR0eaC",
+      "homeTeam": "라요 바예카노",
+      "awayTeam": "라싱",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "카날레스",
+          "minute": 4
+        },
+        {
+          "team": "home",
+          "player": "라티우",
+          "minute": 17
+        },
+        {
+          "team": "away",
+          "player": "파블로 가르시아",
+          "minute": 28
+        },
+        {
+          "team": "home",
+          "player": "세르히오 카메요",
+          "minute": 43
+        },
+        {
+          "team": "home",
+          "player": "세르히오 카메요",
+          "minute": 47
         }
       ]
     },
@@ -83054,6 +83149,17 @@
     },
     {
       "date": "2026-09-06",
+      "categoryId": "bundesliga",
+      "gameId": "NGR2WqGHsI3Jf4K",
+      "homeTeam": "샬케",
+      "awayTeam": "바이에른 뮌헨",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-09-06",
       "categoryId": "denmark",
       "gameId": "0vqNmf8mxtLDft0",
       "homeTeam": "AGF",
@@ -83088,6 +83194,52 @@
     },
     {
       "date": "2026-09-06",
+      "categoryId": "epl",
+      "gameId": "O7X32WY9gRR2zNN",
+      "homeTeam": "헐 시티",
+      "awayTeam": "아스톤 빌라",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-09-06",
+      "categoryId": "eredivisie",
+      "gameId": "JYNmPcgpDJR0MAT",
+      "homeTeam": "아약스",
+      "awayTeam": "PSV 아인트호벤",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "페피",
+          "minute": 5
+        },
+        {
+          "team": "home",
+          "player": "아로코다레",
+          "minute": 23
+        },
+        {
+          "team": "away",
+          "player": "헤르트루이다",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "away",
+          "player": "바즈락타레비치",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ]
+    },
+    {
+      "date": "2026-09-06",
       "categoryId": "ligue1",
       "gameId": "jntXWrqozhP4EVG",
       "homeTeam": "랑스",
@@ -83101,6 +83253,44 @@
           "team": "away",
           "player": "코네",
           "minute": 54
+        }
+      ]
+    },
+    {
+      "date": "2026-09-06",
+      "categoryId": "primera",
+      "gameId": "IDpyR65KRTR0eaC",
+      "homeTeam": "라요 바예카노",
+      "awayTeam": "라싱",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "카날레스",
+          "minute": 4
+        },
+        {
+          "team": "home",
+          "player": "라티우",
+          "minute": 17
+        },
+        {
+          "team": "away",
+          "player": "파블로 가르시아",
+          "minute": 28
+        },
+        {
+          "team": "home",
+          "player": "세르히오 카메요",
+          "minute": 43
+        },
+        {
+          "team": "home",
+          "player": "세르히오 카메요",
+          "minute": 47
         }
       ]
     },
