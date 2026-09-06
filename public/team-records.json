@@ -1,60 +1,60 @@
 {
-  "lastUpdated": "2026-09-06T10:50:43.426Z",
+  "lastUpdated": "2026-09-06T14:08:21.855Z",
   "records": {
     "KBO": {
       "삼성": {
-        "last5": "WLLWW",
-        "win": 71,
+        "last5": "WWLLW",
+        "win": 72,
         "lose": 46,
         "draw": 3,
-        "wra": 0.607,
+        "wra": 0.61,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "W"
         }
       },
       "KT": {
-        "last5": "LLWWW",
+        "last5": "LLLWW",
         "win": 69,
-        "lose": 45,
+        "lose": 46,
         "draw": 3,
-        "wra": 0.605,
+        "wra": 0.6,
         "streak": {
-          "count": 2,
+          "count": 3,
           "type": "L"
         }
       },
       "LG": {
-        "last5": "LWWWW",
+        "last5": "LLWWW",
         "win": 68,
-        "lose": 52,
+        "lose": 53,
         "draw": 1,
-        "wra": 0.567,
+        "wra": 0.562,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "L"
         }
       },
       "KIA": {
-        "last5": "WWLLW",
-        "win": 65,
+        "last5": "WWWLL",
+        "win": 66,
         "lose": 52,
         "draw": 2,
-        "wra": 0.556,
+        "wra": 0.559,
         "streak": {
-          "count": 2,
+          "count": 3,
           "type": "W"
         }
       },
       "두산": {
-        "last5": "LLLLL",
-        "win": 61,
+        "last5": "WLLLL",
+        "win": 62,
         "lose": 57,
         "draw": 4,
-        "wra": 0.517,
+        "wra": 0.521,
         "streak": {
-          "count": 5,
-          "type": "L"
+          "count": 1,
+          "type": "W"
         }
       },
       "NC": {
@@ -68,36 +68,36 @@
           "type": "L"
         }
       },
-      "SSG": {
-        "last5": "WWLWW",
+      "한화": {
+        "last5": "WWWLL",
         "win": 52,
-        "lose": 66,
-        "draw": 5,
-        "wra": 0.441,
+        "lose": 65,
+        "draw": 3,
+        "wra": 0.444,
         "streak": {
-          "count": 2,
+          "count": 3,
           "type": "W"
         }
       },
-      "한화": {
-        "last5": "WWLLL",
-        "win": 51,
-        "lose": 65,
-        "draw": 3,
-        "wra": 0.44,
+      "SSG": {
+        "last5": "LWWLW",
+        "win": 52,
+        "lose": 67,
+        "draw": 5,
+        "wra": 0.437,
         "streak": {
-          "count": 2,
-          "type": "W"
+          "count": 1,
+          "type": "L"
         }
       },
       "롯데": {
-        "last5": "LLWLL",
+        "last5": "LLLWL",
         "win": 51,
-        "lose": 65,
+        "lose": 66,
         "draw": 2,
-        "wra": 0.44,
+        "wra": 0.436,
         "streak": {
-          "count": 2,
+          "count": 3,
           "type": "L"
         }
       },
@@ -831,6 +831,12 @@
         "lose": 0,
         "draw": 2
       },
+      "에버턴": {
+        "last5": "DW",
+        "win": 1,
+        "lose": 0,
+        "draw": 2
+      },
       "리즈 유나이티드": {
         "last5": "DDW",
         "win": 1,
@@ -855,10 +861,16 @@
         "lose": 1,
         "draw": 1
       },
-      "에버턴": {
-        "last5": "DW",
+      "맨체스터 유나이티드": {
+        "last5": "WL",
         "win": 1,
-        "lose": 0,
+        "lose": 1,
+        "draw": 1
+      },
+      "맨유": {
+        "last5": "WL",
+        "win": 1,
+        "lose": 1,
         "draw": 1
       },
       "선덜랜드": {
@@ -866,18 +878,6 @@
         "win": 1,
         "lose": 1,
         "draw": 1
-      },
-      "맨체스터 유나이티드": {
-        "last5": "WL",
-        "win": 1,
-        "lose": 1,
-        "draw": 0
-      },
-      "맨유": {
-        "last5": "WL",
-        "win": 1,
-        "lose": 1,
-        "draw": 0
       },
       "크리스털 팰리스": {
         "last5": "WLL",
@@ -1165,6 +1165,18 @@
         "lose": 0,
         "draw": 0
       },
+      "프로시노네": {
+        "last5": "WL",
+        "win": 2,
+        "lose": 1,
+        "draw": 0
+      },
+      "프로시노네 칼초": {
+        "last5": "WL",
+        "win": 2,
+        "lose": 1,
+        "draw": 0
+      },
       "아탈란타": {
         "last5": "LWW",
         "win": 2,
@@ -1182,18 +1194,6 @@
         "win": 1,
         "lose": 0,
         "draw": 1
-      },
-      "프로시노네": {
-        "last5": "WL",
-        "win": 1,
-        "lose": 1,
-        "draw": 0
-      },
-      "프로시노네 칼초": {
-        "last5": "WL",
-        "win": 1,
-        "lose": 1,
-        "draw": 0
       },
       "사수올로": {
         "last5": "WL",
@@ -1237,6 +1237,12 @@
         "lose": 2,
         "draw": 0
       },
+      "몬차": {
+        "last5": "LL",
+        "win": 1,
+        "lose": 2,
+        "draw": 0
+      },
       "볼로냐": {
         "last5": "LL",
         "win": 0,
@@ -1246,29 +1252,23 @@
       "파르마": {
         "last5": "LL",
         "win": 0,
-        "lose": 2,
+        "lose": 3,
         "draw": 0
       },
       "파르마 칼초": {
         "last5": "LL",
         "win": 0,
-        "lose": 2,
-        "draw": 0
-      },
-      "몬차": {
-        "last5": "LL",
-        "win": 0,
-        "lose": 2,
-        "draw": 0
-      },
-      "베네치아": {
-        "last5": "LL",
-        "win": 0,
-        "lose": 2,
+        "lose": 3,
         "draw": 0
       },
       "제노아": {
         "last5": "LLL",
+        "win": 0,
+        "lose": 3,
+        "draw": 0
+      },
+      "베네치아": {
+        "last5": "LL",
         "win": 0,
         "lose": 3,
         "draw": 0
@@ -1307,6 +1307,18 @@
       },
       "바이에른 뮌헨": {
         "last5": "DW",
+        "win": 1,
+        "lose": 0,
+        "draw": 1
+      },
+      "마인츠 05": {
+        "last5": "D",
+        "win": 1,
+        "lose": 0,
+        "draw": 1
+      },
+      "마인츠": {
+        "last5": "D",
         "win": 1,
         "lose": 0,
         "draw": 1
@@ -1371,18 +1383,6 @@
         "lose": 0,
         "draw": 1
       },
-      "마인츠 05": {
-        "last5": "D",
-        "win": 0,
-        "lose": 0,
-        "draw": 1
-      },
-      "마인츠": {
-        "last5": "D",
-        "win": 0,
-        "lose": 0,
-        "draw": 1
-      },
       "파더보른 07": {
         "last5": "LD",
         "win": 0,
@@ -1428,13 +1428,13 @@
       "함부르크 SV": {
         "last5": "L",
         "win": 0,
-        "lose": 1,
+        "lose": 2,
         "draw": 0
       },
       "함부르크": {
         "last5": "L",
         "win": 0,
-        "lose": 1,
+        "lose": 2,
         "draw": 0
       },
       "보루시아 글라트바흐": {
@@ -1475,6 +1475,12 @@
         "lose": 0,
         "draw": 1
       },
+      "스트라스부르": {
+        "last5": "WL",
+        "win": 2,
+        "lose": 1,
+        "draw": 0
+      },
       "브레스트": {
         "last5": "WDD",
         "win": 1,
@@ -1502,7 +1508,7 @@
       "트루아": {
         "last5": "WD",
         "win": 1,
-        "lose": 0,
+        "lose": 1,
         "draw": 1
       },
       "로리앙": {
@@ -1530,12 +1536,6 @@
         "draw": 0
       },
       "앙제": {
-        "last5": "WL",
-        "win": 1,
-        "lose": 1,
-        "draw": 0
-      },
-      "스트라스부르": {
         "last5": "WL",
         "win": 1,
         "lose": 1,
@@ -1906,13 +1906,13 @@
         }
       },
       "강원": {
-        "last5": "DDLWL",
+        "last5": "WDDLW",
         "win": 10,
         "lose": 6,
         "draw": 10,
         "streak": {
-          "count": 2,
-          "type": "D"
+          "count": 1,
+          "type": "W"
         }
       },
       "제주": {
@@ -1946,13 +1946,13 @@
         }
       },
       "안양": {
-        "last5": "DWLLL",
+        "last5": "LDWLL",
         "win": 8,
         "lose": 9,
         "draw": 10,
         "streak": {
           "count": 1,
-          "type": "D"
+          "type": "L"
         }
       },
       "인천": {
@@ -1976,34 +1976,34 @@
         }
       },
       "김천": {
-        "last5": "LDDDD",
-        "win": 5,
+        "last5": "DLDDD",
+        "win": 4,
         "lose": 7,
-        "draw": 15,
+        "draw": 16,
         "streak": {
           "count": 1,
-          "type": "L"
+          "type": "D"
         }
       },
       "광주": {
-        "last5": "LDLLD",
+        "last5": "DLDLL",
         "win": 1,
-        "lose": 17,
-        "draw": 9,
+        "lose": 16,
+        "draw": 10,
         "streak": {
           "count": 1,
-          "type": "L"
+          "type": "D"
         }
       }
     },
     "K리그2": {
       "수원": {
-        "last5": "WWDWD",
-        "win": 14,
+        "last5": "WWWDW",
+        "win": 15,
         "lose": 4,
-        "draw": 6,
+        "draw": 5,
         "streak": {
-          "count": 2,
+          "count": 3,
           "type": "W"
         }
       },
@@ -2058,20 +2058,20 @@
         }
       },
       "충남아산": {
-        "last5": "WLDWL",
+        "last5": "LWLDW",
         "win": 8,
-        "lose": 7,
-        "draw": 8,
+        "lose": 8,
+        "draw": 7,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "L"
         }
       },
       "김포": {
-        "last5": "LDWDD",
+        "last5": "LLDWD",
         "win": 7,
-        "lose": 5,
-        "draw": 11
+        "lose": 6,
+        "draw": 10
       },
       "경남": {
         "last5": "WDDLD",
@@ -2084,13 +2084,13 @@
         }
       },
       "성남": {
-        "last5": "DWLWL",
-        "win": 6,
+        "last5": "WDWLW",
+        "win": 7,
         "lose": 7,
-        "draw": 10,
+        "draw": 9,
         "streak": {
           "count": 1,
-          "type": "D"
+          "type": "W"
         }
       },
       "용인": {
@@ -2677,7 +2677,7 @@
         "last5": "WWWW",
         "win": 4,
         "lose": 0,
-        "draw": 0
+        "draw": 1
       },
       "페예노르트": {
         "last5": "WDWDW",
@@ -2698,7 +2698,7 @@
         "draw": 1
       },
       "트벤터": {
-        "last5": "WWL",
+        "last5": "DWWL",
         "win": 2,
         "lose": 1,
         "draw": 1
@@ -2722,7 +2722,7 @@
         "draw": 1
       },
       "흐로닝언": {
-        "last5": "LLWW",
+        "last5": "DLLWW",
         "win": 2,
         "lose": 2,
         "draw": 1
@@ -2737,7 +2737,7 @@
         "last5": "DLDW",
         "win": 1,
         "lose": 1,
-        "draw": 2
+        "draw": 3
       },
       "스파르타 로테르담": {
         "last5": "DLDWL",
@@ -2760,7 +2760,13 @@
       "텔스타": {
         "last5": "LLW",
         "win": 1,
-        "lose": 2,
+        "lose": 3,
+        "draw": 0
+      },
+      "캄부르": {
+        "last5": "LLLL",
+        "win": 1,
+        "lose": 4,
         "draw": 0
       },
       "ADO 덴 하그": {
@@ -2780,12 +2786,6 @@
         "win": 0,
         "lose": 3,
         "draw": 1
-      },
-      "캄부르": {
-        "last5": "LLLL",
-        "win": 0,
-        "lose": 4,
-        "draw": 0
       }
     },
     "KBL": {
