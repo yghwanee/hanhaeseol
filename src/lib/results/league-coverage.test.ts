@@ -54,6 +54,13 @@ const KNOWN_UNSUPPORTED = new Set([
   // 국내 대학축구(U리그, SPOTV NOW 중계 — 예: 동명대 vs 선문대). 2026-08-27 실측으로
   // uleague·universityleague·koreauniversity·ufl·kufl·universityfootball 전부 400.
   "대학 축구",
+  // UEFA 유스리그(U19, SPOTV NOW 중계 — 예: 레알 마드리드 U19 vs 인터 밀란 U19).
+  // 2026-09-07 실측. 실제 경기가 있는 창(9/08~9/11)으로 /schedule/games 에
+  // uefayouthleague·youthleague·uefayl·uclyouth·uefa_youth 를 던져 전부 result 없음.
+  // 같은 창에서 champs(챔피언스리그)는 18경기가 나오므로 조회 방식 문제가 아니다.
+  // 🔴 statistics/categories/{id}/seasons 는 이제 아무 id 에나 200 + 빈 seasons 를
+  // 주므로 판별에 쓸 수 없다(bogusxyz123 도 200). 후보 검증은 /schedule/games 로 할 것.
+  "UEFA 유스리그",
 ]);
 
 const schedules = (scheduleData as unknown as ScheduleData).schedules;
