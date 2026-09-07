@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-07T19:54:40.718Z",
+  "lastUpdated": "2026-09-07T22:47:15.057Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -43690,6 +43690,72 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-09-08|mlb|마이애미 말린스|뉴욕 메츠": {
+      "date": "2026-09-08",
+      "categoryId": "mlb",
+      "gameId": "20260908NMFL0",
+      "homeTeam": "마이애미 말린스",
+      "awayTeam": "뉴욕 메츠",
+      "homeScore": 4,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-09-08|mlb|보스턴 레드삭스|LA 에인절스": {
+      "date": "2026-09-08",
+      "categoryId": "mlb",
+      "gameId": "20260908ANBO0",
+      "homeTeam": "보스턴 레드삭스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 5,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-09-08|mlb|볼티모어 오리올스|클리블랜드 가디언스": {
+      "date": "2026-09-08",
+      "categoryId": "mlb",
+      "gameId": "20260908CLBA0",
+      "homeTeam": "볼티모어 오리올스",
+      "awayTeam": "클리블랜드 가디언스",
+      "homeScore": 6,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-09-08|mlb|캔자스시티 로열스|애리조나 다이아몬드백스": {
+      "date": "2026-09-08",
+      "categoryId": "mlb",
+      "gameId": "20260908AZKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "애리조나 다이아몬드백스",
+      "homeScore": 4,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "10회말"
+    },
+    "2026-09-08|mlb|밀워키 브루어스|시카고 컵스": {
+      "date": "2026-09-08",
+      "categoryId": "mlb",
+      "gameId": "20260908CCMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "시카고 컵스",
+      "homeScore": 4,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-09-08|mlb|디트로이트 타이거스|미네소타 트윈스": {
+      "date": "2026-09-08",
+      "categoryId": "mlb",
+      "gameId": "20260908MNDE0",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "미네소타 트윈스",
+      "homeScore": 5,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-09-08|primera|헤타페|셀타 비고": {
       "date": "2026-09-08",
       "categoryId": "primera",
@@ -43714,6 +43780,44 @@
       ],
       "highlightVideoId": "d3TVubBkv04"
     },
+    "2026-09-08|primera|엘체|레알 소시에다드": {
+      "date": "2026-09-08",
+      "categoryId": "primera",
+      "gameId": "BzA8NWCgO6iU9tR",
+      "homeTeam": "엘체",
+      "awayTeam": "레알 소시에다드",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "오치엥",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "에레라",
+          "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "르마",
+          "minute": 67
+        },
+        {
+          "team": "home",
+          "player": "페르 니뇨",
+          "minute": 74
+        },
+        {
+          "team": "away",
+          "player": "루카 수치치",
+          "minute": 90
+        }
+      ]
+    },
     "2026-09-08|seria|칼리아리 칼초|레체": {
       "date": "2026-09-08",
       "categoryId": "seria",
@@ -43729,6 +43833,34 @@
           "team": "home",
           "player": "말디니",
           "minute": 29
+        }
+      ]
+    },
+    "2026-09-08|seria|우디네세 칼초|라치오": {
+      "date": "2026-09-08",
+      "categoryId": "seria",
+      "gameId": "BG9z7r6Ao4roXll",
+      "homeTeam": "우디네세 칼초",
+      "awayTeam": "라치오",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "칼스트룀",
+          "minute": 49
+        },
+        {
+          "team": "away",
+          "player": "프라테시",
+          "minute": 75
+        },
+        {
+          "team": "away",
+          "player": "구드문드손",
+          "minute": 88
         }
       ]
     }
@@ -87425,6 +87557,72 @@
     },
     {
       "date": "2026-09-08",
+      "categoryId": "mlb",
+      "gameId": "20260908NMFL0",
+      "homeTeam": "마이애미 말린스",
+      "awayTeam": "뉴욕 메츠",
+      "homeScore": 4,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-09-08",
+      "categoryId": "mlb",
+      "gameId": "20260908ANBO0",
+      "homeTeam": "보스턴 레드삭스",
+      "awayTeam": "LA 에인절스",
+      "homeScore": 5,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-09-08",
+      "categoryId": "mlb",
+      "gameId": "20260908CLBA0",
+      "homeTeam": "볼티모어 오리올스",
+      "awayTeam": "클리블랜드 가디언스",
+      "homeScore": 6,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-09-08",
+      "categoryId": "mlb",
+      "gameId": "20260908AZKC0",
+      "homeTeam": "캔자스시티 로열스",
+      "awayTeam": "애리조나 다이아몬드백스",
+      "homeScore": 4,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "10회말"
+    },
+    {
+      "date": "2026-09-08",
+      "categoryId": "mlb",
+      "gameId": "20260908CCMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "시카고 컵스",
+      "homeScore": 4,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-09-08",
+      "categoryId": "mlb",
+      "gameId": "20260908MNDE0",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "미네소타 트윈스",
+      "homeScore": 5,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-09-08",
       "categoryId": "primera",
       "gameId": "FyJwB5VoDdys6jv",
       "homeTeam": "헤타페",
@@ -87449,6 +87647,44 @@
     },
     {
       "date": "2026-09-08",
+      "categoryId": "primera",
+      "gameId": "BzA8NWCgO6iU9tR",
+      "homeTeam": "엘체",
+      "awayTeam": "레알 소시에다드",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "오치엥",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "에레라",
+          "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "르마",
+          "minute": 67
+        },
+        {
+          "team": "home",
+          "player": "페르 니뇨",
+          "minute": 74
+        },
+        {
+          "team": "away",
+          "player": "루카 수치치",
+          "minute": 90
+        }
+      ]
+    },
+    {
+      "date": "2026-09-08",
       "categoryId": "seria",
       "gameId": "MCW6PQOQLuXdEaf",
       "homeTeam": "칼리아리 칼초",
@@ -87462,6 +87698,34 @@
           "team": "home",
           "player": "말디니",
           "minute": 29
+        }
+      ]
+    },
+    {
+      "date": "2026-09-08",
+      "categoryId": "seria",
+      "gameId": "BG9z7r6Ao4roXll",
+      "homeTeam": "우디네세 칼초",
+      "awayTeam": "라치오",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "칼스트룀",
+          "minute": 49
+        },
+        {
+          "team": "away",
+          "player": "프라테시",
+          "minute": 75
+        },
+        {
+          "team": "away",
+          "player": "구드문드손",
+          "minute": 88
         }
       ]
     }
