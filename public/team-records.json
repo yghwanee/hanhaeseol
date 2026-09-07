@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-07T15:49:58.608Z",
+  "lastUpdated": "2026-09-07T19:54:47.957Z",
   "records": {
     "KBO": {
       "삼성": {
@@ -115,25 +115,25 @@
     },
     "MLB": {
       "애틀랜타": {
-        "last5": "WLWWL",
+        "last5": "LWLWW",
         "win": 85,
-        "lose": 58,
+        "lose": 59,
         "draw": 0,
-        "wra": 0.594,
+        "wra": 0.59,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "L"
         }
       },
       "애틀랜타 브레이브스": {
-        "last5": "WLWWL",
+        "last5": "LWLWW",
         "win": 85,
-        "lose": 58,
+        "lose": 59,
         "draw": 0,
-        "wra": 0.594,
+        "wra": 0.59,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "L"
         }
       },
       "시카고W": {
@@ -335,25 +335,25 @@
         }
       },
       "필라델피아": {
-        "last5": "LWLLW",
-        "win": 80,
+        "last5": "WLWLL",
+        "win": 81,
         "lose": 63,
         "draw": 0,
-        "wra": 0.559,
+        "wra": 0.563,
         "streak": {
           "count": 1,
-          "type": "L"
+          "type": "W"
         }
       },
       "필라델피아 필리스": {
-        "last5": "LWLLW",
-        "win": 80,
+        "last5": "WLWLL",
+        "win": 81,
         "lose": 63,
         "draw": 0,
-        "wra": 0.559,
+        "wra": 0.563,
         "streak": {
           "count": 1,
-          "type": "L"
+          "type": "W"
         }
       },
       "텍사스": {
@@ -1019,6 +1019,12 @@
         "lose": 1,
         "draw": 1
       },
+      "레알 소시에다드": {
+        "last5": "DWLL",
+        "win": 2,
+        "lose": 2,
+        "draw": 1
+      },
       "아틀레틱 빌바오": {
         "last5": "WWLL",
         "win": 2,
@@ -1061,32 +1067,26 @@
         "lose": 2,
         "draw": 1
       },
-      "레알 소시에다드": {
-        "last5": "DWLL",
+      "헤타페": {
+        "last5": "DLWL",
         "win": 1,
         "lose": 2,
         "draw": 1
       },
-      "헤타페": {
-        "last5": "LWL",
-        "win": 1,
+      "셀타 데 비고": {
+        "last5": "DDLLD",
+        "win": 0,
         "lose": 2,
-        "draw": 0
+        "draw": 3
+      },
+      "셀타 비고": {
+        "last5": "DDLLD",
+        "win": 0,
+        "lose": 2,
+        "draw": 3
       },
       "비야레알": {
         "last5": "LLDD",
-        "win": 0,
-        "lose": 2,
-        "draw": 2
-      },
-      "셀타 데 비고": {
-        "last5": "DLLD",
-        "win": 0,
-        "lose": 2,
-        "draw": 2
-      },
-      "셀타 비고": {
-        "last5": "DLLD",
         "win": 0,
         "lose": 2,
         "draw": 2
@@ -1100,7 +1100,7 @@
       "엘체": {
         "last5": "LLD",
         "win": 0,
-        "lose": 2,
+        "lose": 3,
         "draw": 1
       },
       "발렌시아": {
@@ -1163,7 +1163,7 @@
         "last5": "WW",
         "win": 2,
         "lose": 0,
-        "draw": 0
+        "draw": 1
       },
       "프로시노네": {
         "last5": "WWL",
@@ -1183,17 +1183,29 @@
         "lose": 1,
         "draw": 0
       },
+      "칼리아리": {
+        "last5": "WLW",
+        "win": 2,
+        "lose": 1,
+        "draw": 0
+      },
+      "칼리아리 칼초": {
+        "last5": "WLW",
+        "win": 2,
+        "lose": 1,
+        "draw": 0
+      },
       "우디네세": {
         "last5": "WD",
         "win": 1,
         "lose": 0,
-        "draw": 1
+        "draw": 2
       },
       "우디네세 칼초": {
         "last5": "WD",
         "win": 1,
         "lose": 0,
-        "draw": 1
+        "draw": 2
       },
       "사수올로": {
         "last5": "DWL",
@@ -1207,24 +1219,6 @@
         "lose": 1,
         "draw": 1
       },
-      "칼리아리": {
-        "last5": "LW",
-        "win": 1,
-        "lose": 1,
-        "draw": 0
-      },
-      "칼리아리 칼초": {
-        "last5": "LW",
-        "win": 1,
-        "lose": 1,
-        "draw": 0
-      },
-      "레체": {
-        "last5": "LW",
-        "win": 1,
-        "lose": 1,
-        "draw": 0
-      },
       "나폴리": {
         "last5": "LLW",
         "win": 1,
@@ -1233,6 +1227,12 @@
       },
       "토리노": {
         "last5": "WLL",
+        "win": 1,
+        "lose": 2,
+        "draw": 0
+      },
+      "레체": {
+        "last5": "LLW",
         "win": 1,
         "lose": 2,
         "draw": 0
