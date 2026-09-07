@@ -82,7 +82,7 @@ test("편성 리드: 오늘 경기가 없으면 다음 경기를 안내한다", 
       id: `${date}-x`,
       date,
       time: "19:00",
-      sport: "baseball",
+      sport: "야구",
       league: "KBO",
       homeTeam: "두산",
       awayTeam: "LG",
@@ -109,12 +109,12 @@ test("편성 리드: 오늘 경기가 없으면 다음 경기를 안내한다", 
 });
 
 test("편성 리드: 같은 경기가 여러 채널이어도 한 경기로 센다", () => {
-  const row = (platform: string): Schedule =>
+  const row = (platform: Schedule["platform"]): Schedule =>
     ({
       id: `x-${platform}`,
       date: TODAY,
       time: platform === "SPOTV" ? "18:15" : "18:30",
-      sport: "baseball",
+      sport: "야구",
       league: "KBO",
       homeTeam: "두산",
       awayTeam: "LG",
