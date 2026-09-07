@@ -69,19 +69,10 @@ export default function GuidePage({ params }: { params: Params }) {
         mainEntityOfPage: { "@type": "WebPage", "@id": url },
         image: "https://haeseol.com/og-default.png",
         ...(guide.keywords ? { keywords: guide.keywords.join(", ") } : {}),
-        author: {
-          "@type": "Organization",
-          name: "한해설",
-          url: "https://haeseol.com",
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "한해설",
-          logo: {
-            "@type": "ImageObject",
-            url: "https://haeseol.com/icon.png",
-          },
-        },
+        // 🔴 Organization 을 페이지마다 새로 선언하면 엔티티가 분열된다. 정본은
+        // layout.tsx 의 `https://haeseol.com/#organization` 하나이고 여기서는 참조만 한다.
+        author: { "@id": "https://haeseol.com/#organization" },
+        publisher: { "@id": "https://haeseol.com/#organization" },
       },
       {
         "@type": "BreadcrumbList",

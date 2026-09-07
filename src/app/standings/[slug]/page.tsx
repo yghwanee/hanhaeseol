@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import standingsData from "@/data/standings.json";
+import { buildStandingsLead } from "@/lib/standings-lead";
 import scheduleArchive from "@/data/schedule-archive.json";
 import type {
   BaseballLeagueStandings,
@@ -86,6 +87,11 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
           | undefined);
 
   const teamCount = league?.teams.length ?? 0;
+
+  // 직답 문단 — "KBO 1위 어디" 류 질문의 답이 표 안에만 있고 문장으로는 없었다.
+  // 답변엔진·네이버 AI 브리핑은 표도 읽지만 인용 칩은 문단 단위로 붙는다.
+  // 🔴 기준일을 반드시 문장 안에 둔다. 날짜 없는 순위 수치는 신뢰 판정에서 감점된다.
+  const leadSentence = buildStandingsLead(meta, league, data.lastUpdated);
   const scheduleHref = meta.scheduleSlug
     ? `/league/${meta.scheduleSlug}`
     : `/?sport=${meta.sport === "baseball" ? "야구" : "축구"}`;
@@ -185,7 +191,10 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
           </Link>
         </div>
 
-        <p className="mt-3 text-sm leading-relaxed text-zinc-400">{meta.intro}</p>
+        {leadSentence && (
+          <p className="mt-3 text-sm leading-relaxed text-zinc-200">{leadSentence}</p>
+        )}
+        <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">{meta.intro}</p>
 
         <div className="mt-5">
           {!league || league.teams.length === 0 ? (

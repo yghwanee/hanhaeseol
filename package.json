@@ -87,6 +87,7 @@
     "test:indexnow-coverage": "tsx --test src/lib/indexnow-coverage.test.ts",
     "test:team-description": "tsx --test src/lib/team-description.test.ts",
     "test:sport-seo": "tsx --test src/lib/sport-seo.test.ts",
+    "test:answer-lead": "tsx --test src/lib/answer-lead.test.ts",
     "test:commentary-stats": "tsx --test src/lib/commentary-stats.test.ts",
     "fonts:subset": "node src/scripts/subset-pretendard.mjs",
     "test:ebook-font": "tsx --test src/lib/ebook-font.test.ts",

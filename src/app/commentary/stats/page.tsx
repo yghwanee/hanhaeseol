@@ -107,7 +107,8 @@ export default function CommentaryStatsPage() {
     description:
       "국내 스포츠 중계 플랫폼 10곳의 경기별 해설 언어(한국어/현지)를 수집해 플랫폼·리그별로 집계한 데이터.",
     url: `${BASE}/commentary/stats`,
-    creator: { "@type": "Organization", name: "한해설", url: BASE },
+    // 정본 Organization 은 layout.tsx 의 #organization 하나다 — 참조만 한다.
+    creator: { "@id": "https://haeseol.com/#organization" },
     license: "https://creativecommons.org/licenses/by/4.0/",
     isAccessibleForFree: true,
     ...(PERIOD ? { temporalCoverage: `${PERIOD.from}/${PERIOD.to}` } : {}),

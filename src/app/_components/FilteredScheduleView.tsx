@@ -7,6 +7,7 @@ import { findResult } from "@/lib/results/lookup";
 import { LEAGUE_SEO, PLATFORM_SEO, SeoMeta } from "@/lib/slugs";
 import { SPORT_SEO, leaguesOfSport, eligibleSports } from "@/lib/sport-seo";
 import { getTodayString } from "@/lib/schedule-utils";
+import { buildAnswerLead } from "@/lib/answer-lead";
 import { isGameFinished, formatDateHeader } from "@/lib/schedule-utils";
 import { AdfitBanner } from "@/app/_components/AdfitBanner";
 import { SiteHeader } from "@/app/_components/SiteHeader";
@@ -109,6 +110,10 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
   //    푸터에는 넣지 않는다: 전역 푸터면 매치 1,600여 장에 전부 실린다(작업74).
   const sportLinks = kind === "sport" ? [] : eligibleSports(schedules, getTodayString());
 
+  // 답변엔진·네이버 AI 브리핑이 추출해 갈 직답 문단. 카드 목록은 사람이 읽는 것이고
+  // 엔진은 문장을 찾는다 — h1 바로 아래에 [수치 + 기준일] 을 갖춘 문장을 둔다.
+  const answerLead = buildAnswerLead(kind, meta.display, matched, getTodayString());
+
   return (
     <main className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12">
       <SiteHeader />
@@ -117,7 +122,8 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
         <h1 className="text-xl sm:text-2xl font-bold text-white">
           {meta.h1 ?? `${meta.display} ${kind === "platform" ? "편성표" : "중계 편성표"}`}
         </h1>
-        <p className="mt-2 text-sm text-zinc-400 leading-relaxed">{meta.intro}</p>
+        <p className="mt-2 text-sm text-zinc-200 leading-relaxed">{answerLead}</p>
+        <p className="mt-1.5 text-sm text-zinc-400 leading-relaxed">{meta.intro}</p>
       </div>
 
       {guideSlot}
