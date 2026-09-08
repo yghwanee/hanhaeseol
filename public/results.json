@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-08T05:55:21.908Z",
+  "lastUpdated": "2026-09-08T11:11:20.913Z",
   "byKey": {
     "2026-09-08|kbo|삼성|KIA": {
       "date": "2026-09-08",
@@ -7,10 +7,10 @@
       "gameId": "20260908HTSS02026",
       "homeTeam": "삼성",
       "awayTeam": "KIA",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "live",
+      "period": "5회말"
     },
     "2026-09-08|kbo|NC|롯데": {
       "date": "2026-09-08",
@@ -18,10 +18,10 @@
       "gameId": "20260908LTNC02026",
       "homeTeam": "NC",
       "awayTeam": "롯데",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 3,
+      "status": "live",
+      "period": "5회초"
     },
     "2026-09-08|kbo|한화|두산": {
       "date": "2026-09-08",
@@ -29,10 +29,10 @@
       "gameId": "20260908OBHH02026",
       "homeTeam": "한화",
       "awayTeam": "두산",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "live",
+      "period": "6회초"
     },
     "2026-09-08|kbo|KT|SSG": {
       "date": "2026-09-08",
@@ -40,10 +40,10 @@
       "gameId": "20260908SKKT02026",
       "homeTeam": "KT",
       "awayTeam": "SSG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "live",
+      "period": "6회말"
     },
     "2026-09-08|kbo|LG|키움": {
       "date": "2026-09-08",
@@ -52,9 +52,9 @@
       "homeTeam": "LG",
       "awayTeam": "키움",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 4,
+      "status": "live",
+      "period": "5회초"
     },
     "2026-09-09|kbo|삼성|KT": {
       "date": "2026-09-09",
@@ -751,7 +751,8 @@
       "homeScore": 1,
       "awayScore": 0,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "dWSgkm0zsTg"
     },
     "2026-09-08|mlb|필라델피아|애틀랜타 브레이브스": {
       "date": "2026-09-08",
@@ -762,7 +763,8 @@
       "homeScore": 1,
       "awayScore": 0,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "dWSgkm0zsTg"
     },
     "2026-09-08|mlb|필라델피아 필리스|애틀랜타": {
       "date": "2026-09-08",
@@ -773,7 +775,8 @@
       "homeScore": 1,
       "awayScore": 0,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "dWSgkm0zsTg"
     },
     "2026-09-08|mlb|필라델피아 필리스|애틀랜타 브레이브스": {
       "date": "2026-09-08",
@@ -784,7 +787,8 @@
       "homeScore": 1,
       "awayScore": 0,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "dWSgkm0zsTg"
     },
     "2026-09-08|mlb|마이애미|뉴욕메츠": {
       "date": "2026-09-08",
@@ -2486,8 +2490,8 @@
       "awayTeam": "서울",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 41'"
     },
     "2026-09-08|kleague|인천|부천": {
       "date": "2026-09-08",
@@ -2496,9 +2500,16 @@
       "homeTeam": "인천",
       "awayTeam": "부천",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 41'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "갈레고",
+          "minute": 32
+        }
+      ]
     },
     "2026-09-09|kleague|포항|김천": {
       "date": "2026-09-09",
@@ -2734,10 +2745,10 @@
       "gameId": "20260908HTSS02026",
       "homeTeam": "삼성",
       "awayTeam": "KIA",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "live",
+      "period": "5회말"
     },
     {
       "date": "2026-09-08",
@@ -2745,10 +2756,10 @@
       "gameId": "20260908LTNC02026",
       "homeTeam": "NC",
       "awayTeam": "롯데",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 3,
+      "status": "live",
+      "period": "5회초"
     },
     {
       "date": "2026-09-08",
@@ -2756,10 +2767,10 @@
       "gameId": "20260908OBHH02026",
       "homeTeam": "한화",
       "awayTeam": "두산",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "live",
+      "period": "6회초"
     },
     {
       "date": "2026-09-08",
@@ -2767,10 +2778,10 @@
       "gameId": "20260908SKKT02026",
       "homeTeam": "KT",
       "awayTeam": "SSG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "live",
+      "period": "6회말"
     },
     {
       "date": "2026-09-08",
@@ -2779,9 +2790,9 @@
       "homeTeam": "LG",
       "awayTeam": "키움",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 4,
+      "status": "live",
+      "period": "5회초"
     },
     {
       "date": "2026-09-09",
@@ -3002,7 +3013,8 @@
       "homeScore": 1,
       "awayScore": 0,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "dWSgkm0zsTg"
     },
     {
       "date": "2026-09-08",
@@ -3729,8 +3741,8 @@
       "awayTeam": "서울",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "live",
+      "period": "전반 41'"
     },
     {
       "date": "2026-09-08",
@@ -3739,9 +3751,16 @@
       "homeTeam": "인천",
       "awayTeam": "부천",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "awayScore": 1,
+      "status": "live",
+      "period": "전반 41'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "갈레고",
+          "minute": 32
+        }
+      ]
     },
     {
       "date": "2026-09-09",
