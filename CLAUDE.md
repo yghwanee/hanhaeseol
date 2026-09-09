@@ -325,6 +325,7 @@ npm run fonts:subset:ui            # 🔴 본문 Pretendard 서브셋 재생성(
 npm run test:font-mixing           # 🔴 font-mono 자리에 한글 금지(한 문자열에 두 폰트) + 서브셋 존재·크기
 npm run test:push-toggle           # 🔴 해제 순서(서버→로컬) · 컨트롤 유지 · ⭐히트영역 44px · 미지원 환경 안내
 npm run test:workflow-yaml         # 🔴 워크플로 22개 전수 파싱. 문자열 검사로는 못 잡는다(아래 참조)
+npm run test:workflow-pipe         # 🔴 파이프가 종료코드를 삼키는지(npm|tee). 실패한 크롤이 초록으로 끝난다
 npm run test:head-script           # 🔴 head 인라인에 location 계열 금지(넣으면 네이버가 홈 메타를 통째로 버린다)
 npm run test:hero-pick             # 히어로 선정 가중치
 npm run test:fixture-dedupe        # 🔴 홈/원정 반전 중복이 같은 경기를 두 URL 로 내보내는지(실데이터 회귀 포함)
@@ -364,6 +365,13 @@ ISSUE_BODY="$(gh issue view N --json body -q .body)" npm run check:idea-dupes  #
   못 읽어서 트리거가 없다고 답하는 것이라 **트리거 설정 문제로 착각한다.** 그리고 없는
   트리거(push 등)로 실패 런이 하나 생기는 것도 같은 신호다.
   탭·키워드 문자열 검사로는 못 잡는다. `test:workflow-yaml` 이 실제 파서로 읽는다.
+
+- 🔴 **파이프에 종료코드를 넘기지 말 것.** `npm run crawl 2>&1 | tee crawl.log` 는
+  파이프라인 종료코드가 **tee 의 것**이라 `exit 1` 이 사라진다. 2026-09-09 에 편성 크롤이
+  팀명 null 로 매번 죽고 있었는데 **나흘간 워크플로가 전부 초록**이었다. 편성이 안 바뀌니
+  커밋도 안 생겨 기존 알림(배포 실패·위생 가드)에도 하나도 안 걸렸다.
+  블록 맨 위에 `set -o pipefail`. 가드 = `npm run test:workflow-pipe`.
+  **크롤이 멈춘 것 같으면 `gh run list` 의 색이 아니라 `schedule.json` 의 `lastUpdated` 를 볼 것.**
 
 - 🔴 **`cmd | grep -q` 를 `set -o pipefail` 과 같이 쓰지 말 것.** grep 이 첫 매치에서
   파이프를 닫아 앞 명령이 SIGPIPE(141)로 죽고, pipefail 이 그 141 을 파이프라인 상태로
