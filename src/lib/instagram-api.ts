@@ -177,10 +177,24 @@ function isTransientFetch(err: IgError | undefined): boolean {
  */
 const IMAGE_CONVERT_FAILED_SUBCODE = 2207084;
 
-/** `/media` 컨테이너 생성 실패 중 다시 걸어 볼 만한 것. postMedia 전용. */
+/**
+ * `/media` 컨테이너 생성 실패 중 다시 걸어 볼 만한 것. postMedia 전용.
+ *
+ * 🔴 **컨테이너 status 경로와 같은 코드표를 쓴다.** 예전엔 여기만 따로 판정해서,
+ * 같은 Meta 코드가 경로에 따라 다르게 분류됐다 — 2026-09-09 저녁 캐러셀이 그 구멍으로
+ * 죽었다(`code:-1 / 2207032 "Fatal" / is_transient:false`). 2207032 는
+ * `RETRYABLE_CONTAINER_CODES` 에 이미 있었는데 이 함수가 안 봐서, is_transient 도
+ * false 라 재시도 0회로 즉사했다. 코드표를 새로 만들지 말고 그 두 배열만 고칠 것.
+ */
 export function isRetryableMediaCreate(err: IgError | undefined): boolean {
   if (!err) return false;
-  if (err.error_subcode === IMAGE_CONVERT_FAILED_SUBCODE) return true;
+  const sub = err.error_subcode;
+  if (sub !== undefined) {
+    // 규격 위반은 is_transient 가 뭐라 오든 즉시 실패. 못 올릴 파일에 10분을 쓰지 않는다.
+    if (PERMANENT_CONTAINER_CODES.includes(sub)) return false;
+    if (sub === IMAGE_CONVERT_FAILED_SUBCODE) return true;
+    if (RETRYABLE_CONTAINER_CODES.includes(sub)) return true;
+  }
   return isTransientFetch(err);
 }
 

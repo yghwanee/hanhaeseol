@@ -37,10 +37,15 @@ jobs:
           # 🔴 Hobby 에선 "Costs not found (404)" 였다. Pro 인데도 404 면 CLI 로는 못 읽는
           #    것이므로 **숫자를 못 줬다는 걸 분명히** 말하고 대시보드를 보게 한다.
           #    조용히 빈 값을 보내면 "확인했다"고 착각하게 된다.
-          if echo "$out" | grep -qiE "not found|404|error"; then
+          # 🔴 `echo "$out" | grep -q` 를 쓰지 않는다. pipefail 이 켜져 있어서, grep 이 첫
+          #    매치에서 파이프를 닫으면 echo 가 SIGPIPE(141)로 죽고 그 141 이 파이프라인
+          #    상태로 올라온다 → 조건이 거짓이 돼 **404 인데도 정상 분기로 샌다.**
+          #    파일로 받아 판정한다. 가드 = npm run test:workflow-pipe
+          printf '%s\n' "$out" > usage.txt
+          if grep -qiE "not found|404|error" usage.txt; then
             body="(CLI 로는 사용량을 못 읽습니다 — 아래 대시보드에서 직접 확인하세요)"
           else
-            body=$(echo "$out" | grep -viE "telemetry|npm warn|^>|Vercel CLI" | head -20)
+            body=$(grep -viE "telemetry|npm warn|^>|Vercel CLI" usage.txt | head -20)
           fi
           {
             echo "text<<EOF"

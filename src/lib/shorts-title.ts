@@ -154,6 +154,16 @@ export function buildHookLine(
 }
 
 /**
+ * 폴백 제목의 슬롯 구분자. 본문(`getMainHighlight`)이 같아도 이 꼬리가 다르면
+ * 두 게시물의 제목이 절대 같아지지 않는다. 문장 성격도 슬롯에 맞춘다
+ * (아침 = 지금 볼 것 / 저녁 = 미리 정해 둘 것).
+ */
+const FALLBACK_TITLE_TAIL: Record<PostSlot, string> = {
+  morning: "한눈에 정리",
+  evening: "미리 확인하세요",
+};
+
+/**
  * 쇼츠 제목. `{후킹} {M/D(요일)} #Shorts` 형태.
  * 아침/저녁 문장 풀이 분리돼 있어 같은 날짜라도 두 게시물의 제목이 절대 같지 않다.
  */
@@ -174,7 +184,14 @@ export function buildShortsTitle(
     if (title.length <= TITLE_MAX) return title;
   }
 
-  // 폴백: 후킹 재료가 없거나(경기 0) 제목이 너무 길 때.
-  // 종전 포맷에 슬롯 라벨만 앞에 붙여 중복은 여전히 피한다.
-  return `${inferDayLabel(today, now)} ${getMainHighlight(today)} ${dateTag}`.slice(0, TITLE_MAX);
+  // 폴백: 후킹 재료가 없거나(경기 0·편성 미수집) 제목이 너무 길 때.
+  //
+  // 🔴 여기도 슬롯을 갈라야 한다. 종전엔 앞에 붙는 '오늘/내일' 이 슬롯 라벨이라
+  // 그게 구분자 역할을 했는데, 그 말을 슬롯이 아니라 **게시 시점**을 따르게 바꾸면서
+  // (2026-08-29) 유일한 구분자가 조용히 사라졌다. 2026-09-09 에 편성 크롤이 나흘째
+  // 죽어 경기 0 인 날이 생기자 아침·저녁 제목이 글자까지 같아졌다 —
+  // 유튜브 피드 배포를 끊었던 바로 그 중복 신호다. `test:shorts-title` 이 막는다.
+  const tail = FALLBACK_TITLE_TAIL[slot];
+  const base = `${inferDayLabel(today, now)} ${getMainHighlight(today)}`;
+  return `${base} ${tail} ${dateTag}`.slice(0, TITLE_MAX);
 }

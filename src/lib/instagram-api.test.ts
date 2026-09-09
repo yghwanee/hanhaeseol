@@ -128,3 +128,30 @@ test("기존 일시 오류 분류(9004 / 2207052 / is_transient)는 그대로 �
   assert.equal(isRetryableMediaCreate({ error_subcode: 2207052 }), true);
   assert.equal(isRetryableMediaCreate({ code: 2, is_transient: true }), true);
 });
+
+// 2026-09-09 저녁 캐러셀 실패의 실제 에러(로그 그대로). `2207032` 는 컨테이너 status
+// 경로(RETRYABLE_CONTAINER_CODES)엔 있었는데 **미디어 생성 경로엔 없어서**, is_transient:false
+// 와 맞물려 재시도 0회로 즉사했다. 같은 코드가 경로에 따라 다르게 분류되면 안 된다.
+const REAL_2207032 = {
+  message: "Fatal",
+  type: "OAuthException",
+  code: -1,
+  error_subcode: 2207032,
+  is_transient: false,
+};
+
+test("미디어 생성 Fatal(2207032)은 재시도 대상 — 2026-09-09 저녁 캐러셀이 여기서 죽었다", () => {
+  assert.equal(isRetryableMediaCreate(REAL_2207032), true);
+});
+
+test("컨테이너에서 일시로 보는 코드는 미디어 생성에서도 일시다(경로별 분류 불일치 금지)", () => {
+  for (const code of [2207001, 2207003, 2207008, 2207020, 2207032, 2207052, 2207053, 9004]) {
+    assert.equal(isRetryableMediaCreate({ error_subcode: code }), true, `subcode ${code}`);
+  }
+});
+
+test("규격 위반 코드는 미디어 생성에서도 즉시 실패한다(못 올릴 파일에 10분 쓰지 않는다)", () => {
+  for (const code of [2207004, 2207005, 2207006, 2207009, 2207010, 2207026]) {
+    assert.equal(isRetryableMediaCreate({ error_subcode: code, is_transient: true }), false, `subcode ${code}`);
+  }
+});

@@ -134,3 +134,5 @@ jobs:
           npm run test:push-live
           npm run test:font-mixing
           npm run test:workflow-yaml
+          # 🔴 파이프가 종료코드를 삼키면 실패한 크롤이 초록으로 끝난다(2026-09-09, 나흘 정지).
+          npm run test:workflow-pipe

@@ -102,3 +102,29 @@ test("크롤 파이프라인이 앞뒤 공백을 걷어낸다", () => {
   assert.equal(out.id.endsWith("찰턴"), true, `id 미정리: ${out.id}`);
   assert.equal(pollution(out.awayTeam), null);
 });
+
+test("🔴 팀명이 null 이어도 크롤 전체가 죽지 않는다", () => {
+  // 2026-09-09 실측: 쿠팡플레이가 2026-09-12 편성에 팀명 null 을 내려줬고
+  //   `TypeError: Cannot read properties of null (reading 'trim')` 로 crawl.ts 가 통째로
+  //   죽었다. 그 뒤 4일간 schedule.json 이 한 번도 갱신되지 않았는데, 워크플로는
+  //   내내 초록이었다(파이프가 종료코드를 삼켰다 — crawl.yml 쪽에서 따로 막는다).
+  // 한 행 때문에 7일치를 잃지 않는다. 빈 문자열로 떨어뜨리면 crawlAll 의
+  //   `.filter((s) => s.homeTeam && s.awayTeam)` 이 그 행만 걷어낸다.
+  const row = {
+    id: "coupang-2026-09-12-00:00-미정",
+    date: "2026-09-12",
+    time: "00:00",
+    sport: "축구",
+    league: null,
+    homeTeam: null,
+    awayTeam: undefined,
+    platform: "쿠팡플레이",
+  } as unknown as ScheduleData["schedules"][number];
+
+  const out = trimNames(row);
+  assert.equal(out.homeTeam, "");
+  assert.equal(out.awayTeam, "");
+  assert.equal(out.league, "");
+  // 그 행만 빠지고 나머지는 남는다
+  assert.equal([out].filter((s) => s.homeTeam && s.awayTeam).length, 0);
+});

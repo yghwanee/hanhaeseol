@@ -68,7 +68,20 @@ jobs:
       - name: Run crawl
         id: crawl
         run: |
-          npm run crawl 2>&1 | tee crawl.log
+          # 🔴 pipefail 이 없으면 파이프라인 종료코드가 **tee 의 것**이 된다.
+          #    2026-09-09: crawl.ts 가 팀명 null 에 TypeError 로 죽고 있었는데
+          #    tee 가 0 을 돌려줘 스텝이 통과했고, schedule.json 이 안 바뀌니
+          #    커밋 스텝은 updated=false 를 찍고 워크플로가 초록으로 끝났다.
+          #    나흘간 편성표가 얼어붙었는데 알림이 하나도 없었다.
+          #    가드 = npm run test:workflow-pipe
+          set -o pipefail
+          if npm run crawl 2>&1 | tee crawl.log; then
+            echo "ok=true" >> $GITHUB_OUTPUT
+          else
+            echo "ok=false" >> $GITHUB_OUTPUT
+            echo "::error::편성 크롤 실패 — schedule.json 이 갱신되지 않았습니다."
+          fi
+          # 파이프가 아니라 파일을 읽는다(pipefail + grep -q 는 SIGPIPE 141 로 오탐).
           if grep -q "쿠팡플레이: 토큰 갱신 실패" crawl.log; then
             echo "coupang_failed=true" >> $GITHUB_OUTPUT
           else
@@ -384,3 +397,30 @@ jobs:
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d chat_id="${TELEGRAM_CHAT_ID}" \
             --data-urlencode "text=${MSG}"
+
+      # 🔴 크롤 자체가 죽은 경우. 종전엔 이 경로가 **아예 없었다** — 파이프가 종료코드를
+      # 삼켜 스텝이 초록이었고, 편성이 안 바뀌니 커밋도 안 생겨 알림 조건에도 안 걸렸다.
+      # 2026-09-05 ~ 09-09 나흘간 편성표가 얼어붙은 채 아무도 몰랐다.
+      - name: Telegram 알림 (편성 크롤 실패)
+        if: always() && steps.crawl.outputs.ok == 'false'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          MSG=$(printf '%s\n' \
+            "🚨 편성 크롤 실패 — schedule.json 이 갱신되지 않았습니다" \
+            "" \
+            "사이트 편성표가 마지막 성공 시점에 멈춰 있습니다." \
+            "하루 3회(08:18 · 10:48 · 13:48) 재시도하지만, 원인이 코드면 계속 실패합니다." \
+            "" \
+            "로그에서 '크롤링 실패:' 줄을 먼저 볼 것" \
+            "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}")
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" \
+            --data-urlencode "text=${MSG}"
+
+      # 알림을 보낸 뒤 잡을 빨갛게 끝낸다. 여기서 끊지 않으면 Actions 목록이 초록이라
+      # `gh run list` 로 훑을 때 또 못 본다.
+      - name: 크롤 실패를 잡 결과에 반영
+        if: always() && steps.crawl.outputs.ok == 'false'
+        run: exit 1

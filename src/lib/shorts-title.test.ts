@@ -191,3 +191,21 @@ test("🔴 주어가 팀일 때 선수용 서술어가 붙지 않는다", () => 
     }
   }
 });
+
+test("🔴 편성이 0인 날에도 아침·저녁 제목이 다르다(폴백 경로)", () => {
+  // 2026-09-09 실측: 편성 크롤이 나흘째 죽어 있어 오늘+3 이 경기 0 이었고,
+  // 후킹 재료가 없으니 둘 다 폴백으로 떨어져 제목이 글자까지 같아졌다.
+  //   `내일 한국어 중계 편성표 9/12(금) #Shorts` × 2
+  // 폴백에는 종전에 슬롯 라벨이 있었는데, '오늘/내일'을 슬롯이 아니라 게시 시점으로
+  // 바꾸면서(2026-08-29) 유일한 구분자가 조용히 사라졌다. 정작 중복이 제일 위험한 날이다.
+  const empty = kstDatePlus(400); // 편성 데이터가 있을 수 없는 날 = 폴백 강제
+  const morning = buildShortsTitle("09", "12", empty, "morning");
+  const evening = buildShortsTitle("09", "12", empty, "evening");
+  assert.notEqual(morning, evening, `폴백 제목이 같음 — ${morning}`);
+  for (const t of [morning, evening]) {
+    assert.ok(t.length <= TITLE_MAX, `제목 상한 초과(${t.length}) — ${t}`);
+    assert.ok(t.includes("#Shorts"), `#Shorts 누락 — ${t}`);
+    assert.ok(t.includes("9/12"), `날짜 누락 — ${t}`);
+    assert.ok(/한국어/.test(t) && /중계|해설/.test(t), `검색 키워드 누락 — ${t}`);
+  }
+});

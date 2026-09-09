@@ -110,7 +110,8 @@
     "test:push-live": "tsx --test src/lib/push/live-poller.test.ts",
     "test:font-mixing": "tsx --test src/lib/font-mixing.test.ts",
     "test:push-toggle": "tsx --test src/lib/push/toggle.test.ts",
-    "test:workflow-yaml": "tsx --test src/lib/workflow-yaml.test.ts"
+    "test:workflow-yaml": "tsx --test src/lib/workflow-yaml.test.ts",
+    "test:workflow-pipe": "tsx --test src/lib/workflow-pipe-guard.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

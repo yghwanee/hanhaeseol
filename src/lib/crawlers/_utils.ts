@@ -57,9 +57,23 @@ export async function pLimit<T, R>(
 export function trimNames(s: Schedule): Schedule {
   return {
     ...s,
-    id: s.id.trim(),
-    homeTeam: s.homeTeam.trim(),
-    awayTeam: s.awayTeam.trim(),
-    league: s.league.trim(),
+    id: str(s.id),
+    homeTeam: str(s.homeTeam),
+    awayTeam: str(s.awayTeam),
+    league: str(s.league),
   };
+}
+
+/**
+ * 🔴 타입이 `string` 이라고 값이 문자열인 건 아니다. 외부 API 응답을 그대로 담는
+ * 자리라 `null` 이 들어온다 — 2026-09-09 에 쿠팡플레이가 2026-09-12 편성에 팀명
+ * null 을 내려줬고 `s.homeTeam.trim()` 이 던진 TypeError 로 crawl.ts 가 통째로
+ * 죽었다. 그 뒤 **4일간 schedule.json 이 한 번도 갱신되지 않았는데** 워크플로는
+ * 내내 초록이었다.
+ *
+ * 한 행 때문에 7일치를 잃지 않는다. 빈 문자열로 떨어뜨리면 `crawlAll` 의
+ * `.filter((s) => s.homeTeam && s.awayTeam)` 이 그 행만 걷어낸다.
+ */
+function str(v: unknown): string {
+  return typeof v === "string" ? v.trim() : "";
 }
