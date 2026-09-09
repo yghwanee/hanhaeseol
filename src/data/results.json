@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-09T04:34:01.618Z",
+  "lastUpdated": "2026-09-09T09:39:03.619Z",
   "byKey": {
     "2026-09-08|kbo|삼성|KIA": {
       "date": "2026-09-08",
@@ -69,8 +69,8 @@
       "awayTeam": "KT",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회초"
     },
     "2026-09-09|kbo|한화|LG": {
       "date": "2026-09-09",
@@ -80,8 +80,8 @@
       "awayTeam": "LG",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회말"
     },
     "2026-09-09|kbo|KIA|NC": {
       "date": "2026-09-09",
@@ -91,8 +91,8 @@
       "awayTeam": "NC",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회말"
     },
     "2026-09-09|kbo|두산|SSG": {
       "date": "2026-09-09",
@@ -102,8 +102,8 @@
       "awayTeam": "SSG",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회말"
     },
     "2026-09-10|kbo|SSG|한화": {
       "date": "2026-09-10",
@@ -602,7 +602,8 @@
       "homeScore": 6,
       "awayScore": 5,
       "status": "finished",
-      "period": "9회말"
+      "period": "9회말",
+      "highlightVideoId": "b7UTkI3aIKY"
     },
     "2026-09-08|mlb|애슬레틱스|토론토 블루제이스": {
       "date": "2026-09-08",
@@ -613,7 +614,8 @@
       "homeScore": 6,
       "awayScore": 5,
       "status": "finished",
-      "period": "9회말"
+      "period": "9회말",
+      "highlightVideoId": "b7UTkI3aIKY"
     },
     "2026-09-09|mlb|볼티모어|클리블랜드": {
       "date": "2026-09-09",
@@ -1055,50 +1057,6 @@
       "status": "finished",
       "period": "9회말"
     },
-    "2026-09-09|mlb|시애틀|텍사스": {
-      "date": "2026-09-09",
-      "categoryId": "mlb",
-      "gameId": "20260909TESE0",
-      "homeTeam": "시애틀 매리너스",
-      "awayTeam": "텍사스 레인저스",
-      "homeScore": 4,
-      "awayScore": 10,
-      "status": "live",
-      "period": "9회초"
-    },
-    "2026-09-09|mlb|시애틀|텍사스 레인저스": {
-      "date": "2026-09-09",
-      "categoryId": "mlb",
-      "gameId": "20260909TESE0",
-      "homeTeam": "시애틀 매리너스",
-      "awayTeam": "텍사스 레인저스",
-      "homeScore": 4,
-      "awayScore": 10,
-      "status": "live",
-      "period": "9회초"
-    },
-    "2026-09-09|mlb|시애틀 매리너스|텍사스": {
-      "date": "2026-09-09",
-      "categoryId": "mlb",
-      "gameId": "20260909TESE0",
-      "homeTeam": "시애틀 매리너스",
-      "awayTeam": "텍사스 레인저스",
-      "homeScore": 4,
-      "awayScore": 10,
-      "status": "live",
-      "period": "9회초"
-    },
-    "2026-09-09|mlb|시애틀 매리너스|텍사스 레인저스": {
-      "date": "2026-09-09",
-      "categoryId": "mlb",
-      "gameId": "20260909TESE0",
-      "homeTeam": "시애틀 매리너스",
-      "awayTeam": "텍사스 레인저스",
-      "homeScore": 4,
-      "awayScore": 10,
-      "status": "live",
-      "period": "9회초"
-    },
     "2026-09-09|mlb|샌디에이고|워싱턴": {
       "date": "2026-09-09",
       "categoryId": "mlb",
@@ -1142,6 +1100,50 @@
       "awayScore": 4,
       "status": "finished",
       "period": "9회초"
+    },
+    "2026-09-09|mlb|시애틀|텍사스": {
+      "date": "2026-09-09",
+      "categoryId": "mlb",
+      "gameId": "20260909TESE0",
+      "homeTeam": "시애틀 매리너스",
+      "awayTeam": "텍사스 레인저스",
+      "homeScore": 5,
+      "awayScore": 10,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-09-09|mlb|시애틀|텍사스 레인저스": {
+      "date": "2026-09-09",
+      "categoryId": "mlb",
+      "gameId": "20260909TESE0",
+      "homeTeam": "시애틀 매리너스",
+      "awayTeam": "텍사스 레인저스",
+      "homeScore": 5,
+      "awayScore": 10,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-09-09|mlb|시애틀 매리너스|텍사스": {
+      "date": "2026-09-09",
+      "categoryId": "mlb",
+      "gameId": "20260909TESE0",
+      "homeTeam": "시애틀 매리너스",
+      "awayTeam": "텍사스 레인저스",
+      "homeScore": 5,
+      "awayScore": 10,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-09-09|mlb|시애틀 매리너스|텍사스 레인저스": {
+      "date": "2026-09-09",
+      "categoryId": "mlb",
+      "gameId": "20260909TESE0",
+      "homeTeam": "시애틀 매리너스",
+      "awayTeam": "텍사스 레인저스",
+      "homeScore": 5,
+      "awayScore": 10,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-09|mlb|애슬레틱스|토론토": {
       "date": "2026-09-09",
@@ -1217,7 +1219,7 @@
       "awayTeam": "신시내티 레즈",
       "homeScore": 3,
       "awayScore": 2,
-      "status": "live",
+      "status": "finished",
       "period": "9회초"
     },
     "2026-09-09|mlb|LA다저스|신시내티 레즈": {
@@ -1228,7 +1230,7 @@
       "awayTeam": "신시내티 레즈",
       "homeScore": 3,
       "awayScore": 2,
-      "status": "live",
+      "status": "finished",
       "period": "9회초"
     },
     "2026-09-09|mlb|LA 다저스|신시내티": {
@@ -1239,7 +1241,7 @@
       "awayTeam": "신시내티 레즈",
       "homeScore": 3,
       "awayScore": 2,
-      "status": "live",
+      "status": "finished",
       "period": "9회초"
     },
     "2026-09-09|mlb|LA 다저스|신시내티 레즈": {
@@ -1250,7 +1252,7 @@
       "awayTeam": "신시내티 레즈",
       "homeScore": 3,
       "awayScore": 2,
-      "status": "live",
+      "status": "finished",
       "period": "9회초"
     },
     "2026-09-10|mlb|디트로이트|미네소타": {
@@ -3165,7 +3167,7 @@
         {
           "team": "home",
           "player": "타하우이",
-          "minute": 10
+          "minute": 11
         },
         {
           "team": "away",
@@ -3365,8 +3367,8 @@
       "awayTeam": "KT",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회초"
     },
     {
       "date": "2026-09-09",
@@ -3376,8 +3378,8 @@
       "awayTeam": "LG",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회말"
     },
     {
       "date": "2026-09-09",
@@ -3387,8 +3389,8 @@
       "awayTeam": "NC",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회말"
     },
     {
       "date": "2026-09-09",
@@ -3398,8 +3400,8 @@
       "awayTeam": "SSG",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회말"
     },
     {
       "date": "2026-09-10",
@@ -3565,7 +3567,8 @@
       "homeScore": 6,
       "awayScore": 5,
       "status": "finished",
-      "period": "9회말"
+      "period": "9회말",
+      "highlightVideoId": "b7UTkI3aIKY"
     },
     {
       "date": "2026-09-09",
@@ -3680,17 +3683,6 @@
     {
       "date": "2026-09-09",
       "categoryId": "mlb",
-      "gameId": "20260909TESE0",
-      "homeTeam": "시애틀 매리너스",
-      "awayTeam": "텍사스 레인저스",
-      "homeScore": 4,
-      "awayScore": 10,
-      "status": "live",
-      "period": "9회초"
-    },
-    {
-      "date": "2026-09-09",
-      "categoryId": "mlb",
       "gameId": "20260909MOSD0",
       "homeTeam": "샌디에이고 파드리스",
       "awayTeam": "워싱턴 내셔널스",
@@ -3698,6 +3690,17 @@
       "awayScore": 4,
       "status": "finished",
       "period": "9회초"
+    },
+    {
+      "date": "2026-09-09",
+      "categoryId": "mlb",
+      "gameId": "20260909TESE0",
+      "homeTeam": "시애틀 매리너스",
+      "awayTeam": "텍사스 레인저스",
+      "homeScore": 5,
+      "awayScore": 10,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-09-09",
@@ -3729,7 +3732,7 @@
       "awayTeam": "신시내티 레즈",
       "homeScore": 3,
       "awayScore": 2,
-      "status": "live",
+      "status": "finished",
       "period": "9회초"
     },
     {
@@ -4759,7 +4762,7 @@
         {
           "team": "home",
           "player": "타하우이",
-          "minute": 10
+          "minute": 11
         },
         {
           "team": "away",
