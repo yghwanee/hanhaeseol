@@ -61,6 +61,13 @@ const KNOWN_UNSUPPORTED = new Set([
   // 🔴 statistics/categories/{id}/seasons 는 이제 아무 id 에나 200 + 빈 seasons 를
   // 주므로 판별에 쓸 수 없다(bogusxyz123 도 200). 후보 검증은 /schedule/games 로 할 것.
   "UEFA 유스리그",
+  // 스코티시 리그컵(SPOTV NOW — 예: 9/13 레인저스 FC vs 셀틱 FC). 2026-09-09 실측.
+  // /schedule/games 에 scottishleaguecup·splcup·scottishlc·leaguecup·scotlandcup·
+  // sclc·scottishcup·viaplaycup·scottish 를 던져 전부 400.
+  // 🔴 리그(스코티시 프리미어십)가 되니 컵도 되겠거니 하면 안 된다 — `spl` 은 같은 창에서
+  // 200 에 6경기를 주지만 **그 안에 9/13 레인저스-셀틱이 없다.** 네이버가 리그만 다룬다.
+  // 200 이라고 붙이면 영영 안 맞는 키가 된다(퓨처스리그·AUBL 과 같은 함정).
+  "스코티시 리그컵",
 ]);
 
 const schedules = (scheduleData as unknown as ScheduleData).schedules;
