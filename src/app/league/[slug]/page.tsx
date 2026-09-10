@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import standingsJson from "@/data/standings.json";
-import { buildTeamIndex, eligibleTeams, type StandingsData } from "@/lib/teams";
+import { buildTeamIndex, eligibleTeams, type StandingsData, type TeamEntry } from "@/lib/teams";
 import type { Metadata } from "next";
 import { LEAGUE_SEO, findLeagueBySlug } from "@/lib/slugs";
 import { LEAGUE_GUIDES } from "@/lib/league-guides";
@@ -60,6 +60,22 @@ export async function generateMetadata({
   };
 }
 
+/**
+ * 팀 색인은 입력이 전부 배포 번들 안의 정적 데이터라 렌더마다 다시 세울 이유가 없다.
+ * (2026-09-10: `/team/*`·`/match/*`·`/league/*` 가 Active CPU 의 85% 를 먹고 있었다.
+ *  근거와 캐시 안전성은 `src/lib/server-data.ts` 상단 주석 참조.)
+ */
+let teamIndexCache: TeamEntry[] | null = null;
+function teamIndexCached(): TeamEntry[] {
+  if (teamIndexCache) return teamIndexCache;
+  const built = eligibleTeams(
+    buildTeamIndex(standingsJson as unknown as StandingsData),
+    loadScheduleData().schedules,
+  );
+  if (process.env.NODE_ENV === "production") teamIndexCache = built;
+  return built;
+}
+
 export default function LeaguePage({ params }: { params: { slug: string } }) {
   const meta = findLeagueBySlug(params.slug);
   if (!meta) notFound();
@@ -69,10 +85,7 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
   const schedules = loadScheduleData().schedules;
   const teamRecords = loadTeamRecords();
   const results = loadResults();
-  const teams = eligibleTeams(
-    buildTeamIndex(standingsJson as unknown as StandingsData),
-    schedules,
-  )
+  const teams = teamIndexCached()
     .filter((t) => t.leagueSlug === meta.slug)
     .sort((a, b) => a.rank - b.rank);
 

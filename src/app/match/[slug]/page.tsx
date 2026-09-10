@@ -111,6 +111,22 @@ const allSchedules: Schedule[] = (() => {
   return dedupeReversedFixtures([...byId.values()]);
 })();
 
+/**
+ * 팀 색인은 입력이 전부 배포 번들 안의 정적 데이터라 렌더마다 다시 세울 이유가 없다.
+ * (2026-09-10: `/team/*`·`/match/*`·`/league/*` 가 Active CPU 의 85% 를 먹고 있었다.
+ *  근거와 캐시 안전성은 `src/lib/server-data.ts` 상단 주석 참조.)
+ */
+let teamIndexCache: TeamEntry[] | null = null;
+function teamIndexCached(): TeamEntry[] {
+  if (teamIndexCache) return teamIndexCache;
+  const built = eligibleTeams(
+    buildTeamIndex(standingsJson as unknown as TeamStandingsData),
+    allSchedules,
+  );
+  if (process.env.NODE_ENV === "production") teamIndexCache = built;
+  return built;
+}
+
 type Params = { slug: string };
 
 /**
@@ -336,10 +352,7 @@ export default function MatchPage({ params }: { params: Params }) {
   // 슬러그가 달라서 슬러그 비교만으론 자기 경기/중복 경기를 못 거른다. 매치업 키
   // (date|home|away) 단위로 dedupe + 자기 자신 제외.
   // 팀 페이지가 있는 팀만 링크한다(개막 전 리그·국내 미중계 팀은 페이지가 없다).
-  const teamIndex = eligibleTeams(
-    buildTeamIndex(standingsJson as unknown as TeamStandingsData),
-    allSchedules,
-  );
+  const teamIndex = teamIndexCached();
   const selfMatchupKey = `${match.date}|${match.homeTeam}|${match.awayTeam}`;
   const dedupByMatchup = (list: Schedule[]): Schedule[] => {
     const seen = new Set<string>([selfMatchupKey]);

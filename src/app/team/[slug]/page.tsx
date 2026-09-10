@@ -51,18 +51,37 @@ const BASE = "https://haeseol.com";
  * 자격 판정은 편성 아카이브(시즌 전체)로 한다. 7일치 편성만 보면 이번 주 경기가 없는 팀이
  * 빠져서 URL이 주마다 생겼다 사라진다. 색인에 그보다 나쁜 신호가 없다.
  */
+/**
+ * 🔴 한 장을 그리는 동안 이 둘이 각각 4번 불린다
+ * (`generateStaticParams` · `generateMetadata` 2회 · 본문 2회).
+ * 편성 아카이브 전체를 이어 붙이고 팀 색인을 다시 세우는 일이라 한 번이 싸지 않다 —
+ * 2026-09-10 실측으로 팀 페이지 렌더당 CPU 860ms, `/team/*` 이 계정 Active CPU 의 71.8%였다.
+ *
+ * 입력이 전부 배포 번들 안의 정적 데이터(`schedule-archive.json` static import +
+ * `loadScheduleData()`)라 같은 인스턴스 안에서는 몇 번을 불러도 같은 값이다.
+ * 그래서 결과를 들고 있어도 출력이 달라지지 않는다. 캐시 근거는 `server-data.ts` 주석 참조.
+ */
+let schedulesCache: Schedule[] | null = null;
+let indexCache: TeamEntry[] | null = null;
+
 function allSchedules(): Schedule[] {
-  return [
+  if (schedulesCache) return schedulesCache;
+  const built = [
     ...loadScheduleData().schedules,
     ...((archiveData as unknown as { schedules: Schedule[] }).schedules ?? []),
   ];
+  if (process.env.NODE_ENV === "production") schedulesCache = built;
+  return built;
 }
 
 function index(): TeamEntry[] {
-  return eligibleTeams(
+  if (indexCache) return indexCache;
+  const built = eligibleTeams(
     buildTeamIndex(standingsData as unknown as StandingsData),
     allSchedules(),
   );
+  if (process.env.NODE_ENV === "production") indexCache = built;
+  return built;
 }
 
 export function generateStaticParams() {
