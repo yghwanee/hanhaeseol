@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-10T04:33:48.551Z",
+  "lastUpdated": "2026-09-10T09:38:18.305Z",
   "byKey": {
     "2026-09-09|kbo|삼성|KT": {
       "date": "2026-09-09",
@@ -57,8 +57,8 @@
       "awayTeam": "한화",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회말"
     },
     "2026-09-10|kbo|롯데|KT": {
       "date": "2026-09-10",
@@ -68,8 +68,8 @@
       "awayTeam": "KT",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회말"
     },
     "2026-09-10|kbo|KIA|NC": {
       "date": "2026-09-10",
@@ -79,8 +79,8 @@
       "awayTeam": "NC",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회말"
     },
     "2026-09-10|kbo|두산|키움": {
       "date": "2026-09-10",
@@ -90,8 +90,8 @@
       "awayTeam": "키움",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회말"
     },
     "2026-09-11|kbo|롯데|KT": {
       "date": "2026-09-11",
@@ -1375,10 +1375,10 @@
       "gameId": "20260910CILA0",
       "homeTeam": "LA 다저스",
       "awayTeam": "신시내티 레즈",
-      "homeScore": 13,
+      "homeScore": 14,
       "awayScore": 1,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-09-10|mlb|LA다저스|신시내티 레즈": {
       "date": "2026-09-10",
@@ -1386,10 +1386,10 @@
       "gameId": "20260910CILA0",
       "homeTeam": "LA 다저스",
       "awayTeam": "신시내티 레즈",
-      "homeScore": 13,
+      "homeScore": 14,
       "awayScore": 1,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-09-10|mlb|LA 다저스|신시내티": {
       "date": "2026-09-10",
@@ -1397,10 +1397,10 @@
       "gameId": "20260910CILA0",
       "homeTeam": "LA 다저스",
       "awayTeam": "신시내티 레즈",
-      "homeScore": 13,
+      "homeScore": 14,
       "awayScore": 1,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-09-10|mlb|LA 다저스|신시내티 레즈": {
       "date": "2026-09-10",
@@ -1408,10 +1408,10 @@
       "gameId": "20260910CILA0",
       "homeTeam": "LA 다저스",
       "awayTeam": "신시내티 레즈",
-      "homeScore": 13,
+      "homeScore": 14,
       "awayScore": 1,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-09-11|mlb|애틀랜타|탬파베이": {
       "date": "2026-09-11",
@@ -2644,15 +2644,21 @@
       "gameId": "83UKcCNwBH0ZUQp",
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "레드불 뉴욕",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 46'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "테리",
           "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "시브",
+          "minute": 90,
+          "addedTime": 6
         }
       ]
     },
@@ -2662,15 +2668,21 @@
       "gameId": "83UKcCNwBH0ZUQp",
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "레드불 뉴욕",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 46'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "테리",
           "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "시브",
+          "minute": 90,
+          "addedTime": 6
         }
       ]
     },
@@ -2680,15 +2692,21 @@
       "gameId": "83UKcCNwBH0ZUQp",
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "레드불 뉴욕",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 46'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "테리",
           "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "시브",
+          "minute": 90,
+          "addedTime": 6
         }
       ]
     },
@@ -2698,15 +2716,21 @@
       "gameId": "83UKcCNwBH0ZUQp",
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "레드불 뉴욕",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 46'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "테리",
           "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "시브",
+          "minute": 90,
+          "addedTime": 6
         }
       ]
     },
@@ -2716,10 +2740,10 @@
       "gameId": "dxmNXyfhcPEDhWx",
       "homeTeam": "샌디에고",
       "awayTeam": "산호세 어스퀘이크스",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 41'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2740,6 +2764,12 @@
           "team": "home",
           "player": "드레이어",
           "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "바캄부",
+          "minute": 90,
+          "addedTime": 4
         }
       ]
     },
@@ -2749,10 +2779,10 @@
       "gameId": "dxmNXyfhcPEDhWx",
       "homeTeam": "샌디에고",
       "awayTeam": "산호세 어스퀘이크스",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 41'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2773,6 +2803,12 @@
           "team": "home",
           "player": "드레이어",
           "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "바캄부",
+          "minute": 90,
+          "addedTime": 4
         }
       ]
     },
@@ -2784,8 +2820,8 @@
       "awayTeam": "세인트루이스",
       "homeScore": 2,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 44'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2817,8 +2853,8 @@
       "awayTeam": "LA 갤럭시",
       "homeScore": 3,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 48'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2845,8 +2881,8 @@
       "awayTeam": "LA 갤럭시",
       "homeScore": 3,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 48'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2873,8 +2909,8 @@
       "awayTeam": "LA 갤럭시",
       "homeScore": 3,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 48'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2901,8 +2937,8 @@
       "awayTeam": "LA 갤럭시",
       "homeScore": 3,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 48'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -3803,8 +3839,8 @@
       "awayTeam": "한화",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회말"
     },
     {
       "date": "2026-09-10",
@@ -3814,8 +3850,8 @@
       "awayTeam": "KT",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회말"
     },
     {
       "date": "2026-09-10",
@@ -3825,8 +3861,8 @@
       "awayTeam": "NC",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회말"
     },
     {
       "date": "2026-09-10",
@@ -3836,8 +3872,8 @@
       "awayTeam": "키움",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1회말"
     },
     {
       "date": "2026-09-11",
@@ -4208,10 +4244,10 @@
       "gameId": "20260910CILA0",
       "homeTeam": "LA 다저스",
       "awayTeam": "신시내티 레즈",
-      "homeScore": 13,
+      "homeScore": 14,
       "awayScore": 1,
-      "status": "live",
-      "period": "8회말"
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-09-11",
@@ -4797,15 +4833,21 @@
       "gameId": "83UKcCNwBH0ZUQp",
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "레드불 뉴욕",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 46'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "테리",
           "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "시브",
+          "minute": 90,
+          "addedTime": 6
         }
       ]
     },
@@ -4815,10 +4857,10 @@
       "gameId": "dxmNXyfhcPEDhWx",
       "homeTeam": "샌디에고",
       "awayTeam": "산호세 어스퀘이크스",
-      "homeScore": 1,
+      "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 41'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -4839,6 +4881,12 @@
           "team": "home",
           "player": "드레이어",
           "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "바캄부",
+          "minute": 90,
+          "addedTime": 4
         }
       ]
     },
@@ -4850,8 +4898,8 @@
       "awayTeam": "세인트루이스",
       "homeScore": 2,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 44'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -4883,8 +4931,8 @@
       "awayTeam": "LA 갤럭시",
       "homeScore": 3,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 48'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",

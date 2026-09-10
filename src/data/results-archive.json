@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-10T04:33:52.237Z",
+  "lastUpdated": "2026-09-10T09:38:29.568Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -45202,6 +45202,17 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-09-10|mlb|LA 다저스|신시내티 레즈": {
+      "date": "2026-09-10",
+      "categoryId": "mlb",
+      "gameId": "20260910CILA0",
+      "homeTeam": "LA 다저스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 14,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
     "2026-09-10|mls|DC 유나이티드|콜롬버스": {
       "date": "2026-09-10",
       "categoryId": "mls",
@@ -45496,6 +45507,130 @@
           "team": "home",
           "player": "보구시",
           "minute": 87
+        }
+      ]
+    },
+    "2026-09-10|mls|로스앤젤레스 FC|레드불 뉴욕": {
+      "date": "2026-09-10",
+      "categoryId": "mls",
+      "gameId": "83UKcCNwBH0ZUQp",
+      "homeTeam": "로스앤젤레스 FC",
+      "awayTeam": "레드불 뉴욕",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "테리",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "시브",
+          "minute": 90,
+          "addedTime": 6
+        }
+      ]
+    },
+    "2026-09-10|mls|샌디에고|산호세 어스퀘이크스": {
+      "date": "2026-09-10",
+      "categoryId": "mls",
+      "gameId": "dxmNXyfhcPEDhWx",
+      "homeTeam": "샌디에고",
+      "awayTeam": "산호세 어스퀘이크스",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "니코 사키리스",
+          "minute": 3
+        },
+        {
+          "team": "away",
+          "player": "주드",
+          "minute": 12
+        },
+        {
+          "team": "away",
+          "player": "보우다",
+          "minute": 35
+        },
+        {
+          "team": "home",
+          "player": "드레이어",
+          "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "바캄부",
+          "minute": 90,
+          "addedTime": 4
+        }
+      ]
+    },
+    "2026-09-10|mls|포틀랜드|세인트루이스": {
+      "date": "2026-09-10",
+      "categoryId": "mls",
+      "gameId": "Gul1wHQlMg5244Q",
+      "homeTeam": "포틀랜드",
+      "awayTeam": "세인트루이스",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "라파엘 나바로",
+          "minute": 1
+        },
+        {
+          "team": "home",
+          "player": "벨데",
+          "minute": 32
+        },
+        {
+          "team": "away",
+          "player": "라파엘 나바로",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "벨데",
+          "minute": 89
+        }
+      ]
+    },
+    "2026-09-10|mls|밴쿠버 화이트캡스 FC|LA 갤럭시": {
+      "date": "2026-09-10",
+      "categoryId": "mls",
+      "gameId": "rQx8UVvmKYjQGSD",
+      "homeTeam": "밴쿠버 화이트캡스 FC",
+      "awayTeam": "LA 갤럭시",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "화이트",
+          "minute": 8
+        },
+        {
+          "team": "home",
+          "player": "골드",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "카이세도",
+          "minute": 90
         }
       ]
     },
@@ -90741,6 +90876,17 @@
     },
     {
       "date": "2026-09-10",
+      "categoryId": "mlb",
+      "gameId": "20260910CILA0",
+      "homeTeam": "LA 다저스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 14,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-09-10",
       "categoryId": "mls",
       "gameId": "8OdywqKpnA8elod",
       "homeTeam": "DC 유나이티드",
@@ -91033,6 +91179,130 @@
           "team": "home",
           "player": "보구시",
           "minute": 87
+        }
+      ]
+    },
+    {
+      "date": "2026-09-10",
+      "categoryId": "mls",
+      "gameId": "83UKcCNwBH0ZUQp",
+      "homeTeam": "로스앤젤레스 FC",
+      "awayTeam": "레드불 뉴욕",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "테리",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "시브",
+          "minute": 90,
+          "addedTime": 6
+        }
+      ]
+    },
+    {
+      "date": "2026-09-10",
+      "categoryId": "mls",
+      "gameId": "dxmNXyfhcPEDhWx",
+      "homeTeam": "샌디에고",
+      "awayTeam": "산호세 어스퀘이크스",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "니코 사키리스",
+          "minute": 3
+        },
+        {
+          "team": "away",
+          "player": "주드",
+          "minute": 12
+        },
+        {
+          "team": "away",
+          "player": "보우다",
+          "minute": 35
+        },
+        {
+          "team": "home",
+          "player": "드레이어",
+          "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "바캄부",
+          "minute": 90,
+          "addedTime": 4
+        }
+      ]
+    },
+    {
+      "date": "2026-09-10",
+      "categoryId": "mls",
+      "gameId": "Gul1wHQlMg5244Q",
+      "homeTeam": "포틀랜드",
+      "awayTeam": "세인트루이스",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "라파엘 나바로",
+          "minute": 1
+        },
+        {
+          "team": "home",
+          "player": "벨데",
+          "minute": 32
+        },
+        {
+          "team": "away",
+          "player": "라파엘 나바로",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "벨데",
+          "minute": 89
+        }
+      ]
+    },
+    {
+      "date": "2026-09-10",
+      "categoryId": "mls",
+      "gameId": "rQx8UVvmKYjQGSD",
+      "homeTeam": "밴쿠버 화이트캡스 FC",
+      "awayTeam": "LA 갤럭시",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "화이트",
+          "minute": 8
+        },
+        {
+          "team": "home",
+          "player": "골드",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "카이세도",
+          "minute": 90
         }
       ]
     },
