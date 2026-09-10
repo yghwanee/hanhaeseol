@@ -101,6 +101,30 @@ src/
 
 ### 다음 작업 (예정)
 
+- 🔴 **Vercel Pro→Hobby 강등 — CPU 는 잡혔고 FOT 가 막는다 (2026-09-10, 작업114).**
+  화니가 내리고 싶어 해서 실측했다. **계량기가 둘이고 서로 무관하다.**
+  - **Active CPU** 월 7.75 → **2.5~3.5** (한도 4). 원인은 `server-data.ts` 로더에 캐시가
+    없어 팀 페이지 한 장이 `loadScheduleData()` 를 4번 부르고 `results-archive.json`
+    2.35MB 를 매번 다시 파싱한 것. `/team/*` 하나가 계정 CPU 의 **71.8%**, 렌더당 860ms 였다.
+    고침 = 로더 5개 + 팀·매치·리그 페이지 팀 색인 메모이제이션(`5332febf`).
+    **패치 전후 HTML 26장 바이트 동일**(7,884,084 B), 빌드 렌더 구간 49.5s→13.2s(-73.3%).
+  - 🔴 **Fast Origin Transfer 월 7.5~10.8 GB (한도 10) 가 그대로다.** 2026-08-18 에 실제로
+    계정을 잠근 게 이쪽이다. **CPU 를 줄여도 FOT 는 1바이트도 안 준다** — 렌더 횟수도
+    응답 크기도 그대로다. 줄일 방법을 다 짚어 봤고 전부 막혔다:
+    배포 탓 아님(시간별 ISR 읽기가 고르게 깔림) · 페이로드는 데이터가 아니라 **렌더된
+    엘리먼트 트리**(`FilteredScheduleView` 가 서버 컴포넌트) · `/match/` 는 이미 robots 로
+    막혀 있고 트래픽의 **98%가 사람** · Yeti 는 평균 3.9분에 1회라 `Crawl-delay` 무의미.
+    남은 건 **카드를 덜 그리는 것**뿐이고 그건 화면이 바뀐다.
+  - 강등 전 필수: Vercel 문서가 **Stores/Domains 를 먼저 옮기라**고 명시한다. 둘 다 있다
+    (Blob `hanhaeseol-push`, `haeseol.com`). 백업은 `_backup\`(레포 밖)에 끝냈다 —
+    구독 **3건** 전체 + `.env.local` + 환경변수. 🔴 `NEXT_PUBLIC_DONATE_*` 6개와
+    `ADMIN_KEY` 는 Vercel 에만 있고 민감 표시라 못 읽어온다(강등으로 지워지진 않는다).
+  - 🔴 **다음 세션 첫 할 일 = `npm run usage`.** 배포는 2026-09-10 16:56 KST 였으니
+    온전한 하루치는 9/11 이고 그 값은 9/12 에 다 찬다. **0.08~0.11 CPU-hr/일**이면 통과,
+    0.2 이상이면 패치가 실전에서 안 먹은 것(콜드스타트부터 볼 것).
+  - 잠기면: 3사이트 동시 정지. 크롤·소셜·토픽은 GH Actions 라 계속 돌지만 **배포가 막혀
+    글이 화면에 안 올라간다.** 푸시 발송도 Vercel 이라 같이 멈춘다. 복구는 Pro 재승격뿐.
+
 - 🔴 **다음 세션은 `docs/next-session.md` 부터 읽는다.** 시안 고르기(⭐찜 11안 · 알림 11안)가
   첫 할 일이고, 다른 PC 이관 시 챙길 것도 거기 있다.
 
@@ -344,6 +368,7 @@ npm run test:commentary-stats      # 🔴 해설 비율 산수 + 미확인 분�
 npm run test:safety-filter         # 인사이트 베팅 용어 필터(2026-08-27 전까지 CI 에서 한 번도 안 돌고 있었다)
 npm run fonts:subset               # 🔴 ebook 배너 Pretendard 서브셋 재생성(pyftsubset 필요). 인용구·배너 문구 바꾸면 필수
 npm run test:ebook-font            # 🔴 서브셋에 없는 글자가 배너에 나오는지(두부 방지). 위 명령을 안 돌리면 여기서 막힌다
+npm run usage            # 🔴 Vercel 사용량 실측 (Hobby 한도 대비 + 일자별 CPU). 쿼리 하루 500회 한도
 npm run seo:indexnow     # IndexNow 통지(리그·플랫폼·순위·가이드·팀 86 + /commentary = ~156 URL)
 npm run audit:aliases   # 팀명 alias 미스매치 감사 (결과 있는데 스코어 안 뜨는 유형). 개막 후 crawl:results 뒤 실행
 npm run news:digest      # 네이버 뉴스 → docs/news-digest.md (NAVER_API_KEY_ID/NAVER_API_KEY 필요)
