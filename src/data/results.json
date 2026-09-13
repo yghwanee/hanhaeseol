@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-13T10:11:29.418Z",
+  "lastUpdated": "2026-09-13T14:20:19.364Z",
   "byKey": {
     "2026-09-12|kbo|KT|KIA": {
       "date": "2026-09-12",
@@ -55,10 +55,11 @@
       "gameId": "20260913HHHT02026",
       "homeTeam": "KIA",
       "awayTeam": "한화",
-      "homeScore": 5,
+      "homeScore": 9,
       "awayScore": 2,
-      "status": "live",
-      "period": "6회말"
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "_rafcs4kObw"
     },
     "2026-09-13|kbo|삼성|LG": {
       "date": "2026-09-13",
@@ -66,10 +67,11 @@
       "gameId": "20260913LGSS02026",
       "homeTeam": "삼성",
       "awayTeam": "LG",
-      "homeScore": 3,
-      "awayScore": 9,
-      "status": "live",
-      "period": "6회말"
+      "homeScore": 5,
+      "awayScore": 13,
+      "status": "finished",
+      "period": "9회말",
+      "highlightVideoId": "KJTNDCfzll4"
     },
     "2026-09-13|kbo|KT|롯데": {
       "date": "2026-09-13",
@@ -79,8 +81,9 @@
       "awayTeam": "롯데",
       "homeScore": 5,
       "awayScore": 2,
-      "status": "live",
-      "period": "6회말"
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "8yIBoXAtl3M"
     },
     "2026-09-13|kbo|두산|NC": {
       "date": "2026-09-13",
@@ -88,10 +91,11 @@
       "gameId": "20260913NCOB02026",
       "homeTeam": "두산",
       "awayTeam": "NC",
-      "homeScore": 8,
+      "homeScore": 9,
       "awayScore": 2,
-      "status": "live",
-      "period": "6회말"
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "zoU624cxMMQ"
     },
     "2026-09-12|mlb|시카고컵스|피츠버그": {
       "date": "2026-09-12",
@@ -2253,9 +2257,21 @@
       "homeTeam": "코벤트리",
       "awayTeam": "브라이턴",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 2,
+      "status": "live",
+      "period": "후반 16'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "코스툴라스",
+          "minute": 35
+        },
+        {
+          "team": "away",
+          "player": "얄코예",
+          "minute": 51
+        }
+      ]
     },
     "2026-09-14|epl|맨유|맨시티": {
       "date": "2026-09-14",
@@ -2642,9 +2658,16 @@
       "homeTeam": "셰필드",
       "awayTeam": "울버햄튼",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "라울 히메네스",
+          "minute": 90
+        }
+      ]
     },
     "2026-09-12|primera|세비야|발렌시아": {
       "date": "2026-09-12",
@@ -2846,10 +2869,22 @@
       "gameId": "jag7O4KtHAdDeWB",
       "homeTeam": "셀타 비고",
       "awayTeam": "말라가",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "페란 후틀가",
+          "minute": 41
+        },
+        {
+          "team": "away",
+          "player": "아드리안 니뇨",
+          "minute": 83
+        }
+      ]
     },
     "2026-09-13|primera|셀타 비고|말라가": {
       "date": "2026-09-13",
@@ -2857,10 +2892,22 @@
       "gameId": "jag7O4KtHAdDeWB",
       "homeTeam": "셀타 비고",
       "awayTeam": "말라가",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "페란 후틀가",
+          "minute": 41
+        },
+        {
+          "team": "away",
+          "player": "아드리안 니뇨",
+          "minute": 83
+        }
+      ]
     },
     "2026-09-13|primera|레반테|바르셀로나": {
       "date": "2026-09-13",
@@ -2870,8 +2917,8 @@
       "awayTeam": "바르셀로나",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 1'"
     },
     "2026-09-14|primera|헤타페|데포르티보": {
       "date": "2026-09-14",
@@ -3168,10 +3215,32 @@
       "gameId": "jXftUJsA8WUGK7q",
       "homeTeam": "레체",
       "awayTeam": "몬차",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 9'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "쿨리발리",
+          "minute": 3
+        },
+        {
+          "team": "home",
+          "player": "티아구 가브리엘",
+          "minute": 10
+        },
+        {
+          "team": "away",
+          "player": "히카르두 망가스",
+          "minute": 20
+        },
+        {
+          "team": "home",
+          "player": "쿨리발리",
+          "minute": 21
+        }
+      ]
     },
     "2026-09-14|seria|나폴리|볼로냐": {
       "date": "2026-09-14",
@@ -3432,10 +3501,22 @@
       "gameId": "eVbrb13qBUKlRxY",
       "homeTeam": "라이프치히",
       "awayTeam": "함부르크",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "고미",
+          "minute": 17
+        },
+        {
+          "team": "home",
+          "player": "누사",
+          "minute": 28
+        }
+      ]
     },
     "2026-09-14|bundesliga|엘버스베르크|바이에른 뮌헨": {
       "date": "2026-09-14",
@@ -3589,10 +3670,17 @@
       "gameId": "cZXUv8DULSA5PMY",
       "homeTeam": "릴",
       "awayTeam": "트루아",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 14'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "티아고 산토스",
+          "minute": 18
+        }
+      ]
     },
     "2026-09-14|ligue1|르 망|랑스": {
       "date": "2026-09-14",
@@ -4873,10 +4961,22 @@
       "gameId": "202609132227174",
       "homeTeam": "광주",
       "awayTeam": "안양",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 11'"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "아이데일",
+          "minute": 13
+        },
+        {
+          "team": "away",
+          "player": "채현우",
+          "minute": 24
+        }
+      ]
     },
     "2026-09-12|kleague2|대구|용인": {
       "date": "2026-09-12",
@@ -5028,10 +5128,22 @@
       "gameId": "202609130641207",
       "homeTeam": "부산",
       "awayTeam": "김해",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반 12'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "백가온",
+          "minute": 32
+        },
+        {
+          "team": "home",
+          "player": "가브리엘",
+          "minute": 66
+        }
+      ]
     },
     "2026-09-13|kleague2|수원FC|천안": {
       "date": "2026-09-13",
@@ -5039,10 +5151,22 @@
       "gameId": "202609132938208",
       "homeTeam": "수원FC",
       "awayTeam": "천안",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 12'"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "서재민",
+          "minute": 75
+        },
+        {
+          "team": "away",
+          "player": "사르자니",
+          "minute": 81
+        }
+      ]
     },
     "2026-09-12|eredivisie|알크마르 잔스트리크|빌럼 II": {
       "date": "2026-09-12",
@@ -5192,10 +5316,28 @@
       "gameId": "4M9dPuGXhEjBjgQ",
       "homeTeam": "엑셀시오르",
       "awayTeam": "위트레흐트",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "스테파노프",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "슬리티",
+          "minute": 77
+        },
+        {
+          "team": "away",
+          "player": "드 위트",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ]
     },
     "2026-09-13|eredivisie|히렌빈|텔스타": {
       "date": "2026-09-13",
@@ -5205,8 +5347,8 @@
       "awayTeam": "텔스타",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 43'"
     },
     "2026-09-13|eredivisie|즈볼레|페예노르트": {
       "date": "2026-09-13",
@@ -5259,10 +5401,22 @@
       "gameId": "5A8fDBFGh7eTlUP",
       "homeTeam": "링비",
       "awayTeam": "쇠네르위스케",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "콜린",
+          "minute": 6
+        },
+        {
+          "team": "away",
+          "player": "세이디",
+          "minute": 75
+        }
+      ]
     },
     "2026-09-13|denmark|실케보리|비보리": {
       "date": "2026-09-13",
@@ -5270,10 +5424,22 @@
       "gameId": "upOUtshdctnclv5",
       "homeTeam": "실케보리",
       "awayTeam": "비보리",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "리스가르드",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "벡",
+          "minute": 56
+        }
+      ]
     },
     "2026-09-13|denmark|라네르스|OB": {
       "date": "2026-09-13",
@@ -5283,8 +5449,8 @@
       "awayTeam": "OB",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 18'"
     },
     "2026-09-14|denmark|노르셸란|AGF": {
       "date": "2026-09-14",
@@ -5364,10 +5530,11 @@
       "gameId": "20260913HHHT02026",
       "homeTeam": "KIA",
       "awayTeam": "한화",
-      "homeScore": 5,
+      "homeScore": 9,
       "awayScore": 2,
-      "status": "live",
-      "period": "6회말"
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "_rafcs4kObw"
     },
     {
       "date": "2026-09-13",
@@ -5375,10 +5542,11 @@
       "gameId": "20260913LGSS02026",
       "homeTeam": "삼성",
       "awayTeam": "LG",
-      "homeScore": 3,
-      "awayScore": 9,
-      "status": "live",
-      "period": "6회말"
+      "homeScore": 5,
+      "awayScore": 13,
+      "status": "finished",
+      "period": "9회말",
+      "highlightVideoId": "KJTNDCfzll4"
     },
     {
       "date": "2026-09-13",
@@ -5388,8 +5556,9 @@
       "awayTeam": "롯데",
       "homeScore": 5,
       "awayScore": 2,
-      "status": "live",
-      "period": "6회말"
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "8yIBoXAtl3M"
     },
     {
       "date": "2026-09-13",
@@ -5397,10 +5566,11 @@
       "gameId": "20260913NCOB02026",
       "homeTeam": "두산",
       "awayTeam": "NC",
-      "homeScore": 8,
+      "homeScore": 9,
       "awayScore": 2,
-      "status": "live",
-      "period": "6회말"
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "zoU624cxMMQ"
     },
     {
       "date": "2026-09-12",
@@ -6080,9 +6250,21 @@
       "homeTeam": "코벤트리",
       "awayTeam": "브라이턴",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 2,
+      "status": "live",
+      "period": "후반 16'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "코스툴라스",
+          "minute": 35
+        },
+        {
+          "team": "away",
+          "player": "얄코예",
+          "minute": 51
+        }
+      ]
     },
     {
       "date": "2026-09-14",
@@ -6431,9 +6613,16 @@
       "homeTeam": "셰필드",
       "awayTeam": "울버햄튼",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "라울 히메네스",
+          "minute": 90
+        }
+      ]
     },
     {
       "date": "2026-09-12",
@@ -6573,10 +6762,22 @@
       "gameId": "jag7O4KtHAdDeWB",
       "homeTeam": "셀타 비고",
       "awayTeam": "말라가",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "페란 후틀가",
+          "minute": 41
+        },
+        {
+          "team": "away",
+          "player": "아드리안 니뇨",
+          "minute": 83
+        }
+      ]
     },
     {
       "date": "2026-09-13",
@@ -6586,8 +6787,8 @@
       "awayTeam": "바르셀로나",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 1'"
     },
     {
       "date": "2026-09-14",
@@ -6745,10 +6946,32 @@
       "gameId": "jXftUJsA8WUGK7q",
       "homeTeam": "레체",
       "awayTeam": "몬차",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 9'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "쿨리발리",
+          "minute": 3
+        },
+        {
+          "team": "home",
+          "player": "티아구 가브리엘",
+          "minute": 10
+        },
+        {
+          "team": "away",
+          "player": "히카르두 망가스",
+          "minute": 20
+        },
+        {
+          "team": "home",
+          "player": "쿨리발리",
+          "minute": 21
+        }
+      ]
     },
     {
       "date": "2026-09-14",
@@ -6998,10 +7221,22 @@
       "gameId": "eVbrb13qBUKlRxY",
       "homeTeam": "라이프치히",
       "awayTeam": "함부르크",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "고미",
+          "minute": 17
+        },
+        {
+          "team": "home",
+          "player": "누사",
+          "minute": 28
+        }
+      ]
     },
     {
       "date": "2026-09-14",
@@ -7136,10 +7371,17 @@
       "gameId": "cZXUv8DULSA5PMY",
       "homeTeam": "릴",
       "awayTeam": "트루아",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 14'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "티아고 산토스",
+          "minute": 18
+        }
+      ]
     },
     {
       "date": "2026-09-14",
@@ -7685,10 +7927,22 @@
       "gameId": "202609132227174",
       "homeTeam": "광주",
       "awayTeam": "안양",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 11'"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "아이데일",
+          "minute": 13
+        },
+        {
+          "team": "away",
+          "player": "채현우",
+          "minute": 24
+        }
+      ]
     },
     {
       "date": "2026-09-12",
@@ -7840,10 +8094,22 @@
       "gameId": "202609130641207",
       "homeTeam": "부산",
       "awayTeam": "김해",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반 12'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "백가온",
+          "minute": 32
+        },
+        {
+          "team": "home",
+          "player": "가브리엘",
+          "minute": 66
+        }
+      ]
     },
     {
       "date": "2026-09-13",
@@ -7851,10 +8117,22 @@
       "gameId": "202609132938208",
       "homeTeam": "수원FC",
       "awayTeam": "천안",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 12'"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "서재민",
+          "minute": 75
+        },
+        {
+          "team": "away",
+          "player": "사르자니",
+          "minute": 81
+        }
+      ]
     },
     {
       "date": "2026-09-12",
@@ -8004,10 +8282,28 @@
       "gameId": "4M9dPuGXhEjBjgQ",
       "homeTeam": "엑셀시오르",
       "awayTeam": "위트레흐트",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "스테파노프",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "슬리티",
+          "minute": 77
+        },
+        {
+          "team": "away",
+          "player": "드 위트",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ]
     },
     {
       "date": "2026-09-13",
@@ -8017,8 +8313,8 @@
       "awayTeam": "텔스타",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 43'"
     },
     {
       "date": "2026-09-13",
@@ -8071,10 +8367,22 @@
       "gameId": "5A8fDBFGh7eTlUP",
       "homeTeam": "링비",
       "awayTeam": "쇠네르위스케",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "콜린",
+          "minute": 6
+        },
+        {
+          "team": "away",
+          "player": "세이디",
+          "minute": 75
+        }
+      ]
     },
     {
       "date": "2026-09-13",
@@ -8082,10 +8390,22 @@
       "gameId": "upOUtshdctnclv5",
       "homeTeam": "실케보리",
       "awayTeam": "비보리",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "리스가르드",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "벡",
+          "minute": 56
+        }
+      ]
     },
     {
       "date": "2026-09-13",
@@ -8095,8 +8415,8 @@
       "awayTeam": "OB",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 18'"
     },
     {
       "date": "2026-09-14",
