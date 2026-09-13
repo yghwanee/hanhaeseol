@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-13T20:44:16.690Z",
+  "lastUpdated": "2026-09-13T23:06:43.069Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -49052,6 +49052,72 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-09-14|mlb|마이애미 말린스|LA 다저스": {
+      "date": "2026-09-14",
+      "categoryId": "mlb",
+      "gameId": "20260914LAFL0",
+      "homeTeam": "마이애미 말린스",
+      "awayTeam": "LA 다저스",
+      "homeScore": 6,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-09-14|mlb|밀워키 브루어스|신시내티 레즈": {
+      "date": "2026-09-14",
+      "categoryId": "mlb",
+      "gameId": "20260914CIMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 3,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-09-14|mlb|미네소타 트윈스|클리블랜드 가디언스": {
+      "date": "2026-09-14",
+      "categoryId": "mlb",
+      "gameId": "20260914CLMN0",
+      "homeTeam": "미네소타 트윈스",
+      "awayTeam": "클리블랜드 가디언스",
+      "homeScore": 2,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-09-14|mlb|세인트루이스 카디널스|시카고 화이트삭스": {
+      "date": "2026-09-14",
+      "categoryId": "mlb",
+      "gameId": "20260914CWSL0",
+      "homeTeam": "세인트루이스 카디널스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-09-14|mlb|시카고 컵스|피츠버그 파이리츠": {
+      "date": "2026-09-14",
+      "categoryId": "mlb",
+      "gameId": "20260914PICC0",
+      "homeTeam": "시카고 컵스",
+      "awayTeam": "피츠버그 파이리츠",
+      "homeScore": 3,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-09-14|mlb|애리조나 다이아몬드백스|텍사스 레인저스": {
+      "date": "2026-09-14",
+      "categoryId": "mlb",
+      "gameId": "20260914TEAZ0",
+      "homeTeam": "애리조나 다이아몬드백스",
+      "awayTeam": "텍사스 레인저스",
+      "homeScore": 6,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-09-14|primera|헤타페|데포르티보": {
       "date": "2026-09-14",
       "categoryId": "primera",
@@ -49072,6 +49138,35 @@
           "team": "away",
           "player": "오바메양",
           "minute": 78
+        }
+      ]
+    },
+    "2026-09-14|primera|레알 소시에다드|AT. 마드리드": {
+      "date": "2026-09-14",
+      "categoryId": "primera",
+      "gameId": "l2Im3t5LlrPQlPD",
+      "homeTeam": "레알 소시에다드",
+      "awayTeam": "AT. 마드리드",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "알레한드로 그리말도",
+          "minute": 84
+        },
+        {
+          "team": "away",
+          "player": "조너선 데이비드",
+          "minute": 90
+        },
+        {
+          "team": "away",
+          "player": "시메오네",
+          "minute": 90,
+          "addedTime": 5
         }
       ]
     },
@@ -98189,6 +98284,72 @@
     },
     {
       "date": "2026-09-14",
+      "categoryId": "mlb",
+      "gameId": "20260914LAFL0",
+      "homeTeam": "마이애미 말린스",
+      "awayTeam": "LA 다저스",
+      "homeScore": 6,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-09-14",
+      "categoryId": "mlb",
+      "gameId": "20260914CIMI0",
+      "homeTeam": "밀워키 브루어스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 3,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-09-14",
+      "categoryId": "mlb",
+      "gameId": "20260914CLMN0",
+      "homeTeam": "미네소타 트윈스",
+      "awayTeam": "클리블랜드 가디언스",
+      "homeScore": 2,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-09-14",
+      "categoryId": "mlb",
+      "gameId": "20260914CWSL0",
+      "homeTeam": "세인트루이스 카디널스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-09-14",
+      "categoryId": "mlb",
+      "gameId": "20260914PICC0",
+      "homeTeam": "시카고 컵스",
+      "awayTeam": "피츠버그 파이리츠",
+      "homeScore": 3,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-09-14",
+      "categoryId": "mlb",
+      "gameId": "20260914TEAZ0",
+      "homeTeam": "애리조나 다이아몬드백스",
+      "awayTeam": "텍사스 레인저스",
+      "homeScore": 6,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-09-14",
       "categoryId": "primera",
       "gameId": "Xyy9iFA2RxvykhK",
       "homeTeam": "헤타페",
@@ -98207,6 +98368,35 @@
           "team": "away",
           "player": "오바메양",
           "minute": 78
+        }
+      ]
+    },
+    {
+      "date": "2026-09-14",
+      "categoryId": "primera",
+      "gameId": "l2Im3t5LlrPQlPD",
+      "homeTeam": "레알 소시에다드",
+      "awayTeam": "AT. 마드리드",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "알레한드로 그리말도",
+          "minute": 84
+        },
+        {
+          "team": "away",
+          "player": "조너선 데이비드",
+          "minute": 90
+        },
+        {
+          "team": "away",
+          "player": "시메오네",
+          "minute": 90,
+          "addedTime": 5
         }
       ]
     },
