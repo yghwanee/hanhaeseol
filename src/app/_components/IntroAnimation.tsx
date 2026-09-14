@@ -5,7 +5,6 @@ import {
   INTRO_COL_A as COL_A,
   INTRO_COL_B as COL_B,
   INTRO_COL_C as COL_C,
-  INTRO_EMBLEM_PATHS,
 } from "./intro-emblems";
 
 const STORAGE_KEY = "haeseol-intro-seen";
@@ -88,52 +87,28 @@ function TickerColumn({
   );
 }
 
-/** 3열 티커. 로고 21개가 모두 decode() 된 뒤에 한 번에 나타나고 그때부터 흐른다.
+/** 3열 티커. **JS 를 기다리지 않고** SSR 첫 페인트부터 CSS 로 떠서 흐른다.
  *
- *  로고는 전부 로컬 WebP(21개 합계 117KB, 개당 5.6KB)라 용량은 병목이 아니지만,
- *  타일이 하나씩 채워지며 뜨는 팝인 때문에 등장 타이밍이 제각각으로 보였다.
- *  움직임 자체는 유지하고 로드만 동기화한다. */
+ *  🔴 종전엔 로고 21개 decode() 를 useEffect 에서 기다린 뒤 opacity 를 올렸다.
+ *  useEffect 는 홈 JS 전체 다운로드 + 하이드레이션 뒤에야 돌아서, 이미지는 이미
+ *  와 있는데도 엠블럼이 늦게 떴다(2026-09-15 실측, 빠른 PC 회선에서도 JS 끝 979ms
+ *  + 로고 1100ms + 페이드 500ms. 폰은 훨씬 길고 모바일 인트로는 2.2초뿐이다).
+ *  로고는 page.tsx 가 head 에서 preload 하는 로컬 WebP(개당 ~5KB)라 첫 페인트
+ *  무렵이면 거의 다 와 있다. 짧은 CSS 페이드로 팝인만 눌러 준다. */
 function EmblemTicker() {
-  const [ready, setReady] = useState(false);
-
-  useEffect(() => {
-    let cancelled = false;
-    const show = () => {
-      if (!cancelled) setReady(true);
-    };
-    // 이미지 하나가 느리거나 깨져도 인트로가 통째로 비지 않도록 상한을 둔다.
-    const timer = setTimeout(show, 1200);
-    Promise.all(
-      INTRO_EMBLEM_PATHS.map(
-        (src) =>
-          new Promise<void>((resolve) => {
-            const img = new Image();
-            img.onload = () => img.decode().then(resolve, () => resolve());
-            img.onerror = () => resolve();
-            img.src = src;
-          }),
-      ),
-    ).then(() => {
-      clearTimeout(timer);
-      show();
-    });
-    return () => {
-      cancelled = true;
-      clearTimeout(timer);
-    };
-  }, []);
-
   return (
     <div style={{ perspective: "1000px" }}>
       <div
-        className={`flex h-[42vh] gap-3 transition-opacity duration-500 sm:h-[60vh] sm:gap-5 ${
-          ready ? "opacity-100" : "opacity-0"
-        }`}
-        style={{ transform: "rotateX(30deg)", transformStyle: "preserve-3d" }}
+        className="flex h-[42vh] gap-3 sm:h-[60vh] sm:gap-5"
+        style={{
+          transform: "rotateX(30deg)",
+          transformStyle: "preserve-3d",
+          animation: "introFadeIn 300ms ease-out both",
+        }}
       >
-        <TickerColumn items={COL_A} direction="up" durationSec={22} running={ready} />
-        <TickerColumn items={COL_B} direction="down" durationSec={26} running={ready} />
-        <TickerColumn items={COL_C} direction="up" durationSec={24} running={ready} />
+        <TickerColumn items={COL_A} direction="up" durationSec={22} running />
+        <TickerColumn items={COL_B} direction="down" durationSec={26} running />
+        <TickerColumn items={COL_C} direction="up" durationSec={24} running />
       </div>
     </div>
   );

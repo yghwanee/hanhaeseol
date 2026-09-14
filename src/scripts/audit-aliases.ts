@@ -60,7 +60,9 @@ async function main(): Promise<void> {
     if (cats.length === 0) continue;
     stat[s.league] ??= { match: 0, miss: 0, noresult: 0 };
 
-    if (findResult(merged, s)) {
+    // fuzzy:false — 카드는 한쪽 일치 안전망으로 붙지만, 감사는 alias 표의 빈칸을 드러내야 한다
+    // (전적·로고는 그 안전망을 안 탄다).
+    if (findResult(merged, s, { fuzzy: false })) {
       stat[s.league].match++;
       continue;
     }

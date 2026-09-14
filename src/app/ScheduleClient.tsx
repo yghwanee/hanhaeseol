@@ -498,7 +498,9 @@ export default function ScheduleClient({
       </p>
 
       {/* Filters — 원티드 filter-bar: 상단 헤어라인 + 12/16 패딩 */}
-      <div className="mt-5 space-y-2.5 border-t border-line-subtle pt-4 sm:space-y-3">
+      {/* mb-6: 플랫폼 스크롤바가 아래 띠(토스·애드핏)에 붙지 않게. 스크롤바 탭 영역이
+          -my-2 로 8px 아래로 삐져나오므로 그만큼 더 띄운다(2026-09-15). */}
+      <div className="mb-6 mt-5 space-y-2.5 border-t border-line-subtle pt-4 sm:mb-8 sm:space-y-3">
         {/* Sport Filter */}
         <div className="flex items-center gap-1.5 sm:gap-2">
           <span className="w-14 sm:w-12 shrink-0 text-caption2 sm:text-caption1 font-medium text-fg">
@@ -704,6 +706,7 @@ export default function ScheduleClient({
                   <SmoothTabs
                     ariaLabel="날짜 선택"
                     gapClass="gap-3"
+                    variant="bordered"
                     options={dateOptions}
                     value={selectedDate}
                     onChange={setSelectedDate}
@@ -729,6 +732,7 @@ export default function ScheduleClient({
                   ariaLabel="날짜 선택"
                   fullWidth
                   gapClass="gap-2"
+                  variant="bordered"
                   options={dateOptions}
                   value={selectedDate}
                   onChange={setSelectedDate}
@@ -742,7 +746,7 @@ export default function ScheduleClient({
 
       {/* Search + Datepicker */}
       {/* 검색 2/3 + datepicker 1/3 한 줄 (모바일/PC 동일). */}
-      <div className="grid grid-cols-3 gap-2 sm:gap-3">
+      <div className="mb-6 grid grid-cols-3 gap-2 sm:mb-8 sm:gap-3">
         {/* Search */}
         <div className="relative col-span-2">
           <svg className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-fg-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">

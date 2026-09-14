@@ -79,6 +79,7 @@
     "test:cover-hook": "tsx --test src/lib/cover-hook.test.ts",
     "test:workflow-push": "tsx --test src/lib/workflow-push-guard.test.ts",
     "test:league-coverage": "tsx --test src/lib/results/league-coverage.test.ts",
+    "test:result-lookup": "tsx --test src/lib/results/lookup.test.ts",
     "test:head-script": "tsx --test src/lib/head-script-guard.test.ts",
     "prune:bad-insights": "tsx src/scripts/prune-bad-insights.ts",
     "test:form-claim": "tsx --test src/lib/insights/form-claim.test.ts",

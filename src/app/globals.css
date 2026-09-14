@@ -65,6 +65,10 @@ html.skip-intro [data-intro-overlay] {
   to { opacity: 1; transform: translateX(0); }
 }
 
+@keyframes introFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 @keyframes tickerScrollUp {
   from { transform: translateY(0); }
   to { transform: translateY(-50%); }

@@ -119,6 +119,8 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     "사수올로": "사수올로 칼초",
     "우디네세": "우디네세 칼초",
     "인테르 밀라노": "인터 밀란",
+    // 2026-09-15 감사: 네이버가 "밀라노" 를 떼고 "인테르" 로만 준다. 인터-우디네세 5-3 이 안 붙었다.
+    "인테르": "인터 밀란",
     "칼리아리": "칼리아리 칼초",
     "코모": "코모 1907",
     "파르마": "파르마 칼초",
@@ -232,6 +234,8 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     "아인트호벤": "에인트호번",
     "포르투나 시타르트": "포르튀나",
     "PEC 즈볼레": "즈볼러",
+    // 2026-09-15 감사. 네이버 "빌럼 II" / 편성(쿠팡플레이) "빌럼".
+    "빌럼 II": "빌럼",
   },
 
   KBL: {
@@ -271,7 +275,16 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
   // 덴마크 1부 Superliga. schedule.json엔 아직 매치 없지만 미래 대비.
   // 들어올 때 league 표기는 "수페르리가" 가정.
   수페르리가: {},
-  ACL: {},
+  // ACL 엘리트. 편성(쿠팡플레이)은 짧게·다르게 부른다. 2026-09-15 audit:aliases 가
+  // "같은 경기"로 짝지어 준 5건만 넣었다. 🔴 "알 아흘리" 키는 정확히 그 표기에만 걸린다 —
+  // 네이버의 "샤바브 알 아흘리" 는 별개 팀이고 여기 영향 없다.
+  ACL: {
+    "알 아흘리": "알 아흘리 SFC",
+    CAHN: "꽁안 하노이",
+    "다룰 탁짐": "조호르",
+    "가시와 레이솔": "가시와",
+    "비셀 고베": "고베",
+  },
 
   NBA: {
     "LA레이커스": "LA 레이커스",

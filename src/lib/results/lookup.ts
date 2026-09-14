@@ -93,11 +93,76 @@ export function resultKey(
 export function findResult(
   results: ResultsData | null,
   schedule: Schedule,
+  { fuzzy = true }: { fuzzy?: boolean } = {},
 ): MatchResult | undefined {
   if (!results) return undefined;
   const categoryIds = categoriesForLeague(schedule.league);
   if (categoryIds.length === 0) return undefined;
 
+  const exact = findExact(results, schedule, categoryIds);
+  if (exact || !fuzzy) return exact;
+  return findOneSideMatch(results, schedule, categoryIds);
+}
+
+/**
+ * 한쪽 팀명만 맞는 결과로 짝짓는 안전망.
+ *
+ * 🔴 배경(2026-09-15): 네이버가 "인테르 밀라노" 를 "인테르" 로 바꿔 인터-우디네세 5-3 이
+ * 경기가 끝나고도 카드에 안 붙었다. 같은 날 ACL 5건도 같은 이유였다. alias 표는 사람이
+ * 감사를 돌려야만 채워지고, 표기는 네이버·편성사가 예고 없이 바꾼다 — 표만으로는 매번 한 발 늦다.
+ *
+ * 조건은 좁다: 같은 날·같은 대회에서 **홈이 정확히 같거나 원정이 정확히 같고**, 그런 경기가
+ * **딱 하나**일 때만. 클럽은 하루에 한 경기라 한쪽이 같은 자리에서 일치하면 같은 경기다.
+ * 후보가 둘 이상이면(표기가 흔한 이름 등) 추측하지 않고 버린다.
+ * alias 표는 그대로 필요하다 — 팀 전적·로고는 이 룩업을 안 탄다. `audit:aliases` 는
+ * `fuzzy:false` 로 돌려 표에 빠진 표기를 계속 드러낸다.
+ */
+function findOneSideMatch(
+  results: ResultsData,
+  schedule: Schedule,
+  categoryIds: string[],
+): MatchResult | undefined {
+  for (const categoryId of categoryIds) {
+    const games = new Map<string, MatchResult>();
+    for (const [key, r] of indexByDay(results).get(`${schedule.date}|${categoryId}`) ?? []) {
+      const [, , home, away] = key.split("|");
+      const homeSame = home === schedule.homeTeam;
+      const awaySame = away === schedule.awayTeam;
+      if (homeSame === awaySame) continue; // 둘 다 같으면 정확 매칭 몫, 둘 다 다르면 남의 경기
+      games.set(r.gameId ?? `${r.homeTeam}|${r.awayTeam}`, r);
+    }
+    if (games.size === 1) {
+      const [r] = games.values();
+      return { ...r, homeTeam: schedule.homeTeam, awayTeam: schedule.awayTeam };
+    }
+  }
+  return undefined;
+}
+
+/** `date|categoryId` → 그 날 그 대회의 [키, 결과]. 결과 객체마다 한 번만 만든다(아카이브는 수천 건). */
+const dayIndexCache = new WeakMap<ResultsData["byKey"], Map<string, [string, MatchResult][]>>();
+function indexByDay(results: ResultsData): Map<string, [string, MatchResult][]> {
+  let idx = dayIndexCache.get(results.byKey);
+  if (!idx) {
+    idx = new Map();
+    for (const [key, r] of Object.entries(results.byKey)) {
+      const parts = key.split("|");
+      if (parts.length !== 4) continue;
+      const day = `${parts[0]}|${parts[1]}`;
+      const list = idx.get(day);
+      if (list) list.push([key, r]);
+      else idx.set(day, [[key, r]]);
+    }
+    dayIndexCache.set(results.byKey, idx);
+  }
+  return idx;
+}
+
+function findExact(
+  results: ResultsData,
+  schedule: Schedule,
+  categoryIds: string[],
+): MatchResult | undefined {
   for (const categoryId of categoryIds) {
     const direct = results.byKey[
       resultKey(schedule.date, categoryId, schedule.homeTeam, schedule.awayTeam)
