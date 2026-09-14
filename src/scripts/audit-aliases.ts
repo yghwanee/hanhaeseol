@@ -3,6 +3,8 @@ import path from "node:path";
 import type { ResultsData } from "@/types/results";
 import type { ScheduleData, Schedule } from "@/types/schedule";
 import { categoriesForLeague, findResult } from "@/lib/results/lookup";
+import { lookupTeamRecord } from "@/lib/team-records/lookup";
+import type { TeamRecordsMap } from "@/types/team-record";
 
 /**
  * 팀명 alias 미스매치 감사.
@@ -98,6 +100,57 @@ async function main(): Promise<void> {
   }
   console.log("");
   console.log("주의: 오프시즌 리그는 noresult로만 잡힘(검증 불가). 개막 후 재실행할 것.");
+
+  // ── 최근 5경기 전적(team-records) 감사 ─────────────────────────────
+  // 🔴 전적은 결과와 **다른 네이버 API**(순위·시즌 통계)라 표기도 따로 갈린다.
+  // 2026-09-15: 결과는 "인테르", 전적은 "인테르나치오날레" — 결과만 감사해서 인터 밀란 뱃지 누락을 못 봤다.
+  // 전적 표에 그 리그가 있는데 편성 팀이 조회 안 되면 MISS. 같은 리그에서 어떤 편성 팀에도
+  // 안 쓰인 전적 표기를 옆에 찍어 짝을 사람이 바로 고를 수 있게 한다(자동 짝짓기는 안 한다 — 추측 금지).
+  const { records } = await readJson<{ records: TeamRecordsMap }>("public/team-records.json");
+  const recMiss = new Map<string, Set<string>>();
+  const recStat: Record<string, { match: number; miss: number }> = {};
+  for (const s of schedule.schedules as Schedule[]) {
+    if (!records[s.league]) continue;
+    recStat[s.league] ??= { match: 0, miss: 0 };
+    for (const team of [s.homeTeam, s.awayTeam]) {
+      if (!team) continue;
+      if (lookupTeamRecord(records, s.league, team)) {
+        recStat[s.league].match++;
+      } else {
+        recStat[s.league].miss++;
+        if (!recMiss.has(s.league)) recMiss.set(s.league, new Set());
+        recMiss.get(s.league)!.add(team);
+      }
+    }
+  }
+  console.log("");
+  console.log("=== 최근 5경기 전적 감사 ===");
+  for (const [lg, v] of Object.entries(recStat)) {
+    console.log(`  ${lg.padEnd(16)} match=${v.match} MISS=${v.miss}`);
+  }
+  if (recMiss.size === 0) {
+    console.log("✅ 전적 미스매치 없음.");
+    return;
+  }
+  let total = 0;
+  console.log("🔴 전적 미스매치 — team-name-aliases.ts 에 전적 API 표기 키 보정 필요:");
+  for (const [lg, teams] of recMiss) {
+    total += teams.size;
+    const usedRecs = new Set(
+      (schedule.schedules as Schedule[])
+        .filter((s) => s.league === lg)
+        .flatMap((s) => [s.homeTeam, s.awayTeam])
+        .map((t) => t && lookupTeamRecord(records, lg, t))
+        .filter(Boolean),
+    );
+    const unused = Object.entries(records[lg])
+      .filter(([, rec]) => !usedRecs.has(rec))
+      .map(([name]) => name);
+    console.log(`  [${lg}] 편성 표기: ${[...teams].map((t) => `"${t}"`).join(", ")}`);
+    console.log(`         짝 후보(편성에 안 쓰인 전적 표기): ${unused.join(", ") || "(없음 — 네이버 전적 표에 팀 자체가 없음)"}`);
+  }
+  console.log(`  합계 ${total}팀`);
+  process.exitCode = 1;
 }
 
 main().catch((e) => {

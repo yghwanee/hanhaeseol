@@ -48,7 +48,7 @@ function LastFiveBadgesInner({
     <span
       aria-label={`${streak.count}${streak.approx ? "경기 이상 " : ""}${streak.type === "W" ? "연승" : "연패"}`}
       title={streak.approx ? "최근 5경기 기준 추정값 (실제로는 더 길 수 있음)" : undefined}
-      className={`inline-flex items-center rounded-[3px] px-1 py-0.5 text-caption2 sm:text-caption2 font-bold leading-none ring-1 ${
+      className={`inline-flex items-center rounded-[3px] px-1 py-px text-caption2 font-bold leading-none ring-1 sm:py-0.5 ${
         streak.type === "W"
           ? "text-fg-brand-bright ring-brand/40"
           : "text-fg-danger ring-[oklch(0.715_0.220_27_/_0.35)]"
@@ -62,13 +62,15 @@ function LastFiveBadgesInner({
 
   return (
     <div
-      className="flex items-start gap-1.5"
+      className="flex items-start gap-1 sm:gap-1.5"
       aria-label={`최근 ${chars.length}경기 (${mirror ? "오른쪽" : "왼쪽"}이 최근) ${chars.join("")}`}
     >
       {/* 홈팀: 칩을 왼쪽(팀 이름 쪽 = 외곽)에 배치 */}
       {mirror && streakChip}
 
-      <div className="flex items-end gap-1">
+      {/* 모바일은 한 단계 작게(2026-09-15 화니 지시) — 칸 13px·간격 2px. 글자는 11px(caption2)
+          바닥이라 그대로 두고 상자와 간격만 줄인다. */}
+      <div className="flex items-end gap-0.5 sm:gap-1">
         {chars.map((c, i) => {
           const isWin = c === "W";
           const isLose = c === "L";
@@ -91,15 +93,15 @@ function LastFiveBadgesInner({
             <span
               key={i}
               title={`${isLatest ? "가장 최근" : `${i + 1}경기 전`}: ${label}`}
-              className="flex flex-col items-center gap-1.5"
+              className="flex flex-col items-center gap-1 sm:gap-1.5"
             >
               <span
-                className={`inline-flex h-[15px] w-[15px] items-center justify-center rounded-[3px] text-caption2 font-bold leading-none ring-1 sm:h-4 sm:w-4 ${cls}`}
+                className={`inline-flex h-[13px] w-[13px] items-center justify-center rounded-[3px] text-caption2 font-bold leading-none ring-1 sm:h-4 sm:w-4 ${cls}`}
               >
                 {c}
               </span>
               <span
-                className={`h-[2px] w-2.5 sm:w-3 rounded-full ${barCls}`}
+                className={`h-[2px] w-2 sm:w-3 rounded-full ${barCls}`}
                 aria-hidden
               />
             </span>

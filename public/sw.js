@@ -64,6 +64,35 @@ self.addEventListener("push", (event) => {
   );
 });
 
+// 🔴 브라우저가 푸시 구독 주소를 갈아끼웠을 때. 이걸 안 받으면 서버에는 옛 주소가 옛 찜
+// 목록을 든 채 남아, 사용자가 찜을 다 풀어도 그 주소로 알림이 계속 나간다(2026-09-15).
+// 서비스워커는 localStorage(찜 목록)를 못 읽는다 — follows 를 빼고 보내면 서버가 옛
+// 저장본의 찜을 옮기고 옛 것을 지운다. 페이지가 다음에 열리면 실제 찜 목록으로 다시 맞춘다.
+self.addEventListener("pushsubscriptionchange", (event) => {
+  const oldSub = event.oldSubscription;
+  event.waitUntil(
+    (async () => {
+      const next =
+        event.newSubscription ||
+        (oldSub && oldSub.options && oldSub.options.applicationServerKey
+          ? await self.registration.pushManager.subscribe({
+              userVisibleOnly: true,
+              applicationServerKey: oldSub.options.applicationServerKey,
+            })
+          : null);
+      if (!next) return;
+      await fetch("/api/push/subscribe", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          subscription: next.toJSON(),
+          previousEndpoint: oldSub ? oldSub.endpoint : undefined,
+        }),
+      }).catch(() => {});
+    })(),
+  );
+});
+
 self.addEventListener("notificationclick", (event) => {
   event.notification.close();
   const url = (event.notification.data && event.notification.data.url) || "/";

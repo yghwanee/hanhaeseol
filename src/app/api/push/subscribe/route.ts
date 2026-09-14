@@ -1,25 +1,43 @@
-import { removeSubscription, saveSubscription } from "@/lib/push/store";
+import { readSubscription, removeSubscription, saveSubscription } from "@/lib/push/store";
 
 // 웹푸시 구독 등록. 클라가 PushSubscription(+찜한 팀)을 POST → 저장소에 upsert.
 export const dynamic = "force-dynamic";
 
+/**
+ * 🔴 `previousEndpoint` — 같은 기기의 **이전 구독 주소**. 브라우저는 푸시 구독 주소를
+ * 예고 없이 갈아끼운다(`pushsubscriptionchange`). 새 주소로만 저장하면 옛 주소의 저장본이
+ * 옛 찜 목록을 든 채 남는다. 사용자가 찜을 다 풀어도 새 주소에만 `[]` 가 가고, 옛 주소로
+ * 알림이 계속 나간다(2026-09-15 "찜 다 풀었는데 푸시가 계속 온다").
+ * 그래서 새 주소를 저장한 **뒤** 옛 저장본을 지운다(반대 순서면 둘 다 잃을 수 있다).
+ *
+ * `follows` 가 없으면 옛 저장본의 찜을 옮겨 온다 — 서비스워커는 localStorage 를 못 읽어서
+ * 주소 교체 이벤트에서 찜 목록 없이 이 라우트를 부른다.
+ */
 export async function POST(request: Request): Promise<Response> {
   try {
     const body = (await request.json()) as {
       subscription?: { endpoint?: string; keys?: { p256dh?: string; auth?: string } };
       follows?: unknown;
+      previousEndpoint?: unknown;
     };
     const sub = body?.subscription;
     if (!sub?.endpoint || !sub.keys?.p256dh || !sub.keys?.auth) {
       return Response.json({ ok: false, error: "invalid subscription" }, { status: 400 });
     }
+    const previous =
+      typeof body.previousEndpoint === "string" && body.previousEndpoint !== sub.endpoint
+        ? body.previousEndpoint
+        : null;
     const follows = Array.isArray(body?.follows)
       ? body.follows.filter((x): x is string => typeof x === "string")
-      : [];
+      : previous
+        ? ((await readSubscription(previous))?.follows ?? [])
+        : [];
     await saveSubscription(
       { endpoint: sub.endpoint, keys: { p256dh: sub.keys.p256dh, auth: sub.keys.auth } },
       follows,
     );
+    if (previous) await removeSubscription(previous);
     return Response.json({ ok: true });
   } catch {
     return Response.json({ ok: false }, { status: 500 });

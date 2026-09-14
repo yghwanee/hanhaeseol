@@ -157,7 +157,7 @@ function ScheduleCardInner({
 
       {schedule.awayTeam ? (
         <div className="pointer-events-none relative z-10 mt-4 sm:mt-5 flex items-baseline justify-center gap-2 sm:gap-3 text-body2 sm:text-headline2">
-          <div className="flex-1 min-w-0 flex flex-col items-end gap-1">
+          <div className="flex-1 min-w-0 flex flex-col items-end gap-2 sm:gap-2.5">
             <span className={`flex w-full items-baseline justify-end gap-1.5 font-semibold ${winnerSide === "away" ? "text-fg-tertiary" : "text-fg-strong"}`}>
               {onToggleTeam && (
                 <FollowStar
@@ -186,7 +186,7 @@ function ScheduleCardInner({
           ) : (
             <span className="shrink-0 mt-1 text-caption2 font-bold text-fg-tertiary">VS</span>
           )}
-          <div className="flex-1 min-w-0 flex flex-col items-start gap-1">
+          <div className="flex-1 min-w-0 flex flex-col items-start gap-2 sm:gap-2.5">
             <span className={`flex w-full items-baseline justify-start gap-1.5 font-semibold ${winnerSide === "home" ? "text-fg-tertiary" : "text-fg-strong"}`}>
               <span className="min-w-0 truncate"><Highlight text={schedule.awayTeam} query={query} /></span>
               {schedule.awayEmblem && (

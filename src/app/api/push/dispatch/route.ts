@@ -1,6 +1,12 @@
 import type { Schedule, ScheduleData } from "@/types/schedule";
 import type { ResultsData } from "@/types/results";
-import { listSubscriptions, removeSubscription } from "@/lib/push/store";
+import {
+  listSubscriptions,
+  removeSubscription,
+  removeSubscriptionById,
+  subscriptionId,
+  type StoredSubscription,
+} from "@/lib/push/store";
 import { sendPush } from "@/lib/push/send";
 import { buildNotices, shouldReceive } from "@/lib/push/notify";
 import {
@@ -56,6 +62,18 @@ export async function POST(request: Request): Promise<Response> {
   const dryRun = params.get("dry") === "1";
 
   /**
+   * 🔴 `remove=<id>` — 유령 구독 한 건을 지운다(운영용, `push-notify.yml` 의 `remove` 입력).
+   * 브라우저가 구독 주소를 갈아끼우면 옛 주소 저장본이 옛 찜 목록을 든 채 남는다.
+   * 사용자는 그 주소를 모르니 스스로 못 지운다. id 는 dry 응답의 `subscriberDetail` 에 있다.
+   */
+  const removeId = params.get("remove");
+  if (removeId) {
+    if (!process.env.BLOB_READ_WRITE_TOKEN) return json({ ok: false, error: "Blob 스토어 미설정" }, 500);
+    const removed = await removeSubscriptionById(removeId);
+    return json({ ok: removed, removed: removed ? removeId : null });
+  }
+
+  /**
    * 🔴 `live=1` — 결과를 레포 raw 가 아니라 **네이버에서 직접** 가져온다.
    *
    * raw 는 매시 13분 크롤 커밋만 따라가므로 득점 알림이 최대 한 시간 늦는다. 실시간 골
@@ -100,8 +118,12 @@ export async function POST(request: Request): Promise<Response> {
     matchUrl: (s: Schedule) => `/match/${encodeURIComponent(matchToSlug(s))}`,
   });
 
+  // dry 에서만 구독별 [id · 마지막 저장 시각 · 찜] 을 보인다. 엔드포인트 원문은 안 싣는다
+  // (워크플로 로그는 공개 레포라 누구나 본다). 마지막 저장이 오래됐는데 찜이 남아 있으면 유령이다.
+  const detail = dryRun ? { subscriberDetail: describe(subs) } : {};
+
   if (notices.length === 0) {
-    return json({ ok: true, subscribers: subs.length, notices: 0, sent: 0, watch });
+    return json({ ok: true, subscribers: subs.length, notices: 0, sent: 0, watch, ...detail });
   }
   if (dryRun) {
     return json({
@@ -109,6 +131,7 @@ export async function POST(request: Request): Promise<Response> {
       dryRun: true,
       subscribers: subs.length,
       watch,
+      ...detail,
       notices: notices.map((n) => ({ kind: n.kind, title: n.title, body: n.body })),
     });
   }
@@ -238,6 +261,26 @@ function mergeLive(raw: ResultsData | null, live: ResultsData | null): ResultsDa
     ...raw.results.filter((r) => !liveIds.has(`${r.date}|${r.categoryId}|${r.homeTeam}|${r.awayTeam}`)),
   ];
   return { lastUpdated: live.lastUpdated, byKey, results };
+}
+
+function describe(subs: StoredSubscription[]) {
+  return subs
+    .map((s) => ({
+      id: subscriptionId(s.subscription.endpoint),
+      // 푸시 서비스 종류만(애플·구글·모질라). 기기 구분용이고 주소 원문은 아니다.
+      service: safeHost(s.subscription.endpoint),
+      savedAt: s.createdAt,
+      follows: s.follows,
+    }))
+    .sort((a, b) => String(a.savedAt).localeCompare(String(b.savedAt)));
+}
+
+function safeHost(endpoint: string): string {
+  try {
+    return new URL(endpoint).host;
+  } catch {
+    return "?";
+  }
 }
 
 function json(body: unknown, status = 200): Response {

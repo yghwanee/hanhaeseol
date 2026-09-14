@@ -89,6 +89,29 @@ test("🔴 알림 권한을 코드로 되돌리려 하지 않는다", () => {
 });
 
 /**
+ * 🔴 구독 주소 교체 유령 가드 (2026-09-15).
+ *
+ * 브라우저는 푸시 구독 주소를 예고 없이 갈아끼운다. 서버가 새 주소만 받으면 옛 주소 저장본이
+ * 옛 찜 목록을 든 채 남아, 사용자가 찜을 전부 풀어도 알림이 계속 온다("찜 다 풀었는데 푸시가
+ * 계속 와"). 세 군데가 같이 있어야 막힌다 — 하나만 빠져도 조용히 재발한다.
+ */
+test("🔴 구독 주소가 바뀌면 옛 저장본을 지운다(서비스워커·페이지·서버)", () => {
+  const sw = read(path.join(ROOT, "public/sw.js"));
+  assert.match(sw, /addEventListener\("pushsubscriptionchange"/, "서비스워커가 주소 교체를 안 받는다");
+  assert.match(sw, /previousEndpoint/, "주소 교체 때 옛 주소를 서버에 안 알린다");
+
+  const btn = read(BTN);
+  assert.match(btn, /previousEndpoint/, "페이지 동기화가 옛 주소를 안 보낸다(서비스워커 이벤트를 놓친 경우의 안전망)");
+  assert.match(btn, /writeStoredEndpoint\(sub\.endpoint\)/, "올린 주소를 기억하지 않는다 — 다음 교체를 알아챌 수 없다");
+
+  const route = read(ROUTE);
+  const save = route.indexOf("await saveSubscription(");
+  const drop = route.indexOf("if (previous) await removeSubscription(previous)");
+  assert.ok(save > -1 && drop > -1, "서버가 옛 주소 저장본을 안 지운다");
+  assert.ok(save < drop, "옛 저장본을 새 저장보다 먼저 지운다 — 저장이 실패하면 둘 다 잃는다");
+});
+
+/**
  * 🔴 별 히트영역 가드 (2026-09-04).
  *
  * 아이콘 18px + `-m-1 p-1` = 약 26px 이었고, 바로 밑에 매치 페이지로 가는 카드 전체

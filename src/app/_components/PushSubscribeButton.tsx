@@ -61,6 +61,24 @@ function unsupportedReason(): "iosInstall" | "inApp" | "unsupported" {
  */
 const SUB_EVENT = "hhs:push-sub";
 
+/** 이 기기가 서버에 마지막으로 올린 구독 주소. 주소가 바뀌면 옛 저장본을 지우게 하려고 둔다. */
+const ENDPOINT_KEY = "hhs.push.endpoint.v1";
+function readStoredEndpoint(): string | null {
+  try {
+    return localStorage.getItem(ENDPOINT_KEY);
+  } catch {
+    return null;
+  }
+}
+function writeStoredEndpoint(endpoint: string | null): void {
+  try {
+    if (endpoint) localStorage.setItem(ENDPOINT_KEY, endpoint);
+    else localStorage.removeItem(ENDPOINT_KEY);
+  } catch {
+    /* 저장 불가 환경 — 주소 교체 정리는 서비스워커 이벤트에 맡긴다 */
+  }
+}
+
 /**
  * ⭐찜한 팀 경기 알림 구독 버튼.
  *
@@ -92,12 +110,23 @@ export function PushSubscribeButton({
     const reg = await navigator.serviceWorker.ready;
     const sub = await reg.pushManager.getSubscription();
     if (!sub) return false;
+    // 🔴 이 기기가 지난번에 올린 구독 주소. 브라우저가 주소를 갈아끼웠으면 서버에 옛 주소를
+    // 같이 알려 지우게 한다 — 안 그러면 옛 저장본이 옛 찜을 든 채 알림을 계속 받는다
+    // (2026-09-15 "찜 다 풀었는데 푸시가 계속 온다"). 서비스워커의 교체 이벤트가 놓친 경우의 안전망.
+    const previous = readStoredEndpoint();
     const res = await fetch("/api/push/subscribe", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ subscription: sub.toJSON(), follows: list }),
+      body: JSON.stringify({
+        subscription: sub.toJSON(),
+        follows: list,
+        ...(previous && previous !== sub.endpoint ? { previousEndpoint: previous } : {}),
+      }),
     });
-    if (res.ok) lastSynced.current = JSON.stringify(list);
+    if (res.ok) {
+      lastSynced.current = JSON.stringify(list);
+      writeStoredEndpoint(sub.endpoint);
+    }
     return res.ok;
   }, []);
 
@@ -201,6 +230,7 @@ export function PushSubscribeButton({
         return;
       }
       await sub.unsubscribe().catch(() => {});
+      writeStoredEndpoint(null);
       lastSynced.current = null;
       setState("idle");
       window.dispatchEvent(new Event(SUB_EVENT));

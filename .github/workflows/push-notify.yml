@@ -26,6 +26,10 @@ on:
         description: '구독자 전원에게 테스트 푸시 1발 (경로가 끝까지 도는지 확인)'
         required: false
         default: 'false'
+      remove:
+        description: '유령 구독 1건 삭제 — dry 응답 subscriberDetail 의 id(12자)'
+        required: false
+        default: ''
 
 permissions:
   contents: read
@@ -71,6 +75,7 @@ jobs:
         env:
           PUSH_KEY: ${{ secrets.PUSH_TEST_KEY }}
           DRY: ${{ github.event.inputs.dry }}
+          REMOVE: ${{ github.event.inputs.remove }}
         run: |
           if [ -z "$PUSH_KEY" ]; then
             echo "PUSH_TEST_KEY 시크릿이 없다 — 아직 셋업 전이므로 조용히 종료한다."
@@ -78,6 +83,8 @@ jobs:
           fi
           url="https://haeseol.com/api/push/dispatch"
           if [ "$DRY" = "true" ]; then url="$url?dry=1"; fi
+          # 유령 구독 삭제는 발송과 섞지 않는다 — 라우트가 삭제만 하고 바로 돌아온다.
+          if [[ "$REMOVE" =~ ^[0-9a-f]{12}$ ]]; then url="$url?remove=$REMOVE"; fi
 
           # 🔴 응답 본문과 상태 코드를 **둘 다** 본다. 이 레포 단골 함정이 무성 실패다
           # (응답을 안 보고 성공으로 넘어가 몇 시간째 안 나가는 걸 아무도 모른다).

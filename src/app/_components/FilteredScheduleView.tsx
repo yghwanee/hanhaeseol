@@ -200,7 +200,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                       </div>
                         {s.awayTeam ? (
                           <div className="mt-2.5 flex items-baseline justify-center gap-2 text-label1 sm:text-body1">
-                            <div className="flex-1 min-w-0 flex flex-col items-end gap-1">
+                            <div className="flex-1 min-w-0 flex flex-col items-end gap-2 sm:gap-2.5">
                               <span className={`w-full text-right font-semibold truncate ${winnerSide === "away" ? "text-fg-tertiary" : "text-fg-strong"}`}>{s.homeTeam}</span>
                               {homeRec?.last5 && (
                                 <LastFiveBadges form={homeRec.last5} streak={homeRec.streak} mirror />
@@ -215,7 +215,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                             ) : (
                               <span className="shrink-0 mt-1 text-caption2 font-bold text-fg-tertiary">VS</span>
                             )}
-                            <div className="flex-1 min-w-0 flex flex-col items-start gap-1">
+                            <div className="flex-1 min-w-0 flex flex-col items-start gap-2 sm:gap-2.5">
                               <span className={`w-full text-left font-semibold truncate ${winnerSide === "home" ? "text-fg-tertiary" : "text-fg-strong"}`}>{s.awayTeam}</span>
                               {awayRec?.last5 && (
                                 <LastFiveBadges form={awayRec.last5} streak={awayRec.streak} />

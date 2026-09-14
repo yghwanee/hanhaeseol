@@ -16,8 +16,40 @@ export interface StoredSubscription {
 }
 
 const PREFIX = "push-subs/";
-const pathFor = (endpoint: string) =>
-  PREFIX + createHash("sha256").update(endpoint).digest("hex") + ".json";
+const hashOf = (endpoint: string) => createHash("sha256").update(endpoint).digest("hex");
+const pathFor = (endpoint: string) => PREFIX + hashOf(endpoint) + ".json";
+
+/**
+ * 구독을 가리키는 짧은 id(엔드포인트 해시 앞 12자). 로그·운영 도구에 엔드포인트 원문을
+ * 흘리지 않고 한 건을 집어 지우기 위한 것이다.
+ */
+export function subscriptionId(endpoint: string): string {
+  return hashOf(endpoint).slice(0, 12);
+}
+
+/** 엔드포인트 하나의 저장본. 없거나 못 읽으면 null. */
+export async function readSubscription(endpoint: string): Promise<StoredSubscription | null> {
+  try {
+    const res = await get(pathFor(endpoint), { access: "private" });
+    if (!res?.stream) return null;
+    const data = (await new Response(res.stream).json()) as StoredSubscription;
+    return data?.subscription?.endpoint ? data : null;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * id(`subscriptionId`) 로 지운다. 운영자가 유령 구독을 치울 때만 쓴다.
+ * 접두사가 정확히 하나에만 맞을 때만 지운다 — 짧은 id 가 둘에 걸리면 아무것도 안 한다.
+ */
+export async function removeSubscriptionById(id: string): Promise<boolean> {
+  if (!/^[0-9a-f]{12}$/.test(id)) return false;
+  const { blobs } = await list({ prefix: PREFIX + id });
+  if (blobs.length !== 1) return false;
+  await del(blobs[0].pathname);
+  return true;
+}
 
 export async function saveSubscription(sub: PushSub, follows: string[] = []): Promise<void> {
   const data: StoredSubscription = {
