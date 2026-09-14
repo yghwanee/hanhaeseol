@@ -161,6 +161,15 @@ export function toAgGame(raw: Record<string, unknown>): AgGame {
   };
 }
 
+/**
+ * 한국 경기 ↔ 편성 행 매칭 키. 날짜 + 두 팀(순서 무관).
+ * 네이버와 SPOTV NOW 가 홈/원정을 반대로 적는 경우가 있어 정렬해서 묶는다.
+ * 시각은 넣지 않는다 — 사전방송 때문에 편성 시각이 경기 시각과 다를 수 있다.
+ */
+export function broadcastKey(date: string, a: string, b: string): string {
+  return `${date}|${[a.trim(), b.trim()].sort().join("|")}`;
+}
+
 export function groupByDate(games: AgGame[]): [string, AgGame[]][] {
   const m = new Map<string, AgGame[]>();
   for (const g of [...games].sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))) {

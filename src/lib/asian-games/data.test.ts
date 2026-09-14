@@ -4,6 +4,7 @@ import fs from "fs";
 import path from "path";
 import {
   agPhase,
+  broadcastKey,
   crawlDates,
   daysToOpen,
   medalsStarted,
@@ -54,6 +55,11 @@ test("예정 경기와 개인 종목은 점수를 null 로 둔다", () => {
   assert.equal(live.awayScore, 2);
   const solo = toAgGame({ gameDateTime: "2026-09-20T08:45:00", homeTeamName: "", awayTeamName: "", homeTeamScore: 0, statusCode: "RESULT" });
   assert.equal(solo.homeScore, null);
+});
+
+test("중계 매칭 키는 홈/원정 순서와 공백에 흔들리지 않는다", () => {
+  assert.equal(broadcastKey("2026-09-17", "방글라데시", "대한민국"), broadcastKey("2026-09-17", "대한민국 ", "방글라데시"));
+  assert.notEqual(broadcastKey("2026-09-17", "대한민국", "홍콩"), broadcastKey("2026-09-18", "대한민국", "홍콩"));
 });
 
 test("대회 국면과 크롤 날짜가 대회 기간 밖으로 새지 않는다", () => {
