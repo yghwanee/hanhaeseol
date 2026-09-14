@@ -224,10 +224,32 @@ src/
 - 🔴 **관측 (작업104)** — 아침·저녁 게시가 **예약 실행으로** 나가는지, 안 나가면 `catchup` 이 대신 걸어주는지. GH 발화율이 회복되면 `catchup` 은 조용히 아무것도 안 한다.
   **정정: "🚑 소셜 게시 따라잡기" 텔레그램은 작업106 에서 없앴다.** 따라잡기는 이제 예외가 아니라 정상 경로라 알리지 않는다. 발동 여부는 `gh run list --workflow=post-catchup.yml` 이나 그 로그로 본다.
 
-- 🔴 **토스쇼핑 쉐어링크 붙이기 — 내일 이어서 (2026-08-27 중단, 커밋 `40374e87`)**
-  쿠팡 파트너스를 걷어낸 뒤(작업64·65·70) 비어 있던 제휴 자리를 채우는 작업. 문서는 다 읽었고
-  API 클라이언트·점검 도구·가드까지 세워 뒀다. **막힌 건 자격증명 하나** — 그게 없으면 실호출을
-  한 번도 못 해 본다.
+- 🔴 **토스쇼핑 쉐어링크 — 지면 구현 완료, 상품 0개 (2026-09-14, 작업117).**
+  Open API 사용 승인이 났고 지면 두 곳이 라이브다. **기본 상태는 "아무것도 안 뜸"** —
+  `src/data/toss-picks.json` 의 `picks` 가 비어 있으면 홈 띠도 본문 카드도 렌더되지 않는다.
+  - 지면 ①가이드 본문 `:::toss <key>:::` 마커(`src/lib/affiliate/embed.ts`)
+    ②홈 편성표 "오후 경기" 아래 한 줄 띠(`TossDealStrip`, `deal` 키를 걸 때만).
+  - 🔴 **이미지를 쓰지 않는다.** 토스 운영정책이 "이미지 URL 을 외부 사이트에 직접 표시",
+    "추천 영역 썸네일 반복 노출", "여러 상품 이미지와 쉐어링크 자동 연동", "API 데이터로
+    별도 상품 DB 구성"을 **사전 확인 대상**으로 명시한다. 텍스트만 쓰면 넷 다 비켜간다.
+    썸네일을 붙이려면 `toss-business.channel.io` 확인이 먼저다. 위반 = 수익 정지·계약 해지.
+  - 🔴 **커머스형 웹사이트는 승인 자체가 안 된다** — "가격을 DB 에 쌓아 이커머스처럼
+    나열·전시". 그래서 한 지면에 **한 상품만** 건다(`MAX_PICKS_PER_PLACEMENT = 1`).
+  - 🔴 **상품은 사람이 고른다.** 목록을 긁어 자동으로 꽂으면 위 "자동 연동"에 걸린다.
+    `npm run toss:pick -- <tacaItemId> --key=<슬러그>` 한 번에 하나씩.
+  - 🔴 **가격은 빌드 시점 스냅샷이다.** `checkedAt` 이 14일을 넘기면 화면이 **가격을 숨기고**
+    이름·링크만 낸다(표시광고법). 되감는 건 `npm run toss:refresh` 뿐 — 이 PC 에서 돌린다.
+  - 가드 `npm run test:toss-picks`(CI). 대가성 문구·이미지 금지·나열 금지·`rel=sponsored`·
+    플로팅 금지·낡은 가격 숨김을 전부 막는다.
+  - ✅ **연동 확인 완료 (2026-09-14)**: 토큰 발급·카테고리 16개·베스트 상품 조회 정상.
+    등록 IP = 이 PC `115.95.74.147`.
+  - 🔴 **자격증명은 PC 3대 공용이다 (작업117).** 정본 = OneDrive
+    `hwanee solutions\_secrets\hwanee.env`. `src/lib/env/shared-env.ts` 가 `.env` 다음에
+    이 파일을 읽어 **빈 변수만** 채운다(이 PC `.env` 와 CI Secrets 가 항상 이긴다).
+    상태 확인 `npm run secrets` · 올리기 `npm run secrets:push`. 다른 PC 는 아무것도 안 해도 된다.
+    - 🔴 **키를 공유해도 다른 PC 에서 토스 호출은 안 된다** — 출발지 IP 를 PC 마다
+      등록해야 한다(업체당 10개). 그 PC 에서 `npm run toss:check` 가 등록할 IP 를 찍어 준다.
+    - 🔴 공용 파일을 **레포 안으로 옮기지 말 것**(public 레포다). `test:shared-env` 가 막는다.
 
   **사람이 먼저 할 것(순서대로)**
   1. `sharelink.toss.im` 로그인 → **API 연동** 메뉴. 여기서 셋을 확인한다:
@@ -235,7 +257,8 @@ src/
      ②Access Key / Secret Key 발급 여부 — 🔴 **Secret Key 는 발급 직후 한 번만 보인다**
      ③호출 IP 등록란 (업체당 10개, `/16`~`/32`)
   2. `publisherId` 는 인증 정보와 함께 안내된다.
-  3. 받은 값 3개를 `.env.local` 에: `TOSS_SHARELINK_ACCESS_KEY` · `_SECRET_KEY` · `_PUBLISHER_ID`
+  3. 받은 값 3개를 **`.env`** 에: `TOSS_SHARELINK_ACCESS_KEY` · `_SECRET_KEY` · `_PUBLISHER_ID`
+     (🔴 `.env.local` 이 아니다. 이 레포엔 `.env` 하나뿐이다.) → `npm run secrets:push` 로 3대에 공유.
   4. `npm run toss:check` — 자격증명·토큰·읽기·상품조회를 순서대로 검사하고 막힌 지점에서
      할 일을 출력한다. **나가는 IP 도 같이 찍으니** 그 값을 관리자에 등록하면 된다.
 
@@ -370,6 +393,12 @@ npm run prune:bad-insights -- --apply  # 저장된 인사이트 중 흐름이 �
 npm run toss:check                 # 🔴 토스 쉐어링크 Open API 연동 점검(자격증명·IP·스코프 한 번에)
 npm run toss:link -- <tacaItemId>  # 쉐어링크 1건 발급. 같은 조합은 같은 링크 — 저장해 재사용할 것
 npm run test:toss                  # 🔴 Secret Key 가 src/app 으로 새지 않는지 + 토큰 캐시 gitignore
+npm run toss:pick -- <id> --key=<슬러그> [--deal]  # 상품 1개를 손으로 골라 저장(링크 재사용). 이 PC 에서만
+npm run toss:refresh               # 🔴 저장된 상품 가격 재확인. 14일 넘으면 화면이 가격을 숨긴다
+npm run test:toss-picks            # 🔴 지면 가드 — 대가성 문구·이미지 금지·나열 금지·sponsored·플로팅 금지
+npm run secrets                    # 자격증명을 지금 어디서 읽고 있는지(값은 안 찍는다)
+npm run secrets:push               # 🔴 이 PC .env → OneDrive 공용 파일. PC 3대가 복붙 없이 같은 키를 쓴다
+npm run test:shared-env            # 🔴 공용 자격증명이 레포(public) 안으로 못 들어오게 + 값 로그 금지
 npm run test:commentary-stats      # 🔴 해설 비율 산수 + 미확인 분모 제외 + 조사. 밖으로 인용되는 수치라 틀리면 못 되돌린다
 npm run test:safety-filter         # 인사이트 베팅 용어 필터(2026-08-27 전까지 CI 에서 한 번도 안 돌고 있었다)
 npm run fonts:subset               # 🔴 ebook 배너 Pretendard 서브셋 재생성(pyftsubset 필요). 인용구·배너 문구 바꾸면 필수

@@ -6,7 +6,8 @@
  * 🔴 같은 (tacaItemId, publisherId) 는 항상 같은 링크를 돌려준다. 발급 결과는 저장해
  * 재사용할 것 — 매번 부르면 일일 쿼터(10,000건)만 태운다.
  */
-import "dotenv/config";
+// 🔴 dotenv/config 가 아니다 — .env 와 OneDrive 공용 파일(PC 3대 공유)을 함께 읽는다.
+import "@/lib/env/shared-env";
 import { createShareLink } from "@/lib/toss/api";
 import { TossApiFailure, explainError } from "@/lib/toss/client";
 

@@ -18,6 +18,7 @@ import { PlatformIcon } from "./_components/PlatformIcon";
 import { SmoothTabs, SmoothCircleTabs } from "./_components/SmoothTabs";
 import { ScheduleCard } from "./_components/ScheduleCard";
 import { AdfitBanner } from "./_components/AdfitBanner";
+import { TossDealStrip } from "./_components/TossDealStrip";
 import { DatePickerSheet } from "./_components/DatePickerSheet";
 import { EbookBanner } from "./_components/EbookBanner";
 import { AsianGamesBanner } from "./_components/AsianGamesBanner";
@@ -868,6 +869,9 @@ export default function ScheduleClient({
             <div className="h-px flex-1 bg-zinc-700/60" />
           </div>
         )}
+        {/* 토스쇼핑 한 줄 띠 — 상품이 지정돼 있을 때만 뜬다(기본은 안 뜸). 광고 위에
+            둔 이유: 애드핏 300x250 아래에 붙이면 사람이 둘을 한 덩어리 광고로 읽는다. */}
+        <TossDealStrip className="mb-4" />
         <AdfitBanner slot="inline" />
       </div>
 

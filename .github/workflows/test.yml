@@ -126,6 +126,8 @@ jobs:
           npm run test:safety-filter
           npm run test:ebook-font
           npm run test:toss
+          npm run test:toss-picks
+          npm run test:shared-env
           npm run test:follows
           npm run test:push-notify
           # 🔴 아래 넷은 package.json·CLAUDE.md 에 가드로 적혀 있으면서 CI 에서는

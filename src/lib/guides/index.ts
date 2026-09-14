@@ -12,6 +12,7 @@ import fs from "fs";
 import path from "path";
 import { marked } from "marked";
 import { autolinkGuideBody } from "./autolink";
+import { embedTossPicks } from "@/lib/affiliate/embed";
 
 const GUIDES_DIR = path.join(process.cwd(), "src/content/guides");
 
@@ -91,11 +92,16 @@ export function getGuide(slug: string): Guide | null {
 
   // breaks: true → 마크다운에서 엔터 한 번(단일 개행)도 <br>로 변환.
   // 글쓴이가 친 줄바꿈이 화면에 그대로 반영돼 직관적이고, 줄바꿈 제어가 쉬워진다.
-  const bodyHtml = marked.parse(linkedBody, {
+  const parsed = marked.parse(linkedBody, {
     async: false,
     gfm: true,
     breaks: true,
   }) as string;
+
+  // `:::toss <key>:::` 마커를 토스 상품 카드로 바꾼다. 🔴 marked **뒤**에서 한다 —
+  // 앞에서 하면 autolink 가 카드 속 글자를 다시 링크로 만들고 marked 가 우리 HTML 을
+  // 다시 파싱한다. 키가 없거나 마감된 상품이면 마커는 조용히 사라진다.
+  const bodyHtml = embedTossPicks(parsed);
 
   const keywords = data.keywords
     ? data.keywords.split(",").map((k) => k.trim()).filter(Boolean)

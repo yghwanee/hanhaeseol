@@ -6,7 +6,8 @@
  *
  *   npm run toss:check
  */
-import "dotenv/config";
+// 🔴 dotenv/config 가 아니다 — .env 와 OneDrive 공용 파일(PC 3대 공유)을 함께 읽는다.
+import "@/lib/env/shared-env";
 import {
   getAccessToken,
   hasTossEnv,
@@ -42,7 +43,8 @@ async function main() {
   // 1. 자격증명
   if (!hasTossEnv()) {
     console.log(`${NO} 1. 자격증명 — 환경변수가 비어 있다.`);
-    console.log("      .env.local 에 아래 3개를 넣을 것(쉐어링크 크리에이터 관리자에서 발급):");
+    console.log("      .env 에 아래 3개를 넣을 것(쉐어링크 관리자 › 연동 › API 키 발급):");
+    console.log("      🔴 .env.local 이 아니다 — 이 스크립트는 dotenv/config 로 .env 만 읽는다.");
     console.log("        TOSS_SHARELINK_ACCESS_KEY=");
     console.log("        TOSS_SHARELINK_SECRET_KEY=");
     console.log("        TOSS_SHARELINK_PUBLISHER_ID=");

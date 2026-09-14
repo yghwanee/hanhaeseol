@@ -50,7 +50,8 @@ export function tossEnv(): TossEnv {
   if (missing.length) {
     throw new Error(
       `토스 쉐어링크 환경변수 없음: ${missing.join(", ")}\n` +
-        "  → 쉐어링크 크리에이터 관리자에서 Access Key/Secret Key 발급 후 .env.local 에 넣을 것.",
+        "  → 쉐어링크 관리자(연동 › API 키 발급)에서 발급한 값을 .env 에 넣을 것.\n" +
+        "     🔴 .env.local 이 아니다 — 스크립트는 dotenv/config 로 .env 만 읽는다.",
     );
   }
   return { accessKey, secretKey, publisherId };
