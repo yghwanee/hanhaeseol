@@ -101,29 +101,24 @@ src/
 
 ### 다음 작업 (예정)
 
-- 🔴 **Vercel Pro→Hobby 강등 — CPU 는 잡혔고 FOT 가 막는다 (2026-09-10, 작업114).**
-  화니가 내리고 싶어 해서 실측했다. **계량기가 둘이고 서로 무관하다.**
-  - **Active CPU** 월 7.75 → **2.5~3.5** (한도 4). 원인은 `server-data.ts` 로더에 캐시가
-    없어 팀 페이지 한 장이 `loadScheduleData()` 를 4번 부르고 `results-archive.json`
-    2.35MB 를 매번 다시 파싱한 것. `/team/*` 하나가 계정 CPU 의 **71.8%**, 렌더당 860ms 였다.
-    고침 = 로더 5개 + 팀·매치·리그 페이지 팀 색인 메모이제이션(`5332febf`).
-    **패치 전후 HTML 26장 바이트 동일**(7,884,084 B), 빌드 렌더 구간 49.5s→13.2s(-73.3%).
-  - 🔴 **Fast Origin Transfer 월 7.5~10.8 GB (한도 10) 가 그대로다.** 2026-08-18 에 실제로
-    계정을 잠근 게 이쪽이다. **CPU 를 줄여도 FOT 는 1바이트도 안 준다** — 렌더 횟수도
-    응답 크기도 그대로다. 줄일 방법을 다 짚어 봤고 전부 막혔다:
-    배포 탓 아님(시간별 ISR 읽기가 고르게 깔림) · 페이로드는 데이터가 아니라 **렌더된
-    엘리먼트 트리**(`FilteredScheduleView` 가 서버 컴포넌트) · `/match/` 는 이미 robots 로
-    막혀 있고 트래픽의 **98%가 사람** · Yeti 는 평균 3.9분에 1회라 `Crawl-delay` 무의미.
-    남은 건 **카드를 덜 그리는 것**뿐이고 그건 화면이 바뀐다.
-  - 강등 전 필수: Vercel 문서가 **Stores/Domains 를 먼저 옮기라**고 명시한다. 둘 다 있다
-    (Blob `hanhaeseol-push`, `haeseol.com`). 백업은 `_backup\`(레포 밖)에 끝냈다 —
-    구독 **3건** 전체 + `.env.local` + 환경변수. 🔴 `NEXT_PUBLIC_DONATE_*` 6개와
-    `ADMIN_KEY` 는 Vercel 에만 있고 민감 표시라 못 읽어온다(강등으로 지워지진 않는다).
-  - 🔴 **다음 세션 첫 할 일 = `npm run usage`.** 배포는 2026-09-10 16:56 KST 였으니
-    온전한 하루치는 9/11 이고 그 값은 9/12 에 다 찬다. **0.08~0.11 CPU-hr/일**이면 통과,
-    0.2 이상이면 패치가 실전에서 안 먹은 것(콜드스타트부터 볼 것).
-  - 잠기면: 3사이트 동시 정지. 크롤·소셜·토픽은 GH Actions 라 계속 돌지만 **배포가 막혀
-    글이 화면에 안 올라간다.** 푸시 발송도 Vercel 이라 같이 멈춘다. 복구는 Pro 재승격뿐.
+- 🔴 **Vercel 은 이제 Hobby 다 (2026-09-14 강등 완료).** 강등 직후 사이트 3곳 200 ·
+  푸시 dry `ok:true`(Blob 정상) · Deploy Hook `201`. **잠기면 3사이트 동시 정지**, 복구는 Pro 재승격뿐.
+  - 🔴 **FOT(한도 10GB)가 잠금 계량기인데 Hobby 에선 API 로 못 잰다.** `npm run usage` 는
+    Observability 402 로 멈춘다(전엔 0% ✅ 오답). `v2/usage?type=requests` 로 본 30일 대역폭
+    11.46GB → **FOT 추정 5~7GB, 확정값은 대시보드 Usage 화면에서만.** 편성 경기 수·페이지
+    크기를 크게 늘리는 작업 전엔 대시보드부터 볼 것. 상세·CPU 패치 이력은 `docs/worklog.md` 작업114.
+  - `NEXT_PUBLIC_DONATE_*` 6개와 `ADMIN_KEY` 는 Vercel 에만 있다(사본 없음).
+
+- 🔴 **SEO 후속 (2026-09-14 배포, 2~4주 뒤 재측정).** `/sport/basketball`·`/sport/volleyball` 을
+  **개막 60일 전부터** 확인된 개막일·중계로 연다(`sport-seo.ts` `preseason`, 개막 후 14일 넘게 경기가
+  없으면 자동으로 닫힘). `/league/v-league` 신설. 축구 제목 = `오늘 축구 중계`. 재측정 쿼리:
+  `오늘 축구 중계`·`해외축구 중계 일정`·`챔피언스리그 중계`·`프로배구 중계`·`프로농구 중계`.
+  - **다음 시즌엔 `preseason.opensOn` 을 새로 확인해 넣어야** 개막 전 공개가 다시 걸린다.
+  - 🔴 **UCL 은 SPOTV NOW 공개 편성 API 에 없다**(9/15~10/01 전부 0건). 리그 페이지는 `emptyLeadNote` 로 안내만 한다.
+  - **아시안게임(아이치·나고야)은 크롤러가 버린다** — SPOTV NOW 가 `typeName` 에 대회명을 넣는다. 고치기 전에 FOT 확인.
+  - 가이드 글은 네이버 개별 노출 0(9월 글은 색인 전). 개선안 6개 화니 결정 대기 — auto-memory `project-guide-seo-verdict`.
+  - 9/21 이후 `kbo-draft-2026-broadcast` 를 실제 지명 결과로 갱신.
+  - `test:league-coverage` 가 빨갛다(`Campeones Cup` 결과 매핑 없음, 데이터 유입분).
 
 - 🔴 **다음 세션은 `docs/next-session.md` 부터 읽는다.** 시안 고르기(⭐찜 11안 · 알림 11안)가
   첫 할 일이고, 다른 PC 이관 시 챙길 것도 거기 있다.
@@ -368,7 +363,7 @@ npm run test:commentary-stats      # 🔴 해설 비율 산수 + 미확인 분�
 npm run test:safety-filter         # 인사이트 베팅 용어 필터(2026-08-27 전까지 CI 에서 한 번도 안 돌고 있었다)
 npm run fonts:subset               # 🔴 ebook 배너 Pretendard 서브셋 재생성(pyftsubset 필요). 인용구·배너 문구 바꾸면 필수
 npm run test:ebook-font            # 🔴 서브셋에 없는 글자가 배너에 나오는지(두부 방지). 위 명령을 안 돌리면 여기서 막힌다
-npm run usage            # 🔴 Vercel 사용량 실측 (Hobby 한도 대비 + 일자별 CPU). 쿼리 하루 500회 한도
+npm run usage            # 🔴 Pro 전용(Observability). Hobby 에선 402 로 멈춘다 — FOT·CPU 는 대시보드 Usage 화면에서 볼 것
 npm run seo:indexnow     # IndexNow 통지(리그·플랫폼·순위·가이드·팀 86 + /commentary = ~156 URL)
 npm run audit:aliases   # 팀명 alias 미스매치 감사 (결과 있는데 스코어 안 뜨는 유형). 개막 후 crawl:results 뒤 실행
 npm run news:digest      # 네이버 뉴스 → docs/news-digest.md (NAVER_API_KEY_ID/NAVER_API_KEY 필요)

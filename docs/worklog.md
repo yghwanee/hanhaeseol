@@ -737,3 +737,13 @@
     - **강등 전 준비**: Vercel 문서가 *"Pro teams will need to manually transfer any connected Stores and/or Domains"* 를 명시하고 한해설엔 둘 다 있다(Blob `hanhaeseol-push`, `haeseol.com`). 백업을 `_backup\`(레포 밖 — `hanhaeseol` 은 public)에 떴다: 푸시 구독 **3건** 전체(endpoint+p256dh+auth+follows, CLAUDE.md 의 2명에서 늘었다) · `.env.local` 사본 · Vercel 환경변수. 🔴 `NEXT_PUBLIC_DONATE_*` 6개와 `ADMIN_KEY` 는 Vercel 에만 있고 민감 표시라 `vercel env pull` 로 **못 읽어온다**(강등으로 지워지진 않는다 — 팀·프로젝트 삭제 때만).
     - **관측할 것**: `npm run usage` 로 일자별 Active CPU. 배포가 2026-09-10 16:56 KST 라 온전한 하루치는 9/11 이고 그 값은 9/12 에 다 찬다. **0.08~0.11 CPU-hr/일**이면 CPU 관문 통과 확정, 0.2 이상이면 패치가 실전에서 안 먹은 것(콜드스타트 비중 30.7%부터 볼 것).
     - 검증: tsc 0 · ESLint 0 · **가드 53종 전수 통과** · `next build` 성공 · CI `test.yml` 초록 · `deploy.yml` 성공 · `uptime.yml` 로 3사이트 200 확인.
+
+115. 🔴 SEO 노출 확장 + Vercel Hobby 강등 완료 (2026-09-14, 커밋 `6feceb82`·`25b8d142`·`87893b8b`) — 월요일 글감 처리로 시작해 "가이드가 SEO 에 도움 되나"를 네이버 SERP 로 실측했고, 빈 쿼리 자리를 채우는 데까지 갔다.
+    - **글감**: 이슈 #54 추천 5개 승인. `kbo-draft-2026-broadcast` 수동 발행(이투데이·굿경제 교차확인), 나머지 4편 `(고정: 9/30·10/01·10/02·10/06)`.
+    - **가이드 판정(curl SERP)**: 가이드 타깃 쿼리 15개에서 개별 글 노출 0, 9월 글은 개별 색인 전, 허브 페이지에서 `/guide/*` 로 가는 링크 0. 뜨는 건 리그·플랫폼 허브(`쿠팡플레이 편성표` 웹문서 1위). 빈 쿼리 = `오늘 축구 중계`·`해외축구 중계 일정`·`챔피언스리그 중계`·`프로배구 중계`·`프로농구 중계`.
+    - **배포(`25b8d142`)**: 종목 페이지 **개막 전 공개**(`sport-seo.ts` `preseason` — 개막 60일 전 ~ 개막 후 14일, 확인된 개막일·중계만) · `/league/v-league` 신설 · 축구 제목 `오늘 축구 중계` · 편성 0건 리그에 `emptyLeadNote` · `LEAGUE_SEO.match` 에 `ACL`·`K리그` 추가(AFC 챔스 12경기·K리그1 4경기가 리그 페이지에서 통째로 빠져 있었다).
+    - 🔴 **틀린 중계사 정정**: UCL·UEL 이 "쿠팡플레이(·tvN)" 로, KBL 이 "티빙·SBS·KBS N" 으로 적혀 있었다. 실제 UCL·UEL = SPOTV NOW(2026-27 이 SPOTV 계약 마지막 시즌), KBL = CJ ENM(tvN SPORTS·티빙, 2027-28 까지).
+    - 🔴 **원천 누락 둘(미해결)**: UCL 은 SPOTV NOW 공개 편성 API 에 없다(9/15~10/01 0건). 아시안게임은 `typeName` 에 대회명이 들어와 크롤러가 버린다.
+    - 🔴 **커밋 이력 사고**: 다른 세션의 `sync-all.ps1` 이 커밋 전 변경 8파일을 `25b8d142 Ready Check 사업부 안내 HTML 작성` 이름으로 쓸어 가 푸시했다. 내용은 온전하다.
+    - **Vercel**: 화니가 대시보드에서 Hobby 로 강등. 직후 사이트 3곳 200 · `push-notify dry` ok(구독 3) · Deploy Hook 201. 🔴 `npm run usage` 가 Observability 402 를 0 으로 채워 **전 지표 0% ✅** 를 찍었다 → 402/403 이면 멈추게 수정(`87893b8b`). Hobby 에서 되는 `v2/usage?type=requests` 30일 대역폭 11.46GB → FOT 추정 5~7GB(확정은 대시보드).
+    - 검증: tsc 0 · `test:sport-seo`·`answer-lead`·`seo-meta`·`sitemap-consistency` 통과 · `next build` 성공(sport 4장 프리렌더) · 라이브 200 · IndexNow 268 URL. `test:league-coverage` 는 `Campeones Cup` 데이터 유입분으로 빨갛다(이번 변경 무관).
