@@ -477,7 +477,7 @@ export default function ScheduleClient({
       />
 
       {/* 프로모 — 히어로 아래. 원티드 리듬상 섹션 사이는 넉넉하게 띄운다. */}
-      <div className="mt-12 sm:mt-16">
+      <div className="mt-5 sm:mt-16">
         <AsianGamesBanner today={getTodayString()} />
         <EbookBanner />
         <DonateButton className="mt-3" />

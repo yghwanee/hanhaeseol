@@ -37,24 +37,27 @@ export function HomeHero({
   dateLabel: string;
 }) {
   return (
-    <section className="pt-10 sm:pt-16">
+    // 🔴 모바일(<640px)에서는 히어로를 안 보인다(2026-09-14 화니 지시) — 첫 화면을
+    // 편성표에 내준다. 단 h1 은 sr-only 로 남긴다. 통째로 `hidden` 하면 모바일 우선
+    // 색인에서 페이지의 유일한 h1 이 display:none 이 된다.
+    <section className="sm:pt-16">
       {/* eyebrow — 서비스가 무엇인지 한 줄. 색은 brand-subtle 배경에만. */}
-      <span className="inline-flex items-center rounded-full border border-brand/40 bg-brand-subtle px-3.5 py-1.5 text-label2 font-semibold text-fg-brand-bright">
+      <span className="hidden sm:inline-flex items-center rounded-full border border-brand/40 bg-brand-subtle px-3.5 py-1.5 text-label2 font-semibold text-fg-brand-bright">
         스포츠 중계 {platformCount}곳을 한 화면에서
       </span>
 
       {/* headline — 이 페이지에서 가장 큰 글자. 두 줄로 끊어 읽히게 둔다. */}
-      <h1 className="mt-5 text-[34px] font-bold leading-[1.25] tracking-[-0.028em] text-fg-strong sm:mt-6 sm:text-[48px] sm:leading-[1.22] sm:tracking-[-0.032em]">
+      <h1 className="sr-only sm:not-sr-only mt-5 text-[34px] font-bold leading-[1.25] tracking-[-0.028em] text-fg-strong sm:mt-6 sm:text-[48px] sm:leading-[1.22] sm:tracking-[-0.032em]">
         한국어 해설로 보는
         <br />
         가장 빠른 방법
       </h1>
 
-      <p className="mt-4 text-headline2 font-bold tracking-[-0.01em] text-fg-strong sm:mt-5 sm:text-heading2">
+      <p className="hidden sm:block mt-4 text-headline2 font-bold tracking-[-0.01em] text-fg-strong sm:mt-5 sm:text-heading2">
         오늘 중계부터 순위·결과까지, 같은 편성표에서
       </p>
 
-      <div className="mt-4 max-w-[600px] space-y-1.5 break-keep text-label1 leading-[1.7] text-fg-secondary sm:mt-5 sm:space-y-2 sm:text-body2 sm:leading-[1.75]">
+      <div className="hidden sm:block mt-4 max-w-[600px] space-y-1.5 break-keep text-label1 leading-[1.7] text-fg-secondary sm:mt-5 sm:space-y-2 sm:text-body2 sm:leading-[1.75]">
         <p>
           OTT와 TV에 흩어진 편성을 하루 두 번 모아,{" "}
           <b className="font-semibold text-fg-brand-bright">한국어 해설이 있는 중계</b>만 따로 골라
@@ -68,7 +71,7 @@ export function HomeHero({
       </div>
 
       {/* CTA — solid 하나 + outlined 하나. 위계가 분명하게 둘로 끝낸다. */}
-      <div className="mt-7 flex flex-wrap items-center gap-2.5 sm:mt-8 sm:gap-3">
+      <div className="hidden sm:flex mt-7 flex-wrap items-center gap-2.5 sm:mt-8 sm:gap-3">
         <a href="#schedule" className="w-btn w-btn--solid w-focus">
           오늘 편성 보기
         </a>
