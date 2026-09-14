@@ -112,7 +112,13 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
 
   // 답변엔진·네이버 AI 브리핑이 추출해 갈 직답 문단. 카드 목록은 사람이 읽는 것이고
   // 엔진은 문장을 찾는다 — h1 바로 아래에 [수치 + 기준일] 을 갖춘 문장을 둔다.
-  const answerLead = buildAnswerLead(kind, meta.display, matched, getTodayString());
+  const today = getTodayString();
+  const baseLead = buildAnswerLead(kind, meta.display, matched, today);
+  // 편성 0건이 "중계 없음" 으로 읽히지 않게, 메타에 확인된 사실이 있으면 덧붙인다.
+  const answerLead =
+    meta.emptyLeadNote && !matched.some((s) => s.date >= today)
+      ? `${baseLead} ${meta.emptyLeadNote}`
+      : baseLead;
 
   return (
     <main className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12">

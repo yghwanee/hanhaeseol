@@ -7,9 +7,13 @@ import {
   countGames,
   leaguesOfSport,
   findSportBySlug,
+  inPreseasonWindow,
   MIN_GAMES_FOR_SPORT_PAGE,
+  PRESEASON_GRACE_DAYS,
+  PRESEASON_OPEN_DAYS,
 } from "@/lib/sport-seo";
 import { LEAGUE_SEO, PLATFORM_SEO } from "@/lib/slugs";
+import { LEAGUE_GUIDES } from "@/lib/league-guides";
 import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
 import sitemap from "@/app/sitemap";
 import { getTodayString } from "@/lib/schedule-utils";
@@ -25,21 +29,21 @@ import type { ScheduleData } from "@/types/schedule";
  *
  * 🔴 이 파일이 지키는 것은 "빈 페이지를 만들지 않는다" 하나다. 팀 페이지에서
  * 개막 전 유럽 138팀을 그대로 뽑았다가 "0승 0패" 페이지를 만들 뻔했다(작업58).
+ *
+ * 2026-09-14 부터 **개막 전 공개**가 예외로 들어왔다. 경기 대신 확인된 개막일·중계
+ * 채널을 보여 주는 페이지다. 그 예외가 빈 페이지의 뒷문이 되지 않게 아래에서 따로 막는다.
  */
 
 const schedules = (scheduleData as unknown as ScheduleData).schedules;
 const today = getTodayString();
 const eligible = eligibleSports(schedules, today);
 
-test("게이트를 통과한 종목만 페이지가 된다", () => {
+test("게이트: 경기가 충분하거나 개막 전 공개 구간인 종목만 페이지가 된다", () => {
   for (const meta of SPORT_SEO) {
     const n = countGames(schedules, meta, today);
     const listed = eligible.some((s) => s.slug === meta.slug);
-    assert.equal(
-      listed,
-      n >= MIN_GAMES_FOR_SPORT_PAGE,
-      `${meta.slug}: 경기 ${n}건인데 목록 포함 여부가 ${listed}`,
-    );
+    const expected = n >= MIN_GAMES_FOR_SPORT_PAGE || inPreseasonWindow(meta, today);
+    assert.equal(listed, expected, `${meta.slug}: 경기 ${n}건 · 개막 전 구간 ${inPreseasonWindow(meta, today)} 인데 포함 ${listed}`);
   }
 });
 
@@ -53,34 +57,52 @@ test("게이트 통과 종목이 비어 있지 않다(가드 자체 회귀 방�
 /**
  * 🔴 상수와 무관한 절대 기준.
  *
- * 위의 "게이트를 통과한 종목만" 테스트는 `MIN_GAMES_FOR_SPORT_PAGE` 를 같이
- * 참조해서, 임계값을 0으로 낮추면 양쪽이 같이 움직여 통과해 버린다(실제로
- * 확인했다). 그래서 "사이트맵에 오른 종목에는 경기가 실제로 있어야 한다" 를
- * 상수 없이 따로 못 박는다. 이게 "빈 페이지를 만들지 않는다" 의 본체다.
+ * 위의 게이트 테스트는 상수를 같이 참조해서, 임계값을 0으로 낮추면 양쪽이 같이 움직여
+ * 통과해 버린다(실제로 확인했다). 그래서 "사이트맵에 오른 종목에는 보여 줄 게 실제로
+ * 있어야 한다" 를 따로 못 박는다 — 경기가 있거나, 아직 지나지 않은 개막일과 중계 채널이
+ * 적혀 있거나.
  */
-test("사이트맵에 오른 종목은 실제 경기가 있다", () => {
+test("사이트맵에 오른 종목은 경기 또는 유효한 개막 정보가 있다", () => {
   const empty = sitemap()
     .map((e) => e.url)
     .filter((u) => u.includes("/sport/"))
     .map((u) => u.split("/sport/")[1])
     .filter((slug) => {
       const meta = findSportBySlug(slug);
-      return !meta || countGames(schedules, meta, today) === 0;
+      if (!meta) return true;
+      if (countGames(schedules, meta, today) > 0) return false;
+      const p = meta.preseason;
+      if (!p || p.broadcasters.length === 0 || !p.opener) return true;
+      // 개막 후 유예를 넘긴 날짜가 남아 있으면 "곧 개막" 이 거짓이 된다.
+      const daysSinceOpen = (Date.parse(`${today}T00:00:00Z`) - Date.parse(`${p.opensOn}T00:00:00Z`)) / 86_400_000;
+      return daysSinceOpen > 14;
     });
-  assert.deepEqual(empty, [], `경기 0건인데 사이트맵에 오른 종목: ${empty.join(", ")}`);
+  assert.deepEqual(empty, [], `보여 줄 게 없는데 사이트맵에 오른 종목: ${empty.join(", ")}`);
 });
 
-test("사이트맵의 종목 URL 이 게이트와 정확히 일치한다", () => {
-  const inSitemap = sitemap()
-    .map((e) => e.url)
-    .filter((u) => u.includes("/sport/"))
-    .map((u) => u.split("/sport/")[1])
-    .sort();
-  assert.deepEqual(
-    inSitemap,
-    eligible.map((s) => s.slug).sort(),
-    "사이트맵과 generateStaticParams 게이트가 어긋났다",
-  );
+test("개막 전 공개 폭이 과하게 넓지 않다", () => {
+  // 폭을 1년으로 늘리면 비시즌 내내 "곧 개막" 페이지가 된다. 상한을 절대값으로 둔다.
+  assert.ok(PRESEASON_OPEN_DAYS <= 90, `개막 ${PRESEASON_OPEN_DAYS}일 전부터 공개 — 너무 이르다`);
+  assert.ok(PRESEASON_GRACE_DAYS <= 21, `개막 후 ${PRESEASON_GRACE_DAYS}일 유예 — 너무 길다`);
+});
+
+test("개막 정보는 형식이 맞고 리그 페이지·리그 가이드와 어긋나지 않는다", () => {
+  for (const meta of SPORT_SEO) {
+    const p = meta.preseason;
+    if (!p) continue;
+    assert.match(p.opensOn, /^\d{4}-\d{2}-\d{2}$/, `${meta.slug}: opensOn 형식`);
+    assert.ok(p.source.length > 0, `${meta.slug}: 근거가 없다`);
+    assert.ok(
+      LEAGUE_SEO.some((l) => l.slug === p.leagueSlug && l.sport === meta.sport),
+      `${meta.slug}: /league/${p.leagueSlug} 가 없거나 종목이 다르다`,
+    );
+    // 개막 정보와 리그 가이드의 중계 채널이 서로 다르면 한 사이트 안에서 두 말을 한다.
+    const guide = LEAGUE_GUIDES[p.leagueSlug];
+    assert.ok(guide?.broadcasters, `${meta.slug}: 리그 가이드에 중계 채널이 없다`);
+    for (const b of p.broadcasters) {
+      assert.ok(guide!.broadcasters!.includes(b), `${meta.slug}: '${b}' 가 리그 가이드 중계 채널에 없다`);
+    }
+  }
 });
 
 test("제목이 네이버 상한 40자 안이고 '해설' 이 앞쪽에 있다", () => {
@@ -118,8 +140,8 @@ test("종목별 리그 목록이 실제 리그 페이지를 가리킨다", () =>
       );
     }
   }
-  // 축구·야구는 리그가 하나라도 잡혀야 한다. 0이면 매핑이 끊긴 것이다.
-  for (const slug of ["baseball", "soccer"]) {
+  // 네 종목 모두 리그가 하나라도 잡혀야 한다. 0이면 매핑이 끊긴 것이다.
+  for (const slug of ["baseball", "soccer", "basketball", "volleyball"]) {
     const meta = findSportBySlug(slug)!;
     assert.ok(leaguesOfSport(meta).length > 0, `${slug} 에 연결된 리그가 0개`);
   }

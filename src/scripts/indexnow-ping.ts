@@ -36,7 +36,7 @@ const LEAGUE_SLUGS = [
   "epl", "laliga", "bundesliga", "seriea", "ligue1",
   "champions-league", "europa-league", "conference-league",
   "mls", "k-league-1", "k-league-2", "afc-champions-league",
-  "mlb", "kbo", "kbl",
+  "mlb", "kbo", "kbl", "v-league",
 ];
 
 const PLATFORM_SLUGS = [

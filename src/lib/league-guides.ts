@@ -98,11 +98,15 @@ export const LEAGUE_GUIDES: Record<string, LeagueGuide> = {
       "르 클라시크(PSG vs 마르세유)가 시즌 최대 빅매치",
     ],
   },
+  // 🔴 2026-09-14 정정. 종전엔 "쿠팡플레이·tvN SPORTS" 로 적혀 있었다. 2024-25 ~ 2026-27
+  // 한국 중계권은 SPOTV 이고 2026-27 은 SPOTV NOW 챔스패스로 본다(발행 가이드
+  // psg-ucl-2026-27-broadcast · spotv-to-coupang-sports-rights-2026 과 같은 사실).
+  // 쿠팡 이관은 2027-28 부터라는 **보도**만 있다 — 확정 전엔 여기에 쓰지 않는다.
   "champions-league": {
-    season: "매년 9월 ~ 다음해 5월 (조별리그 + 토너먼트)",
-    broadcasters: ["쿠팡플레이", "tvN SPORTS"],
-    koreanCommentary: "전 경기 한국어 해설 제공",
-    gameTime: "주로 한국 시간 화·수 새벽 04:00, 일부 02:00",
+    season: "2026-27 시즌 9월 ~ 2027년 6월 (리그 페이즈 36팀 + 토너먼트)",
+    broadcasters: ["SPOTV NOW (챔스패스)"],
+    koreanCommentary: "SPOTV NOW 한국어 해설. 동시간대 경기는 경기마다 해설 여부가 다르다",
+    gameTime: "주로 한국 시간 화·수·목 새벽 02:00 / 05:00",
     notableTeams: [
       "레알 마드리드",
       "맨체스터 시티",
@@ -113,14 +117,15 @@ export const LEAGUE_GUIDES: Record<string, LeagueGuide> = {
     ],
     highlights: [
       "유럽 최고 클럽들이 격돌하는 최대 권위의 클럽 대항전",
-      "조별리그(매치데이 1~6) 후 16강~결승 토너먼트 진행",
-      "결승전은 5월 말~6월 초 단판 경기로 개최",
-      "tvN SPORTS는 빅매치 위주, 쿠팡플레이는 풀 라인업 중계",
+      "2024-25 시즌부터 조별리그 대신 36팀 리그 페이즈(팀당 8경기) 후 토너먼트",
+      "2026-27 시즌은 SPOTV 3년 계약의 마지막 시즌",
+      "챔스패스는 유로파리그·컨퍼런스리그 주요 경기도 함께 제공",
     ],
   },
   "europa-league": {
     season: "매년 9월 ~ 다음해 5월 (리그 페이즈 + 토너먼트)",
-    broadcasters: ["쿠팡플레이"],
+    // 2026-09-14 정정(종전 쿠팡플레이). 편성 데이터상 유로파리그는 전부 SPOTV NOW 다.
+    broadcasters: ["SPOTV NOW"],
     koreanCommentary: "한국 선수 출전 팀·빅클럽 위주 한국어 해설",
     gameTime: "주로 한국 시간 목요일 새벽 02:00 / 05:00",
     notableTeams: [
@@ -272,9 +277,12 @@ export const LEAGUE_GUIDES: Record<string, LeagueGuide> = {
       "정규 시즌 후 와일드카드 → 준PO → PO → 한국시리즈 진행",
     ],
   },
+  // 🔴 2026-09-14 정정(종전 "티빙·SBS Sports·KBS N SPORTS"). KBL 은 CJ ENM 과
+  // 2024-25 ~ 2027-28 4시즌 계약으로 tvN SPORTS 포함 2개 채널 이상 + 티빙이 정규 270경기를
+  // 생중계한다(점프볼 2024-06-27). 2026-27 개막 10/3 · 폐막 2027-04-11(네이트 2026-08-10).
   kbl: {
-    season: "매년 10월 ~ 다음해 4월",
-    broadcasters: ["티빙", "SBS Sports", "KBS N SPORTS"],
+    season: "2026-27 시즌 10월 3일 개막 ~ 2027년 4월 11일 (팀당 54경기)",
+    broadcasters: ["tvN SPORTS", "티빙"],
     koreanCommentary: "전 경기 한국어 해설",
     gameTime: "평일 19:00, 주말 14:00 / 16:00",
     notableTeams: [
@@ -287,6 +295,21 @@ export const LEAGUE_GUIDES: Record<string, LeagueGuide> = {
       "정규 시즌(54경기) 후 6강 플레이오프 → 4강 → 챔피언결정전",
       "티빙에서 디지털 라이브 시청 가능",
       "한국 농구 최고 무대로 외국인 선수 활약도 큰 비중",
+    ],
+  },
+  // 2026-09-14 신설. 개막일·개막전·폐막·포스트시즌 = 서울경제 2026-08-18.
+  // 중계권 = KBS N SPORTS 가 KOVO 와 2021-22 ~ 2026-27 6년 계약(보도 다수·나무위키 교차).
+  // 🔴 다른 채널(SBS Sports·티빙 등)은 2026-27 기준으로 확인이 안 됐다. 확인 전엔 넣지 말 것.
+  "v-league": {
+    season: "2026-27 시즌 10월 31일 개막 ~ 2027년 4월 2일 정규리그, 포스트시즌 4월 5일 ~ 22일",
+    broadcasters: ["KBS N SPORTS"],
+    koreanCommentary: "국내 리그라 중계 경기는 한국어 해설",
+    notableTeams: ["대한항공", "현대캐피탈", "GS칼텍스", "한국도로공사", "흥국생명", "SOOP (신생팀)"],
+    highlights: [
+      "남자부 개막전은 10월 31일 오후 2시 인천 계양체육관, 대한항공 vs 현대캐피탈",
+      "여자부 개막전은 같은 날 오후 5시 서울 장충체육관, GS칼텍스 vs 한국도로공사",
+      "신생팀 SOOP은 11월 1일 흥국생명 원정으로 첫 경기를 치른다",
+      "준플레이오프·플레이오프는 3전 2승제, 챔피언결정전은 5전 3승제",
     ],
   },
 };

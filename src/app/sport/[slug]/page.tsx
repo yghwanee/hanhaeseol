@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import type { Metadata } from "next";
-import { findSportBySlug, eligibleSports, leaguesOfSport } from "@/lib/sport-seo";
+import { findSportBySlug, eligibleSports, leaguesOfSport, inPreseasonWindow } from "@/lib/sport-seo";
 import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
 import { loadScheduleData, loadTeamRecords, loadResults } from "@/lib/server-data";
 import { buildSportsEventLd, buildBreadcrumbLd } from "@/lib/structured-data";
@@ -143,6 +143,12 @@ export default function SportPage({ params }: { params: { slug: string } }) {
     { name: `${meta.display} 중계 편성표`, url: pageUrl },
   ]);
 
+  // 개막 전이라 경기가 모자란 종목은 경기 대신 확인된 개막 정보를 먼저 보여 준다.
+  const preseason = meta.preseason && inPreseasonWindow(meta, today) && rows.length < 10 ? meta.preseason : null;
+  const daysToOpen = preseason
+    ? Math.round((Date.parse(`${preseason.opensOn}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`)) / 86_400_000)
+    : 0;
+
   const byLeague = leagueCounts(rows);
   const byPlatform = platformCounts(rows);
   const leagueMetas = leaguesOfSport(meta);
@@ -173,6 +179,28 @@ export default function SportPage({ params }: { params: { slug: string } }) {
         teamRecords={teamRecords}
         results={results}
         highlightsSlot={
+          <>
+          {preseason && (
+            <section className="mb-4 rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4">
+              <h2 className="text-sm font-semibold text-white sm:text-base">
+                {daysToOpen > 0
+                  ? `${meta.display} 개막까지 ${daysToOpen}일`
+                  : daysToOpen === 0
+                    ? `오늘 ${meta.display} 개막`
+                    : `${meta.display} 개막 ${-daysToOpen}일째`}
+              </h2>
+              <p className="mt-2 text-sm leading-relaxed text-zinc-300">{preseason.opener}</p>
+              <p className="mt-1.5 text-sm text-zinc-400">
+                중계: {preseason.broadcasters.join(", ")}. 개막 주간부터 경기별 채널이 이 페이지에 올라옵니다.
+              </p>
+              <Link
+                href={`/league/${preseason.leagueSlug}`}
+                className="mt-2 inline-block text-xs text-emerald-300 underline underline-offset-2 hover:text-emerald-200"
+              >
+                리그 시청 가이드 보기
+              </Link>
+            </section>
+          )}
           <section className="mb-8 grid gap-3 sm:grid-cols-2">
             {byLeague.length > 0 && (
               <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4">
@@ -214,6 +242,7 @@ export default function SportPage({ params }: { params: { slug: string } }) {
               title={`${meta.display} 중계 플랫폼별 경기 수`}
             />
           </section>
+          </>
         }
       />
     </>

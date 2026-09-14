@@ -17,6 +17,15 @@ export type SeoMeta = {
    * H1 에도 "한국어 해설"을 넣는다 — 단 Apple TV+ 는 현지 해설만이라 제외한다.
    */
   h1?: string;
+  /**
+   * 앞으로 7일 편성이 0건일 때 직답 리드 뒤에 붙이는 문장.
+   *
+   * 🔴 편성이 비었다고 중계가 없는 게 아니다. UCL 은 SPOTV NOW 챔스패스로 중계되는데
+   * SPOTV NOW 공개 편성 API 에 아예 안 올라온다(2026-09-14 실측, 9/15~10/01 전부 0건).
+   * "중계는 없습니다" 만 남기면 AI 브리핑이 그 문장을 사실로 잘라 간다.
+   * 비시즌 리그(KBL·V리그)는 개막일을 여기서 알린다. 확인된 사실만 쓸 것.
+   */
+  emptyLeadNote?: string;
 };
 
 export const LEAGUE_SEO: SeoMeta[] = [
@@ -88,9 +97,11 @@ export const LEAGUE_SEO: SeoMeta[] = [
     title: "챔피언스리그 중계 편성표 — 오늘 UCL 한국어 해설 일정 | 한해설",
     description:
       "UEFA 챔피언스리그(UCL) 한국어 해설 중계 편성표. 유럽 최고의 클럽 대항전 경기 일정과 한국어 해설 여부를 오늘부터 7일치 확인하세요.",
-    keywords: ["챔피언스리그 중계", "UCL 중계", "챔스 중계", "챔피언스리그 편성표", "UEFA 중계"],
+    keywords: ["챔피언스리그 중계", "챔피언스리그 중계 일정", "UCL 중계", "챔스 중계", "챔스패스", "SPOTV NOW 챔피언스리그", "챔피언스리그 편성표", "UEFA 중계"],
     intro:
-      "UEFA 챔피언스리그(UCL) 한국어 해설 중계 편성표입니다. 유럽 축구 최고의 무대를 한국어 해설로 시청하세요.",
+      "UEFA 챔피언스리그(UCL) 한국어 해설 중계 편성표입니다. 2026-27 시즌은 SPOTV NOW에서 중계합니다.",
+    emptyLeadNote:
+      "2026-27 시즌 챔피언스리그는 SPOTV NOW 챔스패스로 중계되며, 경기별 편성은 SPOTV NOW 공개 편성표에 올라오지 않아 한해설 목록에 아직 표시되지 않습니다.",
   },
   {
     slug: "europa-league",
@@ -127,7 +138,9 @@ export const LEAGUE_SEO: SeoMeta[] = [
   },
   {
     slug: "k-league-1",
-    match: ["K리그1"],
+    // "K리그" 는 parsers.ts normalizeLeague 의 `K리그1?(?!2)` 결과다(K리그2 는 따로 접힌다).
+    // 없으면 쿠팡플레이 K리그1 행이 이 페이지에 안 붙는다(2026-09-14 실측 4경기).
+    match: ["K리그1", "K리그"],
     display: "K리그1",
     sport: "축구",
     title: "K리그1 중계 편성표 — 오늘 한국 프로축구 1부 일정 | 한해설",
@@ -149,7 +162,10 @@ export const LEAGUE_SEO: SeoMeta[] = [
   },
   {
     slug: "afc-champions-league",
-    match: ["AFC 챔피언스리그 엘리트", "AFC 챔피언스리그 2", "AFC 챔피언스리그"],
+    // 🔴 "ACL" 이 있어야 한다. parsers.ts 의 normalizeLeague 가 `AFC 챔피언스리그|ACL` 을
+    // 전부 "ACL" 로 접는데 이 목록엔 그 표기가 없어서, 2026-09-14 편성 12경기(쿠팡플레이)가
+    // 이 페이지에 한 건도 안 붙고 "편성 없음" 을 말하고 있었다.
+    match: ["ACL", "AFC 챔피언스리그 엘리트", "AFC 챔피언스리그 2", "AFC 챔피언스리그"],
     display: "AFC 챔피언스리그",
     sport: "축구",
     title: "AFC 챔피언스리그 중계 편성표 — 오늘 ACL 한국어 해설 | 한해설",
@@ -190,6 +206,23 @@ export const LEAGUE_SEO: SeoMeta[] = [
       "KBL(한국 프로농구) 중계 편성표. KBL 전 경기 LIVE 중계 일정과 채널을 오늘부터 7일치 한눈에 확인하세요.",
     keywords: ["KBL 중계", "KBL 편성표", "한국 프로농구", "프로농구 중계"],
     intro: "KBL(한국 프로농구) 중계 편성표입니다.",
+    emptyLeadNote:
+      "2026-27 KBL 정규리그는 10월 3일 개막해 2027년 4월 11일까지 열리고, tvN SPORTS와 티빙이 중계합니다.",
+  },
+  {
+    // 2026-09-14 신설. `프로배구 중계` 결과 화면 맨 위에 AI 브리핑이 뜨는데 우리 페이지가
+    // 아예 없었다. 개막일·중계사는 league-guides.ts 의 v-league 주석에 근거를 적었다.
+    slug: "v-league",
+    match: ["V리그", "프로배구"],
+    display: "V리그 (한국 프로배구)",
+    sport: "배구",
+    title: "V리그 중계 편성표 — 오늘 프로배구 한국어 해설 | 한해설",
+    description:
+      "V리그(한국 프로배구) 중계 편성표. 남자부·여자부 경기 일정과 KBS N SPORTS 등 중계 채널을 오늘부터 7일치 한눈에 확인하세요.",
+    keywords: ["V리그 중계", "프로배구 중계", "V리그 편성표", "프로배구 편성표", "배구 중계 일정", "여자배구 중계"],
+    intro: "V리그(한국 프로배구) 남자부·여자부 중계 편성표입니다.",
+    emptyLeadNote:
+      "2026-27 V리그는 10월 31일 개막해 2027년 4월 2일까지 정규리그를 치르며, KBS N SPORTS가 중계권을 갖고 있습니다.",
   },
 ];
 
