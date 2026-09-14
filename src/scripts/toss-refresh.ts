@@ -38,6 +38,13 @@ async function main() {
   const today = kstToday();
   const removed: string[] = [];
   let updated = 0;
+  /**
+   * 파일을 실제로 건드렸나.
+   * 🔴 이게 없으면 `lastUpdated` 타임스탬프만 바뀌어 **매 실행마다 커밋이 난다.**
+   * 하루 한 번은 `checkedAt` 이 넘어가니 당연히 써야 하고(그 값이 배포에 실려야 화면이
+   * 가격을 계속 보여준다), 같은 날 두 번째 실행은 아무것도 안 바뀌니 쓰면 안 된다.
+   */
+  let mutated = false;
 
   try {
     for (let i = 0; i < keys.length; i += BATCH) {
@@ -53,11 +60,22 @@ async function main() {
           delete store.picks[key];
           if (store.deal === key) store.deal = null;
           removed.push(`${key} (${item ? "품절" : "조회 안 됨"}) — ${pick.displayName}`);
+          mutated = true;
           continue;
         }
         // 🔴 이전 값을 먼저 붙잡는다 — 아래에서 덮어쓴 뒤 읽으면 "변동 없음"만 찍힌다.
         const prevPrice = pick.displayPrice;
         const changed = item.displayPrice !== prevPrice;
+        if (
+          changed ||
+          pick.checkedAt !== today ||
+          pick.displayName !== item.displayName ||
+          pick.originalPrice !== item.originalPrice ||
+          pick.discountRate !== item.discountRate ||
+          (pick.endAt ?? null) !== (item.endAt ?? null)
+        ) {
+          mutated = true;
+        }
         pick.displayName = item.displayName;
         pick.displayPrice = item.displayPrice;
         pick.originalPrice = item.originalPrice;
@@ -79,13 +97,17 @@ async function main() {
     process.exit(1);
   }
 
-  const picks: TossPicksStore["picks"] = {};
-  for (const k of Object.keys(store.picks).sort()) picks[k] = store.picks[k];
-  fs.writeFileSync(
-    STORE,
-    JSON.stringify({ ...store, picks, lastUpdated: new Date().toISOString() }, null, 2) + "\n",
-    "utf8",
-  );
+  if (mutated) {
+    const picks: TossPicksStore["picks"] = {};
+    for (const k of Object.keys(store.picks).sort()) picks[k] = store.picks[k];
+    fs.writeFileSync(
+      STORE,
+      JSON.stringify({ ...store, picks, lastUpdated: new Date().toISOString() }, null, 2) + "\n",
+      "utf8",
+    );
+  } else {
+    console.log("바뀐 게 없다 — 파일을 건드리지 않는다(빈 커밋 방지).");
+  }
 
   console.log(`\n갱신 ${updated}건 · 삭제 ${removed.length}건 (기준일 ${today})`);
   for (const r of removed) console.log(`  삭제: ${r}`);
