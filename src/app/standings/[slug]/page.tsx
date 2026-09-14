@@ -161,11 +161,11 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="mx-auto max-w-2xl px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
+      <div className="mx-auto max-w-[1100px] px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
         <SiteHeader />
 
-        <nav className="mt-4 flex items-center gap-2 text-xs text-fg-tertiary sm:mt-6">
-          <Link href="/standings" className="transition-colors hover:text-fg">
+        <nav className="mt-4 flex items-center gap-2 text-caption1 text-fg-tertiary sm:mt-6">
+          <Link href="/standings" className="-my-2 inline-block py-2 transition-colors hover:text-fg">
             팀 순위
           </Link>
           <span>›</span>
@@ -176,25 +176,25 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
 
         <div className="mt-4 flex flex-wrap items-end justify-between gap-3">
           <div>
-            <h1 className="text-2xl font-bold text-white sm:text-3xl">
+            <h1 className="text-title3 font-bold text-fg-strong sm:text-title2">
               {meta.display} 순위
             </h1>
-            <p className="mt-1 text-sm text-fg-tertiary">
+            <p className="mt-1 text-label1 text-fg-tertiary">
               {meta.seasonLabel} 시즌 · {teamCount}개 팀
             </p>
           </div>
           <Link
             href={scheduleHref}
-            className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-sm font-semibold text-emerald-400 transition-colors hover:border-emerald-500/60 hover:bg-emerald-500/10"
+            className="-my-2 inline-block py-2 inline-flex items-center gap-1.5 rounded-lg border border-brand/40 bg-brand-subtle px-3 py-2 text-label1 font-semibold text-fg-brand-bright transition-colors hover:border-brand/40 hover:bg-brand-subtle"
           >
             {meta.short} 한국어 해설 편성표 →
           </Link>
         </div>
 
         {leadSentence && (
-          <p className="mt-3 text-sm leading-relaxed text-fg-strong">{leadSentence}</p>
+          <p className="mt-3 text-label1 leading-relaxed text-fg-strong">{leadSentence}</p>
         )}
-        <p className="mt-1.5 text-sm leading-relaxed text-fg-secondary">{meta.intro}</p>
+        <p className="mt-1.5 text-label1 leading-relaxed text-fg-secondary">{meta.intro}</p>
 
         <div className="mt-5">
           {!league || league.teams.length === 0 ? (
@@ -212,7 +212,7 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
           )}
         </div>
 
-        <p className="mt-4 text-xs text-fg-secondary">
+        <p className="mt-4 text-caption1 text-fg-secondary">
           데이터 출처: 네이버 스포츠 · 갱신:{" "}
           {new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })} (KST)
         </p>
@@ -229,13 +229,13 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
 
         {/* 다른 리그 순위로 이동 — 내부 링크 강화 */}
         <section className="mt-8 rounded-xl border border-line-subtle bg-subtle p-4">
-          <h2 className="text-sm font-semibold text-fg">다른 리그 순위</h2>
+          <h2 className="text-label1 font-semibold text-fg">다른 리그 순위</h2>
           <div className="mt-3 flex flex-wrap gap-1.5">
             {STANDINGS_LEAGUES.filter((l) => l.slug !== meta.slug).map((l) => (
               <Link
                 key={l.slug}
                 href={`/standings/${l.slug}`}
-                className="rounded-md border border-line bg-surface px-2.5 py-1 text-xs text-fg transition-colors hover:border-line-strong hover:text-fg-strong"
+                className="-my-2 inline-block py-2 rounded-md border border-line bg-surface px-2.5 py-1 text-caption1 text-fg transition-colors hover:border-line-strong hover:text-fg-strong"
               >
                 {l.short} 순위
               </Link>

@@ -145,7 +145,7 @@ function RippleLoader() {
       {[0, 0.45, 0.9].map((delay, i) => (
         <span
           key={i}
-          className="absolute inset-0 rounded-full border-[4px] border-red-500"
+          className="absolute inset-0 rounded-full border-[4px] border-[oklch(0.715_0.220_27_/_0.35)]"
           style={{
             animation: "rippleScale 1.5s linear infinite",
             animationDelay: `${delay}s`,
@@ -257,13 +257,13 @@ export function IntroAnimation() {
       // 치수를 인라인으로도 박는다 — 스타일시트가 유실돼도(에셋 스큐로 CSS 404)
       // 오버레이가 static 으로 풀려 화면 아래로 밀리지 않게. 클래스와 같은 값이라
       // 정상 로드 시 동작 변화 없음.
-      style={{ backgroundColor: "#ffffff", position: "fixed", inset: 0, zIndex: 100 }}
+      style={{ backgroundColor: "#1B1C20", position: "fixed", inset: 0, zIndex: 100 }}
       aria-hidden
     >
       {mode === "intro" && (
         <>
           <div
-            className="text-3xl font-semibold tracking-tight text-fg-strong sm:text-5xl"
+            className="text-title2 font-semibold tracking-tight text-fg-strong sm:text-[48px]"
             /* 인트로 타이틀은 "한해설" — 한글이다. Geist 로 두면 글리프가 없어
                시스템 폰트로 떨어져 본문과 다른 폰트로 보인다(2026-09-03). */
             style={{
@@ -272,7 +272,7 @@ export function IntroAnimation() {
             }}
           >
             <span>{text}</span>
-            <span className="ml-1 inline-block h-[0.95em] w-[2px] translate-y-[0.08em] bg-red-500 align-middle motion-safe:animate-[introBlink_1s_steps(2,end)_infinite]" />
+            <span className="ml-1 inline-block h-[0.95em] w-[2px] translate-y-[0.08em] bg-[oklch(0.546_0.220_27)] align-middle motion-safe:animate-[introBlink_1s_steps(2,end)_infinite]" />
           </div>
 
           <div className="mt-10 sm:mt-14">

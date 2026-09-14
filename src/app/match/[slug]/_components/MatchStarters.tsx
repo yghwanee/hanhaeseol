@@ -29,19 +29,19 @@ function StarterCol({
   if (!starter) {
     return (
       <div className={`flex-1 ${alignCls}`}>
-        <p className="truncate text-xs text-fg-secondary sm:text-sm">{team}</p>
-        <p className="mt-1 text-sm text-fg-secondary">선발 미발표</p>
+        <p className="truncate text-caption1 text-fg-secondary sm:text-label1">{team}</p>
+        <p className="mt-1 text-label1 text-fg-secondary">선발 미발표</p>
       </div>
     );
   }
   const { primary, secondary } = statLines(starter);
   return (
     <div className={`flex-1 ${alignCls}`}>
-      <p className="truncate text-xs text-fg-secondary sm:text-sm">{team}</p>
-      <p className="mt-0.5 truncate text-base font-bold text-white sm:text-lg">{starter.name}</p>
-      <p className="mt-1 text-sm font-semibold text-emerald-400">ERA {starter.era}</p>
-      <p className="mt-0.5 text-[11px] text-fg-secondary sm:text-xs">{primary}</p>
-      <p className="text-[11px] text-fg-tertiary sm:text-xs">{secondary}</p>
+      <p className="truncate text-caption1 text-fg-secondary sm:text-label1">{team}</p>
+      <p className="mt-0.5 truncate text-body1 font-bold text-fg-strong sm:text-headline1">{starter.name}</p>
+      <p className="mt-1 text-label1 font-semibold text-fg-brand-bright">ERA {starter.era}</p>
+      <p className="mt-0.5 text-caption2 text-fg-secondary sm:text-caption1">{primary}</p>
+      <p className="text-caption2 text-fg-tertiary sm:text-caption1">{secondary}</p>
     </div>
   );
 }
@@ -49,15 +49,15 @@ function StarterCol({
 export function MatchStarters({ home, away, homeTeam, awayTeam }: Props) {
   return (
     <section className="mt-4 rounded-xl border border-line-subtle bg-subtle p-5 sm:p-6">
-      <h2 className="mb-3 text-center text-[11px] font-medium tracking-wide text-fg-tertiary sm:text-xs">
+      <h2 className="mb-3 text-center text-caption2 font-medium tracking-wide text-fg-tertiary sm:text-caption1">
         선발 매치업
       </h2>
       {!home && !away ? (
-        <p className="text-center text-sm text-fg-secondary">선발 미발표</p>
+        <p className="text-center text-label1 text-fg-secondary">선발 미발표</p>
       ) : (
         <div className="flex items-start justify-center gap-4 sm:gap-6">
           <StarterCol team={homeTeam} starter={home} align="right" />
-          <div className="self-center text-xs font-bold text-fg-tertiary sm:text-sm">VS</div>
+          <div className="self-center text-caption1 font-bold text-fg-tertiary sm:text-label1">VS</div>
           <StarterCol team={awayTeam} starter={away} align="left" />
         </div>
       )}

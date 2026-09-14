@@ -136,9 +136,9 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
       {/* 팀 페이지로 내려가는 링크. 매치 페이지 1,330개가 색인에서 통째로 빠진 원인이
           사이트맵에만 있고 링크로 도달할 수 없는 고아 상태였다. 같은 실수를 반복하지 않는다. */}
       {teams.length > 0 && (
-        <section className="mx-auto w-full max-w-3xl px-4 pb-8 sm:px-6">
+        <section className="mx-auto w-full max-w-[1100px] px-5 sm:px-6 pb-8">
           <div className="rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
-            <h2 className="text-sm font-semibold text-white sm:text-base">
+            <h2 className="text-label1 font-semibold text-fg-strong sm:text-headline1">
               {meta.display} 팀별 중계 일정
             </h2>
             <div className="mt-3 flex flex-wrap gap-2">
@@ -146,7 +146,7 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
                 <Link
                   key={t.slug}
                   href={`/team/${encodeURIComponent(t.slug)}`}
-                  className="rounded-full border border-line-subtle px-3 py-1.5 text-xs text-fg hover:border-line hover:text-fg-strong"
+                  className="-my-2 inline-block py-2 rounded-full border border-line-subtle px-3 py-1.5 text-caption1 text-fg hover:border-line hover:text-fg-strong"
                 >
                   {t.rank}. {t.name}
                 </Link>

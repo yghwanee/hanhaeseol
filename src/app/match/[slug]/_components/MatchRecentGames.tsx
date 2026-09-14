@@ -18,14 +18,14 @@ function shortDate(iso: string): string {
 function ResultBadge({ result }: { result: RecentGame["result"] }) {
   const cls =
     result === "W"
-      ? "bg-emerald-500/15 text-emerald-400"
+      ? "bg-brand-subtle text-fg-brand-bright"
       : result === "L"
-      ? "bg-rose-500/15 text-rose-400"
-      : "bg-fg-tertiary text-fg";
+      ? "bg-[oklch(0.298_0.10_22_/_0.32)] text-fg-danger"
+      : "bg-muted text-fg";
   const label = result === "W" ? "승" : result === "L" ? "패" : "무";
   return (
     <span
-      className={`inline-flex h-5 w-5 shrink-0 items-center justify-center rounded text-[11px] font-bold ${cls}`}
+      className={`inline-flex h-5 w-5 shrink-0 items-center justify-center rounded text-caption2 font-bold ${cls}`}
     >
       {label}
     </span>
@@ -42,8 +42,8 @@ function GameRow({
   const homeLost = game.homeScore < game.awayScore;
   const awayLost = game.awayScore < game.homeScore;
   return (
-    <li className="flex items-center gap-2 text-sm">
-      <span className="w-9 shrink-0 font-mono text-xs text-fg-tertiary">
+    <li className="flex items-center gap-2 text-label1">
+      <span className="w-9 shrink-0 font-mono text-caption1 text-fg-tertiary">
         {shortDate(game.date)}
       </span>
 
@@ -56,7 +56,7 @@ function GameRow({
         </div>
 
         {/* 스코어 (메인 카드 스타일: 진 쪽 흐리게) */}
-        <div className="flex shrink-0 items-baseline gap-1 font-mono text-base font-bold leading-none sm:text-lg">
+        <div className="flex shrink-0 items-baseline gap-1 font-mono text-body1 font-bold leading-none sm:text-headline1">
           <span className={homeLost ? "text-fg-tertiary" : "text-fg-strong"}>
             {game.homeScore}
           </span>
@@ -92,7 +92,7 @@ function TeamRecentCard({
     <div className="flex-1 rounded-lg border border-line-subtle bg-surface p-3">
       <div className="mb-2 flex items-center gap-1.5">
         <TeamLogo name={team} src={logoFor(team)} size={20} />
-        <span className="truncate text-sm font-semibold text-fg-strong">{team}</span>
+        <span className="truncate text-label1 font-semibold text-fg-strong">{team}</span>
       </div>
       {/* 호출부가 games.length > 0 일 때만 이 카드를 그린다 — 빈 문구 분기가 필요 없다. */}
       <ul className="space-y-1.5">
@@ -117,7 +117,7 @@ export function MatchRecentGames({
   return (
     <section className="mt-6">
       <div className="rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
-        <h2 className="mb-3 text-sm font-semibold text-white sm:text-base">
+        <h2 className="mb-3 text-label1 font-semibold text-fg-strong sm:text-headline1">
           최근 5경기
         </h2>
         {/* 한쪽만 데이터가 있으면 그쪽만 그린다 — "준비 중입니다" 빈 카드를 만들지 않는다.

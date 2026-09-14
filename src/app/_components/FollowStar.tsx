@@ -41,9 +41,9 @@ function FollowStarInner({
         e.stopPropagation();
         onToggle();
       }}
-      className={`pointer-events-auto relative z-20 -m-1 shrink-0 touch-manipulation rounded-md p-1 transition-colors after:absolute after:inset-[-13px] after:content-[''] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-400 ${
+      className={`pointer-events-auto relative z-20 -m-1 shrink-0 touch-manipulation rounded-md p-1 transition-colors after:absolute after:inset-[-13px] after:content-[''] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-brand ${
         followed
-          ? "text-amber-400 hover:text-amber-300"
+          ? "text-fg-brand-bright hover:text-fg-brand"
           : "text-fg-tertiary hover:text-fg"
       } ${className}`}
     >

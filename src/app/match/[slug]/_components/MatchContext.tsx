@@ -20,14 +20,14 @@ function Last5Pips({ last5 }: { last5?: string }) {
       {chars.map((c, i) => {
         const cls =
           c === "W"
-            ? "bg-emerald-500/80 text-white"
+            ? "bg-brand-subtle text-white"
             : c === "L"
-            ? "bg-rose-500/80 text-white"
-            : "bg-fg-tertiary text-white";
+            ? "bg-[oklch(0.298_0.10_22_/_0.32)] text-white"
+            : "bg-muted text-fg";
         return (
           <span
             key={i}
-            className={`inline-flex h-4 w-4 items-center justify-center rounded-sm text-[10px] font-bold ${cls}`}
+            className={`inline-flex h-4 w-4 items-center justify-center rounded-sm text-caption2 font-bold ${cls}`}
           >
             {c === "D" || c === "T" ? "D" : c}
           </span>
@@ -47,14 +47,14 @@ function TeamSummaryCard({
   return (
     <div className="flex-1 rounded-lg border border-line-subtle bg-surface p-3">
       <div className="mb-2 flex items-baseline justify-between gap-2">
-        <span className="truncate text-sm font-semibold text-fg-strong">{name}</span>
+        <span className="truncate text-label1 font-semibold text-fg-strong">{name}</span>
         {summary.rank ? (
-          <span className="shrink-0 text-xs font-medium text-emerald-400">
+          <span className="shrink-0 text-caption1 font-medium text-fg-brand-bright">
             {summary.rank}위
           </span>
         ) : null}
       </div>
-      <dl className="space-y-1 text-xs text-fg-secondary">
+      <dl className="space-y-1 text-caption1 text-fg-secondary">
         {summary.recordLine && (
           <div className="flex justify-between">
             <dt>시즌 성적</dt>
@@ -98,9 +98,9 @@ function TeamSummaryCard({
             <dd
               className={
                 summary.streak.type === "W"
-                  ? "text-emerald-400"
+                  ? "text-fg-brand-bright"
                   : summary.streak.type === "L"
-                  ? "text-rose-400"
+                  ? "text-fg-danger"
                   : "text-fg"
               }
             >
@@ -145,10 +145,10 @@ export function MatchContextSection({
     <section className="mt-6 space-y-4">
       {showParagraph && (
         <div className="rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
-          <h2 className="mb-2 text-sm font-semibold text-white sm:text-base">
+          <h2 className="mb-2 text-label1 font-semibold text-fg-strong sm:text-headline1">
             경기 미리보기
           </h2>
-          <p className="text-sm leading-relaxed text-fg">{paragraph}</p>
+          <p className="text-label1 leading-relaxed text-fg">{paragraph}</p>
         </div>
       )}
 
@@ -158,7 +158,7 @@ export function MatchContextSection({
           있는 쪽만 그리고, 둘 다 없으면 섹션째 뺀다. */}
       {(homeSummary || awaySummary) && (
         <div className="rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
-          <h2 className="mb-3 text-sm font-semibold text-white sm:text-base">
+          <h2 className="mb-3 text-label1 font-semibold text-fg-strong sm:text-headline1">
             양 팀 시즌 성적
           </h2>
           <div className="flex flex-col gap-2 sm:flex-row">
@@ -170,10 +170,10 @@ export function MatchContextSection({
 
       {headToHead.length > 0 && (
         <div className="rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
-          <h2 className="mb-3 text-sm font-semibold text-white sm:text-base">
+          <h2 className="mb-3 text-label1 font-semibold text-fg-strong sm:text-headline1">
             최근 맞대결
           </h2>
-          <ul className="space-y-1.5 text-sm">
+          <ul className="space-y-1.5 text-label1">
             {headToHead.map((h, i) => {
               const winner =
                 h.homeScore > h.awayScore
@@ -186,7 +186,7 @@ export function MatchContextSection({
                   key={`${h.date}-${i}`}
                   className="flex flex-wrap items-baseline gap-x-2 text-fg"
                 >
-                  <span className="text-xs text-fg-tertiary">
+                  <span className="text-caption1 text-fg-tertiary">
                     {formatDateHeader(h.date)}
                   </span>
                   <span>
@@ -197,7 +197,7 @@ export function MatchContextSection({
                     {h.awayTeam}
                   </span>
                   {winner && (
-                    <span className="text-xs text-emerald-400">
+                    <span className="text-caption1 text-fg-brand-bright">
                       ({winner} 승)
                     </span>
                   )}
@@ -210,10 +210,10 @@ export function MatchContextSection({
 
       {leagueGuide && (
         <div className="rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
-          <h2 className="mb-2 text-sm font-semibold text-white sm:text-base">
+          <h2 className="mb-2 text-label1 font-semibold text-fg-strong sm:text-headline1">
             {league} 시즌 정보
           </h2>
-          <dl className="space-y-1.5 text-sm text-fg">
+          <dl className="space-y-1.5 text-label1 text-fg">
             {leagueGuide.season && (
               <div className="flex gap-2">
                 <dt className="shrink-0 text-fg-tertiary">시즌</dt>
@@ -240,16 +240,16 @@ export function MatchContextSection({
             )}
           </dl>
           {leagueGuide.highlights && leagueGuide.highlights.length > 0 && (
-            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-fg">
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-label1 text-fg">
               {leagueGuide.highlights.slice(0, 3).map((h, i) => (
                 <li key={i}>{h}</li>
               ))}
             </ul>
           )}
-          <p className="mt-3 text-xs text-fg-tertiary">
+          <p className="mt-3 text-caption1 text-fg-tertiary">
             <Link
               href={`/league/${leagueGuide.slug}`}
-              className="hover:text-emerald-400 underline-offset-2 hover:underline"
+              className="-my-2 inline-block py-2 hover:text-fg-brand-bright underline-offset-2 hover:underline"
             >
               {league} 전체 편성표 보기 →
             </Link>
@@ -259,33 +259,33 @@ export function MatchContextSection({
 
       {platformGuide && (
         <div className="rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
-          <h2 className="mb-2 text-sm font-semibold text-white sm:text-base">
+          <h2 className="mb-2 text-label1 font-semibold text-fg-strong sm:text-headline1">
             {platform}에서 시청하기
           </h2>
           {platformGuide.price && (
-            <p className="text-xs text-fg-tertiary">요금: {platformGuide.price}</p>
+            <p className="text-caption1 text-fg-tertiary">요금: {platformGuide.price}</p>
           )}
           {platformGuide.freeOption && (
-            <p className="text-xs text-emerald-400">
+            <p className="text-caption1 text-fg-brand-bright">
               {platformGuide.freeOption}
             </p>
           )}
           {platformGuide.howToWatch && (
-            <p className="mt-2 text-sm leading-relaxed text-fg">
+            <p className="mt-2 text-label1 leading-relaxed text-fg">
               {platformGuide.howToWatch}
             </p>
           )}
           {platformGuide.features && platformGuide.features.length > 0 && (
-            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-fg">
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-label1 text-fg">
               {platformGuide.features.slice(0, 4).map((f, i) => (
                 <li key={i}>{f}</li>
               ))}
             </ul>
           )}
-          <p className="mt-3 text-xs text-fg-tertiary">
+          <p className="mt-3 text-caption1 text-fg-tertiary">
             <Link
               href={`/platform/${platformGuide.slug}`}
-              className="hover:text-emerald-400 underline-offset-2 hover:underline"
+              className="-my-2 inline-block py-2 hover:text-fg-brand-bright underline-offset-2 hover:underline"
             >
               {platform} 전체 편성표 보기 →
             </Link>

@@ -21,14 +21,14 @@ export function PlatformBreakdown({
 
   return (
     <div className="rounded-xl border border-line-subtle bg-subtle p-4">
-      <h2 className="text-sm font-semibold text-white">{title}</h2>
+      <h2 className="text-label1 font-semibold text-fg-strong">{title}</h2>
       <ul className="mt-2 space-y-1.5">
         {top.map((b) => (
-          <li key={b.platform} className="flex items-center gap-2 text-sm">
+          <li key={b.platform} className="flex items-center gap-2 text-label1">
             <span className="w-28 shrink-0 truncate text-fg">{b.platform}</span>
             <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
               <span
-                className="block h-full rounded-full bg-emerald-600/70"
+                className="block h-full rounded-full bg-brand-subtle"
                 style={{ width: `${Math.round((b.count / max) * 100)}%` }}
               />
             </span>

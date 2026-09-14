@@ -166,20 +166,20 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
     <main className="min-h-screen bg-subtle text-fg-strong">
       <div className="mx-auto max-w-2xl px-4 py-8 sm:py-12">
         <header className="mb-8">
-          <p className="text-xs font-medium uppercase tracking-wider text-fg-tertiary">
+          <p className="text-caption1 font-medium uppercase tracking-wider text-fg-tertiary">
             한해설 운영자 콘솔
           </p>
-          <h1 className="mt-1 text-2xl font-bold sm:text-3xl">
+          <h1 className="mt-1 text-title3 font-bold sm:text-title2">
             TikTok 영상 게시
           </h1>
-          <p className="mt-2 text-sm text-fg-secondary">
+          <p className="mt-2 text-label1 text-fg-secondary">
             본인 계정(@hanhaeseol)에 영상을 직접 게시합니다. 모든 단계를
             확인한 뒤 마지막에 명시적으로 게시 버튼을 누르세요.
           </p>
         </header>
 
         {creatorError && (
-          <div className="mb-6 rounded-lg border border-red-700/50 bg-red-950/30 p-4 text-sm text-red-300">
+          <div className="mb-6 rounded-lg border border-[oklch(0.715_0.220_27_/_0.35)] bg-[oklch(0.298_0.10_22_/_0.32)] p-4 text-label1 text-fg-danger">
             <strong>접근 오류:</strong> {creatorError}
           </div>
         )}
@@ -187,12 +187,12 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
         {/* ─────────── Step 1: Creator Info ─────────── */}
         <Section step={1} title="게시 대상 계정 확인">
           {!creator ? (
-            <p className="text-sm text-fg-tertiary">크리에이터 정보 로드 중...</p>
+            <p className="text-label1 text-fg-tertiary">크리에이터 정보 로드 중...</p>
           ) : (
-            <div className="space-y-1 text-sm text-fg">
+            <div className="space-y-1 text-label1 text-fg">
               <p>
                 <span className="text-fg-tertiary">닉네임: </span>
-                <strong className="text-white">
+                <strong className="text-fg-strong">
                   {creator.nickname ?? "(없음)"}
                 </strong>
               </p>
@@ -222,9 +222,9 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
             <div>
               <label
                 htmlFor="title"
-                className="mb-1.5 block text-sm font-medium text-fg"
+                className="mb-1.5 block text-label1 font-medium text-fg"
               >
-                제목 <span className="text-red-400">*</span>
+                제목 <span className="text-fg-danger">*</span>
               </label>
               <input
                 id="title"
@@ -233,9 +233,9 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
                 onChange={(e) => setTitle(e.target.value)}
                 maxLength={2200}
                 placeholder="영상 제목을 입력하세요"
-                className="w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-fg-strong placeholder:text-fg-tertiary focus:border-line-strong focus:outline-none"
+                className="w-full rounded-lg border border-line bg-surface px-3 py-2 text-label1 text-fg-strong placeholder:text-fg-tertiary focus:border-line-strong focus:outline-none"
               />
-              <p className="mt-1 text-xs text-fg-tertiary">
+              <p className="mt-1 text-caption1 text-fg-tertiary">
                 {title.length} / 2200
               </p>
             </div>
@@ -243,15 +243,15 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
             <div>
               <label
                 htmlFor="privacy"
-                className="mb-1.5 block text-sm font-medium text-fg"
+                className="mb-1.5 block text-label1 font-medium text-fg"
               >
-                공개 범위 <span className="text-red-400">*</span>
+                공개 범위 <span className="text-fg-danger">*</span>
               </label>
               <select
                 id="privacy"
                 value={privacy}
                 onChange={(e) => setPrivacy(e.target.value as PrivacyLevel | "")}
-                className="w-full rounded-lg border border-line bg-surface px-3 py-2 text-sm text-fg-strong focus:border-line-strong focus:outline-none"
+                className="w-full rounded-lg border border-line bg-surface px-3 py-2 text-label1 text-fg-strong focus:border-line-strong focus:outline-none"
               >
                 <option value="" disabled>
                   -- 선택하세요 --
@@ -267,14 +267,14 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
                 })}
               </select>
               {isBrandedContent && (
-                <p className="mt-1.5 text-xs text-amber-400">
+                <p className="mt-1.5 text-caption1 text-fg-secondary">
                   Branded content visibility cannot be set to private
                 </p>
               )}
             </div>
 
             <fieldset className="space-y-2">
-              <legend className="mb-1 text-sm font-medium text-fg">
+              <legend className="mb-1 text-label1 font-medium text-fg">
                 상호작용 허용
               </legend>
               <Checkbox
@@ -323,7 +323,7 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
                     onChange={setIsYourBrand}
                   />
                   {isYourBrand && !isBrandedContent && (
-                    <p className="ml-6 text-xs text-fg-secondary">
+                    <p className="ml-6 text-caption1 text-fg-secondary">
                       Your video will be labeled as &apos;Promotional
                       content&apos;.
                     </p>
@@ -336,14 +336,14 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
                     onChange={onChangeBrandedContent}
                   />
                   {isBrandedContent && (
-                    <p className="ml-6 text-xs text-fg-secondary">
+                    <p className="ml-6 text-caption1 text-fg-secondary">
                       Your video will be labeled as &apos;Paid
                       partnership&apos;.
                     </p>
                   )}
                 </div>
                 {!isYourBrand && !isBrandedContent && (
-                  <p className="text-xs text-red-400">
+                  <p className="text-caption1 text-fg-danger">
                     You need to indicate if your content promotes yourself, a
                     third party, or both.
                   </p>
@@ -355,7 +355,7 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
 
         {/* ─────────── Step 4: 컴플라이언스 동의 (게시 = 동의) ─────────── */}
         <Section step={4} title="컴플라이언스 동의">
-          <p className="text-sm leading-relaxed text-fg-secondary">
+          <p className="text-label1 leading-relaxed text-fg-secondary">
             By posting, you agree to TikTok&apos;s{" "}
             {isBrandedContent && (
               <>
@@ -363,7 +363,7 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
                   href="https://www.tiktok.com/legal/page/global/bc-policy/en"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-emerald-400 underline underline-offset-2"
+                  className="text-fg-brand-bright underline underline-offset-2"
                 >
                   Branded Content Policy
                 </a>{" "}
@@ -374,7 +374,7 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
               href="https://www.tiktok.com/legal/page/global/music-usage-confirmation/en"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-emerald-400 underline underline-offset-2"
+              className="text-fg-brand-bright underline underline-offset-2"
             >
               Music Usage Confirmation
             </a>
@@ -388,18 +388,18 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
             <div>
               <label
                 htmlFor="video-file"
-                className="mb-1.5 block text-sm font-medium text-fg"
+                className="mb-1.5 block text-label1 font-medium text-fg"
               >
-                영상 파일 (mp4) <span className="text-red-400">*</span>
+                영상 파일 (mp4) <span className="text-fg-danger">*</span>
               </label>
               <input
                 id="video-file"
                 type="file"
                 accept="video/mp4,video/quicktime"
                 onChange={(e) => setFile(e.target.files?.[0] ?? null)}
-                className="block w-full text-sm text-fg file:mr-3 file:rounded-md file:border-0 file:bg-muted file:px-3 file:py-1.5 file:text-sm file:text-white hover:file:bg-muted"
+                className="block w-full text-label1 text-fg file:mr-3 file:rounded-md file:border-0 file:bg-muted file:px-3 file:py-1.5 file:text-label1 file:text-fg-strong hover:file:bg-muted"
               />
-              <p className="mt-1 text-xs text-fg-tertiary">
+              <p className="mt-1 text-caption1 text-fg-tertiary">
                 업로드한 영상에 별도의 로고/워터마크가 추가되지 않습니다 (TikTok
                 정책). 본인이 명시적으로 게시 버튼을 누른 뒤에만 TikTok 으로
                 전송됩니다.
@@ -408,7 +408,7 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
 
             {videoUrl && (
               <div>
-                <p className="mb-2 text-sm font-medium text-fg">
+                <p className="mb-2 text-label1 font-medium text-fg">
                   미리보기
                 </p>
                 {/* eslint-disable-next-line jsx-a11y/media-has-caption */}
@@ -421,8 +421,8 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
                 />
                 {videoDuration !== null && creator && (
                   <p
-                    className={`mt-2 text-xs ${
-                      durationOk ? "text-fg-tertiary" : "text-red-400"
+                    className={`mt-2 text-caption1 ${
+                      durationOk ? "text-fg-tertiary" : "text-fg-danger"
                     }`}
                   >
                     길이: {videoDuration}초 / 허용{" "}
@@ -434,20 +434,20 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
             )}
 
             {status.kind === "loading" && (
-              <div className="rounded-lg border border-line bg-surface p-3 text-sm text-fg">
+              <div className="rounded-lg border border-line bg-surface p-3 text-label1 text-fg">
                 ⏳ {status.message}
               </div>
             )}
             {status.kind === "success" && (
-              <div className="rounded-lg border border-emerald-700/50 bg-emerald-950/30 p-3 text-sm text-emerald-300">
+              <div className="rounded-lg border border-brand/40 bg-brand-subtle p-3 text-label1 text-fg-brand-bright">
                 ✅ {status.message}
-                <p className="mt-1 text-xs text-emerald-400/80">
+                <p className="mt-1 text-caption1 text-fg-brand-bright">
                   publish_id: {status.publishId}
                 </p>
               </div>
             )}
             {status.kind === "error" && (
-              <div className="rounded-lg border border-red-700/50 bg-red-950/30 p-3 text-sm text-red-300">
+              <div className="rounded-lg border border-[oklch(0.715_0.220_27_/_0.35)] bg-[oklch(0.298_0.10_22_/_0.32)] p-3 text-label1 text-fg-danger">
                 ❌ {status.message}
               </div>
             )}
@@ -456,11 +456,11 @@ export function TikTokPostClient({ adminKey }: { adminKey: string }) {
               type="button"
               disabled={!canSubmit}
               onClick={submit}
-              className="w-full rounded-lg bg-emerald-500 px-4 py-3 text-sm font-semibold text-fg-disabled transition-colors hover:bg-emerald-400 disabled:cursor-not-allowed disabled:bg-muted disabled:text-fg-tertiary"
+              className="w-full rounded-lg bg-brand px-4 py-3 text-label1 font-semibold text-fg-disabled transition-colors hover:bg-brand disabled:cursor-not-allowed disabled:bg-muted disabled:text-fg-tertiary"
             >
               {status.kind === "loading" ? "게시 중..." : "TikTok 에 게시"}
             </button>
-            <p className="text-center text-xs text-fg-tertiary">
+            <p className="text-center text-caption1 text-fg-tertiary">
               위 버튼을 누르기 전까지 TikTok 으로 어떠한 데이터도 전송되지
               않습니다.
             </p>
@@ -482,8 +482,8 @@ function Section({
 }) {
   return (
     <section className="mb-6 rounded-xl border border-line-subtle bg-surface p-5">
-      <h2 className="mb-3 flex items-center gap-2 text-base font-semibold text-white">
-        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-xs font-bold text-emerald-400">
+      <h2 className="mb-3 flex items-center gap-2 text-body1 font-semibold text-fg-strong">
+        <span className="flex h-6 w-6 items-center justify-center rounded-full bg-muted text-caption1 font-bold text-fg-brand-bright">
           {step}
         </span>
         {title}
@@ -509,7 +509,7 @@ function Checkbox({
   return (
     <label
       title={title}
-      className={`flex items-start gap-2 text-sm ${
+      className={`flex items-start gap-2 text-label1 ${
         disabled
           ? "cursor-not-allowed text-fg-tertiary"
           : "cursor-pointer text-fg"

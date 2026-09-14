@@ -133,7 +133,7 @@ export default function AsianGamesPage() {
   ];
 
   return (
-    <main className="relative mx-auto min-h-screen max-w-2xl px-3 pb-8 sm:px-4 sm:pb-12">
+    <main className="relative mx-auto min-h-screen max-w-[1100px] px-5 pb-12 sm:px-6 sm:pb-12">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <SiteHeader />
 
@@ -142,11 +142,11 @@ export default function AsianGamesPage() {
       </div>
 
       <div className="mb-6">
-        <h1 className="text-xl font-bold text-white sm:text-2xl">2026 아시안게임 한국 경기 일정·메달 순위</h1>
-        <p className="mt-2 text-sm leading-relaxed text-fg-strong">{answerLead(today, koreaGamesToday, data)}</p>
-        <p className="mt-1.5 text-sm leading-relaxed text-fg-secondary">
+        <h1 className="text-heading1 font-bold text-fg-strong sm:text-title3">2026 아시안게임 한국 경기 일정·메달 순위</h1>
+        <p className="mt-2 text-label1 leading-relaxed text-fg-strong">{answerLead(today, koreaGamesToday, data)}</p>
+        <p className="mt-1.5 text-label1 leading-relaxed text-fg-secondary">
           아이치·나고야 아시안게임({AG_OPEN} ~ {AG_CLOSE}) 대한민국 전 종목 경기 일정과 메달, 국가별 메달 순위를 모았습니다. 다른 나라 경기의 한국어 해설 중계는{" "}
-          <Link href="/" className="text-fg underline underline-offset-2 hover:text-fg-strong">메인 편성표</Link>에서 볼 수 있습니다.
+          <Link href="/" className="-my-2 inline-block py-2 text-fg underline underline-offset-2 hover:text-fg-strong">메인 편성표</Link>에서 볼 수 있습니다.
         </p>
       </div>
 
@@ -154,17 +154,17 @@ export default function AsianGamesPage() {
         {data ? (
           <AsianGamesLive initial={data} today={today} broadcasts={broadcasts} />
         ) : (
-          <p className="mb-6 rounded-xl border border-line-subtle p-4 text-sm text-fg-secondary">경기 일정과 메달 데이터를 준비 중입니다.</p>
+          <p className="mb-6 rounded-xl border border-line-subtle p-4 text-label1 text-fg-secondary">경기 일정과 메달 데이터를 준비 중입니다.</p>
         )}
       </div>
 
       <section className="mb-8 rounded-xl border border-line-subtle bg-surface p-4 sm:p-5">
-        <h2 className="text-base font-semibold text-white sm:text-lg">아시안게임 자주 묻는 질문</h2>
+        <h2 className="text-headline1 font-semibold text-fg-strong sm:text-heading2">아시안게임 자주 묻는 질문</h2>
         <dl className="mt-3 space-y-4">
           {FAQS.map((f) => (
             <div key={f.q}>
-              <dt className="text-sm font-semibold text-fg-strong">{f.q}</dt>
-              <dd className="mt-1 text-sm leading-relaxed text-fg-secondary">{f.a}</dd>
+              <dt className="text-label1 font-semibold text-fg-strong">{f.q}</dt>
+              <dd className="mt-1 text-label1 leading-relaxed text-fg-secondary">{f.a}</dd>
             </div>
           ))}
         </dl>

@@ -13,6 +13,34 @@
  * 글자 집합이 바뀌면 `npm run test:ebook-font` 가 CI 에서 실패한다.
  */
 import { execFileSync } from "node:child_process";
+
+/**
+ * pyftsubset 을 부른다.
+ *
+ * 🔴 CLI 가 PATH 에 없는 PC 가 있다(fontTools 는 `pip install` 돼 있는데 스크립트 경로가
+ * 안 잡히는 경우). 그때 `python -m fontTools.subset` 로 같은 일을 할 수 있는데, 그걸 몰라서
+ * "폰트 못 굽는다"로 막혔던 적이 있다(2026-09-14). 순서대로 시도한다.
+ */
+function runSubset(args) {
+  const candidates = [
+    ["pyftsubset", args],
+    ["python", ["-m", "fontTools.subset", ...args]],
+    ["py", ["-m", "fontTools.subset", ...args]],
+  ];
+  let lastErr;
+  for (const [cmd, a] of candidates) {
+    try {
+      execFileSync(cmd, a, { stdio: "inherit" });
+      return cmd;
+    } catch (e) {
+      lastErr = e;
+    }
+  }
+  throw new Error(
+    "pyftsubset 을 못 찾았다. `pip install fonttools brotli` 후 다시 시도할 것." +
+      `마지막 오류: ${lastErr && lastErr.message}`,
+  );
+}
 import fs from "node:fs";
 import path from "node:path";
 import { requiredGlyphChars } from "./_ebook-font-chars.mjs";
@@ -30,13 +58,13 @@ console.log(`서브셋 글자 수: ${chars.size}`);
 for (const [src, out] of SOURCES) {
   const from = path.join(OUT_DIR, src);
   const to = path.join(OUT_DIR, out);
-  execFileSync("pyftsubset", [
+  runSubset([
     from,
     `--unicodes=${unicodes}`,
     "--layout-features=*",
     "--flavor=woff2",
     `--output-file=${to}`,
-  ], { stdio: "inherit" });
+  ]);
   const before = fs.statSync(from).size;
   const after = fs.statSync(to).size;
   console.log(`${src} ${(before / 1024).toFixed(0)}KB → ${out} ${(after / 1024).toFixed(1)}KB`);

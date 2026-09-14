@@ -89,7 +89,7 @@ export default function GuidePage({ params }: { params: Params }) {
   const updatedLabel = guide.updated ? guide.updated.replace(/-/g, ".") : null;
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <main className="mx-auto max-w-[720px] px-5 sm:px-6 py-8 sm:py-12">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -100,14 +100,14 @@ export default function GuidePage({ params }: { params: Params }) {
       <article className="mt-8">
         <header className="border-b border-line-subtle pb-6">
           {guide.category ? (
-            <span className="inline-block rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-fg">
+            <span className="inline-block rounded-full bg-muted px-2.5 py-0.5 text-caption1 font-medium text-fg">
               {guide.category}
             </span>
           ) : null}
-          <h1 className="mt-3 text-2xl font-bold leading-snug text-white sm:text-3xl">
+          <h1 className="mt-3 text-title3 font-bold leading-snug text-fg-strong sm:text-title2">
             {guide.title}
           </h1>
-          <p className="mt-3 text-xs text-fg-tertiary">
+          <p className="mt-3 text-caption1 text-fg-tertiary">
             {dateLabel}
             {updatedLabel && updatedLabel !== dateLabel
               ? ` · ${updatedLabel} 업데이트`
@@ -116,13 +116,13 @@ export default function GuidePage({ params }: { params: Params }) {
         </header>
 
         <div
-          className="prose prose-invert prose-zinc mt-8 max-w-none prose-headings:text-white prose-a:text-sky-400 prose-a:no-underline hover:prose-a:underline prose-strong:text-white prose-table:text-sm"
+          className="prose prose-invert prose-zinc mt-8 max-w-none prose-headings:text-fg-strong prose-a:text-fg-brand-bright prose-a:no-underline hover:prose-a:underline prose-strong:text-fg-strong prose-table:text-label1"
           dangerouslySetInnerHTML={{ __html: guide.bodyHtml }}
         />
       </article>
 
-      <div className="mt-12 border-t border-line-subtle pt-6 text-sm">
-        <Link href="/guide" className="text-sky-400 hover:underline">
+      <div className="mt-12 border-t border-line-subtle pt-6 text-label1">
+        <Link href="/guide" className="-my-2 inline-block py-2 text-fg-brand-bright hover:underline">
           ← 다른 글 더 보기
         </Link>
       </div>

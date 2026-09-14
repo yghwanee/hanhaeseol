@@ -219,7 +219,7 @@ export function DonateButton({ className = "" }: { className?: string }) {
                 type="button"
                 onClick={close}
                 aria-label="응원하기 닫기"
-                className="-mr-1 -mt-1 flex h-9 w-9 items-center justify-center rounded text-2xl leading-none text-fg-tertiary hover:text-fg-strong"
+                className="-mr-1 -mt-1 flex h-9 w-9 items-center justify-center rounded text-title3 leading-none text-fg-tertiary hover:text-fg-strong"
               >
                 &times;
               </button>
@@ -299,7 +299,7 @@ export function DonateButton({ className = "" }: { className?: string }) {
                       unoptimized
                       className="h-7 w-7"
                     />
-                    <span className="text-xs font-semibold">토스</span>
+                    <span className="text-caption1 font-semibold">토스</span>
                   </button>
 
                   {/* 링크가 설정된 티어에서만. 눌러도 안 되는 버튼은 보여주지 않는다. */}
@@ -310,7 +310,7 @@ export function DonateButton({ className = "" }: { className?: string }) {
                       className="flex h-24 w-28 flex-col items-center justify-center gap-1.5 rounded-xl bg-[#FEE500] text-[#191600] transition-transform hover:scale-[1.03]"
                     >
                       <KakaoMark />
-                      <span className="text-xs font-semibold">카카오페이</span>
+                      <span className="text-caption1 font-semibold">카카오페이</span>
                     </button>
                   )}
                 </div>
@@ -318,7 +318,7 @@ export function DonateButton({ className = "" }: { className?: string }) {
                 <button
                   type="button"
                   onClick={() => setStep("fallback")}
-                  className="mt-4 w-full text-center text-[11px] text-fg-tertiary underline-offset-2 hover:text-fg hover:underline"
+                  className="mt-4 w-full text-center text-caption2 text-fg-tertiary underline-offset-2 hover:text-fg hover:underline"
                 >
                   계좌번호로 직접 보내기
                 </button>
@@ -326,26 +326,26 @@ export function DonateButton({ className = "" }: { className?: string }) {
             )}
 
             {step === "opening" && (
-              <p className="mt-8 mb-6 text-center text-sm text-fg">앱 여는 중...</p>
+              <p className="mt-8 mb-6 text-center text-label1 text-fg">앱 여는 중...</p>
             )}
 
             {/* 3단계 — 계좌 */}
             {step === "fallback" && tier && (
               <div className="mt-5">
                 <div className="rounded-lg border border-line bg-muted px-4 py-3 text-center">
-                  <p className="text-sm font-bold text-fg-strong">
+                  <p className="text-label1 font-bold text-fg-strong">
                     {BANK} {ACCOUNT}
                   </p>
                   {HOLDER && (
-                    <p className="mt-0.5 text-[11px] text-fg-secondary">예금주 {HOLDER}</p>
+                    <p className="mt-0.5 text-caption2 text-fg-secondary">예금주 {HOLDER}</p>
                   )}
-                  <p className="mt-1 text-[11px] text-fg-tertiary">
+                  <p className="mt-1 text-caption2 text-fg-tertiary">
                     보내실 금액 {won(tier.amount)}원
                   </p>
                   <button
                     type="button"
                     onClick={copyAccount}
-                    className="mt-2.5 rounded-lg border border-line px-4 py-1.5 text-xs text-fg-strong hover:border-line-strong"
+                    className="mt-2.5 rounded-lg border border-line px-4 py-1.5 text-caption1 text-fg-strong hover:border-line-strong"
                   >
                     {copied ? "복사됨" : "계좌 복사"}
                   </button>
@@ -354,7 +354,7 @@ export function DonateButton({ className = "" }: { className?: string }) {
                 <button
                   type="button"
                   onClick={() => setStep("method")}
-                  className="mt-3 w-full text-center text-[11px] text-fg-tertiary hover:text-fg"
+                  className="mt-3 w-full text-center text-caption2 text-fg-tertiary hover:text-fg"
                 >
                   앱으로 보내기
                 </button>

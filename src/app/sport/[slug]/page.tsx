@@ -181,21 +181,21 @@ export default function SportPage({ params }: { params: { slug: string } }) {
         highlightsSlot={
           <>
           {preseason && (
-            <section className="mb-4 rounded-xl border border-emerald-500/30 bg-emerald-500/5 p-4">
-              <h2 className="text-sm font-semibold text-white sm:text-base">
+            <section className="mb-4 rounded-xl border border-brand/40 bg-brand-subtle p-4">
+              <h2 className="text-label1 font-semibold text-fg-strong sm:text-headline1">
                 {daysToOpen > 0
                   ? `${meta.display} 개막까지 ${daysToOpen}일`
                   : daysToOpen === 0
                     ? `오늘 ${meta.display} 개막`
                     : `${meta.display} 개막 ${-daysToOpen}일째`}
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-fg">{preseason.opener}</p>
-              <p className="mt-1.5 text-sm text-fg-secondary">
+              <p className="mt-2 text-label1 leading-relaxed text-fg">{preseason.opener}</p>
+              <p className="mt-1.5 text-label1 text-fg-secondary">
                 중계: {preseason.broadcasters.join(", ")}. 개막 주간부터 경기별 채널이 이 페이지에 올라옵니다.
               </p>
               <Link
                 href={`/league/${preseason.leagueSlug}`}
-                className="mt-2 inline-block text-xs text-emerald-300 underline underline-offset-2 hover:text-emerald-200"
+                className="-my-2 inline-block py-2 mt-2 inline-block text-caption1 text-fg-brand-bright underline underline-offset-2 hover:text-fg-brand-bright"
               >
                 리그 시청 가이드 보기
               </Link>
@@ -204,16 +204,16 @@ export default function SportPage({ params }: { params: { slug: string } }) {
           <section className="mb-8 grid gap-3 sm:grid-cols-2">
             {byLeague.length > 0 && (
               <div className="rounded-xl border border-line-subtle bg-subtle p-4">
-                <h2 className="text-sm font-semibold text-white">리그별 경기 수</h2>
+                <h2 className="text-label1 font-semibold text-fg-strong">리그별 경기 수</h2>
                 <ul className="mt-2 space-y-1.5">
                   {byLeague.slice(0, 6).map((b) => {
                     const s = standingsSlugOf(b.league);
                     const l = leagueSlugOf(b.league);
                     return (
-                      <li key={b.league} className="flex items-center gap-2 text-sm">
+                      <li key={b.league} className="flex items-center gap-2 text-label1">
                         <span className="flex-1 truncate text-fg">
                           {l ? (
-                            <Link href={`/league/${l}`} className="hover:text-fg-strong hover:underline">
+                            <Link href={`/league/${l}`} className="-my-2 inline-block py-2 hover:text-fg-strong hover:underline">
                               {b.league}
                             </Link>
                           ) : (
@@ -223,7 +223,7 @@ export default function SportPage({ params }: { params: { slug: string } }) {
                         {s && (
                           <Link
                             href={`/standings/${s}`}
-                            className="shrink-0 text-xs text-fg-tertiary hover:text-fg hover:underline"
+                            className="-my-2 inline-block py-2 shrink-0 text-caption1 text-fg-tertiary hover:text-fg hover:underline"
                           >
                             순위표
                           </Link>

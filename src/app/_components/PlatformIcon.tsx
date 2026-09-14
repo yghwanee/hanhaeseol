@@ -18,7 +18,7 @@ function PlatformIconInner({ platformKey }: { platformKey: string }) {
   }
 
   if (platformKey === "전체") {
-    return <span className="text-sm font-bold text-current">ALL</span>;
+    return <span className="text-label1 font-bold text-current">ALL</span>;
   }
 
   return (

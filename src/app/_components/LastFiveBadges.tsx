@@ -48,10 +48,10 @@ function LastFiveBadgesInner({
     <span
       aria-label={`${streak.count}${streak.approx ? "경기 이상 " : ""}${streak.type === "W" ? "연승" : "연패"}`}
       title={streak.approx ? "최근 5경기 기준 추정값 (실제로는 더 길 수 있음)" : undefined}
-      className={`inline-flex items-center rounded-[3px] px-1 py-0.5 text-[10px] sm:text-[11px] font-bold leading-none ring-1 ${
+      className={`inline-flex items-center rounded-[3px] px-1 py-0.5 text-caption2 sm:text-caption2 font-bold leading-none ring-1 ${
         streak.type === "W"
-          ? "text-emerald-400 ring-emerald-500/40"
-          : "text-rose-400 ring-rose-500/40"
+          ? "text-fg-brand-bright ring-brand/40"
+          : "text-fg-danger ring-[oklch(0.715_0.220_27_/_0.35)]"
       }`}
     >
       {streak.count}
@@ -74,17 +74,17 @@ function LastFiveBadgesInner({
           const isLose = c === "L";
           const isLatest = i === latestIdx;
           const cls = isWin
-            ? "bg-emerald-500/20 text-emerald-400 ring-emerald-500/30"
+            ? "bg-brand-subtle text-fg-brand-bright ring-brand/40"
             : isLose
-            ? "bg-rose-500/20 text-rose-400 ring-rose-500/30"
+            ? "bg-[oklch(0.298_0.10_22_/_0.32)] text-fg-danger ring-[oklch(0.715_0.220_27_/_0.35)]"
             : "bg-muted text-fg-secondary ring-line";
-          // 최근 경기 강조 바: 결과 색을 따라 W=초록, L=빨강, 그 외=중립.
+          // 최근 경기 강조 바: 키 컬러 정책에 맞춰 W=파랑, L=빨강, 그 외=중립.
           const barCls = !isLatest
             ? "bg-transparent"
             : isWin
-            ? "bg-emerald-400"
+            ? "bg-fg-brand"
             : isLose
-            ? "bg-rose-400"
+            ? "bg-fg-danger"
             : "bg-fg-tertiary";
           const label = isWin ? "승" : isLose ? "패" : "무";
           return (
@@ -94,7 +94,7 @@ function LastFiveBadgesInner({
               className="flex flex-col items-center gap-1.5"
             >
               <span
-                className={`inline-flex h-3 w-3 sm:h-3.5 sm:w-3.5 items-center justify-center rounded-[3px] text-[8px] sm:text-[9px] font-bold ring-1 ${cls}`}
+                className={`inline-flex h-[15px] w-[15px] items-center justify-center rounded-[3px] text-caption2 font-bold leading-none ring-1 sm:h-4 sm:w-4 ${cls}`}
               >
                 {c}
               </span>

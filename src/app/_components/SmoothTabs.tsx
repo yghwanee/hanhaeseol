@@ -80,7 +80,7 @@ export function SmoothTabs<T extends string>({
   ariaLabel,
   pillClassName = "bg-fg-strong",
   pillBorderClassName,
-  activeTextClassName = "text-white",
+  activeTextClassName = "text-canvas",
   useCapsStripe = false,
 }: SmoothTabsProps<T>) {
   const depsKey = options.map((o) => o.value).join("|");
@@ -90,8 +90,8 @@ export function SmoothTabs<T extends string>({
   // capsStripe(날짜 탭): 점이 박스 밖 sibling 으로 분리되어 박스는 텍스트만
   // 담음. 모바일은 py-1 으로 살짝 여유, 데스크탑은 py-0.5 로 컴팩트.
   const sizeCls = useCapsStripe
-    ? "px-6 py-1 text-xs sm:px-4 sm:py-0.5 sm:text-sm"
-    : "px-2.5 py-1 text-xs sm:px-3 sm:py-1.5 sm:text-sm";
+    ? "px-6 py-1 text-caption1 sm:px-4 sm:py-0.5 sm:text-label1"
+    : "px-2.5 py-1 text-caption1 sm:px-3 sm:py-1.5 sm:text-label1";
   const borderCls = pillBorderClassName ?? "border-fg-strong";
 
   return (

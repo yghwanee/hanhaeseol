@@ -36,6 +36,9 @@ export function EbookBanner() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="fadeby 『현재가 없는 사람들에게』 읽어 보기 (새 창)"
+      /* 🔴 이 배너만 키 컬러 예외다 — fadeby 의 브랜드(표지 유화 크림톤)를 그대로 쓴다.
+         원티드도 마케팅 히어로에는 자체 아트를 허용한다. 감사기가 이 표시를 보고 건너뛴다. */
+      data-external-brand="fadeby"
       className="group block"
       style={{ fontFamily: FONT }}
     >
@@ -63,16 +66,16 @@ export function EbookBanner() {
         {/* 인용구 영역 (오버레이). 데스크톱은 오른쪽에 CTA 공간(pr 크게), 모바일은 CTA를 하단 인라인. */}
         <div className="relative flex h-full min-w-0 flex-col justify-center gap-2 pl-6 pr-6 sm:gap-2.5 sm:pl-10 sm:pr-48">
           {/* 여는 따옴표 (장식) — 글귀와 간격 좁힘 */}
-          <span aria-hidden className="-mb-2.5 text-2xl leading-none text-[#a2432f] sm:-mb-3.5 sm:text-3xl">
+          <span aria-hidden className="-mb-2.5 text-title3 leading-none text-[#a2432f] sm:-mb-3.5 sm:text-title2">
             &ldquo;
           </span>
           {/* 인용구 — 매일 순환. 시 자체 줄바꿈 유지. */}
-          <blockquote className="m-0 line-clamp-3 whitespace-pre-line text-[15px] font-bold leading-snug text-[#f1eadc] drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] sm:text-xl">
+          <blockquote className="m-0 line-clamp-3 whitespace-pre-line text-[15px] font-bold leading-snug text-[#f1eadc] drop-shadow-[0_1px_6px_rgba(0,0,0,0.6)] sm:text-heading2">
             {quote}
           </blockquote>
           {/* 출처 + 모바일 CTA */}
           <div className="flex items-center gap-3">
-            <span className="text-[10px] tracking-wide text-[#b3aab8] sm:text-xs">
+            <span className="text-caption2 tracking-wide text-[#b3aab8] sm:text-caption1">
               —『현재가 없는 사람들에게』· fadeby
             </span>
             <span className="ml-auto inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-[#f1eadc] px-3.5 py-1.5 text-[12px] font-semibold text-[#231a16] shadow-md sm:hidden">

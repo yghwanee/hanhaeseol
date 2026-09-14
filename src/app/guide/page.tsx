@@ -24,18 +24,18 @@ export default function GuideIndexPage() {
   const guides = getAllGuides();
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-8 sm:py-12">
+    <main className="mx-auto max-w-[1100px] px-5 sm:px-6 py-8 sm:py-12">
       <GuideHeader />
 
       <header className="mt-8 border-b border-line-subtle pb-6">
-        <h1 className="text-2xl font-bold text-white sm:text-3xl">한해설 Topic</h1>
-        <p className="mt-2 text-sm text-fg-secondary">
+        <h1 className="text-title3 font-bold text-fg-strong sm:text-title2">한해설 Topic</h1>
+        <p className="mt-2 text-label1 text-fg-secondary">
           여러 플랫폼에 흩어진 중계 일정 속에서, 챙겨볼 만한 경기를 골라 정리합니다.
         </p>
       </header>
 
       {guides.length === 0 ? (
-        <p className="mt-8 text-sm text-fg-tertiary">아직 등록된 글이 없습니다.</p>
+        <p className="mt-8 text-label1 text-fg-tertiary">아직 등록된 글이 없습니다.</p>
       ) : (
         <ul className="mt-6 divide-y divide-line-subtle">
           {guides.map((g) => (
@@ -43,18 +43,18 @@ export default function GuideIndexPage() {
               <Link href={`/guide/${g.slug}`} className="group block">
                 <div className="flex items-center gap-2">
                   {g.category ? (
-                    <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-fg">
+                    <span className="rounded-full bg-muted px-2 py-0.5 text-caption1 font-medium text-fg">
                       {g.category}
                     </span>
                   ) : null}
-                  <span className="text-xs text-fg-tertiary">
+                  <span className="text-caption1 text-fg-tertiary">
                     {g.date.replace(/-/g, ".")}
                   </span>
                 </div>
-                <h2 className="mt-2 text-lg font-semibold text-white group-hover:text-sky-400">
+                <h2 className="mt-2 text-headline1 font-semibold text-fg-strong group-hover:text-fg-brand-bright">
                   {g.title}
                 </h2>
-                <p className="mt-1 line-clamp-2 text-sm text-fg-secondary">
+                <p className="mt-1 line-clamp-2 text-label1 text-fg-secondary">
                   {g.description}
                 </p>
               </Link>

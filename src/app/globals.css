@@ -342,44 +342,76 @@ body {
    ========================================================================== */
 
 :root {
+  /* ── 다크 캔버스 (2026-09-14 전환) ───────────────────────────────────────
+     화니가 고른 색이 원티드 문서의 **다크 시맨틱 alias** 와 사실상 같은 값이라
+     (neutral-960 `oklch(0.148 0.004 277)` 계열) 문서 값을 그대로 쓴다.
+     🔴 컴포넌트는 한 줄도 안 고쳤다 — 토큰만 바뀐다. 이게 토큰 레이어를 만든 이유다. */
+
   /* Background */
-  --w-canvas: #ffffff;
-  --w-surface: #ffffff;
-  --w-subtle: oklch(0.972 0.002 286);   /* 페이지 바탕 */
-  --w-muted: oklch(0.961 0.002 286);    /* hover fill */
-  --w-elevated: #ffffff;
-  --w-inverse: oklch(0.148 0.004 277);
+  --w-canvas: oklch(0.166 0.005 271);   /* neutral-950 — 카드가 놓이는 면 */
+  --w-surface: oklch(0.166 0.005 271);
+  --w-subtle: oklch(0.148 0.004 277);   /* neutral-960 — 페이지 바탕 */
+  --w-muted: oklch(0.196 0.008 273);    /* neutral-925 — hover fill */
+  --w-elevated: oklch(0.237 0.008 273); /* neutral-900 — 모달·팝오버 */
+  --w-inverse: oklch(1 0 0);
 
-  /* Foreground — 별도 회색 hex 를 만들지 않고 한 베이스에 알파를 곱한다(원티드 방식).
-     라이트/다크 양쪽에서 같은 "소프트 블랙" 톤이 유지되는 게 이 방식의 이유다. */
-  --w-fg-strong: oklch(0.148 0.004 277);
-  --w-fg: oklch(0.259 0.010 273 / 0.88);
-  --w-fg-secondary: oklch(0.298 0.010 273 / 0.61);
-  --w-fg-tertiary: oklch(0.298 0.010 273 / 0.43);
-  --w-fg-disabled: oklch(0.298 0.010 273 / 0.28);
-  --w-fg-on-brand: #ffffff;
+  /* Foreground — 라이트와 같은 방식(한 베이스 + 알파 사다리), 베이스만 흰색으로 뒤집는다 */
+  --w-fg-strong: oklch(1 0 0);
+  --w-fg: oklch(1 0 0 / 0.88);
+  --w-fg-secondary: oklch(1 0 0 / 0.61);
+  /* 🔴 0.43 은 원티드 라이트 테마 값이다. 다크 캔버스에서는 4.25:1 로 **기준(4.5) 아래**라
+     카드의 진 팀 이름·스코어·보조 텍스트가 전부 미달이었다(2026-09-14 실측). 0.52 로 올려
+     4.9:1 을 확보한다. 위계는 secondary(0.61) 와 충분히 구분된다. */
+  --w-fg-tertiary: oklch(1 0 0 / 0.52);
+  --w-fg-disabled: oklch(1 0 0 / 0.28);
+  --w-fg-on-brand: oklch(1 0 0);
 
-  /* Brand — 단일 primary. #0066FF */
+  /* Brand — 다크에서는 #0066FF 가 배경에 먹히므로 명도를 올린 blue-400 을 쓴다.
+     채움(버튼 배경)은 원래 블루, 글자는 밝은 블루. 문서의 dark-fg-brand 규칙. */
   --w-brand: oklch(0.563 0.241 261);
-  --w-brand-hover: oklch(0.529 0.220 258);
-  --w-brand-subtle: oklch(0.954 0.022 250);
+  --w-brand-hover: oklch(0.607 0.225 257);
+  /* 다크 배경에서 3.99:1 이던 것을 올렸다 — 링크·시그너처 글자는 본문과 같은 기준(4.5)을 받는다. */
+  --w-brand-fg: oklch(0.775 0.140 250);
+  /* 🔴 eyebrow·강조어처럼 **작은 글씨**가 brand-subtle 위에 올라갈 때 쓴다.
+     blue-400 은 그 배경에서 대비가 얕아 안 읽힌다(2026-09-14 실측 지적). */
+  --w-brand-fg-bright: oklch(0.82 0.135 252);
+  --w-brand-subtle: oklch(0.149 0.069 257);   /* blue-975 */
 
-  /* Semantic signal */
-  --w-success: oklch(0.673 0.211 144);
-  --w-success-subtle: oklch(0.968 0.052 154);
-  --w-danger: oklch(0.546 0.220 27);
-  --w-danger-subtle: oklch(0.951 0.018 18);
-  --w-warning: oklch(0.625 0.148 56);
-  --w-warning-subtle: oklch(0.967 0.030 81);
+  /* ── 키 컬러 정책 (2026-09-14 화니 결정) ────────────────────────────────
+     이 사이트가 쓰는 색은 **배경 + 파랑 + 빨강** 셋뿐이다.
 
-  /* Borders — 헤어라인이 이 시스템의 구조다 */
-  --w-line-subtle: oklch(0.521 0.018 273 / 0.08);
-  --w-line: oklch(0.521 0.018 273 / 0.22);
-  --w-line-strong: oklch(0.521 0.018 273 / 0.35);
+       파랑 = "이게 네가 찾던 것"  — 한국어 해설 · CTA · 링크 · eyebrow
+       빨강 = "지금 / 주의"        — LIVE · 일요일 · 패배
+       무채색 = 나머지 전부        — 종료 · 현지 해설 · 확인 중 · 플랫폼
 
-  /* Elevation — 떠 있는 표면 전용 */
-  --w-shadow-1: 0 1px 2px oklch(0.155 0 0 / 0.06), 0 1px 3px oklch(0 0 0 / 0.05);
-  --w-shadow-pop: 0 8px 24px oklch(0 0 0 / 0.12);
+     🔴 초록·주황을 다시 들이지 말 것. 색이 네 개가 되는 순간 "한국어 해설"이
+     안 보인다 — 그게 이 서비스의 존재 이유인데도. 원티드가 단일 primary 를
+     고수하는 이유와 같다(링크도 시그너처도 같은 블루다).
+     아래 success/warning 토큰은 **다른 페이지의 잔존 사용처**를 위해 남겨 두지만
+     새로 쓰지 않는다. */
+  /* Semantic signal — 다크 대비용으로 명도를 올린 값 */
+  --w-success: oklch(0.760 0.180 144);
+  --w-success-subtle: oklch(0.298 0.10 144 / 0.28);
+  --w-danger: oklch(0.715 0.220 27);
+  --w-danger-subtle: oklch(0.298 0.10 22 / 0.32);
+  --w-warning: oklch(0.778 0.158 64);
+  --w-warning-subtle: oklch(0.298 0.10 56 / 0.32);
+
+  /* Borders — 흰색 알파. 다크에서 헤어라인은 이 방식이어야 면이 안 탁해진다. */
+  --w-line-subtle: oklch(1 0 0 / 0.08);
+  --w-line: oklch(1 0 0 / 0.16);
+  --w-line-strong: oklch(1 0 0 / 0.30);
+
+  /* Elevation */
+  --w-shadow-1: 0 1px 2px oklch(0 0 0 / 0.30), 0 1px 3px oklch(0 0 0 / 0.24);
+  --w-shadow-pop: 0 8px 24px oklch(0 0 0 / 0.45);
+}
+
+/* 페이지 바탕의 아주 옅은 대각 그라디언트. 평면이 기본인 시스템이라 **여기 한 곳**에만
+   쓰고, 카드·헤더·CTA 는 전부 평면을 유지한다. */
+body {
+  background-image: linear-gradient(135deg, oklch(0.148 0.004 277) 0%, oklch(0.185 0.006 274) 100%);
+  background-attachment: fixed;
 }
 
 @layer components {
@@ -420,7 +452,7 @@ body {
   .w-chip[data-active="true"] {
     background: var(--w-fg-strong);
     border-color: var(--w-fg-strong);
-    color: #fff;
+    color: var(--w-canvas);   /* 🔴 흰 채움 위라 글자는 캔버스 색이다(라이트에선 흰색) */
     font-weight: 600;
   }
   /* 작은 변형 — 필터 바 안쪽 */
@@ -438,11 +470,11 @@ body {
     line-height: 1;
     white-space: nowrap;
   }
-  .w-badge--neutral { background: oklch(0.929 0.003 286); color: var(--w-fg); }
-  .w-badge--brand { background: var(--w-brand-subtle); color: var(--w-brand); }
-  .w-badge--success { background: var(--w-success-subtle); color: oklch(0.49 0.15 150); }
+  .w-badge--neutral { background: oklch(1 0 0 / 0.10); color: var(--w-fg); }
+  .w-badge--brand { background: var(--w-brand-subtle); color: var(--w-brand-fg); }
+  .w-badge--success { background: var(--w-success-subtle); color: var(--w-success); }
   .w-badge--danger { background: var(--w-danger-subtle); color: var(--w-danger); }
-  .w-badge--warning { background: var(--w-warning-subtle); color: oklch(0.52 0.13 56); }
+  .w-badge--warning { background: var(--w-warning-subtle); color: var(--w-warning); }
   .w-badge--outline { border: 1px solid var(--w-line); color: var(--w-fg-secondary); }
 
   /* 버튼 — solid / outlined / assistive 세 가지면 이 사이트엔 충분하다. */
@@ -466,7 +498,7 @@ body {
   .w-btn--outlined { border: 1px solid var(--w-line); background: var(--w-surface); color: var(--w-fg); }
   .w-btn--outlined:hover { background: var(--w-muted); }
   .w-btn--assistive { background: var(--w-muted); color: var(--w-fg); }
-  .w-btn--assistive:hover { background: oklch(0.929 0.003 286); }
+  .w-btn--assistive:hover { background: oklch(1 0 0 / 0.14); }
 
   /* 포커스 — 링 하나로 통일(원티드: 1px 보더 + 3px 글로우) */
   .w-focus:focus-visible {

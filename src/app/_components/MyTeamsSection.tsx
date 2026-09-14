@@ -106,9 +106,9 @@ export function MyTeamsSection({
   if (rows.length === 0) return null;
 
   return (
-    <section className="mb-5 sm:mb-6 rounded-xl border border-amber-500/25 bg-amber-500/[0.04] p-3 sm:p-4">
+    <section className="mb-5 sm:mb-6 rounded-xl border border-line bg-muted/[0.04] p-3 sm:p-4">
       <div className="mb-2.5 flex items-center justify-between gap-2">
-        <h2 className="flex items-center gap-1.5 text-sm font-semibold text-amber-300/90">
+        <h2 className="flex items-center gap-1.5 text-label1 font-semibold text-fg-secondary">
           <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
             <path d="M12 3.6l2.6 5.27 5.82.85-4.21 4.1.99 5.79L12 16.88l-5.2 2.73.99-5.79-4.21-4.1 5.82-.85L12 3.6z" />
           </svg>
@@ -137,13 +137,13 @@ export function MyTeamsSection({
                   aria-label={`${r.teamName} 다음 경기 상세 보기`}
                 />
                 <div className="pointer-events-none relative z-10 flex min-w-0 flex-1 flex-col gap-0.5">
-                  <div className="flex min-w-0 items-baseline gap-1.5 text-[13px] sm:text-sm">
+                  <div className="flex min-w-0 items-baseline gap-1.5 text-[13px] sm:text-label1">
                     <span className="shrink-0 font-semibold text-fg-strong">{r.teamName}</span>
                     <span className="truncate text-fg-secondary">
                       vs {opponentOf(r.game, r.teamName)}
                     </span>
                   </div>
-                  <div className="flex min-w-0 items-center gap-1.5 text-[11px] text-fg-tertiary">
+                  <div className="flex min-w-0 items-center gap-1.5 text-caption2 text-fg-tertiary">
                     {/* 🔴 `font-mono` 금지. 이 문자열엔 한글이 들어간다("9월 4일 (금) 18:15").
                         Tailwind 기본 mono 스택(Consolas·Menlo…)엔 **한글 글리프가 없어서**
                         숫자는 Consolas, 한글은 시스템 폰트로 한 문자열 안에서 갈렸다
@@ -164,9 +164,9 @@ export function MyTeamsSection({
                 </div>
               </>
             ) : (
-              <div className="flex min-w-0 flex-1 items-baseline gap-2 text-[13px] sm:text-sm">
+              <div className="flex min-w-0 flex-1 items-baseline gap-2 text-[13px] sm:text-label1">
                 <span className="shrink-0 font-semibold text-fg-strong">{r.teamName}</span>
-                <span className="truncate text-[11px] text-fg-tertiary">
+                <span className="truncate text-caption2 text-fg-tertiary">
                   이번 주 편성 없음
                 </span>
               </div>
@@ -179,7 +179,7 @@ export function MyTeamsSection({
           없어서, 팀을 고른 **바로 그 자리**에 둔다. 미지원 환경(VAPID 미설정, 아이폰
           미설치, 인앱 웹뷰)에서는 컴포넌트가 스스로 숨는다.
           켠 뒤에도 이 자리에 "알림 켜짐" 이 남는다 — 상태를 푸터에만 두면 아무도 못 본다. */}
-      <div className="mt-2.5 flex justify-end text-[11px] text-fg-secondary">
+      <div className="mt-2.5 flex justify-end text-caption2 text-fg-secondary">
         <PushSubscribeButton ctaOnly />
       </div>
     </section>
@@ -223,7 +223,7 @@ function Countdown({ target }: { target: Schedule }) {
   // 아니라 `tabular-nums` 가 하는 일이다 — 이미 붙어 있었다.
   return (
     <span
-      className="shrink-0 text-[11px] sm:text-xs tabular-nums text-amber-200/80"
+      className="shrink-0 text-caption2 sm:text-caption1 tabular-nums text-fg-secondary"
       aria-label="다음 경기까지 남은 시간"
     >
       {d > 0 ? `${d}일 ` : ""}

@@ -8,11 +8,11 @@ type Props = {
 export default function LeagueGuideSection({ guide, display }: Props) {
   return (
     <section className="mb-6 rounded-xl border border-line bg-surface p-4 sm:p-5">
-      <h2 className="text-base sm:text-lg font-semibold text-fg-strong mb-4">
+      <h2 className="text-body1 sm:text-headline1 font-semibold text-fg-strong mb-4">
         {display} 시청 가이드
       </h2>
 
-      <dl className="space-y-3 text-sm">
+      <dl className="space-y-3 text-label1">
         {guide.season && (
           <div className="flex gap-3">
             <dt className="text-fg-tertiary shrink-0 w-20 sm:w-24">시즌</dt>
@@ -47,12 +47,12 @@ export default function LeagueGuideSection({ guide, display }: Props) {
 
       {guide.highlights && guide.highlights.length > 0 && (
         <div className="mt-4 pt-3 border-t border-line-subtle">
-          <p className="text-xs text-fg-tertiary mb-2">관전 포인트</p>
+          <p className="text-caption1 text-fg-tertiary mb-2">관전 포인트</p>
           <ul className="space-y-1">
             {guide.highlights.map((h, i) => (
               <li
                 key={i}
-                className="text-xs sm:text-sm text-fg-secondary flex items-start gap-1.5"
+                className="text-caption1 sm:text-label1 text-fg-secondary flex items-start gap-1.5"
               >
                 <span className="text-fg-tertiary mt-0.5">•</span>
                 {h}

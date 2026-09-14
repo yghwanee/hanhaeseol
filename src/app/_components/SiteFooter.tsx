@@ -41,10 +41,10 @@ export function SiteFooter() {
       <div className="mx-auto max-w-2xl">
         <nav
           aria-label="사이트 메뉴"
-          className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-sm text-fg-secondary"
+          className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-label1 text-fg-secondary"
         >
           {MENU.map((m) => (
-            <Link key={m.href} href={m.href} className="hover:text-fg-strong">
+            <Link key={m.href} href={m.href} className="-my-2 inline-block py-2 hover:text-fg-strong">
               {m.label}
             </Link>
           ))}
@@ -59,10 +59,10 @@ export function SiteFooter() {
          *  haeseol.com 라이브 HTML 에 "chaeun" 문자열 0회). 이 줄이 유일한 발견 경로다.
          *  배너를 손보더라도 이 링크는 지우지 말 것.
          *  fadeby 도 같은 이유로 여기 있다 — 그쪽은 배너조차 없었다. */}
-        <p className="mt-6 text-center text-xs leading-relaxed text-fg-tertiary">
+        <p className="mt-6 text-center text-caption1 leading-relaxed text-fg-tertiary">
           <a
             href="https://chaeun.haeseol.com"
-            className="text-fg-secondary underline underline-offset-2 hover:text-fg-strong"
+            className="-my-2 inline-block py-2 text-fg-secondary underline underline-offset-2 hover:text-fg-strong"
           >
             채운 彩運
           </a>
@@ -70,7 +70,7 @@ export function SiteFooter() {
           <br />
           <a
             href="https://fadeby.haeseol.com"
-            className="text-fg-secondary underline underline-offset-2 hover:text-fg-strong"
+            className="-my-2 inline-block py-2 text-fg-secondary underline underline-offset-2 hover:text-fg-strong"
           >
             fadeby
           </a>
@@ -79,18 +79,19 @@ export function SiteFooter() {
           {"같은 사람이 만든 자매 사이트입니다."}
         </p>
 
-        <p className="mt-6 border-t border-line-subtle pt-5 text-xs leading-relaxed text-fg-tertiary">
+        <p className="mt-6 border-t border-line-subtle pt-5 text-caption1 leading-relaxed text-fg-tertiary">
           편성표 데이터는 각 플랫폼의 공식 편성 정보를 기반으로 매일 자동 수집되며, 실시간 편성
           변경이나 우천 취소 등은 반영이 지연될 수 있습니다. 오류 제보·문의는{" "}
           <a
             href="mailto:yghwanee@gmail.com"
-            className="text-fg underline underline-offset-2"
+            
+            className="-my-2 inline-block py-2 text-fg underline underline-offset-2"
           >
             yghwanee@gmail.com
           </a>
           으로 연락해주세요.
         </p>
-        <p className="mt-3 text-xs text-fg-tertiary">© 2026 한해설</p>
+        <p className="mt-3 text-caption1 text-fg-tertiary">© 2026 한해설</p>
       </div>
     </footer>
   );

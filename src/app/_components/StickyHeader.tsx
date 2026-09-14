@@ -32,7 +32,7 @@ export function StickyHeader({
           backdropFilter: "blur(6px)",
           WebkitBackdropFilter: "blur(6px)",
           backgroundImage:
-            "linear-gradient(to bottom, rgba(247,247,248,0.92) 0%, rgba(247,247,248,0.72) 70%, rgba(247,247,248,0) 100%)",
+            "linear-gradient(to bottom, rgba(27,28,32,0.92) 0%, rgba(27,28,32,0.72) 70%, rgba(27,28,32,0) 100%)",
           maskImage:
             "linear-gradient(to bottom, black 0%, black 85%, transparent 100%)",
           WebkitMaskImage:

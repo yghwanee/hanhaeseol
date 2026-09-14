@@ -22,15 +22,15 @@ function PlayerRow({ p, align }: { p: LineupPlayer; align: "left" | "right" }) {
   const badges = (
     <>
       {p.goal > 0 && <span aria-hidden>⚽{p.goal > 1 ? `×${p.goal}` : ""}</span>}
-      {p.card === 1 && <span aria-hidden className="text-yellow-400">🟨</span>}
-      {p.card >= 2 && <span aria-hidden className="text-rose-500">🟥</span>}
+      {p.card === 1 && <span aria-hidden className="text-fg-secondary">🟨</span>}
+      {p.card >= 2 && <span aria-hidden className="text-fg-danger">🟥</span>}
     </>
   );
   return (
     <div
       className={`flex items-center gap-1.5 ${align === "right" ? "flex-row-reverse text-right" : "text-left"}`}
     >
-      <span className="inline-block min-w-[1.5rem] shrink-0 font-mono text-[10px] text-fg-tertiary">
+      <span className="inline-block min-w-[1.5rem] shrink-0 font-mono text-caption2 text-fg-tertiary">
         {p.number ?? "-"}
       </span>
       <span className="truncate text-fg-strong">{p.name}</span>
@@ -53,16 +53,16 @@ function TeamColumn({
       <div
         className={`mb-2 flex items-baseline gap-2 ${align === "right" ? "flex-row-reverse" : ""}`}
       >
-        <span className="truncate text-sm font-semibold text-white">{label}</span>
+        <span className="truncate text-label1 font-semibold text-fg-strong">{label}</span>
         {team.formation && (
-          <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] text-emerald-400">
+          <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 font-mono text-caption2 text-fg-brand-bright">
             {team.formation}
           </span>
         )}
       </div>
       <div className="space-y-2">
         {team.lines.map((line, i) => (
-          <div key={i} className="space-y-0.5 text-[11px] sm:text-xs">
+          <div key={i} className="space-y-0.5 text-caption2 sm:text-caption1">
             {line.map((p, j) => (
               <PlayerRow key={j} p={p} align={align} />
             ))}
@@ -112,20 +112,20 @@ export function MatchLineup({
 
   return (
     <section className="mt-6 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
-      <h2 className="mb-3 text-sm font-semibold text-white sm:text-base">선발 라인업</h2>
+      <h2 className="mb-3 text-label1 font-semibold text-fg-strong sm:text-headline1">선발 라인업</h2>
       <div className="grid grid-cols-2 gap-x-4 sm:gap-x-8">
         {data.home ? (
           <TeamColumn team={data.home} label={homeTeam} align="left" />
         ) : (
-          <div className="text-xs text-fg-secondary">정보 없음</div>
+          <div className="text-caption1 text-fg-secondary">정보 없음</div>
         )}
         {data.away ? (
           <TeamColumn team={data.away} label={awayTeam} align="right" />
         ) : (
-          <div className="text-xs text-fg-secondary">정보 없음</div>
+          <div className="text-caption1 text-fg-secondary">정보 없음</div>
         )}
       </div>
-      <p className="mt-3 text-[10px] text-fg-secondary">출처: 네이버 스포츠 · 교체 시 갱신</p>
+      <p className="mt-3 text-caption2 text-fg-secondary">출처: 네이버 스포츠 · 교체 시 갱신</p>
     </section>
   );
 }

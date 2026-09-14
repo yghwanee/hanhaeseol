@@ -26,7 +26,7 @@ export default function FaqSection({ title = "자주 묻는 질문", faqs }: Pro
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <h2 className="text-base sm:text-lg font-semibold text-fg-strong">{title}</h2>
+      <h2 className="text-body1 sm:text-headline1 font-semibold text-fg-strong">{title}</h2>
       <div className="mt-4 divide-y divide-line-subtle">
         {faqs.map(({ q, a }) => (
           <AccordionItem key={q} question={q}>

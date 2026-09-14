@@ -159,7 +159,7 @@ export function StandingsView({
     <div>
       {/* 페이지 제목 + 종목 탭 (한 줄) */}
       <div className="mb-6 flex flex-wrap items-center gap-x-3 gap-y-2 sm:mb-8">
-        <h1 className="text-2xl font-bold text-white sm:text-3xl">팀 순위</h1>
+        <h1 className="text-title3 font-bold text-fg-strong sm:text-title2">팀 순위</h1>
         <SmoothTabs<SportKey>
           ariaLabel="종목 선택"
           options={SPORTS.map((s) => ({ value: s.key, label: s.label }))}
@@ -193,19 +193,19 @@ export function StandingsView({
                   <div
                     data-circle
                     className={`flex h-14 w-14 items-center justify-center rounded-full transition-all duration-200 ${
-                      active ? "scale-105 bg-muted" : "scale-100 bg-muted"
+                      active ? "scale-105 bg-fg-strong" : "scale-100 bg-muted ring-1 ring-line-subtle"
                     }`}
                   >
                     <span
                       className={`font-bold tracking-tight ${
-                        short.length >= 4 ? "text-[10px]" : "text-[12px]"
-                      } ${active ? "text-fg-disabled" : "text-fg-strong"}`}
+                        short.length >= 4 ? "text-caption2" : "text-[12px]"
+                      } ${active ? "text-canvas" : "text-fg-secondary"}`}
                     >
                       {short}
                     </span>
                   </div>
                   <span
-                    className={`text-[10px] sm:text-[11px] font-medium transition-colors whitespace-nowrap ${
+                    className={`text-caption2 sm:text-caption2 font-medium transition-colors whitespace-nowrap ${
                       active ? "text-fg-strong" : "text-fg-tertiary"
                     }`}
                   >
@@ -252,17 +252,17 @@ export function StandingsView({
         <div key={`${sport}|${current.id}`} className="tab-content-anim">
           <div className="mt-6 flex flex-wrap items-end justify-between gap-3">
             <div>
-              <h2 className="text-xl font-bold text-white sm:text-2xl">
+              <h2 className="text-heading1 font-bold text-fg-strong sm:text-title3">
                 {current.name} 순위
               </h2>
-              <p className="mt-1 text-xs text-fg-tertiary">
+              <p className="mt-1 text-caption1 text-fg-tertiary">
                 {current.teams.length}개 팀
               </p>
             </div>
             {current.scheduleSlug && (
               <Link
                 href={`/league/${current.scheduleSlug}`}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-emerald-500/30 bg-emerald-500/5 px-3 py-2 text-xs font-semibold text-emerald-400 transition-colors hover:border-emerald-500/60 hover:bg-emerald-500/10 sm:text-sm"
+                className="-my-2 inline-block py-2 inline-flex items-center gap-1.5 rounded-lg border border-brand/40 bg-brand-subtle px-3 py-2 text-caption1 font-semibold text-fg-brand-bright transition-colors hover:border-brand/40 hover:bg-brand-subtle sm:text-label1"
               >
                 {current.name} 한국어 해설 편성표 →
               </Link>

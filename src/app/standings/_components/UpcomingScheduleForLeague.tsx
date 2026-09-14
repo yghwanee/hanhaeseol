@@ -54,26 +54,26 @@ export default function UpcomingScheduleForLeague({
   return (
     <section className="mt-8 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
       <div className="mb-3 flex items-center justify-between gap-2">
-        <h2 className="text-base font-semibold text-white sm:text-lg">
+        <h2 className="text-headline1 font-semibold text-fg-strong sm:text-heading2">
           이번 주 {display} 한국어 해설 중계 일정
         </h2>
         <Link
           href={`/league/${scheduleSlug}`}
-          className="shrink-0 whitespace-nowrap text-xs font-semibold text-emerald-400 hover:text-emerald-300 sm:text-sm"
+          className="-my-2 inline-block py-2 shrink-0 whitespace-nowrap text-caption1 font-semibold text-fg-brand-bright hover:text-fg-brand-bright sm:text-label1"
         >
           전체 편성표 →
         </Link>
       </div>
 
       {dates.length === 0 ? (
-        <p className="rounded-lg border border-line-subtle bg-surface p-4 text-center text-sm text-fg-secondary">
+        <p className="rounded-lg border border-line-subtle bg-surface p-4 text-center text-label1 text-fg-secondary">
           이번 주 예정된 {display} 경기가 없습니다.
         </p>
       ) : (
         <div className="space-y-4">
           {dates.map((date) => (
             <div key={date}>
-              <h3 className="mb-2 text-xs font-semibold text-fg-secondary sm:text-sm">
+              <h3 className="mb-2 text-caption1 font-semibold text-fg-secondary sm:text-label1">
                 {formatDateHeader(date)}
               </h3>
               <ul className="space-y-1.5">
@@ -83,7 +83,7 @@ export default function UpcomingScheduleForLeague({
                       href={`/match/${matchToSlug(s)}`}
                       className="flex items-center justify-between gap-2 rounded-lg border border-line-subtle bg-surface px-3 py-2 transition-colors hover:border-line hover:bg-surface"
                     >
-                      <div className="flex min-w-0 items-baseline gap-2 text-xs sm:text-sm">
+                      <div className="flex min-w-0 items-baseline gap-2 text-caption1 sm:text-label1">
                         <span className="shrink-0 font-mono font-semibold text-fg-strong">
                           {s.time}
                         </span>
@@ -93,7 +93,7 @@ export default function UpcomingScheduleForLeague({
                             : s.homeTeam}
                         </span>
                       </div>
-                      <span className="shrink-0 text-[11px] text-fg-tertiary sm:text-xs">
+                      <span className="shrink-0 text-caption2 text-fg-tertiary sm:text-caption1">
                         {s.platform}
                       </span>
                     </Link>

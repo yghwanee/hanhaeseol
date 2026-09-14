@@ -23,29 +23,29 @@ export function AsianGamesBanner({ today, href = "/asian-games" }: { today: stri
   const badge =
     phase === "live" ? (
       <div className="shrink-0 rounded-lg bg-white px-2.5 py-1 text-center text-[#08142b]">
-        <div className="text-[9px] font-bold leading-none tracking-wider sm:text-[10px]">개최 중</div>
-        <div className="mt-0.5 text-[13px] font-extrabold leading-none sm:text-base">메달 순위</div>
+        <div className="text-caption2 font-bold leading-none tracking-wider sm:text-caption2">개최 중</div>
+        <div className="mt-0.5 text-[13px] font-extrabold leading-none sm:text-body1">메달 순위</div>
       </div>
     ) : phase === "closed" ? (
       <div className="shrink-0 rounded-lg bg-white px-2.5 py-1 text-center text-[#08142b]">
-        <div className="text-[13px] font-extrabold leading-none sm:text-sm">최종 순위</div>
+        <div className="text-[13px] font-extrabold leading-none sm:text-label1">최종 순위</div>
       </div>
     ) : (
       <div className="shrink-0 rounded-lg bg-white px-2.5 py-1 text-center sm:px-3">
-        <div className="text-[8px] font-bold leading-none tracking-wider text-[#08142b]/70 sm:text-[10px]">
+        <div className="text-caption2 font-bold leading-none tracking-wider text-[#08142b]/70 sm:text-caption2">
           {phase === "prelim" ? "예선 진행 · 개막" : "개막까지"}
         </div>
-        <div className="mt-0.5 text-base font-extrabold leading-none text-[#08142b] sm:text-xl">D-{dday}</div>
+        <div className="mt-0.5 text-body1 font-extrabold leading-none text-[#08142b] sm:text-heading2">D-{dday}</div>
       </div>
     );
 
   return (
     <Link href={href} aria-label="아이치·나고야 아시안게임 메달 순위와 한국 경기 일정 보기" className="group block">
       <div
-        className="relative mb-5 h-[72px] overflow-hidden rounded-xl border border-sky-400/20 bg-gradient-to-br from-[#08142b] via-[#10305c] to-[#08142b] ring-1 ring-inset ring-sky-300/10 transition-[filter] group-hover:brightness-110 sm:mb-6 sm:h-[92px]"
+        className="relative mb-5 h-[72px] overflow-hidden rounded-xl border border-brand/40 bg-gradient-to-br from-[#08142b] via-[#10305c] to-[#08142b] ring-1 ring-inset ring-brand/40 transition-[filter] group-hover:brightness-110 sm:mb-6 sm:h-[92px]"
         style={{ position: "relative", overflow: "hidden" }}
       >
-        <div className="absolute right-0 top-0 h-full w-[120px] sm:w-[180px]">
+        <div className="absolute right-0 top-0 h-full w-[104px] sm:w-[180px]">
           <Image
             src="/asian-games-hero.jpg"
             alt=""
@@ -60,15 +60,15 @@ export function AsianGamesBanner({ today, href = "/asian-games" }: { today: stri
         <div className="relative flex h-full items-center px-3 sm:px-5">
           {badge}
           <div className="min-w-0 flex-1 px-1 text-center">
-            <p className="whitespace-nowrap text-[8px] font-bold tracking-[0.14em] text-amber-300 drop-shadow sm:text-[10px]">
+            <p className="hidden whitespace-nowrap text-caption2 font-bold tracking-[0.14em] text-fg-strong/70 drop-shadow sm:block">
               AICHI-NAGOYA 2026
             </p>
-            <h2 className="text-sm font-extrabold leading-tight tracking-tight text-white drop-shadow sm:text-xl">아시안게임</h2>
-            <p className="whitespace-nowrap text-[8px] font-medium leading-tight text-sky-200/80 sm:text-[10px]">
+            <h2 className="text-label1 font-extrabold leading-tight tracking-tight text-fg-strong drop-shadow sm:text-heading2">아시안게임</h2>
+            <p className="text-caption2 font-medium leading-tight text-fg-brand-bright">
               메달 순위 · 한국 경기 일정 ›
             </p>
           </div>
-          <div className="w-[120px] shrink-0 sm:w-[180px]" aria-hidden />
+          <div className="w-[104px] shrink-0 sm:w-[180px]" aria-hidden />
         </div>
       </div>
     </Link>

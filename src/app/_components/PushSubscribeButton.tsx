@@ -235,7 +235,7 @@ export function PushSubscribeButton({
     return (
       <span className="inline-flex items-center gap-2">
         <Toggle on onClick={unsubscribe} />
-        <span className="text-emerald-400/70">
+        <span className="text-fg-brand-bright">
           {follows.length > 0 ? `내 팀 ${follows.length}개` : "팀을 찜하면 알림이 옵니다"}
         </span>
       </span>
@@ -289,7 +289,7 @@ function Toggle({
       aria-label={on ? "경기 알림 끄기" : "경기 알림 받기"}
       className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-[3px] transition-colors disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-400 ${
         on
-          ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:border-emerald-400/60"
+          ? "border-brand/40 bg-brand-subtle text-fg-brand-bright hover:border-brand/40"
           : "border-line text-fg-secondary hover:border-line-strong hover:text-fg-strong"
       }`}
     >
@@ -300,7 +300,7 @@ function Toggle({
       {/* 스위치 — 글자를 안 읽어도 상태가 보인다 */}
       <span
         className={`ml-0.5 flex h-3 w-5 shrink-0 items-center rounded-full px-[2px] transition-colors ${
-          on ? "bg-emerald-500/70" : "bg-muted"
+          on ? "bg-brand-subtle" : "bg-muted"
         }`}
         aria-hidden
       >

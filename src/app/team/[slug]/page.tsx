@@ -128,7 +128,7 @@ function GameList({
     <div className="space-y-4">
       {days.map((d) => (
         <div key={d.date}>
-          <p className="mb-1.5 px-1 text-xs font-medium text-fg-secondary">{formatDate(d.date)}</p>
+          <p className="mb-1.5 px-1 text-caption1 font-medium text-fg-secondary">{formatDate(d.date)}</p>
           <div className="space-y-2">
             {d.items.map((g) => (
               <ScheduleCard
@@ -268,13 +268,13 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
         dangerouslySetInnerHTML={{ __html: breadcrumbLd }}
       />
 
-      <main className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-8">
-        <nav className="mb-4 text-xs text-fg-tertiary sm:text-sm">
-          <Link href="/" className="hover:text-fg">
+      <main className="mx-auto w-full max-w-[1100px] px-5 sm:px-6 py-6 sm:py-8">
+        <nav className="mb-4 text-caption1 text-fg-tertiary sm:text-label1">
+          <Link href="/" className="-my-2 inline-block py-2 hover:text-fg">
             편성표
           </Link>
           <span className="px-1.5">›</span>
-          <Link href={`/league/${team.leagueSlug}`} className="hover:text-fg">
+          <Link href={`/league/${team.leagueSlug}`} className="-my-2 inline-block py-2 hover:text-fg">
             {team.leagueName}
           </Link>
           <span className="px-1.5">›</span>
@@ -293,10 +293,10 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
             />
           )}
           <div>
-            <h1 className="text-xl font-bold text-white sm:text-2xl">
+            <h1 className="text-heading1 font-bold text-fg-strong sm:text-title3">
               {full} 경기 중계
             </h1>
-            <p className="mt-1 text-sm text-fg-secondary">
+            <p className="mt-1 text-label1 text-fg-secondary">
               {team.leagueName} {team.rank}위 · {team.win}승 {team.draw > 0 ? `${team.draw}무 ` : ""}
               {team.lose}패
               {typeof team.winRate === "number" && ` · 승률 ${team.winRate.toFixed(3)}`}
@@ -306,15 +306,15 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
         </header>
 
         <section className="mt-6 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
-          <h2 className="text-sm font-semibold text-white sm:text-base">
+          <h2 className="text-label1 font-semibold text-fg-strong sm:text-headline1">
             {full} 경기, 어디서 보나
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-fg">
+          <p className="mt-2 text-label1 leading-relaxed text-fg">
             {platforms.length > 0 ? (
               <>
                 최근 편성 기준으로 {full}
                 {showsShort && `(${team.name})`} 경기는{" "}
-                <strong className="text-white">{platforms.slice(0, 3).join(", ")}</strong>
+                <strong className="text-fg-strong">{platforms.slice(0, 3).join(", ")}</strong>
                 에서 중계됩니다.{" "}
                 {ratio.korean === ratio.total
                   ? "확인된 경기는 모두 한국어 해설로 제공됩니다."
@@ -326,7 +326,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
               <>{full} 경기의 국내 중계 편성이 아직 확인되지 않았습니다.</>
             )}
           </p>
-          <p className="mt-2 text-sm text-fg-secondary">
+          <p className="mt-2 text-label1 text-fg-secondary">
             {[
               standingContext(team, all.find((t) => t.leagueSlug === team.leagueSlug && t.rank === 1)),
               recentFormText(team.lastFive),
@@ -364,8 +364,8 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
                 key={stat.label}
                 className="rounded-lg border border-line-subtle bg-subtle px-3 py-2.5 text-center"
               >
-                <p className="text-[11px] text-fg-tertiary">{stat.label}</p>
-                <p className="mt-0.5 text-base font-bold text-white sm:text-lg">{stat.value}</p>
+                <p className="text-caption2 text-fg-tertiary">{stat.label}</p>
+                <p className="mt-0.5 text-body1 font-bold text-fg-strong sm:text-headline1">{stat.value}</p>
               </div>
             ))}
         </section>
@@ -376,16 +376,16 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
             {homeAway.home.win + homeAway.home.lose + homeAway.away.win + homeAway.away.lose >
               0 && (
               <div className="rounded-xl border border-line-subtle bg-subtle p-4">
-                <h2 className="text-sm font-semibold text-white">홈·원정 성적</h2>
-                <p className="mt-2 text-sm text-fg">
+                <h2 className="text-label1 font-semibold text-fg-strong">홈·원정 성적</h2>
+                <p className="mt-2 text-label1 text-fg">
                   홈 {homeAway.home.win}승
                   {homeAway.home.draw > 0 && ` ${homeAway.home.draw}무`} {homeAway.home.lose}패
                 </p>
-                <p className="mt-1 text-sm text-fg">
+                <p className="mt-1 text-label1 text-fg">
                   원정 {homeAway.away.win}승
                   {homeAway.away.draw > 0 && ` ${homeAway.away.draw}무`} {homeAway.away.lose}패
                 </p>
-                <p className="mt-2 text-xs text-fg-tertiary">한해설이 수집한 결과 기준</p>
+                <p className="mt-2 text-caption1 text-fg-tertiary">한해설이 수집한 결과 기준</p>
               </div>
             )}
 
@@ -395,12 +395,12 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 
         {nearby.length > 1 && (
           <section className="mt-4 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
-            <h2 className="text-sm font-semibold text-white sm:text-base">
+            <h2 className="text-label1 font-semibold text-fg-strong sm:text-headline1">
               {team.leagueName} 순위표
             </h2>
-            <table className="mt-3 w-full text-sm">
+            <table className="mt-3 w-full text-label1">
               <thead>
-                <tr className="text-left text-xs text-fg-tertiary">
+                <tr className="text-left text-caption1 text-fg-tertiary">
                   <th className="pb-1.5 font-normal">순위</th>
                   <th className="pb-1.5 font-normal">팀</th>
                   <th className="pb-1.5 text-right font-normal">전적</th>
@@ -413,7 +413,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
                 {nearby.map((t) => {
                   const me = t.slug === team.slug;
                   return (
-                    <tr key={t.slug} className={me ? "text-white" : "text-fg-secondary"}>
+                    <tr key={t.slug} className={me ? "text-fg-strong" : "text-fg-secondary"}>
                       <td className="py-1 tabular-nums">{t.rank}</td>
                       <td className="py-1">
                         {me ? (
@@ -421,7 +421,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
                         ) : (
                           <Link
                             href={`/team/${encodeURIComponent(t.slug)}`}
-                            className="hover:text-fg-strong"
+                            className="-mx-1.5 -my-2 inline-block min-w-[28px] px-1.5 py-2 hover:text-fg-strong"
                           >
                             {t.name}
                           </Link>
@@ -443,8 +443,8 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
                 })}
               </tbody>
             </table>
-            <p className="mt-2 text-xs text-fg-tertiary">
-              <Link href={`/standings/${team.leagueSlug}`} className="hover:text-fg">
+            <p className="mt-2 text-caption1 text-fg-tertiary">
+              <Link href={`/standings/${team.leagueSlug}`} className="-my-2 inline-block py-2 hover:text-fg">
                 {team.leagueName} 전체 순위 보기
               </Link>
             </p>
@@ -453,7 +453,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 
         {upcoming.length > 0 && (
           <section className="mt-4">
-            <h2 className="mb-2 px-1 text-sm font-semibold text-white sm:text-base">
+            <h2 className="mb-2 px-1 text-label1 font-semibold text-fg-strong sm:text-headline1">
               다음 경기 일정
             </h2>
             <GameList games={upcoming} recordFor={recordFor} resultFor={resultFor} />
@@ -462,7 +462,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 
         {recent.length > 0 && (
           <section className="mt-5">
-            <h2 className="mb-2 px-1 text-sm font-semibold text-white sm:text-base">
+            <h2 className="mb-2 px-1 text-label1 font-semibold text-fg-strong sm:text-headline1">
               최근 경기 결과
             </h2>
             <GameList games={recent} recordFor={recordFor} resultFor={resultFor} />
@@ -471,7 +471,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 
         {siblings.length > 0 && (
           <section className="mt-4 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
-            <h2 className="text-sm font-semibold text-white sm:text-base">
+            <h2 className="text-label1 font-semibold text-fg-strong sm:text-headline1">
               {team.leagueName} 다른 팀
             </h2>
             <div className="mt-3 flex flex-wrap gap-2">
@@ -479,14 +479,14 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
                 <Link
                   key={t.slug}
                   href={`/team/${encodeURIComponent(t.slug)}`}
-                  className="rounded-full border border-line-subtle px-3 py-1.5 text-xs text-fg hover:border-line hover:text-fg-strong"
+                  className="w-chip w-chip--sm"
                 >
                   {t.rank}. {t.name}
                 </Link>
               ))}
             </div>
-            <p className="mt-3 text-xs text-fg-tertiary">
-              <Link href={`/league/${team.leagueSlug}`} className="hover:text-fg">
+            <p className="mt-3 text-caption1 text-fg-tertiary">
+              <Link href={`/league/${team.leagueSlug}`} className="-my-2 inline-block py-2 hover:text-fg">
                 {team.leagueName} 전체 편성표 보기
               </Link>
             </p>

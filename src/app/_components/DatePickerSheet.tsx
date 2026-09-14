@@ -207,7 +207,7 @@ export function DatePickerSheet({
 
           {/* 헤더 */}
           <div className="relative flex items-center justify-center border-b border-line-subtle px-4 py-3 sm:py-4">
-            <h2 className="text-base font-bold text-fg-strong">날짜 선택</h2>
+            <h2 className="text-body1 font-bold text-fg-strong">날짜 선택</h2>
             <button
               type="button"
               onClick={onClose}
@@ -254,8 +254,8 @@ export function DatePickerSheet({
             {WEEK_LABELS.map((d, i) => (
               <div
                 key={d}
-                className={`py-1.5 text-center text-[11px] font-medium ${
-                  i === 0 ? "text-fg-danger" : i === 6 ? "text-fg-brand" : "text-fg-tertiary"
+                className={`py-1.5 text-center text-caption2 font-medium ${
+                  i === 0 ? "text-fg-danger" : i === 6 ? "text-fg-brand-bright" : "text-fg-secondary"
                 }`}
               >
                 {d}
@@ -268,7 +268,7 @@ export function DatePickerSheet({
             {grid.map((c, i) => {
               const isSelected = tempSelected === c.iso;
               const baseColor =
-                c.dow === 0 ? "text-fg-danger" : c.dow === 6 ? "text-fg-brand" : "text-fg-strong";
+                c.dow === 0 ? "text-fg-danger" : c.dow === 6 ? "text-fg-brand-bright" : "text-fg-strong";
               return (
                 <button
                   key={i}
@@ -281,9 +281,9 @@ export function DatePickerSheet({
                   }`}
                 >
                   <span
-                    className={`flex h-10 w-10 items-center justify-center rounded-full text-sm transition-colors ${
+                    className={`flex h-10 w-10 items-center justify-center rounded-full text-label1 transition-colors ${
                       isSelected
-                        ? "bg-fg-strong font-semibold text-white"
+                        ? "bg-fg-strong font-semibold text-canvas"
                         : c.disabled
                         ? "text-fg-disabled"
                         : c.inMonth

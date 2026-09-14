@@ -83,10 +83,10 @@ function StatRow({ stat, indent = false }: { stat: CommentaryStat; indent?: bool
         {indent ? `· ${stat.name}` : stat.name}
       </td>
       <td className="py-2 pr-2 text-right tabular-nums text-fg-secondary">{stat.total}</td>
-      <td className="py-2 pr-2 text-right tabular-nums text-emerald-400">{stat.korean}</td>
-      <td className="py-2 pr-2 text-right tabular-nums text-rose-400">{stat.local}</td>
+      <td className="py-2 pr-2 text-right tabular-nums text-fg-brand-bright">{stat.korean}</td>
+      <td className="py-2 pr-2 text-right tabular-nums text-fg-danger">{stat.local}</td>
       <td className="py-2 pr-2 text-right tabular-nums text-fg-tertiary">{stat.unknown || "-"}</td>
-      <td className="py-2 text-right tabular-nums font-semibold text-white">{pct(stat)}</td>
+      <td className="py-2 text-right tabular-nums font-semibold text-fg-strong">{pct(stat)}</td>
     </tr>
   );
 }
@@ -129,16 +129,16 @@ export default function CommentaryStatsPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetLd) }}
       />
-      <main className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12">
+      <main className="relative mx-auto min-h-screen max-w-[1100px] px-5 sm:px-6 pb-8 sm:pb-12">
         <SiteHeader />
 
         <div className="mt-4 sm:mt-6 mb-6">
-          <h1 className="text-xl sm:text-2xl font-bold text-white">
+          <h1 className="text-heading2 sm:text-title3 font-bold text-fg-strong">
             플랫폼별 한국어 해설 비율
           </h1>
           {/* 🔴 첫 문단은 수치를 담은 자기완결 직답으로 쓴다. AI 답변 인용은 문장
               단위로 잡히고, 인용의 상당수가 문서 앞부분에서 나온다. */}
-          <p className="mt-2 text-sm text-fg-secondary leading-relaxed">
+          <p className="mt-2 text-label1 text-fg-secondary leading-relaxed">
             {PERIOD && (
               <>
                 {dot(PERIOD.from)}부터 {dot(PERIOD.to)}까지 한해설이 수집한 중계 편성{" "}
@@ -161,13 +161,13 @@ export default function CommentaryStatsPage() {
         <AdfitBanner className="mb-6" />
 
         <section className="mb-8">
-          <h2 className="mb-3 text-base sm:text-lg font-semibold text-fg-strong">
+          <h2 className="mb-3 text-body1 sm:text-headline1 font-semibold text-fg-strong">
             플랫폼별 집계
           </h2>
           <div className="overflow-x-auto rounded-xl border border-line-subtle bg-surface">
-            <table className="w-full min-w-[520px] text-sm">
+            <table className="w-full min-w-[520px] text-label1">
               <thead>
-                <tr className="text-xs text-fg-tertiary">
+                <tr className="text-caption1 text-fg-tertiary">
                   <th className="py-2 pl-3 pr-2 text-left font-medium">플랫폼 / 리그</th>
                   <th className="py-2 pr-2 text-right font-medium">전체</th>
                   <th className="py-2 pr-2 text-right font-medium">한국어</th>
@@ -183,14 +183,14 @@ export default function CommentaryStatsPage() {
               </tbody>
             </table>
           </div>
-          <p className="mt-2 text-xs text-fg-tertiary">
+          <p className="mt-2 text-caption1 text-fg-tertiary">
             한국어 비율 = 한국어 ÷ (한국어 + 현지). 해설 언어가 확인되지 않은 편성은
             분모에서 뺐습니다.
           </p>
         </section>
 
         <section className="mb-8 space-y-4">
-          <h2 className="text-base sm:text-lg font-semibold text-fg-strong">
+          <h2 className="text-body1 sm:text-headline1 font-semibold text-fg-strong">
             플랫폼 안에서도 리그마다 다릅니다
           </h2>
           {STATS.filter((s) => s.leagues.length > 1).map((s) => {
@@ -200,9 +200,9 @@ export default function CommentaryStatsPage() {
                 key={s.name}
                 className="rounded-xl border border-line-subtle bg-surface p-4"
               >
-                <h3 className="mb-2 text-sm font-semibold text-white">
+                <h3 className="mb-2 text-label1 font-semibold text-fg-strong">
                   {slug ? (
-                    <Link href={`/platform/${slug}`} className="hover:underline">
+                    <Link href={`/platform/${slug}`} className="-my-1.5 inline-block py-1.5 hover:underline">
                       {s.name}
                     </Link>
                   ) : (
@@ -211,7 +211,7 @@ export default function CommentaryStatsPage() {
                   <span className="font-normal text-fg-tertiary">전체 {pct(s)}</span>
                 </h3>
                 <div className="overflow-x-auto">
-                  <table className="w-full min-w-[480px] text-sm">
+                  <table className="w-full min-w-[480px] text-label1">
                     <tbody>
                       {s.leagues.map((l) => (
                         <StatRow key={l.name} stat={l} indent />
@@ -222,15 +222,15 @@ export default function CommentaryStatsPage() {
               </div>
             );
           })}
-          <p className="text-xs text-fg-tertiary">
+          <p className="text-caption1 text-fg-tertiary">
             표본이 {MIN_LEAGUE_SAMPLE}건 미만인 리그는 뺐습니다. 표본이 적으면 0%·100%
             같은 극단값이 쉽게 나와 오해를 부릅니다.
           </p>
         </section>
 
         <section className="mb-8 rounded-xl border border-line-subtle bg-surface p-4">
-          <h2 className="mb-2 text-sm font-semibold text-fg-strong">집계 방법</h2>
-          <ul className="space-y-1.5 text-sm text-fg-secondary leading-relaxed">
+          <h2 className="mb-2 text-label1 font-semibold text-fg-strong">집계 방법</h2>
+          <ul className="space-y-1.5 text-label1 text-fg-secondary leading-relaxed">
             <li>
               · 한해설이 각 플랫폼의 공개 편성 정보를 매일 수집해 쌓은 기록입니다
               {PERIOD && ` (${dot(PERIOD.from)}~${dot(PERIOD.to)})`}.
@@ -250,20 +250,20 @@ export default function CommentaryStatsPage() {
         </section>
 
         <section className="mb-8 rounded-xl border border-line-subtle bg-surface p-4">
-          <h2 className="mb-3 text-sm font-semibold text-fg-strong">플랫폼별 편성표 보기</h2>
+          <h2 className="mb-3 text-label1 font-semibold text-fg-strong">플랫폼별 편성표 보기</h2>
           <div className="flex flex-wrap gap-1.5">
             {PLATFORM_SEO.map((p) => (
               <Link
                 key={p.slug}
                 href={`/platform/${p.slug}`}
-                className="inline-flex items-center rounded-lg border border-line bg-muted px-2.5 py-1 text-xs text-fg hover:bg-muted hover:text-fg-strong"
+                className="w-chip w-chip--sm"
               >
                 {p.display}
               </Link>
             ))}
           </div>
-          <p className="mt-3 text-xs text-fg-tertiary">
-            <Link href="/commentary" className="text-fg-secondary hover:text-fg-strong hover:underline">
+          <p className="mt-3 text-caption1 text-fg-tertiary">
+            <Link href="/commentary" className="-my-2 inline-block py-2 text-fg-secondary hover:text-fg-strong hover:underline">
               오늘부터 7일간 한국어 해설 경기 보기 →
             </Link>
           </p>

@@ -103,6 +103,7 @@
     "test:shared-env": "tsx --test src/lib/env/shared-env.test.ts",
     "toss:pick": "tsx src/scripts/toss-pick.ts",
     "toss:refresh": "tsx src/scripts/toss-refresh.ts",
+    "design:audit": "node tools/design-audit.mjs",
     "test:toss-picks": "tsx --test src/lib/affiliate/toss-picks.test.ts",
     "post:catchup": "tsx src/scripts/post-catchup.ts",
     "post:plan": "tsx src/scripts/plan-post-channels.ts",

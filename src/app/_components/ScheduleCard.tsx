@@ -109,7 +109,7 @@ function ScheduleCardInner({
   // 위해 카드 본체를 div로 두고 absolute Link를 inset-0으로 깐다. PlatformBadge Link는
   // z-index를 더 올려서 위에 떠 있게 두면 클릭 우선순위가 잡힌다.
   return (
-    <div className="w-card w-card-hover relative cursor-pointer p-3 pb-6 sm:p-4 sm:pb-8">
+    <div className="w-card w-card-hover relative cursor-pointer p-3.5 sm:p-4">
       <Link
         href={`/match/${matchToSlug(schedule)}`}
         className="absolute inset-0 z-0 rounded-[12px]"
@@ -131,12 +131,15 @@ function ScheduleCardInner({
             </>
           )}
         </div>
+        {/* 🔴 상단 우측은 **경기 상태 하나만** 둔다(LIVE·종료·취소·연기).
+            플랫폼과 해설 여부는 카드 하단 메타 줄로 내렸다 — 원티드 잡카드가
+            회사·지역을 상단에, 채용보상금을 하단 우측에 두는 것과 같은 위계다. */}
         <div className="flex shrink-0 items-center gap-1.5">
-          <PlatformBadge platform={schedule.platform} />
           <StatusBadge
             status={schedule.koreanCommentary}
             finished={isGameFinished(schedule.date, schedule.time, schedule.sport)}
             resultStatus={result?.status}
+            stateOnly
           />
         </div>
       </div>
@@ -215,6 +218,22 @@ function ScheduleCardInner({
       )}
 
       {showGoals && <ScorerLines goals={result!.goals!} />}
+
+      {/* 하단 메타 — 원티드 잡카드의 마지막 줄 구조.
+          좌: 플랫폼(무채색) / 우: **시그너처 값**.
+          잡카드에서 채용보상금이 늘 brand 색으로 우측 하단에 붙어 있듯,
+          이 사이트의 시그너처는 "한국어 해설 여부"다. 그게 서비스의 존재 이유라
+          카드에서 유일하게 색을 갖는 자리로 둔다. */}
+      <div className="pointer-events-none relative z-10 mt-3 flex items-center justify-between gap-2 border-t border-line-subtle pt-2.5">
+        <PlatformBadge platform={schedule.platform} />
+        {schedule.koreanCommentary === true ? (
+          <span className="shrink-0 text-label2 font-semibold text-fg-brand">한국어 해설</span>
+        ) : schedule.koreanCommentary === false ? (
+          <span className="shrink-0 text-label2 font-medium text-fg-tertiary">현지 해설</span>
+        ) : (
+          <span className="shrink-0 text-label2 font-medium text-fg-tertiary">해설 확인 중</span>
+        )}
+      </div>
 
       {showHighlight && (
         <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 flex justify-center">

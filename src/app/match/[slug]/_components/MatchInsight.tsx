@@ -6,22 +6,22 @@ export function MatchInsightSection({ insight }: { insight: MatchInsight }) {
   return (
     <section className="caps-stripe-section mt-6 border border-line-subtle bg-subtle p-5 sm:p-6">
       <header className="mb-4 flex items-center gap-2">
-        <span className="text-sm">✨</span>
-        <h2 className="text-base font-semibold text-white sm:text-lg">
+        <span className="text-label1">✨</span>
+        <h2 className="text-headline1 font-semibold text-fg-strong sm:text-heading2">
           경기 미리보기
         </h2>
       </header>
 
-      <h3 className="text-lg font-bold text-white sm:text-xl">
+      <h3 className="text-headline1 font-bold text-fg-strong sm:text-heading1">
         {sections.headline}
       </h3>
 
-      <div className="mt-4 space-y-4 text-sm leading-relaxed text-fg">
+      <div className="mt-4 space-y-4 text-label1 leading-relaxed text-fg">
         <Block title="최근 폼" body={sections.recentForm} />
         <Block title="핵심 매치업" body={sections.keyMatchup} />
 
         <div>
-          <h4 className="text-xs font-semibold uppercase tracking-wider text-fg-tertiary">
+          <h4 className="text-caption1 font-semibold uppercase tracking-wider text-fg-tertiary">
             관전 포인트
           </h4>
           <ul className="mt-2 space-y-1.5">
@@ -40,7 +40,7 @@ export function MatchInsightSection({ insight }: { insight: MatchInsight }) {
           **AI 보조 콘텐츠에는 과정 공개를 기대한다**고 명시한다. 이 섹션은 편성·기록
           데이터를 근거로 LLM 이 쓴 문장이고 사람이 문장 단위로 손보지 않으므로, 그 사실을
           그대로 적는다. "운영자가 검수합니다" 같은 문구는 실제로 하지 않는 일이라 쓰지 않는다. */}
-      <p className="mt-5 border-t border-line-subtle pt-3 text-xs leading-relaxed text-fg-tertiary">
+      <p className="mt-5 border-t border-line-subtle pt-3 text-caption1 leading-relaxed text-fg-tertiary">
         이 미리보기는 한해설이 수집한 편성·순위·최근 경기 기록을 근거로 AI가 작성한
         자동 생성 문장입니다. 사실관계는 각 리그·플랫폼 공식 발표를 따릅니다.
         {insight.generatedAt && (
@@ -59,7 +59,7 @@ export function MatchInsightSection({ insight }: { insight: MatchInsight }) {
 function Block({ title, body }: { title: string; body: string }) {
   return (
     <div>
-      <h4 className="text-xs font-semibold uppercase tracking-wider text-fg-tertiary">
+      <h4 className="text-caption1 font-semibold uppercase tracking-wider text-fg-tertiary">
         {title}
       </h4>
       <p className="mt-1.5">{body}</p>

@@ -103,11 +103,11 @@ export default function FaqPage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="mx-auto max-w-2xl px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
+      <div className="mx-auto max-w-[720px] px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
         <SiteHeader />
 
-        <h1 className="mt-4 sm:mt-6 mb-2 text-2xl font-bold sm:text-3xl">자주 묻는 질문</h1>
-        <p className="mb-8 text-sm text-fg-secondary">
+        <h1 className="mt-4 sm:mt-6 mb-2 text-title3 font-bold sm:text-title2">자주 묻는 질문</h1>
+        <p className="mb-8 text-label1 text-fg-secondary">
           한국어 해설 중계, 한국어 중계 편성표 이용에 대해 자주 들어오는 질문을 모았습니다.
         </p>
 
@@ -116,19 +116,19 @@ export default function FaqPage() {
         <div className="space-y-6">
           {FAQS.map((faq, i) => (
             <section key={i} className="rounded-lg border border-line-subtle bg-surface p-4 sm:p-5">
-              <h2 className="mb-2 text-base font-semibold text-fg-strong sm:text-lg">
+              <h2 className="mb-2 text-headline1 font-semibold text-fg-strong sm:text-heading2">
                 Q. {faq.question}
               </h2>
-              <p className="text-sm leading-relaxed text-fg sm:text-[15px]">
+              <p className="text-label1 leading-relaxed text-fg sm:text-[15px]">
                 {faq.answer}
               </p>
             </section>
           ))}
         </div>
 
-        <p className="mt-10 text-center text-xs text-fg-tertiary">
+        <p className="mt-10 text-center text-caption1 text-fg-tertiary">
           답변이 충분하지 않다면{" "}
-          <a href="mailto:yghwanee@gmail.com" className="text-blue-400 hover:underline">
+          <a href="mailto:yghwanee@gmail.com" className="text-fg-brand-bright hover:underline">
             yghwanee@gmail.com
           </a>
           으로 문의해 주세요.

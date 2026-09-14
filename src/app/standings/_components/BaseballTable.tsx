@@ -113,7 +113,7 @@ export function BaseballTable({ teams, teamLinks }: { teams: BaseballStanding[];
     <div className="overflow-hidden rounded-xl border border-line-subtle bg-subtle">
       <div className="relative">
         <div ref={scrollerRef} className="overflow-x-auto scrollbar-hide">
-          <table className="w-full min-w-[560px] table-fixed text-[12px] sm:text-sm">
+          <table className="w-full min-w-[560px] table-fixed text-[12px] sm:text-label1">
             <colgroup>
               <col className="w-10 sm:w-12" />
               <col className="w-[110px] sm:w-[170px]" />
@@ -135,7 +135,7 @@ export function BaseballTable({ teams, teamLinks }: { teams: BaseballStanding[];
                   onClick={() => onHeaderClick("rank")}
                   className="sticky left-0 z-20 bg-surface"
                 />
-                <th className="sticky left-10 z-20 whitespace-nowrap bg-surface px-1.5 py-2.5 text-left text-[11px] font-semibold text-fg-secondary sm:left-12 sm:px-2 sm:text-xs">
+                <th className="sticky left-10 z-20 whitespace-nowrap bg-surface px-1.5 py-2.5 text-left text-caption2 font-semibold text-fg-secondary sm:left-12 sm:px-2 sm:text-caption1">
                   팀
                 </th>
                 <Th label="승률" active={sortKey === "winRate"} dir={sortDir} onClick={() => onHeaderClick("winRate")} highlight />
@@ -144,10 +144,10 @@ export function BaseballTable({ teams, teamLinks }: { teams: BaseballStanding[];
                 <Th label="무" active={sortKey === "draw"} dir={sortDir} onClick={() => onHeaderClick("draw")} />
                 <Th label="패" active={sortKey === "lose"} dir={sortDir} onClick={() => onHeaderClick("lose")} />
                 <Th label="게임차" active={sortKey === "gameBehind"} dir={sortDir} onClick={() => onHeaderClick("gameBehind")} />
-                <th className="whitespace-nowrap px-2 py-2.5 text-center text-[11px] font-semibold text-fg-secondary sm:text-xs">
+                <th className="whitespace-nowrap px-2 py-2.5 text-center text-caption2 font-semibold text-fg-secondary sm:text-caption1">
                   최근 5
                 </th>
-                <th className="whitespace-nowrap px-1 py-2.5 text-center text-[11px] font-semibold text-fg-secondary sm:text-xs">
+                <th className="whitespace-nowrap px-1 py-2.5 text-center text-caption2 font-semibold text-fg-secondary sm:text-caption1">
                   연속
                 </th>
               </tr>
@@ -179,7 +179,7 @@ export function BaseballTable({ teams, teamLinks }: { teams: BaseballStanding[];
                       {teamLinks?.[t.teamName] ? (
                         <Link
                           href={teamLinks[t.teamName]}
-                          className="truncate font-medium text-fg-strong hover:text-emerald-400 hover:underline underline-offset-2"
+                          className="-mx-1 -my-2 truncate px-1 py-2 font-medium text-fg-strong hover:text-fg-brand-bright hover:underline underline-offset-2"
                         >
                           {t.teamName}
                         </Link>
@@ -188,7 +188,7 @@ export function BaseballTable({ teams, teamLinks }: { teams: BaseballStanding[];
                       )}
                     </div>
                   </td>
-                  <td className="px-1 py-2 text-center font-bold tabular-nums text-emerald-400">
+                  <td className="px-1 py-2 text-center font-bold tabular-nums text-fg-brand-bright">
                     {t.winRate.toFixed(3)}
                   </td>
                   <td className="px-1 py-2 text-center tabular-nums text-fg">{t.gameCount}</td>
@@ -258,25 +258,25 @@ function Th({
   className?: string;
 }) {
   return (
-    <th className={`whitespace-nowrap text-center align-middle text-[11px] font-semibold sm:text-xs ${className}`}>
+    <th className={`whitespace-nowrap text-center align-middle text-caption2 font-semibold sm:text-caption1 ${className}`}>
       <button
         type="button"
         onClick={onClick}
         className={`flex w-full items-center justify-center gap-0.5 whitespace-nowrap px-1 py-2.5 transition-colors ${
           active
-            ? "text-white"
+            ? "text-fg-strong"
             : highlight
-            ? "text-emerald-300 hover:text-emerald-200"
+            ? "text-fg-brand-bright hover:text-fg-brand-bright"
             : "text-fg-secondary hover:text-fg-strong"
         }`}
       >
         {/* 좌측 invisible spacer: 우측 화살표와 같은 폭을 확보해 라벨을 셀 정중앙으로 */}
-        <span className="text-[10px] leading-none opacity-0" aria-hidden>
+        <span className="text-caption2 leading-none opacity-0" aria-hidden>
           ▲
         </span>
         {label}
         <span
-          className={`text-[10px] leading-none transition-opacity ${
+          className={`text-caption2 leading-none transition-opacity ${
             active ? "opacity-100" : "opacity-0"
           }`}
           aria-hidden

@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useMemo, useEffect, useRef, useCallback, useDeferredValue } from "react";
-import Image from "next/image";
 import Link from "next/link";
 import { Schedule, ScheduleData } from "@/types/schedule";
 import { TeamRecordsMap } from "@/types/team-record";
@@ -12,12 +11,12 @@ import { getUpcomingDates, getTodayString, isGameLive } from "@/lib/schedule-uti
 import { teamKey, isFollowedGame } from "@/lib/follows";
 import { useFollows } from "./_components/use-follows";
 import { MyTeamsSection } from "./_components/MyTeamsSection";
-import { StickyHeader } from "./_components/StickyHeader";
 import { SPORTS, PLATFORM_LIST } from "./_components/constants";
 import { PlatformIcon } from "./_components/PlatformIcon";
 import { SmoothTabs, SmoothCircleTabs } from "./_components/SmoothTabs";
 import { ScheduleCard } from "./_components/ScheduleCard";
 import { AdfitBanner } from "./_components/AdfitBanner";
+import { HomeHero } from "./_components/HomeHero";
 import { TossDealStrip } from "./_components/TossDealStrip";
 import { DatePickerSheet } from "./_components/DatePickerSheet";
 import { EbookBanner } from "./_components/EbookBanner";
@@ -445,55 +444,61 @@ export default function ScheduleClient({
     return icons.join(" ");
   }, [filtered]);
 
+  /**
+   * 히어로에 박히는 수치. 🔴 **필터와 무관하게 "오늘 편성 전체"** 를 센다 —
+   * 필터를 만질 때마다 헤드라인 숫자가 널뛰면 그건 정보가 아니라 소음이다.
+   * 지어낸 값이 아니라 이 페이지가 실제로 들고 있는 데이터에서 나온다.
+   */
+  const heroStats = useMemo(() => {
+    const today = getTodayString();
+    const todays = data.schedules.filter((s) => s.date === today);
+    const [, m, d] = today.split("-");
+    return {
+      total: todays.length,
+      korean: todays.filter((s) => s.koreanCommentary === true).length,
+      platforms: new Set(data.schedules.map((s) => s.platform)).size,
+      dateLabel: `${Number(m)}월 ${Number(d)}일`,
+    };
+  }, [data.schedules]);
+
   const handleSelectSport = useCallback((s: string) => setSport(s), []);
   const handleSelectPlatform = useCallback((p: string) => setPlatform(p), []);
 
   return (
-    <div className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12 xl:max-w-none xl:px-[200px]">
-      <div className="mx-auto max-w-2xl">
-      {/* Header */}
-      <StickyHeader fullBleedXl>
-        <header className="flex items-center justify-between">
-          <h1 className="flex items-end">
-            <Image src="/icon.png" alt="한해설 아이콘" width={32} height={32} className="h-6 w-6 sm:h-8 sm:w-8 self-center" />
-            <span className="ml-1 sm:ml-2 text-heading1 sm:text-title2 font-bold text-fg-strong">한해설</span>
-          </h1>
-          <div className="flex items-center gap-2 sm:gap-4">
-            <Link
-              href="/guide"
-              aria-label="한해설 Topic · 중계 가이드"
-              className="w-btn w-btn--sm w-btn--outlined"
-            >
-              한해설 Topic
-            </Link>
-            <Link
-              href="/standings"
-              aria-label="팀 순위"
-              className="w-btn w-btn--sm w-btn--outlined"
-            >
-              순위 +
-            </Link>
-          </div>
-        </header>
-      </StickyHeader>
+    <div className="relative mx-auto min-h-screen max-w-[1100px] px-4 pb-16 sm:px-6 sm:pb-24">
+      <div className="mx-auto">
+      {/* 히어로 — 이 사이트가 무엇인지 한 화면에서 말한다. 로고·내비는 layout 의
+          SiteNav(60px 헤더)가 이미 짊어지므로 여기서는 메시지만 남긴다. */}
+      <HomeHero
+        totalGames={heroStats.total}
+        koreanGames={heroStats.korean}
+        platformCount={heroStats.platforms}
+        dateLabel={heroStats.dateLabel}
+      />
 
-      {/* 응원 띠배너 — 헤더와 프로모 배너 사이. 계좌 환경변수 미설정이면 스스로 렌더 안 함. */}
-      <div className="mt-3 sm:mt-4">
-        <DonateButton />
-      </div>
-
-      {/* 상단 프로모 배너 — 헤더 바로 아래. 아시안게임 기간(폐막 다음 날까지)엔 그 배너가
-          먼저 서고, 끝나면 AsianGamesBanner 가 스스로 null 을 돌려 전자책 배너만 남는다. */}
-      <div className="mt-3 sm:mt-4">
+      {/* 프로모 — 히어로 아래. 원티드 리듬상 섹션 사이는 넉넉하게 띄운다. */}
+      <div className="mt-12 sm:mt-16">
         <AsianGamesBanner today={getTodayString()} />
         <EbookBanner />
+        <DonateButton className="mt-3" />
       </div>
 
-      {/* Filters */}
-      <div className="mt-6 sm:mt-10 mb-6 sm:mb-10 space-y-2.5 sm:space-y-3">
+      {/* 편성표 섹션 시작 */}
+      <h2
+        id="schedule"
+        className="mt-14 scroll-mt-20 text-heading1 font-bold tracking-[-0.019em] text-fg-strong sm:mt-20 sm:text-title3"
+      >
+        오늘의 편성
+      </h2>
+      <p className="mt-1.5 text-label1 text-fg-secondary">
+        종목·해설·플랫폼으로 좁혀 보세요.
+      </p>
+
+      {/* Filters — 원티드 filter-bar: 상단 헤어라인 + 12/16 패딩 */}
+      <div className="mt-5 space-y-2.5 border-t border-line-subtle pt-4 sm:space-y-3">
         {/* Sport Filter */}
         <div className="flex items-center gap-1.5 sm:gap-2">
-          <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-fg">
+          <span className="w-14 sm:w-12 shrink-0 text-caption2 sm:text-caption1 font-medium text-fg">
             종목
           </span>
           <div className="overflow-x-auto scrollbar-hide">
@@ -508,7 +513,7 @@ export default function ScheduleClient({
 
         {/* Korean Commentary Toggle */}
         <div className="flex items-center gap-1.5 sm:gap-2">
-          <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-fg">
+          <span className="w-14 sm:w-12 shrink-0 text-caption2 sm:text-caption1 font-medium text-fg">
             해설
           </span>
           <SmoothTabs<"all" | "korean" | "foreign">
@@ -527,7 +532,7 @@ export default function ScheduleClient({
             빈 칩이 자리만 차지한다. 발견 경로는 카드 팀명 옆의 별이다. */}
         {hasFollows && (
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-fg">
+            <span className="w-14 sm:w-12 shrink-0 text-caption2 sm:text-caption1 font-medium text-fg">
               내 팀
             </span>
             <SmoothTabs<"all" | "mine">
@@ -567,7 +572,7 @@ export default function ScheduleClient({
                       } ${
                         key === "전체"
                           ? isActive
-                            ? "bg-fg-strong text-white"
+                            ? "bg-fg-strong text-canvas"
                             : "bg-surface text-fg-secondary ring-1 ring-line"
                           : isActive
                             ? "bg-muted ring-2 ring-fg-strong"
@@ -577,8 +582,8 @@ export default function ScheduleClient({
                       <PlatformIcon platformKey={key} />
                     </div>
                     <span
-                      className={`text-[10px] sm:text-[11px] font-medium transition-colors whitespace-nowrap ${
-                        isActive ? "text-fg-strong" : "text-fg-tertiary"
+                      className={`text-caption2 font-medium transition-colors whitespace-nowrap ${
+                        isActive ? "text-fg-strong" : "text-fg-secondary"
                       }`}
                     >
                       {label}
@@ -628,6 +633,22 @@ export default function ScheduleClient({
       {/* 카카오 애드핏 배너 — PC 728x90 / 모바일 320x50 (뷰포트 보고 한쪽만 렌더) */}
       <AdfitBanner className="mb-6" />
 
+      {/* 결과 요약 — 원티드 filter-bar 의 sort 슬롯 자리(우측 정렬).
+          🔴 카드 그리드 안에 두지 않는다. 그리드 첫 칸을 먹어 2열 배치가 밀린다. */}
+      <div className="mb-6 mt-2.5 flex items-center gap-2 text-label2 text-fg-secondary sm:mb-8">
+        <button
+          onClick={() => setShowInfo(true)}
+          className="relative flex h-6 w-6 items-center justify-center rounded-full border border-line text-caption2 font-bold text-fg-secondary transition-colors after:absolute after:inset-[-10px] after:content-[''] hover:border-line-strong hover:text-fg-strong"
+          aria-label="안내"
+        >
+          i
+        </button>
+        <div className="ml-auto flex items-center gap-2">
+          <span>{sportIcons}</span>
+          <span className="font-medium text-fg">{filtered.length}개 경기</span>
+        </div>
+      </div>
+
       {/* Date Tabs */}
       <div className="mb-6 sm:mb-10">
         {(() => {
@@ -640,20 +661,20 @@ export default function ScheduleClient({
             // 활성 pill 은 명도 반전(검정 채움)이라 글자는 흰색으로 통일한다.
             // 비활성에서는 요일별 색상 유지 — 주말 구분은 편성표에서 실제로 쓰인다.
             const dowColor = active
-              ? "text-white"
+              ? "text-canvas"
               : dow === 0
               ? "text-fg-danger"
               : dow === 6
-              ? "text-fg-brand"
+              ? "text-fg-brand-bright"
               : "text-fg-secondary";
             return {
               value: d.value,
               label: (
                 <div className="flex flex-col items-center leading-none">
-                  <span className={`text-[10px] font-medium sm:text-xs ${dowColor}`}>
+                  <span className={`text-caption2 font-medium sm:text-caption1 ${dowColor}`}>
                     {KOR_DOW[dow]}
                   </span>
-                  <span className="-mt-0.5 text-sm font-bold sm:-mt-1 sm:text-base">
+                  <span className="-mt-0.5 text-label1 font-bold sm:-mt-1 sm:text-body1">
                     {dayNum}
                   </span>
                 </div>
@@ -665,8 +686,8 @@ export default function ScheduleClient({
           const todayMarker = (value: string) => (
             <span
               aria-hidden
-              className={`block text-[9px] font-bold leading-none tracking-wider ${
-                value === todayStr ? "text-red-500" : "text-transparent"
+              className={`block text-caption2 font-bold leading-none tracking-wider ${
+                value === todayStr ? "text-fg-danger" : "text-transparent"
               }`}
             >
               TODAY
@@ -684,7 +705,6 @@ export default function ScheduleClient({
                     value={selectedDate}
                     onChange={setSelectedDate}
                     renderAbove={todayMarker}
-                    useCapsStripe
                   />
                 </div>
                 <div
@@ -710,7 +730,6 @@ export default function ScheduleClient({
                   value={selectedDate}
                   onChange={setSelectedDate}
                   renderAbove={todayMarker}
-                  useCapsStripe
                 />
               </div>
             </>
@@ -720,7 +739,7 @@ export default function ScheduleClient({
 
       {/* Search + Datepicker */}
       {/* 검색 2/3 + datepicker 1/3 한 줄 (모바일/PC 동일). */}
-      <div className="mb-6 sm:mb-8 grid grid-cols-3 gap-2 sm:gap-3">
+      <div className="grid grid-cols-3 gap-2 sm:gap-3">
         {/* Search */}
         <div className="relative col-span-2">
           <svg className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-fg-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -733,14 +752,14 @@ export default function ScheduleClient({
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="팀, 리그 검색"
             aria-label="팀, 리그 검색"
-            className="w-full rounded-lg border border-line bg-surface py-2 pl-9 pr-3 text-xs text-fg-strong placeholder:text-fg-tertiary focus:border-brand focus:outline-none sm:py-2.5 sm:pl-10 sm:pr-4 sm:text-sm"
+            className="w-full rounded-lg border border-line bg-surface py-2 pl-9 pr-3 text-caption1 text-fg-strong placeholder:text-fg-tertiary focus:border-brand focus:outline-none sm:py-2.5 sm:pl-10 sm:pr-4 sm:text-label1"
           />
           {searchQuery && (
             <button
               type="button"
               onClick={() => setSearchQuery("")}
               aria-label="검색어 지우기"
-              className="absolute right-0.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded text-base leading-none text-fg-tertiary hover:text-fg"
+              className="absolute right-0.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded text-body1 leading-none text-fg-tertiary hover:text-fg"
             >
               &times;
             </button>
@@ -754,11 +773,11 @@ export default function ScheduleClient({
             type="button"
             onClick={openDatepicker}
             aria-label={isArchiveDate ? `선택된 날짜 ${datepickerLabel} - 다른 날짜 선택` : "지난 경기 결과 보기"}
-            className={`flex w-full items-center justify-center gap-2 rounded-lg border bg-surface py-2 text-xs transition-colors sm:py-2.5 sm:text-sm ${
+            className={`flex w-full items-center justify-center gap-2 rounded-lg border bg-surface py-2 text-caption1 transition-colors sm:py-2.5 sm:text-label1 ${
               isArchiveDate ? "pl-3 pr-9 sm:pl-4 sm:pr-10" : "px-3 sm:px-4"
             } ${
               isArchiveDate
-                ? "border-red-500/60 text-red-300 hover:border-red-400"
+                ? "border-[oklch(0.715_0.220_27_/_0.35)] text-fg-danger hover:border-[oklch(0.715_0.220_27_/_0.35)]"
                 : "border-line text-fg-secondary hover:border-line-strong hover:text-fg-strong"
             }`}
           >
@@ -773,7 +792,7 @@ export default function ScheduleClient({
               type="button"
               onClick={() => setSelectedDate(todayStr)}
               aria-label="오늘로 돌아가기"
-              className="absolute right-0.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded text-base leading-none text-fg-secondary hover:text-fg-strong"
+              className="absolute right-0.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded text-body1 leading-none text-fg-secondary hover:text-fg-strong"
             >
               &times;
             </button>
@@ -801,7 +820,7 @@ export default function ScheduleClient({
 
       {/* archive 로딩 중 표시 */}
       {isArchiveDate && archiveLoading && (
-        <div className="mb-4 text-center text-xs text-fg-secondary sm:text-sm">
+        <div className="mb-4 text-center text-caption1 text-fg-secondary sm:text-label1">
           지난 경기 데이터를 불러오는 중...
         </div>
       )}
@@ -809,12 +828,12 @@ export default function ScheduleClient({
       {/* Schedule List */}
       {isArchiveDate && archiveError && !archiveLoading ? (
         <div className="tab-content-anim flex flex-col items-center justify-center py-16 sm:py-20 text-fg-secondary">
-          <span className="text-2xl sm:text-3xl">⚠️</span>
-          <p className="mt-3 text-xs sm:text-sm">지난 경기 데이터를 불러오지 못했습니다</p>
+          <span className="text-title3 sm:text-title2">⚠️</span>
+          <p className="mt-3 text-caption1 sm:text-label1">지난 경기 데이터를 불러오지 못했습니다</p>
           <button
             type="button"
             onClick={retryArchive}
-            className="mt-4 rounded-lg border border-line px-4 py-2 text-xs text-fg-strong hover:border-line-strong sm:text-sm"
+            className="mt-4 rounded-lg border border-line px-4 py-2 text-caption1 text-fg-strong hover:border-line-strong sm:text-label1"
           >
             다시 시도
           </button>
@@ -822,29 +841,30 @@ export default function ScheduleClient({
       ) : filtered.length === 0 ? (
         <div
           key={`empty:${selectedDate}|${sport}|${platform}|${commentaryFilter}`}
-          className="tab-content-anim flex flex-col items-center justify-center py-16 sm:py-20 text-fg-tertiary"
+          className="tab-content-anim flex flex-col items-center justify-center px-6 py-14 text-center"
         >
-          <span className="text-2xl sm:text-3xl">📭</span>
-          <p className="mt-3 text-xs sm:text-sm">해당 조건의 편성이 없습니다</p>
+          {/* 🔴 이모지를 쓰지 않는다 — 원티드 no-emoji 정책. 56px 원형 surface 안에
+              모노크롬 SVG 하나가 들어간다. */}
+          <span className="flex h-14 w-14 items-center justify-center rounded-full bg-subtle text-fg-tertiary">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path
+                d="M3 7h18M3 12h18M3 17h10"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              />
+            </svg>
+          </span>
+          <p className="mt-4 text-headline1 font-bold text-fg-strong">조건에 맞는 중계가 없어요</p>
+          <p className="mt-1.5 text-label1 text-fg-secondary">
+            종목이나 플랫폼 필터를 넓혀 보세요.
+          </p>
         </div>
       ) : (
         <div
           key={`list:${selectedDate}|${sport}|${platform}|${commentaryFilter}`}
-          className="tab-content-anim space-y-2.5 sm:space-y-3"
+          className="tab-content-anim grid grid-cols-1 gap-x-4 gap-y-3 lg:grid-cols-2 lg:gap-y-6"
         >
-          <div className="flex items-center gap-2 text-xs sm:text-sm text-fg">
-            <button
-              onClick={() => setShowInfo(true)}
-              className="rounded-full border border-line w-5 h-5 flex items-center justify-center text-[11px] font-bold text-fg-secondary hover:text-fg-strong hover:border-line-strong"
-              aria-label="안내"
-            >
-              i
-            </button>
-            <div className="ml-auto flex items-center gap-2">
-              <span>{sportIcons}</span>
-              <span className="font-medium">{filtered.length}개 경기</span>
-            </div>
-          </div>
           {amGames.map(renderCard)}
         </div>
       )}
@@ -869,7 +889,7 @@ export default function ScheduleClient({
         {amGames.length > 0 && pmGames.length > 0 && (
           <div className="mb-4 flex items-center gap-3 sm:mb-6">
             <div className="h-px flex-1 bg-muted" />
-            <span className="text-[11px] sm:text-xs font-medium text-fg-tertiary">오후 경기</span>
+            <span className="text-caption2 sm:text-caption1 font-medium text-fg-tertiary">오후 경기</span>
             <div className="h-px flex-1 bg-muted" />
           </div>
         )}
@@ -882,7 +902,7 @@ export default function ScheduleClient({
       {pmGames.length > 0 && (
         <div
           key={`list-pm:${selectedDate}|${sport}|${platform}|${commentaryFilter}`}
-          className="tab-content-anim space-y-2.5 sm:space-y-3"
+          className="tab-content-anim grid grid-cols-1 gap-x-4 gap-y-3 lg:grid-cols-2 lg:gap-y-6"
         >
           {pmGames.map(renderCard)}
         </div>
@@ -895,8 +915,8 @@ export default function ScheduleClient({
           마지막 줄에 한 단어만 남는 것(orphan)을 줄인다(미지원 브라우저는 무시).
           `max-w-[38rem]` 은 데스크톱에서 한 줄이 너무 길어지지 않게 하는 measure 제한.
           <br> 로 손수 끊지 않는다 — 폭이 바뀌면 그 자리가 그대로 어색해진다. */}
-      <section className="mt-10 sm:mt-14 max-w-[38rem] break-keep text-pretty border-t border-line-subtle pt-6 sm:pt-8 text-[12px] sm:text-sm leading-relaxed sm:leading-7 text-fg-tertiary">
-        <h2 className="mb-3 text-sm sm:text-base font-medium text-fg">한국어 해설 중계, 한곳에서 확인하세요</h2>
+      <section className="mt-10 sm:mt-14 max-w-[38rem] break-keep text-pretty border-t border-line-subtle pt-6 sm:pt-8 text-[12px] sm:text-label1 leading-relaxed sm:leading-7 text-fg-tertiary">
+        <h2 className="mb-3 text-label1 sm:text-body1 font-medium text-fg">한국어 해설 중계, 한곳에서 확인하세요</h2>
         <p className="mb-2.5">
           한해설은 {SEO_LEAGUES} 등 주요 스포츠의
           <strong className="font-medium text-fg"> 한국어 해설 중계</strong>와
@@ -912,14 +932,14 @@ export default function ScheduleClient({
           해설 경기만 모아서 보려면{" "}
           {/* `/commentary` 로 가는 유일한 문맥 링크. 푸터 메뉴 링크는 전 페이지 공통이라
               문맥 가중치가 없다. 앵커를 키워드 그대로 둘 것 — 이 페이지가 노리는 쿼리다. */}
-          <Link href="/commentary" className="text-fg underline underline-offset-2 hover:text-fg-strong">
+          <Link href="/commentary" className="-my-2 inline-block py-2 text-fg underline underline-offset-2 hover:text-fg-strong">
             한국어 해설 중계 일정
           </Link>
           을 확인하세요.
         </p>
       </section>
 
-      <p className="mt-6 sm:mt-8 text-center text-[11px] sm:text-xs text-fg-secondary" suppressHydrationWarning>
+      <p className="mt-6 sm:mt-8 text-center text-caption2 sm:text-caption1 text-fg-secondary" suppressHydrationWarning>
         마지막 업데이트: {data ? new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" }) : "로딩 중..."}
       </p>
 
@@ -932,12 +952,12 @@ export default function ScheduleClient({
                 type="button"
                 onClick={() => setShowInfo(false)}
                 aria-label="안내 닫기"
-                className="-mr-1 -mt-1 flex h-9 w-9 items-center justify-center rounded text-3xl leading-none text-fg-tertiary hover:text-fg"
+                className="-mr-1 -mt-1 flex h-9 w-9 items-center justify-center rounded text-title2 leading-none text-fg-tertiary hover:text-fg"
               >
                 &times;
               </button>
             </div>
-            <div className="mt-3 text-xs sm:text-sm leading-relaxed text-fg-secondary space-y-3">
+            <div className="mt-3 text-caption1 sm:text-label1 leading-relaxed text-fg-secondary space-y-3">
               <p>● 본 서비스에서 제공하는 중계 일정 및 한국어해설 정보는 쿠팡플레이, 티빙, SPOTV NOW, Apple TV+, SPOTV, SPOTV2, tvN SPORTS, KBS N SPORTS, MBC SPORTS+, SBS Sports의 공식 편성표를 바탕으로 재구성되었습니다.</p>
               <p>● 실시간 중계 사정에 따라 실제 편성 현황과 일부 차이가 있을 수 있으므로 정확한 내용은 각 중계 플랫폼의 공지사항을 확인해 주시기 바랍니다.</p>
             </div>

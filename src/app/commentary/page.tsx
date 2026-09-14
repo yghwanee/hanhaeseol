@@ -102,29 +102,29 @@ export default function CommentaryPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbLd }} />
 
-      <main className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-8">
-        <nav className="mb-4 text-xs text-fg-tertiary sm:text-sm">
-          <Link href="/" className="hover:text-fg">
+      <main className="mx-auto w-full max-w-[1100px] px-5 sm:px-6 py-6 sm:py-8">
+        <nav className="mb-4 text-caption1 text-fg-tertiary sm:text-label1">
+          <Link href="/" className="-my-2 inline-block py-2 hover:text-fg">
             편성표
           </Link>
           <span className="px-1.5">›</span>
           <span className="text-fg">한국어 해설 중계</span>
         </nav>
 
-        <h1 className="text-xl font-bold text-white sm:text-2xl">한국어 해설 중계 일정</h1>
+        <h1 className="text-heading1 font-bold text-fg-strong sm:text-title3">한국어 해설 중계 일정</h1>
         {/* 첫 문단은 그 자체로 답이 되게 쓴다(수치 포함, 문맥 없이 인용 가능).
             AI 답변 인용의 약 44%가 페이지 첫 30% 구간에서 나오고, 인용은 자기완결형
             문장 단위로 잡힌다. 전에는 이 자리에 수치 없는 설명문만 있어서 집계 데이터가
             페이지 안에 있는데도 인용 가능한 문장이 없었다. */}
-        <p className="mt-2 text-sm leading-relaxed text-fg">
+        <p className="mt-2 text-label1 leading-relaxed text-fg">
           {totalGames > 0 ? (
             <>
               오늘부터 7일간 한국어 해설로 볼 수 있는 경기는{" "}
-              <strong className="text-white">총 {totalGames}경기</strong>이고,{" "}
+              <strong className="text-fg-strong">총 {totalGames}경기</strong>이고,{" "}
               {topPlatforms.length > 0 && (
                 <>
                   가장 많은 채널은{" "}
-                  <strong className="text-white">
+                  <strong className="text-fg-strong">
                     {topPlatforms.map(([p, c]) => `${p} ${c}경기`).join(", ")}
                   </strong>
                   입니다.{" "}
@@ -137,14 +137,14 @@ export default function CommentaryPage() {
             <>
               같은 경기라도 채널에 따라 한국어 해설이 붙기도 하고 현지 중계만 나가기도 합니다.
               오늘부터 7일간{" "}
-              <strong className="text-white">한국어 해설로 볼 수 있는 경기만</strong> 모았습니다.
+              <strong className="text-fg-strong">한국어 해설로 볼 수 있는 경기만</strong> 모았습니다.
             </>
           )}
         </p>
 
         {platformRanking.length > 0 && (
           <section className="mt-5 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
-            <h2 className="text-sm font-semibold text-white sm:text-base">
+            <h2 className="text-label1 font-semibold text-fg-strong sm:text-headline1">
               어느 채널에 한국어 해설이 많나
             </h2>
             <div className="mt-3 flex flex-wrap gap-2">
@@ -155,14 +155,14 @@ export default function CommentaryPage() {
                   <Link
                     key={platform}
                     href={`/platform/${slug}`}
-                    className="rounded-full border border-line-subtle px-3 py-1.5 text-xs text-fg transition-colors hover:border-line hover:text-fg-strong"
+                    className="-my-2 inline-block py-2 rounded-full border border-line-subtle px-3 py-1.5 text-caption1 text-fg transition-colors hover:border-line hover:text-fg-strong"
                   >
                     {label}
                   </Link>
                 ) : (
                   <span
                     key={platform}
-                    className="rounded-full border border-line-subtle px-3 py-1.5 text-xs text-fg-secondary"
+                    className="rounded-full border border-line-subtle px-3 py-1.5 text-caption1 text-fg-secondary"
                   >
                     {label}
                   </span>
@@ -173,28 +173,28 @@ export default function CommentaryPage() {
         )}
 
         {byDate.length === 0 ? (
-          <p className="mt-6 text-sm text-fg-secondary">
+          <p className="mt-6 text-label1 text-fg-secondary">
             현재 확인된 한국어 해설 편성이 없습니다. 편성이 올라오는 대로 갱신됩니다.
           </p>
         ) : (
           <div className="mt-5 space-y-5">
             {byDate.map(({ date, games }) => (
               <section key={date}>
-                <h2 className="mb-2 text-sm font-semibold text-white sm:text-base">
+                <h2 className="mb-2 text-label1 font-semibold text-fg-strong sm:text-headline1">
                   {formatDate(date)}
                 </h2>
                 <ul className="space-y-1.5">
                   {games.map(({ s, platforms }) => (
                     <li
                       key={`${s.date}-${s.homeTeam}-${s.awayTeam}`}
-                      className="rounded-lg border border-line-subtle bg-subtle px-3 py-2 text-sm"
+                      className="rounded-lg border border-line-subtle bg-subtle px-3 py-2 text-label1"
                     >
                       <span className="tabular-nums text-fg-secondary">{s.time}</span>{" "}
                       <span className="text-fg-tertiary">{s.league}</span>{" "}
                       <span className="text-fg-strong">
                         {s.homeTeam} vs {s.awayTeam}
                       </span>
-                      <span className="block text-xs text-fg-tertiary sm:inline sm:text-sm">
+                      <span className="block text-caption1 text-fg-tertiary sm:inline sm:text-label1">
                         {" "}
                         · {platforms.join(", ")}
                       </span>
@@ -207,13 +207,13 @@ export default function CommentaryPage() {
         )}
 
         <section className="mt-6 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
-          <h2 className="text-sm font-semibold text-white sm:text-base">채널별 해설 편성 보기</h2>
+          <h2 className="text-label1 font-semibold text-fg-strong sm:text-headline1">채널별 해설 편성 보기</h2>
           <div className="mt-3 flex flex-wrap gap-2">
             {PLATFORM_SEO.map((p) => (
               <Link
                 key={p.slug}
                 href={`/platform/${p.slug}`}
-                className="rounded-lg border border-line bg-muted px-2.5 py-1 text-xs text-fg transition-colors hover:bg-muted hover:text-fg-strong"
+                className="-my-2 inline-block py-2 rounded-lg border border-line bg-muted px-2.5 py-1 text-caption1 text-fg transition-colors hover:bg-muted hover:text-fg-strong"
               >
                 {p.display}
               </Link>

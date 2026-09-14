@@ -63,27 +63,27 @@ export function MatchLiveScore({ schedule }: { schedule: Schedule }) {
   const away = result.awayScore;
   // 진행 중에는 승패를 물들이지 않는다(뒤집히면 오해를 부른다).
   const tone = (side: "home" | "away") => {
-    if (live) return "text-white";
+    if (live) return "text-fg-strong";
     const mine = side === "home" ? home : away;
     const other = side === "home" ? away : home;
-    if (result.winner) return result.winner === side ? "text-white" : "text-fg-tertiary";
-    return mine > other ? "text-white" : mine < other ? "text-fg-tertiary" : "text-fg-strong";
+    if (result.winner) return result.winner === side ? "text-fg-strong" : "text-fg-tertiary";
+    return mine > other ? "text-fg-strong" : mine < other ? "text-fg-tertiary" : "text-fg-strong";
   };
 
   return (
     <div
       className={`mt-4 rounded-lg border px-4 py-3 ${
-        live ? "border-rose-700/40 bg-rose-900/15" : "border-emerald-700/40 bg-emerald-900/15"
+        live ? "border-[oklch(0.715_0.220_27_/_0.35)] bg-[oklch(0.298_0.10_22_/_0.32)]" : "border-brand/40 bg-brand-subtle"
       }`}
     >
       <p
-        className={`mb-2 flex items-center justify-center gap-1.5 text-[11px] font-medium sm:text-xs ${
-          live ? "text-rose-300/90" : "text-emerald-300/80"
+        className={`mb-2 flex items-center justify-center gap-1.5 text-caption2 font-medium sm:text-caption1 ${
+          live ? "text-fg-danger" : "text-fg-brand-bright"
         }`}
       >
         {live ? (
           <>
-            <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-rose-400" />
+            <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-[oklch(0.546_0.220_27)]" />
             LIVE{result.period ? ` · ${result.period}` : ""}
           </>
         ) : (
@@ -92,21 +92,21 @@ export function MatchLiveScore({ schedule }: { schedule: Schedule }) {
       </p>
       <div className="flex items-center justify-center gap-4 sm:gap-6">
         <div className="flex-1 text-right">
-          <p className="truncate text-xs text-fg sm:text-sm">{schedule.homeTeam}</p>
-          <p className={`tabular-nums text-3xl font-bold sm:text-4xl ${tone("home")}`}>{home}</p>
+          <p className="truncate text-caption1 text-fg sm:text-label1">{schedule.homeTeam}</p>
+          <p className={`tabular-nums text-title2 font-bold sm:text-display3 ${tone("home")}`}>{home}</p>
         </div>
-        <div className="text-2xl text-fg-tertiary sm:text-3xl">:</div>
+        <div className="text-title3 text-fg-tertiary sm:text-title2">:</div>
         <div className="flex-1 text-left">
-          <p className="truncate text-xs text-fg sm:text-sm">{schedule.awayTeam}</p>
-          <p className={`tabular-nums text-3xl font-bold sm:text-4xl ${tone("away")}`}>{away}</p>
+          <p className="truncate text-caption1 text-fg sm:text-label1">{schedule.awayTeam}</p>
+          <p className={`tabular-nums text-title2 font-bold sm:text-display3 ${tone("away")}`}>{away}</p>
         </div>
       </div>
       {typeof result.homePtScore === "number" && typeof result.awayPtScore === "number" && (
-        <p className="mt-1 text-center text-xs font-semibold text-amber-300/90 sm:text-sm">
+        <p className="mt-1 text-center text-caption1 font-semibold text-fg-secondary sm:text-label1">
           승부차기 {result.homePtScore}-{result.awayPtScore}
         </p>
       )}
-      <p className="mt-2 text-center text-[10px] text-fg-secondary">
+      <p className="mt-2 text-center text-caption2 text-fg-secondary">
         출처: 네이버 스포츠 · {live ? "45초마다 자동 갱신" : "경기 종료"}
       </p>
     </div>

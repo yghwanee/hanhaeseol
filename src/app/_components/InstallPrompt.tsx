@@ -130,11 +130,11 @@ export function InstallPrompt() {
           alt="한해설"
           className="h-9 w-9 shrink-0 rounded-lg"
         />
-        <div className="min-w-0 flex-1 text-xs font-medium text-fg-strong sm:text-sm">{body}</div>
+        <div className="min-w-0 flex-1 text-caption1 font-medium text-fg-strong sm:text-label1">{body}</div>
         {deferred && (
           <button
             onClick={install}
-            className="shrink-0 rounded-full bg-emerald-600 px-4 py-1.5 text-xs font-semibold text-fg-strong shadow-sm shadow-emerald-600/30 transition-colors hover:bg-emerald-500 [text-shadow:none]"
+            className="shrink-0 rounded-full bg-brand px-4 py-1.5 text-caption1 font-semibold text-fg-strong shadow-sm shadow-emerald-600/30 transition-colors hover:bg-brand [text-shadow:none]"
           >
             설치
           </button>

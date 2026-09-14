@@ -28,15 +28,15 @@ export default function WeekHighlights({
     if (!emptyText) return null;
     return (
       <section className="mb-6 rounded-xl border border-line bg-surface p-4 sm:p-5">
-        <h2 className="mb-3 text-base font-semibold text-fg-strong sm:text-lg">{title}</h2>
-        <p className="text-sm text-fg-secondary">{emptyText}</p>
+        <h2 className="mb-3 text-headline1 font-semibold text-fg-strong sm:text-heading2">{title}</h2>
+        <p className="text-label1 text-fg-secondary">{emptyText}</p>
       </section>
     );
   }
 
   return (
     <section className="mb-6 rounded-xl border border-line bg-surface p-4 sm:p-5">
-      <h2 className="mb-3 text-base font-semibold text-fg-strong sm:text-lg">{title}</h2>
+      <h2 className="mb-3 text-headline1 font-semibold text-fg-strong sm:text-heading2">{title}</h2>
       <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         {picks.map((s) => (
           <li key={s.id}>
@@ -62,14 +62,14 @@ function MiniMatchCard({ schedule: s }: { schedule: Schedule }) {
       href={`/match/${matchToSlug(s)}`}
       className="flex h-full flex-col rounded-lg border border-line-subtle border-l-2 border-l-emerald-500/50 bg-surface p-3 transition-colors hover:border-line hover:border-l-emerald-400 hover:bg-surface sm:p-3.5"
     >
-      <div className="flex items-baseline gap-1.5 text-xs">
+      <div className="flex items-baseline gap-1.5 text-caption1">
         <span className={dateColor}>{formatDateHeader(s.date)}</span>
         <span className="font-mono font-semibold text-fg-strong">{s.time}</span>
       </div>
-      <div className="mt-1.5 truncate text-sm font-semibold text-fg-strong sm:text-[15px]">
+      <div className="mt-1.5 truncate text-label1 font-semibold text-fg-strong sm:text-[15px]">
         {versus}
       </div>
-      <div className="mt-1 flex items-center justify-between gap-2 text-[11px] text-fg-tertiary">
+      <div className="mt-1 flex items-center justify-between gap-2 text-caption2 text-fg-tertiary">
         <span className="truncate">{s.league}</span>
         <span className="shrink-0">{s.platform}</span>
       </div>
