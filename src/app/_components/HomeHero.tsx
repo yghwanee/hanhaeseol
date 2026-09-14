@@ -39,11 +39,11 @@ export function HomeHero({
     // 편성표에 내준다. 단 h1 은 sr-only 로 남긴다. 통째로 `hidden` 하면 모바일 우선
     // 색인에서 페이지의 유일한 h1 이 display:none 이 된다.
     <section className="sm:pt-16">
-      {/* eyebrow — 형광펜으로 칠한 듯한 파란 하이라이트(2026-09-14 화니 지시).
-          테두리·pill 없이 글자 뒤에 반투명 파랑 면만 깐다. 토큰이 var() 라 `bg-brand/40`
-          같은 투명도 문법이 안 먹어서 color-mix 로 섞는다. */}
+      {/* eyebrow — 형광펜으로 그은 줄(2026-09-14 화니 지시). 박스가 아니라 **글자 아래 절반만**
+          칠한다: 위 55% 투명 → 아래 45% 반투명 파랑. 토큰이 var() 라 `bg-brand/40` 같은 투명도
+          문법이 안 먹어서 color-mix 로 섞는다. */}
       <span
-        className="hidden sm:inline-block rounded-[4px] bg-[color-mix(in_oklch,var(--w-brand)_45%,transparent)] px-2 py-0.5 text-label1 font-bold text-fg-strong"
+        className="hidden sm:inline px-0.5 text-label1 font-bold text-fg-strong [background:linear-gradient(transparent_45%,color-mix(in_oklch,var(--w-brand)_75%,transparent)_45%)] [box-decoration-break:clone]"
       >
         흩어져 있는 편성표를 한곳에서
       </span>
@@ -52,7 +52,8 @@ export function HomeHero({
       <h1 className="sr-only sm:not-sr-only mt-5 text-[34px] font-bold leading-[1.25] tracking-[-0.028em] text-fg-strong sm:mt-6 sm:text-[48px] sm:leading-[1.22] sm:tracking-[-0.032em]">
         이 경기,
         <br />
-        <span className="text-fg-brand-bright">한국어 해설</span> 해주나?
+        {/* 「오늘 편성 보기」 버튼 채움과 같은 파랑(--w-brand) */}
+        <span className="text-brand">한국어 해설</span> 해주나?
       </h1>
 
       <p className="hidden sm:block mt-4 text-headline2 font-bold tracking-[-0.01em] text-fg-strong sm:mt-5 sm:text-heading2">
@@ -63,8 +64,9 @@ export function HomeHero({
         {/* 아이콘 자리 = 카드 하단의 해설 뱃지 그대로(한국어 흰 채움 / 현지 검은 박스).
             화면에서 뜻을 먼저 익히고 편성표로 내려가게 한다. */}
         <p>
-          OTT와 TV에 흩어진 편성을 한곳에 모아,{" "}
-          <span className="w-badge w-badge--ko mx-0.5 align-[2px]">한국어</span> 한국어 해설인지{" "}
+          OTT와 TV에 흩어진 편성을 한곳에 모아,
+          <br />
+          <span className="w-badge w-badge--ko mr-0.5 align-[2px]">한국어</span> 한국어 해설인지{" "}
           <span className="w-badge w-badge--local mx-0.5 align-[2px]">현지</span> 현지 해설인지 골라 볼 수
           있게 합니다.
         </p>
