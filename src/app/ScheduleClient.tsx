@@ -463,6 +463,10 @@ export default function ScheduleClient({
 
   const handleSelectSport = useCallback((s: string) => setSport(s), []);
   const handleSelectPlatform = useCallback((p: string) => setPlatform(p), []);
+  const handleKoreanOnly = useCallback(() => {
+    setCommentaryFilter("korean");
+    document.getElementById("schedule")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, []);
 
   return (
     <div className="relative mx-auto min-h-screen max-w-[1100px] px-4 pb-16 sm:px-6 sm:pb-24">
@@ -474,6 +478,7 @@ export default function ScheduleClient({
         koreanGames={heroStats.korean}
         platformCount={heroStats.platforms}
         dateLabel={heroStats.dateLabel}
+        onKoreanOnly={handleKoreanOnly}
       />
 
       {/* 프로모 — 히어로 아래. 원티드 리듬상 섹션 사이는 넉넉하게 띄운다. */}

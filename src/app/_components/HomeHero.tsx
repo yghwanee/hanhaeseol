@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 /**
  * 홈 히어로 — 원티드 마케팅 히어로 해부도.
  *
@@ -26,7 +24,10 @@ export function HomeHero({
   koreanGames,
   platformCount,
   dateLabel,
+  onKoreanOnly,
 }: {
+  /** "한국어 해설만" CTA — 해설 필터를 켜고 편성표로 스크롤 */
+  onKoreanOnly: () => void;
   /** 오늘 편성 경기 수 */
   totalGames: number;
   /** 그중 한국어 해설이 확인된 경기 수 */
@@ -75,9 +76,21 @@ export function HomeHero({
         <a href="#schedule" className="w-btn w-btn--solid w-focus">
           오늘 편성 보기
         </a>
-        <Link href="/?comm=korean#schedule" className="w-btn w-btn--outlined w-focus">
+        {/* 🔴 같은 경로(`/`)로 가는 <Link> 로 두면 안 된다. 소프트 내비게이션이라
+            ScheduleClient 가 다시 마운트되지 않고, `?comm=` 은 마운트 때만 읽으므로
+            URL 만 바뀌고 필터는 그대로였다(2026-09-14). 상태를 직접 바꾼다.
+            href 는 새 탭·JS 전 클릭용으로 남긴다. */}
+        <a
+          href="/?comm=korean#schedule"
+          onClick={(e) => {
+            if (e.metaKey || e.ctrlKey || e.shiftKey || e.button !== 0) return;
+            e.preventDefault();
+            onKoreanOnly();
+          }}
+          className="w-btn w-btn--outlined w-focus"
+        >
           한국어 해설만
-        </Link>
+        </a>
       </div>
     </section>
   );

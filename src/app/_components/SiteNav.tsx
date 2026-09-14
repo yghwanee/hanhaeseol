@@ -22,7 +22,8 @@ const NAV = [
   { href: "/", label: "편성표" },
   { href: "/standings", label: "순위" },
   { href: "/guide", label: "토픽" },
-  { href: "/commentary", label: "해설 통계" },
+  // "해설 통계"(/commentary)는 헤더에서 뺐다(2026-09-14 화니 지시). 페이지는 살아 있고
+  // 홈 편성표 아래 문맥 링크가 그리로 간다.
 ];
 
 function isActive(pathname: string, href: string): boolean {
@@ -40,7 +41,9 @@ export function SiteNav() {
           <span className="text-headline1 font-bold tracking-[-0.02em] text-fg-strong">한해설</span>
         </Link>
 
-        <nav className="flex min-w-0 flex-1 items-center gap-4 overflow-x-auto scrollbar-hide sm:gap-6">
+        {/* 로고 왼쪽 · 링크 오른쪽 정렬(2026-09-14). justify-end 가 아니라 ml-auto 다 —
+            overflow-x-auto 와 justify-end 를 같이 쓰면 넘친 앞쪽이 스크롤로도 안 닿는다. */}
+        <nav className="ml-auto flex min-w-0 items-center gap-4 overflow-x-auto scrollbar-hide sm:gap-6">
           {NAV.map((item) => {
             const active = isActive(pathname, item.href);
             return (
