@@ -348,7 +348,11 @@ src/
 - **타입 램프**(display3~caption2)만 쓴다. `text-xs` 같은 Tailwind 기본 사이즈 금지.
   🔴 **11px(caption2)이 바닥이다.** 8~10px 를 다시 넣지 말 것.
 - **이모지 금지**(빈 상태·아이콘). 모노크롬 SVG 를 쓴다.
-- 컨테이너 폭: 목록·표 `max-w-[1100px]` / 읽는 글 `max-w-[720px]`. 거터 `px-5 sm:px-6`(20/24).
+- 컨테이너 폭: 목록·표 `max-w-[1100px]`(리그·플랫폼·종목 카드도 1100 + `lg:grid-cols-2`) / 읽는 글 `max-w-[720px]`.
+  거터 `px-5 sm:px-6`(20/24) — **헤더(`SiteNav`) 포함 전 페이지 같은 값**이라 로고와 본문 왼쪽 끝이 맞는다.
+- 🔴 **사이드 배너(채운·애드핏 160x600)는 1440px 부터.** 1280 에서는 1100px 본문을 덮는다(2026-09-14 실측).
+  `SideBanners` 의 `min-[1440px]` 와 `AdfitBanner` sideRight `minWidth` 를 같이 바꿀 것.
+- 뱃지는 **높이 24px 고정**(`.w-badge`·`PlatformBadge h-6`), 한 줄에 서는 행은 `items-center`. 숫자는 `font-mono` 말고 `tabular-nums`.
 - 🔴 **해설 뱃지는 색이 아니라 채움으로 가른다 (2026-09-14 화니 지시).** 한국어 = 흰 채움
   `w-badge--ko` / 현지 = 검은 박스 `w-badge--local` / 종료 = 박스 없는 글자 `w-badge--plain`.
   카드 **상단 한 줄** = 좌 `시간·리그·종목` / 우 `[플랫폼][해설 종류][종료·LIVE(있을 때만)]`.
