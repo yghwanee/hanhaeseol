@@ -27,7 +27,6 @@ import {
   GAME_DURATION_HOURS,
   isGameFinished,
 } from "@/lib/schedule-utils";
-import { SiteHeader } from "../../_components/SiteHeader";
 import { AdfitBanner } from "../../_components/AdfitBanner";
 import { TossDealStrip } from "../../_components/TossDealStrip";
 import { readInsight } from "@/lib/insights/storage";
@@ -515,7 +514,6 @@ export default function MatchPage({ params }: { params: Params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="mx-auto max-w-[1100px] px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
-        <SiteHeader />
 
         <nav className="mt-4 flex flex-wrap items-center gap-2 text-caption1 text-fg-tertiary sm:mt-6">
           <Link href="/" className="-my-2 inline-block py-2 transition-colors hover:text-fg">

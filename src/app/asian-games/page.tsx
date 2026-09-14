@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { loadAsianGames, loadScheduleData } from "@/lib/server-data";
 import { getTodayString } from "@/lib/schedule-utils";
-import { SiteHeader } from "@/app/_components/SiteHeader";
 import { AsianGamesBanner } from "@/app/_components/AsianGamesBanner";
 import { AsianGamesLive } from "./_components/AsianGamesLive";
 import {
@@ -135,7 +134,6 @@ export default function AsianGamesPage() {
   return (
     <main className="relative mx-auto min-h-screen max-w-[1100px] px-5 pb-12 sm:px-6 sm:pb-12">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-      <SiteHeader />
 
       <div className="mt-4 sm:mt-6">
         <AsianGamesBanner today={today} href="#korea" />

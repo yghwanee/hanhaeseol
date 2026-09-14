@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getAllGuideSlugs, getGuide } from "@/lib/guides";
-import { GuideHeader } from "../_components/GuideHeader";
 
 type Params = { slug: string };
 
@@ -95,7 +94,6 @@ export default function GuidePage({ params }: { params: Params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <GuideHeader />
 
       <article className="mt-8">
         <header className="border-b border-line-subtle pb-6">

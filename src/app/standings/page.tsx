@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import standingsData from "@/data/standings.json";
 import type { StandingsData } from "@/types/standings";
-import { SiteHeader } from "../_components/SiteHeader";
 import { StandingsView } from "./_components/StandingsView";
-import { AdfitBanner } from "../_components/AdfitBanner";
 import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
 import { loadScheduleData } from "@/lib/server-data";
 import scheduleArchive from "@/data/schedule-archive.json";
@@ -127,10 +125,6 @@ export default function StandingsPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(STANDINGS_INDEX_JSONLD) }}
       />
       <div className="mx-auto max-w-[1100px] px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
-        <SiteHeader />
-
-        <AdfitBanner />
-
         <div className="mt-4 sm:mt-6">
           <StandingsView
             data={data}

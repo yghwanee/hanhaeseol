@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AdfitBanner } from "../_components/AdfitBanner";
-import { SiteHeader } from "../_components/SiteHeader";
 
 export const metadata: Metadata = {
   title: "이용약관 - 한해설",
@@ -12,7 +11,6 @@ export default function TermsPage() {
   return (
     <main className="min-h-screen text-gray-100">
       <div className="max-w-[720px] mx-auto px-5 sm:px-6 pb-8 sm:pb-12 text-[14px]">
-        <SiteHeader />
 
         <h1 className="text-title3 sm:text-title2 font-bold mt-4 sm:mt-6 mb-8">이용약관</h1>
 

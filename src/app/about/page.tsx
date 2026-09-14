@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { AdfitBanner } from "../_components/AdfitBanner";
-import { SiteHeader } from "../_components/SiteHeader";
 
 export const metadata: Metadata = {
   // 🔴 브랜드 검색은 홈이 받아야 한다. 이 페이지가 제목·설명 첫 글자를 `한해설` 로
@@ -27,7 +26,6 @@ export default function AboutPage() {
   return (
     <main className="min-h-screen text-fg-secondary">
       <div className="max-w-[720px] mx-auto px-5 sm:px-6 pb-8 sm:pb-12 text-[14px]">
-        <SiteHeader />
 
         <h1 className="text-title3 sm:text-title2 font-bold mt-4 sm:mt-6 mb-8">한해설 소개</h1>
 

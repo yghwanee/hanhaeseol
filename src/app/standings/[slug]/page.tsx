@@ -13,7 +13,6 @@ import { SoccerTable } from "../_components/SoccerTable";
 import { MlsStandingsTable } from "../_components/MlsStandingsTable";
 import { BaseballTable } from "../_components/BaseballTable";
 import { MlbStandingsTable } from "../_components/MlbStandingsTable";
-import { SiteHeader } from "../../_components/SiteHeader";
 import { AdfitBanner } from "../../_components/AdfitBanner";
 import {
   STANDINGS_LEAGUES,
@@ -162,7 +161,6 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="mx-auto max-w-[1100px] px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
-        <SiteHeader />
 
         <nav className="mt-4 flex items-center gap-2 text-caption1 text-fg-tertiary sm:mt-6">
           <Link href="/standings" className="-my-2 inline-block py-2 transition-colors hover:text-fg">

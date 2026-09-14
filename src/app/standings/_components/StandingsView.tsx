@@ -13,6 +13,7 @@ import { BaseballTable } from "./BaseballTable";
 import { MlbStandingsTable } from "./MlbStandingsTable";
 import { MlsStandingsTable } from "./MlsStandingsTable";
 import { useScrollbarDrag } from "@/lib/hooks/useScrollbarDrag";
+import { AdfitBanner } from "../../_components/AdfitBanner";
 
 type SportKey = "soccer" | "baseball";
 
@@ -247,7 +248,10 @@ export function StandingsView({
         </div>
       </div>
 
-      {/* 선택 리그 헤더 + 편성표 진입 */}
+      {/* 광고 — 리그 탭 아래(2026-09-14 화니 지시, 종전엔 페이지 맨 위).
+          🔴 아래 `key` 걸린 리그 블록 **밖**에 둔다. 안에 두면 탭을 바꿀 때마다 `<ins>` 가
+          다시 마운트되는데 애드핏 SDK 스캔은 페이지당 한 번이라 두 번째부터 빈칸이 된다. */}
+      <AdfitBanner className="mt-6" />
       {current && (
         <div key={`${sport}|${current.id}`} className="tab-content-anim">
           <div className="mt-6 flex flex-wrap items-end justify-between gap-3">

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { getAllGuides } from "@/lib/guides";
-import { GuideHeader } from "./_components/GuideHeader";
 
 export const metadata: Metadata = {
   title: "스포츠 중계 가이드 - 어디서 한국어로 보나 | 한해설",
@@ -25,7 +24,6 @@ export default function GuideIndexPage() {
 
   return (
     <main className="mx-auto max-w-[1100px] px-5 sm:px-6 py-8 sm:py-12">
-      <GuideHeader />
 
       <header className="mt-8 border-b border-line-subtle pb-6">
         <h1 className="text-title3 font-bold text-fg-strong sm:text-title2">한해설 Topic</h1>

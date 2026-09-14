@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { AdfitBanner } from "../_components/AdfitBanner";
-import { SiteHeader } from "../_components/SiteHeader";
 
 export const metadata: Metadata = {
   title: "자주 묻는 질문 - 한국어 해설 중계 편성표 | 한해설",
@@ -104,7 +103,6 @@ export default function FaqPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
       <div className="mx-auto max-w-[720px] px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
-        <SiteHeader />
 
         <h1 className="mt-4 sm:mt-6 mb-2 text-title3 font-bold sm:text-title2">자주 묻는 질문</h1>
         <p className="mb-8 text-label1 text-fg-secondary">

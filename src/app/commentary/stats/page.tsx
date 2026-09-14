@@ -9,7 +9,6 @@ import {
   MIN_LEAGUE_SAMPLE,
   type CommentaryStat,
 } from "@/lib/commentary-stats";
-import { SiteHeader } from "@/app/_components/SiteHeader";
 import { withJosa } from "@/lib/josa";
 import { AdfitBanner } from "@/app/_components/AdfitBanner";
 import type { ScheduleData } from "@/types/schedule";
@@ -130,7 +129,6 @@ export default function CommentaryStatsPage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(datasetLd) }}
       />
       <main className="relative mx-auto min-h-screen max-w-[1100px] px-5 sm:px-6 pb-8 sm:pb-12">
-        <SiteHeader />
 
         <div className="mt-4 sm:mt-6 mb-6">
           <h1 className="text-heading2 sm:text-title3 font-bold text-fg-strong">

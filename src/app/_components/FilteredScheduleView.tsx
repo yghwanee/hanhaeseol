@@ -10,7 +10,6 @@ import { getTodayString } from "@/lib/schedule-utils";
 import { buildAnswerLead } from "@/lib/answer-lead";
 import { isGameFinished, formatDateHeader } from "@/lib/schedule-utils";
 import { AdfitBanner } from "@/app/_components/AdfitBanner";
-import { SiteHeader } from "@/app/_components/SiteHeader";
 import { LastFiveBadges } from "@/app/_components/LastFiveBadges";
 
 function StatusPill({ kc, finished, result }: { kc: boolean | "unknown"; finished: boolean; result?: MatchResult }) {
@@ -122,7 +121,6 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
 
   return (
     <main className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12">
-      <SiteHeader />
 
       <div className="mt-4 sm:mt-6 mb-6">
         <h1 className="text-heading2 sm:text-title3 font-bold text-fg-strong">
