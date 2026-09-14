@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-14T01:00:00.772Z",
+  "lastUpdated": "2026-09-14T06:11:07.589Z",
   "byKey": {
     "2026-09-13|kbo|KIA|한화": {
       "date": "2026-09-13",
@@ -1343,10 +1343,10 @@
       "gameId": "20260914SDSF0",
       "homeTeam": "샌프란시스코 자이언츠",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 2,
+      "homeScore": 4,
       "awayScore": 6,
-      "status": "live",
-      "period": "5회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-14|mlb|샌프란시스코|샌디에이고 파드리스": {
       "date": "2026-09-14",
@@ -1354,10 +1354,10 @@
       "gameId": "20260914SDSF0",
       "homeTeam": "샌프란시스코 자이언츠",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 2,
+      "homeScore": 4,
       "awayScore": 6,
-      "status": "live",
-      "period": "5회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-14|mlb|샌프란시스코 자이언츠|샌디에이고": {
       "date": "2026-09-14",
@@ -1365,10 +1365,10 @@
       "gameId": "20260914SDSF0",
       "homeTeam": "샌프란시스코 자이언츠",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 2,
+      "homeScore": 4,
       "awayScore": 6,
-      "status": "live",
-      "period": "5회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-14|mlb|샌프란시스코 자이언츠|샌디에이고 파드리스": {
       "date": "2026-09-14",
@@ -1376,10 +1376,10 @@
       "gameId": "20260914SDSF0",
       "homeTeam": "샌프란시스코 자이언츠",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 2,
+      "homeScore": 4,
       "awayScore": 6,
-      "status": "live",
-      "period": "5회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-15|mlb|클리블랜드|시카고W": {
       "date": "2026-09-15",
@@ -4173,9 +4173,39 @@
       "homeTeam": "샌디에고",
       "awayTeam": "필라델피아",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "설리반",
+          "minute": 45,
+          "addedTime": 5
+        },
+        {
+          "team": "away",
+          "player": "설리반",
+          "minute": 61
+        },
+        {
+          "team": "away",
+          "player": "다미아니",
+          "minute": 67
+        },
+        {
+          "team": "away",
+          "player": "고도이",
+          "minute": 87,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "야쿠포비치",
+          "minute": 90,
+          "addedTime": 4
+        }
+      ]
     },
     "2026-09-13|kleague|김천|강원": {
       "date": "2026-09-13",
@@ -5217,10 +5247,10 @@
       "gameId": "20260914SDSF0",
       "homeTeam": "샌프란시스코 자이언츠",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 2,
+      "homeScore": 4,
       "awayScore": 6,
-      "status": "live",
-      "period": "5회말"
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-09-15",
@@ -6486,9 +6516,39 @@
       "homeTeam": "샌디에고",
       "awayTeam": "필라델피아",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "설리반",
+          "minute": 45,
+          "addedTime": 5
+        },
+        {
+          "team": "away",
+          "player": "설리반",
+          "minute": 61
+        },
+        {
+          "team": "away",
+          "player": "다미아니",
+          "minute": 67
+        },
+        {
+          "team": "away",
+          "player": "고도이",
+          "minute": 87,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "야쿠포비치",
+          "minute": 90,
+          "addedTime": 4
+        }
+      ]
     },
     {
       "date": "2026-09-13",

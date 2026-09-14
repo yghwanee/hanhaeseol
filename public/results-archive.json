@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-14T01:00:03.721Z",
+  "lastUpdated": "2026-09-14T06:11:09.445Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -49140,6 +49140,17 @@
       "status": "finished",
       "period": "9회말"
     },
+    "2026-09-14|mlb|샌프란시스코 자이언츠|샌디에이고 파드리스": {
+      "date": "2026-09-14",
+      "categoryId": "mlb",
+      "gameId": "20260914SDSF0",
+      "homeTeam": "샌프란시스코 자이언츠",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-09-14|mls|시카고 파이어 FC|뉴잉글랜드 레볼루션": {
       "date": "2026-09-14",
       "categoryId": "mls",
@@ -49193,6 +49204,47 @@
           "team": "away",
           "player": "라미레즈",
           "minute": 60
+        }
+      ]
+    },
+    "2026-09-14|mls|샌디에고|필라델피아": {
+      "date": "2026-09-14",
+      "categoryId": "mls",
+      "gameId": "1MDRX6650Ayagpt",
+      "homeTeam": "샌디에고",
+      "awayTeam": "필라델피아",
+      "homeScore": 0,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "설리반",
+          "minute": 45,
+          "addedTime": 5
+        },
+        {
+          "team": "away",
+          "player": "설리반",
+          "minute": 61
+        },
+        {
+          "team": "away",
+          "player": "다미아니",
+          "minute": 67
+        },
+        {
+          "team": "away",
+          "player": "고도이",
+          "minute": 87,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "야쿠포비치",
+          "minute": 90,
+          "addedTime": 4
         }
       ]
     },
@@ -98450,6 +98502,17 @@
     },
     {
       "date": "2026-09-14",
+      "categoryId": "mlb",
+      "gameId": "20260914SDSF0",
+      "homeTeam": "샌프란시스코 자이언츠",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-09-14",
       "categoryId": "mls",
       "gameId": "euZWFSLToyeEDq2",
       "homeTeam": "시카고 파이어 FC",
@@ -98501,6 +98564,47 @@
           "team": "away",
           "player": "라미레즈",
           "minute": 60
+        }
+      ]
+    },
+    {
+      "date": "2026-09-14",
+      "categoryId": "mls",
+      "gameId": "1MDRX6650Ayagpt",
+      "homeTeam": "샌디에고",
+      "awayTeam": "필라델피아",
+      "homeScore": 0,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "설리반",
+          "minute": 45,
+          "addedTime": 5
+        },
+        {
+          "team": "away",
+          "player": "설리반",
+          "minute": 61
+        },
+        {
+          "team": "away",
+          "player": "다미아니",
+          "minute": 67
+        },
+        {
+          "team": "away",
+          "player": "고도이",
+          "minute": 87,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "야쿠포비치",
+          "minute": 90,
+          "addedTime": 4
         }
       ]
     },
