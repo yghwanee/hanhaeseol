@@ -108,6 +108,16 @@ async function sumMetric(
           if (key) total += Number(row[key] ?? 0);
         }
         ok = true;
+      } else if (r.status === 402 || r.status === 403) {
+        // 🔴 2026-09-14 Hobby 강등 직후 실측: Observability 쿼리가 402
+        // (`Observability Plus is required … available on Pro and Enterprise`)로 거절된다.
+        // 재시도 루프가 이걸 "실패 조각"으로 세고 0 을 채워 **전 지표 0% ✅** 를 찍었다 —
+        // 한도 초과로 계정이 잠길 수 있는 플랜에서 "안전" 으로 읽히는 최악의 오답이다.
+        const text = (await r.text()).slice(0, 200);
+        throw new Error(
+          `Observability 쿼리 거절(${r.status}). Hobby 플랜에선 이 API 를 못 쓴다 — 숫자를 내지 않고 멈춘다.\n` +
+            `대시보드 Usage 화면으로 볼 것: https://vercel.com/${""}~/usage\n${text}`,
+        );
       } else if (r.status === 429) {
         // 🔴 일일 쿼리 한도(팀당 500회/일)를 넘기면 재시도해도 소용없다. 그냥 던진다 —
         // 조용히 0 으로 채우면 "사용량이 줄었다"는 정반대 결론이 나온다(2026-09-10 실측).
