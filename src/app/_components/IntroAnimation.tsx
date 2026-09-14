@@ -218,6 +218,17 @@ export function IntroAnimation() {
     setMode("intro");
 
     async function run() {
+      // 모바일은 타이핑 없이 정지 화면을 잠깐 보여 주고 끝낸다(글자 효과 없음 지시).
+      if (!window.matchMedia("(min-width: 640px)").matches) {
+        await sleep(2200);
+        sessionStorage.setItem(STORAGE_KEY, "1");
+        setFadingOut(true);
+        await sleep(550);
+        setMode("done");
+        markIntroDone();
+        return;
+      }
+
       for (let i = 1; i <= DOMAIN.length; i++) {
         setText(DOMAIN.slice(0, i));
         await sleep(70 + Math.random() * 40);
@@ -260,8 +271,49 @@ export function IntroAnimation() {
       style={{ backgroundColor: "#1B1C20", position: "fixed", inset: 0, zIndex: 100 }}
       aria-hidden
     >
+      {/* 모바일(<640px) 인트로 — 2026-09-14 화니 지시. 멜론 스플래시 구도:
+          위쪽 중앙에 [로고 / 짧은 가로선 / 부제], 아래쪽에 이미지 영역.
+          🔴 글자에는 효과를 넣지 않는다(타이핑·커서 없음). 아래 이미지 자리는 기존
+          엠블럼 티커를 **같은 높이(42vh)·같은 효과**(3열 흐름 + 3D 기울기)로 둔다.
+          PC 는 아래 타이핑 인트로 그대로다. */}
       {mode === "intro" && (
-        <>
+        <div className="absolute inset-0 flex flex-col sm:hidden" data-intro-mobile>
+          <div className="flex flex-1 flex-col items-center justify-center">
+            <div
+              className="text-title2 font-bold text-fg-strong"
+              style={{
+                fontFamily:
+                  'var(--font-pretendard-ui), "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif',
+              }}
+            >
+              한해설
+            </div>
+            <div aria-hidden className="mt-4 h-px w-7 bg-line-strong" />
+            <div
+              className="mt-4 text-headline1 font-normal tracking-[0.04em] text-fg-secondary"
+              style={{
+                fontFamily:
+                  'var(--font-pretendard-ui), "Apple SD Gothic Neo", "Malgun Gothic", system-ui, sans-serif',
+              }}
+            >
+              {SUBTITLE}
+            </div>
+          </div>
+          <div
+            className="flex h-[42vh] shrink-0 justify-center overflow-hidden"
+            // 멜론 사진처럼 위 가장자리를 배경으로 녹인다.
+            style={{
+              maskImage: "linear-gradient(to bottom, transparent 0%, black 30%)",
+              WebkitMaskImage: "linear-gradient(to bottom, transparent 0%, black 30%)",
+            }}
+          >
+            <EmblemTicker />
+          </div>
+        </div>
+      )}
+
+      {mode === "intro" && (
+        <div className="hidden flex-col items-center sm:flex">
           <div
             className="text-title2 font-semibold tracking-tight text-fg-strong sm:text-[48px]"
             /* 인트로 타이틀은 "한해설" — 한글이다. Geist 로 두면 글리프가 없어
@@ -278,7 +330,7 @@ export function IntroAnimation() {
           <div className="mt-10 sm:mt-14">
             <EmblemTicker />
           </div>
-        </>
+        </div>
       )}
 
       {mode === "ripple" && <RippleLoader />}

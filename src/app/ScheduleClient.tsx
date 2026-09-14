@@ -456,7 +456,6 @@ export default function ScheduleClient({
     return {
       total: todays.length,
       korean: todays.filter((s) => s.koreanCommentary === true).length,
-      platforms: new Set(data.schedules.map((s) => s.platform)).size,
       dateLabel: `${Number(m)}월 ${Number(d)}일`,
     };
   }, [data.schedules]);
@@ -476,7 +475,6 @@ export default function ScheduleClient({
       <HomeHero
         totalGames={heroStats.total}
         koreanGames={heroStats.korean}
-        platformCount={heroStats.platforms}
         dateLabel={heroStats.dateLabel}
         onKoreanOnly={handleKoreanOnly}
       />

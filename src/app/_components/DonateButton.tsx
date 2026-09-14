@@ -172,7 +172,9 @@ export function DonateButton({ className = "" }: { className?: string }) {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="개발자 응원하기"
-        className={`w-card w-card-hover flex w-full items-center gap-3 px-3.5 py-3.5 text-left sm:gap-4 sm:px-5 sm:py-4 ${className}`}
+        // 2026-09-14 화니 지시: 원래의 노란 띠 대신 **파랑 채움**(키 컬러에 노랑이 없다).
+        // 글자는 파랑 위라 흰색 계열(on-brand). 윗줄만 살짝 낮춰 두 줄 위계를 남긴다.
+        className={`w-card flex w-full items-center gap-3 border-transparent bg-brand px-3.5 py-3.5 text-left transition-colors hover:bg-brand-hover sm:gap-4 sm:px-5 sm:py-4 ${className}`}
       >
         {/* 선물 아이콘. 원본 500px PNG(164KB)를 표시 크기의 3배(168px) webp 로 미리
             줄여 뒀다(8KB). 이미 정확한 치수라 `unoptimized` 로 옵티마이저 왕복을 건너뛰고,
@@ -192,10 +194,10 @@ export function DonateButton({ className = "" }: { className?: string }) {
           className="h-11 w-11 shrink-0 sm:h-14 sm:w-14"
         />
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-caption1 text-fg-secondary sm:text-label1">
+          <span className="block truncate text-caption1 text-fg-onbrand opacity-80 sm:text-label1">
             오늘만큼은 꼭 이겨야 한다면
           </span>
-          <span className="mt-0.5 flex items-center gap-1 text-body1 font-bold text-fg-brand sm:text-headline1">
+          <span className="mt-0.5 flex items-center gap-1 text-body1 font-bold text-fg-onbrand sm:text-headline1">
             승리 기원 응원하기
             <span aria-hidden>›</span>
           </span>
