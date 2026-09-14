@@ -68,6 +68,14 @@ const KNOWN_UNSUPPORTED = new Set([
   // 200 에 6경기를 주지만 **그 안에 9/13 레인저스-셀틱이 없다.** 네이버가 리그만 다룬다.
   // 200 이라고 붙이면 영영 안 맞는 키가 된다(퓨처스리그·AUBL 과 같은 함정).
   "스코티시 리그컵",
+  // Campeones Cup(MLS 우승팀 vs 리가 MX 챔피언 단판, Apple TV+ — 예: 9/17 인터 마이애미 vs 크루스 아술).
+  // 2026-09-14 실측. 9/16~9/25 창으로 /schedule/games 에 campeonescup·campeones·mlscup·
+  // concacaf·leaguescup·ccup·cup 을 던져 전부 400. 같은 창에서 mls 는 16경기가 나온다.
+  "Campeones Cup",
+  // 2026 아이치·나고야 아시안게임(SPOTV NOW 축구·배구·농구, 9/19~10/04). 2026-09-14 실측으로
+  // /schedule/games 에 asiangames·asiangame·asian·aichinagoya2026·2026asiangames·agames 전부 400.
+  // 네이버는 종합대회를 일반 리그 API 가 아니라 별도 이벤트 앱(/asiangames2026/*)으로 다룬다.
+  "아이치·나고야 아시안게임",
 ]);
 
 const schedules = (scheduleData as unknown as ScheduleData).schedules;

@@ -191,6 +191,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "daily",
       priority: 0.8,
     },
+    {
+      // 2026 아시안게임 허브(9/19~10/04). 대회가 끝나도 URL 은 남긴다 — 최종 메달 순위를
+      // 찾는 검색이 한동안 이어진다. 내릴 땐 월드컵처럼 301 로 흡수할 것.
+      url: `${BASE}/asian-games`,
+      lastModified,
+      changeFrequency: "hourly",
+      priority: 0.9,
+    },
     ...sportUrls,
     ...guideUrls,
     ...teamUrls,

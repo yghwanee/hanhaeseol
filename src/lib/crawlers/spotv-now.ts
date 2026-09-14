@@ -50,8 +50,13 @@ export async function crawlSpotvNow(date: string): Promise<Schedule[]> {
     const desc = game.gameDesc;
     if (!desc) continue;
 
-    const sport = SPORT_MAP[desc.typeName];
+    // 🔴 종합대회는 필드가 뒤집혀 온다(2026-09-14 실측, 아이치·나고야 아시안게임):
+    //   typeName = "아이치·나고야 아시안게임", leagueName = "축구" | "배구" | "농구"
+    // typeName 만 보면 전부 버려진다. 그땐 leagueName 이 종목이고 typeName 이 대회명이다.
+    const multiEvent = !SPORT_MAP[desc.typeName] && !!SPORT_MAP[desc.leagueName];
+    const sport = SPORT_MAP[desc.typeName] ?? SPORT_MAP[desc.leagueName];
     if (!sport) continue;
+    const leagueName = multiEvent ? desc.typeName : normalizeLeague(desc.leagueNameFull || desc.leagueName);
 
     // SPOTV NOW API는 야구에서 homeName/awayName이 한국 방송 '원정:홈' 관례로 뒤바뀐다
     // (네이버 결과 대조 187/187 swap, 축구 47/48 정상). spotv-tv(parsers.ts)와 동일하게 야구만 swap.
@@ -64,7 +69,7 @@ export async function crawlSpotvNow(date: string): Promise<Schedule[]> {
         date,
         time,
         sport,
-        league: normalizeLeague(desc.leagueNameFull || desc.leagueName),
+        league: leagueName,
         homeTeam: swap ? desc.awayName : desc.homeName,
         awayTeam: swap ? desc.homeName : desc.awayName,
         platform: "SPOTV NOW",

@@ -57,11 +57,19 @@ jobs:
       - name: Run team records crawl
         run: npm run crawl:records
 
+      # 2026 아시안게임 메달·한국 경기(9/10~10/05). 🔴 실패해도 결과 커밋을 막지 않는다 —
+      # 크롤러는 메달 목록이 비면 파일을 안 덮고 exit 1 이라, 옛 파일이 그대로 커밋 대상에 남는다.
+      - name: Run Asian Games crawl
+        continue-on-error: true
+        run: |
+          if [ "$(TZ=Asia/Seoul date +%F)" \> "2026-10-05" ]; then echo "대회 종료 — 건너뛴다"; exit 0; fi
+          npm run crawl:asian-games
+
       - name: Commit & Push
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/data/results.json public/results.json src/data/results-archive.json public/results-archive.json src/data/team-records.json public/team-records.json
+          git add src/data/results.json public/results.json src/data/results-archive.json public/results-archive.json src/data/team-records.json public/team-records.json public/asian-games.json
           if git diff --staged --quiet; then
             echo "변경 없음"
           else

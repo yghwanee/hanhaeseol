@@ -13,6 +13,8 @@
     "crawl:standings": "tsx src/scripts/crawl-standings.ts",
     "crawl:korean-players": "tsx src/scripts/crawl-korean-players.ts",
     "crawl:results": "tsx src/scripts/crawl-results.ts",
+    "crawl:asian-games": "tsx src/scripts/crawl-asian-games.ts",
+    "test:asian-games": "tsx --test src/lib/asian-games/data.test.ts",
     "audit:aliases": "tsx src/scripts/audit-aliases.ts",
     "crawl:starters": "tsx src/scripts/crawl-starters.ts",
     "test:starters": "tsx --test src/lib/starters/*.test.ts",

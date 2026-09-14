@@ -20,6 +20,7 @@ import { ScheduleCard } from "./_components/ScheduleCard";
 import { AdfitBanner } from "./_components/AdfitBanner";
 import { DatePickerSheet } from "./_components/DatePickerSheet";
 import { EbookBanner } from "./_components/EbookBanner";
+import { AsianGamesBanner } from "./_components/AsianGamesBanner";
 import { DonateButton } from "./_components/DonateButton";
 import { useScrollbarDrag } from "@/lib/hooks/useScrollbarDrag";
 
@@ -480,8 +481,10 @@ export default function ScheduleClient({
         <DonateButton />
       </div>
 
-      {/* 상단 프로모 배너 — 헤더 바로 아래. */}
+      {/* 상단 프로모 배너 — 헤더 바로 아래. 아시안게임 기간(폐막 다음 날까지)엔 그 배너가
+          먼저 서고, 끝나면 AsianGamesBanner 가 스스로 null 을 돌려 전자책 배너만 남는다. */}
       <div className="mt-3 sm:mt-4">
+        <AsianGamesBanner today={getTodayString()} />
         <EbookBanner />
       </div>
 
