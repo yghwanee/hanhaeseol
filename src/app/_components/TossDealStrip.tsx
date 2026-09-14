@@ -61,8 +61,9 @@ export function TossDealStrip({ className = "" }: { className?: string }) {
         </span>
       </a>
       {/* 🔴 대가성 문구는 상품 소개와 같은 화면에 붙어 있어야 한다. 접거나 푸터로
-          내리면 위반이고, 배경과 대비도 읽을 수 있을 만큼 둔다. */}
-      <p className="mt-1.5 px-1 text-[10px] leading-relaxed text-zinc-500">{DISCLOSURE_SHORT}</p>
+          내리면 위반이다. 색은 zinc-400 — zinc-500 은 검정 배경에서 약 4.2:1 이라
+          10px 글씨로는 "알아보기 쉽게"(정책 문구)에 못 미친다. */}
+      <p className="mt-1.5 px-1 text-[10px] leading-relaxed text-zinc-400">{DISCLOSURE_SHORT}</p>
     </div>
   );
 }
