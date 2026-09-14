@@ -227,8 +227,11 @@ src/
 - 🔴 **토스쇼핑 쉐어링크 — 지면 구현 완료, 상품 0개 (2026-09-14, 작업117).**
   Open API 사용 승인이 났고 지면 두 곳이 라이브다. **기본 상태는 "아무것도 안 뜸"** —
   `src/data/toss-picks.json` 의 `picks` 가 비어 있으면 홈 띠도 본문 카드도 렌더되지 않는다.
-  - 지면 ①가이드 본문 `:::toss <key>:::` 마커(`src/lib/affiliate/embed.ts`)
-    ②홈 편성표 "오후 경기" 아래 한 줄 띠(`TossDealStrip`, `deal` 키를 걸 때만).
+  - 지면 넷 ①가이드 본문 `:::toss <key>:::` 마커(`src/lib/affiliate/embed.ts`)
+    ②홈 상단 `home-top`(플랫폼 필터 아래) ③홈 `home-inline`(오후 경기 구분선 아래)
+    ④매치 페이지 `match`(중계 안내 문장 아래). 자리 배정은 `toss-picks.json` 의 `slots`.
+    자리 바꾸기 = `npm run toss:pick -- --slot=home-top=<키>` / 끄기 `--slot=home-top=off`.
+    🔴 **`home-top` 과 `home-inline` 은 같은 화면**이라 다른 상품을 걸어야 한다(가드가 막는다).
   - 🔴 **이미지를 쓰지 않는다.** 토스 운영정책이 "이미지 URL 을 외부 사이트에 직접 표시",
     "추천 영역 썸네일 반복 노출", "여러 상품 이미지와 쉐어링크 자동 연동", "API 데이터로
     별도 상품 DB 구성"을 **사전 확인 대상**으로 명시한다. 텍스트만 쓰면 넷 다 비켜간다.

@@ -29,6 +29,7 @@ import {
 } from "@/lib/schedule-utils";
 import { SiteHeader } from "../../_components/SiteHeader";
 import { AdfitBanner } from "../../_components/AdfitBanner";
+import { TossDealStrip } from "../../_components/TossDealStrip";
 import { readInsight } from "@/lib/insights/storage";
 import { MatchInsightSection } from "./_components/MatchInsight";
 import { MatchStarters } from "./_components/MatchStarters";
@@ -703,6 +704,10 @@ export default function MatchPage({ params }: { params: Params }) {
           </p>
 
         </article>
+
+        {/* 토스쇼핑 한 줄 띠 — 중계 안내 바로 아래. 상품이 지정돼 있을 때만 뜬다.
+            매치는 홈과 별개 페이지라 같은 상품을 걸어도 한 화면에 두 번 나오지 않는다. */}
+        <TossDealStrip slot="match" className="mt-6" />
 
         {lineupGameId && match.sport === "축구" && (
           <MatchLineup

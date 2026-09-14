@@ -6,6 +6,9 @@ import {
   DISCLOSURE_FULL,
   DISCLOSURE_SHORT,
   MAX_PICKS_PER_PLACEMENT,
+  SAME_PAGE_SLOT_GROUPS,
+  TOSS_SLOTS,
+  slotKeys,
   PRICE_STALE_DAYS,
   isPriceStale,
   isExpired,
@@ -112,10 +115,36 @@ test("한 지면에 한 상품만 — 나열·전시로 키우지 않는다", ()
   // "API 로 받은 가격을 쌓아 이커머스처럼 나열·전시하는 커머스형 웹사이트는 승인되지
   // 않습니다"(운영정책). 상한을 올리려면 그 문장을 먼저 다시 읽을 것.
   assert.equal(MAX_PICKS_PER_PLACEMENT, 1);
+  assert.ok(TOSS_SLOTS.length <= 3, "자리를 늘릴 때마다 나열·전시에 가까워진다 — 정책 문장을 먼저 다시 읽을 것");
   assert.ok(
     !/\.map\(/.test(read(STRIP)),
     "홈 띠가 상품 목록을 map 으로 그린다 — 한 개만 건다",
   );
+});
+
+test("같은 화면의 두 자리에 같은 상품을 걸지 않는다", () => {
+  // home-top 과 home-inline 은 홈 한 장에 같이 뜬다. 같은 상품이면 사람은 광고 도배로 읽는다.
+  const keys = slotKeys();
+  for (const group of SAME_PAGE_SLOT_GROUPS) {
+    const used = group.map((s) => keys[s]).filter(Boolean);
+    assert.equal(
+      new Set(used).size,
+      used.length,
+      `같은 화면(${group.join(" + ")})에 같은 상품이 두 번 걸렸다: ${used.join(", ")}`,
+    );
+  }
+});
+
+test("자리에 걸린 키가 실제로 저장돼 있다", () => {
+  const keys = slotKeys();
+  for (const slot of TOSS_SLOTS) {
+    const key = keys[slot];
+    if (!key) continue;
+    assert.ok(
+      TOSS_PICKS_STORE.picks[key],
+      `'${slot}' 자리가 없는 상품 '${key}' 를 가리킨다 — 그 자리는 조용히 비어 버린다`,
+    );
+  }
 });
 
 test("가격은 확인한 지 오래되면 숨긴다", () => {

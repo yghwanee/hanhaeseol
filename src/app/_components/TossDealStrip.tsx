@@ -1,4 +1,4 @@
-import { DISCLOSURE_SHORT, formatWon, getDealPick, toView } from "@/lib/affiliate/toss-picks";
+import { DISCLOSURE_SHORT, formatWon, getSlotPick, toView, type TossSlot } from "@/lib/affiliate/toss-picks";
 
 /**
  * 홈 편성표 중간에 들어가는 토스쇼핑 한 줄 띠 (시안 A).
@@ -13,11 +13,21 @@ import { DISCLOSURE_SHORT, formatWon, getDealPick, toView } from "@/lib/affiliat
  * 🔴 `fixed`·`sticky` 를 쓰지 않는다. 본문을 가리며 따라다니는 플로팅 배너는
  * 정책이 전면 금지한다. 문서 흐름 안에 그대로 선다.
  *
- * 데이터가 없으면(=`deal` 미지정, 마감, 링크 없음) 스스로 `null` 을 돌려준다.
- * 그래서 기본 상태는 "아무것도 안 뜸"이고, 켜는 건 `toss:pick -- <id> --deal` 이다.
+ * 데이터가 없으면(=자리 미지정, 마감, 링크 없음) 스스로 `null` 을 돌려준다.
+ * 그래서 기본 상태는 "아무것도 안 뜸"이고, 켜는 건 `toss:pick -- <id> --slot=<자리>` 다.
+ *
+ * 자리는 셋 — `home-top`(필터 아래·상단 광고 위), `home-inline`(오후 경기 구분선 아래),
+ * `match`(매치 페이지 중계 안내 문장 아래).
+ * 🔴 **같은 화면의 두 자리에 같은 상품을 걸지 말 것**(home-top·home-inline). 매치는 별개 페이지다.
  */
-export function TossDealStrip({ className = "" }: { className?: string }) {
-  const pick = getDealPick();
+export function TossDealStrip({
+  slot = "home-inline",
+  className = "",
+}: {
+  slot?: TossSlot;
+  className?: string;
+}) {
+  const pick = getSlotPick(slot);
   if (!pick) return null;
 
   const { showPrice } = toView(pick);

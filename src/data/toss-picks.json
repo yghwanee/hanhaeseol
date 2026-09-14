@@ -1,7 +1,17 @@
 {
-  "lastUpdated": "2026-09-14T05:07:08.133Z",
+  "lastUpdated": "2026-09-14T05:29:05.310Z",
   "deal": "snack-popcorn",
   "picks": {
+    "nike-socks": {
+      "tacaItemId": 111183371,
+      "displayName": "나이키 에브리데이 쿠션 크루삭스, SX7664-100, 화이트 M 3개 + 화이트 L 3개, 6켤레",
+      "displayPrice": 18790,
+      "originalPrice": 39900,
+      "discountRate": 52,
+      "shortUrl": "https://toss.im/_m/VJqsrXWb",
+      "note": "러닝·풋살용 크루삭스 6켤레.",
+      "checkedAt": "2026-09-14"
+    },
     "snack-popcorn": {
       "tacaItemId": 2517647825,
       "displayName": "Bhc 뿌링팝콘, 60g, 12개",
@@ -12,5 +22,10 @@
       "note": "중계 보면서 한 봉지씩. 60g 12개입.",
       "checkedAt": "2026-09-14"
     }
+  },
+  "slots": {
+    "home-top": "nike-socks",
+    "home-inline": "snack-popcorn",
+    "match": "snack-popcorn"
   }
 }

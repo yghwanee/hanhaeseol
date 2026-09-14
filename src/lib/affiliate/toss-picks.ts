@@ -43,10 +43,26 @@ export interface TossPick {
   endAt?: string;
 }
 
+/**
+ * 홈에 띠를 거는 자리들. 🔴 **자리마다 다른 상품**을 건다 — 같은 상품이 한 화면에
+ * 두 번 뜨면 사람은 그걸 광고 도배로 읽는다(정책 이전에 그냥 나쁜 화면이다).
+ * 가드(`test:toss-picks`)가 중복을 막는다.
+ */
+export type TossSlot = "home-top" | "home-inline" | "match";
+export const TOSS_SLOTS: TossSlot[] = ["home-top", "home-inline", "match"];
+
+/**
+ * 같은 화면에 함께 뜨는 자리들. 여기 묶인 자리끼리는 **다른 상품**이어야 한다.
+ * `match` 는 별개 페이지라 홈과 같은 상품을 걸어도 된다(한 화면에 두 번 나오지 않는다).
+ */
+export const SAME_PAGE_SLOT_GROUPS: TossSlot[][] = [["home-top", "home-inline"]];
+
 export interface TossPicksStore {
   lastUpdated: string | null;
-  /** 홈 띠배너에 쓸 pick 키. null 이면 홈에는 아무것도 안 뜬다. */
+  /** 하위호환 — `slots["home-inline"]` 과 같은 뜻. 새 코드는 slots 를 쓴다. */
   deal: string | null;
+  /** 자리 → pick 키. 비어 있는 자리는 아무것도 안 그린다(기본 = 꺼짐). */
+  slots?: Partial<Record<TossSlot, string | null>>;
   picks: Record<string, TossPick>;
 }
 
@@ -117,10 +133,25 @@ export function getPick(key: string, now: Date = new Date()): TossPick | null {
   return pick;
 }
 
-/** 홈 띠배너용. `deal` 이 비어 있으면 홈에는 아무것도 안 뜬다(기본값 = 꺼짐). */
+/** 자리에 걸린 상품. 비어 있으면 null — 그 자리는 통째로 안 그려진다. */
+export function getSlotPick(slot: TossSlot, now: Date = new Date()): TossPick | null {
+  const key = store.slots?.[slot] ?? (slot === "home-inline" ? store.deal : null);
+  if (!key) return null;
+  return getPick(key, now);
+}
+
+/** 하위호환(= home-inline). */
 export function getDealPick(now: Date = new Date()): TossPick | null {
-  if (!store.deal) return null;
-  return getPick(store.deal, now);
+  return getSlotPick("home-inline", now);
+}
+
+/** 자리별로 걸린 키. 가드가 중복 검사에 쓴다. */
+export function slotKeys(): Record<string, string | null> {
+  const out: Record<string, string | null> = {};
+  for (const slot of TOSS_SLOTS) {
+    out[slot] = store.slots?.[slot] ?? (slot === "home-inline" ? store.deal : null) ?? null;
+  }
+  return out;
 }
 
 /** 화면이 실제로 그릴 값. 가격이 낡았으면 가격 쪽만 떨군다. */

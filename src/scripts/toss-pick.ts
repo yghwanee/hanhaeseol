@@ -2,9 +2,12 @@
  * 가이드 글·홈 띠에 걸 상품 하나를 고르고 저장한다.
  *
  *   npm run toss:pick -- <tacaItemId> --key=stadium-cushion --note="9월 밤 경기용"
- *   npm run toss:pick -- <tacaItemId> --key=today-deal --deal        # 홈 띠에 건다
- *   npm run toss:pick -- --deal=stadium-cushion                      # 홈 띠 상품만 교체
- *   npm run toss:pick -- --deal=off                                  # 홈 띠 끄기
+ *   npm run toss:pick -- <tacaItemId> --key=k --slot=home-top        # 그 자리에 건다
+ *   npm run toss:pick -- --slot=home-top=stadium-cushion             # 자리 상품만 교체
+ *   npm run toss:pick -- --slot=home-top=off                         # 그 자리 끄기
+ *
+ * 자리: home-top(필터 아래) · home-inline(오후 경기 구분선 아래) · match(매치 페이지)
+ * 🔴 home-top 과 home-inline 은 **같은 화면**이라 다른 상품을 걸어야 한다(가드가 막는다).
  *
  * 🔴 **이 PC 에서 돌린다.** 토스는 호출 IP 를 사전 등록받는데 Vercel 함수도 GitHub
  * Actions 도 나가는 IP 가 고정이 아니다. 결과 JSON 을 커밋해서 쓰는 구조다.
@@ -22,7 +25,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { getProductDetail, createShareLink } from "@/lib/toss/api";
 import { TossApiFailure, explainError } from "@/lib/toss/client";
-import type { TossPick, TossPicksStore } from "@/lib/affiliate/toss-picks";
+import { TOSS_SLOTS, type TossPick, type TossPicksStore, type TossSlot } from "@/lib/affiliate/toss-picks";
 
 const STORE = path.resolve("src/data/toss-picks.json");
 
@@ -53,30 +56,45 @@ function kstToday(): string {
 async function main() {
   const store = readStore();
 
-  // --deal=<key> / --deal=off 만 주면 홈 띠 상품만 바꾼다(API 호출 없음).
-  const dealOnly = arg("deal");
   const positional = process.argv.slice(2).filter((a) => !a.startsWith("--"));
-  if (dealOnly !== undefined && dealOnly !== "" && positional.length === 0) {
-    if (dealOnly === "off") {
-      store.deal = null;
+
+  /** 자리에 키를 건다. `deal` 은 home-inline 의 옛 이름이라 같이 맞춰 준다. */
+  function setSlot(slot: TossSlot, key: string | null) {
+    store.slots = { ...(store.slots ?? {}), [slot]: key };
+    if (slot === "home-inline") store.deal = key;
+  }
+
+  // `--slot=home-top=<key>` / `--slot=home-top=off` 만 주면 자리 배정만 바꾼다(API 호출 없음).
+  const slotArg = arg("slot") ?? "";
+  const [slotName, slotValue] = slotArg.split("=") as [string, string | undefined];
+  if (slotName && !TOSS_SLOTS.includes(slotName as TossSlot)) {
+    console.error(`모르는 자리: ${slotName}. 쓸 수 있는 자리: ${TOSS_SLOTS.join(", ")}`);
+    process.exit(1);
+  }
+  if (slotName && slotValue !== undefined && positional.length === 0) {
+    if (slotValue === "off") {
+      setSlot(slotName as TossSlot, null);
       writeStore(store);
-      console.log("홈 띠를 껐다(deal = null).");
+      console.log(`'${slotName}' 자리를 껐다.`);
       return;
     }
-    if (!store.picks[dealOnly]) {
-      console.error(`저장된 pick 에 '${dealOnly}' 가 없다. 먼저 발급할 것.`);
+    if (!store.picks[slotValue]) {
+      console.error(`저장된 pick 에 '${slotValue}' 가 없다. 먼저 발급할 것.`);
       console.error(`  보유 키: ${Object.keys(store.picks).join(", ") || "(없음)"}`);
       process.exit(1);
     }
-    store.deal = dealOnly;
+    setSlot(slotName as TossSlot, slotValue);
     writeStore(store);
-    console.log(`홈 띠 상품을 '${dealOnly}' 로 바꿨다.`);
+    console.log(`'${slotName}' 자리를 '${slotValue}' 로 바꿨다.`);
     return;
   }
 
   const tacaItemId = Number(positional[0]);
   if (!positional[0] || !Number.isFinite(tacaItemId)) {
-    console.error("사용: npm run toss:pick -- <tacaItemId> --key=<슬러그> [--note=\"한 줄 소개\"] [--deal]");
+    console.error(
+      "사용: npm run toss:pick -- <tacaItemId> --key=<슬러그> [--note=\"한 줄 소개\"] [--slot=<자리>]\n" +
+        `  자리: ${TOSS_SLOTS.join(" · ")}`,
+    );
     process.exit(1);
   }
   const key = arg("key") || `p${tacaItemId}`;
@@ -116,14 +134,14 @@ async function main() {
       ...(item.endAt ? { endAt: item.endAt } : {}),
     };
     store.picks[key] = pick;
-    if (arg("deal") !== undefined) store.deal = key;
+    if (slotName) setSlot(slotName as TossSlot, key);
     writeStore(store);
 
     console.log(`저장 완료 — key '${key}'`);
     console.log(`  ${pick.displayName}`);
     console.log(`  ${pick.displayPrice.toLocaleString("ko-KR")}원 (${pick.discountRate}% 할인)`);
     console.log(`  ${pick.shortUrl}`);
-    if (store.deal === key) console.log("  → 홈 띠에 걸렸다.");
+    if (slotName) console.log(`  → '${slotName}' 자리에 걸렸다.`);
     console.log(`\n가이드 글 본문에 넣으려면 그 자리에 한 줄:\n  :::toss ${key}:::`);
   } catch (e) {
     const msg =

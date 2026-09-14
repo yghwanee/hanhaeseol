@@ -621,6 +621,10 @@ export default function ScheduleClient({
         </div>
       </div>
 
+      {/* 토스쇼핑 한 줄 띠(상단) — 플랫폼 필터 바로 아래. 상품이 지정돼 있을 때만 뜬다.
+          🔴 아래 인라인 자리와 **다른 상품**을 걸 것(가드가 중복을 막는다). */}
+      <TossDealStrip slot="home-top" className="mb-6" />
+
       {/* 카카오 애드핏 배너 — PC 728x90 / 모바일 320x50 (뷰포트 보고 한쪽만 렌더) */}
       <AdfitBanner className="mb-6" />
 
@@ -871,7 +875,7 @@ export default function ScheduleClient({
         )}
         {/* 토스쇼핑 한 줄 띠 — 상품이 지정돼 있을 때만 뜬다(기본은 안 뜸). 광고 위에
             둔 이유: 애드핏 300x250 아래에 붙이면 사람이 둘을 한 덩어리 광고로 읽는다. */}
-        <TossDealStrip className="mb-4" />
+        <TossDealStrip slot="home-inline" className="mb-4" />
         <AdfitBanner slot="inline" />
       </div>
 
