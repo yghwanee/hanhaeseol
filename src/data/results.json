@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-14T22:26:55.328Z",
+  "lastUpdated": "2026-09-14T23:09:19.410Z",
   "byKey": {
     "2026-09-15|kbo|SSG|KIA": {
       "date": "2026-09-15",
@@ -735,8 +735,8 @@
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회말"
     },
     "2026-09-15|mlb|클리블랜드|시카고 화이트삭스": {
       "date": "2026-09-15",
@@ -746,8 +746,8 @@
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회말"
     },
     "2026-09-15|mlb|클리블랜드 가디언스|시카고W": {
       "date": "2026-09-15",
@@ -757,8 +757,8 @@
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회말"
     },
     "2026-09-15|mlb|클리블랜드 가디언스|시카고 화이트삭스": {
       "date": "2026-09-15",
@@ -768,8 +768,8 @@
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회말"
     },
     "2026-09-15|mlb|신시내티|LA다저스": {
       "date": "2026-09-15",
@@ -778,9 +778,9 @@
       "homeTeam": "신시내티 레즈",
       "awayTeam": "LA 다저스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 1,
+      "status": "live",
+      "period": "3회초"
     },
     "2026-09-15|mlb|신시내티|LA 다저스": {
       "date": "2026-09-15",
@@ -789,9 +789,9 @@
       "homeTeam": "신시내티 레즈",
       "awayTeam": "LA 다저스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 1,
+      "status": "live",
+      "period": "3회초"
     },
     "2026-09-15|mlb|신시내티 레즈|LA다저스": {
       "date": "2026-09-15",
@@ -800,9 +800,9 @@
       "homeTeam": "신시내티 레즈",
       "awayTeam": "LA 다저스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 1,
+      "status": "live",
+      "period": "3회초"
     },
     "2026-09-15|mlb|신시내티 레즈|LA 다저스": {
       "date": "2026-09-15",
@@ -811,9 +811,9 @@
       "homeTeam": "신시내티 레즈",
       "awayTeam": "LA 다저스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 1,
+      "status": "live",
+      "period": "3회초"
     },
     "2026-09-15|mlb|토론토|디트로이트": {
       "date": "2026-09-15",
@@ -823,7 +823,7 @@
       "awayTeam": "디트로이트 타이거스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
+      "status": "live",
       "period": "1회초"
     },
     "2026-09-15|mlb|토론토|디트로이트 타이거스": {
@@ -834,7 +834,7 @@
       "awayTeam": "디트로이트 타이거스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
+      "status": "live",
       "period": "1회초"
     },
     "2026-09-15|mlb|토론토 블루제이스|디트로이트": {
@@ -845,7 +845,7 @@
       "awayTeam": "디트로이트 타이거스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
+      "status": "live",
       "period": "1회초"
     },
     "2026-09-15|mlb|토론토 블루제이스|디트로이트 타이거스": {
@@ -856,7 +856,7 @@
       "awayTeam": "디트로이트 타이거스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
+      "status": "live",
       "period": "1회초"
     },
     "2026-09-15|mlb|뉴욕메츠|볼티모어": {
@@ -2396,7 +2396,7 @@
       "date": "2026-09-15",
       "categoryId": "seria",
       "gameId": "8IjGVOaCwYAPhbo",
-      "homeTeam": "인테르",
+      "homeTeam": "인터 밀란",
       "awayTeam": "우디네세 칼초",
       "homeScore": 5,
       "awayScore": 3,
@@ -2449,7 +2449,113 @@
       "date": "2026-09-15",
       "categoryId": "seria",
       "gameId": "8IjGVOaCwYAPhbo",
-      "homeTeam": "인테르",
+      "homeTeam": "인터 밀란",
+      "awayTeam": "우디네세 칼초",
+      "homeScore": 5,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아방콰",
+          "minute": 9
+        },
+        {
+          "team": "away",
+          "player": "에켈렌캠프",
+          "minute": 16
+        },
+        {
+          "team": "home",
+          "player": "카를로스 아우구스토",
+          "minute": 26
+        },
+        {
+          "team": "home",
+          "player": "바렐라",
+          "minute": 35
+        },
+        {
+          "team": "home",
+          "player": "튀랑",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "에스포지토",
+          "minute": 67
+        },
+        {
+          "team": "home",
+          "player": "보니",
+          "minute": 79
+        },
+        {
+          "team": "away",
+          "player": "게예",
+          "minute": 90
+        }
+      ]
+    },
+    "2026-09-15|seria|인터 밀란|우디네세": {
+      "date": "2026-09-15",
+      "categoryId": "seria",
+      "gameId": "8IjGVOaCwYAPhbo",
+      "homeTeam": "인터 밀란",
+      "awayTeam": "우디네세 칼초",
+      "homeScore": 5,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아방콰",
+          "minute": 9
+        },
+        {
+          "team": "away",
+          "player": "에켈렌캠프",
+          "minute": 16
+        },
+        {
+          "team": "home",
+          "player": "카를로스 아우구스토",
+          "minute": 26
+        },
+        {
+          "team": "home",
+          "player": "바렐라",
+          "minute": 35
+        },
+        {
+          "team": "home",
+          "player": "튀랑",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "에스포지토",
+          "minute": 67
+        },
+        {
+          "team": "home",
+          "player": "보니",
+          "minute": 79
+        },
+        {
+          "team": "away",
+          "player": "게예",
+          "minute": 90
+        }
+      ]
+    },
+    "2026-09-15|seria|인터 밀란|우디네세 칼초": {
+      "date": "2026-09-15",
+      "categoryId": "seria",
+      "gameId": "8IjGVOaCwYAPhbo",
+      "homeTeam": "인터 밀란",
       "awayTeam": "우디네세 칼초",
       "homeScore": 5,
       "awayScore": 3,
@@ -2834,7 +2940,18 @@
       "categoryId": "eredivisie",
       "gameId": "bRVQsImnemImvxj",
       "homeTeam": "아약스",
-      "awayTeam": "빌럼 II",
+      "awayTeam": "빌럼",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-09-16|eredivisie|아약스|빌럼": {
+      "date": "2026-09-16",
+      "categoryId": "eredivisie",
+      "gameId": "bRVQsImnemImvxj",
+      "homeTeam": "아약스",
+      "awayTeam": "빌럼",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -3024,7 +3141,31 @@
       "date": "2026-09-15",
       "categoryId": "acl",
       "gameId": "WYAZKBUd3pmaJmh",
-      "homeTeam": "알 아흘리",
+      "homeTeam": "알 아흘리 SFC",
+      "awayTeam": "파흐타코르",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "플라마리옹",
+          "minute": 86
+        },
+        {
+          "team": "home",
+          "player": "페라스 알 부라이칸",
+          "minute": 90,
+          "addedTime": 3
+        }
+      ]
+    },
+    "2026-09-15|acl|알 아흘리 SFC|파흐타코르": {
+      "date": "2026-09-15",
+      "categoryId": "acl",
+      "gameId": "WYAZKBUd3pmaJmh",
+      "homeTeam": "알 아흘리 SFC",
       "awayTeam": "파흐타코르",
       "homeScore": 1,
       "awayScore": 1,
@@ -3060,7 +3201,18 @@
       "categoryId": "acl",
       "gameId": "HsnkBR4n9G9nyUD",
       "homeTeam": "감바 오사카",
-      "awayTeam": "CAHN",
+      "awayTeam": "꽁안 하노이",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-09-15|acl|감바 오사카|꽁안 하노이": {
+      "date": "2026-09-15",
+      "categoryId": "acl",
+      "gameId": "HsnkBR4n9G9nyUD",
+      "homeTeam": "감바 오사카",
+      "awayTeam": "꽁안 하노이",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -3092,7 +3244,18 @@
       "date": "2026-09-15",
       "categoryId": "acl",
       "gameId": "JXSfG7iYL2DFgKW",
-      "homeTeam": "다룰 탁짐",
+      "homeTeam": "조호르",
+      "awayTeam": "부리람",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-09-15|acl|조호르|부리람": {
+      "date": "2026-09-15",
+      "categoryId": "acl",
+      "gameId": "JXSfG7iYL2DFgKW",
+      "homeTeam": "조호르",
       "awayTeam": "부리람",
       "homeScore": 0,
       "awayScore": 0,
@@ -3137,7 +3300,18 @@
       "categoryId": "acl",
       "gameId": "0WBFlYqROuXJyd0",
       "homeTeam": "전북",
-      "awayTeam": "가시와 레이솔",
+      "awayTeam": "가시와",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-09-16|acl|전북|가시와": {
+      "date": "2026-09-16",
+      "categoryId": "acl",
+      "gameId": "0WBFlYqROuXJyd0",
+      "homeTeam": "전북",
+      "awayTeam": "가시와",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -3148,7 +3322,18 @@
       "categoryId": "acl",
       "gameId": "zFLANpfUBEd95sS",
       "homeTeam": "포트",
-      "awayTeam": "비셀 고베",
+      "awayTeam": "고베",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-09-16|acl|포트|고베": {
+      "date": "2026-09-16",
+      "categoryId": "acl",
+      "gameId": "zFLANpfUBEd95sS",
+      "homeTeam": "포트",
+      "awayTeam": "고베",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -3483,8 +3668,8 @@
       "awayTeam": "시카고 화이트삭스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "status": "live",
+      "period": "2회말"
     },
     {
       "date": "2026-09-15",
@@ -3493,9 +3678,9 @@
       "homeTeam": "신시내티 레즈",
       "awayTeam": "LA 다저스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "awayScore": 1,
+      "status": "live",
+      "period": "3회초"
     },
     {
       "date": "2026-09-15",
@@ -3505,7 +3690,7 @@
       "awayTeam": "디트로이트 타이거스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
+      "status": "live",
       "period": "1회초"
     },
     {
@@ -4048,7 +4233,7 @@
       "date": "2026-09-15",
       "categoryId": "seria",
       "gameId": "8IjGVOaCwYAPhbo",
-      "homeTeam": "인테르",
+      "homeTeam": "인터 밀란",
       "awayTeam": "우디네세 칼초",
       "homeScore": 5,
       "awayScore": 3,
@@ -4321,7 +4506,7 @@
       "categoryId": "eredivisie",
       "gameId": "bRVQsImnemImvxj",
       "homeTeam": "아약스",
-      "awayTeam": "빌럼 II",
+      "awayTeam": "빌럼",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -4511,7 +4696,7 @@
       "date": "2026-09-15",
       "categoryId": "acl",
       "gameId": "WYAZKBUd3pmaJmh",
-      "homeTeam": "알 아흘리",
+      "homeTeam": "알 아흘리 SFC",
       "awayTeam": "파흐타코르",
       "homeScore": 1,
       "awayScore": 1,
@@ -4547,7 +4732,7 @@
       "categoryId": "acl",
       "gameId": "HsnkBR4n9G9nyUD",
       "homeTeam": "감바 오사카",
-      "awayTeam": "CAHN",
+      "awayTeam": "꽁안 하노이",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -4579,7 +4764,7 @@
       "date": "2026-09-15",
       "categoryId": "acl",
       "gameId": "JXSfG7iYL2DFgKW",
-      "homeTeam": "다룰 탁짐",
+      "homeTeam": "조호르",
       "awayTeam": "부리람",
       "homeScore": 0,
       "awayScore": 0,
@@ -4624,7 +4809,7 @@
       "categoryId": "acl",
       "gameId": "0WBFlYqROuXJyd0",
       "homeTeam": "전북",
-      "awayTeam": "가시와 레이솔",
+      "awayTeam": "가시와",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -4635,7 +4820,7 @@
       "categoryId": "acl",
       "gameId": "zFLANpfUBEd95sS",
       "homeTeam": "포트",
-      "awayTeam": "비셀 고베",
+      "awayTeam": "고베",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
