@@ -115,7 +115,9 @@ function ScheduleCardInner({
         className="absolute inset-0 z-0 rounded-[12px]"
         aria-label={`${schedule.homeTeam} ${schedule.awayTeam ? `vs ${schedule.awayTeam}` : ""} 경기 상세 보기`}
       />
-      <div className="pointer-events-none relative z-10 flex items-start justify-between gap-2">
+      {/* items-center: 왼쪽 글자 줄(20px)과 오른쪽 뱃지 묶음(26px)의 세로 중심을 맞춘다.
+          items-start 로 두면 글자가 위로 떠 보인다(2026-09-14 화니 지적). */}
+      <div className="pointer-events-none relative z-10 flex items-center justify-between gap-2">
         {/* 🔴 좁은 폰에서 줄어드는 건 **리그명 하나뿐**이다(…처리). 시간·종목과 오른쪽
             묶음(플랫폼·해설·상태)은 shrink-0 이라 안 잘린다. 2026-09-14 화니 지시. */}
         <div className="flex min-w-0 items-center gap-1.5 sm:gap-2 text-caption1 sm:text-label2 text-fg-secondary">

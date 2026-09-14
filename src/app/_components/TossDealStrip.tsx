@@ -66,7 +66,7 @@ export function TossDealStrip({
             )}
           </span>
         )}
-        <span className="hidden shrink-0 rounded-md bg-brand px-2.5 py-1.5 text-caption2 font-semibold text-white sm:inline">
+        <span className="hidden shrink-0 rounded-md bg-brand px-2.5 py-1.5 text-caption2 font-semibold text-fg-onbrand sm:inline">
           보러 가기
         </span>
       </a>

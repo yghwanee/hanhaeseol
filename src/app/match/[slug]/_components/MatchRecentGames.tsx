@@ -43,7 +43,7 @@ function GameRow({
   const awayLost = game.awayScore < game.homeScore;
   return (
     <li className="flex items-center gap-2 text-label1">
-      <span className="w-9 shrink-0 font-mono text-caption1 text-fg-tertiary">
+      <span className="w-9 shrink-0 tabular-nums text-caption1 text-fg-tertiary">
         {shortDate(game.date)}
       </span>
 
@@ -56,7 +56,7 @@ function GameRow({
         </div>
 
         {/* 스코어 (메인 카드 스타일: 진 쪽 흐리게) */}
-        <div className="flex shrink-0 items-baseline gap-1 font-mono text-body1 font-bold leading-none sm:text-headline1">
+        <div className="flex shrink-0 items-baseline gap-1 tabular-nums text-body1 font-bold leading-none sm:text-headline1">
           <span className={homeLost ? "text-fg-tertiary" : "text-fg-strong"}>
             {game.homeScore}
           </span>

@@ -13,7 +13,10 @@ function isHiddenPath(pathname: string | null): boolean {
 }
 
 /* ─────────────────────────────────────────────────────────────────────────
- *  PC 좌/우 사이드 (XL≥1280px) - 좌측 채운 프로모 + 우측 애드핏 160x600
+ *  PC 좌/우 사이드 (≥1440px) - 좌측 채운 프로모 + 우측 애드핏 160x600
+ *
+ *  🔴 1280 이 아니라 1440 이다(2026-09-14). 본문 컨테이너가 1100px 로 넓어진 뒤 1280 창에서는
+ *  좌우 여백이 90px 뿐이라 141px 폭 배너가 필터·제목·히어로를 덮었다. 1100 + 2×(16+141) ≈ 1414.
  * ──────────────────────────────────────────────────────────────────────── */
 export function SideBanners() {
   // 🔴 우측 애드핏 슬롯이 홈 상단 슬롯과 **같은 커밋에** 마운트돼야 한다.
@@ -26,13 +29,13 @@ export function SideBanners() {
   return (
     <>
       <aside
-        className="hidden xl:flex fixed left-4 top-1/2 -translate-y-1/2 z-10 flex-col gap-3"
+        className="hidden min-[1440px]:flex fixed left-4 top-1/2 -translate-y-1/2 z-10 flex-col gap-3"
         aria-label="채운 프로모션 (좌측)"
       >
         <ChaeunSideBanner />
       </aside>
       <aside
-        className="hidden xl:flex fixed right-4 top-1/2 -translate-y-1/2 z-10 flex-col gap-3"
+        className="hidden min-[1440px]:flex fixed right-4 top-1/2 -translate-y-1/2 z-10 flex-col gap-3"
         aria-label="애드핏 광고 (우측)"
       >
         <AdfitBanner slot="sideRight" />

@@ -119,12 +119,12 @@ export default function StandingsPage({
   }
 
   return (
-    <main className="min-h-screen text-gray-100">
+    <main className="min-h-screen text-fg">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(STANDINGS_INDEX_JSONLD) }}
       />
-      <div className="mx-auto max-w-[1100px] px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
+      <div className="mx-auto max-w-[1100px] px-5 pb-8 text-[14px] sm:px-6 sm:pb-12">
         <div className="mt-4 sm:mt-6">
           <StandingsView
             data={data}

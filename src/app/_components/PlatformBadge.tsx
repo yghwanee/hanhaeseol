@@ -11,7 +11,8 @@ import { PLATFORM_ICON_MAP } from "./constants";
  * (한국어 해설·LIVE) 하나뿐이어야 그게 눈에 들어온다. 원티드가 색을 아끼는 방식이다.
  */
 const BASE =
-  "inline-flex items-center gap-1.5 rounded-md border border-line-subtle bg-muted px-2 py-1 text-caption1 font-medium text-fg-secondary whitespace-nowrap";
+  // h-6 = 해설 뱃지(.w-badge 24px)와 같은 높이. 카드 윗줄에 나란히 선다.
+  "inline-flex h-6 items-center gap-1.5 rounded-md border border-line-subtle bg-muted px-2 text-caption1 font-medium text-fg-secondary whitespace-nowrap";
 
 function PlatformBadgeInner({
   platform,

@@ -20,9 +20,9 @@ function Last5Pips({ last5 }: { last5?: string }) {
       {chars.map((c, i) => {
         const cls =
           c === "W"
-            ? "bg-brand-subtle text-white"
+            ? "bg-brand-subtle text-fg-strong"
             : c === "L"
-            ? "bg-[oklch(0.298_0.10_22_/_0.32)] text-white"
+            ? "bg-[oklch(0.298_0.10_22_/_0.32)] text-fg-strong"
             : "bg-muted text-fg";
         return (
           <span
@@ -191,7 +191,7 @@ export function MatchContextSection({
                   </span>
                   <span>
                     {h.homeTeam}{" "}
-                    <span className="font-mono font-semibold text-fg-strong">
+                    <span className="tabular-nums font-semibold text-fg-strong">
                       {h.homeScore}-{h.awayScore}
                     </span>{" "}
                     {h.awayTeam}

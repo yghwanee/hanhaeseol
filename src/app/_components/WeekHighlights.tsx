@@ -60,11 +60,11 @@ function MiniMatchCard({ schedule: s }: { schedule: Schedule }) {
   return (
     <Link
       href={`/match/${matchToSlug(s)}`}
-      className="flex h-full flex-col rounded-lg border border-line-subtle border-l-2 border-l-emerald-500/50 bg-surface p-3 transition-colors hover:border-line hover:border-l-emerald-400 hover:bg-surface sm:p-3.5"
+      className="flex h-full flex-col rounded-lg border border-line-subtle border-l-2 border-l-brand bg-surface p-3 transition-colors hover:border-line hover:border-l-brand-hover hover:bg-surface sm:p-3.5"
     >
       <div className="flex items-baseline gap-1.5 text-caption1">
         <span className={dateColor}>{formatDateHeader(s.date)}</span>
-        <span className="font-mono font-semibold text-fg-strong">{s.time}</span>
+        <span className="font-semibold tabular-nums text-fg-strong">{s.time}</span>
       </div>
       <div className="mt-1.5 truncate text-label1 font-semibold text-fg-strong sm:text-[15px]">
         {versus}

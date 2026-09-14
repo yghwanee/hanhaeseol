@@ -70,9 +70,11 @@ export function AsianGamesLive({
   return (
     <>
       <section className="mb-6 rounded-xl border border-line-subtle bg-surface p-4 sm:p-5">
-        <div className="flex items-baseline justify-between gap-2">
+        {/* 폰에선 기준 시각을 제목 아래 줄로 내린다 — 한 줄에 넣으면 "116 / 건" 으로 끊겼다(2026-09-14). */}
+        <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-2">
           <h2 className="text-headline1 font-semibold text-fg-strong sm:text-heading2">
-            대한민국 경기 일정 <span className="text-label1 font-normal text-fg-tertiary">(전 종목 {data.koreaGames.length}건)</span>
+            대한민국 경기 일정{" "}
+            <span className="whitespace-nowrap text-label1 font-normal text-fg-tertiary">(전 종목 {data.koreaGames.length}건)</span>
           </h2>
           <span className="shrink-0 text-caption2 text-fg-tertiary">{kst(data.lastUpdated)} 기준</span>
         </div>
@@ -207,7 +209,7 @@ export function AsianGamesLive({
               {rows.map((m) => (
                 <tr
                   key={m.countryId}
-                  className={`border-t border-line-subtle ${m.countryId === "KOR" ? "bg-sky-400/[0.08]" : ""}`}
+                  className={`border-t border-line-subtle ${m.countryId === "KOR" ? "bg-brand-subtle" : ""}`}
                 >
                   <td className="py-2 text-center tabular-nums text-fg-secondary">{started ? m.rank : "-"}</td>
                   <td className={`py-2 ${m.countryId === "KOR" ? "font-bold text-fg-strong" : "text-fg-strong"}`}>{m.countryName}</td>

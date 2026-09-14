@@ -97,12 +97,12 @@ export default function FaqPage() {
   };
 
   return (
-    <main className="min-h-screen text-gray-100">
+    <main className="min-h-screen text-fg">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="mx-auto max-w-[720px] px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
+      <div className="mx-auto max-w-[720px] px-5 pb-8 text-[14px] sm:px-6 sm:pb-12">
 
         <h1 className="mt-4 sm:mt-6 mb-2 text-title3 font-bold sm:text-title2">자주 묻는 질문</h1>
         <p className="mb-8 text-label1 text-fg-secondary">

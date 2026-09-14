@@ -27,7 +27,7 @@ function TeamColumn({ team, label }: { team: BaseballTeamLineup; label: string }
           <span className="shrink-0 text-fg-brand-bright">선발</span>
           <span className="truncate text-fg-strong">{team.starter.name}</span>
           {team.starter.backnum && (
-            <span className="shrink-0 font-mono text-caption2 text-fg-tertiary">
+            <span className="shrink-0 tabular-nums text-caption2 text-fg-tertiary">
               #{team.starter.backnum}
             </span>
           )}
@@ -36,7 +36,7 @@ function TeamColumn({ team, label }: { team: BaseballTeamLineup; label: string }
       <ol className="space-y-0.5 text-caption2 sm:text-caption1">
         {team.batters.map((b) => (
           <li key={b.order} className="flex items-center gap-1.5">
-            <span className="inline-block w-3 shrink-0 text-center font-mono text-fg-tertiary">
+            <span className="inline-block w-3 shrink-0 text-center tabular-nums text-fg-tertiary">
               {b.order}
             </span>
             <span className="truncate text-fg-strong">{b.name}</span>

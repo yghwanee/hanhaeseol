@@ -76,7 +76,8 @@ const SLOTS = {
     pc: { unit: "DAN-1fL2TxxOBIE9A7nT", width: 160, height: 600 },
     mobile: null,
     wrapper: "min-h-[600px]",
-    minWidth: 1280,
+    // SideBanners 의 표시 기준(min-[1440px])과 반드시 같아야 한다 — 다르면 안 보이는 광고가 노출로 잡힌다.
+    minWidth: 1440,
   },
 } as const;
 

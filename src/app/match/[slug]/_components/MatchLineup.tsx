@@ -30,7 +30,7 @@ function PlayerRow({ p, align }: { p: LineupPlayer; align: "left" | "right" }) {
     <div
       className={`flex items-center gap-1.5 ${align === "right" ? "flex-row-reverse text-right" : "text-left"}`}
     >
-      <span className="inline-block min-w-[1.5rem] shrink-0 font-mono text-caption2 text-fg-tertiary">
+      <span className="inline-block min-w-[1.5rem] shrink-0 tabular-nums text-caption2 text-fg-tertiary">
         {p.number ?? "-"}
       </span>
       <span className="truncate text-fg-strong">{p.name}</span>
@@ -55,7 +55,7 @@ function TeamColumn({
       >
         <span className="truncate text-label1 font-semibold text-fg-strong">{label}</span>
         {team.formation && (
-          <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 font-mono text-caption2 text-fg-brand-bright">
+          <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 tabular-nums text-caption2 text-fg-brand-bright">
             {team.formation}
           </span>
         )}

@@ -18,7 +18,7 @@ export default function OfflinePage() {
       </p>
       <Link
         href="/"
-        className="mt-6 rounded-lg bg-brand px-4 py-2 text-label1 font-semibold text-white transition-colors hover:bg-brand"
+        className="mt-6 rounded-lg bg-brand px-4 py-2 text-label1 font-semibold text-fg-onbrand transition-colors hover:bg-brand-hover"
       >
         다시 시도
       </Link>

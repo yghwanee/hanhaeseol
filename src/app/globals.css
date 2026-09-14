@@ -463,7 +463,10 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    padding: 5px 8px;
+    /* 높이 고정 — 테두리 유무(한국어·현지·종료)에 따라 22/24px 로 갈려 한 줄에서 들쭉날쭉했다(2026-09-14). */
+    box-sizing: border-box;
+    height: 24px;
+    padding: 0 8px;
     border-radius: 6px;
     font-size: 12px;
     font-weight: 600;

@@ -27,7 +27,7 @@ export default function AboutPage() {
     <main className="min-h-screen text-fg-secondary">
       <div className="max-w-[720px] mx-auto px-5 sm:px-6 pb-8 sm:pb-12 text-[14px]">
 
-        <h1 className="text-title3 sm:text-title2 font-bold mt-4 sm:mt-6 mb-8">한해설 소개</h1>
+        <h1 className="text-title3 sm:text-title2 font-bold text-fg-strong mt-4 sm:mt-6 mb-8">한해설 소개</h1>
 
         <AdfitBanner className="mb-6" />
 
@@ -53,7 +53,7 @@ export default function AboutPage() {
             특히 EPL, 라리가, MLB처럼 해외에서 열리는 경기는 어느 채널이 한국어 해설을 붙였는지 사전에 알기 어렵습니다.
           </p>
           <p className="text-fg-secondary leading-relaxed">
-            한해설은 경기마다 <strong>한국어해설 여부</strong>를 초록·빨강·노랑 뱃지로 명확히 구분해, 한국어 중계가 가능한 경기만 골라보거나
+            한해설은 경기마다 <strong>한국어해설 여부</strong>를 흰색 채움(한국어)·검은 박스(현지)·테두리만(확인 중) 뱃지로 명확히 구분해, 한국어 중계가 가능한 경기만 골라보거나
             여러 플랫폼의 한국어 중계 일정을 비교해 가장 편한 시청 환경을 선택할 수 있게 도와줍니다.
           </p>
         </section>

@@ -121,7 +121,9 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
       : baseLead;
 
   return (
-    <main className="relative mx-auto min-h-screen max-w-2xl px-3 sm:px-4 pb-8 sm:pb-12">
+    // 1100px = 헤더·홈·팀·순위와 같은 그리드. 종전 672px(max-w-2xl) 는 PC 에서 가운데 좁은 기둥이 되고
+    // 태블릿에서 본문이 헤더 로고보다 48px 안쪽에서 시작했다(2026-09-14 디자인 검수).
+    <main className="relative mx-auto min-h-screen max-w-[1100px] px-5 sm:px-6 pb-8 sm:pb-12">
 
       <div className="mt-4 sm:mt-6 mb-6">
         <h1 className="text-heading2 sm:text-title3 font-bold text-fg-strong">
@@ -157,7 +159,8 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
             {dates.map((date) => (
               <div key={date}>
                 <h3 className="mb-2 text-label1 font-semibold text-fg">{formatDateHeader(date)}</h3>
-                <div className="space-y-2">
+                {/* 넓어진 폭에서 카드 한 장이 1000px 넘게 늘어나지 않게 홈처럼 lg 에서 2열 */}
+                <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
                   {grouped[date].map(({ schedule: s, platforms }) => {
                     const homeRec = lookupTeamRecord(teamRecords, s.league, s.homeTeam);
                     const awayRec = lookupTeamRecord(teamRecords, s.league, s.awayTeam);
@@ -174,7 +177,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                       key={s.id}
                       className="rounded-xl border border-line-subtle bg-surface p-3 sm:p-4"
                     >
-                      <div className="flex items-start justify-between gap-2">
+                      <div className="flex items-center justify-between gap-2">
                         {/* 좁은 폰에선 리그명만 …처리. 오른쪽 묶음(플랫폼·해설·상태)은 안 잘린다. */}
                         <div className="flex min-w-0 items-center gap-1.5 text-caption1 sm:text-label1 text-fg-secondary">
                           <span className="shrink-0 font-semibold tabular-nums text-fg-strong">{s.time}</span>
@@ -204,7 +207,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                               )}
                             </div>
                             {showScores ? (
-                              <div className="shrink-0 flex items-baseline gap-1.5 font-mono font-bold text-body1 sm:text-headline1 leading-none">
+                              <div className="shrink-0 flex items-baseline gap-1.5 tabular-nums font-bold text-body1 sm:text-headline1 leading-none">
                                 <span className={winnerSide === "away" ? "text-fg-tertiary" : "text-fg-strong"}>{home}</span>
                                 <span className="text-fg-tertiary">-</span>
                                 <span className={winnerSide === "home" ? "text-fg-tertiary" : "text-fg-strong"}>{away}</span>

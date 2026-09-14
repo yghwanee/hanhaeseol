@@ -9,19 +9,19 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <main className="min-h-screen text-gray-100">
+    <main className="min-h-screen text-fg">
       <div className="max-w-[720px] mx-auto px-5 sm:px-6 pb-8 sm:pb-12 text-[14px]">
 
         <h1 className="text-title3 sm:text-title2 font-bold mt-4 sm:mt-6 mb-8">이용약관</h1>
 
         <AdfitBanner className="mb-6" />
 
-        <p className="text-gray-400 text-label1 mb-8">시행일: 2026년 2월 1일</p>
+        <p className="text-fg-tertiary text-label1 mb-8">시행일: 2026년 2월 1일</p>
 
 
         <section className="mb-8">
           <h2 className="text-heading2 font-semibold mb-3">제1조 (목적)</h2>
-          <p className="text-gray-300 leading-relaxed">
+          <p className="text-fg-secondary leading-relaxed">
             이 약관은 한해설(이하 &ldquo;서비스&rdquo;)이 제공하는 스포츠 중계 편성표 정보 서비스의
             이용 조건 및 절차에 관한 사항을 규정함을 목적으로 합니다.
           </p>
@@ -29,8 +29,8 @@ export default function TermsPage() {
 
         <section className="mb-8">
           <h2 className="text-heading2 font-semibold mb-3">제2조 (서비스의 내용)</h2>
-          <p className="text-gray-300 leading-relaxed mb-2">서비스는 다음을 제공합니다.</p>
-          <ul className="text-gray-300 list-disc list-inside space-y-1 text-label1">
+          <p className="text-fg-secondary leading-relaxed mb-2">서비스는 다음을 제공합니다.</p>
+          <ul className="text-fg-secondary list-disc list-inside space-y-1 text-label1">
             <li>각 스포츠 중계 플랫폼의 편성표 통합 조회</li>
             <li>한국어 해설 제공 여부 표시</li>
             <li>종목별, 플랫폼별, 날짜별 필터링</li>
@@ -39,7 +39,7 @@ export default function TermsPage() {
 
         <section className="mb-8">
           <h2 className="text-heading2 font-semibold mb-3">제3조 (서비스 이용)</h2>
-          <p className="text-gray-300 leading-relaxed">
+          <p className="text-fg-secondary leading-relaxed">
             서비스는 별도의 회원가입 없이 누구나 무료로 이용할 수 있습니다.
             서비스는 웹 브라우저를 통해 제공되며, 이용자는 인터넷에 접속 가능한 환경에서 이용할 수 있습니다.
           </p>
@@ -47,7 +47,7 @@ export default function TermsPage() {
 
         <section className="mb-8">
           <h2 className="text-heading2 font-semibold mb-3">제4조 (정보의 정확성)</h2>
-          <p className="text-gray-300 leading-relaxed">
+          <p className="text-fg-secondary leading-relaxed">
             서비스에서 제공하는 편성표 정보는 각 플랫폼의 공식 편성표를 기반으로 자동 수집됩니다.
             편성표는 각 플랫폼의 사정에 따라 사전 고지 없이 변경될 수 있으며,
             서비스는 정보의 정확성을 보장하지 않습니다.
@@ -57,7 +57,7 @@ export default function TermsPage() {
 
         <section className="mb-8">
           <h2 className="text-heading2 font-semibold mb-3">제5조 (지적재산권)</h2>
-          <p className="text-gray-300 leading-relaxed">
+          <p className="text-fg-secondary leading-relaxed">
             서비스의 디자인, 소스코드, 로고 등 지적재산권은 서비스 운영자에게 있습니다.
             각 플랫폼의 명칭, 로고, 편성 정보 등에 대한 권리는 해당 플랫폼에 귀속됩니다.
           </p>
@@ -65,7 +65,7 @@ export default function TermsPage() {
 
         <section className="mb-8">
           <h2 className="text-heading2 font-semibold mb-3">제6조 (면책)</h2>
-          <ul className="text-gray-300 list-disc list-inside space-y-2 text-label1 leading-relaxed">
+          <ul className="text-fg-secondary list-disc list-inside space-y-2 text-label1 leading-relaxed">
             <li>서비스는 편성표 정보를 제공하는 것이며, 중계 서비스 자체를 제공하지 않습니다.</li>
             <li>서비스 이용으로 발생하는 직접적, 간접적 손해에 대해 책임을 지지 않습니다.</li>
             <li>천재지변, 시스템 장애 등 불가항력으로 인한 서비스 중단에 대해 책임을 지지 않습니다.</li>
@@ -74,7 +74,7 @@ export default function TermsPage() {
 
         <section className="mb-8">
           <h2 className="text-heading2 font-semibold mb-3">제7조 (서비스 변경 및 중단)</h2>
-          <p className="text-gray-300 leading-relaxed">
+          <p className="text-fg-secondary leading-relaxed">
             서비스 운영자는 필요에 따라 서비스의 내용을 변경하거나 중단할 수 있습니다.
             서비스 변경 또는 중단 시 가능한 경우 사전에 공지합니다.
           </p>
@@ -82,7 +82,7 @@ export default function TermsPage() {
 
         <section>
           <h2 className="text-heading2 font-semibold mb-3">제8조 (약관의 변경)</h2>
-          <p className="text-gray-300 leading-relaxed">
+          <p className="text-fg-secondary leading-relaxed">
             이 약관은 필요에 따라 변경될 수 있으며, 변경된 약관은 서비스에 게시함으로써 효력이 발생합니다.
           </p>
         </section>

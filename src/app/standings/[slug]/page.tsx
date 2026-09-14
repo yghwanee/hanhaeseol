@@ -155,12 +155,12 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
   };
 
   return (
-    <main className="min-h-screen text-gray-100">
+    <main className="min-h-screen text-fg">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <div className="mx-auto max-w-[1100px] px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
+      <div className="mx-auto max-w-[1100px] px-5 pb-8 text-[14px] sm:px-6 sm:pb-12">
 
         <nav className="mt-4 flex items-center gap-2 text-caption1 text-fg-tertiary sm:mt-6">
           <Link href="/standings" className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block transition-colors hover:text-fg">

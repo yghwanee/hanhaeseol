@@ -468,7 +468,7 @@ export default function ScheduleClient({
   }, []);
 
   return (
-    <div className="relative mx-auto min-h-screen max-w-[1100px] px-4 pb-16 sm:px-6 sm:pb-24">
+    <div className="relative mx-auto min-h-screen max-w-[1100px] px-5 pb-16 sm:px-6 sm:pb-24">
       <div className="mx-auto">
       {/* 히어로 — 이 사이트가 무엇인지 한 화면에서 말한다. 로고·내비는 layout 의
           SiteNav(60px 헤더)가 이미 짊어지므로 여기서는 메시지만 남긴다. */}

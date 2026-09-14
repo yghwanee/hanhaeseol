@@ -84,7 +84,7 @@ export default function UpcomingScheduleForLeague({
                       className="flex items-center justify-between gap-2 rounded-lg border border-line-subtle bg-surface px-3 py-2 transition-colors hover:border-line hover:bg-surface"
                     >
                       <div className="flex min-w-0 items-baseline gap-2 text-caption1 sm:text-label1">
-                        <span className="shrink-0 font-mono font-semibold text-fg-strong">
+                        <span className="shrink-0 tabular-nums font-semibold text-fg-strong">
                           {s.time}
                         </span>
                         <span className="truncate text-fg-strong">

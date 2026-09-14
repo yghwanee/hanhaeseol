@@ -35,7 +35,7 @@ export function SiteNav() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-line-subtle bg-surface">
-      <div className="mx-auto flex h-[60px] max-w-[1100px] items-center gap-5 px-4 sm:gap-7 sm:px-6">
+      <div className="mx-auto flex h-[60px] max-w-[1100px] items-center gap-5 px-5 sm:gap-7 sm:px-6">
         <Link href="/" className="flex shrink-0 items-center gap-1.5" aria-label="한해설 홈">
           <Image src="/icon.png" alt="" width={28} height={28} className="h-6 w-6 sm:h-7 sm:w-7" />
           <span className="text-headline1 font-bold tracking-[-0.02em] text-fg-strong">한해설</span>

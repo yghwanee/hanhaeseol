@@ -305,7 +305,7 @@ function Toggle({
         aria-hidden
       >
         <span
-          className={`h-2 w-2 rounded-full bg-white transition-transform ${on ? "translate-x-[10px]" : "translate-x-0"}`}
+          className={`h-2 w-2 rounded-full bg-fg-strong transition-transform ${on ? "translate-x-[10px]" : "translate-x-0"}`}
         />
       </span>
     </button>
