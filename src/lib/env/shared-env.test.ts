@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import fs from "node:fs";
 import path from "node:path";
+import os from "node:os";
 import {
   sharedEnvCandidates,
   describeEnvSources,
@@ -19,30 +20,45 @@ import {
  */
 
 test("공용 파일 후보가 레포 밖이다", () => {
-  const repo = path.resolve(".");
+  // 🔴 경로 리터럴(`C:\…`)을 박지 않는다. 리눅스(CI)에서는 그게 상대경로로 잡혀
+  // 레포 안으로 resolve 되고, 가드가 아니라 테스트가 깨진다(2026-09-14 CI 실패).
+  const home = path.join(os.tmpdir(), "hwanee-fake-home");
   const candidates = sharedEnvCandidates({
-    USERPROFILE: "C:\\Users\\tester",
-    OneDrive: "C:\\Users\\tester\\OneDrive - Carrot Global",
+    USERPROFILE: home,
+    OneDrive: path.join(home, "OneDrive - Carrot Global"),
   });
 
+  const repo = path.resolve(".");
   assert.ok(candidates.length > 0, "후보가 하나도 없다");
   for (const c of candidates) {
+    assert.ok(path.isAbsolute(c), `후보가 절대경로가 아니다: ${c}`);
+    assert.ok(
+      !c.startsWith(repo + path.sep),
+      `공용 자격증명 파일이 레포 안을 가리킨다: ${c} — public 레포다`,
+    );
+  }
+
+  // 이 PC 의 실제 후보도 같은 조건을 지켜야 한다(환경변수를 잘못 잡은 경우 차단).
+  for (const c of sharedEnvCandidates()) {
     assert.ok(
       !path.resolve(c).startsWith(repo + path.sep),
-      `공용 자격증명 파일이 레포 안을 가리킨다: ${c} — public 레포다`,
+      `실제 공용 파일 경로가 레포 안이다: ${c}`,
     );
   }
 });
 
 test("후보 우선순위: 명시 지정 > OneDrive", () => {
+  const base = os.tmpdir();
+  const explicitFile = path.join(base, "keys", "my.env");
+  const explicitDir = path.join(base, "keys2");
   const env: Record<string, string | undefined> = {
-    HWANEE_SECRETS_FILE: "D:\\keys\\my.env",
-    HWANEE_SECRETS_DIR: "D:\\keys2",
-    OneDrive: "C:\\Users\\tester\\OneDrive - Carrot Global",
+    HWANEE_SECRETS_FILE: explicitFile,
+    HWANEE_SECRETS_DIR: explicitDir,
+    OneDrive: path.join(base, "OneDrive - Carrot Global"),
   };
   const candidates = sharedEnvCandidates(env);
-  assert.equal(candidates[0], "D:\\keys\\my.env", "HWANEE_SECRETS_FILE 이 가장 먼저여야 한다");
-  assert.equal(candidates[1], path.join("D:\\keys2", SHARED_FILE_NAME));
+  assert.equal(candidates[0], explicitFile, "HWANEE_SECRETS_FILE 이 가장 먼저여야 한다");
+  assert.equal(candidates[1], path.join(explicitDir, SHARED_FILE_NAME));
   assert.ok(
     candidates.some((c) => c.includes(SHARED_REL_DIR)),
     "OneDrive 기본 경로가 후보에 없다",
