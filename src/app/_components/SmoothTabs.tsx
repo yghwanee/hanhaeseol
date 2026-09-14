@@ -124,13 +124,16 @@ export function SmoothTabs<T extends string>({
           variant === "bordered"
             ? "border-line hover:border-line"
             : "border-transparent";
+        // 🔴 border-transparent 를 베이스에 같이 두면 bordered 의 border-line 과 한 요소에
+        // 겹치고, CSS 생성 순서상 transparent 가 이겨 테두리가 아예 안 보였다(2026-09-15 라이브 실측).
+        // 색은 상태별로 딱 하나만 붙인다.
         const baseShape = useCapsStripe
           ? "" // btn-caps-stripe 자체가 박스 모양/테두리 처리. rounded/border 없음.
-          : "rounded-lg border border-transparent";
+          : "rounded-lg border";
         const stateCls = useCapsStripe
           ? `btn-caps-stripe caps-stripe-tab${active ? " caps-stripe-pressed" : ""}`
           : active
-            ? activeTextClassName
+            ? `${activeTextClassName} border-transparent`
             : `text-fg-secondary hover:text-fg-strong ${inactiveBorder}`;
         // renderAbove (점)는 박스 밖 sibling 으로 배치해 박스가 시각적으로
         // 짧아 보이게 함. 점은 4px 라서 그 자리만 클릭 사각지대 — 실용상
