@@ -114,8 +114,8 @@ function DivisionTable({
   }, [teams]);
 
   return (
-    <div className="overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-950/50">
-      <div className="border-b border-zinc-800/80 px-3 py-2 sm:px-4">
+    <div className="overflow-hidden rounded-xl border border-line-subtle bg-subtle">
+      <div className="border-b border-line-subtle px-3 py-2 sm:px-4">
         <h3 className="text-sm font-semibold text-white sm:text-base">{label}</h3>
       </div>
       <div className="relative">
@@ -132,10 +132,10 @@ function DivisionTable({
             <col className="w-24 sm:w-28" />
             <col className="w-16 sm:w-20" />
           </colgroup>
-          <thead className="sticky top-0 z-10 bg-zinc-900/95 backdrop-blur">
-            <tr className="border-b border-zinc-800 bg-zinc-900/60">
-              <Th label="순위" className="sticky left-0 z-20 bg-zinc-900" />
-              <th className="sticky left-10 z-20 whitespace-nowrap bg-zinc-900 px-1.5 py-2 text-left text-[11px] font-semibold text-zinc-400 sm:left-12 sm:px-2 sm:text-xs">
+          <thead className="sticky top-0 z-10 bg-surface backdrop-blur">
+            <tr className="border-b border-line-subtle bg-surface">
+              <Th label="순위" className="sticky left-0 z-20 bg-surface" />
+              <th className="sticky left-10 z-20 whitespace-nowrap bg-surface px-1.5 py-2 text-left text-[11px] font-semibold text-fg-secondary sm:left-12 sm:px-2 sm:text-xs">
                 팀
               </th>
               <Th label="승률" highlight />
@@ -143,10 +143,10 @@ function DivisionTable({
               <Th label="승" />
               <Th label="패" />
               <Th label="게임차" />
-              <th className="whitespace-nowrap px-2 py-2 text-center text-[11px] font-semibold text-zinc-400 sm:text-xs">
+              <th className="whitespace-nowrap px-2 py-2 text-center text-[11px] font-semibold text-fg-secondary sm:text-xs">
                 최근 5
               </th>
-              <th className="whitespace-nowrap px-1 py-2 text-center text-[11px] font-semibold text-zinc-400 sm:text-xs">
+              <th className="whitespace-nowrap px-1 py-2 text-center text-[11px] font-semibold text-fg-secondary sm:text-xs">
                 연속
               </th>
             </tr>
@@ -155,12 +155,12 @@ function DivisionTable({
             {teams.map((t) => (
               <tr
                 key={t.teamName}
-                className="group border-b border-zinc-800/60 transition-colors duration-150 last:border-b-0 hover:bg-zinc-900/50"
+                className="group border-b border-line-subtle transition-colors duration-150 last:border-b-0 hover:bg-surface"
               >
-                <td className="sticky left-0 z-10 bg-zinc-950 px-1 py-2 text-center transition-colors group-hover:bg-[#1a1a1d]">
-                  <span className="font-bold tabular-nums text-zinc-100">{t.rank}</span>
+                <td className="sticky left-0 z-10 bg-subtle px-1 py-2 text-center transition-colors group-hover:bg-[#1a1a1d]">
+                  <span className="font-bold tabular-nums text-fg-strong">{t.rank}</span>
                 </td>
-                <td className="sticky left-10 z-10 bg-zinc-950 px-1.5 py-2 transition-colors group-hover:bg-[#1a1a1d] sm:left-12 sm:px-2">
+                <td className="sticky left-10 z-10 bg-subtle px-1.5 py-2 transition-colors group-hover:bg-[#1a1a1d] sm:left-12 sm:px-2">
                   <div className="flex items-center gap-1.5 sm:gap-2">
                     {t.teamLogo ? (
                       <Image
@@ -173,27 +173,27 @@ function DivisionTable({
                         referrerPolicy="no-referrer"
                       />
                     ) : (
-                      <span className="inline-block h-[18px] w-[18px] shrink-0 rounded-full bg-zinc-800 sm:h-[22px] sm:w-[22px]" />
+                      <span className="inline-block h-[18px] w-[18px] shrink-0 rounded-full bg-muted sm:h-[22px] sm:w-[22px]" />
                     )}
                     {teamLinks?.[t.teamName] ? (
                         <Link
                           href={teamLinks[t.teamName]}
-                          className="truncate font-medium text-zinc-100 hover:text-emerald-400 hover:underline underline-offset-2"
+                          className="truncate font-medium text-fg-strong hover:text-emerald-400 hover:underline underline-offset-2"
                         >
                           {t.teamName}
                         </Link>
                       ) : (
-                        <span className="truncate font-medium text-zinc-100">{t.teamName}</span>
+                        <span className="truncate font-medium text-fg-strong">{t.teamName}</span>
                       )}
                   </div>
                 </td>
                 <td className="px-1 py-2 text-center font-bold tabular-nums text-emerald-400">
                   {t.winRate.toFixed(3)}
                 </td>
-                <td className="px-1 py-2 text-center tabular-nums text-zinc-300">{t.gameCount}</td>
-                <td className="px-1 py-2 text-center tabular-nums text-zinc-300">{t.win}</td>
-                <td className="px-1 py-2 text-center tabular-nums text-zinc-300">{t.lose}</td>
-                <td className="px-1 py-2 text-center tabular-nums text-zinc-300">
+                <td className="px-1 py-2 text-center tabular-nums text-fg">{t.gameCount}</td>
+                <td className="px-1 py-2 text-center tabular-nums text-fg">{t.win}</td>
+                <td className="px-1 py-2 text-center tabular-nums text-fg">{t.lose}</td>
+                <td className="px-1 py-2 text-center tabular-nums text-fg">
                   {t.gameBehind === 0 ? "—" : t.gameBehind.toFixed(1)}
                 </td>
                 <td className="px-2 py-2 text-center">
@@ -208,13 +208,13 @@ function DivisionTable({
         </table>
         </div>
         <div
-          className={`pointer-events-none absolute left-[150px] top-0 bottom-0 w-10 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 sm:left-[208px] ${
+          className={`pointer-events-none absolute left-[150px] top-0 bottom-0 w-10 bg-gradient-to-r from-subtle via-subtle to-transparent transition-opacity duration-200 sm:left-[208px] ${
             showLeftFade ? "opacity-100" : "opacity-0"
           }`}
           aria-hidden
         />
         <div
-          className={`pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+          className={`pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-subtle via-subtle to-transparent transition-opacity duration-200 ${
             showRightFade ? "opacity-100" : "opacity-0"
           }`}
           aria-hidden
@@ -226,10 +226,10 @@ function DivisionTable({
           {...scrollbarHandlers}
           className="-my-2 py-2 cursor-pointer touch-none select-none"
         >
-          <div ref={scrollbarTrackRef} className="h-[3px] rounded-full bg-zinc-800/60">
+          <div ref={scrollbarTrackRef} className="h-[3px] rounded-full bg-muted">
             <div
               ref={indicatorRef}
-              className="h-full rounded-full bg-zinc-500/80"
+              className="h-full rounded-full bg-fg-tertiary"
               style={{ width: "35%", transform: "translateX(0%)", willChange: "transform" }}
             />
           </div>
@@ -251,7 +251,7 @@ function Th({
   return (
     <th
       className={`whitespace-nowrap px-1 py-2 text-center align-middle text-[11px] font-semibold sm:text-xs ${
-        highlight ? "text-emerald-300" : "text-zinc-400"
+        highlight ? "text-emerald-300" : "text-fg-secondary"
       } ${className}`}
     >
       {label}

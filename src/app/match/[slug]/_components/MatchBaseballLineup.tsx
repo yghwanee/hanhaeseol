@@ -23,11 +23,11 @@ function TeamColumn({ team, label }: { team: BaseballTeamLineup; label: string }
     <div className="min-w-0">
       <div className="mb-2 truncate text-sm font-semibold text-white">{label}</div>
       {team.starter && (
-        <div className="mb-2 flex items-center gap-1.5 rounded bg-zinc-800/60 px-2 py-1 text-[11px] sm:text-xs">
+        <div className="mb-2 flex items-center gap-1.5 rounded bg-muted px-2 py-1 text-[11px] sm:text-xs">
           <span className="shrink-0 text-emerald-400">선발</span>
-          <span className="truncate text-zinc-200">{team.starter.name}</span>
+          <span className="truncate text-fg-strong">{team.starter.name}</span>
           {team.starter.backnum && (
-            <span className="shrink-0 font-mono text-[10px] text-zinc-500">
+            <span className="shrink-0 font-mono text-[10px] text-fg-tertiary">
               #{team.starter.backnum}
             </span>
           )}
@@ -36,12 +36,12 @@ function TeamColumn({ team, label }: { team: BaseballTeamLineup; label: string }
       <ol className="space-y-0.5 text-[11px] sm:text-xs">
         {team.batters.map((b) => (
           <li key={b.order} className="flex items-center gap-1.5">
-            <span className="inline-block w-3 shrink-0 text-center font-mono text-zinc-500">
+            <span className="inline-block w-3 shrink-0 text-center font-mono text-fg-tertiary">
               {b.order}
             </span>
-            <span className="truncate text-zinc-200">{b.name}</span>
-            <span className="shrink-0 text-[10px] text-zinc-500">{b.position}</span>
-            {b.bats && <span className="shrink-0 text-[10px] text-zinc-400">{b.bats}</span>}
+            <span className="truncate text-fg-strong">{b.name}</span>
+            <span className="shrink-0 text-[10px] text-fg-tertiary">{b.position}</span>
+            {b.bats && <span className="shrink-0 text-[10px] text-fg-secondary">{b.bats}</span>}
           </li>
         ))}
       </ol>
@@ -87,21 +87,21 @@ export function MatchBaseballLineup({
   if (loading || !hasAny) return null;
 
   return (
-    <section className="mt-6 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+    <section className="mt-6 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
       <h2 className="mb-3 text-sm font-semibold text-white sm:text-base">선발 라인업 (타순)</h2>
       <div className="grid grid-cols-2 gap-x-4 sm:gap-x-8">
         {data!.home ? (
           <TeamColumn team={data!.home} label={homeTeam} />
         ) : (
-          <div className="text-xs text-zinc-400">정보 없음</div>
+          <div className="text-xs text-fg-secondary">정보 없음</div>
         )}
         {data!.away ? (
           <TeamColumn team={data!.away} label={awayTeam} />
         ) : (
-          <div className="text-xs text-zinc-400">정보 없음</div>
+          <div className="text-xs text-fg-secondary">정보 없음</div>
         )}
       </div>
-      <p className="mt-3 text-[10px] text-zinc-400">출처: 네이버 스포츠 · 발표 후 표시</p>
+      <p className="mt-3 text-[10px] text-fg-secondary">출처: 네이버 스포츠 · 발표 후 표시</p>
     </section>
   );
 }

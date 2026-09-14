@@ -172,7 +172,7 @@ export function DonateButton({ className = "" }: { className?: string }) {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="개발자 응원하기"
-        className={`flex w-full items-center gap-3 rounded-2xl bg-[#FEE500] px-3.5 py-4 text-left transition-transform hover:scale-[1.01] active:scale-[0.99] sm:gap-4 sm:px-5 sm:py-5 ${className}`}
+        className={`w-card w-card-hover flex w-full items-center gap-3 px-3.5 py-3.5 text-left sm:gap-4 sm:px-5 sm:py-4 ${className}`}
       >
         {/* 선물 아이콘. 원본 500px PNG(164KB)를 표시 크기의 3배(168px) webp 로 미리
             줄여 뒀다(8KB). 이미 정확한 치수라 `unoptimized` 로 옵티마이저 왕복을 건너뛰고,
@@ -192,10 +192,10 @@ export function DonateButton({ className = "" }: { className?: string }) {
           className="h-11 w-11 shrink-0 sm:h-14 sm:w-14"
         />
         <span className="min-w-0 flex-1">
-          <span className="block truncate text-[13px] text-black/60 sm:text-[14px]">
+          <span className="block truncate text-caption1 text-fg-secondary sm:text-label1">
             오늘만큼은 꼭 이겨야 한다면
           </span>
-          <span className="mt-0.5 flex items-center gap-1 text-[16px] font-bold text-[#191600] sm:text-[18px]">
+          <span className="mt-0.5 flex items-center gap-1 text-body1 font-bold text-fg-brand sm:text-headline1">
             승리 기원 응원하기
             <span aria-hidden>›</span>
           </span>
@@ -204,14 +204,14 @@ export function DonateButton({ className = "" }: { className?: string }) {
 
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-4"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-inverse/40 px-4"
           onClick={close}
         >
           <div
             role="dialog"
             aria-modal="true"
             aria-label="응원하기"
-            className="w-full max-w-sm rounded-xl border border-zinc-700 bg-zinc-900 px-5 pb-6 pt-4 sm:px-6"
+            className="w-full max-w-sm rounded-xl border border-line-subtle bg-surface px-5 pb-6 pt-4 shadow-[var(--w-shadow-pop)] sm:px-6"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex justify-end">
@@ -219,16 +219,16 @@ export function DonateButton({ className = "" }: { className?: string }) {
                 type="button"
                 onClick={close}
                 aria-label="응원하기 닫기"
-                className="-mr-1 -mt-1 flex h-9 w-9 items-center justify-center rounded text-2xl leading-none text-zinc-500 hover:text-zinc-300"
+                className="-mr-1 -mt-1 flex h-9 w-9 items-center justify-center rounded text-2xl leading-none text-fg-tertiary hover:text-fg-strong"
               >
                 &times;
               </button>
             </div>
 
-            <p className="text-center text-base font-bold text-white">
+            <p className="text-center text-headline1 font-bold text-fg-strong">
               한해설을 응원해 주세요
             </p>
-            <p className="mt-1.5 text-center text-xs leading-relaxed text-zinc-400">
+            <p className="mt-1.5 text-center text-caption1 leading-relaxed text-fg-secondary">
               편성표는 계속 무료입니다.
               <br />
               보내주신 마음은 서버비와 개선에 씁니다.
@@ -245,7 +245,7 @@ export function DonateButton({ className = "" }: { className?: string }) {
                       setTier(t);
                       setStep("method");
                     }}
-                    className="flex w-full items-center justify-between rounded-lg border border-zinc-700 bg-zinc-800/40 px-4 py-3 text-sm text-zinc-200 transition-colors hover:border-zinc-500 hover:bg-zinc-800"
+                    className="flex w-full items-center justify-between rounded-lg border border-line bg-surface px-4 py-3 text-label1 text-fg transition-colors hover:bg-muted"
                   >
                     {/* 티어 아이콘 — 배너 선물 상자와 같은 3D 아이콘 세트(달·번개·불).
                         원본 500px PNG 을 투명 여백 트림 후 표시 크기의 4배(96px) 정사각
@@ -270,7 +270,7 @@ export function DonateButton({ className = "" }: { className?: string }) {
                       />
                       {t.label}
                     </span>
-                    <b className="font-bold text-white">{won(t.amount)}원</b>
+                    <b className="font-bold text-fg-strong">{won(t.amount)}원</b>
                   </button>
                 ))}
               </div>
@@ -279,8 +279,8 @@ export function DonateButton({ className = "" }: { className?: string }) {
             {/* 2단계 — 보낼 앱. tier 는 pick 을 거쳐야만 채워지므로 함께 좁힌다. */}
             {step === "method" && tier && (
               <div className="mt-5">
-                <p className="text-center text-sm leading-relaxed text-zinc-300">
-                  <b className="text-white">{won(tier.amount)}원</b>
+                <p className="text-center text-label1 leading-relaxed text-fg">
+                  <b className="text-fg-strong">{won(tier.amount)}원</b>
                   <br />
                   어떤 앱으로 보낼까요?
                 </p>
@@ -289,7 +289,7 @@ export function DonateButton({ className = "" }: { className?: string }) {
                   <button
                     type="button"
                     onClick={() => openApp(tossLink(tier.amount))}
-                    className="flex h-24 w-28 flex-col items-center justify-center gap-1.5 rounded-xl bg-white text-zinc-900 transition-transform hover:scale-[1.03]"
+                    className="flex h-24 w-28 flex-col items-center justify-center gap-1.5 rounded-xl border border-line bg-surface text-fg-strong transition-colors hover:bg-muted"
                   >
                     <Image
                       src="/toss-symbol.webp"
@@ -318,7 +318,7 @@ export function DonateButton({ className = "" }: { className?: string }) {
                 <button
                   type="button"
                   onClick={() => setStep("fallback")}
-                  className="mt-4 w-full text-center text-[11px] text-zinc-500 underline-offset-2 hover:text-zinc-300 hover:underline"
+                  className="mt-4 w-full text-center text-[11px] text-fg-tertiary underline-offset-2 hover:text-fg hover:underline"
                 >
                   계좌번호로 직접 보내기
                 </button>
@@ -326,26 +326,26 @@ export function DonateButton({ className = "" }: { className?: string }) {
             )}
 
             {step === "opening" && (
-              <p className="mt-8 mb-6 text-center text-sm text-zinc-300">앱 여는 중...</p>
+              <p className="mt-8 mb-6 text-center text-sm text-fg">앱 여는 중...</p>
             )}
 
             {/* 3단계 — 계좌 */}
             {step === "fallback" && tier && (
               <div className="mt-5">
-                <div className="rounded-lg border border-zinc-700 bg-zinc-800/40 px-4 py-3 text-center">
-                  <p className="text-sm font-bold text-white">
+                <div className="rounded-lg border border-line bg-muted px-4 py-3 text-center">
+                  <p className="text-sm font-bold text-fg-strong">
                     {BANK} {ACCOUNT}
                   </p>
                   {HOLDER && (
-                    <p className="mt-0.5 text-[11px] text-zinc-400">예금주 {HOLDER}</p>
+                    <p className="mt-0.5 text-[11px] text-fg-secondary">예금주 {HOLDER}</p>
                   )}
-                  <p className="mt-1 text-[11px] text-zinc-500">
+                  <p className="mt-1 text-[11px] text-fg-tertiary">
                     보내실 금액 {won(tier.amount)}원
                   </p>
                   <button
                     type="button"
                     onClick={copyAccount}
-                    className="mt-2.5 rounded-lg border border-zinc-600 px-4 py-1.5 text-xs text-zinc-200 hover:border-zinc-400"
+                    className="mt-2.5 rounded-lg border border-line px-4 py-1.5 text-xs text-fg-strong hover:border-line-strong"
                   >
                     {copied ? "복사됨" : "계좌 복사"}
                   </button>
@@ -354,7 +354,7 @@ export function DonateButton({ className = "" }: { className?: string }) {
                 <button
                   type="button"
                   onClick={() => setStep("method")}
-                  className="mt-3 w-full text-center text-[11px] text-zinc-500 hover:text-zinc-300"
+                  className="mt-3 w-full text-center text-[11px] text-fg-tertiary hover:text-fg"
                 >
                   앱으로 보내기
                 </button>

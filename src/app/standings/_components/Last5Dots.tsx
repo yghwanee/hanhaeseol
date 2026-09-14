@@ -8,12 +8,12 @@ export function Last5Dots({ lastFive }: { lastFive: string }) {
       {slots.map((g, i) => {
         const cls =
           g === "W"
-            ? "bg-emerald-500/85 text-zinc-950"
+            ? "bg-emerald-500/85 text-fg-disabled"
             : g === "L"
-            ? "bg-rose-500/85 text-zinc-950"
+            ? "bg-rose-500/85 text-fg-disabled"
             : g === "D"
-            ? "bg-zinc-500/70 text-zinc-100"
-            : "bg-zinc-800 text-zinc-700";
+            ? "bg-fg-tertiary text-fg-strong"
+            : "bg-muted text-fg-disabled";
         const label =
           g === "W" ? "승" : g === "L" ? "패" : g === "D" ? "무" : "-";
         return (

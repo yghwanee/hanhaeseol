@@ -291,7 +291,7 @@ function TeamSide({
   const body = (
     <>
       <TeamLogo name={name} src={logo} size={56} />
-      <span className="mt-1.5 block max-w-[7rem] truncate text-xs text-zinc-400 sm:text-sm">
+      <span className="mt-1.5 block max-w-[7rem] truncate text-xs text-fg-secondary sm:text-sm">
         {name}
       </span>
     </>
@@ -307,7 +307,7 @@ function TeamSide({
     >
       {body}
       {/* 텍스트만 두면 눌러도 되는지 모른다. 알약 태그로 눌리는 것임을 드러낸다. */}
-      <span className="mt-1 inline-flex items-center gap-0.5 rounded-full border border-zinc-700 bg-zinc-800/70 px-2 py-0.5 text-[10px] text-zinc-300 transition-colors group-hover:border-zinc-500 group-hover:bg-zinc-700/70 group-hover:text-white sm:text-[11px]">
+      <span className="mt-1 inline-flex items-center gap-0.5 rounded-full border border-line bg-muted px-2 py-0.5 text-[10px] text-fg transition-colors group-hover:border-line-strong group-hover:bg-muted group-hover:text-fg-strong sm:text-[11px]">
         팀 상세정보
         <span aria-hidden>›</span>
       </span>
@@ -517,8 +517,8 @@ export default function MatchPage({ params }: { params: Params }) {
       <div className="mx-auto max-w-2xl px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
         <SiteHeader />
 
-        <nav className="mt-4 flex flex-wrap items-center gap-2 text-xs text-zinc-500 sm:mt-6">
-          <Link href="/" className="transition-colors hover:text-zinc-300">
+        <nav className="mt-4 flex flex-wrap items-center gap-2 text-xs text-fg-tertiary sm:mt-6">
+          <Link href="/" className="transition-colors hover:text-fg">
             편성표
           </Link>
           {leagueSlug && (
@@ -526,32 +526,32 @@ export default function MatchPage({ params }: { params: Params }) {
               <span>›</span>
               <Link
                 href={`/league/${leagueSlug}`}
-                className="transition-colors hover:text-zinc-300"
+                className="transition-colors hover:text-fg"
               >
                 {match.league}
               </Link>
             </>
           )}
           <span>›</span>
-          <span className="text-zinc-400">
+          <span className="text-fg-secondary">
             {match.homeTeam} vs {match.awayTeam}
           </span>
         </nav>
 
-        <article className="mt-4 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-5 text-center sm:p-6">
+        <article className="mt-4 rounded-xl border border-line-subtle bg-subtle p-5 text-center sm:p-6">
           {/* H1 텍스트 콘텐츠를 일·시·리그·매치업·해설·플랫폼 모두 포함하도록 구성.
               시각적으로는 작은 자막 + 큰 매치업 + 작은 자막 3단으로 자연스럽게 분리.
               크롤러가 보는 H1 textContent: "5월 25일 (월) · 16:30 (KST) · K리그2 파주 vs 김포 한국어 해설 중계 · 쿠팡플레이"
               → "파주 vs 김포 중계", "K리그2 한국어 해설", "쿠팡플레이 K리그2" 등 롱테일 캡처. */}
           <h1 className="mt-1 text-2xl font-bold leading-tight text-white sm:text-3xl">
-            <span className="block text-xs font-normal text-zinc-500 sm:text-sm">
+            <span className="block text-xs font-normal text-fg-tertiary sm:text-sm">
               {date} · {match.time} (KST) · {match.league}
             </span>
             <span className="mt-1 block">
               {match.homeTeam}{" "}
-              <span className="text-zinc-500">vs</span> {match.awayTeam}
+              <span className="text-fg-tertiary">vs</span> {match.awayTeam}
             </span>
-            <span className="mt-1 block text-xs font-normal text-zinc-400 sm:text-sm">
+            <span className="mt-1 block text-xs font-normal text-fg-secondary sm:text-sm">
               {ko} 중계 · {match.platform}
             </span>
           </h1>
@@ -563,7 +563,7 @@ export default function MatchPage({ params }: { params: Params }) {
               logo={findTeamLogo(match.homeTeam) ?? match.homeEmblem ?? null}
               team={findTeamForSchedule(teamIndex, match.league, match.homeTeam)}
             />
-            <span className="text-sm font-bold text-zinc-500 sm:text-base">vs</span>
+            <span className="text-sm font-bold text-fg-tertiary sm:text-base">vs</span>
             <TeamSide
               name={match.awayTeam}
               logo={findTeamLogo(match.awayTeam) ?? match.awayEmblem ?? null}
@@ -581,7 +581,7 @@ export default function MatchPage({ params }: { params: Params }) {
               </p>
               <div className="flex items-center justify-center gap-4 sm:gap-6">
                 <div className="flex-1 text-right">
-                  <p className="truncate text-xs text-zinc-300 sm:text-sm">
+                  <p className="truncate text-xs text-fg sm:text-sm">
                     {match.homeTeam}
                   </p>
                   <p
@@ -589,20 +589,20 @@ export default function MatchPage({ params }: { params: Params }) {
                       result!.winner
                         ? result!.winner === "home"
                           ? "text-white"
-                          : "text-zinc-500"
+                          : "text-fg-tertiary"
                         : result!.homeScore! > result!.awayScore!
                         ? "text-white"
                         : result!.homeScore! < result!.awayScore!
-                        ? "text-zinc-500"
-                        : "text-zinc-200"
+                        ? "text-fg-tertiary"
+                        : "text-fg-strong"
                     }`}
                   >
                     {result!.homeScore}
                   </p>
                 </div>
-                <div className="text-2xl text-zinc-600 sm:text-3xl">:</div>
+                <div className="text-2xl text-fg-tertiary sm:text-3xl">:</div>
                 <div className="flex-1 text-left">
-                  <p className="truncate text-xs text-zinc-300 sm:text-sm">
+                  <p className="truncate text-xs text-fg sm:text-sm">
                     {match.awayTeam}
                   </p>
                   <p
@@ -610,12 +610,12 @@ export default function MatchPage({ params }: { params: Params }) {
                       result!.winner
                         ? result!.winner === "away"
                           ? "text-white"
-                          : "text-zinc-500"
+                          : "text-fg-tertiary"
                         : result!.awayScore! > result!.homeScore!
                         ? "text-white"
                         : result!.awayScore! < result!.homeScore!
-                        ? "text-zinc-500"
-                        : "text-zinc-200"
+                        ? "text-fg-tertiary"
+                        : "text-fg-strong"
                     }`}
                   >
                     {result!.awayScore}
@@ -632,7 +632,7 @@ export default function MatchPage({ params }: { params: Params }) {
                   </p>
                 )}
               {match.sport === "축구" && result!.goals && result!.goals.length > 0 && (
-                <div className="mt-3 grid grid-cols-2 gap-x-6 border-t border-emerald-700/20 pt-2 text-[11px] leading-snug text-zinc-300 sm:text-xs">
+                <div className="mt-3 grid grid-cols-2 gap-x-6 border-t border-emerald-700/20 pt-2 text-[11px] leading-snug text-fg sm:text-xs">
                   <div className="min-w-0 space-y-0.5 text-right">
                     {result!.goals!.filter((g) => g.team === "home").map((g, i) => (
                       <div key={i} className="truncate">
@@ -650,7 +650,7 @@ export default function MatchPage({ params }: { params: Params }) {
                 </div>
               )}
               {result!.period && (
-                <p className="mt-2 text-center text-[11px] text-zinc-500 sm:text-xs">
+                <p className="mt-2 text-center text-[11px] text-fg-tertiary sm:text-xs">
                   {result!.period}
                 </p>
               )}
@@ -659,10 +659,10 @@ export default function MatchPage({ params }: { params: Params }) {
 
           {result?.highlightVideoId && (
             <div className="mt-4">
-              <p className="mb-2 text-[11px] font-medium text-zinc-400 sm:text-xs">
+              <p className="mb-2 text-[11px] font-medium text-fg-secondary sm:text-xs">
                 경기 하이라이트
               </p>
-              <div className="relative aspect-video overflow-hidden rounded-lg border border-zinc-800">
+              <div className="relative aspect-video overflow-hidden rounded-lg border border-line-subtle">
                 <iframe
                   className="absolute inset-0 h-full w-full"
                   src={`https://www.youtube-nocookie.com/embed/${result.highlightVideoId}`}
@@ -676,12 +676,12 @@ export default function MatchPage({ params }: { params: Params }) {
             </div>
           )}
 
-          <p className="mt-3 text-sm leading-relaxed text-zinc-300">
+          <p className="mt-3 text-sm leading-relaxed text-fg">
             <strong>{match.league}</strong>{" "}
             <strong>{match.homeTeam}</strong> vs <strong>{match.awayTeam}</strong>{" "}
             경기는 <strong>{match.platform}</strong>에서 중계됩니다.
           </p>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-300">
+          <p className="mt-2 text-sm leading-relaxed text-fg">
             {match.koreanCommentary === true ? (
               <>
                 해당 중계는{" "}
@@ -757,7 +757,7 @@ export default function MatchPage({ params }: { params: Params }) {
 
         {/* 같은 리그 다른 경기 — 내부 링크 + 사용자 탐색 동선 */}
         {relatedByLeague.length > 0 && (
-          <section className="mt-6 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+          <section className="mt-6 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
             <h2 className="text-sm font-semibold text-white sm:text-base">
               {match.league} 다음 경기
             </h2>
@@ -766,11 +766,11 @@ export default function MatchPage({ params }: { params: Params }) {
                 <li key={s.id}>
                   <Link
                     href={`/match/${matchToSlug(s)}`}
-                    className="text-zinc-300 transition-colors hover:text-white hover:underline underline-offset-2"
+                    className="text-fg transition-colors hover:text-fg-strong hover:underline underline-offset-2"
                   >
                     {formatDateHeader(s.date)} {s.time} · {s.homeTeam} vs{" "}
                     {s.awayTeam}{" "}
-                    <span className="text-xs text-zinc-500">({s.platform})</span>
+                    <span className="text-xs text-fg-tertiary">({s.platform})</span>
                   </Link>
                 </li>
               ))}
@@ -780,7 +780,7 @@ export default function MatchPage({ params }: { params: Params }) {
 
         {/* 같은 플랫폼 다른 경기 */}
         {relatedByPlatform.length > 0 && (
-          <section className="mt-4 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+          <section className="mt-4 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
             <h2 className="text-sm font-semibold text-white sm:text-base">
               {match.platform} 다른 중계
             </h2>
@@ -789,7 +789,7 @@ export default function MatchPage({ params }: { params: Params }) {
                 <li key={s.id}>
                   <Link
                     href={`/match/${matchToSlug(s)}`}
-                    className="text-zinc-300 transition-colors hover:text-white hover:underline underline-offset-2"
+                    className="text-fg transition-colors hover:text-fg-strong hover:underline underline-offset-2"
                   >
                     {formatDateHeader(s.date)} {s.time} · {s.league} {s.homeTeam}{" "}
                     vs {s.awayTeam}
@@ -800,11 +800,11 @@ export default function MatchPage({ params }: { params: Params }) {
           </section>
         )}
 
-        <section className="mt-6 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+        <section className="mt-6 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
           <h2 className="text-sm font-semibold text-white sm:text-base">
             {match.homeTeam} vs {match.awayTeam} 경기를 어디서 시청하나요?
           </h2>
-          <p className="mt-2 text-sm leading-relaxed text-zinc-400">
+          <p className="mt-2 text-sm leading-relaxed text-fg-secondary">
             {match.platform} 공식 앱·웹사이트에서 {date} {match.time}부터 시청
             가능합니다. 한해설은 편성 정보를 모아서 안내하는 서비스이며,
             실제 중계는 각 플랫폼에서 시청해야 합니다.{" "}
@@ -821,7 +821,7 @@ export default function MatchPage({ params }: { params: Params }) {
               </>
             )}
           </p>
-          <p className="mt-3 text-xs text-zinc-500">
+          <p className="mt-3 text-xs text-fg-tertiary">
             편성 정보 갱신 ·{" "}
             <time dateTime={data.lastUpdated}>
               {LAST_UPDATED_KST_DISPLAY} KST

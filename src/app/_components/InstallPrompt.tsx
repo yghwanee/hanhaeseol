@@ -92,31 +92,31 @@ export function InstallPrompt() {
   if (deferred) {
     body = (
       <span>
-        자주 보는 한해설, <b className="text-white">홈 화면에 추가</b>하고 더 빠르게!
+        자주 보는 한해설, <b className="text-fg-strong">홈 화면에 추가</b>하고 더 빠르게!
       </span>
     );
   } else if (platform === "ios") {
     body = iosSafari ? (
       <span>
-        <b className="text-white">공유</b> → <b className="text-white">홈 화면에 추가</b>하면
+        <b className="text-fg-strong">공유</b> → <b className="text-fg-strong">홈 화면에 추가</b>하면
         앱처럼 한 번에 열려요.
       </span>
     ) : (
       <span>
-        <b className="text-white">Safari</b>로 열어 <b className="text-white">공유 → 홈 화면에 추가</b>하면 끝!
+        <b className="text-fg-strong">Safari</b>로 열어 <b className="text-fg-strong">공유 → 홈 화면에 추가</b>하면 끝!
       </span>
     );
   } else if (platform === "android") {
     body = (
       <span>
-        <b className="text-white">메뉴(⋮)</b> → <b className="text-white">앱 설치</b>면
+        <b className="text-fg-strong">메뉴(⋮)</b> → <b className="text-fg-strong">앱 설치</b>면
         홈 화면에서 바로 열려요.
       </span>
     );
   } else {
     body = (
       <span>
-        주소창 끝 <b className="text-white">설치 아이콘</b>을 누르면 앱처럼 쓸 수 있어요.
+        주소창 끝 <b className="text-fg-strong">설치 아이콘</b>을 누르면 앱처럼 쓸 수 있어요.
       </span>
     );
   }
@@ -130,11 +130,11 @@ export function InstallPrompt() {
           alt="한해설"
           className="h-9 w-9 shrink-0 rounded-lg"
         />
-        <div className="min-w-0 flex-1 text-xs font-medium text-white sm:text-sm">{body}</div>
+        <div className="min-w-0 flex-1 text-xs font-medium text-fg-strong sm:text-sm">{body}</div>
         {deferred && (
           <button
             onClick={install}
-            className="shrink-0 rounded-full bg-emerald-600 px-4 py-1.5 text-xs font-semibold text-white shadow-sm shadow-emerald-600/30 transition-colors hover:bg-emerald-500 [text-shadow:none]"
+            className="shrink-0 rounded-full bg-emerald-600 px-4 py-1.5 text-xs font-semibold text-fg-strong shadow-sm shadow-emerald-600/30 transition-colors hover:bg-emerald-500 [text-shadow:none]"
           >
             설치
           </button>
@@ -142,7 +142,7 @@ export function InstallPrompt() {
         <button
           onClick={close}
           aria-label="닫기"
-          className="shrink-0 rounded-md px-1.5 py-1 text-white/70 hover:text-white"
+          className="shrink-0 rounded-md px-1.5 py-1 text-fg-strong/70 hover:text-fg-strong"
         >
           ✕
         </button>

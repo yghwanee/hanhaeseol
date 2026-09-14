@@ -27,34 +27,34 @@ export default function GuideIndexPage() {
     <main className="mx-auto max-w-3xl px-4 py-8 sm:py-12">
       <GuideHeader />
 
-      <header className="mt-8 border-b border-zinc-800 pb-6">
+      <header className="mt-8 border-b border-line-subtle pb-6">
         <h1 className="text-2xl font-bold text-white sm:text-3xl">한해설 Topic</h1>
-        <p className="mt-2 text-sm text-zinc-400">
+        <p className="mt-2 text-sm text-fg-secondary">
           여러 플랫폼에 흩어진 중계 일정 속에서, 챙겨볼 만한 경기를 골라 정리합니다.
         </p>
       </header>
 
       {guides.length === 0 ? (
-        <p className="mt-8 text-sm text-zinc-500">아직 등록된 글이 없습니다.</p>
+        <p className="mt-8 text-sm text-fg-tertiary">아직 등록된 글이 없습니다.</p>
       ) : (
-        <ul className="mt-6 divide-y divide-zinc-800">
+        <ul className="mt-6 divide-y divide-line-subtle">
           {guides.map((g) => (
             <li key={g.slug} className="py-5">
               <Link href={`/guide/${g.slug}`} className="group block">
                 <div className="flex items-center gap-2">
                   {g.category ? (
-                    <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-xs font-medium text-zinc-300">
+                    <span className="rounded-full bg-muted px-2 py-0.5 text-xs font-medium text-fg">
                       {g.category}
                     </span>
                   ) : null}
-                  <span className="text-xs text-zinc-500">
+                  <span className="text-xs text-fg-tertiary">
                     {g.date.replace(/-/g, ".")}
                   </span>
                 </div>
                 <h2 className="mt-2 text-lg font-semibold text-white group-hover:text-sky-400">
                   {g.title}
                 </h2>
-                <p className="mt-1 line-clamp-2 text-sm text-zinc-400">
+                <p className="mt-1 line-clamp-2 text-sm text-fg-secondary">
                   {g.description}
                 </p>
               </Link>

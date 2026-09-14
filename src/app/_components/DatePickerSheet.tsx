@@ -183,7 +183,7 @@ export function DatePickerSheet({
       aria-hidden={!isOpen}
     >
       <div
-        className={`absolute inset-0 bg-black/60 transition-opacity duration-300 ${
+        className={`absolute inset-0 bg-inverse/40 transition-opacity duration-300 ${
           isOpen ? "opacity-100" : "opacity-0"
         }`}
         onClick={onClose}
@@ -194,7 +194,7 @@ export function DatePickerSheet({
           aria-modal="true"
           aria-label="날짜 선택"
           onClick={(e) => e.stopPropagation()}
-          className={`w-full max-w-sm border-t border-zinc-800 bg-zinc-900 rounded-t-2xl transition-all duration-300 sm:rounded-2xl sm:border ${
+          className={`w-full max-w-sm border-t border-line-subtle bg-surface rounded-t-2xl transition-all duration-300 sm:rounded-2xl sm:border ${
             isOpen
               ? "pointer-events-auto translate-y-0 opacity-100 sm:scale-100"
               : "pointer-events-none translate-y-full opacity-0 sm:translate-y-0 sm:scale-95"
@@ -202,17 +202,17 @@ export function DatePickerSheet({
         >
           {/* 모바일 핸들 */}
           <div className="flex justify-center pt-2.5 sm:hidden">
-            <div className="h-1 w-10 rounded-full bg-zinc-700" />
+            <div className="h-1 w-10 rounded-full bg-muted" />
           </div>
 
           {/* 헤더 */}
-          <div className="relative flex items-center justify-center border-b border-zinc-800 px-4 py-3 sm:py-4">
-            <h2 className="text-base font-bold text-white">날짜 선택</h2>
+          <div className="relative flex items-center justify-center border-b border-line-subtle px-4 py-3 sm:py-4">
+            <h2 className="text-base font-bold text-fg-strong">날짜 선택</h2>
             <button
               type="button"
               onClick={onClose}
               aria-label="닫기"
-              className="absolute right-3 flex h-8 w-8 items-center justify-center text-zinc-300 hover:text-white sm:right-4"
+              className="absolute right-3 flex h-8 w-8 items-center justify-center text-fg hover:text-fg-strong sm:right-4"
             >
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -227,13 +227,13 @@ export function DatePickerSheet({
               onClick={prevMonth}
               disabled={!canPrev}
               aria-label="이전 달"
-              className="flex h-8 w-8 items-center justify-center text-zinc-300 transition-colors hover:text-white disabled:cursor-not-allowed disabled:text-zinc-700"
+              className="flex h-8 w-8 items-center justify-center text-fg transition-colors hover:text-fg-strong disabled:cursor-not-allowed disabled:text-fg-disabled"
             >
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <span className="text-[15px] font-semibold text-zinc-100">
+            <span className="text-[15px] font-semibold text-fg-strong">
               {viewYear}년 {viewMonth + 1}월
             </span>
             <button
@@ -241,7 +241,7 @@ export function DatePickerSheet({
               onClick={nextMonth}
               disabled={!canNext}
               aria-label="다음 달"
-              className="flex h-8 w-8 items-center justify-center text-zinc-300 transition-colors hover:text-white disabled:cursor-not-allowed disabled:text-zinc-700"
+              className="flex h-8 w-8 items-center justify-center text-fg transition-colors hover:text-fg-strong disabled:cursor-not-allowed disabled:text-fg-disabled"
             >
               <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -255,7 +255,7 @@ export function DatePickerSheet({
               <div
                 key={d}
                 className={`py-1.5 text-center text-[11px] font-medium ${
-                  i === 0 ? "text-red-400" : i === 6 ? "text-blue-400" : "text-zinc-500"
+                  i === 0 ? "text-fg-danger" : i === 6 ? "text-fg-brand" : "text-fg-tertiary"
                 }`}
               >
                 {d}
@@ -268,7 +268,7 @@ export function DatePickerSheet({
             {grid.map((c, i) => {
               const isSelected = tempSelected === c.iso;
               const baseColor =
-                c.dow === 0 ? "text-red-400" : c.dow === 6 ? "text-blue-400" : "text-zinc-200";
+                c.dow === 0 ? "text-fg-danger" : c.dow === 6 ? "text-fg-brand" : "text-fg-strong";
               return (
                 <button
                   key={i}
@@ -283,12 +283,12 @@ export function DatePickerSheet({
                   <span
                     className={`flex h-10 w-10 items-center justify-center rounded-full text-sm transition-colors ${
                       isSelected
-                        ? "bg-zinc-100 font-semibold text-zinc-900"
+                        ? "bg-fg-strong font-semibold text-white"
                         : c.disabled
-                        ? "text-zinc-700"
+                        ? "text-fg-disabled"
                         : c.inMonth
-                        ? `${baseColor} group-hover:bg-zinc-800`
-                        : "text-zinc-600 group-hover:bg-zinc-800/50"
+                        ? `${baseColor} group-hover:bg-muted`
+                        : "text-fg-tertiary group-hover:bg-muted"
                     }`}
                   >
                     {c.day}
@@ -314,7 +314,7 @@ export function DatePickerSheet({
               className={`inline-flex w-full items-center justify-center py-3 text-[14px] font-medium ${
                 canConfirm
                   ? `btn-caps-stripe${confirmPressing ? " caps-stripe-pressed" : ""}`
-                  : "cursor-not-allowed bg-zinc-800 text-zinc-500"
+                  : "cursor-not-allowed bg-muted text-fg-tertiary"
               }`}
             >
               {confirmLabel}

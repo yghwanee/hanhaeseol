@@ -27,16 +27,16 @@ export default function WeekHighlights({
   if (picks.length === 0) {
     if (!emptyText) return null;
     return (
-      <section className="mb-6 rounded-xl border border-zinc-700/50 bg-zinc-900/60 p-4 sm:p-5">
-        <h2 className="mb-3 text-base font-semibold text-zinc-100 sm:text-lg">{title}</h2>
-        <p className="text-sm text-zinc-400">{emptyText}</p>
+      <section className="mb-6 rounded-xl border border-line bg-surface p-4 sm:p-5">
+        <h2 className="mb-3 text-base font-semibold text-fg-strong sm:text-lg">{title}</h2>
+        <p className="text-sm text-fg-secondary">{emptyText}</p>
       </section>
     );
   }
 
   return (
-    <section className="mb-6 rounded-xl border border-zinc-700/50 bg-zinc-900/60 p-4 sm:p-5">
-      <h2 className="mb-3 text-base font-semibold text-zinc-100 sm:text-lg">{title}</h2>
+    <section className="mb-6 rounded-xl border border-line bg-surface p-4 sm:p-5">
+      <h2 className="mb-3 text-base font-semibold text-fg-strong sm:text-lg">{title}</h2>
       <ul className="grid grid-cols-1 gap-2 sm:grid-cols-2">
         {picks.map((s) => (
           <li key={s.id}>
@@ -53,23 +53,23 @@ function MiniMatchCard({ schedule: s }: { schedule: Schedule }) {
   const dayOfWeek = new Date(s.date + "T00:00:00").getDay();
   const dateColor =
     dayOfWeek === 0
-      ? "text-red-400"
+      ? "text-fg-danger"
       : dayOfWeek === 6
-        ? "text-blue-400"
-        : "text-zinc-400";
+        ? "text-fg-brand"
+        : "text-fg-secondary";
   return (
     <Link
       href={`/match/${matchToSlug(s)}`}
-      className="flex h-full flex-col rounded-lg border border-zinc-800 border-l-2 border-l-emerald-500/50 bg-zinc-900/80 p-3 transition-colors hover:border-zinc-600 hover:border-l-emerald-400 hover:bg-zinc-900 sm:p-3.5"
+      className="flex h-full flex-col rounded-lg border border-line-subtle border-l-2 border-l-emerald-500/50 bg-surface p-3 transition-colors hover:border-line hover:border-l-emerald-400 hover:bg-surface sm:p-3.5"
     >
       <div className="flex items-baseline gap-1.5 text-xs">
         <span className={dateColor}>{formatDateHeader(s.date)}</span>
-        <span className="font-mono font-semibold text-zinc-200">{s.time}</span>
+        <span className="font-mono font-semibold text-fg-strong">{s.time}</span>
       </div>
-      <div className="mt-1.5 truncate text-sm font-semibold text-zinc-100 sm:text-[15px]">
+      <div className="mt-1.5 truncate text-sm font-semibold text-fg-strong sm:text-[15px]">
         {versus}
       </div>
-      <div className="mt-1 flex items-center justify-between gap-2 text-[11px] text-zinc-500">
+      <div className="mt-1 flex items-center justify-between gap-2 text-[11px] text-fg-tertiary">
         <span className="truncate">{s.league}</span>
         <span className="shrink-0">{s.platform}</span>
       </div>

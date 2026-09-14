@@ -121,7 +121,7 @@ export function MyTeamsSection({
         {rows.map((r) => (
           <li
             key={r.key}
-            className="relative flex items-center gap-2 rounded-lg border border-zinc-800 bg-zinc-900/70 px-2.5 py-2"
+            className="relative flex items-center gap-2 rounded-lg border border-line-subtle bg-surface px-2.5 py-2"
           >
             <FollowStar
               followed
@@ -138,21 +138,21 @@ export function MyTeamsSection({
                 />
                 <div className="pointer-events-none relative z-10 flex min-w-0 flex-1 flex-col gap-0.5">
                   <div className="flex min-w-0 items-baseline gap-1.5 text-[13px] sm:text-sm">
-                    <span className="shrink-0 font-semibold text-zinc-100">{r.teamName}</span>
-                    <span className="truncate text-zinc-400">
+                    <span className="shrink-0 font-semibold text-fg-strong">{r.teamName}</span>
+                    <span className="truncate text-fg-secondary">
                       vs {opponentOf(r.game, r.teamName)}
                     </span>
                   </div>
-                  <div className="flex min-w-0 items-center gap-1.5 text-[11px] text-zinc-500">
+                  <div className="flex min-w-0 items-center gap-1.5 text-[11px] text-fg-tertiary">
                     {/* 🔴 `font-mono` 금지. 이 문자열엔 한글이 들어간다("9월 4일 (금) 18:15").
                         Tailwind 기본 mono 스택(Consolas·Menlo…)엔 **한글 글리프가 없어서**
                         숫자는 Consolas, 한글은 시스템 폰트로 한 문자열 안에서 갈렸다
                         (2026-09-03 사용자 지적). 자리 정렬만 필요하므로 본문 폰트 +
                         `tabular-nums` 로 충분하다. */}
-                    <span className="shrink-0 tabular-nums text-zinc-300">
+                    <span className="shrink-0 tabular-nums text-fg">
                       {formatDateHeader(r.game.date)} {r.game.time}
                     </span>
-                    <span className="text-zinc-700">|</span>
+                    <span className="text-fg-tertiary">·</span>
                     <span className="truncate">{r.platforms.join(", ")}</span>
                   </div>
                 </div>
@@ -165,8 +165,8 @@ export function MyTeamsSection({
               </>
             ) : (
               <div className="flex min-w-0 flex-1 items-baseline gap-2 text-[13px] sm:text-sm">
-                <span className="shrink-0 font-semibold text-zinc-100">{r.teamName}</span>
-                <span className="truncate text-[11px] text-zinc-500">
+                <span className="shrink-0 font-semibold text-fg-strong">{r.teamName}</span>
+                <span className="truncate text-[11px] text-fg-tertiary">
                   이번 주 편성 없음
                 </span>
               </div>
@@ -179,7 +179,7 @@ export function MyTeamsSection({
           없어서, 팀을 고른 **바로 그 자리**에 둔다. 미지원 환경(VAPID 미설정, 아이폰
           미설치, 인앱 웹뷰)에서는 컴포넌트가 스스로 숨는다.
           켠 뒤에도 이 자리에 "알림 켜짐" 이 남는다 — 상태를 푸터에만 두면 아무도 못 본다. */}
-      <div className="mt-2.5 flex justify-end text-[11px] text-zinc-400">
+      <div className="mt-2.5 flex justify-end text-[11px] text-fg-secondary">
         <PushSubscribeButton ctaOnly />
       </div>
     </section>

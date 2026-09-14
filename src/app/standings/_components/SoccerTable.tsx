@@ -124,7 +124,7 @@ export function SoccerTable({ teams, teamLinks }: { teams: SoccerStanding[]; tea
   }, [teams]);
 
   return (
-    <div className="overflow-hidden rounded-xl border border-zinc-800/80 bg-zinc-950/50">
+    <div className="overflow-hidden rounded-xl border border-line-subtle bg-subtle">
       <div className="relative">
         <div ref={scrollerRef} className="overflow-x-auto scrollbar-hide">
           <table className="w-full min-w-[670px] table-fixed text-[12px] sm:text-sm">
@@ -142,16 +142,16 @@ export function SoccerTable({ teams, teamLinks }: { teams: SoccerStanding[]; tea
               <col className="w-24 sm:w-28" />
               <col className="w-16 sm:w-20" />
             </colgroup>
-            <thead className="sticky top-0 z-10 bg-zinc-900/95 backdrop-blur">
-              <tr className="border-b border-zinc-800 bg-zinc-900/60">
+            <thead className="sticky top-0 z-10 bg-surface backdrop-blur">
+              <tr className="border-b border-line-subtle bg-surface">
                 <Th
                   label="순위"
                   active={sortKey === "rank"}
                   dir={sortDir}
                   onClick={() => onHeaderClick("rank")}
-                  className="sticky left-0 z-20 bg-zinc-900"
+                  className="sticky left-0 z-20 bg-surface"
                 />
-                <th className="sticky left-10 z-20 whitespace-nowrap bg-zinc-900 px-1.5 py-2.5 text-left text-[11px] font-semibold text-zinc-400 sm:left-12 sm:px-2 sm:text-xs">
+                <th className="sticky left-10 z-20 whitespace-nowrap bg-surface px-1.5 py-2.5 text-left text-[11px] font-semibold text-fg-secondary sm:left-12 sm:px-2 sm:text-xs">
                   팀
                 </th>
                 <Th label="승점" active={sortKey === "points"} dir={sortDir} onClick={() => onHeaderClick("points")} highlight />
@@ -162,10 +162,10 @@ export function SoccerTable({ teams, teamLinks }: { teams: SoccerStanding[]; tea
                 <Th label="득" active={sortKey === "goals"} dir={sortDir} onClick={() => onHeaderClick("goals")} />
                 <Th label="실" active={sortKey === "goalsConceded"} dir={sortDir} onClick={() => onHeaderClick("goalsConceded")} />
                 <Th label="득실" active={sortKey === "goalsDifference"} dir={sortDir} onClick={() => onHeaderClick("goalsDifference")} />
-                <th className="whitespace-nowrap px-2 py-2.5 text-center text-[11px] font-semibold text-zinc-400 sm:text-xs">
+                <th className="whitespace-nowrap px-2 py-2.5 text-center text-[11px] font-semibold text-fg-secondary sm:text-xs">
                   최근 5
                 </th>
-                <th className="whitespace-nowrap px-1 py-2.5 text-center text-[11px] font-semibold text-zinc-400 sm:text-xs">
+                <th className="whitespace-nowrap px-1 py-2.5 text-center text-[11px] font-semibold text-fg-secondary sm:text-xs">
                   연속
                 </th>
               </tr>
@@ -176,18 +176,18 @@ export function SoccerTable({ teams, teamLinks }: { teams: SoccerStanding[]; tea
                 return (
                   <tr
                     key={t.teamName}
-                    className="group border-b border-zinc-800/60 transition-colors duration-150 last:border-b-0 hover:bg-zinc-900/50"
+                    className="group border-b border-line-subtle transition-colors duration-150 last:border-b-0 hover:bg-surface"
                   >
-                    <td className="sticky left-0 z-10 bg-zinc-950 px-1 py-2 text-center transition-colors group-hover:bg-[#1a1a1d]">
+                    <td className="sticky left-0 z-10 bg-subtle px-1 py-2 text-center transition-colors group-hover:bg-[#1a1a1d]">
                       {st && (
                         <span
                           className={`absolute left-0 top-1.5 bottom-1.5 w-[3px] rounded-r-full ${st.bar}`}
                           aria-hidden
                         />
                       )}
-                      <span className="font-bold tabular-nums text-zinc-100">{t.rank}</span>
+                      <span className="font-bold tabular-nums text-fg-strong">{t.rank}</span>
                     </td>
-                    <td className="sticky left-10 z-10 bg-zinc-950 px-1.5 py-2 transition-colors group-hover:bg-[#1a1a1d] sm:left-12 sm:px-2">
+                    <td className="sticky left-10 z-10 bg-subtle px-1.5 py-2 transition-colors group-hover:bg-[#1a1a1d] sm:left-12 sm:px-2">
                       <div className="flex items-center gap-1.5 sm:gap-2">
                         {t.teamLogo ? (
                           <Image
@@ -200,30 +200,30 @@ export function SoccerTable({ teams, teamLinks }: { teams: SoccerStanding[]; tea
                             referrerPolicy="no-referrer"
                           />
                         ) : (
-                          <span className="inline-block h-[18px] w-[18px] shrink-0 rounded-full bg-zinc-800 sm:h-[22px] sm:w-[22px]" />
+                          <span className="inline-block h-[18px] w-[18px] shrink-0 rounded-full bg-muted sm:h-[22px] sm:w-[22px]" />
                         )}
                         {teamLinks?.[t.teamName] ? (
                         <Link
                           href={teamLinks[t.teamName]}
-                          className="truncate font-medium text-zinc-100 hover:text-emerald-400 hover:underline underline-offset-2"
+                          className="truncate font-medium text-fg-strong hover:text-emerald-400 hover:underline underline-offset-2"
                         >
                           {displayTeamName(t.teamName)}
                         </Link>
                       ) : (
-                        <span className="truncate font-medium text-zinc-100">{displayTeamName(t.teamName)}</span>
+                        <span className="truncate font-medium text-fg-strong">{displayTeamName(t.teamName)}</span>
                       )}
                       </div>
                     </td>
                     <td className="px-1 py-2 text-center font-bold tabular-nums text-emerald-400">
                       {t.points}
                     </td>
-                    <td className="px-1 py-2 text-center tabular-nums text-zinc-300">{t.matchesPlayed}</td>
-                    <td className="px-1 py-2 text-center tabular-nums text-zinc-300">{t.wins}</td>
-                    <td className="px-1 py-2 text-center tabular-nums text-zinc-300">{t.draws}</td>
-                    <td className="px-1 py-2 text-center tabular-nums text-zinc-300">{t.losses}</td>
-                    <td className="px-1 py-2 text-center tabular-nums text-zinc-300">{t.goals}</td>
-                    <td className="px-1 py-2 text-center tabular-nums text-zinc-300">{t.goalsConceded}</td>
-                    <td className="px-1 py-2 text-center font-medium tabular-nums text-zinc-300">
+                    <td className="px-1 py-2 text-center tabular-nums text-fg">{t.matchesPlayed}</td>
+                    <td className="px-1 py-2 text-center tabular-nums text-fg">{t.wins}</td>
+                    <td className="px-1 py-2 text-center tabular-nums text-fg">{t.draws}</td>
+                    <td className="px-1 py-2 text-center tabular-nums text-fg">{t.losses}</td>
+                    <td className="px-1 py-2 text-center tabular-nums text-fg">{t.goals}</td>
+                    <td className="px-1 py-2 text-center tabular-nums text-fg">{t.goalsConceded}</td>
+                    <td className="px-1 py-2 text-center font-medium tabular-nums text-fg">
                       {t.goalsDifference > 0 ? `+${t.goalsDifference}` : t.goalsDifference}
                     </td>
                     <td className="px-2 py-2 text-center">
@@ -240,14 +240,14 @@ export function SoccerTable({ teams, teamLinks }: { teams: SoccerStanding[]; tea
         </div>
         {/* Left edge fade — sticky 컬럼(순위+팀) 오른쪽부터 시작해서 sticky 가리지 않음 */}
         <div
-          className={`pointer-events-none absolute left-[180px] top-0 bottom-0 w-10 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 sm:left-[248px] ${
+          className={`pointer-events-none absolute left-[180px] top-0 bottom-0 w-10 bg-gradient-to-r from-subtle via-subtle to-transparent transition-opacity duration-200 sm:left-[248px] ${
             showLeftFade ? "opacity-100" : "opacity-0"
           }`}
           aria-hidden
         />
         {/* Right edge fade */}
         <div
-          className={`pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+          className={`pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-subtle via-subtle to-transparent transition-opacity duration-200 ${
             showRightFade ? "opacity-100" : "opacity-0"
           }`}
           aria-hidden
@@ -261,10 +261,10 @@ export function SoccerTable({ teams, teamLinks }: { teams: SoccerStanding[]; tea
           {...scrollbarHandlers}
           className="-my-2 py-2 cursor-pointer touch-none select-none"
         >
-          <div ref={scrollbarTrackRef} className="h-[3px] rounded-full bg-zinc-800/60">
+          <div ref={scrollbarTrackRef} className="h-[3px] rounded-full bg-muted">
             <div
               ref={indicatorRef}
-              className="h-full rounded-full bg-zinc-500/80"
+              className="h-full rounded-full bg-fg-tertiary"
               style={{ width: "35%", transform: "translateX(0%)", willChange: "transform" }}
             />
           </div>
@@ -272,7 +272,7 @@ export function SoccerTable({ teams, teamLinks }: { teams: SoccerStanding[]; tea
       </div>
 
       {legend.length > 0 && (
-        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-zinc-800/80 px-3 py-2.5 text-[10px] text-zinc-400 sm:px-4 sm:text-[11px]">
+        <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 border-t border-line-subtle px-3 py-2.5 text-[10px] text-fg-secondary sm:px-4 sm:text-[11px]">
           {legend.map((l) => (
             <span key={l.label} className="inline-flex items-center gap-1">
               <span className={`inline-block h-3 w-[3px] rounded-sm ${l.bar}`} />
@@ -310,7 +310,7 @@ function Th({
             ? "text-white"
             : highlight
             ? "text-emerald-300 hover:text-emerald-200"
-            : "text-zinc-400 hover:text-zinc-200"
+            : "text-fg-secondary hover:text-fg-strong"
         }`}
       >
         {/* 좌측 invisible spacer: 우측 화살표와 같은 폭을 확보해 라벨을 셀 정중앙으로 */}

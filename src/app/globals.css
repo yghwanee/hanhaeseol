@@ -323,3 +323,154 @@ body {
   font-family: var(--font-pretendard-ui), "Apple SD Gothic Neo", "Malgun Gothic",
     "맑은 고딕", system-ui, -apple-system, sans-serif;
 }
+
+/* ============================================================================
+   Wanted(몽타주) 기반 토큰 레이어 — 2026-09-14 리디자인 (redesign/wanted 브랜치)
+   출처: C:\Users\D140\Downloads\wanted.md (montage.wanted.co.kr 공개 문서 + 핸드오프 번들)
+
+   🔴 이 레이어가 하는 일은 "색을 바꾸는 것"이 아니라 **위계를 타이포로 옮기는 것**이다.
+   종전 한해설은 검정 캔버스 위에 에메랄드·로즈·옐로 네온 뱃지와 그라디언트로 위계를
+   만들었다 — 그게 "AI가 만든 화면" 으로 읽히던 이유다. 원티드 규칙은 정반대다:
+
+     1. 표면은 평면이다. 카드는 그림자가 아니라 **1px 헤어라인**이 구조를 짊어진다.
+        그림자는 popover·모달 같은 떠 있는 표면에만 쓴다.
+     2. 색은 절제한다. 브랜드 블루 **한 가지**만 쓰고, 나머지는 무채색 + 알파다.
+        상태색(성공·경고·위험)은 washed 배경 + 짙은 글자로만 등장한다.
+     3. 선택 상태는 채도가 아니라 **명도 반전**(검정 배경 + 흰 글자)으로 표시한다.
+     4. 그라디언트는 심볼·아바타·썸네일 placeholder·마케팅 히어로 네 자리에만 허용된다.
+        CTA·헤더·본문 표면에는 쓰지 않는다.
+   ========================================================================== */
+
+:root {
+  /* Background */
+  --w-canvas: #ffffff;
+  --w-surface: #ffffff;
+  --w-subtle: oklch(0.972 0.002 286);   /* 페이지 바탕 */
+  --w-muted: oklch(0.961 0.002 286);    /* hover fill */
+  --w-elevated: #ffffff;
+  --w-inverse: oklch(0.148 0.004 277);
+
+  /* Foreground — 별도 회색 hex 를 만들지 않고 한 베이스에 알파를 곱한다(원티드 방식).
+     라이트/다크 양쪽에서 같은 "소프트 블랙" 톤이 유지되는 게 이 방식의 이유다. */
+  --w-fg-strong: oklch(0.148 0.004 277);
+  --w-fg: oklch(0.259 0.010 273 / 0.88);
+  --w-fg-secondary: oklch(0.298 0.010 273 / 0.61);
+  --w-fg-tertiary: oklch(0.298 0.010 273 / 0.43);
+  --w-fg-disabled: oklch(0.298 0.010 273 / 0.28);
+  --w-fg-on-brand: #ffffff;
+
+  /* Brand — 단일 primary. #0066FF */
+  --w-brand: oklch(0.563 0.241 261);
+  --w-brand-hover: oklch(0.529 0.220 258);
+  --w-brand-subtle: oklch(0.954 0.022 250);
+
+  /* Semantic signal */
+  --w-success: oklch(0.673 0.211 144);
+  --w-success-subtle: oklch(0.968 0.052 154);
+  --w-danger: oklch(0.546 0.220 27);
+  --w-danger-subtle: oklch(0.951 0.018 18);
+  --w-warning: oklch(0.625 0.148 56);
+  --w-warning-subtle: oklch(0.967 0.030 81);
+
+  /* Borders — 헤어라인이 이 시스템의 구조다 */
+  --w-line-subtle: oklch(0.521 0.018 273 / 0.08);
+  --w-line: oklch(0.521 0.018 273 / 0.22);
+  --w-line-strong: oklch(0.521 0.018 273 / 0.35);
+
+  /* Elevation — 떠 있는 표면 전용 */
+  --w-shadow-1: 0 1px 2px oklch(0.155 0 0 / 0.06), 0 1px 3px oklch(0 0 0 / 0.05);
+  --w-shadow-pop: 0 8px 24px oklch(0 0 0 / 0.12);
+}
+
+@layer components {
+  /* 카드 — 그림자 없음. 헤어라인 + 흰 표면. hover 는 -2px lift 하나뿐(원티드 잡카드). */
+  .w-card {
+    background: var(--w-surface);
+    border: 1px solid var(--w-line-subtle);
+    border-radius: 12px;
+    transition: transform 0.12s ease, border-color 0.12s ease;
+  }
+  @media (hover: hover) {
+    .w-card-hover:hover {
+      transform: translateY(-2px);
+      border-color: var(--w-line);
+    }
+  }
+
+  /* 칩 — 선택은 명도 반전(검정 배경 + 흰 글자). 채도로 강조하지 않는다. */
+  .w-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    height: 34px;
+    padding: 0 14px;
+    border-radius: 9999px;
+    border: 1px solid var(--w-line);
+    background: var(--w-surface);
+    color: var(--w-fg);
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    transition: background-color 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+  }
+  @media (hover: hover) {
+    .w-chip:hover { background: var(--w-muted); }
+  }
+  .w-chip[data-active="true"] {
+    background: var(--w-fg-strong);
+    border-color: var(--w-fg-strong);
+    color: #fff;
+    font-weight: 600;
+  }
+  /* 작은 변형 — 필터 바 안쪽 */
+  .w-chip--sm { height: 30px; padding: 0 12px; font-size: 12px; }
+
+  /* 뱃지 — 6px 라운드, washed 배경. 칩보다 작고 정보 밀도가 높은 자리. */
+  .w-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 5px 8px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .w-badge--neutral { background: oklch(0.929 0.003 286); color: var(--w-fg); }
+  .w-badge--brand { background: var(--w-brand-subtle); color: var(--w-brand); }
+  .w-badge--success { background: var(--w-success-subtle); color: oklch(0.49 0.15 150); }
+  .w-badge--danger { background: var(--w-danger-subtle); color: var(--w-danger); }
+  .w-badge--warning { background: var(--w-warning-subtle); color: oklch(0.52 0.13 56); }
+  .w-badge--outline { border: 1px solid var(--w-line); color: var(--w-fg-secondary); }
+
+  /* 버튼 — solid / outlined / assistive 세 가지면 이 사이트엔 충분하다. */
+  .w-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.006em;
+    white-space: nowrap;
+    transition: background-color 0.12s ease, border-color 0.12s ease;
+  }
+  .w-btn--sm { height: 32px; padding: 0 14px; border-radius: 8px; font-size: 14px; }
+  .w-btn--solid { background: var(--w-brand); color: #fff; }
+  .w-btn--solid:hover { background: var(--w-brand-hover); }
+  .w-btn--outlined { border: 1px solid var(--w-line); background: var(--w-surface); color: var(--w-fg); }
+  .w-btn--outlined:hover { background: var(--w-muted); }
+  .w-btn--assistive { background: var(--w-muted); color: var(--w-fg); }
+  .w-btn--assistive:hover { background: oklch(0.929 0.003 286); }
+
+  /* 포커스 — 링 하나로 통일(원티드: 1px 보더 + 3px 글로우) */
+  .w-focus:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 1px var(--w-brand), 0 0 0 4px oklch(0.563 0.241 261 / 0.16);
+  }
+}

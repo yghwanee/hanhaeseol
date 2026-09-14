@@ -44,7 +44,7 @@ function FollowStarInner({
       className={`pointer-events-auto relative z-20 -m-1 shrink-0 touch-manipulation rounded-md p-1 transition-colors after:absolute after:inset-[-13px] after:content-[''] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-400 ${
         followed
           ? "text-amber-400 hover:text-amber-300"
-          : "text-zinc-600 hover:text-zinc-300"
+          : "text-fg-tertiary hover:text-fg"
       } ${className}`}
     >
       <svg

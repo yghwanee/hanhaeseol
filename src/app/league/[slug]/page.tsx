@@ -137,7 +137,7 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
           사이트맵에만 있고 링크로 도달할 수 없는 고아 상태였다. 같은 실수를 반복하지 않는다. */}
       {teams.length > 0 && (
         <section className="mx-auto w-full max-w-3xl px-4 pb-8 sm:px-6">
-          <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+          <div className="rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
             <h2 className="text-sm font-semibold text-white sm:text-base">
               {meta.display} 팀별 중계 일정
             </h2>
@@ -146,7 +146,7 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
                 <Link
                   key={t.slug}
                   href={`/team/${encodeURIComponent(t.slug)}`}
-                  className="rounded-full border border-zinc-800 px-3 py-1.5 text-xs text-zinc-300 hover:border-zinc-600 hover:text-white"
+                  className="rounded-full border border-line-subtle px-3 py-1.5 text-xs text-fg hover:border-line hover:text-fg-strong"
                 >
                   {t.rank}. {t.name}
                 </Link>

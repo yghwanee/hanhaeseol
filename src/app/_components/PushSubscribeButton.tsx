@@ -211,14 +211,14 @@ export function PushSubscribeButton({
 
   if (state === "init" || state === "unsupported") return null;
   if (state === "denied")
-    return <span className="text-zinc-500">알림 차단됨 (브라우저 설정에서 허용)</span>;
+    return <span className="text-fg-tertiary">알림 차단됨 (브라우저 설정에서 허용)</span>;
 
   // 🔴 여기서 `null` 을 돌려주면 종전 상태로 돌아간다 — 별은 눌리는데 알림 자리는
   // 비어 있어서, 사용자는 자기가 뭘 더 해야 하는지 영영 모른다. `test:push-toggle` 이 막는다.
   if (state === "iosInstall")
     return (
       <Hint>
-        아이폰은 <b className="font-semibold text-zinc-300">공유 → 홈 화면에 추가</b> 후
+        아이폰은 <b className="font-semibold text-fg">공유 → 홈 화면에 추가</b> 후
         알림을 켤 수 있어요
       </Hint>
     );
@@ -252,7 +252,7 @@ export function PushSubscribeButton({
  */
 function Hint({ children }: { children: ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-1.5 text-zinc-500">
+    <span className="inline-flex items-center gap-1.5 text-fg-tertiary">
       <svg viewBox="0 0 24 24" className="h-3 w-3 shrink-0" fill="currentColor" aria-hidden>
         <path d="M12 2a6 6 0 00-6 6v3.6l-1.7 3.2A1 1 0 005.2 17h13.6a1 1 0 00.9-1.2l-1.7-3.2V8a6 6 0 00-6-6zm0 19a2.8 2.8 0 002.7-2h-5.4A2.8 2.8 0 0012 21z" />
       </svg>
@@ -290,7 +290,7 @@ function Toggle({
       className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-[3px] transition-colors disabled:opacity-50 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-amber-400 ${
         on
           ? "border-emerald-500/40 bg-emerald-500/10 text-emerald-400 hover:border-emerald-400/60"
-          : "border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-zinc-200"
+          : "border-line text-fg-secondary hover:border-line-strong hover:text-fg-strong"
       }`}
     >
       <svg viewBox="0 0 24 24" className="h-3 w-3 shrink-0" fill="currentColor" aria-hidden>
@@ -300,7 +300,7 @@ function Toggle({
       {/* 스위치 — 글자를 안 읽어도 상태가 보인다 */}
       <span
         className={`ml-0.5 flex h-3 w-5 shrink-0 items-center rounded-full px-[2px] transition-colors ${
-          on ? "bg-emerald-500/70" : "bg-zinc-700"
+          on ? "bg-emerald-500/70" : "bg-muted"
         }`}
         aria-hidden
       >

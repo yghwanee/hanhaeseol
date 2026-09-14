@@ -22,7 +22,7 @@ export function AccordionItem({
         onClick={() => setOpen((o) => !o)}
         aria-expanded={open}
         aria-controls={id}
-        className="flex w-full items-start justify-between gap-3 py-3 text-left text-sm font-medium text-zinc-100 outline-none focus:outline-none"
+        className="flex w-full items-start justify-between gap-3 py-3 text-left text-sm font-medium text-fg-strong outline-none focus:outline-none"
       >
         <span>{question}</span>
         <svg
@@ -33,7 +33,7 @@ export function AccordionItem({
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
-          className={`mt-1 h-4 w-4 shrink-0 text-zinc-500 transition-transform duration-300 ease-out ${
+          className={`mt-1 h-4 w-4 shrink-0 text-fg-tertiary transition-transform duration-300 ease-out ${
             open ? "rotate-180" : ""
           }`}
         >
@@ -50,7 +50,7 @@ export function AccordionItem({
       >
         <div className="overflow-hidden">
           <div
-            className={`pb-3 pr-6 text-sm leading-relaxed text-zinc-400 whitespace-pre-line transition-opacity duration-300 ${
+            className={`pb-3 pr-6 text-sm leading-relaxed text-fg-secondary whitespace-pre-line transition-opacity duration-300 ${
               open ? "opacity-100" : "opacity-0"
             }`}
           >

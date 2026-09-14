@@ -456,20 +456,20 @@ export default function ScheduleClient({
         <header className="flex items-center justify-between">
           <h1 className="flex items-end">
             <Image src="/icon.png" alt="한해설 아이콘" width={32} height={32} className="h-6 w-6 sm:h-8 sm:w-8 self-center" />
-            <span className="ml-1 sm:ml-2 text-xl sm:text-3xl font-bold text-white">한해설</span>
+            <span className="ml-1 sm:ml-2 text-heading1 sm:text-title2 font-bold text-fg-strong">한해설</span>
           </h1>
           <div className="flex items-center gap-2 sm:gap-4">
             <Link
               href="/guide"
               aria-label="한해설 Topic · 중계 가이드"
-              className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-3 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs"
+              className="w-btn w-btn--sm w-btn--outlined"
             >
               한해설 Topic
             </Link>
             <Link
               href="/standings"
               aria-label="팀 순위"
-              className="btn-caps-stripe inline-flex items-center justify-center whitespace-nowrap px-3 py-1.5 text-[11px] font-medium sm:px-5 sm:py-2 sm:text-xs"
+              className="w-btn w-btn--sm w-btn--outlined"
             >
               순위 +
             </Link>
@@ -493,7 +493,7 @@ export default function ScheduleClient({
       <div className="mt-6 sm:mt-10 mb-6 sm:mb-10 space-y-2.5 sm:space-y-3">
         {/* Sport Filter */}
         <div className="flex items-center gap-1.5 sm:gap-2">
-          <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-zinc-300">
+          <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-fg">
             종목
           </span>
           <div className="overflow-x-auto scrollbar-hide">
@@ -508,7 +508,7 @@ export default function ScheduleClient({
 
         {/* Korean Commentary Toggle */}
         <div className="flex items-center gap-1.5 sm:gap-2">
-          <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-zinc-300">
+          <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-fg">
             해설
           </span>
           <SmoothTabs<"all" | "korean" | "foreign">
@@ -527,7 +527,7 @@ export default function ScheduleClient({
             빈 칩이 자리만 차지한다. 발견 경로는 카드 팀명 옆의 별이다. */}
         {hasFollows && (
           <div className="flex items-center gap-1.5 sm:gap-2">
-            <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-zinc-300">
+            <span className="w-14 sm:w-12 shrink-0 text-[11px] sm:text-xs font-medium text-fg">
               내 팀
             </span>
             <SmoothTabs<"all" | "mine">
@@ -567,18 +567,18 @@ export default function ScheduleClient({
                       } ${
                         key === "전체"
                           ? isActive
-                            ? "bg-white text-zinc-900"
-                            : "bg-transparent text-zinc-400 ring-1 ring-zinc-600"
+                            ? "bg-fg-strong text-white"
+                            : "bg-surface text-fg-secondary ring-1 ring-line"
                           : isActive
-                            ? "bg-zinc-200"
-                            : "bg-zinc-800/80"
+                            ? "bg-muted ring-2 ring-fg-strong"
+                            : "bg-surface ring-1 ring-line-subtle"
                       }`}
                     >
                       <PlatformIcon platformKey={key} />
                     </div>
                     <span
                       className={`text-[10px] sm:text-[11px] font-medium transition-colors whitespace-nowrap ${
-                        isActive ? "text-zinc-100" : "text-zinc-500"
+                        isActive ? "text-fg-strong" : "text-fg-tertiary"
                       }`}
                     >
                       {label}
@@ -589,13 +589,13 @@ export default function ScheduleClient({
             />
           </div>
           <div
-            className={`pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+            className={`pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-subtle via-subtle/70 to-transparent transition-opacity duration-200 ${
               showLeftFade ? "opacity-100" : "opacity-0"
             }`}
             aria-hidden
           />
           <div
-            className={`pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+            className={`pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-subtle via-subtle/70 to-transparent transition-opacity duration-200 ${
               showRightFade ? "opacity-100" : "opacity-0"
             }`}
             aria-hidden
@@ -609,10 +609,10 @@ export default function ScheduleClient({
               {...scrollbarHandlers}
               className="-my-2 py-2 cursor-pointer touch-none select-none"
             >
-              <div ref={scrollbarTrackRef} className="h-[3px] rounded-full bg-zinc-800/60">
+              <div ref={scrollbarTrackRef} className="h-[3px] rounded-full bg-muted">
                 <div
                   ref={indicatorRef}
-                  className="h-full rounded-full bg-zinc-500/80"
+                  className="h-full rounded-full bg-fg-tertiary"
                   style={{ width: "35%", transform: "translateX(0%)", willChange: "transform" }}
                 />
               </div>
@@ -637,15 +637,15 @@ export default function ScheduleClient({
             const dow = dt.getDay();
             const dayNum = dt.getDate();
             const active = d.value === selectedDate;
-            // 활성 상태에서는 sweep 흰 배경 위 가독성을 위해 zinc-900으로 통일.
-            // 비활성에서는 요일별 색상 유지 (평일 zinc-400).
+            // 활성 pill 은 명도 반전(검정 채움)이라 글자는 흰색으로 통일한다.
+            // 비활성에서는 요일별 색상 유지 — 주말 구분은 편성표에서 실제로 쓰인다.
             const dowColor = active
-              ? "text-zinc-900"
+              ? "text-white"
               : dow === 0
-              ? "text-red-400"
+              ? "text-fg-danger"
               : dow === 6
-              ? "text-blue-400"
-              : "text-zinc-400";
+              ? "text-fg-brand"
+              : "text-fg-secondary";
             return {
               value: d.value,
               label: (
@@ -688,13 +688,13 @@ export default function ScheduleClient({
                   />
                 </div>
                 <div
-                  className={`pointer-events-none absolute left-0 top-0 bottom-0 z-20 w-10 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+                  className={`pointer-events-none absolute left-0 top-0 bottom-0 z-20 w-10 bg-gradient-to-r from-subtle via-subtle/70 to-transparent transition-opacity duration-200 ${
                     showDateLeftFade ? "opacity-100" : "opacity-0"
                   }`}
                   aria-hidden
                 />
                 <div
-                  className={`pointer-events-none absolute right-0 top-0 bottom-0 z-20 w-10 bg-gradient-to-l from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+                  className={`pointer-events-none absolute right-0 top-0 bottom-0 z-20 w-10 bg-gradient-to-l from-subtle via-subtle/70 to-transparent transition-opacity duration-200 ${
                     showDateRightFade ? "opacity-100" : "opacity-0"
                   }`}
                   aria-hidden
@@ -723,7 +723,7 @@ export default function ScheduleClient({
       <div className="mb-6 sm:mb-8 grid grid-cols-3 gap-2 sm:gap-3">
         {/* Search */}
         <div className="relative col-span-2">
-          <svg className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-fg-tertiary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <circle cx="11" cy="11" r="8" strokeWidth="2" />
             <path strokeLinecap="round" strokeWidth="2" d="m21 21-4.35-4.35" />
           </svg>
@@ -733,14 +733,14 @@ export default function ScheduleClient({
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="팀, 리그 검색"
             aria-label="팀, 리그 검색"
-            className="w-full rounded-lg border border-zinc-700 bg-zinc-900 py-2 pl-9 pr-3 text-xs text-zinc-200 placeholder-zinc-500 focus:border-zinc-500 focus:outline-none sm:py-2.5 sm:pl-10 sm:pr-4 sm:text-sm"
+            className="w-full rounded-lg border border-line bg-surface py-2 pl-9 pr-3 text-xs text-fg-strong placeholder:text-fg-tertiary focus:border-brand focus:outline-none sm:py-2.5 sm:pl-10 sm:pr-4 sm:text-sm"
           />
           {searchQuery && (
             <button
               type="button"
               onClick={() => setSearchQuery("")}
               aria-label="검색어 지우기"
-              className="absolute right-0.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded text-base leading-none text-zinc-500 hover:text-zinc-300"
+              className="absolute right-0.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded text-base leading-none text-fg-tertiary hover:text-fg"
             >
               &times;
             </button>
@@ -754,12 +754,12 @@ export default function ScheduleClient({
             type="button"
             onClick={openDatepicker}
             aria-label={isArchiveDate ? `선택된 날짜 ${datepickerLabel} - 다른 날짜 선택` : "지난 경기 결과 보기"}
-            className={`flex w-full items-center justify-center gap-2 rounded-lg border bg-zinc-900 py-2 text-xs transition-colors sm:py-2.5 sm:text-sm ${
+            className={`flex w-full items-center justify-center gap-2 rounded-lg border bg-surface py-2 text-xs transition-colors sm:py-2.5 sm:text-sm ${
               isArchiveDate ? "pl-3 pr-9 sm:pl-4 sm:pr-10" : "px-3 sm:px-4"
             } ${
               isArchiveDate
                 ? "border-red-500/60 text-red-300 hover:border-red-400"
-                : "border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-zinc-200"
+                : "border-line text-fg-secondary hover:border-line-strong hover:text-fg-strong"
             }`}
           >
             <svg className="h-4 w-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -773,7 +773,7 @@ export default function ScheduleClient({
               type="button"
               onClick={() => setSelectedDate(todayStr)}
               aria-label="오늘로 돌아가기"
-              className="absolute right-0.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded text-base leading-none text-zinc-400 hover:text-zinc-200"
+              className="absolute right-0.5 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded text-base leading-none text-fg-secondary hover:text-fg-strong"
             >
               &times;
             </button>
@@ -801,20 +801,20 @@ export default function ScheduleClient({
 
       {/* archive 로딩 중 표시 */}
       {isArchiveDate && archiveLoading && (
-        <div className="mb-4 text-center text-xs text-zinc-400 sm:text-sm">
+        <div className="mb-4 text-center text-xs text-fg-secondary sm:text-sm">
           지난 경기 데이터를 불러오는 중...
         </div>
       )}
 
       {/* Schedule List */}
       {isArchiveDate && archiveError && !archiveLoading ? (
-        <div className="tab-content-anim flex flex-col items-center justify-center py-16 sm:py-20 text-zinc-400">
+        <div className="tab-content-anim flex flex-col items-center justify-center py-16 sm:py-20 text-fg-secondary">
           <span className="text-2xl sm:text-3xl">⚠️</span>
           <p className="mt-3 text-xs sm:text-sm">지난 경기 데이터를 불러오지 못했습니다</p>
           <button
             type="button"
             onClick={retryArchive}
-            className="mt-4 rounded-lg border border-zinc-600 px-4 py-2 text-xs text-zinc-200 hover:border-zinc-400 sm:text-sm"
+            className="mt-4 rounded-lg border border-line px-4 py-2 text-xs text-fg-strong hover:border-line-strong sm:text-sm"
           >
             다시 시도
           </button>
@@ -822,7 +822,7 @@ export default function ScheduleClient({
       ) : filtered.length === 0 ? (
         <div
           key={`empty:${selectedDate}|${sport}|${platform}|${commentaryFilter}`}
-          className="tab-content-anim flex flex-col items-center justify-center py-16 sm:py-20 text-zinc-500"
+          className="tab-content-anim flex flex-col items-center justify-center py-16 sm:py-20 text-fg-tertiary"
         >
           <span className="text-2xl sm:text-3xl">📭</span>
           <p className="mt-3 text-xs sm:text-sm">해당 조건의 편성이 없습니다</p>
@@ -832,10 +832,10 @@ export default function ScheduleClient({
           key={`list:${selectedDate}|${sport}|${platform}|${commentaryFilter}`}
           className="tab-content-anim space-y-2.5 sm:space-y-3"
         >
-          <div className="flex items-center gap-2 text-xs sm:text-sm text-zinc-300">
+          <div className="flex items-center gap-2 text-xs sm:text-sm text-fg">
             <button
               onClick={() => setShowInfo(true)}
-              className="rounded-full border border-zinc-700 w-5 h-5 flex items-center justify-center text-[11px] font-bold text-zinc-400 hover:text-zinc-200 hover:border-zinc-500"
+              className="rounded-full border border-line w-5 h-5 flex items-center justify-center text-[11px] font-bold text-fg-secondary hover:text-fg-strong hover:border-line-strong"
               aria-label="안내"
             >
               i
@@ -868,9 +868,9 @@ export default function ScheduleClient({
       <div className="my-4 sm:my-6">
         {amGames.length > 0 && pmGames.length > 0 && (
           <div className="mb-4 flex items-center gap-3 sm:mb-6">
-            <div className="h-px flex-1 bg-zinc-700/60" />
-            <span className="text-[11px] sm:text-xs font-medium text-zinc-500">오후 경기</span>
-            <div className="h-px flex-1 bg-zinc-700/60" />
+            <div className="h-px flex-1 bg-muted" />
+            <span className="text-[11px] sm:text-xs font-medium text-fg-tertiary">오후 경기</span>
+            <div className="h-px flex-1 bg-muted" />
           </div>
         )}
         {/* 토스쇼핑 한 줄 띠 — 상품이 지정돼 있을 때만 뜬다(기본은 안 뜸). 광고 위에
@@ -895,12 +895,12 @@ export default function ScheduleClient({
           마지막 줄에 한 단어만 남는 것(orphan)을 줄인다(미지원 브라우저는 무시).
           `max-w-[38rem]` 은 데스크톱에서 한 줄이 너무 길어지지 않게 하는 measure 제한.
           <br> 로 손수 끊지 않는다 — 폭이 바뀌면 그 자리가 그대로 어색해진다. */}
-      <section className="mt-10 sm:mt-14 max-w-[38rem] break-keep text-pretty border-t border-zinc-800/60 pt-6 sm:pt-8 text-[12px] sm:text-sm leading-relaxed sm:leading-7 text-zinc-500">
-        <h2 className="mb-3 text-sm sm:text-base font-medium text-zinc-300">한국어 해설 중계, 한곳에서 확인하세요</h2>
+      <section className="mt-10 sm:mt-14 max-w-[38rem] break-keep text-pretty border-t border-line-subtle pt-6 sm:pt-8 text-[12px] sm:text-sm leading-relaxed sm:leading-7 text-fg-tertiary">
+        <h2 className="mb-3 text-sm sm:text-base font-medium text-fg">한국어 해설 중계, 한곳에서 확인하세요</h2>
         <p className="mb-2.5">
           한해설은 {SEO_LEAGUES} 등 주요 스포츠의
-          <strong className="font-medium text-zinc-300"> 한국어 해설 중계</strong>와
-          <strong className="font-medium text-zinc-300"> 한국어 중계 편성표</strong>를
+          <strong className="font-medium text-fg"> 한국어 해설 중계</strong>와
+          <strong className="font-medium text-fg"> 한국어 중계 편성표</strong>를
           매일 업데이트합니다.
         </p>
         <p className="mb-2.5">
@@ -912,32 +912,32 @@ export default function ScheduleClient({
           해설 경기만 모아서 보려면{" "}
           {/* `/commentary` 로 가는 유일한 문맥 링크. 푸터 메뉴 링크는 전 페이지 공통이라
               문맥 가중치가 없다. 앵커를 키워드 그대로 둘 것 — 이 페이지가 노리는 쿼리다. */}
-          <Link href="/commentary" className="text-zinc-300 underline underline-offset-2 hover:text-white">
+          <Link href="/commentary" className="text-fg underline underline-offset-2 hover:text-fg-strong">
             한국어 해설 중계 일정
           </Link>
           을 확인하세요.
         </p>
       </section>
 
-      <p className="mt-6 sm:mt-8 text-center text-[11px] sm:text-xs text-zinc-400" suppressHydrationWarning>
+      <p className="mt-6 sm:mt-8 text-center text-[11px] sm:text-xs text-fg-secondary" suppressHydrationWarning>
         마지막 업데이트: {data ? new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" }) : "로딩 중..."}
       </p>
 
       {/* Info Modal */}
       {showInfo && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60" onClick={() => setShowInfo(false)}>
-          <div role="dialog" aria-modal="true" aria-label="안내" className="mx-4 max-w-md rounded-xl border border-zinc-700 bg-zinc-900 px-5 sm:px-6 pt-5 sm:pt-6 pb-8 sm:pb-9" onClick={(e) => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-inverse/40" onClick={() => setShowInfo(false)}>
+          <div role="dialog" aria-modal="true" aria-label="안내" className="mx-4 max-w-md rounded-xl border border-line bg-surface px-5 sm:px-6 pt-5 sm:pt-6 pb-8 sm:pb-9" onClick={(e) => e.stopPropagation()}>
             <div className="flex justify-end">
               <button
                 type="button"
                 onClick={() => setShowInfo(false)}
                 aria-label="안내 닫기"
-                className="-mr-1 -mt-1 flex h-9 w-9 items-center justify-center rounded text-3xl leading-none text-zinc-500 hover:text-zinc-300"
+                className="-mr-1 -mt-1 flex h-9 w-9 items-center justify-center rounded text-3xl leading-none text-fg-tertiary hover:text-fg"
               >
                 &times;
               </button>
             </div>
-            <div className="mt-3 text-xs sm:text-sm leading-relaxed text-zinc-400 space-y-3">
+            <div className="mt-3 text-xs sm:text-sm leading-relaxed text-fg-secondary space-y-3">
               <p>● 본 서비스에서 제공하는 중계 일정 및 한국어해설 정보는 쿠팡플레이, 티빙, SPOTV NOW, Apple TV+, SPOTV, SPOTV2, tvN SPORTS, KBS N SPORTS, MBC SPORTS+, SBS Sports의 공식 편성표를 바탕으로 재구성되었습니다.</p>
               <p>● 실시간 중계 사정에 따라 실제 편성 현황과 일부 차이가 있을 수 있으므로 정확한 내용은 각 중계 플랫폼의 공지사항을 확인해 주시기 바랍니다.</p>
             </div>

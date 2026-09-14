@@ -41,39 +41,39 @@ export function TossDealStrip({
         // sponsored 를 빼면 유료 링크 미표시로 검색 가이드라인 위반이다.
         rel="nofollow sponsored noopener"
         // 탭 영역 44px 이상 — py-3 + 내용 높이로 확보한다(⭐별 26px 사고와 같은 규칙).
-        className="flex min-h-[52px] items-center gap-2.5 rounded-xl border border-zinc-800 bg-[#101216] px-3 py-3 transition-colors hover:border-[#3182f6]/40 sm:gap-3 sm:px-4"
+        className="flex min-h-[52px] items-center gap-2.5 rounded-xl border border-line-subtle bg-surface px-3 py-3 transition-colors hover:border-line sm:gap-3 sm:px-4"
       >
-        <span className="shrink-0 rounded-md border border-[#3182f6]/40 bg-[#3182f6]/10 px-1.5 py-0.5 text-[10px] font-semibold text-[#3182f6]">
+        <span className="w-badge w-badge--brand shrink-0 text-caption2">
           토스쇼핑
         </span>
-        <span className="min-w-0 flex-1 truncate text-[13px] font-medium text-zinc-100 sm:text-sm">
+        <span className="min-w-0 flex-1 truncate text-label2 font-medium text-fg-strong sm:text-label1">
           {pick.displayName}
         </span>
         {showPrice && (
           <span className="flex shrink-0 items-baseline gap-1.5">
             {discounted && (
-              <span className="text-[12px] font-bold text-red-400 tabular-nums sm:text-[13px]">
+              <span className="text-caption1 font-bold text-fg-danger tabular-nums sm:text-label2">
                 {pick.discountRate}%
               </span>
             )}
-            <span className="text-[13px] font-bold text-zinc-100 tabular-nums sm:text-sm">
+            <span className="text-label2 font-bold text-fg-strong tabular-nums sm:text-label1">
               {formatWon(pick.displayPrice)}
             </span>
             {discounted && (
-              <span className="hidden text-[11px] text-zinc-500 line-through tabular-nums sm:inline">
+              <span className="hidden text-caption2 text-fg-tertiary line-through tabular-nums sm:inline">
                 {formatWon(pick.originalPrice)}
               </span>
             )}
           </span>
         )}
-        <span className="hidden shrink-0 rounded-md bg-[#3182f6] px-2.5 py-1.5 text-[11px] font-semibold text-[#0b0d10] sm:inline">
+        <span className="hidden shrink-0 rounded-md bg-brand px-2.5 py-1.5 text-caption2 font-semibold text-white sm:inline">
           보러 가기
         </span>
       </a>
       {/* 🔴 대가성 문구는 상품 소개와 같은 화면에 붙어 있어야 한다. 접거나 푸터로
           내리면 위반이다. 색은 zinc-400 — zinc-500 은 검정 배경에서 약 4.2:1 이라
           10px 글씨로는 "알아보기 쉽게"(정책 문구)에 못 미친다. */}
-      <p className="mt-1.5 px-1 text-[10px] leading-relaxed text-zinc-400">{DISCLOSURE_SHORT}</p>
+      <p className="mt-1.5 px-1 text-caption2 leading-relaxed text-fg-secondary">{DISCLOSURE_SHORT}</p>
     </div>
   );
 }

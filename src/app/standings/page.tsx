@@ -140,15 +140,15 @@ export default function StandingsPage({
           />
         </div>
 
-        <p className="mt-6 text-xs text-zinc-400">
+        <p className="mt-6 text-xs text-fg-secondary">
           데이터 출처: 네이버 스포츠 · 갱신:{" "}
           {new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })} (KST)
         </p>
 
         {/* 리그별 순위 진입 카드 — SEO 내부 링크 + 별도 접근 경로 */}
-        <section className="mt-8 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+        <section className="mt-8 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
           <h2 className="text-base font-semibold text-white sm:text-lg">리그별 순위 바로가기</h2>
-          <p className="mt-1 text-xs text-zinc-500 sm:text-sm">
+          <p className="mt-1 text-xs text-fg-tertiary sm:text-sm">
             각 리그의 상세 순위표·진출권·연속 결과를 별도 페이지에서 확인하세요.
           </p>
           <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
@@ -156,7 +156,7 @@ export default function StandingsPage({
               <Link
                 key={l.slug}
                 href={`/standings/${l.slug}`}
-                className="rounded-lg border border-zinc-700/60 bg-zinc-900/60 px-3 py-2 text-xs text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white sm:text-sm"
+                className="rounded-lg border border-line bg-surface px-3 py-2 text-xs text-fg transition-colors hover:border-line-strong hover:text-fg-strong sm:text-sm"
               >
                 {l.display} 순위 →
               </Link>

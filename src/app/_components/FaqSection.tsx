@@ -21,13 +21,13 @@ export default function FaqSection({ title = "자주 묻는 질문", faqs }: Pro
   };
 
   return (
-    <section className="mb-8 rounded-xl border border-zinc-800 bg-zinc-900/60 p-5 sm:p-6">
+    <section className="mb-8 rounded-xl border border-line-subtle bg-surface p-5 sm:p-6">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <h2 className="text-base sm:text-lg font-semibold text-white">{title}</h2>
-      <div className="mt-4 divide-y divide-zinc-800">
+      <h2 className="text-base sm:text-lg font-semibold text-fg-strong">{title}</h2>
+      <div className="mt-4 divide-y divide-line-subtle">
         {faqs.map(({ q, a }) => (
           <AccordionItem key={q} question={q}>
             {a}

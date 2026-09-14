@@ -69,43 +69,43 @@ export function AsianGamesLive({
 
   return (
     <>
-      <section className="mb-6 rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 sm:p-5">
+      <section className="mb-6 rounded-xl border border-line-subtle bg-surface p-4 sm:p-5">
         <div className="flex items-baseline justify-between gap-2">
           <h2 className="text-base font-semibold text-white sm:text-lg">
-            대한민국 경기 일정 <span className="text-sm font-normal text-zinc-500">(전 종목 {data.koreaGames.length}건)</span>
+            대한민국 경기 일정 <span className="text-sm font-normal text-fg-tertiary">(전 종목 {data.koreaGames.length}건)</span>
           </h2>
-          <span className="shrink-0 text-[11px] text-zinc-500">{kst(data.lastUpdated)} 기준</span>
+          <span className="shrink-0 text-[11px] text-fg-tertiary">{kst(data.lastUpdated)} 기준</span>
         </div>
         {upcoming.length === 0 && past.length === 0 && (
-          <p className="mt-2 text-sm text-zinc-400">대한민국 경기 일정을 아직 받지 못했습니다.</p>
+          <p className="mt-2 text-sm text-fg-secondary">대한민국 경기 일정을 아직 받지 못했습니다.</p>
         )}
         {upcoming.length === 0 && past.length > 0 && (
-          <p className="mt-2 text-sm text-zinc-400">남은 대한민국 경기가 없습니다.</p>
+          <p className="mt-2 text-sm text-fg-secondary">남은 대한민국 경기가 없습니다.</p>
         )}
         {past.length > 0 && (
           <button
             type="button"
             onClick={() => setShowPast((v) => !v)}
-            className="mt-3 min-h-[44px] w-full rounded-lg border border-zinc-700 text-sm text-zinc-300 hover:bg-zinc-800"
+            className="mt-3 min-h-[44px] w-full rounded-lg border border-line text-sm text-fg hover:bg-muted"
           >
             {showPast ? "지난 경기 접기" : `지난 경기 ${pastCount}건 보기`}
           </button>
         )}
         {shown.map(([date, games]) => (
           <div key={date} className="mt-4">
-            <h3 className="mb-2 text-sm font-semibold text-zinc-300">
+            <h3 className="mb-2 text-sm font-semibold text-fg">
               {fmtDate(date)}
-              {date < today && <span className="ml-1.5 text-xs font-normal text-zinc-500">지난 경기</span>}
+              {date < today && <span className="ml-1.5 text-xs font-normal text-fg-tertiary">지난 경기</span>}
             </h3>
             <ul className="space-y-1.5">
               {games.map((g) => {
                 const tv = g.home && g.away ? broadcasts[broadcastKey(g.date, g.home, g.away)] : undefined;
                 return (
-                  <li key={g.id} className="rounded-lg bg-zinc-950/50 px-3 py-2 text-sm">
+                  <li key={g.id} className="rounded-lg bg-subtle px-3 py-2 text-sm">
                     <div className="flex items-center gap-2">
-                      <span className="w-11 shrink-0 tabular-nums text-zinc-400">{g.time}</span>
-                      <span className="w-20 shrink-0 truncate text-zinc-300">{g.discipline}</span>
-                      <span className="min-w-0 flex-1 truncate text-zinc-100">
+                      <span className="w-11 shrink-0 tabular-nums text-fg-secondary">{g.time}</span>
+                      <span className="w-20 shrink-0 truncate text-fg">{g.discipline}</span>
+                      <span className="min-w-0 flex-1 truncate text-fg-strong">
                         {g.home && g.away ? (
                           <>
                             {g.home}{" "}
@@ -123,14 +123,14 @@ export function AsianGamesLive({
                     </div>
                     {(tv || (g.home && g.away)) && (
                       <div className="mt-1 flex flex-wrap items-center gap-1.5 pl-[3.25rem] text-[11px]">
-                        {g.home && g.away && <span className="text-zinc-500">{g.title}</span>}
+                        {g.home && g.away && <span className="text-fg-tertiary">{g.title}</span>}
                         {tv?.map((t) => (
                           <span
                             key={t}
                             className={`rounded-full px-2 py-0.5 font-semibold ${
                               t.endsWith("한국어해설")
                                 ? "bg-emerald-500/20 text-emerald-400"
-                                : "bg-zinc-700/60 text-zinc-300"
+                                : "bg-muted text-fg"
                             }`}
                           >
                             {t}
@@ -146,24 +146,24 @@ export function AsianGamesLive({
         ))}
       </section>
 
-      <section className="mb-6 rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 sm:p-5">
+      <section className="mb-6 rounded-xl border border-line-subtle bg-surface p-4 sm:p-5">
         <h2 className="text-base font-semibold text-white sm:text-lg">대한민국 메달</h2>
         {kor ? (
           <>
             <div className="mt-3 grid grid-cols-4 gap-2 text-center">
               {[
                 ["금", kor.gold, "text-amber-300"],
-                ["은", kor.silver, "text-zinc-200"],
+                ["은", kor.silver, "text-fg-strong"],
                 ["동", kor.bronze, "text-orange-300"],
                 ["합계", kor.total, "text-white"],
               ].map(([label, n, cls]) => (
-                <div key={label as string} className="rounded-lg bg-zinc-950/60 py-2.5">
+                <div key={label as string} className="rounded-lg bg-subtle py-2.5">
                   <div className={`text-2xl font-extrabold tabular-nums ${cls}`}>{n as number}</div>
-                  <div className="mt-0.5 text-[11px] text-zinc-400">{label as string}</div>
+                  <div className="mt-0.5 text-[11px] text-fg-secondary">{label as string}</div>
                 </div>
               ))}
             </div>
-            <p className="mt-3 text-sm text-zinc-300">
+            <p className="mt-3 text-sm text-fg">
               {started
                 ? `종합 순위 ${kor.rank}위 (금메달 순).`
                 : "아직 메달이 나오지 않았습니다. 첫 메달이 나오면 이 자리에 순위가 표시됩니다."}
@@ -171,34 +171,34 @@ export function AsianGamesLive({
             {kor.disciplines.length > 0 && (
               <ul className="mt-2 flex flex-wrap gap-1.5">
                 {kor.disciplines.map((d) => (
-                  <li key={d.name} className="rounded-full border border-zinc-700 px-2.5 py-1 text-xs text-zinc-300">
+                  <li key={d.name} className="rounded-full border border-line px-2.5 py-1 text-xs text-fg">
                     {d.name} <span className="tabular-nums text-amber-300">금{d.gold}</span>{" "}
-                    <span className="tabular-nums text-zinc-400">은{d.silver} 동{d.bronze}</span>
+                    <span className="tabular-nums text-fg-secondary">은{d.silver} 동{d.bronze}</span>
                   </li>
                 ))}
               </ul>
             )}
           </>
         ) : (
-          <p className="mt-3 text-sm text-zinc-400">대한민국 메달 정보를 아직 받지 못했습니다.</p>
+          <p className="mt-3 text-sm text-fg-secondary">대한민국 메달 정보를 아직 받지 못했습니다.</p>
         )}
       </section>
 
-      <section className="mb-6 rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 sm:p-5">
+      <section className="mb-6 rounded-xl border border-line-subtle bg-surface p-4 sm:p-5">
         <h2 className="text-base font-semibold text-white sm:text-lg">국가별 메달 순위</h2>
         {!started && (
-          <p className="mt-2 text-sm text-zinc-400">
+          <p className="mt-2 text-sm text-fg-secondary">
             첫 메달 전이라 모든 나라가 0개입니다. 메달이 나오면 금메달 수 기준으로 순위가 매겨집니다.
           </p>
         )}
         <div className="mt-3 overflow-x-auto">
           <table className="w-full min-w-[320px] text-sm">
             <thead>
-              <tr className="text-xs text-zinc-500">
+              <tr className="text-xs text-fg-tertiary">
                 <th className="w-10 py-2 text-center font-medium">순위</th>
                 <th className="py-2 text-left font-medium">국가</th>
                 <th className="w-11 py-2 text-center font-bold text-amber-300">금</th>
-                <th className="w-11 py-2 text-center font-medium text-zinc-300">은</th>
+                <th className="w-11 py-2 text-center font-medium text-fg">은</th>
                 <th className="w-11 py-2 text-center font-medium text-orange-300">동</th>
                 <th className="w-12 py-2 text-center font-medium">합계</th>
               </tr>
@@ -207,12 +207,12 @@ export function AsianGamesLive({
               {rows.map((m) => (
                 <tr
                   key={m.countryId}
-                  className={`border-t border-zinc-800/70 ${m.countryId === "KOR" ? "bg-sky-400/[0.08]" : ""}`}
+                  className={`border-t border-line-subtle ${m.countryId === "KOR" ? "bg-sky-400/[0.08]" : ""}`}
                 >
-                  <td className="py-2 text-center tabular-nums text-zinc-400">{started ? m.rank : "-"}</td>
-                  <td className={`py-2 ${m.countryId === "KOR" ? "font-bold text-white" : "text-zinc-200"}`}>{m.countryName}</td>
+                  <td className="py-2 text-center tabular-nums text-fg-secondary">{started ? m.rank : "-"}</td>
+                  <td className={`py-2 ${m.countryId === "KOR" ? "font-bold text-white" : "text-fg-strong"}`}>{m.countryName}</td>
                   <td className="py-2 text-center tabular-nums font-semibold text-amber-300">{m.gold}</td>
-                  <td className="py-2 text-center tabular-nums text-zinc-300">{m.silver}</td>
+                  <td className="py-2 text-center tabular-nums text-fg">{m.silver}</td>
                   <td className="py-2 text-center tabular-nums text-orange-300">{m.bronze}</td>
                   <td className="py-2 text-center tabular-nums text-white">{m.total}</td>
                 </tr>
@@ -224,7 +224,7 @@ export function AsianGamesLive({
           <button
             type="button"
             onClick={() => setShowAll((v) => !v)}
-            className="mt-3 min-h-[44px] w-full rounded-lg border border-zinc-700 text-sm text-zinc-300 hover:bg-zinc-800"
+            className="mt-3 min-h-[44px] w-full rounded-lg border border-line text-sm text-fg hover:bg-muted"
           >
             {showAll ? "상위 10개국만 보기" : `전체 ${data.medals.length}개국 보기`}
           </button>

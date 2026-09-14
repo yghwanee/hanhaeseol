@@ -189,8 +189,8 @@ export default function SportPage({ params }: { params: { slug: string } }) {
                     ? `오늘 ${meta.display} 개막`
                     : `${meta.display} 개막 ${-daysToOpen}일째`}
               </h2>
-              <p className="mt-2 text-sm leading-relaxed text-zinc-300">{preseason.opener}</p>
-              <p className="mt-1.5 text-sm text-zinc-400">
+              <p className="mt-2 text-sm leading-relaxed text-fg">{preseason.opener}</p>
+              <p className="mt-1.5 text-sm text-fg-secondary">
                 중계: {preseason.broadcasters.join(", ")}. 개막 주간부터 경기별 채널이 이 페이지에 올라옵니다.
               </p>
               <Link
@@ -203,7 +203,7 @@ export default function SportPage({ params }: { params: { slug: string } }) {
           )}
           <section className="mb-8 grid gap-3 sm:grid-cols-2">
             {byLeague.length > 0 && (
-              <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4">
+              <div className="rounded-xl border border-line-subtle bg-subtle p-4">
                 <h2 className="text-sm font-semibold text-white">리그별 경기 수</h2>
                 <ul className="mt-2 space-y-1.5">
                   {byLeague.slice(0, 6).map((b) => {
@@ -211,9 +211,9 @@ export default function SportPage({ params }: { params: { slug: string } }) {
                     const l = leagueSlugOf(b.league);
                     return (
                       <li key={b.league} className="flex items-center gap-2 text-sm">
-                        <span className="flex-1 truncate text-zinc-300">
+                        <span className="flex-1 truncate text-fg">
                           {l ? (
-                            <Link href={`/league/${l}`} className="hover:text-white hover:underline">
+                            <Link href={`/league/${l}`} className="hover:text-fg-strong hover:underline">
                               {b.league}
                             </Link>
                           ) : (
@@ -223,12 +223,12 @@ export default function SportPage({ params }: { params: { slug: string } }) {
                         {s && (
                           <Link
                             href={`/standings/${s}`}
-                            className="shrink-0 text-xs text-zinc-500 hover:text-zinc-300 hover:underline"
+                            className="shrink-0 text-xs text-fg-tertiary hover:text-fg hover:underline"
                           >
                             순위표
                           </Link>
                         )}
-                        <span className="w-10 shrink-0 text-right tabular-nums text-zinc-400">
+                        <span className="w-10 shrink-0 text-right tabular-nums text-fg-secondary">
                           {b.count}
                         </span>
                       </li>

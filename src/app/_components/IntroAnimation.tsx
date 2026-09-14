@@ -65,7 +65,7 @@ function TickerColumn({
         {doubled.map((src, i) => (
           <div
             key={i}
-            className="flex aspect-square w-24 shrink-0 items-center justify-center rounded-2xl bg-zinc-900/70 p-3 sm:w-40 sm:p-5"
+            className="flex aspect-square w-24 shrink-0 items-center justify-center rounded-2xl bg-muted p-3 sm:w-40 sm:p-5"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -251,19 +251,19 @@ export function IntroAnimation() {
   return (
     <div
       data-intro-overlay
-      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-zinc-950 transition-opacity duration-500 ${
+      className={`fixed inset-0 z-[100] flex flex-col items-center justify-center bg-canvas transition-opacity duration-500 ${
         fadingOut ? "opacity-0" : "opacity-100"
       } ${fadingOut || mode !== "intro" ? "pointer-events-none" : ""}`}
       // 치수를 인라인으로도 박는다 — 스타일시트가 유실돼도(에셋 스큐로 CSS 404)
       // 오버레이가 static 으로 풀려 화면 아래로 밀리지 않게. 클래스와 같은 값이라
       // 정상 로드 시 동작 변화 없음.
-      style={{ backgroundColor: "#0a0a0a", position: "fixed", inset: 0, zIndex: 100 }}
+      style={{ backgroundColor: "#ffffff", position: "fixed", inset: 0, zIndex: 100 }}
       aria-hidden
     >
       {mode === "intro" && (
         <>
           <div
-            className="text-3xl font-semibold tracking-tight text-zinc-100 sm:text-5xl"
+            className="text-3xl font-semibold tracking-tight text-fg-strong sm:text-5xl"
             /* 인트로 타이틀은 "한해설" — 한글이다. Geist 로 두면 글리프가 없어
                시스템 폰트로 떨어져 본문과 다른 폰트로 보인다(2026-09-03). */
             style={{

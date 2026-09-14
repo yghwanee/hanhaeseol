@@ -77,7 +77,7 @@ function LastFiveBadgesInner({
             ? "bg-emerald-500/20 text-emerald-400 ring-emerald-500/30"
             : isLose
             ? "bg-rose-500/20 text-rose-400 ring-rose-500/30"
-            : "bg-zinc-700/40 text-zinc-400 ring-zinc-600/40";
+            : "bg-muted text-fg-secondary ring-line";
           // 최근 경기 강조 바: 결과 색을 따라 W=초록, L=빨강, 그 외=중립.
           const barCls = !isLatest
             ? "bg-transparent"
@@ -85,7 +85,7 @@ function LastFiveBadgesInner({
             ? "bg-emerald-400"
             : isLose
             ? "bg-rose-400"
-            : "bg-zinc-400";
+            : "bg-fg-tertiary";
           const label = isWin ? "승" : isLose ? "패" : "무";
           return (
             <span

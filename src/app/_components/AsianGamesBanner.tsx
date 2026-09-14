@@ -22,27 +22,27 @@ export function AsianGamesBanner({ today, href = "/asian-games" }: { today: stri
 
   const badge =
     phase === "live" ? (
-      <div className="shrink-0 rounded-lg bg-rose-500 px-2.5 py-1 text-center text-white shadow-lg">
+      <div className="shrink-0 rounded-lg bg-white px-2.5 py-1 text-center text-[#08142b]">
         <div className="text-[9px] font-bold leading-none tracking-wider sm:text-[10px]">개최 중</div>
         <div className="mt-0.5 text-[13px] font-extrabold leading-none sm:text-base">메달 순위</div>
       </div>
     ) : phase === "closed" ? (
-      <div className="shrink-0 rounded-lg bg-zinc-200 px-2.5 py-1 text-center text-zinc-900 shadow-lg">
+      <div className="shrink-0 rounded-lg bg-white px-2.5 py-1 text-center text-[#08142b]">
         <div className="text-[13px] font-extrabold leading-none sm:text-sm">최종 순위</div>
       </div>
     ) : (
-      <div className="shrink-0 rounded-lg bg-gradient-to-b from-amber-300 to-amber-500 px-2.5 py-1 text-center shadow-lg shadow-amber-900/30 ring-1 ring-amber-200/50 sm:px-3">
-        <div className="text-[8px] font-bold leading-none tracking-wider text-amber-900 sm:text-[10px]">
+      <div className="shrink-0 rounded-lg bg-white px-2.5 py-1 text-center sm:px-3">
+        <div className="text-[8px] font-bold leading-none tracking-wider text-[#08142b]/70 sm:text-[10px]">
           {phase === "prelim" ? "예선 진행 · 개막" : "개막까지"}
         </div>
-        <div className="mt-0.5 text-base font-extrabold leading-none text-amber-950 sm:text-xl">D-{dday}</div>
+        <div className="mt-0.5 text-base font-extrabold leading-none text-[#08142b] sm:text-xl">D-{dday}</div>
       </div>
     );
 
   return (
     <Link href={href} aria-label="아이치·나고야 아시안게임 메달 순위와 한국 경기 일정 보기" className="group block">
       <div
-        className="relative mb-5 h-[72px] overflow-hidden rounded-2xl border border-sky-400/30 bg-gradient-to-br from-[#08142b] via-[#10305c] to-[#08142b] ring-1 ring-inset ring-sky-300/10 transition-[filter] group-hover:brightness-110 sm:mb-6 sm:h-[92px]"
+        className="relative mb-5 h-[72px] overflow-hidden rounded-xl border border-sky-400/20 bg-gradient-to-br from-[#08142b] via-[#10305c] to-[#08142b] ring-1 ring-inset ring-sky-300/10 transition-[filter] group-hover:brightness-110 sm:mb-6 sm:h-[92px]"
         style={{ position: "relative", overflow: "hidden" }}
       >
         <div className="absolute right-0 top-0 h-full w-[120px] sm:w-[180px]">

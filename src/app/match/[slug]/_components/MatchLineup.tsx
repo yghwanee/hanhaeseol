@@ -30,10 +30,10 @@ function PlayerRow({ p, align }: { p: LineupPlayer; align: "left" | "right" }) {
     <div
       className={`flex items-center gap-1.5 ${align === "right" ? "flex-row-reverse text-right" : "text-left"}`}
     >
-      <span className="inline-block min-w-[1.5rem] shrink-0 font-mono text-[10px] text-zinc-500">
+      <span className="inline-block min-w-[1.5rem] shrink-0 font-mono text-[10px] text-fg-tertiary">
         {p.number ?? "-"}
       </span>
-      <span className="truncate text-zinc-200">{p.name}</span>
+      <span className="truncate text-fg-strong">{p.name}</span>
       {badges}
     </div>
   );
@@ -55,7 +55,7 @@ function TeamColumn({
       >
         <span className="truncate text-sm font-semibold text-white">{label}</span>
         {team.formation && (
-          <span className="shrink-0 rounded bg-zinc-800 px-1.5 py-0.5 font-mono text-[10px] text-emerald-400">
+          <span className="shrink-0 rounded bg-muted px-1.5 py-0.5 font-mono text-[10px] text-emerald-400">
             {team.formation}
           </span>
         )}
@@ -111,21 +111,21 @@ export function MatchLineup({
   if (loading || !data || (!data.home && !data.away)) return null;
 
   return (
-    <section className="mt-6 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+    <section className="mt-6 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
       <h2 className="mb-3 text-sm font-semibold text-white sm:text-base">선발 라인업</h2>
       <div className="grid grid-cols-2 gap-x-4 sm:gap-x-8">
         {data.home ? (
           <TeamColumn team={data.home} label={homeTeam} align="left" />
         ) : (
-          <div className="text-xs text-zinc-400">정보 없음</div>
+          <div className="text-xs text-fg-secondary">정보 없음</div>
         )}
         {data.away ? (
           <TeamColumn team={data.away} label={awayTeam} align="right" />
         ) : (
-          <div className="text-xs text-zinc-400">정보 없음</div>
+          <div className="text-xs text-fg-secondary">정보 없음</div>
         )}
       </div>
-      <p className="mt-3 text-[10px] text-zinc-400">출처: 네이버 스포츠 · 교체 시 갱신</p>
+      <p className="mt-3 text-[10px] text-fg-secondary">출처: 네이버 스포츠 · 교체 시 갱신</p>
     </section>
   );
 }

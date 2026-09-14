@@ -193,20 +193,20 @@ export function StandingsView({
                   <div
                     data-circle
                     className={`flex h-14 w-14 items-center justify-center rounded-full transition-all duration-200 ${
-                      active ? "scale-105 bg-zinc-200" : "scale-100 bg-zinc-800/80"
+                      active ? "scale-105 bg-muted" : "scale-100 bg-muted"
                     }`}
                   >
                     <span
                       className={`font-bold tracking-tight ${
                         short.length >= 4 ? "text-[10px]" : "text-[12px]"
-                      } ${active ? "text-zinc-900" : "text-zinc-200"}`}
+                      } ${active ? "text-fg-disabled" : "text-fg-strong"}`}
                     >
                       {short}
                     </span>
                   </div>
                   <span
                     className={`text-[10px] sm:text-[11px] font-medium transition-colors whitespace-nowrap ${
-                      active ? "text-zinc-100" : "text-zinc-500"
+                      active ? "text-fg-strong" : "text-fg-tertiary"
                     }`}
                   >
                     {lg.name}
@@ -217,13 +217,13 @@ export function StandingsView({
           />
         </div>
         <div
-          className={`pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+          className={`pointer-events-none absolute left-0 top-0 bottom-0 w-10 bg-gradient-to-r from-subtle via-subtle to-transparent transition-opacity duration-200 ${
             showLeftFade ? "opacity-100" : "opacity-0"
           }`}
           aria-hidden
         />
         <div
-          className={`pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-zinc-950 via-zinc-950/70 to-transparent transition-opacity duration-200 ${
+          className={`pointer-events-none absolute right-0 top-0 bottom-0 w-10 bg-gradient-to-l from-subtle via-subtle to-transparent transition-opacity duration-200 ${
             showRightFade ? "opacity-100" : "opacity-0"
           }`}
           aria-hidden
@@ -236,10 +236,10 @@ export function StandingsView({
             {...scrollbarHandlers}
             className="-my-2 py-2 cursor-pointer touch-none select-none"
           >
-            <div ref={scrollbarTrackRef} className="h-[3px] rounded-full bg-zinc-800/60">
+            <div ref={scrollbarTrackRef} className="h-[3px] rounded-full bg-muted">
               <div
                 ref={indicatorRef}
-                className="h-full rounded-full bg-zinc-500/80"
+                className="h-full rounded-full bg-fg-tertiary"
                 style={{ width: "35%", transform: "translateX(0%)", willChange: "transform" }}
               />
             </div>
@@ -255,7 +255,7 @@ export function StandingsView({
               <h2 className="text-xl font-bold text-white sm:text-2xl">
                 {current.name} 순위
               </h2>
-              <p className="mt-1 text-xs text-zinc-500">
+              <p className="mt-1 text-xs text-fg-tertiary">
                 {current.teams.length}개 팀
               </p>
             </div>

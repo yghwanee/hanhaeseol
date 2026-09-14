@@ -52,7 +52,7 @@ export default function UpcomingScheduleForLeague({
   const dates = Object.keys(grouped).sort();
 
   return (
-    <section className="mt-8 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+    <section className="mt-8 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
       <div className="mb-3 flex items-center justify-between gap-2">
         <h2 className="text-base font-semibold text-white sm:text-lg">
           이번 주 {display} 한국어 해설 중계 일정
@@ -66,14 +66,14 @@ export default function UpcomingScheduleForLeague({
       </div>
 
       {dates.length === 0 ? (
-        <p className="rounded-lg border border-zinc-800 bg-zinc-900/60 p-4 text-center text-sm text-zinc-400">
+        <p className="rounded-lg border border-line-subtle bg-surface p-4 text-center text-sm text-fg-secondary">
           이번 주 예정된 {display} 경기가 없습니다.
         </p>
       ) : (
         <div className="space-y-4">
           {dates.map((date) => (
             <div key={date}>
-              <h3 className="mb-2 text-xs font-semibold text-zinc-400 sm:text-sm">
+              <h3 className="mb-2 text-xs font-semibold text-fg-secondary sm:text-sm">
                 {formatDateHeader(date)}
               </h3>
               <ul className="space-y-1.5">
@@ -81,19 +81,19 @@ export default function UpcomingScheduleForLeague({
                   <li key={s.id}>
                     <Link
                       href={`/match/${matchToSlug(s)}`}
-                      className="flex items-center justify-between gap-2 rounded-lg border border-zinc-800 bg-zinc-900/60 px-3 py-2 transition-colors hover:border-zinc-600 hover:bg-zinc-900"
+                      className="flex items-center justify-between gap-2 rounded-lg border border-line-subtle bg-surface px-3 py-2 transition-colors hover:border-line hover:bg-surface"
                     >
                       <div className="flex min-w-0 items-baseline gap-2 text-xs sm:text-sm">
-                        <span className="shrink-0 font-mono font-semibold text-zinc-200">
+                        <span className="shrink-0 font-mono font-semibold text-fg-strong">
                           {s.time}
                         </span>
-                        <span className="truncate text-zinc-100">
+                        <span className="truncate text-fg-strong">
                           {s.awayTeam
                             ? `${s.homeTeam} vs ${s.awayTeam}`
                             : s.homeTeam}
                         </span>
                       </div>
-                      <span className="shrink-0 text-[11px] text-zinc-500 sm:text-xs">
+                      <span className="shrink-0 text-[11px] text-fg-tertiary sm:text-xs">
                         {s.platform}
                       </span>
                     </Link>

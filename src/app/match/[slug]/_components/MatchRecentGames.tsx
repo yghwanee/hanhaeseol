@@ -21,7 +21,7 @@ function ResultBadge({ result }: { result: RecentGame["result"] }) {
       ? "bg-emerald-500/15 text-emerald-400"
       : result === "L"
       ? "bg-rose-500/15 text-rose-400"
-      : "bg-zinc-600/20 text-zinc-300";
+      : "bg-fg-tertiary text-fg";
   const label = result === "W" ? "승" : result === "L" ? "패" : "무";
   return (
     <span
@@ -43,7 +43,7 @@ function GameRow({
   const awayLost = game.awayScore < game.homeScore;
   return (
     <li className="flex items-center gap-2 text-sm">
-      <span className="w-9 shrink-0 font-mono text-xs text-zinc-500">
+      <span className="w-9 shrink-0 font-mono text-xs text-fg-tertiary">
         {shortDate(game.date)}
       </span>
 
@@ -57,11 +57,11 @@ function GameRow({
 
         {/* 스코어 (메인 카드 스타일: 진 쪽 흐리게) */}
         <div className="flex shrink-0 items-baseline gap-1 font-mono text-base font-bold leading-none sm:text-lg">
-          <span className={homeLost ? "text-zinc-500" : "text-zinc-100"}>
+          <span className={homeLost ? "text-fg-tertiary" : "text-fg-strong"}>
             {game.homeScore}
           </span>
-          <span className="text-zinc-600">-</span>
-          <span className={awayLost ? "text-zinc-500" : "text-zinc-100"}>
+          <span className="text-fg-tertiary">-</span>
+          <span className={awayLost ? "text-fg-tertiary" : "text-fg-strong"}>
             {game.awayScore}
           </span>
         </div>
@@ -89,10 +89,10 @@ function TeamRecentCard({
   logoFor: (name: string) => string | null;
 }) {
   return (
-    <div className="flex-1 rounded-lg border border-zinc-800/80 bg-zinc-900/40 p-3">
+    <div className="flex-1 rounded-lg border border-line-subtle bg-surface p-3">
       <div className="mb-2 flex items-center gap-1.5">
         <TeamLogo name={team} src={logoFor(team)} size={20} />
-        <span className="truncate text-sm font-semibold text-zinc-100">{team}</span>
+        <span className="truncate text-sm font-semibold text-fg-strong">{team}</span>
       </div>
       {/* 호출부가 games.length > 0 일 때만 이 카드를 그린다 — 빈 문구 분기가 필요 없다. */}
       <ul className="space-y-1.5">
@@ -116,7 +116,7 @@ export function MatchRecentGames({
 
   return (
     <section className="mt-6">
-      <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+      <div className="rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
         <h2 className="mb-3 text-sm font-semibold text-white sm:text-base">
           최근 5경기
         </h2>

@@ -107,7 +107,7 @@ export default function FaqPage() {
         <SiteHeader />
 
         <h1 className="mt-4 sm:mt-6 mb-2 text-2xl font-bold sm:text-3xl">자주 묻는 질문</h1>
-        <p className="mb-8 text-sm text-zinc-400">
+        <p className="mb-8 text-sm text-fg-secondary">
           한국어 해설 중계, 한국어 중계 편성표 이용에 대해 자주 들어오는 질문을 모았습니다.
         </p>
 
@@ -115,18 +115,18 @@ export default function FaqPage() {
 
         <div className="space-y-6">
           {FAQS.map((faq, i) => (
-            <section key={i} className="rounded-lg border border-zinc-800/80 bg-zinc-900/30 p-4 sm:p-5">
-              <h2 className="mb-2 text-base font-semibold text-zinc-100 sm:text-lg">
+            <section key={i} className="rounded-lg border border-line-subtle bg-surface p-4 sm:p-5">
+              <h2 className="mb-2 text-base font-semibold text-fg-strong sm:text-lg">
                 Q. {faq.question}
               </h2>
-              <p className="text-sm leading-relaxed text-zinc-300 sm:text-[15px]">
+              <p className="text-sm leading-relaxed text-fg sm:text-[15px]">
                 {faq.answer}
               </p>
             </section>
           ))}
         </div>
 
-        <p className="mt-10 text-center text-xs text-zinc-500">
+        <p className="mt-10 text-center text-xs text-fg-tertiary">
           답변이 충분하지 않다면{" "}
           <a href="mailto:yghwanee@gmail.com" className="text-blue-400 hover:underline">
             yghwanee@gmail.com

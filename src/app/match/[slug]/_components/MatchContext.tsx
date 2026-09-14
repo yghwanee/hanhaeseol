@@ -23,7 +23,7 @@ function Last5Pips({ last5 }: { last5?: string }) {
             ? "bg-emerald-500/80 text-white"
             : c === "L"
             ? "bg-rose-500/80 text-white"
-            : "bg-zinc-600/80 text-white";
+            : "bg-fg-tertiary text-white";
         return (
           <span
             key={i}
@@ -45,26 +45,26 @@ function TeamSummaryCard({
   summary: NonNullable<MatchNarrative["homeSummary"]>;
 }) {
   return (
-    <div className="flex-1 rounded-lg border border-zinc-800/80 bg-zinc-900/40 p-3">
+    <div className="flex-1 rounded-lg border border-line-subtle bg-surface p-3">
       <div className="mb-2 flex items-baseline justify-between gap-2">
-        <span className="truncate text-sm font-semibold text-zinc-100">{name}</span>
+        <span className="truncate text-sm font-semibold text-fg-strong">{name}</span>
         {summary.rank ? (
           <span className="shrink-0 text-xs font-medium text-emerald-400">
             {summary.rank}위
           </span>
         ) : null}
       </div>
-      <dl className="space-y-1 text-xs text-zinc-400">
+      <dl className="space-y-1 text-xs text-fg-secondary">
         {summary.recordLine && (
           <div className="flex justify-between">
             <dt>시즌 성적</dt>
-            <dd className="text-zinc-200">{summary.recordLine}</dd>
+            <dd className="text-fg-strong">{summary.recordLine}</dd>
           </div>
         )}
         {typeof summary.winRate === "number" && (
           <div className="flex justify-between">
             <dt>승률</dt>
-            <dd className="text-zinc-200">
+            <dd className="text-fg-strong">
               {(summary.winRate * 100).toFixed(1)}%
             </dd>
           </div>
@@ -72,7 +72,7 @@ function TeamSummaryCard({
         {typeof summary.goalDiff === "number" && (
           <div className="flex justify-between">
             <dt>득실차</dt>
-            <dd className="text-zinc-200">
+            <dd className="text-fg-strong">
               {summary.goalDiff >= 0 ? "+" : ""}
               {summary.goalDiff}
             </dd>
@@ -81,7 +81,7 @@ function TeamSummaryCard({
         {typeof summary.gameBehind === "number" && summary.gameBehind > 0 && (
           <div className="flex justify-between">
             <dt>승차</dt>
-            <dd className="text-zinc-200">{summary.gameBehind}</dd>
+            <dd className="text-fg-strong">{summary.gameBehind}</dd>
           </div>
         )}
         {summary.last5 && (
@@ -101,7 +101,7 @@ function TeamSummaryCard({
                   ? "text-emerald-400"
                   : summary.streak.type === "L"
                   ? "text-rose-400"
-                  : "text-zinc-300"
+                  : "text-fg"
               }
             >
               {summary.streak.count}
@@ -144,11 +144,11 @@ export function MatchContextSection({
   return (
     <section className="mt-6 space-y-4">
       {showParagraph && (
-        <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+        <div className="rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
           <h2 className="mb-2 text-sm font-semibold text-white sm:text-base">
             경기 미리보기
           </h2>
-          <p className="text-sm leading-relaxed text-zinc-300">{paragraph}</p>
+          <p className="text-sm leading-relaxed text-fg">{paragraph}</p>
         </div>
       )}
 
@@ -157,7 +157,7 @@ export function MatchContextSection({
           라이브 실측), 그건 검색 사용자에게 아무것도 알려주지 않으면서 페이지만 길게 만든다.
           있는 쪽만 그리고, 둘 다 없으면 섹션째 뺀다. */}
       {(homeSummary || awaySummary) && (
-        <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+        <div className="rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
           <h2 className="mb-3 text-sm font-semibold text-white sm:text-base">
             양 팀 시즌 성적
           </h2>
@@ -169,7 +169,7 @@ export function MatchContextSection({
       )}
 
       {headToHead.length > 0 && (
-        <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+        <div className="rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
           <h2 className="mb-3 text-sm font-semibold text-white sm:text-base">
             최근 맞대결
           </h2>
@@ -184,14 +184,14 @@ export function MatchContextSection({
               return (
                 <li
                   key={`${h.date}-${i}`}
-                  className="flex flex-wrap items-baseline gap-x-2 text-zinc-300"
+                  className="flex flex-wrap items-baseline gap-x-2 text-fg"
                 >
-                  <span className="text-xs text-zinc-500">
+                  <span className="text-xs text-fg-tertiary">
                     {formatDateHeader(h.date)}
                   </span>
                   <span>
                     {h.homeTeam}{" "}
-                    <span className="font-mono font-semibold text-zinc-100">
+                    <span className="font-mono font-semibold text-fg-strong">
                       {h.homeScore}-{h.awayScore}
                     </span>{" "}
                     {h.awayTeam}
@@ -209,44 +209,44 @@ export function MatchContextSection({
       )}
 
       {leagueGuide && (
-        <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+        <div className="rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
           <h2 className="mb-2 text-sm font-semibold text-white sm:text-base">
             {league} 시즌 정보
           </h2>
-          <dl className="space-y-1.5 text-sm text-zinc-300">
+          <dl className="space-y-1.5 text-sm text-fg">
             {leagueGuide.season && (
               <div className="flex gap-2">
-                <dt className="shrink-0 text-zinc-500">시즌</dt>
+                <dt className="shrink-0 text-fg-tertiary">시즌</dt>
                 <dd>{leagueGuide.season}</dd>
               </div>
             )}
             {leagueGuide.gameTime && (
               <div className="flex gap-2">
-                <dt className="shrink-0 text-zinc-500">경기 시간</dt>
+                <dt className="shrink-0 text-fg-tertiary">경기 시간</dt>
                 <dd>{leagueGuide.gameTime}</dd>
               </div>
             )}
             {leagueGuide.koreanCommentary && (
               <div className="flex gap-2">
-                <dt className="shrink-0 text-zinc-500">한국어 해설</dt>
+                <dt className="shrink-0 text-fg-tertiary">한국어 해설</dt>
                 <dd>{leagueGuide.koreanCommentary}</dd>
               </div>
             )}
             {leagueGuide.broadcasters && leagueGuide.broadcasters.length > 0 && (
               <div className="flex gap-2">
-                <dt className="shrink-0 text-zinc-500">국내 중계</dt>
+                <dt className="shrink-0 text-fg-tertiary">국내 중계</dt>
                 <dd>{leagueGuide.broadcasters.join(", ")}</dd>
               </div>
             )}
           </dl>
           {leagueGuide.highlights && leagueGuide.highlights.length > 0 && (
-            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-zinc-300">
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-fg">
               {leagueGuide.highlights.slice(0, 3).map((h, i) => (
                 <li key={i}>{h}</li>
               ))}
             </ul>
           )}
-          <p className="mt-3 text-xs text-zinc-500">
+          <p className="mt-3 text-xs text-fg-tertiary">
             <Link
               href={`/league/${leagueGuide.slug}`}
               className="hover:text-emerald-400 underline-offset-2 hover:underline"
@@ -258,12 +258,12 @@ export function MatchContextSection({
       )}
 
       {platformGuide && (
-        <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+        <div className="rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
           <h2 className="mb-2 text-sm font-semibold text-white sm:text-base">
             {platform}에서 시청하기
           </h2>
           {platformGuide.price && (
-            <p className="text-xs text-zinc-500">요금: {platformGuide.price}</p>
+            <p className="text-xs text-fg-tertiary">요금: {platformGuide.price}</p>
           )}
           {platformGuide.freeOption && (
             <p className="text-xs text-emerald-400">
@@ -271,18 +271,18 @@ export function MatchContextSection({
             </p>
           )}
           {platformGuide.howToWatch && (
-            <p className="mt-2 text-sm leading-relaxed text-zinc-300">
+            <p className="mt-2 text-sm leading-relaxed text-fg">
               {platformGuide.howToWatch}
             </p>
           )}
           {platformGuide.features && platformGuide.features.length > 0 && (
-            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-zinc-300">
+            <ul className="mt-3 list-disc space-y-1 pl-5 text-sm text-fg">
               {platformGuide.features.slice(0, 4).map((f, i) => (
                 <li key={i}>{f}</li>
               ))}
             </ul>
           )}
-          <p className="mt-3 text-xs text-zinc-500">
+          <p className="mt-3 text-xs text-fg-tertiary">
             <Link
               href={`/platform/${platformGuide.slug}`}
               className="hover:text-emerald-400 underline-offset-2 hover:underline"

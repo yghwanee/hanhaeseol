@@ -8,7 +8,7 @@ function HighlightInner({ text, query }: { text: string; query: string }) {
     <>
       {parts.map((part, i) =>
         regex.test(part) ? (
-          <span key={i} className="text-white underline underline-offset-2 decoration-blue-400">{part}</span>
+          <span key={i} className="text-fg-strong underline underline-offset-2 decoration-brand">{part}</span>
         ) : (
           <span key={i}>{part}</span>
         )

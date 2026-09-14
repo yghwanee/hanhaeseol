@@ -18,13 +18,13 @@ function StatusPill({ kc, finished, result }: { kc: boolean | "unknown"; finishe
     return <span className="inline-flex items-center gap-1 rounded-full bg-rose-500/20 px-2 py-0.5 text-[11px] font-semibold text-rose-400 ring-1 ring-rose-500/30"><span className="h-1.5 w-1.5 rounded-full bg-rose-400 animate-pulse" />LIVE</span>;
   }
   if (result?.status === "canceled") {
-    return <span className="inline-flex items-center rounded-full bg-zinc-500/20 px-2 py-0.5 text-[11px] font-semibold text-zinc-400 ring-1 ring-zinc-500/30">취소</span>;
+    return <span className="inline-flex items-center rounded-full bg-fg-tertiary px-2 py-0.5 text-[11px] font-semibold text-fg-secondary ring-1 ring-line-strong">취소</span>;
   }
   if (result?.status === "postponed") {
     return <span className="inline-flex items-center rounded-full bg-amber-500/20 px-2 py-0.5 text-[11px] font-semibold text-amber-400 ring-1 ring-amber-500/30">연기</span>;
   }
   if (result?.status === "finished" || finished) {
-    return <span className="inline-flex items-center rounded-full bg-zinc-500/20 px-2 py-0.5 text-[11px] font-semibold text-zinc-400 ring-1 ring-zinc-500/30">경기 종료</span>;
+    return <span className="inline-flex items-center rounded-full bg-fg-tertiary px-2 py-0.5 text-[11px] font-semibold text-fg-secondary ring-1 ring-line-strong">경기 종료</span>;
   }
   if (kc === true) {
     return <span className="inline-flex items-center rounded-full bg-emerald-500/20 px-2 py-0.5 text-[11px] font-semibold text-emerald-400 ring-1 ring-emerald-500/30">한국어해설</span>;
@@ -128,8 +128,8 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
         <h1 className="text-xl sm:text-2xl font-bold text-white">
           {meta.h1 ?? `${meta.display} ${kind === "platform" ? "편성표" : "중계 편성표"}`}
         </h1>
-        <p className="mt-2 text-sm text-zinc-200 leading-relaxed">{answerLead}</p>
-        <p className="mt-1.5 text-sm text-zinc-400 leading-relaxed">{meta.intro}</p>
+        <p className="mt-2 text-sm text-fg-strong leading-relaxed">{answerLead}</p>
+        <p className="mt-1.5 text-sm text-fg-secondary leading-relaxed">{meta.intro}</p>
       </div>
 
       {guideSlot}
@@ -140,16 +140,16 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
 
       <section className="mb-8">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-base sm:text-lg font-semibold text-zinc-200">
+          <h2 className="text-base sm:text-lg font-semibold text-fg-strong">
             예정 경기 ({filtered.length}건)
           </h2>
         </div>
 
         {dates.length === 0 ? (
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/60 p-6 text-center text-sm text-zinc-400">
+          <div className="rounded-xl border border-line-subtle bg-surface p-6 text-center text-sm text-fg-secondary">
             이번 주 예정된 경기가 없습니다.
             <br />
-            <Link href="/" className="mt-2 inline-block text-zinc-300 underline underline-offset-2">
+            <Link href="/" className="mt-2 inline-block text-fg underline underline-offset-2">
               전체 편성표 확인하기
             </Link>
           </div>
@@ -157,7 +157,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
           <div className="space-y-6">
             {dates.map((date) => (
               <div key={date}>
-                <h3 className="mb-2 text-sm font-semibold text-zinc-300">{formatDateHeader(date)}</h3>
+                <h3 className="mb-2 text-sm font-semibold text-fg">{formatDateHeader(date)}</h3>
                 <div className="space-y-2">
                   {grouped[date].map(({ schedule: s, platforms }) => {
                     const homeRec = lookupTeamRecord(teamRecords, s.league, s.homeTeam);
@@ -173,16 +173,16 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                     return (
                     <article
                       key={s.id}
-                      className="rounded-xl border border-zinc-800 bg-zinc-900/80 p-3 sm:p-4"
+                      className="rounded-xl border border-line-subtle bg-surface p-3 sm:p-4"
                     >
                       <div className="flex items-start justify-between gap-2">
-                        <div className="flex items-center gap-1.5 text-xs sm:text-sm text-zinc-400">
-                          <span className="font-mono font-semibold text-zinc-200">{s.time}</span>
-                          <span className="text-zinc-600">|</span>
+                        <div className="flex items-center gap-1.5 text-xs sm:text-sm text-fg-secondary">
+                          <span className="font-mono font-semibold text-fg-strong">{s.time}</span>
+                          <span className="text-fg-tertiary">|</span>
                           <span className="truncate">{s.league}</span>
                           {result?.period && result.status === "live" && (
                             <>
-                              <span className="text-zinc-600">|</span>
+                              <span className="text-fg-tertiary">|</span>
                               <span className="text-rose-400 font-semibold">{result.period}</span>
                             </>
                           )}
@@ -192,33 +192,33 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                         {s.awayTeam ? (
                           <div className="mt-2.5 flex items-baseline justify-center gap-2 text-sm sm:text-base">
                             <div className="flex-1 min-w-0 flex flex-col items-end gap-1">
-                              <span className={`w-full text-right font-semibold truncate ${winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}`}>{s.homeTeam}</span>
+                              <span className={`w-full text-right font-semibold truncate ${winnerSide === "away" ? "text-fg-tertiary" : "text-fg-strong"}`}>{s.homeTeam}</span>
                               {homeRec?.last5 && (
                                 <LastFiveBadges form={homeRec.last5} streak={homeRec.streak} mirror />
                               )}
                             </div>
                             {showScores ? (
                               <div className="shrink-0 flex items-baseline gap-1.5 font-mono font-bold text-base sm:text-lg leading-none">
-                                <span className={winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}>{home}</span>
-                                <span className="text-zinc-600">-</span>
-                                <span className={winnerSide === "home" ? "text-zinc-500" : "text-zinc-100"}>{away}</span>
+                                <span className={winnerSide === "away" ? "text-fg-tertiary" : "text-fg-strong"}>{home}</span>
+                                <span className="text-fg-tertiary">-</span>
+                                <span className={winnerSide === "home" ? "text-fg-tertiary" : "text-fg-strong"}>{away}</span>
                               </div>
                             ) : (
-                              <span className="shrink-0 mt-1 text-[10px] font-bold text-zinc-500">VS</span>
+                              <span className="shrink-0 mt-1 text-[10px] font-bold text-fg-tertiary">VS</span>
                             )}
                             <div className="flex-1 min-w-0 flex flex-col items-start gap-1">
-                              <span className={`w-full text-left font-semibold truncate ${winnerSide === "home" ? "text-zinc-500" : "text-zinc-100"}`}>{s.awayTeam}</span>
+                              <span className={`w-full text-left font-semibold truncate ${winnerSide === "home" ? "text-fg-tertiary" : "text-fg-strong"}`}>{s.awayTeam}</span>
                               {awayRec?.last5 && (
                                 <LastFiveBadges form={awayRec.last5} streak={awayRec.streak} />
                               )}
                             </div>
                           </div>
                         ) : (
-                          <div className="mt-2.5 text-center text-sm sm:text-base font-semibold text-zinc-100 truncate">{s.homeTeam}</div>
+                          <div className="mt-2.5 text-center text-sm sm:text-base font-semibold text-fg-strong truncate">{s.homeTeam}</div>
                         )}
                         <div className="mt-2.5 flex items-center justify-between text-[11px] sm:text-xs">
-                          <span className="truncate text-zinc-400">{platforms.join(", ")}</span>
-                          <span className="text-zinc-500">{s.sport}</span>
+                          <span className="truncate text-fg-secondary">{platforms.join(", ")}</span>
+                          <span className="text-fg-tertiary">{s.sport}</span>
                         </div>
                     </article>
                     );
@@ -233,8 +233,8 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
       {faqSlot}
 
       <section className="mb-8 space-y-4">
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
-          <h2 className="mb-3 text-sm font-semibold text-zinc-200">
+        <div className="rounded-xl border border-line-subtle bg-surface p-4">
+          <h2 className="mb-3 text-sm font-semibold text-fg-strong">
             다른 {kind === "league" ? "리그" : kind === "platform" ? "플랫폼" : "종목"} 보기
           </h2>
           <div className="flex flex-wrap gap-1.5">
@@ -244,7 +244,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                 <Link
                   key={r.slug}
                   href={`/${kind}/${r.slug}`}
-                  className="inline-flex items-center rounded-lg border border-zinc-700 bg-zinc-800/60 px-2.5 py-1 text-xs text-zinc-300 hover:bg-zinc-700/60 hover:text-white"
+                  className="inline-flex items-center rounded-lg border border-line bg-muted px-2.5 py-1 text-xs text-fg hover:bg-muted hover:text-fg-strong"
                 >
                   {r.display}
                 </Link>
@@ -252,8 +252,8 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
           </div>
         </div>
 
-        <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
-          <h2 className="mb-3 text-sm font-semibold text-zinc-200">
+        <div className="rounded-xl border border-line-subtle bg-surface p-4">
+          <h2 className="mb-3 text-sm font-semibold text-fg-strong">
             {crossLabel} 편성표 보기
           </h2>
           <div className="flex flex-wrap gap-1.5">
@@ -261,7 +261,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
               <Link
                 key={r.slug}
                 href={`/${crossKind}/${r.slug}`}
-                className="inline-flex items-center rounded-lg border border-zinc-700 bg-zinc-800/60 px-2.5 py-1 text-xs text-zinc-300 hover:bg-zinc-700/60 hover:text-white"
+                className="inline-flex items-center rounded-lg border border-line bg-muted px-2.5 py-1 text-xs text-fg hover:bg-muted hover:text-fg-strong"
               >
                 {r.display}
               </Link>
@@ -269,14 +269,14 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
           </div>
         </div>
         {sportLinks.length > 0 && (
-          <div className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
-            <h2 className="mb-3 text-sm font-semibold text-zinc-200">종목별 편성표 보기</h2>
+          <div className="rounded-xl border border-line-subtle bg-surface p-4">
+            <h2 className="mb-3 text-sm font-semibold text-fg-strong">종목별 편성표 보기</h2>
             <div className="flex flex-wrap gap-1.5">
               {sportLinks.map((r) => (
                 <Link
                   key={r.slug}
                   href={`/sport/${r.slug}`}
-                  className="inline-flex items-center rounded-lg border border-zinc-700 bg-zinc-800/60 px-2.5 py-1 text-xs text-zinc-300 hover:bg-zinc-700/60 hover:text-white"
+                  className="inline-flex items-center rounded-lg border border-line bg-muted px-2.5 py-1 text-xs text-fg hover:bg-muted hover:text-fg-strong"
                 >
                   {r.display} 중계 편성표
                 </Link>

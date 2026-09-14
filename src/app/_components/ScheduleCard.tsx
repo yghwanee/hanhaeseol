@@ -37,7 +37,7 @@ function ScorerLines({ goals }: { goals: GoalEvent[] }) {
   const home = goals.filter((g) => g.team === "home");
   const away = goals.filter((g) => g.team === "away");
   return (
-    <div className="pointer-events-none relative z-10 mt-2 grid grid-cols-2 gap-x-3 sm:gap-x-4 text-[10px] sm:text-[11px] leading-snug text-zinc-400">
+    <div className="pointer-events-none relative z-10 mt-2 grid grid-cols-2 gap-x-3 sm:gap-x-4 text-caption2 leading-snug text-fg-secondary">
       <div className="min-w-0 space-y-0.5 text-right">
         {home.map((g, i) => (
           <div key={i} className="truncate">
@@ -109,25 +109,25 @@ function ScheduleCardInner({
   // 위해 카드 본체를 div로 두고 absolute Link를 inset-0으로 깐다. PlatformBadge Link는
   // z-index를 더 올려서 위에 떠 있게 두면 클릭 우선순위가 잡힌다.
   return (
-    <div className="relative cursor-pointer rounded-xl border border-zinc-800 bg-zinc-900/80 p-3 pb-6 sm:p-4 sm:pb-8 transition-colors hover:border-zinc-700 hover:bg-zinc-900">
+    <div className="w-card w-card-hover relative cursor-pointer p-3 pb-6 sm:p-4 sm:pb-8">
       <Link
         href={`/match/${matchToSlug(schedule)}`}
-        className="absolute inset-0 z-0 rounded-xl"
+        className="absolute inset-0 z-0 rounded-[12px]"
         aria-label={`${schedule.homeTeam} ${schedule.awayTeam ? `vs ${schedule.awayTeam}` : ""} 경기 상세 보기`}
       />
       <div className="pointer-events-none relative z-10 flex items-start justify-between gap-2">
-        <div className="flex min-w-0 items-center gap-1.5 sm:gap-2 text-xs sm:text-sm text-zinc-400">
-          <span className="font-mono font-semibold text-zinc-200">
+        <div className="flex min-w-0 items-center gap-1.5 sm:gap-2 text-caption1 sm:text-label2 text-fg-secondary">
+          <span className="font-semibold tabular-nums text-fg-strong">
             {schedule.time}
           </span>
-          <span className="text-zinc-600">|</span>
+          <span className="text-fg-tertiary">·</span>
           <span className="truncate"><Highlight text={schedule.league} query={query} /></span>
-          <span className="text-zinc-600">|</span>
-          <span className="text-zinc-400">{schedule.sport}</span>
+          <span className="text-fg-tertiary">·</span>
+          <span className="text-fg-secondary">{schedule.sport}</span>
           {result?.period && result.status === "live" && (
             <>
-              <span className="text-zinc-600">|</span>
-              <span className="text-rose-400 font-semibold">{result.period}</span>
+              <span className="text-fg-tertiary">·</span>
+              <span className="font-semibold text-fg-danger">{result.period}</span>
             </>
           )}
         </div>
@@ -142,9 +142,9 @@ function ScheduleCardInner({
       </div>
 
       {schedule.awayTeam ? (
-        <div className="pointer-events-none relative z-10 mt-5 sm:mt-6 flex items-baseline justify-center gap-2 sm:gap-3 text-sm sm:text-base">
+        <div className="pointer-events-none relative z-10 mt-4 sm:mt-5 flex items-baseline justify-center gap-2 sm:gap-3 text-body2 sm:text-headline2">
           <div className="flex-1 min-w-0 flex flex-col items-end gap-1">
-            <span className={`flex w-full items-baseline justify-end gap-1.5 font-semibold ${winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}`}>
+            <span className={`flex w-full items-baseline justify-end gap-1.5 font-semibold ${winnerSide === "away" ? "text-fg-tertiary" : "text-fg-strong"}`}>
               {onToggleTeam && (
                 <FollowStar
                   followed={!!homeFollowed}
@@ -164,16 +164,16 @@ function ScheduleCardInner({
             )}
           </div>
           {showScores ? (
-            <div className="shrink-0 flex items-baseline gap-1.5 sm:gap-2 font-mono font-bold text-base sm:text-lg leading-none">
-              <span className={winnerSide === "away" ? "text-zinc-500" : "text-zinc-100"}>{home}</span>
-              <span className="text-zinc-600">-</span>
-              <span className={winnerSide === "home" ? "text-zinc-500" : "text-zinc-100"}>{away}</span>
+            <div className="shrink-0 flex items-baseline gap-1.5 sm:gap-2 font-bold tabular-nums text-headline1 sm:text-heading2 leading-none">
+              <span className={winnerSide === "away" ? "text-fg-tertiary" : "text-fg-strong"}>{home}</span>
+              <span className="text-fg-tertiary">-</span>
+              <span className={winnerSide === "home" ? "text-fg-tertiary" : "text-fg-strong"}>{away}</span>
             </div>
           ) : (
-            <span className="shrink-0 mt-1 text-[10px] sm:text-xs font-bold text-zinc-500">VS</span>
+            <span className="shrink-0 mt-1 text-caption2 font-bold text-fg-tertiary">VS</span>
           )}
           <div className="flex-1 min-w-0 flex flex-col items-start gap-1">
-            <span className={`flex w-full items-baseline justify-start gap-1.5 font-semibold ${winnerSide === "home" ? "text-zinc-500" : "text-zinc-100"}`}>
+            <span className={`flex w-full items-baseline justify-start gap-1.5 font-semibold ${winnerSide === "home" ? "text-fg-tertiary" : "text-fg-strong"}`}>
               <span className="min-w-0 truncate"><Highlight text={schedule.awayTeam} query={query} /></span>
               {schedule.awayEmblem && (
                 /* eslint-disable-next-line @next/next/no-img-element */
@@ -194,7 +194,7 @@ function ScheduleCardInner({
           </div>
         </div>
       ) : (
-        <div className="pointer-events-none relative z-10 mt-5 sm:mt-6 flex items-center justify-center gap-1.5 text-sm sm:text-base font-semibold text-zinc-100">
+        <div className="pointer-events-none relative z-10 mt-4 sm:mt-5 flex items-center justify-center gap-1.5 text-body2 sm:text-headline2 font-semibold text-fg-strong">
           {onToggleTeam && (
             <FollowStar
               followed={!!homeFollowed}
@@ -209,7 +209,7 @@ function ScheduleCardInner({
       )}
 
       {showPk && (
-        <div className="pointer-events-none relative z-10 mt-1 text-center text-[10px] sm:text-[11px] font-semibold text-amber-300/90">
+        <div className="pointer-events-none relative z-10 mt-1 text-center text-caption2 font-semibold text-fg-secondary">
           승부차기 {result!.homePtScore}-{result!.awayPtScore}
         </div>
       )}
@@ -222,7 +222,7 @@ function ScheduleCardInner({
             href={`https://www.youtube.com/watch?v=${result!.highlightVideoId}`}
             target="_blank"
             rel="noopener noreferrer"
-            className="pointer-events-auto relative z-20 inline-flex min-w-[11rem] items-center justify-center gap-2 rounded-md bg-white px-4 py-1.5 text-[11px] sm:text-xs font-bold text-zinc-900 transition-colors hover:bg-zinc-200"
+            className="w-btn w-btn--sm w-btn--solid pointer-events-auto relative z-20 min-w-[11rem]"
             aria-label={`${schedule.homeTeam} vs ${schedule.awayTeam} 하이라이트 영상 보기`}
           >
             {/* 유튜브 로고 (붉은 라운드 사각 + 흰 삼각형) */}

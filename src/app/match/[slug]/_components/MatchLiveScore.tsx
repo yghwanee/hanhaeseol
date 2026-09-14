@@ -66,8 +66,8 @@ export function MatchLiveScore({ schedule }: { schedule: Schedule }) {
     if (live) return "text-white";
     const mine = side === "home" ? home : away;
     const other = side === "home" ? away : home;
-    if (result.winner) return result.winner === side ? "text-white" : "text-zinc-500";
-    return mine > other ? "text-white" : mine < other ? "text-zinc-500" : "text-zinc-200";
+    if (result.winner) return result.winner === side ? "text-white" : "text-fg-tertiary";
+    return mine > other ? "text-white" : mine < other ? "text-fg-tertiary" : "text-fg-strong";
   };
 
   return (
@@ -92,12 +92,12 @@ export function MatchLiveScore({ schedule }: { schedule: Schedule }) {
       </p>
       <div className="flex items-center justify-center gap-4 sm:gap-6">
         <div className="flex-1 text-right">
-          <p className="truncate text-xs text-zinc-300 sm:text-sm">{schedule.homeTeam}</p>
+          <p className="truncate text-xs text-fg sm:text-sm">{schedule.homeTeam}</p>
           <p className={`tabular-nums text-3xl font-bold sm:text-4xl ${tone("home")}`}>{home}</p>
         </div>
-        <div className="text-2xl text-zinc-600 sm:text-3xl">:</div>
+        <div className="text-2xl text-fg-tertiary sm:text-3xl">:</div>
         <div className="flex-1 text-left">
-          <p className="truncate text-xs text-zinc-300 sm:text-sm">{schedule.awayTeam}</p>
+          <p className="truncate text-xs text-fg sm:text-sm">{schedule.awayTeam}</p>
           <p className={`tabular-nums text-3xl font-bold sm:text-4xl ${tone("away")}`}>{away}</p>
         </div>
       </div>
@@ -106,7 +106,7 @@ export function MatchLiveScore({ schedule }: { schedule: Schedule }) {
           승부차기 {result.homePtScore}-{result.awayPtScore}
         </p>
       )}
-      <p className="mt-2 text-center text-[10px] text-zinc-400">
+      <p className="mt-2 text-center text-[10px] text-fg-secondary">
         출처: 네이버 스포츠 · {live ? "45초마다 자동 갱신" : "경기 종료"}
       </p>
     </div>

@@ -3,7 +3,7 @@ import type { StreakInfo } from "@/types/standings";
 export function StreakChip({ streak }: { streak: StreakInfo }) {
   // 무승부 또는 1회 연속은 의미가 약해서 표시 안 함
   if (streak.count < 2 || streak.type === "D") {
-    return <span className="text-zinc-600 text-xs">—</span>;
+    return <span className="text-fg-tertiary text-xs">—</span>;
   }
   const { type, count } = streak;
   const cls =

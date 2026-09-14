@@ -121,15 +121,15 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
         guideSlot={
           <>
             {stat && stat.total > 0 && (
-              <section className="mb-6 rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
-                <h2 className="mb-2 text-sm font-semibold text-zinc-200">
+              <section className="mb-6 rounded-xl border border-line-subtle bg-surface p-4">
+                <h2 className="mb-2 text-sm font-semibold text-fg-strong">
                   {meta.display} 한국어 해설 비율
                 </h2>
-                <p className="text-sm leading-relaxed text-zinc-400">
+                <p className="text-sm leading-relaxed text-fg-secondary">
                   {summarySentence(stat, STATS_PERIOD)}
                 </p>
                 {stat.leagues.length > 1 && (
-                  <p className="mt-2 text-sm text-zinc-400">
+                  <p className="mt-2 text-sm text-fg-secondary">
                     리그별로는{" "}
                     {stat.leagues
                       .slice(0, 3)
@@ -141,10 +141,10 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
                     입니다.
                   </p>
                 )}
-                <p className="mt-2 text-xs text-zinc-500">
+                <p className="mt-2 text-xs text-fg-tertiary">
                   <Link
                     href="/commentary/stats"
-                    className="text-zinc-400 hover:text-white hover:underline"
+                    className="text-fg-secondary hover:text-fg-strong hover:underline"
                   >
                     플랫폼 10곳 전체 집계 보기 →
                   </Link>

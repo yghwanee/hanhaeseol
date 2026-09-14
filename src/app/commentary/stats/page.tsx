@@ -78,14 +78,14 @@ export const metadata: Metadata = {
 
 function StatRow({ stat, indent = false }: { stat: CommentaryStat; indent?: boolean }) {
   return (
-    <tr className="border-t border-zinc-800/70">
-      <td className={`py-2 pr-2 ${indent ? "pl-4 text-zinc-400" : "text-zinc-200"}`}>
+    <tr className="border-t border-line-subtle">
+      <td className={`py-2 pr-2 ${indent ? "pl-4 text-fg-secondary" : "text-fg-strong"}`}>
         {indent ? `· ${stat.name}` : stat.name}
       </td>
-      <td className="py-2 pr-2 text-right tabular-nums text-zinc-400">{stat.total}</td>
+      <td className="py-2 pr-2 text-right tabular-nums text-fg-secondary">{stat.total}</td>
       <td className="py-2 pr-2 text-right tabular-nums text-emerald-400">{stat.korean}</td>
       <td className="py-2 pr-2 text-right tabular-nums text-rose-400">{stat.local}</td>
-      <td className="py-2 pr-2 text-right tabular-nums text-zinc-500">{stat.unknown || "-"}</td>
+      <td className="py-2 pr-2 text-right tabular-nums text-fg-tertiary">{stat.unknown || "-"}</td>
       <td className="py-2 text-right tabular-nums font-semibold text-white">{pct(stat)}</td>
     </tr>
   );
@@ -138,7 +138,7 @@ export default function CommentaryStatsPage() {
           </h1>
           {/* 🔴 첫 문단은 수치를 담은 자기완결 직답으로 쓴다. AI 답변 인용은 문장
               단위로 잡히고, 인용의 상당수가 문서 앞부분에서 나온다. */}
-          <p className="mt-2 text-sm text-zinc-400 leading-relaxed">
+          <p className="mt-2 text-sm text-fg-secondary leading-relaxed">
             {PERIOD && (
               <>
                 {dot(PERIOD.from)}부터 {dot(PERIOD.to)}까지 한해설이 수집한 중계 편성{" "}
@@ -161,13 +161,13 @@ export default function CommentaryStatsPage() {
         <AdfitBanner className="mb-6" />
 
         <section className="mb-8">
-          <h2 className="mb-3 text-base sm:text-lg font-semibold text-zinc-200">
+          <h2 className="mb-3 text-base sm:text-lg font-semibold text-fg-strong">
             플랫폼별 집계
           </h2>
-          <div className="overflow-x-auto rounded-xl border border-zinc-800 bg-zinc-900/40">
+          <div className="overflow-x-auto rounded-xl border border-line-subtle bg-surface">
             <table className="w-full min-w-[520px] text-sm">
               <thead>
-                <tr className="text-xs text-zinc-500">
+                <tr className="text-xs text-fg-tertiary">
                   <th className="py-2 pl-3 pr-2 text-left font-medium">플랫폼 / 리그</th>
                   <th className="py-2 pr-2 text-right font-medium">전체</th>
                   <th className="py-2 pr-2 text-right font-medium">한국어</th>
@@ -183,14 +183,14 @@ export default function CommentaryStatsPage() {
               </tbody>
             </table>
           </div>
-          <p className="mt-2 text-xs text-zinc-500">
+          <p className="mt-2 text-xs text-fg-tertiary">
             한국어 비율 = 한국어 ÷ (한국어 + 현지). 해설 언어가 확인되지 않은 편성은
             분모에서 뺐습니다.
           </p>
         </section>
 
         <section className="mb-8 space-y-4">
-          <h2 className="text-base sm:text-lg font-semibold text-zinc-200">
+          <h2 className="text-base sm:text-lg font-semibold text-fg-strong">
             플랫폼 안에서도 리그마다 다릅니다
           </h2>
           {STATS.filter((s) => s.leagues.length > 1).map((s) => {
@@ -198,7 +198,7 @@ export default function CommentaryStatsPage() {
             return (
               <div
                 key={s.name}
-                className="rounded-xl border border-zinc-800 bg-zinc-900/40 p-4"
+                className="rounded-xl border border-line-subtle bg-surface p-4"
               >
                 <h3 className="mb-2 text-sm font-semibold text-white">
                   {slug ? (
@@ -208,7 +208,7 @@ export default function CommentaryStatsPage() {
                   ) : (
                     s.name
                   )}{" "}
-                  <span className="font-normal text-zinc-500">전체 {pct(s)}</span>
+                  <span className="font-normal text-fg-tertiary">전체 {pct(s)}</span>
                 </h3>
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[480px] text-sm">
@@ -222,15 +222,15 @@ export default function CommentaryStatsPage() {
               </div>
             );
           })}
-          <p className="text-xs text-zinc-500">
+          <p className="text-xs text-fg-tertiary">
             표본이 {MIN_LEAGUE_SAMPLE}건 미만인 리그는 뺐습니다. 표본이 적으면 0%·100%
             같은 극단값이 쉽게 나와 오해를 부릅니다.
           </p>
         </section>
 
-        <section className="mb-8 rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
-          <h2 className="mb-2 text-sm font-semibold text-zinc-200">집계 방법</h2>
-          <ul className="space-y-1.5 text-sm text-zinc-400 leading-relaxed">
+        <section className="mb-8 rounded-xl border border-line-subtle bg-surface p-4">
+          <h2 className="mb-2 text-sm font-semibold text-fg-strong">집계 방법</h2>
+          <ul className="space-y-1.5 text-sm text-fg-secondary leading-relaxed">
             <li>
               · 한해설이 각 플랫폼의 공개 편성 정보를 매일 수집해 쌓은 기록입니다
               {PERIOD && ` (${dot(PERIOD.from)}~${dot(PERIOD.to)})`}.
@@ -244,26 +244,26 @@ export default function CommentaryStatsPage() {
             <li>· 편성이 쌓일수록 수치가 갱신됩니다. 표본 기간은 위에 적힌 그대로입니다.</li>
             <li>
               · 이 데이터는 자유롭게 인용하실 수 있습니다. 출처로{" "}
-              <span className="text-zinc-300">한해설(haeseol.com)</span>을 적어 주세요.
+              <span className="text-fg">한해설(haeseol.com)</span>을 적어 주세요.
             </li>
           </ul>
         </section>
 
-        <section className="mb-8 rounded-xl border border-zinc-800 bg-zinc-900/40 p-4">
-          <h2 className="mb-3 text-sm font-semibold text-zinc-200">플랫폼별 편성표 보기</h2>
+        <section className="mb-8 rounded-xl border border-line-subtle bg-surface p-4">
+          <h2 className="mb-3 text-sm font-semibold text-fg-strong">플랫폼별 편성표 보기</h2>
           <div className="flex flex-wrap gap-1.5">
             {PLATFORM_SEO.map((p) => (
               <Link
                 key={p.slug}
                 href={`/platform/${p.slug}`}
-                className="inline-flex items-center rounded-lg border border-zinc-700 bg-zinc-800/60 px-2.5 py-1 text-xs text-zinc-300 hover:bg-zinc-700/60 hover:text-white"
+                className="inline-flex items-center rounded-lg border border-line bg-muted px-2.5 py-1 text-xs text-fg hover:bg-muted hover:text-fg-strong"
               >
                 {p.display}
               </Link>
             ))}
           </div>
-          <p className="mt-3 text-xs text-zinc-500">
-            <Link href="/commentary" className="text-zinc-400 hover:text-white hover:underline">
+          <p className="mt-3 text-xs text-fg-tertiary">
+            <Link href="/commentary" className="text-fg-secondary hover:text-fg-strong hover:underline">
               오늘부터 7일간 한국어 해설 경기 보기 →
             </Link>
           </p>

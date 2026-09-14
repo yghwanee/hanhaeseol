@@ -57,11 +57,11 @@ type SmoothTabsProps<T extends string> = {
   /** 버튼 위(세로 정렬)로 추가 요소 렌더링. 예: 요일 색상 점 */
   renderAbove?: (value: T) => ReactNode;
   ariaLabel?: string;
-  /** 활성 pill 배경 클래스. 기본 "bg-zinc-100" */
+  /** 활성 pill 배경 클래스. 기본은 명도 반전(검정 채움) — 원티드 chip active 패턴. */
   pillClassName?: string;
   /** bordered variant 의 활성 pill 보더 클래스. 기본은 pillClassName 과 동일 색. */
   pillBorderClassName?: string;
-  /** 활성 텍스트 클래스. 기본 "text-zinc-900" */
+  /** 활성 텍스트 클래스. 반전 채움 위라 흰색이 기본. */
   activeTextClassName?: string;
   /** 사이트 시그니처 btn-caps-stripe 효과 사용. 활성 = caps-stripe-pressed.
    *  슬라이딩 pill 대신 각 버튼에 직접 caps stripe sweep 효과 적용. 모바일에서도 효과 노출. */
@@ -78,9 +78,9 @@ export function SmoothTabs<T extends string>({
   className = "",
   renderAbove,
   ariaLabel,
-  pillClassName = "bg-zinc-100",
+  pillClassName = "bg-fg-strong",
   pillBorderClassName,
-  activeTextClassName = "text-zinc-900",
+  activeTextClassName = "text-white",
   useCapsStripe = false,
 }: SmoothTabsProps<T>) {
   const depsKey = options.map((o) => o.value).join("|");
@@ -92,7 +92,7 @@ export function SmoothTabs<T extends string>({
   const sizeCls = useCapsStripe
     ? "px-6 py-1 text-xs sm:px-4 sm:py-0.5 sm:text-sm"
     : "px-2.5 py-1 text-xs sm:px-3 sm:py-1.5 sm:text-sm";
-  const borderCls = pillBorderClassName ?? "border-zinc-100";
+  const borderCls = pillBorderClassName ?? "border-fg-strong";
 
   return (
     <div
@@ -122,7 +122,7 @@ export function SmoothTabs<T extends string>({
         // transition-colors 도중에 잠깐 보이는 흰 잔상을 방지.
         const inactiveBorder =
           variant === "bordered"
-            ? "border-zinc-700 hover:border-zinc-600"
+            ? "border-line hover:border-line"
             : "border-transparent";
         const baseShape = useCapsStripe
           ? "" // btn-caps-stripe 자체가 박스 모양/테두리 처리. rounded/border 없음.
@@ -131,7 +131,7 @@ export function SmoothTabs<T extends string>({
           ? `btn-caps-stripe caps-stripe-tab${active ? " caps-stripe-pressed" : ""}`
           : active
             ? activeTextClassName
-            : `text-zinc-400 hover:text-zinc-200 ${inactiveBorder}`;
+            : `text-fg-secondary hover:text-fg-strong ${inactiveBorder}`;
         // renderAbove (점)는 박스 밖 sibling 으로 배치해 박스가 시각적으로
         // 짧아 보이게 함. 점은 4px 라서 그 자리만 클릭 사각지대 — 실용상
         // 무시할 만한 손실.

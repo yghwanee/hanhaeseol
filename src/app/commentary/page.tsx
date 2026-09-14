@@ -103,12 +103,12 @@ export default function CommentaryPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: breadcrumbLd }} />
 
       <main className="mx-auto w-full max-w-3xl px-4 py-6 sm:px-6 sm:py-8">
-        <nav className="mb-4 text-xs text-zinc-500 sm:text-sm">
-          <Link href="/" className="hover:text-zinc-300">
+        <nav className="mb-4 text-xs text-fg-tertiary sm:text-sm">
+          <Link href="/" className="hover:text-fg">
             편성표
           </Link>
           <span className="px-1.5">›</span>
-          <span className="text-zinc-300">한국어 해설 중계</span>
+          <span className="text-fg">한국어 해설 중계</span>
         </nav>
 
         <h1 className="text-xl font-bold text-white sm:text-2xl">한국어 해설 중계 일정</h1>
@@ -116,7 +116,7 @@ export default function CommentaryPage() {
             AI 답변 인용의 약 44%가 페이지 첫 30% 구간에서 나오고, 인용은 자기완결형
             문장 단위로 잡힌다. 전에는 이 자리에 수치 없는 설명문만 있어서 집계 데이터가
             페이지 안에 있는데도 인용 가능한 문장이 없었다. */}
-        <p className="mt-2 text-sm leading-relaxed text-zinc-300">
+        <p className="mt-2 text-sm leading-relaxed text-fg">
           {totalGames > 0 ? (
             <>
               오늘부터 7일간 한국어 해설로 볼 수 있는 경기는{" "}
@@ -143,7 +143,7 @@ export default function CommentaryPage() {
         </p>
 
         {platformRanking.length > 0 && (
-          <section className="mt-5 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+          <section className="mt-5 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
             <h2 className="text-sm font-semibold text-white sm:text-base">
               어느 채널에 한국어 해설이 많나
             </h2>
@@ -155,14 +155,14 @@ export default function CommentaryPage() {
                   <Link
                     key={platform}
                     href={`/platform/${slug}`}
-                    className="rounded-full border border-zinc-800 px-3 py-1.5 text-xs text-zinc-300 transition-colors hover:border-zinc-600 hover:text-white"
+                    className="rounded-full border border-line-subtle px-3 py-1.5 text-xs text-fg transition-colors hover:border-line hover:text-fg-strong"
                   >
                     {label}
                   </Link>
                 ) : (
                   <span
                     key={platform}
-                    className="rounded-full border border-zinc-800 px-3 py-1.5 text-xs text-zinc-400"
+                    className="rounded-full border border-line-subtle px-3 py-1.5 text-xs text-fg-secondary"
                   >
                     {label}
                   </span>
@@ -173,7 +173,7 @@ export default function CommentaryPage() {
         )}
 
         {byDate.length === 0 ? (
-          <p className="mt-6 text-sm text-zinc-400">
+          <p className="mt-6 text-sm text-fg-secondary">
             현재 확인된 한국어 해설 편성이 없습니다. 편성이 올라오는 대로 갱신됩니다.
           </p>
         ) : (
@@ -187,14 +187,14 @@ export default function CommentaryPage() {
                   {games.map(({ s, platforms }) => (
                     <li
                       key={`${s.date}-${s.homeTeam}-${s.awayTeam}`}
-                      className="rounded-lg border border-zinc-800/80 bg-zinc-950/40 px-3 py-2 text-sm"
+                      className="rounded-lg border border-line-subtle bg-subtle px-3 py-2 text-sm"
                     >
-                      <span className="tabular-nums text-zinc-400">{s.time}</span>{" "}
-                      <span className="text-zinc-500">{s.league}</span>{" "}
-                      <span className="text-zinc-100">
+                      <span className="tabular-nums text-fg-secondary">{s.time}</span>{" "}
+                      <span className="text-fg-tertiary">{s.league}</span>{" "}
+                      <span className="text-fg-strong">
                         {s.homeTeam} vs {s.awayTeam}
                       </span>
-                      <span className="block text-xs text-zinc-500 sm:inline sm:text-sm">
+                      <span className="block text-xs text-fg-tertiary sm:inline sm:text-sm">
                         {" "}
                         · {platforms.join(", ")}
                       </span>
@@ -206,14 +206,14 @@ export default function CommentaryPage() {
           </div>
         )}
 
-        <section className="mt-6 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4 sm:p-5">
+        <section className="mt-6 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
           <h2 className="text-sm font-semibold text-white sm:text-base">채널별 해설 편성 보기</h2>
           <div className="mt-3 flex flex-wrap gap-2">
             {PLATFORM_SEO.map((p) => (
               <Link
                 key={p.slug}
                 href={`/platform/${p.slug}`}
-                className="rounded-lg border border-zinc-700 bg-zinc-800/60 px-2.5 py-1 text-xs text-zinc-300 transition-colors hover:bg-zinc-700/60 hover:text-white"
+                className="rounded-lg border border-line bg-muted px-2.5 py-1 text-xs text-fg transition-colors hover:bg-muted hover:text-fg-strong"
               >
                 {p.display}
               </Link>

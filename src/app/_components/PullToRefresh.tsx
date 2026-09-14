@@ -93,10 +93,10 @@ export function PullToRefresh() {
         transition: active.current ? "none" : "transform 0.25s, opacity 0.25s",
       }}
     >
-      <div className="mt-2 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-black/60 backdrop-blur-md">
+      <div className="mt-2 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-inverse/40 backdrop-blur-md">
         <svg
           viewBox="0 0 24 24"
-          className={`h-5 w-5 text-white ${refreshing ? "animate-spin" : ""}`}
+          className={`h-5 w-5 text-fg-strong ${refreshing ? "animate-spin" : ""}`}
           style={{ transform: refreshing ? undefined : `rotate(${Math.min(180, (pull / THRESHOLD) * 180)}deg)` }}
           fill="none"
           stroke="currentColor"

@@ -73,7 +73,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   // maximumScale 를 두지 않는다 — 저시력 사용자의 핀치 줌 확대를 막으면 안 됨(WCAG 1.4.4).
-  themeColor: "#0a0a0a",
+  themeColor: "#ffffff",
 };
 
 export const metadata: Metadata = {
@@ -176,7 +176,7 @@ export default function RootLayout({
 }>) {
   const scheduleLastUpdated = loadScheduleLastUpdated();
   return (
-    <html lang="ko" className="dark" style={{ backgroundColor: "#0a0a0a" }}>
+    <html lang="ko" style={{ backgroundColor: "#ffffff" }}>
       <head>
         {/* 첫 페인트 전 웹뷰 기본 캔버스색을 어둡게(흰 번쩍 방지). head에서 일찍 적용. */}
         <meta name="color-scheme" content="dark" />
@@ -296,7 +296,10 @@ gtag('config', 'G-F1MX6S0SGW');`}
           }}
         />
       </head>
-      <body className={`${geistSans.variable} ${pretendardUi.variable} ${pretendard.variable} antialiased`} style={{ backgroundColor: "#0a0a0a" }}>
+      <body
+        className={`${geistSans.variable} ${pretendardUi.variable} ${pretendard.variable} bg-subtle text-fg antialiased`}
+        style={{ backgroundColor: "#F7F7F8" }}
+      >
         <SideBanners />
         <CapsStripeClickHandler />
         <ServiceWorkerRegister />

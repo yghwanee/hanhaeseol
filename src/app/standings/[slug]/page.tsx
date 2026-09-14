@@ -164,12 +164,12 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
       <div className="mx-auto max-w-2xl px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
         <SiteHeader />
 
-        <nav className="mt-4 flex items-center gap-2 text-xs text-zinc-500 sm:mt-6">
-          <Link href="/standings" className="transition-colors hover:text-zinc-300">
+        <nav className="mt-4 flex items-center gap-2 text-xs text-fg-tertiary sm:mt-6">
+          <Link href="/standings" className="transition-colors hover:text-fg">
             팀 순위
           </Link>
           <span>›</span>
-          <span className="text-zinc-400">{meta.short}</span>
+          <span className="text-fg-secondary">{meta.short}</span>
         </nav>
 
         <AdfitBanner />
@@ -179,7 +179,7 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
             <h1 className="text-2xl font-bold text-white sm:text-3xl">
               {meta.display} 순위
             </h1>
-            <p className="mt-1 text-sm text-zinc-500">
+            <p className="mt-1 text-sm text-fg-tertiary">
               {meta.seasonLabel} 시즌 · {teamCount}개 팀
             </p>
           </div>
@@ -192,13 +192,13 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
         </div>
 
         {leadSentence && (
-          <p className="mt-3 text-sm leading-relaxed text-zinc-200">{leadSentence}</p>
+          <p className="mt-3 text-sm leading-relaxed text-fg-strong">{leadSentence}</p>
         )}
-        <p className="mt-1.5 text-sm leading-relaxed text-zinc-400">{meta.intro}</p>
+        <p className="mt-1.5 text-sm leading-relaxed text-fg-secondary">{meta.intro}</p>
 
         <div className="mt-5">
           {!league || league.teams.length === 0 ? (
-            <p className="text-zinc-400">순위 데이터를 불러오지 못했습니다.</p>
+            <p className="text-fg-secondary">순위 데이터를 불러오지 못했습니다.</p>
           ) : meta.sport === "soccer" ? (
             meta.dataId === "mls" ? (
               <MlsStandingsTable teams={(league as SoccerLeagueStandings).teams} teamLinks={teamLinks} />
@@ -212,7 +212,7 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
           )}
         </div>
 
-        <p className="mt-4 text-xs text-zinc-400">
+        <p className="mt-4 text-xs text-fg-secondary">
           데이터 출처: 네이버 스포츠 · 갱신:{" "}
           {new Date(data.lastUpdated).toLocaleString("ko-KR", { timeZone: "Asia/Seoul" })} (KST)
         </p>
@@ -228,14 +228,14 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
         )}
 
         {/* 다른 리그 순위로 이동 — 내부 링크 강화 */}
-        <section className="mt-8 rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4">
-          <h2 className="text-sm font-semibold text-zinc-300">다른 리그 순위</h2>
+        <section className="mt-8 rounded-xl border border-line-subtle bg-subtle p-4">
+          <h2 className="text-sm font-semibold text-fg">다른 리그 순위</h2>
           <div className="mt-3 flex flex-wrap gap-1.5">
             {STANDINGS_LEAGUES.filter((l) => l.slug !== meta.slug).map((l) => (
               <Link
                 key={l.slug}
                 href={`/standings/${l.slug}`}
-                className="rounded-md border border-zinc-700/60 bg-zinc-900/60 px-2.5 py-1 text-xs text-zinc-300 transition-colors hover:border-zinc-500 hover:text-white"
+                className="rounded-md border border-line bg-surface px-2.5 py-1 text-xs text-fg transition-colors hover:border-line-strong hover:text-fg-strong"
               >
                 {l.short} 순위
               </Link>

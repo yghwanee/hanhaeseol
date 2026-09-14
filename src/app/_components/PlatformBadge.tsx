@@ -4,9 +4,14 @@ import Image from "next/image";
 import { findPlatformSlugByName } from "@/lib/slugs";
 import { PLATFORM_ICON_MAP } from "./constants";
 
-// 좌측 로고 + 텍스트의 단정한 박스. 모노톤 컨테이너 + 로고만 컬러.
+/**
+ * 플랫폼 뱃지 — 로고만 컬러, 컨테이너는 무채색.
+ *
+ * 🔴 여기에 색을 주지 않는 게 규칙이다. 한 카드 안에서 색을 갖는 건 상태 뱃지
+ * (한국어 해설·LIVE) 하나뿐이어야 그게 눈에 들어온다. 원티드가 색을 아끼는 방식이다.
+ */
 const BASE =
-  "inline-flex items-center gap-1.5 rounded-md bg-zinc-900/60 ring-1 ring-zinc-700 px-2 py-1 text-[11px] sm:text-xs text-zinc-200 whitespace-nowrap";
+  "inline-flex items-center gap-1.5 rounded-md border border-line-subtle bg-muted px-2 py-1 text-caption1 font-medium text-fg-secondary whitespace-nowrap";
 
 function PlatformBadgeInner({
   platform,
@@ -39,7 +44,7 @@ function PlatformBadgeInner({
   return (
     <Link
       href={`/platform/${slug}`}
-      className={`pointer-events-auto ${BASE} transition-colors hover:bg-zinc-800/80 hover:ring-zinc-500`}
+      className={`pointer-events-auto ${BASE} transition-colors hover:border-line hover:text-fg`}
     >
       {content}
     </Link>

@@ -20,19 +20,19 @@ export function PlatformBreakdown({
   const max = top[0].count;
 
   return (
-    <div className="rounded-xl border border-zinc-800/80 bg-zinc-950/40 p-4">
+    <div className="rounded-xl border border-line-subtle bg-subtle p-4">
       <h2 className="text-sm font-semibold text-white">{title}</h2>
       <ul className="mt-2 space-y-1.5">
         {top.map((b) => (
           <li key={b.platform} className="flex items-center gap-2 text-sm">
-            <span className="w-28 shrink-0 truncate text-zinc-300">{b.platform}</span>
-            <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-zinc-800">
+            <span className="w-28 shrink-0 truncate text-fg">{b.platform}</span>
+            <span className="h-1.5 flex-1 overflow-hidden rounded-full bg-muted">
               <span
                 className="block h-full rounded-full bg-emerald-600/70"
                 style={{ width: `${Math.round((b.count / max) * 100)}%` }}
               />
             </span>
-            <span className="w-10 shrink-0 text-right tabular-nums text-zinc-400">{b.count}</span>
+            <span className="w-10 shrink-0 text-right tabular-nums text-fg-secondary">{b.count}</span>
           </li>
         ))}
       </ul>
