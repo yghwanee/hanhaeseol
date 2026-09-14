@@ -63,9 +63,12 @@ test("대회 국면과 크롤 날짜가 대회 기간 밖으로 새지 않는다
   assert.equal(agPhase(AG_CLOSE), "live");
   assert.equal(agPhase("2026-10-06"), "over");
   assert.equal(daysToOpen(AG_OPEN), 0);
-  assert.deepEqual(crawlDates("2026-08-01"), []);
-  assert.deepEqual(crawlDates("2026-11-01"), []);
-  for (const d of crawlDates("2026-10-02")) assert.ok(d >= AG_FIRST_GAME && d <= AG_CLOSE, d);
+  // 대회 전 기간을 빠짐없이, 기간 밖은 하나도 없이.
+  const dates = crawlDates();
+  assert.equal(dates[0], AG_FIRST_GAME);
+  assert.equal(dates.at(-1), AG_CLOSE);
+  assert.equal(dates.length, 25);
+  assert.equal(new Set(dates).size, dates.length);
 });
 
 test("커밋된 데이터 파일 모양", () => {

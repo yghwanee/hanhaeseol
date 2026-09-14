@@ -18,7 +18,6 @@ import {
   toAgGame,
   type AsianGamesData,
 } from "@/lib/asian-games/data";
-import { getTodayString } from "@/lib/schedule-utils";
 
 const API = `https://api-gw.sports.naver.com/olympic/${AG_EVENT}`;
 const HEADERS = {
@@ -46,8 +45,6 @@ type RawCountry = {
 };
 
 async function main(): Promise<void> {
-  const today = getTodayString();
-
   const { countries } = await get<{ countries: RawCountry[] }>(
     "/countries?disciplineMedal=true&sort=goldMedal",
   );
@@ -81,13 +78,22 @@ async function main(): Promise<void> {
     : null;
 
   const koreaGames = [];
-  for (const d of crawlDates(today)) {
-    const { games } = await get<{ games: Record<string, unknown>[] }>(
-      `/games?fromDate=${d}&toDate=${d}&isKorean=Y&sort=dateAsc&fields=all&pageSize=300`,
-    );
-    // 🔴 `isKorean=Y` 만으로는 안 좁혀진다 — 하루 60경기씩 한국과 무관한 경기까지 온다
-    // (2026-09-14 첫 실행 502건 · 122KB). 경기마다 붙는 `koreaPlayer` 로 한 번 더 거른다.
-    koreaGames.push(...(games ?? []).filter((g) => g.koreaPlayer === true).map(toAgGame));
+  for (const d of crawlDates()) {
+    // 🔴 하루 경기가 500건을 넘는 날이 있다(10/02 532건). `pageSize` 상한이 500 이라
+    // 한 번에 다 안 온다 → `page` 를 넘기며 `totalCount` 만큼 받는다.
+    // 처음엔 pageSize=300 한 번이라 300건 넘는 9일치의 뒤쪽 경기가 잘렸다.
+    const all: Record<string, unknown>[] = [];
+    for (let page = 1; page <= 10; page++) {
+      const { games, totalCount } = await get<{ games: Record<string, unknown>[]; totalCount: number }>(
+        `/games?fromDate=${d}&toDate=${d}&sort=dateAsc&fields=all&pageSize=500&page=${page}`,
+      );
+      all.push(...(games ?? []));
+      if (!games?.length || all.length >= (totalCount ?? 0)) break;
+    }
+    // 🔴 `isKorean=Y` 는 무시된다(주든 안 주든 9/21 255건 동일, 2026-09-14 실측).
+    // 경기마다 붙는 `koreaPlayer` 로 거른다. 전 기간 대조에서 KOR 팀·한국 선수가 있는데
+    // koreaPlayer 가 false 인 경기는 0건이었다.
+    koreaGames.push(...all.filter((g) => g.koreaPlayer === true).map(toAgGame));
   }
 
   const data: AsianGamesData = {
@@ -102,7 +108,7 @@ async function main(): Promise<void> {
   console.log(
     `아시안게임: 국가 ${medals.length} · 메달 합계 ${medals.reduce((a, m) => a + m.total, 0)} · ` +
       `한국 ${korea ? `${korea.rank}위 금${korea.gold} 은${korea.silver} 동${korea.bronze}` : "없음"} · ` +
-      `한국 경기 ${koreaGames.length}건(${crawlDates(today).join(",")}) · ${(fs.statSync(out).size / 1024).toFixed(1)}KB`,
+      `한국 경기 ${koreaGames.length}건(${crawlDates().length}일) · ${(fs.statSync(out).size / 1024).toFixed(1)}KB`,
   );
 }
 

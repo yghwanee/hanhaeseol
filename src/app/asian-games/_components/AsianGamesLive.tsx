@@ -21,10 +21,6 @@ function fmtDate(date: string): string {
   const [, m, dd] = date.split("-");
   return `${Number(m)}월 ${Number(dd)}일 (${w})`;
 }
-
-/** 한 번에 그리는 날짜 수. 경기가 몰리는 날은 하루 수십 건이라 HTML 이 불어난다(FOT). */
-const DAYS_SHOWN = 3;
-
 function kst(iso: string): string {
   const d = new Date(Date.parse(iso) + 9 * 3600_000);
   return `${d.getUTCMonth() + 1}월 ${d.getUTCDate()}일 ${String(d.getUTCHours()).padStart(2, "0")}:${String(d.getUTCMinutes()).padStart(2, "0")}`;
@@ -50,8 +46,11 @@ export function AsianGamesLive({ initial, today }: { initial: AsianGamesData; to
   const started = medalsStarted(data.medals);
   const rows = showAll ? data.medals : data.medals.slice(0, 10);
   const kor = data.korea;
-  const upcoming = groupByDate(data.koreaGames.filter((g) => g.date >= today)).slice(0, DAYS_SHOWN);
-  const recent = groupByDate(data.koreaGames.filter((g) => g.date < today)).slice(-1);
+  // 대회 전 기간 한국 일정을 다 보여 준다(116건 수준). 지난 날짜는 접어 둔다.
+  const upcoming = groupByDate(data.koreaGames.filter((g) => g.date >= today));
+  const past = groupByDate(data.koreaGames.filter((g) => g.date < today));
+  const [showPast, setShowPast] = useState(false);
+  const recent = showPast ? past : [];
 
   return (
     <>
@@ -144,9 +143,23 @@ export function AsianGamesLive({ initial, today }: { initial: AsianGamesData; to
       </section>
 
       <section className="mb-6 rounded-xl border border-zinc-800 bg-zinc-900/60 p-4 sm:p-5">
-        <h2 className="text-base font-semibold text-white sm:text-lg">대한민국 경기 일정</h2>
-        {upcoming.length === 0 && recent.length === 0 && (
-          <p className="mt-2 text-sm text-zinc-400">앞으로 7일간 예정된 대한민국 경기가 없습니다.</p>
+        <h2 className="text-base font-semibold text-white sm:text-lg">
+          대한민국 경기 일정 <span className="text-sm font-normal text-zinc-500">(전체 {data.koreaGames.length}건)</span>
+        </h2>
+        {upcoming.length === 0 && past.length === 0 && (
+          <p className="mt-2 text-sm text-zinc-400">대한민국 경기 일정을 아직 받지 못했습니다.</p>
+        )}
+        {upcoming.length === 0 && past.length > 0 && (
+          <p className="mt-2 text-sm text-zinc-400">남은 대한민국 경기가 없습니다.</p>
+        )}
+        {past.length > 0 && (
+          <button
+            type="button"
+            onClick={() => setShowPast((v) => !v)}
+            className="mt-3 min-h-[44px] w-full rounded-lg border border-zinc-700 text-sm text-zinc-300 hover:bg-zinc-800"
+          >
+            {showPast ? "지난 경기 접기" : `지난 경기 ${past.reduce((n, [, gs]) => n + gs.length, 0)}건 보기`}
+          </button>
         )}
         {[...recent, ...upcoming].map(([date, games]) => (
           <div key={date} className="mt-4">

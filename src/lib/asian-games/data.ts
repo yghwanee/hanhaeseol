@@ -121,12 +121,16 @@ export function agPhase(today: string): AgPhase {
   return "over";
 }
 
-/** 크롤 대상 날짜: 어제 ~ 6일 뒤, 대회 기간 안으로 자른다. */
-export function crawlDates(today: string): string[] {
+/**
+ * 크롤 대상 날짜 = 대회 전 기간(첫 예선 ~ 폐막).
+ *
+ * 🔴 처음엔 "어제~6일 뒤" 만 받았다. 그러면 페이지가 대회 전체 한국 일정을 못 보여 준다
+ * (2026-09-14 화니 지적). 한국 경기는 전 기간 116건 · 약 25KB 라 통째로 들고 있어도 된다.
+ */
+export function crawlDates(): string[] {
   const out: string[] = [];
-  for (let i = -1; i <= 6; i++) {
-    const d = new Date(Date.parse(`${today}T00:00:00Z`) + i * 86_400_000).toISOString().slice(0, 10);
-    if (d >= AG_FIRST_GAME && d <= AG_CLOSE) out.push(d);
+  for (let t = Date.parse(`${AG_FIRST_GAME}T00:00:00Z`); t <= Date.parse(`${AG_CLOSE}T00:00:00Z`); t += 86_400_000) {
+    out.push(new Date(t).toISOString().slice(0, 10));
   }
   return out;
 }
