@@ -470,11 +470,8 @@ body {
     line-height: 1;
     white-space: nowrap;
   }
-  .w-badge--neutral { background: oklch(1 0 0 / 0.10); color: var(--w-fg); }
   .w-badge--brand { background: var(--w-brand-subtle); color: var(--w-brand-fg); }
-  .w-badge--success { background: var(--w-success-subtle); color: var(--w-success); }
   .w-badge--danger { background: var(--w-danger-subtle); color: var(--w-danger); }
-  .w-badge--warning { background: var(--w-warning-subtle); color: var(--w-warning); }
   .w-badge--outline { border: 1px solid var(--w-line); color: var(--w-fg-secondary); }
   /* 해설 여부 — 방송사 편성표의 [L]/[자] 표기처럼 채움 대 테두리로 가른다(2026-09-14 화니 지시).
      색상이 아니라 명도 반전이라 키 컬러 정책(파랑·빨강)과 부딪히지 않는다. */

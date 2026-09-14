@@ -138,7 +138,7 @@ async function main() {
   const filters: string[] = [];
   const lastIdx = baseFiles.length - 1;
 
-  baseFiles.forEach((f, i) => {
+  baseFiles.forEach((_f, i) => {
     if (i === 0) {
       // title: 0.7초 사인 곡선 펀치 (1.0 → 1.10 → 1.0).
       // 첫 프레임 z=1.0이 보장돼 mp4 첫 frame = 깨끗한 title 카드 = 썸네일 정상.

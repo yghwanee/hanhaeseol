@@ -32,7 +32,7 @@ function StatusPill({ finished, result }: { finished: boolean; result?: MatchRes
 function CommentaryBadge({ kc }: { kc: boolean | "unknown" }) {
   if (kc === true) return <span className="w-badge w-badge--ko shrink-0">한국어</span>;
   if (kc === false) return <span className="w-badge w-badge--local shrink-0">현지</span>;
-  return <span className="shrink-0 text-fg-tertiary">해설 확인 중</span>;
+  return <span className="w-badge w-badge--outline shrink-0">확인 중</span>;
 }
 
 function hasScores(r?: MatchResult): r is MatchResult & { homeScore: number; awayScore: number } {
@@ -175,10 +175,13 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                       className="rounded-xl border border-line-subtle bg-surface p-3 sm:p-4"
                     >
                       <div className="flex items-start justify-between gap-2">
-                        <div className="flex items-center gap-1.5 text-caption1 sm:text-label1 text-fg-secondary">
-                          <span className="font-mono font-semibold text-fg-strong">{s.time}</span>
-                          <span className="text-fg-tertiary">|</span>
-                          <span className="truncate">{s.league} · {s.sport}</span>
+                        {/* 좁은 폰에선 리그명만 …처리. 오른쪽 묶음(플랫폼·해설·상태)은 안 잘린다. */}
+                        <div className="flex min-w-0 items-center gap-1.5 text-caption1 sm:text-label1 text-fg-secondary">
+                          <span className="shrink-0 font-semibold tabular-nums text-fg-strong">{s.time}</span>
+                          <span className="shrink-0 text-fg-tertiary">|</span>
+                          <span className="min-w-0 truncate">{s.league}</span>
+                          <span className="shrink-0 text-fg-tertiary">·</span>
+                          <span className="shrink-0">{s.sport}</span>
                           {result?.period && result.status === "live" && (
                             <>
                               <span className="text-fg-tertiary">|</span>
@@ -186,7 +189,11 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                             </>
                           )}
                         </div>
-                        <StatusPill finished={isGameFinished(s.date, s.time, s.sport)} result={result} />
+                        <div className="flex shrink-0 items-center gap-1.5 text-caption2 sm:text-caption1">
+                          <span className="whitespace-nowrap text-fg-secondary">{platforms.join(", ")}</span>
+                          <CommentaryBadge kc={s.koreanCommentary} />
+                          <StatusPill finished={isGameFinished(s.date, s.time, s.sport)} result={result} />
+                        </div>
                       </div>
                         {s.awayTeam ? (
                           <div className="mt-2.5 flex items-baseline justify-center gap-2 text-label1 sm:text-body1">
@@ -215,11 +222,6 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                         ) : (
                           <div className="mt-2.5 text-center text-label1 sm:text-body1 font-semibold text-fg-strong truncate">{s.homeTeam}</div>
                         )}
-                        {/* 플랫폼 + 해설 뱃지를 붙여 오른쪽 정렬(홈 카드와 동일, 2026-09-14) */}
-                        <div className="mt-2.5 flex items-center justify-end gap-2 text-caption2 sm:text-caption1">
-                          <span className="min-w-0 truncate text-fg-secondary">{platforms.join(", ")}</span>
-                          <CommentaryBadge kc={s.koreanCommentary} />
-                        </div>
                     </article>
                     );
                   })}

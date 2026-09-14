@@ -30,6 +30,8 @@
  * 실행: `npm run fonts:subset:ui` (pyftsubset 필요 — `pip install fonttools brotli`)
  */
 import { execFileSync } from "node:child_process";
+import fs from "node:fs";
+import path from "node:path";
 
 /**
  * pyftsubset 을 부른다.
@@ -58,8 +60,6 @@ function runSubset(args) {
       `마지막 오류: ${lastErr && lastErr.message}`,
   );
 }
-import fs from "node:fs";
-import path from "node:path";
 
 const OUT_DIR = path.resolve("public/fonts");
 const SOURCES = [
@@ -138,11 +138,8 @@ let total = 0;
 for (const [src, out] of SOURCES) {
   const from = path.join(OUT_DIR, src);
   const to = path.join(OUT_DIR, out);
-  execFileSync(
-    "pyftsubset",
-    [from, `--unicodes=${unicodes}`, "--layout-features=*", "--flavor=woff2", `--output-file=${to}`],
-    { stdio: "inherit" },
-  );
+  // 선언만 해 두고 안 쓰고 있었다(lint 오류) — PATH 에 pyftsubset 이 없는 PC 에서 막히던 그 문제.
+  runSubset([from, `--unicodes=${unicodes}`, "--layout-features=*", "--flavor=woff2", `--output-file=${to}`]);
   const after = fs.statSync(to).size;
   total += after;
   console.log(

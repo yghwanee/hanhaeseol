@@ -116,14 +116,16 @@ function ScheduleCardInner({
         aria-label={`${schedule.homeTeam} ${schedule.awayTeam ? `vs ${schedule.awayTeam}` : ""} 경기 상세 보기`}
       />
       <div className="pointer-events-none relative z-10 flex items-start justify-between gap-2">
+        {/* 🔴 좁은 폰에서 줄어드는 건 **리그명 하나뿐**이다(…처리). 시간·종목과 오른쪽
+            묶음(플랫폼·해설·상태)은 shrink-0 이라 안 잘린다. 2026-09-14 화니 지시. */}
         <div className="flex min-w-0 items-center gap-1.5 sm:gap-2 text-caption1 sm:text-label2 text-fg-secondary">
-          <span className="font-semibold tabular-nums text-fg-strong">
+          <span className="shrink-0 font-semibold tabular-nums text-fg-strong">
             {schedule.time}
           </span>
-          <span className="text-fg-tertiary">·</span>
-          <span className="truncate"><Highlight text={schedule.league} query={query} /></span>
-          <span className="text-fg-tertiary">·</span>
-          <span className="text-fg-secondary">{schedule.sport}</span>
+          <span className="shrink-0 text-fg-tertiary">·</span>
+          <span className="min-w-0 truncate"><Highlight text={schedule.league} query={query} /></span>
+          <span className="shrink-0 text-fg-tertiary">·</span>
+          <span className="shrink-0 text-fg-secondary">{schedule.sport}</span>
           {result?.period && result.status === "live" && (
             <>
               <span className="text-fg-tertiary">·</span>
@@ -131,10 +133,17 @@ function ScheduleCardInner({
             </>
           )}
         </div>
-        {/* 🔴 상단 우측은 **경기 상태 하나만** 둔다(LIVE·종료·취소·연기).
-            플랫폼과 해설 여부는 카드 하단 메타 줄로 내렸다 — 원티드 잡카드가
-            회사·지역을 상단에, 채용보상금을 하단 우측에 두는 것과 같은 위계다. */}
+        {/* 상단 우측 = [플랫폼] [해설 종류] [상태(LIVE·종료·취소·연기, 없을 수 있음)].
+            2026-09-14 화니 지시로 하단 메타 줄에서 올렸다. 하단엔 하이라이트만 남는다. */}
         <div className="flex shrink-0 items-center gap-1.5">
+          <PlatformBadge platform={schedule.platform} />
+          {schedule.koreanCommentary === true ? (
+            <span className="w-badge w-badge--ko">한국어</span>
+          ) : schedule.koreanCommentary === false ? (
+            <span className="w-badge w-badge--local">현지</span>
+          ) : (
+            <span className="w-badge w-badge--outline">확인 중</span>
+          )}
           <StatusBadge
             status={schedule.koreanCommentary}
             finished={isGameFinished(schedule.date, schedule.time, schedule.sport)}
@@ -219,25 +228,9 @@ function ScheduleCardInner({
 
       {showGoals && <ScorerLines goals={result!.goals!} />}
 
-      {/* 하단 메타 — 원티드 잡카드의 마지막 줄 구조.
-          좌: 플랫폼(무채색) / 우: **시그너처 값**.
-          잡카드에서 채용보상금이 늘 brand 색으로 우측 하단에 붙어 있듯,
-          이 사이트의 시그너처는 "한국어 해설 여부"다. 그게 서비스의 존재 이유라
-          카드에서 유일하게 색을 갖는 자리로 둔다. */}
-      {/* 2026-09-14 화니 지시: 플랫폼·해설 뱃지를 붙여서 오른쪽 정렬(종전엔 양 끝 정렬). */}
-      <div className="pointer-events-none relative z-10 mt-3 flex items-center justify-end gap-2 border-t border-line-subtle pt-2.5">
-        <PlatformBadge platform={schedule.platform} />
-        {schedule.koreanCommentary === true ? (
-          <span className="w-badge w-badge--ko shrink-0">한국어</span>
-        ) : schedule.koreanCommentary === false ? (
-          <span className="w-badge w-badge--local shrink-0">현지</span>
-        ) : (
-          <span className="shrink-0 text-label2 font-medium text-fg-tertiary">해설 확인 중</span>
-        )}
-      </div>
-
+      {/* 하단 줄 = 하이라이트가 있을 때만(플랫폼·해설은 상단 우측으로 올렸다). */}
       {showHighlight && (
-        <div className="pointer-events-none relative z-10 mt-2.5 sm:mt-3 flex justify-center">
+        <div className="pointer-events-none relative z-10 mt-3 flex justify-center border-t border-line-subtle pt-2.5">
           <a
             href={`https://www.youtube.com/watch?v=${result!.highlightVideoId}`}
             target="_blank"
