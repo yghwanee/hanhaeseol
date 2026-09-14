@@ -163,7 +163,7 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
       <div className="mx-auto max-w-[1100px] px-3 pb-8 text-[14px] sm:px-4 sm:pb-12">
 
         <nav className="mt-4 flex items-center gap-2 text-caption1 text-fg-tertiary sm:mt-6">
-          <Link href="/standings" className="-my-2 inline-block py-2 transition-colors hover:text-fg">
+          <Link href="/standings" className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block transition-colors hover:text-fg">
             팀 순위
           </Link>
           <span>›</span>
@@ -183,7 +183,7 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
           </div>
           <Link
             href={scheduleHref}
-            className="-my-2 inline-block py-2 inline-flex items-center gap-1.5 rounded-lg border border-brand/40 bg-brand-subtle px-3 py-2 text-label1 font-semibold text-fg-brand-bright transition-colors hover:border-brand/40 hover:bg-brand-subtle"
+            className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-flex items-center gap-1.5 rounded-lg border border-brand/40 bg-brand-subtle px-3 py-2 text-label1 font-semibold text-fg-brand-bright transition-colors hover:border-brand/40 hover:bg-brand-subtle"
           >
             {meta.short} 한국어 해설 편성표 →
           </Link>
@@ -233,7 +233,7 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
               <Link
                 key={l.slug}
                 href={`/standings/${l.slug}`}
-                className="-my-2 inline-block py-2 rounded-md border border-line bg-surface px-2.5 py-1 text-caption1 text-fg transition-colors hover:border-line-strong hover:text-fg-strong"
+                className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block rounded-md border border-line bg-surface px-2.5 py-1 text-caption1 text-fg transition-colors hover:border-line-strong hover:text-fg-strong"
               >
                 {l.short} 순위
               </Link>

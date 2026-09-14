@@ -150,7 +150,7 @@ export default function StandingsPage({
               <Link
                 key={l.slug}
                 href={`/standings/${l.slug}`}
-                className="-my-2 inline-block py-2 rounded-lg border border-line bg-surface px-3 py-2 text-caption1 text-fg transition-colors hover:border-line-strong hover:text-fg-strong sm:text-label1"
+                className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block rounded-lg border border-line bg-surface px-3 py-2 text-caption1 text-fg transition-colors hover:border-line-strong hover:text-fg-strong sm:text-label1"
               >
                 {l.display} 순위 →
               </Link>

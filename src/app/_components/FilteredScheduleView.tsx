@@ -12,7 +12,8 @@ import { isGameFinished, formatDateHeader } from "@/lib/schedule-utils";
 import { AdfitBanner } from "@/app/_components/AdfitBanner";
 import { LastFiveBadges } from "@/app/_components/LastFiveBadges";
 
-function StatusPill({ kc, finished, result }: { kc: boolean | "unknown"; finished: boolean; result?: MatchResult }) {
+/** 경기 상태만(LIVE·취소·연기·종료). 해설 여부는 카드 하단 줄이 맡는다 — 홈 ScheduleCard 와 같은 구조. */
+function StatusPill({ finished, result }: { finished: boolean; result?: MatchResult }) {
   if (result?.status === "live") {
     return <span className="inline-flex items-center gap-1 rounded-full w-badge w-badge--danger"><span className="h-1.5 w-1.5 rounded-full bg-current animate-pulse" />LIVE</span>;
   }
@@ -23,15 +24,15 @@ function StatusPill({ kc, finished, result }: { kc: boolean | "unknown"; finishe
     return <span className="inline-flex items-center rounded-full w-badge w-badge--outline">연기</span>;
   }
   if (result?.status === "finished" || finished) {
-    return <span className="inline-flex items-center w-badge w-badge--outline">경기 종료</span>;
+    return <span className="inline-flex items-center w-badge w-badge--plain">종료</span>;
   }
-  if (kc === true) {
-    return <span className="inline-flex items-center rounded-full w-badge w-badge--brand">한국어 해설</span>;
-  }
-  if (kc === false) {
-    return <span className="inline-flex items-center rounded-full w-badge w-badge--neutral">현지 해설</span>;
-  }
-  return <span className="inline-flex items-center rounded-full w-badge w-badge--outline">확인 중</span>;
+  return null;
+}
+
+function CommentaryBadge({ kc }: { kc: boolean | "unknown" }) {
+  if (kc === true) return <span className="w-badge w-badge--ko shrink-0">한국어</span>;
+  if (kc === false) return <span className="w-badge w-badge--local shrink-0">현지</span>;
+  return <span className="shrink-0 text-fg-tertiary">해설 확인 중</span>;
 }
 
 function hasScores(r?: MatchResult): r is MatchResult & { homeScore: number; awayScore: number } {
@@ -177,7 +178,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                         <div className="flex items-center gap-1.5 text-caption1 sm:text-label1 text-fg-secondary">
                           <span className="font-mono font-semibold text-fg-strong">{s.time}</span>
                           <span className="text-fg-tertiary">|</span>
-                          <span className="truncate">{s.league}</span>
+                          <span className="truncate">{s.league} · {s.sport}</span>
                           {result?.period && result.status === "live" && (
                             <>
                               <span className="text-fg-tertiary">|</span>
@@ -185,7 +186,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                             </>
                           )}
                         </div>
-                        <StatusPill kc={s.koreanCommentary} finished={isGameFinished(s.date, s.time, s.sport)} result={result} />
+                        <StatusPill finished={isGameFinished(s.date, s.time, s.sport)} result={result} />
                       </div>
                         {s.awayTeam ? (
                           <div className="mt-2.5 flex items-baseline justify-center gap-2 text-label1 sm:text-body1">
@@ -214,9 +215,10 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                         ) : (
                           <div className="mt-2.5 text-center text-label1 sm:text-body1 font-semibold text-fg-strong truncate">{s.homeTeam}</div>
                         )}
-                        <div className="mt-2.5 flex items-center justify-between text-caption2 sm:text-caption1">
-                          <span className="truncate text-fg-secondary">{platforms.join(", ")}</span>
-                          <span className="text-fg-tertiary">{s.sport}</span>
+                        {/* 플랫폼 + 해설 뱃지를 붙여 오른쪽 정렬(홈 카드와 동일, 2026-09-14) */}
+                        <div className="mt-2.5 flex items-center justify-end gap-2 text-caption2 sm:text-caption1">
+                          <span className="min-w-0 truncate text-fg-secondary">{platforms.join(", ")}</span>
+                          <CommentaryBadge kc={s.koreanCommentary} />
                         </div>
                     </article>
                     );
@@ -242,7 +244,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                 <Link
                   key={r.slug}
                   href={`/${kind}/${r.slug}`}
-                  className="-my-2 inline-block py-2 inline-flex items-center rounded-lg border border-line bg-muted px-2.5 py-1 text-caption1 text-fg hover:bg-muted hover:text-fg-strong"
+                  className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-flex items-center rounded-lg border border-line bg-muted px-2.5 py-1 text-caption1 text-fg hover:bg-muted hover:text-fg-strong"
                 >
                   {r.display}
                 </Link>
@@ -259,7 +261,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
               <Link
                 key={r.slug}
                 href={`/${crossKind}/${r.slug}`}
-                className="-my-2 inline-block py-2 inline-flex items-center rounded-lg border border-line bg-muted px-2.5 py-1 text-caption1 text-fg hover:bg-muted hover:text-fg-strong"
+                className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-flex items-center rounded-lg border border-line bg-muted px-2.5 py-1 text-caption1 text-fg hover:bg-muted hover:text-fg-strong"
               >
                 {r.display}
               </Link>
@@ -274,7 +276,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
                 <Link
                   key={r.slug}
                   href={`/sport/${r.slug}`}
-                  className="-my-2 inline-block py-2 inline-flex items-center rounded-lg border border-line bg-muted px-2.5 py-1 text-caption1 text-fg hover:bg-muted hover:text-fg-strong"
+                  className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-flex items-center rounded-lg border border-line bg-muted px-2.5 py-1 text-caption1 text-fg hover:bg-muted hover:text-fg-strong"
                 >
                   {r.display} 중계 편성표
                 </Link>

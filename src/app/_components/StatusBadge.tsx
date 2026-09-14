@@ -48,15 +48,16 @@ function StatusBadgeInner({
   }
   // resultStatus === "finished"면 어떤 경우든 경기 종료. 그 외에는 시간 기반 finished를 신뢰.
   if (resultStatus === "finished" || finished) {
-    return <span className={`${BASE} w-badge--outline`}>경기 종료</span>;
+    // 종료는 박스 없이 글자만(2026-09-14 화니 지시).
+    return <span className={`${BASE} w-badge--plain`}>종료</span>;
   }
   if (stateOnly) return null;
+  // 해설 여부는 흰 채움(한국어) / 검은 박스(현지). 2026-09-14 화니 지시.
   if (status === true) {
-    // 이 서비스의 존재 이유가 이 한 줄이다. **파랑**이 그 뜻을 전담한다(키 컬러 정책).
-    return <span className={`${BASE} w-badge--brand`}>한국어 해설</span>;
+    return <span className={`${BASE} w-badge--ko`}>한국어</span>;
   }
   if (status === false) {
-    return <span className={`${BASE} w-badge--neutral`}>현지 해설</span>;
+    return <span className={`${BASE} w-badge--local`}>현지</span>;
   }
   return <span className={`${BASE} w-badge--outline`}>확인 중</span>;
 }

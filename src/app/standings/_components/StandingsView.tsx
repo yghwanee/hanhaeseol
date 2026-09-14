@@ -266,7 +266,7 @@ export function StandingsView({
             {current.scheduleSlug && (
               <Link
                 href={`/league/${current.scheduleSlug}`}
-                className="-my-2 inline-block py-2 inline-flex items-center gap-1.5 rounded-lg border border-brand/40 bg-brand-subtle px-3 py-2 text-caption1 font-semibold text-fg-brand-bright transition-colors hover:border-brand/40 hover:bg-brand-subtle sm:text-label1"
+                className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-flex items-center gap-1.5 rounded-lg border border-brand/40 bg-brand-subtle px-3 py-2 text-caption1 font-semibold text-fg-brand-bright transition-colors hover:border-brand/40 hover:bg-brand-subtle sm:text-label1"
               >
                 {current.name} 한국어 해설 편성표 →
               </Link>

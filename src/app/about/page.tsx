@@ -97,11 +97,11 @@ export default function AboutPage() {
           <h2 className="text-heading2 font-semibold mb-3">해설 표시 안내</h2>
           <div className="space-y-2 text-label1">
             <div className="flex items-center gap-2">
-              <span className="w-badge w-badge--brand">한국어 해설</span>
+              <span className="w-badge w-badge--ko">한국어</span>
               <span className="text-fg-secondary">한국어 해설이 제공되는 경기</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className="w-badge w-badge--neutral">현지 해설</span>
+              <span className="w-badge w-badge--local">현지</span>
               <span className="text-fg-secondary">현지 언어(영어 등) 해설로 제공되는 경기</span>
             </div>
             <div className="flex items-center gap-2">

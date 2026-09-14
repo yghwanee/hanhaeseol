@@ -104,7 +104,7 @@ export default function CommentaryPage() {
 
       <main className="mx-auto w-full max-w-[1100px] px-5 sm:px-6 py-6 sm:py-8">
         <nav className="mb-4 text-caption1 text-fg-tertiary sm:text-label1">
-          <Link href="/" className="-my-2 inline-block py-2 hover:text-fg">
+          <Link href="/" className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block hover:text-fg">
             편성표
           </Link>
           <span className="px-1.5">›</span>
@@ -155,7 +155,7 @@ export default function CommentaryPage() {
                   <Link
                     key={platform}
                     href={`/platform/${slug}`}
-                    className="-my-2 inline-block py-2 rounded-full border border-line-subtle px-3 py-1.5 text-caption1 text-fg transition-colors hover:border-line hover:text-fg-strong"
+                    className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block rounded-full border border-line-subtle px-3 py-1.5 text-caption1 text-fg transition-colors hover:border-line hover:text-fg-strong"
                   >
                     {label}
                   </Link>
@@ -213,7 +213,7 @@ export default function CommentaryPage() {
               <Link
                 key={p.slug}
                 href={`/platform/${p.slug}`}
-                className="-my-2 inline-block py-2 rounded-lg border border-line bg-muted px-2.5 py-1 text-caption1 text-fg transition-colors hover:bg-muted hover:text-fg-strong"
+                className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block rounded-lg border border-line bg-muted px-2.5 py-1 text-caption1 text-fg transition-colors hover:bg-muted hover:text-fg-strong"
               >
                 {p.display}
               </Link>

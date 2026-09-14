@@ -146,7 +146,7 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
                 <Link
                   key={t.slug}
                   href={`/team/${encodeURIComponent(t.slug)}`}
-                  className="-my-2 inline-block py-2 rounded-full border border-line-subtle px-3 py-1.5 text-caption1 text-fg hover:border-line hover:text-fg-strong"
+                  className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block rounded-full border border-line-subtle px-3 py-1.5 text-caption1 text-fg hover:border-line hover:text-fg-strong"
                 >
                   {t.rank}. {t.name}
                 </Link>

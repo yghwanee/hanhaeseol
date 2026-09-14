@@ -224,12 +224,13 @@ function ScheduleCardInner({
           잡카드에서 채용보상금이 늘 brand 색으로 우측 하단에 붙어 있듯,
           이 사이트의 시그너처는 "한국어 해설 여부"다. 그게 서비스의 존재 이유라
           카드에서 유일하게 색을 갖는 자리로 둔다. */}
-      <div className="pointer-events-none relative z-10 mt-3 flex items-center justify-between gap-2 border-t border-line-subtle pt-2.5">
+      {/* 2026-09-14 화니 지시: 플랫폼·해설 뱃지를 붙여서 오른쪽 정렬(종전엔 양 끝 정렬). */}
+      <div className="pointer-events-none relative z-10 mt-3 flex items-center justify-end gap-2 border-t border-line-subtle pt-2.5">
         <PlatformBadge platform={schedule.platform} />
         {schedule.koreanCommentary === true ? (
-          <span className="shrink-0 text-label2 font-semibold text-fg-brand">한국어 해설</span>
+          <span className="w-badge w-badge--ko shrink-0">한국어</span>
         ) : schedule.koreanCommentary === false ? (
-          <span className="shrink-0 text-label2 font-medium text-fg-tertiary">현지 해설</span>
+          <span className="w-badge w-badge--local shrink-0">현지</span>
         ) : (
           <span className="shrink-0 text-label2 font-medium text-fg-tertiary">해설 확인 중</span>
         )}
