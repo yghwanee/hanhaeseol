@@ -747,3 +747,11 @@
     - 🔴 **커밋 이력 사고**: 다른 세션의 `sync-all.ps1` 이 커밋 전 변경 8파일을 `25b8d142 Ready Check 사업부 안내 HTML 작성` 이름으로 쓸어 가 푸시했다. 내용은 온전하다.
     - **Vercel**: 화니가 대시보드에서 Hobby 로 강등. 직후 사이트 3곳 200 · `push-notify dry` ok(구독 3) · Deploy Hook 201. 🔴 `npm run usage` 가 Observability 402 를 0 으로 채워 **전 지표 0% ✅** 를 찍었다 → 402/403 이면 멈추게 수정(`87893b8b`). Hobby 에서 되는 `v2/usage?type=requests` 30일 대역폭 11.46GB → FOT 추정 5~7GB(확정은 대시보드).
     - 검증: tsc 0 · `test:sport-seo`·`answer-lead`·`seo-meta`·`sitemap-consistency` 통과 · `next build` 성공(sport 4장 프리렌더) · 라이브 200 · IndexNow 268 URL. `test:league-coverage` 는 `Campeones Cup` 데이터 유입분으로 빨갛다(이번 변경 무관).
+
+116. 2026 아시안게임 허브 + CI 복구 (2026-09-14, 커밋 `40438d7c`) — Hobby 유지 결정(B안) 뒤 "월드컵처럼 다 만들어, 메달 순위표도" 지시.
+    - **대시보드 실측이 추정을 뒤집었다**: 30일 FOT **10/10GB** · Active CPU **8h33m/4h**(패치 전 기간 포함) · ISR Writes **244,795/200,000**. 내가 `v2/usage` 대역폭으로 낸 "FOT 5~7GB" 는 틀렸다. Hobby 에선 대시보드만 믿을 것.
+    - **원천**: 일반 리그 API 에 아시안게임 없음(후보 전부 400). olympic 앱 번들 chunk 에서 `/olympic/{eventName}/countries·games·disciplines` 를 찾았다. `pageSize`(not `size`) · `koreaPlayer` 필터(첫 실행 502건 122KB → 15건 8.2KB) · 메달 0개면 `rankOrder` 전부 1 이라 재정렬.
+    - **설계(FOT·ISR 한도 회피)**: `/asian-games` 1장, 매치 페이지·국기 이미지 없음, 서버는 배포본 JSON 으로 렌더·브라우저는 GitHub raw 로 갱신. 홈 `AsianGamesBanner`(D-day→개최 중→최종 순위, 10/06 자동 숨김) · PIL 생성 히어로/OG.
+    - **SPOTV NOW 크롤러**: 종합대회 행은 `typeName`=대회명·`leagueName`=종목이라 전부 버려지고 있었다 → 고쳐서 편성 23경기 수집.
+    - **CI**: `league-coverage` 에 `Campeones Cup`·`아이치·나고야 아시안게임` 미지원 명시(후보 id 400, 대조군 `mls` 16경기). `test.yml` 초록 복귀.
+    - 검증: tsc 0 · 가드 11종 통과(`asian-games` 신설) · build 성공(`/asian-games` 정적 68KB) · 편성 재크롤 후 라이브 200·중계 23건·홈 배너 · IndexNow 270.

@@ -104,10 +104,18 @@ src/
 - 🔴 **Vercel 은 이제 Hobby 다 (2026-09-14 강등 완료).** 강등 직후 사이트 3곳 200 ·
   푸시 dry `ok:true`(Blob 정상) · Deploy Hook `201`. **잠기면 3사이트 동시 정지**, 복구는 Pro 재승격뿐.
   - 🔴 **FOT(한도 10GB)가 잠금 계량기인데 Hobby 에선 API 로 못 잰다.** `npm run usage` 는
-    Observability 402 로 멈춘다(전엔 0% ✅ 오답). `v2/usage?type=requests` 로 본 30일 대역폭
-    11.46GB → **FOT 추정 5~7GB, 확정값은 대시보드 Usage 화면에서만.** 편성 경기 수·페이지
-    크기를 크게 늘리는 작업 전엔 대시보드부터 볼 것. 상세·CPU 패치 이력은 `docs/worklog.md` 작업114.
+    Observability 402 로 멈춘다(전엔 0% ✅ 오답). **대시보드 실측(2026-09-14, 최근 30일):
+    FOT 10/10GB · Active CPU 8h33m/4h(9/10 패치 전 포함) · ISR Writes 244,795/200,000 — 셋 다 한도.**
+    `v2/usage` 대역폭으로 낸 "FOT 5~7GB" 추정은 틀렸다. 화니 결정 = 돈 안 냄, 잠기면 그때 처리.
+    페이지 크기·ISR 쓰기를 늘리는 작업은 이 전제 위에서 할 것. 상세는 `docs/worklog.md` 작업114·116.
   - `NEXT_PUBLIC_DONATE_*` 6개와 `ADMIN_KEY` 는 Vercel 에만 있다(사본 없음).
+
+- 🔴 **2026 아시안게임 허브 `/asian-games` — 라이브 (2026-09-14, 작업116).** 대회 9/19~10/04.
+  메달·한국 경기 = 네이버 이벤트 앱 API `/olympic/asiangames2026/*`(일반 리그 API 엔 없다) →
+  `npm run crawl:asian-games` 가 `public/asian-games.json` 을 쓰고 `crawl-results.yml` 이 매시 커밋.
+  **Hobby 한도 때문에 페이지 1장 · 매치 페이지·국기 이미지 없음 · 브라우저는 GitHub raw 에서 최신본.**
+  홈 배너·크롤 스텝은 날짜로 스스로 멈춘다(10/06~). **10/05 뒤 할 일 = 허브를 남길지 301 로 흡수할지 결정.**
+  지상파 중계사는 교차확인 전이라 안 적었다. 상세 auto-memory `project-asian-games-hub`.
 
 - 🔴 **SEO 후속 (2026-09-14 배포, 2~4주 뒤 재측정).** `/sport/basketball`·`/sport/volleyball` 을
   **개막 60일 전부터** 확인된 개막일·중계로 연다(`sport-seo.ts` `preseason`, 개막 후 14일 넘게 경기가
