@@ -115,6 +115,9 @@ src/
   `npm run crawl:asian-games` 가 `public/asian-games.json` 을 쓰고 `crawl-results.yml` 이 매시 커밋.
   **Hobby 한도 때문에 페이지 1장 · 매치 페이지·국기 이미지 없음 · 브라우저는 GitHub raw 에서 최신본.**
   홈 배너·크롤 스텝은 날짜로 스스로 멈춘다(10/06~). **10/05 뒤 할 일 = 허브를 남길지 301 로 흡수할지 결정.**
+  🔴 **페이지는 한국 전 종목 전용이다(화니 결정).** 다른 나라 경기 한국어 해설 중계는 메인 편성표 몫 — 다시 넣지 말 것.
+  크롤은 대회 전 기간(116건) · 하루 500건 넘는 날 `page` 순회. 개인 종목(수영·양궁 등)은 네이버가 `koreaPlayer` 를
+  아직 안 붙여 비어 있다 → **9/19 개막 후 채워졌는지 확인.**
   지상파 중계사는 교차확인 전이라 안 적었다. 상세 auto-memory `project-asian-games-hub`.
 
 - 🔴 **SEO 후속 (2026-09-14 배포, 2~4주 뒤 재측정).** `/sport/basketball`·`/sport/volleyball` 을
