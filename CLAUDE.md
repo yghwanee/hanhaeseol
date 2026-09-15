@@ -115,6 +115,8 @@ src/
   `npm run crawl:asian-games` 가 `public/asian-games.json` 을 쓰고 `crawl-results.yml` 이 매시 커밋.
   **Hobby 한도 때문에 페이지 1장 · 매치 페이지·국기 이미지 없음 · 브라우저는 GitHub raw 에서 최신본.**
   홈 배너·크롤 스텝은 날짜로 스스로 멈춘다(10/06~). **10/05 뒤 할 일 = 허브를 남길지 301 로 흡수할지 결정.**
+  🔴 **홈 배너는 날짜로 모양이 바뀐다(2026-09-15, 작업120).** 개막 전 = 성화·D-day / **9/19 부터 = 메달 집계**(raw fetch).
+  개막일에 실제로 바뀌었는지 라이브 확인할 것. 클릭 → `/asian-games#today`(첫 예정일 묶음, 오늘이면 TODAY + 테두리).
   🔴 **페이지는 한국 전 종목 전용이다(화니 결정).** 다른 나라 경기 한국어 해설 중계는 메인 편성표 몫 — 다시 넣지 말 것.
   크롤은 대회 전 기간(116건) · 하루 500건 넘는 날 `page` 순회. 개인 종목(수영·양궁 등)은 네이버가 `koreaPlayer` 를
   아직 안 붙여 비어 있다 → **9/19 개막 후 채워졌는지 확인.**
@@ -176,8 +178,10 @@ src/
     - 찜한 팀이 걸린 **리그만** 크롤한다(실측: kbo 1개 56ms/1요청 vs 전 리그 244ms/30요청).
     - `live=1` 은 raw 를 **버리지 않고 덮는다** — 라이브 크롤엔 취소·연기가 없어 통째로
       갈아치우면 취소 경기에 킥오프 알림이 나간다.
-  - 🔴 **구독자 2명 · 찜 `["야구|KT"]` (2026-09-04 실측).** 확인 = dispatch 응답의 `watch`
-    (비어 있으면 `shouldReceive` 가 전부 false 라 한 통도 못 나간다).
+  - 🔴 **구독 3건 — 전부 9/03~04 이후 갱신 없음, 찜 해제한 화니에게 푸시가 계속 온다(2026-09-15 미해결).**
+    확인 = `gh workflow run push-notify.yml -f dry=true` 응답의 `subscriberDetail`(id·마지막 저장·찜) ·
+    유령 삭제 = `-f remove=<id>`. 어느 게 화니 것인지 확인 전엔 지우지 말 것(남의 알림이 끊긴다).
+    구독 주소 교체로 옛 저장본이 남는 경로는 막았다(`pushsubscriptionchange` + `previousEndpoint`).
     구독자가 생겼으므로 **`VAPID_PRIVATE_KEY` 를 잃으면 이제 그 구독이 죽는다**(전엔 무해했다).
   - ✅ **실제 발송이 처음으로 끝까지 돌았다 (2026-09-04).** `gh workflow run push-notify.yml
     -f test=true` → `{"ok":true,"total":2,"sent":2,"removed":0}`. 이 입력은 `/api/push/test`
@@ -428,7 +432,8 @@ npm run push:live                  # 실시간 득점 폴러(로컬 확인용. P
 npm run test:push-live             # 🔴 분 단위 cron 금지 · 폴링은 GH · 리그 좁히기 · 겹침 방지
 npm run fonts:subset:ui            # 🔴 본문 Pretendard 서브셋 재생성(pyftsubset 필요). 새 팀·선수 유입 후 실행
 npm run test:font-mixing           # 🔴 font-mono 자리에 한글 금지(한 문자열에 두 폰트) + 서브셋 존재·크기
-npm run test:push-toggle           # 🔴 해제 순서(서버→로컬) · 컨트롤 유지 · ⭐히트영역 44px · 미지원 환경 안내
+npm run test:push-toggle           # 🔴 해제 순서(서버→로컬) · 컨트롤 유지 · ⭐히트영역 44px · 미지원 환경 안내 · 구독 주소 교체 유령
+npm run test:result-lookup         # 🔴 결과 룩업 한쪽 일치 안전망 — 유일 후보만 붙이고 헷갈리면 버리는지
 npm run test:workflow-yaml         # 🔴 워크플로 22개 전수 파싱. 문자열 검사로는 못 잡는다(아래 참조)
 npm run test:workflow-pipe         # 🔴 파이프가 종료코드를 삼키는지(npm|tee). 실패한 크롤이 초록으로 끝난다
 npm run test:head-script           # 🔴 head 인라인에 location 계열 금지(넣으면 네이버가 홈 메타를 통째로 버린다)
@@ -457,7 +462,7 @@ npm run fonts:subset               # 🔴 ebook 배너 Pretendard 서브셋 재�
 npm run test:ebook-font            # 🔴 서브셋에 없는 글자가 배너에 나오는지(두부 방지). 위 명령을 안 돌리면 여기서 막힌다
 npm run usage            # 🔴 Pro 전용(Observability). Hobby 에선 402 로 멈춘다 — FOT·CPU 는 대시보드 Usage 화면에서 볼 것
 npm run seo:indexnow     # IndexNow 통지(리그·플랫폼·순위·가이드·팀 86 + /commentary = ~156 URL)
-npm run audit:aliases   # 팀명 alias 미스매치 감사 (결과 있는데 스코어 안 뜨는 유형). 개막 후 crawl:results 뒤 실행
+npm run audit:aliases   # 팀명 alias 감사 — 결과(스코어) + 🔴 최근 5경기 전적(다른 API 라 표기가 따로 갈린다). 새 리그 유입·개막 뒤 실행
 npm run news:digest      # 네이버 뉴스 → docs/news-digest.md (NAVER_API_KEY_ID/NAVER_API_KEY 필요)
 ISSUE_BODY="$(gh issue view N --json body -q .body)" npm run check:idea-dupes  # 글감 중복 검사
 ```
