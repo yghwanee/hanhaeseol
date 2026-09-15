@@ -96,6 +96,15 @@ function snoozeToday(): void {
   }
 }
 
+/**
+ * 알림을 못 켠 사람에게 남는 다음 할 일.
+ *
+ * 🔴 「별 눌러보기」가 아니다(화니 지시, 2026-09-15). 폰에서 별은 카드 안 작은 아이콘이고
+ * 이 모달이 뜬 시점에는 아직 한 번도 못 본 것이라, "별"이라는 말이 무엇을 가리키는지
+ * 화면에 근거가 없다. 결과를 말한다 — 누르면 경기가 내 목록에 붙는다.
+ */
+const STAR_CTA = "경기 추가하기";
+
 type Phase = "hidden" | "open" | "done" | "failed";
 
 /**
@@ -219,8 +228,11 @@ export function NotifyIntroModal() {
       window.dispatchEvent(new Event(PUSH_SUB_EVENT));
       // 🔴 켠 뒤 바로 닫지 않는다. **찜한 팀이 없으면 알림은 아직 안 온다** — 다음 할 일이
       //    무엇인지 이 자리에서 말해줘야 한다(그래서 문구가 바뀌고 잠깐 머문다).
+      // 🔴 **여기서 `snoozeToday()` 를 부르지 말 것**(2026-09-15 화니 지적). 켠 뒤 다시 끈
+      //    사람에게 안내가 영영 안 떴다 — 구독이 없는데 차단 기록만 남아, 알림이 꺼진
+      //    상태로 하루를 보낸다. 켜 있는 동안은 위 `currentSubscription()` 게이트가 이미
+      //    막으므로 기록이 필요 없다. 차단 장치는 「오늘 하루 보지 않기」 하나뿐이다.
       setPhase("done");
-      snoozeToday();
       // 켜졌다는 걸 읽을 시간을 준 뒤 닫고 그 자리로 데려간다.
       setTimeout(() => {
         setPhase("hidden");
@@ -240,7 +252,12 @@ export function NotifyIntroModal() {
     <div
       /* 🔴 딤이 다른 모달(40%)보다 진하다. 40% 에서는 뒤의 아시안게임 배너 문구가 그대로
          읽혀 시선이 안 모였다(캡처로 확인). 첫 방문에 한 번 뜨는 안내라 읽히는 쪽이 먼저다. */
-      className="fixed inset-0 z-[60] flex items-center justify-center bg-inverse/65 px-5 animate-[introFadeIn_180ms_ease-out]"
+      /* 🔴 **모바일에서 가운데에 서야 한다**(화니 지적, 2026-09-15). `inset-0` 만으로는
+         카드 위로 튀어나온 것들(3D 종, 카드 밖 닫기 버튼 -56px)이 계산에 안 들어가
+         상단 GNB 를 덮고, 그래서 위로 치우쳐 보였다. 좌우와 같은 대칭 패딩(py)을 주면
+         카드 자체는 정확히 가운데를 유지하면서 그 여백이 튀어나온 것들을 받는다.
+         `100dvh` = 주소창이 떠 있는 실제 보이는 높이(iOS 사파리에서 `100vh` 는 더 크다). */
+      className="fixed inset-0 z-[60] flex h-[100dvh] items-center justify-center overflow-y-auto bg-inverse/65 px-5 py-14 sm:py-16 animate-[introFadeIn_180ms_ease-out]"
       onClick={() => close(false)}
     >
       {/* 닫기 버튼이 카드 **밖** 위쪽에 서므로 카드와 함께 움직이는 기준 박스를 둔다. */}
@@ -290,11 +307,11 @@ export function NotifyIntroModal() {
             <>
               <h2
                 id="notify-intro-title"
-                className="text-balance text-center text-headline1 font-bold tracking-tight text-fg-strong"
+                className="text-balance break-keep text-center text-headline1 font-bold tracking-tight text-fg-strong"
               >
                 {(FAIL_TEXT[failReason] ?? FAIL_TEXT.failed).title}
               </h2>
-              <p className="mt-2 text-balance text-center text-label2 leading-relaxed text-fg-secondary">
+              <p className="mt-2 text-balance break-keep text-center text-label2 leading-relaxed text-fg-secondary">
                 {(FAIL_TEXT[failReason] ?? FAIL_TEXT.failed).body}
               </p>
               {/* 알림을 못 켜도 **찜 자체는 된다** — 그쪽으로 데려간다. */}
@@ -307,21 +324,21 @@ export function NotifyIntroModal() {
                 }}
                 className="mt-4 flex h-[52px] w-full items-center justify-center rounded-[12px] bg-brand text-body2 font-bold text-fg-onbrand transition-colors hover:bg-brand-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg-brand"
               >
-                별 눌러보기
+                {STAR_CTA}
               </button>
             </>
           ) : phase === "done" ? (
             <>
-              <p className="text-center text-label2 font-bold tracking-tight text-fg-brand-bright">
+              <p className="break-keep text-center text-label2 font-bold tracking-tight text-fg-brand-bright">
                 알림이 켜졌습니다
               </p>
               <h2
                 id="notify-intro-title"
-                className="mt-1.5 text-center text-headline1 font-bold tracking-tight text-fg-strong"
+                className="mt-1.5 break-keep text-center text-headline1 font-bold tracking-tight text-fg-strong"
               >
                 이제 별만 누르면 됩니다
               </h2>
-              <p className="mt-2 text-balance text-center text-label2 leading-relaxed text-fg-secondary">
+              <p className="mt-2 text-balance break-keep text-center text-label2 leading-relaxed text-fg-secondary">
                 가장 먼저 열리는 경기로 옮겨드릴게요.
               </p>
               {/* 다 읽은 사람은 기다릴 이유가 없다 — 눌러서 바로 넘어갈 수 있게 둔다. */}
@@ -340,11 +357,11 @@ export function NotifyIntroModal() {
             <>
               <h2
                 id="notify-intro-title"
-                className="text-center text-headline1 font-bold tracking-tight text-fg-strong"
+                className="break-keep text-center text-headline1 font-bold tracking-tight text-fg-strong"
               >
                 찜한 팀 경기, 알림으로 받으세요
               </h2>
-              <p className="mt-2 text-balance text-center text-label2 leading-relaxed text-fg-secondary">
+              <p className="mt-2 text-balance break-keep text-center text-label2 leading-relaxed text-fg-secondary">
                 팀 이름 옆 별을 누르면 그 팀 경기만 알려드립니다.
               </p>
 
@@ -377,10 +394,18 @@ export function NotifyIntroModal() {
               ) : (
                 <button
                   type="button"
-                  onClick={() => close(true)}
+                  /* 🔴 **닫고 끝내지 않는다**(화니 지시, 2026-09-15). 알림을 못 켜는 환경
+                     (아이폰 미설치·인앱 웹뷰)에서도 **찜 자체는 된다** — 그런데 종전에는
+                     모달만 사라져서 할 일이 없는 것처럼 보였다. 켤 수 있는 환경과 똑같이
+                     가장 임박한 경기로 데려가고 별을 깜빡인다. 못 켜는 건 몇 번 봐도
+                     결과가 같으니 오늘은 접는다. */
+                  onClick={() => {
+                    close(true);
+                    focusNextGame();
+                  }}
                   className="mt-4 flex h-[52px] w-full items-center justify-center rounded-[12px] bg-brand text-body2 font-bold text-fg-onbrand transition-colors hover:bg-brand-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg-brand"
                 >
-                  별 눌러보기
+                  {STAR_CTA}
                 </button>
               )}
 
@@ -388,8 +413,12 @@ export function NotifyIntroModal() {
                   거기서는 버튼을 눌러도 구독이 안 걸린다(작업111 과 같은 판단).
                   켤 수 있는 환경에서는 각주를 두지 않는다 — 끄는 방법은 「내 팀」 자리에
                   토글로 항상 보이므로 여기서 또 말하면 군더더기다(화니 지시, 2026-09-15). */}
+              {/* 🔴 **모바일에서는 이 각주를 내보내지 않는다**(화니 지시, 2026-09-15).
+                  폰에서 카드가 길어져 CTA 아래 두 줄이 모달을 화면 밖으로 밀고,
+                  아이폰·안드로이드 어느 쪽이든 여기서 할 수 있는 게 없다 — 켜는 방법은
+                  「내 팀」 섹션의 컨트롤이 다시 안내한다. PC 폭에서만 남긴다. */}
               {!canPush && (
-                <p className="mt-3 text-center text-caption2 leading-relaxed text-fg-tertiary">
+                <p className="mt-3 hidden break-keep text-center text-caption2 leading-relaxed text-fg-tertiary sm:block">
                   알림은 사파리·크롬으로 열거나, 아이폰은 홈 화면에 추가한 뒤 켤 수 있습니다.
                 </p>
               )}

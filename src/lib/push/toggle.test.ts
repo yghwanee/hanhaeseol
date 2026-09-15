@@ -310,6 +310,19 @@ test("🔴 알림을 켜면 가장 임박한 경기로 데려간다", () => {
   const css = read(path.join(ROOT, "src/app/globals.css"));
   assert.match(css, /\[data-star-hint\]/, "강조 CSS 가 없다");
   assert.match(css, /starHintStar/, "별 강조 keyframes 가 없다");
+
+  /**
+   * 🔴 **못 켜는 환경(아이폰 미설치·인앱 웹뷰)도 같은 곳으로 데려간다** (화니 지시,
+   * 2026-09-15). 그쪽에서도 찜 자체는 되는데 종전에는 CTA 가 `close(true)` 만 해서
+   * 모달이 사라지고 끝이었다 — 폰 사용자에게는 아무 일도 안 난 것으로 보인다.
+   */
+  const alt = src.slice(src.indexOf("canPush ? ("));
+  const fallback = alt.slice(alt.indexOf(") : ("), alt.indexOf("{!canPush &&"));
+  assert.match(
+    fallback,
+    /focusNextGame\(\)/,
+    "못 켜는 환경의 CTA 가 닫고 끝난다 — PC 처럼 가장 임박한 경기로 데려갈 것",
+  );
 });
 
 test("🔴 모달은 인트로가 끝나는 즉시 뜬다 — 추가 지연을 두지 말 것", () => {
@@ -349,7 +362,8 @@ test("🔴 알림 켜기가 실패하면 조용히 닫지 않고 이유를 말�
   // 시크릿 창은 실패가 정상인 환경이다 — 그 말을 반드시 화면에 둔다.
   assert.match(src, /시크릿/, "시크릿 창에서는 켤 수 없다는 안내가 없다");
   // 알림을 못 켜도 찜은 되므로 그쪽으로 데려간다.
-  assert.match(src, /별 눌러보기/, "실패 화면에 다음 할 일(찜)이 없다");
+  assert.match(src, /STAR_CTA/, "실패 화면에 다음 할 일(찜)이 없다");
+  assert.match(src, /const STAR_CTA = "경기 추가하기"/, "CTA 문구가 바뀌었다 — 「별」은 폰에서 무엇을 가리키는지 근거가 없다(화니 지시)");
 });
 
 /**
@@ -373,4 +387,43 @@ test("🔴 「닫기」는 기억하지 않고 「오늘 하루 보지 않기」
     "닫기에 별도 기록이 붙었다 — today 가 아니면 아무것도 저장하지 않아야 한다",
   );
   assert.match(src, /오늘 하루 보지 않기/, "차단 장치가 화면에 없다");
+});
+
+/**
+ * 🔴 **알림을 켜는 것은 차단 기록이 아니다** (화니 지적, 2026-09-15).
+ *
+ * 종전에는 켜기 성공 직후 `snoozeToday()` 를 불렀다. 그러면 켰다가 다시 끈 사람에게
+ * 그날 하루 안내가 영영 안 뜬다 — **구독은 없는데 차단 기록만 남은 상태**라, 알림이 꺼진
+ * 채로 하루를 보내면서 다시 켜라는 말을 어디서도 못 듣는다. 켜 있는 동안은
+ * `currentSubscription()` 게이트가 이미 막으므로 기록이 필요 없다.
+ */
+test("🔴 알림 켜기는 「오늘 하루」를 접지 않는다 — 껐으면 다시 뜬다", () => {
+  const src = read(path.join(ROOT, "src/app/_components/NotifyIntroModal.tsx"));
+  const fn = src.slice(src.indexOf("const turnOn = async"));
+  const body = fn.slice(0, fn.indexOf("setPhase(\"failed\")"));
+  assert.ok(
+    !/^\s*snoozeToday\(\);/m.test(body),
+    "켜기 성공 경로가 오늘을 접는다 — 켰다 끈 사람에게 안내가 안 뜬다",
+  );
+  // 구독 여부로 막는 게 유일한 정답이다.
+  assert.match(src, /currentSubscription\(\)/, "구독 게이트가 사라졌다");
+});
+
+/**
+ * 🔴 **모달 문구에서 한글 단어가 줄 끝에서 쪼개지지 않게 한다** (화니 지적, 2026-09-15).
+ *
+ * PC 폭에서 실패 안내가 `다 / 시 눌러 주세요` 로 잘려 있었다. 기본 `word-break` 는 한글을
+ * 글자 단위로 끊으므로 `break-keep`(word-break: keep-all)이 없으면 어느 폭에서든 재발한다.
+ */
+test("🔴 모달 문구는 break-keep 으로 단어를 안 쪼갠다", () => {
+  const src = read(path.join(ROOT, "src/app/_components/NotifyIntroModal.tsx"));
+  // 제목 + 본문 + 각주 전부. 문장이 들어가는 자리는 모두 keep-all 이어야 한다.
+  const texts = src.match(/className="[^"]*text-(headline1|label2|caption2)[^"]*"/g) ?? [];
+  assert.ok(texts.length >= 4, "문구 자리를 못 찾았다 — 이 검사가 헛돌고 있다");
+  for (const cls of texts) {
+    assert.ok(
+      cls.includes("break-keep"),
+      "break-keep 이 없는 문구 자리가 있다(한글이 글자 단위로 쪼개진다): " + cls,
+    );
+  }
 });
