@@ -42,6 +42,15 @@ const SESSION_KEY = "hhs.notice.notifyIntro.session";
 const DELAY_MS = 0;
 
 /**
+ * 켜진 뒤 「알림이 켜졌습니다 · 이제 별만 누르면 됩니다」를 붙잡아 두는 시간.
+ *
+ * 🔴 1.4초는 **너무 짧았다**("그거 너무 빨리 없어져" — 화니, 2026-09-15). 두 줄을 읽고
+ * "다음엔 별을 누르면 된다"까지 머리에 남아야 하는 화면이라, 읽기 속도보다 넉넉해야 한다.
+ * 이 시간이 끝나면 모달이 닫히며 가장 임박한 경기로 데려간다.
+ */
+const DONE_HOLD_MS = 3400;
+
+/**
  * 🔴 **인트로가 끝난 뒤에 뜬다.** 홈에는 전체 화면 인트로(`z-[100]`)가 있고, 첫 방문
  * PC 는 타이핑까지 4초 넘게 걸린다. 고정 지연으로 띄우면 모달이 그 **뒤에 깔려** 아무도
  * 못 본다(실제로 첫 캡처에서 엠블럼 티커만 찍혔다). 사이드 배너가 같은 문제를 이미
@@ -220,11 +229,11 @@ export function NotifyIntroModal() {
       //    무엇인지 이 자리에서 말해줘야 한다(그래서 문구가 바뀌고 잠깐 머문다).
       setPhase("done");
       snoozeToday();
-      // 켜졌다는 걸 읽을 시간만 준 뒤(1.4초) 닫고 그 자리로 데려간다.
+      // 켜졌다는 걸 읽을 시간을 준 뒤 닫고 그 자리로 데려간다.
       setTimeout(() => {
         setPhase("hidden");
         focusNextGame();
-      }, 1400);
+      }, DONE_HOLD_MS);
       return;
     }
     // 🔴 조용히 닫지 않는다 — 누른 사람에게는 "아무 반응 없음" 으로 보인다.
@@ -314,6 +323,17 @@ export function NotifyIntroModal() {
               <p className="mt-2 text-balance text-center text-label2 leading-relaxed text-fg-secondary">
                 가장 먼저 열리는 경기로 옮겨드릴게요.
               </p>
+              {/* 다 읽은 사람은 기다릴 이유가 없다 — 눌러서 바로 넘어갈 수 있게 둔다. */}
+              <button
+                type="button"
+                onClick={() => {
+                  setPhase("hidden");
+                  focusNextGame();
+                }}
+                className="mt-4 flex h-[52px] w-full items-center justify-center rounded-[12px] bg-brand text-body2 font-bold text-fg-onbrand transition-colors hover:bg-brand-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg-brand"
+              >
+                경기 보러 가기
+              </button>
             </>
           ) : (
             <>
