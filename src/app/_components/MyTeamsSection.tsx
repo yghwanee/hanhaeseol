@@ -124,7 +124,7 @@ export function MyTeamsSection({
   if (rows.length === 0) {
     if (!hasSub) return null;
     return (
-      <section className="mb-5 sm:mb-6 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-line bg-muted/[0.04] px-3 py-2.5 sm:px-4">
+      <section className="w-invert-surface mb-5 sm:mb-6 flex flex-wrap items-center justify-between gap-2 rounded-xl px-3 py-2.5 sm:px-4">
         <p className="flex items-center gap-1.5 text-caption1 text-fg-secondary">
           <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0" fill="currentColor" aria-hidden>
             <path d="M12 3.6l2.6 5.27 5.82.85-4.21 4.1.99 5.79L12 16.88l-5.2 2.73.99-5.79-4.21-4.1 5.82-.85L12 3.6z" />
@@ -137,7 +137,11 @@ export function MyTeamsSection({
   }
 
   return (
-    <section className="mb-5 sm:mb-6 rounded-xl border border-line bg-muted/[0.04] p-3 sm:p-4">
+    /* 🔴 **흰 판**이다(화니 지시, 2026-09-15: "이 섹션이 눈에 잘 안 띈다 — 날짜 선택된
+       것처럼 흰 바탕으로"). 다크 카드가 스무 장 넘게 흐르는 화면에서 회색 판 하나로는
+       구분이 안 됐다. 색 하나하나가 아니라 `.w-invert-surface` 가 토큰을 뒤집는다 —
+       그래야 안쪽 뱃지·토글·안내 문구까지 같이 맞는다(globals.css 참조). PC·모바일 동일. */
+    <section className="w-invert-surface mb-5 sm:mb-6 rounded-xl p-3 sm:p-4">
       <div className="mb-2.5 flex items-center justify-between gap-2">
         <h2 className="flex items-center gap-1.5 text-label1 font-semibold text-fg-secondary">
           <svg viewBox="0 0 24 24" className="h-4 w-4" fill="currentColor" aria-hidden>
@@ -152,7 +156,9 @@ export function MyTeamsSection({
         {rows.map((r) => (
           <li
             key={r.key}
-            className="relative flex items-center gap-2 rounded-lg border border-line-subtle bg-surface px-2.5 py-2"
+            /* 🔴 `bg-surface` 는 반전 스코프에서 판과 같은 흰색이라 행이 사라진다.
+               한 단 낮은 회색(`bg-muted`)으로 깔아 목록이 판 안에서 읽히게 한다. */
+            className="relative flex items-center gap-2 rounded-lg border border-line-subtle bg-muted px-2.5 py-2"
           >
             <FollowStar
               followed

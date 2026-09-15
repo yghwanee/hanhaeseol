@@ -56,6 +56,40 @@ function ScorerLines({ goals }: { goals: GoalEvent[] }) {
   );
 }
 
+/**
+ * [플랫폼] [해설 종류] 묶음.
+ *
+ * 🔴 **자리가 화면 폭마다 다르다**(화니 지시, 2026-09-15).
+ *   · PC(sm↑) = 카드 **상단 우측** — 시간·리그 줄 오른쪽에 여유가 있다.
+ *   · 모바일 = 카드 **맨 아래 가운데** — 폰에서는 이 묶음이 상단 줄의 절반을 먹어 리그명이
+ *     `K..` 로 잘리고(실측 캡처) 시간·종목까지 눌렸다. 아래로 내리면 한 줄을 통째로 쓴다.
+ * 하이라이트가 있으면 **그보다도 아래**에 둔다 — 누르는 것(하이라이트)이 먼저다.
+ *
+ * 🔴 **상태(LIVE·종료·취소·연기)는 여기 없다** — 폭과 무관하게 **상단 우측에 남는다**
+ * (화니 지시, 2026-09-15). 지금 보고 있는 화면에서 "이 경기가 지금 열려 있는지"가
+ * 가장 먼저 읽혀야 하는 정보라, 스코어 아래로 내리면 늦다.
+ */
+function MetaBadges({
+  schedule,
+  className,
+}: {
+  schedule: Schedule;
+  className: string;
+}) {
+  return (
+    <div className={className}>
+      <PlatformBadge platform={schedule.platform} />
+      {schedule.koreanCommentary === true ? (
+        <span className="w-badge w-badge--ko">한국어</span>
+      ) : schedule.koreanCommentary === false ? (
+        <span className="w-badge w-badge--local">현지</span>
+      ) : (
+        <span className="w-badge w-badge--outline">확인 중</span>
+      )}
+    </div>
+  );
+}
+
 function hasNumericScores(r?: MatchResult): r is MatchResult & { homeScore: number; awayScore: number } {
   return !!r && typeof r.homeScore === "number" && typeof r.awayScore === "number";
 }
@@ -142,17 +176,13 @@ function ScheduleCardInner({
             </>
           )}
         </div>
-        {/* 상단 우측 = [플랫폼] [해설 종류] [상태(LIVE·종료·취소·연기, 없을 수 있음)].
-            2026-09-14 화니 지시로 하단 메타 줄에서 올렸다. 하단엔 하이라이트만 남는다. */}
+        {/* 상단 우측. 플랫폼·해설은 **PC 에서만**이고(모바일은 카드 맨 아래로 내렸다),
+            상태(LIVE·종료·취소·연기)는 **폭과 무관하게 여기 남는다**(화니 지시). */}
         <div className="flex shrink-0 items-center gap-1.5">
-          <PlatformBadge platform={schedule.platform} />
-          {schedule.koreanCommentary === true ? (
-            <span className="w-badge w-badge--ko">한국어</span>
-          ) : schedule.koreanCommentary === false ? (
-            <span className="w-badge w-badge--local">현지</span>
-          ) : (
-            <span className="w-badge w-badge--outline">확인 중</span>
-          )}
+          <MetaBadges
+            schedule={schedule}
+            className="hidden items-center gap-1.5 sm:flex"
+          />
           <StatusBadge
             status={schedule.koreanCommentary}
             finished={isGameFinished(schedule.date, schedule.time, schedule.sport)}
@@ -256,6 +286,15 @@ function ScheduleCardInner({
           </a>
         </div>
       )}
+
+      {/* 🔴 모바일 전용 자리. 상단 줄에서 내려온 묶음이라 PC(sm↑)에서는 그리지 않는다 —
+          양쪽에 다 그리면 같은 정보가 카드에 두 번 나온다. */}
+      <MetaBadges
+        schedule={schedule}
+        /* 간격은 `mt-6`(24px). 종전 12px 는 최근전적 뱃지 줄에 붙어 한 묶음처럼 보였다
+           — 서로 다른 정보라 떼어 놔야 한다(화니 지시, 2026-09-15: "지금의 2배"). */
+        className="pointer-events-none relative z-10 mt-6 flex items-center justify-center gap-1.5 sm:hidden"
+      />
     </div>
   );
 }

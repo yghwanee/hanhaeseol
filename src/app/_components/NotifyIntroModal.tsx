@@ -113,19 +113,32 @@ type Phase = "hidden" | "open" | "done" | "failed";
  * 종전에는 거절·실패를 전부 `close()` 로 처리했다. 그러면 누른 사람 화면에서는 모달이
  * 아무 설명 없이 사라진다 — "알림 켜기 눌렀는데 아무 반응 없다"(화니, 2026-09-15).
  * 작업111 에서 같은 원칙을 이미 세웠다: 못 켜는 환경은 **이유와 다음 할 일을 말한다.**
+ *
+ * 🔴 **본문은 문장 배열이다**(화니 지시, 2026-09-15). 한 문자열로 두면 줄이 문장 중간에서
+ * 끊긴다 — `시 눌러 주세요. 시크릿 창에서는` 처럼 두 문장 조각이 한 줄에 섞여 읽는 순서가
+ * 무너졌다. `break-keep` 은 단어만 지키고 문장은 못 지킨다. 문장마다 자기 블록을 준다.
  */
-const FAIL_TEXT: Record<string, { title: string; body: string }> = {
+const FAIL_TEXT: Record<string, { title: string; body: string[] }> = {
   denied: {
     title: "브라우저가 알림을 막고 있어요",
-    body: "주소창 왼쪽 자물쇠 → 알림 → 허용으로 바꾼 뒤 다시 눌러 주세요. 시크릿 창에서는 켤 수 없습니다.",
+    body: [
+      "주소창 자물쇠 → 알림 → 허용으로 바꾼 뒤 다시 눌러 주세요.",
+      "시크릿 창에서는 켤 수 없습니다.",
+    ],
   },
   unavailable: {
     title: "이 창에서는 알림을 켤 수 없어요",
-    body: "시크릿 창과 앱 안 브라우저는 알림을 막습니다. 일반 창(사파리·크롬)에서 켜 주세요.",
+    body: [
+      "시크릿 창과 앱 안 브라우저는 알림을 막습니다.",
+      "일반 창(사파리·크롬)에서 켜 주세요.",
+    ],
   },
   failed: {
     title: "지금은 알림을 켤 수 없어요",
-    body: "시크릿 창과 앱 안 브라우저에서는 막혀 있습니다. 일반 창에서 다시 눌러 주세요. 별을 누르는 찜은 지금도 됩니다.",
+    body: [
+      "시크릿 창과 앱 안 브라우저에서는 막혀 있습니다.",
+      "일반 창에서 다시 눌러 주세요. 별을 누르는 찜은 지금도 됩니다.",
+    ],
   },
 };
 
@@ -312,7 +325,11 @@ export function NotifyIntroModal() {
                 {(FAIL_TEXT[failReason] ?? FAIL_TEXT.failed).title}
               </h2>
               <p className="mt-2 text-balance break-keep text-center text-label2 leading-relaxed text-fg-secondary">
-                {(FAIL_TEXT[failReason] ?? FAIL_TEXT.failed).body}
+                {(FAIL_TEXT[failReason] ?? FAIL_TEXT.failed).body.map((line) => (
+                  <span key={line} className="block">
+                    {line}
+                  </span>
+                ))}
               </p>
               {/* 알림을 못 켜도 **찜 자체는 된다** — 그쪽으로 데려간다. */}
               <button
