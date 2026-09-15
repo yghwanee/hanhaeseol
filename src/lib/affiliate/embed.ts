@@ -70,7 +70,7 @@ export function renderTossPickHtml(key: string, now: Date = new Date()): string 
   // 위반이고, 한해설은 색인이 유일한 유입원이다.
   return (
     `<aside data-toss-pick="${esc(key)}" style="border:1px solid rgba(49,130,246,0.25);border-left:3px solid #3182f6;border-radius:0 10px 10px 0;background:#0e1319;padding:14px 16px;margin:24px 0">` +
-    `<p style="margin:0 0 8px;font-size:11px;line-height:1.6;color:#8ab4f8">${DISCLOSURE_SHORT}</p>` +
+    `<p style="margin:0 0 8px;font-size:11px;line-height:1.6;color:#8ab4f8;text-align:center">${DISCLOSURE_SHORT}</p>` +
     `<p style="margin:0;font-size:15px;font-weight:600;color:#fafafa;line-height:1.5">${esc(pick.displayName)}</p>` +
     note +
     priceRow +

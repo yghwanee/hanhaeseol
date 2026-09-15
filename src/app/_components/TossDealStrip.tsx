@@ -73,7 +73,8 @@ export function TossDealStrip({
       {/* 🔴 대가성 문구는 상품 소개와 같은 화면에 붙어 있어야 한다. 접거나 푸터로
           내리면 위반이다. 색은 zinc-400 — zinc-500 은 검정 배경에서 약 4.2:1 이라
           10px 글씨로는 "알아보기 쉽게"(정책 문구)에 못 미친다. */}
-      <p className="mt-1.5 px-1 text-caption2 leading-relaxed text-fg-secondary">{DISCLOSURE_SHORT}</p>
+      {/* 가운데 정렬(화니 지시, 2026-09-15) — 지면 넷 전부 같다. */}
+      <p className="mt-1.5 px-1 text-center text-caption2 leading-relaxed text-fg-secondary">{DISCLOSURE_SHORT}</p>
     </div>
   );
 }
