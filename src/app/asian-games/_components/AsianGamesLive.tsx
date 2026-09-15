@@ -93,11 +93,24 @@ export function AsianGamesLive({
             {showPast ? "지난 경기 접기" : `지난 경기 ${pastCount}건 보기`}
           </button>
         )}
-        {shown.map(([date, games]) => (
-          <div key={date} className="mt-4">
-            <h3 className="mb-2 text-label1 font-semibold text-fg">
+        {shown.map(([date, games]) => {
+          // 🔴 홈 배너가 `/asian-games#today` 로 들어온다(2026-09-15 화니). 오늘 한국 경기가
+          // 없는 날은 **다음 경기일**에 닻을 내린다 — 빈 곳으로 튀면 안 된다. TODAY 표시와
+          // 테두리는 실제로 오늘인 묶음에만 붙인다(메인 날짜 탭의 TODAY 와 같은 표기).
+          const isAnchor = date === upcoming[0]?.[0];
+          const isToday = date === today;
+          return (
+          <div
+            key={date}
+            id={isAnchor ? "today" : undefined}
+            className={`mt-4 scroll-mt-20 ${isToday ? "rounded-xl border border-line-strong p-3 sm:p-4" : ""}`}
+          >
+            <h3 className="mb-2 flex items-center gap-2 text-label1 font-semibold text-fg">
               {fmtDate(date)}
-              {date < today && <span className="ml-1.5 text-caption1 font-normal text-fg-tertiary">지난 경기</span>}
+              {isToday && (
+                <span className="text-caption2 font-bold leading-none tracking-wider text-fg-danger">TODAY</span>
+              )}
+              {date < today && <span className="text-caption1 font-normal text-fg-tertiary">지난 경기</span>}
             </h3>
             <ul className="space-y-1.5">
               {games.map((g) => {
@@ -145,7 +158,8 @@ export function AsianGamesLive({
               })}
             </ul>
           </div>
-        ))}
+          );
+        })}
       </section>
 
       <section className="mb-6 rounded-xl border border-line-subtle bg-surface p-4 sm:p-5">

@@ -29,7 +29,8 @@ import { MedalIcon, TorchIcon } from "./AsianGamesIcons";
  *
  * `today` 는 부모가 KST 로 넘긴다. 폐막 다음 날(`closed`)까지만 그리고 그 뒤엔 스스로 사라진다.
  */
-export function AsianGamesBanner({ today, href = "/asian-games" }: { today: string; href?: string }) {
+// 누르면 허브의 오늘(없으면 다음 경기일) 일정 묶음으로 바로 떨어진다(`AsianGamesLive` 의 id="today").
+export function AsianGamesBanner({ today, href = "/asian-games#today" }: { today: string; href?: string }) {
   const phase = agPhase(today);
   if (phase === "over") return null;
   if (phase === "live" || phase === "closed") {

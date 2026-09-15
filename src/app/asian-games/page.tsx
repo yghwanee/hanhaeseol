@@ -136,7 +136,7 @@ export default function AsianGamesPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <div className="mt-4 sm:mt-6">
-        <AsianGamesBanner today={today} href="#korea" />
+        <AsianGamesBanner today={today} href="#today" />
       </div>
 
       <div className="mb-6">
