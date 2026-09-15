@@ -4,6 +4,7 @@ import { loadScheduleData, loadTeamRecords, loadResults } from "@/lib/server-dat
 import { ResultsData } from "@/types/results";
 import ScheduleClient from "./ScheduleClient";
 import { IntroAnimation } from "./_components/IntroAnimation";
+import { NotifyIntroModal } from "./_components/NotifyIntroModal";
 import { INTRO_EMBLEM_PATHS } from "./_components/intro-emblems";
 
 function buildSportsEventsJsonLd(schedules: Schedule[]) {
@@ -139,6 +140,10 @@ export default function Home() {
         <link key={src} rel="preload" as="image" href={src} />
       ))}
       <IntroAnimation />
+      {/* 🔴 첫 방문 안내(찜하면 경기 알림이 온다)는 **홈에만** 둔다(화니 결정, 2026-09-15).
+       *  별이 있는 화면이 편성표라 닫자마자 눌러 볼 수 있고, 네이버 검색으로 가이드 글에
+       *  바로 들어온 사람에게는 맥락 없는 모달이 이탈만 만든다. 인트로가 끝난 뒤 뜬다. */}
+      <NotifyIntroModal />
       {/* 홈 본문은 편성표 하나로 끝난다.
           종전엔 편성표 아래로 "이번 주 빅매치" → "한해설 Topic" → 서비스 소개(한해설이란?·
           지원 종목·지원 플랫폼·리그별·팀별·이용 가이드·자주 묻는 질문)가 이어져 스크롤이 길었다.

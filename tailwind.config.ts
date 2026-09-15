@@ -44,6 +44,7 @@ const config: Config = {
         surface: "var(--w-surface)",
         subtle: "var(--w-subtle)",
         muted: "var(--w-muted)",
+        elevated: "var(--w-elevated)",   /* 모달·팝오버 전용 면 */
         inverse: "var(--w-inverse)",
         brand: {
           DEFAULT: "var(--w-brand)",
