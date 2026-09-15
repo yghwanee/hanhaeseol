@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { BRAND_DEFINITION } from "@/lib/brand";
 import { AdfitBanner } from "../_components/AdfitBanner";
 
 export const metadata: Metadata = {
@@ -22,9 +23,30 @@ export const metadata: Metadata = {
   alternates: { canonical: "https://haeseol.com/about" },
 };
 
+// 이 페이지가 브랜드 엔티티(`#organization`)를 설명하는 정본 페이지임을 스키마로 밝힌다.
+// 종전엔 이 페이지에 구조화 데이터가 하나도 없었다 — 정의문이 산문으로만 있어서
+// 답변엔진이 「한해설이 뭐야」의 답으로 뽑아 갈 구조가 없었다(2026-09-16).
+// 🔴 Organization 정본은 layout.tsx 의 `#organization` 하나다. 여기서는 참조만 한다.
+const aboutLd = {
+  "@context": "https://schema.org",
+  "@type": "AboutPage",
+  "@id": "https://haeseol.com/about#webpage",
+  url: "https://haeseol.com/about",
+  name: "한해설 소개",
+  inLanguage: "ko",
+  description: BRAND_DEFINITION,
+  mainEntity: { "@id": "https://haeseol.com/#organization" },
+  isPartOf: { "@id": "https://haeseol.com/#website" },
+  publisher: { "@id": "https://haeseol.com/#organization" },
+};
+
 export default function AboutPage() {
   return (
     <main className="min-h-screen text-fg-secondary">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(aboutLd) }}
+      />
       <div className="max-w-[720px] mx-auto px-5 sm:px-6 pb-8 sm:pb-12 text-[14px]">
 
         <h1 className="text-title3 sm:text-title2 font-bold text-fg-strong mt-4 sm:mt-6 mb-8">한해설 소개</h1>
@@ -34,9 +56,14 @@ export default function AboutPage() {
 
         <section className="mb-8">
           <h2 className="text-heading2 font-semibold mb-3">한해설이란?</h2>
+          {/*
+            🔴 첫 문장에 도메인·시작 시점이 들어가 있어야 한다. `한해설` 은 이름만으로는
+            무엇인지 알 수 없어(`한해`+`설` 로 쪼개 읽힌다) 정의문이 앵커를 직접 들어야
+            한다. 사실 정본은 `BRAND_DEFINITION` — 고칠 때 같이 고친다.
+          */}
           <p className="text-fg-secondary leading-relaxed mb-3">
-            한해설은 <strong>스포츠 한국어 해설 중계 편성표</strong>를 한곳에 모아 보여주는 무료 서비스입니다.
-            여러 OTT와 TV 채널에 흩어져 있는 스포츠 중계 일정을 한 번에 확인하고,
+            한해설(haeseol.com)은 <strong>스포츠 한국어 해설 중계 편성표</strong>를 한곳에 모아 보여주는 무료 서비스입니다.
+            2026년 2월에 시작했고, 여러 OTT와 TV 채널에 흩어져 있는 스포츠 중계 일정을 한 번에 확인하고
             특히 <strong>한국어 해설이 제공되는 경기</strong>를 쉽게 찾을 수 있도록 설계되었습니다.
           </p>
           <p className="text-fg-secondary leading-relaxed">

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { BRAND_DEFINITION } from "@/lib/brand";
 import { AdfitBanner } from "../_components/AdfitBanner";
 
 export const metadata: Metadata = {
@@ -40,6 +41,13 @@ interface FaqItem {
 }
 
 const FAQS: FaqItem[] = [
+  {
+    // 🔴 이 항목이 맨 앞인 이유 — 브랜드 쿼리(`한해설이란`·`한해설이 뭐야`)에 답하는
+    // 문장이 FAQPage 스키마 안에 하나도 없었다. 정의문은 `/about` 의 h2 아래 산문으로만
+    // 있어서 Q&A 로 추출되지 않았다(2026-09-16). 문구 정본은 `BRAND_DEFINITION`.
+    question: "한해설이란 무엇인가요?",
+    answer: BRAND_DEFINITION,
+  },
   {
     question: "한국어 해설 중계가 무엇인가요?",
     answer:
