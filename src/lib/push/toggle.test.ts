@@ -322,3 +322,32 @@ test("🔴 모달은 인트로가 끝나는 즉시 뜬다 — 추가 지연을 �
   );
   assert.match(src, /INTRO_DONE_EVENT/, "인트로 종료를 안 기다린다 — 모달이 인트로 뒤에 깔린다");
 });
+
+/**
+ * 🔴 **켜기가 실패하면 이유를 말한다** (화니, 2026-09-15: "알림 켜기 하니까 아무 반응 없는데?").
+ *
+ * 종전에는 거절·실패를 전부 `close()` 로 처리했다. 그러면 누른 사람 화면에서는 모달이
+ * 아무 설명 없이 사라진다 — 눌렀는데 아무 일도 안 난 것처럼 보인다. 시크릿 창은 크롬이
+ * 푸시 구독을 막으므로 **실패가 정상인 환경**인데, 그 사실이 화면에 없으면 고장으로 읽힌다.
+ * 작업111 에서 같은 원칙을 세웠다(못 켜는 환경은 이유와 다음 할 일을 말한다).
+ */
+test("🔴 알림 켜기가 실패하면 조용히 닫지 않고 이유를 말한다", () => {
+  const src = read(path.join(ROOT, "src/app/_components/NotifyIntroModal.tsx"));
+  const fn = src.slice(src.indexOf("const turnOn = async"));
+  const body = fn.slice(0, 1400);
+  assert.doesNotMatch(
+    body,
+    /(denied|실패)[\s\S]{0,120}close\(true\);/,
+    "거절·실패를 close() 로 처리한다 — 누른 사람에게는 아무 반응 없는 것으로 보인다",
+  );
+  assert.match(body, /setPhase\("failed"\)/, "실패 화면으로 넘기지 않는다");
+
+  assert.match(src, /FAIL_TEXT/, "실패 이유별 문구가 없다");
+  for (const key of ["denied", "unavailable", "failed"]) {
+    assert.ok(src.includes(key + ": {"), "실패 갈래 " + key + " 문구가 없다");
+  }
+  // 시크릿 창은 실패가 정상인 환경이다 — 그 말을 반드시 화면에 둔다.
+  assert.match(src, /시크릿/, "시크릿 창에서는 켤 수 없다는 안내가 없다");
+  // 알림을 못 켜도 찜은 되므로 그쪽으로 데려간다.
+  assert.match(src, /별 눌러보기/, "실패 화면에 다음 할 일(찜)이 없다");
+});

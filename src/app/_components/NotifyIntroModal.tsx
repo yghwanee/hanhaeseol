@@ -98,13 +98,37 @@ function closedThisVisit(): boolean {
   }
 }
 
-type Phase = "hidden" | "open" | "done";
+type Phase = "hidden" | "open" | "done" | "failed";
+
+/**
+ * 켜지지 않은 이유. 🔴 **조용히 닫지 않는다.**
+ *
+ * 종전에는 거절·실패를 전부 `close()` 로 처리했다. 그러면 누른 사람 화면에서는 모달이
+ * 아무 설명 없이 사라진다 — "알림 켜기 눌렀는데 아무 반응 없다"(화니, 2026-09-15).
+ * 작업111 에서 같은 원칙을 이미 세웠다: 못 켜는 환경은 **이유와 다음 할 일을 말한다.**
+ */
+const FAIL_TEXT: Record<string, { title: string; body: string }> = {
+  denied: {
+    title: "브라우저가 알림을 막고 있어요",
+    body: "주소창 왼쪽 자물쇠 → 알림 → 허용으로 바꾼 뒤 다시 눌러 주세요. 시크릿 창에서는 켤 수 없습니다.",
+  },
+  unavailable: {
+    title: "이 창에서는 알림을 켤 수 없어요",
+    body: "시크릿 창과 앱 안 브라우저는 알림을 막습니다. 일반 창(사파리·크롬)에서 켜 주세요.",
+  },
+  failed: {
+    title: "지금은 알림을 켤 수 없어요",
+    body: "시크릿 창과 앱 안 브라우저에서는 막혀 있습니다. 일반 창에서 다시 눌러 주세요. 별을 누르는 찜은 지금도 됩니다.",
+  },
+};
 
 export function NotifyIntroModal() {
   const [phase, setPhase] = useState<Phase>("hidden");
   /** 이 브라우저에서 구독 자체가 안 되는 환경(아이폰 미설치·인앱 웹뷰)인가. */
   const [canPush, setCanPush] = useState(true);
   const [busy, setBusy] = useState(false);
+  /** 켜기가 실패한 이유(`FAIL_TEXT` 의 키). */
+  const [failReason, setFailReason] = useState<string>("failed");
   const cardRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -203,8 +227,10 @@ export function NotifyIntroModal() {
       }, 1400);
       return;
     }
-    // 거절·실패는 조용히 닫는다. 권한 창을 다시 띄울 방법이 없으므로 붙잡아 둘 이유가 없다.
-    close(true);
+    // 🔴 조용히 닫지 않는다 — 누른 사람에게는 "아무 반응 없음" 으로 보인다.
+    //    이유와 다음 할 일을 이 자리에서 말한다(작업111 과 같은 원칙).
+    setFailReason(r);
+    setPhase("failed");
   };
 
   if (phase === "hidden") return null;
@@ -251,7 +277,30 @@ export function NotifyIntroModal() {
             className="pointer-events-none absolute -top-[46px] left-1/2 h-[88px] w-[70px] -translate-x-1/2 select-none drop-shadow-[0_10px_20px_oklch(0_0_0/0.45)]"
           />
 
-          {phase === "done" ? (
+          {phase === "failed" ? (
+            <>
+              <h2
+                id="notify-intro-title"
+                className="text-balance text-center text-headline1 font-bold tracking-tight text-fg-strong"
+              >
+                {(FAIL_TEXT[failReason] ?? FAIL_TEXT.failed).title}
+              </h2>
+              <p className="mt-2 text-balance text-center text-label2 leading-relaxed text-fg-secondary">
+                {(FAIL_TEXT[failReason] ?? FAIL_TEXT.failed).body}
+              </p>
+              {/* 알림을 못 켜도 **찜 자체는 된다** — 그쪽으로 데려간다. */}
+              <button
+                type="button"
+                onClick={() => {
+                  close(false);
+                  focusNextGame();
+                }}
+                className="mt-4 flex h-[52px] w-full items-center justify-center rounded-[12px] bg-brand text-body2 font-bold text-fg-onbrand transition-colors hover:bg-brand-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg-brand"
+              >
+                별 눌러보기
+              </button>
+            </>
+          ) : phase === "done" ? (
             <>
               <p className="text-center text-label2 font-bold tracking-tight text-fg-brand-bright">
                 알림이 켜졌습니다
