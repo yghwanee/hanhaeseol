@@ -446,14 +446,14 @@ export function NotifyIntroModal() {
             <button
               type="button"
               onClick={() => close(true)}
-              className="relative text-caption1 text-fg-tertiary transition-colors after:absolute after:-inset-y-3 after:-inset-x-2 after:content-[''] hover:text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-fg-brand"
+              className="relative text-caption1 text-fg-tertiary transition-colors after:absolute after:-inset-y-3.5 after:-inset-x-2.5 after:content-[''] hover:text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-fg-brand"
             >
               오늘 하루 보지 않기
             </button>
             <button
               type="button"
               onClick={() => close(false)}
-              className="relative text-caption1 text-fg-secondary transition-colors after:absolute after:-inset-y-3 after:-inset-x-2 after:content-[''] hover:text-fg-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-fg-brand"
+              className="relative text-caption1 text-fg-secondary transition-colors after:absolute after:-inset-y-3.5 after:-inset-x-2.5 after:content-[''] hover:text-fg-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-fg-brand"
             >
               닫기
             </button>

@@ -486,11 +486,13 @@ export default function ScheduleClient({
         <DonateButton className="mt-3" />
       </div>
 
-      {/* 편성표 섹션 시작 */}
-      <h2
-        id="schedule"
-        className="mt-14 scroll-mt-20 text-heading1 font-bold tracking-[-0.019em] text-fg-strong sm:mt-20 sm:text-title3"
-      >
+      {/* 편성표 섹션 시작.
+          🔴 **「오늘의 편성」 글자는 화면에서 지웠다**(화니 지시, 2026-09-15, PC·모바일 둘 다).
+          바로 아래가 종목·해설·플랫폼 필터와 날짜 탭이라 이 화면이 편성표라는 건 이미 보인다.
+          다만 **태그는 남긴다** — `#schedule` 은 히어로의 「편성표 보기」·「한국어 해설만」이
+          때리는 앵커이고(HomeHero), h2 를 없애면 홈의 제목 구조가 h1 하나로 끊긴다.
+          `sr-only` 라 레이아웃에서 빠지므로 위 여백은 아래 필터 박스가 들고 있다. */}
+      <h2 id="schedule" className="sr-only scroll-mt-20">
         오늘의 편성
       </h2>
       {/* 🔴 「종목·해설·플랫폼으로 좁혀 보세요」 한 줄은 지웠다(화니 지시, 2026-09-15,
@@ -500,7 +502,9 @@ export default function ScheduleClient({
       {/* Filters — 원티드 filter-bar: 상단 헤어라인 + 12/16 패딩 */}
       {/* mb-6: 플랫폼 스크롤바가 아래 띠(토스·애드핏)에 붙지 않게. 스크롤바 탭 영역이
           -my-2 로 8px 아래로 삐져나오므로 그만큼 더 띄운다(2026-09-15). */}
-      <div className="mb-6 mt-5 space-y-2.5 border-t border-line-subtle pt-4 sm:mb-8 sm:space-y-3">
+      {/* mt-12/16: 종전에는 h2(「오늘의 편성」)가 이 여백을 들고 있었다. 글자를 지우면서
+          같은 간격을 여기로 옮겼다 — 안 옮기면 필터가 위 배너에 붙는다. */}
+      <div className="mb-6 mt-12 space-y-2.5 border-t border-line-subtle pt-4 sm:mb-8 sm:mt-16 sm:space-y-3">
         {/* Sport Filter */}
         <div className="flex items-center gap-1.5 sm:gap-2">
           <span className="w-14 sm:w-12 shrink-0 text-caption2 sm:text-caption1 font-medium text-fg">

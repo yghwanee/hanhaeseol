@@ -93,11 +93,31 @@ const CHECKS = {
         ["P", "LI", "SPAN", "TD", "DD", "BLOCKQUOTE"].includes(parent.tagName) &&
         (parent.textContent || "").trim().length > (el.textContent || "").trim().length + 4;
       if (inline) continue;
-      // ::after 로 히트영역을 키운 경우(FollowStar) 는 감안이 어려우니 24px 미만만 잡는다.
-      if (r.height < 24 || r.width < 24) {
+      /**
+       * 🔴 **`::after` 로 키운 히트영역을 세어 준다** (2026-09-15).
+       * 이 레포의 규칙이 "레이아웃은 건드리지 말고 `after:-inset-*` 로 히트영역만 키운다"
+       * 라서, 요소 박스만 재면 규칙을 지킨 컨트롤이 영영 빨갛게 남는다(모달 푸터 두 개가
+       * 폭마다 한 건씩 = 8건). 반대로 24px 문턱으로 눈감아 주면 **진짜 미달을 놓친다.**
+       * `::after` 가 absolute 로 깔려 있으면 그 inset 만큼 넓혀서 잰다.
+       *
+       * 🔴 문턱은 **24px 그대로** 둔다. 44px 로 올리면 이 사이트 칩·뱃지(24~26px 고정,
+       * 디자인 시스템이 정한 값)가 전부 걸려 744건이 나온다 — 못 고칠 지적만 쌓인다.
+       * 44px 규칙은 **카드 링크 위에 얹힌 컨트롤**(⭐별)에 대한 것이고 그건 `test:push-toggle`
+       * 이 따로 막는다.
+       */
+      let w = r.width;
+      let h = r.height;
+      const af = getComputedStyle(el, "::after");
+      if (af && af.content !== "none" && af.position === "absolute") {
+        const px = (v) => (v && v.endsWith("px") ? parseFloat(v) : 0);
+        // inset 이 음수면 박스 밖으로 넓어진다. auto 는 0 으로 본다.
+        h += -px(af.top) + -px(af.bottom);
+        w += -px(af.left) + -px(af.right);
+      }
+      if (h < 24 || w < 24) {
         out.push({
           kind: "tap-too-small",
-          detail: `${el.tagName.toLowerCase()} "${(el.textContent || "").trim().slice(0, 18)}" ${Math.round(r.width)}×${Math.round(r.height)}`,
+          detail: `${el.tagName.toLowerCase()} "${(el.textContent || "").trim().slice(0, 18)}" ${Math.round(w)}×${Math.round(h)}${w !== r.width || h !== r.height ? "(::after 포함)" : ""}`,
         });
       }
       if (out.length > 12) break;
@@ -114,6 +134,10 @@ const CHECKS = {
       if (!txt) continue;
       const cs = getComputedStyle(el);
       if (cs.overflow === "hidden" && cs.textOverflow === "ellipsis") continue;
+      // 🔴 스크린리더 전용 텍스트(`sr-only`)는 **일부러** 1px 로 잘라 둔 것이다.
+      //    보이지 않는 글자라 잘림이 아니고, 이걸 안 빼면 앵커·제목 구조용 sr-only 를
+      //    쓸 때마다 폭마다 한 건씩 올라온다(2026-09-15, 「오늘의 편성」에서 4건).
+      if (el.classList.contains("sr-only") || el.closest(".sr-only")) continue;
       if (el.scrollWidth > el.clientWidth + 2 && cs.overflowX !== "auto") {
         out.push({ kind: "text-clipped", detail: `"${txt.slice(0, 24)}" ${el.scrollWidth}>${el.clientWidth}` });
       }

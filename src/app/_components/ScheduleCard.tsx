@@ -63,7 +63,8 @@ function ScorerLines({ goals }: { goals: GoalEvent[] }) {
  *   · PC(sm↑) = 카드 **상단 우측** — 시간·리그 줄 오른쪽에 여유가 있다.
  *   · 모바일 = 카드 **맨 아래 가운데** — 폰에서는 이 묶음이 상단 줄의 절반을 먹어 리그명이
  *     `K..` 로 잘리고(실측 캡처) 시간·종목까지 눌렸다. 아래로 내리면 한 줄을 통째로 쓴다.
- * 하이라이트가 있으면 **그보다도 아래**에 둔다 — 누르는 것(하이라이트)이 먼저다.
+ * 모바일 자리는 최근전적 **아래**, 하이라이트 **위**다 — 하이라이트는 누르는 것이라
+ * 카드 맨 끝에 둔다.
  *
  * 🔴 **상태(LIVE·종료·취소·연기)는 여기 없다** — 폭과 무관하게 **상단 우측에 남는다**
  * (화니 지시, 2026-09-15). 지금 보고 있는 화면에서 "이 경기가 지금 열려 있는지"가
@@ -267,7 +268,18 @@ function ScheduleCardInner({
 
       {showGoals && <ScorerLines goals={result!.goals!} />}
 
-      {/* 하단 줄 = 하이라이트가 있을 때만(플랫폼·해설은 상단 우측으로 올렸다). */}
+      {/* 🔴 모바일 전용 자리 — 최근전적 **아래**, 하이라이트 **위**(화니 지시, 2026-09-15).
+          상단 줄에서 내려온 묶음이라 PC(sm↑)에서는 그리지 않는다: 양쪽에 다 그리면 같은
+          정보가 카드에 두 번 나온다. 하이라이트가 맨 아래인 건 그게 **누르는 것**이라
+          카드의 끝에 있어야 손이 가기 때문이다. */}
+      <MetaBadges
+        schedule={schedule}
+        /* 간격은 `mt-6`(24px). 종전 12px 는 최근전적 뱃지 줄에 붙어 한 묶음처럼 보였다
+           — 서로 다른 정보라 떼어 놔야 한다(화니 지시, 2026-09-15: "지금의 2배"). */
+        className="pointer-events-none relative z-10 mt-6 flex items-center justify-center gap-1.5 sm:hidden"
+      />
+
+      {/* 하단 줄 = 하이라이트가 있을 때만(플랫폼·해설은 PC 에서 상단 우측, 모바일은 바로 위). */}
       {showHighlight && (
         <div className="pointer-events-none relative z-10 mt-3 flex justify-center border-t border-line-subtle pt-2.5">
           <a
@@ -287,14 +299,6 @@ function ScheduleCardInner({
         </div>
       )}
 
-      {/* 🔴 모바일 전용 자리. 상단 줄에서 내려온 묶음이라 PC(sm↑)에서는 그리지 않는다 —
-          양쪽에 다 그리면 같은 정보가 카드에 두 번 나온다. */}
-      <MetaBadges
-        schedule={schedule}
-        /* 간격은 `mt-6`(24px). 종전 12px 는 최근전적 뱃지 줄에 붙어 한 묶음처럼 보였다
-           — 서로 다른 정보라 떼어 놔야 한다(화니 지시, 2026-09-15: "지금의 2배"). */
-        className="pointer-events-none relative z-10 mt-6 flex items-center justify-center gap-1.5 sm:hidden"
-      />
     </div>
   );
 }

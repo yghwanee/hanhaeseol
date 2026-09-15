@@ -47,12 +47,16 @@ test("🔴 카드 뱃지 묶음은 PC 상단·모바일 하단으로 갈린다",
     !/sm:hidden|hidden[^"]*sm:flex/.test(top.slice(top.indexOf("<StatusBadge"))),
     "상태 뱃지를 폭으로 숨긴다 — LIVE·종료는 두 폭 다 상단에 있어야 한다",
   );
-  // 모바일 전용 자리: 가운데 정렬 + PC 에서는 숨는다 + 하이라이트보다 뒤.
+  // 모바일 전용 자리: 가운데 정렬 + PC 에서는 숨는다 + 하이라이트 **위**.
   const mobile = src.match(/className="pointer-events-none relative z-10 mt-6 flex items-center justify-center gap-1\.5 sm:hidden"/);
   assert.ok(mobile, "모바일 하단 자리가 mt-6·가운데 정렬·sm:hidden 이 아니다 — 12px 면 최근전적 줄에 붙어 한 묶음으로 읽힌다");
+  /**
+   * 🔴 순서는 최근전적 → 뱃지 → **하이라이트(맨 아래)** 다(화니 지시, 2026-09-15).
+   * 하이라이트는 누르는 것이라 카드 끝에 있어야 손이 간다.
+   */
   assert.ok(
-    src.indexOf("하이라이트\n") < src.lastIndexOf("<MetaBadges"),
-    "하이라이트보다 위에 있다 — 누르는 것(하이라이트)이 먼저다(화니 지시)",
+    src.lastIndexOf("<MetaBadges") < src.indexOf("showHighlight && ("),
+    "뱃지가 하이라이트 아래로 내려갔다 — 하이라이트가 카드 맨 아래여야 한다",
   );
 });
 
