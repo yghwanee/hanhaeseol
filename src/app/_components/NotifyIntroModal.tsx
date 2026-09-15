@@ -249,7 +249,7 @@ export function NotifyIntroModal() {
           type="button"
           onClick={() => close(false)}
           aria-label="안내 닫기"
-          className="absolute -top-14 right-0 flex h-11 w-11 items-center justify-center rounded-full border border-line-subtle bg-muted text-fg-secondary transition-colors hover:text-fg-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg-strong"
+          className="absolute -top-14 right-0 flex h-11 w-11 items-center justify-center rounded-full bg-muted text-fg-secondary shadow-[var(--w-shadow-1)] transition-colors hover:text-fg-strong focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg-strong"
         >
           <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth={2.2} aria-hidden>
             <path d="M6 6l12 12M18 6L6 18" />
@@ -262,8 +262,16 @@ export function NotifyIntroModal() {
           aria-labelledby="notify-intro-title"
           ref={cardRef}
           tabIndex={-1}
-          style={{ outline: "none" }}
-          className="relative rounded-[20px] outline-none focus:outline-none focus-visible:outline-none border border-line-subtle bg-elevated px-5 pb-5 pt-[58px] shadow-[var(--w-shadow-pop)]"
+          data-modal-card=""
+          /* 🔴 그림자를 인라인으로 준다. `shadow-[var(--w-shadow-pop)]` 는 computed 가
+             `none` 으로 나왔다(실측) — 그래서 카드가 딤 위에 떠 보이지 않았고, 그 자리를
+             전역 포커스 링이 대신 채우고 있었다. 모달은 그림자로 떠야 한다(테두리 없음). */
+          style={{ outline: "none", boxShadow: "0 8px 24px oklch(0 0 0 / 0.45)" }}
+          /* 🔴 **테두리를 두지 않는다**(화니, 2026-09-15: "테두리가 너무 두꺼워"). 카드에
+             1px 헤어라인을 두는 건 같은 면에 놓인 목록·카드끼리 경계를 만들기 위한 것인데,
+             이 모달은 딤 위에 그림자로 떠 있어 경계가 이미 명확하다 — 선을 더하면 그 선이
+             먼저 눈에 들어온다. 레퍼런스(쿠폰 모달)도 테두리가 없다. */
+          className="relative rounded-[20px] bg-elevated px-5 pb-5 pt-[58px] outline-none focus:outline-none focus-visible:outline-none"
         >
           {/* 🔴 3D 종이 카드 윗변에 **걸쳐** 튀어나온다(레퍼런스의 형태). 트림 후 211×264 로
               미리 구운 webp 라 옵티마이저 왕복이 필요 없다(`unoptimized`). 높이 88px 표시에

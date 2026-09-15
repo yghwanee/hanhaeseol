@@ -20,6 +20,20 @@
   border-radius: 4px;
 }
 
+/**
+ * 🔴 예외 — **모달 카드에는 포커스 링을 그리지 않는다.**
+ *
+ * 모달이 열릴 때 카드 자체에 포커스를 옮긴다(스크린리더가 모달 진입을 읽게 하려고,
+ * `tabIndex={-1}` + `focus()`). 그런데 크롬은 이 **프로그래밍 포커스**도 `:focus-visible`
+ * 로 취급할 때가 있어서, 위 규칙의 2px 회색 링이 카드 전체를 감쌌다 — 화니가 "테두리가
+ * 너무 두껍다"고 한 그 선이 이것이다(2026-09-15). 사람이 Tab 으로 온 게 아니므로 링이
+ * 필요 없다. **모달 안의 버튼·링크는 그대로 링을 받는다**(키보드 탐색 표시는 유지).
+ */
+[data-modal-card]:focus,
+[data-modal-card]:focus-visible {
+  outline: none !important;
+}
+
 @layer utilities {
   .scrollbar-hide {
     -ms-overflow-style: none;
