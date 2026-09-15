@@ -196,6 +196,11 @@ src/
     닫음·VAPID 미설정. 🔴 **인트로(`z-[100]`)가 끝난 뒤 뜬다**(`INTRO_DONE_EVENT` +
     `[data-intro-overlay]`); 고정 지연으로 띄우면 인트로 뒤에 깔려 아무도 못 본다. 로컬은 `.env` 에
     VAPID 공개키가 없어 안 뜨는 게 정상이다(확인 = `NEXT_PUBLIC_VAPID_PUBLIC_KEY=<더미> npm run dev`).
+    🔴 **인트로 끝나면 지연 0 으로 뜬다**(라이브 실측 모달까지 PC 7.4초 · 폰 4.2초였고 그중
+    인트로가 PC 6.1초 — 늦음의 주범은 인트로다. 더 빠르게 하려면 인트로를 줄여야 한다).
+    🔴 **「알림 받기」는 권한만 받고 끝내지 않는다** — 찜이 없으면 알림이 **0건**이라 반쪽이다.
+    켠 직후 `data-game-start`(카드, KST) 로 **가장 임박한 경기**를 찾아 스크롤하고 카드·별을
+    `[data-star-hint]` 로 3회 깜빡인다. `test:push-toggle` 이 지연·목적지·앵커·CSS 를 다 막는다.
     구독자가 생기면 **`VAPID_PRIVATE_KEY` 를 잃을 때 그 구독이 죽는다**.
   - ✅ **실제 발송이 처음으로 끝까지 돌았다 (2026-09-04).** `gh workflow run push-notify.yml
     -f test=true` → `{"ok":true,"total":2,"sent":2,"removed":0}`. 이 입력은 `/api/push/test`
