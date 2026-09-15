@@ -176,7 +176,7 @@ export function NotifyIntroModal() {
       onClick={() => close(false)}
     >
       {/* 닫기 버튼이 카드 **밖** 위쪽에 서므로 카드와 함께 움직이는 기준 박스를 둔다. */}
-      <div className="relative w-full max-w-[344px]" onClick={(e) => e.stopPropagation()}>
+      <div className="relative w-full max-w-[344px] sm:max-w-[468px]" onClick={(e) => e.stopPropagation()}>
         <button
           type="button"
           onClick={() => close(false)}
@@ -227,26 +227,21 @@ export function NotifyIntroModal() {
             </>
           ) : (
             <>
-              <p className="text-center text-label2 font-bold tracking-tight text-fg-brand-bright">
-                별 하나로 끝
-              </p>
               <h2
                 id="notify-intro-title"
-                className="mt-1.5 text-center text-headline1 font-bold tracking-tight text-fg-strong"
+                className="text-center text-headline1 font-bold tracking-tight text-fg-strong"
               >
                 찜한 팀 경기, 알림으로 받으세요
               </h2>
-              <p className="mt-2.5 text-center text-label2 leading-relaxed text-fg-secondary">
-                팀 이름 옆 별을 누르면
-                <br />
-                그 팀 경기만 알려드립니다.
+              <p className="mt-2 text-balance text-center text-label2 leading-relaxed text-fg-secondary">
+                팀 이름 옆 별을 누르면 그 팀 경기만 알려드립니다.
               </p>
 
-              <ul className="mt-4 rounded-[14px] border border-line-subtle bg-canvas px-3.5 py-1">
+              <ul className="mt-4 grid grid-cols-1 gap-x-5 rounded-[14px] border border-line-subtle bg-canvas px-3.5 py-1 sm:grid-cols-2 sm:py-2.5">
                 {NOTICES.map((n) => (
                   <li
                     key={n.title}
-                    className="flex items-start gap-2.5 border-b border-line-subtle py-2.5 last:border-b-0"
+                    className="flex items-start gap-2.5 border-b border-line-subtle py-2.5 last:border-b-0 sm:border-b-0 sm:py-1.5"
                   >
                     <span className={`mt-px shrink-0 ${n.hot ? "text-fg-danger" : "text-fg-brand-bright"}`}>
                       {n.icon}
@@ -278,13 +273,15 @@ export function NotifyIntroModal() {
                 </button>
               )}
 
-              {/* 🔴 못 켜는 환경은 **이유를 말한다.** 유입의 대부분이 네이버 앱 안이고,
-                  거기서는 버튼을 눌러도 구독이 안 걸린다(작업111 과 같은 판단). */}
-              <p className="mt-3 text-center text-caption2 leading-relaxed text-fg-tertiary">
-                {canPush
-                  ? "언제든 「내 팀」에서 끌 수 있습니다."
-                  : "알림은 사파리·크롬으로 열거나, 아이폰은 홈 화면에 추가한 뒤 켤 수 있습니다."}
-              </p>
+              {/* 🔴 못 켜는 환경만 **이유를 말한다.** 유입의 대부분이 네이버 앱 안이고,
+                  거기서는 버튼을 눌러도 구독이 안 걸린다(작업111 과 같은 판단).
+                  켤 수 있는 환경에서는 각주를 두지 않는다 — 끄는 방법은 「내 팀」 자리에
+                  토글로 항상 보이므로 여기서 또 말하면 군더더기다(화니 지시, 2026-09-15). */}
+              {!canPush && (
+                <p className="mt-3 text-center text-caption2 leading-relaxed text-fg-tertiary">
+                  알림은 사파리·크롬으로 열거나, 아이폰은 홈 화면에 추가한 뒤 켤 수 있습니다.
+                </p>
+              )}
             </>
           )}
 
