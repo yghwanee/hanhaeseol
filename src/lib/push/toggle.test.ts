@@ -260,3 +260,27 @@ test("🔴 찜하는 순간 알림 구독을 켠다 — 단 찜이 늘어날 때
   assert.ok(permAt > -1 && subAt > -1, "권한 요청·구독 조회가 없다");
   assert.ok(permAt < subAt, "구독 조회를 권한 요청보다 먼저 await 한다 — 사파리에서 권한 요청이 무시된다");
 });
+
+/**
+ * 🔴 **켠 사람에게는 끌 자리가 항상 있어야 한다** (2026-09-15).
+ *
+ * 알림 on/off 컨트롤은 홈 「내 팀」 섹션 하나뿐이다(푸터 토글은 같은 날 없앴다). 그런데
+ * 그 섹션이 **찜 개수로만** 렌더되면, 알림을 켜 놓고 찜을 다 푼 사람은 끌 방법이 화면에서
+ * 사라진다 — 화면에는 아무것도 없는데 알림은 계속 온다. 작업111 에서 이미 한 번 고친
+ * 고장이라("켠 사람이 끌 방법이 없다") 문자열로 고정한다.
+ */
+test("🔴 찜이 0개여도 구독 중이면 끄기 컨트롤이 남는다", () => {
+  const src = read(path.join(ROOT, "src/app/_components/MyTeamsSection.tsx"));
+  const at = src.indexOf("if (rows.length === 0)");
+  assert.ok(at > -1, "빈 상태 분기가 사라졌다 — 이 가드를 같이 고칠 것");
+  const block = src.slice(at, at + 1200);
+  assert.doesNotMatch(
+    block.slice(0, 40),
+    /if \(rows\.length === 0\) return null;/,
+    "찜이 없으면 무조건 숨는다 — 알림을 켠 사람이 끌 방법을 잃는다",
+  );
+  assert.match(block, /hasSub/, "구독 여부를 보지 않는다");
+  assert.match(block, /PushSubscribeButton/, "빈 상태에 끄기 컨트롤이 없다");
+  assert.match(src, /currentSubscription/, "구독 상태를 조회하지 않는다");
+  assert.match(src, /PUSH_SUB_EVENT/, "다른 곳에서 켜고 끈 것을 따라가지 않는다");
+});

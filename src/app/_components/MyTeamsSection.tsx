@@ -9,6 +9,7 @@ import { isGameFinished, formatDateHeader } from "@/lib/schedule-utils";
 import { StatusBadge } from "./StatusBadge";
 import { FollowStar } from "./FollowStar";
 import { PushSubscribeButton } from "./PushSubscribeButton";
+import { currentSubscription, PUSH_SUB_EVENT } from "@/lib/push/client";
 
 /** KST 벽시계 "YYYY-MM-DDTHH:mm". 날짜·시각 비교를 문자열 하나로 끝낸다. */
 function kstNowKey(): string {
@@ -103,7 +104,37 @@ export function MyTeamsSection({
     );
   }, [rows]);
 
-  if (rows.length === 0) return null;
+  /**
+   * 🔴 **찜이 0개여도 구독 중이면 이 자리를 비우지 않는다.**
+   *
+   * 알림 on/off 컨트롤은 이 섹션 하나뿐인데(푸터 토글은 2026-09-15 에 없앴다) 섹션이
+   * 찜 개수로만 렌더되면, **알림을 켜 놓고 찜을 다 푼 사람은 끌 방법이 화면에서 사라진다.**
+   * 작업111 에서 같은 고장을 한 번 고쳤다("켠 사람이 끌 방법이 없다"). 얇은 한 줄로 남긴다.
+   */
+  const [hasSub, setHasSub] = useState(false);
+  useEffect(() => {
+    const read = () => {
+      void currentSubscription().then((sub) => setHasSub(Boolean(sub)));
+    };
+    read();
+    window.addEventListener(PUSH_SUB_EVENT, read);
+    return () => window.removeEventListener(PUSH_SUB_EVENT, read);
+  }, []);
+
+  if (rows.length === 0) {
+    if (!hasSub) return null;
+    return (
+      <section className="mb-5 sm:mb-6 flex flex-wrap items-center justify-between gap-2 rounded-xl border border-line bg-muted/[0.04] px-3 py-2.5 sm:px-4">
+        <p className="flex items-center gap-1.5 text-caption1 text-fg-secondary">
+          <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0" fill="currentColor" aria-hidden>
+            <path d="M12 3.6l2.6 5.27 5.82.85-4.21 4.1.99 5.79L12 16.88l-5.2 2.73.99-5.79-4.21-4.1 5.82-.85L12 3.6z" />
+          </svg>
+          팀 이름 옆 별을 누르면 그 팀 경기 알림이 옵니다
+        </p>
+        <PushSubscribeButton ctaOnly />
+      </section>
+    );
+  }
 
   return (
     <section className="mb-5 sm:mb-6 rounded-xl border border-line bg-muted/[0.04] p-3 sm:p-4">
