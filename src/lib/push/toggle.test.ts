@@ -153,3 +153,60 @@ test("🔴 iOS 미설치·인앱 웹뷰는 숨지 말고 다음 할 일을 안�
     "PushManager 부재를 다시 unsupported 로 뭉뚱그렸다",
   );
 });
+
+/**
+ * 🔴 찜 해제가 서버까지 가는지 (2026-09-15, 작업121).
+ *
+ * 증상: "찜 다 풀었는데 푸시가 계속 와." 실측에서 구독 3건의 마지막 저장이 11일째
+ * 9/03~04 에 멈춰 있었고 찜 목록도 그때 그대로였다 — 즉 **해제가 서버에 한 번도 안 갔다.**
+ *
+ * 해제가 서버에 반영되는 길은 이 컴포넌트의 재동기 effect 하나뿐인데, 종전에는 세 군데서
+ * 끊겼다. 셋 다 막아야 재발하지 않는다.
+ *   ① `state === "subscribed"` 게이트 — 서비스워커 조회가 늦거나 실패하면 state 가
+ *      `idle` 로 굳고, state 는 마운트 때 한 번만 정해지므로 그 뒤 찜을 아무리 바꿔도
+ *      **영영 안 올라간다.** 구독 유무는 state 가 아니라 `getSubscription()` 이 안다.
+ *   ② 600ms 디바운스 — 별을 풀고 바로 탭을 닫으면 타이머가 취소돼 유실된다.
+ *   ③ 유실 뒤 복구 장치 없음 — 서버 저장본은 무기한 살아 옛 찜으로 계속 발송한다.
+ */
+test("🔴 찜 재동기가 state 게이트에 묶이지 않는다", () => {
+  const src = read(BTN);
+  const at = src.indexOf("// 찜 목록이 바뀌면");
+  assert.ok(at > -1, "재동기 effect 주석이 사라졌다 — 이 가드를 같이 고칠 것");
+  const effect = src.slice(at, src.indexOf("const subscribe"));
+  assert.doesNotMatch(
+    effect,
+    /state !== "subscribed"/,
+    'state !== "subscribed" 로 재동기를 막는다 — 서비스워커 조회가 실패하면 그 브라우저는\n' +
+      "  찜을 풀어도 서버에 영영 못 알린다. 구독 유무는 putFollows 안의 getSubscription 이 판정한다.",
+  );
+  assert.match(effect, /putFollows/, "재동기가 서버로 올리지 않는다");
+});
+
+test("🔴 찜 해제가 탭을 닫아도 서버에 도착한다(beacon flush)", () => {
+  const src = read(BTN);
+  assert.match(src, /sendBeacon/, "디바운스 중 탭이 닫히면 해제가 유실된다 — sendBeacon 으로 흘려보낼 것");
+  assert.match(src, /"pagehide"/, "pagehide 에서 밀어내지 않는다 — 모바일은 여기가 마지막 기회다");
+  assert.match(src, /visibilitychange/, "탭 전환(hidden)에서 밀어내지 않는다");
+
+  const route = path.join(ROOT, "src/app/api/push/follows/route.ts");
+  assert.ok(fs.existsSync(route), "beacon 이 때릴 라우트(/api/push/follows)가 없다");
+  const r = read(route);
+  assert.match(r, /export async function POST/, "beacon 은 POST 만 보낼 수 있다");
+  assert.match(r, /readSubscription/, "기존 저장본을 안 읽는다 — beacon 에는 구독 키가 없다");
+  assert.match(r, /saveSubscription/, "찜 목록을 저장하지 않는다");
+});
+
+test("🔴 오래 갱신 없는 구독은 발송에서 뺀다(유령 안전망)", () => {
+  const notify = read(path.join(ROOT, "src/lib/push/notify.ts"));
+  assert.match(notify, /export function isStaleSubscription/, "신선도 판정이 없다");
+
+  const dispatch = read(path.join(ROOT, "src/app/api/push/dispatch/route.ts"));
+  assert.match(dispatch, /isStaleSubscription/, "발송 쪽이 신선도를 안 본다 — 유령이 무기한 산다");
+  assert.match(dispatch, /stale/, "dry 진단에 유령 표시가 없다");
+});
+
+test("🔴 살아 있는 구독은 주기적으로 갱신된다(하트비트)", () => {
+  const src = read(BTN);
+  // 찜이 그대로면 서버 쓰기가 안 나가므로, 신선도 안전망이 멀쩡한 구독까지 자른다.
+  assert.match(src, /HEARTBEAT/, "하트비트가 없다 — 찜이 안 바뀌는 사용자는 신선도 상한에 걸려 알림이 끊긴다");
+});

@@ -817,3 +817,15 @@
     - **아시안게임 배너 교체**: 디자인 캔버스로 시안 3종 → 화니 선택. 개막 전 = 다크 카드 + 3D 성화(SVG) + 시안 A 문구 + D-day / 개막일(9/19)부터 = 3D 금·은·동 메달 + 대한민국 메달 수·순위(GitHub raw, 첫 메달 전엔 순위 안 씀). 클릭 → `/asian-games#today`(첫 예정일 묶음, 실제 오늘에만 빨간 TODAY + 테두리). 로컬에서 세 국면을 날짜 주입 미리보기로 실측(PC 86~90px · 폰 74~94px · 잘림 0), 라이브에서 개막 전 모양·앵커 80px 확인.
     - 🔴 실수 둘(커밋 전에 잡음): ①Edit 의 `replace_all` 이 클래스 사이 공백을 먹어 `sm:mb-6flex` → 배너가 세로로 무너짐(치수 실측으로 발견) ②결과 JSON 만 되돌리려고 `git checkout -- src/data public` → 같은 폴더의 내 `sw.js` 수정까지 날아감(가드 테스트로 발견). **되돌리기는 파일을 하나씩.**
     - 검증: tsc·lint 0 · `test:result-lookup` 7/7 · `test:push-toggle` 9/9 · `test:workflow-yaml`·`test:workflow-pipe` · CI 초록 · 배포 4회 모두 라이브에서 DOM 실측으로 확인(Chrome 캡처는 계속 타임아웃이라 눈으로 본 확인은 없음).
+
+
+121. 찜 해제가 서버에 안 가던 경로를 끊어 고침 · 유령 구독 3건 삭제 (2026-09-15) — 작업120 의 미해결 건.
+    - **먼저 지웠다.** 화니 지시("일반 사람이 한 것 같지 않으니 다 지워라") → `push-notify.yml -f remove=<id>` 3회(`ab75e902d134`·`9c27246defab`·`c744a3077142`) → dry 재확인 `subscribers:0`. 알림은 이 시점에 멈췄다.
+    - 🔴 **근본 원인 = 해제가 서버까지 가는 길이 하나뿐인데 세 군데서 끊겼다.** 실측 근거: 구독 3건의 `savedAt` 이 11일째 9/03~04 이고 찜도 그때 그대로였다 — 해제가 **한 번도** 도착하지 않았다는 뜻이다.
+      ① `state !== "subscribed"` 게이트. `state` 는 마운트 때 `serviceWorker.ready` → `getSubscription()` **한 번으로만** 정해지고 다시 판정하지 않는다. 그 조회가 늦거나 실패해 `idle` 로 굳으면 그 브라우저는 찜을 풀어도 서버에 영영 못 알린다. → 게이트 제거. 구독 유무는 `putFollows` 안의 `getSubscription()` 이 그때그때 판정한다(구독 불가 환경만 뺀다).
+      ② 600ms 디바운스. 별을 풀고 바로 탭을 닫으면 `clearTimeout` 으로 유실된다. → `pagehide`·`visibilitychange(hidden)`·언마운트에서 `sendBeacon` 으로 밀어낸다. beacon 은 await 가 안 돼 구독 키를 못 실으므로 **찜만 갈아끼우는 전용 라우트** `POST /api/push/follows`(endpoint 로 기존 저장본을 찾아 `follows` 만 교체, 모르는 endpoint 는 조용히 200)를 새로 뒀다.
+      ③ 유실 뒤 복구 장치 없음. 클라가 구독을 못 집는 상태가 되면 사용자는 그 저장본을 스스로 못 지운다 — 화면은 "꺼짐", 알림은 계속. → **수명 상한**(`isStaleSubscription`, `STALE_SUB_DAYS = 30`): 마지막 저장이 30일을 넘긴 구독은 발송에서 **거른다**(지우지는 않는다 — 잠깐 안 들어온 사람의 알림이 영영 끊긴다). 그 브라우저가 다시 오면 그 자리에서 되살아난다.
+      - 🔴 상한을 두면 **찜이 안 바뀌는 멀쩡한 구독까지** 잘린다(서버 쓰기가 아예 안 나가므로). 그래서 **하트비트** — 찜이 그대로여도 주 1회는 올린다(`HEARTBEAT_MS`, 구독자당 주 1회 쓰기라 비용 없음).
+    - `dry` 응답에 `stale` 개수와 구독별 `stale:true` 를 실었다. 운영자가 "안 오는 게 정상인지"를 구분할 수 있어야 한다.
+    - 가드: `test:push-toggle` 에 4건 추가(state 게이트 금지 · beacon+라우트 존재 · 발송측 신선도 · 하트비트), `notify.test.ts` 에 `isStaleSubscription` 단위 테스트. 검증 = 가드 13/13 · notify 25/25 · tsc(기존 js-yaml 타입 경고만) · lint 0 · `next build` 성공(`/api/push/follows` 생성 확인).
+    - 🔴 **실기기 확인은 아직 못 했다** — 구독이 0건이라 화니가 알림을 다시 켜야 확인된다. 켠 뒤 `dry=true` 로 `savedAt` 이 갱신되는지, 찜을 풀면 `follows` 가 `[]` 가 되는지 두 가지를 볼 것.

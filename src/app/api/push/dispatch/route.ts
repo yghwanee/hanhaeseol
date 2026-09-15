@@ -8,7 +8,7 @@ import {
   type StoredSubscription,
 } from "@/lib/push/store";
 import { sendPush } from "@/lib/push/send";
-import { buildNotices, shouldReceive } from "@/lib/push/notify";
+import { buildNotices, isStaleSubscription, shouldReceive } from "@/lib/push/notify";
 import {
   loadPushLog,
   prunePushLog,
@@ -95,12 +95,26 @@ export async function POST(request: Request): Promise<Response> {
     return json({ ok: true, skipped: "Blob 스토어 미설정" });
   }
 
-  const [schedules, rawResults, subs, log] = await Promise.all([
+  const [schedules, rawResults, allSubs, log] = await Promise.all([
     fetchSchedules(),
     fetchResults(),
     hasStore ? listSubscriptions().catch(() => []) : Promise.resolve([]),
     hasStore ? loadPushLog() : Promise.resolve({ sent: {}, scores: {} }),
   ]);
+
+  /**
+   * 🔴 마지막 저장이 오래된 구독은 **발송 대상에서 뺀다**(`STALE_SUB_DAYS`).
+   *
+   * 브라우저 쪽에서 구독을 못 집게 되면 사용자는 그 저장본을 스스로 지울 수 없다 —
+   * 화면은 "꺼짐"인데 알림은 계속 온다(2026-09-15 실측: 3건이 11일째 옛 찜 보유).
+   * 상한이 없으면 그 상태가 영구적이다. 살아 있는 구독은 페이지 하트비트가 갱신하므로
+   * 여기 안 걸리고, 걸린 구독도 그 브라우저가 다시 오면 그 자리에서 되살아난다.
+   *
+   * 지우지 않고 **거르기만** 한다 — 지웠다가는 잠깐 안 들어온 사람의 알림이 영영 끊긴다.
+   */
+  const nowMs = Date.now();
+  const subs = allSubs.filter((s) => !isStaleSubscription(s.createdAt, nowMs));
+  const stale = allSubs.length - subs.length;
 
   /** 구독자들이 찜한 팀 키의 합집합. 폴러가 무엇을 지켜볼지 정하는 데 쓴다. */
   const watch = [...new Set(subs.flatMap((t) => t.follows))].sort();
@@ -112,7 +126,7 @@ export async function POST(request: Request): Promise<Response> {
   const notices = buildNotices({
     schedules,
     results,
-    now: Date.now(),
+    now: nowMs,
     sent: new Set(Object.keys(log.sent)),
     lastScores: log.scores,
     matchUrl: (s: Schedule) => `/match/${encodeURIComponent(matchToSlug(s))}`,
@@ -120,7 +134,7 @@ export async function POST(request: Request): Promise<Response> {
 
   // dry 에서만 구독별 [id · 마지막 저장 시각 · 찜] 을 보인다. 엔드포인트 원문은 안 싣는다
   // (워크플로 로그는 공개 레포라 누구나 본다). 마지막 저장이 오래됐는데 찜이 남아 있으면 유령이다.
-  const detail = dryRun ? { subscriberDetail: describe(subs) } : {};
+  const detail = dryRun ? { subscriberDetail: describe(allSubs, nowMs), stale } : {};
 
   if (notices.length === 0) {
     return json({ ok: true, subscribers: subs.length, notices: 0, sent: 0, watch, ...detail });
@@ -187,6 +201,7 @@ export async function POST(request: Request): Promise<Response> {
   return json({
     ok: true,
     subscribers: subs.length,
+    stale,
     watch,
     notices: notices.length,
     sent: sentCount,
@@ -263,13 +278,15 @@ function mergeLive(raw: ResultsData | null, live: ResultsData | null): ResultsDa
   return { lastUpdated: live.lastUpdated, byKey, results };
 }
 
-function describe(subs: StoredSubscription[]) {
+function describe(subs: StoredSubscription[], now: number) {
   return subs
     .map((s) => ({
       id: subscriptionId(s.subscription.endpoint),
       // 푸시 서비스 종류만(애플·구글·모질라). 기기 구분용이고 주소 원문은 아니다.
       service: safeHost(s.subscription.endpoint),
       savedAt: s.createdAt,
+      // 상한을 넘겨 이미 발송에서 빠진 구독. 운영자가 지울지 판단하는 자리다.
+      ...(isStaleSubscription(s.createdAt, now) ? { stale: true } : {}),
       follows: s.follows,
     }))
     .sort((a, b) => String(a.savedAt).localeCompare(String(b.savedAt)));

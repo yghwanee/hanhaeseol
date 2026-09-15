@@ -178,11 +178,15 @@ src/
     - 찜한 팀이 걸린 **리그만** 크롤한다(실측: kbo 1개 56ms/1요청 vs 전 리그 244ms/30요청).
     - `live=1` 은 raw 를 **버리지 않고 덮는다** — 라이브 크롤엔 취소·연기가 없어 통째로
       갈아치우면 취소 경기에 킥오프 알림이 나간다.
-  - 🔴 **구독 3건 — 전부 9/03~04 이후 갱신 없음, 찜 해제한 화니에게 푸시가 계속 온다(2026-09-15 미해결).**
-    확인 = `gh workflow run push-notify.yml -f dry=true` 응답의 `subscriberDetail`(id·마지막 저장·찜) ·
-    유령 삭제 = `-f remove=<id>`. 어느 게 화니 것인지 확인 전엔 지우지 말 것(남의 알림이 끊긴다).
-    구독 주소 교체로 옛 저장본이 남는 경로는 막았다(`pushsubscriptionchange` + `previousEndpoint`).
-    구독자가 생겼으므로 **`VAPID_PRIVATE_KEY` 를 잃으면 이제 그 구독이 죽는다**(전엔 무해했다).
+  - 🔴 **찜 해제가 서버에 안 갔다 — 세 자리를 막았다 (2026-09-15, 작업121).** 유령 구독 3건은
+    전부 삭제(`subscribers:0`). 다시 끊기지 않게 **①재동기를 `state` 로 막지 말 것**(state 는
+    마운트 때 한 번만 정해져 조회가 실패하면 그 브라우저는 영영 못 알린다) **②떠날 때
+    `sendBeacon` 으로 밀어낼 것**(600ms 디바운스가 탭 닫기에 유실된다 — 전용 라우트
+    `/api/push/follows`) **③발송측 수명 상한**(`STALE_SUB_DAYS=30`, 거르기만 하고 지우지 않는다)
+    **+ 주 1회 하트비트**(상한이 멀쩡한 구독을 자르지 않게). `test:push-toggle` 이 넷 다 막는다.
+    진단 = `push-notify.yml -f dry=true`(`subscriberDetail`·`stale`) · 삭제 `-f remove=<id>`.
+    🔴 **실기기 확인은 남았다** — 구독이 0건이라 화니가 다시 켜야 확인된다.
+    구독자가 생기면 **`VAPID_PRIVATE_KEY` 를 잃을 때 그 구독이 죽는다**.
   - ✅ **실제 발송이 처음으로 끝까지 돌았다 (2026-09-04).** `gh workflow run push-notify.yml
     -f test=true` → `{"ok":true,"total":2,"sent":2,"removed":0}`. 이 입력은 `/api/push/test`
     를 CI 에서 부른다 — 부를 곳이 사람 노트북뿐이면 그 IP 가 막힐 때 확인 자체가 불가능하다.

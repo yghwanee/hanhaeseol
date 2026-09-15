@@ -6,8 +6,10 @@ import {
   buildNotices,
   collapseByGame,
   gameKey,
+  isStaleSubscription,
   kickoffAt,
   shouldReceive,
+  STALE_SUB_DAYS,
   type Notice,
 } from "./notify";
 import { teamKey } from "@/lib/follows";
@@ -277,4 +279,23 @@ test("🔴 하루 전 창이 발화 주기(1시간)보다 넓다", () => {
   const late = build({ now: KICKOFF - 24.2 * 60 * 60000 });
   assert.equal(early[0]?.kind, "dayBefore", "24h+ 이른 쪽에서도 잡혀야 한다");
   assert.equal(late[0]?.kind, "dayBefore", "24h 직후에도 잡혀야 한다");
+});
+
+/**
+ * 🔴 유령 구독 수명 상한 (2026-09-15, 작업121).
+ *
+ * "찜 다 풀었는데 푸시가 계속 와"의 마지막 안전망이다. 클라이언트가 그 구독을 못 집는
+ * 상태가 되면 사용자는 스스로 지울 수 없으므로, 서버가 스스로 멈춰야 한다.
+ */
+test("isStaleSubscription — 상한을 넘긴 구독만 뺀다", () => {
+  const now = Date.parse("2026-09-15T00:00:00Z");
+  const days = (n: number) => new Date(now - n * 86400000).toISOString();
+
+  assert.equal(isStaleSubscription(days(1), now), false, "어제 저장본을 유령으로 본다");
+  assert.equal(isStaleSubscription(days(STALE_SUB_DAYS - 1), now), false, "상한 안쪽을 뺀다");
+  assert.equal(isStaleSubscription(days(STALE_SUB_DAYS + 1), now), true, "상한을 넘겼는데 안 뺀다");
+
+  // 🔴 모르면 살려 둔다 — 옛 스키마 한 건으로 전 구독자 발송이 멈추면 안 된다.
+  assert.equal(isStaleSubscription(undefined, now), false, "시각이 없는 저장본을 잘라낸다");
+  assert.equal(isStaleSubscription("어제", now), false, "못 읽는 시각을 잘라낸다");
 });

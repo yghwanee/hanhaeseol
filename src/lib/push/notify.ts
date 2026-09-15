@@ -252,3 +252,25 @@ export function shouldReceive(notice: Notice, follows: string[]): boolean {
   const set = new Set(follows);
   return notice.teamKeys.some((k) => set.has(k));
 }
+
+/**
+ * 마지막 저장이 오래된 구독은 발송에서 뺀다 — **유령 구독의 수명 상한**.
+ *
+ * 🔴 브라우저 쪽에서 구독을 못 집는 상태(로컬 저장소 삭제·프로필 이전·구독 조회 실패)가
+ * 되면 서버 저장본을 지울 방법이 사라진다. 사용자는 화면에서 "꺼짐"을 보는데 알림은
+ * 계속 온다 — 실제로 2026-09-15 에 구독 3건이 11일째 옛 찜을 든 채 남아 있었다.
+ * 스스로 만료되는 상한이 없으면 그 상태가 영구적이다.
+ *
+ * 살아 있는 구독은 페이지가 주 1회 하트비트로 갱신하므로(`PushSubscribeButton`) 이 상한에
+ * 걸리지 않는다. 걸리는 건 한 달 넘게 사이트를 한 번도 안 연 브라우저뿐이고, 다시 오면
+ * 그 자리에서 복구된다.
+ *
+ * 🔴 시각을 못 읽으면 **살려 둔다.** 옛 스키마 하나로 전 구독자 발송이 멈추는 게 더 나쁘다.
+ */
+export const STALE_SUB_DAYS = 30;
+
+export function isStaleSubscription(savedAt: string | undefined, now: number): boolean {
+  const t = savedAt ? Date.parse(savedAt) : Number.NaN;
+  if (!Number.isFinite(t)) return false;
+  return now - t > STALE_SUB_DAYS * 24 * 60 * 60 * 1000;
+}
