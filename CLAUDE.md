@@ -189,6 +189,13 @@ src/
     🔴 **찜하면 알림이 기본으로 켜진다**(`use-follows` → `ensureSubscribed`, 찜이 **늘어날 때만**).
     푸터 토글은 없앴다 — 컨트롤은 홈 「내 팀」 섹션 하나. 동기화는 UI 없는 `PushFollowsSync` 가
     전역 푸터에서 맡는다(버튼에 다시 묶으면 찜 0개일 때 동기화가 사라진다).
+    🔴 **찜 0개 + 알림 켜짐이면 「내 팀」 자리에 끄기 한 줄을 남긴다** — 컨트롤이 거기 하나뿐이라
+    찜 개수로만 렌더하면 켠 사람이 끌 방법을 잃는다(작업111 과 같은 고장). `test:push-toggle` 이 막는다.
+  - 🔴 **첫 방문 안내 모달 = `NotifyIntroModal`, 홈(`page.tsx`)에만 (2026-09-15).** 찜하면 알림이
+    온다는 것만 알린다. **안 띄우는 조건이 본질** — 구독 중·찜 있음·「오늘 하루」 유효·이번 방문에
+    닫음·VAPID 미설정. 🔴 **인트로(`z-[100]`)가 끝난 뒤 뜬다**(`INTRO_DONE_EVENT` +
+    `[data-intro-overlay]`); 고정 지연으로 띄우면 인트로 뒤에 깔려 아무도 못 본다. 로컬은 `.env` 에
+    VAPID 공개키가 없어 안 뜨는 게 정상이다(확인 = `NEXT_PUBLIC_VAPID_PUBLIC_KEY=<더미> npm run dev`).
     구독자가 생기면 **`VAPID_PRIVATE_KEY` 를 잃을 때 그 구독이 죽는다**.
   - ✅ **실제 발송이 처음으로 끝까지 돌았다 (2026-09-04).** `gh workflow run push-notify.yml
     -f test=true` → `{"ok":true,"total":2,"sent":2,"removed":0}`. 이 입력은 `/api/push/test`
