@@ -29,10 +29,15 @@ import { INTRO_DONE_EVENT, isIntroDone } from "./IntroAnimation";
  * 카드 **밖** 오른쪽 위, 본문은 가운데 정렬, 큰 풀폭 CTA, 그 아래 아주 작은 각주.
  */
 
-/** 「오늘 하루 보지 않기」·「닫기」 기록. 값 = 다시 보여도 되는 시각(epoch ms). */
+/**
+ * 「오늘 하루 보지 않기」 기록. 값 = 다시 보여도 되는 시각(epoch ms).
+ *
+ * 🔴 **「닫기」는 아무것도 저장하지 않는다**(화니 지시, 2026-09-15). 그냥 닫은 사람에게는
+ * 홈에 들어올 때마다 다시 보여 준다 — 안내를 안 본 사람에게 한 번 보여주고 끝내면
+ * 기능이 있는 줄 모르는 상태로 돌아간다. 그만 보고 싶은 사람에게는 「오늘 하루 보지
+ * 않기」가 있고, 그게 이 모달의 유일한 차단 장치다.
+ */
 const SNOOZE_KEY = "hhs.notice.notifyIntro.v1";
-/** 이번 방문에서 닫았는지. 탭을 닫으면 사라진다(하루짜리 스누즈와 구분). */
-const SESSION_KEY = "hhs.notice.notifyIntro.session";
 
 /**
  * 🔴 인트로가 끝나는 **그 순간** 올라온다(화니 지시, 2026-09-15). 종전에는 0.9초를 더
@@ -91,22 +96,6 @@ function snoozeToday(): void {
   }
 }
 
-function markClosedThisVisit(): void {
-  try {
-    sessionStorage.setItem(SESSION_KEY, "1");
-  } catch {
-    /* 무시 */
-  }
-}
-
-function closedThisVisit(): boolean {
-  try {
-    return sessionStorage.getItem(SESSION_KEY) === "1";
-  } catch {
-    return false;
-  }
-}
-
 type Phase = "hidden" | "open" | "done" | "failed";
 
 /**
@@ -142,7 +131,7 @@ export function NotifyIntroModal() {
 
   useEffect(() => {
     if (!pushConfigured()) return;
-    if (closedThisVisit() || Date.now() < snoozedUntil()) return;
+    if (Date.now() < snoozedUntil()) return;
     // 🔴 별을 이미 쓰는 사람에게는 안 띄운다. 찜은 로컬에 있으니 즉시 알 수 있다.
     if (readFollows().length > 0) return;
 
@@ -168,9 +157,12 @@ export function NotifyIntroModal() {
     };
   }, []);
 
+  /**
+   * 닫기. `today` 면 자정까지 막고, 아니면 **아무것도 기록하지 않는다** — 다음에 홈에
+   * 들어오면 또 뜬다(화니 지시).
+   */
   const close = useCallback((today: boolean) => {
     if (today) snoozeToday();
-    else markClosedThisVisit();
     setPhase("hidden");
   }, []);
 
@@ -301,7 +293,8 @@ export function NotifyIntroModal() {
               <button
                 type="button"
                 onClick={() => {
-                  close(false);
+                  // 🔴 못 켜는 환경(시크릿·차단)은 몇 번 봐도 결과가 같다 — 오늘은 접는다.
+                  close(true);
                   focusNextGame();
                 }}
                 className="mt-4 flex h-[52px] w-full items-center justify-center rounded-[12px] bg-brand text-body2 font-bold text-fg-onbrand transition-colors hover:bg-brand-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-fg-brand"

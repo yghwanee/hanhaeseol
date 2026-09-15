@@ -351,3 +351,26 @@ test("🔴 알림 켜기가 실패하면 조용히 닫지 않고 이유를 말�
   // 알림을 못 켜도 찜은 되므로 그쪽으로 데려간다.
   assert.match(src, /별 눌러보기/, "실패 화면에 다음 할 일(찜)이 없다");
 });
+
+/**
+ * 🔴 **「닫기」는 아무것도 기록하지 않는다** (화니 지시, 2026-09-15).
+ *
+ * 그냥 닫은 사람에게는 홈에 들어올 때마다 다시 보여 준다. 한 번 보여주고 끝내면 안내를
+ * 안 읽은 사람이 "기능이 있는 줄 모르는" 상태로 되돌아가기 때문이다. 그만 보고 싶은
+ * 사람에게는 「오늘 하루 보지 않기」가 있고, **그게 유일한 차단 장치다.**
+ */
+test("🔴 「닫기」는 기억하지 않고 「오늘 하루 보지 않기」만 막는다", () => {
+  const src = read(path.join(ROOT, "src/app/_components/NotifyIntroModal.tsx"));
+  assert.ok(
+    !src.includes("sessionStorage"),
+    "닫기를 세션에 기록한다 — 그냥 닫은 사람에게 다시 안 뜬다(화니 지시 위반)",
+  );
+  const fn = src.slice(src.indexOf("const close = useCallback"));
+  const body = fn.slice(0, 400);
+  assert.match(body, /if \(today\) snoozeToday\(\);/, "오늘 하루 차단이 사라졌다");
+  assert.ok(
+    !/else\s/.test(body),
+    "닫기에 별도 기록이 붙었다 — today 가 아니면 아무것도 저장하지 않아야 한다",
+  );
+  assert.match(src, /오늘 하루 보지 않기/, "차단 장치가 화면에 없다");
+});
