@@ -185,7 +185,10 @@ src/
     `/api/push/follows`) **③발송측 수명 상한**(`STALE_SUB_DAYS=30`, 거르기만 하고 지우지 않는다)
     **+ 주 1회 하트비트**(상한이 멀쩡한 구독을 자르지 않게). `test:push-toggle` 이 넷 다 막는다.
     진단 = `push-notify.yml -f dry=true`(`subscriberDetail`·`stale`) · 삭제 `-f remove=<id>`.
-    🔴 **실기기 확인은 남았다** — 구독이 0건이라 화니가 다시 켜야 확인된다.
+    ✅ **실기기 확인 완료(2026-09-15)** — 찜→해제→탭 즉시 닫기 뒤 dry 에서 `follows: []`.
+    🔴 **찜하면 알림이 기본으로 켜진다**(`use-follows` → `ensureSubscribed`, 찜이 **늘어날 때만**).
+    푸터 토글은 없앴다 — 컨트롤은 홈 「내 팀」 섹션 하나. 동기화는 UI 없는 `PushFollowsSync` 가
+    전역 푸터에서 맡는다(버튼에 다시 묶으면 찜 0개일 때 동기화가 사라진다).
     구독자가 생기면 **`VAPID_PRIVATE_KEY` 를 잃을 때 그 구독이 죽는다**.
   - ✅ **실제 발송이 처음으로 끝까지 돌았다 (2026-09-04).** `gh workflow run push-notify.yml
     -f test=true` → `{"ok":true,"total":2,"sent":2,"removed":0}`. 이 입력은 `/api/push/test`
