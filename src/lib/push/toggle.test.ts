@@ -284,3 +284,41 @@ test("🔴 찜이 0개여도 구독 중이면 끄기 컨트롤이 남는다", ()
   assert.match(src, /currentSubscription/, "구독 상태를 조회하지 않는다");
   assert.match(src, /PUSH_SUB_EVENT/, "다른 곳에서 켜고 끈 것을 따라가지 않는다");
 });
+
+/**
+ * 🔴 **「알림 받기」는 권한만 받고 끝나면 안 된다** (화니 지적, 2026-09-15).
+ *
+ * 찜한 팀이 없으면 `shouldReceive` 가 전부 걸러서 **실제로 오는 알림이 0건**이다.
+ * "알림 받기를 눌렀는데 무슨 알림이 오는 거냐"가 정확히 그 얘기다. 그래서 켠 직후
+ * 지금 시간 기준 **가장 임박한 경기**로 화면을 옮기고 카드·별을 강조한다 — 별이 어디
+ * 있는지 글로 설명하는 것보다 그 자리로 데려가는 쪽이 확실하다.
+ */
+test("🔴 알림을 켜면 가장 임박한 경기로 데려간다", () => {
+  const src = read(path.join(ROOT, "src/app/_components/NotifyIntroModal.tsx"));
+  assert.match(src, /focusNextGame/, "켠 뒤 아무 데도 데려가지 않는다");
+  assert.match(src, /data-game-start/, "경기 시작 시각 앵커를 안 쓴다");
+  assert.match(src, /x\.at > now/, "이미 시작한 경기도 후보로 둔다 — 지난 경기로 데려가면 안 된다");
+  assert.match(src, /data-star-hint/, "카드·별 강조 표시가 없다");
+  assert.match(src, /prefers-reduced-motion/, "움직임을 줄인 사용자에게도 스무스 스크롤을 쓴다");
+
+  // 카드가 앵커를 달고 있어야 한다 — KST 오프셋까지(브라우저 타임존이 달라도 같은 경기).
+  const card = read(path.join(ROOT, "src/app/_components/ScheduleCard.tsx"));
+  assert.match(card, /data-game-start=\{`\$\{schedule\.date\}T\$\{schedule\.time\}:00\+09:00`\}/,
+    "경기 카드에 data-game-start(KST) 가 없다 — 모달이 갈 곳을 못 찾는다");
+
+  // 강조 스타일이 있어야 애니메이션이 보인다(data 속성이라 Tailwind 가 안 만들어 준다).
+  const css = read(path.join(ROOT, "src/app/globals.css"));
+  assert.match(css, /\[data-star-hint\]/, "강조 CSS 가 없다");
+  assert.match(css, /starHintStar/, "별 강조 keyframes 가 없다");
+});
+
+test("🔴 모달은 인트로가 끝나는 즉시 뜬다 — 추가 지연을 두지 말 것", () => {
+  const src = read(path.join(ROOT, "src/app/_components/NotifyIntroModal.tsx"));
+  const m = src.match(/const DELAY_MS = (\d+);/);
+  assert.ok(m, "DELAY_MS 가 사라졌다 — 이 가드를 같이 고칠 것");
+  assert.ok(
+    Number(m[1]) <= 200,
+    `인트로 뒤 지연이 ${m[1]}ms 다. 라이브 실측에서 모달까지 PC 7.4초가 걸렸고 대부분이 인트로다 — 여기서 더 늦추지 말 것(화니 지시).`,
+  );
+  assert.match(src, /INTRO_DONE_EVENT/, "인트로 종료를 안 기다린다 — 모달이 인트로 뒤에 깔린다");
+});

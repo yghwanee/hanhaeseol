@@ -34,8 +34,12 @@ const SNOOZE_KEY = "hhs.notice.notifyIntro.v1";
 /** 이번 방문에서 닫았는지. 탭을 닫으면 사라진다(하루짜리 스누즈와 구분). */
 const SESSION_KEY = "hhs.notice.notifyIntro.session";
 
-/** 콘텐츠를 먼저 보게 두고 뒤늦게 뜬다. 첫 화면을 모달로 덮으면 그냥 이탈이다. */
-const DELAY_MS = 900;
+/**
+ * 🔴 인트로가 끝나는 **그 순간** 올라온다(화니 지시, 2026-09-15). 종전에는 0.9초를 더
+ * 기다렸는데, 라이브 실측에서 모달까지 PC 7.4초 · 폰 4.2초가 걸렸다 — 그 중 대부분이
+ * 인트로다. 인트로 위에 겹쳐 띄우면 인트로를 못 보게 되므로, 줄일 수 있는 건 이 지연뿐이다.
+ */
+const DELAY_MS = 0;
 
 /**
  * 🔴 **인트로가 끝난 뒤에 뜬다.** 홈에는 전체 화면 인트로(`z-[100]`)가 있고, 첫 방문
@@ -149,6 +153,39 @@ export function NotifyIntroModal() {
     return () => window.removeEventListener("keydown", onKey);
   }, [phase, close]);
 
+  /**
+   * 🔴 **권한만 받고 끝내지 않는다.** 찜한 팀이 없으면 `shouldReceive` 가 전부 걸러서
+   * 실제로 오는 알림은 **0건**이다("알림 받기를 눌렀는데 무슨 알림이 오는 거냐" — 화니,
+   * 2026-09-15). 그래서 켠 직후 **지금 시간 기준 가장 임박한 경기**로 화면을 옮기고 그
+   * 카드와 별을 잠깐 강조한다. 별이 어디 있는지 글로 설명하는 것보다 그 자리로 데려가는
+   * 쪽이 확실하다.
+   *
+   * 카드는 `data-game-start`(KST 오프셋 포함)를 달고 있다. 시작 전 경기가 없으면
+   * (늦은 밤) 첫 카드로 간다 — 아무 데도 안 가는 것보다 낫다.
+   */
+  const focusNextGame = () => {
+    const cards = Array.from(
+      document.querySelectorAll<HTMLElement>("[data-game-start]"),
+    );
+    if (cards.length === 0) return;
+    const now = Date.now();
+    const upcoming = cards
+      .map((el) => ({ el, at: Date.parse(el.dataset.gameStart ?? "") }))
+      .filter((x) => Number.isFinite(x.at) && x.at > now)
+      .sort((a, b) => a.at - b.at);
+    const target = upcoming[0]?.el ?? cards[0];
+    target.scrollIntoView({
+      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
+        ? "auto"
+        : "smooth",
+      block: "center",
+    });
+    // 카드와 그 안의 별에 잠깐 링을 준다. 클래스가 아니라 data 속성이라 Tailwind 빌드와
+    // 무관하고, 지우면 흔적이 남지 않는다.
+    target.setAttribute("data-star-hint", "");
+    window.setTimeout(() => target.removeAttribute("data-star-hint"), 3200);
+  };
+
   const turnOn = async () => {
     setBusy(true);
     const r = await ensureSubscribed(readFollows());
@@ -159,7 +196,11 @@ export function NotifyIntroModal() {
       //    무엇인지 이 자리에서 말해줘야 한다(그래서 문구가 바뀌고 잠깐 머문다).
       setPhase("done");
       snoozeToday();
-      setTimeout(() => setPhase("hidden"), 2600);
+      // 켜졌다는 걸 읽을 시간만 준 뒤(1.4초) 닫고 그 자리로 데려간다.
+      setTimeout(() => {
+        setPhase("hidden");
+        focusNextGame();
+      }, 1400);
       return;
     }
     // 거절·실패는 조용히 닫는다. 권한 창을 다시 띄울 방법이 없으므로 붙잡아 둘 이유가 없다.
@@ -219,10 +260,10 @@ export function NotifyIntroModal() {
                 id="notify-intro-title"
                 className="mt-1.5 text-center text-headline1 font-bold tracking-tight text-fg-strong"
               >
-                이제 팀 이름 옆 별만 누르면 됩니다
+                이제 별만 누르면 됩니다
               </h2>
-              <p className="mt-2.5 text-center text-label2 leading-relaxed text-fg-secondary">
-                누른 팀의 경기 소식만 보내드립니다.
+              <p className="mt-2 text-balance text-center text-label2 leading-relaxed text-fg-secondary">
+                가장 먼저 열리는 경기로 옮겨드릴게요.
               </p>
             </>
           ) : (

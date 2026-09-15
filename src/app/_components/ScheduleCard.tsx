@@ -109,7 +109,14 @@ function ScheduleCardInner({
   // 위해 카드 본체를 div로 두고 absolute Link를 inset-0으로 깐다. PlatformBadge Link는
   // z-index를 더 올려서 위에 떠 있게 두면 클릭 우선순위가 잡힌다.
   return (
-    <div className="w-card w-card-hover relative cursor-pointer p-3.5 sm:p-4">
+    /* 🔴 `data-game-start` — 첫 방문 안내 모달이 「알림 받기」 뒤에 **가장 임박한 경기**로
+       화면을 옮기는 데 쓴다(화니 결정, 2026-09-15). 별이 어디 있는지 말로 설명하는 것보다
+       그 자리로 데려가는 게 확실하다. KST 오프셋을 박아 둔다 — 브라우저 타임존이 달라도
+       같은 경기를 고른다. */
+    <div
+      data-game-start={`${schedule.date}T${schedule.time}:00+09:00`}
+      className="w-card w-card-hover relative cursor-pointer p-3.5 sm:p-4"
+    >
       <Link
         href={`/match/${matchToSlug(schedule)}`}
         className="absolute inset-0 z-0 rounded-[12px]"
