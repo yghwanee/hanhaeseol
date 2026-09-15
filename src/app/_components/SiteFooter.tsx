@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PushSubscribeButton } from "./PushSubscribeButton";
+import { PushFollowsSync } from "./PushFollowsSync";
 
 /**
  * 전역 푸터 — 사이트에서 유일한 푸터다.
@@ -48,8 +48,11 @@ export function SiteFooter() {
               {m.label}
             </Link>
           ))}
-          <PushSubscribeButton />
         </nav>
+        {/* 🔴 보이는 것이 없다. 찜 변경을 서버 구독에 반영하는 동기화기이고, 푸터가 아니라
+         *  **모든 페이지에 한 번** 있어야 한다. 알림 on/off 컨트롤은 홈의 「내 팀」 섹션에만
+         *  둔다(화니 지시, 2026-09-15) — 푸터의 토글은 자리만 차지했다. */}
+        <PushFollowsSync />
 
         {/* 🔴 자매 사이트 링크는 **여기(서버 렌더 푸터)** 에 있어야 한다.
          *  좌측 `ChaeunSideBanner` 는 `SideBanners` 가 "use client" + `useAdsReady()`

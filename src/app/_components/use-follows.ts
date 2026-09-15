@@ -7,6 +7,7 @@ import {
   toggleFollow,
   writeFollows,
 } from "@/lib/follows";
+import { ensureSubscribed } from "@/lib/push/client";
 
 /** 같은 탭 안 다른 컴포넌트에 변경을 알린다(storage 이벤트는 다른 탭에만 간다). */
 const SYNC_EVENT = "hhs:follows";
@@ -48,12 +49,24 @@ export function useFollows() {
   }, []);
 
   const toggle = useCallback((key: string) => {
-    const next = toggleFollow(keysRef.current, key);
+    const before = keysRef.current;
+    const next = toggleFollow(before, key);
     keysRef.current = next;
     setKeys(next);
     writeFollows(next);
     // 같은 화면의 다른 카드·필터 칩이 즉시 따라오게 한다.
     window.dispatchEvent(new Event(SYNC_EVENT));
+
+    // 🔴 **찜하면 알림이 기본으로 켜진다**(화니 지시, 2026-09-15). 종전에는 별을 눌러도
+    // 알림은 꺼진 채였고, 켜려면 푸터까지 내려가 토글을 따로 눌러야 했다 — 편성 카드
+    // 수십 장 아래라 아무도 안 내려간다. 찜은 "이 팀 경기를 놓치고 싶지 않다"는 뜻이므로
+    // 알림이 그 기본값이다. 끄는 건 「내 팀」 섹션의 토글.
+    //
+    // 🔴 **찜이 늘어난 경우에만** 부른다. 해제할 때 권한 창이 뜨면 앞뒤가 안 맞는다.
+    // 이미 구독 중이면 찜만 올라가고, 거절한 사람·아이폰 미설치·인앱 웹뷰는 조용히 넘어간다.
+    if (next.length > before.length) {
+      void ensureSubscribed(next).catch(() => {});
+    }
   }, []);
 
   return { keys, toggle, ready };

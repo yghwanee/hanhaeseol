@@ -18,6 +18,12 @@ import path from "node:path";
 const ROOT = process.cwd();
 const BTN = path.join(ROOT, "src/app/_components/PushSubscribeButton.tsx");
 const ROUTE = path.join(ROOT, "src/app/api/push/subscribe/route.ts");
+// 🔴 구독 조작(켜기·끄기·찜 올리기)은 전부 이 모듈에 있다. 버튼이 사라져도 살아 있어야
+//    하는 일이라 컴포넌트에서 떼어냈다(2026-09-15 작업121).
+const CLIENT = path.join(ROOT, "src/lib/push/client.ts");
+const SYNC = path.join(ROOT, "src/app/_components/PushFollowsSync.tsx");
+const FOLLOWS_HOOK = path.join(ROOT, "src/app/_components/use-follows.ts");
+const FOOTER = path.join(ROOT, "src/app/_components/SiteFooter.tsx");
 const read = (p: string) => fs.readFileSync(p, "utf-8");
 
 test("해제 엔드포인트(DELETE)가 있다", () => {
@@ -28,9 +34,10 @@ test("해제 엔드포인트(DELETE)가 있다", () => {
 });
 
 test("🔴 서버를 먼저 지우고 로컬 구독을 해제한다 — 순서가 계약이다", () => {
-  const src = read(BTN);
-  const fn = src.slice(src.indexOf("const unsubscribe"));
-  const body = fn.slice(0, fn.indexOf("\n  };"));
+  const src = read(CLIENT);
+  const fn = src.slice(src.indexOf("export async function unsubscribePush"));
+  // 이 함수 본문만 본다(뒤따르는 코드가 섞이지 않게 앞부분만).
+  const body = fn.slice(0, 2000);
 
   const serverAt = body.indexOf('method: "DELETE"');
   const localAt = body.indexOf("sub.unsubscribe()");
@@ -38,13 +45,13 @@ test("🔴 서버를 먼저 지우고 로컬 구독을 해제한다 — 순서�
   assert.ok(localAt > -1, "로컬 구독 해제(sub.unsubscribe)가 없다");
   assert.ok(
     serverAt < localAt,
-    "로컬 구독을 서버보다 먼저 해제한다 — 서버 삭제가 실패하면 endpoint 를 잃어\n" +
-      "  영영 지울 수 없는 유령 구독이 남는다(화면은 꺼짐, 알림은 계속 옴).",
+    "로컬 구독을 서버보다 먼저 해제한다 — 서버 삭제가 실패하면 endpoint 를 잃어 영영 지울 수 없는 유령 구독이 남는다(화면은 꺼짐, 알림은 계속 옴).",
   );
+  assert.match(body, /if \(!res\.ok\) return false;/, "서버 삭제 실패를 성공처럼 넘긴다");
   assert.match(
-    body,
-    /if \(!res\.ok\)\s*\{[\s\S]{0,80}setState\("subscribed"\)/,
-    "서버 삭제가 실패했는데 되돌리지 않는다 — 화면과 서버가 어긋난 채로 남는다",
+    read(BTN),
+    /setState\(ok \? "idle" : "subscribed"\)/,
+    "서버 삭제 실패를 화면이 되돌리지 않는다 — 꺼진 것처럼 보이는데 알림은 계속 온다",
   );
 });
 
@@ -74,7 +81,7 @@ test("토글에 접근성 상태가 붙는다", () => {
 });
 
 test("🔴 알림 권한을 코드로 되돌리려 하지 않는다", () => {
-  const src = read(BTN);
+  const src = read(BTN) + read(CLIENT);
   // 권한은 한 번 granted 면 브라우저 설정에서만 바꿀 수 있다. 끄기는 구독을 지우는 것이다.
   assert.ok(
     // 🔴 `=(?!=)` — 대입만 잡는다. `Notification.permission === "denied"` 는 정상 비교다.
@@ -100,9 +107,9 @@ test("🔴 구독 주소가 바뀌면 옛 저장본을 지운다(서비스워커
   assert.match(sw, /addEventListener\("pushsubscriptionchange"/, "서비스워커가 주소 교체를 안 받는다");
   assert.match(sw, /previousEndpoint/, "주소 교체 때 옛 주소를 서버에 안 알린다");
 
-  const btn = read(BTN);
-  assert.match(btn, /previousEndpoint/, "페이지 동기화가 옛 주소를 안 보낸다(서비스워커 이벤트를 놓친 경우의 안전망)");
-  assert.match(btn, /writeStoredEndpoint\(sub\.endpoint\)/, "올린 주소를 기억하지 않는다 — 다음 교체를 알아챌 수 없다");
+  const client = read(CLIENT);
+  assert.match(client, /previousEndpoint/, "페이지 동기화가 옛 주소를 안 보낸다(서비스워커 이벤트를 놓친 경우의 안전망)");
+  assert.match(client, /writeStoredEndpoint\(sub\.endpoint\)/, "올린 주소를 기억하지 않는다 — 다음 교체를 알아챌 수 없다");
 
   const route = read(ROUTE);
   const save = route.indexOf("await saveSubscription(");
@@ -169,21 +176,17 @@ test("🔴 iOS 미설치·인앱 웹뷰는 숨지 말고 다음 할 일을 안�
  *   ③ 유실 뒤 복구 장치 없음 — 서버 저장본은 무기한 살아 옛 찜으로 계속 발송한다.
  */
 test("🔴 찜 재동기가 state 게이트에 묶이지 않는다", () => {
-  const src = read(BTN);
-  const at = src.indexOf("// 찜 목록이 바뀌면");
-  assert.ok(at > -1, "재동기 effect 주석이 사라졌다 — 이 가드를 같이 고칠 것");
-  const effect = src.slice(at, src.indexOf("const subscribe"));
+  const src = read(SYNC);
+  assert.match(src, /putFollows/, "동기화기가 서버로 올리지 않는다");
   assert.doesNotMatch(
-    effect,
-    /state !== "subscribed"/,
-    'state !== "subscribed" 로 재동기를 막는다 — 서비스워커 조회가 실패하면 그 브라우저는\n' +
-      "  찜을 풀어도 서버에 영영 못 알린다. 구독 유무는 putFollows 안의 getSubscription 이 판정한다.",
+    src,
+    /=== "subscribed"|!== "subscribed"/,
+    "구독 상태 판정을 들고 재동기를 막는다 — 조회가 한 번 실패하면 그 브라우저는 찜을 풀어도 서버에 영영 못 알린다. 구독 유무는 putFollows 안의 getSubscription 이 판정한다.",
   );
-  assert.match(effect, /putFollows/, "재동기가 서버로 올리지 않는다");
 });
 
 test("🔴 찜 해제가 탭을 닫아도 서버에 도착한다(beacon flush)", () => {
-  const src = read(BTN);
+  const src = read(CLIENT) + read(SYNC);
   assert.match(src, /sendBeacon/, "디바운스 중 탭이 닫히면 해제가 유실된다 — sendBeacon 으로 흘려보낼 것");
   assert.match(src, /"pagehide"/, "pagehide 에서 밀어내지 않는다 — 모바일은 여기가 마지막 기회다");
   assert.match(src, /visibilitychange/, "탭 전환(hidden)에서 밀어내지 않는다");
@@ -206,7 +209,54 @@ test("🔴 오래 갱신 없는 구독은 발송에서 뺀다(유령 안전망)"
 });
 
 test("🔴 살아 있는 구독은 주기적으로 갱신된다(하트비트)", () => {
-  const src = read(BTN);
+  const src = read(CLIENT) + read(SYNC);
   // 찜이 그대로면 서버 쓰기가 안 나가므로, 신선도 안전망이 멀쩡한 구독까지 자른다.
   assert.match(src, /HEARTBEAT/, "하트비트가 없다 — 찜이 안 바뀌는 사용자는 신선도 상한에 걸려 알림이 끊긴다");
+});
+
+/**
+ * 🔴 동기화기는 **버튼과 수명이 달라야 한다** (2026-09-15, 작업121).
+ *
+ * 종전에는 `PushSubscribeButton`(푸터 인스턴스)이 찜 동기화를 겸했다. 그래서 그 버튼이
+ * 화면에서 사라지는 순간 — 푸터에서 빼거나, 찜이 0개가 돼 「내 팀」 섹션이 없어지거나 —
+ * **찜 변경을 서버에 알릴 주체가 같이 사라졌다.** 찜을 전부 푼 사람에게 알림이 계속 가던
+ * 고장이 이 구조에서 났다. 동기화는 버튼의 수명이 아니라 페이지의 수명을 따라야 한다.
+ */
+test("🔴 찜 동기화기가 전 페이지에 항상 걸려 있다", () => {
+  const footer = read(FOOTER);
+  assert.match(
+    footer,
+    /<PushFollowsSync \/>/,
+    "전역 푸터에 동기화기가 없다 — 어떤 페이지에서는 찜 해제가 서버에 안 간다",
+  );
+  const sync = read(SYNC);
+  assert.match(sync, /return null;/, "동기화기가 UI 를 그린다 — 보이는 컨트롤과 섞이면 다시 같이 사라진다");
+  assert.doesNotMatch(sync, /ctaOnly/, "동기화기가 버튼의 prop 을 본다 — 버튼 렌더 조건에 다시 묶였다");
+});
+
+/**
+ * 🔴 **찜하면 알림이 켜진다** (화니 지시, 2026-09-15).
+ *
+ * 종전 기본값은 꺼짐이었고, 켜려면 푸터까지 내려가 토글을 따로 눌러야 했다(편성 카드
+ * 수십 장 아래라 아무도 안 내려간다). 찜은 "이 팀 경기를 놓치고 싶지 않다"는 뜻이므로
+ * 알림이 그 기본값이다.
+ */
+test("🔴 찜하는 순간 알림 구독을 켠다 — 단 찜이 늘어날 때만", () => {
+  const src = read(FOLLOWS_HOOK);
+  assert.match(src, /ensureSubscribed/, "찜해도 알림 구독을 시도하지 않는다");
+  assert.match(
+    src,
+    /next\.length > before\.length/,
+    "찜 해제에도 구독을 시도한다 — 별을 빼는데 권한 창이 뜨면 앞뒤가 안 맞는다",
+  );
+
+  // 🔴 권한 요청이 사용자 제스처 안의 **첫 await** 여야 한다. 앞에 await 가 끼면 사파리는
+  //    제스처가 만료된 것으로 보고 조용히 거절한다(별을 눌러도 알림이 안 켜진다).
+  const client = read(CLIENT);
+  const fn = client.slice(client.indexOf("export async function ensureSubscribed"));
+  const body = fn.slice(0, 2000);
+  const permAt = body.indexOf("requestPermission");
+  const subAt = body.indexOf("await currentSubscription");
+  assert.ok(permAt > -1 && subAt > -1, "권한 요청·구독 조회가 없다");
+  assert.ok(permAt < subAt, "구독 조회를 권한 요청보다 먼저 await 한다 — 사파리에서 권한 요청이 무시된다");
 });

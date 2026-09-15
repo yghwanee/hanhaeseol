@@ -1,19 +1,18 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useState, type ReactNode } from "react";
 import { useFollows } from "./use-follows";
+import {
+  currentSubscription,
+  ensureSubscribed,
+  pushConfigured,
+  PUSH_SUB_EVENT,
+  unsubscribePush,
+} from "@/lib/push/client";
 
-// VAPID 공개키(빌드시 인라인). 미설정이면 버튼 자체를 숨김.
-const VAPID = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY;
-
-function urlBase64ToUint8Array(base64: string): Uint8Array {
-  const padding = "=".repeat((4 - (base64.length % 4)) % 4);
-  const b64 = (base64 + padding).replace(/-/g, "+").replace(/_/g, "/");
-  const raw = atob(b64);
-  const arr = new Uint8Array(raw.length);
-  for (let i = 0; i < raw.length; i++) arr[i] = raw.charCodeAt(i);
-  return arr;
-}
+// 🔴 구독 조작·찜 동기화는 전부 `@/lib/push/client` 에 있다. 이 파일은 **컨트롤**만 그린다.
+//    찜 목록을 서버에 올리는 일은 `PushFollowsSync` 가 맡는다(버튼이 사라져도 살아 있어야
+//    하는 일이라 분리했다 — 2026-09-15 작업121).
 
 type State =
   | "init"
@@ -55,57 +54,6 @@ function unsupportedReason(): "iosInstall" | "inApp" | "unsupported" {
 }
 
 /**
- * 🔴 이 컴포넌트는 한 화면에 **둘** 걸려 있다(푸터·내 팀 섹션). 구독 상태를 각자
- * 마운트 때 한 번만 읽으면, 한쪽에서 구독을 켜도 다른 쪽은 계속 "알림 받기" 버튼을
- * 보여준다. 켠 순간 서로에게 알린다.
- */
-const SUB_EVENT = "hhs:push-sub";
-
-/** 이 기기가 서버에 마지막으로 올린 구독 주소. 주소가 바뀌면 옛 저장본을 지우게 하려고 둔다. */
-const ENDPOINT_KEY = "hhs.push.endpoint.v1";
-function readStoredEndpoint(): string | null {
-  try {
-    return localStorage.getItem(ENDPOINT_KEY);
-  } catch {
-    return null;
-  }
-}
-function writeStoredEndpoint(endpoint: string | null): void {
-  try {
-    if (endpoint) localStorage.setItem(ENDPOINT_KEY, endpoint);
-    else localStorage.removeItem(ENDPOINT_KEY);
-  } catch {
-    /* 저장 불가 환경 — 주소 교체 정리는 서비스워커 이벤트에 맡긴다 */
-  }
-}
-
-/**
- * 마지막으로 서버에 찜을 올린 시각. **하트비트**의 기준이다.
- *
- * 🔴 서버는 오래 갱신 없는 구독을 발송에서 뺀다(`STALE_SUB_DAYS`) — 스스로 못 지우는
- * 유령이 영구히 사는 걸 막는 상한이다. 그런데 찜이 안 바뀌는 사람은 서버 쓰기가 아예
- * 안 나가므로, 그 상한이 **멀쩡한 구독까지** 자른다. 그래서 찜이 그대로여도 주 1회는
- * 올려 살아 있다고 알린다(구독자당 주 1회 쓰기라 비용은 없다).
- */
-const SYNCED_AT_KEY = "hhs.push.syncedAt.v1";
-const HEARTBEAT_MS = 7 * 24 * 60 * 60 * 1000;
-function markSynced(): void {
-  try {
-    localStorage.setItem(SYNCED_AT_KEY, String(Date.now()));
-  } catch {
-    /* 저장 불가 환경 — 하트비트를 못 세면 매번 올린다(해가 없다) */
-  }
-}
-function heartbeatDue(): boolean {
-  try {
-    const at = Number(localStorage.getItem(SYNCED_AT_KEY));
-    return !Number.isFinite(at) || at <= 0 || Date.now() - at > HEARTBEAT_MS;
-  } catch {
-    return true;
-  }
-}
-
-/**
  * ⭐찜한 팀 경기 알림 구독 버튼.
  *
  * 🔴 **찜한 팀이 없으면 알림도 없다.** 서버는 구독에 실린 팀 키와 겹치는 경기만 보낸다
@@ -129,70 +77,12 @@ export function PushSubscribeButton({
   ctaOnly = false,
 }: { ctaOnly?: boolean } = {}) {
   const [state, setState] = useState<State>("init");
-  const { keys: follows, ready } = useFollows();
-  const lastSynced = useRef<string | null>(null);
-  /** 디바운스 대기 중인 찜 목록. 페이지가 사라질 때 이걸 beacon 으로 밀어낸다. */
-  const pending = useRef<string[] | null>(null);
-
-  const putFollows = useCallback(async (list: string[]) => {
-    const reg = await navigator.serviceWorker.ready;
-    const sub = await reg.pushManager.getSubscription();
-    if (!sub) return false;
-    // 🔴 이 기기가 지난번에 올린 구독 주소. 브라우저가 주소를 갈아끼웠으면 서버에 옛 주소를
-    // 같이 알려 지우게 한다 — 안 그러면 옛 저장본이 옛 찜을 든 채 알림을 계속 받는다
-    // (2026-09-15 "찜 다 풀었는데 푸시가 계속 온다"). 서비스워커의 교체 이벤트가 놓친 경우의 안전망.
-    const previous = readStoredEndpoint();
-    const res = await fetch("/api/push/subscribe", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        subscription: sub.toJSON(),
-        follows: list,
-        ...(previous && previous !== sub.endpoint ? { previousEndpoint: previous } : {}),
-      }),
-    });
-    if (res.ok) {
-      lastSynced.current = JSON.stringify(list);
-      pending.current = null;
-      writeStoredEndpoint(sub.endpoint);
-      markSynced();
-    }
-    return res.ok;
-  }, []);
-
-  /**
-   * 아직 못 올린 찜 목록을 **떠나는 순간** 흘려보낸다.
-   *
-   * 🔴 재동기는 600ms 디바운스가 걸려 있다(별 연타에 쓰기가 그 횟수만큼 나가는 걸 막는다).
-   * 그래서 별을 풀고 바로 탭을 닫으면 그 타이머가 취소돼 **해제가 영영 서버에 안 간다** —
-   * 서버는 옛 찜으로 알림을 계속 보낸다(2026-09-15 "찜 다 풀었는데 푸시가 계속 와").
-   *
-   * `pagehide` 에서는 `fetch` 가 중간에 끊기므로 `sendBeacon` 을 쓴다. beacon 은 await 가
-   * 안 되니 구독 키를 실을 수 없어, 저장해 둔 endpoint 로 찜만 갈아끼우는 전용 라우트를 부른다.
-   */
-  const flush = useCallback(() => {
-    const list = pending.current;
-    if (!list) return;
-    const endpoint = readStoredEndpoint();
-    if (!endpoint || typeof navigator.sendBeacon !== "function") return;
-    try {
-      const blob = new Blob([JSON.stringify({ endpoint, follows: list })], {
-        type: "application/json",
-      });
-      if (navigator.sendBeacon("/api/push/follows", blob)) {
-        lastSynced.current = JSON.stringify(list);
-        pending.current = null;
-        markSynced();
-      }
-    } catch {
-      /* 떠나는 길이라 더 할 수 있는 게 없다 */
-    }
-  }, []);
+  const { keys: follows } = useFollows();
 
   useEffect(() => {
     if (typeof window === "undefined") return;
     // VAPID 미설정은 셋업 문제라 사용자에게 보일 게 없다 — 그때만 조용히 숨는다.
-    if (!VAPID) {
+    if (!pushConfigured()) {
       setState("unsupported");
       return;
     }
@@ -204,129 +94,37 @@ export function PushSubscribeButton({
       setState("denied");
       return;
     }
-    navigator.serviceWorker.ready
-      .then((reg) => reg.pushManager.getSubscription())
-      .then((sub) => setState(sub ? "subscribed" : "idle"))
-      .catch(() => setState("idle"));
-
     const resync = () => {
-      navigator.serviceWorker.ready
-        .then((reg) => reg.pushManager.getSubscription())
-        .then((sub) => setState(sub ? "subscribed" : "idle"))
-        .catch(() => {});
+      void currentSubscription().then((sub) => setState(sub ? "subscribed" : "idle"));
     };
-    window.addEventListener(SUB_EVENT, resync);
-    return () => window.removeEventListener(SUB_EVENT, resync);
+    resync();
+    window.addEventListener(PUSH_SUB_EVENT, resync);
+    return () => window.removeEventListener(PUSH_SUB_EVENT, resync);
   }, []);
 
-  // 찜 목록이 바뀌면 서버의 구독 정보를 갱신한다.
-  //
-  // 🔴 세 가지를 막는다.
-  //   ① 이 컴포넌트는 한 화면에 **둘** 걸려 있다(푸터·내 팀 섹션). 둘 다 동기화하면
-  //      찜 한 번에 서버 쓰기가 두 번 간다. `ctaOnly` 쪽은 동기화에서 빠진다
-  //      (`return null` 은 훅 뒤에 실행되므로 렌더를 막아도 effect 는 돈다).
-  //   ② 별을 연타하면 그 횟수만큼 쓰기가 나간다. 마지막 상태 하나만 보내면 된다.
-  //   ③ 🔴 **`state` 로 막지 않는다.** 종전에는 state 가 subscribed 가 아니면 그냥 돌아갔는데,
-  //      `state` 는 마운트 때 `navigator.serviceWorker.ready` → `getSubscription()` 한 번으로
-  //      정해지고 **다시 판정하지 않는다.** 그 조회가 늦거나 실패해 `idle` 로 굳으면 그
-  //      브라우저는 찜을 풀어도 서버에 영영 못 알리고, 서버는 옛 찜으로 계속 보낸다
-  //      (2026-09-15 실측: 구독 3건이 11일째 9/03~04 상태 그대로였다).
-  //      구독이 실제로 있는지는 `putFollows` 안의 `getSubscription()` 이 그때그때 판정한다.
-  useEffect(() => {
-    if (ctaOnly || !ready) return;
-    // 구독 자체가 불가능한 환경만 뺀다. 여기서 더 조이면 위 ③ 이 재발한다.
-    if (state === "unsupported" || state === "iosInstall" || state === "inApp" || state === "denied") {
+  const subscribe = async () => {
+    setState("busy");
+    const r = await ensureSubscribed(follows);
+    if (r === "subscribed" || r === "already") {
+      setState("subscribed");
+      window.dispatchEvent(new Event(PUSH_SUB_EVENT));
       return;
     }
-    const snapshot = JSON.stringify(follows);
-    if (lastSynced.current === snapshot && !heartbeatDue()) return;
-    pending.current = follows;
-    const id = setTimeout(() => {
-      void putFollows(follows).catch(() => {});
-    }, 600);
-    return () => clearTimeout(id);
-  }, [ctaOnly, state, ready, follows, putFollows]);
-
-  // 페이지를 떠나는 순간, 아직 못 올린 해제를 밀어낸다(위 flush 주석 참조).
-  // 모바일 브라우저는 `beforeunload` 를 안 주는 경우가 많아 `pagehide` + 탭 숨김을 같이 본다.
-  useEffect(() => {
-    if (ctaOnly) return;
-    const onHidden = () => {
-      if (document.visibilityState === "hidden") flush();
-    };
-    window.addEventListener("pagehide", flush);
-    document.addEventListener("visibilitychange", onHidden);
-    return () => {
-      window.removeEventListener("pagehide", flush);
-      document.removeEventListener("visibilitychange", onHidden);
-      // 언마운트도 마지막 기회다.
-      flush();
-    };
-  }, [ctaOnly, flush]);
-
-  const subscribe = async () => {
-    if (!VAPID) return;
-    setState("busy");
-    try {
-      const perm = await Notification.requestPermission();
-      if (perm !== "granted") {
-        setState(perm === "denied" ? "denied" : "idle");
-        return;
-      }
-      const reg = await navigator.serviceWorker.ready;
-      await reg.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(VAPID) as BufferSource,
-      });
-      const ok = await putFollows(follows);
-      setState(ok ? "subscribed" : "idle");
-      if (ok) window.dispatchEvent(new Event(SUB_EVENT));
-    } catch {
-      setState("idle");
-    }
+    setState(r === "denied" ? "denied" : "idle");
   };
 
   /**
-   * 알림 끄기.
-   *
-   * 🔴 **서버에서 먼저 지우고, 그다음 로컬 구독을 해제한다.** 반대 순서면 로컬을 지운 뒤
-   * 서버 삭제가 실패했을 때 endpoint 를 잃어버려 **영영 지울 수 없는 유령 구독**이 남는다
-   * (화면은 "꺼짐"인데 알림은 계속 온다). 서버 삭제가 실패하면 아예 끄지 않고 되돌린다.
+   * 알림 끄기 = 구독 삭제(`unsubscribePush`).
    *
    * 🔴 알림 **권한**은 코드로 못 되돌린다(한 번 granted 면 브라우저 설정에서만 바꾼다).
-   * 그래서 끄기는 구독을 지우는 것이고, 다시 켤 때는 프롬프트 없이 바로 켜진다.
+   * 그래서 끄기는 이 구독을 지우는 것이고, 다시 켤 때는 프롬프트 없이 바로 켜진다.
+   * 서버 삭제가 실패하면 **아예 끄지 않고 되돌린다** — 화면만 꺼지면 알림은 계속 온다.
    */
   const unsubscribe = async () => {
     setState("busy");
-    try {
-      const reg = await navigator.serviceWorker.ready;
-      const sub = await reg.pushManager.getSubscription();
-      if (!sub) {
-        setState("idle");
-        window.dispatchEvent(new Event(SUB_EVENT));
-        return;
-      }
-      const res = await fetch("/api/push/subscribe", {
-        method: "DELETE",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ endpoint: sub.endpoint }),
-      });
-      if (!res.ok) {
-        setState("subscribed");
-        return;
-      }
-      await sub.unsubscribe().catch(() => {});
-      writeStoredEndpoint(null);
-      lastSynced.current = null;
-      // 🔴 대기 중이던 찜 갱신을 버린다. 안 그러면 방금 지운 구독으로 beacon 이 날아가
-      //    저장본이 되살아난다(서버는 모르는 endpoint 를 그냥 넘기지만, 순서가 엇갈리면
-      //    삭제 전 저장본에 찜이 다시 실린다).
-      pending.current = null;
-      setState("idle");
-      window.dispatchEvent(new Event(SUB_EVENT));
-    } catch {
-      setState("subscribed");
-    }
+    const ok = await unsubscribePush();
+    setState(ok ? "idle" : "subscribed");
+    if (ok) window.dispatchEvent(new Event(PUSH_SUB_EVENT));
   };
 
   if (state === "init" || state === "unsupported") return null;
