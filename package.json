@@ -114,6 +114,7 @@
     "test:card-layout": "tsx --test src/lib/card-layout.test.ts",
     "test:revalidate-budget": "tsx --test src/lib/revalidate-budget.test.ts",
     "test:players": "tsx --test src/lib/players.test.ts",
+    "test:robots-match": "tsx --test src/lib/robots-match.test.ts",
     "test:post-catchup": "tsx --test src/lib/post-catchup.test.ts",
     "tiktok:stats": "tsx src/scripts/check-tiktok-stats.ts",
     "test:tiktok-policy": "tsx --test src/lib/tiktok-post-policy.test.ts",

@@ -144,8 +144,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     if (!bySlug.has(slug)) bySlug.set(slug, s);
   }
 
-  // 🔴 2026-08-24 — 매치 URL 을 사이트맵에 올리지 않는다(`robots.txt` 의 `Disallow: /match/`
-  // 와 한 쌍). 근거는 Vercel Observability 7일 실측(8/17~8/24):
+  // 🔴 2026-08-24 — 매치 URL 을 사이트맵에 올리지 않는다. 근거는 Vercel Observability
+  // 7일 실측(8/17~8/24):
   //   · ISR Writes 16K / 전체 16.6K = **96%** 가 `/match/[slug]` 였다
   //   · 그 라우트의 **Write Utilization 0.1×** — 10번 쓰고 1번 읽힌다
   //   · Unique Paths 2.5K = `schedule-archive.json` 2,418건과 일치 = 크롤러가 archive 를 훑는다
@@ -154,6 +154,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // 나머지 2,400여 장이 **크롤러 요청마다 온디맨드 SSR + ISR write** 를 낸다.
   // 색인 가치는 실측 0 이다 — GSC 3개월 전수(작업58)에서 매치 1,330장이 노출 0 · 클릭 0.
   // 페이지 자체는 살아 있다(사람이 사이트 안에서 눌러 들어가는 경로는 그대로).
+  //
+  // 🔴 2026-09-16 갱신 — `robots.txt` 는 이제 **네이버(Yeti)와 AI 답변 봇에만** `/match/` 를
+  // 연다(전역·Googlebot·bingbot·Daumoa 는 계속 차단). 그래도 이 값은 `false` 로 둔다.
+  // 사이트맵은 봇별로 가를 수 없으므로 여기에 3,166건을 올리면 **막아 둔 봇에게도** 그 URL 을
+  // 알리는 셈이고, 크롤 양의 상한도 사라진다. 지금은 네이버가 이미 아는 URL + 내부 링크로
+  // 묶여 있다. `test:robots-match` 가 이 값을 잠근다.
+  //
   // 되돌리려면 이 값만 true 로.
   const INCLUDE_MATCH_URLS = false;
 

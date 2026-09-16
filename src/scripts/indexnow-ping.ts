@@ -113,6 +113,11 @@ export function buildUrlList(): string[] {
   // 존재는 하지만 크롤 금지인 URL 을 통지하면 크롤러가 헛걸음을 하고 호스트 신뢰도가
   // 깎인다 — 이 스크립트가 원래 지키려던 규칙 그 자체다.
   //
+  // 🔴 2026-09-16 갱신 — `robots.txt` 가 네이버(Yeti)·AI 봇에만 `/match/` 를 열었다.
+  // 그래도 여기는 그대로 둔다. **IndexNow 는 참여 엔진이 공유하는 통지**라 URL 하나를
+  // 올리면 빙에게도 같이 알려지는데, bingbot 은 `/match/` 를 계속 막아 둔 상태다.
+  // 즉 통지하는 순간 "크롤 금지인 URL 을 ping" 하는 원래 실수로 되돌아간다.
+  //
   // 되살리려면 `INCLUDE_MATCH_URLS`·`robots.txt` 와 **함께** 되돌릴 것. 셋이 따로 놀면
   // 사이트맵·robots·IndexNow 가 같은 URL 에 서로 다른 신호를 낸다.
   return [...urls];

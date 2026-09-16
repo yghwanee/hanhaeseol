@@ -146,3 +146,5 @@ jobs:
           npm run test:revalidate-budget
           # 🔴 선수→팀 매칭은 종목으로 안 자르면 MLS 선수가 MLB 팀에 붙거나 조용히 사라진다.
           npm run test:players
+          # 🔴 매치를 어느 봇에게 열었는지 + 비용 상한 셋이 같이 살아 있는지.
+          npm run test:robots-match

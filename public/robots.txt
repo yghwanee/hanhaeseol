@@ -1,12 +1,38 @@
 # 한해설 robots.txt
 # /ig, /yt, /tt 는 단축 UTM 라우팅이라 모든 봇에서 색인 제외.
 #
-# 🔴 /match/ 제외 (2026-08-24) — sitemap.ts 의 INCLUDE_MATCH_URLS=false 와 한 쌍.
-# Vercel Observability 7일 실측: ISR Writes 16K/16.6K(96%) 가 /match/[slug] 였고
-# Write Utilization 0.1x(10번 쓰고 1번 읽힘), Unique Paths 2.5K = archive 2,418건.
-# Active CPU 도 /match/[slug] 38분 + /match/[slug]/opengraph-image 17분이 최상위.
-# 색인 가치는 실측 0 (GSC 3개월, 매치 1,330장 노출 0 클릭 0 — 작업58).
-# 페이지는 살아 있다. 크롤러만 막는다. 되돌리려면 각 블록의 이 줄을 지운다.
+# 🔴 /match/ — 봇별로 가른다 (2026-09-16 재판정).
+#
+# 2026-08-24 에는 전 봇에서 막았다. 근거 둘:
+#   · Vercel Observability 7일 실측 — ISR Writes 16K/16.6K(96%) 가 /match/[slug],
+#     Write Utilization 0.1x(10번 쓰고 1번 읽힘), Active CPU 도 /match/[slug] 38분 +
+#     /match/[slug]/opengraph-image 17분이 최상위
+#   · 색인 가치 0 — GSC 3개월 전수에서 매치 1,330장이 노출 0 · 클릭 0 (작업58)
+#
+# 🔴 두 번째 근거는 **구글(GSC) 결론이다.** 우리 유입의 81%는 네이버고, 2026-09-07 AEO
+# 측정에서 네이버 AI 브리핑이 인용한 페이지가 **전부 /match/** 였다. 구글 데이터로 네이버를
+# 막고 있던 셈이다(같은 실수 이력: auto-memory feedback_measure_where_traffic_is).
+#
+# 그래서 네이버(Yeti)와 AI 답변 봇에만 /match/ 를 연다. 전역(*) · Googlebot · bingbot ·
+# Daumoa 는 그대로 막는다 — 첫 번째 근거(비용)는 여전히 유효하고, 구글에서는 실측 가치가 0 이다.
+#
+# 비용 상한 두 가지가 먼저 들어갔다(2026-09-16):
+#   · 아카이브 매치 OG 이미지는 satori 렌더를 안 한다 → og-default.png 로 308
+#     (Active CPU 최상위 17분 항목이 사라진다)
+#   · 색인 대상 페이지 revalidate 를 3600 → 21600(배포 주기) 으로 올려 ISR 예산을 비웠다
+#
+# 🔴 남는 비용: 아카이브 유니크 슬러그 3,166건이 크롤러 요청마다 온디맨드 SSR + ISR write
+# 를 낸다(generateStaticParams 는 7일치 + 월드컵만 굽고 dynamicParams=true). 종전 실측
+# 속도(7일에 16K)면 월 6.8만 건이고, 위 revalidate 정리 뒤 예산(약 4만/20만) 위에 얹으면
+# 약 11만/20만이다. 사이트맵에는 여전히 안 올리므로(INCLUDE_MATCH_URLS=false) 크롤러가
+# 훑는 양은 네이버가 이미 아는 URL + 내부 링크로 제한된다.
+#
+# 🔴 되돌림 기준 — 2~4주 뒤 셋을 본다. ③이면 무조건 원복한다.
+#   ① 네이버 AI 브리핑 인용률이 오르는지 (기준선 1/6, 절차 docs/seo-aeo-baseline-2026-09.md)
+#   ② 네이버 매치 쿼리 클릭이 붙는지 (기준선 CTR 0%)
+#   ③ Vercel 대시보드 ISR Writes · Active CPU (기준선 244,795/200,000 · 8h33m/4h)
+# 원복 = 아래 각 봇 블록에 `Disallow: /match/` 를 되돌려 넣는다. test:robots-match 가
+# 어느 봇이 열려 있는지 잠그고 있으므로 그 테스트도 같이 고치게 된다.
 
 User-agent: *
 Allow: /
@@ -43,7 +69,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 User-agent: Daumoa
 Allow: /
@@ -66,7 +91,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 User-agent: OAI-SearchBot
 Allow: /
@@ -75,7 +99,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 User-agent: ChatGPT-User
 Allow: /
@@ -84,7 +107,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 # Anthropic / Claude
 User-agent: ClaudeBot
@@ -94,7 +116,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 User-agent: Claude-SearchBot
 Allow: /
@@ -103,7 +124,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 User-agent: Claude-User
 Allow: /
@@ -112,7 +132,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 # Google Gemini / Bard (Google 검색과 별개 토큰)
 User-agent: Google-Extended
@@ -122,7 +141,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 # Perplexity
 User-agent: PerplexityBot
@@ -132,7 +150,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 User-agent: Perplexity-User
 Allow: /
@@ -141,7 +158,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 # Apple Intelligence
 User-agent: Applebot
@@ -151,7 +167,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 User-agent: Applebot-Extended
 Allow: /
@@ -160,7 +175,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 # Meta AI (Llama)
 User-agent: Meta-ExternalAgent
@@ -170,7 +184,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 User-agent: Meta-ExternalFetcher
 Allow: /
@@ -179,7 +192,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 # ByteDance (Doubao / TikTok AI)
 User-agent: Bytespider
@@ -189,7 +201,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 # Amazon (Alexa, Q)
 User-agent: Amazonbot
@@ -199,7 +210,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 # Cohere
 User-agent: cohere-ai
@@ -209,7 +219,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 User-agent: cohere-training-data-crawler
 Allow: /
@@ -218,7 +227,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 # Mistral
 User-agent: MistralAI-User
@@ -228,7 +236,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 # You.com
 User-agent: YouBot
@@ -238,7 +245,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 # Diffbot (LLM citation source)
 User-agent: Diffbot
@@ -248,7 +254,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 # DuckDuckGo Assist
 User-agent: DuckAssistBot
@@ -258,7 +263,6 @@ Disallow: /yt
 Disallow: /tt
 Disallow: /admin
 Disallow: /api/admin
-Disallow: /match/
 
 Sitemap: https://haeseol.com/sitemap.xml
 Sitemap: https://haeseol.com/rss.xml
