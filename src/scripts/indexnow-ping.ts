@@ -6,6 +6,8 @@ import archiveData from "@/data/schedule-archive.json";
 import { buildTeamIndex, eligibleTeams, type StandingsData } from "@/lib/teams";
 import { getTodayString } from "@/lib/schedule-utils";
 import { eligibleSports } from "@/lib/sport-seo";
+import { playerIndexFor } from "@/lib/players";
+import { getKoreanPlayers } from "@/lib/korean-players/load";
 import type { ScheduleData } from "@/types/schedule";
 
 /**
@@ -85,6 +87,19 @@ export function buildUrlList(): string[] {
     ...(archiveData as unknown as ScheduleData).schedules,
   ])) {
     urls.add(`${BASE}/team/${encodeURIComponent(t.slug)}`);
+  }
+
+  // 코리안리거 선수 페이지 — 팀 페이지와 같은 이유로 넣는다. 게이트는 sitemap·페이지와
+  // 동일한 `playerIndexFor` 다. 로스터가 낡으면 페이지가 사라지므로 목록도 같이 빈다.
+  for (const p of playerIndexFor(
+    [
+      ...(scheduleData as unknown as ScheduleData).schedules,
+      ...(archiveData as unknown as ScheduleData).schedules,
+    ],
+    standingsData as unknown as StandingsData,
+    getKoreanPlayers(),
+  )) {
+    urls.add(`${BASE}/player/${encodeURIComponent(p.slug)}`);
   }
 
   // 🔴 매치 페이지는 통지하지 않는다(2026-08-24 결정과 한 쌍).

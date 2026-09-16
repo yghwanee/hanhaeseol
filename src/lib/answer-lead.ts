@@ -100,3 +100,63 @@ export function buildAnswerLead(
 
   return parts.join(" ");
 }
+
+
+/**
+ * 선수 페이지 직답 리드(`/player/[slug]`).
+ *
+ * 리그·플랫폼 리드와 형태가 다르다 — 주어가 사람이고, 검색 질문이 "손흥민 오늘 경기",
+ * "손흥민 경기 중계 어디서" 라서 **소속팀 · 다음 경기 일시 · 중계 채널 · 한국어 해설 여부**
+ * 넷이 한 문장 안에 있어야 한다.
+ *
+ * 🔴 소속팀은 기준일을 달고 말한다. 로스터는 매일 크롤하지만 이적은 하루 사이에 난다.
+ * 기준일 없는 소속 주장은 틀렸을 때 변명이 안 된다(작업97 오보 이력).
+ * 🔴 조사는 전부 `josa()` — 선수명·팀명·플랫폼명이 그대로 꽂힌다.
+ *
+ * @param name      선수 이름
+ * @param teamName  소속팀 정식 표기
+ * @param leagueName 리그 표기
+ * @param upcoming  이 팀의 다가오는 경기(경기 단위로 이미 접힌 목록, 날짜 오름차순)
+ * @param today     KST 기준 오늘 (YYYY-MM-DD)
+ */
+export function buildPlayerLead(
+  name: string,
+  teamName: string,
+  leagueName: string,
+  upcoming: Array<{
+    date: string;
+    time: string;
+    homeTeam: string;
+    awayTeam: string;
+    platforms: string[];
+    koreanCommentary: boolean | "unknown";
+  }>,
+  today: string,
+): string {
+  const belong = `${name}${josa(name, "은/는")} ${today} 기준 ${leagueName} ${teamName} 소속입니다.`;
+
+  const next = upcoming[0];
+  if (!next) {
+    return `${belong} ${today} 기준 앞으로 편성된 ${teamName} 중계는 없습니다.`;
+  }
+
+  const vs = `${next.homeTeam} vs ${next.awayTeam}`;
+  const when = `${mdLabel(next.date)} ${next.time}`;
+  const channel = next.platforms[0];
+
+  // 🔴 "한국어 해설" 이라고 단정할 수 있는 건 `true` 뿐이다. `unknown` 은 확인 중이라고
+  // 말한다 — 없는 사실을 지어내면 이 페이지의 존재 이유가 무너진다.
+  const how =
+    next.koreanCommentary === true
+      ? `${channel}에서 한국어 해설로 볼 수 있습니다`
+      : next.koreanCommentary === false
+        ? `${channel}에서 현지 해설로 중계합니다`
+        : `${channel} 중계가 예정돼 있고 해설 언어는 확인 중입니다`;
+
+  const rest =
+    upcoming.length > 1
+      ? ` ${today} 기준 예정된 ${teamName} 경기는 ${upcoming.length}경기이고, 그중 ${upcoming.filter((g) => g.koreanCommentary === true).length}경기를 한국어 해설로 볼 수 있습니다.`
+      : "";
+
+  return `${belong} 다음 경기는 ${when} ${vs}이고, ${how}.${rest}`;
+}

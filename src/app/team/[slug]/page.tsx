@@ -35,6 +35,8 @@ import { clampDescription, buildTeamFaqs } from "@/lib/seo-meta";
 import FaqSection from "@/app/_components/FaqSection";
 import { proxyLogo } from "@/lib/emblem";
 import { getTodayString } from "@/lib/schedule-utils";
+import { playerIndexFor } from "@/lib/players";
+import { getKoreanPlayers } from "@/lib/korean-players/load";
 import type { Schedule } from "@/types/schedule";
 import type { TeamRecord } from "@/types/team-record";
 import type { MatchResult } from "@/types/results";
@@ -262,6 +264,15 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
   const breakdown = platformBreakdown(schedules, team);
   const nearby = standingsWindow(all, team, 2);
 
+  // 이 팀 코리안리거. 선수 페이지(`/player/[slug]`)로 들어가는 유일한 내부 링크다 —
+  // 없으면 선수 페이지가 사이트맵에만 있는 고아가 된다(매치 페이지가 고아가 된 원인).
+  // 게이트는 선수 페이지·사이트맵과 같은 함수라 없는 URL 을 걸지 않는다.
+  const teamPlayers = playerIndexFor(
+    schedules,
+    standingsData as unknown as StandingsData,
+    getKoreanPlayers(),
+  ).filter((p) => p.team.slug === team.slug);
+
   return (
     <>
       <script
@@ -467,6 +478,25 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
               최근 경기 결과
             </h2>
             <GameList games={recent} recordFor={recordFor} resultFor={resultFor} />
+          </section>
+        )}
+
+        {teamPlayers.length > 0 && (
+          <section className="mt-4 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
+            <h2 className="text-label1 font-semibold text-fg-strong sm:text-headline1">
+              {full} 코리안리거
+            </h2>
+            <div className="mt-3 flex flex-wrap gap-2">
+              {teamPlayers.map((p) => (
+                <Link
+                  key={p.slug}
+                  href={`/player/${encodeURIComponent(p.slug)}`}
+                  className="w-chip w-chip--sm"
+                >
+                  {p.name} 경기 중계
+                </Link>
+              ))}
+            </div>
           </section>
         )}
 

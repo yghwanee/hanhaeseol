@@ -16,6 +16,8 @@ import type { Schedule, ScheduleData } from "@/types/schedule";
 import type { ResultsData } from "@/types/results";
 import { dedupeReversedFixtures } from "@/lib/fixture-dedupe";
 import { eligibleSports } from "@/lib/sport-seo";
+import { playerIndexFor } from "@/lib/players";
+import { getKoreanPlayers } from "@/lib/korean-players/load";
 import { getTodayString } from "@/lib/schedule-utils";
 
 const data = scheduleData as unknown as ScheduleData;
@@ -83,6 +85,20 @@ export default function sitemap(): MetadataRoute.Sitemap {
     url: `${BASE}/team/${encodeURIComponent(t.slug)}`,
     // new Date() 였다. 그러면 팀 86개가 **매 배포마다** "방금 바뀜"을 주장한다.
     // 실제 갱신원은 편성·순위 데이터라 그 시각을 쓴다.
+    lastModified,
+    changeFrequency: "daily" as const,
+    priority: 0.8,
+  }));
+
+  // 코리안리거 선수 페이지. 페이지가 `dynamicParams=false` 라 게이트가 어긋나면
+  // 사이트맵에 404 가 올라간다 — 그래서 페이지와 **같은 함수**(`playerIndexFor`)를 쓴다.
+  // 로스터가 낡으면 `getKoreanPlayers()` 가 비고 여기도 같이 빈다(설계. `players.ts` 주석).
+  const playerUrls = playerIndexFor(
+    [...data.schedules, ...archive.schedules],
+    standingsJson as unknown as StandingsData,
+    getKoreanPlayers(),
+  ).map((p) => ({
+    url: `${BASE}/player/${encodeURIComponent(p.slug)}`,
     lastModified,
     changeFrequency: "daily" as const,
     priority: 0.8,
@@ -201,6 +217,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     ...sportUrls,
     ...guideUrls,
+    ...playerUrls,
     ...teamUrls,
     ...standingsLeagueUrls,
     ...leagueUrls,

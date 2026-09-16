@@ -185,3 +185,55 @@ export function buildTeamFaqs(input: {
       : null,
   ]);
 }
+
+
+/**
+ * 선수 페이지 FAQ.
+ *
+ * 팀 FAQ 를 그대로 쓰면 주어만 바뀐 같은 문답이라 중복 콘텐츠가 된다. 선수 페이지의
+ * 검색 의도는 셋이다 — **어디서 보나 / 어느 팀인가 / 다음 경기 언제인가.**
+ * 소속 질문은 팀 FAQ 에 없는 것이고, 이 페이지에만 있어야 할 답이다.
+ *
+ * 🔴 소속 답에는 기준일을 넣는다. 이적은 하루 사이에 나고, 기준일 없는 소속 주장은
+ * 틀렸을 때 변명이 안 된다(작업97 오보 이력).
+ */
+export function buildPlayerFaqs(input: {
+  name: string;
+  teamFullName: string;
+  leagueName: string;
+  today: string;
+  platforms: string[];
+  koreanRatio?: { korean: number; total: number };
+  next?: { dateLabel: string; time: string; opponent: string; platforms: string[] } | null;
+}): Faq[] {
+  const where =
+    input.platforms.length > 0
+      ? `${input.name} 선수가 뛰는 ${input.teamFullName} 경기는 최근 편성 기준으로 ${input.platforms.slice(0, 3).join(", ")}에서 중계됩니다.`
+      : `${input.teamFullName} 경기의 국내 중계 편성이 아직 확인되지 않았습니다.`;
+
+  const r = input.koreanRatio;
+  const korean = !r
+    ? ""
+    : r.total === 0
+      ? `${input.teamFullName} 경기의 해설 언어는 아직 확인되지 않았습니다.`
+      : r.korean === r.total
+        ? `수집된 ${r.total}경기 모두 한국어 해설로 제공됩니다.`
+        : r.korean === 0
+          ? `수집된 ${r.total}경기는 모두 현지 해설입니다.`
+          : `수집된 ${r.total}경기 중 ${r.korean}경기가 한국어 해설입니다.`;
+
+  return compactFaqs([
+    {
+      q: `${input.name} 선수는 어느 팀 소속인가요?`,
+      a: `${input.today} 기준 ${input.leagueName} ${input.teamFullName} 소속입니다. 소속은 한해설이 매일 갱신하는 로스터에서 확인합니다.`,
+    },
+    { q: `${input.name} 경기는 어디서 볼 수 있나요?`, a: where },
+    { q: `${input.name} 경기는 한국어 해설로 중계되나요?`, a: korean },
+    input.next
+      ? {
+          q: `${input.name} 다음 경기는 언제인가요?`,
+          a: `${input.next.dateLabel} ${input.next.time} ${input.next.opponent}전이며, ${input.next.platforms.slice(0, 2).join(", ") || "편성 확인 필요"}에서 중계 예정입니다.`,
+        }
+      : null,
+  ]);
+}

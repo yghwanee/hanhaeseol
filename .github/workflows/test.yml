@@ -144,3 +144,5 @@ jobs:
           npm run test:card-layout
           # 🔴 revalidate 를 짧게 되돌리면 빌드도 화면도 멀쩡하고 한도가 잠길 때만 드러난다.
           npm run test:revalidate-budget
+          # 🔴 선수→팀 매칭은 종목으로 안 자르면 MLS 선수가 MLB 팀에 붙거나 조용히 사라진다.
+          npm run test:players
