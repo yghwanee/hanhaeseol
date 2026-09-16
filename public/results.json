@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-16T05:57:13.514Z",
+  "lastUpdated": "2026-09-16T11:25:24.876Z",
   "byKey": {
     "2026-09-15|kbo|SSG|KIA": {
       "date": "2026-09-15",
@@ -55,10 +55,10 @@
       "gameId": "20260916KTHH02026",
       "homeTeam": "한화",
       "awayTeam": "KT",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "6회말"
     },
     "2026-09-16|kbo|NC|LG": {
       "date": "2026-09-16",
@@ -66,10 +66,10 @@
       "gameId": "20260916LGNC02026",
       "homeTeam": "NC",
       "awayTeam": "LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "live",
+      "period": "6회말"
     },
     "2026-09-16|kbo|롯데|SSG": {
       "date": "2026-09-16",
@@ -77,10 +77,10 @@
       "gameId": "20260916SKLT02026",
       "homeTeam": "롯데",
       "awayTeam": "SSG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "live",
+      "period": "7회초"
     },
     "2026-09-16|kbo|두산|삼성": {
       "date": "2026-09-16",
@@ -88,10 +88,10 @@
       "gameId": "20260916SSOB02026",
       "homeTeam": "두산",
       "awayTeam": "삼성",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "live",
+      "period": "6회말"
     },
     "2026-09-17|kbo|NC|SSG": {
       "date": "2026-09-17",
@@ -410,7 +410,8 @@
       "homeScore": 2,
       "awayScore": 1,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "W_uj1h8XXIc"
     },
     "2026-09-15|mlb|세인트루이스|샌프란시스코 자이언츠": {
       "date": "2026-09-15",
@@ -421,7 +422,8 @@
       "homeScore": 2,
       "awayScore": 1,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "W_uj1h8XXIc"
     },
     "2026-09-15|mlb|세인트루이스 카디널스|샌프란시스코": {
       "date": "2026-09-15",
@@ -432,7 +434,8 @@
       "homeScore": 2,
       "awayScore": 1,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "W_uj1h8XXIc"
     },
     "2026-09-15|mlb|세인트루이스 카디널스|샌프란시스코 자이언츠": {
       "date": "2026-09-15",
@@ -443,7 +446,8 @@
       "homeScore": 2,
       "awayScore": 1,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "W_uj1h8XXIc"
     },
     "2026-09-15|mlb|콜로라도|샌디에이고": {
       "date": "2026-09-15",
@@ -3337,10 +3341,22 @@
       "gameId": "0WBFlYqROuXJyd0",
       "homeTeam": "전북",
       "awayTeam": "가시와",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 22'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "유바",
+          "minute": 30
+        },
+        {
+          "team": "home",
+          "player": "티아고 오로보",
+          "minute": 48
+        }
+      ]
     },
     "2026-09-16|acl|전북|가시와": {
       "date": "2026-09-16",
@@ -3348,10 +3364,22 @@
       "gameId": "0WBFlYqROuXJyd0",
       "homeTeam": "전북",
       "awayTeam": "가시와",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 22'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "유바",
+          "minute": 30
+        },
+        {
+          "team": "home",
+          "player": "티아고 오로보",
+          "minute": 48
+        }
+      ]
     },
     "2026-09-16|acl|포트|비셀 고베": {
       "date": "2026-09-16",
@@ -3589,10 +3617,10 @@
       "gameId": "20260916KTHH02026",
       "homeTeam": "한화",
       "awayTeam": "KT",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "6회말"
     },
     {
       "date": "2026-09-16",
@@ -3600,10 +3628,10 @@
       "gameId": "20260916LGNC02026",
       "homeTeam": "NC",
       "awayTeam": "LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "live",
+      "period": "6회말"
     },
     {
       "date": "2026-09-16",
@@ -3611,10 +3639,10 @@
       "gameId": "20260916SKLT02026",
       "homeTeam": "롯데",
       "awayTeam": "SSG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "live",
+      "period": "7회초"
     },
     {
       "date": "2026-09-16",
@@ -3622,10 +3650,10 @@
       "gameId": "20260916SSOB02026",
       "homeTeam": "두산",
       "awayTeam": "삼성",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "live",
+      "period": "6회말"
     },
     {
       "date": "2026-09-17",
@@ -3724,7 +3752,8 @@
       "homeScore": 2,
       "awayScore": 1,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "W_uj1h8XXIc"
     },
     {
       "date": "2026-09-15",
@@ -5044,10 +5073,22 @@
       "gameId": "0WBFlYqROuXJyd0",
       "homeTeam": "전북",
       "awayTeam": "가시와",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 22'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "유바",
+          "minute": 30
+        },
+        {
+          "team": "home",
+          "player": "티아고 오로보",
+          "minute": 48
+        }
+      ]
     },
     {
       "date": "2026-09-16",
