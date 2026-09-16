@@ -8,7 +8,8 @@ import type { Schedule } from "@/types/schedule";
 
 // 데이터가 빌드 번들에 있어 재생성해도 같은 HTML 이다. 신선도는 배포가 만든다.
 // (2026-08-18 Hobby 한도 초과로 600 → 3600. 상세는 page.tsx 주석)
-export const revalidate = 3600;
+// 🔴 날짜 의존 허브 — `revalidate` 정책 정본은 `src/app/page.tsx` 주석. 값은 배포 주기(6h)와 같다.
+export const revalidate = 21600;
 
 const BASE = "https://haeseol.com";
 

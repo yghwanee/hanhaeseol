@@ -15,7 +15,8 @@ import {
 } from "@/lib/asian-games/data";
 
 // 다른 허브와 같다. 데이터는 배포 번들 안에 있고 최신값은 브라우저가 GitHub raw 에서 받는다.
-export const revalidate = 3600;
+// 🔴 날짜 의존 허브 — `revalidate` 정책 정본은 `src/app/page.tsx` 주석. 값은 배포 주기(6h)와 같다.
+export const revalidate = 21600;
 
 const URL = "https://haeseol.com/asian-games";
 const TITLE = "아시안게임 한국 경기 일정·메달 순위 | 한해설";

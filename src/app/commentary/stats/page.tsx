@@ -13,7 +13,10 @@ import { withJosa } from "@/lib/josa";
 import { AdfitBanner } from "@/app/_components/AdfitBanner";
 import type { ScheduleData } from "@/types/schedule";
 
-export const revalidate = 3600;
+// 🔴 날짜 무관 — 편성 아카이브 통계만 낸다. 서버 렌더에 `new Date()`·`getTodayString()` 이
+// 한 곳도 없어 재생성해도 바이트가 같다. 신선도는 배포가 만든다(`deploy.yml` 하루 4회).
+// 정책 정본은 `src/app/page.tsx` 주석.
+export const revalidate = false;
 
 const BASE = "https://haeseol.com";
 

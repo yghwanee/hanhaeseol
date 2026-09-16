@@ -13,7 +13,8 @@ import { loadScheduleData } from "@/lib/server-data";
 import { getTodayString } from "@/lib/schedule-utils";
 import type { Schedule } from "@/types/schedule";
 
-export const revalidate = 1800;
+// 값은 배포 주기(6h)와 같다. 정책 정본은 `src/app/page.tsx` 주석.
+export const revalidate = 21600;
 
 const COMMENTARY_LABEL: Record<string, string> = {
   true: "한국어 해설",
@@ -87,7 +88,7 @@ export async function GET() {
   return new Response(lines.join("\n"), {
     headers: {
       "Content-Type": "text/plain; charset=utf-8",
-      "Cache-Control": "public, max-age=0, s-maxage=1800, stale-while-revalidate=3600",
+      "Cache-Control": "public, max-age=0, s-maxage=21600, stale-while-revalidate=43200",
     },
   });
 }

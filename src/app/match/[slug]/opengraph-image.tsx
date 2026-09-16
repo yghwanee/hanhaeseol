@@ -45,28 +45,21 @@ function loadAssets() {
   return assetsPromise;
 }
 
-// schedule-archive.json(수백 KB, 영구 누적)은 번들에 넣지 않고, 현재 편성·월드컵에서
-// 슬러그를 못 찾은 과거 경기일 때만 배포된 public 자산을 HTTPS 로 가져온다(폰트와 동일 패턴).
-let archivePromise: Promise<ScheduleData | null> | null = null;
-
-function loadArchive(): Promise<ScheduleData | null> {
-  if (!archivePromise) {
-    // revalidate 명시 필수. 이 URL 은 고정인데 내용은 배포마다 커지고,
-    // Next.js Data Cache 는 배포 간에도 유지되므로 옵션이 없으면 옛 아카이브에
-    // 눌러앉아 최근 종료 경기를 못 찾는다(2026-07-15 /api/live 동결과 같은 부류).
-    archivePromise = fetch(`${BASE}/schedule-archive.json`, { next: { revalidate: 3600 } })
-      .then((r) => (r.ok ? (r.json() as Promise<ScheduleData>) : null))
-      .catch(() => null);
-  }
-  return archivePromise;
-}
-
-async function findMatchAnywhere(slug: string): Promise<Schedule | undefined> {
-  const current =
-    findMatchBySlug(data.schedules, slug) ?? findMatchBySlug(worldcup.schedules, slug);
-  if (current) return current;
-  const archive = await loadArchive();
-  return archive ? findMatchBySlug(archive.schedules, slug) : undefined;
+/**
+ * 🔴 아카이브 경기는 맞춤 카드를 굽지 않고 기본 OG 로 보낸다 (2026-09-16).
+ *
+ * 종전엔 현재 편성에서 못 찾으면 `schedule-archive.json`(978KB, 영구 누적)을 받아
+ * 거기서 찾아 카드를 그렸다. 아카이브가 3,179건이라 **슬러그 하나당 satori 렌더 한 번**이
+ * 붙고, 그렇게 구운 PNG 가 전부 Origin Transfer 로 나간다.
+ * 2026-08-24 robots 주석 실측: Active CPU 최상위가 `/match/[slug]` 38분 +
+ * `/match/[slug]/opengraph-image` 17분이었다.
+ *
+ * 지난 경기 카드가 공유되는 일은 사실상 없다 — 공유는 경기 전후 하루에 몰린다.
+ * 그 구간은 `schedule.json`(7일치)·`worldcup.json` 에 그대로 있으므로 맞춤 카드가 나온다.
+ * 아카이브로 넘어간 경기만 기본 이미지로 접는다.
+ */
+function findCurrentMatch(slug: string): Schedule | undefined {
+  return findMatchBySlug(data.schedules, slug) ?? findMatchBySlug(worldcup.schedules, slug);
 }
 
 // "2026-07-03" → "7월 3일"
@@ -87,16 +80,17 @@ function commentaryBadge(s: Schedule): Badge {
 }
 
 export default async function Image({ params }: { params: { slug: string } }) {
-  const { bold, regular, logo } = await loadAssets();
-  const match = await findMatchAnywhere(params.slug);
+  const match = findCurrentMatch(params.slug);
+  // 아카이브 경기·해석 불가 슬러그는 정적 PNG 로 보낸다. 여기서 끊어야 폰트·로고 fetch 와
+  // satori 렌더가 아예 안 돈다(위 주석 참조).
+  if (!match) return Response.redirect(`${BASE}/og-default.png`, 308);
 
-  const badge = match ? commentaryBadge(match) : null;
-  const league = match?.league ?? "";
-  const home = match?.homeTeam ?? "한해설";
-  const away = match?.awayTeam ?? "";
-  const metaLine = match
-    ? `${formatDate(match.date)} ${match.time} KST · ${match.platform}`
-    : "스포츠 한국어 해설 편성표";
+  const { bold, regular, logo } = await loadAssets();
+  const badge = commentaryBadge(match);
+  const league = match.league;
+  const home = match.homeTeam;
+  const away = match.awayTeam;
+  const metaLine = `${formatDate(match.date)} ${match.time} KST · ${match.platform}`;
 
   return new ImageResponse(
     (

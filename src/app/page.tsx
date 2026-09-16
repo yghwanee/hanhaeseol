@@ -109,8 +109,25 @@ function pruneSchedulesForClient(data: ScheduleData): ScheduleData {
  *  그리고 그 재생성은 **아무 이득이 없었다** — schedule.json 등 데이터는 배포 번들
  *  안에 있어서 재생성해도 같은 HTML 이 다시 나온다. 신선도는 배포가 만든다.
  *  자정(KST) 날짜 넘김은 ①KST 00:10 예약 배포(deploy.yml)가 캐시를 갈아주고
- *  ②ScheduleClient 가 마운트 때 getTodayString() 으로 다시 고르므로 화면은 정확하다. */
-export const revalidate = 3600;
+ *  ②ScheduleClient 가 마운트 때 getTodayString() 으로 다시 고르므로 화면은 정확하다.
+ *
+ *  ═══ revalidate 정책 정본 (2026-09-16, 3600 → 21600) ═══
+ *  🔴 3600 도 여전히 같은 HTML 을 시간당 다시 굽고 있었다. 623페이지가 전부 3600 이라
+ *  이론상 한 달 44.8만 회 재생성이고, 대시보드 실측이 ISR Writes 244,795/200,000 이었다.
+ *  팀 페이지는 렌더당 CPU 860ms 라 Active CPU(8h33m/4h)도 같은 뿌리다.
+ *
+ *  그래서 값을 **배포 주기에 맞춘다**. `deploy.yml` 이 KST 00:10·06:10·12:10·18:10
+ *  하루 4번 배포하고, 배포는 generateStaticParams 페이지를 전부 다시 굽는다.
+ *  6h(21600) = 그 간격과 같은 값이라 실제로는 거의 발화하지 않는 안전망이 된다.
+ *
+ *  분류 규칙 — 새 페이지를 만들 때 이 둘 중 하나를 고른다.
+ *   · 서버 렌더가 `getTodayString()`·`new Date()`·`isGameFinished()` 를 쓴다 → **21600**
+ *     (홈·league·platform·sport·team·commentary·asian-games. 종료 뱃지가 최대 6h 늦는다)
+ *   · 안 쓴다 → **false** (commentary/stats. 배포 전까지 바이트가 안 변한다)
+ *   · guide·faq·about·standings 는 애초에 `revalidate` 선언이 없다 = 이미 완전 정적.
+ *
+ *  🔴 값을 다시 짧게 돌리지 말 것. `npm run test:revalidate-budget` 가 막는다. */
+export const revalidate = 21600;
 
 export default function Home() {
   const data = loadScheduleData();

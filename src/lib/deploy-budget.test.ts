@@ -95,27 +95,17 @@ test("편성 크롤과 가이드 발행은 훅을 직접 부른다 (6시간 지�
   }
 });
 
-test("페이지 revalidate 는 3600 이상이다", () => {
-  // 데이터가 빌드 번들 안에 있어 재생성해도 같은 HTML 이 나온다. 짧게 두면
-  // 그만큼 ISR Writes·Fluid Active CPU·Origin Transfer 를 그대로 태운다.
-  const pages = [
-    "src/app/page.tsx",
-    "src/app/commentary/page.tsx",
-    "src/app/league/[slug]/page.tsx",
-    "src/app/platform/[slug]/page.tsx",
-    "src/app/team/[slug]/page.tsx",
-  ];
-  for (const p of pages) {
-    const m = read(p).match(/^export const revalidate = (\d+);/m);
-    assert.ok(m, `${p} 에 revalidate 선언이 없다.`);
-    const v = Number(m![1]);
-    assert.ok(
-      v >= 3600,
-      `${p} 의 revalidate 가 ${v}다. 3600 미만으로 내리면 한 달 재생성 횟수가\n` +
-        `${Math.round((30 * 86400) / v).toLocaleString()}회가 된다(홈 기준 60일 때 43,200회로 계정이 잠겼다).`,
-    );
-  }
-});
+/**
+ * 🔴 `revalidate` 값 검사는 여기 있었지만 `revalidate-budget.test.ts` 로 옮겼다 (2026-09-16).
+ *
+ * 여기 있던 판정은 ①페이지 5개를 손으로 적은 목록이었고 ②하한이 3600 이었다.
+ * 둘 다 부족했다 — 목록에 없던 `sport`·`asian-games`·`rss.xml`·`llms-full.txt` 가
+ * 빠져 있었고, 3600 자체가 여전히 같은 HTML 을 시간당 다시 굽는 값이라
+ * 대시보드 실측이 ISR Writes 244,795/200,000 까지 갔다.
+ *
+ * 새 가드는 `src/app` 전체를 훑고 하한을 **배포 주기와 같은 21600** 으로 잡으며,
+ * 날짜를 안 읽는 페이지는 `false` 여야 한다는 것까지 본다. `npm run test:revalidate-budget`.
+ */
 
 test("/api/live 엣지 캐시는 클라 폴링 간격보다 길다", () => {
   const route = read("src/app/api/live/route.ts");

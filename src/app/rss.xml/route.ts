@@ -9,8 +9,10 @@ const FEED_TITLE = "한해설 - 한국어 해설 스포츠 중계 편성표";
 const FEED_DESC =
   "EPL·KBO·MLB·라리가·UCL 등 한국어 해설 중계 편성과 매치 인사이트. SPOTV NOW·쿠팡플레이·티빙·SPOTV 등 10개 플랫폼.";
 
-/** RSS는 캐시 가능 — 매 hr 정도면 충분. ISR-style revalidate. */
-export const revalidate = 1800;
+// RSS 는 캐시 가능. 값은 배포 주기(6h)와 같다 — 글 발행은 하루 1편이라 이보다 촘촘할
+// 이유가 없고, 30분마다 굽던 것은 ISR Writes 를 그냥 태우는 것이었다.
+// 정책 정본은 `src/app/page.tsx` 주석.
+export const revalidate = 21600;
 
 function xmlEscape(s: string): string {
   return s
@@ -171,7 +173,7 @@ ${itemsXml}
   return new Response(xml, {
     headers: {
       "Content-Type": "application/rss+xml; charset=utf-8",
-      "Cache-Control": "public, s-maxage=1800, stale-while-revalidate=3600",
+      "Cache-Control": "public, s-maxage=21600, stale-while-revalidate=43200",
     },
   });
 }

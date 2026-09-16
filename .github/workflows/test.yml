@@ -142,3 +142,5 @@ jobs:
           npm run test:workflow-pipe
           # 🔴 폭마다 자리가 다른 것들(카드 뱃지·흰 판)은 PC 한 폭만 보면 정상으로 보인다.
           npm run test:card-layout
+          # 🔴 revalidate 를 짧게 되돌리면 빌드도 화면도 멀쩡하고 한도가 잠길 때만 드러난다.
+          npm run test:revalidate-budget
