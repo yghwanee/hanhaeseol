@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-17T21:18:30.531Z",
+  "lastUpdated": "2026-09-18T00:11:25.753Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -51610,6 +51610,17 @@
       "status": "finished",
       "period": "9회초"
     },
+    "2026-09-18|mlb|콜로라도 로키스|샌디에이고 파드리스": {
+      "date": "2026-09-18",
+      "categoryId": "mlb",
+      "gameId": "20260918SDCO0",
+      "homeTeam": "콜로라도 로키스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 2,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
     "2026-09-18|primera|레알 베티스|헤타페": {
       "date": "2026-09-18",
       "categoryId": "primera",
@@ -51628,6 +51639,40 @@
         }
       ],
       "highlightVideoId": "USlXV2HB8O0"
+    },
+    "2026-09-18|primera|말라가|비야레알": {
+      "date": "2026-09-18",
+      "categoryId": "primera",
+      "gameId": "53fbYNs6zJMAbaQ",
+      "homeTeam": "말라가",
+      "awayTeam": "비야레알",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "카를로스 도토르",
+          "minute": 12
+        },
+        {
+          "team": "away",
+          "player": "알베르토 모레이로",
+          "minute": 40
+        },
+        {
+          "team": "away",
+          "player": "파페 게예",
+          "minute": 45,
+          "addedTime": 2
+        },
+        {
+          "team": "away",
+          "player": "파페 게예",
+          "minute": 86
+        }
+      ]
     }
   },
   "results": [
@@ -103242,6 +103287,17 @@
     },
     {
       "date": "2026-09-18",
+      "categoryId": "mlb",
+      "gameId": "20260918SDCO0",
+      "homeTeam": "콜로라도 로키스",
+      "awayTeam": "샌디에이고 파드리스",
+      "homeScore": 2,
+      "awayScore": 9,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-09-18",
       "categoryId": "primera",
       "gameId": "p7SyCcqlIYCxNRf",
       "homeTeam": "레알 베티스",
@@ -103258,6 +103314,40 @@
         }
       ],
       "highlightVideoId": "USlXV2HB8O0"
+    },
+    {
+      "date": "2026-09-18",
+      "categoryId": "primera",
+      "gameId": "53fbYNs6zJMAbaQ",
+      "homeTeam": "말라가",
+      "awayTeam": "비야레알",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "카를로스 도토르",
+          "minute": 12
+        },
+        {
+          "team": "away",
+          "player": "알베르토 모레이로",
+          "minute": 40
+        },
+        {
+          "team": "away",
+          "player": "파페 게예",
+          "minute": 45,
+          "addedTime": 2
+        },
+        {
+          "team": "away",
+          "player": "파페 게예",
+          "minute": 86
+        }
+      ]
     }
   ]
 }
