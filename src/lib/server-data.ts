@@ -6,7 +6,7 @@ import type { ScheduleData } from "@/types/schedule";
 import type { TeamRecordsData, TeamRecordsMap } from "@/types/team-record";
 import type { ResultsData } from "@/types/results";
 import { dedupeReversedFixtures } from "@/lib/fixture-dedupe";
-import type { AsianGamesData } from "@/lib/asian-games/data";
+import type { AgSportsData, AsianGamesData } from "@/lib/asian-games/data";
 
 /**
  * 배포 수명 동안 한 번만 읽고 파싱한다.
@@ -44,6 +44,16 @@ export const loadAsianGames = memo((): AsianGamesData | null => {
   try {
     const raw = fs.readFileSync(path.join(process.cwd(), "public", "asian-games.json"), "utf-8");
     return JSON.parse(raw) as AsianGamesData;
+  } catch {
+    return null;
+  }
+});
+
+/** 아시안게임 종목별 전 경기(`/asian-games/[sport]`). 첫 크롤 전이면 null. */
+export const loadAsianGamesSports = memo((): AgSportsData | null => {
+  try {
+    const raw = fs.readFileSync(path.join(process.cwd(), "public", "asian-games-sports.json"), "utf-8");
+    return JSON.parse(raw) as AgSportsData;
   } catch {
     return null;
   }

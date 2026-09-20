@@ -89,3 +89,81 @@ test("커밋된 데이터 파일 모양", () => {
   // 파일이 커지면 GitHub raw 로 받는 방문자 부담이 커진다. 한국 경기만 담으니 넉넉한 상한.
   assert.ok(fs.statSync(file).size < 200_000, "asian-games.json 이 200KB 를 넘었다");
 });
+
+// ───────── 종목별 페이지 (2026-09-21) ─────────
+import {
+  AG_SPORTS,
+  groupEsports,
+  groupStandingsTable,
+  isAgScheduleLeague,
+  koreaRecord,
+  type AgGame,
+} from "@/lib/asian-games/data";
+
+const game = (p: Partial<AgGame>): AgGame => ({
+  id: Math.random().toString(36),
+  date: "2026-09-22",
+  time: "19:00",
+  discipline: "축구",
+  title: "",
+  home: "",
+  away: "",
+  homeScore: null,
+  awayScore: null,
+  status: "BEFORE",
+  statusInfo: "예정",
+  medal: false,
+  ...p,
+});
+
+test("편성 리그명은 하이픈·가운뎃점 어느 쪽이든 아시안게임으로 잡는다", () => {
+  // 🔴 SPOTV NOW 실제 표기는 하이픈이었다. 가운뎃점 상수와 === 비교라 허브 중계 뱃지가 0개였다.
+  assert.equal(isAgScheduleLeague("아이치-나고야 아시안게임"), true);
+  assert.equal(isAgScheduleLeague("아이치·나고야 아시안게임"), true);
+  assert.equal(isAgScheduleLeague("KBO"), false);
+});
+
+test("편성 ↔ 네이버 국가명 차이를 흡수한다", () => {
+  assert.equal(broadcastKey("2026-09-22", "대한민국", "사우디아라비아"), broadcastKey("2026-09-22", "사우디 아라비아", "대한민국"));
+  assert.equal(broadcastKey("2026-09-21", "대만", "대한민국"), broadcastKey("2026-09-21", "대한민국", "차이니스 타이베이"));
+});
+
+test("e스포츠는 롤이 맨 앞이고, 제목에 게임명이 없는 그란투리스모 예선도 제자리를 찾는다", () => {
+  const gs = [
+    game({ discipline: "e스포츠", title: "타임어택 예선 매치 1", event: "ESPOGT7" }),
+    game({ discipline: "e스포츠", title: "그란투리스모7 그랜드 파이널 스테이지", event: "ESPOGT7" }),
+    game({ discipline: "e스포츠", title: "e풋볼 8강 1경기", event: "ESPOEFB" }),
+    game({ discipline: "e스포츠", title: "리그 오브 레전드 A조 1경기", event: "ESPOLOL" }),
+  ];
+  const g = groupEsports(gs);
+  assert.equal(g[0].name, "리그 오브 레전드(롤)");
+  assert.equal(g.find((x) => x.name.startsWith("그란투리스모"))?.games.length, 2);
+  assert.equal(g.some((x) => x.name === "기타"), false);
+});
+
+test("조편성은 제목의 조에서만 모으고 한국을 맨 앞에 둔다", () => {
+  const t = groupStandingsTable([
+    game({ title: "남자 D조 1경기", home: "카타르", away: "대한민국" }),
+    game({ title: "남자 D조 2경기", home: "카타르", away: "사우디 아라비아" }),
+    game({ title: "남자 8강 1경기", home: "일본", away: "이란" }),
+  ]);
+  assert.deepEqual(t, [{ label: "남자 D조", teams: ["대한민국", "사우디 아라비아", "카타르"] }]);
+});
+
+test("한국 전적은 끝난 경기만, 성별을 갈라 센다", () => {
+  const r = koreaRecord([
+    game({ title: "남자 D조 1경기", home: "카타르", away: "대한민국", homeScore: 1, awayScore: 4, status: "RESULT" }),
+    game({ title: "여자 F조 1경기", home: "대한민국", away: "미얀마", homeScore: 0, awayScore: 0, status: "RESULT" }),
+    game({ title: "남자 D조 3경기", home: "대한민국", away: "사우디 아라비아" }),
+  ]);
+  assert.deepEqual(r, [
+    { gender: "남자", win: 1, draw: 0, lose: 0 },
+    { gender: "여자", win: 0, draw: 1, lose: 0 },
+  ]);
+});
+
+test("종목 페이지 데이터 파일이 모든 종목을 담고 있다", () => {
+  const p = path.join(process.cwd(), "public", "asian-games-sports.json");
+  const d = JSON.parse(fs.readFileSync(p, "utf-8"));
+  for (const s of AG_SPORTS) assert.ok(d.games[s.slug]?.length > 0, `${s.slug} 경기가 비었다`);
+});

@@ -4,12 +4,13 @@ import { loadAsianGames, loadScheduleData } from "@/lib/server-data";
 import { getTodayString } from "@/lib/schedule-utils";
 import { AsianGamesBanner } from "@/app/_components/AsianGamesBanner";
 import { AsianGamesLive } from "./_components/AsianGamesLive";
+import { SportNav } from "./_components/SportNav";
 import {
   AG_CLOSE,
-  AG_LEAGUE,
   AG_OPEN,
   agPhase,
   broadcastKey,
+  isAgScheduleLeague,
   daysToOpen,
   medalsStarted,
 } from "@/lib/asian-games/data";
@@ -63,7 +64,7 @@ const FAQS = [
   },
   {
     q: "아시안게임 한국 경기는 어디서 한국어 해설로 보나요?",
-    a: "SPOTV NOW가 축구·배구·농구 경기를 중계하며, 편성이 확인된 대한민국 경기에는 일정 옆에 중계 채널이 표시됩니다. 다른 나라 경기의 한국어 해설 중계는 한해설 메인 편성표에 날짜별로 나옵니다. 다른 종목과 지상파 중계 편성은 방송사 발표를 확인하세요.",
+    a: "SPOTV NOW가 축구·야구·농구·배구 경기를 중계하며, 편성이 확인된 대한민국 경기에는 일정 옆에 중계 채널이 표시됩니다. 다른 나라 경기의 한국어 해설 중계는 한해설 메인 편성표에 날짜별로 나옵니다. 다른 종목과 지상파 중계 편성은 방송사 발표를 확인하세요.",
   },
   {
     q: "메달 순위는 어떤 기준으로 매기나요?",
@@ -97,7 +98,7 @@ export default function AsianGamesPage() {
   // 다른 나라 경기의 한국어 해설 중계는 메인 편성표가 이미 보여 주므로 여기선 안 다룬다.
   const broadcasts: Record<string, string[]> = {};
   for (const s of loadScheduleData().schedules) {
-    if (s.league !== AG_LEAGUE) continue;
+    if (!isAgScheduleLeague(s.league)) continue;
     if (s.homeTeam !== "대한민국" && s.awayTeam !== "대한민국") continue;
     const label = s.koreanCommentary === true ? `${s.platform} 한국어해설` : s.platform;
     const key = broadcastKey(s.date, s.homeTeam, s.awayTeam);
@@ -148,6 +149,9 @@ export default function AsianGamesPage() {
           <Link href="/" className="-my-2 inline-block py-2 text-fg underline underline-offset-2 hover:text-fg-strong">메인 편성표</Link>에서 볼 수 있습니다.
         </p>
       </div>
+
+      {/* 종목별 전 경기 페이지로 가는 유일한 길(「아시안게임 축구 일정」「롤 일정」 착지 페이지). */}
+      <SportNav />
 
       <div id="korea">
         {data ? (

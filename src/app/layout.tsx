@@ -11,6 +11,7 @@ import { InstallPrompt } from "./_components/InstallPrompt";
 import { PullToRefresh } from "./_components/PullToRefresh";
 import { SiteNav } from "./_components/SiteNav";
 import { SiteFooter } from "./_components/SiteFooter";
+import { BRAND_DEFINITION, BRAND_SOCIALS } from "@/lib/brand";
 import "./globals.css";
 
 const geistSans = localFont({
@@ -286,11 +287,8 @@ gtag('config', 'G-F1MX6S0SGW');`}
                   "logo": "https://haeseol.com/icon.png",
                   // sameAs: Google/AI Overviews가 같은 entity로 인식하도록 다른 채널 연결.
                   // 한해설 운영 채널 — 매일 자동 게시 파이프라인 운영 중.
-                  "sameAs": [
-                    "https://www.instagram.com/hanhaeseol/",
-                    "https://www.youtube.com/@hanhaeseol",
-                    "https://www.tiktok.com/@hanhaeseol",
-                  ],
+                  "sameAs": BRAND_SOCIALS.map((c) => c.url),
+                  "description": BRAND_DEFINITION,
                 },
               ],
             }),

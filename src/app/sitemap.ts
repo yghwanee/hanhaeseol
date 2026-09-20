@@ -1,3 +1,4 @@
+import { AG_SPORTS } from "@/lib/asian-games/data";
 import { MetadataRoute } from "next";
 import scheduleData from "@/data/schedule.json";
 import archiveData from "@/data/schedule-archive.json";
@@ -222,6 +223,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "hourly",
       priority: 0.9,
     },
+    // 종목별 전 경기(「아시안게임 축구 일정」「아시안게임 롤 일정」). 목록 = AG_SPORTS 하나.
+    ...AG_SPORTS.map((s) => ({
+      url: `${BASE}/asian-games/${s.slug}`,
+      lastModified,
+      changeFrequency: "hourly" as const,
+      priority: 0.8,
+    })),
     ...sportUrls,
     ...guideUrls,
     ...playerUrls,

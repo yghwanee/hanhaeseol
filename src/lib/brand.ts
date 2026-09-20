@@ -15,3 +15,17 @@ export const BRAND_DEFINITION =
   "SPOTV NOW·쿠팡플레이·티빙·Apple TV+ 등 OTT 4개와 SPOTV·SPOTV2·tvN SPORTS·KBS N SPORTS·MBC SPORTS+·SBS Sports 등 TV 6개, " +
   "총 10개 플랫폼의 축구·야구·농구·배구 중계 일정을 매일 자동 수집해 오늘부터 7일치를 제공합니다. " +
   "2026년 2월에 시작했고, 경기마다 한국어 해설 여부를 뱃지로 구분해 표시합니다.";
+
+/**
+ * 한해설 공식 SNS 채널. Organization `sameAs`(layout.tsx)와 푸터의 보이는 링크가 같이 쓴다.
+ *
+ * 🔴 `sameAs` 만으로는 약하다 — 스키마는 "이 사이트가 주장하는 것"이고, 검색엔진이 같은
+ * 엔티티로 묶으려면 **보이는 링크(rel="me")** 와 **채널 쪽의 역링크**(프로필 소개에
+ * haeseol.com)가 서로를 가리켜야 한다. 2026-09-21 네이버 「한해설」 SERP 에 SNS 가 0건이었다.
+ * 유튜브 소개란엔 haeseol.com 이 있다(실측). 인스타·틱톡 소개 링크는 사람이 확인할 것.
+ */
+export const BRAND_SOCIALS: { name: string; url: string }[] = [
+  { name: "유튜브", url: "https://www.youtube.com/@hanhaeseol" },
+  { name: "인스타그램", url: "https://www.instagram.com/hanhaeseol/" },
+  { name: "틱톡", url: "https://www.tiktok.com/@hanhaeseol" },
+];

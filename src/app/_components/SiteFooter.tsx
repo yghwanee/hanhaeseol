@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { PushFollowsSync } from "./PushFollowsSync";
+import { BRAND_SOCIALS } from "@/lib/brand";
 
 /**
  * 전역 푸터 — 사이트에서 유일한 푸터다.
@@ -49,6 +50,23 @@ export function SiteFooter() {
             </Link>
           ))}
         </nav>
+        {/* 공식 채널 — `rel="me"` 로 사이트 ↔ 채널을 서로 가리키게 한다. 스키마 `sameAs` 만 있고
+         *  보이는 링크가 없어서 「한해설」 검색에 SNS 가 안 묶였다(2026-09-21). 목록 정본 = brand.ts. */}
+        <p className="mt-4 flex flex-wrap items-center justify-center gap-x-3 text-caption1 text-fg-tertiary">
+          <span>한해설 공식 채널</span>
+          {BRAND_SOCIALS.map((c) => (
+            <a
+              key={c.url}
+              href={c.url}
+              rel="me noopener"
+              target="_blank"
+              className="relative text-fg-secondary underline underline-offset-2 after:absolute after:-inset-y-3 after:content-[''] hover:text-fg-strong"
+            >
+              {c.name}
+            </a>
+          ))}
+        </p>
+
         {/* 🔴 보이는 것이 없다. 찜 변경을 서버 구독에 반영하는 동기화기이고, 푸터가 아니라
          *  **모든 페이지에 한 번** 있어야 한다. 알림 on/off 컨트롤은 홈의 「내 팀」 섹션에만
          *  둔다(화니 지시, 2026-09-15) — 푸터의 토글은 자리만 차지했다. */}

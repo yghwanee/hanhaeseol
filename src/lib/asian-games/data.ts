@@ -16,8 +16,6 @@
  */
 
 export const AG_EVENT = "asiangames2026";
-/** 편성 데이터(`schedule.json`)의 league 표기. SPOTV NOW 가 이렇게 준다. */
-export const AG_LEAGUE = "아이치·나고야 아시안게임";
 export const AG_OPEN = "2026-09-19";
 export const AG_CLOSE = "2026-10-04";
 /** 개막 전 예선이 먼저 열린다(농구 9/10, 여자축구 9/14 — 위키백과 2026 아시안 게임). */
@@ -60,6 +58,8 @@ export type AgGame = {
   statusInfo: string;
   /** 메달이 걸린 경기(결승·동메달결정전 등). */
   medal: boolean;
+  /** 네이버 세부 종목 id(예: `ESPOLOL`). e스포츠처럼 한 종목 안에 게임이 여럿일 때 가른다. */
+  event?: string;
 };
 
 export type AsianGamesData = {
@@ -158,7 +158,34 @@ export function toAgGame(raw: Record<string, unknown>): AgGame {
     status,
     statusInfo: s("statusInfo"),
     medal: raw.medal === true,
+    event: s("eventId") || undefined,
   };
+}
+
+/**
+ * 편성 행(`schedule.json`)이 아시안게임 경기인가.
+ *
+ * 🔴 리그명을 문자열 하나로 비교하지 말 것. SPOTV NOW 는 `아이치-나고야 아시안게임`(하이픈)으로
+ * 주는데 상수는 `아이치·나고야`(가운뎃점)였다 — 허브의 중계 뱃지가 개막 후에도 **하나도**
+ * 안 붙었다(2026-09-21 발견). 표기가 또 바뀌어도 걸리게 「아시안게임」만 본다.
+ */
+export function isAgScheduleLeague(league: string): boolean {
+  return /아시안\s*게임/.test(league);
+}
+
+/**
+ * 네이버 ↔ SPOTV NOW 국가명 차이. 공백을 다 지운 뒤 비교하고, 이름 자체가 다른 것만 여기 적는다.
+ * 🔴 실제로 어긋난 것만 넣을 것(2026-09-21 편성 16건 대조: `사우디아라비아`↔`사우디 아라비아` 는
+ * 공백 제거로 풀리고, `대만`↔`차이니스 타이베이` 만 이름이 다르다).
+ */
+const COUNTRY_ALIAS: Record<string, string> = {
+  대만: "차이니스타이베이",
+  중화타이베이: "차이니스타이베이",
+};
+
+function normCountry(name: string): string {
+  const n = name.replace(/\s+/g, "");
+  return COUNTRY_ALIAS[n] ?? n;
 }
 
 /**
@@ -167,7 +194,7 @@ export function toAgGame(raw: Record<string, unknown>): AgGame {
  * 시각은 넣지 않는다 — 사전방송 때문에 편성 시각이 경기 시각과 다를 수 있다.
  */
 export function broadcastKey(date: string, a: string, b: string): string {
-  return `${date}|${[a.trim(), b.trim()].sort().join("|")}`;
+  return `${date}|${[normCountry(a), normCountry(b)].sort().join("|")}`;
 }
 
 export function groupByDate(games: AgGame[]): [string, AgGame[]][] {
@@ -177,4 +204,151 @@ export function groupByDate(games: AgGame[]): [string, AgGame[]][] {
     m.get(g.date)!.push(g);
   }
   return [...m.entries()];
+}
+
+// ───────────────────────── 종목별 페이지(`/asian-games/[sport]`) ─────────────────────────
+
+/**
+ * 종목별 페이지 목록 — 「아시안게임 축구 일정」「아시안게임 롤 일정」 검색의 착지점.
+ *
+ * 🔴 허브(`/asian-games`)는 한국 경기만 다룬다. 여기는 그 종목 **전 경기**를 든다 —
+ * e스포츠는 조 추첨 전이라 참가국이 비어 있어 `koreaPlayer` 가 전부 false 다(2026-09-21 실측
+ * 163경기). 한국 경기만 거르면 「롤 일정」을 찾는 사람에게 빈 페이지를 준다.
+ *
+ * 🔴 Hobby 한도 때문에 **종목 수를 늘리기 전에 검색 수요부터 볼 것**. 한 장당 하루 4번
+ * 재생성이라 ISR 쓰기는 무시할 수준이지만, 경기별 매치 페이지는 여전히 만들지 않는다.
+ */
+export type AgSport = {
+  slug: string;
+  /** 네이버 `disciplineName` 과 정확히 같아야 한다. */
+  discipline: string;
+  /** 화면·제목에 쓰는 이름. */
+  name: string;
+  /** 편성(`schedule.json`)의 `sport` 값. 한국어 해설 중계를 붙일 때 쓴다. 없으면 편성 매칭 안 함. */
+  scheduleSport?: string;
+  /** 제목에 괄호로 붙이는 검색어(예: 롤). */
+  alias?: string;
+};
+
+export const AG_SPORTS: AgSport[] = [
+  { slug: "soccer", discipline: "축구", name: "축구", scheduleSport: "축구" },
+  { slug: "baseball", discipline: "야구", name: "야구", scheduleSport: "야구" },
+  { slug: "basketball", discipline: "농구", name: "농구", scheduleSport: "농구" },
+  { slug: "volleyball", discipline: "배구", name: "배구", scheduleSport: "배구" },
+  { slug: "esports", discipline: "e스포츠", name: "e스포츠", alias: "롤" },
+];
+
+export function agSportBySlug(slug: string): AgSport | undefined {
+  return AG_SPORTS.find((s) => s.slug === slug);
+}
+
+export type AgSportsData = {
+  lastUpdated: string;
+  /** slug → 그 종목 전 경기(날짜·시각 순). */
+  games: Record<string, AgGame[]>;
+};
+
+export const AG_SPORTS_RAW_URL =
+  "https://raw.githubusercontent.com/yghwanee/hanhaeseol/main/public/asian-games-sports.json";
+
+/**
+ * e스포츠 세부 종목 이름. 네이버 `title` 은 대개 「리그 오브 레전드 A조 1경기」처럼 게임명으로
+ * 시작하지만 그란투리스모 예선은 「타임어택 예선 매치 1」이라 제목만으로는 못 가른다 → eventId 로 묶는다.
+ * 순서 = 화면 순서. 🔴 롤을 맨 앞에 둔다 — 「아시안게임 롤 일정」이 이 페이지의 주 검색어다.
+ */
+export const ESPORTS_TITLES: { prefix: string; name: string }[] = [
+  { prefix: "리그 오브 레전드", name: "리그 오브 레전드(롤)" },
+  { prefix: "배틀그라운드", name: "배틀그라운드 모바일" },
+  { prefix: "e풋볼", name: "e풋볼" },
+  { prefix: "대전격투게임", name: "대전격투게임" },
+  { prefix: "아너 오브 킹스", name: "아너 오브 킹스" },
+  { prefix: "모바일 레전드", name: "모바일 레전드" },
+  { prefix: "포켓몬 유나이트", name: "포켓몬 유나이트" },
+  { prefix: "아이덴티티 V", name: "아이덴티티 V" },
+  { prefix: "나라카", name: "나라카" },
+  { prefix: "뿌요뿌요", name: "뿌요뿌요 챔피언스" },
+  { prefix: "그란투리스모", name: "그란투리스모 7" },
+];
+
+/** e스포츠 경기 → 세부 종목 이름. 제목 접두어 → 같은 eventId 의 다른 경기 제목 순으로 찾는다. */
+export function groupEsports(games: AgGame[]): { name: string; games: AgGame[] }[] {
+  const byEvent = new Map<string, string>();
+  const nameOf = (g: AgGame): string | undefined =>
+    ESPORTS_TITLES.find((t) => g.title.startsWith(t.prefix))?.name;
+  for (const g of games) {
+    const n = nameOf(g);
+    if (n && g.event && !byEvent.has(g.event)) byEvent.set(g.event, n);
+  }
+  const out = new Map<string, AgGame[]>();
+  for (const g of games) {
+    const n = nameOf(g) ?? (g.event ? byEvent.get(g.event) : undefined) ?? (g.event?.startsWith("ESPOGT") ? "그란투리스모 7" : "기타");
+    if (!out.has(n)) out.set(n, []);
+    out.get(n)!.push(g);
+  }
+  const order = (n: string) => {
+    const i = ESPORTS_TITLES.findIndex((t) => t.name === n);
+    return i < 0 ? 99 : i;
+  };
+  return [...out.entries()].sort((a, b) => order(a[0]) - order(b[0])).map(([name, gs]) => ({ name, games: gs }));
+}
+
+export const KOREA = "대한민국";
+
+export function isKoreaGame(g: AgGame): boolean {
+  return g.home === KOREA || g.away === KOREA;
+}
+
+/** 제목 앞 「남자」「여자」. 없으면 빈 문자열. */
+export function genderOf(g: AgGame): "남자" | "여자" | "" {
+  return g.title.startsWith("남자") ? "남자" : g.title.startsWith("여자") ? "여자" : "";
+}
+
+/** 대한민국 전적(끝난 맞대결만). 성별이 섞인 종목은 성별마다 따로 센다. */
+export function koreaRecord(games: AgGame[]): { gender: string; win: number; draw: number; lose: number }[] {
+  const m = new Map<string, { gender: string; win: number; draw: number; lose: number }>();
+  for (const g of games) {
+    if (!isKoreaGame(g) || g.homeScore === null || g.awayScore === null || g.status !== "RESULT") continue;
+    const k = genderOf(g);
+    const r = m.get(k) ?? { gender: k, win: 0, draw: 0, lose: 0 };
+    const [my, op] = g.home === KOREA ? [g.homeScore, g.awayScore] : [g.awayScore, g.homeScore];
+    if (my > op) r.win++;
+    else if (my < op) r.lose++;
+    else r.draw++;
+    m.set(k, r);
+  }
+  return [...m.values()].sort((a, b) => a.gender.localeCompare(b.gender, "ko"));
+}
+
+/** 오늘(포함) 이후 첫 대한민국 경기. 끝난 경기는 건너뛴다. */
+export function nextKoreaGame(games: AgGame[], today: string): AgGame | undefined {
+  return [...games]
+    .filter((g) => isKoreaGame(g) && g.date >= today && g.status !== "RESULT")
+    .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))[0];
+}
+
+/** 「9월 22일 (화)」 */
+export function fmtAgDate(date: string): string {
+  const w = ["일", "월", "화", "수", "목", "금", "토"][new Date(`${date}T12:00:00Z`).getUTCDay()];
+  const [, m, dd] = date.split("-");
+  return `${Number(m)}월 ${Number(dd)}일 (${w})`;
+}
+
+/**
+ * 조편성 — 경기 제목(「남자 D조 1경기」)에서 조와 참가국을 모은다. 「아시안게임 축구 조편성」 검색용.
+ * 🔴 손으로 적지 않는다. 대진은 네이버 경기 목록이 정본이고, 조가 제목에 없는 경기(토너먼트)는 건너뛴다.
+ */
+export function groupStandingsTable(games: AgGame[]): { label: string; teams: string[] }[] {
+  const m = new Map<string, Set<string>>();
+  for (const g of games) {
+    const hit = g.title.match(/^(남자|여자)?\s*([A-Z])조/);
+    if (!hit || !g.home || !g.away) continue;
+    const label = `${hit[1] ? `${hit[1]} ` : ""}${hit[2]}조`;
+    const set = m.get(label) ?? new Set<string>();
+    set.add(g.home);
+    set.add(g.away);
+    m.set(label, set);
+  }
+  return [...m.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0], "ko"))
+    .map(([label, t]) => ({ label, teams: [...t].sort((a, b) => (a === KOREA ? -1 : b === KOREA ? 1 : a.localeCompare(b, "ko"))) }));
 }
