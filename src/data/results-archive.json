@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-20T15:59:58.763Z",
+  "lastUpdated": "2026-09-20T18:44:07.822Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -53681,6 +53681,29 @@
         }
       ]
     },
+    "2026-09-20|eredivisie|NEC 네이메헌|고 어헤드 이글스": {
+      "date": "2026-09-20",
+      "categoryId": "eredivisie",
+      "gameId": "8aeEpc4JhxOYOYR",
+      "homeTeam": "NEC 네이메헌",
+      "awayTeam": "고 어헤드 이글스",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "스휘르스",
+          "minute": 2
+        },
+        {
+          "team": "away",
+          "player": "시구르다르손",
+          "minute": 10
+        }
+      ]
+    },
     "2026-09-20|kbo|LG|한화": {
       "date": "2026-09-20",
       "categoryId": "kbo",
@@ -54807,6 +54830,35 @@
       ],
       "highlightVideoId": "WAnDR4bEqG0"
     },
+    "2026-09-20|primera|AT. 마드리드|레알 마드리드": {
+      "date": "2026-09-20",
+      "categoryId": "primera",
+      "gameId": "GVq8RpL7UsHlsDs",
+      "homeTeam": "AT. 마드리드",
+      "awayTeam": "레알 마드리드",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "알레한드로 그리말도",
+          "minute": 53
+        },
+        {
+          "team": "home",
+          "player": "조너선 데이비드",
+          "minute": 59
+        },
+        {
+          "team": "away",
+          "player": "뤼디거",
+          "minute": 89
+        }
+      ],
+      "highlightVideoId": "DxUe7JuuahI"
+    },
     "2026-09-20|seria|AS 로마|인터 밀란": {
       "date": "2026-09-20",
       "categoryId": "seria",
@@ -54886,7 +54938,8 @@
           "player": "알렉스 히메네스",
           "minute": 51
         }
-      ]
+      ],
+      "highlightVideoId": "dHI8NxiEzP0"
     },
     "2026-09-20|seria|프로시노네 칼초|코모 1907": {
       "date": "2026-09-20",
@@ -54981,6 +55034,191 @@
           "minute": 33
         }
       ]
+    },
+    "2026-09-21|bundesliga|샬케|엘버스베르크": {
+      "date": "2026-09-21",
+      "categoryId": "bundesliga",
+      "gameId": "zMgnjKN7oFSKO7I",
+      "homeTeam": "샬케",
+      "awayTeam": "엘버스베르크",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    "2026-09-21|denmark|비보리|노르셸란": {
+      "date": "2026-09-21",
+      "categoryId": "denmark",
+      "gameId": "5QM3wHmx3dYvkpv",
+      "homeTeam": "비보리",
+      "awayTeam": "노르셸란",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "쇤더가르드",
+          "minute": 16
+        },
+        {
+          "team": "away",
+          "player": "알렉산더 린드",
+          "minute": 26
+        },
+        {
+          "team": "home",
+          "player": "도리안 주니어",
+          "minute": 33
+        },
+        {
+          "team": "home",
+          "player": "누크",
+          "minute": 41
+        },
+        {
+          "team": "home",
+          "player": "클레이스-크리스토퍼센",
+          "minute": 81
+        }
+      ]
+    },
+    "2026-09-21|epl|풀럼|맨유": {
+      "date": "2026-09-21",
+      "categoryId": "epl",
+      "gameId": "xUkswi7UZPjci4g",
+      "homeTeam": "풀럼",
+      "awayTeam": "맨유",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "리산드로 마르티네스",
+          "minute": 63,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "마테우스 쿠냐",
+          "minute": 89
+        }
+      ],
+      "highlightVideoId": "fr9_fhwI6iM"
+    },
+    "2026-09-21|ligue1|니스|릴": {
+      "date": "2026-09-21",
+      "categoryId": "ligue1",
+      "gameId": "0mS4cvP5yWEqV2G",
+      "homeTeam": "니스",
+      "awayTeam": "릴",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "응고이",
+          "minute": 22,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "아무라",
+          "minute": 67
+        },
+        {
+          "team": "away",
+          "player": "우에다",
+          "minute": 79
+        }
+      ]
+    },
+    "2026-09-21|primera|데포르티보|레알 베티스": {
+      "date": "2026-09-21",
+      "categoryId": "primera",
+      "gameId": "rW4Po6mcSpZMOJH",
+      "homeTeam": "데포르티보",
+      "awayTeam": "레알 베티스",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에르난데스",
+          "minute": 43
+        },
+        {
+          "team": "home",
+          "player": "디에고 비야레스",
+          "minute": 87
+        }
+      ],
+      "highlightVideoId": "WAnDR4bEqG0"
+    },
+    "2026-09-21|primera|비야레알|레반테": {
+      "date": "2026-09-21",
+      "categoryId": "primera",
+      "gameId": "UVQCs3kPoTCZgyQ",
+      "homeTeam": "비야레알",
+      "awayTeam": "레반테",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "아요세 페레스",
+          "minute": 41
+        },
+        {
+          "team": "away",
+          "player": "이반 로메로",
+          "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "알베르토 모레이로",
+          "minute": 54
+        },
+        {
+          "team": "home",
+          "player": "미카우타제",
+          "minute": 86
+        }
+      ],
+      "highlightVideoId": "RXHxiPGTPRU"
+    },
+    "2026-09-21|seria|유벤투스|아탈란타": {
+      "date": "2026-09-21",
+      "categoryId": "seria",
+      "gameId": "pZoiCORBaTTZjCK",
+      "homeTeam": "유벤투스",
+      "awayTeam": "아탈란타",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "프란시스코 콘세이상",
+          "minute": 28
+        },
+        {
+          "team": "home",
+          "player": "브레메르",
+          "minute": 77
+        }
+      ],
+      "highlightVideoId": "auaZLBfsIB0"
     }
   },
   "results": [
@@ -108666,6 +108904,29 @@
     },
     {
       "date": "2026-09-20",
+      "categoryId": "eredivisie",
+      "gameId": "8aeEpc4JhxOYOYR",
+      "homeTeam": "NEC 네이메헌",
+      "awayTeam": "고 어헤드 이글스",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "스휘르스",
+          "minute": 2
+        },
+        {
+          "team": "away",
+          "player": "시구르다르손",
+          "minute": 10
+        }
+      ]
+    },
+    {
+      "date": "2026-09-20",
       "categoryId": "kbo",
       "gameId": "20260920HHLG02026",
       "homeTeam": "LG",
@@ -109792,6 +110053,35 @@
     },
     {
       "date": "2026-09-20",
+      "categoryId": "primera",
+      "gameId": "GVq8RpL7UsHlsDs",
+      "homeTeam": "AT. 마드리드",
+      "awayTeam": "레알 마드리드",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "알레한드로 그리말도",
+          "minute": 53
+        },
+        {
+          "team": "home",
+          "player": "조너선 데이비드",
+          "minute": 59
+        },
+        {
+          "team": "away",
+          "player": "뤼디거",
+          "minute": 89
+        }
+      ],
+      "highlightVideoId": "DxUe7JuuahI"
+    },
+    {
+      "date": "2026-09-20",
       "categoryId": "seria",
       "gameId": "RFkVLm7LnECpHti",
       "homeTeam": "AS 로마",
@@ -109869,7 +110159,8 @@
           "player": "알렉스 히메네스",
           "minute": 51
         }
-      ]
+      ],
+      "highlightVideoId": "dHI8NxiEzP0"
     },
     {
       "date": "2026-09-20",
@@ -109964,6 +110255,191 @@
           "minute": 33
         }
       ]
+    },
+    {
+      "date": "2026-09-21",
+      "categoryId": "bundesliga",
+      "gameId": "zMgnjKN7oFSKO7I",
+      "homeTeam": "샬케",
+      "awayTeam": "엘버스베르크",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-09-21",
+      "categoryId": "denmark",
+      "gameId": "5QM3wHmx3dYvkpv",
+      "homeTeam": "비보리",
+      "awayTeam": "노르셸란",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "쇤더가르드",
+          "minute": 16
+        },
+        {
+          "team": "away",
+          "player": "알렉산더 린드",
+          "minute": 26
+        },
+        {
+          "team": "home",
+          "player": "도리안 주니어",
+          "minute": 33
+        },
+        {
+          "team": "home",
+          "player": "누크",
+          "minute": 41
+        },
+        {
+          "team": "home",
+          "player": "클레이스-크리스토퍼센",
+          "minute": 81
+        }
+      ]
+    },
+    {
+      "date": "2026-09-21",
+      "categoryId": "epl",
+      "gameId": "xUkswi7UZPjci4g",
+      "homeTeam": "풀럼",
+      "awayTeam": "맨유",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "리산드로 마르티네스",
+          "minute": 63,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "마테우스 쿠냐",
+          "minute": 89
+        }
+      ],
+      "highlightVideoId": "fr9_fhwI6iM"
+    },
+    {
+      "date": "2026-09-21",
+      "categoryId": "ligue1",
+      "gameId": "0mS4cvP5yWEqV2G",
+      "homeTeam": "니스",
+      "awayTeam": "릴",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "응고이",
+          "minute": 22,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "아무라",
+          "minute": 67
+        },
+        {
+          "team": "away",
+          "player": "우에다",
+          "minute": 79
+        }
+      ]
+    },
+    {
+      "date": "2026-09-21",
+      "categoryId": "primera",
+      "gameId": "rW4Po6mcSpZMOJH",
+      "homeTeam": "데포르티보",
+      "awayTeam": "레알 베티스",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에르난데스",
+          "minute": 43
+        },
+        {
+          "team": "home",
+          "player": "디에고 비야레스",
+          "minute": 87
+        }
+      ],
+      "highlightVideoId": "WAnDR4bEqG0"
+    },
+    {
+      "date": "2026-09-21",
+      "categoryId": "primera",
+      "gameId": "UVQCs3kPoTCZgyQ",
+      "homeTeam": "비야레알",
+      "awayTeam": "레반테",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "아요세 페레스",
+          "minute": 41
+        },
+        {
+          "team": "away",
+          "player": "이반 로메로",
+          "minute": 42
+        },
+        {
+          "team": "home",
+          "player": "알베르토 모레이로",
+          "minute": 54
+        },
+        {
+          "team": "home",
+          "player": "미카우타제",
+          "minute": 86
+        }
+      ],
+      "highlightVideoId": "RXHxiPGTPRU"
+    },
+    {
+      "date": "2026-09-21",
+      "categoryId": "seria",
+      "gameId": "pZoiCORBaTTZjCK",
+      "homeTeam": "유벤투스",
+      "awayTeam": "아탈란타",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "프란시스코 콘세이상",
+          "minute": 28
+        },
+        {
+          "team": "home",
+          "player": "브레메르",
+          "minute": 77
+        }
+      ],
+      "highlightVideoId": "auaZLBfsIB0"
     }
   ]
 }
