@@ -220,8 +220,9 @@ export function groupByDate(games: AgGame[]): [string, AgGame[]][] {
  */
 export type AgSport = {
   slug: string;
-  /** 네이버 `disciplineName` 과 정확히 같아야 한다. */
-  discipline: string;
+  /** 네이버 `disciplineName` 과 정확히 같아야 한다. 한 종목이 여러 세부 종목으로 쪼개져 오면 다 적는다
+   *  (양궁 = 리커브+컴파운드, 태권도 = 품새+겨루기+버추얼, 농구 = 5대5+3x3). */
+  disciplines: string[];
   /** 화면·제목에 쓰는 이름. */
   name: string;
   /** 편성(`schedule.json`)의 `sport` 값. 한국어 해설 중계를 붙일 때 쓴다. 없으면 편성 매칭 안 함. */
@@ -230,12 +231,26 @@ export type AgSport = {
   alias?: string;
 };
 
+/**
+ * 🔴 순서와 구성은 **검색광고 실측 검색량**으로 정했다(2026-09-21, 월간 PC+모바일):
+ *   축구 322,000 · 야구일정 90,400 · 롤 73,200 · 배구 16,100 · e스포츠종목 8,710 ·
+ *   양궁 8,470 · 배드민턴 8,090 · 탁구 5,300 · 골프 2,850 · 핸드볼 1,750.
+ * 농구(19)·수영(18)·태권도(18)는 도구 수치가 바닥이지만 한국 메달 종목이라 대회 중 실검이 붙는다
+ * — 데이터가 이미 있어 비용이 0 이므로 같이 연다.
+ */
 export const AG_SPORTS: AgSport[] = [
-  { slug: "soccer", discipline: "축구", name: "축구", scheduleSport: "축구" },
-  { slug: "baseball", discipline: "야구", name: "야구", scheduleSport: "야구" },
-  { slug: "basketball", discipline: "농구", name: "농구", scheduleSport: "농구" },
-  { slug: "volleyball", discipline: "배구", name: "배구", scheduleSport: "배구" },
-  { slug: "esports", discipline: "e스포츠", name: "e스포츠", alias: "롤" },
+  { slug: "soccer", disciplines: ["축구"], name: "축구", scheduleSport: "축구" },
+  { slug: "baseball", disciplines: ["야구"], name: "야구", scheduleSport: "야구" },
+  { slug: "esports", disciplines: ["e스포츠"], name: "e스포츠", alias: "롤" },
+  { slug: "volleyball", disciplines: ["배구"], name: "배구", scheduleSport: "배구" },
+  { slug: "basketball", disciplines: ["농구", "3x3 농구"], name: "농구", scheduleSport: "농구" },
+  { slug: "archery", disciplines: ["양궁 리커브", "양궁 컴파운드"], name: "양궁" },
+  { slug: "badminton", disciplines: ["배드민턴"], name: "배드민턴" },
+  { slug: "table-tennis", disciplines: ["탁구"], name: "탁구" },
+  { slug: "swimming", disciplines: ["수영"], name: "수영" },
+  { slug: "golf", disciplines: ["골프"], name: "골프" },
+  { slug: "handball", disciplines: ["핸드볼"], name: "핸드볼" },
+  { slug: "taekwondo", disciplines: ["태권도 품새", "태권도 겨루기", "버추얼 태권도"], name: "태권도" },
 ];
 
 export function agSportBySlug(slug: string): AgSport | undefined {
@@ -244,12 +259,17 @@ export function agSportBySlug(slug: string): AgSport | undefined {
 
 export type AgSportsData = {
   lastUpdated: string;
-  /** slug → 그 종목 전 경기(날짜·시각 순). */
-  games: Record<string, AgGame[]>;
+  /** 그 종목 전 경기(날짜·시각 순). */
+  games: AgGame[];
 };
 
-export const AG_SPORTS_RAW_URL =
-  "https://raw.githubusercontent.com/yghwanee/hanhaeseol/main/public/asian-games-sports.json";
+/**
+ * 🔴 종목마다 **파일을 나눈다**. 한 파일에 12종목을 담으면 409KB 였고(2026-09-21 실측),
+ * 종목 페이지 하나를 여는 사람이 나머지 11종목까지 받게 된다. 파일당 5~40KB 다.
+ */
+export const agSportsFile = (slug: string) => `asian-games/${slug}.json`;
+export const agSportsRawUrl = (slug: string) =>
+  `https://raw.githubusercontent.com/yghwanee/hanhaeseol/main/public/${agSportsFile(slug)}`;
 
 /**
  * e스포츠 세부 종목 이름. 네이버 `title` 은 대개 「리그 오브 레전드 A조 1경기」처럼 게임명으로
@@ -351,4 +371,27 @@ export function groupStandingsTable(games: AgGame[]): { label: string; teams: st
   return [...m.entries()]
     .sort((a, b) => a[0].localeCompare(b[0], "ko"))
     .map(([label, t]) => ({ label, teams: [...t].sort((a, b) => (a === KOREA ? -1 : b === KOREA ? 1 : a.localeCompare(b, "ko"))) }));
+}
+
+/**
+ * 렌더 대상 경기 추리기.
+ *
+ * 🔴 양궁 362경기(96KB)·탁구 295 처럼 예선 라운드가 통째로 오는 종목이 있다. 전부 그리면
+ * HTML 이 200KB 를 넘고, 그건 Hobby 의 Fast Origin Transfer 한도를 그대로 갉아먹는다
+ * (2026-09-14 대시보드 FOT 10/10GB). 그래서 **사람이 찾는 경기만** 남긴다:
+ * 한국 경기 · 메달이 걸린 경기 · 오늘 이후 경기. 그 뒤에도 많으면 최신 것부터 자른다.
+ */
+export const RENDER_LIMIT = 150;
+
+export function gamesForRender(games: AgGame[], today: string): AgGame[] {
+  if (games.length <= RENDER_LIMIT) return games;
+  const keep = games.filter((g) => isKoreaGame(g) || g.medal || g.date >= today);
+  if (keep.length <= RENDER_LIMIT) return keep;
+  // 🔴 한국 경기와 메달 경기는 날짜가 멀어도 안 자른다 — 사람이 찾는 건 그것이다.
+  // 나머지는 오늘에 가까운 것부터 채운다(과거는 결과, 미래는 일정 — 양쪽 다 필요하다).
+  const must = keep.filter((g) => isKoreaGame(g) || g.medal);
+  const rest = keep.filter((g) => !(isKoreaGame(g) || g.medal));
+  const near = (g: AgGame) => Math.abs(Date.parse(`${g.date}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`));
+  const filled = [...must, ...[...rest].sort((a, b) => near(a) - near(b))].slice(0, RENDER_LIMIT);
+  return filled.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
 }

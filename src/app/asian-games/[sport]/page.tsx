@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { loadAsianGamesSports, loadScheduleData } from "@/lib/server-data";
+import { loadAsianGamesSport, loadScheduleData } from "@/lib/server-data";
 import { getTodayString } from "@/lib/schedule-utils";
 import { SportScheduleLive } from "../_components/SportScheduleLive";
 import { SportNav } from "../_components/SportNav";
@@ -13,6 +13,7 @@ import {
   agSportBySlug,
   broadcastKey,
   fmtAgDate,
+  gamesForRender,
   groupEsports,
   isAgScheduleLeague,
   isKoreaGame,
@@ -71,7 +72,7 @@ export async function generateMetadata({ params }: { params: { sport: string } }
   const url = `${BASE}/${sp.slug}`;
   const title = titleOf(sp);
   const description = descOf(sp);
-  const kw = [`아시안게임 ${sp.name}`, `나고야 아시안게임 ${sp.name}`, `아시안게임 ${sp.name} 일정`, `아시안게임 ${sp.name} 결과`, `아시안게임 ${sp.name} 중계`, `2026 아시안게임 ${sp.name}`];
+  const kw = [`아시안게임 ${sp.name}`, `나고야 아시안게임 ${sp.name}`, `아시안게임 ${sp.name} 일정`, `아시안게임 ${sp.name} 중계`, `아시안게임 ${sp.name} 결과`, `2026 아시안게임 ${sp.name}`];
   if (sp.slug === "esports")
     kw.push("아시안게임 롤", "아시안게임 롤 일정", "나고야 아시안게임 롤", "아시안게임 LoL 일정", "아시안게임 리그 오브 레전드", "아시안게임 e스포츠");
   else
@@ -132,11 +133,16 @@ function answerLead(sp: AgSport, games: AgGame[], today: string): string {
   }
 
   const next = nextKoreaGame(games, today);
+  // 🔴 개인 종목(양궁·수영 등)은 네이버가 한국 선수를 아직 안 붙여 한국 경기가 0 일 수 있다.
+  // 그때는 빈 문장으로 끝내지 말고 **금메달전 날짜**를 준다 — 그게 이 종목에서 사람이 찾는 값이다.
+  const gold = finals(games).filter((g) => g.date >= today)[0];
   const nextPart = next
     ? ` 대한민국 다음 경기는 ${hhmm(next)} ${opponent(next) ? `${opponent(next)}전` : next.title}${next.title && opponent(next) ? `(${next.title})` : ""}입니다.`
     : games.some(isKoreaGame)
       ? " 대한민국의 남은 경기는 대진이 정해지면 추가됩니다."
-      : "";
+      : gold
+        ? ` 다음 금메달 경기는 ${hhmm(gold)} ${gold.title}입니다.`
+        : "";
   const rec = koreaRecord(games);
   const recPart =
     rec.length > 0
@@ -197,8 +203,10 @@ export default function AsianGamesSportPage({ params }: { params: { sport: strin
   const sp = agSportBySlug(params.sport);
   if (!sp) notFound();
   const today = getTodayString();
-  const data = loadAsianGamesSports();
-  const games = [...(data?.games[sp.slug] ?? [])].sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  const data = loadAsianGamesSport(sp.slug);
+  const all = [...(data?.games ?? [])].sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+  // 🔴 예선 라운드가 수백 건인 종목(양궁 362·탁구 295)은 추려서 그린다. 근거는 gamesForRender 주석.
+  const games = gamesForRender(all, today);
 
   // 이 종목의 편성(SPOTV NOW 등). 한국 경기만이 아니라 전 경기에 붙인다.
   const broadcasts: Record<string, string[]> = {};

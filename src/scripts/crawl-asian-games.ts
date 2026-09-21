@@ -14,6 +14,7 @@ import path from "path";
 import {
   AG_EVENT,
   AG_SPORTS,
+  agSportsFile,
   type AgGame,
   type AgSportsData,
   crawlDates,
@@ -100,7 +101,9 @@ async function main(): Promise<void> {
     // koreaPlayer 가 false 인 경기는 0건이었다.
     koreaGames.push(...all.filter((g) => g.koreaPlayer === true).map(toAgGame));
     for (const sp of AG_SPORTS) {
-      sportGames[sp.slug].push(...all.filter((g) => g.disciplineName === sp.discipline).map(toAgGame));
+      sportGames[sp.slug].push(
+        ...all.filter((g) => sp.disciplines.includes(g.disciplineName as string)).map(toAgGame),
+      );
     }
   }
 
@@ -111,20 +114,23 @@ async function main(): Promise<void> {
     koreaGames,
   };
 
-  // 🔴 한 종목이라도 0건이면 종목 파일은 덮어쓰지 않는다 — 네이버가 한 날짜를 빈 응답으로
-  // 주면 그 종목 페이지가 「일정 없음」으로 커밋된다. 메달 파일은 그대로 쓴다(따로 판정).
-  const emptySport = AG_SPORTS.find((sp) => sportGames[sp.slug].length === 0);
-  const sportsOut = path.join(process.cwd(), "public", "asian-games-sports.json");
-  if (emptySport) {
-    console.error(`종목 ${emptySport.name} 경기가 0건 — asian-games-sports.json 을 유지한다.`);
-  } else {
-    const sportsData: AgSportsData = { lastUpdated: new Date().toISOString(), games: sportGames };
-    fs.writeFileSync(sportsOut, JSON.stringify(sportsData));
-    console.log(
-      `종목별: ${AG_SPORTS.map((sp) => `${sp.name} ${sportGames[sp.slug].length}`).join(" · ")} · ` +
-        `${(fs.statSync(sportsOut).size / 1024).toFixed(1)}KB`,
-    );
+  // 🔴 한 종목이라도 0건이면 그 종목 파일은 덮어쓰지 않는다 — 네이버가 한 날짜를 빈 응답으로
+  // 주면 그 종목 페이지가 「일정 없음」으로 커밋된다. 종목마다 따로 판정한다.
+  const stamp = new Date().toISOString();
+  const wrote: string[] = [];
+  for (const sp of AG_SPORTS) {
+    const games = sportGames[sp.slug];
+    if (games.length === 0) {
+      console.error(`종목 ${sp.name} 경기가 0건 — 기존 파일을 유지한다.`);
+      continue;
+    }
+    const file = path.join(process.cwd(), "public", agSportsFile(sp.slug));
+    fs.mkdirSync(path.dirname(file), { recursive: true });
+    const data: AgSportsData = { lastUpdated: stamp, games };
+    fs.writeFileSync(file, JSON.stringify(data));
+    wrote.push(`${sp.name} ${games.length}(${(fs.statSync(file).size / 1024).toFixed(0)}KB)`);
   }
+  console.log(`종목별: ${wrote.join(" · ")}`);
 
   const out = path.join(process.cwd(), "public", "asian-games.json");
   fs.writeFileSync(out, JSON.stringify(data));

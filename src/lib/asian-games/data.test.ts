@@ -93,6 +93,10 @@ test("커밋된 데이터 파일 모양", () => {
 // ───────── 종목별 페이지 (2026-09-21) ─────────
 import {
   AG_SPORTS,
+  agSportsFile,
+  gamesForRender,
+  isKoreaGame,
+  RENDER_LIMIT,
   groupEsports,
   groupStandingsTable,
   isAgScheduleLeague,
@@ -162,8 +166,27 @@ test("한국 전적은 끝난 경기만, 성별을 갈라 센다", () => {
   ]);
 });
 
-test("종목 페이지 데이터 파일이 모든 종목을 담고 있다", () => {
-  const p = path.join(process.cwd(), "public", "asian-games-sports.json");
-  const d = JSON.parse(fs.readFileSync(p, "utf-8"));
-  for (const s of AG_SPORTS) assert.ok(d.games[s.slug]?.length > 0, `${s.slug} 경기가 비었다`);
+test("종목마다 파일이 있고 그 종목 경기만 들어 있다", () => {
+  for (const s of AG_SPORTS) {
+    const p = path.join(process.cwd(), "public", agSportsFile(s.slug));
+    const d = JSON.parse(fs.readFileSync(p, "utf-8")) as { games: AgGame[] };
+    assert.ok(d.games.length > 0, `${s.slug} 경기가 비었다`);
+    // 🔴 한 파일에 12종목을 담으면 409KB 였다. 파일이 섞이면 그 사고로 되돌아간다.
+    const wrong = d.games.find((g) => !s.disciplines.includes(g.discipline));
+    assert.equal(wrong, undefined, `${s.slug} 파일에 다른 종목(${wrong?.discipline})이 섞였다`);
+  }
+});
+
+test("렌더 대상은 상한을 넘지 않고, 한국 경기와 메달 경기는 안 잘린다", () => {
+  const many: AgGame[] = [];
+  for (let i = 0; i < 400; i++) {
+    const d = `2026-09-${String(10 + (i % 20)).padStart(2, "0")}`;
+    many.push(game({ date: d, title: `예선 ${i}`, home: "일본", away: "중국" }));
+  }
+  many.push(game({ date: "2026-10-03", title: "결승", home: "대한민국", away: "일본", medal: true }));
+  const out = gamesForRender(many, "2026-09-21");
+  assert.ok(out.length <= RENDER_LIMIT, `${out.length}건`);
+  assert.ok(out.some((g) => isKoreaGame(g) && g.medal), "한국 메달 경기가 잘렸다");
+  // 상한 아래면 손대지 않는다.
+  assert.equal(gamesForRender(many.slice(0, 10), "2026-09-21").length, 10);
 });

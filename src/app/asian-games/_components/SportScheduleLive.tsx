@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from "react";
 import {
-  AG_SPORTS_RAW_URL,
+  agSportsRawUrl,
+  gamesForRender,
+  genderOf,
   broadcastKey,
   fmtAgDate,
   groupByDate,
@@ -154,20 +156,19 @@ export function SportScheduleLive({
 
   useEffect(() => {
     let alive = true;
-    fetch(`${AG_SPORTS_RAW_URL}?t=${Math.floor(Date.now() / 300_000)}`, { cache: "no-store" })
+    fetch(`${agSportsRawUrl(slug)}?t=${Math.floor(Date.now() / 300_000)}`, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
       .then((j: AgSportsData | null) => {
-        const next = j?.games?.[slug];
-        if (alive && next?.length && j!.lastUpdated > lastUpdated) {
-          setGames(next);
-          setUpdated(j!.lastUpdated);
+        if (alive && j?.games?.length && j.lastUpdated > lastUpdated) {
+          setGames(gamesForRender(j.games, today));
+          setUpdated(j.lastUpdated);
         }
       })
       .catch(() => {});
     return () => {
       alive = false;
     };
-  }, [slug, lastUpdated]);
+  }, [slug, lastUpdated, today]);
 
   const stamp = <span className="shrink-0 text-caption2 text-fg-tertiary">{kst(updated)} 기준</span>;
 
@@ -196,6 +197,8 @@ export function SportScheduleLive({
 
   const korea = games.filter(isKoreaGame);
   const groups = groupStandingsTable(games);
+  // 남자·여자가 둘 다 있으면 나눠 그린다(제목이 검색어와 같아진다).
+  const genders = (["남자", "여자"] as const).filter((g) => games.some((x) => genderOf(x) === g));
   return (
     <>
       <section id="korea" className="mb-6 scroll-mt-20 rounded-xl border border-line-subtle bg-surface p-4 sm:p-5">
@@ -207,7 +210,9 @@ export function SportScheduleLive({
           {stamp}
         </div>
         {korea.length === 0 ? (
-          <p className="mt-2 text-label1 text-fg-secondary">대한민국 경기가 아직 없습니다. 대진이 정해지면 이 자리에 나옵니다.</p>
+          <p className="mt-2 text-label1 text-fg-secondary">
+            대한민국 선수 경기가 아직 표시되지 않습니다. 개인 종목은 네이버 대회 데이터에 한국 선수가 붙는 시점이 늦습니다 — 확인되는 대로 이 자리에 채워집니다. 아래 전체 일정에서 라운드별 시간과 금메달 경기를 볼 수 있습니다.
+          </p>
         ) : (
           <DateList games={korea} today={today} broadcasts={broadcasts} anchor="today" />
         )}
@@ -234,13 +239,30 @@ export function SportScheduleLive({
         </section>
       )}
 
-      <section className="mb-6 rounded-xl border border-line-subtle bg-surface p-4 sm:p-5">
-        <h2 className="text-headline1 font-semibold text-fg-strong sm:text-heading2">
-          아시안게임 {name} 전체 경기 일정{" "}
-          <span className="whitespace-nowrap text-label1 font-normal text-fg-tertiary">({games.length}경기)</span>
-        </h2>
-        <DateList games={games} today={today} broadcasts={broadcasts} />
-      </section>
+      {/* 🔴 성별로 나눠 h2 를 단다 — `아시안게임 남자 축구` 17,390/월 · `여자 축구` 9,110/월
+       *  (2026-09-21 검색광고 실측). 한 덩어리로 두면 그 어구가 화면에 아예 없다. */}
+      {genders.length > 1 ? (
+        genders.map((gd) => {
+          const gs = games.filter((g) => genderOf(g) === gd);
+          return (
+            <section key={gd} id={gd === "남자" ? "men" : "women"} className="mb-6 scroll-mt-20 rounded-xl border border-line-subtle bg-surface p-4 sm:p-5">
+              <h2 className="text-headline1 font-semibold text-fg-strong sm:text-heading2">
+                아시안게임 {gd} {name} 일정{" "}
+                <span className="whitespace-nowrap text-label1 font-normal text-fg-tertiary">({gs.length}경기)</span>
+              </h2>
+              <DateList games={gs} today={today} broadcasts={broadcasts} />
+            </section>
+          );
+        })
+      ) : (
+        <section className="mb-6 rounded-xl border border-line-subtle bg-surface p-4 sm:p-5">
+          <h2 className="text-headline1 font-semibold text-fg-strong sm:text-heading2">
+            아시안게임 {name} 전체 경기 일정{" "}
+            <span className="whitespace-nowrap text-label1 font-normal text-fg-tertiary">({games.length}경기)</span>
+          </h2>
+          <DateList games={games} today={today} broadcasts={broadcasts} />
+        </section>
+      )}
     </>
   );
 }
