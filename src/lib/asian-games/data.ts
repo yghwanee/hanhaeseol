@@ -247,6 +247,7 @@ export type AgSport = {
  * 🔴 순서와 구성은 **검색광고 실측 검색량**으로 정했다(2026-09-21, 월간 PC+모바일):
  *   축구 322,000 · 야구일정 90,400 · 롤 73,200 · 배구 16,100 · e스포츠종목 8,710 ·
  *   양궁 8,470 · 배드민턴 8,090 · 탁구 5,300 · 골프 2,850 · 핸드볼 1,750.
+ * 2차(같은 날): 유도 5,270 · 펜싱 4,670 · 사격 2,940 · 테니스 2,160 · 역도 900 · 브레이킹 720.
  * 농구(19)·수영(18)·태권도(18)는 도구 수치가 바닥이지만 한국 메달 종목이라 대회 중 실검이 붙는다
  * — 데이터가 이미 있어 비용이 0 이므로 같이 연다.
  */
@@ -264,6 +265,14 @@ export const AG_SPORTS: AgSport[] = [
   { slug: "golf", disciplines: ["골프"], name: "골프" },
   { slug: "handball", disciplines: ["핸드볼"], name: "핸드볼" },
   { slug: "taekwondo", disciplines: ["태권도 품새", "태권도 겨루기", "버추얼 태권도"], name: "태권도" },
+  // 2026-09-21 2차 실측: 유도 5,270 · 펜싱 4,670 · 사격 2,940 · 테니스 2,160 · 역도 900 · 브레이킹 720 · 체조 280.
+  { slug: "judo", disciplines: ["유도"], name: "유도" },
+  { slug: "fencing", disciplines: ["펜싱 에페", "펜싱 플뢰레", "펜싱 사브르"], name: "펜싱" },
+  { slug: "shooting", disciplines: ["사격 소총", "사격 권총", "사격 트랩", "사격 스키트"], name: "사격" },
+  { slug: "tennis", disciplines: ["테니스"], name: "테니스" },
+  { slug: "weightlifting", disciplines: ["역도"], name: "역도" },
+  { slug: "breaking", disciplines: ["브레이킹"], name: "브레이킹" },
+  { slug: "gymnastics", disciplines: ["기계 체조", "리듬 체조", "트램폴린"], name: "체조" },
 ];
 
 export function agSportBySlug(slug: string): AgSport | undefined {

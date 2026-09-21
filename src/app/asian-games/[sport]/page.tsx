@@ -52,7 +52,10 @@ const BASE = "https://haeseol.com/asian-games";
 function titleOf(sp: AgSport): string {
   return sp.slug === "esports"
     ? "아시안게임 e스포츠 종목·일정 — 2026 나고야 경기 시간 | 한해설"
-    : `아시안게임 ${sp.name} 일정·결과 — 2026 나고야 한국 경기 | 한해설`;
+    : sp.scheduleSport
+      // 🔴 중계가 잡히는 종목은 `중계` 를 제목에 싣는다 — 아시안게임야구중계 3,980 · 배구중계 520.
+      ? `아시안게임 ${sp.name} 일정·결과·중계 — 2026 나고야 | 한해설`
+      : `아시안게임 ${sp.name} 일정·결과 — 2026 나고야 한국 경기 | 한해설`;
 }
 
 function h1Of(sp: AgSport): string {
