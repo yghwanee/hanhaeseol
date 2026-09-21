@@ -97,6 +97,10 @@ const nextConfig = {
       // URL이라 404 대신 301로 홈에 흡수시킨다.
       { source: "/worldcup", destination: "/", permanent: true },
       { source: "/worldcup/:path*", destination: "/", permanent: true },
+      // 옛 경기 분석 글(`/analysis`, 2026-04~05 운영). GSC 404 15건 중 이 경로가 남아 있었다
+      // (2026-09-21 확인). 지금 같은 역할은 가이드(`/guide`)가 한다.
+      { source: "/analysis", destination: "/guide", permanent: true },
+      { source: "/analysis/:path*", destination: "/guide", permanent: true },
     ];
   },
 };
