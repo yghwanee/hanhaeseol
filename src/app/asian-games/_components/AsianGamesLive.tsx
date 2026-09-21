@@ -73,7 +73,8 @@ export function AsianGamesLive({
         {/* 폰에선 기준 시각을 제목 아래 줄로 내린다 — 한 줄에 넣으면 "116 / 건" 으로 끊겼다(2026-09-14). */}
         <div className="flex flex-col gap-0.5 sm:flex-row sm:items-baseline sm:justify-between sm:gap-2">
           <h2 className="text-headline1 font-semibold text-fg-strong sm:text-heading2">
-            대한민국 경기 일정{" "}
+            {/* 🔴 「아시안게임 오늘 경기」 1,520/월(2026-09-21 실측) — 그 어구가 제목에 있어야 한다. */}
+            아시안게임 오늘 경기 · 대한민국 일정{" "}
             <span className="whitespace-nowrap text-label1 font-normal text-fg-tertiary">(전 종목 {data.koreaGames.length}건)</span>
           </h2>
           <span className="shrink-0 text-caption2 text-fg-tertiary">{kst(data.lastUpdated)} 기준</span>
@@ -136,6 +137,12 @@ export function AsianGamesLive({
                       )}
                       {g.status === "STARTED" && <span className="shrink-0 text-caption2 font-semibold text-fg-danger">LIVE</span>}
                     </div>
+                    {g.players && g.players.length > 0 && (
+                      <p className="mt-1 pl-[3.25rem] text-caption1 leading-relaxed text-fg-secondary break-keep">
+                        {g.players.slice(0, 8).join(" · ")}
+                        {g.players.length > 8 && ` 외 ${g.players.length - 8}명`}
+                      </p>
+                    )}
                     {(tv || (g.home && g.away)) && (
                       <div className="mt-1 flex flex-wrap items-center gap-1.5 pl-[3.25rem] text-caption2">
                         {g.home && g.away && <span className="text-fg-tertiary">{g.title}</span>}

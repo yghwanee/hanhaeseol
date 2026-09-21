@@ -99,7 +99,13 @@ async function main(): Promise<void> {
     // 🔴 `isKorean=Y` 는 무시된다(주든 안 주든 9/21 255건 동일, 2026-09-14 실측).
     // 경기마다 붙는 `koreaPlayer` 로 거른다. 전 기간 대조에서 KOR 팀·한국 선수가 있는데
     // koreaPlayer 가 false 인 경기는 0건이었다.
-    koreaGames.push(...all.filter((g) => g.koreaPlayer === true).map(toAgGame));
+    // 🔴 `koreanPlayers`(한국 선수 이름)가 붙은 경기도 한국 경기다 — 개인 종목은 `koreaPlayer`
+    // 플래그보다 이름이 먼저 채워지는 경우가 있다.
+    koreaGames.push(
+      ...all
+        .filter((g) => g.koreaPlayer === true || (Array.isArray(g.koreanPlayers) && g.koreanPlayers.length > 0))
+        .map(toAgGame),
+    );
     for (const sp of AG_SPORTS) {
       sportGames[sp.slug].push(
         ...all.filter((g) => sp.disciplines.includes(g.disciplineName as string)).map(toAgGame),

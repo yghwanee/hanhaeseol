@@ -50,6 +50,13 @@ function Row({ g, tv }: { g: AgGame; tv?: string[] }) {
         {g.status === "STARTED" && <span className="shrink-0 text-caption2 font-semibold text-fg-danger">LIVE</span>}
         {g.status === "RESULT" && !versus && <span className="shrink-0 text-caption2 text-fg-tertiary">종료</span>}
       </div>
+      {g.players && g.players.length > 0 && (
+        // 한국 선수 이름. 단체 종목은 수십 명이라 앞 여덟만 보이고 나머지는 수로 접는다.
+        <p className="mt-1 pl-[3.25rem] text-caption1 leading-relaxed text-fg-secondary break-keep">
+          한국 {g.players.slice(0, 8).join(" · ")}
+          {g.players.length > 8 && ` 외 ${g.players.length - 8}명`}
+        </p>
+      )}
       {(versus || tv) && (
         <div className="mt-1 flex flex-wrap items-center gap-1.5 pl-[3.25rem] text-caption2">
           {versus && <span className="text-fg-tertiary">{g.title}</span>}

@@ -231,6 +231,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.8,
     },
     {
+      // 「아시안게임 선수단」 2,000 + 선수 이름 검색(김도영 8,920 · 안세영 2,790).
+      url: `${BASE}/asian-games/players`,
+      lastModified,
+      changeFrequency: "hourly" as const,
+      priority: 0.8,
+    },
+    {
       // 「아시안게임 롤」 73,200 · 「롤 국가대표」 6,820 · 「아시안게임 페이커」 1,080.
       url: `${BASE}/asian-games/lol`,
       lastModified,

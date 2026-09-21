@@ -60,6 +60,12 @@ export type AgGame = {
   medal: boolean;
   /** 네이버 세부 종목 id(예: `ESPOLOL`). e스포츠처럼 한 종목 안에 게임이 여럿일 때 가른다. */
   event?: string;
+  /**
+   * 이 경기에 나서는 **한국 선수 이름**(네이버 `koreanPlayers`). 없으면 필드 자체를 뺀다.
+   * 🔴 손으로 명단을 적지 않는다 — 네이버가 대회 중 채워 넣는 값이라 매시 크롤이 따라간다.
+   * `김도영 아시안게임` 8,920/월처럼 사람들은 선수 이름으로 찾는다(2026-09-21 실측).
+   */
+  players?: string[];
 };
 
 export type AsianGamesData = {
@@ -159,7 +165,13 @@ export function toAgGame(raw: Record<string, unknown>): AgGame {
     statusInfo: s("statusInfo"),
     medal: raw.medal === true,
     event: s("eventId") || undefined,
+    ...(koreanNames(raw).length ? { players: koreanNames(raw) } : {}),
   };
+}
+
+function koreanNames(raw: Record<string, unknown>): string[] {
+  const list = Array.isArray(raw.koreanPlayers) ? (raw.koreanPlayers as { name?: unknown }[]) : [];
+  return [...new Set(list.map((p) => (typeof p.name === "string" ? p.name.trim() : "")).filter(Boolean))];
 }
 
 /**
@@ -315,8 +327,16 @@ export function groupEsports(games: AgGame[]): { name: string; games: AgGame[] }
 
 export const KOREA = "대한민국";
 
+/** 대한민국 맞대결이거나, 한국 선수가 나서는 경기(개인·기록 종목). */
 export function isKoreaGame(g: AgGame): boolean {
-  return g.home === KOREA || g.away === KOREA;
+  return g.home === KOREA || g.away === KOREA || (g.players?.length ?? 0) > 0;
+}
+
+/** 종목 전체에서 한국 선수 이름을 모은다(가나다순). 선수 목록 섹션·선수단 페이지가 쓴다. */
+export function koreanPlayersOf(games: AgGame[]): string[] {
+  const set = new Set<string>();
+  for (const g of games) for (const n of g.players ?? []) set.add(n);
+  return [...set].sort((a, b) => a.localeCompare(b, "ko"));
 }
 
 /** 제목 앞 「남자」「여자」. 없으면 빈 문자열. */

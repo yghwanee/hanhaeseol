@@ -18,6 +18,7 @@ import {
   isAgScheduleLeague,
   isKoreaGame,
   koreaRecord,
+  koreanPlayersOf,
   nextKoreaGame,
   type AgGame,
   type AgSport,
@@ -78,6 +79,8 @@ export async function generateMetadata({ params }: { params: { sport: string } }
   else
     kw.push(
       `아시안게임 ${sp.name} 한국 일정`,
+      `아시안게임 ${sp.name} 대표팀 명단`,
+      `아시안게임 ${sp.name} 선수`,
       `아시안게임 ${sp.name} 조편성`,
       `아시안게임 ${sp.name} 일정표`,
       `나고야 아시안게임 ${sp.name} 일정`,
@@ -152,8 +155,16 @@ function answerLead(sp: AgSport, games: AgGame[], today: string): string {
   return `${base} 2026 아시안게임 ${withJosa(sp.name, "은/는")} ${span}가 잡혀 있습니다.${nextPart}${recPart}`;
 }
 
-function faqsOf(sp: AgSport, games: AgGame[], today: string, tvCount: number): { q: string; a: string }[] {
+function faqsOf(sp: AgSport, games: AgGame[], today: string, tvCount: number, players: string[]): { q: string; a: string }[] {
   const out: { q: string; a: string }[] = [];
+  // 🔴 선수 이름으로 들어오는 검색(`김도영 아시안게임` 8,920/월)을 받는 자리. 이름은 네이버
+  // `koreanPlayers` 에서 오고, 손으로 적지 않는다. 비어 있으면 질문 자체를 안 낸다.
+  if (players.length > 0) {
+    out.push({
+      q: `아시안게임 ${sp.name} 대한민국 대표 선수는 누구인가요?`,
+      a: `${today} 기준 네이버 대회 데이터에 오른 대한민국 ${sp.name} 선수는 ${players.length}명입니다: ${players.join(", ")}.`,
+    });
+  }
   if (sp.slug === "esports") {
     const lol = groupEsports(games).find((g) => g.name.startsWith("리그 오브 레전드"));
     if (lol) {
@@ -221,7 +232,9 @@ export default function AsianGamesSportPage({ params }: { params: { sport: strin
   }
 
   const url = `${BASE}/${sp.slug}`;
-  const faqs = faqsOf(sp, games, today, tvCount);
+  // 선수 명단은 렌더 상한(gamesForRender)으로 자르기 전 **전체 경기**에서 모은다.
+  const players = koreanPlayersOf(all);
+  const faqs = faqsOf(sp, games, today, tvCount, players);
   const koreaUpcoming = games.filter((g) => isKoreaGame(g) && g.date >= today && g.status !== "RESULT").slice(0, 10);
 
   const jsonLd: Record<string, unknown>[] = [
@@ -301,6 +314,20 @@ export default function AsianGamesSportPage({ params }: { params: { sport: strin
         />
       ) : (
         <p className="mb-6 rounded-xl border border-line-subtle p-4 text-label1 text-fg-secondary">경기 일정을 준비 중입니다.</p>
+      )}
+
+      {players.length > 0 && (
+        <section id="players" className="mb-6 scroll-mt-20 rounded-xl border border-line-subtle bg-surface p-4 sm:p-5">
+          <h2 className="text-headline1 font-semibold text-fg-strong sm:text-heading2">
+            아시안게임 {sp.name} 대한민국 대표 선수{" "}
+            <span className="whitespace-nowrap text-label1 font-normal text-fg-tertiary">({players.length}명)</span>
+          </h2>
+          <p className="mt-1 text-caption1 text-fg-tertiary">네이버 대회 데이터 기준 · 경기에 배정되는 대로 늘어납니다</p>
+          <p className="mt-3 text-label1 leading-relaxed text-fg break-keep">{players.join(" · ")}</p>
+          <Link href="/asian-games/players" className="relative mt-2 inline-block text-label1 text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
+            전 종목 한국 선수단 보기
+          </Link>
+        </section>
       )}
 
       <section className="mb-8 rounded-xl border border-line-subtle bg-surface p-4 sm:p-5">

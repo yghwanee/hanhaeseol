@@ -192,7 +192,7 @@ test("렌더 대상은 상한을 넘지 않고, 한국 경기와 메달 경기�
 });
 
 // ───────── 롤 전용 페이지 (2026-09-21) ─────────
-import { LOL_EVENT, LOL_KOREA_ROSTER, LOL_ROSTER_ANNOUNCED } from "@/lib/asian-games/data";
+import { koreanPlayersOf, LOL_EVENT, LOL_KOREA_ROSTER, LOL_ROSTER_ANNOUNCED } from "@/lib/asian-games/data";
 
 test("롤 페이지: 명단에 페이커가 있고, e스포츠 파일에 롤 경기가 있다", () => {
   // 🔴 `아시안게임 페이커` 검색은 이름이 페이지에 있어야 후보가 된다. 명단이 비거나
@@ -204,4 +204,17 @@ test("롤 페이지: 명단에 페이커가 있고, e스포츠 파일에 롤 경
   const lol = d.games.filter((g) => g.event === LOL_EVENT);
   assert.ok(lol.length > 0, "e스포츠 파일에 롤 경기가 없다 — eventId 가 바뀌었나?");
   assert.ok(lol.some((g) => g.medal && g.title.includes("금메달")), "롤 금메달전이 없다");
+});
+
+test("한국 선수 이름을 네이버 koreanPlayers 에서 받고, 이름만 있어도 한국 경기로 본다", () => {
+  // 🔴 선수 이름 검색(`김도영 아시안게임` 8,920/월)의 착지 조건. 손으로 적지 않는다.
+  const g = toAgGame({
+    gameId: "x", gameDate: "2026-09-25", gameDateTime: "2026-09-25T10:00:00", title: "남자 개인 64강",
+    disciplineName: "양궁 리커브", statusCode: "BEFORE",
+    koreanPlayers: [{ name: "김우진" }, { name: "김우진" }, { name: " 이우석 " }],
+  });
+  assert.deepEqual(g.players, ["김우진", "이우석"]);
+  assert.equal(isKoreaGame(g), true);
+  assert.equal(toAgGame({ gameId: "y", title: "x", disciplineName: "양궁 리커브" }).players, undefined);
+  assert.deepEqual(koreanPlayersOf([g, { ...g, players: ["강채영"] }]), ["강채영", "김우진", "이우석"]);
 });
