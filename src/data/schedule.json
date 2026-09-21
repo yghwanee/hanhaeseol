@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-21T01:05:27.433Z",
+  "lastUpdated": "2026-09-21T01:51:25.526Z",
   "schedules": [
     {
       "id": "coupang-2026-09-21-00:15-리그 1-니스-릴",
@@ -189,17 +189,6 @@
       "koreanCommentary": false
     },
     {
-      "id": "apple-tv-2026-09-21-08:00-MLS-SD-MIA",
-      "date": "2026-09-21",
-      "time": "08:00",
-      "sport": "축구",
-      "league": "MLS",
-      "homeTeam": "인터 마이애미 CF",
-      "awayTeam": "샌디에이고 FC",
-      "platform": "Apple TV+",
-      "koreanCommentary": false
-    },
-    {
       "id": "coupang-2026-09-21-08:00-WNBA-포틀랜드-LA 스파크스",
       "date": "2026-09-21",
       "time": "08:00",
@@ -208,6 +197,17 @@
       "homeTeam": "포틀랜드",
       "awayTeam": "LA 스파크스",
       "platform": "쿠팡플레이",
+      "koreanCommentary": false
+    },
+    {
+      "id": "apple-tv-2026-09-21-08:00-MLS-SD-MIA",
+      "date": "2026-09-21",
+      "time": "08:00",
+      "sport": "축구",
+      "league": "MLS",
+      "homeTeam": "인터 마이애미 CF",
+      "awayTeam": "샌디에이고 FC",
+      "platform": "Apple TV+",
       "koreanCommentary": false
     },
     {
@@ -721,8 +721,8 @@
       "date": "2026-09-24",
       "time": "14:00",
       "sport": "농구",
-      "league": "KBL OPEN MATCH DAY DB vs 삼성",
-      "homeTeam": "2026 KBL OPEN MATCH DAY DB",
+      "league": "KBL",
+      "homeTeam": "DB",
       "awayTeam": "삼성",
       "platform": "tvN SPORTS",
       "koreanCommentary": true
@@ -754,8 +754,8 @@
       "date": "2026-09-24",
       "time": "16:30",
       "sport": "농구",
-      "league": "KBL OPEN MATCH DAY 소노 vs SK",
-      "homeTeam": "2026 KBL OPEN MATCH DAY 소노",
+      "league": "KBL",
+      "homeTeam": "소노",
       "awayTeam": "SK",
       "platform": "tvN SPORTS",
       "koreanCommentary": true

@@ -128,3 +128,17 @@ test("🔴 팀명이 null 이어도 크롤 전체가 죽지 않는다", () => {
   // 그 행만 빠지고 나머지는 남는다
   assert.equal([out].filter((s) => s.homeTeam && s.awayTeam).length, 0);
 });
+
+test("이벤트 경기 제목에서 리그 약칭과 팀명을 가려낸다", () => {
+  // 🔴 2026-09-21 실측: tvN SPORTS 가 `2026 KBL OPEN MATCH DAY DB vs 삼성` 을 줬는데
+  // KBL 규칙이 없어 **제목 전체가 리그명**으로 들어갔고(`KBL OPEN MATCH DAY DB vs 삼성`),
+  // homeTeam 도 `2026 KBL OPEN MATCH DAY DB` 가 됐다. 가드(test:schedule-quality)가 잡았다.
+  const r = parseMatchTitle("2026 KBL OPEN MATCH DAY DB vs 삼성");
+  assert.equal(r.league, "KBL");
+  assert.equal(r.homeTeam, "DB");
+  assert.equal(r.awayTeam, "삼성");
+
+  // 정규 표기는 종전대로 `프로농구`·`WKBL` 로 남아야 한다(리그 페이지·스코어 매칭이 이 값을 쓴다).
+  assert.equal(parseMatchTitle("2025-2026 LG전자 프로농구 KCC vs SK").league, "프로농구");
+  assert.equal(parseMatchTitle("여자프로농구 플레이오프 3차전 우리은행 vs BNK").league, "WKBL");
+});

@@ -45,6 +45,9 @@ export const LEAGUE_TO_CATEGORY: Record<string, string | string[]> = {
   "클럽 친선경기": "clubfriendly",
   "FA 커뮤니티 실드": "communityshield",
   "UEFA 슈퍼컵": "uefasupercup",
+  // 2026-09-21 실측: nationsleague·uefanationsleague·uefanl·nations 등은 0건, `unl` 만 52경기.
+  // 9/25 편성 8경기 팀 표기(오스트리아·노르웨이·네덜란드…)가 네이버와 글자까지 같다.
+  네이션스리그: "unl",
   // 코리아컵(구 FA컵 국내대회) — 2026-08-13 편성에 새로 들어와 league-coverage 가드가
   // 잡았다. 네이버 categoryId=koreacup 실측 8경기(8/19 울산시민 vs 광주 등).
   코리아컵: "koreacup",

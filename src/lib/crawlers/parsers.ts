@@ -61,6 +61,10 @@ const LEAGUE_NORMALIZE: [RegExp, string][] = [
   [/여자\s?프로농구|WKBL/, "WKBL"],
   [/일본\s?프로농구/, "일본프로농구"],
   [/프로농구/, "프로농구"],
+  // 🔴 `2026 KBL OPEN MATCH DAY DB vs 삼성` 처럼 리그 약칭만 들어간 이벤트 제목이 있다.
+  // 규칙이 없으면 제목 전체가 리그명으로 남는다(2026-09-21 tvN SPORTS 실측, 가드가 잡았다).
+  // WKBL·프로농구 규칙 뒤에 둬야 여자부·정규 표기가 먼저 걸린다.
+  [/\bKBL\b/, "KBL"],
   [/퓨처스리그/, "퓨처스리그"],
   [/KBO/, "KBO"],
   [/메이저리그/, "MLB"],
@@ -108,6 +112,11 @@ export function stripEventPrefix(name: string): string {
   // 팀명이 아니므로 떼어낸다(실측: "신한 SOL KBO 올스타전 프라이데이 남부리그").
   const friday = out.match(/^프라이데이\s+(.+)$/);
   if (friday && friday[1].trim()) out = friday[1].trim();
+
+  // 이벤트 행사명 접두: "2026 KBL OPEN MATCH DAY DB" → "DB".
+  // 🔴 정규 시즌 경기 제목에는 없는 말만 넣는다 — 넓히면 팀명을 깎는다.
+  const event = out.match(/^.*?(?:OPEN\s+MATCH\s+DAY|오픈\s?매치(?:\s?데이)?)\s+(.+)$/i);
+  if (event && event[1].trim()) out = event[1].trim();
 
   // "…(남자부|여자부)? (결승|준결승|N강) <팀명>" — 대회명 + 부문 + 라운드가 앞에 붙은 형태.
   const stage = out.match(

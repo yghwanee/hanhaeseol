@@ -23,6 +23,10 @@ import type { ScheduleData } from "@/types/schedule";
  * 네이버가 나중에 카테고리를 열면 이 목록에서 빼고 LEAGUE_TO_CATEGORY 에 넣으면 된다.
  */
 const KNOWN_UNSUPPORTED = new Set([
+  // 2026 아시안게임. 네이버가 종합대회를 일반 리그 API 가 아니라 이벤트 앱
+  // (`/olympic/asiangames2026/*`)으로 다룬다 — 스코어는 `crawl-asian-games.ts` 가 따로 받아
+  // `/asian-games` 허브·종목 페이지에 붙인다. 메인 카드에는 안 붙는 게 정상이다.
+  "아이치-나고야 아시안게임",
   "리그컵", // Leagues Cup (MLS x 리가 MX)
   "WNBA",
   "아세안 현대 컵",

@@ -254,7 +254,7 @@ export const SOCCER_CATEGORIES = new Set([
   "epl", "england2", "facup", "primera", "seria", "coppaitalia", "bundesliga",
   "ligue1", "mls", "kleague", "kleague2", "champs", "europa", "eredivisie",
   "denmark", "acl", "amatch", "amatchfriendly", "worldcup",
-  "clubfriendly", "communityshield", "uefasupercup", "koreacup",
+  "clubfriendly", "communityshield", "uefasupercup", "koreacup", "unl",
   "dfbpokal", "germansupercup", "spl",
 ]);
 
@@ -286,6 +286,8 @@ export const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "clubfriendly", label: "클럽 친선" },
   { categoryId: "communityshield", label: "커뮤니티 실드" },
   { categoryId: "uefasupercup", label: "UEFA 슈퍼컵" },
+  // UEFA 네이션스리그. 2026-09-21 실측 — 후보 7개 중 `unl` 만 경기가 나왔다(9/24~30 52경기).
+  { categoryId: "unl", label: "네이션스리그" },
   { categoryId: "koreacup", label: "코리아컵" },
   { categoryId: "worldcup", label: "월드컵" },
   { categoryId: "dfbpokal", label: "DFB-포칼" },
