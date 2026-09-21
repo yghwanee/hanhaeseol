@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-21T00:12:22.163Z",
+  "lastUpdated": "2026-09-21T04:51:28.647Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -55341,6 +55341,61 @@
       "awayScore": 1,
       "status": "finished",
       "period": "9회초"
+    },
+    "2026-09-21|mlb|시카고 화이트삭스|디트로이트 타이거스": {
+      "date": "2026-09-21",
+      "categoryId": "mlb",
+      "gameId": "20260921DECW0",
+      "homeTeam": "시카고 화이트삭스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 8,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-09-21|mlb|볼티모어 오리올스|밀워키 브루어스": {
+      "date": "2026-09-21",
+      "categoryId": "mlb",
+      "gameId": "20260921MIBA0",
+      "homeTeam": "볼티모어 오리올스",
+      "awayTeam": "밀워키 브루어스",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-09-21|mls|인터 마이애미 CF|샌디에고": {
+      "date": "2026-09-21",
+      "categoryId": "mls",
+      "gameId": "VlrKMSi5guqzG8y",
+      "homeTeam": "인터 마이애미 CF",
+      "awayTeam": "샌디에고",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "드레이어",
+          "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "메시",
+          "minute": 24
+        },
+        {
+          "team": "home",
+          "player": "수아레스",
+          "minute": 74
+        },
+        {
+          "team": "away",
+          "player": "드레이어",
+          "minute": 82
+        }
+      ]
     },
     "2026-09-21|primera|데포르티보|레알 베티스": {
       "date": "2026-09-21",
@@ -110835,6 +110890,61 @@
       "awayScore": 1,
       "status": "finished",
       "period": "9회초"
+    },
+    {
+      "date": "2026-09-21",
+      "categoryId": "mlb",
+      "gameId": "20260921DECW0",
+      "homeTeam": "시카고 화이트삭스",
+      "awayTeam": "디트로이트 타이거스",
+      "homeScore": 8,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-09-21",
+      "categoryId": "mlb",
+      "gameId": "20260921MIBA0",
+      "homeTeam": "볼티모어 오리올스",
+      "awayTeam": "밀워키 브루어스",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-09-21",
+      "categoryId": "mls",
+      "gameId": "VlrKMSi5guqzG8y",
+      "homeTeam": "인터 마이애미 CF",
+      "awayTeam": "샌디에고",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "드레이어",
+          "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "메시",
+          "minute": 24
+        },
+        {
+          "team": "home",
+          "player": "수아레스",
+          "minute": 74
+        },
+        {
+          "team": "away",
+          "player": "드레이어",
+          "minute": 82
+        }
+      ]
     },
     {
       "date": "2026-09-21",
