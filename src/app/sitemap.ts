@@ -223,6 +223,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "hourly",
       priority: 0.9,
     },
+    {
+      // 「아시안게임 중계」 월 34,710(2026-09-21 검색광고 실측).
+      url: `${BASE}/asian-games/broadcast`,
+      lastModified,
+      changeFrequency: "hourly" as const,
+      priority: 0.8,
+    },
     // 종목별 전 경기(「아시안게임 축구 일정」「아시안게임 롤 일정」). 목록 = AG_SPORTS 하나.
     ...AG_SPORTS.map((s) => ({
       url: `${BASE}/asian-games/${s.slug}`,
