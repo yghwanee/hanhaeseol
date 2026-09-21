@@ -1169,3 +1169,9 @@ robots 블록 전수 파싱으로 **차단 4 / 허용 22** 확인 · 매치 페�
 - **하이라이트 KBO 첫 실전 확인** — 작업48 가동됨. 저녁 KBO 종료 후 티빙 채널 매핑으로 자동 채워지는지 확인. 채움율 낮으면 maxResults 5→10 완화 검토.
 
 - 틱톡 0조회수 — 캡션 스팸 신호 제거(작업54, 7/19) 후 1~2주 추이 관찰. **사용자 확인 필요: 앱에서 설정→계정 상태 + 각 영상 "추천 부적격" 표시 → 있으면 이의신청.** 안 풀리면 다음 레버 = 영상 독창성(TTS 보이스오버, AI컷→실사), inbox 수동게시 실험. 계정 warmup은 사람 몫
+
+(2026-09-21 추가로 내림 — 둘 다 이미 라이브가 된 옛 계획: 선수 페이지는 작업125, 찜 푸시는 작업110)
+
+- **선수 페이지 (2026-08 이후)** — 지금은 데이터가 없어서 보류(작업58 참조). EPL·분데스 개막(8/22)으로 유럽 팀 페이지가 생기면 코리안리거 허브(이정후→샌프란시스코, 손흥민→LAFC, 이강인→아틀레티코, 김민재→뮌헨)부터 검토.
+
+- **경기 찜 푸시 알림** — 사용자 명확 요구: "⭐찜한 경기 득점 시 폰 꺼져있어도(화면off/앱닫힘) 알림"(카톡처럼). **저장소 Upstash→Vercel Blob로 변경**(별도 가입 최소화). **A단계 코드 작성됨**: `src/lib/push/store.ts`(Blob access:private, 구독1건=파일1건), `send.ts`(web-push VAPID), `/api/push/subscribe`·`/test`, `PushSubscribeButton`(푸터, VAPID 미설정시 자동숨김=현재상태). 레포 public이라 GH Actions 골 폴러 $0. **선행(사용자 셋업, 미완): ①`npx web-push generate-vapid-keys` ②Vercel 대시보드 Blob 스토어 생성(BLOB_READ_WRITE_TOKEN 자동주입) ③Vercel 시크릿 4개(NEXT_PUBLIC_VAPID_PUBLIC_KEY/VAPID_PRIVATE_KEY/VAPID_SUBJECT/PUSH_TEST_KEY).** 셋업 후 남은빌드 B(⭐찜UI=경기카드 별버튼+follows 저장)→C(시작·결과 발송 GH Actions)→D(실시간 골폴러, 득점후 30~60초·완전실시간은 무료론 불가). 플랫폼: 아이폰=설치필수, 안드/PC=설치없이 🔔버튼만. 상세 [[project_live_lineup_features]].
