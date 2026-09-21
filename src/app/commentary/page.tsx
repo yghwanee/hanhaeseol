@@ -112,7 +112,7 @@ export default function CommentaryPage() {
           <span className="text-fg">한국어 해설 중계</span>
         </nav>
 
-        <h1 className="text-heading1 font-bold text-fg-strong sm:text-title3">한국어 해설 중계 일정</h1>
+        <h1 className="text-heading1 font-bold text-fg-strong sm:text-title3">오늘 한국어 해설 중계 일정</h1>
         {/* 첫 문단은 그 자체로 답이 되게 쓴다(수치 포함, 문맥 없이 인용 가능).
             AI 답변 인용의 약 44%가 페이지 첫 30% 구간에서 나오고, 인용은 자기완결형
             문장 단위로 잡힌다. 전에는 이 자리에 수치 없는 설명문만 있어서 집계 데이터가

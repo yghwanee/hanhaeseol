@@ -8,6 +8,8 @@ import { buildSportsEventLd, buildBreadcrumbLd } from "@/lib/structured-data";
 import { getTodayString } from "@/lib/schedule-utils";
 import { clampDescription } from "@/lib/seo-meta";
 import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
+import FaqSection from "@/app/_components/FaqSection";
+import { SPORT_FAQS } from "@/lib/sport-faqs";
 import { PlatformBreakdown, type PlatformCount } from "@/app/_components/PlatformBreakdown";
 import type { Schedule } from "@/types/schedule";
 
@@ -244,6 +246,11 @@ export default function SportPage({ params }: { params: { slug: string } }) {
             />
           </section>
           </>
+        }
+        faqSlot={
+          SPORT_FAQS[meta.slug] ? (
+            <FaqSection title={`${meta.display} 중계·해설 자주 묻는 질문`} faqs={SPORT_FAQS[meta.slug]} />
+          ) : undefined
         }
       />
     </>
