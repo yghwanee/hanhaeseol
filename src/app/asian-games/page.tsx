@@ -20,7 +20,8 @@ import {
 export const revalidate = 21600;
 
 const URL = "https://haeseol.com/asian-games";
-const TITLE = "아시안게임 한국 경기 일정·메달 순위 | 한해설";
+// 🔴 `나고야아시안게임` 이 월 725,500 이다(2026-09-21 검색광고 실측). 제목에 `나고야` 를 넣는다.
+const TITLE = "2026 나고야 아시안게임 한국 경기 일정·메달 순위 | 한해설";
 const DESC =
   "2026 아이치·나고야 아시안게임(9월 19일~10월 4일) 대한민국 전 종목 경기 일정과 메달, 국가별 메달 순위를 한곳에서. 한국 경기 한국어 해설 중계 여부도 함께 확인하세요.";
 
@@ -28,12 +29,14 @@ export const metadata: Metadata = {
   title: TITLE,
   description: DESC,
   keywords: [
+    "나고야 아시안게임",
+    "아시안게임 축구",
+    "아시안게임 롤",
     "아시안게임 한국 경기 일정",
     "아시안게임 한국 일정",
     "아시안게임 메달 순위",
     "아시안게임 메달",
     "아시안게임 중계",
-    "나고야 아시안게임",
     "2026 아시안게임",
     "아시안게임 축구 한국",
     "아시안게임 배구 한국",
@@ -142,7 +145,7 @@ export default function AsianGamesPage() {
       </div>
 
       <div className="mb-6">
-        <h1 className="text-heading1 font-bold text-fg-strong sm:text-title3">2026 아시안게임 한국 경기 일정·메달 순위</h1>
+        <h1 className="text-heading1 font-bold text-fg-strong sm:text-title3">2026 나고야 아시안게임 한국 경기 일정·메달 순위</h1>
         <p className="mt-2 text-label1 leading-relaxed text-fg-strong">{answerLead(today, koreaGamesToday, data)}</p>
         <p className="mt-1.5 text-label1 leading-relaxed text-fg-secondary">
           아이치·나고야 아시안게임({AG_OPEN} ~ {AG_CLOSE}) 대한민국 전 종목 경기 일정과 메달, 국가별 메달 순위를 모았습니다. 다른 나라 경기의 한국어 해설 중계는{" "}

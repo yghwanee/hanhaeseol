@@ -6,7 +6,8 @@
  *
  * 읽는 순서(먼저 잡힌 값이 이긴다 — dotenv 는 이미 있는 변수를 덮지 않는다):
  *   1. 이미 프로세스에 있는 환경변수 (CI 의 GitHub Secrets 등)
- *   2. 레포의 `.env`            — 이 PC 에서만 쓰는 값·임시 덮어쓰기
+ *   2. 레포의 `.env.local` → `.env` — 이 PC 에서만 쓰는 값·임시 덮어쓰기
+ *      (`.env.local` 은 Next 규칙이라 사람이 키를 여기 넣는 일이 잦다. 둘 다 읽는다.)
  *   3. OneDrive 공용 파일        — 3대가 같이 쓰는 값 (여기가 정본)
  *
  * 공용 파일 위치를 찾는 순서:
@@ -89,9 +90,12 @@ let loaded: LoadedEnv | null = null;
 export function loadEnv(): LoadedEnv {
   if (loaded) return loaded;
 
-  const localFile = path.resolve(".env");
-  const hasLocal = fs.existsSync(localFile);
-  if (hasLocal) dotenv.config({ path: localFile, quiet: true });
+  // 🔴 `.env` 만 읽으면 `.env.local` 에 넣은 키가 조용히 안 잡힌다(2026-09-21 실제로 겪음).
+  // 둘 다 읽고, 먼저 잡힌 값이 이긴다(dotenv 는 이미 있는 변수를 덮지 않는다).
+  const localFiles = [path.resolve(".env.local"), path.resolve(".env")].filter((f) => fs.existsSync(f));
+  for (const f of localFiles) dotenv.config({ path: f, quiet: true });
+  const localFile = localFiles[0] ?? null;
+  const hasLocal = localFiles.length > 0;
 
   const sharedFile = findSharedEnvFile();
   const filledFromShared: string[] = [];
@@ -112,7 +116,7 @@ export function loadEnv(): LoadedEnv {
 
 /** 사람에게 보여줄 한 줄. 🔴 값은 절대 찍지 않는다. */
 export function describeEnvSources(info: LoadedEnv = loadEnv()): string {
-  const parts = [info.localFile ? ".env" : ".env 없음"];
+  const parts = [info.localFile ? path.basename(info.localFile) : ".env 없음"];
   parts.push(info.sharedFile ? `공용 ${info.sharedFile}` : "공용 파일 없음");
   if (info.filledFromShared.length) parts.push(`공용에서 채움: ${info.filledFromShared.join(", ")}`);
   return parts.join(" · ");

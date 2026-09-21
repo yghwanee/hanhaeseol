@@ -29,7 +29,7 @@ export const PLATFORM_GUIDES: Record<string, PlatformGuide> = {
     price: "로켓와우 월 7,890원 (쿠팡플레이 포함)",
     freeOption: "쿠팡 로켓와우 회원이면 추가 비용 없이 시청 가능",
     signupUrl: "https://www.coupangplay.com",
-    sports: ["K리그", "MLB", "리그1", "NFL"],
+    sports: ["K리그", "MLB", "리그1", "라리가"],
     howToWatch:
       "쿠팡 로켓와우 회원이면 쿠팡플레이 앱에서 바로 시청 가능합니다. 별도 가입 없이 쿠팡 계정으로 로그인하면 됩니다.",
     features: [

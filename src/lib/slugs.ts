@@ -234,7 +234,7 @@ export const PLATFORM_SEO: SeoMeta[] = [
     title: "SPOTV NOW 한국어 해설 편성표 — 오늘 중계 일정 | 한해설",
     description:
       "SPOTV NOW(스포티비 나우) 한국어 해설 중계 편성표. EPL·MLB·UFC 등 LIVE 일정을 한국어 해설 여부와 함께 오늘부터 7일치 확인하세요.",
-    keywords: ["SPOTV NOW 해설", "스포티비 나우 해설", "SPOTV NOW 야구 해설", "SPOTV NOW 편성표", "스포티비 나우 편성표", "SPOTV NOW 중계", "스포티비 나우 중계", "SPOTV NOW EPL", "SPOTV NOW 중계 일정"],
+    keywords: ["SPOTV NOW 해설", "스포티비 나우 해설", "SPOTV NOW 야구 해설", "SPOTV NOW 편성표", "스포티비 나우 편성표", "SPOTV NOW 중계", "스포티비 나우 중계", "SPOTV NOW EPL", "SPOTV NOW 중계 일정", "스포티비 나우 오늘 편성", "스포티비 나우 중계 일정"],
     h1: "SPOTV NOW 한국어 해설 편성표",
     intro:
       "SPOTV NOW(스포티비 나우)의 한국어 해설 중계 편성표입니다. EPL·MLB·UFC 등 오늘부터 7일치 실시간 중계 일정을 해설 여부와 함께 확인하세요.",
@@ -245,11 +245,11 @@ export const PLATFORM_SEO: SeoMeta[] = [
     display: "쿠팡플레이",
     title: "쿠팡플레이 한국어 해설 편성표 — 오늘 스포츠 중계 일정 | 한해설",
     description:
-      "쿠팡플레이 스포츠 중계 편성표. K리그·MLB·NFL·F1 등 쿠팡플레이 LIVE 중계 일정을 한국어 해설 여부와 함께 오늘부터 7일치 확인하세요.",
+      "쿠팡플레이 스포츠 중계 편성표. K리그·MLB·라리가 등 쿠팡플레이 LIVE 중계 일정을 한국어 해설 여부와 함께 오늘부터 7일치 확인하세요.",
     keywords: ["쿠팡플레이 편성표", "쿠팡플레이 편성표 스포츠", "쿠팡플레이 스포츠 편성표", "쿠팡 플레이 편성표", "쿠팡플레이 해설", "쿠팡플레이 축구 해설", "쿠팡플레이 중계", "쿠팡플레이 K리그", "쿠팡플레이 MLB", "쿠팡플레이 중계 일정"],
     h1: "쿠팡플레이 한국어 해설 편성표",
     intro:
-      "쿠팡플레이 스포츠 중계 편성표입니다. K리그, NFL, MLB 등 쿠팡플레이 독점/공동 중계 일정을 확인하세요.",
+      "쿠팡플레이 스포츠 중계 편성표입니다. K리그, MLB, 라리가 등 쿠팡플레이 독점·공동 중계 일정을 확인하세요.",
   },
   {
     slug: "tving",
@@ -315,10 +315,10 @@ export const PLATFORM_SEO: SeoMeta[] = [
     title: "KBS N SPORTS 한국어 해설 편성표 — 오늘 중계 | 한해설",
     description:
       "KBS N SPORTS 채널 LIVE 중계 편성표. KBO·프로배구 등 한국어 해설 일정을 오늘부터 7일치 한눈에 확인하세요.",
-    keywords: ["KBS N SPORTS 해설", "KBSN SPORTS 해설", "KBS N 스포츠 해설", "KBS N SPORTS 편성표", "KBSN SPORTS 편성표", "KBS 스포츠 편성표", "KBS Sports 편성표", "KBS N 편성표", "KBS N 중계", "KBS N SPORTS 야구 해설", "KBS N 스포츠 해설 일정", "KBS N SPORTS 중계 일정", "KBS 야구 중계"],
+    keywords: ["KBS N SPORTS 해설", "KBSN SPORTS 해설", "KBS N 스포츠 해설", "KBS N SPORTS 편성표", "KBSN SPORTS 편성표", "KBS 스포츠 편성표", "KBS Sports 편성표", "KBS N 편성표", "KBS N 중계", "KBS N SPORTS 야구 해설", "KBS N 스포츠 해설 일정", "KBS N SPORTS 중계 일정", "KBS 야구 중계", "케이비에스 엔 스포츠 해설", "KBS N SPORTS 해설 오늘", "KBS N 스포츠 배구 중계"],
     h1: "KBS N SPORTS 한국어 해설 편성표",
     intro:
-      "KBS N SPORTS(KBSN 스포츠) 채널의 한국어 해설 중계 편성표입니다. KBO 프로야구·프로배구 등 오늘부터 7일치 실시간 중계 일정을 해설 여부와 함께 확인하세요.",
+      "KBS N SPORTS(KBSN 스포츠·케이비에스 엔 스포츠) 채널의 한국어 해설 중계 편성표입니다. 오늘 야구 해설이 있는 경기가 무엇인지, KBO 프로야구·프로배구 등 오늘부터 7일치 실시간 중계 일정을 해설 여부와 함께 확인하세요.",
   },
   {
     slug: "mbc-sports-plus",
@@ -327,10 +327,10 @@ export const PLATFORM_SEO: SeoMeta[] = [
     title: "MBC SPORTS+ 한국어 해설 편성표 — 오늘 중계 | 한해설",
     description:
       "MBC SPORTS+ 채널 LIVE 중계 편성표. KBO·프로축구 등 한국어 해설 일정을 오늘부터 7일치 한눈에 확인하세요.",
-    keywords: ["MBC SPORTS+ 해설", "MBC 스포츠 플러스 해설", "엠스플 해설", "MBC SPORTS+ 편성표", "MBC 스포츠 플러스 편성표", "MBC 스포츠 플러스 보는 법", "MBC 스포츠 채널", "MBC SPORTS+ 중계", "MBC 스포츠 플러스 야구 해설", "MBC SPORTS+ 해설 일정", "엠스플 야구 해설"],
+    keywords: ["MBC SPORTS+ 해설", "MBC 스포츠 플러스 해설", "엠스플 해설", "MBC SPORTS+ 편성표", "MBC 스포츠 플러스 편성표", "MBC 스포츠 플러스 보는 법", "MBC 스포츠 채널", "MBC SPORTS+ 중계", "MBC 스포츠 플러스 야구 해설", "MBC SPORTS+ 해설 일정", "엠스플 야구 해설", "엠비씨 스포츠 야구 해설", "엠비씨 스포츠 해설", "엠비씨 스포츠 플러스 편성표", "MBC 스포츠 야구 해설 일정", "MBC 스포츠 해설 오늘"],
     h1: "MBC SPORTS+ 한국어 해설 편성표",
     intro:
-      "MBC SPORTS+(엠스플) 채널의 한국어 해설 중계 편성표입니다. KBO 프로야구·프로축구 등 오늘부터 7일치 실시간 중계 일정을 해설 여부와 함께 확인하세요.",
+      "MBC SPORTS+(엠비씨 스포츠 플러스·엠스플) 채널의 한국어 해설 중계 편성표입니다. 오늘 야구 해설이 있는 경기가 무엇인지, KBO 프로야구·프로축구 등 오늘부터 7일치 실시간 중계 일정을 해설 여부와 함께 확인하세요.",
   },
   {
     slug: "sbs-sports",
@@ -339,10 +339,10 @@ export const PLATFORM_SEO: SeoMeta[] = [
     title: "SBS Sports 한국어 해설 편성표 — 오늘 중계 일정 | 한해설",
     description:
       "SBS Sports 채널 LIVE 중계 편성표. KBO·프로농구 등 한국어 해설 일정을 오늘부터 7일치 한눈에 확인하세요.",
-    keywords: ["SBS Sports 해설", "SBS 스포츠 해설", "SBS Sports 야구 해설", "SBS Sports 편성표", "SBS 스포츠 편성표", "SBS Sports 중계", "SBS 야구 중계", "SBS 축구 중계진", "SBS 스포츠 야구 해설 일정", "SBS 스포츠 해설 일정"],
+    keywords: ["SBS Sports 해설", "SBS 스포츠 해설", "SBS Sports 야구 해설", "SBS Sports 편성표", "SBS 스포츠 편성표", "SBS Sports 중계", "SBS 야구 중계", "SBS 축구 중계진", "SBS 스포츠 야구 해설 일정", "SBS 스포츠 해설 일정", "SBS Sports 야구 해설 오늘", "에스비에스 스포츠 해설", "SBS 스포츠 오늘 중계"],
     h1: "SBS Sports 한국어 해설 편성표",
     intro:
-      "SBS Sports(SBS 스포츠) 채널의 한국어 해설 중계 편성표입니다. KBO 프로야구·프로농구 등 오늘부터 7일치 실시간 중계 일정을 해설 여부와 함께 확인하세요.",
+      "SBS Sports(SBS 스포츠·에스비에스 스포츠) 채널의 한국어 해설 중계 편성표입니다. 오늘 야구 해설이 있는 경기가 무엇인지, KBO 프로야구·프로농구 등 오늘부터 7일치 실시간 중계 일정을 해설 여부와 함께 확인하세요.",
   },
 ];
 

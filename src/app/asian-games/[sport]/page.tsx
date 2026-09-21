@@ -40,16 +40,23 @@ export function generateStaticParams() {
 
 const BASE = "https://haeseol.com/asian-games";
 
+/**
+ * 🔴 제목에 **`나고야` 와 `아시안게임 <종목>` 어구가 둘 다** 들어가야 한다(2026-09-21 검색광고 실측).
+ *   나고야아시안게임 725,500/월 · 아시안게임축구 322,000 · 아시안게임롤 73,200 ·
+ *   아시안게임배구 16,100 · 아시안게임E스포츠 13,330 · 아시안게임축구중계 9,850.
+ * 종전 제목은 `아이치·나고야` 를 본문에만 뒀다 — 725,500 짜리 머리 키워드를 통째로 놓쳤다.
+ * 어구를 쪼개지 말 것: `아시안게임 축구` 가 붙어 있어야 322,000 쪽도 같이 받는다.
+ */
 function titleOf(sp: AgSport): string {
   return sp.slug === "esports"
-    ? "아시안게임 롤·e스포츠 일정 — 종목별 경기 시간 | 한해설"
-    : `아시안게임 ${sp.name} 일정·결과·조편성 — 한국 경기 중계 | 한해설`;
+    ? "아시안게임 롤·e스포츠 일정 — 2026 나고야 경기 시간 | 한해설"
+    : `아시안게임 ${sp.name} 일정·결과 — 2026 나고야 한국 경기 | 한해설`;
 }
 
 function h1Of(sp: AgSport): string {
   return sp.slug === "esports"
-    ? "2026 아시안게임 롤(LoL)·e스포츠 일정"
-    : `2026 아시안게임 ${sp.name} 일정·결과`;
+    ? "2026 나고야 아시안게임 롤(LoL)·e스포츠 일정"
+    : `2026 나고야 아시안게임 ${sp.name} 일정·결과`;
 }
 
 function descOf(sp: AgSport): string {
@@ -64,8 +71,9 @@ export async function generateMetadata({ params }: { params: { sport: string } }
   const url = `${BASE}/${sp.slug}`;
   const title = titleOf(sp);
   const description = descOf(sp);
-  const kw = [`아시안게임 ${sp.name} 일정`, `아시안게임 ${sp.name} 결과`, `아시안게임 ${sp.name} 중계`, `2026 아시안게임 ${sp.name}`];
-  if (sp.slug === "esports") kw.push("아시안게임 롤 일정", "아시안게임 롤", "아시안게임 LoL 일정", "아시안게임 리그 오브 레전드");
+  const kw = [`아시안게임 ${sp.name}`, `나고야 아시안게임 ${sp.name}`, `아시안게임 ${sp.name} 일정`, `아시안게임 ${sp.name} 결과`, `아시안게임 ${sp.name} 중계`, `2026 아시안게임 ${sp.name}`];
+  if (sp.slug === "esports")
+    kw.push("아시안게임 롤", "아시안게임 롤 일정", "나고야 아시안게임 롤", "아시안게임 LoL 일정", "아시안게임 리그 오브 레전드", "아시안게임 e스포츠");
   else
     kw.push(
       `아시안게임 ${sp.name} 한국 일정`,
