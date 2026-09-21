@@ -15,6 +15,16 @@ export function SportNav({ current }: { current?: string }) {
       >
         중계 채널
       </Link>
+      {/* 🔴 「아시안게임 롤」 73,200 · 「롤 국가대표」 6,820 · 「아시안게임 페이커」 1,080 의 착지 페이지. */}
+      <Link
+        href="/asian-games/lol"
+        aria-current={current === "lol" ? "page" : undefined}
+        className={`inline-flex h-9 items-center rounded-full border px-3.5 text-label1 ${
+          current === "lol" ? "border-fg-strong bg-fg-strong font-semibold text-canvas" : "border-line text-fg hover:bg-muted"
+        }`}
+      >
+        롤 일정·국가대표
+      </Link>
       {AG_SPORTS.map((s) => {
         const active = s.slug === current;
         return (

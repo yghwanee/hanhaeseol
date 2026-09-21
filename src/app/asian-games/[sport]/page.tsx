@@ -50,19 +50,19 @@ const BASE = "https://haeseol.com/asian-games";
  */
 function titleOf(sp: AgSport): string {
   return sp.slug === "esports"
-    ? "아시안게임 롤·e스포츠 일정 — 2026 나고야 경기 시간 | 한해설"
+    ? "아시안게임 e스포츠 종목·일정 — 2026 나고야 경기 시간 | 한해설"
     : `아시안게임 ${sp.name} 일정·결과 — 2026 나고야 한국 경기 | 한해설`;
 }
 
 function h1Of(sp: AgSport): string {
   return sp.slug === "esports"
-    ? "2026 나고야 아시안게임 롤(LoL)·e스포츠 일정"
+    ? "2026 나고야 아시안게임 e스포츠 종목·일정"
     : `2026 나고야 아시안게임 ${sp.name} 일정·결과`;
 }
 
 function descOf(sp: AgSport): string {
   return sp.slug === "esports"
-    ? "2026 아이치·나고야 아시안게임 e스포츠 경기 일정. 리그 오브 레전드(롤)·배틀그라운드 모바일·e풋볼 등 세부 종목별 날짜와 시간, 금메달전 일정을 한곳에서."
+    ? "2026 아이치·나고야 아시안게임 e스포츠 종목과 경기 일정. 배틀그라운드 모바일·e풋볼·대전격투게임·리그 오브 레전드 등 세부 종목별 날짜와 시간, 금메달전 일정을 한곳에서."
     : `2026 아이치·나고야 아시안게임 ${sp.name} 경기 일정과 결과. 대한민국 남녀 경기 시간, 조편성과 전체 대진, 한국어 해설 중계 채널을 한곳에서 확인하세요.`;
 }
 
@@ -74,7 +74,7 @@ export async function generateMetadata({ params }: { params: { sport: string } }
   const description = descOf(sp);
   const kw = [`아시안게임 ${sp.name}`, `나고야 아시안게임 ${sp.name}`, `아시안게임 ${sp.name} 일정`, `아시안게임 ${sp.name} 중계`, `아시안게임 ${sp.name} 결과`, `2026 아시안게임 ${sp.name}`];
   if (sp.slug === "esports")
-    kw.push("아시안게임 롤", "아시안게임 롤 일정", "나고야 아시안게임 롤", "아시안게임 LoL 일정", "아시안게임 리그 오브 레전드", "아시안게임 e스포츠");
+    kw.push("아시안게임 e스포츠", "아시안게임 e스포츠 종목", "아시안게임 e스포츠 일정", "아시안게임 배틀그라운드", "아시안게임 e풋볼");
   else
     kw.push(
       `아시안게임 ${sp.name} 한국 일정`,
@@ -84,7 +84,6 @@ export async function generateMetadata({ params }: { params: { sport: string } }
       `아시안게임 남자 ${sp.name}`,
       `아시안게임 여자 ${sp.name}`,
     );
-  if (sp.slug === "esports") kw.push("아시안게임 e스포츠 종목", "아시안게임 e스포츠 일정", "나고야 아시안게임 롤 일정");
   return {
     title,
     description,

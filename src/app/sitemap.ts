@@ -230,6 +230,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "hourly" as const,
       priority: 0.8,
     },
+    {
+      // 「아시안게임 롤」 73,200 · 「롤 국가대표」 6,820 · 「아시안게임 페이커」 1,080.
+      url: `${BASE}/asian-games/lol`,
+      lastModified,
+      changeFrequency: "hourly" as const,
+      priority: 0.8,
+    },
     // 종목별 전 경기(「아시안게임 축구 일정」「아시안게임 롤 일정」). 목록 = AG_SPORTS 하나.
     ...AG_SPORTS.map((s) => ({
       url: `${BASE}/asian-games/${s.slug}`,

@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import {
   agSportsRawUrl,
@@ -143,6 +144,7 @@ export function SportScheduleLive({
   lastUpdated,
   today,
   broadcasts,
+  onlyEvent,
 }: {
   slug: string;
   name: string;
@@ -150,6 +152,8 @@ export function SportScheduleLive({
   lastUpdated: string;
   today: string;
   broadcasts: Record<string, string[]>;
+  /** 한 세부 종목만 보여 줄 때(롤 전용 페이지 = `ESPOLOL`). 갱신본에도 같은 거름을 건다. */
+  onlyEvent?: string;
 }) {
   const [games, setGames] = useState(initialGames);
   const [updated, setUpdated] = useState(lastUpdated);
@@ -159,16 +163,17 @@ export function SportScheduleLive({
     fetch(`${agSportsRawUrl(slug)}?t=${Math.floor(Date.now() / 300_000)}`, { cache: "no-store" })
       .then((r) => (r.ok ? r.json() : null))
       .then((j: AgSportsData | null) => {
-        if (alive && j?.games?.length && j.lastUpdated > lastUpdated) {
-          setGames(gamesForRender(j.games, today));
-          setUpdated(j.lastUpdated);
+        const fresh = onlyEvent ? j?.games?.filter((g) => g.event === onlyEvent) : j?.games;
+        if (alive && fresh?.length && j!.lastUpdated > lastUpdated) {
+          setGames(gamesForRender(fresh, today));
+          setUpdated(j!.lastUpdated);
         }
       })
       .catch(() => {});
     return () => {
       alive = false;
     };
-  }, [slug, lastUpdated, today]);
+  }, [slug, lastUpdated, today, onlyEvent]);
 
   const stamp = <span className="shrink-0 text-caption2 text-fg-tertiary">{kst(updated)} 기준</span>;
 
@@ -188,6 +193,15 @@ export function SportScheduleLive({
               </h2>
               {i === 0 && stamp}
             </div>
+            {/* e스포츠 페이지의 롤 묶음 → 롤 전용 페이지(국가대표 명단). 롤 페이지 자신에서는 안 단다. */}
+            {!onlyEvent && title.startsWith("리그 오브 레전드") && (
+              <Link
+                href="/asian-games/lol"
+                className="relative mt-1 inline-block text-label1 text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong"
+              >
+                롤 국가대표 명단(페이커 등)과 일정 따로 보기
+              </Link>
+            )}
             <DateList games={gs} today={today} broadcasts={broadcasts} anchor={i === 0 ? "today" : undefined} />
           </section>
         ))}

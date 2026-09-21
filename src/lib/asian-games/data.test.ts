@@ -190,3 +190,18 @@ test("렌더 대상은 상한을 넘지 않고, 한국 경기와 메달 경기�
   // 상한 아래면 손대지 않는다.
   assert.equal(gamesForRender(many.slice(0, 10), "2026-09-21").length, 10);
 });
+
+// ───────── 롤 전용 페이지 (2026-09-21) ─────────
+import { LOL_EVENT, LOL_KOREA_ROSTER, LOL_ROSTER_ANNOUNCED } from "@/lib/asian-games/data";
+
+test("롤 페이지: 명단에 페이커가 있고, e스포츠 파일에 롤 경기가 있다", () => {
+  // 🔴 `아시안게임 페이커` 검색은 이름이 페이지에 있어야 후보가 된다. 명단이 비거나
+  // 이름이 빠지면 그 착지점이 통째로 사라진다.
+  assert.equal(LOL_KOREA_ROSTER.length, 6);
+  assert.ok(LOL_KOREA_ROSTER.some((p) => p.nick === "페이커" && p.name === "이상혁"));
+  assert.match(LOL_ROSTER_ANNOUNCED, /^\d{4}-\d{2}-\d{2}$/);
+  const d = JSON.parse(fs.readFileSync(path.join(process.cwd(), "public", agSportsFile("esports")), "utf-8")) as { games: AgGame[] };
+  const lol = d.games.filter((g) => g.event === LOL_EVENT);
+  assert.ok(lol.length > 0, "e스포츠 파일에 롤 경기가 없다 — eventId 가 바뀌었나?");
+  assert.ok(lol.some((g) => g.medal && g.title.includes("금메달")), "롤 금메달전이 없다");
+});

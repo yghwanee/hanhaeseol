@@ -241,7 +241,8 @@ export type AgSport = {
 export const AG_SPORTS: AgSport[] = [
   { slug: "soccer", disciplines: ["축구"], name: "축구", scheduleSport: "축구" },
   { slug: "baseball", disciplines: ["야구"], name: "야구", scheduleSport: "야구" },
-  { slug: "esports", disciplines: ["e스포츠"], name: "e스포츠", alias: "롤" },
+  // 🔴 alias(롤)를 뗐다 — 롤은 `/asian-games/lol` 이 받는다. 둘 다 `롤` 을 달면 서로 순위를 깎는다.
+  { slug: "esports", disciplines: ["e스포츠"], name: "e스포츠" },
   { slug: "volleyball", disciplines: ["배구"], name: "배구", scheduleSport: "배구" },
   { slug: "basketball", disciplines: ["농구", "3x3 농구"], name: "농구", scheduleSport: "농구" },
   { slug: "archery", disciplines: ["양궁 리커브", "양궁 컴파운드"], name: "양궁" },
@@ -395,3 +396,30 @@ export function gamesForRender(games: AgGame[], today: string): AgGame[] {
   const filled = [...must, ...[...rest].sort((a, b) => near(a) - near(b))].slice(0, RENDER_LIMIT);
   return filled.sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
 }
+
+// ───────────────────────── 롤(LoL) 전용 페이지(`/asian-games/lol`) ─────────────────────────
+
+/** 네이버 세부 종목 id. e스포츠 파일에서 롤만 걸러 낼 때 쓴다. */
+export const LOL_EVENT = "ESPOLOL";
+
+/**
+ * 대한민국 LoL 국가대표 명단.
+ *
+ * 🔴 **바뀌는 값을 코드에 적지 말라는 규칙의 예외다** — 단일 대회 명단이라 대회 기간 안에는
+ * 안 바뀌고, 폐막(10/04) 뒤엔 페이지 자체를 정리한다. 대신 **출처와 발표일을 같이 적고
+ * 화면에도 그 날짜를 박는다**(부상 교체가 나면 이 표가 틀리므로, 기준일이 보여야 한다).
+ *
+ * 출처: 한국e스포츠협회 공식 발표(2026-05-18), 엑스포츠뉴스 「2026 아시안게임 LoL 국가대표
+ * 6인 발표」(https://v.daum.net/v/20260518140153993). 선발전 없이 프로팀 차출.
+ * 감독: '히라이' 강동훈.
+ */
+export const LOL_ROSTER_ANNOUNCED = "2026-05-18";
+export const LOL_COACH = { nick: "히라이", name: "강동훈" };
+export const LOL_KOREA_ROSTER: { role: string; nick: string; name: string; team: string }[] = [
+  { role: "탑", nick: "제우스", name: "최우제", team: "한화생명e스포츠" },
+  { role: "정글", nick: "캐니언", name: "김건부", team: "젠지" },
+  { role: "미드", nick: "페이커", name: "이상혁", team: "T1" },
+  { role: "미드", nick: "제카", name: "김건우", team: "한화생명e스포츠" },
+  { role: "원거리 딜러", nick: "구마유시", name: "이민형", team: "한화생명e스포츠" },
+  { role: "서포터", nick: "케리아", name: "류민석", team: "T1" },
+];

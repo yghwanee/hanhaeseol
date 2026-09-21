@@ -66,6 +66,7 @@ export function buildUrlList(): string[] {
   urls.add(`${BASE}/commentary/stats`);
   urls.add(`${BASE}/asian-games`);
   urls.add(`${BASE}/asian-games/broadcast`);
+  urls.add(`${BASE}/asian-games/lol`);
   for (const s of AG_SPORTS) urls.add(`${BASE}/asian-games/${s.slug}`);
   for (const s of LEAGUE_SLUGS) urls.add(`${BASE}/league/${s}`);
   for (const s of PLATFORM_SLUGS) urls.add(`${BASE}/platform/${s}`);
