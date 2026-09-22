@@ -5203,16 +5203,16 @@
           "rank": 3,
           "teamName": "디트로이트",
           "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/DE.png?type=f92_88",
-          "gameCount": 156,
-          "win": 73,
+          "gameCount": 157,
+          "win": 74,
           "draw": 0,
           "lose": 83,
-          "winRate": 0.468,
-          "gameBehind": 8,
-          "lastFive": "LLWLL",
+          "winRate": 0.471,
+          "gameBehind": 7.5,
+          "lastFive": "WLLWL",
           "streak": {
-            "type": "L",
-            "count": 2
+            "type": "W",
+            "count": 1
           },
           "league": "AL",
           "division": "CENT"
@@ -5234,24 +5234,6 @@
           },
           "league": "NL",
           "division": "EAST"
-        },
-        {
-          "rank": 3,
-          "teamName": "미네소타",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/MN.png?type=f92_88",
-          "gameCount": 156,
-          "win": 73,
-          "draw": 0,
-          "lose": 83,
-          "winRate": 0.468,
-          "gameBehind": 8,
-          "lastFive": "WLWLW",
-          "streak": {
-            "type": "W",
-            "count": 1
-          },
-          "league": "AL",
-          "division": "CENT"
         },
         {
           "rank": 3,
@@ -5291,18 +5273,36 @@
         },
         {
           "rank": 4,
-          "teamName": "워싱턴",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/MO.png?type=f92_88",
+          "teamName": "미네소타",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/MN.png?type=f92_88",
           "gameCount": 156,
           "win": 73,
           "draw": 0,
           "lose": 83,
           "winRate": 0.468,
-          "gameBehind": 19,
-          "lastFive": "LWWLW",
+          "gameBehind": 8,
+          "lastFive": "WLWLW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "league": "AL",
+          "division": "CENT"
+        },
+        {
+          "rank": 4,
+          "teamName": "워싱턴",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/mlb/default/MO.png?type=f92_88",
+          "gameCount": 157,
+          "win": 73,
+          "draw": 0,
+          "lose": 84,
+          "winRate": 0.465,
+          "gameBehind": 19.5,
+          "lastFive": "LLWWL",
           "streak": {
             "type": "L",
-            "count": 1
+            "count": 2
           },
           "league": "NL",
           "division": "EAST"
@@ -5491,5 +5491,5 @@
     }
   ],
   "basketball": [],
-  "lastUpdated": "2026-09-21T20:27:07.090Z"
+  "lastUpdated": "2026-09-22T01:37:12.550Z"
 }
