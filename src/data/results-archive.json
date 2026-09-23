@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-23T16:51:09.728Z",
+  "lastUpdated": "2026-09-23T20:16:56.203Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -55836,6 +55836,47 @@
       "awayScore": 0,
       "status": "finished",
       "period": "9회초"
+    },
+    "2026-09-24|amatchfriendly|아제르바이잔|타지키스탄": {
+      "date": "2026-09-24",
+      "categoryId": "amatchfriendly",
+      "gameId": "DH05tJDxRW0jN68",
+      "homeTeam": "아제르바이잔",
+      "awayTeam": "타지키스탄",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "바클로프",
+          "minute": 58,
+          "ownGoal": true
+        }
+      ]
+    },
+    "2026-09-24|amatchfriendly|지브롤터|상투메": {
+      "date": "2026-09-24",
+      "categoryId": "amatchfriendly",
+      "gameId": "eAjUdEh9crBWVX9",
+      "homeTeam": "지브롤터",
+      "awayTeam": "상투메",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    "2026-09-24|mlb|디트로이트 타이거스|워싱턴 내셔널스": {
+      "date": "2026-09-24",
+      "categoryId": "mlb",
+      "gameId": "20260924MODE0",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "워싱턴 내셔널스",
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
     }
   },
   "results": [
@@ -111674,6 +111715,47 @@
       "awayScore": 0,
       "status": "finished",
       "period": "9회초"
+    },
+    {
+      "date": "2026-09-24",
+      "categoryId": "amatchfriendly",
+      "gameId": "DH05tJDxRW0jN68",
+      "homeTeam": "아제르바이잔",
+      "awayTeam": "타지키스탄",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "바클로프",
+          "minute": 58,
+          "ownGoal": true
+        }
+      ]
+    },
+    {
+      "date": "2026-09-24",
+      "categoryId": "amatchfriendly",
+      "gameId": "eAjUdEh9crBWVX9",
+      "homeTeam": "지브롤터",
+      "awayTeam": "상투메",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-09-24",
+      "categoryId": "mlb",
+      "gameId": "20260924MODE0",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "워싱턴 내셔널스",
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
     }
   ]
 }
