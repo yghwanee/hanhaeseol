@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-25T07:42:21.648Z",
+  "lastUpdated": "2026-09-25T13:41:10.292Z",
   "byKey": {
     "2026-09-24|kbo|LG|롯데": {
       "date": "2026-09-24",
@@ -65,10 +65,11 @@
       "gameId": "20260925HHNC02026",
       "homeTeam": "NC",
       "awayTeam": "한화",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 8,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "5DyBBM-Ln3w"
     },
     "2026-09-26|kbo|NC|한화": {
       "date": "2026-09-26",
@@ -1963,10 +1964,10 @@
       "gameId": "20260925700649145",
       "homeTeam": "안양 정관장",
       "awayTeam": "수원 KT",
-      "homeScore": 13,
-      "awayScore": 5,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 75,
+      "awayScore": 72,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-09-26|kbl|서울 SK|원주 DB": {
       "date": "2026-09-26",
@@ -2326,10 +2327,23 @@
       "gameId": "cvSc6mRGYUR64xi",
       "homeTeam": "호주",
       "awayTeam": "브라질",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이란쿤다",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "하양",
+          "minute": 90,
+          "addedTime": 5
+        }
+      ]
     },
     "2026-09-25|amatchfriendly|인도|파나마": {
       "date": "2026-09-25",
@@ -2719,10 +2733,11 @@
       "gameId": "20260925HHNC02026",
       "homeTeam": "NC",
       "awayTeam": "한화",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 8,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "5DyBBM-Ln3w"
     },
     {
       "date": "2026-09-26",
@@ -3285,10 +3300,10 @@
       "gameId": "20260925700649145",
       "homeTeam": "안양 정관장",
       "awayTeam": "수원 KT",
-      "homeScore": 13,
-      "awayScore": 5,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 75,
+      "awayScore": 72,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-09-26",
@@ -3533,10 +3548,23 @@
       "gameId": "cvSc6mRGYUR64xi",
       "homeTeam": "호주",
       "awayTeam": "브라질",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이란쿤다",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "하양",
+          "minute": 90,
+          "addedTime": 5
+        }
+      ]
     },
     {
       "date": "2026-09-25",

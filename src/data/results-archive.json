@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-25T07:42:32.279Z",
+  "lastUpdated": "2026-09-25T13:41:22.234Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -56286,6 +56286,30 @@
         }
       ]
     },
+    "2026-09-25|amatchfriendly|호주|브라질": {
+      "date": "2026-09-25",
+      "categoryId": "amatchfriendly",
+      "gameId": "cvSc6mRGYUR64xi",
+      "homeTeam": "호주",
+      "awayTeam": "브라질",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이란쿤다",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "하양",
+          "minute": 90,
+          "addedTime": 5
+        }
+      ]
+    },
     "2026-09-25|kbl|KCC|창원 LG": {
       "date": "2026-09-25",
       "categoryId": "kbl",
@@ -56294,6 +56318,17 @@
       "awayTeam": "창원 LG",
       "homeScore": 82,
       "awayScore": 88,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-09-25|kbl|안양 정관장|수원 KT": {
+      "date": "2026-09-25",
+      "categoryId": "kbl",
+      "gameId": "20260925700649145",
+      "homeTeam": "안양 정관장",
+      "awayTeam": "수원 KT",
+      "homeScore": 75,
+      "awayScore": 72,
       "status": "finished",
       "period": "4쿼터"
     },
@@ -56318,6 +56353,18 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기취소"
+    },
+    "2026-09-25|kbo|NC|한화": {
+      "date": "2026-09-25",
+      "categoryId": "kbo",
+      "gameId": "20260925HHNC02026",
+      "homeTeam": "NC",
+      "awayTeam": "한화",
+      "homeScore": 8,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "5DyBBM-Ln3w"
     },
     "2026-09-25|mlb|피츠버그 파이리츠|세인트루이스 카디널스": {
       "date": "2026-09-25",
@@ -112952,12 +112999,47 @@
     },
     {
       "date": "2026-09-25",
+      "categoryId": "amatchfriendly",
+      "gameId": "cvSc6mRGYUR64xi",
+      "homeTeam": "호주",
+      "awayTeam": "브라질",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "이란쿤다",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "하양",
+          "minute": 90,
+          "addedTime": 5
+        }
+      ]
+    },
+    {
+      "date": "2026-09-25",
       "categoryId": "kbl",
       "gameId": "20260925605049144",
       "homeTeam": "KCC",
       "awayTeam": "창원 LG",
       "homeScore": 82,
       "awayScore": 88,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-09-25",
+      "categoryId": "kbl",
+      "gameId": "20260925700649145",
+      "homeTeam": "안양 정관장",
+      "awayTeam": "수원 KT",
+      "homeScore": 75,
+      "awayScore": 72,
       "status": "finished",
       "period": "4쿼터"
     },
@@ -112982,6 +113064,18 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기취소"
+    },
+    {
+      "date": "2026-09-25",
+      "categoryId": "kbo",
+      "gameId": "20260925HHNC02026",
+      "homeTeam": "NC",
+      "awayTeam": "한화",
+      "homeScore": 8,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회초",
+      "highlightVideoId": "5DyBBM-Ln3w"
     },
     {
       "date": "2026-09-25",
