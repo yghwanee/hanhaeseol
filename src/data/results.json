@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-25T01:26:15.853Z",
+  "lastUpdated": "2026-09-25T07:42:21.648Z",
   "byKey": {
     "2026-09-24|kbo|LG|롯데": {
       "date": "2026-09-24",
@@ -37,17 +37,6 @@
       "period": "9회말",
       "highlightVideoId": "YLBXi_spaB4"
     },
-    "2026-09-25|kbo|NC|한화": {
-      "date": "2026-09-25",
-      "categoryId": "kbo",
-      "gameId": "20260925HHNC02026",
-      "homeTeam": "NC",
-      "awayTeam": "한화",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
-    },
     "2026-09-25|kbo|두산|롯데": {
       "date": "2026-09-25",
       "categoryId": "kbo",
@@ -56,8 +45,8 @@
       "awayTeam": "롯데",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "canceled",
+      "period": "경기취소"
     },
     "2026-09-25|kbo|SSG|삼성": {
       "date": "2026-09-25",
@@ -65,6 +54,17 @@
       "gameId": "20260925SSSK02026",
       "homeTeam": "SSG",
       "awayTeam": "삼성",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
+    },
+    "2026-09-25|kbo|NC|한화": {
+      "date": "2026-09-25",
+      "categoryId": "kbo",
+      "gameId": "20260925HHNC02026",
+      "homeTeam": "NC",
+      "awayTeam": "한화",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -1077,10 +1077,10 @@
       "gameId": "20260925TBNY0",
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 3,
+      "homeScore": 6,
       "awayScore": 4,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-09-25|mlb|뉴욕양키스|탬파베이 레이스": {
       "date": "2026-09-25",
@@ -1088,10 +1088,10 @@
       "gameId": "20260925TBNY0",
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 3,
+      "homeScore": 6,
       "awayScore": 4,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-09-25|mlb|뉴욕 양키스|탬파베이": {
       "date": "2026-09-25",
@@ -1099,10 +1099,10 @@
       "gameId": "20260925TBNY0",
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 3,
+      "homeScore": 6,
       "awayScore": 4,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-09-25|mlb|뉴욕 양키스|탬파베이 레이스": {
       "date": "2026-09-25",
@@ -1110,10 +1110,10 @@
       "gameId": "20260925TBNY0",
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 3,
+      "homeScore": 6,
       "awayScore": 4,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-09-25|mlb|애틀랜타|신시내티": {
       "date": "2026-09-25",
@@ -1123,8 +1123,8 @@
       "awayTeam": "신시내티 레즈",
       "homeScore": 6,
       "awayScore": 7,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|애틀랜타|신시내티 레즈": {
       "date": "2026-09-25",
@@ -1134,8 +1134,8 @@
       "awayTeam": "신시내티 레즈",
       "homeScore": 6,
       "awayScore": 7,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|애틀랜타 브레이브스|신시내티": {
       "date": "2026-09-25",
@@ -1145,8 +1145,8 @@
       "awayTeam": "신시내티 레즈",
       "homeScore": 6,
       "awayScore": 7,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|애틀랜타 브레이브스|신시내티 레즈": {
       "date": "2026-09-25",
@@ -1156,8 +1156,8 @@
       "awayTeam": "신시내티 레즈",
       "homeScore": 6,
       "awayScore": 7,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|시애틀|LA에인절스": {
       "date": "2026-09-25",
@@ -1165,10 +1165,10 @@
       "gameId": "20260925ANSE0",
       "homeTeam": "시애틀 매리너스",
       "awayTeam": "LA 에인절스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|시애틀|LA 에인절스": {
       "date": "2026-09-25",
@@ -1176,10 +1176,10 @@
       "gameId": "20260925ANSE0",
       "homeTeam": "시애틀 매리너스",
       "awayTeam": "LA 에인절스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|시애틀 매리너스|LA에인절스": {
       "date": "2026-09-25",
@@ -1187,10 +1187,10 @@
       "gameId": "20260925ANSE0",
       "homeTeam": "시애틀 매리너스",
       "awayTeam": "LA 에인절스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|시애틀 매리너스|LA 에인절스": {
       "date": "2026-09-25",
@@ -1198,10 +1198,10 @@
       "gameId": "20260925ANSE0",
       "homeTeam": "시애틀 매리너스",
       "awayTeam": "LA 에인절스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|애슬레틱스|휴스턴": {
       "date": "2026-09-25",
@@ -1209,10 +1209,10 @@
       "gameId": "20260925HOOA0",
       "homeTeam": "애슬레틱스",
       "awayTeam": "휴스턴 애스트로스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 5,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|애슬레틱스|휴스턴 애스트로스": {
       "date": "2026-09-25",
@@ -1220,10 +1220,10 @@
       "gameId": "20260925HOOA0",
       "homeTeam": "애슬레틱스",
       "awayTeam": "휴스턴 애스트로스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 5,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|LA다저스|샌디에이고": {
       "date": "2026-09-25",
@@ -1231,10 +1231,10 @@
       "gameId": "20260925SDLA0",
       "homeTeam": "LA 다저스",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|LA다저스|샌디에이고 파드리스": {
       "date": "2026-09-25",
@@ -1242,10 +1242,10 @@
       "gameId": "20260925SDLA0",
       "homeTeam": "LA 다저스",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|LA 다저스|샌디에이고": {
       "date": "2026-09-25",
@@ -1253,10 +1253,10 @@
       "gameId": "20260925SDLA0",
       "homeTeam": "LA 다저스",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|LA 다저스|샌디에이고 파드리스": {
       "date": "2026-09-25",
@@ -1264,10 +1264,10 @@
       "gameId": "20260925SDLA0",
       "homeTeam": "LA 다저스",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|로스앤젤레스 다저스|샌디에이고": {
       "date": "2026-09-25",
@@ -1275,10 +1275,10 @@
       "gameId": "20260925SDLA0",
       "homeTeam": "LA 다저스",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-25|mlb|로스앤젤레스 다저스|샌디에이고 파드리스": {
       "date": "2026-09-25",
@@ -1286,10 +1286,10 @@
       "gameId": "20260925SDLA0",
       "homeTeam": "LA 다저스",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-09-26|mlb|보스턴|시카고컵스": {
       "date": "2026-09-26",
@@ -1941,10 +1941,10 @@
       "gameId": "20260925605049144",
       "homeTeam": "KCC",
       "awayTeam": "창원 LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 82,
+      "awayScore": 88,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-09-25|kbl|KCC|창원 LG": {
       "date": "2026-09-25",
@@ -1952,10 +1952,10 @@
       "gameId": "20260925605049144",
       "homeTeam": "KCC",
       "awayTeam": "창원 LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 82,
+      "awayScore": 88,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-09-25|kbl|안양 정관장|수원 KT": {
       "date": "2026-09-25",
@@ -1963,10 +1963,10 @@
       "gameId": "20260925700649145",
       "homeTeam": "안양 정관장",
       "awayTeam": "수원 KT",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 13,
+      "awayScore": 5,
+      "status": "live",
+      "period": "1쿼터"
     },
     "2026-09-26|kbl|서울 SK|원주 DB": {
       "date": "2026-09-26",
@@ -2694,24 +2694,13 @@
     {
       "date": "2026-09-25",
       "categoryId": "kbo",
-      "gameId": "20260925HHNC02026",
-      "homeTeam": "NC",
-      "awayTeam": "한화",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
-    },
-    {
-      "date": "2026-09-25",
-      "categoryId": "kbo",
       "gameId": "20260925LTOB02026",
       "homeTeam": "두산",
       "awayTeam": "롯데",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "canceled",
+      "period": "경기취소"
     },
     {
       "date": "2026-09-25",
@@ -2719,6 +2708,17 @@
       "gameId": "20260925SSSK02026",
       "homeTeam": "SSG",
       "awayTeam": "삼성",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
+    },
+    {
+      "date": "2026-09-25",
+      "categoryId": "kbo",
+      "gameId": "20260925HHNC02026",
+      "homeTeam": "NC",
+      "awayTeam": "한화",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -3016,10 +3016,10 @@
       "gameId": "20260925TBNY0",
       "homeTeam": "뉴욕 양키스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 3,
+      "homeScore": 6,
       "awayScore": 4,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-09-25",
@@ -3029,8 +3029,8 @@
       "awayTeam": "신시내티 레즈",
       "homeScore": 6,
       "awayScore": 7,
-      "status": "live",
-      "period": "7회말"
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-09-25",
@@ -3038,10 +3038,10 @@
       "gameId": "20260925ANSE0",
       "homeTeam": "시애틀 매리너스",
       "awayTeam": "LA 에인절스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 4,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-09-25",
@@ -3049,10 +3049,10 @@
       "gameId": "20260925HOOA0",
       "homeTeam": "애슬레틱스",
       "awayTeam": "휴스턴 애스트로스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 5,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-09-25",
@@ -3060,10 +3060,10 @@
       "gameId": "20260925SDLA0",
       "homeTeam": "LA 다저스",
       "awayTeam": "샌디에이고 파드리스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-09-26",
@@ -3274,10 +3274,10 @@
       "gameId": "20260925605049144",
       "homeTeam": "KCC",
       "awayTeam": "창원 LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 82,
+      "awayScore": 88,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-09-25",
@@ -3285,10 +3285,10 @@
       "gameId": "20260925700649145",
       "homeTeam": "안양 정관장",
       "awayTeam": "수원 KT",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 13,
+      "awayScore": 5,
+      "status": "live",
+      "period": "1쿼터"
     },
     {
       "date": "2026-09-26",
