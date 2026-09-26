@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-26T19:47:37.877Z",
+  "lastUpdated": "2026-09-26T22:43:53.348Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -57154,6 +57154,44 @@
       "period": "경기종료",
       "highlightVideoId": "GlnrnTlqfL8"
     },
+    "2026-09-27|amatchfriendly|미국|페루": {
+      "date": "2026-09-27",
+      "categoryId": "amatchfriendly",
+      "gameId": "qkqTtdGpLD3Up6l",
+      "homeTeam": "미국",
+      "awayTeam": "페루",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "엘리스",
+          "minute": 4
+        },
+        {
+          "team": "away",
+          "player": "라파둘라",
+          "minute": 15
+        },
+        {
+          "team": "home",
+          "player": "틸만",
+          "minute": 66
+        },
+        {
+          "team": "home",
+          "player": "홀",
+          "minute": 72
+        },
+        {
+          "team": "home",
+          "player": "버홀터",
+          "minute": 90
+        }
+      ]
+    },
     "2026-09-27|mlb|워싱턴 내셔널스|뉴욕 메츠": {
       "date": "2026-09-27",
       "categoryId": "mlb",
@@ -57162,6 +57200,28 @@
       "awayTeam": "뉴욕 메츠",
       "homeScore": 1,
       "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-09-27|mlb|디트로이트 타이거스|피츠버그 파이리츠": {
+      "date": "2026-09-27",
+      "categoryId": "mlb",
+      "gameId": "20260927PIDE0",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "피츠버그 파이리츠",
+      "homeScore": 4,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-09-27|mlb|토론토 블루제이스|신시내티 레즈": {
+      "date": "2026-09-27",
+      "categoryId": "mlb",
+      "gameId": "20260927CITO0",
+      "homeTeam": "토론토 블루제이스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 1,
+      "awayScore": 5,
       "status": "finished",
       "period": "9회말"
     },
@@ -57301,6 +57361,149 @@
         }
       ],
       "highlightVideoId": "jhKorif-5tA"
+    },
+    "2026-09-27|unl|북마케도니아|스위스": {
+      "date": "2026-09-27",
+      "categoryId": "unl",
+      "gameId": "7Jxc9bOIRkknaqY",
+      "homeTeam": "북마케도니아",
+      "awayTeam": "스위스",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "프로일러",
+          "minute": 22
+        },
+        {
+          "team": "away",
+          "player": "암두니",
+          "minute": 41
+        },
+        {
+          "team": "away",
+          "player": "암두니",
+          "minute": 74
+        }
+      ],
+      "highlightVideoId": "yeUvTYcOzVM"
+    },
+    "2026-09-27|unl|잉글랜드|스페인": {
+      "date": "2026-09-27",
+      "categoryId": "unl",
+      "gameId": "AjAxv47Qym4LGh6",
+      "homeTeam": "잉글랜드",
+      "awayTeam": "스페인",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "라민 야말",
+          "minute": 2
+        },
+        {
+          "team": "home",
+          "player": "고든",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "케인",
+          "minute": 40
+        },
+        {
+          "team": "away",
+          "player": "알렉스 바에나",
+          "minute": 60
+        },
+        {
+          "team": "away",
+          "player": "미켈 오야르사발",
+          "minute": 74
+        }
+      ]
+    },
+    "2026-09-27|unl|알바니아|벨라루스": {
+      "date": "2026-09-27",
+      "categoryId": "unl",
+      "gameId": "rLx8emkKcq9onyF",
+      "homeTeam": "알바니아",
+      "awayTeam": "벨라루스",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "아슬라니",
+          "minute": 34
+        },
+        {
+          "team": "home",
+          "player": "무히",
+          "minute": 45,
+          "addedTime": 2
+        }
+      ],
+      "highlightVideoId": "pffuKQUTaTM"
+    },
+    "2026-09-27|unl|체코|크로아티아": {
+      "date": "2026-09-27",
+      "categoryId": "unl",
+      "gameId": "RUVowyz6apwqeDo",
+      "homeTeam": "체코",
+      "awayTeam": "크로아티아",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "모드리치",
+          "minute": 47
+        },
+        {
+          "team": "home",
+          "player": "카라베츠",
+          "minute": 54
+        },
+        {
+          "team": "away",
+          "player": "마르코 파샬리치",
+          "minute": 77
+        }
+      ]
+    },
+    "2026-09-27|unl|슬로바키아|몰도바": {
+      "date": "2026-09-27",
+      "categoryId": "unl",
+      "gameId": "ymz5NhjwFB0Ixca",
+      "homeTeam": "슬로바키아",
+      "awayTeam": "몰도바",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "슈란츠",
+          "minute": 32
+        },
+        {
+          "team": "home",
+          "player": "두다",
+          "minute": 40
+        }
+      ]
     }
   },
   "results": [
@@ -114459,12 +114662,72 @@
     },
     {
       "date": "2026-09-27",
+      "categoryId": "amatchfriendly",
+      "gameId": "qkqTtdGpLD3Up6l",
+      "homeTeam": "미국",
+      "awayTeam": "페루",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "엘리스",
+          "minute": 4
+        },
+        {
+          "team": "away",
+          "player": "라파둘라",
+          "minute": 15
+        },
+        {
+          "team": "home",
+          "player": "틸만",
+          "minute": 66
+        },
+        {
+          "team": "home",
+          "player": "홀",
+          "minute": 72
+        },
+        {
+          "team": "home",
+          "player": "버홀터",
+          "minute": 90
+        }
+      ]
+    },
+    {
+      "date": "2026-09-27",
       "categoryId": "mlb",
       "gameId": "20260927NMMO0",
       "homeTeam": "워싱턴 내셔널스",
       "awayTeam": "뉴욕 메츠",
       "homeScore": 1,
       "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-09-27",
+      "categoryId": "mlb",
+      "gameId": "20260927PIDE0",
+      "homeTeam": "디트로이트 타이거스",
+      "awayTeam": "피츠버그 파이리츠",
+      "homeScore": 4,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-09-27",
+      "categoryId": "mlb",
+      "gameId": "20260927CITO0",
+      "homeTeam": "토론토 블루제이스",
+      "awayTeam": "신시내티 레즈",
+      "homeScore": 1,
+      "awayScore": 5,
       "status": "finished",
       "period": "9회말"
     },
@@ -114604,6 +114867,149 @@
         }
       ],
       "highlightVideoId": "jhKorif-5tA"
+    },
+    {
+      "date": "2026-09-27",
+      "categoryId": "unl",
+      "gameId": "7Jxc9bOIRkknaqY",
+      "homeTeam": "북마케도니아",
+      "awayTeam": "스위스",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "프로일러",
+          "minute": 22
+        },
+        {
+          "team": "away",
+          "player": "암두니",
+          "minute": 41
+        },
+        {
+          "team": "away",
+          "player": "암두니",
+          "minute": 74
+        }
+      ],
+      "highlightVideoId": "yeUvTYcOzVM"
+    },
+    {
+      "date": "2026-09-27",
+      "categoryId": "unl",
+      "gameId": "AjAxv47Qym4LGh6",
+      "homeTeam": "잉글랜드",
+      "awayTeam": "스페인",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "라민 야말",
+          "minute": 2
+        },
+        {
+          "team": "home",
+          "player": "고든",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "케인",
+          "minute": 40
+        },
+        {
+          "team": "away",
+          "player": "알렉스 바에나",
+          "minute": 60
+        },
+        {
+          "team": "away",
+          "player": "미켈 오야르사발",
+          "minute": 74
+        }
+      ]
+    },
+    {
+      "date": "2026-09-27",
+      "categoryId": "unl",
+      "gameId": "rLx8emkKcq9onyF",
+      "homeTeam": "알바니아",
+      "awayTeam": "벨라루스",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "아슬라니",
+          "minute": 34
+        },
+        {
+          "team": "home",
+          "player": "무히",
+          "minute": 45,
+          "addedTime": 2
+        }
+      ],
+      "highlightVideoId": "pffuKQUTaTM"
+    },
+    {
+      "date": "2026-09-27",
+      "categoryId": "unl",
+      "gameId": "RUVowyz6apwqeDo",
+      "homeTeam": "체코",
+      "awayTeam": "크로아티아",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "모드리치",
+          "minute": 47
+        },
+        {
+          "team": "home",
+          "player": "카라베츠",
+          "minute": 54
+        },
+        {
+          "team": "away",
+          "player": "마르코 파샬리치",
+          "minute": 77
+        }
+      ]
+    },
+    {
+      "date": "2026-09-27",
+      "categoryId": "unl",
+      "gameId": "ymz5NhjwFB0Ixca",
+      "homeTeam": "슬로바키아",
+      "awayTeam": "몰도바",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "슈란츠",
+          "minute": 32
+        },
+        {
+          "team": "home",
+          "player": "두다",
+          "minute": 40
+        }
+      ]
     }
   ]
 }
