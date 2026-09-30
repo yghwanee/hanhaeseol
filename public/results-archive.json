@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-30T13:37:53.703Z",
+  "lastUpdated": "2026-09-30T19:12:28.023Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -59465,6 +59465,46 @@
         }
       ],
       "highlightVideoId": "1Z5poM0MBFM"
+    },
+    "2026-10-01|amatchfriendly|리투아니아|안도라": {
+      "date": "2026-10-01",
+      "categoryId": "amatchfriendly",
+      "gameId": "XPLrpl9jZKjgYaJ",
+      "homeTeam": "리투아니아",
+      "awayTeam": "안도라",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루즈기스",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "스테포나비시우스",
+          "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "쿠치스",
+          "minute": 90,
+          "addedTime": 3
+        }
+      ]
+    },
+    "2026-10-02|amatchfriendly|중국|투르크메니스탄": {
+      "date": "2026-10-02",
+      "categoryId": "amatchfriendly",
+      "gameId": "akFjrpBkkrR9Q42",
+      "homeTeam": "중국",
+      "awayTeam": "투르크메니스탄",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
     }
   },
   "results": [
@@ -118932,6 +118972,46 @@
         }
       ],
       "highlightVideoId": "1Z5poM0MBFM"
+    },
+    {
+      "date": "2026-10-01",
+      "categoryId": "amatchfriendly",
+      "gameId": "XPLrpl9jZKjgYaJ",
+      "homeTeam": "리투아니아",
+      "awayTeam": "안도라",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루즈기스",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "스테포나비시우스",
+          "minute": 27
+        },
+        {
+          "team": "home",
+          "player": "쿠치스",
+          "minute": 90,
+          "addedTime": 3
+        }
+      ]
+    },
+    {
+      "date": "2026-10-02",
+      "categoryId": "amatchfriendly",
+      "gameId": "akFjrpBkkrR9Q42",
+      "homeTeam": "중국",
+      "awayTeam": "투르크메니스탄",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
     }
   ]
 }
