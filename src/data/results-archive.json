@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-09-30T00:22:09.133Z",
+  "lastUpdated": "2026-09-30T06:39:00.649Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -59040,6 +59040,76 @@
         }
       ]
     },
+    "2026-09-30|amatchfriendly|미국|칠레": {
+      "date": "2026-09-30",
+      "categoryId": "amatchfriendly",
+      "gameId": "79gDrbi2oUfUmhN",
+      "homeTeam": "미국",
+      "awayTeam": "칠레",
+      "homeScore": 4,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "버홀터",
+          "minute": 37
+        },
+        {
+          "team": "away",
+          "player": "우요아",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "away",
+          "player": "구티에레스",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "홀",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "리차즈",
+          "minute": 72
+        },
+        {
+          "team": "home",
+          "player": "알베르트",
+          "minute": 90,
+          "addedTime": 3
+        }
+      ],
+      "highlightVideoId": "uGOJbpKlhfM"
+    },
+    "2026-09-30|amatchfriendly|멕시코|페루": {
+      "date": "2026-09-30",
+      "categoryId": "amatchfriendly",
+      "gameId": "4w6HfFYTU9eXrIZ",
+      "homeTeam": "멕시코",
+      "awayTeam": "페루",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "벨레스",
+          "minute": 26
+        },
+        {
+          "team": "home",
+          "player": "구스만",
+          "minute": 49
+        }
+      ],
+      "highlightVideoId": "ZrSKxSIPXOE"
+    },
     "2026-09-30|mlb|애틀랜타 브레이브스|필라델피아 필리스": {
       "date": "2026-09-30",
       "categoryId": "mlb",
@@ -59048,6 +59118,39 @@
       "awayTeam": "필라델피아 필리스",
       "homeScore": 5,
       "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-09-30|mlb|휴스턴 애스트로스|시카고 화이트삭스": {
+      "date": "2026-09-30",
+      "categoryId": "mlb",
+      "gameId": "20260930CWHO0",
+      "homeTeam": "휴스턴 애스트로스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 3,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
+    "2026-09-30|mlb|뉴욕 양키스|보스턴 레드삭스": {
+      "date": "2026-09-30",
+      "categoryId": "mlb",
+      "gameId": "20260930BONY0",
+      "homeTeam": "뉴욕 양키스",
+      "awayTeam": "보스턴 레드삭스",
+      "homeScore": 9,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
+    "2026-09-30|mlb|샌디에이고 파드리스|시카고 컵스": {
+      "date": "2026-09-30",
+      "categoryId": "mlb",
+      "gameId": "20260930CCSD0",
+      "homeTeam": "샌디에이고 파드리스",
+      "awayTeam": "시카고 컵스",
+      "homeScore": 8,
+      "awayScore": 0,
       "status": "finished",
       "period": "9회초"
     },
@@ -118345,12 +118448,115 @@
     },
     {
       "date": "2026-09-30",
+      "categoryId": "amatchfriendly",
+      "gameId": "79gDrbi2oUfUmhN",
+      "homeTeam": "미국",
+      "awayTeam": "칠레",
+      "homeScore": 4,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "버홀터",
+          "minute": 37
+        },
+        {
+          "team": "away",
+          "player": "우요아",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "away",
+          "player": "구티에레스",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "홀",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "리차즈",
+          "minute": 72
+        },
+        {
+          "team": "home",
+          "player": "알베르트",
+          "minute": 90,
+          "addedTime": 3
+        }
+      ],
+      "highlightVideoId": "uGOJbpKlhfM"
+    },
+    {
+      "date": "2026-09-30",
+      "categoryId": "amatchfriendly",
+      "gameId": "4w6HfFYTU9eXrIZ",
+      "homeTeam": "멕시코",
+      "awayTeam": "페루",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "벨레스",
+          "minute": 26
+        },
+        {
+          "team": "home",
+          "player": "구스만",
+          "minute": 49
+        }
+      ],
+      "highlightVideoId": "ZrSKxSIPXOE"
+    },
+    {
+      "date": "2026-09-30",
       "categoryId": "mlb",
       "gameId": "20260930PHAT0",
       "homeTeam": "애틀랜타 브레이브스",
       "awayTeam": "필라델피아 필리스",
       "homeScore": 5,
       "awayScore": 3,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-09-30",
+      "categoryId": "mlb",
+      "gameId": "20260930CWHO0",
+      "homeTeam": "휴스턴 애스트로스",
+      "awayTeam": "시카고 화이트삭스",
+      "homeScore": 3,
+      "awayScore": 6,
+      "status": "finished",
+      "period": "9회말"
+    },
+    {
+      "date": "2026-09-30",
+      "categoryId": "mlb",
+      "gameId": "20260930BONY0",
+      "homeTeam": "뉴욕 양키스",
+      "awayTeam": "보스턴 레드삭스",
+      "homeScore": 9,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "9회초"
+    },
+    {
+      "date": "2026-09-30",
+      "categoryId": "mlb",
+      "gameId": "20260930CCSD0",
+      "homeTeam": "샌디에이고 파드리스",
+      "awayTeam": "시카고 컵스",
+      "homeScore": 8,
+      "awayScore": 0,
       "status": "finished",
       "period": "9회초"
     },
