@@ -59,6 +59,11 @@ async function main() {
         if (!item || item.isSoldOut) {
           delete store.picks[key];
           if (store.deal === key) store.deal = null;
+          // 🔴 그 상품을 가리키던 자리도 같이 비운다. 2026-10-01 에 품절된 상품만 지우고
+          // `slots` 는 남겨서 `test:toss-picks`(자리에 걸린 키가 실제로 저장돼 있다)가 빨개졌다.
+          for (const slot of Object.keys(store.slots ?? {}) as (keyof NonNullable<TossPicksStore["slots"]>)[]) {
+            if (store.slots?.[slot] === key) store.slots[slot] = null;
+          }
           removed.push(`${key} (${item ? "품절" : "조회 안 됨"}) — ${pick.displayName}`);
           mutated = true;
           continue;
