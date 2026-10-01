@@ -30,6 +30,11 @@ const KNOWN_UNSUPPORTED = new Set([
   "리그컵", // Leagues Cup (MLS x 리가 MX)
   "WNBA",
   "아세안 현대 컵",
+  // 2026-10-01 실측(SPOTV NOW, 예: 부리람 유나이티드 vs 보르네오). schedule/games 에
+  // aseanclub·aseanclubchampionship·acc·asean·shopeecup·aseancc·aseanchampionship·
+  // aseanclubcup·asean_club·seaclub·afccup 전부 400. acl2 만 200 인데 9/20~10/10 경기 0건이라
+  // 다른 대회다(200 이어도 0건이면 안 붙인다).
+  "아세안 클럽 챔피언십",
   "분데스리가 2",
   "트로페 데 샹피옹",
   "V리그",

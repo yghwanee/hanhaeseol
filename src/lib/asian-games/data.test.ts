@@ -86,8 +86,11 @@ test("커밋된 데이터 파일 모양", () => {
     assert.equal(m.total, m.gold + m.silver + m.bronze, `${m.countryName} 합계 불일치`);
     assert.ok(m.rank >= 1);
   }
-  // 파일이 커지면 GitHub raw 로 받는 방문자 부담이 커진다. 한국 경기만 담으니 넉넉한 상한.
-  assert.ok(fs.statSync(file).size < 200_000, "asian-games.json 이 200KB 를 넘었다");
+  // 파일이 커지면 GitHub raw 로 받는 방문자 부담이 커진다.
+  // 🔴 종전 200KB 는 개인 종목이 비어 있던 116건 시점의 추정이었다. 2026-10-01 실측:
+  // 한국 경기 1,084건 · 351KB(gzip 42KB), 대회 종료(10/04)까지 남은 경기 ~60건.
+  // 대회가 끝나면 더 안 큰다 — 다음 대회에 이 구조를 다시 쓰면 지난 경기를 파일에서 덜어낼 것.
+  assert.ok(fs.statSync(file).size < 450_000, "asian-games.json 이 450KB 를 넘었다");
 });
 
 // ───────── 종목별 페이지 (2026-09-21) ─────────

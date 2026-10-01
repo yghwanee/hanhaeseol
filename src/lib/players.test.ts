@@ -113,16 +113,21 @@ test("한 선수는 팀 후보가 유일할 때만 페이지가 된다", () => {
 test("페이지가 되는 선수는 편성이 실제로 있다", () => {
   // 빈 페이지는 매치 페이지 1,330장이 저지른 실수다(작업58). 게이트를 통과한 선수는
   // 소속팀 편성이 최소 1건 있어야 한다.
+  // 🔴 공백은 지우고 비교한다. 2026-10-01 에 순위표는 `LA다저스`, 편성은 `LA 다저스` 라
+  // 김혜성 페이지(게이트 기준 편성 116건)가 "편성 0건"으로 잘못 걸렸다 — 페이지가 아니라
+  // 이 검사가 틀린 것이었다.
+  const sq = (n: string) => n.replace(/\s+/g, "");
   for (const p of playerIndexFor(schedules, standings, allPlayers)) {
-    const games = schedules.filter(
-      (s) =>
+    const name = sq(p.team.name);
+    const games = schedules.filter((s) => {
+      const home = sq(s.homeTeam);
+      const away = sq(s.awayTeam);
+      return (
         s.sport === p.team.sport &&
-        p.team.name.length > 0 &&
-        (s.homeTeam.startsWith(p.team.name) ||
-          s.awayTeam.startsWith(p.team.name) ||
-          p.team.name.startsWith(s.homeTeam) ||
-          p.team.name.startsWith(s.awayTeam)),
-    );
+        name.length > 0 &&
+        (home.startsWith(name) || away.startsWith(name) || name.startsWith(home) || name.startsWith(away))
+      );
+    });
     assert.ok(games.length > 0, `${p.name}(${p.team.slug}) 페이지에 편성이 하나도 없다`);
   }
 });
