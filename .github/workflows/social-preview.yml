@@ -1,0 +1,97 @@
+name: Social preview (render only, no posting)
+
+# 소셜 카드·영상을 **러너에서 만들기만** 하고 아무 데도 올리지 않는다.
+#
+# 왜 필요한가(2026-10-02): 렌더 코드를 고친 뒤 확인할 방법이 로컬(Windows) 렌더와
+# 실제 게시 둘뿐이었다. 로컬은 러너와 폰트·ffmpeg 가 달라(로컬에선 캔버스 이모지가
+# 줄무늬로 깨진다) 통과해도 러너에서 같다는 보장이 없고, 실제 게시는 틀리면 5채널에
+# 그대로 나간다. 이 워크플로는 그 사이를 메운다 — 시크릿을 쓰지 않고, insta-media 에
+# 푸시하지 않고, post-log 도 건드리지 않는다. 결과물은 아티팩트로만 남는다.
+#
+# 실행: gh workflow run social-preview.yml -f slot=evening -f offset=1
+#   offset = 대상 날짜(오늘+N). 저녁 슬롯을 KST 정오 전에 돌리면 사이클 보정으로
+#   하루가 당겨지므로 그때는 하나 더 준다.
+
+on:
+  workflow_dispatch:
+    inputs:
+      slot:
+        description: 'morning(v1 영상) | evening(v2 영상 + 틱톡판)'
+        type: choice
+        options: [evening, morning]
+        default: evening
+      offset:
+        description: 'KST_OFFSET_DAYS — 아침은 0. 저녁은 1(정오 전에 돌리면 2)'
+        type: string
+        default: '1'
+      cover:
+        description: '커버 강제: 비우면 A/B 규칙대로 | photo | graphic'
+        type: string
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      KST_OFFSET_DAYS: ${{ inputs.offset }}
+      HHS_LEGACY_MORNING: ${{ inputs.slot == 'morning' && '1' || '' }}
+      HHS_COVER: ${{ inputs.cover }}
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '20'
+
+      - run: npm ci
+
+      - name: ffmpeg 확인
+        run: |
+          if ! command -v ffmpeg >/dev/null 2>&1; then
+            sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          fi
+          ffmpeg -version | head -1
+
+      - name: 대상 날짜 확인
+        run: npm run post:target
+
+      - name: 카드 생성
+        run: npm run post:all -- --no-send
+
+      - name: 릴스 영상 (아침 v1)
+        if: ${{ inputs.slot == 'morning' }}
+        run: npm run reel:make
+
+      - name: 릴스 영상 (저녁 v2 + 틱톡판)
+        if: ${{ inputs.slot == 'evening' }}
+        run: |
+          npm run reel:make:v2
+          HHS_TIKTOK_VARIANT=1 npm run reel:make:v2
+
+      - name: 스토리 이미지 생성
+        run: npm run story:make
+
+      - name: 인스타 업로드용 JPEG 변환
+        run: npm run ig:jpeg
+
+      # 영상을 내려받지 않고도 한눈에 보도록 1.5초 간격 프레임을 한 장으로 붙인다.
+      - name: 프레임 시트
+        run: |
+          cd generated/instagram
+          for f in reel.mp4 reel-v2.mp4 reel-v2-tiktok.mp4; do
+            [ -f "$f" ] || continue
+            ffmpeg -y -hide_banner -loglevel error -i "$f" -map 0:v:0 \
+              -vf "fps=1/1.5,scale=270:-1,tile=12x1" -frames:v 1 "sheet-${f%.mp4}.jpg"
+            ffprobe -v error -show_entries format=duration -of csv=p=0 "$f"
+          done
+          ls -la
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: social-preview-${{ inputs.slot }}
+          path: generated/instagram
+          retention-days: 3
