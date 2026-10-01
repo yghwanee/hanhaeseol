@@ -13,6 +13,8 @@ import {
   buildShortsTitle,
   MORNING_HOOKS,
   EVENING_HOOKS,
+  NATIONAL_MORNING_HOOKS,
+  NATIONAL_EVENING_HOOKS,
 } from "./shorts-title";
 import { rotateIndex } from "./post-slot";
 import { inferDayLabel } from "./instagram";
@@ -208,4 +210,30 @@ test("🔴 편성이 0인 날에도 아침·저녁 제목이 다르다(폴백 �
     assert.ok(t.includes("9/12"), `날짜 누락 — ${t}`);
     assert.ok(/한국어/.test(t) && /중계|해설/.test(t), `검색 키워드 누락 — ${t}`);
   }
+});
+
+// 2026-10-02: 대표팀 경기 제목은 [매치업 · 대회 · 시각 · 중계] 를 전부 갖는다.
+// 그 주 유튜브에서 조회가 붙은 일정 쇼츠 제목이 전부 이 꼴이었다.
+test("🔴 대표팀 제목 풀은 매치업·대회·시각·검색 키워드를 전부 갖고, 아침·저녁이 겹치지 않는다", () => {
+  const ctx = {
+    matchup: "대한민국 vs 우즈베키스탄",
+    event: "아시안게임 남자축구 결승 한일전",
+    time: "저녁 7시 30분",
+    platform: "KBS N SPORTS",
+    emoji: "⚽",
+    dayWord: "내일" as const,
+    ko: "한국어 중계",
+  };
+  assert.equal(NATIONAL_MORNING_HOOKS.length, 8);
+  assert.equal(NATIONAL_EVENING_HOOKS.length, 8);
+  const morning = NATIONAL_MORNING_HOOKS.map((f) => f(ctx));
+  const evening = NATIONAL_EVENING_HOOKS.map((f) => f(ctx));
+  for (const s of [...morning, ...evening]) {
+    for (const part of [ctx.matchup, ctx.event, ctx.time, ctx.ko, ctx.dayWord]) {
+      assert.ok(s.includes(part), `"${part}" 누락 — ${s}`);
+    }
+    // 가장 긴 재료(긴 상대국 + 긴 대회명 + 긴 플랫폼)에 날짜 꼬리를 붙여도 상한 안이다.
+    assert.ok(`${s} 10/13(화) #Shorts`.length <= TITLE_MAX, `제목 상한 초과 — ${s}`);
+  }
+  assert.equal(new Set([...morning, ...evening]).size, 16, "풀 안에 같은 문장이 있다");
 });

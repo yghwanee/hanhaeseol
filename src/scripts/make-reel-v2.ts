@@ -7,6 +7,9 @@ import { renderReelBigMatchCard } from "@/lib/reel-bigmatch-card";
 import { renderCtaOverlay } from "@/lib/reel-overlay";
 import { pickHookImage } from "@/lib/hook-card";
 import { registerFonts, getKstToday, renderOutroCard } from "@/lib/instagram";
+import { renderReelListCards } from "@/lib/reel-list-card";
+import { SLOT_ACCENT } from "@/lib/reel-title-card";
+import { getPostSlot } from "@/lib/post-slot";
 
 const W = 1080;
 const H = 1920;
@@ -15,7 +18,8 @@ const XFADE = 0.3;
 
 const TITLE_DUR = 4.0;
 const BIGMATCH_DUR = 3.5;
-const SPORT_DUR = 1.8;
+// 목록 카드 한 장(최대 5경기). 1.8초로는 다섯 줄을 못 읽는다.
+const SPORT_DUR = 3.4;
 const OUTRO_DUR = 3.5;
 
 const TITLE_PUNCH_D = 0.7;   // 영상 시작 zoomin 펀치 길이
@@ -74,10 +78,19 @@ async function main() {
   const ctaFile = `_cta-overlay${SFX}.png`;
   fs.writeFileSync(path.join(OUT_DIR, ctaFile), renderCtaOverlay(brandOpts));
 
-  // 스포츠/outro
-  const sportFiles = files.filter(
-    (f) => !f.startsWith("main-") && f !== "outro.png",
-  );
+  // 본문 — 9:16 목록 카드. 종전엔 캐러셀용 4:5 종목 카드를 그대로 넣어 위아래 검은 띠 +
+  // 36px 글자를 1.8초씩 보여 줬다(읽을 수 없다). 캐러셀 게시물은 그 카드를 그대로 쓴다.
+  // 🔴 틱톡판 파일명을 가른다(SFX) — 같은 잡에서 v2 뒤에 돌아 공용 파일을 덮으면 안 된다.
+  const listCards = renderReelListCards(today, {
+    accent: SLOT_ACCENT[getPostSlot(today)],
+    noUrl: TIKTOK,
+  });
+  const sportFiles = listCards.map((buf, i) => {
+    const name = `_reel-list${SFX}-${i + 1}.png`;
+    fs.writeFileSync(path.join(OUT_DIR, name), buf);
+    return name;
+  });
+  console.log(`✅ 목록 카드 ${sportFiles.length}장 (9:16)`);
   let outroFile: string = files.find((f) => f === "outro.png") ?? "";
   if (!outroFile) throw new Error("outro.png 없음 — npm run post:all 먼저");
   if (TIKTOK) {

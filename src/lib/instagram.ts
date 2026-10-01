@@ -39,7 +39,8 @@ export async function fetchTeamLogoImage(name: string): Promise<Image | null> {
     if (img) return img;
   }
   // 월드컵 국가대표팀은 team-logos.ts에 매핑이 없다 → 국기로 대체(클럽·KBO는 미스되어 영향 없음).
-  const flag = flagUrl(name);
+  // 카드는 국기를 220~324px 로 그린다. 기본 160px 을 올리면 흐려진다.
+  const flag = flagUrl(name, 640);
   if (flag) {
     const img = await loadFromUrl(flag);
     if (img) return await squarePad(img);

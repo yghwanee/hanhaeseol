@@ -57,11 +57,43 @@ const ISO_CODE: Record<string, string> = {
   포르투갈: "pt",
   프랑스: "fr",
   호주: "au",
+  // 2026-10-02: A매치·아시안게임 상대국. 대표팀 경기를 소셜 커버 주인공으로 세우면서
+  // 국기가 없으면 커버 가운데가 한쪽만 비었다(베네수엘라·중국).
+  베네수엘라: "ve",
+  중국: "cn",
+  북한: "kp",
+  대만: "tw",
+  태국: "th",
+  베트남: "vn",
+  인도네시아: "id",
+  말레이시아: "my",
+  필리핀: "ph",
+  인도: "in",
+  홍콩: "hk",
+  바레인: "bh",
+  쿠웨이트: "kw",
+  오만: "om",
+  아랍에미리트: "ae",
+  시리아: "sy",
+  레바논: "lb",
+  팔레스타인: "ps",
+  키르기스스탄: "kg",
+  카자흐스탄: "kz",
+  이탈리아: "it",
+  폴란드: "pl",
+  덴마크: "dk",
+  세르비아: "rs",
+  웨일스: "gb-wls",
+  칠레: "cl",
+  페루: "pe",
+  볼리비아: "bo",
+  코스타리카: "cr",
+  쿠바: "cu",
   // "미정"(조 미정 TBD)은 의도적으로 제외 → 국기 없이 팀명만 노출
 };
 
 /** 국가대표팀명 → 국기 이미지 URL. 매칭되는 국가가 없으면 null(클럽·KBO 등은 자연히 미스). */
-export function flagUrl(teamName: string): string | null {
+export function flagUrl(teamName: string, width: 160 | 320 | 640 = 160): string | null {
   const code = ISO_CODE[teamName];
-  return code ? `https://flagcdn.com/w160/${code}.png` : null;
+  return code ? `https://flagcdn.com/w${width}/${code}.png` : null;
 }

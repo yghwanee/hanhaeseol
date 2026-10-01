@@ -2,6 +2,7 @@ import { createCanvas, loadImage, type SKRSContext2D, type Image } from "@napi-r
 import { buildCoverHook } from "./cover-hook";
 import { fetchTeamLogoImage, pickHeroForDate } from "./instagram";
 import { getPostSlot, type PostSlot } from "./post-slot";
+import { isNationalTeamMatch } from "./hero-pick";
 
 /**
  * 슬롯별 액센트 — 레이아웃이 같아져도 썸네일 그리드에서 한눈에 갈린다.
@@ -88,7 +89,14 @@ function drawSyntheticBackground(
  * 히어로 경기의 두 팀 엠블럼을 가운데 크게. 원격 로고는 실패할 수 있으므로
  * 호출부에서 catch 한다 — 배경이 없는 것보다 엠블럼이 없는 게 낫다.
  */
-async function drawHeroEmblems(ctx: SKRSContext2D, W: number, H: number, today: string) {
+async function drawHeroEmblems(
+  ctx: SKRSContext2D,
+  W: number,
+  H: number,
+  today: string,
+  /** 엠블럼 중심 y. 아침(분할 구도)은 위쪽 사진 칸의 가운데로 올린다. */
+  cy: number = Math.round(H * 0.4),
+) {
   const hero = pickHeroForDate(today);
   if (!hero) return;
 
@@ -98,8 +106,8 @@ async function drawHeroEmblems(ctx: SKRSContext2D, W: number, H: number, today: 
   ]);
   if (!home && !away) return;
 
-  const size = Math.round(W * 0.3);
-  const cy = Math.round(H * 0.4);
+  // 국기는 정사각 칸 안에 가로형으로 들어가 엠블럼보다 작게 보인다 — 칸을 키운다.
+  const size = Math.round(W * (isNationalTeamMatch(hero) ? 0.38 : 0.3));
   const both = Boolean(home && away);
   const gap = Math.round(W * 0.1);
 
@@ -287,6 +295,18 @@ export async function renderReelTitleBackground(
     // 가운데를 히어로 경기의 팀 엠블럼으로 채운다 — 비-AI 이고, 매일 달라지고,
     // 정보 가치도 있다(그래디언트만 두면 가운데가 통째로 비어 저품질로 읽힌다).
     // best-effort: 엠블럼을 못 받으면 배경만 쓴다.
+    if (slot === "morning") {
+      // 🔴 그래픽 배경이어도 아침의 분할 구도(위 칸 + 솔리드 블록 + 경계선)는 지킨다.
+      // 두 슬롯은 같은 날짜·같은 히어로라 구도가 유일한 구분 축이다(작업83) — 그래픽으로
+      // 바꾸면서 둘 다 풀블리드가 되면 아침·저녁 커버가 다시 같은 그림이 된다.
+      const split = morningSplitY(H);
+      await drawHeroEmblems(ctx, W, H, today, Math.round(split * 0.52)).catch(() => {});
+      ctx.fillStyle = MORNING_BLOCK_BG;
+      ctx.fillRect(0, split, W, H - split);
+      ctx.fillStyle = SLOT_ACCENT.morning;
+      ctx.fillRect(0, split, W, 5);
+      return canvas.toBuffer("image/png");
+    }
     await drawHeroEmblems(ctx, W, H, today).catch(() => {});
     return canvas.toBuffer("image/png");
   }
@@ -540,6 +560,41 @@ export async function renderReelTitleText(
 }
 
 /**
+ * 이 날짜의 커버를 사진 대신 **그래픽(양 팀 국기·엠블럼)** 으로 그리는가.
+ *
+ * 대표팀 경기가 주인공인 날은 그렇게 한다(2026-10-02). 사진 풀 183장은 경기와 무관한
+ * 인물 사진이라, `대한민국 vs 일본` 결승 커버에 쓰면 첫 프레임에 경기를 알리는 그림이
+ * 글자뿐이다. 국기 두 장은 소리 없이도 0.5초 안에 "한일전"으로 읽힌다.
+ * 모든 호출부(캐러셀 1장·릴스 v1 첫 프레임·릴스 v2 타이틀)가 `renderReelTitleCard` 를
+ * 거치므로 여기 한 곳에서 정한다.
+ */
+export function usesGraphicCover(today: string): boolean {
+  const forced = process.env.HHS_COVER;
+  if (forced === "photo") return false;
+  if (forced === "graphic") return true;
+
+  const hero = pickHeroForDate(today);
+  if (hero && isNationalTeamMatch(hero)) return true;
+  return coverArm(today) === "graphic";
+}
+
+/**
+ * 🔴 커버 A/B (2026-10-02 시작) — 대상 날짜의 **일(日)이 홀수면 그래픽, 짝수면 사진**.
+ *
+ * 사진 커버로 287편을 올린 결과가 구독자 12 · 최근 중앙값 100~250회다. 사진이 원인인지는
+ * 한 번도 재 본 적이 없다 — 작업82~84 는 변경을 한꺼번에 넣어 "무엇이 먹었는지 못 가른다"로
+ * 끝났다. 그래서 이번엔 변수 하나만 날짜로 가른다. 같은 대상 날짜의 저녁·아침은 같은 팔에
+ * 들어가고(슬롯 차이가 섞이지 않는다), 대표팀 경기 날은 양쪽 다 그래픽이라 비교에서 뺀다.
+ *
+ * 판정: 2~3일 지난 영상끼리 팔별 중앙값을 본다(`npm run social:ab`). 한쪽으로 기울면
+ * `HHS_COVER=photo|graphic` 을 워크플로 env 에 박아 고정하고 이 함수는 지운다.
+ */
+export function coverArm(today: string): "graphic" | "photo" {
+  const day = Number(today.slice(8, 10));
+  return day % 2 === 1 ? "graphic" : "photo";
+}
+
+/**
  * 합본 — 배경+텍스트를 한 PNG로 만드는 헬퍼. 영상 모션 없이 단일 카드가 필요할 때 사용.
  * (현재 make-reel-v2는 분리된 두 PNG를 overlay 모션으로 합성하므로 직접 사용 안 함.)
  */
@@ -552,7 +607,7 @@ export async function renderReelTitleCard(
   const { W, H } = aspectSize(aspect);
   const slot = opts.slot ?? getPostSlot(today);
   const bg = await renderReelTitleBackground(imagePath, aspect, slot, {
-    noAiImage: opts.noAiImage,
+    noAiImage: opts.noAiImage || usesGraphicCover(today),
     today,
   });
   const txt = await renderReelTitleText(today, aspect, opts);

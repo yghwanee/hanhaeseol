@@ -15,7 +15,8 @@ import {
   loadKoreanMatchesAll,
   pickHeroForDate,
 } from "./instagram";
-import { GLOBAL_BIG_CLUBS } from "./hero-pick";
+import { GLOBAL_BIG_CLUBS, NATIONAL_TEAM } from "./hero-pick";
+import { nationalEventFor } from "./national-event";
 import { withJosa } from "./josa";
 import { getPostSlot, rotateIndex, type PostSlot } from "./post-slot";
 import { speakTime } from "./tiktok-caption";
@@ -43,6 +44,12 @@ export interface CoverHookCtx {
    * 날짜만 맞추고 부르는 말을 안 맞추면 사용자 눈에는 여전히 틀린 게시물이다.
    */
   dayWord: "오늘" | "내일";
+  /**
+   * 대한민국 대표팀 경기면 채워진다. 이때는 이름 하나(`who`)가 아니라 **매치업과 대회**가
+   * 후킹이다 — `pickHeadliner` 는 원정팀을 집어서 `대한민국 vs 베네수엘라` 의 커버 주인공이
+   * `베네수엘라` 가 됐다(2026-10-02 시뮬레이션).
+   */
+  national?: { matchup: string; opponent: string; event: string };
 }
 
 export interface CoverHook {
@@ -179,6 +186,49 @@ export const EVENING_COVER_HOOKS: HookTemplate[] = [
   },
 ];
 
+// ── 대표팀 경기 전용 ──────────────────────────────────────────────────
+// 큰 줄에 매치업을 그대로 올린다. 아침 큰 줄은 한 줄(줄바꿈 없음)이라 매치업보다 긴 문장을
+// 넣지 않는다 — `오늘 저녁 7시 30분 대한민국 vs 우즈베키스탄` 은 최소 글자 크기에서도 넘친다.
+// 아침·저녁은 small 의 어순이 달라 같은 문구가 될 수 없다.
+type NationalCtx = CoverHookCtx & { national: NonNullable<CoverHookCtx["national"]> };
+
+export const NATIONAL_MORNING_COVER_HOOKS: Array<(c: NationalCtx) => CoverHook> = [
+  (c) => ({
+    small: `${c.national.event} · ${c.dayWord} ${c.time}`,
+    big: c.national.matchup,
+    accent: NATIONAL_TEAM,
+  }),
+  (c) => ({
+    small: `${c.dayWord} ${c.time} · ${c.platform}`,
+    big: c.national.matchup,
+    accent: c.national.opponent,
+  }),
+  (c) => ({
+    small: `${c.national.matchup} · ${c.national.event}`,
+    big: `${c.dayWord} ${c.time}`,
+    accent: c.time,
+  }),
+];
+
+export const NATIONAL_EVENING_COVER_HOOKS: Array<(c: NationalCtx) => CoverHook> = [
+  (c) => ({
+    big: c.national.matchup,
+    small: `${c.dayWord} ${c.time} · ${c.national.event}`,
+    accent: NATIONAL_TEAM,
+  }),
+  (c) => ({
+    big: `${c.dayWord} ${c.time}`,
+    small: `${c.national.event} · ${c.national.matchup}`,
+    accent: c.time,
+  }),
+  // 시각은 어느 틀에서도 빠지면 안 된다 — 커버만 보고 "몇 시"를 알 수 있어야 한다.
+  (c) => ({
+    big: c.national.matchup,
+    small: `${c.dayWord} ${c.time} 시작 · ${c.platform}`,
+    accent: c.national.opponent,
+  }),
+];
+
 function daypartOf(hhmm: string): Daypart {
   const h = Number.parseInt(hhmm.slice(0, 2), 10);
   if (!Number.isFinite(h)) return "저녁";
@@ -216,11 +266,16 @@ export function coverHookContext(today: string, now: Date = new Date()): CoverHo
   const away = hero.awayTeam && hero.awayTeam !== "미정" ? hero.awayTeam : null;
   if (!home && !away) return null;
 
-  const player = findKoreanPlayerOnMatch(hero.homeTeam, hero.awayTeam);
+  const national = nationalEventFor(hero);
+  // 대표팀 경기에서 클럽 소속 코리안리거 이름을 주어로 세우지 않는다 — 주어는 대한민국이다.
+  const player = national ? null : findKoreanPlayerOnMatch(hero.homeTeam, hero.awayTeam);
 
   return {
-    who: player ? player.name : pickHeadliner(home, away),
+    who: national ? NATIONAL_TEAM : player ? player.name : pickHeadliner(home, away),
     isPlayer: Boolean(player),
+    national: national
+      ? { matchup: national.matchup, opponent: national.opponent, event: national.event }
+      : undefined,
     time: speakTime(hero.time),
     daypart: daypartOf(hero.time),
     games: loadKoreanMatchesAll(today).length,
@@ -244,6 +299,12 @@ export function buildCoverHook(
 ): CoverHook {
   const ctx = coverHookContext(today, now);
   if (!ctx) return fallbackHook(slot, inferDayLabel(today, now));
+
+  if (ctx.national) {
+    const nat = ctx as NationalCtx;
+    const natPool = slot === "morning" ? NATIONAL_MORNING_COVER_HOOKS : NATIONAL_EVENING_COVER_HOOKS;
+    return natPool[rotateIndex(today, slot, natPool.length)](nat);
+  }
 
   const pool = slot === "morning" ? MORNING_COVER_HOOKS : EVENING_COVER_HOOKS;
   const eligible = pool.filter((t) => !t.when || t.when(ctx));

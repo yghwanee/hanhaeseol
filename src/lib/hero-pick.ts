@@ -58,6 +58,41 @@ export const TOP_PRIORITY_CLUBS = new Set(
   ["맨유", "맨시티", "첼시", "리버풀", "아스날"].map(norm),
 );
 
+/**
+ * 🔴 국가대표 티어 (2026-10-02) — 대한민국이 뛰는 경기는 클럽 경기보다 앞선다.
+ *
+ * 월드컵에만 "대한민국 최우선"이 있었고(`wcMatchupTier`), A매치·아시안게임은 리그명이
+ * 등급표에 없어 최하 5점이었다. 2026-10-03 실측: **아시안게임 남자축구 금메달전 한일전**
+ * (19:30)이 후보 5위 안에도 못 들고 히어로는 `KIA 13:40` 이었다. 10/02 A매치
+ * 베네수엘라전(20점)은 송성문 MLB(46점)에, 10/06 우즈베키스탄전은 `SSG` 에 밀렸다.
+ *
+ * 같은 주 유튜브 실측 — 구독자 적은 채널의 국가대표 일정 쇼츠가 1천~5만 회인데
+ * (`대한민국 vs 중국 오늘 15시 아시안게임 축구 4강` 1.2만), 우리 채널은 그 주에
+ * 9~82 회였다. 무엇을 주인공으로 세우느냐가 조회수의 제일 큰 변수다.
+ *
+ * 가중치가 아니라 티어인 이유는 TOP_PRIORITY_CLUBS 와 같다 — 점수로 표현하려면
+ * 코리안리거(26)+프라임타임(15)을 이길 만큼 올려야 하고 그러면 다른 날이 흔들린다.
+ * 티어 안에서 둘 이상이면 heroScore(=시간대)로 갈린다.
+ */
+export const NATIONAL_TEAM = "대한민국";
+
+/** `대한민국` · `대한민국 U23` 처럼 연령별 대표도 잡는다. */
+function isNationalSide(team: string | undefined): boolean {
+  return Boolean(team) && norm(team!).startsWith(NATIONAL_TEAM);
+}
+
+/** 대한민국 대표팀이 뛰는 경기인가(대회 무관 — A매치·아시안게임·WBC·네이션스리그). */
+export function isNationalTeamMatch(m: Schedule): boolean {
+  return isNationalSide(m.homeTeam) || isNationalSide(m.awayTeam);
+}
+
+/** 대표팀 경기의 상대. 대표팀 경기가 아니거나 상대 미정이면 null. */
+export function nationalOpponent(m: Schedule): string | null {
+  if (!isNationalTeamMatch(m)) return null;
+  const opp = isNationalSide(m.homeTeam) ? m.awayTeam : m.homeTeam;
+  return opp && opp !== "미정" ? opp : null;
+}
+
 /** 등급표에 없어 최하 5점을 받던 이벤트성 대회 */
 const EVENT_LEAGUE_TIER: Record<string, number> = {
   "쿠팡플레이 시리즈": 15,
@@ -401,8 +436,9 @@ export function isTopPriority(m: Schedule): boolean {
  * Hero 정렬 비교자. 음수면 a가 우선.
  * 1) 월드컵 vs 비월드컵 → 월드컵 우선
  * 2) 둘 다 월드컵 → 라운드 티어 desc → 매치업 티어 desc → 시간 asc
- * 3) 최우선 클럽(맨유·맨시티·첼시·리버풀·아스날) → 다른 무엇보다 앞
- * 4) 나머지 → heroScore desc → 시간 asc
+ * 3) 대한민국 대표팀 경기 → 클럽 경기보다 앞
+ * 4) 최우선 클럽(맨유·맨시티·첼시·리버풀·아스날) → 나머지 클럽보다 앞
+ * 5) 나머지 → heroScore desc → 시간 asc
  */
 export function compareHero(
   a: Schedule,
@@ -422,6 +458,10 @@ export function compareHero(
     if (ma !== mb) return mb - ma;
     return a.time.localeCompare(b.time);
   }
+
+  const na = isNationalTeamMatch(a);
+  const nb = isNationalTeamMatch(b);
+  if (na !== nb) return na ? -1 : 1;
 
   const pa = isTopPriority(a);
   const pb = isTopPriority(b);

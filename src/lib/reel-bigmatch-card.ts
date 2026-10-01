@@ -8,6 +8,7 @@ import {
   inferDayLabel,
 } from "./instagram";
 import { eventWord } from "./hero-pick";
+import { nationalEventFor } from "./national-event";
 
 const REEL_W = 1080;
 const REEL_H = 1920;
@@ -81,11 +82,17 @@ export async function renderReelBigMatchCard(today: string): Promise<{
 
   const playerOnHero = findKoreanPlayerOnMatch(hero!.homeTeam, hero!.awayTeam);
 
-  const labelText = playerOnHero
-    ? `🇰🇷 ${playerOnHero.name} 출전`
-    : `🎯 ${inferDayLabel(today)}의 ${eventWord(hero)}`;
+  // 대표팀 경기는 대회·라운드가 라벨이다("아시안게임 남자축구 결승 한일전").
+  // 클럽 소속 코리안리거 이름을 세우면 대표팀 경기에 "○○○ 출전"이 붙는다.
+  const national = nationalEventFor(hero);
+  const labelText = national
+    ? national.event
+    : playerOnHero
+      ? `🇰🇷 ${playerOnHero.name} 출전`
+      : `🎯 ${inferDayLabel(today)}의 ${eventWord(hero)}`;
   ctx.fillStyle = ACCENT;
-  ctx.font = "900 56px Pretendard";
+  const labelSize = fitText(ctx, labelText, REEL_W - 140, 56, "900", 40);
+  ctx.font = `900 ${labelSize}px Pretendard`;
   ctx.fillText(labelText, REEL_W / 2, 200);
 
   // 5) 리그명

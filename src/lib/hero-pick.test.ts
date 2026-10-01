@@ -1,6 +1,14 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { heroScore, pickHeroMatch, isTopPriority, GLOBAL_BIG_CLUBS } from "./hero-pick";
+import {
+  heroScore,
+  pickHeroMatch,
+  isTopPriority,
+  isNationalTeamMatch,
+  nationalOpponent,
+  GLOBAL_BIG_CLUBS,
+} from "./hero-pick";
+import { nationalEventFor } from "./national-event";
 import { loadKoreanMatchesAll, pickHeroForDate, getKstToday } from "./instagram";
 import { getKoreanPlayers } from "./korean-players/load";
 import type { Schedule } from "@/types/schedule";
@@ -223,6 +231,8 @@ test("🔴 실데이터 — 최우선 클럽 경기가 있는 날은 히어로�
     const matches = loadKoreanMatchesAll(d);
     const top = matches.filter(isTopPriority);
     if (top.length === 0) continue;
+    // 대표팀 경기가 있는 날은 그쪽이 앞선다(2026-10-02) — 아래 별도 테스트가 본다.
+    if (matches.some(isNationalTeamMatch)) continue;
     checked++;
     const hero = pickHeroForDate(d);
     assert.ok(
@@ -235,4 +245,98 @@ test("🔴 실데이터 — 최우선 클럽 경기가 있는 날은 히어로�
   // 네이션스리그·대표팀뿐)에 이 줄이 CI 를 빨갛게 만들었다 — 클럽 경기가 없는 주는 해마다 온다.
   // 조용히 통과시키지 않고 skip 으로 찍어, 검사가 비었다는 사실은 로그에 남긴다.
   if (checked === 0) t.skip("7일 안에 최우선 클럽 경기가 없다(A매치 기간·비시즌)");
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 국가대표 티어 (2026-10-02)
+//   10/03 아시안게임 남자축구 금메달전 한일전이 후보 5위 안에도 못 들고 히어로가
+//   `KIA 13:40` 이었다. A매치 베네수엘라전은 송성문 MLB 에, 우즈베키스탄전은 SSG 에 밀렸다.
+// ─────────────────────────────────────────────────────────────────────────────
+
+function national(home: string, away: string, league: string, time = "19:30"): Schedule {
+  return {
+    id: `nat-${home}-${away}`,
+    date: "2026-10-03",
+    time,
+    sport: "축구",
+    league,
+    homeTeam: home,
+    awayTeam: away,
+    platform: "SPOTV NOW",
+    koreanCommentary: true,
+  };
+}
+
+test("🔴 대표팀 경기는 코리안리거 프라임타임 경기보다 앞선다", () => {
+  const rival = koreanPrime("20:00");
+  // 최악 조건 — 새벽 경기 + 등급표에 없는 대회명.
+  const korea = national("베네수엘라", "대한민국", "남자축구 국가대표팀", "04:00");
+  assert.equal(pickHeroMatch([rival, korea])?.id, korea.id);
+});
+
+test("🔴 대표팀 경기는 최우선 클럽보다도 앞선다", () => {
+  const epl = club("리버풀", "아스날", "프리미어리그", "20:30");
+  const korea = national("대한민국", "일본", "아이치-나고야 아시안게임");
+  assert.equal(pickHeroMatch([epl, korea])?.id, korea.id);
+});
+
+test("대표팀 경기끼리는 heroScore(시간대)로 갈린다", () => {
+  const afternoon = national("중국", "대한민국", "아이치-나고야 아시안게임", "15:00");
+  const evening = national("대한민국", "베네수엘라", "남자축구 국가대표팀", "19:30");
+  assert.equal(pickHeroMatch([afternoon, evening])?.id, evening.id);
+});
+
+test("다른 나라끼리의 대표팀 경기는 티어를 받지 않는다", () => {
+  assert.equal(isNationalTeamMatch(national("북한", "일본", "아이치-나고야 아시안게임")), false);
+  assert.equal(isNationalTeamMatch(national("대한민국 U23", "일본", "친선")), true);
+});
+
+test("월드컵 정렬은 그대로다 — 대표팀 티어가 라운드 우선을 뒤집지 않는다", () => {
+  const r16 = wc("우루과이", "스코틀랜드", "북중미 월드컵 16강");
+  const koreaGroup = wc("대한민국", "체코", "북중미 월드컵");
+  assert.equal(pickHeroMatch([koreaGroup, r16]), r16);
+});
+
+test("상대 팀을 홈·원정 어느 쪽에서도 찾는다", () => {
+  assert.equal(nationalOpponent(national("대한민국", "일본", "x")), "일본");
+  assert.equal(nationalOpponent(national("중국", "대한민국", "x")), "중국");
+  assert.equal(nationalOpponent(national("대한민국", "미정", "x")), null);
+  assert.equal(nationalOpponent(club("리버풀", "아스날", "프리미어리그")), null);
+});
+
+test("대회 라벨 — A매치·한일전·아시안게임", () => {
+  const amatch = nationalEventFor(national("대한민국", "베네수엘라", "남자축구 국가대표팀"));
+  assert.equal(amatch?.event, "축구 A매치");
+  assert.equal(amatch?.matchup, "대한민국 vs 베네수엘라");
+  assert.equal(amatch?.nickname, null);
+
+  // 종목 파일에 없는 가상 경기 → 라운드를 지어내지 않고 종목명만 붙인다.
+  const ag = nationalEventFor({
+    ...national("대한민국", "일본", "아이치-나고야 아시안게임", "23:59"),
+    date: "2099-01-01",
+  });
+  assert.equal(ag?.event, "아시안게임 축구 한일전");
+  assert.equal(ag?.eventTag, "아시안게임");
+  assert.equal(ag?.nickname, "한일전");
+
+  assert.equal(nationalEventFor(club("리버풀", "아스날", "프리미어리그")), null);
+});
+
+test("🔴 실데이터 — 대표팀 경기가 있는 날은 히어로가 그 경기다", (t) => {
+  const base = getKstToday(0).today;
+  let checked = 0;
+  for (let i = 0; i < 7; i++) {
+    const dt = new Date(`${base}T00:00:00Z`);
+    dt.setUTCDate(dt.getUTCDate() + i);
+    const d = dt.toISOString().slice(0, 10);
+    const nat = loadKoreanMatchesAll(d).filter(isNationalTeamMatch);
+    if (nat.length === 0) continue;
+    checked++;
+    const hero = pickHeroForDate(d);
+    assert.ok(
+      hero && isNationalTeamMatch(hero),
+      `${d}: 대표팀 경기가 ${nat.length}개인데 히어로는 ${hero?.league} ${hero?.homeTeam} vs ${hero?.awayTeam}`,
+    );
+  }
+  if (checked === 0) t.skip("7일 안에 대표팀 경기가 없다");
 });

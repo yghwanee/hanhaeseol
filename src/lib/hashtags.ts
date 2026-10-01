@@ -1,6 +1,7 @@
 import type { Sport } from "@/types/schedule";
 import { findKoreanPlayerOnMatch, pickHeroMatch, pickHeroMatchesTop, loadKoreanMatchesAll } from "./instagram";
 import { getRivalryName, isWorldCup, eventWord } from "./hero-pick";
+import { nationalEventFor } from "./national-event";
 
 export const SPORT_EMOJI: Record<Sport, string> = {
   축구: "⚽",
@@ -268,6 +269,25 @@ export function getHierarchicalTags(today: string): HierarchicalTagsResult {
     };
   }
 
+  // 대표팀 히어로: 국가명·대회명은 리그/팀 매핑에 없어 종전엔 폴백 두 개만 남았다
+  // (`#한국어중계 #스포츠편성표` — 정작 사람들이 찾는 `#한일전`·`#아시안게임` 이 통째로 빠졌다).
+  const national = nationalEventFor(hero);
+  if (national) {
+    const natTags = ["#대한민국"];
+    if (national.nickname) natTags.push(`#${national.nickname}`);
+    const oppTag = countryHashtag(national.opponent);
+    if (oppTag) natTags.push(oppTag);
+    natTags.push(`#${national.eventTag}`, "#한국어중계");
+    return {
+      tags: Array.from(new Set(natTags)).slice(0, 5),
+      mainSport: hero.sport,
+      mainLeague: hero.league,
+      mainTeam: hero.homeTeam,
+      mainPlayer: null,
+      totalGames: games.length,
+    };
+  }
+
   const leagueTag = LEAGUE_HASHTAGS[hero.league];
   const homeTag = TEAM_HASHTAGS[hero.homeTeam];
   const awayTag = hero.awayTeam ? TEAM_HASHTAGS[hero.awayTeam] : undefined;
@@ -323,6 +343,12 @@ export function getMainHighlight(today: string): string {
     return matchup
       ? `${korea ? "🇰🇷 " : ""}월드컵 ${matchup} 한국어 중계 ${emoji}`
       : `월드컵 한국어 중계 ${emoji}`;
+  }
+
+  // 대표팀 히어로: 리그명(`아이치-나고야 아시안게임 빅매치`)이 아니라 대회·매치업으로 부른다.
+  const national = nationalEventFor(wcHero);
+  if (national && wcHero) {
+    return `${national.event} ${national.matchup} 한국어 중계 ${SPORT_EMOJI[wcHero.sport]}`;
   }
 
   const r = getHierarchicalTags(today);

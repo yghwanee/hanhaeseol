@@ -112,6 +112,7 @@ jobs:
           npm run test:result-lookup
           npm run test:head-script
           npm run test:hero-pick
+          npm run test:reel-list
           npm run test:fixture-dedupe
           npm run test:deploy-budget
           npm run test:sitemap-lastmod

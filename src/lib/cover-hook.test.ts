@@ -4,6 +4,8 @@ import {
   buildCoverHook,
   MORNING_COVER_HOOKS,
   EVENING_COVER_HOOKS,
+  NATIONAL_MORNING_COVER_HOOKS,
+  NATIONAL_EVENING_COVER_HOOKS,
 } from "./cover-hook";
 import { getKstToday } from "./instagram";
 
@@ -105,6 +107,39 @@ test("🔴 주어가 팀일 때 선수용 서술어가 붙지 않는다", () => 
       for (const b of bad) {
         assert.ok(!line.includes(b), `팀에 선수용 서술어 — "${b}" in "${line}"`);
       }
+    }
+  }
+});
+
+// 2026-10-02: 대표팀 경기는 이름 하나가 아니라 매치업·대회·시각이 후킹이다.
+test("🔴 대표팀 커버는 어느 틀에서도 매치업과 시각을 다 싣는다", () => {
+  const ctx = {
+    who: "대한민국",
+    isPlayer: false,
+    time: "저녁 7시 30분",
+    daypart: "저녁" as const,
+    games: 19,
+    platform: "SPOTV NOW",
+    isWeekday: false,
+    dayWord: "내일" as const,
+    national: {
+      matchup: "대한민국 vs 일본",
+      opponent: "일본",
+      event: "아시안게임 남자축구 결승 한일전",
+    },
+  };
+  const morning = NATIONAL_MORNING_COVER_HOOKS.map((t) => t(ctx));
+  const evening = NATIONAL_EVENING_COVER_HOOKS.map((t) => t(ctx));
+  for (const h of [...morning, ...evening]) {
+    const line = `${h.small} ${h.big}`;
+    assert.ok(line.includes(ctx.national.matchup), `매치업 누락 — ${line}`);
+    assert.ok(line.includes(ctx.time), `시각 누락 — ${line}`);
+    assert.ok(line.includes(h.accent), `액센트 조각이 문구에 없음 — "${h.accent}" in "${line}"`);
+  }
+  // 회전이 어떻게 맞물려도 아침·저녁이 같은 문구가 될 수 없다.
+  for (const m of morning) {
+    for (const e of evening) {
+      assert.notEqual(`${m.small}|${m.big}`, `${e.small}|${e.big}`);
     }
   }
 });

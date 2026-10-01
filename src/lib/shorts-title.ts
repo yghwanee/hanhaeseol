@@ -78,6 +78,64 @@ export const EVENING_HOOKS: Array<(c: HookCtx) => string> = [
   (c) => `${c.dayWord} ${c.time} ${c.who} ${c.emoji} 한국어 중계 채널 정리`,
 ];
 
+// ── 대표팀 경기 전용 ──────────────────────────────────────────────────
+// 대표팀 경기는 이름 하나가 아니라 **매치업 + 대회 + 시각**으로 찾는다
+// (`한국 일본 중계` · `아시안게임 축구 결승` · `A매치 중계 채널`). 위 풀은 주어가 이름
+// 하나라 `대한민국 오늘 어디서 보나` 가 돼 상대도 대회도 빠진다. 2026-10-02 유튜브 실측에서
+// 조회가 붙은 일정 쇼츠 제목은 전부 [매치업 · 대회 · 시각] 을 다 갖고 있었다.
+// 슬롯당 8개, 어순이 전부 달라 아침·저녁이 같은 제목이 될 수 없다.
+interface NationalHookCtx {
+  /** "대한민국 vs 일본" */
+  matchup: string;
+  /** "아시안게임 남자축구 결승 한일전" */
+  event: string;
+  time: string;
+  platform: string;
+  emoji: string;
+  dayWord: "오늘" | "내일";
+  /** 한국어 해설이 확인된 경기면 "한국어 중계", 아니면 "중계" — 없는 해설을 주장하지 않는다. */
+  ko: string;
+}
+
+export const NATIONAL_MORNING_HOOKS: Array<(c: NationalHookCtx) => string> = [
+  (c) => `${c.matchup} ${c.emoji} ${c.event} ${c.dayWord} ${c.time} ${c.ko} 채널`,
+  (c) => `${c.dayWord} ${c.time} ${c.matchup} ${c.emoji} ${c.event} ${c.ko} 어디서 봐요?`,
+  (c) => `${c.event} ${c.emoji} ${c.matchup} ${c.dayWord} ${c.time} ${c.ko} 어디서 보나`,
+  (c) => `${c.matchup} ${c.ko} ${c.emoji} ${c.dayWord} ${c.time} ${c.platform} · ${c.event}`,
+  (c) => `${c.dayWord} ${c.matchup} ${c.emoji} ${c.time} 시작 · ${c.event} ${c.ko} 채널 정리`,
+  (c) => `${c.event} ${c.dayWord} ${c.time} ${c.emoji} ${c.matchup} ${c.ko} 되는 곳`,
+  (c) => `${c.matchup} ${c.dayWord} 몇 시? ${c.emoji} ${c.time} ${c.platform} · ${c.event} ${c.ko}`,
+  (c) => `${c.dayWord} ${c.time} ${c.event} ${c.emoji} ${c.matchup} ${c.ko} 채널은 ${c.platform}`,
+];
+
+export const NATIONAL_EVENING_HOOKS: Array<(c: NationalHookCtx) => string> = [
+  (c) => `${c.dayWord} ${c.time} ${c.matchup} ${c.emoji} ${c.event} ${c.ko} 미리 확인`,
+  (c) => `${c.event} ${c.emoji} ${c.matchup} ${c.dayWord} ${c.time} ${c.ko} 채널 정리`,
+  (c) => `${c.matchup} ${c.dayWord} ${c.time} ${c.emoji} ${c.event} ${c.ko}는 ${c.platform}`,
+  (c) => `${c.dayWord} ${c.matchup} ${c.emoji} ${c.event} ${c.time} ${c.ko} 채널`,
+  (c) => `${c.matchup} ${c.emoji} ${c.dayWord} ${c.time} 알람 맞추세요 · ${c.event} ${c.ko}`,
+  (c) => `${c.event} ${c.matchup} ${c.emoji} ${c.dayWord} ${c.time} ${c.platform} ${c.ko}`,
+  (c) => `${c.dayWord} 놓치면 안 되는 경기 ${c.emoji} ${c.matchup} ${c.event} ${c.ko} ${c.time}`,
+  (c) => `${c.matchup} ${c.event} ${c.emoji} ${c.dayWord} ${c.time} ${c.ko} 어디서 하나`,
+];
+
+/** 그날 히어로가 대표팀 경기면 전용 재료를 만든다. 아니면 null. */
+function nationalHookContext(today: string, now: Date = new Date()): NationalHookCtx | null {
+  const c = coverHookContext(today, now);
+  if (!c?.national) return null;
+  const hero = pickHeroForDate(today);
+  if (!hero) return null;
+  return {
+    matchup: c.national.matchup,
+    event: c.national.event,
+    time: c.time,
+    platform: c.platform,
+    emoji: SPORT_EMOJI[hero.sport],
+    dayWord: c.dayWord,
+    ko: hero.koreanCommentary === true ? "한국어 중계" : "중계",
+  };
+}
+
 /**
  * 히어로 재료는 커버와 공유한다 — 커버와 제목의 주인공이 갈리면 안 된다.
  * (coverHookContext 는 pickHeroForDate 를 쓰므로 연속 방지 감점도 함께 적용된다.)
@@ -145,6 +203,14 @@ export function buildHookLine(
   surface: HookSurface = "youtube-desc",
   now: Date = new Date(),
 ): string {
+  const nat = nationalHookContext(today, now);
+  if (nat) {
+    const natPool = slot === "morning" ? NATIONAL_MORNING_HOOKS : NATIONAL_EVENING_HOOKS;
+    const natIdx =
+      (rotateIndex(today, slot, natPool.length) + SURFACE_OFFSET[surface]) % natPool.length;
+    return natPool[natIdx](nat);
+  }
+
   const ctx = hookContext(today, now);
   if (!ctx) return FALLBACK_HOOKS[surface][slot](inferDayLabel(today, now));
 
@@ -175,6 +241,14 @@ export function buildShortsTitle(
   now: Date = new Date(),
 ): string {
   const dateTag = `${parseInt(mm, 10)}/${parseInt(dd, 10)}(${dayOfWeekKr(today)}) #Shorts`;
+
+  const nat = nationalHookContext(today, now);
+  if (nat) {
+    const natPool = slot === "morning" ? NATIONAL_MORNING_HOOKS : NATIONAL_EVENING_HOOKS;
+    const natTitle = `${natPool[rotateIndex(today, slot, natPool.length)](nat)} ${dateTag}`;
+    if (natTitle.length <= TITLE_MAX) return natTitle;
+  }
+
   const ctx = hookContext(today, now);
 
   if (ctx) {
