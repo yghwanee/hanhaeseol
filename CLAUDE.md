@@ -378,7 +378,7 @@ src/
 - 🔴 **CI 를 정기적으로 볼 것 (2026-08-27 작업99에서 얻은 습관).** `test.yml` 은 `paths` 필터로
   `src/data/**` 를 제외하므로 **매시 크롤 커밋으로는 안 돈다.** 코드 푸시가 며칠 없으면
   가드가 잡아 놓은 실제 결함이 빨간 채로 방치된다(실제로 8/24~8/27 사흘). 확인은
-  `gh run list --workflow=test.yml --limit 5`. 새 리그가 편성에 들어오면 `test:league-coverage`
+  `gh run list --workflow=test.yml --limit 5`. 🔴 유닛 테스트 스텝은 **첫 실패에서 멈춘다** — 빨가면 로컬에서 전부 돌릴 것(2026-10-01: 로그엔 1개, 실제 6개). 새 리그가 편성에 들어오면 `test:league-coverage`
   가 먼저 빨개지는 구조라, **CI 를 안 보면 그 리그 스코어가 조용히 안 붙는다.**
 
 - 🔴 **사람이 해야 할 것 (2026-08-19)** — 빙 웹마스터 › 사이트맵에서 **잉여 3개 삭제**: `https://www.haeseol.com/sitemap.xml` · `http://www.haeseol.com/sitemap.xml`(둘 다 308 중복) · `https://haeseol.com/sitemap`(**404**). 정본은 `https://haeseol.com/sitemap.xml` 하나다.

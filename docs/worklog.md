@@ -1175,3 +1175,20 @@ robots 블록 전수 파싱으로 **차단 4 / 허용 22** 확인 · 매치 페�
 - **선수 페이지 (2026-08 이후)** — 지금은 데이터가 없어서 보류(작업58 참조). EPL·분데스 개막(8/22)으로 유럽 팀 페이지가 생기면 코리안리거 허브(이정후→샌프란시스코, 손흥민→LAFC, 이강인→아틀레티코, 김민재→뮌헨)부터 검토.
 
 - **경기 찜 푸시 알림** — 사용자 명확 요구: "⭐찜한 경기 득점 시 폰 꺼져있어도(화면off/앱닫힘) 알림"(카톡처럼). **저장소 Upstash→Vercel Blob로 변경**(별도 가입 최소화). **A단계 코드 작성됨**: `src/lib/push/store.ts`(Blob access:private, 구독1건=파일1건), `send.ts`(web-push VAPID), `/api/push/subscribe`·`/test`, `PushSubscribeButton`(푸터, VAPID 미설정시 자동숨김=현재상태). 레포 public이라 GH Actions 골 폴러 $0. **선행(사용자 셋업, 미완): ①`npx web-push generate-vapid-keys` ②Vercel 대시보드 Blob 스토어 생성(BLOB_READ_WRITE_TOKEN 자동주입) ③Vercel 시크릿 4개(NEXT_PUBLIC_VAPID_PUBLIC_KEY/VAPID_PRIVATE_KEY/VAPID_SUBJECT/PUSH_TEST_KEY).** 셋업 후 남은빌드 B(⭐찜UI=경기카드 별버튼+follows 저장)→C(시작·결과 발송 GH Actions)→D(실시간 골폴러, 득점후 30~60초·완전실시간은 무료론 불가). 플랫폼: 아이폰=설치필수, 안드/PC=설치없이 🔔버튼만. 상세 [[project_live_lineup_features]].
+
+## 작업127 — 저녁 캐러셀 미게시 복구 + 가려져 있던 CI 빨강 6개 (2026-10-01)
+
+- **증상**: 10/02 대상 저녁 게시에서 인스타 캐러셀만 빠짐(릴스·스토리·유튜브·틱톡은 정상).
+- **원인**: 컨테이너 생성(`postMedia`)에서 Meta 가 `code:1 "An unknown error has occurred."` 를
+  subcode·`is_transient` 없이 줬고, 재시도 분류에 안 걸려 0회로 죽었다. `media_publish` 전이라
+  올라간 건 없었다 → `instagram.yml` 통째 재실행으로 캐러셀만 게시(중복 없음).
+- **수정**: `isRetryableMediaCreate` 가 code 1·2 를 재시도. 게시(`publish`) 경로는 안 건드렸다.
+- 🔴 **이 푸시로 CI 가 9/21 이후 처음 돌았고 빨갰다.** `유닛 테스트` 스텝은 `bash -e` 라
+  **첫 실패에서 멈춘다** — 로그엔 1개만 보였고 로컬에서 61개를 전부 돌리니 6개였다.
+  1. `schedule-quality` — SPOTV `2026 메이저리그 아메리칸리그 와일드카드 2차전 시카고 W:휴스턴` 의
+     라운드 문구가 원정 팀명에 붙음. `stripEventPrefix` 가 `N차전` 을 닻으로 자른다(+ 저장된 3행 정정).
+  2. `toss-picks` — `toss:refresh` 가 품절 상품을 `picks` 에서만 지우고 `slots` 는 남겼다. 같이 비우게 수정.
+  3. `league-coverage` — `아세안 클럽 챔피언십` 네이버 후보 id 11개 전부 400 → 미지원 명시.
+  4. `players` — 테스트의 독립 검사가 `LA다저스` ↔ `LA 다저스` 공백을 못 넘음(페이지는 정상).
+  5. `hero-pick` — A매치 기간엔 클럽 경기가 없다. 실패 대신 skip.
+  6. `asian-games` — 200KB 상한은 116건 시점 추정. 실측 1,084건·351KB(gzip 42KB) → 450KB.
