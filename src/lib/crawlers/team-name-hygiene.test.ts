@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { parseMatchTitle } from "./parsers";
+import { parseMatchTitle, stripEventPrefix } from "./parsers";
 import { trimNames } from "./_utils";
 import scheduleData from "@/data/schedule.json";
 import archiveData from "@/data/schedule-archive.json";
@@ -141,4 +141,23 @@ test("이벤트 경기 제목에서 리그 약칭과 팀명을 가려낸다", ()
   // 정규 표기는 종전대로 `프로농구`·`WKBL` 로 남아야 한다(리그 페이지·스코어 매칭이 이 값을 쓴다).
   assert.equal(parseMatchTitle("2025-2026 LG전자 프로농구 KCC vs SK").league, "프로농구");
   assert.equal(parseMatchTitle("여자프로농구 플레이오프 3차전 우리은행 vs BNK").league, "WKBL");
+});
+
+test("포스트시즌 라운드 문구(…N차전)가 팀명으로 넘어오지 않는다", () => {
+  // 🔴 2026-10-01 실측: SPOTV 가 `2026 메이저리그 아메리칸리그 와일드카드 2차전 시카고 W:휴스턴`
+  // 을 줬고 awayTeam 이 `아메리칸리그 와일드카드 2차전 시카고 W` 로 저장됐다. 콜론 경로가
+  // `N차전` 을 **맨 앞에 있을 때만** 떼서, 앞에 `아메리칸리그 와일드카드` 가 붙자 통과했다.
+  // 가드(test:schedule-quality)가 잡았는데 코드 푸시가 없어 CI 가 안 돌았다.
+  const r = parseMatchTitle("2026 메이저리그 아메리칸리그 와일드카드 2차전 시카고 W:휴스턴");
+  assert.equal(r.league, "MLB");
+  assert.equal(r.homeTeam, "휴스턴");
+  assert.equal(r.awayTeam, "시카고 W");
+
+  // 다음 라운드도 같은 꼴로 온다(`시리즈` 는 parseMatchTitle 이 먼저 지운다).
+  assert.equal(parseMatchTitle("2026 메이저리그 내셔널리그 디비전시리즈 3차전 LA다저스:필라델피아").awayTeam, "LA다저스");
+  assert.equal(parseMatchTitle("2026 신한 SOL KBO리그 포스트시즌 준플레이오프 1차전 KT:LG").awayTeam, "KT");
+
+  // 올스타전 참가팀 이름 `아메리칸리그` 는 그대로 남아야 한다(차전 표기가 없다).
+  assert.equal(stripEventPrefix("올스타전 아메리칸리그"), "아메리칸리그");
+  assert.equal(stripEventPrefix("아메리칸리그"), "아메리칸리그");
 });

@@ -124,6 +124,13 @@ export function stripEventPrefix(name: string): string {
   );
   if (stage && stage[1].trim()) out = stage[1].trim();
 
+  // "…N차전 <팀명>" — 포스트시즌 라운드가 앞에 붙은 형태.
+  // 실측(2026-10-01 SPOTV): "아메리칸리그 와일드카드 2차전 시카고 W" → "시카고 W".
+  // 🔴 `아메리칸리그`·`내셔널리그` 는 올스타전 참가팀 이름이기도 해서 단어로는 못 자른다.
+  // `N차전` 을 닻으로 삼는다 — 팀명에 들어갈 수 없는 말이고 정규 시즌 제목에도 없다.
+  const round = out.match(/^.*\d+차전\s+(.+)$/);
+  if (round && round[1].trim()) out = round[1].trim();
+
   return out || name.trim();
 }
 
