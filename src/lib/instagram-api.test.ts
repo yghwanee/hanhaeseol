@@ -144,6 +144,26 @@ test("미디어 생성 Fatal(2207032)은 재시도 대상 — 2026-09-09 저녁 
   assert.equal(isRetryableMediaCreate(REAL_2207032), true);
 });
 
+// 2026-10-01 저녁 캐러셀 실패의 실제 에러(로그 그대로). subcode 도 is_transient 도 없이
+// `code:1` 만 온다. 자식 컨테이너 5장은 FINISHED 였고 재시도 0회로 즉사했다.
+// Meta 문서상 code 1(API Unknown)·2(API Service)는 "일시 장애일 수 있음, 재시도" 다.
+const REAL_CODE_1 = {
+  message: "An unknown error has occurred.",
+  type: "OAuthException",
+  code: 1,
+  fbtrace_id: "A_B7jbUnhdiDYn2fGhLpUD1",
+};
+
+test("Meta unknown error(code 1, subcode 없음)는 재시도 대상 — 2026-10-01 저녁 캐러셀이 여기서 죽었다", () => {
+  assert.equal(isRetryableMediaCreate(REAL_CODE_1), true);
+  // code 2 는 is_transient 없이 와도 같은 부류다
+  assert.equal(isRetryableMediaCreate({ code: 2, message: "An unexpected error has occurred." }), true);
+});
+
+test("code 1 이어도 규격 위반 subcode 가 붙으면 즉시 실패한다", () => {
+  assert.equal(isRetryableMediaCreate({ code: 1, error_subcode: 2207005 }), false);
+});
+
 test("컨테이너에서 일시로 보는 코드는 미디어 생성에서도 일시다(경로별 분류 불일치 금지)", () => {
   for (const code of [2207001, 2207003, 2207008, 2207020, 2207032, 2207052, 2207053, 9004]) {
     assert.equal(isRetryableMediaCreate({ error_subcode: code }), true, `subcode ${code}`);

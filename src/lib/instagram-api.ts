@@ -195,6 +195,10 @@ export function isRetryableMediaCreate(err: IgError | undefined): boolean {
     if (sub === IMAGE_CONVERT_FAILED_SUBCODE) return true;
     if (RETRYABLE_CONTAINER_CODES.includes(sub)) return true;
   }
+  // Meta 범용 장애 코드(1 = API Unknown, 2 = API Service). subcode 도 is_transient 도 없이
+  // 온다 — 2026-10-01 저녁 캐러셀이 `code:1 "An unknown error has occurred."` 한 줄에
+  // 재시도 0회로 죽었다. 컨테이너 생성은 게시가 아니라 다시 걸어도 중복이 안 생긴다.
+  if (err.code === 1 || err.code === 2) return true;
   return isTransientFetch(err);
 }
 
