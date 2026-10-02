@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-02T08:25:28.583Z",
+  "lastUpdated": "2026-10-02T15:44:46.270Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -59653,6 +59653,18 @@
         }
       ]
     },
+    "2026-10-02|amatch|대한민국|베네수엘라": {
+      "date": "2026-10-02",
+      "categoryId": "amatch",
+      "gameId": "rHhWB3ySPwkpL04",
+      "homeTeam": "대한민국",
+      "awayTeam": "베네수엘라",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "highlightVideoId": "BlwW2DfXkd8"
+    },
     "2026-10-02|amatchfriendly|중국|투르크메니스탄": {
       "date": "2026-10-02",
       "categoryId": "amatchfriendly",
@@ -59663,6 +59675,46 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기취소"
+    },
+    "2026-10-02|amatchfriendly|중국|팔레스타인": {
+      "date": "2026-10-02",
+      "categoryId": "amatchfriendly",
+      "gameId": "mNvANiHj71SQ6qn",
+      "homeTeam": "중국",
+      "awayTeam": "팔레스타인",
+      "homeScore": 0,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "알 함라위",
+          "minute": 16
+        },
+        {
+          "team": "away",
+          "player": "알 함라위",
+          "minute": 22
+        },
+        {
+          "team": "away",
+          "player": "다바그",
+          "minute": 45,
+          "addedTime": 5
+        },
+        {
+          "team": "away",
+          "player": "다바그",
+          "minute": 54
+        },
+        {
+          "team": "away",
+          "player": "알카크",
+          "minute": 90,
+          "addedTime": 3
+        }
+      ]
     },
     "2026-10-02|clubfriendly|트라브존|드로게다": {
       "date": "2026-10-02",
@@ -59682,6 +59734,24 @@
         }
       ]
     },
+    "2026-10-02|clubfriendly|유벤투스|크레모네세": {
+      "date": "2026-10-02",
+      "categoryId": "clubfriendly",
+      "gameId": "8daH5BCqLwRVmpP",
+      "homeTeam": "유벤투스",
+      "awayTeam": "크레모네세",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "보나촐리",
+          "minute": 12
+        }
+      ]
+    },
     "2026-10-02|mlb|애틀랜타 브레이브스|필라델피아 필리스": {
       "date": "2026-10-02",
       "categoryId": "mlb",
@@ -59691,7 +59761,8 @@
       "homeScore": 6,
       "awayScore": 2,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "E_AM9BwkwsI"
     },
     "2026-10-02|mls|시애틀 사운더스 FC|스포팅 캔자스시티": {
       "date": "2026-10-02",
@@ -59934,6 +60005,17 @@
         }
       ],
       "highlightVideoId": "xyGOoub4FcI"
+    },
+    "2026-10-04|amatchfriendly|튀니지|말리": {
+      "date": "2026-10-04",
+      "categoryId": "amatchfriendly",
+      "gameId": "A2Ebg5ySxfrsdwD",
+      "homeTeam": "튀니지",
+      "awayTeam": "말리",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
     }
   },
   "results": [
@@ -119591,6 +119673,18 @@
     },
     {
       "date": "2026-10-02",
+      "categoryId": "amatch",
+      "gameId": "rHhWB3ySPwkpL04",
+      "homeTeam": "대한민국",
+      "awayTeam": "베네수엘라",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "highlightVideoId": "BlwW2DfXkd8"
+    },
+    {
+      "date": "2026-10-02",
       "categoryId": "amatchfriendly",
       "gameId": "akFjrpBkkrR9Q42",
       "homeTeam": "중국",
@@ -119599,6 +119693,46 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기취소"
+    },
+    {
+      "date": "2026-10-02",
+      "categoryId": "amatchfriendly",
+      "gameId": "mNvANiHj71SQ6qn",
+      "homeTeam": "중국",
+      "awayTeam": "팔레스타인",
+      "homeScore": 0,
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "알 함라위",
+          "minute": 16
+        },
+        {
+          "team": "away",
+          "player": "알 함라위",
+          "minute": 22
+        },
+        {
+          "team": "away",
+          "player": "다바그",
+          "minute": 45,
+          "addedTime": 5
+        },
+        {
+          "team": "away",
+          "player": "다바그",
+          "minute": 54
+        },
+        {
+          "team": "away",
+          "player": "알카크",
+          "minute": 90,
+          "addedTime": 3
+        }
+      ]
     },
     {
       "date": "2026-10-02",
@@ -119620,6 +119754,24 @@
     },
     {
       "date": "2026-10-02",
+      "categoryId": "clubfriendly",
+      "gameId": "8daH5BCqLwRVmpP",
+      "homeTeam": "유벤투스",
+      "awayTeam": "크레모네세",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "보나촐리",
+          "minute": 12
+        }
+      ]
+    },
+    {
+      "date": "2026-10-02",
       "categoryId": "mlb",
       "gameId": "20261002PHAT0",
       "homeTeam": "애틀랜타 브레이브스",
@@ -119627,7 +119779,8 @@
       "homeScore": 6,
       "awayScore": 2,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "E_AM9BwkwsI"
     },
     {
       "date": "2026-10-02",
@@ -119870,6 +120023,17 @@
         }
       ],
       "highlightVideoId": "xyGOoub4FcI"
+    },
+    {
+      "date": "2026-10-04",
+      "categoryId": "amatchfriendly",
+      "gameId": "A2Ebg5ySxfrsdwD",
+      "homeTeam": "튀니지",
+      "awayTeam": "말리",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
     }
   ]
 }
