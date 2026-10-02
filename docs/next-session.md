@@ -19,6 +19,31 @@
 - **화니만 가능**: Meta 앱 `instagram_manage_insights` 권한(인스타 조회수를 여전히 못 본다) ·
   유튜브 Studio 트래픽 소스의 Shorts 피드 수치.
 
+## 🔴 화니에게 넘긴 할 일 5개 (2026-10-02 전달 · 전부 미완)
+
+화니가 "다 해 주겠다"고 했다. **다음 세션은 여기서 무엇이 끝났는지부터 물어볼 것.**
+
+1. **오늘 저녁 게시분 육안 확인** — 텔레그램 `🌙 [저녁]` 5채널 ✅ · 쇼츠 제목이
+   `대한민국 vs 일본 … 아시안게임 남자축구 결승 한일전` · 첫 화면 국기 · VS 카드 윗줄과
+   인스타 스토리 `프로필 링크 확인` 앞 아이콘이 안 깨졌는지. 깨졌으면 캡처를 받아 고친다.
+2. **유튜브 Studio 캡처(10/04 이후)** — `콘텐츠 › Shorts › 한일전 영상 › 분석 › 도달범위`,
+   기간 `게시 이후`. Shorts 피드 수치 + 시청함/스와이프함 비율. 비교용 = 10/02 아침 송성문
+   `studio.youtube.com/video/_HnQehESv0U/analytics/tab-reach/period-default`.
+3. **인스타 `instagram_manage_insights` 권한** — Graph API Explorer 에서 기존 5개
+   (`instagram_basic`·`instagram_content_publish`·`instagram_manage_comments`·`pages_show_list`·
+   `pages_read_engagement`) + 새 1개로 토큰 발급 → `.env.local` 에 `IG_APP_ID`·`IG_APP_SECRET`·
+   `IG_SHORT_TOKEN` 추가(🔴 이 PC 엔 이 키가 없다) → `npm run ig:setup` → GitHub Secret
+   `IG_PAGE_ACCESS_TOKEN` 교체 → `gh workflow run social-stats.yml` 로 확인.
+   🔴 **토큰이 틀리면 헬스체크에서 워크플로가 통째로 멈춰 유튜브까지 안 나간다.** 게시 직후에
+   하고, 확인이 실패하면 다음 게시 전에 되돌려야 한다.
+4. **결정** — 결과·기록 쇼츠(코리안리거 성적·KBO 순위)를 만들지. 내 권고 = 한다, 10/17 전후.
+5. **틱톡 수동 업로드 실험(선택)** — `gh run download 36941760613 -R yghwanee/hanhaeseol
+   -n social-preview-evening` 의 `reel-v2-tiktok.mp4`(아티팩트 3일 뒤 만료 → 만료됐으면
+   `gh workflow run social-preview.yml -f slot=evening -f offset=1` 로 다시 만든다).
+
+**내 몫으로 남은 것**: 주간 실적 보고의 틱톡 줄이 `TIKTOK_CLIENT_SECRET 환경변수가 필요합니다`
+로 실패한다(시크릿은 레포에 있다 — 원인 미확인, `social-stats.yml` 의 env 부터 볼 것).
+
 ## 🔴 2026-10-01 에 생긴 할 일
 
 - **토스 자리 2곳이 비어 있다.** `home-inline`·`match` 에 걸려 있던 `snack-popcorn` 이 품절로 지워졌다.
