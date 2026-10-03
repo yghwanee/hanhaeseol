@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-03T00:26:08.911Z",
+  "lastUpdated": "2026-10-03T06:25:00.478Z",
   "byKey": {
     "2026-10-03|kbo|LG|KIA": {
       "date": "2026-10-03",
@@ -7,10 +7,10 @@
       "gameId": "20261003HTLG02026",
       "homeTeam": "LG",
       "awayTeam": "KIA",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "live",
+      "period": "5회초"
     },
     "2026-10-03|kbo|KT|롯데": {
       "date": "2026-10-03",
@@ -18,10 +18,10 @@
       "gameId": "20261003LTKT02026",
       "homeTeam": "KT",
       "awayTeam": "롯데",
-      "homeScore": 0,
+      "homeScore": 4,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "5회말"
     },
     "2026-10-03|kbo|삼성|두산": {
       "date": "2026-10-03",
@@ -29,10 +29,10 @@
       "gameId": "20261003OBSS02026",
       "homeTeam": "삼성",
       "awayTeam": "두산",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 5,
+      "awayScore": 2,
+      "status": "live",
+      "period": "4회초"
     },
     "2026-10-03|kbo|NC|SSG": {
       "date": "2026-10-03",
@@ -40,10 +40,10 @@
       "gameId": "20261003SKNC02026",
       "homeTeam": "NC",
       "awayTeam": "SSG",
-      "homeScore": 0,
+      "homeScore": 5,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "5회초"
     },
     "2026-10-03|kbo|한화|키움": {
       "date": "2026-10-03",
@@ -52,9 +52,9 @@
       "homeTeam": "한화",
       "awayTeam": "키움",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 7,
+      "status": "live",
+      "period": "5회말"
     },
     "2026-10-04|kbo|LG|KIA": {
       "date": "2026-10-04",
@@ -345,10 +345,10 @@
       "gameId": "20261003605049011",
       "homeTeam": "KCC",
       "awayTeam": "창원 LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 39,
+      "awayScore": 71,
+      "status": "live",
+      "period": "3쿼터"
     },
     "2026-10-03|kbl|KCC|창원 LG": {
       "date": "2026-10-03",
@@ -356,10 +356,10 @@
       "gameId": "20261003605049011",
       "homeTeam": "KCC",
       "awayTeam": "창원 LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 39,
+      "awayScore": 71,
+      "status": "live",
+      "period": "3쿼터"
     },
     "2026-10-03|kbl|고양 소노|대구 한국가스공사": {
       "date": "2026-10-03",
@@ -367,10 +367,10 @@
       "gameId": "20261003666449012",
       "homeTeam": "소노",
       "awayTeam": "대구 한국가스공사",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 55,
+      "awayScore": 54,
+      "status": "live",
+      "period": "3쿼터"
     },
     "2026-10-03|kbl|소노|대구 한국가스공사": {
       "date": "2026-10-03",
@@ -378,10 +378,10 @@
       "gameId": "20261003666449012",
       "homeTeam": "소노",
       "awayTeam": "대구 한국가스공사",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 55,
+      "awayScore": 54,
+      "status": "live",
+      "period": "3쿼터"
     },
     "2026-10-03|kbl|안양 정관장|울산 현대모비스": {
       "date": "2026-10-03",
@@ -610,9 +610,16 @@
       "homeTeam": "콜롬비아",
       "awayTeam": "파라과이",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 23'"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "우고 아드리안 베니테스",
+          "minute": 56
+        }
+      ]
     },
     "2026-10-03|amatchfriendly|인도|브라질": {
       "date": "2026-10-03",
@@ -1402,10 +1409,10 @@
       "gameId": "20261003HTLG02026",
       "homeTeam": "LG",
       "awayTeam": "KIA",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "live",
+      "period": "5회초"
     },
     {
       "date": "2026-10-03",
@@ -1413,10 +1420,10 @@
       "gameId": "20261003LTKT02026",
       "homeTeam": "KT",
       "awayTeam": "롯데",
-      "homeScore": 0,
+      "homeScore": 4,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "5회말"
     },
     {
       "date": "2026-10-03",
@@ -1424,10 +1431,10 @@
       "gameId": "20261003OBSS02026",
       "homeTeam": "삼성",
       "awayTeam": "두산",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 5,
+      "awayScore": 2,
+      "status": "live",
+      "period": "4회초"
     },
     {
       "date": "2026-10-03",
@@ -1435,10 +1442,10 @@
       "gameId": "20261003SKNC02026",
       "homeTeam": "NC",
       "awayTeam": "SSG",
-      "homeScore": 0,
+      "homeScore": 5,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "5회초"
     },
     {
       "date": "2026-10-03",
@@ -1447,9 +1454,9 @@
       "homeTeam": "한화",
       "awayTeam": "키움",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 7,
+      "status": "live",
+      "period": "5회말"
     },
     {
       "date": "2026-10-04",
@@ -1564,10 +1571,10 @@
       "gameId": "20261003605049011",
       "homeTeam": "KCC",
       "awayTeam": "창원 LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 39,
+      "awayScore": 71,
+      "status": "live",
+      "period": "3쿼터"
     },
     {
       "date": "2026-10-03",
@@ -1575,10 +1582,10 @@
       "gameId": "20261003666449012",
       "homeTeam": "소노",
       "awayTeam": "대구 한국가스공사",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 55,
+      "awayScore": 54,
+      "status": "live",
+      "period": "3쿼터"
     },
     {
       "date": "2026-10-03",
@@ -1712,9 +1719,16 @@
       "homeTeam": "콜롬비아",
       "awayTeam": "파라과이",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 23'"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "우고 아드리안 베니테스",
+          "minute": 56
+        }
+      ]
     },
     {
       "date": "2026-10-03",
