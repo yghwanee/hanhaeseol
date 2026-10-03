@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-03T12:28:48.002Z",
+  "lastUpdated": "2026-10-03T17:13:09.687Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -60098,6 +60098,41 @@
         }
       ]
     },
+    "2026-10-03|amatchfriendly|인도|브라질": {
+      "date": "2026-10-03",
+      "categoryId": "amatchfriendly",
+      "gameId": "FItM4g6a972rmjW",
+      "homeTeam": "인도",
+      "awayTeam": "브라질",
+      "homeScore": 0,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에스테반",
+          "minute": 28
+        },
+        {
+          "team": "away",
+          "player": "페드로",
+          "minute": 42
+        },
+        {
+          "team": "away",
+          "player": "사무엘 리누",
+          "minute": 58
+        },
+        {
+          "team": "away",
+          "player": "사무엘 리누",
+          "minute": 90,
+          "addedTime": 5
+        }
+      ],
+      "highlightVideoId": "6IgwGDW_nR8"
+    },
     "2026-10-03|kbl|KCC|창원 LG": {
       "date": "2026-10-03",
       "categoryId": "kbl",
@@ -60439,12 +60474,63 @@
       ],
       "highlightVideoId": "RzASVOWvjZQ"
     },
+    "2026-10-03|unl|핀란드|알바니아": {
+      "date": "2026-10-03",
+      "categoryId": "unl",
+      "gameId": "mLjX6SYC3seRNht",
+      "homeTeam": "핀란드",
+      "awayTeam": "알바니아",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "마나이",
+          "minute": 4
+        },
+        {
+          "team": "home",
+          "player": "발타",
+          "minute": 26
+        },
+        {
+          "team": "home",
+          "player": "발타",
+          "minute": 71
+        }
+      ],
+      "highlightVideoId": "LzaUCVnVV-E"
+    },
     "2026-10-04|amatchfriendly|튀니지|말리": {
       "date": "2026-10-04",
       "categoryId": "amatchfriendly",
       "gameId": "A2Ebg5ySxfrsdwD",
       "homeTeam": "튀니지",
       "awayTeam": "말리",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
+    },
+    "2026-10-05|amatchfriendly|모로코|가나": {
+      "date": "2026-10-05",
+      "categoryId": "amatchfriendly",
+      "gameId": "xSWYWX58Pp772HA",
+      "homeTeam": "모로코",
+      "awayTeam": "가나",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
+    },
+    "2026-10-05|amatchfriendly|볼리비아|감비아": {
+      "date": "2026-10-05",
+      "categoryId": "amatchfriendly",
+      "gameId": "ss1dsT7l074tnXL",
+      "homeTeam": "볼리비아",
+      "awayTeam": "감비아",
       "homeScore": 0,
       "awayScore": 0,
       "status": "canceled",
@@ -120551,6 +120637,41 @@
     },
     {
       "date": "2026-10-03",
+      "categoryId": "amatchfriendly",
+      "gameId": "FItM4g6a972rmjW",
+      "homeTeam": "인도",
+      "awayTeam": "브라질",
+      "homeScore": 0,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에스테반",
+          "minute": 28
+        },
+        {
+          "team": "away",
+          "player": "페드로",
+          "minute": 42
+        },
+        {
+          "team": "away",
+          "player": "사무엘 리누",
+          "minute": 58
+        },
+        {
+          "team": "away",
+          "player": "사무엘 리누",
+          "minute": 90,
+          "addedTime": 5
+        }
+      ],
+      "highlightVideoId": "6IgwGDW_nR8"
+    },
+    {
+      "date": "2026-10-03",
       "categoryId": "kbl",
       "gameId": "20261003605049011",
       "homeTeam": "KCC",
@@ -120891,11 +121012,62 @@
       "highlightVideoId": "RzASVOWvjZQ"
     },
     {
+      "date": "2026-10-03",
+      "categoryId": "unl",
+      "gameId": "mLjX6SYC3seRNht",
+      "homeTeam": "핀란드",
+      "awayTeam": "알바니아",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "마나이",
+          "minute": 4
+        },
+        {
+          "team": "home",
+          "player": "발타",
+          "minute": 26
+        },
+        {
+          "team": "home",
+          "player": "발타",
+          "minute": 71
+        }
+      ],
+      "highlightVideoId": "LzaUCVnVV-E"
+    },
+    {
       "date": "2026-10-04",
       "categoryId": "amatchfriendly",
       "gameId": "A2Ebg5ySxfrsdwD",
       "homeTeam": "튀니지",
       "awayTeam": "말리",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
+    },
+    {
+      "date": "2026-10-05",
+      "categoryId": "amatchfriendly",
+      "gameId": "xSWYWX58Pp772HA",
+      "homeTeam": "모로코",
+      "awayTeam": "가나",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
+    },
+    {
+      "date": "2026-10-05",
+      "categoryId": "amatchfriendly",
+      "gameId": "ss1dsT7l074tnXL",
+      "homeTeam": "볼리비아",
+      "awayTeam": "감비아",
       "homeScore": 0,
       "awayScore": 0,
       "status": "canceled",
