@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-04T02:33:18.793Z",
+  "lastUpdated": "2026-10-04T09:39:18.744Z",
   "records": {
     "KBO": {
       "KT": {
@@ -14,66 +14,66 @@
         }
       },
       "삼성": {
-        "last5": "WWWWW",
+        "last5": "LWWWW",
         "win": 82,
-        "lose": 52,
+        "lose": 53,
         "draw": 3,
-        "wra": 0.612,
+        "wra": 0.607,
         "streak": {
-          "count": 6,
+          "count": 1,
+          "type": "L"
+        }
+      },
+      "KIA": {
+        "last5": "WWLLL",
+        "win": 74,
+        "lose": 61,
+        "draw": 2,
+        "wra": 0.548,
+        "streak": {
+          "count": 2,
           "type": "W"
         }
       },
       "LG": {
         "last5": "LLLLL",
         "win": 75,
-        "lose": 61,
+        "lose": 62,
         "draw": 1,
-        "wra": 0.551,
+        "wra": 0.547,
         "streak": {
-          "count": 6,
+          "count": 7,
           "type": "L"
-        }
-      },
-      "KIA": {
-        "last5": "WLLLW",
-        "win": 73,
-        "lose": 61,
-        "draw": 2,
-        "wra": 0.545,
-        "streak": {
-          "count": 1,
-          "type": "W"
         }
       },
       "두산": {
-        "last5": "LWWWL",
-        "win": 70,
+        "last5": "WLWWW",
+        "win": 71,
         "lose": 64,
         "draw": 5,
-        "wra": 0.522,
-        "streak": {
-          "count": 1,
-          "type": "L"
-        }
-      },
-      "NC": {
-        "last5": "WLLLL",
-        "win": 63,
-        "lose": 73,
-        "draw": 2,
-        "wra": 0.463,
+        "wra": 0.526,
         "streak": {
           "count": 1,
           "type": "W"
         }
       },
       "SSG": {
-        "last5": "LWWWL",
-        "win": 61,
+        "last5": "WLWWW",
+        "win": 62,
         "lose": 72,
         "draw": 5,
-        "wra": 0.459,
+        "wra": 0.463,
+        "streak": {
+          "count": 1,
+          "type": "W"
+        }
+      },
+      "NC": {
+        "last5": "LWLLL",
+        "win": 63,
+        "lose": 74,
+        "draw": 2,
+        "wra": 0.46,
         "streak": {
           "count": 1,
           "type": "L"
@@ -91,24 +91,24 @@
         }
       },
       "한화": {
-        "last5": "LLLLW",
+        "last5": "LLLLL",
         "win": 55,
-        "lose": 80,
+        "lose": 81,
         "draw": 4,
-        "wra": 0.407,
+        "wra": 0.404,
         "streak": {
-          "count": 4,
+          "count": 5,
           "type": "L"
         }
       },
       "키움": {
-        "last5": "WLLWW",
-        "win": 48,
+        "last5": "WWLLW",
+        "win": 49,
         "lose": 88,
         "draw": 4,
-        "wra": 0.353,
+        "wra": 0.358,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "W"
         }
       }
@@ -2884,19 +2884,13 @@
       }
     },
     "KBL": {
+      "원주 DB": {
+        "last5": "W",
+        "win": 1,
+        "lose": 0,
+        "wra": 1
+      },
       "창원 LG": {
-        "last5": "W",
-        "win": 1,
-        "lose": 0,
-        "wra": 1
-      },
-      "고양 소노": {
-        "last5": "W",
-        "win": 1,
-        "lose": 0,
-        "wra": 1
-      },
-      "소노": {
         "last5": "W",
         "win": 1,
         "lose": 0,
@@ -2907,6 +2901,18 @@
         "win": 1,
         "lose": 0,
         "wra": 1
+      },
+      "고양 소노": {
+        "last5": "LW",
+        "win": 1,
+        "lose": 1,
+        "wra": 0.5
+      },
+      "소노": {
+        "last5": "LW",
+        "win": 1,
+        "lose": 1,
+        "wra": 0.5
       },
       "울산 현대모비스": {
         "last5": "L",
@@ -2933,12 +2939,6 @@
         "wra": 0
       },
       "수원 KT": {
-        "last5": "",
-        "win": 0,
-        "lose": 0,
-        "wra": 0
-      },
-      "원주 DB": {
         "last5": "",
         "win": 0,
         "lose": 0,
