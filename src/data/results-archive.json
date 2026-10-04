@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-04T15:19:13.763Z",
+  "lastUpdated": "2026-10-04T19:33:52.261Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -61093,6 +61093,49 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기취소"
+    },
+    "2026-10-05|unl|몰타|안도라": {
+      "date": "2026-10-05",
+      "categoryId": "unl",
+      "gameId": "7eQBtnSo0TDpxLV",
+      "homeTeam": "몰타",
+      "awayTeam": "안도라",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "퇴마",
+          "minute": 49
+        }
+      ],
+      "highlightVideoId": "6Pnj4zY0mhw"
+    },
+    "2026-10-05|unl|코소보|오스트리아": {
+      "date": "2026-10-05",
+      "categoryId": "unl",
+      "gameId": "AWpbIzUbHkvMQyW",
+      "homeTeam": "코소보",
+      "awayTeam": "오스트리아",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "아슬라니",
+          "minute": 70
+        },
+        {
+          "team": "away",
+          "player": "랑",
+          "minute": 85
+        }
+      ],
+      "highlightVideoId": "ZxJzbWmbswQ"
     }
   },
   "results": [
@@ -122188,6 +122231,49 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기취소"
+    },
+    {
+      "date": "2026-10-05",
+      "categoryId": "unl",
+      "gameId": "7eQBtnSo0TDpxLV",
+      "homeTeam": "몰타",
+      "awayTeam": "안도라",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "퇴마",
+          "minute": 49
+        }
+      ],
+      "highlightVideoId": "6Pnj4zY0mhw"
+    },
+    {
+      "date": "2026-10-05",
+      "categoryId": "unl",
+      "gameId": "AWpbIzUbHkvMQyW",
+      "homeTeam": "코소보",
+      "awayTeam": "오스트리아",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "아슬라니",
+          "minute": 70
+        },
+        {
+          "team": "away",
+          "player": "랑",
+          "minute": 85
+        }
+      ],
+      "highlightVideoId": "ZxJzbWmbswQ"
     }
   ]
 }
