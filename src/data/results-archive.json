@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-05T08:54:24.738Z",
+  "lastUpdated": "2026-10-05T18:21:36.726Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -61146,6 +61146,17 @@
       "status": "finished",
       "period": "4쿼터"
     },
+    "2026-10-05|kbl|대구 한국가스공사|안양 정관장": {
+      "date": "2026-10-05",
+      "categoryId": "kbl",
+      "gameId": "20261005647049017",
+      "homeTeam": "대구 한국가스공사",
+      "awayTeam": "안양 정관장",
+      "homeScore": 80,
+      "awayScore": 86,
+      "status": "finished",
+      "period": "4쿼터"
+    },
     "2026-10-05|kbo|LG|KIA": {
       "date": "2026-10-05",
       "categoryId": "kbo",
@@ -61226,7 +61237,8 @@
       "homeScore": 2,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회말"
+      "period": "9회말",
+      "highlightVideoId": "Lwyey4f5WFc"
     },
     "2026-10-05|unl|몰타|안도라": {
       "date": "2026-10-05",
@@ -61383,6 +61395,47 @@
       "status": "finished",
       "period": "경기종료",
       "highlightVideoId": "dZH5PkdI6S4"
+    },
+    "2026-10-06|amatchfriendly|르완다|케냐": {
+      "date": "2026-10-06",
+      "categoryId": "amatchfriendly",
+      "gameId": "X8UUv4uSdVN1pP7",
+      "homeTeam": "르완다",
+      "awayTeam": "케냐",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    "2026-10-06|unl|키프로스|라트비아": {
+      "date": "2026-10-06",
+      "categoryId": "unl",
+      "gameId": "GpU7G2EarlfEho1",
+      "homeTeam": "키프로스",
+      "awayTeam": "라트비아",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "다슈케비치스",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "코스티",
+          "minute": 70
+        },
+        {
+          "team": "home",
+          "player": "에드워즈",
+          "minute": 90,
+          "addedTime": 4
+        }
+      ],
+      "highlightVideoId": "-fE8igrzExs"
     }
   },
   "results": [
@@ -122533,6 +122586,17 @@
     },
     {
       "date": "2026-10-05",
+      "categoryId": "kbl",
+      "gameId": "20261005647049017",
+      "homeTeam": "대구 한국가스공사",
+      "awayTeam": "안양 정관장",
+      "homeScore": 80,
+      "awayScore": 86,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-10-05",
       "categoryId": "kbo",
       "gameId": "20261005HTLG02026",
       "homeTeam": "LG",
@@ -122611,7 +122675,8 @@
       "homeScore": 2,
       "awayScore": 3,
       "status": "finished",
-      "period": "9회말"
+      "period": "9회말",
+      "highlightVideoId": "Lwyey4f5WFc"
     },
     {
       "date": "2026-10-05",
@@ -122768,6 +122833,47 @@
       "status": "finished",
       "period": "경기종료",
       "highlightVideoId": "dZH5PkdI6S4"
+    },
+    {
+      "date": "2026-10-06",
+      "categoryId": "amatchfriendly",
+      "gameId": "X8UUv4uSdVN1pP7",
+      "homeTeam": "르완다",
+      "awayTeam": "케냐",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-10-06",
+      "categoryId": "unl",
+      "gameId": "GpU7G2EarlfEho1",
+      "homeTeam": "키프로스",
+      "awayTeam": "라트비아",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "다슈케비치스",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "코스티",
+          "minute": 70
+        },
+        {
+          "team": "home",
+          "player": "에드워즈",
+          "minute": 90,
+          "addedTime": 4
+        }
+      ],
+      "highlightVideoId": "-fE8igrzExs"
     }
   ]
 }
