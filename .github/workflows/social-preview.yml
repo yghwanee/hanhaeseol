@@ -24,6 +24,11 @@ on:
         description: 'KST_OFFSET_DAYS — 아침은 0. 저녁은 1(정오 전에 돌리면 2)'
         type: string
         default: '1'
+      design:
+        description: 'v3 = 2026-10-06 확정 디자인(게시 기본) | old = 옛 카드·영상'
+        type: choice
+        options: [v3, old]
+        default: v3
       cover:
         description: '커버 강제: 비우면 A/B 규칙대로 | photo | graphic'
         type: string
@@ -59,20 +64,28 @@ jobs:
       - name: 대상 날짜 확인
         run: npm run post:target
 
+      - name: 소셜 v3 생성
+        if: ${{ inputs.design == 'v3' }}
+        run: |
+          npx playwright install --with-deps chromium
+          npm run social:v3
+
       - name: 카드 생성
+        if: ${{ inputs.design == 'old' }}
         run: npm run post:all -- --no-send
 
       - name: 릴스 영상 (아침 v1)
-        if: ${{ inputs.slot == 'morning' }}
+        if: ${{ inputs.slot == 'morning' && inputs.design == 'old' }}
         run: npm run reel:make
 
       - name: 릴스 영상 (저녁 v2 + 틱톡판)
-        if: ${{ inputs.slot == 'evening' }}
+        if: ${{ inputs.slot == 'evening' && inputs.design == 'old' }}
         run: |
           npm run reel:make:v2
           HHS_TIKTOK_VARIANT=1 npm run reel:make:v2
 
       - name: 스토리 이미지 생성
+        if: ${{ inputs.design == 'old' }}
         run: npm run story:make
 
       - name: 인스타 업로드용 JPEG 변환
@@ -82,16 +95,16 @@ jobs:
       - name: 프레임 시트
         run: |
           cd generated/instagram
-          for f in reel.mp4 reel-v2.mp4 reel-v2-tiktok.mp4; do
+          for f in reel.mp4 reel-v2.mp4 reel-v2-tiktok.mp4 reel-v3.mp4 reel-v3-tiktok.mp4; do
             [ -f "$f" ] || continue
             ffmpeg -y -hide_banner -loglevel error -i "$f" -map 0:v:0 \
-              -vf "fps=1/1.5,scale=270:-1,tile=12x1" -frames:v 1 "sheet-${f%.mp4}.jpg"
+              -vf "fps=1/1.2,scale=270:-1,tile=15x1" -frames:v 1 "sheet-${f%.mp4}.jpg"
             ffprobe -v error -show_entries format=duration -of csv=p=0 "$f"
           done
           ls -la
 
       - uses: actions/upload-artifact@v4
         with:
-          name: social-preview-${{ inputs.slot }}
+          name: social-preview-${{ inputs.design }}-${{ inputs.slot }}
           path: generated/instagram
           retention-days: 3

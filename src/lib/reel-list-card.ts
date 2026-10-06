@@ -33,6 +33,10 @@ export interface ListRow {
   league: string;
   platforms: string[];
   isHero: boolean;
+  /** 종목 (소셜 v3 가 장마다 공 모양을 고를 때 쓴다) */
+  sport?: string;
+  home?: string;
+  away?: string;
 }
 
 const norm = (s: string) => s.replace(/\s+/g, "");
@@ -92,6 +96,9 @@ export function buildListRows(today: string): {
       matchup: g.first.awayTeam ? `${g.first.homeTeam} vs ${g.first.awayTeam}` : g.first.homeTeam,
       league: g.first.league,
       platforms: g.platforms,
+      sport: g.first.sport,
+      home: g.first.homeTeam,
+      away: g.first.awayTeam ?? undefined,
       isHero:
         hero !== null &&
         g.first.sport === hero.sport &&

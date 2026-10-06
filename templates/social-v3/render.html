@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>한해설 소셜 v3 렌더러</title>
+<!--
+  한해설 소셜 v3 (2026-10-06 확정 디자인) 렌더러.
+  src/scripts/social-v3.ts 가 Playwright 로 이 파일을 열고 boot(data) 를 부른 뒤
+  still(i) / frame(ms) 로 화면을 만들어 캡처한다. 브라우저 시계(rAF·SMIL)에 기대지 않는다 —
+  frame(ms) 가 그 시각의 화면을 결정적으로 그린다(프레임 캡처가 느려도 영상 속도는 일정).
+
+  🔴 모든 글자·카드는 9:16(1080x1920) 안의 **4:5 띠(y 285~1635)** 와 좌우 여백 110 안에 둔다.
+  인스타 피드(4:5)·프로필 그리드(3:4)·쇼츠 썸네일·쇼츠 오른쪽 버튼 줄이 모두 이 띠 밖만 자른다.
+  캐러셀 이미지는 이 띠를 그대로 잘라 쓴다(4:5 = 1080x1350).
+-->
+<style>
+@font-face{font-family:Pretendard;font-weight:500;src:url(fonts/Pretendard-Medium.woff2) format('woff2')}
+@font-face{font-family:Pretendard;font-weight:700;src:url(fonts/Pretendard-Bold.woff2) format('woff2')}
+@font-face{font-family:Pretendard;font-weight:800;src:url(fonts/Pretendard-ExtraBold.woff2) format('woff2')}
+@font-face{font-family:Pretendard;font-weight:900;src:url(fonts/Pretendard-Black.woff2) format('woff2')}
+html,body{margin:0;padding:0;background:#000;overflow:hidden}
+svg{display:block}
+</style>
+</head>
+<body>
+<svg id="stage" width="1080" height="1920" viewBox="0 0 1080 1920" xmlns="http://www.w3.org/2000/svg"></svg>
+<script>
+(() => {
+const SW = 1080, SH = 1920, R = 50;
+const BAND_TOP = 285, BAND_H = 1350;            // 4:5 안전 띠
+const MX = 110, CW = SW - MX * 2;               // 좌우 여백 · 카드 폭(860)
+const ROAD_Y = 770;                             // 잠금해제 막대·알림 카드 중심선
+const TICKET_Y = 905, TICKET_H = 610;
+const FF = "Pretendard,'Apple SD Gothic Neo','Malgun Gothic',sans-serif";
+const ZOOM = [1, 1.06, 1.12, 1.18, 1.12, 1.06];
+const SLIDE_MS = 3200;
+const NS = 'http://www.w3.org/2000/svg';
+const esc = s => String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+
+let D, N, svg, path, L0, roadOffs = [], fsRoad = 54, tlRoad = 300;
+let knobEl, heroTxtEl, moverEl, balls = {}, camX = 0, lastIdx = 0, swipeFrom = 0, swipeAt = -1, offSub = 150, heroTravel = 1, heroKW = 1;
+
+function T(x, y, s, o = {}) {
+  const size = o.s || 48, w = o.w || 800;
+  const ls = o.ls !== undefined ? o.ls : (size >= 80 ? -size * 0.035 : size >= 48 ? -size * 0.015 : 0);
+  return `<text x="${x}" y="${y}" font-family="${FF}" font-size="${size}" font-weight="${w}" fill="${o.c || '#fff'}" text-anchor="${o.a || 'start'}" letter-spacing="${ls}"${o.fit ? ` data-fit="${o.fit}"` : ''}${o.op ? ` opacity="${o.op}"` : ''}${o.sh ? ` filter="url(#SH)"` : ''}${o.cls ? ` class="${o.cls}"` : ''}>${esc(s)}</text>`;
+}
+const line = (x1, y1, x2, y2, c, w = 2) => `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="${c}" stroke-width="${w}"/>`;
+
+/* ---------- 공 ---------- */
+let uid = 0;
+function ball(kind) {
+  const id = 'b' + (uid++);
+  if (kind === 'soccer') {
+    const pent = (cx, cy, r, rot = 0) => [...Array(5)].map((_, k) => { const a = rot + k * 2 * Math.PI / 5 - Math.PI / 2; return `${cx + r * Math.cos(a)},${cy + r * Math.sin(a)}`; }).join(' ');
+    let e = ''; for (let k = 0; k < 5; k++) { const a = k * 2 * Math.PI / 5 - Math.PI / 2; e += `<polygon points="${pent(Math.cos(a) * R * .95, Math.sin(a) * R * .95, R * .3, a + Math.PI)}" fill="#16181c"/>`; }
+    return `<defs><clipPath id="${id}"><circle r="${R}"/></clipPath></defs><circle r="${R}" fill="#fff"/><g clip-path="url(#${id})">${e}<polygon points="${pent(0, 0, R * .32)}" fill="#16181c"/></g>`;
+  }
+  if (kind === 'baseball') {
+    const arc = sx => `M${sx * R * .55},${-R * .82} Q${sx * R * .05},0 ${sx * R * .55},${R * .82}`;
+    return `<circle r="${R}" fill="#fbfbf7"/>` + [-1, 1].map(sx => `<path d="${arc(sx)}" fill="none" stroke="#e0262f" stroke-width="${R * .07}"/><path d="${arc(sx)}" fill="none" stroke="#e0262f" stroke-width="${R * .22}" stroke-dasharray="${R * .04} ${R * .15}"/>`).join('');
+  }
+  if (kind === 'volleyball') {
+    const l = `fill="none" stroke="#1d3d8f" stroke-width="${R * .07}"`;
+    return `<circle r="${R}" fill="#f7f3e3"/><path d="M0,${-R} Q${R * .25},0 0,${R}" ${l}/><path d="M${-R * .87},${-R * .5} Q0,${-R * .15} ${R * .87},${-R * .5}" ${l}/><path d="M${-R * .87},${R * .5} Q0,${R * .15} ${R * .87},${R * .5}" ${l}/><circle r="${R}" fill="none" stroke="#1d3d8f" stroke-width="${R * .06}"/>`;
+  }
+  const l = `fill="none" stroke="#2a1205" stroke-width="${R * .08}"`;
+  return `<circle r="${R}" fill="#f07a1a"/><line x1="0" y1="${-R}" x2="0" y2="${R}" ${l}/><line x1="${-R}" y1="0" x2="${R}" y2="0" ${l}/><path d="M${-R * .72},${-R * .7} Q${-R * .2},0 ${-R * .72},${R * .7}" ${l}/><path d="M${R * .72},${-R * .7} Q${R * .2},0 ${R * .72},${R * .7}" ${l}/>`;
+}
+
+/* ---------- 유리 판 (사진을 흐리게 비친다) ---------- */
+function glassAt(i, x0, y0, w, h, rx, tint, op, z) {
+  const cid = `gc${i}_${Math.round(x0)}_${Math.round(y0)}`;
+  const body = D.photo
+    ? `<image href="${D.photo}" x="${z.ix}" y="${z.iy}" width="${z.iw}" height="${z.ih}" preserveAspectRatio="xMidYMid slice" filter="url(#BL)"/>`
+    : `<rect x="${x0}" y="${y0}" width="${w}" height="${h}" fill="url(#bgG)" filter="url(#BL)"/>`;
+  return `<rect x="${x0}" y="${y0 + 12}" width="${w}" height="${h}" rx="${rx}" fill="#000" opacity=".25" filter="url(#HB)"/>`
+    + `<clipPath id="${cid}"><rect x="${x0}" y="${y0}" width="${w}" height="${h}" rx="${rx}"/></clipPath>`
+    + `<g clip-path="url(#${cid})">${body}<rect x="${x0}" y="${y0}" width="${w}" height="${h}" fill="${tint}" opacity="${op}"/><rect x="${x0}" y="${y0}" width="${w}" height="${h * .5}" fill="#fff" opacity=".07"/></g>`
+    + `<rect x="${x0 + 1.5}" y="${y0 + 1.5}" width="${w - 3}" height="${h - 3}" rx="${Math.max(0, rx - 1.5)}" fill="none" stroke="#fff" stroke-opacity=".38" stroke-width="2.5"/>`;
+}
+
+/* ---------- 입장권 (정보 장) ---------- */
+function ticket(i, z, title) {
+  const x = MX, y = TICKET_Y, w = CW, h = TICKET_H, pf = y + 118, id = `tk${i}`;
+  const body = D.photo
+    ? `<image href="${D.photo}" x="${z.ix}" y="${z.iy}" width="${z.iw}" height="${z.ih}" preserveAspectRatio="xMidYMid slice" filter="url(#BL)"/>`
+    : `<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="url(#bgG)"/>`;
+  return `<mask id="${id}"><rect x="${x}" y="${y}" width="${w}" height="${h}" rx="34" fill="#fff"/><circle cx="${x}" cy="${pf}" r="28" fill="#000"/><circle cx="${x + w}" cy="${pf}" r="28" fill="#000"/></mask>`
+    + `<g mask="url(#${id})">${body}<rect x="${x}" y="${y}" width="${w}" height="${h}" fill="#fff" opacity=".7"/>`
+    + `<rect x="${x}" y="${y}" width="${w}" height="${pf - y}" fill="${D.color.stub}"/>`
+    + `<rect x="${x + 1}" y="${y + 1}" width="${w - 2}" height="${h - 2}" rx="34" fill="none" stroke="rgba(255,255,255,.75)" stroke-width="2"/></g>`
+    + T(x + 52, y + 78, title, { s: 52, w: 900, fit: w - 260 })
+    + T(x + w - 52, y + 78, D.dateShort, { s: 34, w: 700, a: 'end', op: .78 });
+}
+const INK = '#121418', SUB = 'rgba(18,20,24,.58)', LN = 'rgba(18,20,24,.14)';
+
+function infoBody(sl) {
+  const x = MX + 52, w = CW - 104, y0 = TICKET_Y + 210, acc = D.color.acc;
+  if (sl.kind === 'match') {
+    let o = T(x, y0, sl.matchup, { s: 56, w: 900, c: INK, fit: w }) + line(x, y0 + 46, x + w, y0 + 46, LN);
+    const rows = [['킥오프', sl.time, true], ['중계', sl.platform], ['해설', '한국어 해설']];
+    rows.forEach((r, k) => {
+      const yy = y0 + 130 + k * 96;
+      o += T(x, yy, r[0], { s: 36, w: 500, c: SUB }) + T(x + w, yy + (r[2] ? 6 : 0), r[1], { s: r[2] ? 74 : 50, w: r[2] ? 900 : 800, c: r[2] ? acc : INK, a: 'end', fit: w - 160 });
+      if (k < 2) o += line(x, yy + 38, x + w, yy + 38, LN);
+    });
+    return o;
+  }
+  if (sl.kind === 'single') {
+    const g = sl.rows[0];
+    return T(x, y0 + 90, g.time, { s: 150, w: 900, c: acc }) + T(x, y0 + 200, g.matchup, { s: 60, w: 900, c: INK, fit: w })
+      + T(x, y0 + 268, g.platform, { s: 38, w: 500, c: SUB, fit: w });
+  }
+  if (sl.kind === 'list') {
+    const big = sl.rows.length <= 3, gap = big ? 112 : 76, ts = big ? 54 : 44, ms = big ? 58 : 46, ps = big ? 34 : 28, mx = big ? 175 : 150;
+    return sl.rows.map((r, k) => {
+      const yy = y0 + (big ? 40 : 10) + k * gap;
+      return T(x, yy, r.time, { s: ts, w: 800, c: acc })
+        + `<text x="${x + mx}" y="${yy}" font-family="${FF}" font-size="${ms}" fill="${INK}" letter-spacing="-0.7" data-fit="${w - mx - 190}"><tspan font-weight="900">${esc(r.home)}</tspan>${r.away ? `<tspan font-weight="500" dx="10">vs</tspan><tspan font-weight="900" dx="10">${esc(r.away)}</tspan>` : ''}</text>`
+        + (big ? T(x + mx, yy + 52, r.platform, { s: ps, w: 500, c: SUB, fit: w - mx }) : T(x + w, yy, r.platform, { s: ps, w: 500, c: SUB, a: 'end', fit: 180 }));
+    }).join('') + (sl.more ? T(x, y0 + 10 + sl.rows.length * gap, `외 ${sl.more}경기`, { s: 32, w: 600, c: SUB }) : '');
+  }
+  // summary
+  return sl.rows.map((r, k) => {
+    const yy = y0 + 10 + k * 84;
+    return T(x, yy, r.time, { s: 48, w: 800, c: acc }) + T(x + 150, yy, r.sport, { s: 36, w: 500, c: SUB }) + T(x + 240, yy, r.label, { s: 44, w: 800, c: INK, fit: w - 240 });
+  }).join('') + `<image href="${D.logo}" x="${x}" y="${y0 + 10 + sl.rows.length * 84 + 14}" width="50" height="50"/>`
+    + T(x + 64, y0 + 10 + sl.rows.length * 84 + 52, D.noUrl ? '한해설' : 'haeseol.com', { s: 38, w: 700, c: INK });
+}
+
+/* ---------- 알림 카드 (정보 장 위) ---------- */
+function notify(i, z, cy) {
+  const Dd = 54, h = Dd * 3.1, y0 = cy - h / 2, x0 = MX;
+  offSub = h / 2 + R + 14;
+  return glassAt(i, x0, y0, CW, h, Dd * .8, '#f5f6f8', .5, z)
+    + `<image href="${D.logo}" x="${x0 + Dd * .75}" y="${cy - Dd * .95}" width="${Dd * 1.9}" height="${Dd * 1.9}"/>`
+    + T(x0 + Dd * 3.1, cy - Dd * .3, '한해설', { s: Dd * .72, w: 800, c: INK })
+    + T(x0 + CW - Dd * .8, cy - Dd * .3, '지금', { s: Dd * .66, w: 500, c: 'rgba(18,20,24,.55)', a: 'end' })
+    + T(x0 + Dd * 3.1, cy + Dd * .82, '한국어 해설 중계', { s: Dd * 1.06, w: 800, c: INK })
+    + `<circle cx="${x0 + CW - Dd * 1.05}" cy="${cy + Dd * .48}" r="${Dd * .26}" fill="${D.color.stub}"/>`;
+}
+
+/* ---------- 히어로 (밀어서 잠금해제, 유리 막대 + 흰 둥근 손잡이) ---------- */
+function hero(z) {
+  const h = D.hero, cy = ROAD_Y, th = 128, kh = th - 20, x0 = MX, hf = 54;
+  heroKW = kh; heroTravel = CW - 20 - kh;
+  const textCx = x0 + 10 + kh + (CW - 20 - kh) / 2, swd = CW * .22;
+  let o = `<linearGradient id="shine" gradientUnits="userSpaceOnUse" x1="${textCx - 230 - swd}" y1="0" x2="${textCx - 230}" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".45"/><stop offset=".5" stop-color="#fff" stop-opacity="1"/><stop offset="1" stop-color="#fff" stop-opacity=".45"/><animateTransform attributeName="gradientTransform" type="translate" values="${-swd};${460 + swd * 2};${460 + swd * 2}" keyTimes="0;.75;1" dur="2s" repeatCount="indefinite"/></linearGradient>`;
+  o += glassAt(0, x0, cy - th / 2, CW, th, th / 2, '#0e1014', .42, z);
+  o += `<g class="herotxt">${T(textCx, cy + hf * .36, '한국어 해설 중계', { s: hf, w: 700, a: 'middle', c: 'url(#shine)', ls: hf * .01 })}</g>`;
+  o += `<g class="knob" transform="translate(${x0 + 10},${cy - kh / 2})"><circle cx="${kh / 2}" cy="${kh / 2}" r="${kh / 2}" fill="#fff" filter="url(#SH)"/><path d="M${kh * .4},${kh * .3} L${kh * .62},${kh * .5} L${kh * .4},${kh * .7}" fill="none" stroke="${D.color.stub}" stroke-width="${kh * .09}" stroke-linecap="round" stroke-linejoin="round"/></g>`;
+  // 아래 경기 글자 (4:5 띠 안)
+  o += T(MX, 1135, h.home, { s: 150, w: 900, sh: true, fit: CW });
+  o += T(MX, 1240, h.away ? `vs ${h.away}` : h.league, { s: 80, w: 800, sh: true, fit: CW });
+  o += T(MX, 1335, h.when, { s: 48, w: 800, c: D.color.hero, sh: true, fit: CW });
+  o += T(MX, 1405, '한국어 해설', { s: 42, w: 500, c: 'rgba(255,255,255,.78)', sh: true });
+  return o;
+}
+
+function masthead() {
+  return T(MX - 4, 460, D.mast, { s: 186, w: 900, ls: -10, op: .97, fit: CW + 8 }) + T(MX, 536, D.dateLong, { s: 56, w: 800, c: D.color.hero, sh: true });
+}
+
+/* ---------- 길 ---------- */
+function crPath(p) { let d = `M${p[0][0]},${p[0][1]}`; for (let i = 0; i < p.length - 1; i++) { const p0 = p[i - 1] || p[i], p1 = p[i], p2 = p[i + 1], p3 = p[i + 2] || p2; d += ` C${p1[0] + (p2[0] - p0[0]) / 6},${p1[1] + (p2[1] - p0[1]) / 6} ${p2[0] - (p3[0] - p1[0]) / 6},${p2[1] - (p3[1] - p1[1]) / 6} ${p2[0]},${p2[1]}`; } return d; }
+
+function build() {
+  const slides = D.slides; N = slides.length;
+  const W = N * SW;
+  svg.setAttribute('width', SW); svg.setAttribute('height', SH);
+  let h = `<defs>
+    <filter id="SH" x="-10%" y="-30%" width="120%" height="160%"><feDropShadow dx="0" dy="4" stdDeviation="10" flood-color="#000" flood-opacity=".5"/></filter>
+    <filter id="BL" x="0" y="0" width="100%" height="100%"><feGaussianBlur stdDeviation="34"/></filter>
+    <filter id="HB" filterUnits="userSpaceOnUse" x="-400" y="0" width="${W + 800}" height="${SH}"><feGaussianBlur stdDeviation="9"/></filter>
+    <linearGradient id="bgG" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="${D.color.bgA}"/><stop offset="1" stop-color="${D.color.bgB}"/></linearGradient>
+    <linearGradient id="scrim" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0c0d10" stop-opacity=".62"/><stop offset=".34" stop-color="#0c0d10" stop-opacity=".05"/><stop offset=".46" stop-color="#0c0d10" stop-opacity=".1"/><stop offset=".8" stop-color="#0c0d10" stop-opacity=".72"/><stop offset="1" stop-color="#0c0d10" stop-opacity=".9"/></linearGradient>
+    <path id="road" d="${crPath([[-260, ROAD_Y], [0, ROAD_Y], [W, ROAD_Y], [W + 260, ROAD_Y]])}"/></defs>`;
+  for (let i = 0; i < N; i++) {
+    const z0 = ZOOM[Math.min(i, ZOOM.length - 1)], iw = SW * z0, ih = SH * z0, ix = i * SW - (iw - SW) / 2, iy = -(ih - SH) * .3;
+    const z = { ix, iy, iw, ih };
+    h += `<clipPath id="cl${i}"><rect x="${i * SW}" width="${SW}" height="${SH}"/></clipPath><g clip-path="url(#cl${i})">`;
+    h += D.photo ? `<image href="${D.photo}" x="${ix}" y="${iy}" width="${iw}" height="${ih}" preserveAspectRatio="xMidYMid slice"/>` : `<rect x="${i * SW}" width="${SW}" height="${SH}" fill="url(#bgG)"/>`;
+    h += `<rect x="${i * SW}" width="${SW}" height="${SH}" fill="url(#scrim)"/>`;
+    let body = masthead();
+    if (i === 0) body += hero(z);
+    else body += notify(i, z, ROAD_Y) + ticket(i, z, slides[i].title) + infoBody(slides[i]);
+    // 히어로·유리 판은 전역 좌표가 필요해 i*SW 를 미리 더해 그렸다 → 글자 쪽만 평행이동
+    h += `<g transform="translate(${i * SW},0)">${body.replace(/<image href="([^"]+)" x="([\-\d.]+)" y="([\-\d.]+)" width="([\d.]+)" height="([\d.]+)" preserveAspectRatio="xMidYMid slice" filter="url\(#BL\)"\/>/g, (m, href, x, y, w, hh) => `<image href="${href}" x="${(+x) - i * SW}" y="${y}" width="${w}" height="${hh}" preserveAspectRatio="xMidYMid slice" filter="url(#BL)"/>`)}</g></g>`;
+  }
+  h += `<g class="mover" opacity="0">` + ['soccer', 'baseball', 'basketball', 'volleyball'].map(b => `<g class="b-${b}" display="none"><g filter="url(#SH)"><g class="spin">${ball(b)}</g></g></g>`).join('') + `</g>`;
+  svg.innerHTML = h;
+  path = svg.querySelector('#road'); L0 = path.getTotalLength();
+  knobEl = svg.querySelector('.knob'); heroTxtEl = svg.querySelector('.herotxt'); moverEl = svg.querySelector('.mover');
+  ['soccer', 'baseball', 'basketball', 'volleyball'].forEach(b => balls[b] = svg.querySelector('.b-' + b));
+  // 넘치는 글자 줄이기
+  svg.querySelectorAll('[data-fit]').forEach(t => {
+    const max = +t.getAttribute('data-fit'); let fs = +t.getAttribute('font-size') || 46; let guard = 0;
+    while (t.getComputedTextLength() > max && fs > 18 && guard++ < 80) { fs -= 2; t.setAttribute('font-size', fs); t.querySelectorAll('tspan').forEach(sp => sp.removeAttribute('font-size')); }
+  });
+  svg.pauseAnimations();
+}
+
+/* ---------- 시간 → 화면 ---------- */
+function totalMs() { return N * SLIDE_MS + 900; }
+function stateAt(ms) {
+  const run = N * SLIDE_MS;
+  const t = Math.min(1, ms / run);
+  const start = 380, end = L0 - 260;
+  const s = start + (end - start) * t;
+  const p = path.getPointAtLength(s);
+  return { s, x: p.x, y: p.y };
+}
+function apply(ms, still) {
+  const st = stateAt(ms);
+  // 히어로 손잡이
+  const u = Math.max(0, Math.min(1, (st.x - 120) / (SW - 160)));
+  const ease = x => x < .5 ? 2 * x * x : 1 - Math.pow(-2 * x + 2, 2) / 2;
+  let k = u < .25 ? 0 : u < .8 ? ease((u - .25) / .55) : 1;
+  if (still || st.x > SW * 1.25) k = 0;
+  const dist = k * heroTravel;
+  if (knobEl) knobEl.setAttribute('transform', `translate(${MX + 10 + dist},${ROAD_Y - (128 - 20) / 2})`);
+  if (heroTxtEl) heroTxtEl.setAttribute('opacity', Math.max(0, 1 - dist / heroKW).toFixed(3));
+  // 공
+  const idx = Math.max(0, Math.min(N - 1, Math.floor(st.x / SW)));
+  const kind = D.slides[idx].ball || 'soccer';
+  for (const [b, g] of Object.entries(balls)) g.setAttribute('display', b === kind ? 'inline' : 'none');
+  const my = st.y - offSub;
+  moverEl.setAttribute('transform', `translate(${st.x},${my})`);
+  moverEl.setAttribute('opacity', still ? 0 : Math.max(0, Math.min(1, (st.x - (SW + 70)) / 60)).toFixed(3));
+  balls[kind].querySelector('.spin').setAttribute('transform', `rotate(${(st.s / R) * 180 / Math.PI})`);
+  svg.setCurrentTime((ms % 2000) / 1000);
+  return idx;
+}
+window.boot = (data) => { D = data; svg = document.getElementById('stage'); build(); camX = 0; lastIdx = 0; swipeAt = -1; return { slides: N, totalMs: totalMs() }; };
+/** 영상 프레임: 카메라가 공을 따라 한 장씩 넘긴다(0.35초 감속 스와이프). */
+window.frame = (ms) => {
+  const idx = apply(ms, false);
+  if (idx !== lastIdx) { swipeFrom = camX; swipeAt = ms; lastIdx = idx; }
+  const target = lastIdx * SW;
+  if (swipeAt >= 0) { const p = Math.min(1, (ms - swipeAt) / 350); const e = 1 - Math.pow(1 - p, 3); camX = swipeFrom + (target - swipeFrom) * e; } else camX = target;
+  svg.setAttribute('viewBox', `${camX} 0 ${SW} ${SH}`);
+  const fade = Math.max(0, Math.min(1, (ms - (totalMs() - 700)) / 700));
+  document.body.style.opacity = (1 - fade).toFixed(3);
+};
+/** 정지 화면: i 번째 장을 쉬는 상태로(손잡이 제자리, 공 없음). */
+window.still = (i) => { apply(0, true); document.body.style.opacity = 1; svg.setAttribute('viewBox', `${i * SW} 0 ${SW} ${SH}`); };
+window.BAND = { top: BAND_TOP, height: BAND_H };
+})();
+</script>
+</body>
+</html>

@@ -358,19 +358,50 @@ export async function renderHookV7(imagePath: string, mm: string, dd: string, to
 
 export const HOOKS_DIR = path.resolve("templates/instagram/hooks");
 
-function hashOf(key: string): number {
-  let hash = 0;
-  for (let i = 0; i < key.length; i++) {
-    hash = ((hash << 5) - hash) + key.charCodeAt(i);
-    hash |= 0;
-  }
-  return hash;
-}
-
 /** 특정 날짜에 강제로 사용할 이미지 — 자동 픽보다 우선. 사용 후 라인 제거. */
 const DATE_OVERRIDES: Record<string, string> = {
   "2026-04-30": "ChatGPT Image 2026년 4월 29일 오후 04_23_18.png",
 };
+
+/**
+ * 🔴 사진 셔플백 (2026-10-06 화니 지시): 풀 전체를 무작위 순서로 한 바퀴 다 쓰기 전에는
+ * 같은 사진이 다시 나오지 않는다. 상태 파일 없이 **게시 순번**으로 정한다 — 재실행해도
+ * 같은 칸이 같은 사진을 고르므로 post-log 의 "빠진 채널만 재게시"와 어긋나지 않는다.
+ *
+ * 순번 0 = 2026-10-06 저녁 게시(대상 10/07). 저녁(전날 밤)이 그 날짜의 아침보다 먼저 나간다.
+ * 바퀴(cycle)마다 다른 씨앗으로 섞는다. 사진을 더하거나 빼면 그 바퀴의 순서가 바뀐다.
+ */
+export const HOOK_BAG_START = "2026-10-07";
+
+export function hookBagSlot(today: string, slot: PostSlot): number {
+  const day = (Date.parse(`${today}T00:00:00Z`) - Date.parse(`${HOOK_BAG_START}T00:00:00Z`)) / 86_400_000;
+  return Math.round(day) * 2 + (slot === "evening" ? 0 : 1);
+}
+
+function seededShuffle(n: number, seed: number): number[] {
+  let a = seed >>> 0;
+  const rnd = () => {
+    a = (a + 0x6d2b79f5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  const order = [...Array(n).keys()];
+  for (let i = n - 1; i > 0; i--) {
+    const j = Math.floor(rnd() * (i + 1));
+    [order[i], order[j]] = [order[j], order[i]];
+  }
+  return order;
+}
+
+/** 이 게시 칸이 풀(정렬된 파일 목록)의 몇 번째 사진을 쓰는가. */
+export function hookBagIndex(today: string, slot: PostSlot, poolSize: number): number {
+  const n = hookBagSlot(today, slot);
+  const k = ((n % poolSize) + poolSize) % poolSize;
+  const cycle = Math.floor(n / poolSize);
+  return seededShuffle(poolSize, 0x9e3779b1 ^ (cycle * 7919 + poolSize))[k];
+}
 
 /**
  * 날짜 + 슬롯 기반 결정적 픽 — 같은 날 같은 슬롯을 재실행하면 같은 이미지가 나온다.
@@ -403,12 +434,7 @@ export function pickHookImage(today: string, slot: PostSlot = getPostSlot(today)
     throw new Error(`후킹 이미지 없음: ${HOOKS_DIR}`);
   }
 
-  let idx = Math.abs(hashOf(`${today}|${slot}`)) % files.length;
-  // 해시가 우연히 같은 칸을 가리켜도 두 슬롯이 같은 이미지를 쓰지 않게 한 칸 민다.
-  if (files.length > 1 && slot === "evening") {
-    const morningIdx = Math.abs(hashOf(`${today}|morning`)) % files.length;
-    if (idx === morningIdx) idx = (idx + 1) % files.length;
-  }
+  const idx = hookBagIndex(today, slot, files.length);
   const picked = path.join(HOOKS_DIR, files[idx]);
 
   const sizeKB = fs.statSync(picked).size / 1024;

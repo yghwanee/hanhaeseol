@@ -3,6 +3,7 @@ import fs from "node:fs";
 import { getKstToday } from "@/lib/instagram";
 import { addComment, buildShortsMeta, setThumbnail, uploadShorts } from "@/lib/youtube-api";
 import { OUT_DIR, readManifest } from "@/lib/manifest";
+import { igImageName } from "@/lib/ig-image";
 import { runChannel } from "./_run-channel";
 import { buildSocialComment } from "@/lib/social-comment";
 
@@ -13,7 +14,11 @@ async function main(): Promise<string> {
   const filePath = path.join(OUT_DIR, manifest.reel);
   if (!fs.existsSync(filePath)) throw new Error(`영상 파일 없음: ${filePath}`);
 
-  const thumbFile = manifest.files[0];
+  // 🔴 쇼츠 썸네일은 9:16 커버를 쓴다 (2026-10-06). 종전엔 4:5 캐러셀 1장(files[0])을 넣어
+  // 쇼츠가 9:16 틀에 맞춰 그 가운데를 잘라 보여 줬다("썸네일이 중간부터 나온다").
+  // 업로드 한도 2MB 라 JPEG 트윈이 있으면 그걸 쓴다. v3 가 아닌 옛 경로는 cover 가 4:5 라 files[0] 그대로.
+  const coverIsTall = !!manifest.cover && manifest.cover.startsWith("v3-cover");
+  const thumbFile = coverIsTall ? igImageName(manifest.cover!, manifest) : manifest.files[0];
   if (!thumbFile) throw new Error("매니페스트 files[0] 없음 — 썸네일 생성 불가");
   const thumbPath = path.join(OUT_DIR, thumbFile);
   if (!fs.existsSync(thumbPath)) throw new Error(`썸네일 파일 없음: ${thumbPath}`);

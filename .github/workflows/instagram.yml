@@ -122,16 +122,35 @@ jobs:
         if: ${{ steps.dup.outputs.skip != 'true' && steps.plan.outputs.skip_all != 'true' }}
         run: npm run post:target
 
-      - name: 카드 생성
+      # 🔴 소셜 v3 (2026-10-06 확정 디자인: 밀어서 잠금해제 히어로 + 알림 카드 + 유리 입장권).
+      # 캐러셀·커버·스토리·릴스·틱톡판을 한 번에 만들어 manifest 를 채운다. 실패하면 아래 옛
+      # 생성 스텝이 대신 돌아 게시는 그대로 나간다(continue-on-error) — 디자인 때문에 회차를 잃지 않는다.
+      - name: 소셜 v3 생성 (크로미움 설치 + 렌더)
+        id: v3
         if: ${{ steps.dup.outputs.skip != 'true' && steps.plan.outputs.skip_all != 'true' }}
+        continue-on-error: true
+        timeout-minutes: 12
+        run: |
+          npx playwright install --with-deps chromium
+          npm run social:v3
+
+      - name: v3 실패 알림 (옛 디자인으로 대신 게시)
+        if: ${{ steps.v3.outcome == 'failure' }}
+        run: |
+          echo "::warning::social v3 렌더 실패 — 옛 생성 스텝으로 대신 게시"
+          curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage"             -d chat_id="${TELEGRAM_CHAT_ID}"             --data-urlencode text="⚠️ 소셜 v3 렌더 실패 — 이번 회차는 옛 디자인으로 게시합니다 (${{ github.workflow }})" >/dev/null || true
+
+      # ↓ v3 가 실패했을 때만 도는 옛 생성 스텝
+      - name: 카드 생성
+        if: ${{ steps.dup.outputs.skip != 'true' && steps.plan.outputs.skip_all != 'true' && steps.v3.outcome != 'success' }}
         run: npm run post:all -- --no-send
 
       - name: 릴스 영상 생성 (신규 v2 — punch + xfade zoomin)
-        if: ${{ steps.dup.outputs.skip != 'true' && steps.plan.outputs.skip_all != 'true' }}
+        if: ${{ steps.dup.outputs.skip != 'true' && steps.plan.outputs.skip_all != 'true' && steps.v3.outcome != 'success' }}
         run: npm run reel:make:v2
 
       - name: 스토리 이미지 생성
-        if: ${{ steps.dup.outputs.skip != 'true' && steps.plan.outputs.skip_all != 'true' }}
+        if: ${{ steps.dup.outputs.skip != 'true' && steps.plan.outputs.skip_all != 'true' && steps.v3.outcome != 'success' }}
         run: npm run story:make
 
       # 🔴 push 앞에 있어야 한다. 인스타에 올리는 이미지는 JPEG 로 굽는다 — Meta 공식
@@ -193,7 +212,7 @@ jobs:
       # 틱톡 전용 릴스(URL 워터마크 제거 변형) 생성 → manifest.reelTiktok 기록.
       # 유튜브 업로드 후 실행해 공용 reel-v2.mp4 / manifest.reel 은 그대로 둠.
       - name: 틱톡 전용 릴스 생성 (URL 워터마크 제거)
-        if: ${{ !cancelled() && steps.media.outcome == 'success' && contains(steps.plan.outputs.channels, ',tiktok,') }}
+        if: ${{ !cancelled() && steps.media.outcome == 'success' && steps.v3.outcome != 'success' && contains(steps.plan.outputs.channels, ',tiktok,') }}
         run: HHS_TIKTOK_VARIANT=1 npm run reel:make:v2
 
       - name: 틱톡 업로드
