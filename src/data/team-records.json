@@ -1,114 +1,114 @@
 {
-  "lastUpdated": "2026-10-06T07:30:35.078Z",
+  "lastUpdated": "2026-10-06T15:04:53.700Z",
   "records": {
     "KBO": {
       "KT": {
-        "last5": "WDWWW",
-        "win": 86,
+        "last5": "WWDWW",
+        "win": 87,
         "lose": 49,
         "draw": 5,
-        "wra": 0.637,
+        "wra": 0.64,
         "streak": {
-          "count": 6,
+          "count": 7,
           "type": "W"
         }
       },
       "삼성": {
-        "last5": "LLWWW",
-        "win": 82,
+        "last5": "WLLWW",
+        "win": 83,
         "lose": 54,
         "draw": 3,
-        "wra": 0.603,
+        "wra": 0.606,
         "streak": {
-          "count": 2,
-          "type": "L"
+          "count": 1,
+          "type": "W"
         }
       },
       "KIA": {
-        "last5": "WWWLL",
+        "last5": "LWWWL",
         "win": 75,
-        "lose": 61,
+        "lose": 62,
         "draw": 2,
-        "wra": 0.551,
+        "wra": 0.547,
+        "streak": {
+          "count": 1,
+          "type": "L"
+        }
+      },
+      "LG": {
+        "last5": "WLLLL",
+        "win": 76,
+        "lose": 63,
+        "draw": 1,
+        "wra": 0.547,
+        "streak": {
+          "count": 1,
+          "type": "W"
+        }
+      },
+      "두산": {
+        "last5": "WWWLW",
+        "win": 73,
+        "lose": 64,
+        "draw": 5,
+        "wra": 0.533,
         "streak": {
           "count": 3,
           "type": "W"
         }
       },
-      "LG": {
-        "last5": "LLLLL",
-        "win": 75,
-        "lose": 63,
-        "draw": 1,
-        "wra": 0.543,
+      "SSG": {
+        "last5": "LWWLW",
+        "win": 63,
+        "lose": 73,
+        "draw": 5,
+        "wra": 0.463,
         "streak": {
-          "count": 8,
+          "count": 1,
           "type": "L"
         }
       },
-      "두산": {
-        "last5": "WWLWW",
-        "win": 72,
-        "lose": 64,
-        "draw": 5,
-        "wra": 0.529,
-        "streak": {
-          "count": 2,
-          "type": "W"
-        }
-      },
-      "SSG": {
-        "last5": "WWLWW",
-        "win": 63,
-        "lose": 72,
-        "draw": 5,
-        "wra": 0.467,
-        "streak": {
-          "count": 2,
-          "type": "W"
-        }
-      },
       "NC": {
-        "last5": "LLWLL",
+        "last5": "LLLWL",
         "win": 63,
-        "lose": 75,
+        "lose": 76,
         "draw": 2,
-        "wra": 0.457,
+        "wra": 0.453,
         "streak": {
-          "count": 2,
+          "count": 3,
           "type": "L"
         }
       },
       "롯데": {
-        "last5": "LDLWW",
+        "last5": "LLDLW",
         "win": 61,
-        "lose": 74,
+        "lose": 75,
         "draw": 3,
-        "wra": 0.452,
+        "wra": 0.449,
         "streak": {
-          "count": 2,
+          "count": 3,
           "type": "L"
         }
       },
       "한화": {
-        "last5": "WLLLL",
-        "win": 56,
+        "last5": "WWLLL",
+        "win": 57,
         "lose": 81,
         "draw": 4,
-        "wra": 0.409,
+        "wra": 0.413,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "W"
         }
       },
       "키움": {
-        "last5": "LWWLL",
+        "last5": "LLWWL",
         "win": 49,
-        "lose": 89,
+        "lose": 90,
         "draw": 4,
-        "wra": 0.355,
+        "wra": 0.353,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "L"
         }
       }
@@ -2902,11 +2902,17 @@
         "lose": 0,
         "wra": 1
       },
-      "창원 LG": {
-        "last5": "W",
+      "수원 KT": {
+        "last5": "WL",
         "win": 1,
-        "lose": 0,
-        "wra": 1
+        "lose": 1,
+        "wra": 0.5
+      },
+      "창원 LG": {
+        "last5": "LW",
+        "win": 1,
+        "lose": 1,
+        "wra": 0.5
       },
       "부산 KCC": {
         "last5": "WL",
@@ -2931,12 +2937,6 @@
         "win": 1,
         "lose": 1,
         "wra": 0.5
-      },
-      "수원 KT": {
-        "last5": "L",
-        "win": 0,
-        "lose": 1,
-        "wra": 0
       },
       "울산 현대모비스": {
         "last5": "LL",
