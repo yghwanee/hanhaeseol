@@ -69,6 +69,8 @@ const LEAGUE_NORMALIZE: [RegExp, string][] = [
   [/KBO/, "KBO"],
   [/메이저리그/, "MLB"],
   [/MLB/, "MLB"],
+  // 🔴 컵대회는 리그명에 `프로배구대회` 가 붙는다(`여수·KOVO컵 프로배구대회`). 프로배구보다 먼저 건다.
+  [/KOVO컵|코보컵|농협컵/, "KOVO컵"],
   [/프로배구/, "프로배구"],
   [/V-?리그/, "V리그"],
   [/K리그2/, "K리그2"],
@@ -202,7 +204,8 @@ export function parseMatchTitle(title: string): {
       };
     }
     // "여자프로농구 플레이오프 3차전 우리은행" → league="여자프로농구", home="우리은행"
-    const prefixMatch = home.match(/^(.*?프로농구|.*?프로배구)\s+(?:플레이오프\s*)?(?:.*?전[,\s]+)?(.+)$/);
+    // KOVO컵은 `…KOVO컵 프로배구대회 남자부 B조 <팀>`(SBS) · `…NH농협컵 프로배구 대회 <팀>`(KBS) 꼴로 온다(2026-10-06).
+    const prefixMatch = home.match(/^(.*?(?:KOVO|NH농협)컵(?:\s*프로배구\s*대회)?|.*?프로농구|.*?프로배구)\s+(?:남자부\s*|여자부\s*)?(?:[A-Z]조\s*)?(?:플레이오프\s*)?(?:.*?전[,\s]+)?(.+)$/);
     if (prefixMatch) {
       return {
         league: normalizeLeague(prefixMatch[1]),
@@ -253,10 +256,10 @@ export function parseMatchTitle(title: string): {
     const right = cleanTeam(colonMatch[3]);
     // "2026" + "KBO리그 한화" → league="KBO", 좌측에서 리그명 제거 → "한화"
     const fullText = `${league} ${left}`;
-    const leagueInHome = fullText.match(/^.*?(퓨처스리그|KBO리그\d?|K리그\d?|MLB|MLS|NBA|NPB|메이저리그|프로농구|여자프로농구|프로배구|V-?리그|신한\s*SOL\s*KBO리그|AFC\s+[\w\-]+(?:\s+여자)?\s+아시안컵|AFC\s+챔피언스리그|ACL|고교야구)\s+(.+)$/);
+    const leagueInHome = fullText.match(/^.*?(퓨처스리그|KBO리그\d?|K리그\d?|MLB|MLS|NBA|NPB|메이저리그|프로농구|여자프로농구|(?:\S*·)?(?:KOVO|NH농협)컵(?:\s*프로배구\s*대회)?|프로배구|V-?리그|신한\s*SOL\s*KBO리그|AFC\s+[\w\-]+(?:\s+여자)?\s+아시안컵|AFC\s+챔피언스리그|ACL|고교야구)\s+(.+)$/);
     if (leagueInHome) {
       const leftTeam = cleanTeam(leagueInHome[2].trim()
-        .replace(/^(?:포스트시즌\s*)?(?:남자부\s*|여자부\s*)?(?:챔피언결정전\s*)?(?:플레이오프\s*)?(?:\d+차전\s*)?(?:\d+차\s*)?/, "").trim());
+        .replace(/^(?:포스트시즌\s*)?(?:남자부\s*|여자부\s*)?(?:[A-Z]조\s*)?(?:챔피언결정전\s*)?(?:플레이오프\s*)?(?:\d+차전\s*)?(?:\d+차\s*)?/, "").trim());
       const sport = detectSport(fullText) ?? detectSport(title);
       const swap = sport === "야구";
       return {

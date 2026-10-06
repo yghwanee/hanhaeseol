@@ -161,3 +161,29 @@ test("포스트시즌 라운드 문구(…N차전)가 팀명으로 넘어오지 
   assert.equal(stripEventPrefix("올스타전 아메리칸리그"), "아메리칸리그");
   assert.equal(stripEventPrefix("아메리칸리그"), "아메리칸리그");
 });
+
+test("KOVO컵(프로배구대회·조 표기) 제목에서 리그와 팀명을 가려낸다", () => {
+  // 🔴 2026-10-06 실측: SBS Sports 가 `2026 여수·KOVO컵 프로배구대회 여자부 A조 SOOP:IBK기업은행` 을 줬고
+  // league=`2026`, home=`여수·KOVO컵 프로배구대회 여자부 A조 SOOP` 로 저장됐다. 리그 인식이
+  // `프로배구` 뒤에 공백이 올 때만 맞아 `프로배구대회` 를 놓쳤고, `A조` 도 떼지 못했다.
+  // 데이터 위생 가드가 크롤마다 텔레그램 경보를 냈다.
+  const r = parseMatchTitle("2026 여수·KOVO컵 프로배구대회 여자부 A조 SOOP:IBK기업은행");
+  assert.equal(r.league, "KOVO컵");
+  assert.equal(r.homeTeam, "SOOP");
+  assert.equal(r.awayTeam, "IBK기업은행");
+  assert.equal(r.sport, "배구");
+
+  const m = parseMatchTitle("2026 여수·KOVO컵 프로배구대회 남자부 B조 대한항공 vs 현대캐피탈");
+  assert.equal(m.league, "KOVO컵");
+  assert.equal(m.homeTeam, "대한항공");
+  assert.equal(m.awayTeam, "현대캐피탈");
+
+  // KBS N SPORTS 는 같은 대회를 `NH농협컵 프로배구 대회`(띄어 씀)로 준다 → home 이 `대회 정관장` 이 됐었다
+  const k = parseMatchTitle("2026 여수·NH농협컵 프로배구 대회 정관장:흥국생명");
+  assert.equal(k.league, "KOVO컵");
+  assert.equal(k.homeTeam, "정관장");
+  assert.equal(k.awayTeam, "흥국생명");
+
+  // 정규 리그 표기는 그대로
+  assert.equal(parseMatchTitle("2025-26 V-리그 여자부 흥국생명:정관장").league, "V리그");
+});

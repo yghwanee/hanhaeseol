@@ -29,6 +29,9 @@ const KNOWN_UNSUPPORTED = new Set([
   "아이치-나고야 아시안게임",
   "리그컵", // Leagues Cup (MLS x 리가 MX)
   "WNBA",
+  // 2026-10-06 실측: KOVO컵(NH농협컵)은 schedule/games 의 kovo 가 200 이지만 대회 기간(10/04~10/14) 0건.
+  // kovocup·kovo_cup·kvl·vleague 등은 400. 컵대회는 네이버 일반 리그 API 에 안 올라온다.
+  "KOVO컵",
   "아세안 현대 컵",
   // 2026-10-01 실측(SPOTV NOW, 예: 부리람 유나이티드 vs 보르네오). schedule/games 에
   // aseanclub·aseanclubchampionship·acc·asean·shopeecup·aseancc·aseanchampionship·

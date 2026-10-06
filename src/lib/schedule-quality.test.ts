@@ -37,6 +37,8 @@ test("리그가 연도만 남으면 파싱 실패로 본다", () => {
 test("팀명에 이벤트·스폰서 문구가 들어오면 파싱 실패로 본다", () => {
   assert.equal(teamNameLooksUnparsed("신한 SOL KBO 올스타전 나눔"), true);
   assert.equal(teamNameLooksUnparsed("퓨처스 챔프전 단양대회 여자부 준결승 IBK기업은행"), true);
+  // 대회 문구가 맨 앞 단어로 남은 짧은 팀명 (2026-10-06 KBS NH농협컵)
+  assert.equal(teamNameLooksUnparsed("대회 정관장"), true);
   // 제공처가 제목을 잘라 보낸 흔적
   assert.equal(teamNameLooksUnparsed("신한 SOL KBO 올스타 프라이데이 퓨처스 올스... 북부리그"), true);
   assert.equal(teamNameLooksUnparsed(""), true);

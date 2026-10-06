@@ -46,6 +46,9 @@ export function teamNameLooksUnparsed(name: string): boolean {
   // 제공처가 제목을 잘라 보낸 흔적. 팀명에 생략부호가 있을 수 없다.
   if (/(\.{3}|…)/.test(t)) return true;
   if (SPONSOR_MARKERS.test(t)) return true;
+  // 대회 문구가 팀명 **맨 앞 단어**로 남은 것 — 길이가 짧아도 팀명일 수 없다.
+  // 실측(2026-10-06 KBS): `NH농협컵 프로배구 대회 정관장` 이 home=`대회 정관장` 으로 들어왔다.
+  if (/^(대회|컵대회|조별리그|예선|본선)\s/.test(t)) return true;
   // 대회 문구 + 긴 이름 = 대회명이 앞에 붙은 것.
   // `나눔 올스타`(6자)·`아메리칸리그`(6자)·`MLS 올스타`(8자) 같은 정상 팀명은 짧다.
   if (EVENT_MARKERS.test(t) && t.length >= 13) return true;
