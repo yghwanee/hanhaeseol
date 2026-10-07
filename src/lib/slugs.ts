@@ -350,6 +350,15 @@ export function findLeagueBySlug(slug: string): SeoMeta | undefined {
   return LEAGUE_SEO.find((l) => l.slug === slug);
 }
 
+/**
+ * 팀·선수 페이지의 리그 이동 링크. 리그 편성표 페이지가 없는 리그(에레디비시 등 — 순위만
+ * 있다)는 순위 페이지로 보낸다. 종전엔 `/league/eredivisie` 404 를 팀 6장이 걸고 있었다
+ * (2026-10-07 실측). 팀 목록은 순위 데이터에서 만들어지므로 순위 페이지는 항상 있다.
+ */
+export function leagueHubHref(slug: string): string {
+  return findLeagueBySlug(slug) ? `/league/${slug}` : `/standings/${slug}`;
+}
+
 export function findPlatformBySlug(slug: string): SeoMeta | undefined {
   return PLATFORM_SEO.find((p) => p.slug === slug);
 }

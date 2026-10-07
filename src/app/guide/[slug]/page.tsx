@@ -22,7 +22,9 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   if (!guide) return { title: "가이드 - 한해설" };
 
   const url = `https://haeseol.com/guide/${guide.slug}`;
-  const title = `${guide.title} | 한해설`;
+  // 네이버 제목 표시 상한 40자. 넘으면 뒤가 잘리는데 잘리는 자리가 하필 브랜드 꼬리라,
+  // 긴 글은 꼬리를 뗀다(본문·제목 앞부분이 검색어를 받는다). 2026-10-07 실측 38편이 40자 초과.
+  const title = `${guide.title} | 한해설`.length > 40 ? guide.title : `${guide.title} | 한해설`;
 
   return {
     title,

@@ -30,6 +30,6 @@ NLDS 일정은 10월 3일 기준이고, 실제 경기 시간은 대진이 확정
 
 ### SPOTV NOW에서 한국어 해설로
 
-MLB 포스트시즌 전 경기는 SPOTV NOW가 중계하고 한국어 해설도 그대로 붙는다. 채널 배분 포함한 자세한 내용은 [이 글](https://haeseol.com/guides/mlb-postseason-2026-broadcast-channels)에 이미 정리해뒀다. 정규시즌 내내 SPOTV NOW로 다저스를 봐왔다면 포스트시즌도 같은 앱에서 켜면 된다.
+MLB 포스트시즌 전 경기는 SPOTV NOW가 중계하고 한국어 해설도 그대로 붙는다. 채널 배분 포함한 자세한 내용은 [이 글](https://haeseol.com/guide/mlb-postseason-2026-broadcast-channels)에 이미 정리해뒀다. 정규시즌 내내 SPOTV NOW로 다저스를 봐왔다면 포스트시즌도 같은 앱에서 켜면 된다.
 
 WC 와일드카드 9월 30일 결과가 나오면 다저스 NLDS 대진이 확정된다. 브레이브스가 올라오는지 아닌지가 이 포스트시즌 국내 중계 흥행의 변수다.

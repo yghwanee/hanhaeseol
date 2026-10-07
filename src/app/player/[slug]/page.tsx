@@ -41,6 +41,8 @@ import { proxyLogo } from "@/lib/emblem";
 import type { Schedule } from "@/types/schedule";
 import type { TeamRecord } from "@/types/team-record";
 import type { MatchResult } from "@/types/results";
+import { isRetiredMatchDate } from "@/lib/match-retention";
+import { findLeagueBySlug, leagueHubHref } from "@/lib/slugs";
 
 // 날짜 의존 허브 — `revalidate` 정책 정본은 `src/app/page.tsx` 주석. 값은 배포 주기(6h)와 같다.
 export const revalidate = 21600;
@@ -129,6 +131,7 @@ function GameList({
                 homeRecord={recordFor(g.source.league, g.source.homeTeam)}
                 awayRecord={recordFor(g.source.league, g.source.awayTeam)}
                 result={resultFor(g)}
+                linkMatch={!isRetiredMatchDate(g.source.date)}
               />
             ))}
           </div>
@@ -184,6 +187,7 @@ export async function generateMetadata({
       siteName: "한해설",
       locale: "ko_KR",
       type: "website",
+      images: [{ url: "https://haeseol.com/og-default.png", width: 1200, height: 630, alt: "한해설 — 한국어 해설 중계 편성표" }],
     },
   };
 }
@@ -227,7 +231,7 @@ export default function PlayerPage({ params }: { params: { slug: string } }) {
 
   const breadcrumbLd = buildBreadcrumbLd([
     { name: "한해설", url: BASE },
-    { name: team.leagueName, url: `${BASE}/league/${team.leagueSlug}` },
+    { name: team.leagueName, url: `${BASE}${leagueHubHref(team.leagueSlug)}` },
     { name: `${player.name} 경기 중계`, url },
   ]);
 
@@ -251,7 +255,7 @@ export default function PlayerPage({ params }: { params: { slug: string } }) {
           </Link>
           <span className="px-1.5">›</span>
           <Link
-            href={`/league/${team.leagueSlug}`}
+            href={leagueHubHref(team.leagueSlug)}
             className="-my-2 inline-block py-2 hover:text-fg"
           >
             {team.leagueName}
@@ -393,6 +397,7 @@ export default function PlayerPage({ params }: { params: { slug: string } }) {
           />
         </div>
 
+        {findLeagueBySlug(team.leagueSlug) && (
         <p className="mt-6 text-caption1 text-fg-tertiary">
           {player.name}
           {josa(player.name, "이/가")} 뛰는 {team.leagueName} 전체 편성은{" "}
@@ -404,6 +409,7 @@ export default function PlayerPage({ params }: { params: { slug: string } }) {
           </Link>
           에서 볼 수 있습니다.
         </p>
+        )}
       </main>
     </>
   );

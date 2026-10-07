@@ -49,6 +49,7 @@ export const metadata: Metadata = {
     siteName: "한해설",
     locale: "ko_KR",
     type: "website",
+    images: [{ url: "https://haeseol.com/og-default.png", width: 1200, height: 630, alt: "한해설 — 한국어 해설 중계 편성표" }],
   },
 };
 

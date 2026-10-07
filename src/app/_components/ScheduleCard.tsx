@@ -104,6 +104,7 @@ function ScheduleCardInner({
   homeFollowed,
   awayFollowed,
   onToggleTeam,
+  linkMatch = true,
 }: {
   schedule: Schedule;
   query: string;
@@ -114,6 +115,13 @@ function ScheduleCardInner({
   homeFollowed?: boolean;
   awayFollowed?: boolean;
   onToggleTeam?: (sport: Schedule["sport"], teamName: string) => void;
+  /**
+   * 매치 페이지로 링크할지. 보존 기간이 지난 경기(`match-retention.ts`)는 410 이라
+   * 링크하지 않는다 — 팀·선수 페이지의 지난 경기 목록이 410 링크 641개를 내고 있었다
+   * (2026-10-07 실측). 🔴 판정은 **서버 페이지에서** 해서 넘긴다. 카드가 클라이언트에서
+   * 날짜를 다시 재면 렌더 시점과 열람 시점 사이에 경계를 넘을 때 하이드레이션이 어긋난다.
+   */
+  linkMatch?: boolean;
 }) {
   // 종료·진행 중 모두 스코어를 표시한다. 진행 중 값은 종료 스코어와 같은 네이버 필드
   // (homeTeamScore/awayTeamScore)에서 오고, /api/live 와 원본을 대조해 일치를 확인했다
@@ -150,13 +158,15 @@ function ScheduleCardInner({
        같은 경기를 고른다. */
     <div
       data-game-start={`${schedule.date}T${schedule.time}:00+09:00`}
-      className="w-card w-card-hover relative cursor-pointer p-3.5 sm:p-4"
+      className={`w-card relative p-3.5 sm:p-4 ${linkMatch ? "w-card-hover cursor-pointer" : ""}`}
     >
-      <Link
-        href={`/match/${matchToSlug(schedule)}`}
-        className="absolute inset-0 z-0 rounded-[12px]"
-        aria-label={`${schedule.homeTeam} ${schedule.awayTeam ? `vs ${schedule.awayTeam}` : ""} 경기 상세 보기`}
-      />
+      {linkMatch && (
+        <Link
+          href={`/match/${matchToSlug(schedule)}`}
+          className="absolute inset-0 z-0 rounded-[12px]"
+          aria-label={`${schedule.homeTeam} ${schedule.awayTeam ? `vs ${schedule.awayTeam}` : ""} 경기 상세 보기`}
+        />
+      )}
       {/* items-center: 왼쪽 글자 줄(20px)과 오른쪽 뱃지 묶음(26px)의 세로 중심을 맞춘다.
           items-start 로 두면 글자가 위로 떠 보인다(2026-09-14 화니 지적). */}
       <div className="pointer-events-none relative z-10 flex items-center justify-between gap-2">

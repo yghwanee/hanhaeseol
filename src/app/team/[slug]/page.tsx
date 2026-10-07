@@ -40,6 +40,8 @@ import { getKoreanPlayers } from "@/lib/korean-players/load";
 import type { Schedule } from "@/types/schedule";
 import type { TeamRecord } from "@/types/team-record";
 import type { MatchResult } from "@/types/results";
+import { isRetiredMatchDate } from "@/lib/match-retention";
+import { findLeagueBySlug, leagueHubHref } from "@/lib/slugs";
 
 // 데이터가 빌드 번들에 있어 재생성해도 같은 HTML 이다. 신선도는 배포가 만든다.
 // (2026-08-18 Hobby 한도 초과로 600 → 3600. 상세는 page.tsx 주석)
@@ -141,6 +143,7 @@ function GameList({
                 homeRecord={recordFor(g.source.league, g.source.homeTeam)}
                 awayRecord={recordFor(g.source.league, g.source.awayTeam)}
                 result={resultFor(g)}
+                linkMatch={!isRetiredMatchDate(g.source.date)}
               />
             ))}
           </div>
@@ -210,6 +213,7 @@ export async function generateMetadata({
       siteName: "한해설",
       locale: "ko_KR",
       type: "website",
+      images: [{ url: "https://haeseol.com/og-default.png", width: 1200, height: 630, alt: "한해설 — 한국어 해설 중계 편성표" }],
     },
   };
 }
@@ -238,7 +242,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
   const showsShort = hasFullName(team.leagueSlug, team.name);
   const breadcrumbLd = buildBreadcrumbLd([
     { name: "한해설", url: BASE },
-    { name: team.leagueName, url: `${BASE}/league/${team.leagueSlug}` },
+    { name: team.leagueName, url: `${BASE}${leagueHubHref(team.leagueSlug)}` },
     { name: full, url },
   ]);
 
@@ -286,7 +290,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
             편성표
           </Link>
           <span className="px-1.5">›</span>
-          <Link href={`/league/${team.leagueSlug}`} className="-my-2 inline-block py-2 hover:text-fg">
+          <Link href={leagueHubHref(team.leagueSlug)} className="-my-2 inline-block py-2 hover:text-fg">
             {team.leagueName}
           </Link>
           <span className="px-1.5">›</span>
@@ -516,11 +520,13 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
                 </Link>
               ))}
             </div>
-            <p className="mt-3 text-caption1 text-fg-tertiary">
-              <Link href={`/league/${team.leagueSlug}`} className="-my-2 inline-block py-2 hover:text-fg">
-                {team.leagueName} 전체 편성표 보기
-              </Link>
-            </p>
+            {findLeagueBySlug(team.leagueSlug) && (
+              <p className="mt-3 text-caption1 text-fg-tertiary">
+                <Link href={`/league/${team.leagueSlug}`} className="-my-2 inline-block py-2 hover:text-fg">
+                  {team.leagueName} 전체 편성표 보기
+                </Link>
+              </p>
+            )}
           </section>
         )}
 

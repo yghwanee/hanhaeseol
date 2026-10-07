@@ -64,3 +64,13 @@ test("매치 페이지도 같은 판정을 쓴다 (미들웨어 우회 안전망
   const uses = page.match(/isRetiredMatchDate\(/g) ?? [];
   assert.ok(uses.length >= 2, "generateStaticParams 와 본문 둘 다에서 써야 한다");
 });
+
+test("서버 페이지의 지난 경기 카드는 은퇴 경기를 링크하지 않는다", () => {
+  // 2026-10-07: 팀 172장·선수 13장의 지난 경기 목록이 410 링크 641개를 내고 있었다.
+  for (const f of ["src/app/team/[slug]/page.tsx", "src/app/player/[slug]/page.tsx"]) {
+    const src = readFileSync(f, "utf8");
+    assert.match(src, /linkMatch=\{!isRetiredMatchDate\(/, `${f} 는 ScheduleCard 에 linkMatch 를 넘겨야 한다`);
+  }
+  const card = readFileSync("src/app/_components/ScheduleCard.tsx", "utf8");
+  assert.match(card, /linkMatch && \(/, "ScheduleCard 는 linkMatch 가 false 면 매치 링크를 그리지 않는다");
+});
