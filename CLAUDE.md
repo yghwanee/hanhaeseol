@@ -121,7 +121,7 @@ src/
 
 - 🔴 **Vercel 한도 절감 (2026-10-07).** 30일 FOT 10.44/10GB · ISR Writes 236K/200K · CPU 5h04m/4h,
   **97~100% 가 한해설**(다른 프로젝트 9개 합쳐 3%). 12h Observability 에서 `/match/[slug]` 가 ISR 쓰기
-  거의 전부·CPU ~75%. → **경기일 30일 지난 매치는 미들웨어가 410**(`src/lib/match-retention.ts`,
+  거의 전부·CPU ~75%. → **경기일 14일 지난 매치는 미들웨어가 410**(10/07 30→14)(`src/lib/match-retention.ts`,
   `test:match-retention`). `/standings` 는 `searchParams` 때문에 동적(캐시 0%)이었다 → 정적, 쿼리는
   클라이언트가 읽는다. 🔴 **페이지에서 `searchParams` 를 받지 말 것**(받는 순간 요청마다 렌더).
   화니 방침 = Pro 안 감. 판정은 2~4주 뒤 대시보드 Usage.

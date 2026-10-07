@@ -18,18 +18,18 @@ import {
 const NOW = new Date("2026-10-07T00:00:00Z");
 
 test("컷오프 = KST 오늘 - 보존 일수", () => {
-  assert.equal(MATCH_RETENTION_DAYS, 30);
-  assert.equal(matchCutoffDate(NOW), "2026-09-07");
+  assert.equal(MATCH_RETENTION_DAYS, 14);
+  assert.equal(matchCutoffDate(NOW), "2026-09-23");
 });
 
 test("KST 자정 직후는 KST 날짜로 센다 (UTC 로 세면 하루 밀린다)", () => {
   // 2026-10-07 00:30 KST = 2026-10-06 15:30 UTC
-  assert.equal(matchCutoffDate(new Date("2026-10-06T15:30:00Z")), "2026-09-07");
+  assert.equal(matchCutoffDate(new Date("2026-10-06T15:30:00Z")), "2026-09-23");
 });
 
 test("컷오프 날짜 당일 경기는 살아 있고 그 전날부터 은퇴", () => {
-  assert.equal(isRetiredMatchDate("2026-09-07", NOW), false);
-  assert.equal(isRetiredMatchDate("2026-09-06", NOW), true);
+  assert.equal(isRetiredMatchDate("2026-09-23", NOW), false);
+  assert.equal(isRetiredMatchDate("2026-09-22", NOW), true);
   assert.equal(isRetiredMatchDate("2026-10-12", NOW), false);
 });
 
@@ -39,6 +39,7 @@ test("슬러그 — 인코딩된 한글 슬러그도 날짜로 판정", () => {
     true,
   );
   assert.equal(isRetiredMatchSlug("2026-09-24-coupang-play-대한민국-vs-에콰도르", NOW), false);
+  assert.equal(isRetiredMatchSlug("2026-09-20-coupang-play-AT.-마드리드-vs-레알-마드리드", NOW), true);
 });
 
 test("날짜를 못 읽으면 막지 않는다", () => {
