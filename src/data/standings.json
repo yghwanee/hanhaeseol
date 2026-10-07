@@ -3281,7 +3281,7 @@
           "matchesPlayed": 26,
           "wins": 15,
           "draws": 5,
-          "losses": 6,
+          "losses": 7,
           "goals": 59,
           "goalsConceded": 26,
           "goalsDifference": 33,
@@ -3396,6 +3396,26 @@
         },
         {
           "rank": 4,
+          "teamName": "시카고 파이어",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/Wrr0W0.png?type=f92_88",
+          "matchesPlayed": 26,
+          "wins": 13,
+          "draws": 6,
+          "losses": 8,
+          "goals": 46,
+          "goalsConceded": 38,
+          "goalsDifference": 8,
+          "points": 45,
+          "lastFive": "WLLDD",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "Final Series",
+          "conference": "EAST"
+        },
+        {
+          "rank": 5,
           "teamName": "샬럿 FC",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/Q3PQ0g.png?type=f92_88",
           "matchesPlayed": 27,
@@ -3433,26 +3453,6 @@
           },
           "rankStatus": "Final Series",
           "conference": "WEST"
-        },
-        {
-          "rank": 5,
-          "teamName": "시카고 파이어",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/Wrr0W0.png?type=f92_88",
-          "matchesPlayed": 26,
-          "wins": 12,
-          "draws": 6,
-          "losses": 8,
-          "goals": 46,
-          "goalsConceded": 38,
-          "goalsDifference": 8,
-          "points": 42,
-          "lastFive": "WLLDD",
-          "streak": {
-            "type": "W",
-            "count": 1
-          },
-          "rankStatus": "Final Series",
-          "conference": "EAST"
         },
         {
           "rank": 6,
@@ -5491,5 +5491,5 @@
     }
   ],
   "basketball": [],
-  "lastUpdated": "2026-10-06T21:01:18.357Z"
+  "lastUpdated": "2026-10-07T02:24:04.665Z"
 }
