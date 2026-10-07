@@ -120,13 +120,25 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
           guide ? <LeagueGuideSection guide={guide} display={meta.display} /> : undefined
         }
         highlightsSlot={
-          <WeekHighlights
+          <>
+            {/* 가을야구 허브로 가는 유일한 상시 링크. KBO 에서 최다 클릭 페이지가 여기다. */}
+            {meta.slug === "kbo" && (
+              <Link
+                href="/postseason/kbo"
+                className="mb-4 block rounded-xl border border-line-subtle bg-subtle px-4 py-3 text-label1 text-fg hover:border-line hover:text-fg-strong"
+              >
+                <span className="font-semibold text-fg-strong">KBO 포스트시즌(가을야구) 일정·중계</span>
+                <span className="ml-2 text-fg-secondary">와일드카드 결정전부터 한국시리즈까지 →</span>
+              </Link>
+            )}
+            <WeekHighlights
             title={`이번 주 ${meta.display} 빅매치`}
             schedules={schedules}
             league={meta.match}
             days={7}
             emptyText={`이번 주 예정된 ${meta.display} 경기가 없습니다.`}
-          />
+            />
+          </>
         }
         faqSlot={
           faqs ? (

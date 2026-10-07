@@ -64,6 +64,7 @@ export function buildUrlList(): string[] {
   // 한국어 해설 허브 — 네이버에서 CTR 최상위인 "해설" 쿼리군의 착지 페이지.
   urls.add(`${BASE}/commentary`);
   urls.add(`${BASE}/commentary/stats`);
+  urls.add(`${BASE}/postseason/kbo`);
   urls.add(`${BASE}/asian-games`);
   urls.add(`${BASE}/asian-games/broadcast`);
   urls.add(`${BASE}/asian-games/lol`);

@@ -193,6 +193,15 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
           <p className="mt-3 text-label1 leading-relaxed text-fg-strong">{leadSentence}</p>
         )}
         <p className="mt-1.5 text-label1 leading-relaxed text-fg-secondary">{meta.intro}</p>
+        {meta.slug === "kbo" && (
+          <p className="mt-1.5 text-label1 leading-relaxed text-fg-secondary">
+            가을야구 대진과 경기 일정·중계는{" "}
+            <Link href="/postseason/kbo" className="text-fg underline underline-offset-2 hover:text-fg-strong">
+              KBO 포스트시즌 일정·중계
+            </Link>
+            에서 볼 수 있습니다.
+          </p>
+        )}
 
         <div className="mt-5">
           {!league || league.teams.length === 0 ? (
