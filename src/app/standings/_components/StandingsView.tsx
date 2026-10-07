@@ -63,6 +63,30 @@ export function StandingsView({
     () => initialLeague || leagues[0]?.id || "",
   );
 
+  // `?sport=`·`?league=` 는 클라이언트가 읽는다. 서버(page.tsx)가 searchParams 를 읽으면
+  // `/standings` 가 요청마다 렌더되는 동적 페이지가 된다(2026-10-07 실측: 캐시 0%,
+  // `private, no-store`). 사이트 안에 이 쿼리로 거는 링크는 없고 공유 링크용이다.
+  // 🔴 이 효과는 아래 URL 동기화보다 **먼저 선언**돼야 한다 — 효과는 선언 순서대로 돌아서
+  // 동기화가 먼저 돌면 기본값(축구)으로 쿼리를 지운 뒤에 읽게 된다.
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const qSport = params.get("sport");
+    const qLeague = params.get("league");
+    let nextSport: SportKey | null = null;
+    let nextLeague: string | null = null;
+    if (qSport === "soccer" || qSport === "baseball") {
+      nextSport = qSport;
+      const list = qSport === "soccer" ? data.soccer : data.baseball;
+      nextLeague = qLeague && list.some((l) => l.id === qLeague) ? qLeague : list[0]?.id ?? null;
+    } else if (qLeague) {
+      if (data.soccer.some((l) => l.id === qLeague)) nextSport = "soccer";
+      else if (data.baseball.some((l) => l.id === qLeague)) nextSport = "baseball";
+      if (nextSport) nextLeague = qLeague;
+    }
+    if (nextSport) setSport(nextSport);
+    if (nextLeague) setLeagueId(nextLeague);
+  }, [data]);
+
   // 상태 변경 시 URL ↔ 동기화 (history.replaceState로 라우터 재요청 없이).
   // 첫 인자에 null 을 넘기면 Next.js App Router 의 router state 가 entry 에서 사라져
   // 뒤로가기 시 page swap 이 깨진다. 기존 state 를 보존.

@@ -87,11 +87,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default function StandingsPage({
-  searchParams,
-}: {
-  searchParams: { sport?: string; league?: string };
-}) {
+export default function StandingsPage() {
   // 순위표 팀명 → 팀 페이지 링크(리그 id 로 스코프). 서버에서 계산해 내려준다.
   // 팀 페이지가 존재하는 팀만 들어간다 — 없는 페이지로 링크하면 404를 양산한다.
   const teamLinks = buildTeamLinkMap(data as unknown as TeamStandingsData, [
@@ -99,25 +95,9 @@ export default function StandingsPage({
     ...archiveSchedules,
   ]);
 
-  // 서버 단에서 query → 초기값 결정. 클라이언트 hydration 시 default → 분데스 깜빡임 방지.
-  const qSport = searchParams.sport;
-  const qLeague = searchParams.league;
-  let initialSport: "soccer" | "baseball" = "soccer";
-  let initialLeague: string = data.soccer[0]?.id ?? "";
-  if (qSport === "soccer" || qSport === "baseball") {
-    initialSport = qSport;
-    const list = qSport === "soccer" ? data.soccer : data.baseball;
-    initialLeague = qLeague && list.some((l) => l.id === qLeague) ? qLeague : list[0]?.id ?? "";
-  } else if (qLeague) {
-    if (data.soccer.some((l) => l.id === qLeague)) {
-      initialSport = "soccer";
-      initialLeague = qLeague;
-    } else if (data.baseball.some((l) => l.id === qLeague)) {
-      initialSport = "baseball";
-      initialLeague = qLeague;
-    }
-  }
-
+  // 🔴 `searchParams` 를 받지 말 것 — 받는 순간 이 페이지가 요청마다 렌더되는 동적
+  // 페이지가 된다(2026-10-07 실측: 캐시 0%, 12시간 318회 렌더). `?sport=`·`?league=`
+  // 는 `StandingsView` 가 클라이언트에서 읽는다.
   return (
     <main className="min-h-screen text-fg">
       <script
@@ -128,8 +108,6 @@ export default function StandingsPage({
         <div className="mt-4 sm:mt-6">
           <StandingsView
             data={data}
-            initialSport={initialSport}
-            initialLeague={initialLeague}
             teamLinks={teamLinks}
           />
         </div>

@@ -20,6 +20,7 @@ import type { GoalEvent, ResultsData } from "@/types/results";
 import type { StandingsData } from "@/types/standings";
 import { LEAGUE_SEO } from "@/lib/slugs";
 import { matchToSlug, findMatchBySlug } from "@/lib/match-slug";
+import { isRetiredMatchDate } from "@/lib/match-retention";
 import { findResult } from "@/lib/results/lookup";
 import {
   formatDateHeader,
@@ -139,6 +140,8 @@ export function generateStaticParams(): Params[] {
   // 반전 중복에서 접힌 슬러그를 그대로 넣으면 그 URL 을 프리렌더했다가 notFound 로
   // 떨어진다. slugLookup 과 같은 규칙을 태워 실제로 해석되는 슬러그만 생성한다.
   for (const s of dedupeReversedFixtures([...data.schedules, ...worldcup.schedules])) {
+    // 보존 기간 밖 경기(지난 월드컵 등)는 미들웨어가 410 으로 끊으므로 굽지 않는다.
+    if (isRetiredMatchDate(s.date)) continue;
     const slug = matchToSlug(s);
     if (seen.has(slug)) continue;
     seen.add(slug);
@@ -316,7 +319,8 @@ function TeamSide({
 
 export default function MatchPage({ params }: { params: Params }) {
   const match = findMatchAnywhere(params.slug);
-  if (!match) notFound();
+  // 미들웨어가 먼저 410 으로 끊는다. 여기는 미들웨어를 우회한 경우의 안전망.
+  if (!match || isRetiredMatchDate(match.date)) notFound();
 
   const date = formatDateHeader(match.date);
   const finished = isGameFinished(match.date, match.time, match.sport);

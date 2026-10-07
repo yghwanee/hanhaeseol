@@ -130,7 +130,8 @@
     "test:push-toggle": "tsx --test src/lib/push/toggle.test.ts",
     "test:workflow-yaml": "tsx --test src/lib/workflow-yaml.test.ts",
     "test:workflow-pipe": "tsx --test src/lib/workflow-pipe-guard.test.ts",
-    "keywords": "tsx src/scripts/naver-keywords.ts"
+    "keywords": "tsx src/scripts/naver-keywords.ts",
+    "test:match-retention": "tsx --test src/lib/match-retention.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",
