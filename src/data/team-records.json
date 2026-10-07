@@ -1,26 +1,37 @@
 {
-  "lastUpdated": "2026-10-07T05:49:35.900Z",
+  "lastUpdated": "2026-10-07T13:13:51.460Z",
   "records": {
     "KBO": {
       "KT": {
-        "last5": "WWDWW",
-        "win": 87,
+        "last5": "WWWDW",
+        "win": 88,
         "lose": 49,
         "draw": 5,
-        "wra": 0.64,
+        "wra": 0.642,
         "streak": {
-          "count": 7,
+          "count": 8,
           "type": "W"
         }
       },
       "삼성": {
-        "last5": "WLLWW",
+        "last5": "LWLLW",
         "win": 83,
-        "lose": 54,
+        "lose": 55,
         "draw": 3,
-        "wra": 0.606,
+        "wra": 0.601,
         "streak": {
           "count": 1,
+          "type": "L"
+        }
+      },
+      "LG": {
+        "last5": "WWLLL",
+        "win": 77,
+        "lose": 63,
+        "draw": 1,
+        "wra": 0.55,
+        "streak": {
+          "count": 2,
           "type": "W"
         }
       },
@@ -35,47 +46,36 @@
           "type": "L"
         }
       },
-      "LG": {
-        "last5": "WLLLL",
-        "win": 76,
-        "lose": 63,
-        "draw": 1,
-        "wra": 0.547,
-        "streak": {
-          "count": 1,
-          "type": "W"
-        }
-      },
       "두산": {
-        "last5": "WWWLW",
+        "last5": "LWWWL",
         "win": 73,
-        "lose": 64,
+        "lose": 65,
         "draw": 5,
-        "wra": 0.533,
-        "streak": {
-          "count": 3,
-          "type": "W"
-        }
-      },
-      "SSG": {
-        "last5": "LWWLW",
-        "win": 63,
-        "lose": 73,
-        "draw": 5,
-        "wra": 0.463,
+        "wra": 0.529,
         "streak": {
           "count": 1,
           "type": "L"
         }
       },
-      "NC": {
-        "last5": "LLLWL",
-        "win": 63,
-        "lose": 76,
-        "draw": 2,
-        "wra": 0.453,
+      "SSG": {
+        "last5": "WLWWL",
+        "win": 64,
+        "lose": 73,
+        "draw": 5,
+        "wra": 0.467,
         "streak": {
-          "count": 3,
+          "count": 1,
+          "type": "W"
+        }
+      },
+      "NC": {
+        "last5": "LLLLW",
+        "win": 63,
+        "lose": 77,
+        "draw": 2,
+        "wra": 0.45,
+        "streak": {
+          "count": 4,
           "type": "L"
         }
       },
@@ -91,25 +91,25 @@
         }
       },
       "한화": {
-        "last5": "WWLLL",
+        "last5": "LWWLL",
         "win": 57,
-        "lose": 81,
+        "lose": 82,
         "draw": 4,
-        "wra": 0.413,
+        "wra": 0.41,
         "streak": {
-          "count": 2,
-          "type": "W"
+          "count": 1,
+          "type": "L"
         }
       },
       "키움": {
-        "last5": "LLWWL",
-        "win": 49,
+        "last5": "WLLWW",
+        "win": 50,
         "lose": 90,
         "draw": 4,
-        "wra": 0.353,
+        "wra": 0.357,
         "streak": {
-          "count": 2,
-          "type": "L"
+          "count": 1,
+          "type": "W"
         }
       }
     },
@@ -2902,6 +2902,18 @@
         "lose": 0,
         "wra": 1
       },
+      "부산 KCC": {
+        "last5": "WWL",
+        "win": 2,
+        "lose": 1,
+        "wra": 0.66666667
+      },
+      "KCC": {
+        "last5": "WWL",
+        "win": 2,
+        "lose": 1,
+        "wra": 0.66666667
+      },
       "수원 KT": {
         "last5": "WL",
         "win": 1,
@@ -2910,18 +2922,6 @@
       },
       "창원 LG": {
         "last5": "LW",
-        "win": 1,
-        "lose": 1,
-        "wra": 0.5
-      },
-      "부산 KCC": {
-        "last5": "WL",
-        "win": 1,
-        "lose": 1,
-        "wra": 0.5
-      },
-      "KCC": {
-        "last5": "WL",
         "win": 1,
         "lose": 1,
         "wra": 0.5
@@ -2945,9 +2945,9 @@
         "wra": 0
       },
       "대구 한국가스공사": {
-        "last5": "LL",
+        "last5": "LLL",
         "win": 0,
-        "lose": 2,
+        "lose": 3,
         "wra": 0
       },
       "서울 SK": {
