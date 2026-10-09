@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-09T15:14:50.033Z",
+  "lastUpdated": "2026-10-09T20:50:03.863Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -62672,6 +62672,105 @@
       "awayScore": 9,
       "status": "finished",
       "period": "9회말"
+    },
+    "2026-10-10|bundesliga|도르트문트|브레멘": {
+      "date": "2026-10-10",
+      "categoryId": "bundesliga",
+      "gameId": "TA3Un1aA97zsuHF",
+      "homeTeam": "도르트문트",
+      "awayTeam": "브레멘",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "스벤손",
+          "minute": 80
+        },
+        {
+          "team": "home",
+          "player": "슐로터벡",
+          "minute": 85
+        },
+        {
+          "team": "away",
+          "player": "레이스",
+          "minute": 88
+        },
+        {
+          "team": "away",
+          "player": "퓔크루크",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ],
+      "highlightVideoId": "khft0kzfY-A"
+    },
+    "2026-10-10|denmark|노르셸란|OB": {
+      "date": "2026-10-10",
+      "categoryId": "denmark",
+      "gameId": "jg906oXfJDX9XBH",
+      "homeTeam": "노르셸란",
+      "awayTeam": "OB",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    "2026-10-10|eredivisie|PSV 아인트호벤|히렌빈": {
+      "date": "2026-10-10",
+      "categoryId": "eredivisie",
+      "gameId": "KJ91gda7vtgxJ7I",
+      "homeTeam": "PSV 아인트호벤",
+      "awayTeam": "히렌빈",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "틸",
+          "minute": 29
+        },
+        {
+          "team": "home",
+          "player": "린데이",
+          "minute": 68,
+          "ownGoal": true
+        }
+      ]
+    },
+    "2026-10-10|ligue1|랑스|리옹": {
+      "date": "2026-10-10",
+      "categoryId": "ligue1",
+      "gameId": "ThDAq0Qzh4IPk1R",
+      "homeTeam": "랑스",
+      "awayTeam": "리옹",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "소토카",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "우돌",
+          "minute": 76
+        },
+        {
+          "team": "away",
+          "player": "메라흐",
+          "minute": 85
+        }
+      ],
+      "highlightVideoId": "2Ud_6gmXgGc"
     }
   },
   "results": [
@@ -125346,6 +125445,105 @@
       "awayScore": 9,
       "status": "finished",
       "period": "9회말"
+    },
+    {
+      "date": "2026-10-10",
+      "categoryId": "bundesliga",
+      "gameId": "TA3Un1aA97zsuHF",
+      "homeTeam": "도르트문트",
+      "awayTeam": "브레멘",
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "스벤손",
+          "minute": 80
+        },
+        {
+          "team": "home",
+          "player": "슐로터벡",
+          "minute": 85
+        },
+        {
+          "team": "away",
+          "player": "레이스",
+          "minute": 88
+        },
+        {
+          "team": "away",
+          "player": "퓔크루크",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ],
+      "highlightVideoId": "khft0kzfY-A"
+    },
+    {
+      "date": "2026-10-10",
+      "categoryId": "denmark",
+      "gameId": "jg906oXfJDX9XBH",
+      "homeTeam": "노르셸란",
+      "awayTeam": "OB",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-10-10",
+      "categoryId": "eredivisie",
+      "gameId": "KJ91gda7vtgxJ7I",
+      "homeTeam": "PSV 아인트호벤",
+      "awayTeam": "히렌빈",
+      "homeScore": 2,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "틸",
+          "minute": 29
+        },
+        {
+          "team": "home",
+          "player": "린데이",
+          "minute": 68,
+          "ownGoal": true
+        }
+      ]
+    },
+    {
+      "date": "2026-10-10",
+      "categoryId": "ligue1",
+      "gameId": "ThDAq0Qzh4IPk1R",
+      "homeTeam": "랑스",
+      "awayTeam": "리옹",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "소토카",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "우돌",
+          "minute": 76
+        },
+        {
+          "team": "away",
+          "player": "메라흐",
+          "minute": 85
+        }
+      ],
+      "highlightVideoId": "2Ud_6gmXgGc"
     }
   ]
 }
