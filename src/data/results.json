@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-10T00:44:53.066Z",
+  "lastUpdated": "2026-10-10T06:59:47.499Z",
   "byKey": {
     "2026-10-09|kbo|NC|KIA": {
       "date": "2026-10-09",
@@ -43,10 +43,10 @@
       "gameId": "20261010LGLT02026",
       "homeTeam": "롯데",
       "awayTeam": "LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "live",
+      "period": "6회말"
     },
     "2026-10-10|kbo|한화|NC": {
       "date": "2026-10-10",
@@ -215,10 +215,10 @@
       "gameId": "202610106016490113",
       "homeTeam": "KCC",
       "awayTeam": "원주 DB",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 79,
+      "awayScore": 85,
+      "status": "live",
+      "period": "4쿼터"
     },
     "2026-10-10|kbl|KCC|원주 DB": {
       "date": "2026-10-10",
@@ -226,10 +226,10 @@
       "gameId": "202610106016490113",
       "homeTeam": "KCC",
       "awayTeam": "원주 DB",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 79,
+      "awayScore": 85,
+      "status": "live",
+      "period": "4쿼터"
     },
     "2026-10-10|kbl|울산 현대모비스|대구 한국가스공사": {
       "date": "2026-10-10",
@@ -1576,10 +1576,27 @@
       "gameId": "202610100904184",
       "homeTeam": "서울",
       "awayTeam": "제주",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 54'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "문선민",
+          "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "이건희",
+          "minute": 71
+        },
+        {
+          "team": "home",
+          "player": "클리말라",
+          "minute": 77
+        }
+      ]
     },
     "2026-10-10|kleague|김천|안양": {
       "date": "2026-10-10",
@@ -1681,10 +1698,28 @@
       "gameId": "202610100742220",
       "homeTeam": "전남",
       "awayTeam": "용인",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 57'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "발디비아",
+          "minute": 40
+        },
+        {
+          "team": "away",
+          "player": "최치웅",
+          "minute": 90
+        },
+        {
+          "team": "home",
+          "player": "추상훈",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ]
     },
     "2026-10-10|kleague2|파주|부산": {
       "date": "2026-10-10",
@@ -1692,10 +1727,23 @@
       "gameId": "202610104006221",
       "homeTeam": "파주",
       "awayTeam": "부산",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "김세훈",
+          "minute": 54
+        },
+        {
+          "team": "home",
+          "player": "보르하 바스톤",
+          "minute": 90,
+          "addedTime": 1
+        }
+      ]
     },
     "2026-10-10|kleague2|천안|경남": {
       "date": "2026-10-10",
@@ -2073,10 +2121,10 @@
       "gameId": "20261010LGLT02026",
       "homeTeam": "롯데",
       "awayTeam": "LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "live",
+      "period": "6회말"
     },
     {
       "date": "2026-10-10",
@@ -2171,10 +2219,10 @@
       "gameId": "202610106016490113",
       "homeTeam": "KCC",
       "awayTeam": "원주 DB",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 79,
+      "awayScore": 85,
+      "status": "live",
+      "period": "4쿼터"
     },
     {
       "date": "2026-10-10",
@@ -3059,10 +3107,27 @@
       "gameId": "202610100904184",
       "homeTeam": "서울",
       "awayTeam": "제주",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 54'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "문선민",
+          "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "이건희",
+          "minute": 71
+        },
+        {
+          "team": "home",
+          "player": "클리말라",
+          "minute": 77
+        }
+      ]
     },
     {
       "date": "2026-10-10",
@@ -3164,10 +3229,28 @@
       "gameId": "202610100742220",
       "homeTeam": "전남",
       "awayTeam": "용인",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 57'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "발디비아",
+          "minute": 40
+        },
+        {
+          "team": "away",
+          "player": "최치웅",
+          "minute": 90
+        },
+        {
+          "team": "home",
+          "player": "추상훈",
+          "minute": 90,
+          "addedTime": 2
+        }
+      ]
     },
     {
       "date": "2026-10-10",
@@ -3175,10 +3258,23 @@
       "gameId": "202610104006221",
       "homeTeam": "파주",
       "awayTeam": "부산",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "김세훈",
+          "minute": 54
+        },
+        {
+          "team": "home",
+          "player": "보르하 바스톤",
+          "minute": 90,
+          "addedTime": 1
+        }
+      ]
     },
     {
       "date": "2026-10-10",
