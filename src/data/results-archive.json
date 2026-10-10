@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-09T20:50:03.863Z",
+  "lastUpdated": "2026-10-10T00:44:54.854Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -62719,6 +62719,29 @@
       "status": "finished",
       "period": "경기종료"
     },
+    "2026-10-10|england2|웨스트햄|QPR": {
+      "date": "2026-10-10",
+      "categoryId": "england2",
+      "gameId": "o6evZZ7jrDqIDYW",
+      "homeTeam": "웨스트햄",
+      "awayTeam": "QPR",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "마센",
+          "minute": 18
+        },
+        {
+          "team": "home",
+          "player": "보웬",
+          "minute": 70
+        }
+      ]
+    },
     "2026-10-10|eredivisie|PSV 아인트호벤|히렌빈": {
       "date": "2026-10-10",
       "categoryId": "eredivisie",
@@ -62771,6 +62794,31 @@
         }
       ],
       "highlightVideoId": "2Ud_6gmXgGc"
+    },
+    "2026-10-10|primera|말라가|에스파뇰": {
+      "date": "2026-10-10",
+      "categoryId": "primera",
+      "gameId": "eIRjOSNzx9HPQhV",
+      "homeTeam": "말라가",
+      "awayTeam": "에스파뇰",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "브리안",
+          "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "아드리안 니뇨",
+          "minute": 90,
+          "addedTime": 3
+        }
+      ],
+      "highlightVideoId": "hGeZHWqPs08"
     }
   },
   "results": [
@@ -125494,6 +125542,29 @@
     },
     {
       "date": "2026-10-10",
+      "categoryId": "england2",
+      "gameId": "o6evZZ7jrDqIDYW",
+      "homeTeam": "웨스트햄",
+      "awayTeam": "QPR",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "마센",
+          "minute": 18
+        },
+        {
+          "team": "home",
+          "player": "보웬",
+          "minute": 70
+        }
+      ]
+    },
+    {
+      "date": "2026-10-10",
       "categoryId": "eredivisie",
       "gameId": "KJ91gda7vtgxJ7I",
       "homeTeam": "PSV 아인트호벤",
@@ -125544,6 +125615,31 @@
         }
       ],
       "highlightVideoId": "2Ud_6gmXgGc"
+    },
+    {
+      "date": "2026-10-10",
+      "categoryId": "primera",
+      "gameId": "eIRjOSNzx9HPQhV",
+      "homeTeam": "말라가",
+      "awayTeam": "에스파뇰",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "브리안",
+          "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "아드리안 니뇨",
+          "minute": 90,
+          "addedTime": 3
+        }
+      ],
+      "highlightVideoId": "hGeZHWqPs08"
     }
   ]
 }

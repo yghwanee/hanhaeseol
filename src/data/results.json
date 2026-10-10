@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-09T20:50:02.070Z",
+  "lastUpdated": "2026-10-10T00:44:53.066Z",
   "byKey": {
     "2026-10-09|kbo|NC|KIA": {
       "date": "2026-10-09",
@@ -437,8 +437,8 @@
       "awayTeam": "QPR",
       "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 44'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -590,17 +590,24 @@
       "gameId": "eIRjOSNzx9HPQhV",
       "homeTeam": "말라가",
       "awayTeam": "에스파뇰",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 47'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "브리안",
           "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "아드리안 니뇨",
+          "minute": 90,
+          "addedTime": 3
         }
-      ]
+      ],
+      "highlightVideoId": "hGeZHWqPs08"
     },
     "2026-10-10|primera|바예카노|빌바오": {
       "date": "2026-10-10",
@@ -2309,8 +2316,8 @@
       "awayTeam": "QPR",
       "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 44'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2451,17 +2458,24 @@
       "gameId": "eIRjOSNzx9HPQhV",
       "homeTeam": "말라가",
       "awayTeam": "에스파뇰",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 47'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "브리안",
           "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "아드리안 니뇨",
+          "minute": 90,
+          "addedTime": 3
         }
-      ]
+      ],
+      "highlightVideoId": "hGeZHWqPs08"
     },
     {
       "date": "2026-10-10",
