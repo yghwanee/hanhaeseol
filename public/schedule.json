@@ -1,226 +1,6 @@
 {
-  "lastUpdated": "2026-10-09T02:57:03.764Z",
+  "lastUpdated": "2026-10-10T02:20:27.402Z",
   "schedules": [
-    {
-      "id": "spotvnow-2026-10-09-40621",
-      "date": "2026-10-09",
-      "time": "09:00",
-      "sport": "야구",
-      "league": "MLB",
-      "homeTeam": "시카고 화이트삭스",
-      "awayTeam": "클리블랜드 가디언스",
-      "platform": "SPOTV NOW",
-      "koreanCommentary": true
-    },
-    {
-      "id": "kbs-sports-2026-10-09-13:40-2026 신한 SOL KBO리그 삼성",
-      "date": "2026-10-09",
-      "time": "13:40",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "SSG",
-      "awayTeam": "삼성",
-      "platform": "KBS N SPORTS",
-      "koreanCommentary": true
-    },
-    {
-      "id": "spotv-2026-10-09-13:45-2026 KBO리그 삼성:SSG",
-      "date": "2026-10-09",
-      "time": "13:45",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "SSG",
-      "awayTeam": "삼성",
-      "platform": "SPOTV",
-      "koreanCommentary": true
-    },
-    {
-      "id": "spotv2-2026-10-09-13:45-2026 KBO리그 LG:롯데(사직)",
-      "date": "2026-10-09",
-      "time": "13:45",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "롯데",
-      "awayTeam": "LG",
-      "platform": "SPOTV2",
-      "koreanCommentary": true
-    },
-    {
-      "id": "sbs-sports-2026-10-09-13:50-2026 KBO리그 KIA:NC",
-      "date": "2026-10-09",
-      "time": "13:50",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "NC",
-      "awayTeam": "KIA",
-      "platform": "SBS Sports",
-      "koreanCommentary": true
-    },
-    {
-      "id": "mbc-2026-10-09-14:00-2026 신한 SOL KBO리그",
-      "date": "2026-10-09",
-      "time": "14:00",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "롯데",
-      "awayTeam": "LG",
-      "platform": "MBC SPORTS+",
-      "koreanCommentary": true
-    },
-    {
-      "id": "tvn-2026-10-09-14:00-2026-2027 KCC 프로농구",
-      "date": "2026-10-09",
-      "time": "14:00",
-      "sport": "농구",
-      "league": "프로농구",
-      "homeTeam": "KT",
-      "awayTeam": "소노",
-      "platform": "tvN SPORTS",
-      "koreanCommentary": true
-    },
-    {
-      "id": "coupang-2026-10-09-14:00-K리그1-대전-전북",
-      "date": "2026-10-09",
-      "time": "14:00",
-      "sport": "축구",
-      "league": "K리그",
-      "homeTeam": "대전",
-      "awayTeam": "전북",
-      "platform": "쿠팡플레이",
-      "koreanCommentary": true
-    },
-    {
-      "id": "coupang-2026-10-09-14:00-K리그2-수원FC-화성",
-      "date": "2026-10-09",
-      "time": "14:00",
-      "sport": "축구",
-      "league": "K리그2",
-      "homeTeam": "수원FC",
-      "awayTeam": "화성",
-      "platform": "쿠팡플레이",
-      "koreanCommentary": true
-    },
-    {
-      "id": "tving-2026-10-09-14:00-KBO-KIA-NC",
-      "date": "2026-10-09",
-      "time": "14:00",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "NC",
-      "awayTeam": "KIA",
-      "platform": "티빙",
-      "koreanCommentary": true
-    },
-    {
-      "id": "tving-2026-10-09-14:00-KBO-삼성-SSG",
-      "date": "2026-10-09",
-      "time": "14:00",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "SSG",
-      "awayTeam": "삼성",
-      "platform": "티빙",
-      "koreanCommentary": true
-    },
-    {
-      "id": "tving-2026-10-09-14:00-KBO-LG-롯데",
-      "date": "2026-10-09",
-      "time": "14:00",
-      "sport": "야구",
-      "league": "KBO",
-      "homeTeam": "롯데",
-      "awayTeam": "LG",
-      "platform": "티빙",
-      "koreanCommentary": true
-    },
-    {
-      "id": "tving-2026-10-09-14:00-KBL-고양 소노-수원 KT",
-      "date": "2026-10-09",
-      "time": "14:00",
-      "sport": "농구",
-      "league": "KBL",
-      "homeTeam": "수원 KT",
-      "awayTeam": "고양 소노",
-      "platform": "티빙",
-      "koreanCommentary": true
-    },
-    {
-      "id": "tvn-2026-10-09-16:30-2026-2027 KCC 프로농구",
-      "date": "2026-10-09",
-      "time": "16:30",
-      "sport": "농구",
-      "league": "프로농구",
-      "homeTeam": "삼성",
-      "awayTeam": "정관장",
-      "platform": "tvN SPORTS",
-      "koreanCommentary": true
-    },
-    {
-      "id": "coupang-2026-10-09-16:30-K리그1-인천-포항",
-      "date": "2026-10-09",
-      "time": "16:30",
-      "sport": "축구",
-      "league": "K리그",
-      "homeTeam": "인천",
-      "awayTeam": "포항",
-      "platform": "쿠팡플레이",
-      "koreanCommentary": true
-    },
-    {
-      "id": "coupang-2026-10-09-16:30-K리그1-강원-부천",
-      "date": "2026-10-09",
-      "time": "16:30",
-      "sport": "축구",
-      "league": "K리그",
-      "homeTeam": "강원",
-      "awayTeam": "부천",
-      "platform": "쿠팡플레이",
-      "koreanCommentary": true
-    },
-    {
-      "id": "coupang-2026-10-09-16:30-K리그2-김포-서울E",
-      "date": "2026-10-09",
-      "time": "16:30",
-      "sport": "축구",
-      "league": "K리그2",
-      "homeTeam": "김포",
-      "awayTeam": "서울E",
-      "platform": "쿠팡플레이",
-      "koreanCommentary": true
-    },
-    {
-      "id": "coupang-2026-10-09-16:30-K리그2-충북청주-성남",
-      "date": "2026-10-09",
-      "time": "16:30",
-      "sport": "축구",
-      "league": "K리그2",
-      "homeTeam": "충북청주",
-      "awayTeam": "성남",
-      "platform": "쿠팡플레이",
-      "koreanCommentary": true
-    },
-    {
-      "id": "tving-2026-10-09-16:30-KBL-안양 정관장-서울 삼성",
-      "date": "2026-10-09",
-      "time": "16:30",
-      "sport": "농구",
-      "league": "KBL",
-      "homeTeam": "서울 삼성",
-      "awayTeam": "안양 정관장",
-      "platform": "티빙",
-      "koreanCommentary": true
-    },
-    {
-      "id": "coupang-2026-10-09-21:00-NBA-휴스턴-댈러스",
-      "date": "2026-10-09",
-      "time": "21:00",
-      "sport": "농구",
-      "league": "NBA",
-      "homeTeam": "휴스턴",
-      "awayTeam": "댈러스",
-      "platform": "쿠팡플레이",
-      "koreanCommentary": true
-    },
     {
       "id": "coupang-2026-10-10-03:30-분데스리가-도르트문트-베르더 브레멘",
       "date": "2026-10-10",
@@ -794,7 +574,7 @@
       "koreanCommentary": true
     },
     {
-      "id": "sbs-sports-2026-10-11-13:15-2026 여수·KOVO컵 프로배구대회",
+      "id": "sbs-sports-2026-10-11-13:15-2026 여수·NH농협컵 프로배구대회",
       "date": "2026-10-11",
       "time": "13:15",
       "sport": "배구",
@@ -926,7 +706,7 @@
       "koreanCommentary": true
     },
     {
-      "id": "sbs-sports-2026-10-11-16:15-2026 여수·KOVO컵 프로배구대회",
+      "id": "sbs-sports-2026-10-11-16:15-2026 여수·NH농협컵 프로배구대회",
       "date": "2026-10-11",
       "time": "16:15",
       "sport": "배구",
@@ -1223,6 +1003,17 @@
       "koreanCommentary": true
     },
     {
+      "id": "kbs-sports-2026-10-12-18:10-2026 신한 SOL KBO리그 KT",
+      "date": "2026-10-12",
+      "time": "18:10",
+      "sport": "야구",
+      "league": "KBO",
+      "homeTeam": "삼성",
+      "awayTeam": "KT",
+      "platform": "KBS N SPORTS",
+      "koreanCommentary": true
+    },
+    {
       "id": "spotv-2026-10-12-18:15-2026 KBO리그 KT:삼성",
       "date": "2026-10-12",
       "time": "18:15",
@@ -1275,6 +1066,17 @@
       "homeTeam": "삼성",
       "awayTeam": "KT",
       "platform": "티빙",
+      "koreanCommentary": true
+    },
+    {
+      "id": "sbs-sports-2026-10-12-18:45-2026 여수·NH농협컵 프로배구대회",
+      "date": "2026-10-12",
+      "time": "18:45",
+      "sport": "배구",
+      "league": "KOVO컵",
+      "homeTeam": "GS칼텍스",
+      "awayTeam": "한국도로공사",
+      "platform": "SBS Sports",
       "koreanCommentary": true
     },
     {
@@ -1377,6 +1179,28 @@
       "koreanCommentary": true
     },
     {
+      "id": "sbs-sports-2026-10-13-15:15-2026 여수·NH농협컵 프로배구대회",
+      "date": "2026-10-13",
+      "time": "15:15",
+      "sport": "배구",
+      "league": "KOVO컵",
+      "homeTeam": "정관장",
+      "awayTeam": "SOOP",
+      "platform": "SBS Sports",
+      "koreanCommentary": true
+    },
+    {
+      "id": "kbs-sports-2026-10-13-15:15-2026 여수·NH농협컵 프로배구 대",
+      "date": "2026-10-13",
+      "time": "15:15",
+      "sport": "배구",
+      "league": "KOVO컵",
+      "homeTeam": "정관장",
+      "awayTeam": "SOOP",
+      "platform": "KBS N SPORTS",
+      "koreanCommentary": true
+    },
+    {
       "id": "coupang-2026-10-13-16:45-ACLE-뉴캐슬 제츠-감바 오사카",
       "date": "2026-10-13",
       "time": "16:45",
@@ -1386,6 +1210,39 @@
       "awayTeam": "감바 오사카",
       "platform": "쿠팡플레이",
       "koreanCommentary": false
+    },
+    {
+      "id": "sbs-sports-2026-10-13-18:45-2026 여수·NH농협컵 프로배구대회",
+      "date": "2026-10-13",
+      "time": "18:45",
+      "sport": "배구",
+      "league": "KOVO컵",
+      "homeTeam": "흥국생명",
+      "awayTeam": "IBK기업은행",
+      "platform": "SBS Sports",
+      "koreanCommentary": true
+    },
+    {
+      "id": "kbs-sports-2026-10-13-18:45-2026 여수·NH농협컵 프로배구 대",
+      "date": "2026-10-13",
+      "time": "18:45",
+      "sport": "배구",
+      "league": "KOVO컵",
+      "homeTeam": "흥국생명",
+      "awayTeam": "IBK기업은행",
+      "platform": "KBS N SPORTS",
+      "koreanCommentary": true
+    },
+    {
+      "id": "tvn-2026-10-13-19:00-2026-2027 KCC 프로농구",
+      "date": "2026-10-13",
+      "time": "19:00",
+      "sport": "농구",
+      "league": "프로농구",
+      "homeTeam": "정관장",
+      "awayTeam": "소노",
+      "platform": "tvN SPORTS",
+      "koreanCommentary": true
     },
     {
       "id": "coupang-2026-10-13-19:00-ACLE-상하이 하이강-대전",
@@ -1597,6 +1454,28 @@
       "koreanCommentary": true
     },
     {
+      "id": "sbs-sports-2026-10-14-18:45-2026 여수·NH농협컵 프로배구대회",
+      "date": "2026-10-14",
+      "time": "18:45",
+      "sport": "배구",
+      "league": "KOVO컵",
+      "homeTeam": "한국도로공사",
+      "awayTeam": "현대건설",
+      "platform": "SBS Sports",
+      "koreanCommentary": true
+    },
+    {
+      "id": "kbs-sports-2026-10-14-18:45-2026 여수·NH농협컵 프로배구 대",
+      "date": "2026-10-14",
+      "time": "18:45",
+      "sport": "배구",
+      "league": "KOVO컵",
+      "homeTeam": "한국도로공사",
+      "awayTeam": "현대건설",
+      "platform": "KBS N SPORTS",
+      "koreanCommentary": true
+    },
+    {
       "id": "coupang-2026-10-14-19:00-ACLE-고베-전북",
       "date": "2026-10-14",
       "time": "19:00",
@@ -1773,17 +1652,6 @@
       "koreanCommentary": true
     },
     {
-      "id": "apple-tv-2026-10-15-09:30-MLS-PHI-CHI",
-      "date": "2026-10-15",
-      "time": "09:30",
-      "sport": "축구",
-      "league": "MLS",
-      "homeTeam": "시카고 파이어 FC",
-      "awayTeam": "필라델피아 유니언",
-      "platform": "Apple TV+",
-      "koreanCommentary": false
-    },
-    {
       "id": "apple-tv-2026-10-15-09:30-MLS-VAN-STL",
       "date": "2026-10-15",
       "time": "09:30",
@@ -1791,6 +1659,17 @@
       "league": "MLS",
       "homeTeam": "세인트루이스 시티 SC",
       "awayTeam": "밴쿠버 화이트캡스 FC",
+      "platform": "Apple TV+",
+      "koreanCommentary": false
+    },
+    {
+      "id": "apple-tv-2026-10-15-09:30-MLS-PHI-CHI",
+      "date": "2026-10-15",
+      "time": "09:30",
+      "sport": "축구",
+      "league": "MLS",
+      "homeTeam": "시카고 파이어 FC",
+      "awayTeam": "필라델피아 유니언",
       "platform": "Apple TV+",
       "koreanCommentary": false
     },
@@ -1814,6 +1693,50 @@
       "homeTeam": "LAFC",
       "awayTeam": "오스틴",
       "platform": "쿠팡플레이",
+      "koreanCommentary": true
+    },
+    {
+      "id": "kbs-sports-2026-10-15-15:15-2026 여수·NH농협컵 프로배구 대",
+      "date": "2026-10-15",
+      "time": "15:15",
+      "sport": "배구",
+      "league": "KOVO컵",
+      "homeTeam": "SOOP",
+      "awayTeam": "흥국생명",
+      "platform": "KBS N SPORTS",
+      "koreanCommentary": true
+    },
+    {
+      "id": "sbs-sports-2026-10-15-15:30-2026 여수·NH농협컵 프로배구대회",
+      "date": "2026-10-15",
+      "time": "15:30",
+      "sport": "배구",
+      "league": "KOVO컵",
+      "homeTeam": "SOOP",
+      "awayTeam": "흥국생명",
+      "platform": "SBS Sports",
+      "koreanCommentary": true
+    },
+    {
+      "id": "sbs-sports-2026-10-15-18:45-2026 여수·NH농협컵 프로배구대회",
+      "date": "2026-10-15",
+      "time": "18:45",
+      "sport": "배구",
+      "league": "KOVO컵",
+      "homeTeam": "IBK기업은행",
+      "awayTeam": "정관장",
+      "platform": "SBS Sports",
+      "koreanCommentary": true
+    },
+    {
+      "id": "kbs-sports-2026-10-15-18:45-2026 여수·NH농협컵 프로배구 대",
+      "date": "2026-10-15",
+      "time": "18:45",
+      "sport": "배구",
+      "league": "KOVO컵",
+      "homeTeam": "IBK기업은행",
+      "awayTeam": "정관장",
+      "platform": "KBS N SPORTS",
       "koreanCommentary": true
     },
     {
@@ -1848,6 +1771,138 @@
       "awayTeam": "마치다",
       "platform": "쿠팡플레이",
       "koreanCommentary": false
+    },
+    {
+      "id": "spotvnow-2026-10-16-40650",
+      "date": "2026-10-16",
+      "time": "01:45",
+      "sport": "축구",
+      "league": "유로파리그",
+      "homeTeam": "L.포즈난",
+      "awayTeam": "레버쿠젠",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": false
+    },
+    {
+      "id": "spotvnow-2026-10-16-40649",
+      "date": "2026-10-16",
+      "time": "01:45",
+      "sport": "축구",
+      "league": "유로파리그",
+      "homeTeam": "토렌스",
+      "awayTeam": "선덜랜드 AFC",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": false
+    },
+    {
+      "id": "spotvnow-2026-10-16-40648",
+      "date": "2026-10-16",
+      "time": "01:45",
+      "sport": "축구",
+      "league": "유로파리그",
+      "homeTeam": "올랭피크 리옹",
+      "awayTeam": "크리스탈 팰리스",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": false
+    },
+    {
+      "id": "spotvnow-2026-10-16-40647",
+      "date": "2026-10-16",
+      "time": "01:45",
+      "sport": "축구",
+      "league": "유로파리그",
+      "homeTeam": "잘츠부르크",
+      "awayTeam": "AC 밀란",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": false
+    },
+    {
+      "id": "spotvnow-2026-10-16-40654",
+      "date": "2026-10-16",
+      "time": "04:00",
+      "sport": "축구",
+      "league": "유로파리그",
+      "homeTeam": "AFC 본머스",
+      "awayTeam": "슈투름 그라츠",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": false
+    },
+    {
+      "id": "spotvnow-2026-10-16-40653",
+      "date": "2026-10-16",
+      "time": "04:00",
+      "sport": "축구",
+      "league": "유로파리그",
+      "homeTeam": "셀타 비고",
+      "awayTeam": "유벤투스",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": false
+    },
+    {
+      "id": "spotvnow-2026-10-16-40652",
+      "date": "2026-10-16",
+      "time": "04:00",
+      "sport": "축구",
+      "league": "유로파리그",
+      "homeTeam": "호펜하임",
+      "awayTeam": "베식타스",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": true
+    },
+    {
+      "id": "spotvnow-2026-10-16-40651",
+      "date": "2026-10-16",
+      "time": "04:00",
+      "sport": "축구",
+      "league": "유로파리그",
+      "homeTeam": "벤피카",
+      "awayTeam": "셀틱 FC",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": true
+    },
+    {
+      "id": "spotvnow-2026-10-16-40712",
+      "date": "2026-10-16",
+      "time": "10:00",
+      "sport": "야구",
+      "league": "MLB",
+      "homeTeam": "LA 다저스",
+      "awayTeam": "밀워키 브루어스",
+      "platform": "SPOTV NOW",
+      "koreanCommentary": true
+    },
+    {
+      "id": "sbs-sports-2026-10-16-18:45-2026 여수·NH농협컵 프로배구대회",
+      "date": "2026-10-16",
+      "time": "18:45",
+      "sport": "배구",
+      "league": "KOVO컵",
+      "homeTeam": "현대건설",
+      "awayTeam": "GS칼텍스",
+      "platform": "SBS Sports",
+      "koreanCommentary": true
+    },
+    {
+      "id": "kbs-sports-2026-10-16-18:45-2026 여수·NH농협컵 프로배구 대",
+      "date": "2026-10-16",
+      "time": "18:45",
+      "sport": "배구",
+      "league": "KOVO컵",
+      "homeTeam": "현대건설",
+      "awayTeam": "GS칼텍스",
+      "platform": "KBS N SPORTS",
+      "koreanCommentary": true
+    },
+    {
+      "id": "tving-2026-10-16-19:00-KBL-울산 현대모비스-고양 소노",
+      "date": "2026-10-16",
+      "time": "19:00",
+      "sport": "농구",
+      "league": "KBL",
+      "homeTeam": "고양 소노",
+      "awayTeam": "울산 현대모비스",
+      "platform": "티빙",
+      "koreanCommentary": true
     }
   ]
 }
