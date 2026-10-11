@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-11T20:12:59.989Z",
+  "lastUpdated": "2026-10-11T23:38:50.533Z",
   "byKey": {
     "2026-10-11|kbo|삼성|KT": {
       "date": "2026-10-11",
@@ -114,7 +114,8 @@
       "awayTeam": "LA 다저스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-10-12|mlb|밀워키|LA 다저스": {
       "date": "2026-10-12",
@@ -124,7 +125,8 @@
       "awayTeam": "LA 다저스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-10-12|mlb|밀워키|로스앤젤레스 다저스": {
       "date": "2026-10-12",
@@ -134,7 +136,8 @@
       "awayTeam": "LA 다저스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-10-12|mlb|밀워키 브루어스|LA다저스": {
       "date": "2026-10-12",
@@ -144,7 +147,8 @@
       "awayTeam": "LA 다저스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-10-12|mlb|밀워키 브루어스|LA 다저스": {
       "date": "2026-10-12",
@@ -154,7 +158,8 @@
       "awayTeam": "LA 다저스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-10-12|mlb|밀워키 브루어스|로스앤젤레스 다저스": {
       "date": "2026-10-12",
@@ -164,7 +169,8 @@
       "awayTeam": "LA 다저스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-10-13|mlb|밀워키|LA다저스": {
       "date": "2026-10-13",
@@ -783,9 +789,9 @@
       "homeTeam": "라싱",
       "awayTeam": "발렌시아",
       "homeScore": 2,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 7'",
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -801,6 +807,11 @@
           "team": "home",
           "player": "이반 마르틴",
           "minute": 47
+        },
+        {
+          "team": "away",
+          "player": "다비드 오토르비",
+          "minute": 65
         }
       ]
     },
@@ -1195,14 +1206,19 @@
       "homeTeam": "칼리아리 칼초",
       "awayTeam": "유벤투스",
       "homeScore": 1,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 24'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "말디니",
           "minute": 20
+        },
+        {
+          "team": "away",
+          "player": "콜로 무아니",
+          "minute": 81
         }
       ]
     },
@@ -1213,14 +1229,19 @@
       "homeTeam": "칼리아리 칼초",
       "awayTeam": "유벤투스",
       "homeScore": 1,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 24'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "말디니",
           "minute": 20
+        },
+        {
+          "team": "away",
+          "player": "콜로 무아니",
+          "minute": 81
         }
       ]
     },
@@ -1629,16 +1650,23 @@
       "homeTeam": "트루아",
       "awayTeam": "마르세유",
       "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 27'",
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "하릿",
           "minute": 50
+        },
+        {
+          "team": "away",
+          "player": "압델리",
+          "minute": 90,
+          "addedTime": 8
         }
-      ]
+      ],
+      "highlightVideoId": "BCk6vtDAFqc"
     },
     "2026-10-11|mls|토론토|몬트리얼": {
       "date": "2026-10-11",
@@ -2770,10 +2798,27 @@
       "gameId": "BpZmWzLS5Lf0puy",
       "homeTeam": "세인트루이스",
       "awayTeam": "LA 갤럭시",
-      "homeScore": 0,
+      "homeScore": 3,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 26'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "홀세",
+          "minute": 2
+        },
+        {
+          "team": "home",
+          "player": "홀세",
+          "minute": 7
+        },
+        {
+          "team": "home",
+          "player": "홀세",
+          "minute": 21
+        }
+      ]
     },
     "2026-10-12|mls|세인트루이스|LA 갤럭시": {
       "date": "2026-10-12",
@@ -2781,10 +2826,27 @@
       "gameId": "BpZmWzLS5Lf0puy",
       "homeTeam": "세인트루이스",
       "awayTeam": "LA 갤럭시",
-      "homeScore": 0,
+      "homeScore": 3,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 26'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "홀세",
+          "minute": 2
+        },
+        {
+          "team": "home",
+          "player": "홀세",
+          "minute": 7
+        },
+        {
+          "team": "home",
+          "player": "홀세",
+          "minute": 21
+        }
+      ]
     },
     "2026-10-11|kleague|광주|울산": {
       "date": "2026-10-11",
@@ -3044,7 +3106,8 @@
           "player": "오우수",
           "minute": 37
         }
-      ]
+      ],
+      "highlightVideoId": "6qwvf-FqEtQ"
     },
     "2026-10-11|eredivisie|즈볼레|캄부르": {
       "date": "2026-10-11",
@@ -3589,7 +3652,8 @@
       "awayTeam": "LA 다저스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-10-13",
@@ -3975,9 +4039,9 @@
       "homeTeam": "라싱",
       "awayTeam": "발렌시아",
       "homeScore": 2,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 7'",
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -3993,6 +4057,11 @@
           "team": "home",
           "player": "이반 마르틴",
           "minute": 47
+        },
+        {
+          "team": "away",
+          "player": "다비드 오토르비",
+          "minute": 65
         }
       ]
     },
@@ -4169,14 +4238,19 @@
       "homeTeam": "칼리아리 칼초",
       "awayTeam": "유벤투스",
       "homeScore": 1,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 24'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "말디니",
           "minute": 20
+        },
+        {
+          "team": "away",
+          "player": "콜로 무아니",
+          "minute": 81
         }
       ]
     },
@@ -4533,16 +4607,23 @@
       "homeTeam": "트루아",
       "awayTeam": "마르세유",
       "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 27'",
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "하릿",
           "minute": 50
+        },
+        {
+          "team": "away",
+          "player": "압델리",
+          "minute": 90,
+          "addedTime": 8
         }
-      ]
+      ],
+      "highlightVideoId": "BCk6vtDAFqc"
     },
     {
       "date": "2026-10-11",
@@ -5014,10 +5095,27 @@
       "gameId": "BpZmWzLS5Lf0puy",
       "homeTeam": "세인트루이스",
       "awayTeam": "LA 갤럭시",
-      "homeScore": 0,
+      "homeScore": 3,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "전반 26'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "홀세",
+          "minute": 2
+        },
+        {
+          "team": "home",
+          "player": "홀세",
+          "minute": 7
+        },
+        {
+          "team": "home",
+          "player": "홀세",
+          "minute": 21
+        }
+      ]
     },
     {
       "date": "2026-10-11",
@@ -5243,7 +5341,8 @@
           "player": "오우수",
           "minute": 37
         }
-      ]
+      ],
+      "highlightVideoId": "6qwvf-FqEtQ"
     },
     {
       "date": "2026-10-11",
