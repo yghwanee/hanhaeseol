@@ -4,8 +4,13 @@
 // 2026-10-12 화니 지적: "썸네일과 컨텐츠 첫 이미지가 다르다, 하나하나 손으로 바꾸고 있다".
 // 파일은 맞았다(커버 vs reel-v3.mp4 첫 프레임 평균 차 1.6/255 = JPEG 노이즈). 그래서 플랫폼 쪽을 본다.
 //
-//   유튜브 쇼츠  i.ytimg.com/vi/<id>/oardefault.jpg (세로 쇼츠 썸네일). 404 면 아직 커버가 안 붙고
-//               유튜브가 자동으로 고른 중간 프레임(oar1~3)이 나가는 중이다.
+//   유튜브 쇼츠  i.ytimg.com/vi/<id>/oardefault.jpg (세로 쇼츠 썸네일). 404 면 유튜브가 자동으로 고른
+//               프레임(oar1~3)이 나가는 중이다. 🔴 **API(thumbnails.set)로는 이걸 못 바꾼다** — 우리가
+//               올린 커버는 가로 썸네일(maxresdefault)에만 붙는다. 쇼츠 맞춤 썸네일은 2026-07-25 부터
+//               파트너 프로그램(YPP) 채널에만 열렸다. 그래서 사람이 Studio 에서 첫 프레임을 고르는
+//               수밖에 없고, 이 검사는 그걸 해야 할 영상을 링크로 알려 준다(2026-10-12 실측: 10/12 아침분
+//               oar2 = 「오늘 한눈에」 장, 커버와 차 41.2 · 9/28 영상의 세로 썸네일은 당시 API 로 올린
+//               4:5 커버가 아니라 영상 첫 프레임 = 사람이 고른 것).
 //   인스타 릴스  Graph `thumbnail_url`
 //   인스타 캐러셀 첫 장 Graph children[0].media_url ↔ files[0]
 //   틱톡        Display API 심사 전이라 못 본다 → 첫 프레임이 커버가 되는 게 API 기본값(문서 확인)이라 생략.
@@ -70,10 +75,10 @@ async function main() {
   if (ytId) {
     const thumb = await fetchBuf(`https://i.ytimg.com/vi/${ytId}/oardefault.jpg`);
     if (!thumb) {
-      out.push({ channel: "유튜브 쇼츠", status: "미반영", detail: `${ytId} 세로 썸네일 아직 없음 — 유튜브 자동 프레임 노출 중` });
+      out.push({ channel: "유튜브 쇼츠", status: "미반영", detail: `자동 프레임 노출 중 — 첫 프레임으로 바꿀 것: https://studio.youtube.com/video/${ytId}/edit` });
     } else {
       const d = await imageDiff(thumb, cover);
-      out.push({ channel: "유튜브 쇼츠", status: d <= SAME_THRESHOLD ? "같음" : "다름", detail: `${ytId} 차이 ${d.toFixed(1)}` });
+      out.push({ channel: "유튜브 쇼츠", status: d <= SAME_THRESHOLD ? "같음" : "다름", detail: `차이 ${d.toFixed(1)} · https://studio.youtube.com/video/${ytId}/edit` });
     }
   }
 
