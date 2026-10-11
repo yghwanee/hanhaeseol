@@ -1,0 +1,54 @@
+name: 썸네일 일치 검사
+
+# 게시된 썸네일이 커버(= 영상 첫 프레임)와 같은지 플랫폼에 실제로 걸린 이미지로 본다.
+# 2026-10-12 화니 지적 "썸네일과 첫 이미지가 달라 손으로 바꾸고 있다" 대응. 상세는 src/scripts/social-thumb-check.ts.
+# 유튜브는 커버(thumbnails.set)가 세로 쇼츠 썸네일에 붙기까지 시간이 걸린다 → 게시 1시간쯤 뒤에 돈다.
+
+on:
+  workflow_dispatch: {}
+  schedule:
+    - cron: "15 0 * * *"   # KST 09:15 — 아침 게시(~07:50) 1시간여 뒤
+    - cron: "15 10 * * *"  # KST 19:15 — 저녁 게시(~17:50) 1시간여 뒤
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+
+      - name: 썸네일 비교
+        id: check
+        env:
+          IG_BUSINESS_ACCOUNT_ID: ${{ secrets.IG_BUSINESS_ACCOUNT_ID }}
+          IG_PAGE_ACCESS_TOKEN: ${{ secrets.IG_PAGE_ACCESS_TOKEN }}
+        run: |
+          set +e
+          npx tsx src/scripts/social-thumb-check.ts > thumb.log 2>&1
+          code=$?
+          cat thumb.log
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          exit 0
+
+      - name: 다르면 텔레그램
+        if: steps.check.outputs.code != '0'
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        run: |
+          MSG=$(printf '%s\n' "⚠️ 썸네일이 첫 화면과 다릅니다" "" "$(cat thumb.log)" "" "https://github.com/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}")
+          RESP=$(curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+            -d chat_id="${TELEGRAM_CHAT_ID}" --data-urlencode "text=${MSG}")
+          case "$RESP" in
+            *'"ok":true'*) echo "텔레그램 전송 완료" ;;
+            *) echo "::error::텔레그램 전송 실패: $RESP"; exit 1 ;;
+          esac
