@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-11T23:38:50.533Z",
+  "lastUpdated": "2026-10-12T05:48:31.202Z",
   "byKey": {
     "2026-10-11|kbo|삼성|KT": {
       "date": "2026-10-11",
@@ -112,10 +112,10 @@
       "gameId": "20261012LAMI0",
       "homeTeam": "밀워키 브루어스",
       "awayTeam": "LA 다저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-10-12|mlb|밀워키|LA 다저스": {
       "date": "2026-10-12",
@@ -123,10 +123,10 @@
       "gameId": "20261012LAMI0",
       "homeTeam": "밀워키 브루어스",
       "awayTeam": "LA 다저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-10-12|mlb|밀워키|로스앤젤레스 다저스": {
       "date": "2026-10-12",
@@ -134,10 +134,10 @@
       "gameId": "20261012LAMI0",
       "homeTeam": "밀워키 브루어스",
       "awayTeam": "LA 다저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-10-12|mlb|밀워키 브루어스|LA다저스": {
       "date": "2026-10-12",
@@ -145,10 +145,10 @@
       "gameId": "20261012LAMI0",
       "homeTeam": "밀워키 브루어스",
       "awayTeam": "LA 다저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-10-12|mlb|밀워키 브루어스|LA 다저스": {
       "date": "2026-10-12",
@@ -156,10 +156,10 @@
       "gameId": "20261012LAMI0",
       "homeTeam": "밀워키 브루어스",
       "awayTeam": "LA 다저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-10-12|mlb|밀워키 브루어스|로스앤젤레스 다저스": {
       "date": "2026-10-12",
@@ -167,10 +167,10 @@
       "gameId": "20261012LAMI0",
       "homeTeam": "밀워키 브루어스",
       "awayTeam": "LA 다저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
     },
     "2026-10-13|mlb|밀워키|LA다저스": {
       "date": "2026-10-13",
@@ -2798,10 +2798,10 @@
       "gameId": "BpZmWzLS5Lf0puy",
       "homeTeam": "세인트루이스",
       "awayTeam": "LA 갤럭시",
-      "homeScore": 3,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 26'",
+      "homeScore": 6,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2817,6 +2817,32 @@
           "team": "home",
           "player": "홀세",
           "minute": 21
+        },
+        {
+          "team": "away",
+          "player": "테일러",
+          "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "라파엘 나바로",
+          "minute": 45
+        },
+        {
+          "team": "home",
+          "player": "맥노튼",
+          "minute": 45,
+          "addedTime": 7
+        },
+        {
+          "team": "home",
+          "player": "라파엘 나바로",
+          "minute": 53
+        },
+        {
+          "team": "away",
+          "player": "조앙 클라우스",
+          "minute": 71
         }
       ]
     },
@@ -2826,10 +2852,10 @@
       "gameId": "BpZmWzLS5Lf0puy",
       "homeTeam": "세인트루이스",
       "awayTeam": "LA 갤럭시",
-      "homeScore": 3,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 26'",
+      "homeScore": 6,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2845,6 +2871,32 @@
           "team": "home",
           "player": "홀세",
           "minute": 21
+        },
+        {
+          "team": "away",
+          "player": "테일러",
+          "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "라파엘 나바로",
+          "minute": 45
+        },
+        {
+          "team": "home",
+          "player": "맥노튼",
+          "minute": 45,
+          "addedTime": 7
+        },
+        {
+          "team": "home",
+          "player": "라파엘 나바로",
+          "minute": 53
+        },
+        {
+          "team": "away",
+          "player": "조앙 클라우스",
+          "minute": 71
         }
       ]
     },
@@ -3125,7 +3177,8 @@
           "player": "빈더",
           "minute": 83
         }
-      ]
+      ],
+      "highlightVideoId": "6qwvf-FqEtQ"
     },
     "2026-10-11|eredivisie|엑셀시오르|흐로닝언": {
       "date": "2026-10-11",
@@ -3650,10 +3703,10 @@
       "gameId": "20261012LAMI0",
       "homeTeam": "밀워키 브루어스",
       "awayTeam": "LA 다저스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "9회초"
     },
     {
       "date": "2026-10-13",
@@ -5095,10 +5148,10 @@
       "gameId": "BpZmWzLS5Lf0puy",
       "homeTeam": "세인트루이스",
       "awayTeam": "LA 갤럭시",
-      "homeScore": 3,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 26'",
+      "homeScore": 6,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -5114,6 +5167,32 @@
           "team": "home",
           "player": "홀세",
           "minute": 21
+        },
+        {
+          "team": "away",
+          "player": "테일러",
+          "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "라파엘 나바로",
+          "minute": 45
+        },
+        {
+          "team": "home",
+          "player": "맥노튼",
+          "minute": 45,
+          "addedTime": 7
+        },
+        {
+          "team": "home",
+          "player": "라파엘 나바로",
+          "minute": 53
+        },
+        {
+          "team": "away",
+          "player": "조앙 클라우스",
+          "minute": 71
         }
       ]
     },
@@ -5360,7 +5439,8 @@
           "player": "빈더",
           "minute": 83
         }
-      ]
+      ],
+      "highlightVideoId": "6qwvf-FqEtQ"
     },
     {
       "date": "2026-10-11",
