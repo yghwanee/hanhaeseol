@@ -4,13 +4,11 @@
 // 2026-10-12 화니 지적: "썸네일과 컨텐츠 첫 이미지가 다르다, 하나하나 손으로 바꾸고 있다".
 // 파일은 맞았다(커버 vs reel-v3.mp4 첫 프레임 평균 차 1.6/255 = JPEG 노이즈). 그래서 플랫폼 쪽을 본다.
 //
-//   유튜브 쇼츠  i.ytimg.com/vi/<id>/oardefault.jpg (세로 쇼츠 썸네일). 404 면 유튜브가 자동으로 고른
-//               프레임(oar1~3)이 나가는 중이다. 🔴 **API(thumbnails.set)로는 이걸 못 바꾼다** — 우리가
-//               올린 커버는 가로 썸네일(maxresdefault)에만 붙는다. 쇼츠 맞춤 썸네일은 2026-07-25 부터
-//               파트너 프로그램(YPP) 채널에만 열렸다. 그래서 사람이 Studio 에서 첫 프레임을 고르는
-//               수밖에 없고, 이 검사는 그걸 해야 할 영상을 링크로 알려 준다(2026-10-12 실측: 10/12 아침분
-//               oar2 = 「오늘 한눈에」 장, 커버와 차 41.2 · 9/28 영상의 세로 썸네일은 당시 API 로 올린
-//               4:5 커버가 아니라 영상 첫 프레임 = 사람이 고른 것).
+//   유튜브 쇼츠  공개로 나가는 세로 썸네일(sardefault = Studio 업로드 / oardefault = Studio 프레임 선택).
+//               둘 다 없으면 유튜브가 고른 자동 프레임(oar2)이 나가는 중이다. API(thumbnails.set)로는 못 바꾼다
+//               — 판정 규칙과 근거는 src/lib/shorts-thumb.ts. 이 PC 의 작업 스케줄러가 매시간
+//               tools/yt-shorts-thumb-fix.ps1 로 Studio 에 커버를 올려 고친다(2026-10-14, 작업131).
+//               여기서 「미반영」이 뜨면 그 자동 교정이 안 돈 것이다(PC 꺼짐·Aside 꺼짐·로그인 풀림).
 //   인스타 릴스  Graph `thumbnail_url`
 //   인스타 캐러셀 첫 장 Graph children[0].media_url ↔ files[0]
 //   틱톡        Display API 심사 전이라 못 본다 → 첫 프레임이 커버가 되는 게 API 기본값(문서 확인)이라 생략.
@@ -20,35 +18,11 @@
 
 import fs from "node:fs";
 import path from "node:path";
-import sharp from "sharp";
 import { mediaBaseUrl } from "@/lib/instagram-api";
+import { SAME_THRESHOLD, checkShortsThumb, fetchBuf, imageDiff, jpegTwin, latestSlot, type Manifest, type PostLog } from "@/lib/shorts-thumb";
 
 const IG_API = "https://graph.facebook.com/v21.0";
-/** 0~255 평균 절대차. JPEG·리사이즈 노이즈는 3 안팎, 다른 장면이면 20 을 넘는다(2026-10-12 실측). */
-export const SAME_THRESHOLD = 12;
-
-type Manifest = { date: string; files: string[]; cover?: string; jpeg?: string[] };
 type Verdict = { channel: string; status: "같음" | "다름" | "미반영" | "확인불가"; detail: string };
-
-async function fetchBuf(url: string): Promise<Buffer | null> {
-  const res = await fetch(url);
-  if (!res.ok) return null;
-  return Buffer.from(await res.arrayBuffer());
-}
-
-/** 두 이미지를 같은 크기 회색조로 줄여 평균 절대차를 낸다. 비율이 다르면 가운데를 맞춰 자른다(cover). */
-export async function imageDiff(a: Buffer, b: Buffer, w = 90, h = 160): Promise<number> {
-  const norm = (x: Buffer) => sharp(x).resize(w, h, { fit: "cover" }).greyscale().raw().toBuffer();
-  const [pa, pb] = await Promise.all([norm(a), norm(b)]);
-  let sum = 0;
-  for (let i = 0; i < pa.length; i++) sum += Math.abs(pa[i] - pb[i]);
-  return sum / pa.length;
-}
-
-function jpegTwin(name: string, m: Manifest): string {
-  const j = name.replace(/\.png$/, ".jpg");
-  return m.jpeg?.includes(j) ? j : name;
-}
 
 async function main() {
   const base = mediaBaseUrl();
@@ -58,12 +32,8 @@ async function main() {
   const first = await fetchBuf(`${base}/${jpegTwin(manifest.files[0], manifest)}`);
   if (!cover || !first) throw new Error("insta-media 에서 기준 이미지를 못 받음");
 
-  const log = JSON.parse(fs.readFileSync(path.resolve("data/post-log.json"), "utf8")) as {
-    posted: Record<string, { detail: string; at: string }>;
-  };
-  // insta-media 의 날짜(MMDD)와 맞는 가장 최근 슬롯
-  const keys = Object.keys(log.posted).filter((k) => k.slice(5, 10).replace("-", "") === manifest.date);
-  const latest = keys.map((k) => k.split("|").slice(0, 2).join("|")).sort((a, b) => (log.posted[`${b}|carousel`]?.at ?? "").localeCompare(log.posted[`${a}|carousel`]?.at ?? ""))[0];
+  const log = JSON.parse(fs.readFileSync(path.resolve("data/post-log.json"), "utf8")) as PostLog;
+  const latest = latestSlot(log, manifest);
   if (!latest) throw new Error(`post-log 에 ${manifest.date} 게시 기록 없음`);
   const get = (ch: string) => log.posted[`${latest}|${ch}`]?.detail ?? "";
   console.log(`🎯 대상 슬롯 ${latest} (기준 커버 ${manifest.cover})`);
@@ -73,12 +43,12 @@ async function main() {
   // 유튜브
   const ytId = get("youtube").split("/").pop();
   if (ytId) {
-    const thumb = await fetchBuf(`https://i.ytimg.com/vi/${ytId}/oardefault.jpg`);
-    if (!thumb) {
-      out.push({ channel: "유튜브 쇼츠", status: "미반영", detail: `자동 프레임 노출 중 — 첫 프레임으로 바꿀 것: https://studio.youtube.com/video/${ytId}/edit` });
+    const studio = `https://studio.youtube.com/video/${ytId}/edit`;
+    const r = await checkShortsThumb(ytId, cover);
+    if (r.status === "미반영") {
+      out.push({ channel: "유튜브 쇼츠", status: "미반영", detail: `자동 프레임 노출 중 — PC 자동 교정이 안 돌았다(yt-shorts-thumb-fix.log 확인): ${studio}` });
     } else {
-      const d = await imageDiff(thumb, cover);
-      out.push({ channel: "유튜브 쇼츠", status: d <= SAME_THRESHOLD ? "같음" : "다름", detail: `차이 ${d.toFixed(1)} · https://studio.youtube.com/video/${ytId}/edit` });
+      out.push({ channel: "유튜브 쇼츠", status: r.status, detail: `${r.source} 차이 ${r.diff.toFixed(1)} · ${studio}` });
     }
   }
 
