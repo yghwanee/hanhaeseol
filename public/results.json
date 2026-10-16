@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-16T19:55:19.907Z",
+  "lastUpdated": "2026-10-16T22:47:28.883Z",
   "byKey": {
     "2026-10-17|kbo|KIA|LG": {
       "date": "2026-10-17",
@@ -147,7 +147,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-10-17|mlb|클리블랜드|탬파베이 레이스": {
       "date": "2026-10-17",
@@ -157,7 +158,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-10-17|mlb|클리블랜드 가디언스|탬파베이": {
       "date": "2026-10-17",
@@ -167,7 +169,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-10-17|mlb|클리블랜드 가디언스|탬파베이 레이스": {
       "date": "2026-10-17",
@@ -177,7 +180,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-10-18|mlb|클리블랜드|탬파베이": {
       "date": "2026-10-18",
@@ -446,9 +450,9 @@
       "homeTeam": "번리",
       "awayTeam": "울버햄튼",
       "homeScore": 1,
-      "awayScore": 1,
-      "status": "live",
-      "period": "전반종료",
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -459,8 +463,14 @@
           "team": "away",
           "player": "페르 로페스",
           "minute": 39
+        },
+        {
+          "team": "away",
+          "player": "치레와",
+          "minute": 72
         }
-      ]
+      ],
+      "highlightVideoId": "cAQGsWldtno"
     },
     "2026-10-17|england2|밀월|링컨": {
       "date": "2026-10-17",
@@ -600,10 +610,23 @@
       "gameId": "ZPmDWYulZYXKAvw",
       "homeTeam": "데포르티보",
       "awayTeam": "레반테",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "은송고",
+          "minute": 63
+        },
+        {
+          "team": "away",
+          "player": "레께",
+          "minute": 82
+        }
+      ],
+      "highlightVideoId": "b1LA94kc3Tc"
     },
     "2026-10-17|primera|에스파뇰|AT 마드리드": {
       "date": "2026-10-17",
@@ -732,10 +755,10 @@
       "gameId": "dYOmqr9F8BdlICt",
       "homeTeam": "프로시노네 칼초",
       "awayTeam": "사수올로 칼초",
-      "homeScore": 3,
+      "homeScore": 4,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 4'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -761,6 +784,11 @@
           "team": "away",
           "player": "토르스트베트",
           "minute": 37
+        },
+        {
+          "team": "home",
+          "player": "라이몬도",
+          "minute": 57
         }
       ]
     },
@@ -770,10 +798,10 @@
       "gameId": "dYOmqr9F8BdlICt",
       "homeTeam": "프로시노네 칼초",
       "awayTeam": "사수올로 칼초",
-      "homeScore": 3,
+      "homeScore": 4,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 4'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -799,6 +827,11 @@
           "team": "away",
           "player": "토르스트베트",
           "minute": 37
+        },
+        {
+          "team": "home",
+          "player": "라이몬도",
+          "minute": 57
         }
       ]
     },
@@ -808,10 +841,10 @@
       "gameId": "dYOmqr9F8BdlICt",
       "homeTeam": "프로시노네 칼초",
       "awayTeam": "사수올로 칼초",
-      "homeScore": 3,
+      "homeScore": 4,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 4'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -837,6 +870,11 @@
           "team": "away",
           "player": "토르스트베트",
           "minute": 37
+        },
+        {
+          "team": "home",
+          "player": "라이몬도",
+          "minute": 57
         }
       ]
     },
@@ -846,10 +884,10 @@
       "gameId": "dYOmqr9F8BdlICt",
       "homeTeam": "프로시노네 칼초",
       "awayTeam": "사수올로 칼초",
-      "homeScore": 3,
+      "homeScore": 4,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 4'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -875,6 +913,11 @@
           "team": "away",
           "player": "토르스트베트",
           "minute": 37
+        },
+        {
+          "team": "home",
+          "player": "라이몬도",
+          "minute": 57
         }
       ]
     },
@@ -983,10 +1026,18 @@
       "gameId": "IkyRF90Q4dBdjOc",
       "homeTeam": "프랑크푸르트",
       "awayTeam": "쾰른",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 19'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "에브누탈리브",
+          "minute": 77
+        }
+      ],
+      "highlightVideoId": "b1LA94kc3Tc"
     },
     "2026-10-17|bundesliga|함부르크|슈투트가르트": {
       "date": "2026-10-17",
@@ -1072,14 +1123,24 @@
       "homeTeam": "르 망",
       "awayTeam": "툴루즈",
       "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 7'",
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "러셀-로우",
           "minute": 46
+        },
+        {
+          "team": "away",
+          "player": "된눔",
+          "minute": 59
+        },
+        {
+          "team": "away",
+          "player": "텡스테트",
+          "minute": 87
         }
       ]
     },
@@ -2815,7 +2876,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-10-18",
@@ -2999,9 +3061,9 @@
       "homeTeam": "번리",
       "awayTeam": "울버햄튼",
       "homeScore": 1,
-      "awayScore": 1,
-      "status": "live",
-      "period": "전반종료",
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -3012,8 +3074,14 @@
           "team": "away",
           "player": "페르 로페스",
           "minute": 39
+        },
+        {
+          "team": "away",
+          "player": "치레와",
+          "minute": 72
         }
-      ]
+      ],
+      "highlightVideoId": "cAQGsWldtno"
     },
     {
       "date": "2026-10-17",
@@ -3142,10 +3210,23 @@
       "gameId": "ZPmDWYulZYXKAvw",
       "homeTeam": "데포르티보",
       "awayTeam": "레반테",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반종료"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "은송고",
+          "minute": 63
+        },
+        {
+          "team": "away",
+          "player": "레께",
+          "minute": 82
+        }
+      ],
+      "highlightVideoId": "b1LA94kc3Tc"
     },
     {
       "date": "2026-10-17",
@@ -3219,10 +3300,10 @@
       "gameId": "dYOmqr9F8BdlICt",
       "homeTeam": "프로시노네 칼초",
       "awayTeam": "사수올로 칼초",
-      "homeScore": 3,
+      "homeScore": 4,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 4'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -3248,6 +3329,11 @@
           "team": "away",
           "player": "토르스트베트",
           "minute": 37
+        },
+        {
+          "team": "home",
+          "player": "라이몬도",
+          "minute": 57
         }
       ]
     },
@@ -3312,10 +3398,18 @@
       "gameId": "IkyRF90Q4dBdjOc",
       "homeTeam": "프랑크푸르트",
       "awayTeam": "쾰른",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 19'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "에브누탈리브",
+          "minute": 77
+        }
+      ],
+      "highlightVideoId": "b1LA94kc3Tc"
     },
     {
       "date": "2026-10-17",
@@ -3401,14 +3495,24 @@
       "homeTeam": "르 망",
       "awayTeam": "툴루즈",
       "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 7'",
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "러셀-로우",
           "minute": 46
+        },
+        {
+          "team": "away",
+          "player": "된눔",
+          "minute": 59
+        },
+        {
+          "team": "away",
+          "player": "텡스테트",
+          "minute": 87
         }
       ]
     },
