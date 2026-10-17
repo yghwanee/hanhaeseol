@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-17T06:52:54.563Z",
+  "lastUpdated": "2026-10-17T11:34:15.494Z",
   "records": {
     "KBO": {
       "KT": {
@@ -1915,13 +1915,13 @@
         }
       },
       "울산": {
-        "last5": "LLWWD",
-        "win": 14,
+        "last5": "WLLWW",
+        "win": 15,
         "lose": 12,
         "draw": 5,
         "streak": {
-          "count": 2,
-          "type": "L"
+          "count": 1,
+          "type": "W"
         }
       },
       "강원": {
@@ -2005,12 +2005,12 @@
         }
       },
       "부천": {
-        "last5": "LLDLL",
+        "last5": "LLLDL",
         "win": 7,
-        "lose": 13,
+        "lose": 14,
         "draw": 11,
         "streak": {
-          "count": 2,
+          "count": 3,
           "type": "L"
         }
       },
@@ -2037,12 +2037,12 @@
         }
       },
       "수원FC": {
-        "last5": "WWDDW",
-        "win": 14,
+        "last5": "WWWDD",
+        "win": 15,
         "lose": 3,
-        "draw": 10,
+        "draw": 9,
         "streak": {
-          "count": 2,
+          "count": 3,
           "type": "W"
         }
       },
@@ -2057,13 +2057,13 @@
         }
       },
       "대구": {
-        "last5": "LWDWD",
+        "last5": "WLWDW",
         "win": 14,
         "lose": 6,
         "draw": 7,
         "streak": {
           "count": 1,
-          "type": "L"
+          "type": "W"
         }
       },
       "화성": {
@@ -2086,69 +2086,69 @@
           "type": "D"
         }
       },
+      "김포": {
+        "last5": "WLWDL",
+        "win": 9,
+        "lose": 7,
+        "draw": 11
+      },
       "충남아산": {
-        "last5": "DWLLW",
+        "last5": "DDWLL",
         "win": 9,
         "lose": 9,
-        "draw": 8,
+        "draw": 9,
+        "streak": {
+          "count": 2,
+          "type": "D"
+        }
+      },
+      "경남": {
+        "last5": "DLDWW",
+        "win": 8,
+        "lose": 8,
+        "draw": 11,
         "streak": {
           "count": 1,
           "type": "D"
         }
       },
-      "김포": {
-        "last5": "LWDLL",
-        "win": 8,
-        "lose": 7,
-        "draw": 11
-      },
-      "경남": {
-        "last5": "LDWWD",
-        "win": 8,
-        "lose": 8,
-        "draw": 10,
-        "streak": {
-          "count": 1,
-          "type": "L"
-        }
-      },
       "충북청주": {
-        "last5": "WWWLL",
+        "last5": "LWWWL",
         "win": 6,
         "lose": 8,
         "draw": 14,
         "streak": {
-          "count": 3,
-          "type": "W"
+          "count": 1,
+          "type": "L"
         }
       },
       "성남": {
-        "last5": "LDLWD",
+        "last5": "LLDLW",
         "win": 7,
-        "lose": 9,
-        "draw": 11,
+        "lose": 10,
+        "draw": 10,
+        "streak": {
+          "count": 2,
+          "type": "L"
+        }
+      },
+      "파주": {
+        "last5": "LDWDL",
+        "win": 8,
+        "lose": 13,
+        "draw": 6,
         "streak": {
           "count": 1,
           "type": "L"
         }
       },
-      "파주": {
-        "last5": "DWDLD",
-        "win": 8,
-        "lose": 12,
-        "draw": 6,
-        "streak": {
-          "count": 1,
-          "type": "D"
-        }
-      },
       "용인": {
-        "last5": "LDLDW",
+        "last5": "LLDLD",
         "win": 5,
-        "lose": 9,
+        "lose": 10,
         "draw": 12,
         "streak": {
-          "count": 1,
+          "count": 2,
           "type": "L"
         }
       },
@@ -2162,6 +2162,16 @@
           "type": "W"
         }
       },
+      "안산": {
+        "last5": "WLLLW",
+        "win": 7,
+        "lose": 17,
+        "draw": 4,
+        "streak": {
+          "count": 1,
+          "type": "W"
+        }
+      },
       "전남": {
         "last5": "WLDDW",
         "win": 5,
@@ -2170,16 +2180,6 @@
         "streak": {
           "count": 1,
           "type": "W"
-        }
-      },
-      "안산": {
-        "last5": "LLLWL",
-        "win": 6,
-        "lose": 17,
-        "draw": 4,
-        "streak": {
-          "count": 3,
-          "type": "L"
         }
       },
       "김해": {
@@ -2885,30 +2885,30 @@
     },
     "KBL": {
       "서울 삼성": {
-        "last5": "WWWW",
-        "win": 4,
+        "last5": "WWWWW",
+        "win": 5,
         "lose": 0,
         "wra": 1
       },
       "안양 정관장": {
-        "last5": "WWLWW",
-        "win": 4,
+        "last5": "WWWLW",
+        "win": 5,
         "lose": 1,
-        "wra": 0.8
+        "wra": 0.83333333
       },
       "수원 KT": {
-        "last5": "LWWWL",
+        "last5": "LLWWW",
         "win": 3,
-        "lose": 2,
-        "wra": 0.6
-      },
-      "원주 DB": {
-        "last5": "LWLW",
-        "win": 2,
-        "lose": 2,
+        "lose": 3,
         "wra": 0.5
       },
-      "창원 LG": {
+      "대구 한국가스공사": {
+        "last5": "WWWLL",
+        "win": 3,
+        "lose": 3,
+        "wra": 0.5
+      },
+      "원주 DB": {
         "last5": "LLWLW",
         "win": 2,
         "lose": 3,
@@ -2926,11 +2926,11 @@
         "lose": 3,
         "wra": 0.4
       },
-      "대구 한국가스공사": {
-        "last5": "WWLLL",
+      "창원 LG": {
+        "last5": "LLLWL",
         "win": 2,
-        "lose": 3,
-        "wra": 0.4
+        "lose": 4,
+        "wra": 0.33333333
       },
       "고양 소노": {
         "last5": "WLLLL",
