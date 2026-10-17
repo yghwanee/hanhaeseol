@@ -1,0 +1,119 @@
+{
+  "mast": "TOMORROW",
+  "dateLong": "10월 18일 일요일",
+  "dateShort": "10.18",
+  "hero": {
+    "home": "리즈",
+    "away": "맨유",
+    "league": "프리미어리그",
+    "when": "밤 10시, 쿠팡플레이"
+  },
+  "slides": [
+    {
+      "kind": "hero",
+      "ball": "soccer"
+    },
+    {
+      "kind": "match",
+      "title": "경기 정보",
+      "ball": "soccer",
+      "matchup": "리즈 vs 맨유",
+      "time": "22:00",
+      "platform": "쿠팡플레이"
+    },
+    {
+      "kind": "list",
+      "title": "K리그 5경기",
+      "ball": "soccer",
+      "rows": [
+        {
+          "time": "14:00",
+          "home": "전북",
+          "away": "제주",
+          "matchup": "전북 vs 제주",
+          "platform": "쿠팡플레이"
+        },
+        {
+          "time": "14:00",
+          "home": "대전",
+          "away": "광주",
+          "matchup": "대전 vs 광주",
+          "platform": "쿠팡플레이"
+        },
+        {
+          "time": "16:30",
+          "home": "서울",
+          "away": "김천",
+          "matchup": "서울 vs 김천",
+          "platform": "쿠팡플레이"
+        },
+        {
+          "time": "16:30",
+          "home": "포항",
+          "away": "안양",
+          "matchup": "포항 vs 안양",
+          "platform": "쿠팡플레이"
+        },
+        {
+          "time": "16:30",
+          "home": "강원",
+          "away": "인천",
+          "matchup": "강원 vs 인천",
+          "platform": "쿠팡플레이"
+        }
+      ],
+      "more": 0
+    },
+    {
+      "kind": "single",
+      "title": "분데스리가",
+      "ball": "soccer",
+      "rows": [
+        {
+          "time": "01:30",
+          "home": "바이에른 뮌헨",
+          "away": "라이프치히",
+          "matchup": "바이에른 뮌헨 vs 라이프치히",
+          "platform": "쿠팡플레이"
+        }
+      ]
+    },
+    {
+      "kind": "summary",
+      "title": "내일 한눈에",
+      "ball": "soccer",
+      "rows": [
+        {
+          "time": "01:30",
+          "sport": "축구",
+          "label": "분데스리가 1경기"
+        },
+        {
+          "time": "01:30",
+          "sport": "축구",
+          "label": "라리가 1경기"
+        },
+        {
+          "time": "08:30",
+          "sport": "축구",
+          "label": "뉴욕 시티 vs LAFC"
+        },
+        {
+          "time": "14:00",
+          "sport": "축구",
+          "label": "K리그 5경기"
+        }
+      ]
+    }
+  ],
+  "color": {
+    "stub": "#1F5BFF",
+    "acc": "#1A4FE0",
+    "hero": "#8FB2FF",
+    "bgA": "#0b1a45",
+    "bgB": "#0c0d10"
+  },
+  "photo": "file:///home/runner/work/hanhaeseol/hanhaeseol/templates/instagram/hooks/ChatGPT%20Image%202026%EB%85%84%204%EC%9B%94%2029%EC%9D%BC%20%EC%98%A4%ED%9B%84%2004_51_03.png",
+  "logo": "file:///home/runner/work/hanhaeseol/hanhaeseol/assets/logo.png",
+  "noUrl": false
+}
