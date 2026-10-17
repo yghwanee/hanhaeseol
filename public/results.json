@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-17T01:16:04.113Z",
+  "lastUpdated": "2026-10-17T06:52:43.794Z",
   "byKey": {
     "2026-10-17|kbo|KIA|LG": {
       "date": "2026-10-17",
@@ -7,10 +7,10 @@
       "gameId": "33331017LGHT02026",
       "homeTeam": "KIA",
       "awayTeam": "LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "live",
+      "period": "6회말"
     },
     "2026-10-18|kbo|KIA|LG": {
       "date": "2026-10-18",
@@ -32,7 +32,8 @@
       "homeScore": 3,
       "awayScore": 2,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "tFTXxsr6G6A"
     },
     "2026-10-16|mlb|클리블랜드|탬파베이 레이스": {
       "date": "2026-10-16",
@@ -43,7 +44,8 @@
       "homeScore": 3,
       "awayScore": 2,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "tFTXxsr6G6A"
     },
     "2026-10-16|mlb|클리블랜드 가디언스|탬파베이": {
       "date": "2026-10-16",
@@ -54,7 +56,8 @@
       "homeScore": 3,
       "awayScore": 2,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "tFTXxsr6G6A"
     },
     "2026-10-16|mlb|클리블랜드 가디언스|탬파베이 레이스": {
       "date": "2026-10-16",
@@ -65,7 +68,8 @@
       "homeScore": 3,
       "awayScore": 2,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "tFTXxsr6G6A"
     },
     "2026-10-16|mlb|LA다저스|밀워키": {
       "date": "2026-10-16",
@@ -147,8 +151,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "지연"
+      "status": "canceled",
+      "period": "연기"
     },
     "2026-10-17|mlb|클리블랜드|탬파베이 레이스": {
       "date": "2026-10-17",
@@ -158,8 +162,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "지연"
+      "status": "canceled",
+      "period": "연기"
     },
     "2026-10-17|mlb|클리블랜드 가디언스|탬파베이": {
       "date": "2026-10-17",
@@ -169,8 +173,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "지연"
+      "status": "canceled",
+      "period": "연기"
     },
     "2026-10-17|mlb|클리블랜드 가디언스|탬파베이 레이스": {
       "date": "2026-10-17",
@@ -180,8 +184,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "지연"
+      "status": "canceled",
+      "period": "연기"
     },
     "2026-10-18|mlb|클리블랜드|탬파베이": {
       "date": "2026-10-18",
@@ -251,10 +255,10 @@
       "gameId": "202610171635490124",
       "homeTeam": "원주 DB",
       "awayTeam": "서울 삼성",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 88,
+      "awayScore": 94,
+      "status": "live",
+      "period": "4쿼터"
     },
     "2026-10-17|kbl|안양 정관장|수원 KT": {
       "date": "2026-10-17",
@@ -262,10 +266,10 @@
       "gameId": "202610177006490123",
       "homeTeam": "안양 정관장",
       "awayTeam": "수원 KT",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 83,
+      "awayScore": 67,
+      "status": "live",
+      "period": "4쿼터"
     },
     "2026-10-17|kbl|대구 한국가스공사|창원 LG": {
       "date": "2026-10-17",
@@ -1678,10 +1682,22 @@
       "gameId": "202610170829226",
       "homeTeam": "성남",
       "awayTeam": "수원FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 51'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "한찬희",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "유주안",
+          "minute": 83
+        }
+      ]
     },
     "2026-10-17|kleague2|대구|충북청주": {
       "date": "2026-10-17",
@@ -1689,10 +1705,32 @@
       "gameId": "202610171737225",
       "homeTeam": "대구",
       "awayTeam": "충북청주",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 47'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "고재현",
+          "minute": 7
+        },
+        {
+          "team": "away",
+          "player": "이종언",
+          "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "세징야",
+          "minute": 68
+        },
+        {
+          "team": "home",
+          "player": "데커스",
+          "minute": 79
+        }
+      ]
     },
     "2026-10-17|kleague2|경남|충남아산": {
       "date": "2026-10-17",
@@ -2829,10 +2867,10 @@
       "gameId": "33331017LGHT02026",
       "homeTeam": "KIA",
       "awayTeam": "LG",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "live",
+      "period": "6회말"
     },
     {
       "date": "2026-10-18",
@@ -2854,7 +2892,8 @@
       "homeScore": 3,
       "awayScore": 2,
       "status": "finished",
-      "period": "9회초"
+      "period": "9회초",
+      "highlightVideoId": "tFTXxsr6G6A"
     },
     {
       "date": "2026-10-16",
@@ -2876,8 +2915,8 @@
       "awayTeam": "탬파베이 레이스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "지연"
+      "status": "canceled",
+      "period": "연기"
     },
     {
       "date": "2026-10-18",
@@ -2906,10 +2945,10 @@
       "gameId": "202610171635490124",
       "homeTeam": "원주 DB",
       "awayTeam": "서울 삼성",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 88,
+      "awayScore": 94,
+      "status": "live",
+      "period": "4쿼터"
     },
     {
       "date": "2026-10-17",
@@ -2917,10 +2956,10 @@
       "gameId": "202610177006490123",
       "homeTeam": "안양 정관장",
       "awayTeam": "수원 KT",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 83,
+      "awayScore": 67,
+      "status": "live",
+      "period": "4쿼터"
     },
     {
       "date": "2026-10-17",
@@ -3786,10 +3825,22 @@
       "gameId": "202610170829226",
       "homeTeam": "성남",
       "awayTeam": "수원FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 51'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "한찬희",
+          "minute": 36
+        },
+        {
+          "team": "home",
+          "player": "유주안",
+          "minute": 83
+        }
+      ]
     },
     {
       "date": "2026-10-17",
@@ -3797,10 +3848,32 @@
       "gameId": "202610171737225",
       "homeTeam": "대구",
       "awayTeam": "충북청주",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 47'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "고재현",
+          "minute": 7
+        },
+        {
+          "team": "away",
+          "player": "이종언",
+          "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "세징야",
+          "minute": 68
+        },
+        {
+          "team": "home",
+          "player": "데커스",
+          "minute": 79
+        }
+      ]
     },
     {
       "date": "2026-10-17",
