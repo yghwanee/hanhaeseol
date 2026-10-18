@@ -254,6 +254,14 @@ gtag('config', 'G-F1MX6S0SGW');`}
         <meta name="google-site-verification" content="qe2Z2hjBEFJqqq_nEcLigG8aEiQdotP4_6jouBXE5aE" />
         <meta name="naver-site-verification" content="d9be7cb662b83910f698f22aea4b0267c91e53f4" />
         <meta name="google-adsense-account" content="ca-pub-3233121387897003" />
+        {/* 애드센스 코드 스니펫 — 콘솔이 「각 페이지의 <head>에 붙여넣으세요」라고 요구하는 그 코드.
+            종전엔 메타 태그만 있었다(소유권 확인은 그걸로 통과했지만 코드 자체는 0개 페이지).
+            next/script 를 쓰지 않는다 — data-nscript 속성이 붙으면 애드센스가 경고한다. */}
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3233121387897003"
+          crossOrigin="anonymous"
+        />
         {/* TODO: 다음(Daum) 검색등록 후 verification 값 입력 */}
         {/* <meta name="daum-site-verification" content="" /> */}
         <script
