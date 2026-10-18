@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-17T23:59:47.391Z",
+  "lastUpdated": "2026-10-18T04:22:03.707Z",
   "byKey": {
     "2026-10-17|kbo|KIA|LG": {
       "date": "2026-10-17",
@@ -74,10 +74,10 @@
       "gameId": "20261018TBCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 3,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-10-18|mlb|클리블랜드|탬파베이 레이스": {
       "date": "2026-10-18",
@@ -85,10 +85,10 @@
       "gameId": "20261018TBCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 3,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-10-18|mlb|클리블랜드 가디언스|탬파베이": {
       "date": "2026-10-18",
@@ -96,10 +96,10 @@
       "gameId": "20261018TBCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 3,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-10-18|mlb|클리블랜드 가디언스|탬파베이 레이스": {
       "date": "2026-10-18",
@@ -107,10 +107,10 @@
       "gameId": "20261018TBCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 3,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
     },
     "2026-10-19|mlb|클리블랜드|탬파베이": {
       "date": "2026-10-19",
@@ -1993,10 +1993,17 @@
       "gameId": "hRIvQVIZhpQa3gG",
       "homeTeam": "뉴잉글랜드 레볼루션",
       "awayTeam": "시카고 파이어 FC",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반 19'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "폴스터",
+          "minute": 26
+        }
+      ]
     },
     "2026-10-18|mls|뉴잉글랜드|시카고 파이어 FC": {
       "date": "2026-10-18",
@@ -2004,10 +2011,17 @@
       "gameId": "hRIvQVIZhpQa3gG",
       "homeTeam": "뉴잉글랜드 레볼루션",
       "awayTeam": "시카고 파이어 FC",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반 19'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "폴스터",
+          "minute": 26
+        }
+      ]
     },
     "2026-10-18|mls|뉴잉글랜드 레볼루션|시카고": {
       "date": "2026-10-18",
@@ -2015,10 +2029,17 @@
       "gameId": "hRIvQVIZhpQa3gG",
       "homeTeam": "뉴잉글랜드 레볼루션",
       "awayTeam": "시카고 파이어 FC",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반 19'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "폴스터",
+          "minute": 26
+        }
+      ]
     },
     "2026-10-18|mls|뉴잉글랜드 레볼루션|시카고 파이어 FC": {
       "date": "2026-10-18",
@@ -2026,10 +2047,17 @@
       "gameId": "hRIvQVIZhpQa3gG",
       "homeTeam": "뉴잉글랜드 레볼루션",
       "awayTeam": "시카고 파이어 FC",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반 19'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "폴스터",
+          "minute": 26
+        }
+      ]
     },
     "2026-10-18|mls|올랜도 시티|DC 유나이티드": {
       "date": "2026-10-18",
@@ -2037,15 +2065,37 @@
       "gameId": "jmGnIGDQ2GvIXEj",
       "homeTeam": "올랜도 시티 SC",
       "awayTeam": "DC 유나이티드",
-      "homeScore": 1,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 19'",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "그리에즈만",
           "minute": 15
+        },
+        {
+          "team": "home",
+          "player": "오제다",
+          "minute": 22
+        },
+        {
+          "team": "away",
+          "player": "바리보",
+          "minute": 45,
+          "addedTime": 2
+        },
+        {
+          "team": "home",
+          "player": "그리에즈만",
+          "minute": 50
+        },
+        {
+          "team": "home",
+          "player": "마르코 파샬리치",
+          "minute": 90,
+          "addedTime": 5
         }
       ]
     },
@@ -2055,15 +2105,37 @@
       "gameId": "jmGnIGDQ2GvIXEj",
       "homeTeam": "올랜도 시티 SC",
       "awayTeam": "DC 유나이티드",
-      "homeScore": 1,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 19'",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "그리에즈만",
           "minute": 15
+        },
+        {
+          "team": "home",
+          "player": "오제다",
+          "minute": 22
+        },
+        {
+          "team": "away",
+          "player": "바리보",
+          "minute": 45,
+          "addedTime": 2
+        },
+        {
+          "team": "home",
+          "player": "그리에즈만",
+          "minute": 50
+        },
+        {
+          "team": "home",
+          "player": "마르코 파샬리치",
+          "minute": 90,
+          "addedTime": 5
         }
       ]
     },
@@ -2073,10 +2145,32 @@
       "gameId": "KawNlghjHImdbVH",
       "homeTeam": "애틀란타",
       "awayTeam": "인터 마이애미 CF",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 16'"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "베르테라메",
+          "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "메시",
+          "minute": 56
+        },
+        {
+          "team": "away",
+          "player": "메시",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "피코",
+          "minute": 89
+        }
+      ]
     },
     "2026-10-18|mls|애틀란타|인터 마이애미 CF": {
       "date": "2026-10-18",
@@ -2084,10 +2178,32 @@
       "gameId": "KawNlghjHImdbVH",
       "homeTeam": "애틀란타",
       "awayTeam": "인터 마이애미 CF",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 16'"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "베르테라메",
+          "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "메시",
+          "minute": 56
+        },
+        {
+          "team": "away",
+          "player": "메시",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "피코",
+          "minute": 89
+        }
+      ]
     },
     "2026-10-18|mls|뉴욕|토론토": {
       "date": "2026-10-18",
@@ -2096,15 +2212,20 @@
       "homeTeam": "레드불 뉴욕",
       "awayTeam": "토론토",
       "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "전반 19'",
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "체",
           "minute": 3,
           "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "설로이",
+          "minute": 82
         }
       ]
     },
@@ -2115,15 +2236,20 @@
       "homeTeam": "레드불 뉴욕",
       "awayTeam": "토론토",
       "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "전반 19'",
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "체",
           "minute": 3,
           "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "설로이",
+          "minute": 82
         }
       ]
     },
@@ -2133,10 +2259,23 @@
       "gameId": "zCdh4v6lMMYhA8W",
       "homeTeam": "뉴욕 시티 FC",
       "awayTeam": "로스앤젤레스 FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 18'"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "발타",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "페레아",
+          "minute": 59
+        }
+      ]
     },
     "2026-10-18|mls|NYCFC|로스앤젤레스 FC": {
       "date": "2026-10-18",
@@ -2144,10 +2283,23 @@
       "gameId": "zCdh4v6lMMYhA8W",
       "homeTeam": "뉴욕 시티 FC",
       "awayTeam": "로스앤젤레스 FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 18'"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "발타",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "페레아",
+          "minute": 59
+        }
+      ]
     },
     "2026-10-18|mls|뉴욕 시티 FC|LAFC": {
       "date": "2026-10-18",
@@ -2155,10 +2307,23 @@
       "gameId": "zCdh4v6lMMYhA8W",
       "homeTeam": "뉴욕 시티 FC",
       "awayTeam": "로스앤젤레스 FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 18'"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "발타",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "페레아",
+          "minute": 59
+        }
+      ]
     },
     "2026-10-18|mls|뉴욕 시티 FC|로스앤젤레스 FC": {
       "date": "2026-10-18",
@@ -2166,10 +2331,23 @@
       "gameId": "zCdh4v6lMMYhA8W",
       "homeTeam": "뉴욕 시티 FC",
       "awayTeam": "로스앤젤레스 FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 18'"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "발타",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "페레아",
+          "minute": 59
+        }
+      ]
     },
     "2026-10-18|mls|스포팅 KC|솔트 레이크": {
       "date": "2026-10-18",
@@ -2177,10 +2355,32 @@
       "gameId": "6977BLkzF6FaKX2",
       "homeTeam": "스포팅 캔자스시티",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "세르지 솔란스",
+          "minute": 14
+        },
+        {
+          "team": "home",
+          "player": "칼헤이라",
+          "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 61
+        }
+      ]
     },
     "2026-10-18|mls|스포팅 KC|레알 솔트레이크": {
       "date": "2026-10-18",
@@ -2188,10 +2388,32 @@
       "gameId": "6977BLkzF6FaKX2",
       "homeTeam": "스포팅 캔자스시티",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "세르지 솔란스",
+          "minute": 14
+        },
+        {
+          "team": "home",
+          "player": "칼헤이라",
+          "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 61
+        }
+      ]
     },
     "2026-10-18|mls|스포팅 KC|솔트레이크": {
       "date": "2026-10-18",
@@ -2199,10 +2421,32 @@
       "gameId": "6977BLkzF6FaKX2",
       "homeTeam": "스포팅 캔자스시티",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "세르지 솔란스",
+          "minute": 14
+        },
+        {
+          "team": "home",
+          "player": "칼헤이라",
+          "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 61
+        }
+      ]
     },
     "2026-10-18|mls|스포팅 캔자스시티|솔트 레이크": {
       "date": "2026-10-18",
@@ -2210,10 +2454,32 @@
       "gameId": "6977BLkzF6FaKX2",
       "homeTeam": "스포팅 캔자스시티",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "세르지 솔란스",
+          "minute": 14
+        },
+        {
+          "team": "home",
+          "player": "칼헤이라",
+          "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 61
+        }
+      ]
     },
     "2026-10-18|mls|스포팅 캔자스시티|레알 솔트레이크": {
       "date": "2026-10-18",
@@ -2221,10 +2487,32 @@
       "gameId": "6977BLkzF6FaKX2",
       "homeTeam": "스포팅 캔자스시티",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "세르지 솔란스",
+          "minute": 14
+        },
+        {
+          "team": "home",
+          "player": "칼헤이라",
+          "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 61
+        }
+      ]
     },
     "2026-10-18|mls|스포팅 캔자스시티|솔트레이크": {
       "date": "2026-10-18",
@@ -2232,10 +2520,32 @@
       "gameId": "6977BLkzF6FaKX2",
       "homeTeam": "스포팅 캔자스시티",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "세르지 솔란스",
+          "minute": 14
+        },
+        {
+          "team": "home",
+          "player": "칼헤이라",
+          "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 61
+        }
+      ]
     },
     "2026-10-18|mls|휴스턴|댈러스": {
       "date": "2026-10-18",
@@ -2243,10 +2553,34 @@
       "gameId": "I3dVNv9NWZ7TWNE",
       "homeTeam": "휴스턴 다이너모 FC",
       "awayTeam": "댈러스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "카피스",
+          "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "헤레라",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "보구시",
+          "minute": 90,
+          "addedTime": 4
+        },
+        {
+          "team": "away",
+          "player": "무사",
+          "minute": 90,
+          "addedTime": 11
+        }
+      ]
     },
     "2026-10-18|mls|휴스턴 다이너모 FC|댈러스": {
       "date": "2026-10-18",
@@ -2254,10 +2588,34 @@
       "gameId": "I3dVNv9NWZ7TWNE",
       "homeTeam": "휴스턴 다이너모 FC",
       "awayTeam": "댈러스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "카피스",
+          "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "헤레라",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "보구시",
+          "minute": 90,
+          "addedTime": 4
+        },
+        {
+          "team": "away",
+          "player": "무사",
+          "minute": 90,
+          "addedTime": 11
+        }
+      ]
     },
     "2026-10-18|mls|오스틴|화이트캡스": {
       "date": "2026-10-18",
@@ -2265,10 +2623,27 @@
       "gameId": "ls3ofpe6RT6Yd6t",
       "homeTeam": "오스틴",
       "awayTeam": "밴쿠버 화이트캡스 FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "우주니",
+          "minute": 40
+        },
+        {
+          "team": "away",
+          "player": "골드",
+          "minute": 47
+        },
+        {
+          "team": "away",
+          "player": "디아비",
+          "minute": 71
+        }
+      ]
     },
     "2026-10-18|mls|오스틴|밴쿠버 화이트캡스 FC": {
       "date": "2026-10-18",
@@ -2276,10 +2651,27 @@
       "gameId": "ls3ofpe6RT6Yd6t",
       "homeTeam": "오스틴",
       "awayTeam": "밴쿠버 화이트캡스 FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "우주니",
+          "minute": 40
+        },
+        {
+          "team": "away",
+          "player": "골드",
+          "minute": 47
+        },
+        {
+          "team": "away",
+          "player": "디아비",
+          "minute": 71
+        }
+      ]
     },
     "2026-10-18|mls|어스퀘이크|내쉬빌": {
       "date": "2026-10-18",
@@ -2287,10 +2679,22 @@
       "gameId": "aznMdKjXaSLTjzj",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "내슈빌 SC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 34'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "무크타르",
+          "minute": 34
+        },
+        {
+          "team": "home",
+          "player": "주드",
+          "minute": 70
+        }
+      ]
     },
     "2026-10-18|mls|어스퀘이크|내슈빌 SC": {
       "date": "2026-10-18",
@@ -2298,10 +2702,22 @@
       "gameId": "aznMdKjXaSLTjzj",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "내슈빌 SC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 34'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "무크타르",
+          "minute": 34
+        },
+        {
+          "team": "home",
+          "player": "주드",
+          "minute": 70
+        }
+      ]
     },
     "2026-10-18|mls|어스퀘이크|내슈빌": {
       "date": "2026-10-18",
@@ -2309,10 +2725,22 @@
       "gameId": "aznMdKjXaSLTjzj",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "내슈빌 SC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 34'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "무크타르",
+          "minute": 34
+        },
+        {
+          "team": "home",
+          "player": "주드",
+          "minute": 70
+        }
+      ]
     },
     "2026-10-18|mls|산호세 어스퀘이크스|내쉬빌": {
       "date": "2026-10-18",
@@ -2320,10 +2748,22 @@
       "gameId": "aznMdKjXaSLTjzj",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "내슈빌 SC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 34'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "무크타르",
+          "minute": 34
+        },
+        {
+          "team": "home",
+          "player": "주드",
+          "minute": 70
+        }
+      ]
     },
     "2026-10-18|mls|산호세 어스퀘이크스|내슈빌 SC": {
       "date": "2026-10-18",
@@ -2331,10 +2771,22 @@
       "gameId": "aznMdKjXaSLTjzj",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "내슈빌 SC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 34'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "무크타르",
+          "minute": 34
+        },
+        {
+          "team": "home",
+          "player": "주드",
+          "minute": 70
+        }
+      ]
     },
     "2026-10-18|mls|산호세 어스퀘이크스|내슈빌": {
       "date": "2026-10-18",
@@ -2342,10 +2794,22 @@
       "gameId": "aznMdKjXaSLTjzj",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "내슈빌 SC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 34'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "무크타르",
+          "minute": 34
+        },
+        {
+          "team": "home",
+          "player": "주드",
+          "minute": 70
+        }
+      ]
     },
     "2026-10-18|mls|시애틀|몬트리얼": {
       "date": "2026-10-18",
@@ -2353,10 +2817,22 @@
       "gameId": "LF73GVYNPvxSGxO",
       "homeTeam": "시애틀 사운더스 FC",
       "awayTeam": "몬트리얼",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 38'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "신추크",
+          "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "고메즈",
+          "minute": 66
+        }
+      ]
     },
     "2026-10-18|mls|시애틀 사운더스 FC|몬트리얼": {
       "date": "2026-10-18",
@@ -2364,10 +2840,22 @@
       "gameId": "LF73GVYNPvxSGxO",
       "homeTeam": "시애틀 사운더스 FC",
       "awayTeam": "몬트리얼",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 38'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "신추크",
+          "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "고메즈",
+          "minute": 66
+        }
+      ]
     },
     "2026-10-18|mls|갤럭시|샌디에고": {
       "date": "2026-10-18",
@@ -2375,10 +2863,32 @@
       "gameId": "unacZTYgKcrgafO",
       "homeTeam": "LA 갤럭시",
       "awayTeam": "샌디에고",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "live",
+      "period": "후반 33'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "조앙 클라우스",
+          "minute": 4
+        },
+        {
+          "team": "away",
+          "player": "드레이어",
+          "minute": 10
+        },
+        {
+          "team": "home",
+          "player": "토미",
+          "minute": 17
+        },
+        {
+          "team": "away",
+          "player": "가브리엘 피라니",
+          "minute": 39
+        }
+      ]
     },
     "2026-10-18|mls|LA 갤럭시|샌디에고": {
       "date": "2026-10-18",
@@ -2386,10 +2896,32 @@
       "gameId": "unacZTYgKcrgafO",
       "homeTeam": "LA 갤럭시",
       "awayTeam": "샌디에고",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "live",
+      "period": "후반 33'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "조앙 클라우스",
+          "minute": 4
+        },
+        {
+          "team": "away",
+          "player": "드레이어",
+          "minute": 10
+        },
+        {
+          "team": "home",
+          "player": "토미",
+          "minute": 17
+        },
+        {
+          "team": "away",
+          "player": "가브리엘 피라니",
+          "minute": 39
+        }
+      ]
     },
     "2026-10-18|mls|포틀랜드|콜로라도": {
       "date": "2026-10-18",
@@ -2399,8 +2931,8 @@
       "awayTeam": "콜로라도",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 32'"
     },
     "2026-10-19|mls|신시내티|콜롬버스": {
       "date": "2026-10-19",
@@ -3423,10 +3955,10 @@
       "gameId": "20261018TBCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 3,
+      "awayScore": 7,
+      "status": "finished",
+      "period": "9회말"
     },
     {
       "date": "2026-10-19",
@@ -4802,10 +5334,17 @@
       "gameId": "hRIvQVIZhpQa3gG",
       "homeTeam": "뉴잉글랜드 레볼루션",
       "awayTeam": "시카고 파이어 FC",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "전반 19'"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "폴스터",
+          "minute": 26
+        }
+      ]
     },
     {
       "date": "2026-10-18",
@@ -4813,15 +5352,37 @@
       "gameId": "jmGnIGDQ2GvIXEj",
       "homeTeam": "올랜도 시티 SC",
       "awayTeam": "DC 유나이티드",
-      "homeScore": 1,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 19'",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "그리에즈만",
           "minute": 15
+        },
+        {
+          "team": "home",
+          "player": "오제다",
+          "minute": 22
+        },
+        {
+          "team": "away",
+          "player": "바리보",
+          "minute": 45,
+          "addedTime": 2
+        },
+        {
+          "team": "home",
+          "player": "그리에즈만",
+          "minute": 50
+        },
+        {
+          "team": "home",
+          "player": "마르코 파샬리치",
+          "minute": 90,
+          "addedTime": 5
         }
       ]
     },
@@ -4831,10 +5392,32 @@
       "gameId": "KawNlghjHImdbVH",
       "homeTeam": "애틀란타",
       "awayTeam": "인터 마이애미 CF",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 16'"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "베르테라메",
+          "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "메시",
+          "minute": 56
+        },
+        {
+          "team": "away",
+          "player": "메시",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "피코",
+          "minute": 89
+        }
+      ]
     },
     {
       "date": "2026-10-18",
@@ -4843,15 +5426,20 @@
       "homeTeam": "레드불 뉴욕",
       "awayTeam": "토론토",
       "homeScore": 0,
-      "awayScore": 1,
-      "status": "live",
-      "period": "전반 19'",
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "체",
           "minute": 3,
           "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "설로이",
+          "minute": 82
         }
       ]
     },
@@ -4861,10 +5449,23 @@
       "gameId": "zCdh4v6lMMYhA8W",
       "homeTeam": "뉴욕 시티 FC",
       "awayTeam": "로스앤젤레스 FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 18'"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "발타",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "home",
+          "player": "페레아",
+          "minute": 59
+        }
+      ]
     },
     {
       "date": "2026-10-18",
@@ -4872,10 +5473,32 @@
       "gameId": "6977BLkzF6FaKX2",
       "homeTeam": "스포팅 캔자스시티",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 11
+        },
+        {
+          "team": "away",
+          "player": "세르지 솔란스",
+          "minute": 14
+        },
+        {
+          "team": "home",
+          "player": "칼헤이라",
+          "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 61
+        }
+      ]
     },
     {
       "date": "2026-10-18",
@@ -4883,10 +5506,34 @@
       "gameId": "I3dVNv9NWZ7TWNE",
       "homeTeam": "휴스턴 다이너모 FC",
       "awayTeam": "댈러스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "카피스",
+          "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "헤레라",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "보구시",
+          "minute": 90,
+          "addedTime": 4
+        },
+        {
+          "team": "away",
+          "player": "무사",
+          "minute": 90,
+          "addedTime": 11
+        }
+      ]
     },
     {
       "date": "2026-10-18",
@@ -4894,10 +5541,27 @@
       "gameId": "ls3ofpe6RT6Yd6t",
       "homeTeam": "오스틴",
       "awayTeam": "밴쿠버 화이트캡스 FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "우주니",
+          "minute": 40
+        },
+        {
+          "team": "away",
+          "player": "골드",
+          "minute": 47
+        },
+        {
+          "team": "away",
+          "player": "디아비",
+          "minute": 71
+        }
+      ]
     },
     {
       "date": "2026-10-18",
@@ -4905,10 +5569,22 @@
       "gameId": "aznMdKjXaSLTjzj",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "내슈빌 SC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 34'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "무크타르",
+          "minute": 34
+        },
+        {
+          "team": "home",
+          "player": "주드",
+          "minute": 70
+        }
+      ]
     },
     {
       "date": "2026-10-18",
@@ -4916,10 +5592,22 @@
       "gameId": "LF73GVYNPvxSGxO",
       "homeTeam": "시애틀 사운더스 FC",
       "awayTeam": "몬트리얼",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 38'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "신추크",
+          "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "고메즈",
+          "minute": 66
+        }
+      ]
     },
     {
       "date": "2026-10-18",
@@ -4927,10 +5615,32 @@
       "gameId": "unacZTYgKcrgafO",
       "homeTeam": "LA 갤럭시",
       "awayTeam": "샌디에고",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "live",
+      "period": "후반 33'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "조앙 클라우스",
+          "minute": 4
+        },
+        {
+          "team": "away",
+          "player": "드레이어",
+          "minute": 10
+        },
+        {
+          "team": "home",
+          "player": "토미",
+          "minute": 17
+        },
+        {
+          "team": "away",
+          "player": "가브리엘 피라니",
+          "minute": 39
+        }
+      ]
     },
     {
       "date": "2026-10-18",
@@ -4940,8 +5650,8 @@
       "awayTeam": "콜로라도",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 32'"
     },
     {
       "date": "2026-10-19",
