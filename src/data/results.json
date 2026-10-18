@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-18T20:34:52.317Z",
+  "lastUpdated": "2026-10-18T23:04:49.912Z",
   "byKey": {
     "2026-10-18|kbo|KIA|LG": {
       "date": "2026-10-18",
@@ -78,10 +78,10 @@
       "gameId": "20261019TBCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "live",
+      "period": "7회말"
     },
     "2026-10-19|mlb|클리블랜드|탬파베이 레이스": {
       "date": "2026-10-19",
@@ -89,10 +89,10 @@
       "gameId": "20261019TBCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "live",
+      "period": "7회말"
     },
     "2026-10-19|mlb|클리블랜드 가디언스|탬파베이": {
       "date": "2026-10-19",
@@ -100,10 +100,10 @@
       "gameId": "20261019TBCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "live",
+      "period": "7회말"
     },
     "2026-10-19|mlb|클리블랜드 가디언스|탬파베이 레이스": {
       "date": "2026-10-19",
@@ -111,10 +111,10 @@
       "gameId": "20261019TBCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "live",
+      "period": "7회말"
     },
     "2026-10-20|mlb|탬파베이|클리블랜드": {
       "date": "2026-10-20",
@@ -715,10 +715,10 @@
       "gameId": "v0z6atpzg52DAFh",
       "homeTeam": "레알 마드리드",
       "awayTeam": "세비야",
-      "homeScore": 3,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 22'",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -734,8 +734,19 @@
           "team": "home",
           "player": "음바페",
           "minute": 63
+        },
+        {
+          "team": "away",
+          "player": "마누 부에노",
+          "minute": 80
+        },
+        {
+          "team": "home",
+          "player": "디오망데",
+          "minute": 82
         }
-      ]
+      ],
+      "highlightVideoId": "8QF2Dy84toY"
     },
     "2026-10-20|primera|헤타페|바예카노": {
       "date": "2026-10-20",
@@ -1085,8 +1096,8 @@
       "awayTeam": "라치오",
       "homeScore": 0,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 46'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -1103,7 +1114,8 @@
           "player": "피사요 델레 바시루",
           "minute": 89
         }
-      ]
+      ],
+      "highlightVideoId": "Yx2ED3B4GuE"
     },
     "2026-10-20|seria|몬차|칼리아리": {
       "date": "2026-10-20",
@@ -1564,8 +1576,8 @@
       "awayTeam": "니스",
       "homeScore": 2,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 45'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -1582,7 +1594,8 @@
           "player": "테스만",
           "minute": 36
         }
-      ]
+      ],
+      "highlightVideoId": "fvk-GkTWSdg"
     },
     "2026-10-18|mls|필라델피아|샬럿": {
       "date": "2026-10-18",
@@ -2648,9 +2661,21 @@
       "homeTeam": "FC 신시내티",
       "awayTeam": "콜롬버스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 2,
+      "status": "live",
+      "period": "후반 41'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "타피아",
+          "minute": 22
+        },
+        {
+          "team": "away",
+          "player": "하브룬",
+          "minute": 54
+        }
+      ]
     },
     "2026-10-19|mls|FC 신시내티|콜롬버스": {
       "date": "2026-10-19",
@@ -2659,9 +2684,21 @@
       "homeTeam": "FC 신시내티",
       "awayTeam": "콜롬버스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 2,
+      "status": "live",
+      "period": "후반 41'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "타피아",
+          "minute": 22
+        },
+        {
+          "team": "away",
+          "player": "하브룬",
+          "minute": 54
+        }
+      ]
     },
     "2026-10-18|kleague|전북|제주": {
       "date": "2026-10-18",
@@ -3601,10 +3638,10 @@
       "gameId": "20261019TBCL0",
       "homeTeam": "클리블랜드 가디언스",
       "awayTeam": "탬파베이 레이스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1회초"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "live",
+      "period": "7회말"
     },
     {
       "date": "2026-10-20",
@@ -3976,10 +4013,10 @@
       "gameId": "v0z6atpzg52DAFh",
       "homeTeam": "레알 마드리드",
       "awayTeam": "세비야",
-      "homeScore": 3,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 22'",
+      "homeScore": 4,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -3995,8 +4032,19 @@
           "team": "home",
           "player": "음바페",
           "minute": 63
+        },
+        {
+          "team": "away",
+          "player": "마누 부에노",
+          "minute": 80
+        },
+        {
+          "team": "home",
+          "player": "디오망데",
+          "minute": 82
         }
-      ]
+      ],
+      "highlightVideoId": "8QF2Dy84toY"
     },
     {
       "date": "2026-10-20",
@@ -4176,8 +4224,8 @@
       "awayTeam": "라치오",
       "homeScore": 0,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 46'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -4194,7 +4242,8 @@
           "player": "피사요 델레 바시루",
           "minute": 89
         }
-      ]
+      ],
+      "highlightVideoId": "Yx2ED3B4GuE"
     },
     {
       "date": "2026-10-20",
@@ -4582,8 +4631,8 @@
       "awayTeam": "니스",
       "homeScore": 2,
       "awayScore": 1,
-      "status": "live",
-      "period": "후반 45'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -4600,7 +4649,8 @@
           "player": "테스만",
           "minute": 36
         }
-      ]
+      ],
+      "highlightVideoId": "fvk-GkTWSdg"
     },
     {
       "date": "2026-10-18",
@@ -5007,9 +5057,21 @@
       "homeTeam": "FC 신시내티",
       "awayTeam": "콜롬버스",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 2,
+      "status": "live",
+      "period": "후반 41'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "타피아",
+          "minute": 22
+        },
+        {
+          "team": "away",
+          "player": "하브룬",
+          "minute": 54
+        }
+      ]
     },
     {
       "date": "2026-10-18",
