@@ -127,3 +127,34 @@ export function getAllGuides(): Guide[] {
     .filter((g): g is Guide => g !== null)
     .sort((a, b) => b.date.localeCompare(a.date));
 }
+
+let metaCache: GuideMeta[] | null = null;
+
+/**
+ * 본문 렌더(marked) 없이 frontmatter 만 읽은 목록. 발행일 내림차순.
+ * 허브 페이지 수백 장이 빌드마다 부르므로 `getAllGuides()` 를 쓰지 않는다 — 그건 글 73편을
+ * 페이지마다 통째로 마크다운 렌더한다.
+ */
+export function getAllGuideMetas(): GuideMeta[] {
+  if (metaCache) return metaCache;
+  const metas = getAllGuideSlugs()
+    .map((slug): GuideMeta => {
+      const raw = fs.readFileSync(path.join(GUIDES_DIR, `${slug}.md`), "utf8");
+      const { data } = parseFrontmatter(raw);
+      const keywords = data.keywords
+        ? data.keywords.split(",").map((k) => k.trim()).filter(Boolean)
+        : undefined;
+      return {
+        slug,
+        title: data.title ?? slug,
+        description: data.description ?? "",
+        date: data.date ?? "",
+        updated: data.updated || undefined,
+        category: data.category || undefined,
+        keywords: keywords && keywords.length > 0 ? keywords : undefined,
+      };
+    })
+    .sort((a, b) => b.date.localeCompare(a.date));
+  if (process.env.NODE_ENV === "production") metaCache = metas;
+  return metas;
+}

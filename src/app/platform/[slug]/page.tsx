@@ -9,6 +9,7 @@ import { buildSportsEventLd, buildBreadcrumbLd } from "@/lib/structured-data";
 import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
 import PlatformGuideSection from "@/app/_components/PlatformGuideSection";
 import FaqSection from "@/app/_components/FaqSection";
+import RelatedGuides from "@/app/_components/RelatedGuides";
 import WeekHighlights from "@/app/_components/WeekHighlights";
 import archiveData from "@/data/schedule-archive.json";
 import {
@@ -170,6 +171,9 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
           ) : undefined
         }
       />
+      <div className="mx-auto w-full max-w-[1100px] px-5 sm:px-6 pb-8">
+        <RelatedGuides terms={meta.match} />
+      </div>
     </>
   );
 }

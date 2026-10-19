@@ -12,6 +12,7 @@ import FilteredScheduleView from "@/app/_components/FilteredScheduleView";
 import LeagueGuideSection from "@/app/_components/LeagueGuideSection";
 import FaqSection from "@/app/_components/FaqSection";
 import WeekHighlights from "@/app/_components/WeekHighlights";
+import RelatedGuides from "@/app/_components/RelatedGuides";
 
 // 데이터가 빌드 번들에 있어 재생성해도 같은 HTML 이다. 신선도는 배포가 만든다.
 // (2026-08-18 Hobby 한도 초과로 600 → 3600. 상세는 page.tsx 주석)
@@ -168,6 +169,9 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
           </div>
         </section>
       )}
+      <div className="mx-auto w-full max-w-[1100px] px-5 sm:px-6 pb-8">
+        <RelatedGuides terms={meta.match} />
+      </div>
     </>
   );
 }

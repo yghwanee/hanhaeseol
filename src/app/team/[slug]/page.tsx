@@ -33,6 +33,7 @@ import { buildBreadcrumbLd } from "@/lib/structured-data";
 import { fullTeamName, hasFullName, teamNameVariants } from "@/lib/team-full-names";
 import { clampDescription, buildTeamFaqs } from "@/lib/seo-meta";
 import FaqSection from "@/app/_components/FaqSection";
+import RelatedGuides from "@/app/_components/RelatedGuides";
 import { proxyLogo } from "@/lib/emblem";
 import { getTodayString } from "@/lib/schedule-utils";
 import { playerIndexFor } from "@/lib/players";
@@ -529,6 +530,8 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
             )}
           </section>
         )}
+
+        <RelatedGuides terms={[full, team.name]} className="mt-4" />
 
         {/* 질문형 쿼리("두산 베어스 중계 어디서")가 이 페이지의 주 검색 의도다.
             ⚠️ 구글 FAQ 리치결과는 2026-05-07 폐지됐으므로 SERP 확장 목적이 아니다.
