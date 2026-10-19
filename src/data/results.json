@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-19T19:16:15.271Z",
+  "lastUpdated": "2026-10-19T23:34:32.394Z",
   "byKey": {
     "2026-10-20|kbo|LG|KIA": {
       "date": "2026-10-20",
@@ -79,7 +79,8 @@
       "awayTeam": "클리블랜드 가디언스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-10-20|mlb|탬파베이|클리블랜드 가디언스": {
       "date": "2026-10-20",
@@ -89,7 +90,8 @@
       "awayTeam": "클리블랜드 가디언스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-10-20|mlb|탬파베이 레이스|클리블랜드": {
       "date": "2026-10-20",
@@ -99,7 +101,8 @@
       "awayTeam": "클리블랜드 가디언스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-10-20|mlb|탬파베이 레이스|클리블랜드 가디언스": {
       "date": "2026-10-20",
@@ -109,7 +112,8 @@
       "awayTeam": "클리블랜드 가디언스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     "2026-10-21|mlb|탬파베이|클리블랜드": {
       "date": "2026-10-21",
@@ -269,17 +273,34 @@
       "gameId": "Ehm0S5ds7ZrUwNQ",
       "homeTeam": "토트넘",
       "awayTeam": "코벤트리",
-      "homeScore": 1,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 16'",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "매디슨",
           "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "루도니",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "오마르 마르무시",
+          "minute": 58
+        },
+        {
+          "team": "home",
+          "player": "데이비스",
+          "minute": 90,
+          "addedTime": 6
         }
-      ]
+      ],
+      "highlightVideoId": "Ww-HZnzUdX8"
     },
     "2026-10-21|england2|울버햄튼|포츠머스": {
       "date": "2026-10-21",
@@ -435,15 +456,20 @@
       "gameId": "AKLZ3AASkxNGcaK",
       "homeTeam": "헤타페",
       "awayTeam": "라요 바예카노",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "전반 16'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "알바로 가르시아",
           "minute": 11
+        },
+        {
+          "team": "home",
+          "player": "사트리아노",
+          "minute": 56
         }
       ]
     },
@@ -453,15 +479,20 @@
       "gameId": "AKLZ3AASkxNGcaK",
       "homeTeam": "헤타페",
       "awayTeam": "라요 바예카노",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "전반 16'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "알바로 가르시아",
           "minute": 11
+        },
+        {
+          "team": "home",
+          "player": "사트리아노",
+          "minute": 56
         }
       ]
     },
@@ -603,7 +634,8 @@
           "player": "구스타보 바렐라",
           "minute": 79
         }
-      ]
+      ],
+      "highlightVideoId": "Gse363yNPKo"
     },
     "2026-10-20|seria|몬차|칼리아리 칼초": {
       "date": "2026-10-20",
@@ -636,7 +668,8 @@
           "player": "구스타보 바렐라",
           "minute": 79
         }
-      ]
+      ],
+      "highlightVideoId": "Gse363yNPKo"
     },
     "2026-10-20|seria|파르마|토리노": {
       "date": "2026-10-20",
@@ -645,9 +678,9 @@
       "homeTeam": "파르마 칼초",
       "awayTeam": "토리노",
       "homeScore": 0,
-      "awayScore": 2,
-      "status": "live",
-      "period": "전반 30'",
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -658,6 +691,11 @@
           "team": "away",
           "player": "애덤스",
           "minute": 24
+        },
+        {
+          "team": "away",
+          "player": "시메오네",
+          "minute": 69
         }
       ]
     },
@@ -668,9 +706,9 @@
       "homeTeam": "파르마 칼초",
       "awayTeam": "토리노",
       "homeScore": 0,
-      "awayScore": 2,
-      "status": "live",
-      "period": "전반 30'",
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -681,6 +719,11 @@
           "team": "away",
           "player": "애덤스",
           "minute": 24
+        },
+        {
+          "team": "away",
+          "player": "시메오네",
+          "minute": 69
         }
       ]
     },
@@ -1210,7 +1253,8 @@
       "awayTeam": "클리블랜드 가디언스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1회초"
     },
     {
       "date": "2026-10-21",
@@ -1310,17 +1354,34 @@
       "gameId": "Ehm0S5ds7ZrUwNQ",
       "homeTeam": "토트넘",
       "awayTeam": "코벤트리",
-      "homeScore": 1,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 16'",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "매디슨",
           "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "루도니",
+          "minute": 49
+        },
+        {
+          "team": "home",
+          "player": "오마르 마르무시",
+          "minute": 58
+        },
+        {
+          "team": "home",
+          "player": "데이비스",
+          "minute": 90,
+          "addedTime": 6
         }
-      ]
+      ],
+      "highlightVideoId": "Ww-HZnzUdX8"
     },
     {
       "date": "2026-10-21",
@@ -1427,15 +1488,20 @@
       "gameId": "AKLZ3AASkxNGcaK",
       "homeTeam": "헤타페",
       "awayTeam": "라요 바예카노",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 1,
-      "status": "live",
-      "period": "전반 16'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
           "player": "알바로 가르시아",
           "minute": 11
+        },
+        {
+          "team": "home",
+          "player": "사트리아노",
+          "minute": 56
         }
       ]
     },
@@ -1538,7 +1604,8 @@
           "player": "구스타보 바렐라",
           "minute": 79
         }
-      ]
+      ],
+      "highlightVideoId": "Gse363yNPKo"
     },
     {
       "date": "2026-10-20",
@@ -1547,9 +1614,9 @@
       "homeTeam": "파르마 칼초",
       "awayTeam": "토리노",
       "homeScore": 0,
-      "awayScore": 2,
-      "status": "live",
-      "period": "전반 30'",
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -1560,6 +1627,11 @@
           "team": "away",
           "player": "애덤스",
           "minute": 24
+        },
+        {
+          "team": "away",
+          "player": "시메오네",
+          "minute": 69
         }
       ]
     },
