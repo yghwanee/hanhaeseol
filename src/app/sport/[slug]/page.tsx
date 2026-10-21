@@ -179,6 +179,7 @@ export default function SportPage({ params }: { params: { slug: string } }) {
         meta={meta}
         kind="sport"
         schedules={rows}
+        allSchedules={all}
         teamRecords={teamRecords}
         results={results}
         highlightsSlot={

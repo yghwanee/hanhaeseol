@@ -101,6 +101,7 @@ const CATEGORY_TO_LEAGUE_KEYS: Record<string, string[]> = {
   kleague2: ["K리그2"],
   champs: ["챔피언스리그"],
   europa: ["유로파리그"],
+  uecl: ["컨퍼런스리그"],
   eredivisie: ["에레디비시"],
   denmark: ["수페르리가"],
   acl: ["ACL"],
@@ -252,7 +253,7 @@ async function fetchLeagueGames(categoryId: string): Promise<NaverGame[]> {
 // 야구(kbo,mlb)·농구(kbl,nba) 외 LEAGUES의 나머지 = 전부 축구.
 export const SOCCER_CATEGORIES = new Set([
   "epl", "england2", "facup", "primera", "seria", "coppaitalia", "bundesliga",
-  "ligue1", "mls", "kleague", "kleague2", "champs", "europa", "eredivisie",
+  "ligue1", "mls", "kleague", "kleague2", "champs", "europa", "uecl", "eredivisie",
   "denmark", "acl", "amatch", "amatchfriendly", "worldcup",
   "clubfriendly", "communityshield", "uefasupercup", "koreacup", "unl",
   "dfbpokal", "germansupercup", "spl",
@@ -278,6 +279,7 @@ export const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "kleague2", label: "K리그2" },
   { categoryId: "champs", label: "챔스" },
   { categoryId: "europa", label: "유로파" },
+  { categoryId: "uecl", label: "컨퍼런스" },
   { categoryId: "eredivisie", label: "에레디비시" },
   { categoryId: "denmark", label: "수페르리가" },
   { categoryId: "acl", label: "ACL" },

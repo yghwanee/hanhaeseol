@@ -37,6 +37,7 @@ import { MatchLineup } from "./_components/MatchLineup";
 import { MatchBaseballLineup } from "./_components/MatchBaseballLineup";
 import { MatchLiveScore } from "./_components/MatchLiveScore";
 import { getStartersForMatch } from "@/lib/starters/lookup";
+import { loadKboPhantomKeys } from "@/lib/server-data";
 import { resolveTeamLogo } from "@/lib/team-logo";
 import type { StartersData } from "@/types/starter";
 import startersData from "@/data/starters.json";
@@ -336,8 +337,11 @@ export default function MatchPage({ params }: { params: Params }) {
       ? findResult(results, match)?.gameId ?? findResult(resultsArchive, match)?.gameId
       : undefined;
 
-  const insight = readInsight(match.id);
-  const starters = getStartersForMatch(startersData as unknown as StartersData, match);
+  // 시리즈가 앞에서 끝나 열리지 않은 KBO 포스트시즌 경기. 선발·미리보기 대신 그 사실만 알린다.
+  const unplayed =
+    match.league === "KBO" && loadKboPhantomKeys().has(`${match.date}|${match.homeTeam}|${match.awayTeam}`);
+  const insight = unplayed ? null : readInsight(match.id);
+  const starters = unplayed ? null : getStartersForMatch(startersData as unknown as StartersData, match);
 
   // 데이터 기반 자동 콘텐츠 — 인사이트 유무와 무관하게 항상 시도.
   // standings/results-archive/team-records가 있으면 풍부한 섹션을 만들고, 없으면 자연어 단락만.
@@ -563,13 +567,13 @@ export default function MatchPage({ params }: { params: Params }) {
             <TeamSide
               name={match.homeTeam}
               logo={findTeamLogo(match.homeTeam) ?? match.homeEmblem ?? null}
-              team={findTeamForSchedule(teamIndex, match.league, match.homeTeam)}
+              team={findTeamForSchedule(teamIndex, match.league, match.homeTeam, match.sport)}
             />
             <span className="text-label1 font-bold text-fg-tertiary sm:text-body1">vs</span>
             <TeamSide
               name={match.awayTeam}
               logo={findTeamLogo(match.awayTeam) ?? match.awayEmblem ?? null}
-              team={findTeamForSchedule(teamIndex, match.league, match.awayTeam)}
+              team={findTeamForSchedule(teamIndex, match.league, match.awayTeam, match.sport)}
             />
           </div>
 
@@ -706,6 +710,13 @@ export default function MatchPage({ params }: { params: Params }) {
           </p>
 
         </article>
+
+        {unplayed && (
+          <p className="mt-4 rounded-xl border border-line-subtle bg-subtle p-5 text-center text-label1 text-fg-secondary sm:p-6">
+            시리즈가 앞 경기에서 끝나 <span className="font-semibold text-fg-strong">열리지 않은 경기</span>입니다.
+            일정은 <Link href="/postseason/kbo" className="text-fg underline underline-offset-2 hover:text-fg-strong">KBO 포스트시즌</Link>에서 확인하세요.
+          </p>
+        )}
 
         {/* 토스쇼핑 한 줄 띠 — 중계 안내 바로 아래. 상품이 지정돼 있을 때만 뜬다.
             매치는 홈과 별개 페이지라 같은 상품을 걸어도 한 화면에 두 번 나오지 않는다. */}

@@ -8,6 +8,7 @@ import {
   remainingRegularGames,
   roundForMatchup,
   groupKboGames,
+  dropUnplayedAfterClinch,
 } from "./kbo-postseason";
 
 /**
@@ -92,4 +93,38 @@ test("사전 방송(15분 전 TV)과 본 중계는 한 경기, 더블헤더는 �
   const lg = out.find((x) => x.homeTeam === "LG")!;
   assert.equal(lg.time, "18:30", "표시 시각은 실제 경기 시작(늦은 쪽)");
   assert.deepEqual(lg.platforms.sort(), ["SPOTV2", "티빙"]);
+});
+
+test("시리즈가 끝나면 남은 '필요 시 개최' 경기를 뺀다 (2026-10-22 실측 재현)", () => {
+  const rows = [
+    g("2026-10-12", "KT", "SSG"),
+    g("2026-10-14", "LG", "두산"),
+    g("2026-10-15", "LG", "두산"), // 4위 LG 가 1차전 승 → 통과, 2차전 미개최
+    g("2026-10-17", "KIA", "LG"),
+    g("2026-10-18", "KIA", "LG"),
+    g("2026-10-20", "LG", "KIA"),
+    g("2026-10-21", "LG", "KIA"), // KIA 3:0 → 4·5차전 미개최
+    g("2026-10-23", "KIA", "LG"),
+    g("2026-10-25", "삼성", "KIA"), // 플레이오프 1차전, 결과 없음 → 남긴다
+  ];
+  const t = standings(144);
+  const seedOf = new Map(t.slice(0, 5).map((x) => [x.teamName, x.rank]));
+  const scores: Record<string, [number, number]> = {
+    "2026-10-14": [4, 1], "2026-10-17": [5, 1], "2026-10-18": [6, 3], "2026-10-20": [1, 13],
+  };
+  const out = dropUnplayedAfterClinch(postseasonGames(rows, t, "2026"), seedOf, (x) => {
+    const sc = scores[x.date];
+    return sc ? { homeScore: sc[0], awayScore: sc[1], status: "finished" } : undefined;
+  });
+  assert.deepEqual(out.map((x) => x.date), ["2026-10-14", "2026-10-17", "2026-10-18", "2026-10-20", "2026-10-25"]);
+});
+
+test("와일드카드: 5위가 1차전을 이기면 2차전은 남는다", () => {
+  const rows = [g("2026-10-12", "KT", "SSG"), g("2026-10-14", "LG", "두산"), g("2026-10-15", "LG", "두산")];
+  const t = standings(144);
+  const seedOf = new Map(t.slice(0, 5).map((x) => [x.teamName, x.rank]));
+  const out = dropUnplayedAfterClinch(postseasonGames(rows, t, "2026"), seedOf, (x) =>
+    x.date === "2026-10-14" ? { homeScore: 1, awayScore: 4, status: "finished" } : undefined,
+  );
+  assert.equal(out.length, 2);
 });

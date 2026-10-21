@@ -29,6 +29,8 @@ export const LEAGUE_TO_CATEGORY: Record<string, string | string[]> = {
   MLS: "mls",
   챔피언스리그: "champs",
   유로파리그: "europa",
+  // 2026-10-22 확인: 네이버 categoryId `uecl` 이 응답한다(10/23 아약스-아탈란타 등 17경기).
+  컨퍼런스리그: "uecl",
   에레디비시: "eredivisie",
   수페르리가: "denmark",
   ACL: "acl",

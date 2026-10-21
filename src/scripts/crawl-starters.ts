@@ -5,12 +5,15 @@ import type { StartersData, MatchStarters } from "@/types/starter";
 import { fetchGameList, fetchStarters } from "@/lib/starters/naver";
 import { buildStarterKey } from "@/lib/starters/lookup";
 import { normalizeTeamName } from "@/lib/starters/teams";
+import { mergeStarters } from "@/lib/starters/merge";
 
 const LEAGUES: Array<{ categoryId: string; league: "kbo" | "mlb" }> = [
   { categoryId: "kbo", league: "kbo" },
   { categoryId: "mlb", league: "mlb" },
 ];
 const DAYS = 7;
+// 지난 경기도 다시 받는다. preview 는 경기가 끝난 뒤에도 선발을 주므로 놓친 경기를 메운다.
+const BACK_DAYS = 2;
 const SLEEP_MS = 400;
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -26,7 +29,9 @@ function rangeDates(today: string, days: number): string[] {
 
 async function main() {
   const today = new Date().toLocaleDateString("en-CA", { timeZone: "Asia/Seoul" });
-  const dates = rangeDates(today, DAYS);
+  const [ty, tm, td] = today.split("-").map(Number);
+  const from = new Date(Date.UTC(ty, tm - 1, td - BACK_DAYS)).toISOString().slice(0, 10);
+  const dates = rangeDates(from, BACK_DAYS + DAYS);
   const starters: Record<string, MatchStarters> = {};
 
   for (const { categoryId, league } of LEAGUES) {
@@ -59,13 +64,19 @@ async function main() {
     }
   }
 
+  const out = path.join(process.cwd(), "src/data/starters.json");
+  let prev: StartersData["starters"] = {};
+  try {
+    prev = (JSON.parse(fs.readFileSync(out, "utf8")) as StartersData).starters ?? {};
+  } catch {
+    /* 첫 실행 */
+  }
   const data: StartersData = {
     lastUpdated: new Date().toISOString(),
-    starters,
+    starters: mergeStarters(prev, starters, today),
   };
-  const out = path.join(process.cwd(), "src/data/starters.json");
   fs.writeFileSync(out, JSON.stringify(data, null, 2) + "\n");
-  console.log(`[starters] wrote ${Object.keys(starters).length} matches → ${out}`);
+  console.log(`[starters] fetched ${Object.keys(starters).length}, kept ${Object.keys(data.starters).length} matches → ${out}`);
 }
 
 main().catch((err) => {

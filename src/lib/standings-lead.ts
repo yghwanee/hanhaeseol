@@ -56,11 +56,24 @@ export function buildStandingsLead(
     return `${head} ${tail}`;
   }
 
-  const teams = [...(league as BaseballLeagueStandings).teams].sort((a, b) => a.rank - b.rank);
+  const raw = (league as BaseballLeagueStandings).teams;
+  // 🔴 MLB 순위는 지구별이라 rank 1 이 여섯 팀이다. rank 로 고르면 첫 지구 1위(애틀랜타 .580)가
+  // 「MLB 선두」, 다른 지구 1위(클리블랜드 .525)가 「2위」로 나왔다(2026-10-22). 지구가 여럿이면
+  // 전체 승률 순으로 줄 세운다.
+  const divided = raw.filter((t) => t.rank === 1).length > 1;
+  const teams = [...raw].sort((a, b) => (divided ? b.winRate - a.winRate : a.rank - b.rank));
   const first = teams[0];
   if (!first) return null;
   const name = fullTeamName(meta.slug, first.teamName);
-  const head = `${asOf} 기준 ${meta.display} 선두는 ${name}(승률 ${winRateLabel(first.winRate)}, ${first.gameCount}경기 ${first.win}승 ${first.draw}무 ${first.lose}패)입니다.`;
+  const record = first.draw > 0 ? `${first.win}승 ${first.draw}무 ${first.lose}패` : `${first.win}승 ${first.lose}패`;
+  if (divided) {
+    const second = teams[1];
+    const head = `${asOf} 기준 ${meta.display} 전체 승률 선두는 ${name}(승률 ${winRateLabel(first.winRate)}, ${first.gameCount}경기 ${record})입니다.`;
+    if (!second) return head;
+    const secondName = fullTeamName(meta.slug, second.teamName);
+    return `${head} 다음은 ${secondName}(승률 ${winRateLabel(second.winRate)})입니다. 순위는 지구별로 나뉩니다.`;
+  }
+  const head = `${asOf} 기준 ${meta.display} 선두는 ${name}(승률 ${winRateLabel(first.winRate)}, ${first.gameCount}경기 ${record})입니다.`;
   const second = teams[1];
   if (!second) return head;
   const secondName = fullTeamName(meta.slug, second.teamName);

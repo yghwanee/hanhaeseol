@@ -224,6 +224,13 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     PSG: "파리 생제르망",
     "파리 생제르맹": "파리 생제르망",
     "클럽 브뤼헤": "클뤼프 브뤼헤",
+    // 2026-10-22 /api/live 와 같은 날 편성 대조(세 경기 다 스코어가 안 붙어 있었다).
+    코모: "코모 1907",
+    맨유: "맨체스터 유나이티드",
+    인테르: "인터 밀란",
+    샤흐타르: "샤흐타르 도네츠크",
+    "애스턴 빌라": "아스톤 빌라",
+    바이킹: "비킹 FK",
   },
 
   유로파리그: {
@@ -246,6 +253,12 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     OFI: "OFI 크레테",
     "NEC 네이메헌": "네이메헌",
     "베식타시": "베식타스",
+  },
+
+  // 2026-10-22: 네이버 「즈베즈다」 / 편성(SPOTV NOW) 「츠르베나 즈베즈다」 — 10/23 코펜하겐전 같은 경기.
+  컨퍼런스리그: {
+    ...EURO_CLUB_ALIASES,
+    즈베즈다: "츠르베나 즈베즈다",
   },
 
   에레디비시: {

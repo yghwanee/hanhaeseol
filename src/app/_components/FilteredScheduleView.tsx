@@ -5,7 +5,7 @@ import { MatchResult, ResultsData } from "@/types/results";
 import { lookupTeamRecord } from "@/lib/team-records/lookup";
 import { findResult } from "@/lib/results/lookup";
 import { LEAGUE_SEO, PLATFORM_SEO, SeoMeta } from "@/lib/slugs";
-import { SPORT_SEO, leaguesOfSport, eligibleSports } from "@/lib/sport-seo";
+import { leaguesOfSport, eligibleSports } from "@/lib/sport-seo";
 import { getTodayString } from "@/lib/schedule-utils";
 import { buildAnswerLead } from "@/lib/answer-lead";
 import { isGameFinished, formatDateHeader } from "@/lib/schedule-utils";
@@ -47,6 +47,8 @@ type Props = {
   meta: SeoMeta;
   kind: "league" | "platform" | "sport";
   schedules: Schedule[];
+  /** 종목 페이지가 「다른 종목」 게이트를 재는 전체 편성. `schedules` 는 그 종목만 걸러 들어온다. */
+  allSchedules?: Schedule[];
   teamRecords?: TeamRecordsMap;
   results?: ResultsData | null;
   guideSlot?: React.ReactNode;
@@ -54,7 +56,7 @@ type Props = {
   faqSlot?: React.ReactNode;
 };
 
-export default function FilteredScheduleView({ meta, kind, schedules, teamRecords = {}, results = null, guideSlot, highlightsSlot, faqSlot }: Props) {
+export default function FilteredScheduleView({ meta, kind, schedules, allSchedules, teamRecords = {}, results = null, guideSlot, highlightsSlot, faqSlot }: Props) {
   // meta.match 는 kind 에 따라 리그명 / 플랫폼명 / 종목명을 담는다.
   const matched = schedules
     .filter((s) =>
@@ -93,8 +95,14 @@ export default function FilteredScheduleView({ meta, kind, schedules, teamRecord
   );
   const dates = Object.keys(grouped).sort();
 
+  // 🔴 종목은 열린 페이지만 건다(`eligibleSports` — sitemap 과 같은 게이트). 전체 목록을 걸면
+  // 야구 비시즌에 배구 페이지가 404 인 /sport/baseball 로 링크했다(2026-10-22).
   const related =
-    kind === "league" ? LEAGUE_SEO : kind === "platform" ? PLATFORM_SEO : SPORT_SEO;
+    kind === "league"
+      ? LEAGUE_SEO
+      : kind === "platform"
+        ? PLATFORM_SEO
+        : eligibleSports(allSchedules ?? schedules, getTodayString());
 
   // 종목 페이지는 "그 종목의 리그" 를 내려보낸다 — 축구 페이지에 KBO 를 걸면
   // 없는 경기를 약속하는 셈이다. 리그·플랫폼 페이지는 종전대로 서로를 가리킨다.

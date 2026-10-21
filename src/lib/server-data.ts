@@ -7,6 +7,11 @@ import type { TeamRecordsData, TeamRecordsMap } from "@/types/team-record";
 import type { ResultsData } from "@/types/results";
 import { dedupeReversedFixtures } from "@/lib/fixture-dedupe";
 import { agSportsFile, type AgSportsData, type AsianGamesData } from "@/lib/asian-games/data";
+import type { Schedule } from "@/types/schedule";
+import type { StandingsData } from "@/types/standings";
+import { findResult } from "@/lib/results/lookup";
+import { dropUnplayedAfterClinch, phaseOf, postseasonGames, postseasonSeeds } from "@/lib/kbo-postseason";
+import standingsJson from "@/data/standings.json";
 
 /**
  * 배포 수명 동안 한 번만 읽고 파싱한다.
@@ -77,6 +82,10 @@ function buildScheduleData(): ScheduleData {
   // 홈/원정만 뒤집힌 같은 경기를 접는다. 안 접으면 사이트맵에 URL 이 두 개 올라가고
   // 매치 페이지 "다음 경기" 목록에 같은 경기가 두 줄로 뜬다(2026-08-13 실측 2건).
   data.schedules = dedupeReversedFixtures(data.schedules);
+
+  // 시리즈가 끝나 열리지 않는 KBO 포스트시즌 경기(티빙이 그날까지 남겨 둔다)를 뺀다.
+  const phantoms = kboPhantomKeys(data.schedules);
+  if (phantoms.size > 0) data.schedules = data.schedules.filter((s) => !phantoms.has(phantomKey(s)));
 
   // 카드에 쓸 앰블럼을 여기서 붙인다.
   //
@@ -149,6 +158,46 @@ export const loadResultsArchive = memo((): ResultsData | null => {
     return null;
   }
 });
+
+const phantomKey = (s: Pick<Schedule, "date" | "homeTeam" | "awayTeam">) => `${s.date}|${s.homeTeam}|${s.awayTeam}`;
+
+/**
+ * 시리즈가 앞 경기에서 끝나 **열리지 않는** KBO 포스트시즌 경기 키.
+ *
+ * 🔴 2026-10-22 실측: KIA 가 준PO 를 3:0 으로 끝냈는데 티빙이 4·5차전 편성을 그날까지
+ * 남겨 둬서 홈·리그·매치 페이지에 「선발 미발표」 경기로 떠 있었다. 판정은
+ * `dropUnplayedAfterClinch` 한 곳(포스트시즌 허브와 같은 함수). 정규시즌이면 빈 집합.
+ */
+export function kboPhantomKeys(schedules: Schedule[]): Set<string> {
+  const kbo = (standingsJson as unknown as StandingsData).baseball?.find((l) => l.id === "kbo");
+  const teams = kbo?.teams ?? [];
+  if (phaseOf(teams) !== "postseason") return new Set();
+  const season = kbo?.season ?? new Date().getFullYear().toString();
+  let archived: Schedule[] = [];
+  try {
+    const raw = fs.readFileSync(path.join(process.cwd(), "public", "schedule-archive.json"), "utf-8");
+    archived = (JSON.parse(raw) as ScheduleData).schedules.filter((s) => s.league === "KBO");
+  } catch {
+    /* 아카이브 없으면 현재 편성만 */
+  }
+  const all = [...archived, ...schedules.filter((s) => s.league === "KBO")];
+  const games = postseasonGames(all, teams, season);
+  const seedOf = new Map(postseasonSeeds(teams).map((t) => [t.teamName, t.rank]));
+  const archive = loadResultsArchive();
+  const recent = loadResults();
+  const kept = new Set(
+    dropUnplayedAfterClinch(games, seedOf, (g) => findResult(archive, g.schedule) ?? findResult(recent, g.schedule)).map(
+      (g) => phantomKey(g),
+    ),
+  );
+  const out = new Set<string>();
+  for (const g of games) if (!kept.has(phantomKey(g))) out.add(phantomKey(g));
+  // 같은 경기를 다른 채널이 다른 시각으로 낸 행도 같은 키(날짜·두 팀)라 함께 빠진다.
+  return out;
+}
+
+/** 매치 페이지용. 아카이브가 현재 편성을 이미 담고 있어 입력 없이 한 번만 계산한다. */
+export const loadKboPhantomKeys = memo(() => kboPhantomKeys([]));
 
 /** 편성 데이터. 배포 수명 동안 한 번만 조립한다(위 memo 주석 참조). */
 export const loadScheduleData = memo(buildScheduleData);

@@ -39,8 +39,23 @@ function GameRow({
   game: RecentGame;
   logoFor: (name: string) => string | null;
 }) {
-  const homeLost = game.homeScore < game.awayScore;
-  const awayLost = game.awayScore < game.homeScore;
+  // 🔴 카드 주인 팀을 항상 왼쪽에 둔다(2026-10-22). 홈-원정 순서 그대로 두면 LG 카드에
+  // 「6-3 패」(KIA 홈 6 : LG 3)처럼 점수와 승패 배지가 거꾸로 읽혔다.
+  const ownIsHome =
+    game.isHome ??
+    (game.result === "W"
+      ? game.homeScore > game.awayScore
+      : game.result === "L"
+        ? game.homeScore < game.awayScore
+        : true);
+  const left = ownIsHome
+    ? { team: game.homeTeam, score: game.homeScore }
+    : { team: game.awayTeam, score: game.awayScore };
+  const right = ownIsHome
+    ? { team: game.awayTeam, score: game.awayScore }
+    : { team: game.homeTeam, score: game.homeScore };
+  const homeLost = left.score < right.score;
+  const awayLost = right.score < left.score;
   return (
     <li className="flex items-center gap-2 text-label1">
       <span className="w-9 shrink-0 tabular-nums text-caption1 text-fg-tertiary">
@@ -48,28 +63,28 @@ function GameRow({
       </span>
 
       <div className="flex min-w-0 flex-1 items-center justify-center gap-1.5 sm:gap-2">
-        {/* 홈팀 — 엠블럼만 (팀명이 길면 행이 깨져서 이름은 생략) */}
+        {/* 카드 주인 팀 — 엠블럼만 (팀명이 길면 행이 깨져서 이름은 생략) */}
         <div className="flex flex-1 items-center justify-end gap-1.5">
           <span className={homeLost ? "opacity-40" : ""}>
-            <TeamLogo name={game.homeTeam} src={logoFor(game.homeTeam)} size={22} />
+            <TeamLogo name={left.team} src={logoFor(left.team)} size={22} />
           </span>
         </div>
 
         {/* 스코어 (메인 카드 스타일: 진 쪽 흐리게) */}
         <div className="flex shrink-0 items-baseline gap-1 tabular-nums text-body1 font-bold leading-none sm:text-headline1">
           <span className={homeLost ? "text-fg-tertiary" : "text-fg-strong"}>
-            {game.homeScore}
+            {left.score}
           </span>
           <span className="text-fg-tertiary">-</span>
           <span className={awayLost ? "text-fg-tertiary" : "text-fg-strong"}>
-            {game.awayScore}
+            {right.score}
           </span>
         </div>
 
-        {/* 원정팀 — 엠블럼만 */}
+        {/* 상대 팀 — 엠블럼만 */}
         <div className="flex flex-1 items-center justify-start gap-1.5">
           <span className={awayLost ? "opacity-40" : ""}>
-            <TeamLogo name={game.awayTeam} src={logoFor(game.awayTeam)} size={22} />
+            <TeamLogo name={right.team} src={logoFor(right.team)} size={22} />
           </span>
         </div>
       </div>

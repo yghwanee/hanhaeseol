@@ -15,7 +15,7 @@ import { lookupTeamRecord } from "@/lib/team-records/lookup";
 import { LEAGUE_GUIDES } from "@/lib/league-guides";
 import { PLATFORM_GUIDES } from "@/lib/platform-guides";
 import { findLeagueBySlug, findPlatformSlugByName, LEAGUE_SEO } from "@/lib/slugs";
-import { recentFormText } from "@/lib/teams";
+import { recentFormText, isSameTeam, mlbDivisionLabel } from "@/lib/teams";
 import { withJosa } from "../josa";
 
 export interface H2HEntry {
@@ -34,6 +34,8 @@ export interface RecentGame {
   awayScore: number;
   /** 카드 주인 팀(teamName) 관점의 결과 */
   result: "W" | "L" | "D";
+  /** 카드 주인 팀이 홈이었는지 */
+  isHome?: boolean;
 }
 
 export interface TeamSummary {
@@ -51,6 +53,8 @@ export interface TeamSummary {
   goalDiff?: number;
   /** 야구만: 승차 (게임차) */
   gameBehind?: number;
+  /** 순위·성적이 이 경기 대회가 아닌 다른 리그 것일 때 그 리그명(예: 챔스 경기에 리그앙 순위) */
+  leagueLabel?: string;
 }
 
 export interface MatchNarrative {
@@ -144,10 +148,14 @@ export function buildRecentGames(
   if (categoryIds.length === 0) return [];
 
   const out: RecentGame[] = [];
+  // 같은 경기가 아카이브에 두 번 있을 때가 있다(카테고리 중복 수집) — 날짜·두 팀으로 접는다.
+  const seen = new Set<string>();
   for (const r of results.results) {
     if (!categoryIds.includes(r.categoryId)) continue;
     if (r.status !== "finished") continue;
     if (r.date >= match.date) continue;
+    const dupKey = `${r.date}|${r.homeTeam}|${r.awayTeam}`;
+    if (seen.has(dupKey)) continue;
     if (typeof r.homeScore !== "number" || typeof r.awayScore !== "number") continue;
 
     const isHome = r.homeTeam === teamName;
@@ -159,6 +167,7 @@ export function buildRecentGames(
     const result: RecentGame["result"] =
       teamScore > oppScore ? "W" : teamScore < oppScore ? "L" : "D";
 
+    seen.add(dupKey);
     out.push({
       date: r.date,
       homeTeam: r.homeTeam,
@@ -166,6 +175,7 @@ export function buildRecentGames(
       homeScore: r.homeScore,
       awayScore: r.awayScore,
       result,
+      isHome,
     });
   }
   out.sort((a, b) => b.date.localeCompare(a.date));
@@ -187,14 +197,17 @@ export function buildTeamSummary(
 
   // 축구
   if (sport === "축구") {
-    const league = standings.soccer.find((l) =>
-      l.teams.some((t) => normalizeTeamName(t.teamName) === normalizeTeamName(teamName)),
-    );
-    const team = league?.teams.find(
-      (t) => normalizeTeamName(t.teamName) === normalizeTeamName(teamName),
-    );
-    if (team) {
+    // 🔴 이 경기 대회 순위표를 먼저 본다(2026-10-22 실측). 아무 리그나 먼저 걸리는 대로 쓰면
+    // 챔스 릴-갈라타사라이에서 릴은 리그앙 「4위 4승 2무 1패」, 갈라타사라이는 챔스 「23위」로
+    // 서로 다른 대회 성적이 나란히 나왔다. 다른 리그 것을 쓸 땐 그 리그명을 붙인다.
+    const same = (t: { teamName: string }) =>
+      normalizeTeamName(t.teamName) === normalizeTeamName(teamName) || isSameTeam(t.teamName, teamName);
+    const own = standings.soccer.find((l) => l.name === match.league);
+    const league = own?.teams.some(same) ? own : standings.soccer.find((l) => l.teams.some(same));
+    const team = league?.teams.find(same);
+    if (team && league) {
       summary = {
+        ...(league.name !== match.league ? { leagueLabel: league.name } : {}),
         rank: team.rank,
         recordLine: `${team.wins}승 ${team.draws}무 ${team.losses}패`,
         last5: team.lastFive,
@@ -212,7 +225,9 @@ export function buildTeamSummary(
       (t) => normalizeTeamName(t.teamName) === normalizeTeamName(teamName),
     );
     if (team) {
+      const division = mlbDivisionLabel(team as { league?: string; division?: string });
       summary = {
+        ...(division ? { leagueLabel: division } : {}),
         rank: team.rank,
         recordLine:
           team.draw > 0
@@ -300,7 +315,7 @@ function rankPhrase(rank?: number): string {
 function summaryToSentence(name: string, s?: TeamSummary): string {
   if (!s) return "";
   const parts: string[] = [];
-  if (s.rank) parts.push(`리그 ${rankPhrase(s.rank)}`);
+  if (s.rank) parts.push(`${s.leagueLabel ?? "리그"} ${rankPhrase(s.rank)}`);
   if (s.recordLine) parts.push(`시즌 ${s.recordLine}`);
   if (typeof s.winRate === "number") {
     parts.push(`승률 ${(s.winRate * 100).toFixed(1)}%`);

@@ -187,3 +187,16 @@ test("KOVO컵(프로배구대회·조 표기) 제목에서 리그와 팀명을 �
   // 정규 리그 표기는 그대로
   assert.equal(parseMatchTitle("2025-26 V-리그 여자부 흥국생명:정관장").league, "V리그");
 });
+
+test("tvN 「프로농구 현대모비스」는 티빙과 같은 「KBL 울산 현대모비스」로 맞춘다 (2026-10-22)", async () => {
+  const { canonicalNames } = await import("./index");
+  const row = { id: "x", date: "2026-10-22", time: "19:00", sport: "농구", league: "프로농구", homeTeam: "현대모비스", awayTeam: "LG", platform: "tvN SPORTS", koreanCommentary: true } as never;
+  const out = canonicalNames(row) as { league: string; homeTeam: string; awayTeam: string };
+  assert.deepEqual([out.league, out.homeTeam, out.awayTeam], ["KBL", "울산 현대모비스", "창원 LG"]);
+});
+
+test("폴리그 제목은 리그 「KBO 폴리그」로, 팀명에 대회명이 안 남는다 (2026-10-15 KBS N)", () => {
+  const p = parseMatchTitle("[생] 2026 울산-KBO 폴리그 LG : 울산");
+  assert.equal(p?.league, "KBO 폴리그");
+  assert.deepEqual([p?.homeTeam, p?.awayTeam].sort(), ["LG", "울산"]);
+});

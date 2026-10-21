@@ -51,10 +51,11 @@ export function getTodayString(): string {
   }).format(new Date());
 }
 
-export function isGameFinished(date: string, time: string, sport: string): boolean {
+/** `graceHours` 는 예상 종료 뒤 여유(시간). 기본 0. */
+export function isGameFinished(date: string, time: string, sport: string, graceHours = 0): boolean {
   const [hh, mm] = time.split(":").map(Number);
   const gameStart = new Date(`${date}T${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}:00+09:00`);
-  const duration = (GAME_DURATION_HOURS[sport] ?? 3) * 60 * 60 * 1000;
+  const duration = ((GAME_DURATION_HOURS[sport] ?? 3) + graceHours) * 60 * 60 * 1000;
   return Date.now() > gameStart.getTime() + duration;
 }
 

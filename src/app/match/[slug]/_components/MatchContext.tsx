@@ -50,6 +50,7 @@ function TeamSummaryCard({
         <span className="truncate text-label1 font-semibold text-fg-strong">{name}</span>
         {summary.rank ? (
           <span className="shrink-0 text-caption1 font-medium text-fg-brand-bright">
+            {summary.leagueLabel ? `${summary.leagueLabel} ` : ""}
             {summary.rank}위
           </span>
         ) : null}

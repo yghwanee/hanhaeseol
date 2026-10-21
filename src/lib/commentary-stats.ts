@@ -75,8 +75,10 @@ export function buildPlatformCommentaryStats(schedules: Schedule[]): PlatformCom
     const bucket = byPlatform.get(s.platform)!;
     add(bucket.stat, s);
 
-    if (!bucket.leagues.has(s.league)) bucket.leagues.set(s.league, empty(s.league));
-    add(bucket.leagues.get(s.league)!, s);
+    // 같은 대회가 제공처마다 「아이치-나고야」·「아이치·나고야」로 갈려 두 줄로 나왔다(2026-10-22).
+    const league = s.league.replace("아이치-나고야", "아이치·나고야");
+    if (!bucket.leagues.has(league)) bucket.leagues.set(league, empty(league));
+    add(bucket.leagues.get(league)!, s);
   }
 
   return [...byPlatform.values()]

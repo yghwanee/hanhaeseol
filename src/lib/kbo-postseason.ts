@@ -163,6 +163,66 @@ export function postseasonGames(
     });
 }
 
+/** 라운드별 시리즈 승리 조건. 와일드카드는 4위가 1승 어드밴티지를 안고 시작한다. */
+const WINS_TO_ADVANCE: Record<RoundKey, number> = { wildcard: 2, semipo: 3, po: 3, ks: 4 };
+
+export interface GameScore {
+  homeScore?: number;
+  awayScore?: number;
+  status?: string;
+}
+
+/**
+ * 시리즈가 끝난 뒤 남아 있는 "필요 시 개최" 경기를 뺀다.
+ *
+ * 🔴 왜 (2026-10-22 실측): 티빙은 5차전까지 편성을 미리 깔아 두고, 시리즈가 일찍 끝나도
+ * 그날이 될 때까지 지우지 않는다. 그래서 LG 가 와일드카드 1차전에서 통과했는데 2차전이,
+ * KIA 가 준PO 를 3:0 으로 끝냈는데 4·5차전이 남아 「다음 경기 준PO 5차전」이라고 안내했다.
+ *
+ * 와일드카드: 4위는 1승 어드밴티지가 있어 1승 또는 무승부면 통과, 5위는 2승해야 통과.
+ * 결과가 아직 없는 경기는 지우지 않는다(끝났는지 모르면 남겨 두는 쪽이 안전).
+ */
+export function dropUnplayedAfterClinch(
+  games: PostseasonGame[],
+  seedOf: Map<string, number>,
+  scoreOf: (g: PostseasonGame) => GameScore | undefined,
+): PostseasonGame[] {
+  const wins = new Map<string, number>();
+  const decided = new Set<RoundKey>();
+  const out: PostseasonGame[] = [];
+  for (const g of games) {
+    if (!g.round) {
+      out.push(g);
+      continue;
+    }
+    if (decided.has(g.round)) continue;
+    out.push(g);
+    const r = scoreOf(g);
+    if (!r || r.status !== "finished" || typeof r.homeScore !== "number" || typeof r.awayScore !== "number") continue;
+    const add = (team: string, n: number) => {
+      const k = `${g.round}|${team}`;
+      wins.set(k, (wins.get(k) ?? 0) + n);
+      return wins.get(k)!;
+    };
+    // 와일드카드 4위 어드밴티지: 첫 경기에서 1승을 깔아 둔다.
+    if (g.round === "wildcard") {
+      for (const t of [g.homeTeam, g.awayTeam]) {
+        if (seedOf.get(t) === 4 && !wins.has(`wildcard|${t}`)) wins.set(`wildcard|${t}`, 1);
+      }
+    }
+    let leader = 0;
+    if (r.homeScore > r.awayScore) leader = add(g.homeTeam, 1);
+    else if (r.awayScore > r.homeScore) leader = add(g.awayTeam, 1);
+    else if (g.round === "wildcard") {
+      // 무승부면 4위가 통과한다.
+      const four = [g.homeTeam, g.awayTeam].find((t) => seedOf.get(t) === 4);
+      if (four) leader = add(four, 1);
+    }
+    if (leader >= WINS_TO_ADVANCE[g.round]) decided.add(g.round);
+  }
+  return out;
+}
+
 export type Phase = "regular" | "postseason";
 
 export function phaseOf(teams: BaseballStanding[]): Phase {

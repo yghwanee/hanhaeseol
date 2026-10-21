@@ -3,6 +3,7 @@ import Link from "next/link";
 import standingsData from "@/data/standings.json";
 import scheduleArchive from "@/data/schedule-archive.json";
 import resultsArchiveData from "@/data/results-archive.json";
+import resultsData from "@/data/results.json";
 import type { StandingsData } from "@/types/standings";
 import type { Schedule } from "@/types/schedule";
 import type { ResultsData } from "@/types/results";
@@ -17,6 +18,7 @@ import {
   groupKboGames,
   phaseOf,
   postseasonGames,
+  dropUnplayedAfterClinch,
   postseasonSeeds,
   remainingRegularGames,
   roundInfo,
@@ -51,6 +53,7 @@ export const metadata: Metadata = {
 const data = standingsData as unknown as StandingsData;
 const archive = (scheduleArchive as unknown as { schedules: Schedule[] }).schedules;
 const resultsArchive = resultsArchiveData as unknown as ResultsData;
+const results = resultsData as unknown as ResultsData;
 
 const FAQS = [
   {
@@ -132,7 +135,11 @@ export default function KboPostseasonPage() {
   const seedOf = new Map(seeds.map((t) => [t.teamName, t.rank]));
   const phase = phaseOf(teams);
   const current = loadScheduleData().schedules;
-  const games = postseasonGames([...archive, ...current], teams, season);
+  const games = dropUnplayedAfterClinch(
+    postseasonGames([...archive, ...current], teams, season),
+    seedOf,
+    (g) => findResult(resultsArchive, g.schedule) ?? findResult(results, g.schedule),
+  );
   // 정규시즌 중에는 남은 정규시즌 경기를 보여 준다(가을야구 순위 싸움이 걸린 경기).
   const upcomingRegular = phase === "regular" ? groupKboGames(current).filter((g) => g.date >= today) : [];
 

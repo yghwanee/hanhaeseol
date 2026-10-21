@@ -356,9 +356,13 @@ export function genderOf(g: AgGame): "남자" | "여자" | "" {
 /** 대한민국 전적(끝난 맞대결만). 성별이 섞인 종목은 성별마다 따로 센다. */
 export function koreaRecord(games: AgGame[]): { gender: string; win: number; draw: number; lose: number }[] {
   const m = new Map<string, { gender: string; win: number; draw: number; lose: number }>();
+  // 🔴 성별이 하나뿐인 종목(야구)은 제목에 「남자」가 없는 슈퍼라운드·결승을 같은 묶음으로 센다.
+  // 안 그러면 「2승 1패, 남자 3승 0패」처럼 한 대표팀 전적이 둘로 쪼개졌다(2026-10-22).
+  const genders = new Set(games.map(genderOf).filter(Boolean));
+  const only = genders.size === 1 ? [...genders][0] : null;
   for (const g of games) {
     if (!isKoreaGame(g) || g.homeScore === null || g.awayScore === null || g.status !== "RESULT") continue;
-    const k = genderOf(g);
+    const k = genderOf(g) || only || "";
     const r = m.get(k) ?? { gender: k, win: 0, draw: 0, lose: 0 };
     const [my, op] = g.home === KOREA ? [g.homeScore, g.awayScore] : [g.awayScore, g.homeScore];
     if (my > op) r.win++;

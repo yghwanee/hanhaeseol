@@ -77,11 +77,52 @@ export async function crawlAll(date: string, existingSchedules: Schedule[]): Pro
   // 4종목만 + 팀 대 팀 경기만 + 시간순 정렬
   const filtered = allSchedules
     .map(trimNames)
+    .map(canonicalNames)
     .filter((s) => ALLOWED_SPORTS.has(s.sport))
     .filter((s) => s.homeTeam && s.awayTeam)
     .filter((s) => s.homeTeam !== "미정" && s.awayTeam !== "미정");
 
   return filterLateJoinBroadcasts(filtered).sort((a, b) => a.time.localeCompare(b.time));
+}
+
+/**
+ * tvN SPORTS 는 KBL 을 「프로농구 현대모비스 vs LG」로, 티빙은 「KBL 울산 현대모비스 vs 창원 LG」로
+ * 준다. 같은 경기가 리그명·팀명이 다른 두 경기로 보였고(2026-10-22), KBL 리그 페이지에서는 tvN
+ * 중계가 통째로 빠졌다. 티빙 표기(연고지 + 구단명)로 맞춘다. 표는 티빙 편성에 실제로 나온 10개
+ * 구단 그대로다.
+ */
+const KBL_FULL_NAME: Record<string, string> = {
+  SK: "서울 SK",
+  삼성: "서울 삼성",
+  KT: "수원 KT",
+  LG: "창원 LG",
+  현대모비스: "울산 현대모비스",
+  DB: "원주 DB",
+  소노: "고양 소노",
+  KCC: "부산 KCC",
+  정관장: "안양 정관장",
+  한국가스공사: "대구 한국가스공사",
+};
+
+// 쿠팡플레이 라리가 편성의 「AT. 마드리드」는 화면에서 약칭 깨진 것처럼 읽힌다. 순위표 표기로 맞춘다.
+const SOCCER_DISPLAY_NAME: Record<string, string> = {
+  "AT. 마드리드": "아틀레티코 마드리드",
+  "AT.마드리드": "아틀레티코 마드리드",
+};
+
+export function canonicalNames(s: Schedule): Schedule {
+  if (s.sport === "축구") {
+    const home = SOCCER_DISPLAY_NAME[s.homeTeam];
+    const away = SOCCER_DISPLAY_NAME[s.awayTeam];
+    return home || away ? { ...s, homeTeam: home ?? s.homeTeam, awayTeam: away ?? s.awayTeam } : s;
+  }
+  if (s.sport !== "농구" || (s.league !== "프로농구" && s.league !== "KBL")) return s;
+  return {
+    ...s,
+    league: "KBL",
+    homeTeam: KBL_FULL_NAME[s.homeTeam] ?? s.homeTeam,
+    awayTeam: KBL_FULL_NAME[s.awayTeam] ?? s.awayTeam,
+  };
 }
 
 // 중간 투입 중계(경기 시작 후 한참 지나서 편성된 생중계) 제거

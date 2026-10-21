@@ -137,6 +137,18 @@ function answerLead(sp: AgSport, games: AgGame[], today: string): string {
     return `${base} 2026 아시안게임 e스포츠는 ${span}가 잡혀 있습니다.${lolPart}`;
   }
 
+  // 대회가 끝난 뒤에는 「잡혀 있습니다」·「대진이 정해지면 추가」 같은 예고 문장을 쓰지 않는다.
+  if (today > AG_CLOSE) {
+    const rec = koreaRecord(games);
+    const recPart =
+      rec.length > 0
+        ? ` 대회 기간 대한민국은 ${rec
+            .map((r) => `${r.gender ? `${r.gender} ` : ""}${r.win}승${r.draw ? ` ${r.draw}무` : ""} ${r.lose}패`)
+            .join(", ")}를 기록했습니다.`
+        : "";
+    return `${base} 2026 아시안게임 ${withJosa(sp.name, "은/는")} ${span}를 치르고 끝났습니다.${recPart}`;
+  }
+
   const next = nextKoreaGame(games, today);
   // 🔴 개인 종목(양궁·수영 등)은 네이버가 한국 선수를 아직 안 붙여 한국 경기가 0 일 수 있다.
   // 그때는 빈 문장으로 끝내지 말고 **금메달전 날짜**를 준다 — 그게 이 종목에서 사람이 찾는 값이다.
@@ -188,7 +200,9 @@ function faqsOf(sp: AgSport, games: AgGame[], today: string, tvCount: number, pl
       q: `아시안게임 ${sp.name} 한국 다음 경기는 언제인가요?`,
       a: next
         ? `${today} 기준 대한민국 다음 경기는 ${hhmm(next)}(한국 시각) ${opponent(next) ? `${opponent(next)}전` : ""}(${next.title})입니다.`
-        : `${today} 기준 확정된 대한민국 남은 경기가 없습니다. 다음 라운드 대진이 정해지면 이 페이지에 추가됩니다.`,
+        : today > AG_CLOSE
+          ? `대회는 ${AG_CLOSE}에 끝났고 남은 대한민국 경기는 없습니다. 지난 경기 결과는 이 페이지 목록에서 볼 수 있습니다.`
+          : `${today} 기준 확정된 대한민국 남은 경기가 없습니다. 다음 라운드 대진이 정해지면 이 페이지에 추가됩니다.`,
     });
     const fs = finals(games);
     if (fs.length > 0) {
@@ -207,7 +221,7 @@ function faqsOf(sp: AgSport, games: AgGame[], today: string, tvCount: number, pl
   }
   out.push({
     q: "2026 아시안게임은 언제, 어디서 열리나요?",
-    a: `${AG_OPEN} 개막해 ${AG_CLOSE}까지 일본 아이치현 나고야 일대에서 열립니다. 축구·농구 등 일부 종목은 개막 전에 예선을 먼저 시작했습니다.`,
+    a: `${AG_OPEN} 개막해 ${AG_CLOSE}까지 일본 아이치현 나고야 일대에서 ${today > AG_CLOSE ? "열렸습니다" : "열립니다"}. 축구·농구 등 일부 종목은 개막 전에 예선을 먼저 시작했습니다.`,
   });
   return out;
 }

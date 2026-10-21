@@ -9,6 +9,7 @@ import { loadScheduleData, loadResults, loadResultsArchive, loadTeamRecords } fr
 import { ScheduleCard } from "@/app/_components/ScheduleCard";
 import {
   buildTeamIndex,
+  rankLabel,
   eligibleTeams,
   findTeamBySlug,
   upcomingFor,
@@ -195,8 +196,8 @@ export async function generateMetadata({
   // "해설 확인중" 뒤에 `해설 확인중로` 가 나온다(받침이 있으면 `으로`).
   const nextOpponent = next ? opponentOf(next, team) : undefined;
   const description = next
-    ? `${full} 다음 경기는 ${formatDate(next.date)} ${next.time} ${nextOpponent!.name}전(${nextOpponent!.home ? "홈" : "원정"}). ${next.platforms.slice(0, 2).join(", ")}에서 ${withJosa(commentaryLabel(next), "으로/로")} 중계됩니다. ${team.leagueName} ${team.rank}위, ${team.win}승 ${team.lose}패. 국내 중계 일정과 한국어 해설 여부를 7일치로 확인하세요.`
-    : `${full} ${team.leagueName} ${team.rank}위(${team.win}승 ${team.lose}패). 국내 중계는 ${platforms.join(", ") || "편성 확인 필요"}에서 볼 수 있습니다. 경기 일정과 한국어 해설 여부, 홈·원정 성적을 한눈에 확인하세요.`;
+    ? `${full} 다음 경기는 ${formatDate(next.date)} ${next.time} ${nextOpponent!.name}전(${nextOpponent!.home ? "홈" : "원정"}). ${next.platforms.slice(0, 2).join(", ")}에서 ${withJosa(commentaryLabel(next), "으로/로")} 중계됩니다. ${rankLabel(team)}, ${team.win}승 ${team.lose}패. 국내 중계 일정과 한국어 해설 여부를 7일치로 확인하세요.`
+    : `${full} ${rankLabel(team)}(${team.win}승 ${team.lose}패). 국내 중계는 ${platforms.join(", ") || "편성 확인 필요"}에서 볼 수 있습니다. 경기 일정과 한국어 해설 여부, 홈·원정 성적을 한눈에 확인하세요.`;
 
   const url = `${BASE}/team/${encodeURIComponent(team.slug)}`;
   return {
@@ -267,7 +268,10 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
   const played = groupGames(findTeamSchedules(schedules, team)).filter((g) => g.date < today);
   const homeAway = splitHomeAway(played, team, (g) => resultFor(g));
   const breakdown = platformBreakdown(schedules, team);
-  const nearby = standingsWindow(all, team, 2);
+  // 순위표 창은 페이지가 없는 팀까지 포함한 전체 순위표에서 자른다 — 페이지 있는 팀만 쓰면
+  // 「1위·4위·5위」처럼 중간이 빠졌다(2026-10-22). 링크는 페이지가 있는 팀에만 건다.
+  const eligibleSlugs = new Set(all.map((t) => t.slug));
+  const nearby = standingsWindow(buildTeamIndex(standingsData as unknown as StandingsData), team, 2);
 
   // 이 팀 코리안리거. 선수 페이지(`/player/[slug]`)로 들어가는 유일한 내부 링크다 —
   // 없으면 선수 페이지가 사이트맵에만 있는 고아가 된다(매치 페이지가 고아가 된 원인).
@@ -314,7 +318,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
               {full} 경기 중계
             </h1>
             <p className="mt-1 text-label1 text-fg-secondary">
-              {team.leagueName} {team.rank}위 · {team.win}승 {team.draw > 0 ? `${team.draw}무 ` : ""}
+              {rankLabel(team)} · {team.win}승 {team.draw > 0 ? `${team.draw}무 ` : ""}
               {team.lose}패
               {typeof team.winRate === "number" && ` · 승률 ${team.winRate.toFixed(3)}`}
               {typeof team.points === "number" && team.points > 0 && ` · 승점 ${team.points}`}
@@ -356,7 +360,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 
         <section className="mt-4 grid grid-cols-2 gap-2 sm:grid-cols-4">
           {[
-            { label: "순위", value: `${team.rank}위` },
+            { label: team.rankScope ? `${team.rankScope} 순위` : "순위", value: `${team.rank}위` },
             {
               label: "전적",
               value: `${team.win}승${team.draw > 0 ? ` ${team.draw}무` : ""} ${team.lose}패`,
@@ -413,7 +417,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
         {nearby.length > 1 && (
           <section className="mt-4 rounded-xl border border-line-subtle bg-subtle p-4 sm:p-5">
             <h2 className="text-label1 font-semibold text-fg-strong sm:text-headline1">
-              {team.leagueName} 순위표
+              {team.leagueName}{team.rankScope ? ` ${team.rankScope}` : ""} 순위표
             </h2>
             <table className="mt-3 w-full text-label1">
               <thead>
@@ -435,6 +439,8 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
                       <td className="py-1">
                         {me ? (
                           <strong>{t.name}</strong>
+                        ) : !eligibleSlugs.has(t.slug) ? (
+                          t.name
                         ) : (
                           <Link
                             href={`/team/${encodeURIComponent(t.slug)}`}

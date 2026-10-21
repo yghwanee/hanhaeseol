@@ -174,18 +174,32 @@ export default function ScheduleClient({
 
     const anyLiveNow = () =>
       data.schedules.some((s) => isGameLive(s.date, s.time, s.sport));
+    // 🔴 빌드 데이터가 따라잡지 못한 경기(2026-10-22 실측). 배포는 하루 4번인데 GH 가 몇 시간씩
+    // 늦춰서, 08시에 01:45 경기가 「LIVE 후반 45'」, 04:00 경기들이 「종료」+점수 없음이었다.
+    // 결과 데이터엔 이미 최종 스코어가 있었다. 시작한 지 24시간 안이고 빌드 결과가 "종료"가
+    // 아니면 한 번은 /api/live 로 받아 덮는다(진행 중 경기가 없으면 그 한 번으로 끝).
+    let caughtUp = false;
+    const needsCatchUp = () =>
+      !caughtUp &&
+      data.schedules.some((s) => {
+        const start = new Date(`${s.date}T${s.time}:00+09:00`).getTime();
+        const now = Date.now();
+        if (!(start <= now && now - start < 24 * 60 * 60 * 1000)) return false;
+        return findResult(results, s)?.status !== "finished";
+      });
 
     const tick = async () => {
       if (stopped) return;
       if (
         typeof document !== "undefined" &&
         document.visibilityState === "visible" &&
-        anyLiveNow()
+        (anyLiveNow() || needsCatchUp())
       ) {
         try {
           const r = await fetch("/api/live", { cache: "no-store" });
           if (r.ok) {
             const j = (await r.json()) as ResultsData;
+            caughtUp = true;
             if (!stopped) setPolledResults(j);
           }
         } catch {
@@ -199,7 +213,7 @@ export default function ScheduleClient({
       stopped = true;
       if (timer) clearTimeout(timer);
     };
-  }, [data, isArchiveDate]);
+  }, [data, isArchiveDate, results]);
 
   // 상태 변경 시 URL 동기화 (history.replaceState로 라우터 재요청 없이).
   // 초기값은 서버에서 prop으로 받으므로 mount 시 query → state 동기화 단계 없음 (깜빡임 방지).

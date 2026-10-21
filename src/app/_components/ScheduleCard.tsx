@@ -100,7 +100,7 @@ function ScheduleCardInner({
   query,
   homeRecord,
   awayRecord,
-  result,
+  result: rawResult,
   homeFollowed,
   awayFollowed,
   onToggleTeam,
@@ -128,6 +128,13 @@ function ScheduleCardInner({
   // (2026-08-11). 종전에는 축구만 진행 중 표시였는데 그 게이트가 득점자 기능 커밋에
   // 딸려 들어간 것이라, 야구가 대부분인 이 사이트에서는 라이브 스코어가 사실상
   // 한 건도 안 보이고 있었다. 득점자(goals)는 축구에만 있으므로 그쪽만 축구 한정.
+  // 🔴 낡은 LIVE 를 그대로 믿지 않는다(2026-10-22 실측: 08시에 01:45 경기가 「LIVE 후반 45'」).
+  // 빌드 데이터가 경기 중에 구워졌고 다음 배포·라이브 폴링이 아직 못 덮은 경우다. 예상 종료 +
+  // 3시간이 지났으면 진행 중 표시(스코어·분)를 접고 시간 기준 「종료」로 둔다.
+  const result =
+    rawResult?.status === "live" && isGameFinished(schedule.date, schedule.time, schedule.sport, 3)
+      ? undefined
+      : rawResult;
   const isSoccer = schedule.sport === "축구";
   const numeric = hasNumericScores(result);
   const showScores =

@@ -28,6 +28,7 @@ const KNOWN_UNSUPPORTED = new Set([
   // `/asian-games` 허브·종목 페이지에 붙인다. 메인 카드에는 안 붙는 게 정상이다.
   "아이치-나고야 아시안게임",
   "리그컵", // Leagues Cup (MLS x 리가 MX)
+  "KBO 폴리그", // 교육리그(울산). 네이버 리그 API 에 없다(2026-10-22).
   "WNBA",
   // 2026-10-06 실측: KOVO컵(NH농협컵)은 schedule/games 의 kovo 가 200 이지만 대회 기간(10/04~10/14) 0건.
   // kovocup·kovo_cup·kvl·vleague 등은 400. 컵대회는 네이버 일반 리그 API 에 안 올라온다.

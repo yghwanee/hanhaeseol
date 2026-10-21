@@ -23,16 +23,19 @@ export function MatchLiveScore({ schedule }: { schedule: Schedule }) {
       `${schedule.date}T${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}:00+09:00`,
     ).getTime();
     const duration = (GAME_DURATION_HOURS[schedule.sport] ?? 3) * 60 * 60 * 1000;
-    // 종료 후에도 3시간은 본다: 빌드 데이터가 따라잡기 전 구간(매시 크롤 + 배포)을 메운다.
+    // 종료 후에도 3시간은 45초마다 본다: 빌드 데이터가 따라잡기 전 구간(매시 크롤 + 배포)을 메운다.
     const until = start + duration + 3 * 60 * 60 * 1000;
-    if (Date.now() < start || Date.now() > until) return;
+    // 🔴 그 뒤 24시간까지는 **한 번만** 받는다(2026-10-22 실측). 배포가 몇 시간씩 밀리면
+    // 3시간 창이 닫힌 뒤에도 빌드에 최종 결과가 없어, 01:45 릴-갈라타사라이 페이지가 08시에
+    // 스코어 없이 떠 있었다. 이 컴포넌트는 정적 "최종 결과"가 없을 때만 렌더된다.
+    const catchUpUntil = start + 24 * 60 * 60 * 1000;
+    if (Date.now() < start || Date.now() > catchUpUntil) return;
 
     let stopped = false;
     let timer: ReturnType<typeof setTimeout> | undefined;
 
     const tick = async () => {
       if (stopped) return;
-      if (Date.now() > until) return;
       if (typeof document === "undefined" || document.visibilityState === "visible") {
         try {
           const r = await fetch("/api/live", { cache: "no-store" });
@@ -45,7 +48,7 @@ export function MatchLiveScore({ schedule }: { schedule: Schedule }) {
           /* 일시 오류는 다음 틱에 재시도 */
         }
       }
-      if (!stopped) timer = setTimeout(tick, 45000);
+      if (!stopped && Date.now() <= until) timer = setTimeout(tick, 45000);
     };
     tick();
     return () => {

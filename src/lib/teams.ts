@@ -10,6 +10,7 @@
  * "아스날는 시즌 0승 0패 상태입니다" 같은 빈 페이지를 138개 만들게 된다.
  */
 
+import { NAVER_TO_SCHEDULE_TEAM_NAME } from "@/lib/team-records/team-name-aliases";
 import type { Schedule } from "@/types/schedule";
 import { withJosa } from "@/lib/josa";
 
@@ -35,6 +36,9 @@ export type StandingTeam = {
   points?: number;
   lastFive?: string;
   streak?: { type: string; count: number };
+  /** MLB: 소속 리그·지구(순위가 지구 단위다) */
+  league?: string;
+  division?: string;
 };
 
 export type StandingLeague = { id?: string; name: string; season?: string; teams: StandingTeam[] };
@@ -57,6 +61,11 @@ export type TeamEntry = {
   slug: string;
   leagueSlug: string;
   leagueName: string;
+  /**
+   * 순위가 리그 전체가 아니라 그 안의 묶음 기준일 때의 이름(MLB 「NL 동부」).
+   * 🔴 MLB 순위는 지구별이라 1위가 여섯 팀이다. 이걸 빼면 휴스턴(81승 81패)이 「MLB 1위」로 나왔다.
+   */
+  rankScope?: string;
   /**
    * 편성 데이터(`Schedule.sport`)와 같은 표기: "축구" | "야구" | "농구".
    *
@@ -125,6 +134,19 @@ export function teamSlug(leagueSlug: string, name: string): string {
   return `${leagueSlug}-${cleaned}`;
 }
 
+const MLB_DIVISION: Record<string, string> = { EAST: "동부", CENTRAL: "중부", WEST: "서부" };
+
+/** MLB 지구 표기 「NL 동부」. 지구 정보가 없으면 undefined. */
+export function mlbDivisionLabel(t: Pick<StandingTeam, "league" | "division">): string | undefined {
+  if (!t.league || !t.division) return undefined;
+  return `${t.league} ${MLB_DIVISION[t.division] ?? t.division}`;
+}
+
+/** 「NL 동부 1위」·「KBO 2위」. 지구 단위 순위면 지구를 붙인다. */
+export function rankLabel(team: Pick<TeamEntry, "leagueName" | "rankScope" | "rank">): string {
+  return team.rankScope ? `${team.leagueName} ${team.rankScope} ${team.rank}위` : `${team.leagueName} ${team.rank}위`;
+}
+
 export function buildTeamIndex(standings: StandingsData): TeamEntry[] {
   const out: TeamEntry[] = [];
   // 편성 데이터의 `sport` 표기와 맞춘다.
@@ -140,10 +162,12 @@ export function buildTeamIndex(standings: StandingsData): TeamEntry[] {
 
     for (const t of league.teams ?? []) {
       if (!hasMeaningfulData(t)) continue;
+      const scope = mlbDivisionLabel(t);
       out.push({
         slug: teamSlug(leagueSlug, t.teamName),
         leagueSlug,
         leagueName: league.name,
+        ...(scope ? { rankScope: scope } : {}),
         sport,
         name: t.teamName,
         logo: t.teamLogo,
@@ -168,6 +192,42 @@ export function buildTeamIndex(standings: StandingsData): TeamEntry[] {
 }
 
 /**
+ * 순위표(네이버 표기)와 편성표 표기가 아예 다른 축구 팀을 같은 팀으로 묶는다.
+ *
+ * 🔴 왜 (2026-10-22 실측): 순위표 「맨체스터 시티」·「아스널」·「애스턴 빌라」·「인테르나치오날레」와
+ * 편성표 「맨시티」·「아스날」·「아스톤 빌라」·「인터 밀란」은 접두 일치가 안 돼서, 맨시티 팀 페이지에
+ * EPL 경기가 하나도 안 잡혀 「SPOTV NOW에서 중계」(챔스만 셌다)라고 안내했고 매치 페이지
+ * 「팀 상세정보」 링크도 빠졌다. 표는 스코어 매칭에 쓰는 alias 표(감사로 확인된 것만) 그대로다.
+ * 축구 리그만 쓴다 — 야구·농구 표의 짧은 이름(「LG」 등)을 전역으로 묶으면 종목을 넘는다.
+ */
+const SOCCER_ALIAS_LEAGUES = [
+  "프리미어리그", "라리가", "세리에A", "분데스리가", "MLS", "챔피언스리그", "유로파리그", "에레디비시", "코리아컵", "ACL",
+];
+const ALIAS_GROUP: Map<string, number> = (() => {
+  const parent: number[] = [];
+  const idOf = new Map<string, number>();
+  const id = (name: string) => {
+    const k = name.replace(/\s+/g, "");
+    let v = idOf.get(k);
+    if (v === undefined) {
+      v = parent.length;
+      parent.push(v);
+      idOf.set(k, v);
+    }
+    return v;
+  };
+  const find = (v: number): number => (parent[v] === v ? v : (parent[v] = find(parent[v])));
+  for (const league of SOCCER_ALIAS_LEAGUES) {
+    for (const [naver, sched] of Object.entries(NAVER_TO_SCHEDULE_TEAM_NAME[league] ?? {})) {
+      for (const n of Array.isArray(sched) ? sched : [sched]) parent[find(id(n))] = find(id(naver));
+    }
+  }
+  const out = new Map<string, number>();
+  for (const [k, v] of idOf) out.set(k, find(v));
+  return out;
+})();
+
+/**
  * 팀명 표기가 소스마다 다르다. 순위표는 "삼성", 편성표는 "삼성 라이온즈",
  * SPOTV TV 편성은 "미네소타"처럼 더 짧게 쓰기도 한다.
  * 한쪽이 다른 쪽으로 시작하면 같은 팀으로 본다. 공백은 무시한다.
@@ -179,9 +239,23 @@ export function isSameTeam(a: string, b: string): boolean {
   const x = a.replace(/\s+/g, "");
   const y = b.replace(/\s+/g, "");
   if (x === y) return true;
+  const gx = ALIAS_GROUP.get(x);
+  if (gx !== undefined && gx === ALIAS_GROUP.get(y)) return true;
   const [short, long] = x.length <= y.length ? [x, y] : [y, x];
   if (short.length < 2) return false;
-  return long.startsWith(short);
+  if (!long.startsWith(short)) return false;
+  // 🔴 유스·여자·2군은 다른 팀이다. 「맨체스터 시티」 팀 페이지에 「맨체스터 시티 U19」(UEFA
+  // 유스리그) 경기가 섞여 들어갔다(2026-10-22 실측).
+  if (/^(U\d{2}|유스|여자|W|B|II|2군)$/i.test(long.slice(short.length))) return false;
+  // 🔴 접두는 단어 경계에서만 인정한다. 「포르투」(FC 포르투)가 「포르투나 시타르트」로 잡혔다
+  // (2026-10-22). 원문에서 짧은 쪽이 끝나는 자리가 공백·끝이어야 한다. 공백 없는 원문끼리
+  // (「LA다저스」·「LA 다저스」)는 위의 공백 제거 일치에서 이미 걸린다.
+  const [shortRaw, longRaw] = x.length <= y.length ? [a, b] : [b, a];
+  const longNorm = longRaw.trim().replace(/\s+/g, " ");
+  const shortNorm = shortRaw.trim().replace(/\s+/g, " ");
+  if (!longNorm.startsWith(shortNorm)) return true;
+  const next = longNorm.charAt(shortNorm.length);
+  return next === "" || next === " ";
 }
 
 export function findTeamSchedules(
@@ -341,7 +415,7 @@ export function leagueSiblings(
 ): TeamEntry[] {
   return index
     .filter((t) => t.leagueSlug === team.leagueSlug && t.slug !== team.slug)
-    .sort((a, b) => a.rank - b.rank)
+    .sort((a, b) => (a.rankScope ?? "").localeCompare(b.rankScope ?? "") || a.rank - b.rank)
     .slice(0, limit);
 }
 
@@ -370,13 +444,12 @@ export function findOpponentEntry(
  * 야구는 선두와의 게임차, 축구는 승점을 쓴다.
  */
 export function standingContext(team: TeamEntry, leader?: TeamEntry): string | null {
+  const where = team.rankScope ? `${team.leagueName} ${team.rankScope}` : team.leagueName;
   if (team.rank === 1) {
-    return typeof team.gameBehind === "number"
-      ? `${team.leagueName} 선두`
-      : `${team.leagueName} 1위`;
+    return typeof team.gameBehind === "number" ? `${where} 선두` : `${where} 1위`;
   }
   if (typeof team.gameBehind === "number" && team.gameBehind > 0) {
-    return `선두와 ${team.gameBehind}경기 차`;
+    return `${team.rankScope ? "지구 " : ""}선두와 ${team.gameBehind}경기 차`;
   }
   if (leader && typeof team.points === "number" && typeof leader.points === "number") {
     const gap = leader.points - team.points;
@@ -408,6 +481,7 @@ export function findTeamForSchedule(
   index: TeamEntry[],
   leagueName: string,
   teamName: string,
+  sport?: string,
 ): TeamEntry | undefined {
   const leagueSlug = LEAGUE_SLUG_BY_NAME[leagueName];
   if (leagueSlug) {
@@ -416,7 +490,11 @@ export function findTeamForSchedule(
     );
     if (inLeague) return inLeague;
   }
-  const candidates = index.filter((t) => isSameTeam(t.name, teamName));
+  // 🔴 이름만으로 찾을 때는 종목을 잘라야 한다(2026-10-22 실측). 안 자르면 배구 삼성화재가
+  // KBO 삼성으로, 농구 울산 현대모비스가 K리그 울산으로, WNBA 애틀랜타가 MLB 애틀랜타로 갔다.
+  const candidates = index.filter(
+    (t) => (!sport || !t.sport || t.sport === sport) && isSameTeam(t.name, teamName),
+  );
   return candidates.length === 1 ? candidates[0] : undefined;
 }
 
@@ -429,7 +507,9 @@ export type WinLoss = { win: number; draw: number; lose: number };
 export function splitHomeAway(
   games: TeamGame[],
   team: TeamEntry,
-  scoreOf: (g: TeamGame) => { homeScore?: number; awayScore?: number } | undefined,
+  scoreOf: (
+    g: TeamGame,
+  ) => { homeScore?: number; awayScore?: number; status?: string } | undefined,
 ): { home: WinLoss; away: WinLoss } {
   const home: WinLoss = { win: 0, draw: 0, lose: 0 };
   const away: WinLoss = { win: 0, draw: 0, lose: 0 };
@@ -437,6 +517,9 @@ export function splitHomeAway(
   for (const g of games) {
     const r = scoreOf(g);
     if (!r || typeof r.homeScore !== "number" || typeof r.awayScore !== "number") continue;
+    // 🔴 끝난 경기만 센다. 취소·연기·예정 경기는 0:0 으로 와서 무승부로 잡혔다
+    // (2026-10-22 실측: 삼성 홈 31승 10무 20패 — 실제 시즌 무승부는 3).
+    if (r.status && r.status !== "finished") continue;
 
     const isHome = isSameTeam(g.homeTeam, team.name);
     const bucket = isHome ? home : away;
@@ -474,7 +557,7 @@ export function standingsWindow(
   span = 2,
 ): TeamEntry[] {
   const league = index
-    .filter((t) => t.leagueSlug === team.leagueSlug)
+    .filter((t) => t.leagueSlug === team.leagueSlug && t.rankScope === team.rankScope)
     .sort((a, b) => a.rank - b.rank);
   const i = league.findIndex((t) => t.slug === team.slug);
   if (i === -1) return [];

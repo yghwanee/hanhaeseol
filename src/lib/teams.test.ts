@@ -271,6 +271,10 @@ test("findTeamForSchedule: 리그가 맞으면 그 리그에서, 아니면 이�
   assert.equal(findTeamForSchedule(index, "K리그1", "울산 HD")?.slug, "k-league-1-울산");
   // 아예 없는 팀
   assert.equal(findTeamForSchedule(index, "KBO", "롯데"), undefined);
+  // 🔴 다른 종목 팀으로 새지 않는다(배구 삼성화재 → KBO 삼성, 농구 울산 현대모비스 → K리그 울산)
+  assert.equal(findTeamForSchedule(index, "KOVO컵", "삼성화재", "배구"), undefined);
+  assert.equal(findTeamForSchedule(index, "KBL", "울산 현대모비스", "농구"), undefined);
+  assert.equal(findTeamForSchedule(index, "K리그1", "울산 HD", "축구")?.slug, "k-league-1-울산");
 });
 
 test("splitHomeAway: 홈·원정 성적을 따로 센다", () => {
@@ -325,4 +329,29 @@ test("standingsWindow: 자기 주변 순위만 잘라낸다", () => {
 
   // 1위는 위쪽이 없으니 잘려도 에러가 나면 안 된다
   assert.deepEqual(standingsWindow(index, index[0], 2).map((t) => t.rank), [1, 2, 3]);
+});
+
+test("splitHomeAway: 취소 경기(0:0)는 무승부로 세지 않는다", () => {
+  const games = groupGames([sched({ date: "2026-07-21", homeTeam: "삼성 라이온즈", awayTeam: "두산" })]);
+  const { home } = splitHomeAway(games, SAMSUNG, () => ({ homeScore: 0, awayScore: 0, status: "canceled" }));
+  assert.deepEqual(home, { win: 0, draw: 0, lose: 0 });
+});
+
+test("isSameTeam: 순위표·편성표 표기가 아예 다른 축구 팀은 alias 표로 묶는다", () => {
+  assert.equal(isSameTeam("맨체스터 시티", "맨시티"), true);
+  assert.equal(isSameTeam("애스턴 빌라", "아스톤 빌라"), true);
+  assert.equal(isSameTeam("인테르나치오날레", "인터 밀란"), true);
+  assert.equal(isSameTeam("로스앤젤레스 FC", "LAFC"), true);
+  assert.equal(isSameTeam("맨체스터 시티", "맨유"), false);
+});
+
+test("isSameTeam: 유스·여자 팀은 같은 팀이 아니다", () => {
+  assert.equal(isSameTeam("맨체스터 시티", "맨체스터 시티 U19"), false);
+  assert.equal(isSameTeam("삼성", "삼성 라이온즈"), true);
+});
+
+test("isSameTeam: 접두는 단어 경계에서만 — 포르투 ≠ 포르투나 시타르트", () => {
+  assert.equal(isSameTeam("포르투", "포르투나 시타르트"), false);
+  assert.equal(isSameTeam("KT", "KT 위즈"), true);
+  assert.equal(isSameTeam("LA다저스", "LA 다저스"), true);
 });
