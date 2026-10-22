@@ -566,13 +566,13 @@ export default function MatchPage({ params }: { params: Params }) {
           <div className="mt-4 flex items-center justify-center gap-5 sm:gap-7">
             <TeamSide
               name={match.homeTeam}
-              logo={findTeamLogo(match.homeTeam) ?? match.homeEmblem ?? null}
+              logo={findTeamLogo(match.homeTeam, match.sport, match.league) ?? match.homeEmblem ?? null}
               team={findTeamForSchedule(teamIndex, match.league, match.homeTeam, match.sport)}
             />
             <span className="text-label1 font-bold text-fg-tertiary sm:text-body1">vs</span>
             <TeamSide
               name={match.awayTeam}
-              logo={findTeamLogo(match.awayTeam) ?? match.awayEmblem ?? null}
+              logo={findTeamLogo(match.awayTeam, match.sport, match.league) ?? match.awayEmblem ?? null}
               team={findTeamForSchedule(teamIndex, match.league, match.awayTeam, match.sport)}
             />
           </div>
@@ -756,7 +756,7 @@ export default function MatchPage({ params }: { params: Params }) {
           awayTeam={match.awayTeam}
           homeRecent={narrative.homeRecent}
           awayRecent={narrative.awayRecent}
-          logoFor={findTeamLogo}
+          logoFor={(name) => findTeamLogo(name, match.sport, match.league)}
         />
 
         <MatchContextSection

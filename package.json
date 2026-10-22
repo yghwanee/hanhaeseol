@@ -17,6 +17,7 @@
     "test:asian-games": "tsx --test src/lib/asian-games/data.test.ts",
     "audit:aliases": "tsx src/scripts/audit-aliases.ts",
     "crawl:starters": "tsx src/scripts/crawl-starters.ts",
+    "prune:kbo-phantoms": "tsx src/scripts/prune-kbo-phantoms.ts",
     "test:starters": "tsx --test src/lib/starters/*.test.ts",
     "insights:generate": "tsx src/scripts/generate-match-insights.ts",
     "post:main": "tsx src/scripts/post-instagram-main.ts",

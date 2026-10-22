@@ -55,6 +55,8 @@ export interface BasketballStanding {
   gameBehind: number;
   lastFive: string;
   streak: StreakInfo;
+  /** NBA: 「동부」·「서부」. 순위가 컨퍼런스 단위다. */
+  conference?: string;
 }
 
 export type SoccerLeagueId =

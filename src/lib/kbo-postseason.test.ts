@@ -9,6 +9,7 @@ import {
   roundForMatchup,
   groupKboGames,
   dropUnplayedAfterClinch,
+  kboPhantomKeysFrom,
 } from "./kbo-postseason";
 
 /**
@@ -127,4 +128,19 @@ test("와일드카드: 5위가 1차전을 이기면 2차전은 남는다", () =>
     x.date === "2026-10-14" ? { homeScore: 1, awayScore: 4, status: "finished" } : undefined,
   );
   assert.equal(out.length, 2);
+});
+
+test("kboPhantomKeysFrom: 크롤 스크립트와 사이트가 같은 키를 뺀다 (TV 사전방송 행 포함)", () => {
+  const rows = [
+    g("2026-10-12", "KT", "SSG"),
+    g("2026-10-14", "LG", "두산"),
+    g("2026-10-15", "LG", "두산"),
+    g("2026-10-15", "LG", "두산", "KBS N SPORTS", "18:15"),
+  ];
+  const keys = kboPhantomKeysFrom(rows, standings(144), "2026", (s) =>
+    s.date === "2026-10-14" ? { homeScore: 4, awayScore: 1, status: "finished" } : undefined,
+  );
+  assert.deepEqual([...keys], ["2026-10-15|LG|두산"]);
+  // 정규시즌 중이면 아무것도 안 뺀다
+  assert.equal(kboPhantomKeysFrom(rows, standings(140), "2026", () => undefined).size, 0);
 });

@@ -1,3 +1,7 @@
+import { STANDINGS_LEAGUES } from "@/lib/standings-seo";
+
+const STANDINGS_HUB_SLUGS = new Set(STANDINGS_LEAGUES.map((l) => l.slug));
+
 export type SeoMeta = {
   slug: string;
   /** schedule.json의 league / platform 값과 정확히 일치해야 한다 */
@@ -356,7 +360,11 @@ export function findLeagueBySlug(slug: string): SeoMeta | undefined {
  * (2026-10-07 실측). 팀 목록은 순위 데이터에서 만들어지므로 순위 페이지는 항상 있다.
  */
 export function leagueHubHref(slug: string): string {
-  return findLeagueBySlug(slug) ? `/league/${slug}` : `/standings/${slug}`;
+  if (findLeagueBySlug(slug)) return `/league/${slug}`;
+  // 리그 페이지도 순위 페이지도 없는 리그(NBA 등)는 종목 허브로 보낸다 — 없는 /standings/nba 로
+  // 링크하면 팀 페이지 빵부스러기가 404 가 된다(2026-10-22 농구 팀 페이지 추가 때 발견).
+  if (STANDINGS_HUB_SLUGS.has(slug)) return `/standings/${slug}`;
+  return slug === "nba" ? "/sport/basketball" : "/";
 }
 
 export function findPlatformBySlug(slug: string): SeoMeta | undefined {

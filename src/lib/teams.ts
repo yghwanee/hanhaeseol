@@ -39,6 +39,8 @@ export type StandingTeam = {
   /** MLB: 소속 리그·지구(순위가 지구 단위다) */
   league?: string;
   division?: string;
+  /** NBA: 「동부」·「서부」(순위가 컨퍼런스 단위다) */
+  conference?: string;
 };
 
 export type StandingLeague = { id?: string; name: string; season?: string; teams: StandingTeam[] };
@@ -111,6 +113,8 @@ export const LEAGUE_SLUG_BY_NAME: Record<string, string> = {
   세리에A: "seriea",
   리그앙: "ligue1",
   에레디비시: "eredivisie",
+  KBL: "kbl",
+  NBA: "nba",
 };
 
 function num(...vals: (number | null | undefined)[]): number {
@@ -162,7 +166,7 @@ export function buildTeamIndex(standings: StandingsData): TeamEntry[] {
 
     for (const t of league.teams ?? []) {
       if (!hasMeaningfulData(t)) continue;
-      const scope = mlbDivisionLabel(t);
+      const scope = mlbDivisionLabel(t) ?? t.conference;
       out.push({
         slug: teamSlug(leagueSlug, t.teamName),
         leagueSlug,
@@ -258,6 +262,17 @@ export function isSameTeam(a: string, b: string): boolean {
   return next === "" || next === " ";
 }
 
+/**
+ * 농구는 같은 도시 이름을 쓰는 다른 리그가 한 종목에 있다 — WNBA 「골든스테이트」(발키리스)와
+ * NBA 「골든스테이트」(워리어스), WNBA 「애틀랜타」와 NBA 「애틀랜타」. 리그명이 팀 리그로
+ * 시작할 때만(NBA ← 「NBA」·「NBA 써머리그」) 같은 팀으로 본다. 축구·야구는 컵대회·대륙대회가
+ * 리그명이 달라도 같은 팀이라 건드리지 않는다.
+ */
+function sameLeagueFamily(team: Pick<TeamEntry, "sport" | "leagueName">, scheduleLeague?: string): boolean {
+  if (team.sport !== "농구" || !scheduleLeague) return true;
+  return scheduleLeague.startsWith(team.leagueName);
+}
+
 export function findTeamSchedules(
   schedules: Schedule[],
   team: TeamEntry,
@@ -269,6 +284,7 @@ export function findTeamSchedules(
       // `토론토`(MLS)와 같은 팀으로 잡혔다. 실측 15개 팀이 영향받았다.
       // `sport` 가 비어 있으면(옛 데이터) 거르지 않는다 — 경기를 통째로 잃는 것보다 낫다.
       (!team.sport || !s.sport || s.sport === team.sport) &&
+      sameLeagueFamily(team, s.league) &&
       (isSameTeam(s.homeTeam, team.name) || isSameTeam(s.awayTeam, team.name)),
   );
 }
@@ -493,7 +509,10 @@ export function findTeamForSchedule(
   // 🔴 이름만으로 찾을 때는 종목을 잘라야 한다(2026-10-22 실측). 안 자르면 배구 삼성화재가
   // KBO 삼성으로, 농구 울산 현대모비스가 K리그 울산으로, WNBA 애틀랜타가 MLB 애틀랜타로 갔다.
   const candidates = index.filter(
-    (t) => (!sport || !t.sport || t.sport === sport) && isSameTeam(t.name, teamName),
+    (t) =>
+      (!sport || !t.sport || t.sport === sport) &&
+      sameLeagueFamily(t, leagueName) &&
+      isSameTeam(t.name, teamName),
   );
   return candidates.length === 1 ? candidates[0] : undefined;
 }

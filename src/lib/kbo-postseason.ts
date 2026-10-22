@@ -223,6 +223,29 @@ export function dropUnplayedAfterClinch(
   return out;
 }
 
+export const phantomKey = (s: { date: string; homeTeam: string; awayTeam: string }) =>
+  `${s.date}|${s.homeTeam}|${s.awayTeam}`;
+
+/**
+ * 시리즈가 앞에서 끝나 **열리지 않는** KBO 포스트시즌 경기 키(`date|home|away`).
+ * 사이트(`server-data`)와 크롤 스크립트(`prune-kbo-phantoms`)가 같이 쓴다 — 판정이 갈리면
+ * 사이트에선 빠진 경기에 푸시가 나간다. 정규시즌이면 빈 집합.
+ */
+export function kboPhantomKeysFrom(
+  schedules: Schedule[],
+  teams: BaseballStanding[],
+  season: string,
+  scoreOf: (s: Schedule) => GameScore | undefined,
+): Set<string> {
+  if (phaseOf(teams) !== "postseason") return new Set();
+  const games = postseasonGames(schedules.filter((s) => s.league === "KBO"), teams, season);
+  const seedOf = new Map(postseasonSeeds(teams).map((t) => [t.teamName, t.rank]));
+  const kept = new Set(dropUnplayedAfterClinch(games, seedOf, (g) => scoreOf(g.schedule)).map(phantomKey));
+  const out = new Set<string>();
+  for (const g of games) if (!kept.has(phantomKey(g))) out.add(phantomKey(g));
+  return out;
+}
+
 export type Phase = "regular" | "postseason";
 
 export function phaseOf(teams: BaseballStanding[]): Phase {

@@ -2,6 +2,9 @@ import type {
   BaseballLeagueId,
   BaseballLeagueStandings,
   BaseballStanding,
+  BasketballLeagueId,
+  BasketballLeagueStandings,
+  BasketballStanding,
   SoccerLeagueId,
   SoccerLeagueStandings,
   SoccerStanding,
@@ -236,4 +239,75 @@ export async function fetchBaseballLeague(
     season: seasonCode,
     teams,
   };
+}
+
+// ── 농구 ─────────────────────────────────────────────────────────────
+
+interface NaverBasketballTeam {
+  teamId: string;
+  teamName: string;
+  rank: number;
+  matchesPlayed: number;
+  wins: number;
+  losses: number;
+  winRate: number;
+  gameDifference: number;
+  lastFiveGames?: string | null;
+  /** NBA 만: ATLANTIC·CENTRAL·SOUTHEAST(동부) / NORTHWEST·PACIFIC·SOUTHWEST(서부) */
+  division?: string | null;
+}
+
+export interface BasketballLeagueMeta {
+  id: BasketballLeagueId;
+  categoryId: string;
+  name: string;
+  scheduleSlug?: string;
+}
+
+export const BASKETBALL_LEAGUES: BasketballLeagueMeta[] = [
+  { id: "kbl", categoryId: "kbl", name: "KBL", scheduleSlug: "kbl" },
+  { id: "nba", categoryId: "nba", name: "NBA" },
+];
+
+const NBA_EAST = new Set(["ATLANTIC", "CENTRAL", "SOUTHEAST"]);
+
+/**
+ * KBL·NBA 순위 (2026-10-22 추가). 종전엔 `basketball: []` 라 KBL·NBA 팀은 팀 페이지도 순위도
+ * 없었다. 응답에 자기 팀 로고 URL 이 없어 `team/<category>/default/<teamId>.png` 로 만든다
+ * (상대팀 로고 `opposingTeamImageUrl` 이 같은 규칙이고, kbl/35·nba/DET 200 실측).
+ * 🔴 `lastFiveGames` 는 농구는 **최근→오래된** 순서다(야구와 반대). KCC `LLLLW` = 4연패,
+ * 소노 `WWLLL` = 2연승이 같은 날 전적과 맞았다. NBA 순위는 **컨퍼런스** 단위다.
+ */
+export async function fetchBasketballLeague(
+  meta: BasketballLeagueMeta,
+): Promise<BasketballLeagueStandings | null> {
+  const seasonCode = await fetchCurrentSeasonCode(meta.categoryId);
+  if (!seasonCode) return null;
+  const r = await naverGet<{ seasonTeamStats?: NaverBasketballTeam[] }>(
+    `/statistics/categories/${meta.categoryId}/seasons/${seasonCode}/teams`,
+  );
+  const stats = r.seasonTeamStats ?? [];
+  if (stats.length === 0) return null;
+  const teams: BasketballStanding[] = stats
+    .slice()
+    .sort((a, b) => a.rank - b.rank)
+    .map((t) => {
+      const lastFive = t.lastFiveGames ?? "";
+      return {
+        rank: t.rank,
+        teamName: t.teamName,
+        teamLogo: t.teamId
+          ? `https://sports-phinf.pstatic.net/team/${meta.categoryId}/default/${t.teamId}.png?type=f92_88`
+          : null,
+        gameCount: t.matchesPlayed,
+        win: t.wins,
+        lose: t.losses,
+        winRate: t.winRate,
+        gameBehind: t.gameDifference,
+        lastFive,
+        streak: streakFromLastFive(lastFive),
+        ...(t.division ? { conference: NBA_EAST.has(t.division) ? "동부" : "서부" } : {}),
+      };
+    });
+  return { id: meta.id, name: meta.name, scheduleSlug: meta.scheduleSlug, season: seasonCode, teams };
 }

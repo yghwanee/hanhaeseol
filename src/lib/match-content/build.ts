@@ -250,6 +250,8 @@ export function buildTeamSummary(
     );
     if (team) {
       summary = {
+        // NBA 순위는 컨퍼런스 단위다(「서부 3위」).
+        ...(team.conference ? { leagueLabel: `${league?.name} ${team.conference}` } : {}),
         rank: team.rank,
         recordLine: `${team.win}승 ${team.lose}패`,
         winRate: team.winRate,

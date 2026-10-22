@@ -3,13 +3,16 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import {
   BASEBALL_LEAGUES,
+  BASKETBALL_LEAGUES,
   SOCCER_LEAGUES,
   fetchBaseballLeague,
+  fetchBasketballLeague,
   fetchSoccerLeague,
 } from "@/lib/standings/naver";
 import { pruneDeadEmblems } from "@/lib/standings/emblem-check";
 import type {
   BaseballLeagueStandings,
+  BasketballLeagueStandings,
   SoccerLeagueStandings,
   StandingsData,
 } from "@/types/standings";
@@ -56,10 +59,24 @@ async function main() {
     }
   }
 
+  console.log("[농구]");
+  const basketballResults = await Promise.all(
+    BASKETBALL_LEAGUES.map((m) =>
+      safe(m.name, () => fetchBasketballLeague(m)).then((r) => ({ meta: m, data: r })),
+    ),
+  );
+  const basketball: BasketballLeagueStandings[] = [];
+  for (const { meta, data } of basketballResults) {
+    if (data) {
+      basketball.push(data);
+      console.log(`  ${meta.name}: ${data.teams.length}팀 (season=${data.season})`);
+    }
+  }
+
   const data: StandingsData = {
     soccer,
     baseball,
-    basketball: [], // 다음 단계에서 NBA·KBL 추가
+    basketball,
     lastUpdated: new Date().toISOString(),
   };
 

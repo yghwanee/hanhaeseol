@@ -22,13 +22,55 @@ import { flagUrl } from "@/lib/country-flags";
 
 const sd = standings as unknown as StandingsData;
 
-/** 순위표 표기 → 로고. 종목 구분 없이 한 맵에 넣는다(팀명 충돌은 실측상 없다). */
+/**
+ * 순위표 표기 → 로고, 종목별.
+ *
+ * 🔴 종목을 섞은 한 맵이면 안 된다(2026-10-22). 농구 순위를 넣자 NBA 「애틀랜타」·「미네소타」·
+ * 「디트로이트」가 MLB 순위표의 같은 이름과 겹쳤다. 종목을 모르는 호출은 축구 → 야구 → 농구
+ * 순으로 **먼저 들어간 쪽**을 쓴다(종전 동작 유지, 농구는 새로 들어와서 맨 뒤).
+ */
+const LOGOS_BY_SPORT: ReadonlyMap<string, ReadonlyMap<string, string>> = (() => {
+  const out = new Map<string, Map<string, string>>();
+  const put = (sport: string, leagues: { teams: { teamName: string; teamLogo?: string | null }[] }[]) => {
+    const m = out.get(sport) ?? new Map<string, string>();
+    for (const l of leagues) for (const t of l.teams) if (t.teamLogo && !m.has(t.teamName)) m.set(t.teamName, t.teamLogo);
+    out.set(sport, m);
+  };
+  put("축구", sd.soccer);
+  put("야구", sd.baseball);
+  put("농구", sd.basketball ?? []);
+  return out;
+})();
 const STANDINGS_LOGOS: ReadonlyMap<string, string> = (() => {
   const m = new Map<string, string>();
-  for (const l of [...sd.soccer, ...sd.baseball, ...sd.basketball])
-    for (const t of l.teams) if (t.teamLogo) m.set(t.teamName, t.teamLogo);
+  for (const sport of ["축구", "야구", "농구"])
+    for (const [k, v] of LOGOS_BY_SPORT.get(sport) ?? []) if (!m.has(k)) m.set(k, v);
   return m;
 })();
+
+/**
+ * 배구 엠블럼(네이버 `team/kovo|wkovo/default/<teamId>.png`, 2026-10-22 200 실측). V리그 순위가
+ * 개막(10/31) 전이라 순위표에서 못 얻어 직접 둔다. 🔴 「정관장」은 KBL 「안양 정관장」 옛 tvN
+ * 표기와 겹쳐서 종목이 배구일 때만 쓴다.
+ */
+const KOVO = (id: string) => `https://sports-phinf.pstatic.net/team/kovo/default/${id}.png?type=f92_88`;
+const WKOVO = (id: string) => `https://sports-phinf.pstatic.net/team/wkovo/default/${id}.png?type=f92_88`;
+const VOLLEYBALL_LOGOS: Record<string, string> = {
+  대한항공: KOVO("1001"),
+  삼성화재: KOVO("1002"),
+  KB손해보험: KOVO("1004"),
+  현대캐피탈: KOVO("1005"),
+  한국전력: KOVO("1006"),
+  OK저축은행: KOVO("1008"),
+  우리카드: KOVO("1009"),
+  현대건설: WKOVO("2001"),
+  한국도로공사: WKOVO("2002"),
+  정관장: WKOVO("2003"),
+  흥국생명: WKOVO("2004"),
+  GS칼텍스: WKOVO("2005"),
+  IBK기업은행: WKOVO("2006"),
+  페퍼저축은행: WKOVO("2007"),
+};
 
 /**
  * 편성 표기 → 순위표 표기 **후보들**.
@@ -57,15 +99,34 @@ const SCHEDULE_TO_STANDINGS: ReadonlyMap<string, string[]> = (() => {
 })();
 
 /** 편성 표기로 로고를 찾는다. 못 찾으면 null (호출부가 플레이스홀더를 그린다). */
-export function resolveTeamLogo(teamName: string): string | null {
-  const mapped = getTeamLogo(teamName);
-  if (mapped) return mapped;
+function logoSportMismatch(url: string, sport?: string): boolean {
+  if (!sport) return false;
+  if (/\/(nba|kbl|wkbl)\//.test(url)) return sport !== "농구";
+  if (/\/mlb\//.test(url)) return sport !== "야구";
+  return false;
+}
 
-  const direct = STANDINGS_LOGOS.get(teamName);
+export function resolveTeamLogo(teamName: string, sport?: string, league?: string): string | null {
+  if (sport === "배구") {
+    const vb = VOLLEYBALL_LOGOS[teamName.replace(/^\d+\s+/, "")];
+    if (vb) return vb;
+  }
+
+  const mapped = getTeamLogo(teamName);
+  // 🔴 수기 표는 이름만 키라 종목이 다른 같은 이름이 걸린다 — 「애틀랜타」·「미네소타」가 NBA
+  // 로고라 SPOTV TV MLB 짧은 표기에 NBA 로고가 붙었다(2026-10-22). 종목을 알면 URL 의 종목과 맞춰 본다.
+  if (mapped && !logoSportMismatch(mapped, sport) && !(league === "WNBA" && mapped.includes("/nba/"))) return mapped;
+
+  // WNBA 는 순위표가 없고 팀 이름(「골든스테이트」·「애틀랜타」)이 NBA 와 같다 — 순위표로 찾으면
+  // NBA 팀 로고가 붙는다. 수기 표에 없으면 비워 둔다(이니셜 배지).
+  if (league === "WNBA") return null;
+
+  const logos = (sport && LOGOS_BY_SPORT.get(sport)) || STANDINGS_LOGOS;
+  const direct = logos.get(teamName);
   if (direct) return direct;
 
   for (const candidate of SCHEDULE_TO_STANDINGS.get(teamName) ?? []) {
-    const viaAlias = STANDINGS_LOGOS.get(candidate);
+    const viaAlias = logos.get(candidate);
     if (viaAlias) return viaAlias;
   }
 

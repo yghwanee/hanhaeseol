@@ -69,7 +69,10 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add src/data/results.json public/results.json src/data/results-archive.json public/results-archive.json src/data/team-records.json public/team-records.json public/asian-games.json public/asian-games/
+          # 결과가 막 들어온 이 시점에 시리즈가 끝났을 수 있다 — 열리지 않을 KBO 경기를 편성에서 뺀다
+          # (푸시 「경기 예고」가 레포 schedule.json 을 그대로 읽는다). 실패해도 결과 커밋은 막지 않는다.
+          npm run prune:kbo-phantoms || echo "::warning::prune:kbo-phantoms 실패"
+          git add src/data/results.json public/results.json src/data/results-archive.json public/results-archive.json src/data/team-records.json public/team-records.json public/asian-games.json public/asian-games/ src/data/schedule.json public/schedule.json
           if git diff --staged --quiet; then
             echo "변경 없음"
           else

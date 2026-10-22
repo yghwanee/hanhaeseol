@@ -3,6 +3,7 @@ import { crawlDateRange } from "../lib/crawlers";
 import { Schedule, ScheduleData } from "../types/schedule";
 import fs from "fs/promises";
 import path from "path";
+import { pruneKboPhantoms } from "./prune-kbo-phantoms";
 
 async function main() {
   // 오늘(KST)부터 7일치 크롤링
@@ -69,6 +70,10 @@ async function main() {
   const archiveJson = JSON.stringify(newArchive, null, 2);
   await fs.writeFile(archivePath, archiveJson, "utf-8");
   await fs.writeFile(archivePublicPath, archiveJson, "utf-8");
+
+  // 시리즈가 끝나 열리지 않는 KBO 포스트시즌 경기는 편성에서 뺀다(아카이브엔 남긴다).
+  const pruned = pruneKboPhantoms();
+  if (pruned > 0) console.log(`미개최 KBO 포스트시즌 경기 ${pruned}건 제외`);
 
   console.log("---");
   console.log(`완료: 총 ${data.schedules.length}건 → ${outPath}`);

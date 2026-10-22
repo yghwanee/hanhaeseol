@@ -1306,3 +1306,12 @@ Aside 로 홈·매치·순위·토픽·리그·종목·플랫폼·팀(173장 전
 - 🔴 **팀 매칭** — 순위표·편성 표기 차이(맨체스터 시티↔맨시티 등)를 alias 표(축구 리그만)로 묶음 · 접두는 단어 경계만(포르투≠포르투나) · U19·여자 제외. 팀 페이지 173→202, 서울·수원이 서울E·수원FC 경기를 잡던 것 해소.
 - 🟠 매치 최근 5경기 = 카드 주인 팀 기준 점수 + 중복 제거 · 미리보기 성적은 그 경기 대회 순위표 먼저(다른 리그면 리그명) · MLB 는 지구 순위(`rankScope` 「NL 동부」) + 순위 직답은 전체 승률 · tvN 「프로농구」→`KBL` + 티빙 구단명(`canonicalNames`) · 엠블럼 없으면 이니셜 배지(사이트 로고 금지) · 종목 페이지 「다른 종목」은 `eligibleSports`(배구→/sport/baseball 404) · 아시안게임 대회 후 문구 · 컨퍼런스리그 `uecl` 연결 · 챔스 alias 6건(10/22 실측 대조) · 폴리그 파싱.
 - 그대로 둔 것: 홈 히어로 문구(화니 결정 문구) · 토픽 slug `kbo-wildcard-2026-kia-doosan`(URL 변경 비용) · 카드 최근전적 좌우 반전(가운데가 최신 — 의도).
+
+## 작업134 — 미개최 경기 푸시 차단 · 농구 순위 · 배구 엠블럼 (2026-10-22)
+
+- 🔴 **미개최 KBO 경기는 원본에서 뺀다.** 푸시 발송·소셜 게시는 레포 `schedule.json` 을 그대로 읽어 작업133 의 사이트 필터를 안 탄다. 판정을 `kboPhantomKeysFrom`(kbo-postseason.ts) 하나로 모으고 `prune:kbo-phantoms` 가 편성 크롤 끝·결과 크롤 직후(시리즈가 끝나는 그 시점)에 `schedule.json` 에서 지운다. 아카이브는 남긴다(매치 페이지 「열리지 않은 경기」 안내용).
+- 🔴 **KBL·NBA 순위 수집** — `standings.basketball` 이 비어 KBL(10/3 개막)·NBA 팀은 팀 페이지·순위가 없었다. 네이버 `statistics/categories/{kbl|nba}/.../teams`. 로고는 `team/<cat>/default/<teamId>.png`. 🔴 농구 `lastFiveGames` 는 최근→오래된(야구와 반대). NBA 순위는 컨퍼런스 단위(`rankScope` 「동부」). 팀 페이지 +16(KBL 10·NBA 6, 0경기 팀은 경기 치르면 생긴다).
+  - 🔴 농구는 리그 계열로 자른다(`sameLeagueFamily`) — WNBA 「골든스테이트」·「애틀랜타」가 NBA 팀과 이름이 같다.
+  - NBA 는 리그·순위 페이지가 없어 `leagueHubHref` 가 `/sport/basketball` 로 보낸다(없는 `/standings/nba` 404 방지).
+- **배구 엠블럼** — `team/kovo|wkovo/default/<id>.png` 14팀, 종목이 배구일 때만(「정관장」이 KBL 과 겹친다). V리그 순위는 10/31 개막 뒤 시즌 코드가 바뀌면 수집 추가.
+- **로고 조회를 종목별로** — `resolveTeamLogo(name, sport, league)`. 수기 표 「애틀랜타」·「미네소타」가 NBA 로고라 SPOTV TV MLB 짧은 표기에 NBA 로고가 붙고 있었다(기존 버그). WNBA 는 NBA 로고 금지.
