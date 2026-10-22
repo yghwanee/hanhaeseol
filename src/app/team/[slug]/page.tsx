@@ -406,7 +406,11 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
                   원정 {homeAway.away.win}승
                   {homeAway.away.draw > 0 && ` ${homeAway.away.draw}무`} {homeAway.away.lose}패
                 </p>
-                <p className="mt-2 text-caption1 text-fg-tertiary">한해설이 수집한 결과 기준</p>
+                <p className="mt-2 text-caption1 text-fg-tertiary">
+                  {/* 시즌 전체가 아니라 수집 시작 뒤 경기만 센다 — 개수를 밝혀야 시즌 전적으로 안 읽힌다. */}
+                  한해설이 수집한 {homeAway.home.win + homeAway.home.draw + homeAway.home.lose + homeAway.away.win + homeAway.away.draw + homeAway.away.lose}경기 기준
+                  {team.played > 0 ? ` (시즌 ${team.played}경기 중)` : ""}
+                </p>
               </div>
             )}
 

@@ -355,3 +355,13 @@ test("isSameTeam: 접두는 단어 경계에서만 — 포르투 ≠ 포르투�
   assert.equal(isSameTeam("KT", "KT 위즈"), true);
   assert.equal(isSameTeam("LA다저스", "LA 다저스"), true);
 });
+
+test("배구·농구 순위도 팀 색인이 된다 — 리그 슬러그와 종목", () => {
+  const idx = buildTeamIndex({
+    basketball: [{ name: "KBL", teams: [{ rank: 1, teamName: "서울 삼성", gameCount: 6, win: 6, lose: 0 }] }],
+    volleyball: [{ name: "V리그 여자부", teams: [{ rank: 1, teamName: "정관장", gameCount: 2, win: 2, lose: 0, points: 6 }] }],
+  });
+  assert.deepEqual(idx.map((t) => [t.slug, t.sport]), [["kbl-서울-삼성", "농구"], ["v-league-정관장", "배구"]]);
+  // 배구 「정관장」이 농구 경기로 새지 않는다
+  assert.equal(findTeamForSchedule(idx, "KBL", "정관장", "농구"), undefined);
+});

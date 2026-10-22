@@ -48,6 +48,7 @@ export type StandingsData = {
   soccer?: StandingLeague[];
   baseball?: StandingLeague[];
   basketball?: StandingLeague[];
+  volleyball?: StandingLeague[];
 };
 
 export type TeamRecord = {
@@ -115,6 +116,8 @@ export const LEAGUE_SLUG_BY_NAME: Record<string, string> = {
   에레디비시: "eredivisie",
   KBL: "kbl",
   NBA: "nba",
+  "V리그 남자부": "v-league",
+  "V리그 여자부": "v-league",
 };
 
 function num(...vals: (number | null | undefined)[]): number {
@@ -158,6 +161,7 @@ export function buildTeamIndex(standings: StandingsData): TeamEntry[] {
     ...(standings.baseball ?? []).map((l) => ({ league: l, sport: "야구" })),
     ...(standings.soccer ?? []).map((l) => ({ league: l, sport: "축구" })),
     ...(standings.basketball ?? []).map((l) => ({ league: l, sport: "농구" })),
+    ...(standings.volleyball ?? []).map((l) => ({ league: l, sport: "배구" })),
   ];
 
   for (const { league, sport } of leagues) {

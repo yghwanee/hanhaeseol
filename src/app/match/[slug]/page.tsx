@@ -38,6 +38,7 @@ import { MatchBaseballLineup } from "./_components/MatchBaseballLineup";
 import { MatchLiveScore } from "./_components/MatchLiveScore";
 import { getStartersForMatch } from "@/lib/starters/lookup";
 import { loadKboPhantomKeys } from "@/lib/server-data";
+import { isInsightTooOld } from "@/lib/insights/freshness";
 import { resolveTeamLogo } from "@/lib/team-logo";
 import type { StartersData } from "@/types/starter";
 import startersData from "@/data/starters.json";
@@ -197,7 +198,8 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
   const match = findMatchAnywhere(params.slug);
   if (!match) return { title: "경기 정보 - 한해설" };
 
-  const insight = readInsight(match.id);
+  const metaInsight = readInsight(match.id);
+  const insight = metaInsight && !isInsightTooOld(metaInsight.generatedAt, match.date) ? metaInsight : null;
 
   const date = formatDateHeader(match.date);
   const ko = matchKoreanLabel(match);
@@ -340,7 +342,9 @@ export default function MatchPage({ params }: { params: Params }) {
   // 시리즈가 앞에서 끝나 열리지 않은 KBO 포스트시즌 경기. 선발·미리보기 대신 그 사실만 알린다.
   const unplayed =
     match.league === "KBO" && loadKboPhantomKeys().has(`${match.date}|${match.homeTeam}|${match.awayTeam}`);
-  const insight = unplayed ? null : readInsight(match.id);
+  const rawInsight = unplayed ? null : readInsight(match.id);
+  // 경기일보다 4일 넘게 앞서 만든 AI 글은 낡았다(대진·순위가 바뀐다) — 데이터 미리보기가 대신한다.
+  const insight = rawInsight && !isInsightTooOld(rawInsight.generatedAt, match.date) ? rawInsight : null;
   const starters = unplayed ? null : getStartersForMatch(startersData as unknown as StartersData, match);
 
   // 데이터 기반 자동 콘텐츠 — 인사이트 유무와 무관하게 항상 시도.

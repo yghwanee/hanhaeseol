@@ -5,6 +5,9 @@ import { callGemini, GEMINI_MODEL, GeminiError } from "./gemini-client";
 import { containsBettingTerms } from "./safety-filter";
 import { findFormContradictions } from "./form-claim";
 import { writeInsight, readInsight } from "./storage";
+import { shouldRegenerate } from "./freshness";
+
+const todayKst = () => new Date(Date.now() + 9 * 3600 * 1000).toISOString().slice(0, 10);
 
 export type GenerateOutcome =
   | { status: "created"; insight: MatchInsight }
@@ -21,7 +24,8 @@ export async function generateInsightForMatch(
 ): Promise<GenerateOutcome> {
   const ctx = buildInsightContext(inputs);
 
-  if (!options.force && readInsight(ctx.matchId)) {
+  const existing = readInsight(ctx.matchId);
+  if (!options.force && existing && !shouldRegenerate(existing.generatedAt, inputs.schedule.date, todayKst())) {
     return { status: "skipped", matchId: ctx.matchId, reason: "already-exists" };
   }
 

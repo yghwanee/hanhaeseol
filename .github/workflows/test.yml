@@ -98,6 +98,9 @@ jobs:
           npm run test:style-lint
           npm run test:teams
           npm run test:kbo-postseason
+          npm run test:schedule-group
+          npm run test:insight-freshness
+          npm run test:guide-facts
           npm run test:josa
           npm run test:match-quality
           npm run test:seo-meta

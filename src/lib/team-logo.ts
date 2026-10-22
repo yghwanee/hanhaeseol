@@ -39,6 +39,7 @@ const LOGOS_BY_SPORT: ReadonlyMap<string, ReadonlyMap<string, string>> = (() => 
   put("축구", sd.soccer);
   put("야구", sd.baseball);
   put("농구", sd.basketball ?? []);
+  put("배구", sd.volleyball ?? []);
   return out;
 })();
 const STANDINGS_LOGOS: ReadonlyMap<string, string> = (() => {

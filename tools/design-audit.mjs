@@ -33,7 +33,7 @@ const PATHS = [
   "/league/epl",
   "/platform/tving",
   "/standings/epl",
-  "/sport/baseball",
+  "/sport/basketball",
   "/guide/chzzk-worldcup-guide",
   "/match/2026-09-14-coupang-play-맨유-vs-맨시티",
   "/team/kbo-LG",

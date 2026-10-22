@@ -98,6 +98,18 @@ jobs:
                 continue
               fi
               echo "$lintout"
+              # 사실 게이트: 이미 끝난 KBO 포스트시즌 시리즈를 「진행 중」으로 쓴 문장(2026-10-22 실사고).
+              # 데이터(결과·편성)는 main 의 최신본으로 본다 — 초안 브랜치의 데이터는 쓰인 날 것이다.
+              git checkout origin/main -- src/data/results.json src/data/results-archive.json src/data/schedule.json src/data/schedule-archive.json src/data/standings.json 2>/dev/null || true
+              if ! factout=$(npx tsx src/scripts/check-guide-facts.ts $newfiles 2>&1); then
+                git checkout -f main
+                tg "$(printf '%s\n' '⚠️ 토픽 글 사실 검사 실패 (끝난 시리즈를 진행 중으로 씀)' '' "$title" '' "$factout" '' "머지 안 됨 — 확인 필요: $url")"
+                echo "$factout"
+                echo "사실 검사 실패 → 스킵"
+                echo "::endgroup::"
+                continue
+              fi
+              echo "$factout"
             fi
             git checkout -f main
 

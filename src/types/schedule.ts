@@ -26,6 +26,11 @@ export interface Schedule {
   /** 국기/엠블럼 이미지 URL (현재 월드컵 국가대표 경기에만 채워짐). */
   homeEmblem?: string;
   awayEmblem?: string;
+  /**
+   * 홈 화면이 같은 경기를 한 카드로 접을 때 붙인다(`groupSameGame`). 이 경기를 중계하는 모든
+   * 채널과 채널별 해설. 데이터 파일에는 없다 — 화면에서만 만든다.
+   */
+  coverage?: { platform: Platform; koreanCommentary: boolean | "unknown" }[];
 }
 
 export interface ScheduleData {

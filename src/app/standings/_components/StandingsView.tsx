@@ -1,10 +1,12 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import Link from "next/link";
 import type {
   BaseballLeagueStandings,
+  BasketballLeagueStandings,
   SoccerLeagueStandings,
+  VolleyballLeagueStandings,
   StandingsData,
 } from "@/types/standings";
 import { SmoothTabs, SmoothCircleTabs } from "../../_components/SmoothTabs";
@@ -12,14 +14,17 @@ import { SoccerTable } from "./SoccerTable";
 import { BaseballTable } from "./BaseballTable";
 import { MlbStandingsTable } from "./MlbStandingsTable";
 import { MlsStandingsTable } from "./MlsStandingsTable";
+import { VolleyballTable } from "./VolleyballTable";
 import { useScrollbarDrag } from "@/lib/hooks/useScrollbarDrag";
 import { AdfitBanner } from "../../_components/AdfitBanner";
 
-type SportKey = "soccer" | "baseball";
+type SportKey = "soccer" | "baseball" | "basketball" | "volleyball";
 
 const SPORTS: { key: SportKey; label: string }[] = [
   { key: "soccer", label: "축구" },
   { key: "baseball", label: "야구" },
+  { key: "basketball", label: "농구" },
+  { key: "volleyball", label: "배구" },
 ];
 
 /** 리그 동그라미 안에 표시할 짧은 약자. 한국 시청자가 즉시 알아보는 표기. */
@@ -37,6 +42,10 @@ const LEAGUE_SHORT: Record<string, string> = {
   eredivisie: "에레디",
   kbo: "KBO",
   mlb: "MLB",
+  kbl: "KBL",
+  nba: "NBA",
+  kovo: "남자부",
+  wkovo: "여자부",
 };
 
 export function StandingsView({
@@ -53,11 +62,19 @@ export function StandingsView({
 }) {
   const [sport, setSport] = useState<SportKey>(initialSport);
 
-  const leagues = useMemo<
-    Array<SoccerLeagueStandings | BaseballLeagueStandings>
-  >(() => {
-    return sport === "soccer" ? data.soccer : data.baseball;
-  }, [sport, data]);
+  // 농구 순위는 야구 표와 같은 칸(승률·경기·승·패·게임차·최근 5)이라 야구 표를 무승부 없이 쓴다.
+  const listFor = useCallback(
+    (s: SportKey): Array<SoccerLeagueStandings | BaseballLeagueStandings> =>
+      s === "soccer"
+        ? data.soccer
+        : s === "baseball"
+          ? data.baseball
+          : s === "basketball"
+            ? basketballAsBaseball(data.basketball ?? [])
+            : ((data.volleyball ?? []) as unknown as BaseballLeagueStandings[]),
+    [data],
+  );
+  const leagues = useMemo(() => listFor(sport), [sport, listFor]);
 
   const [leagueId, setLeagueId] = useState<string>(
     () => initialLeague || leagues[0]?.id || "",
@@ -74,18 +91,20 @@ export function StandingsView({
     const qLeague = params.get("league");
     let nextSport: SportKey | null = null;
     let nextLeague: string | null = null;
-    if (qSport === "soccer" || qSport === "baseball") {
+    if (qSport === "soccer" || qSport === "baseball" || qSport === "basketball" || qSport === "volleyball") {
       nextSport = qSport;
-      const list = qSport === "soccer" ? data.soccer : data.baseball;
+      const list = listFor(qSport);
       nextLeague = qLeague && list.some((l) => l.id === qLeague) ? qLeague : list[0]?.id ?? null;
     } else if (qLeague) {
       if (data.soccer.some((l) => l.id === qLeague)) nextSport = "soccer";
       else if (data.baseball.some((l) => l.id === qLeague)) nextSport = "baseball";
+      else if ((data.basketball ?? []).some((l) => l.id === qLeague)) nextSport = "basketball";
+      else if ((data.volleyball ?? []).some((l) => l.id === qLeague)) nextSport = "volleyball";
       if (nextSport) nextLeague = qLeague;
     }
     if (nextSport) setSport(nextSport);
     if (nextLeague) setLeagueId(nextLeague);
-  }, [data]);
+  }, [data, listFor]);
 
   // 상태 변경 시 URL ↔ 동기화 (history.replaceState로 라우터 재요청 없이).
   // 첫 인자에 null 을 넘기면 Next.js App Router 의 router state 가 entry 에서 사라져
@@ -94,17 +113,17 @@ export function StandingsView({
     const params = new URLSearchParams(window.location.search);
     if (sport !== "soccer") params.set("sport", sport);
     else params.delete("sport");
-    const firstId = (sport === "soccer" ? data.soccer[0]?.id : data.baseball[0]?.id) ?? "";
+    const firstId = listFor(sport)[0]?.id ?? "";
     if (leagueId && leagueId !== firstId) params.set("league", leagueId);
     else params.delete("league");
     const qs = params.toString();
     const next = qs ? `?${qs}` : window.location.pathname;
     window.history.replaceState(window.history.state, "", next);
-  }, [sport, leagueId, data]);
+  }, [sport, leagueId, listFor]);
 
   const onSportClick = (s: SportKey) => {
     setSport(s);
-    const first = s === "soccer" ? data.soccer[0]?.id : data.baseball[0]?.id;
+    const first = listFor(s)[0]?.id;
     if (first) setLeagueId(first);
   };
 
@@ -187,7 +206,7 @@ export function StandingsView({
         <h1 className="text-title3 font-bold text-fg-strong sm:text-title2">팀 순위</h1>
         <SmoothTabs<SportKey>
           ariaLabel="종목 선택"
-          options={SPORTS.map((s) => ({ value: s.key, label: s.label }))}
+          options={SPORTS.filter((s) => listFor(s.key).length > 0).map((s) => ({ value: s.key, label: s.label }))}
           value={sport}
           onChange={onSportClick}
         />
@@ -199,7 +218,7 @@ export function StandingsView({
         <div
           ref={scrollerRef}
           className={`overflow-x-auto overflow-y-hidden scrollbar-hide pb-1 pt-1 -mt-1 ${
-            sport === "baseball" ? "flex justify-center" : ""
+            sport !== "soccer" ? "flex justify-center" : ""
           }`}
         >
           <SmoothCircleTabs
@@ -255,7 +274,7 @@ export function StandingsView({
         />
         </div>
         {/* Scroll indicator bar — 야구는 리그가 2개라 스크롤 자체가 안 생겨서 숨김 */}
-        <div className={`mt-3 mx-auto w-28 sm:w-32 ${sport === "baseball" ? "hidden" : ""}`}>
+        <div className={`mt-3 mx-auto w-28 sm:w-32 ${sport !== "soccer" ? "hidden" : ""}`}>
           <div
             aria-hidden
             {...scrollbarHandlers}
@@ -304,6 +323,23 @@ export function StandingsView({
               ) : (
                 <SoccerTable teams={(current as SoccerLeagueStandings).teams} teamLinks={teamLinks?.[current.id]} />
               )
+            ) : (current.id as string) === "nba" ? (
+              <div className="space-y-6">
+                {(["동부", "서부"] as const).map((conf) => (
+                  <div key={conf}>
+                    <h3 className="mb-2 text-label1 font-semibold text-fg-strong">{conf} 컨퍼런스</h3>
+                    <BaseballTable
+                      hideDraw
+                      teams={(current as BaseballLeagueStandings).teams.filter((t) => (t as { conference?: string }).conference === conf)}
+                      teamLinks={teamLinks?.[current.id]}
+                    />
+                  </div>
+                ))}
+              </div>
+            ) : sport === "volleyball" ? (
+              <VolleyballTable teams={(current as unknown as VolleyballLeagueStandings).teams} teamLinks={teamLinks?.[current.id]} />
+            ) : sport === "basketball" ? (
+              <BaseballTable hideDraw teams={(current as BaseballLeagueStandings).teams} teamLinks={teamLinks?.[current.id]} />
             ) : current.id === "mlb" ? (
               <MlbStandingsTable teams={(current as BaseballLeagueStandings).teams} teamLinks={teamLinks?.[current.id]} />
             ) : (
@@ -314,4 +350,15 @@ export function StandingsView({
       )}
     </div>
   );
+}
+
+/** 농구 순위 → 야구 표 모양(무승부 0). 컨퍼런스는 그대로 둔다(NBA 동·서부 분리용). */
+function basketballAsBaseball(leagues: BasketballLeagueStandings[]): BaseballLeagueStandings[] {
+  return leagues.map((l) => ({
+    id: l.id as unknown as BaseballLeagueStandings["id"],
+    name: l.name,
+    scheduleSlug: l.scheduleSlug,
+    season: l.season,
+    teams: l.teams.map((t) => ({ ...t, draw: 0 })) as unknown as BaseballLeagueStandings["teams"],
+  }));
 }

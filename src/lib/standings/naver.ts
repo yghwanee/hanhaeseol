@@ -6,6 +6,9 @@ import type {
   BasketballLeagueStandings,
   BasketballStanding,
   SoccerLeagueId,
+  VolleyballLeagueId,
+  VolleyballLeagueStandings,
+  VolleyballStanding,
   SoccerLeagueStandings,
   SoccerStanding,
   StreakInfo,
@@ -310,4 +313,70 @@ export async function fetchBasketballLeague(
       };
     });
   return { id: meta.id, name: meta.name, scheduleSlug: meta.scheduleSlug, season: seasonCode, teams };
+}
+
+// ── 배구 ─────────────────────────────────────────────────────────────
+
+interface NaverVolleyballTeam {
+  teamId: string;
+  teamName: string;
+  rank: number;
+  points: number;
+  matchesPlayed: number;
+  wins: number;
+  losses: number;
+  setRatio: number;
+  lastFiveGames?: string | null;
+}
+
+export interface VolleyballLeagueMeta {
+  id: VolleyballLeagueId;
+  categoryId: string;
+  name: string;
+}
+
+export const VOLLEYBALL_LEAGUES: VolleyballLeagueMeta[] = [
+  { id: "kovo", categoryId: "kovo", name: "V리그 남자부" },
+  { id: "wkovo", categoryId: "wkovo", name: "V리그 여자부" },
+];
+
+/**
+ * V리그 순위 (2026-10-22 추가, 2026-27 시즌 10/31 개막).
+ * 🔴 **진행 중 시즌(`isSeason=Y`)일 때만** 받는다. 축구·야구가 쓰는 `fetchCurrentSeasonCode` 는
+ * Y 가 없으면 마지막 시즌을 돌려주는데, 그러면 개막 전에 지난 시즌(2025/26) 최종 순위가
+ * 「현재 순위」로 나간다. 로고는 `team/<kovo|wkovo>/default/<teamId>.png`(200 실측).
+ * 🔴 `lastFiveGames` 방향은 개막 후 첫 주에 실제 전적과 맞춰 볼 것(농구는 최근→오래된이었다).
+ */
+export async function fetchVolleyballLeague(
+  meta: VolleyballLeagueMeta,
+): Promise<VolleyballLeagueStandings | null> {
+  const r0 = await naverGet<{ seasons?: NaverSeason[] }>(`/statistics/categories/${meta.categoryId}/seasons`);
+  const season = (r0.seasons ?? []).find((x) => x.isSeason === "Y");
+  if (!season) return null;
+  const r = await naverGet<{ seasonTeamStats?: NaverVolleyballTeam[] }>(
+    `/statistics/categories/${meta.categoryId}/seasons/${season.seasonCode}/teams`,
+  );
+  const stats = r.seasonTeamStats ?? [];
+  if (stats.length === 0) return null;
+  const teams: VolleyballStanding[] = stats
+    .slice()
+    .sort((a, b) => a.rank - b.rank)
+    .map((t) => {
+      const lastFive = t.lastFiveGames ?? "";
+      return {
+        rank: t.rank,
+        teamName: t.teamName,
+        teamLogo: t.teamId
+          ? `https://sports-phinf.pstatic.net/team/${meta.categoryId}/default/${t.teamId}.png?type=f92_88`
+          : null,
+        gameCount: t.matchesPlayed,
+        win: t.wins,
+        lose: t.losses,
+        points: t.points,
+        setRatio: t.setRatio,
+        lastFive,
+        streak: streakFromLastFive(lastFive),
+      };
+    });
+  return { id: meta.id, name: meta.name, scheduleSlug: "v-league", season: season.seasonCode, teams };
 }

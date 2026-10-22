@@ -7,12 +7,15 @@ import {
   SOCCER_LEAGUES,
   fetchBaseballLeague,
   fetchBasketballLeague,
+  VOLLEYBALL_LEAGUES,
+  fetchVolleyballLeague,
   fetchSoccerLeague,
 } from "@/lib/standings/naver";
 import { pruneDeadEmblems } from "@/lib/standings/emblem-check";
 import type {
   BaseballLeagueStandings,
   BasketballLeagueStandings,
+  VolleyballLeagueStandings,
   SoccerLeagueStandings,
   StandingsData,
 } from "@/types/standings";
@@ -73,10 +76,21 @@ async function main() {
     }
   }
 
+  console.log("[배구]");
+  const volleyball: VolleyballLeagueStandings[] = [];
+  for (const m of VOLLEYBALL_LEAGUES) {
+    const v = await safe(m.name, () => fetchVolleyballLeague(m));
+    if (v) {
+      volleyball.push(v);
+      console.log(`  ${m.name}: ${v.teams.length}팀 (season=${v.season})`);
+    }
+  }
+
   const data: StandingsData = {
     soccer,
     baseball,
     basketball,
+    volleyball,
     lastUpdated: new Date().toISOString(),
   };
 
@@ -96,7 +110,7 @@ async function main() {
   }
 
   // 로고가 하나도 없는 팀이 남았는지 표로 보여 준다. 조용히 비는 게 제일 나쁘다.
-  const empty = [...data.soccer, ...data.baseball, ...data.basketball]
+  const empty = [...data.soccer, ...data.baseball, ...data.basketball, ...(data.volleyball ?? [])]
     .flatMap((l) => l.teams.map((t) => ({ league: l.name, team: t.teamName, logo: t.teamLogo })))
     .filter((r) => !r.logo);
   console.log(

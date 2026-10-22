@@ -223,6 +223,44 @@ export function dropUnplayedAfterClinch(
   return out;
 }
 
+export interface SeriesStatus {
+  round: RoundKey;
+  wins: Record<string, number>;
+  /** 시리즈를 끝낸 팀. 진행 중이면 null. */
+  winner: string | null;
+}
+
+/**
+ * 라운드별 시리즈 상태(끝난 경기 결과만으로). 승리 셈은 `dropUnplayedAfterClinch` 와 같은 규칙
+ * (와일드카드 4위 1승 어드밴티지·무승부 통과). 토픽 글 사실 게이트가 쓴다.
+ */
+export function seriesStatuses(
+  games: PostseasonGame[],
+  seedOf: Map<string, number>,
+  scoreOf: (g: PostseasonGame) => GameScore | undefined,
+): SeriesStatus[] {
+  const out = new Map<RoundKey, SeriesStatus>();
+  for (const g of games) {
+    if (!g.round) continue;
+    const st = out.get(g.round) ?? { round: g.round, wins: {}, winner: null };
+    out.set(g.round, st);
+    if (st.winner) continue;
+    if (g.round === "wildcard") {
+      for (const t of [g.homeTeam, g.awayTeam]) if (seedOf.get(t) === 4 && st.wins[t] === undefined) st.wins[t] = 1;
+    }
+    const r = scoreOf(g);
+    if (!r || r.status !== "finished" || typeof r.homeScore !== "number" || typeof r.awayScore !== "number") continue;
+    let team: string | undefined;
+    if (r.homeScore > r.awayScore) team = g.homeTeam;
+    else if (r.awayScore > r.homeScore) team = g.awayTeam;
+    else if (g.round === "wildcard") team = [g.homeTeam, g.awayTeam].find((t) => seedOf.get(t) === 4);
+    if (!team) continue;
+    st.wins[team] = (st.wins[team] ?? 0) + 1;
+    if (st.wins[team] >= WINS_TO_ADVANCE[g.round]) st.winner = team;
+  }
+  return [...out.values()];
+}
+
 export const phantomKey = (s: { date: string; homeTeam: string; awayTeam: string }) =>
   `${s.date}|${s.homeTeam}|${s.awayTeam}`;
 

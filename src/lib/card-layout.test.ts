@@ -48,8 +48,9 @@ test("🔴 카드 뱃지 묶음은 PC 상단·모바일 하단으로 갈린다",
     "상태 뱃지를 폭으로 숨긴다 — LIVE·종료는 두 폭 다 상단에 있어야 한다",
   );
   // 모바일 전용 자리: 가운데 정렬 + PC 에서는 숨는다 + 하이라이트 **위**.
-  const mobile = src.match(/className="pointer-events-none relative z-10 mt-6 flex items-center justify-center gap-1\.5 sm:hidden"/);
-  assert.ok(mobile, "모바일 하단 자리가 mt-6·가운데 정렬·sm:hidden 이 아니다 — 12px 면 최근전적 줄에 붙어 한 묶음으로 읽힌다");
+  // 채널이 하나면 모바일 전용(sm:hidden), 둘 이상이면 PC 에서도 이 자리(2026-10-22 — 상단 한 줄에 다 못 넣는다).
+  const mobile = src.match(/className=\{`pointer-events-none relative z-10 mt-6 flex items-center justify-center [^`]*\$\{multiChannel \? "" : "sm:hidden"\}`\}/);
+  assert.ok(mobile, "모바일 하단 자리가 mt-6·가운데 정렬·(한 채널이면) sm:hidden 이 아니다 — 12px 면 최근전적 줄에 붙어 한 묶음으로 읽힌다");
   /**
    * 🔴 순서는 최근전적 → 뱃지 → **하이라이트(맨 아래)** 다(화니 지시, 2026-09-15).
    * 하이라이트는 누르는 것이라 카드 끝에 있어야 손이 간다.

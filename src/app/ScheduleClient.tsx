@@ -7,6 +7,7 @@ import { TeamRecordsMap } from "@/types/team-record";
 import { ResultsData } from "@/types/results";
 import { lookupTeamRecord } from "@/lib/team-records/lookup";
 import { findResult } from "@/lib/results/lookup";
+import { groupSameGame } from "@/lib/schedule-group";
 import { getUpcomingDates, getTodayString, isGameLive } from "@/lib/schedule-utils";
 import { teamKey, isFollowedGame } from "@/lib/follows";
 import { useFollows } from "./_components/use-follows";
@@ -355,8 +356,9 @@ export default function ScheduleClient({
     const sourceSchedules = isArchiveDate
       ? [...source.schedules, ...worldcupArchive]
       : source.schedules;
-    return sourceSchedules
-      .filter((s) => s.date === selectedDate)
+    // 같은 경기를 채널마다 한 장씩 내지 않고 한 카드로 접는다(`groupSameGame`). 플랫폼·해설
+    // 필터는 접은 뒤 `coverage` 로 본다 — 먼저 거르면 카드에서 다른 채널이 사라진다.
+    return groupSameGame(sourceSchedules.filter((s) => s.date === selectedDate))
       .filter((s) => {
         if (deferredSport === "전체") return true;
         // "북중미 월드컵"은 5번째 종목이 아니라 파생 카테고리(축구 중 월드컵 대회).
@@ -364,10 +366,11 @@ export default function ScheduleClient({
         if (deferredSport === "북중미 월드컵") return s.league.startsWith("북중미 월드컵");
         return s.sport === deferredSport;
       })
-      .filter((s) => deferredPlatform === "전체" || s.platform === deferredPlatform)
+      .filter((s) => deferredPlatform === "전체" || (s.coverage ?? [s]).some((c) => c.platform === deferredPlatform))
       .filter((s) => {
-        if (deferredCommentary === "korean") return s.koreanCommentary === true;
-        if (deferredCommentary === "foreign") return s.koreanCommentary === false;
+        const cov = s.coverage ?? [s];
+        if (deferredCommentary === "korean") return cov.some((c) => c.koreanCommentary === true);
+        if (deferredCommentary === "foreign") return cov.some((c) => c.koreanCommentary === false);
         return true;
       })
       .filter((s) => {
@@ -465,11 +468,12 @@ export default function ScheduleClient({
    */
   const heroStats = useMemo(() => {
     const today = getTodayString();
-    const todays = data.schedules.filter((s) => s.date === today);
+    // 카드와 같은 단위(경기)로 센다 — 채널 행으로 세면 「20경기」인데 카드는 14장이 된다.
+    const todays = groupSameGame(data.schedules.filter((s) => s.date === today));
     const [, m, d] = today.split("-");
     return {
       total: todays.length,
-      korean: todays.filter((s) => s.koreanCommentary === true).length,
+      korean: todays.filter((s) => (s.coverage ?? [s]).some((c) => c.koreanCommentary === true)).length,
       dateLabel: `${Number(m)}월 ${Number(d)}일`,
     };
   }, [data.schedules]);

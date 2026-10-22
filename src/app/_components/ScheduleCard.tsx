@@ -77,17 +77,28 @@ function MetaBadges({
   schedule: Schedule;
   className: string;
 }) {
+  // 홈은 같은 경기를 한 카드로 접어 채널을 여럿 단다(`coverage`). 해설은 채널마다 다를 수 있어
+  // [플랫폼][해설] 을 한 쌍으로 묶어 늘어놓는다. 접지 않은 화면(팀·플랫폼 페이지)은 한 쌍.
+  const pairs = schedule.coverage ?? [{ platform: schedule.platform, koreanCommentary: schedule.koreanCommentary }];
   return (
-    <div className={className}>
-      <PlatformBadge platform={schedule.platform} />
-      {schedule.koreanCommentary === true ? (
-        <span className="w-badge w-badge--ko">한국어</span>
-      ) : schedule.koreanCommentary === false ? (
-        <span className="w-badge w-badge--local">현지</span>
-      ) : (
-        <span className="w-badge w-badge--outline">확인 중</span>
-      )}
+    <div className={`${className} flex-wrap`}>
+      {pairs.map((c) => (
+        <span key={c.platform} className="inline-flex items-center gap-1.5">
+          <PlatformBadge platform={c.platform} />
+          <CommentaryBadge value={c.koreanCommentary} />
+        </span>
+      ))}
     </div>
+  );
+}
+
+function CommentaryBadge({ value }: { value: Schedule["koreanCommentary"] }) {
+  return value === true ? (
+    <span className="w-badge w-badge--ko">한국어</span>
+  ) : value === false ? (
+    <span className="w-badge w-badge--local">현지</span>
+  ) : (
+    <span className="w-badge w-badge--outline">확인 중</span>
   );
 }
 
@@ -135,6 +146,7 @@ function ScheduleCardInner({
     rawResult?.status === "live" && isGameFinished(schedule.date, schedule.time, schedule.sport, 3)
       ? undefined
       : rawResult;
+  const multiChannel = (schedule.coverage?.length ?? 1) > 1;
   const isSoccer = schedule.sport === "축구";
   const numeric = hasNumericScores(result);
   const showScores =
@@ -197,10 +209,12 @@ function ScheduleCardInner({
         {/* 상단 우측. 플랫폼·해설은 **PC 에서만**이고(모바일은 카드 맨 아래로 내렸다),
             상태(LIVE·종료·취소·연기)는 **폭과 무관하게 여기 남는다**(화니 지시). */}
         <div className="flex shrink-0 items-center gap-1.5">
-          <MetaBadges
-            schedule={schedule}
-            className="hidden items-center gap-1.5 sm:flex"
-          />
+          {!multiChannel && (
+            <MetaBadges
+              schedule={schedule}
+              className="hidden items-center gap-1.5 sm:flex"
+            />
+          )}
           <StatusBadge
             status={schedule.koreanCommentary}
             finished={isGameFinished(schedule.date, schedule.time, schedule.sport)}
@@ -293,7 +307,8 @@ function ScheduleCardInner({
         schedule={schedule}
         /* 간격은 `mt-6`(24px). 종전 12px 는 최근전적 뱃지 줄에 붙어 한 묶음처럼 보였다
            — 서로 다른 정보라 떼어 놔야 한다(화니 지시, 2026-09-15: "지금의 2배"). */
-        className="pointer-events-none relative z-10 mt-6 flex items-center justify-center gap-1.5 sm:hidden"
+        /* 채널이 둘 이상이면 PC 상단 한 줄에 다 못 넣는다(리그명이 잘린다) — PC 에서도 이 자리에 둔다. */
+        className={`pointer-events-none relative z-10 mt-6 flex items-center justify-center gap-x-3 gap-y-2 ${multiChannel ? "" : "sm:hidden"}`}
       />
 
       {/* 하단 줄 = 하이라이트가 있을 때만(플랫폼·해설은 PC 에서 상단 우측, 모바일은 바로 위). */}

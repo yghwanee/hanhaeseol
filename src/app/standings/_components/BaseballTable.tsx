@@ -18,7 +18,16 @@ type SortKey =
   | "lose"
   | "gameBehind";
 
-export function BaseballTable({ teams, teamLinks }: { teams: BaseballStanding[]; teamLinks?: Record<string, string> }) {
+export function BaseballTable({
+  teams,
+  teamLinks,
+  hideDraw = false,
+}: {
+  teams: BaseballStanding[];
+  teamLinks?: Record<string, string>;
+  /** 농구는 무승부가 없다 — 칸을 지운다. */
+  hideDraw?: boolean;
+}) {
   const [sortKey, setSortKey] = useState<SortKey>("rank");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc");
 
@@ -141,7 +150,7 @@ export function BaseballTable({ teams, teamLinks }: { teams: BaseballStanding[];
                 <Th label="승률" active={sortKey === "winRate"} dir={sortDir} onClick={() => onHeaderClick("winRate")} highlight />
                 <Th label="경기" active={sortKey === "gameCount"} dir={sortDir} onClick={() => onHeaderClick("gameCount")} />
                 <Th label="승" active={sortKey === "win"} dir={sortDir} onClick={() => onHeaderClick("win")} />
-                <Th label="무" active={sortKey === "draw"} dir={sortDir} onClick={() => onHeaderClick("draw")} />
+                {!hideDraw && <Th label="무" active={sortKey === "draw"} dir={sortDir} onClick={() => onHeaderClick("draw")} />}
                 <Th label="패" active={sortKey === "lose"} dir={sortDir} onClick={() => onHeaderClick("lose")} />
                 <Th label="게임차" active={sortKey === "gameBehind"} dir={sortDir} onClick={() => onHeaderClick("gameBehind")} />
                 <th className="whitespace-nowrap px-2 py-2.5 text-center text-caption2 font-semibold text-fg-secondary sm:text-caption1">
@@ -193,7 +202,7 @@ export function BaseballTable({ teams, teamLinks }: { teams: BaseballStanding[];
                   </td>
                   <td className="px-1 py-2 text-center tabular-nums text-fg">{t.gameCount}</td>
                   <td className="px-1 py-2 text-center tabular-nums text-fg">{t.win}</td>
-                  <td className="px-1 py-2 text-center tabular-nums text-fg">{t.draw}</td>
+                  {!hideDraw && <td className="px-1 py-2 text-center tabular-nums text-fg">{t.draw}</td>}
                   <td className="px-1 py-2 text-center tabular-nums text-fg">{t.lose}</td>
                   <td className="px-1 py-2 text-center tabular-nums text-fg">
                     {t.gameBehind === 0 ? "—" : t.gameBehind.toFixed(1)}

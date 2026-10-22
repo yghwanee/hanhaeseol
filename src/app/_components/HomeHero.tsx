@@ -66,8 +66,9 @@ export function HomeHero({
         <p>
           OTT와 TV에 흩어진 편성을 한곳에 모아,
           <br />
-          <span className="w-badge w-badge--ko mr-0.5 align-[2px]">한국어</span> 한국어 해설인지{" "}
-          <span className="w-badge w-badge--local mx-0.5 align-[2px]">현지</span> 현지 해설인지 골라 볼 수
+          {/* 뱃지가 단어를 대신한다 — 「[한국어] 한국어 해설인지」로 두면 같은 말이 두 번 읽힌다(2026-10-22 화니 승인). */}
+          <span className="w-badge w-badge--ko mr-0.5 align-[2px]">한국어</span> 해설인지{" "}
+          <span className="w-badge w-badge--local mx-0.5 align-[2px]">현지</span> 해설인지 골라 볼 수
           있게 합니다.
         </p>
         <p>

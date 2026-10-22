@@ -164,10 +164,13 @@ export default function FilteredScheduleView({ meta, kind, schedules, allSchedul
           </div>
         ) : (
           <div className="space-y-6">
-            {dates.map((date) => (
+            {dates.map((date, dayIndex) => (
               <div key={date}>
                 <h3 className="mb-2 text-label1 font-semibold text-fg">{formatDateHeader(date)}</h3>
-                {/* 넓어진 폭에서 카드 한 장이 1000px 넘게 늘어나지 않게 홈처럼 lg 에서 2열 */}
+                {dayIndex >= FULL_CARD_DAYS ? (
+                  <CompactDayList games={grouped[date]} />
+                ) : (
+                /* 넓어진 폭에서 카드 한 장이 1000px 넘게 늘어나지 않게 홈처럼 lg 에서 2열 */
                 <div className="grid grid-cols-1 gap-2 lg:grid-cols-2">
                   {grouped[date].map(({ schedule: s, platforms }) => {
                     const homeRec = lookupTeamRecord(teamRecords, s.league, s.homeTeam);
@@ -237,6 +240,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, allSchedul
                     );
                   })}
                 </div>
+                )}
               </div>
             ))}
           </div>
@@ -300,5 +304,37 @@ export default function FilteredScheduleView({ meta, kind, schedules, allSchedul
       </section>
 
     </main>
+  );
+}
+
+/**
+ * 카드로 그리는 날 수. 그 뒤 날짜는 한 줄 목록으로 그린다.
+ *
+ * 🔴 왜 (2026-10-22): 7일치를 전부 카드(최근 5경기 뱃지·스코어 칸 포함)로 그려
+ * `/sport/soccer` 1.18MB · `/platform/coupang-play` 962KB 였다. Vercel Hobby 전송량(FOT)이
+ * 잠금 계량기라 페이지 무게가 곧 비용이다. 사람이 이 페이지에서 보는 건 오늘·내일이고,
+ * 그 뒤는 「언제 어디서 하나」만 있으면 된다 — 정보(시각·리그·팀·채널·해설)는 그대로 남긴다.
+ */
+const FULL_CARD_DAYS = 2;
+
+function CompactDayList({ games }: { games: { schedule: Schedule; platforms: string[] }[] }) {
+  return (
+    <ul className="divide-y divide-line-subtle rounded-xl border border-line-subtle bg-surface">
+      {games.map(({ schedule: s, platforms }) => (
+        <li key={s.id} className="flex items-center gap-2 px-3 py-2 text-label2 sm:px-4 sm:text-label1">
+          <span className="w-11 shrink-0 font-semibold tabular-nums text-fg-strong">{s.time}</span>
+          <span className="min-w-0 flex-1">
+            <span className="block truncate text-fg">
+              <span className="text-fg-tertiary">{s.league} · </span>
+              {s.awayTeam ? `${s.homeTeam} vs ${s.awayTeam}` : s.homeTeam}
+            </span>
+            {/* 폰에선 채널을 둘째 줄로 — 한 줄에 다 넣으면 팀명이 잘린다 */}
+            <span className="block truncate text-caption1 text-fg-secondary sm:hidden">{platforms.join(", ")}</span>
+          </span>
+          <span className="hidden shrink-0 whitespace-nowrap text-caption1 text-fg-secondary sm:inline">{platforms.join(", ")}</span>
+          <CommentaryBadge kc={s.koreanCommentary} />
+        </li>
+      ))}
+    </ul>
   );
 }

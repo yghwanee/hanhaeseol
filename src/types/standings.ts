@@ -76,6 +76,31 @@ export type BaseballLeagueId = "kbo" | "mlb";
 
 export type BasketballLeagueId = "nba" | "kbl";
 
+export type VolleyballLeagueId = "kovo" | "wkovo";
+
+export interface VolleyballStanding {
+  rank: number;
+  teamName: string;
+  teamLogo: string | null;
+  gameCount: number;
+  win: number;
+  lose: number;
+  /** 승점 — V리그 순위 기준 */
+  points: number;
+  /** 세트 득실률 */
+  setRatio: number;
+  lastFive: string;
+  streak: StreakInfo;
+}
+
+export interface VolleyballLeagueStandings {
+  id: VolleyballLeagueId;
+  name: string;
+  scheduleSlug?: string;
+  season: string;
+  teams: VolleyballStanding[];
+}
+
 export interface SoccerLeagueStandings {
   id: SoccerLeagueId;
   name: string;
@@ -105,5 +130,7 @@ export interface StandingsData {
   soccer: SoccerLeagueStandings[];
   baseball: BaseballLeagueStandings[];
   basketball: BasketballLeagueStandings[];
+  /** V리그. 시즌 중(네이버 isSeason=Y)일 때만 채운다 — 비시즌엔 비거나 없다. */
+  volleyball?: VolleyballLeagueStandings[];
   lastUpdated: string;
 }
