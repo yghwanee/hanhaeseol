@@ -169,7 +169,6 @@ src/
   - **아시안게임(아이치·나고야)은 크롤러가 버린다** — SPOTV NOW 가 `typeName` 에 대회명을 넣는다. 고치기 전에 FOT 확인.
   - 가이드 글은 네이버 개별 노출 0(9월 글은 색인 전). 개선안 6개 화니 결정 대기 — auto-memory `project-guide-seo-verdict`.
   - 9/21 이후 `kbo-draft-2026-broadcast` 를 실제 지명 결과로 갱신.
-  - ~~`test:league-coverage` 가 빨갛다~~ **통과 확인(2026-09-14)** — 작업116 에서 정리됐다.
 
 - 🔴 **다음 세션은 `docs/next-session.md` 부터 읽는다.** 날짜가 박힌 할 일(9/19 아시안게임
   개인종목 · 9/21 드래프트 결과 갱신·AEO 재측정 · 9/30 이후 글감 비어 있음)과 다른 PC 이관 시
@@ -186,6 +185,7 @@ src/
     "2일 05:12:33" 이 그렇게 깨져 있었다(2026-09-03). 자리 정렬이 목적이면 `tabular-nums`
     를 쓴다. `test:font-mixing` 이 막고, mono 스택 끝에 Pretendard 폴백도 깔아 뒀다.
 
+- 🔴 **QA 일괄 수정 규칙 (2026-10-22, 작업133~135, 상세 worklog).** 홈 카드=경기 단위(`groupSameGame`, 필터는 `coverage`) · 팀 이름 폴백은 종목·(농구)리그 계열로 자름 · 로고는 `resolveTeamLogo(name, sport, league)` · 미개최 KBO 경기는 `prune:kbo-phantoms` 가 원본에서 삭제 · 선발은 병합 저장 · 허브 페이지는 오늘·내일만 카드(FOT) · 토픽 발행에 사실 게이트 · MLB 는 지구·NBA 는 컨퍼런스 순위(`rankLabel`).
 - 🔴 **카드 앰블럼은 `loadScheduleData()` 가 붙인다 (2026-09-03).** `ScheduleCard` 는
   `homeEmblem` 이 있을 때만 그리는데 그 필드를 채우는 곳이 `worldcup.json` 뿐이라 앰블럼이
   월드컵 경기에만 보였다. 규칙은 `src/lib/team-logo.ts` 한 곳(매치 페이지도 같은 함수).
@@ -359,13 +359,6 @@ src/
     - 🔴 **키를 공유해도 다른 PC 에서 토스 호출은 안 된다** — 출발지 IP 를 PC 마다
       등록해야 한다(업체당 10개). 그 PC 에서 `npm run toss:check` 가 등록할 IP 를 찍어 준다.
     - 🔴 공용 파일을 **레포 안으로 옮기지 말 것**(public 레포다). `test:shared-env` 가 막는다.
-
-  **셋업은 끝났다(2026-09-14).** Open API 사용 승인 · 키 3개 `.env` + OneDrive 공용 파일 ·
-  출발지 IP `115.95.74.147` 등록 · `toss:check` 전 항목 통과 · 상품 2건 발급.
-  🔴 **다른 PC 에서 쓰려면 그 PC 의 IP 를 추가 등록**해야 한다(업체당 10개, `toss:check` 가 찍어 준다).
-  🔴 **호출 위치는 이 PC 로 확정.** Vercel 함수도 GH Actions 도 나가는 IP 가 고정이 아니다
-  (GH 는 Azure 대역 수천 개라 10개 제한에 절대 못 들어간다). 결과 JSON 을 레포에 커밋해 쓴다.
-  고정 IP 프록시는 유료라 안 쓴다.
 
   **🔴 운영정책 — 사용자가 "일단 붙이고 나중에 정리"로 결정(2026-08-27).** 다만 아래 셋은
   정책이 **사전 확인 대상**으로 명시한 것이고, 우리가 하려는 상품 그리드가 셋 다에 해당한다:
@@ -594,6 +587,7 @@ ISSUE_BODY="$(gh issue view N --json body -q .body)" npm run check:idea-dupes  #
 
 ## 운영 함정 (2026-09-04 에 실제로 겪은 것)
 
+- 🔴 **데이터 파일 충돌을 커밋하지 말 것 (2026-10-22 실사고).** CI 가 `src/data/*.json` 을 매시 커밋해 rebase 가 자주 충돌한다. `UU` 인 채로 `git add` 하면 충돌 표시가 JSON 에 박혀 배포까지 나간다. 데이터 충돌은 CI 수집본을 고르고, `src/data` 만 바꾼 커밋은 `gh workflow run test.yml` 로 CI 를 직접 돌린다.
 - 🔴 **로컬에서 프로덕션에 반복 curl 하면 Vercel 방화벽 챌린지가 걸린다.**
   응답 헤더 `X-Vercel-Mitigated: challenge` 와 함께 **전 경로가 403** 이 된다.
   **사이트 장애가 아니다 — IP 스코프다.** 실제 브라우저는 JS 챌린지를 자동으로 풀고,
