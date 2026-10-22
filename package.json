@@ -19,6 +19,7 @@
     "crawl:starters": "tsx src/scripts/crawl-starters.ts",
     "test:insight-freshness": "tsx --test src/lib/insights/freshness.test.ts",
     "test:guide-facts": "tsx --test src/lib/guides/fact-check.test.ts",
+    "test:hook-bag": "tsx --test src/lib/hook-bag.test.ts",
     "test:schedule-group": "tsx --test src/lib/schedule-group.test.ts",
     "prune:kbo-phantoms": "tsx src/scripts/prune-kbo-phantoms.ts",
     "test:starters": "tsx --test src/lib/starters/*.test.ts",

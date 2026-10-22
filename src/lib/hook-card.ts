@@ -368,10 +368,50 @@ const DATE_OVERRIDES: Record<string, string> = {
  * 같은 사진이 다시 나오지 않는다. 상태 파일 없이 **게시 순번**으로 정한다 — 재실행해도
  * 같은 칸이 같은 사진을 고르므로 post-log 의 "빠진 채널만 재게시"와 어긋나지 않는다.
  *
- * 순번 0 = 2026-10-06 저녁 게시(대상 10/07). 저녁(전날 밤)이 그 날짜의 아침보다 먼저 나간다.
- * 바퀴(cycle)마다 다른 씨앗으로 섞는다. 사진을 더하거나 빼면 그 바퀴의 순서가 바뀐다.
+ * 순번 0 = `HOOK_BAG_START` 의 저녁 게시(전날 밤에 나간다). 바퀴(cycle)마다 다른 씨앗으로 섞는다.
+ *
+ * 🔴 **사진을 더하거나 빼면 바퀴가 처음부터 다시 섞인다** — 그러면 최근에 쓴 사진이 곧 다시
+ * 나온다(2026-10-22: 183→245장으로 늘리자 지난 2주에 쓴 32장 중 15장이 60일 안에 다시 나왔다).
+ * 그래서 풀을 바꿀 때는 ①`HOOK_BAG_START` 를 다음 게시 대상일로 옮기고 ②그 직전 바퀴에서
+ * 이미 쓴 사진을 `HOOK_BAG_RECENT` 에 적는다. 새 첫 바퀴는 그 사진들을 **맨 뒤로** 보낸다.
  */
-export const HOOK_BAG_START = "2026-10-07";
+export const HOOK_BAG_START = "2026-10-23";
+
+/** 직전 바퀴(2026-10-07~10-22 대상 32칸, 183장 풀)에서 이미 나간 사진. 새 첫 바퀴의 끝으로 민다. */
+export const HOOK_BAG_RECENT: readonly string[] = [
+  "tai00300007303_l.jpg",
+  "ChatGPT Image 2026년 4월 29일 오후 05_11_14.png",
+  "b_16.jpg",
+  "d_09.jpg",
+  "tai00270000839_l.jpg",
+  "d_06.jpg",
+  "tai00100003146_l.jpg",
+  "out_04.jpg",
+  "tai00280000272_l.jpg",
+  "ChatGPT Image 2026년 4월 29일 오후 05_13_40.png",
+  "out_08.jpg",
+  "tai00020004314_l.jpg",
+  "ChatGPT Image 2026년 4월 29일 오후 05_08_46.png",
+  "tai00070002188_l.jpg",
+  "out_05.jpg",
+  "tai00020001736_l.jpg",
+  "tai00280000265_l.jpg",
+  "tai00440000277_l.jpg",
+  "tai00070002327_l.jpg",
+  "tai00300007308_l.jpg",
+  "tai00080002024_l.jpg",
+  "c_07.jpg",
+  "ChatGPT Image 2026년 4월 29일 오후 04_51_03.png",
+  "ChatGPT Image 2026년 4월 29일 오후 04_10_38.png",
+  "ChatGPT Image 2026년 4월 29일 오후 04_23_18.png",
+  "tai00300007305_l.jpg",
+  "tai00010000629_l.jpg",
+  "b_06.jpg",
+  "ChatGPT Image 2026년 4월 29일 오후 05_33_53.png",
+  "tai00020002684_l.jpg",
+  "Firefly_Gemini Flash232.png",
+  "tai00070002402_l.jpg",
+];
 
 export function hookBagSlot(today: string, slot: PostSlot): number {
   const day = (Date.parse(`${today}T00:00:00Z`) - Date.parse(`${HOOK_BAG_START}T00:00:00Z`)) / 86_400_000;
@@ -395,12 +435,22 @@ function seededShuffle(n: number, seed: number): number[] {
   return order;
 }
 
-/** 이 게시 칸이 풀(정렬된 파일 목록)의 몇 번째 사진을 쓰는가. */
-export function hookBagIndex(today: string, slot: PostSlot, poolSize: number): number {
+/**
+ * 이 게시 칸이 풀(정렬된 파일 목록)의 몇 번째 사진을 쓰는가.
+ * `files` 를 주면 첫 바퀴에서 `HOOK_BAG_RECENT` 를 맨 뒤로 민다(섞인 순서는 그대로 유지).
+ */
+export function hookBagIndex(today: string, slot: PostSlot, poolSize: number, files?: readonly string[]): number {
   const n = hookBagSlot(today, slot);
   const k = ((n % poolSize) + poolSize) % poolSize;
   const cycle = Math.floor(n / poolSize);
-  return seededShuffle(poolSize, 0x9e3779b1 ^ (cycle * 7919 + poolSize))[k];
+  const order = seededShuffle(poolSize, 0x9e3779b1 ^ (cycle * 7919 + poolSize));
+  if (cycle === 0 && files && files.length === poolSize) {
+    const recent = new Set(HOOK_BAG_RECENT);
+    const fresh = order.filter((i) => !recent.has(files[i]));
+    const tail = order.filter((i) => recent.has(files[i]));
+    return [...fresh, ...tail][k];
+  }
+  return order[k];
 }
 
 /**
@@ -434,7 +484,7 @@ export function pickHookImage(today: string, slot: PostSlot = getPostSlot(today)
     throw new Error(`후킹 이미지 없음: ${HOOKS_DIR}`);
   }
 
-  const idx = hookBagIndex(today, slot, files.length);
+  const idx = hookBagIndex(today, slot, files.length, files);
   const picked = path.join(HOOKS_DIR, files[idx]);
 
   const sizeKB = fs.statSync(picked).size / 1024;

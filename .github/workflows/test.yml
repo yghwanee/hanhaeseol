@@ -99,6 +99,7 @@ jobs:
           npm run test:teams
           npm run test:kbo-postseason
           npm run test:schedule-group
+          npm run test:hook-bag
           npm run test:insight-freshness
           npm run test:guide-facts
           npm run test:josa
