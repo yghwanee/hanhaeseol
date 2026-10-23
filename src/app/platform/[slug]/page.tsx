@@ -11,6 +11,9 @@ import PlatformGuideSection from "@/app/_components/PlatformGuideSection";
 import FaqSection from "@/app/_components/FaqSection";
 import RelatedGuides from "@/app/_components/RelatedGuides";
 import WeekHighlights from "@/app/_components/WeekHighlights";
+import CommentatorSection from "@/app/_components/CommentatorSection";
+import { commentatorsFor } from "@/lib/commentators";
+import { getTodayString } from "@/lib/schedule-utils";
 import archiveData from "@/data/schedule-archive.json";
 import {
   buildPlatformCommentaryStats,
@@ -101,6 +104,7 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
 
   // 표기가 갈리는 플랫폼이 있어 meta.match 로 찾는다(표시명과 편성 표기가 다를 수 있다).
   const stat = COMMENTARY_STATS.find((s) => meta.match.includes(s.name));
+  const roster = commentatorsFor(meta.match, getTodayString());
 
   return (
     <>
@@ -154,6 +158,9 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
               </section>
             )}
             {guide ? <PlatformGuideSection guide={guide} display={meta.display} /> : null}
+            {roster && (
+              <CommentatorSection title={`${meta.display} 해설진`} checkedOn={roster.checkedOn} sources={roster.sources} />
+            )}
           </>
         }
         highlightsSlot={

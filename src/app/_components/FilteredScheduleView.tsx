@@ -158,7 +158,10 @@ export default function FilteredScheduleView({ meta, kind, schedules, allSchedul
           <div className="rounded-xl border border-line-subtle bg-surface p-6 text-center text-label1 text-fg-secondary">
             이번 주 예정된 경기가 없습니다.
             <br />
-            <Link href="/" className="mt-2 inline-block text-fg underline underline-offset-2">
+            <Link
+              href="/"
+              className="relative mt-2 inline-block text-fg underline underline-offset-2 after:absolute after:inset-x-0 after:-inset-y-3 after:content-['']"
+            >
               전체 편성표 확인하기
             </Link>
           </div>

@@ -1354,3 +1354,17 @@ AI Assistant 8일 30세션(28일 471 → 거의 소멸) · Vercel 30일 FOT 11.7
   김하성 "(현 소속팀)" · 순위 페이지 시즌 `2025-26`(데이터는 이미 2026-27). **로스터가 바뀌면 FAQ·가이드·제목의 선수 언급도 같이 볼 것.**
 - 검색광고 API(`npm run keywords`)가 전 키워드 `< 10` 을 돌려준다(9월 나고야 725,500 → 18). 계정 상태 확인 필요.
 - CLAUDE.md 40,058자(한도 초과, CI 빨강) → 낡은 9/14 Vercel 수치 줄여 통과.
+
+## 작업137 — 방송사 공식 해설진 섹션 · KBO 제목 (2026-10-23)
+
+서치어드바이저 7일: "해설" 쿼리 노출 927·클릭 91(CTR ~10%)인데 상당수가 **누가 해설하나**를 찾았다
+(`mbc 야구 해설` 315 · `kbs 야구 해설` 155 · `kbsn sports 야구 해설위원 일정` CTR 44%). 페이지에 이름 0.
+
+- `npm run crawl:commentators` → `src/data/commentators.json`. `crawl-korean-players.yml` 이 매일 같이 돈다.
+  🔴 **공식 명단 페이지가 있는 방송사만** — 10/23 기준 KBS N(`kbsn.co.kr/section/index7.html`)뿐. MBC+·SBS·tvN·SPOTV 는
+  공식 사이트에 명단이 없다(sbssports.co.kr 은 비공식). 생기면 `SOURCES` 에 한 줄 추가.
+- 노출: `/platform/kbs-n-sports`(전 그룹) · 리그 페이지는 **가이드 중계사에 있는 방송사 × 그 종목만**(`/league/kbo`·`/league/v-league`).
+  확인일 14일 넘으면 섹션이 저절로 빠진다. 경기별 배정은 편성 데이터에 없다 — 지어내지 말 것. 가드 `test:commentators`(하드코딩 금지 포함).
+- KBS N 페이지는 한 `section` 안에 머리(title02)가 여럿이다 — 섹션 단위로 자르면 배구에 야구·농구가 섞인다(첫 구현 버그).
+- `/league/kbo` 제목 `오늘 한국 프로야구 LIVE 일정` → `오늘 프로야구 중계·한국어 해설` (`프로야구 중계` 7일 노출 25,574 · 11위).
+- 빈 상태 「전체 편성표 확인하기」 링크 20px → `after:-inset-y-3`. design:audit 경로에 kbs-n-sports·v-league·nba 추가.

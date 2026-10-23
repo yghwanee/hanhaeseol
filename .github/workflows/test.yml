@@ -98,6 +98,7 @@ jobs:
           npm run test:style-lint
           npm run test:teams
           npm run test:kbo-postseason
+          npm run test:commentators
           npm run test:schedule-group
           npm run test:hook-bag
           npm run test:insight-freshness

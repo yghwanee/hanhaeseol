@@ -13,6 +13,9 @@ import LeagueGuideSection from "@/app/_components/LeagueGuideSection";
 import FaqSection from "@/app/_components/FaqSection";
 import WeekHighlights from "@/app/_components/WeekHighlights";
 import RelatedGuides from "@/app/_components/RelatedGuides";
+import CommentatorSection from "@/app/_components/CommentatorSection";
+import { commentatorsFor } from "@/lib/commentators";
+import { getTodayString } from "@/lib/schedule-utils";
 
 // 데이터가 빌드 번들에 있어 재생성해도 같은 HTML 이다. 신선도는 배포가 만든다.
 // (2026-08-18 Hobby 한도 초과로 600 → 3600. 상세는 page.tsx 주석)
@@ -91,6 +94,12 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
     .filter((t) => t.leagueSlug === meta.slug)
     .sort((a, b) => a.rank - b.rank);
 
+  // 중계사 목록에 있는 방송사의 이 종목 해설위원만. 리그 중계를 안 하는 방송사 명단을 붙이면 거짓이 된다.
+  const roster =
+    guide?.broadcasters && meta.sport
+      ? commentatorsFor(guide.broadcasters, getTodayString(), meta.sport)
+      : null;
+
   const pageUrl = `https://haeseol.com/league/${meta.slug}`;
   const matched = schedules.filter((s) => meta.match.includes(s.league));
   const sportsEventLd = buildSportsEventLd(matched, pageUrl);
@@ -118,7 +127,18 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
         teamRecords={teamRecords}
         results={results}
         guideSlot={
-          guide ? <LeagueGuideSection guide={guide} display={meta.display} /> : undefined
+          guide ? (
+            <>
+              <LeagueGuideSection guide={guide} display={meta.display} />
+              {roster && (
+                <CommentatorSection
+                  title={`${roster.sources.map((s) => s.platform).join("·")} ${meta.sport} 해설위원`}
+                  checkedOn={roster.checkedOn}
+                  sources={roster.sources}
+                />
+              )}
+            </>
+          ) : undefined
         }
         highlightsSlot={
           <>

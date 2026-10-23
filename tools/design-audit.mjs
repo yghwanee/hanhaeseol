@@ -32,6 +32,10 @@ const PATHS = [
   //    정적 경로만 감사하면 "검사했다"는 착각만 남는다.
   "/league/epl",
   "/platform/tving",
+  // 해설진 섹션이 붙는 자리(2026-10-23).
+  "/platform/kbs-n-sports",
+  "/league/v-league",
+  "/league/nba",
   "/standings/epl",
   "/sport/basketball",
   "/guide/chzzk-worldcup-guide",
