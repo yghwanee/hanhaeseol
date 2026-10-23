@@ -102,6 +102,8 @@ test("편성 리드: 오늘 경기가 없으면 다음 경기를 안내한다", 
   const later = buildAnswerLead("league", "KBO", [s(tomorrow)], TODAY);
   assert.ok(later.includes("다음 경기는"), later);
   assert.ok(!later.includes("오늘 중계 채널은"), later);
+  // "어디서" 의 답 — 다음 경기 채널이 같은 문장에 있어야 한다.
+  assert.ok(later.includes("티빙에서 중계합니다"), later);
 
   const now = buildAnswerLead("league", "KBO", [s(TODAY)], TODAY);
   assert.ok(now.includes("1경기"), now);

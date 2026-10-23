@@ -34,21 +34,44 @@ const TITLE = "KBO 포스트시즌 일정·중계 — 2026 가을야구 | 한해
 const DESC =
   "2026 KBO 포스트시즌(가을야구) 일정과 중계 채널. 와일드카드 결정전·준플레이오프·플레이오프·한국시리즈 대진과 경기 시간, 한국어 해설 중계를 한곳에서 확인하세요.";
 
-export const metadata: Metadata = {
-  title: TITLE,
-  description: DESC,
-  alternates: { canonical: URL },
-  openGraph: {
-    title: TITLE,
-    description: DESC,
-    url: URL,
-    siteName: "한해설",
-    locale: "ko_KR",
-    type: "website",
-    images: [{ url: "https://haeseol.com/og-default.png", width: 1200, height: 630, alt: "KBO 포스트시즌 일정·중계" }],
-  },
-  twitter: { card: "summary_large_image", title: TITLE, description: DESC, images: ["https://haeseol.com/og-default.png"] },
-};
+/**
+ * 진행 중인 라운드에 맞춘 제목·설명.
+ *
+ * 2026-10-23 네이버 SERP 실측: `가을야구 중계` 엔 이 페이지가 나오는데 `플레이오프 중계` ·
+ * `한국시리즈 중계` · `한국시리즈 일정` 엔 0 이었다. 그 기간 사람들은 "가을야구" 가 아니라
+ * **지금 열리는 라운드 이름**으로 찾는다. 다음 경기의 라운드를 제목 머리에 올린다.
+ * 🔴 고정 제목(TITLE)은 정규시즌·편성 없음일 때의 폴백이다 — 지우지 말 것.
+ */
+function roundMeta(games: PostseasonGame[], today: string, season: string): { title: string; desc: string } {
+  const next = games.find((g) => g.date >= today && g.round);
+  if (!next?.round) return { title: TITLE, desc: DESC };
+  const name = roundInfo(next.round).name;
+  const head = next.round === "ks" ? `${season} 한국시리즈` : `KBO ${name}`;
+  const title = `${head} 중계·일정 — ${season} 가을야구 | 한해설`;
+  const vs = `${next.homeTeam} vs ${next.awayTeam}`;
+  const desc = `${season} KBO ${name}(${vs}) 중계 채널과 경기 일정. ${formatDateHeader(next.date)} ${next.time} ${next.gameNo ? `${next.gameNo}차전은` : "다음 경기는"} ${next.platforms.join("·")} 중계. 와일드카드부터 한국시리즈까지 포스트시즌 대진과 결과를 한곳에서 확인하세요.`;
+  return { title, desc };
+}
+
+export function generateMetadata(): Metadata {
+  const { today, season, games } = buildPostseason();
+  const { title, desc } = roundMeta(games, today, season);
+  return {
+    title,
+    description: desc,
+    alternates: { canonical: URL },
+    openGraph: {
+      title,
+      description: desc,
+      url: URL,
+      siteName: "한해설",
+      locale: "ko_KR",
+      type: "website",
+      images: [{ url: "https://haeseol.com/og-default.png", width: 1200, height: 630, alt: "KBO 포스트시즌 일정·중계" }],
+    },
+    twitter: { card: "summary_large_image", title, description: desc, images: ["https://haeseol.com/og-default.png"] },
+  };
+}
 
 const data = standingsData as unknown as StandingsData;
 const archive = (scheduleArchive as unknown as { schedules: Schedule[] }).schedules;
@@ -127,7 +150,8 @@ function GameRow({ g, seedOf, today }: { g: Omit<PostseasonGame, "round" | "game
   );
 }
 
-export default function KboPostseasonPage() {
+/** 메타와 본문이 같은 경기 목록을 본다 — 둘이 따로 계산하면 제목과 리드가 다른 라운드를 말한다. */
+function buildPostseason() {
   const today = getTodayString();
   const teams = data.baseball.find((l) => l.id === "kbo")?.teams ?? [];
   const season = data.baseball.find((l) => l.id === "kbo")?.season ?? today.slice(0, 4);
@@ -140,6 +164,13 @@ export default function KboPostseasonPage() {
     seedOf,
     (g) => findResult(resultsArchive, g.schedule) ?? findResult(results, g.schedule),
   );
+  return { today, teams, season, seeds, seedOf, phase, current, games };
+}
+
+export default function KboPostseasonPage() {
+  const { today, season, seeds, seedOf, phase, current, games } = buildPostseason();
+  const nextRound = games.find((g) => g.date >= today && g.round)?.round;
+  const currentRoundName = nextRound ? roundInfo(nextRound).name : null;
   // 정규시즌 중에는 남은 정규시즌 경기를 보여 준다(가을야구 순위 싸움이 걸린 경기).
   const upcomingRegular = phase === "regular" ? groupKboGames(current).filter((g) => g.date >= today) : [];
 
@@ -176,7 +207,7 @@ export default function KboPostseasonPage() {
 
       <div className="mb-6 mt-6">
         <h1 className="text-heading1 font-bold text-fg-strong sm:text-title3">
-          {season} KBO 포스트시즌 일정·중계 — 가을야구 와일드카드부터 한국시리즈까지
+          {season} KBO 포스트시즌 일정·중계 — {currentRoundName ? `지금은 ${currentRoundName}` : "가을야구 와일드카드부터 한국시리즈까지"}
         </h1>
         <p className="mt-2 text-label1 leading-relaxed text-fg-strong">{answerLead(today, games, seedOf)}</p>
         <p className="mt-1.5 text-label1 leading-relaxed text-fg-secondary">

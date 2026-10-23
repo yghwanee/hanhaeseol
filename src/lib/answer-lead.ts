@@ -87,9 +87,17 @@ export function buildAnswerLead(
       parts.push(`오늘 ${head}${josa(head, "은/는")} ${labels.join("·")}입니다.`);
     }
   } else {
-    const next = weekGames[0][0];
+    const nextRows = weekGames[0];
+    const next = nextRows[0];
+    // 🔴 "어디서" 가 검색 질문의 본체다. 다음 경기 일시만 말하고 채널을 빼면 이 문장을
+    // 잘라 간 답변엔진은 중계처를 모른다(2026-10-23: `/league/kbo` 리드가 그랬다).
+    const channels = [...new Set(nextRows.map((s) => s.platform).filter(Boolean))].slice(0, 3);
+    const where =
+      channels.length > 0
+        ? `이고, ${channels.join("·")}에서 중계합니다.`
+        : "입니다.";
     parts.push(
-      `오늘(${mdLabel(today)})은 편성된 ${display} 중계가 없습니다. 다음 경기는 ${mdLabel(next.date)} ${next.time} ${next.homeTeam} vs ${next.awayTeam}입니다.`,
+      `오늘(${mdLabel(today)})은 편성된 ${display} 중계가 없습니다. 다음 경기는 ${mdLabel(next.date)} ${next.time} ${next.homeTeam} vs ${next.awayTeam}${where}`,
     );
   }
 

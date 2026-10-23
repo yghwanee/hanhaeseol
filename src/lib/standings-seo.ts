@@ -25,24 +25,24 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
     sport: "soccer",
     display: "프리미어리그 (EPL)",
     short: "EPL",
-    seasonLabel: "2025-26",
+    seasonLabel: "2026-27",
     scheduleSlug: "epl",
-    title: "EPL 순위 - 프리미어리그 팀 순위표 2025-26 | 한해설",
+    title: "EPL 순위 - 프리미어리그 팀 순위표 2026-27 | 한해설",
     description:
-      "2025-26 잉글랜드 프리미어리그(EPL) 팀 순위. 승점·득실차·연속 결과·UCL/UEL 진출권을 한눈에. 한국어 해설 중계 편성표와 함께 확인하세요.",
+      "2026-27 잉글랜드 프리미어리그(EPL) 팀 순위. 승점·득실차·연속 결과·UCL/UEL 진출권을 한눈에. 한국어 해설 중계 편성표와 함께 확인하세요.",
     keywords: [
       "EPL 순위",
       "프리미어리그 순위",
       "EPL 팀 순위",
       "잉글랜드 프리미어리그 순위표",
       "EPL 승점",
-      "프리미어리그 순위표 2025-26",
+      "프리미어리그 순위표 2026-27",
       "맨시티 순위",
       "리버풀 순위",
       "아스날 순위",
     ],
     intro:
-      "잉글랜드 프리미어리그(EPL) 2025-26 시즌 팀 순위입니다. 승점·득실차·최근 5경기 결과·연속 성적을 한눈에 확인하고, 챔피언스리그·유로파리그 진출권과 강등권을 색상으로 구분해 보여줍니다.",
+      "잉글랜드 프리미어리그(EPL) 2026-27 시즌 팀 순위입니다. 승점·득실차·최근 5경기 결과·연속 성적을 한눈에 확인하고, 챔피언스리그·유로파리그 진출권과 강등권을 색상으로 구분해 보여줍니다.",
   },
   {
     slug: "laliga",
@@ -50,11 +50,11 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
     sport: "soccer",
     display: "라리가",
     short: "라리가",
-    seasonLabel: "2025-26",
+    seasonLabel: "2026-27",
     scheduleSlug: "laliga",
-    title: "라리가 순위 - 스페인 프리메라리가 팀 순위표 2025-26 | 한해설",
+    title: "라리가 순위 - 스페인 프리메라리가 팀 순위표 2026-27 | 한해설",
     description:
-      "2025-26 라리가(스페인 프리메라) 팀 순위. 레알 마드리드·바르셀로나·아틀레티코 등 승점·득실·연속 결과를 한눈에. 한국어 해설 중계 일정과 함께.",
+      "2026-27 라리가(스페인 프리메라) 팀 순위. 레알 마드리드·바르셀로나·아틀레티코 등 승점·득실·연속 결과를 한눈에. 한국어 해설 중계 일정과 함께.",
     keywords: [
       "라리가 순위",
       "프리메라리가 순위",
@@ -65,7 +65,7 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
       "라리가 승점",
     ],
     intro:
-      "라리가(스페인 프리메라리가) 2025-26 시즌 팀 순위입니다. 레알 마드리드와 바르셀로나의 엘 클라시코 경쟁, 아틀레티코 마드리드의 추격을 한눈에 확인하세요.",
+      "라리가(스페인 프리메라리가) 2026-27 시즌 팀 순위입니다. 레알 마드리드와 바르셀로나의 엘 클라시코 경쟁, 아틀레티코 마드리드의 추격을 한눈에 확인하세요.",
   },
   {
     slug: "bundesliga",
@@ -73,11 +73,11 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
     sport: "soccer",
     display: "분데스리가",
     short: "분데스",
-    seasonLabel: "2025-26",
+    seasonLabel: "2026-27",
     scheduleSlug: "bundesliga",
-    title: "분데스리가 순위 - 독일 1부 팀 순위표 2025-26 | 한해설",
+    title: "분데스리가 순위 - 독일 1부 팀 순위표 2026-27 | 한해설",
     description:
-      "2025-26 분데스리가 팀 순위. 바이에른 뮌헨(김민재)·도르트문트 등 승점·득실·연속 결과를 한눈에. 한국어 해설 중계 일정과 함께.",
+      "2026-27 분데스리가 팀 순위. 바이에른 뮌헨(김민재)·도르트문트 등 승점·득실·연속 결과를 한눈에. 한국어 해설 중계 일정과 함께.",
     keywords: [
       "분데스리가 순위",
       "독일 분데스리가 순위",
@@ -87,7 +87,7 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
       "김민재 분데스리가",
     ],
     intro:
-      "분데스리가(독일 1부) 2025-26 시즌 팀 순위입니다. 김민재가 활약하는 바이에른 뮌헨의 행보를 한눈에 확인하세요.",
+      "분데스리가(독일 1부) 2026-27 시즌 팀 순위입니다. 김민재가 활약하는 바이에른 뮌헨의 행보를 한눈에 확인하세요.",
   },
   {
     slug: "seriea",
@@ -95,11 +95,11 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
     sport: "soccer",
     display: "세리에 A",
     short: "세리에",
-    seasonLabel: "2025-26",
+    seasonLabel: "2026-27",
     scheduleSlug: "seriea",
-    title: "세리에A 순위 - 이탈리아 1부 팀 순위표 2025-26 | 한해설",
+    title: "세리에A 순위 - 이탈리아 1부 팀 순위표 2026-27 | 한해설",
     description:
-      "2025-26 세리에A 팀 순위. 유벤투스·AC 밀란·인터·나폴리 등 승점·득실·연속 결과를 한눈에. 한국어 해설 중계 일정과 함께.",
+      "2026-27 세리에A 팀 순위. 유벤투스·AC 밀란·인터·나폴리 등 승점·득실·연속 결과를 한눈에. 한국어 해설 중계 일정과 함께.",
     keywords: [
       "세리에A 순위",
       "이탈리아 세리에A 순위",
@@ -110,7 +110,7 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
       "나폴리 순위",
     ],
     intro:
-      "세리에A(이탈리아 1부) 2025-26 시즌 팀 순위입니다. 유벤투스·AC 밀란·인터·나폴리의 스쿠데토 경쟁을 한눈에.",
+      "세리에A(이탈리아 1부) 2026-27 시즌 팀 순위입니다. 유벤투스·AC 밀란·인터·나폴리의 스쿠데토 경쟁을 한눈에.",
   },
   {
     slug: "ligue1",
@@ -118,21 +118,20 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
     sport: "soccer",
     display: "리그 1",
     short: "리그앙",
-    seasonLabel: "2025-26",
+    seasonLabel: "2026-27",
     scheduleSlug: "ligue1",
-    title: "리그앙 순위 - 프랑스 1부 팀 순위표 2025-26 | 한해설",
+    title: "리그앙 순위 - 프랑스 1부 팀 순위표 2026-27 | 한해설",
     description:
-      "2025-26 프랑스 리그 1(리그앙) 팀 순위. PSG(이강인)·마르세유·모나코 등 승점·득실·연속 결과를 한눈에.",
+      "2026-27 프랑스 리그 1(리그앙) 팀 순위. PSG·리옹·마르세유 등 승점·득실·연속 결과를 한눈에.",
     keywords: [
       "리그앙 순위",
       "리그1 순위",
       "프랑스 리그앙 순위",
       "PSG 순위",
       "파리 생제르맹 순위",
-      "이강인 리그앙",
     ],
     intro:
-      "프랑스 리그 1(리그앙) 2025-26 시즌 팀 순위입니다. 이강인이 활약하는 PSG의 리그 우승 행보를 한눈에.",
+      "프랑스 리그 1(리그앙) 2026-27 시즌 팀 순위입니다. PSG·리옹·마르세유의 우승 경쟁을 한눈에.",
   },
   {
     slug: "champions-league",
@@ -140,20 +139,20 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
     sport: "soccer",
     display: "UEFA 챔피언스리그",
     short: "챔스",
-    seasonLabel: "2025-26",
+    seasonLabel: "2026-27",
     scheduleSlug: "champions-league",
-    title: "챔피언스리그 순위 - UCL 리그페이즈 순위표 2025-26 | 한해설",
+    title: "챔피언스리그 순위 - UCL 리그페이즈 순위표 2026-27 | 한해설",
     description:
-      "2025-26 UEFA 챔피언스리그(UCL) 리그페이즈 팀 순위. 36개 팀 승점·득실·진출권 순위를 한눈에. 한국어 해설 중계 일정과 함께.",
+      "2026-27 UEFA 챔피언스리그(UCL) 리그페이즈 팀 순위. 36개 팀 승점·득실·진출권 순위를 한눈에. 한국어 해설 중계 일정과 함께.",
     keywords: [
       "챔피언스리그 순위",
       "UCL 순위",
       "챔스 순위",
       "챔피언스리그 리그페이즈",
-      "UCL 순위표 2025-26",
+      "UCL 순위표 2026-27",
     ],
     intro:
-      "UEFA 챔피언스리그 2025-26 시즌 리그페이즈 팀 순위입니다. 36개 팀의 승점과 16강 진출권을 한눈에.",
+      "UEFA 챔피언스리그 2026-27 시즌 리그페이즈 팀 순위입니다. 36개 팀의 승점과 16강 진출권을 한눈에.",
   },
   {
     slug: "europa-league",
@@ -161,11 +160,11 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
     sport: "soccer",
     display: "UEFA 유로파리그",
     short: "유로파",
-    seasonLabel: "2025-26",
+    seasonLabel: "2026-27",
     scheduleSlug: "europa-league",
-    title: "유로파리그 순위 - UEL 리그페이즈 순위표 2025-26 | 한해설",
+    title: "유로파리그 순위 - UEL 리그페이즈 순위표 2026-27 | 한해설",
     description:
-      "2025-26 UEFA 유로파리그(UEL) 리그페이즈 팀 순위. 36개 팀 승점·득실·진출권 순위를 한눈에. 한국어 해설 중계 일정과 함께.",
+      "2026-27 UEFA 유로파리그(UEL) 리그페이즈 팀 순위. 36개 팀 승점·득실·진출권 순위를 한눈에. 한국어 해설 중계 일정과 함께.",
     keywords: [
       "유로파리그 순위",
       "UEL 순위",
@@ -173,7 +172,7 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
       "유로파리그 리그페이즈",
     ],
     intro:
-      "UEFA 유로파리그 2025-26 시즌 리그페이즈 팀 순위입니다. 36개 팀의 16강 진출권을 한눈에.",
+      "UEFA 유로파리그 2026-27 시즌 리그페이즈 팀 순위입니다. 36개 팀의 16강 진출권을 한눈에.",
   },
   {
     slug: "mls",
@@ -243,10 +242,10 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
     sport: "soccer",
     display: "에레디비시",
     short: "에레디",
-    seasonLabel: "2025-26",
-    title: "에레디비시 순위 - 네덜란드 1부 팀 순위표 2025-26 | 한해설",
+    seasonLabel: "2026-27",
+    title: "에레디비시 순위 - 네덜란드 1부 팀 순위표 2026-27 | 한해설",
     description:
-      "2025-26 에레디비시(네덜란드 1부) 팀 순위. PSV·아약스·페예노르트 등 승점·득실·연속 결과를 한눈에.",
+      "2026-27 에레디비시(네덜란드 1부) 팀 순위. PSV·아약스·페예노르트 등 승점·득실·연속 결과를 한눈에.",
     keywords: [
       "에레디비시 순위",
       "네덜란드 에레디비시 순위",
@@ -255,7 +254,7 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
       "PSV 순위",
     ],
     intro:
-      "에레디비시(네덜란드 1부) 2025-26 시즌 팀 순위입니다. 아약스·PSV·페예노르트의 전통 강호 경쟁을 한눈에.",
+      "에레디비시(네덜란드 1부) 2026-27 시즌 팀 순위입니다. 아약스·PSV·페예노르트의 전통 강호 경쟁을 한눈에.",
   },
   {
     slug: "kbo",
