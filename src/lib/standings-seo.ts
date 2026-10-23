@@ -7,7 +7,7 @@
 export type StandingsSeoMeta = {
   slug: string;
   dataId: string;
-  sport: "soccer" | "baseball";
+  sport: "soccer" | "baseball" | "basketball";
   display: string;
   short: string;
   seasonLabel: string;
@@ -310,6 +310,39 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
     ],
     intro:
       "MLB(메이저리그) 2026 시즌 지구별 팀 순위입니다. 아메리칸리그(동부·중부·서부)와 내셔널리그(동부·중부·서부) 각 지구를 네이버 스포츠와 동일한 구조로 분리해 보여줍니다.",
+  },
+  // 2026-10-23 신설. `/standings` 허브엔 농구 탭이 있었지만(작업135) 리그별 단독 페이지가 없어
+  // 네이버 30일 쿼리에 농구 순위 노출이 0 이었다. 받을 페이지가 없으니 노출도 없던 것이다.
+  // V리그는 개막(10/31) 뒤 순위 데이터가 생기면 연다 — 빈 표로 먼저 열면 얇은 페이지로 색인된다.
+  {
+    slug: "kbl",
+    dataId: "kbl",
+    sport: "basketball",
+    display: "KBL (한국 프로농구)",
+    short: "KBL",
+    seasonLabel: "2026-27",
+    scheduleSlug: "kbl",
+    title: "KBL 순위 - 프로농구 팀 순위표 2026-27 | 한해설",
+    description:
+      "2026-27 KBL(한국 프로농구) 팀 순위. 10개 구단 승률·게임차·최근 5경기·연승 연패를 한눈에. tvN SPORTS·티빙 중계 편성표와 함께.",
+    keywords: ["KBL 순위", "프로농구 순위", "KBL 팀 순위", "프로농구 순위표", "남자프로농구 순위", "KBL 순위표 2026-27"],
+    intro:
+      "KBL(한국 프로농구) 2026-27 시즌 팀 순위입니다. 정규리그 54경기의 승률과 게임차, 6강 플레이오프 진출권 싸움을 한눈에.",
+  },
+  {
+    slug: "nba",
+    dataId: "nba",
+    sport: "basketball",
+    display: "NBA (미국 프로농구)",
+    short: "NBA",
+    seasonLabel: "2026-27",
+    scheduleSlug: "nba",
+    title: "NBA 순위 - 동부·서부 컨퍼런스 순위표 2026-27 | 한해설",
+    description:
+      "2026-27 NBA 동부·서부 컨퍼런스 팀 순위. 승률·게임차·최근 5경기를 한눈에. 쿠팡플레이 NBA 한국어 해설 중계 편성표와 함께.",
+    keywords: ["NBA 순위", "NBA 팀 순위", "NBA 컨퍼런스 순위", "NBA 동부 순위", "NBA 서부 순위", "NBA 순위표"],
+    intro:
+      "NBA(미국 프로농구) 2026-27 시즌 팀 순위입니다. 동부·서부 컨퍼런스별로 나눠 보여 주며, 컨퍼런스 상위 팀이 플레이오프와 플레이인 토너먼트에 나갑니다.",
   },
 ];
 

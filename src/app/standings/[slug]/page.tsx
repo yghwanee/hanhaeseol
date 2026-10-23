@@ -76,14 +76,22 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
   const meta = findStandingsBySlug(params.slug);
   if (!meta) notFound();
 
+  // 농구 순위는 야구 표와 칸이 같다(승률·게임차·최근 5) — 무승부 0 으로 맞춰 야구 표를 쓴다(허브 탭과 같은 방식).
   const league =
     meta.sport === "soccer"
       ? (data.soccer.find((l) => l.id === meta.dataId) as
           | SoccerLeagueStandings
           | undefined)
-      : (data.baseball.find((l) => l.id === meta.dataId) as
-          | BaseballLeagueStandings
-          | undefined);
+      : meta.sport === "basketball"
+        ? (() => {
+            const b = (data.basketball ?? []).find((l) => (l.id as string) === meta.dataId);
+            return b
+              ? ({ ...b, teams: b.teams.map((t) => ({ ...t, draw: 0 })) } as unknown as BaseballLeagueStandings)
+              : undefined;
+          })()
+        : (data.baseball.find((l) => l.id === meta.dataId) as
+            | BaseballLeagueStandings
+            | undefined);
 
   const teamCount = league?.teams.length ?? 0;
 
@@ -93,7 +101,7 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
   const leadSentence = buildStandingsLead(meta, league, data.lastUpdated);
   const scheduleHref = meta.scheduleSlug
     ? `/league/${meta.scheduleSlug}`
-    : `/?sport=${meta.sport === "baseball" ? "야구" : "축구"}`;
+    : `/?sport=${meta.sport === "baseball" ? "야구" : meta.sport === "basketball" ? "농구" : "축구"}`;
 
   // 해당 리그의 schedule 매칭 키 (LEAGUE_SEO.match) — 일정 섹션 노출 여부 결정.
   const leagueSeo = meta.scheduleSlug ? findLeagueBySlug(meta.scheduleSlug) : undefined;
@@ -212,6 +220,21 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
             ) : (
               <SoccerTable teams={(league as SoccerLeagueStandings).teams} teamLinks={teamLinks} />
             )
+          ) : meta.dataId === "nba" ? (
+            <div className="space-y-6">
+              {(["동부", "서부"] as const).map((conf) => (
+                <div key={conf}>
+                  <h2 className="mb-2 text-label1 font-semibold text-fg-strong">{conf} 컨퍼런스</h2>
+                  <BaseballTable
+                    hideDraw
+                    teams={(league as BaseballLeagueStandings).teams.filter((t) => (t as { conference?: string }).conference === conf)}
+                    teamLinks={teamLinks}
+                  />
+                </div>
+              ))}
+            </div>
+          ) : meta.sport === "basketball" ? (
+            <BaseballTable hideDraw teams={(league as BaseballLeagueStandings).teams} teamLinks={teamLinks} />
           ) : meta.dataId === "mlb" ? (
             <MlbStandingsTable teams={(league as BaseballLeagueStandings).teams} teamLinks={teamLinks} />
           ) : (

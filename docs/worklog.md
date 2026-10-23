@@ -1368,3 +1368,4 @@ AI Assistant 8일 30세션(28일 471 → 거의 소멸) · Vercel 30일 FOT 11.7
 - KBS N 페이지는 한 `section` 안에 머리(title02)가 여럿이다 — 섹션 단위로 자르면 배구에 야구·농구가 섞인다(첫 구현 버그).
 - `/league/kbo` 제목 `오늘 한국 프로야구 LIVE 일정` → `오늘 프로야구 중계·한국어 해설` (`프로야구 중계` 7일 노출 25,574 · 11위).
 - 빈 상태 「전체 편성표 확인하기」 링크 20px → `after:-inset-y-3`. design:audit 경로에 kbs-n-sports·v-league·nba 추가.
+- (작업137 후속) `/standings/kbl`·`/standings/nba` 단독 페이지. `/standings` 허브 탭은 한 URL 이라 `KBL 순위`·`NBA 순위` 쿼리를 받을 페이지가 없었다(30일 농구 순위 노출 0). NBA 는 컨퍼런스 분리 표, 리드 문구 「컨퍼런스별」. V리그는 10/31 개막 뒤 데이터가 생기면 연다.

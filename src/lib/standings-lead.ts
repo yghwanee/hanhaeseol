@@ -71,7 +71,9 @@ export function buildStandingsLead(
     const head = `${asOf} 기준 ${meta.display} 전체 승률 선두는 ${name}(승률 ${winRateLabel(first.winRate)}, ${first.gameCount}경기 ${record})입니다.`;
     if (!second) return head;
     const secondName = fullTeamName(meta.slug, second.teamName);
-    return `${head} 다음은 ${secondName}(승률 ${winRateLabel(second.winRate)})입니다. 순위는 지구별로 나뉩니다.`;
+    // NBA 는 지구가 아니라 동·서부 컨퍼런스 단위로 순위를 매긴다.
+    const unit = meta.sport === "basketball" ? "컨퍼런스별" : "지구별";
+    return `${head} 다음은 ${secondName}(승률 ${winRateLabel(second.winRate)})입니다. 순위는 ${unit}로 나뉩니다.`;
   }
   const head = `${asOf} 기준 ${meta.display} 선두는 ${name}(승률 ${winRateLabel(first.winRate)}, ${first.gameCount}경기 ${record})입니다.`;
   const second = teams[1];
