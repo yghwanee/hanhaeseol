@@ -1,0 +1,106 @@
+{
+  "mast": "TODAY",
+  "dateLong": "10월 25일 일요일",
+  "dateShort": "10.25",
+  "hero": {
+    "home": "맨유",
+    "away": "본머스",
+    "league": "프리미어리그",
+    "when": "밤 11시, 쿠팡플레이"
+  },
+  "slides": [
+    {
+      "kind": "hero",
+      "ball": "soccer"
+    },
+    {
+      "kind": "match",
+      "title": "경기 정보",
+      "ball": "soccer",
+      "matchup": "맨유 vs 본머스",
+      "time": "23:00",
+      "platform": "쿠팡플레이"
+    },
+    {
+      "kind": "list",
+      "title": "세리에A 2경기",
+      "ball": "soccer",
+      "rows": [
+        {
+          "time": "01:00",
+          "home": "나폴리",
+          "away": "AS 로마",
+          "matchup": "나폴리 vs AS 로마",
+          "platform": "SPOTV NOW"
+        },
+        {
+          "time": "20:30",
+          "home": "인터 밀란",
+          "away": "피오렌티나",
+          "matchup": "인터 밀란 vs 피오렌티나",
+          "platform": "SPOTV NOW"
+        }
+      ],
+      "more": 0
+    },
+    {
+      "kind": "list",
+      "title": "프리미어리그 2경기",
+      "ball": "soccer",
+      "rows": [
+        {
+          "time": "01:30",
+          "home": "첼시",
+          "away": "토트넘",
+          "matchup": "첼시 vs 토트넘",
+          "platform": "쿠팡플레이"
+        },
+        {
+          "time": "23:00",
+          "home": "리버풀",
+          "away": "브라이튼",
+          "matchup": "리버풀 vs 브라이튼",
+          "platform": "쿠팡플레이"
+        }
+      ],
+      "more": 0
+    },
+    {
+      "kind": "summary",
+      "title": "오늘 한눈에",
+      "ball": "soccer",
+      "rows": [
+        {
+          "time": "01:00",
+          "sport": "축구",
+          "label": "세리에A 2경기"
+        },
+        {
+          "time": "01:30",
+          "sport": "축구",
+          "label": "프리미어리그 3경기"
+        },
+        {
+          "time": "04:00",
+          "sport": "축구",
+          "label": "라리가 1경기"
+        },
+        {
+          "time": "09:00",
+          "sport": "야구",
+          "label": "MLB 1경기"
+        }
+      ]
+    }
+  ],
+  "color": {
+    "stub": "#D7102B",
+    "acc": "#C80F28",
+    "hero": "#FF6B7D",
+    "bgA": "#3a0b14",
+    "bgB": "#0c0d10"
+  },
+  "photo": "file:///home/runner/work/hanhaeseol/hanhaeseol/templates/instagram/hooks/tai00100004427_l.jpg",
+  "logo": "file:///home/runner/work/hanhaeseol/hanhaeseol/assets/logo.png",
+  "noUrl": false
+}
