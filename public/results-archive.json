@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-24T20:42:36.989Z",
+  "lastUpdated": "2026-10-24T23:08:03.863Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -75677,6 +75677,73 @@
         }
       ]
     },
+    "2026-10-25|eredivisie|ADO 덴 하그|히렌빈": {
+      "date": "2026-10-25",
+      "categoryId": "eredivisie",
+      "gameId": "2l0kYsyPw67W3ij",
+      "homeTeam": "ADO 덴 하그",
+      "awayTeam": "히렌빈",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "트렌스코",
+          "minute": 24
+        },
+        {
+          "team": "away",
+          "player": "메르벨트",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "토마스",
+          "minute": 57
+        },
+        {
+          "team": "away",
+          "player": "트렌스코",
+          "minute": 66
+        },
+        {
+          "team": "home",
+          "player": "토마스",
+          "minute": 72
+        }
+      ]
+    },
+    "2026-10-25|ligue1|랑스|파리 FC": {
+      "date": "2026-10-25",
+      "categoryId": "ligue1",
+      "gameId": "r2S7Px3kHvsRqgA",
+      "homeTeam": "랑스",
+      "awayTeam": "파리 FC",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "콜레오쇼",
+          "minute": 45,
+          "addedTime": 2
+        },
+        {
+          "team": "home",
+          "player": "토빈",
+          "minute": 63
+        },
+        {
+          "team": "home",
+          "player": "아자르",
+          "minute": 83
+        }
+      ]
+    },
     "2026-10-25|mls|몬트리얼|내슈빌 SC": {
       "date": "2026-10-25",
       "categoryId": "mls",
@@ -75698,6 +75765,49 @@
           "player": "케이타",
           "minute": 76,
           "ownGoal": true
+        }
+      ]
+    },
+    "2026-10-25|mls|콜롬버스|토론토": {
+      "date": "2026-10-25",
+      "categoryId": "mls",
+      "gameId": "okY6reyRda8jRBp",
+      "homeTeam": "콜롬버스",
+      "awayTeam": "토론토",
+      "homeScore": 4,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "타피아",
+          "minute": 16
+        },
+        {
+          "team": "home",
+          "player": "아문드센",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "아문드센",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "레논",
+          "minute": 59
+        },
+        {
+          "team": "away",
+          "player": "설로이",
+          "minute": 69
+        },
+        {
+          "team": "away",
+          "player": "사전트",
+          "minute": 81
         }
       ]
     },
@@ -75727,6 +75837,24 @@
           "player": "미카우타제",
           "minute": 90,
           "addedTime": 6
+        }
+      ]
+    },
+    "2026-10-25|primera|AT. 마드리드|데포르티보": {
+      "date": "2026-10-25",
+      "categoryId": "primera",
+      "gameId": "c7JPVQcxIXz8yB8",
+      "homeTeam": "AT. 마드리드",
+      "awayTeam": "데포르티보",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "알바레스",
+          "minute": 48
         }
       ]
     },
@@ -151484,6 +151612,73 @@
     },
     {
       "date": "2026-10-25",
+      "categoryId": "eredivisie",
+      "gameId": "2l0kYsyPw67W3ij",
+      "homeTeam": "ADO 덴 하그",
+      "awayTeam": "히렌빈",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "트렌스코",
+          "minute": 24
+        },
+        {
+          "team": "away",
+          "player": "메르벨트",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "토마스",
+          "minute": 57
+        },
+        {
+          "team": "away",
+          "player": "트렌스코",
+          "minute": 66
+        },
+        {
+          "team": "home",
+          "player": "토마스",
+          "minute": 72
+        }
+      ]
+    },
+    {
+      "date": "2026-10-25",
+      "categoryId": "ligue1",
+      "gameId": "r2S7Px3kHvsRqgA",
+      "homeTeam": "랑스",
+      "awayTeam": "파리 FC",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "콜레오쇼",
+          "minute": 45,
+          "addedTime": 2
+        },
+        {
+          "team": "home",
+          "player": "토빈",
+          "minute": 63
+        },
+        {
+          "team": "home",
+          "player": "아자르",
+          "minute": 83
+        }
+      ]
+    },
+    {
+      "date": "2026-10-25",
       "categoryId": "mls",
       "gameId": "ps9QtpFpDtrxhnC",
       "homeTeam": "몬트리얼",
@@ -151503,6 +151698,49 @@
           "player": "케이타",
           "minute": 76,
           "ownGoal": true
+        }
+      ]
+    },
+    {
+      "date": "2026-10-25",
+      "categoryId": "mls",
+      "gameId": "okY6reyRda8jRBp",
+      "homeTeam": "콜롬버스",
+      "awayTeam": "토론토",
+      "homeScore": 4,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "타피아",
+          "minute": 16
+        },
+        {
+          "team": "home",
+          "player": "아문드센",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "아문드센",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "레논",
+          "minute": 59
+        },
+        {
+          "team": "away",
+          "player": "설로이",
+          "minute": 69
+        },
+        {
+          "team": "away",
+          "player": "사전트",
+          "minute": 81
         }
       ]
     },
@@ -151532,6 +151770,24 @@
           "player": "미카우타제",
           "minute": 90,
           "addedTime": 6
+        }
+      ]
+    },
+    {
+      "date": "2026-10-25",
+      "categoryId": "primera",
+      "gameId": "c7JPVQcxIXz8yB8",
+      "homeTeam": "AT. 마드리드",
+      "awayTeam": "데포르티보",
+      "homeScore": 1,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "알바레스",
+          "minute": 48
         }
       ]
     },
