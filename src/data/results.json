@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-25T21:42:37.597Z",
+  "lastUpdated": "2026-10-26T00:14:37.269Z",
   "byKey": {
     "2026-10-25|kbo|삼성|KIA": {
       "date": "2026-10-25",
@@ -304,10 +304,10 @@
       "gameId": "2026102526",
       "homeTeam": "유타",
       "awayTeam": "LA 레이커스",
-      "homeScore": 40,
-      "awayScore": 25,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 123,
+      "awayScore": 132,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-10-26|nba|유타|LA 레이커스": {
       "date": "2026-10-26",
@@ -315,10 +315,10 @@
       "gameId": "2026102526",
       "homeTeam": "유타",
       "awayTeam": "LA 레이커스",
-      "homeScore": 40,
-      "awayScore": 25,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 123,
+      "awayScore": 132,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-10-26|nba|브루클린|인디애나": {
       "date": "2026-10-26",
@@ -326,10 +326,10 @@
       "gameId": "2026102517",
       "homeTeam": "브루클린",
       "awayTeam": "인디애나",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 92,
+      "awayScore": 111,
+      "status": "live",
+      "period": "4쿼터"
     },
     "2026-10-26|nba|미네소타|토론토": {
       "date": "2026-10-26",
@@ -337,10 +337,10 @@
       "gameId": "2026102516",
       "homeTeam": "미네소타",
       "awayTeam": "토론토",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 55,
+      "awayScore": 47,
+      "status": "live",
+      "period": "2쿼터"
     },
     "2026-10-26|nba|뉴욕|올랜도": {
       "date": "2026-10-26",
@@ -348,10 +348,10 @@
       "gameId": "2026102518",
       "homeTeam": "뉴욕",
       "awayTeam": "올랜도",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 52,
+      "awayScore": 48,
+      "status": "live",
+      "period": "2쿼터"
     },
     "2026-10-26|nba|오클라호마|LA클리퍼스": {
       "date": "2026-10-26",
@@ -359,10 +359,10 @@
       "gameId": "2026102525",
       "homeTeam": "오클라호마",
       "awayTeam": "LA 클리퍼스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 43,
+      "awayScore": 46,
+      "status": "live",
+      "period": "2쿼터"
     },
     "2026-10-26|nba|오클라호마|LA 클리퍼스": {
       "date": "2026-10-26",
@@ -370,10 +370,10 @@
       "gameId": "2026102525",
       "homeTeam": "오클라호마",
       "awayTeam": "LA 클리퍼스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 43,
+      "awayScore": 46,
+      "status": "live",
+      "period": "2쿼터"
     },
     "2026-10-26|nba|필라델피아|디트로이트": {
       "date": "2026-10-26",
@@ -381,9 +381,9 @@
       "gameId": "2026102520",
       "homeTeam": "필라델피아",
       "awayTeam": "디트로이트",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
+      "homeScore": 22,
+      "awayScore": 34,
+      "status": "live",
       "period": "1쿼터"
     },
     "2026-10-26|nba|새크라멘토|멤피스": {
@@ -394,7 +394,8 @@
       "awayTeam": "멤피스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1쿼터"
     },
     "2026-10-27|nba|클리블랜드|미네소타": {
       "date": "2026-10-27",
@@ -914,9 +915,9 @@
       "homeTeam": "바르셀로나",
       "awayTeam": "레알 마드리드",
       "homeScore": 1,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 34'",
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -927,8 +928,14 @@
           "team": "home",
           "player": "하피냐",
           "minute": 61
+        },
+        {
+          "team": "away",
+          "player": "음바페",
+          "minute": 87
         }
-      ]
+      ],
+      "highlightVideoId": "N0A4SFgyjbk"
     },
     "2026-10-27|primera|세비야|오사수나": {
       "date": "2026-10-27",
@@ -1323,7 +1330,8 @@
           "player": "허친슨",
           "minute": 65
         }
-      ]
+      ],
+      "highlightVideoId": "SM2-nFu5MF8"
     },
     "2026-10-26|seria|우디네세|AC 밀란": {
       "date": "2026-10-26",
@@ -1346,7 +1354,8 @@
           "player": "허친슨",
           "minute": 65
         }
-      ]
+      ],
+      "highlightVideoId": "SM2-nFu5MF8"
     },
     "2026-10-26|seria|우디네세 칼초|밀란": {
       "date": "2026-10-26",
@@ -1369,7 +1378,8 @@
           "player": "허친슨",
           "minute": 65
         }
-      ]
+      ],
+      "highlightVideoId": "SM2-nFu5MF8"
     },
     "2026-10-26|seria|우디네세 칼초|AC 밀란": {
       "date": "2026-10-26",
@@ -1392,7 +1402,8 @@
           "player": "허친슨",
           "minute": 65
         }
-      ]
+      ],
+      "highlightVideoId": "SM2-nFu5MF8"
     },
     "2026-10-25|bundesliga|도르트문트|프랑크푸르트": {
       "date": "2026-10-25",
@@ -3774,10 +3785,10 @@
       "gameId": "2026102526",
       "homeTeam": "유타",
       "awayTeam": "LA 레이커스",
-      "homeScore": 40,
-      "awayScore": 25,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 123,
+      "awayScore": 132,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-10-26",
@@ -3785,10 +3796,10 @@
       "gameId": "2026102517",
       "homeTeam": "브루클린",
       "awayTeam": "인디애나",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 92,
+      "awayScore": 111,
+      "status": "live",
+      "period": "4쿼터"
     },
     {
       "date": "2026-10-26",
@@ -3796,10 +3807,10 @@
       "gameId": "2026102516",
       "homeTeam": "미네소타",
       "awayTeam": "토론토",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 55,
+      "awayScore": 47,
+      "status": "live",
+      "period": "2쿼터"
     },
     {
       "date": "2026-10-26",
@@ -3807,10 +3818,10 @@
       "gameId": "2026102518",
       "homeTeam": "뉴욕",
       "awayTeam": "올랜도",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 52,
+      "awayScore": 48,
+      "status": "live",
+      "period": "2쿼터"
     },
     {
       "date": "2026-10-26",
@@ -3818,10 +3829,10 @@
       "gameId": "2026102525",
       "homeTeam": "오클라호마",
       "awayTeam": "LA 클리퍼스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 43,
+      "awayScore": 46,
+      "status": "live",
+      "period": "2쿼터"
     },
     {
       "date": "2026-10-26",
@@ -3829,9 +3840,9 @@
       "gameId": "2026102520",
       "homeTeam": "필라델피아",
       "awayTeam": "디트로이트",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
+      "homeScore": 22,
+      "awayScore": 34,
+      "status": "live",
       "period": "1쿼터"
     },
     {
@@ -3842,7 +3853,8 @@
       "awayTeam": "멤피스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1쿼터"
     },
     {
       "date": "2026-10-27",
@@ -4202,9 +4214,9 @@
       "homeTeam": "바르셀로나",
       "awayTeam": "레알 마드리드",
       "homeScore": 1,
-      "awayScore": 1,
-      "status": "live",
-      "period": "후반 34'",
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -4215,8 +4227,14 @@
           "team": "home",
           "player": "하피냐",
           "minute": 61
+        },
+        {
+          "team": "away",
+          "player": "음바페",
+          "minute": 87
         }
-      ]
+      ],
+      "highlightVideoId": "N0A4SFgyjbk"
     },
     {
       "date": "2026-10-27",
@@ -4452,7 +4470,8 @@
           "player": "허친슨",
           "minute": 65
         }
-      ]
+      ],
+      "highlightVideoId": "SM2-nFu5MF8"
     },
     {
       "date": "2026-10-25",

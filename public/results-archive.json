@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-25T21:42:44.969Z",
+  "lastUpdated": "2026-10-26T00:14:41.676Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -77352,6 +77352,17 @@
       ],
       "highlightVideoId": "wSv43ldBeRU"
     },
+    "2026-10-26|nba|유타|LA 레이커스": {
+      "date": "2026-10-26",
+      "categoryId": "nba",
+      "gameId": "2026102526",
+      "homeTeam": "유타",
+      "awayTeam": "LA 레이커스",
+      "homeScore": 123,
+      "awayScore": 132,
+      "status": "finished",
+      "period": "4쿼터"
+    },
     "2026-10-26|primera|셀타 비고|레알 베티스": {
       "date": "2026-10-26",
       "categoryId": "primera",
@@ -77392,6 +77403,35 @@
         }
       ],
       "highlightVideoId": "wSv43ldBeRU"
+    },
+    "2026-10-26|primera|바르셀로나|레알 마드리드": {
+      "date": "2026-10-26",
+      "categoryId": "primera",
+      "gameId": "HPSXG6Anewfrib8",
+      "homeTeam": "바르셀로나",
+      "awayTeam": "레알 마드리드",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "음바페",
+          "minute": 41
+        },
+        {
+          "team": "home",
+          "player": "하피냐",
+          "minute": 61
+        },
+        {
+          "team": "away",
+          "player": "음바페",
+          "minute": 87
+        }
+      ],
+      "highlightVideoId": "N0A4SFgyjbk"
     },
     "2026-10-26|seria|레체|유벤투스": {
       "date": "2026-10-26",
@@ -77438,7 +77478,8 @@
           "player": "허친슨",
           "minute": 65
         }
-      ]
+      ],
+      "highlightVideoId": "SM2-nFu5MF8"
     },
     "2026-10-27|acl|알 나스르|알와슬": {
       "date": "2026-10-27",
@@ -154806,6 +154847,17 @@
     },
     {
       "date": "2026-10-26",
+      "categoryId": "nba",
+      "gameId": "2026102526",
+      "homeTeam": "유타",
+      "awayTeam": "LA 레이커스",
+      "homeScore": 123,
+      "awayScore": 132,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-10-26",
       "categoryId": "primera",
       "gameId": "sSe30ILS28GdAgm",
       "homeTeam": "셀타 비고",
@@ -154844,6 +154896,35 @@
         }
       ],
       "highlightVideoId": "wSv43ldBeRU"
+    },
+    {
+      "date": "2026-10-26",
+      "categoryId": "primera",
+      "gameId": "HPSXG6Anewfrib8",
+      "homeTeam": "바르셀로나",
+      "awayTeam": "레알 마드리드",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "음바페",
+          "minute": 41
+        },
+        {
+          "team": "home",
+          "player": "하피냐",
+          "minute": 61
+        },
+        {
+          "team": "away",
+          "player": "음바페",
+          "minute": 87
+        }
+      ],
+      "highlightVideoId": "N0A4SFgyjbk"
     },
     {
       "date": "2026-10-26",
@@ -154890,7 +154971,8 @@
           "player": "허친슨",
           "minute": 65
         }
-      ]
+      ],
+      "highlightVideoId": "SM2-nFu5MF8"
     },
     {
       "date": "2026-10-27",
