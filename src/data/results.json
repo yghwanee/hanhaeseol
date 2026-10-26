@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-10-26T00:14:37.269Z",
+  "lastUpdated": "2026-10-26T06:05:00.874Z",
   "byKey": {
     "2026-10-25|kbo|삼성|KIA": {
       "date": "2026-10-25",
@@ -326,9 +326,9 @@
       "gameId": "2026102517",
       "homeTeam": "브루클린",
       "awayTeam": "인디애나",
-      "homeScore": 92,
-      "awayScore": 111,
-      "status": "live",
+      "homeScore": 109,
+      "awayScore": 136,
+      "status": "finished",
       "period": "4쿼터"
     },
     "2026-10-26|nba|미네소타|토론토": {
@@ -337,10 +337,10 @@
       "gameId": "2026102516",
       "homeTeam": "미네소타",
       "awayTeam": "토론토",
-      "homeScore": 55,
-      "awayScore": 47,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 117,
+      "awayScore": 94,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-10-26|nba|뉴욕|올랜도": {
       "date": "2026-10-26",
@@ -348,10 +348,10 @@
       "gameId": "2026102518",
       "homeTeam": "뉴욕",
       "awayTeam": "올랜도",
-      "homeScore": 52,
-      "awayScore": 48,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 102,
+      "awayScore": 111,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-10-26|nba|오클라호마|LA클리퍼스": {
       "date": "2026-10-26",
@@ -359,10 +359,10 @@
       "gameId": "2026102525",
       "homeTeam": "오클라호마",
       "awayTeam": "LA 클리퍼스",
-      "homeScore": 43,
-      "awayScore": 46,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 108,
+      "awayScore": 101,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-10-26|nba|오클라호마|LA 클리퍼스": {
       "date": "2026-10-26",
@@ -370,10 +370,10 @@
       "gameId": "2026102525",
       "homeTeam": "오클라호마",
       "awayTeam": "LA 클리퍼스",
-      "homeScore": 43,
-      "awayScore": 46,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 108,
+      "awayScore": 101,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-10-26|nba|필라델피아|디트로이트": {
       "date": "2026-10-26",
@@ -381,10 +381,10 @@
       "gameId": "2026102520",
       "homeTeam": "필라델피아",
       "awayTeam": "디트로이트",
-      "homeScore": 22,
-      "awayScore": 34,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 93,
+      "awayScore": 106,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-10-26|nba|새크라멘토|멤피스": {
       "date": "2026-10-26",
@@ -392,10 +392,10 @@
       "gameId": "2026102523",
       "homeTeam": "새크라멘토",
       "awayTeam": "멤피스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 112,
+      "awayScore": 123,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-10-27|nba|클리블랜드|미네소타": {
       "date": "2026-10-27",
@@ -2652,10 +2652,32 @@
       "gameId": "R7l0sOguEA6IjyG",
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "LA 갤럭시",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "페인트실",
+          "minute": 34
+        },
+        {
+          "team": "away",
+          "player": "페인트실",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "부앙가",
+          "minute": 53
+        },
+        {
+          "team": "home",
+          "player": "발타",
+          "minute": 62
+        }
+      ]
     },
     "2026-10-26|mls|LAFC|LA 갤럭시": {
       "date": "2026-10-26",
@@ -2663,10 +2685,32 @@
       "gameId": "R7l0sOguEA6IjyG",
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "LA 갤럭시",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "페인트실",
+          "minute": 34
+        },
+        {
+          "team": "away",
+          "player": "페인트실",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "부앙가",
+          "minute": 53
+        },
+        {
+          "team": "home",
+          "player": "발타",
+          "minute": 62
+        }
+      ]
     },
     "2026-10-26|mls|로스앤젤레스 FC|갤럭시": {
       "date": "2026-10-26",
@@ -2674,10 +2718,32 @@
       "gameId": "R7l0sOguEA6IjyG",
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "LA 갤럭시",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "페인트실",
+          "minute": 34
+        },
+        {
+          "team": "away",
+          "player": "페인트실",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "부앙가",
+          "minute": 53
+        },
+        {
+          "team": "home",
+          "player": "발타",
+          "minute": 62
+        }
+      ]
     },
     "2026-10-26|mls|로스앤젤레스 FC|LA 갤럭시": {
       "date": "2026-10-26",
@@ -2685,10 +2751,32 @@
       "gameId": "R7l0sOguEA6IjyG",
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "LA 갤럭시",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "페인트실",
+          "minute": 34
+        },
+        {
+          "team": "away",
+          "player": "페인트실",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "부앙가",
+          "minute": 53
+        },
+        {
+          "team": "home",
+          "player": "발타",
+          "minute": 62
+        }
+      ]
     },
     "2026-10-25|kleague2|부산|경남": {
       "date": "2026-10-25",
@@ -2745,7 +2833,8 @@
           "minute": 88,
           "ownGoal": true
         }
-      ]
+      ],
+      "highlightVideoId": "OU6Kn5qScbo"
     },
     "2026-10-25|kleague2|수원FC|충남아산": {
       "date": "2026-10-25",
@@ -3796,9 +3885,9 @@
       "gameId": "2026102517",
       "homeTeam": "브루클린",
       "awayTeam": "인디애나",
-      "homeScore": 92,
-      "awayScore": 111,
-      "status": "live",
+      "homeScore": 109,
+      "awayScore": 136,
+      "status": "finished",
       "period": "4쿼터"
     },
     {
@@ -3807,10 +3896,10 @@
       "gameId": "2026102516",
       "homeTeam": "미네소타",
       "awayTeam": "토론토",
-      "homeScore": 55,
-      "awayScore": 47,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 117,
+      "awayScore": 94,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-10-26",
@@ -3818,10 +3907,10 @@
       "gameId": "2026102518",
       "homeTeam": "뉴욕",
       "awayTeam": "올랜도",
-      "homeScore": 52,
-      "awayScore": 48,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 102,
+      "awayScore": 111,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-10-26",
@@ -3829,10 +3918,10 @@
       "gameId": "2026102525",
       "homeTeam": "오클라호마",
       "awayTeam": "LA 클리퍼스",
-      "homeScore": 43,
-      "awayScore": 46,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 108,
+      "awayScore": 101,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-10-26",
@@ -3840,10 +3929,10 @@
       "gameId": "2026102520",
       "homeTeam": "필라델피아",
       "awayTeam": "디트로이트",
-      "homeScore": 22,
-      "awayScore": 34,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 93,
+      "awayScore": 106,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-10-26",
@@ -3851,10 +3940,10 @@
       "gameId": "2026102523",
       "homeTeam": "새크라멘토",
       "awayTeam": "멤피스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 112,
+      "awayScore": 123,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-10-27",
@@ -5159,10 +5248,32 @@
       "gameId": "R7l0sOguEA6IjyG",
       "homeTeam": "로스앤젤레스 FC",
       "awayTeam": "LA 갤럭시",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "페인트실",
+          "minute": 34
+        },
+        {
+          "team": "away",
+          "player": "페인트실",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "부앙가",
+          "minute": 53
+        },
+        {
+          "team": "home",
+          "player": "발타",
+          "minute": 62
+        }
+      ]
     },
     {
       "date": "2026-10-25",
@@ -5219,7 +5330,8 @@
           "minute": 88,
           "ownGoal": true
         }
-      ]
+      ],
+      "highlightVideoId": "OU6Kn5qScbo"
     },
     {
       "date": "2026-10-25",
