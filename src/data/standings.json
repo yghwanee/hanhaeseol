@@ -398,18 +398,18 @@
           "rank": 1,
           "teamName": "바르셀로나",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26300.png?type=f92_88",
-          "matchesPlayed": 9,
+          "matchesPlayed": 10,
           "wins": 9,
           "draws": 0,
-          "losses": 0,
-          "goals": 39,
-          "goalsConceded": 9,
-          "goalsDifference": 30,
+          "losses": 1,
+          "goals": 40,
+          "goalsConceded": 11,
+          "goalsDifference": 29,
           "points": 27,
-          "lastFive": "WWWWW",
+          "lastFive": "LWWWW",
           "streak": {
-            "type": "W",
-            "count": 5
+            "type": "L",
+            "count": 1
           },
           "rankStatus": "UEFA Champions League"
         },
@@ -436,18 +436,18 @@
           "rank": 3,
           "teamName": "레알 마드리드",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26303.png?type=f92_88",
-          "matchesPlayed": 9,
-          "wins": 7,
+          "matchesPlayed": 10,
+          "wins": 8,
           "draws": 0,
           "losses": 2,
-          "goals": 23,
-          "goalsConceded": 9,
-          "goalsDifference": 14,
-          "points": 21,
-          "lastFive": "WWLWW",
+          "goals": 25,
+          "goalsConceded": 10,
+          "goalsDifference": 15,
+          "points": 24,
+          "lastFive": "WWWLW",
           "streak": {
             "type": "W",
-            "count": 2
+            "count": 3
           },
           "rankStatus": "UEFA Champions League"
         },
@@ -474,18 +474,18 @@
           "rank": 5,
           "teamName": "레알 소시에다드",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26308.png?type=f92_88",
-          "matchesPlayed": 9,
+          "matchesPlayed": 10,
           "wins": 6,
           "draws": 1,
           "losses": 3,
-          "goals": 17,
-          "goalsConceded": 17,
-          "goalsDifference": 0,
+          "goals": 19,
+          "goalsConceded": 18,
+          "goalsDifference": 1,
           "points": 19,
-          "lastFive": "WWWLW",
+          "lastFive": "WWWWL",
           "streak": {
             "type": "W",
-            "count": 3
+            "count": 4
           },
           "rankStatus": "UEFA Europa League"
         },
@@ -645,17 +645,17 @@
           "rank": 14,
           "teamName": "레반테",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/F9avdb.png?type=f92_88",
-          "matchesPlayed": 9,
+          "matchesPlayed": 10,
           "wins": 2,
           "draws": 4,
           "losses": 4,
-          "goals": 15,
-          "goalsConceded": 17,
-          "goalsDifference": -2,
+          "goals": 16,
+          "goalsConceded": 19,
+          "goalsDifference": -3,
           "points": 10,
-          "lastFive": "WDDLL",
+          "lastFive": "LWDDL",
           "streak": {
-            "type": "W",
+            "type": "L",
             "count": 1
           },
           "rankStatus": null
@@ -1191,6 +1191,25 @@
         },
         {
           "rank": 4,
+          "teamName": "밀란",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26368.png?type=f92_88",
+          "matchesPlayed": 8,
+          "wins": 5,
+          "draws": 3,
+          "losses": 0,
+          "goals": 16,
+          "goalsConceded": 7,
+          "goalsDifference": 9,
+          "points": 18,
+          "lastFive": "WWDWD",
+          "streak": {
+            "type": "W",
+            "count": 2
+          },
+          "rankStatus": "UEFA Champions League"
+        },
+        {
+          "rank": 5,
           "teamName": "코모",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/2704.png?type=f92_88",
           "matchesPlayed": 8,
@@ -1205,25 +1224,6 @@
           "streak": {
             "type": "W",
             "count": 2
-          },
-          "rankStatus": "UEFA Champions League"
-        },
-        {
-          "rank": 5,
-          "teamName": "밀란",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26368.png?type=f92_88",
-          "matchesPlayed": 7,
-          "wins": 4,
-          "draws": 3,
-          "losses": 0,
-          "goals": 14,
-          "goalsConceded": 7,
-          "goalsDifference": 7,
-          "points": 15,
-          "lastFive": "WDWDD",
-          "streak": {
-            "type": "W",
-            "count": 1
           },
           "rankStatus": "UEFA Europa League"
         },
@@ -1258,9 +1258,9 @@
           "goalsConceded": 8,
           "goalsDifference": 3,
           "points": 14,
-          "lastFive": "LDWLD",
+          "lastFive": "WLDWL",
           "streak": {
-            "type": "L",
+            "type": "W",
             "count": 1
           },
           "rankStatus": null
@@ -1353,9 +1353,9 @@
           "goalsConceded": 14,
           "goalsDifference": -5,
           "points": 9,
-          "lastFive": "WLLWL",
+          "lastFive": "LWLLW",
           "streak": {
-            "type": "W",
+            "type": "L",
             "count": 1
           },
           "rankStatus": null
@@ -1440,13 +1440,13 @@
           "rank": 17,
           "teamName": "우디네세",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26360.png?type=f92_88",
-          "matchesPlayed": 7,
+          "matchesPlayed": 8,
           "wins": 1,
           "draws": 1,
-          "losses": 5,
+          "losses": 6,
           "goals": 9,
-          "goalsConceded": 16,
-          "goalsDifference": -7,
+          "goalsConceded": 18,
+          "goalsDifference": -9,
           "points": 4,
           "lastFive": "LLLLL",
           "streak": {
@@ -4468,25 +4468,6 @@
         },
         {
           "rank": 3,
-          "teamName": "알크마르",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26464.png?type=f92_88",
-          "matchesPlayed": 9,
-          "wins": 6,
-          "draws": 3,
-          "losses": 1,
-          "goals": 20,
-          "goalsConceded": 10,
-          "goalsDifference": 10,
-          "points": 21,
-          "lastFive": "DLWDW",
-          "streak": {
-            "type": "D",
-            "count": 1
-          },
-          "rankStatus": "UEFA Europa League Qualifiers"
-        },
-        {
-          "rank": 4,
           "teamName": "아인트호벤",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/2994.png?type=f92_88",
           "matchesPlayed": 10,
@@ -4502,21 +4483,40 @@
             "type": "D",
             "count": 1
           },
+          "rankStatus": "UEFA Europa League Qualifiers"
+        },
+        {
+          "rank": 4,
+          "teamName": "트벤터",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26322.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 6,
+          "draws": 2,
+          "losses": 2,
+          "goals": 19,
+          "goalsConceded": 10,
+          "goalsDifference": 9,
+          "points": 20,
+          "lastFive": "WLDWW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
           "rankStatus": "UEFA Conference League Play-offs"
         },
         {
           "rank": 5,
-          "teamName": "트벤터",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26322.png?type=f92_88",
-          "matchesPlayed": 9,
-          "wins": 5,
-          "draws": 3,
+          "teamName": "알크마르",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26464.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 6,
+          "draws": 2,
           "losses": 2,
-          "goals": 17,
-          "goalsConceded": 10,
-          "goalsDifference": 7,
-          "points": 18,
-          "lastFive": "LDWWW",
+          "goals": 20,
+          "goalsConceded": 12,
+          "goalsDifference": 8,
+          "points": 20,
+          "lastFive": "LDLWD",
           "streak": {
             "type": "L",
             "count": 1
@@ -6138,5 +6138,5 @@
     }
   ],
   "volleyball": [],
-  "lastUpdated": "2026-10-25T19:05:39.645Z"
+  "lastUpdated": "2026-10-26T01:10:28.862Z"
 }
