@@ -18,6 +18,7 @@ import {
 import { matchToSlug } from "@/lib/match-slug";
 import { getTodayString } from "@/lib/schedule-utils";
 import { crawlLiveResults } from "@/lib/results/naver";
+import { readRelayedLive } from "@/lib/live-relay";
 import { categoriesForLeague } from "@/lib/results/lookup";
 import { isFollowedGame } from "@/lib/follows";
 
@@ -247,6 +248,8 @@ async function crawlLiveScoped(
   watch: string[],
 ): Promise<ResultsData | null> {
   if (watch.length === 0) return null;
+  const relayed = await readRelayedLive();
+  if (relayed) return relayed;
   const followed = new Set(watch);
   const cats = new Set<string>();
   for (const s of schedules) {
