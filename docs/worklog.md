@@ -1389,3 +1389,5 @@ AI Assistant 8일 30세션(28일 471 → 거의 소멸) · Vercel 30일 FOT 11.7
 **같은 날 라인업·하이라이트 복구.** `/api/lineup`·`/api/lineup-baseball` 도 Vercel 에서 막혀 있어 중계기가 원문을 받아 Runtime Cache(14일)에 올리고 라우트가 먼저 읽는다. 지난 경기 채우기 = `gh workflow run push-live.yml -f lineup_days=14`. 하이라이트는 매시 수집이 최근 14일 빈 경기를 10건씩 돌아가며 메운다.
 
 **2026-11-01 Vercel 사용량 절감(실측 기반).** 홈 방문 1회 prefetch RSC 12건·1.2MB(압축 해제) → 전 Link `prefetch={false}`. Vercel 에서 실패가 확정된 네이버 호출 4곳 제거. 라인업 CDN 캐시 120초→600초(없을 때 30초→300초). 중계 업로드는 매분 → 스코어·상태 변화 시 + 3분 간격. 실제 한도 수치는 대시보드에서 확인해야 한다(Hobby 는 API 로 못 잰다).
+
+**2026-11-02 홈 전송량 실측.** 실제 전송 기준 PC 4.9MB 중 ESPN 원본 로고가 3.0MB(62%), 홈 HTML 은 53KB. 긴 class 를 다 줄여도 압축 후 1KB 라 마크업은 손대지 않았다. `proxyLogo` 가 ESPN 로고를 160px 축소본으로 받는다(228개 평균 59KB → 14KB). `SOC(790)`(샤바브 알 아흘리)는 원본부터 404.

@@ -84,6 +84,7 @@ jobs:
           npm run test:starters
           npm run test:naver-fetch
           npm run test:link-prefetch
+          npm run test:emblem
           npm run test:active-categories
           npm run test:league-coverage
           npm run test:highlights
