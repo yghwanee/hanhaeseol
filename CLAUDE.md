@@ -477,7 +477,7 @@ src/
 ### 검증은 눈이 아니라 실측으로
 
 ```bash
-npm run design:audit -- --check=<항목>      # dev 서버(3000) 필요
+npm run design:audit -- --check=<항목>  # dev 서버(3000) 필요
 ```
 항목: `overflow`(가로 스크롤) · `tap`(44px 탭 영역) · `contrast`(대비) · `clip`(글자 잘림) ·
 `typography`(램프 이탈) · `color`(키 컬러 이탈) · `rhythm`(여백·겹침) · `a11y` · `image` · `perf`(CLS).
@@ -513,74 +513,74 @@ npm run design:audit -- --check=<항목>      # dev 서버(3000) 필요
 ## 개발 명령어
 
 ```bash
-npm run dev      # 개발 서버 (http://localhost:3000)
-npm run build    # 프로덕션 빌드
-npm run start    # 프로덕션 서버
-npm run lint     # ESLint 검사
-npm run crawl    # 크롤링 실행 (7일치)
-npm run crawl:results    # 결과·스코어 재크롤
+npm run dev  # 개발 서버 (http://localhost:3000)
+npm run build  # 프로덕션 빌드
+npm run start  # 프로덕션 서버
+npm run lint  # ESLint 검사
+npm run crawl  # 크롤링 실행 (7일치)
+npm run crawl:results  # 결과·스코어 재크롤
 npm run test:fetch-cache # 🔴 Next 런타임 fetch 캐시 가드 (CI에서도 돎)
 npm run test:starters / test:highlights / test:tiktok-caption
-npm run ig:jpeg          # 🔴 인스타 업로드용 JPEG 굽기(캐러셀+스토리+릴스커버). PNG 로 올리면 Meta 변환에서 죽는다
-npm run test:ig-image    # 🔴 위 변환 + 워크플로가 그걸 insta-media push **앞**에서 돌리는지
-npm run test:shorts-title    # 🔴 아침·저녁 쇼츠 제목이 같아지면 실패(피드 배포 중단 재발 방지)
-npm run test:post-cycle      # 🔴 cron 이 자정을 넘겨 밀려도 대상 날짜가 하루 앞서지 않는지(2026-08-27 사고)
-npm run test:post-catchup    # 🔴 놓친 게시 따라잡기 판정 + 워크플로 최상위 jobs 존재 + 고빈도 cron 금지
-npm run test:tiktok-policy   # 🔴 is_aigc 상수 금지 · brand_organic_toggle · 미승인 스코프 혼입 금지
-npm run tiktok:stats         # 틱톡 조회수(🔴 Display API 심사 전이라 지금은 안내만 나온다)
-npm run post:target          # 이 실행의 대상 날짜·슬롯·사이클 보정 여부 출력(워크플로가 게시 전에 찍는다)
-npm run post:plan            # 🔴 (요청 채널 − 이미 올라간 채널). 통째 재실행이 안전한 이유
-npm run post:watchdog        # 사이클 마감 점검 — 빠진 채널이 있으면 짖는 대신 복구를 건다
-npm run test:post-log        # 🔴 삼중 게시 재발 방지(중복방지 없는 경로·동시 실행·알림 폭주)
-npm run test:cover-hook      # 🔴 아침·저녁 커버 문구가 같아지면 실패 + 조사 고정 금지(josa.ts 사용 강제)
+npm run ig:jpeg  # 🔴 인스타 업로드용 JPEG 굽기(캐러셀+스토리+릴스커버). PNG 로 올리면 Meta 변환에서 죽는다
+npm run test:ig-image  # 🔴 위 변환 + 워크플로가 그걸 insta-media push **앞**에서 돌리는지
+npm run test:shorts-title  # 🔴 아침·저녁 쇼츠 제목이 같아지면 실패(피드 배포 중단 재발 방지)
+npm run test:post-cycle  # 🔴 cron 이 자정을 넘겨 밀려도 대상 날짜가 하루 앞서지 않는지(2026-08-27 사고)
+npm run test:post-catchup  # 🔴 놓친 게시 따라잡기 판정 + 워크플로 최상위 jobs 존재 + 고빈도 cron 금지
+npm run test:tiktok-policy  # 🔴 is_aigc 상수 금지 · brand_organic_toggle · 미승인 스코프 혼입 금지
+npm run tiktok:stats  # 틱톡 조회수(🔴 Display API 심사 전이라 지금은 안내만 나온다)
+npm run post:target  # 이 실행의 대상 날짜·슬롯·사이클 보정 여부 출력(워크플로가 게시 전에 찍는다)
+npm run post:plan  # 🔴 (요청 채널 − 이미 올라간 채널). 통째 재실행이 안전한 이유
+npm run post:watchdog  # 사이클 마감 점검 — 빠진 채널이 있으면 짖는 대신 복구를 건다
+npm run test:post-log  # 🔴 삼중 게시 재발 방지(중복방지 없는 경로·동시 실행·알림 폭주)
+npm run test:cover-hook  # 🔴 아침·저녁 커버 문구가 같아지면 실패 + 조사 고정 금지(josa.ts 사용 강제)
 npm run test:idea-dupes / test:naver-news
 npm run test:robots-meta # 🔴 색인 지시자 가드. `robots: cond ? undefined : {}` 금지(layout robots를 삭제함)
 npm run test:seo-meta / test:team-full-names / test:team-links  # description 상한·팀 정식명·순위표 팀링크
-npm run test:schedule-quality      # 파싱 실패 편성(리그=연도, 팀명에 이벤트명) 색인 차단
-npm run test:sitemap-consistency   # 🔴 사이트맵 포함 여부 ↔ 페이지 noindex 일치(슬러그 충돌 228종)
-npm run test:team-name-hygiene     # 팀명에 날짜·시간·괄호 조각 유입 차단 + 데이터 전수 스캔
-npm run test:autolink              # 가이드 자동 내부링크(한국어 조사 처리 포함)
-npm run test:workflow-push         # 🔴 스케줄러 push 재시도 루프가 소진 시 실패하는지(무성 실패 차단)
-npm run push:live                  # 실시간 득점 폴러(로컬 확인용. PUSH_TEST_KEY 필요, .env.local 은 안 읽는다)
-npm run test:push-live             # 🔴 분 단위 cron 금지 · 폴링은 GH · 리그 좁히기 · 겹침 방지
-npm run fonts:subset:ui            # 🔴 본문 Pretendard 서브셋 재생성(pyftsubset 필요). 새 팀·선수 유입 후 실행
-npm run test:font-mixing           # 🔴 font-mono 자리에 한글 금지(한 문자열에 두 폰트) + 서브셋 존재·크기
-npm run test:push-toggle           # 🔴 해제 순서(서버→로컬) · 컨트롤 유지 · ⭐히트영역 44px · 미지원 환경 안내 · 구독 주소 교체 유령
-npm run test:result-lookup         # 🔴 결과 룩업 한쪽 일치 안전망 — 유일 후보만 붙이고 헷갈리면 버리는지
-npm run test:workflow-yaml         # 🔴 워크플로 22개 전수 파싱. 문자열 검사로는 못 잡는다(아래 참조)
-npm run test:workflow-pipe         # 🔴 파이프가 종료코드를 삼키는지(npm|tee). 실패한 크롤이 초록으로 끝난다
-npm run test:card-layout           # 🔴 카드 뱃지 자리(PC 상단·모바일 하단·상태는 상단 유지) + 흰 판 토큰 반전
-npm run test:revalidate-budget     # 🔴 revalidate 하한 21600(배포 주기) · 날짜 무관이면 false. 되돌리면 한도가 잠긴다
-npm run test:players               # 🔴 선수→팀을 종목으로 자르는지(안 자르면 MLS 선수가 MLB 팀에 붙거나 사라진다) + 게이트 일치
-npm run test:robots-match          # 🔴 /match/ 를 어느 봇에게 열었는지 + 비용 상한 셋(OG 정적폴백·아카이브 fetch 없음·사이트맵 제외)
-npm run test:head-script           # 🔴 head 인라인에 location 계열 금지(넣으면 네이버가 홈 메타를 통째로 버린다)
-npm run test:hero-pick             # 히어로 선정 가중치
-npm run test:fixture-dedupe        # 🔴 홈/원정 반전 중복이 같은 경기를 두 URL 로 내보내는지(실데이터 회귀 포함)
-npm run test:sitemap-lastmod       # 🔴 사이트맵 미래 lastmod 금지. 이게 있으면 구글이 사이트맵을 통째로 안 읽는다
-npm run test:indexnow-coverage     # IndexNow 통지 URL 이 전부 사이트맵에 있는지 + 매치 포함 + quota
-npm run test:team-description      # 🔴 팀 페이지가 자기 자신·다른 종목 경기를 잡는지 + 조사 고정 금지
-npm run test:sport-seo             # 종목 허브 게이트(빈 페이지 금지) + 사이트맵 일치 + 제목 40자
-npm run crawl:korean-players       # 🔴 코리안리거 로스터(네이버+MLB StatsAPI, 무료). 손으로 적지 말 것
-npm run test:korean-players        # 🔴 로스터 하드코딩 금지 + 낡으면 비우기 + MLB 팀 표기
-npm run test:form-claim            # 🔴 "2연승인데 연패" 같은 흐름 뒤집기 차단
+npm run test:schedule-quality  # 파싱 실패 편성(리그=연도, 팀명에 이벤트명) 색인 차단
+npm run test:sitemap-consistency  # 🔴 사이트맵 포함 여부 ↔ 페이지 noindex 일치(슬러그 충돌 228종)
+npm run test:team-name-hygiene  # 팀명에 날짜·시간·괄호 조각 유입 차단 + 데이터 전수 스캔
+npm run test:autolink  # 가이드 자동 내부링크(한국어 조사 처리 포함)
+npm run test:workflow-push  # 🔴 스케줄러 push 재시도 루프가 소진 시 실패하는지(무성 실패 차단)
+npm run push:live  # 실시간 득점 폴러(로컬 확인용. PUSH_TEST_KEY 필요, .env.local 은 안 읽는다)
+npm run test:push-live  # 🔴 분 단위 cron 금지 · 폴링은 GH · 리그 좁히기 · 겹침 방지
+npm run fonts:subset:ui  # 🔴 본문 Pretendard 서브셋 재생성(pyftsubset 필요). 새 팀·선수 유입 후 실행
+npm run test:font-mixing  # 🔴 font-mono 자리에 한글 금지(한 문자열에 두 폰트) + 서브셋 존재·크기
+npm run test:push-toggle  # 🔴 해제 순서(서버→로컬) · 컨트롤 유지 · ⭐히트영역 44px · 미지원 환경 안내 · 구독 주소 교체 유령
+npm run test:result-lookup  # 🔴 결과 룩업 한쪽 일치 안전망 — 유일 후보만 붙이고 헷갈리면 버리는지
+npm run test:workflow-yaml  # 🔴 워크플로 22개 전수 파싱. 문자열 검사로는 못 잡는다(아래 참조)
+npm run test:workflow-pipe  # 🔴 파이프가 종료코드를 삼키는지(npm|tee). 실패한 크롤이 초록으로 끝난다
+npm run test:card-layout  # 🔴 카드 뱃지 자리(PC 상단·모바일 하단·상태는 상단 유지) + 흰 판 토큰 반전
+npm run test:revalidate-budget  # 🔴 revalidate 하한 21600(배포 주기) · 날짜 무관이면 false. 되돌리면 한도가 잠긴다
+npm run test:players  # 🔴 선수→팀을 종목으로 자르는지(안 자르면 MLS 선수가 MLB 팀에 붙거나 사라진다) + 게이트 일치
+npm run test:robots-match  # 🔴 /match/ 를 어느 봇에게 열었는지 + 비용 상한 셋(OG 정적폴백·아카이브 fetch 없음·사이트맵 제외)
+npm run test:head-script  # 🔴 head 인라인에 location 계열 금지(넣으면 네이버가 홈 메타를 통째로 버린다)
+npm run test:hero-pick  # 히어로 선정 가중치
+npm run test:fixture-dedupe  # 🔴 홈/원정 반전 중복이 같은 경기를 두 URL 로 내보내는지(실데이터 회귀 포함)
+npm run test:sitemap-lastmod  # 🔴 사이트맵 미래 lastmod 금지. 이게 있으면 구글이 사이트맵을 통째로 안 읽는다
+npm run test:indexnow-coverage  # IndexNow 통지 URL 이 전부 사이트맵에 있는지 + 매치 포함 + quota
+npm run test:team-description  # 🔴 팀 페이지가 자기 자신·다른 종목 경기를 잡는지 + 조사 고정 금지
+npm run test:sport-seo  # 종목 허브 게이트(빈 페이지 금지) + 사이트맵 일치 + 제목 40자
+npm run crawl:korean-players  # 🔴 코리안리거 로스터(네이버+MLB StatsAPI, 무료). 손으로 적지 말 것
+npm run test:korean-players  # 🔴 로스터 하드코딩 금지 + 낡으면 비우기 + MLB 팀 표기
+npm run test:form-claim  # 🔴 "2연승인데 연패" 같은 흐름 뒤집기 차단
 npm run prune:bad-insights -- --apply  # 저장된 인사이트 중 흐름이 전적과 반대인 글 삭제(오늘 이후만)
-npm run toss:check                 # 🔴 토스 쉐어링크 Open API 연동 점검(자격증명·IP·스코프 한 번에)
+npm run toss:check  # 🔴 토스 쉐어링크 Open API 연동 점검(자격증명·IP·스코프 한 번에)
 npm run toss:link -- <tacaItemId>  # 쉐어링크 1건 발급. 같은 조합은 같은 링크 — 저장해 재사용할 것
-npm run test:toss                  # 🔴 Secret Key 가 src/app 으로 새지 않는지 + 토큰 캐시 gitignore
+npm run test:toss  # 🔴 Secret Key 가 src/app 으로 새지 않는지 + 토큰 캐시 gitignore
 npm run toss:pick -- <id> --key=<슬러그> [--deal]  # 상품 1개를 손으로 골라 저장(링크 재사용). 이 PC 에서만
-npm run toss:refresh               # 🔴 저장된 상품 가격 재확인. 14일 넘으면 화면이 가격을 숨긴다
-npm run test:toss-picks            # 🔴 지면 가드 — 대가성 문구·이미지 금지·나열 금지·sponsored·플로팅 금지
-npm run secrets                    # 자격증명을 지금 어디서 읽고 있는지(값은 안 찍는다)
-npm run secrets:push               # 🔴 이 PC .env → OneDrive 공용 파일. PC 3대가 복붙 없이 같은 키를 쓴다
-npm run test:shared-env            # 🔴 공용 자격증명이 레포(public) 안으로 못 들어오게 + 값 로그 금지
-npm run test:commentary-stats      # 🔴 해설 비율 산수 + 미확인 분모 제외 + 조사. 밖으로 인용되는 수치라 틀리면 못 되돌린다
-npm run test:safety-filter         # 인사이트 베팅 용어 필터(2026-08-27 전까지 CI 에서 한 번도 안 돌고 있었다)
-npm run fonts:subset               # 🔴 ebook 배너 Pretendard 서브셋 재생성(pyftsubset 필요). 인용구·배너 문구 바꾸면 필수
-npm run test:ebook-font            # 🔴 서브셋에 없는 글자가 배너에 나오는지(두부 방지). 위 명령을 안 돌리면 여기서 막힌다
-npm run usage            # 🔴 Pro 전용(Observability). Hobby 에선 402 로 멈춘다 — FOT·CPU 는 대시보드 Usage 화면에서 볼 것
-npm run seo:indexnow     # IndexNow 통지(리그·플랫폼·순위·가이드·팀 86 + /commentary = ~156 URL)
-npm run audit:aliases   # 팀명 alias 감사 — 결과(스코어) + 🔴 최근 5경기 전적(다른 API 라 표기가 따로 갈린다). 새 리그 유입·개막 뒤 실행
-npm run news:digest      # 네이버 뉴스 → docs/news-digest.md (NAVER_API_KEY_ID/NAVER_API_KEY 필요)
+npm run toss:refresh  # 🔴 저장된 상품 가격 재확인. 14일 넘으면 화면이 가격을 숨긴다
+npm run test:toss-picks  # 🔴 지면 가드 — 대가성 문구·이미지 금지·나열 금지·sponsored·플로팅 금지
+npm run secrets  # 자격증명을 지금 어디서 읽고 있는지(값은 안 찍는다)
+npm run secrets:push  # 🔴 이 PC .env → OneDrive 공용 파일. PC 3대가 복붙 없이 같은 키를 쓴다
+npm run test:shared-env  # 🔴 공용 자격증명이 레포(public) 안으로 못 들어오게 + 값 로그 금지
+npm run test:commentary-stats  # 🔴 해설 비율 산수 + 미확인 분모 제외 + 조사. 밖으로 인용되는 수치라 틀리면 못 되돌린다
+npm run test:safety-filter  # 인사이트 베팅 용어 필터(2026-08-27 전까지 CI 에서 한 번도 안 돌고 있었다)
+npm run fonts:subset  # 🔴 ebook 배너 Pretendard 서브셋 재생성(pyftsubset 필요). 인용구·배너 문구 바꾸면 필수
+npm run test:ebook-font  # 🔴 서브셋에 없는 글자가 배너에 나오는지(두부 방지). 위 명령을 안 돌리면 여기서 막힌다
+npm run usage  # 🔴 Pro 전용(Observability). Hobby 에선 402 로 멈춘다 — FOT·CPU 는 대시보드 Usage 화면에서 볼 것
+npm run seo:indexnow  # IndexNow 통지(리그·플랫폼·순위·가이드·팀 86 + /commentary = ~156 URL)
+npm run audit:aliases  # 팀명 alias 감사 — 결과(스코어) + 🔴 최근 5경기 전적(다른 API 라 표기가 따로 갈린다). 새 리그 유입·개막 뒤 실행
+npm run news:digest  # 네이버 뉴스 → docs/news-digest.md (NAVER_API_KEY_ID/NAVER_API_KEY 필요)
 ISSUE_BODY="$(gh issue view N --json body -q .body)" npm run check:idea-dupes  # 글감 중복 검사
 ```
 
