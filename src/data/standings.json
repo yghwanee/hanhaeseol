@@ -472,6 +472,25 @@
         },
         {
           "rank": 5,
+          "teamName": "세비야",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/27821.png?type=f92_88",
+          "matchesPlayed": 10,
+          "wins": 6,
+          "draws": 2,
+          "losses": 3,
+          "goals": 16,
+          "goalsConceded": 16,
+          "goalsDifference": 0,
+          "points": 20,
+          "lastFive": "WLDLW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          },
+          "rankStatus": "UEFA Europa League"
+        },
+        {
+          "rank": 6,
           "teamName": "레알 소시에다드",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/26308.png?type=f92_88",
           "matchesPlayed": 10,
@@ -486,25 +505,6 @@
           "streak": {
             "type": "W",
             "count": 4
-          },
-          "rankStatus": "UEFA Europa League"
-        },
-        {
-          "rank": 6,
-          "teamName": "세비야",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/27821.png?type=f92_88",
-          "matchesPlayed": 10,
-          "wins": 5,
-          "draws": 2,
-          "losses": 3,
-          "goals": 16,
-          "goalsConceded": 16,
-          "goalsDifference": 0,
-          "points": 17,
-          "lastFive": "WLDLW",
-          "streak": {
-            "type": "W",
-            "count": 1
           },
           "rankStatus": "UEFA Conference League Qualifiers"
         },
@@ -724,7 +724,7 @@
           "matchesPlayed": 10,
           "wins": 2,
           "draws": 3,
-          "losses": 5,
+          "losses": 6,
           "goals": 5,
           "goalsConceded": 15,
           "goalsDifference": -10,
@@ -1201,10 +1201,10 @@
           "goalsConceded": 8,
           "goalsDifference": 9,
           "points": 23,
-          "lastFive": "WWWDL",
+          "lastFive": "WWWWD",
           "streak": {
             "type": "W",
-            "count": 3
+            "count": 4
           },
           "rankStatus": "UEFA Champions League"
         },
@@ -1505,10 +1505,10 @@
           "goalsConceded": 19,
           "goalsDifference": -13,
           "points": 3,
-          "lastFive": "LLWLL",
+          "lastFive": "LLLWL",
           "streak": {
             "type": "L",
-            "count": 2
+            "count": 3
           },
           "rankStatus": "Relegation"
         }
@@ -4624,12 +4624,12 @@
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/ZoFmtg.png?type=f92_88",
           "matchesPlayed": 10,
           "wins": 3,
-          "draws": 3,
+          "draws": 4,
           "losses": 4,
           "goals": 17,
           "goalsConceded": 27,
           "goalsDifference": -10,
-          "points": 12,
+          "points": 13,
           "lastFive": "DWWLW",
           "streak": {
             "type": "D",
@@ -4679,17 +4679,17 @@
           "rank": 14,
           "teamName": "PEC 즈볼레",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/iXLjQa.png?type=f92_88",
-          "matchesPlayed": 10,
+          "matchesPlayed": 11,
           "wins": 3,
           "draws": 2,
           "losses": 6,
-          "goals": 11,
+          "goals": 12,
           "goalsConceded": 23,
-          "goalsDifference": -12,
+          "goalsDifference": -11,
           "points": 11,
-          "lastFive": "DWLLL",
+          "lastFive": "WDWLL",
           "streak": {
-            "type": "D",
+            "type": "W",
             "count": 1
           },
           "rankStatus": null
@@ -4719,12 +4719,12 @@
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/Yzxoip.png?type=f92_88",
           "matchesPlayed": 10,
           "wins": 1,
-          "draws": 3,
+          "draws": 4,
           "losses": 6,
           "goals": 12,
           "goalsConceded": 21,
           "goalsDifference": -9,
-          "points": 6,
+          "points": 7,
           "lastFive": "LLDLD",
           "streak": {
             "type": "L",
@@ -4736,18 +4736,18 @@
           "rank": 17,
           "teamName": "ADO 덴 하그",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wfootball/default/W8YoHy.png?type=f92_88",
-          "matchesPlayed": 10,
+          "matchesPlayed": 11,
           "wins": 1,
           "draws": 3,
           "losses": 7,
           "goals": 13,
-          "goalsConceded": 23,
-          "goalsDifference": -10,
+          "goalsConceded": 24,
+          "goalsDifference": -11,
           "points": 6,
-          "lastFive": "LWDDL",
+          "lastFive": "LLWDD",
           "streak": {
             "type": "L",
-            "count": 1
+            "count": 2
           },
           "rankStatus": "Relegation"
         },
@@ -6275,5 +6275,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-11-01T12:21:57.011Z"
+  "lastUpdated": "2026-11-01T13:35:16.474Z"
 }
