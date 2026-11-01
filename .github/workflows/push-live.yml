@@ -20,6 +20,8 @@ name: 실시간 득점 폴러
 # 스스로 즉시 끝내므로(IDLE_EXIT_POLLS) 헛도는 비용이 없다.
 on:
   schedule:
+    # KST 03:05 — 유럽 축구 늦은 경기
+    - cron: '5 18 * * *'
     # KST 08:05 — MLB 오전 경기 창(대개 08:00~14:00)
     - cron: '5 23 * * *'
     # KST 12:05 — MLB 늦은 경기 + 주말 낮 국내 경기
@@ -45,6 +47,9 @@ concurrency:
 jobs:
   poll:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: write
     # 🔴 잡 상한을 스크립트 수명보다 넉넉히 둔다. 여기서 잘리면 정리 로그도 못 남는다.
     timeout-minutes: 330
     steps:
@@ -54,9 +59,19 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      - name: Chromium 설치
+        run: npx playwright install --with-deps --only-shell chromium
       - name: 폴링
+        id: relay
         env:
+          NODE_OPTIONS: --import=./tools/naver-browser-preload.mjs
           PUSH_TEST_KEY: ${{ secrets.PUSH_TEST_KEY }}
           MAX_MINUTES: ${{ inputs.minutes || '300' }}
           POLL_MS: '60000'
-        run: npm run push:live
+        run: npm run live:relay
+      # 수명이 끝났는데 경기가 남아 있을 수 있다. 예약 발화를 기다리지 않고 이어 간다.
+      - name: 다음 실행 잇기
+        if: steps.relay.outputs.chain == 'true' && !inputs.minutes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run push-live.yml

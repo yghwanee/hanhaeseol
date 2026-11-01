@@ -24,8 +24,14 @@ jobs:
 
       - run: npm ci
 
+      # 네이버 스포츠 API 는 실제 브라우저 요청에만 응답한다(tools/naver-browser-preload.mjs).
+      - name: Chromium 설치
+        run: npx playwright install --with-deps --only-shell chromium
+
       - name: Crawl korean players
         run: npm run crawl:korean-players
+        env:
+          NODE_OPTIONS: --import=./tools/naver-browser-preload.mjs
 
       # 방송사 공식 해설진 명단(src/lib/commentators.ts). 실패하면 파일을 안 건드리고,
       # 14일 넘게 못 갱신하면 화면에서 해설진 섹션이 저절로 빠진다.

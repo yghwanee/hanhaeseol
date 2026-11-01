@@ -98,9 +98,15 @@ jobs:
       # 팀 기록(최근 5경기/연승) 크롤은 crawl-results.yml(매시) 로 이관됨.
 
       # 🔴 전 리그 실패면 순위 크롤은 기존 파일을 지키고 exit 1 이다. 편성 커밋까지 막지 않는다.
+      - name: Chromium 설치
+        continue-on-error: true
+        run: npx playwright install --with-deps --only-shell chromium
+
       - name: Run standings crawl
         continue-on-error: true
         run: npm run crawl:standings
+        env:
+          NODE_OPTIONS: --import=./tools/naver-browser-preload.mjs
 
       # 크롤이 만든 데이터를 가드로 검사한다.
       #

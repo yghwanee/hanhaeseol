@@ -41,6 +41,9 @@ jobs:
 
   crawl:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: write
     steps:
       - uses: actions/checkout@v6
 
@@ -50,9 +53,14 @@ jobs:
 
       - run: npm ci
 
+      # 네이버 스포츠 API 는 실제 브라우저 요청에만 응답한다(tools/naver-browser-preload.mjs).
+      - name: Chromium 설치
+        run: npx playwright install --with-deps --only-shell chromium
+
       - name: Run results crawl
         run: npm run crawl:results
         env:
+          NODE_OPTIONS: --import=./tools/naver-browser-preload.mjs
           RESULTS_FROM: ${{ inputs.from }}
           # 종료된 축구 경기 하이라이트 영상ID 검색용(YouTube Data API v3).
           # 미설정 시 하이라이트 검색은 조용히 건너뜀.
@@ -62,6 +70,8 @@ jobs:
       # results 실패 시(0건이면 exit 1) records는 다음 cron에 재시도된다.
       - name: Run team records crawl
         run: npm run crawl:records
+        env:
+          NODE_OPTIONS: --import=./tools/naver-browser-preload.mjs
 
       # 2026 아시안게임 메달·한국 경기(9/10~10/05). 🔴 실패해도 결과 커밋을 막지 않는다 —
       # 크롤러는 메달 목록이 비면 파일을 안 덮고 exit 1 이라, 옛 파일이 그대로 커밋 대상에 남는다.
@@ -112,3 +122,13 @@ jobs:
           fi
           curl -sS -m 60 -X POST "https://haeseol.com/api/push/dispatch" \
             -H "x-push-key: $PUSH_KEY" || echo "알림 요청 실패(무시)"
+
+      # 실시간 중계가 안 돌고 있으면 깨운다. 경기가 없으면 중계기가 스스로 끝낸다.
+      - name: 라이브 중계 깨우기
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          running=$(gh run list --workflow=push-live.yml --status in_progress --json databaseId -q 'length')
+          queued=$(gh run list --workflow=push-live.yml --status queued --json databaseId -q 'length')
+          if [ "$running" = "0" ] && [ "$queued" = "0" ]; then gh workflow run push-live.yml; fi

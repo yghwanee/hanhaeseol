@@ -8,15 +8,22 @@ import https from "node:https";
  * 전역 fetch 는 TLS 버전을 못 정해서 node:https 로 직접 부른다.
  *
  * 🔴 이걸로 되는 건 일반 회선뿐이다. GH 러너는 TLS 1.2 도 무응답, Vercel(서울 포함)은 ECONNRESET 이다.
+ * 그래서 GH 는 tools/naver-browser-preload.mjs 가 실제 Chromium 을 꽂아 준다. 있으면 그쪽을 쓴다.
  *
  * Next.js Data Cache 를 거치지 않으므로 `cache: "no-store"` 도 필요 없다.
  */
 const DEFAULT_TIMEOUT_MS = 15_000;
 
+type BrowserFetch = (url: string) => Promise<{ status: number; body: string }>;
+
 export function naverFetch(
   url: string,
   init: { headers?: Record<string, string>; signal?: AbortSignal } = {},
 ): Promise<Response> {
+  const viaBrowser = (globalThis as { __naverBrowserFetch?: BrowserFetch }).__naverBrowserFetch;
+  if (viaBrowser) {
+    return viaBrowser(url).then((r) => new Response(r.body, { status: r.status }));
+  }
   return new Promise((resolve, reject) => {
     const req = https.get(
       url,

@@ -1383,3 +1383,5 @@ AI Assistant 8일 30세션(28일 471 → 거의 소멸) · Vercel 30일 FOT 11.7
 - 그래서 코드 수정만으로는 `/api/live` 와 매시 수집이 살아나지 않는다. 10/25~11/01 데이터는 집 PC 에서 한 번 채운 스냅샷이다. 이후 수집 방식은 화니 결정 대기.
 
 **2026-11-01 복구 방식.** 집 PC 작업 스케줄러 2개. `tools/naver-crawl-hourly.ps1`(매시 13분, 전용 복제본 `%LOCALAPPDATA%hanhaeseol-crawl`) · `tools/live-relay.ps1`(5분마다 깨움, 경기 있을 때만 60초 폴링 → `/api/live/ingest` → Runtime Cache TTL 30분 → `/api/live`·알림). 재등록 = `tools/register-naver-tasks.ps1`. GH 크롤은 지우지 않았다. 로컬에 `YOUTUBE_API_KEY` 가 없어 집 PC 수집분은 하이라이트 검색을 건너뛴다.
+
+**2026-11-01 진짜 원인과 최종 복구.** 위 「클라우드 IP 차단」과 「집 PC 복구」는 틀렸거나 임시였다. 같은 GH 러너에서 실제 Chromium 은 200, 브라우저 헤더·HTTP/2 를 넣은 curl·Node 는 무응답이다. IP 가 아니라 요청 방식(지문으로 추정)으로 거른다. 화니 승인으로 GH 수집을 Chromium 경유로 옮기고(`tools/naver-browser-preload.mjs`, 끄려면 워크플로의 NODE_OPTIONS 만 뺀다), 폴러를 `live-relay.ts` 로 바꿨다. 집 PC 스케줄러 2개는 삭제했다. 네이버 공식 API 가 아니라 필터가 강화되면 다시 멈출 수 있다.

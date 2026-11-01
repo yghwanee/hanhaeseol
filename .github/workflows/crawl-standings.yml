@@ -22,8 +22,14 @@ jobs:
 
       - run: npm ci
 
+      # 네이버 스포츠 API 는 실제 브라우저 요청에만 응답한다(tools/naver-browser-preload.mjs).
+      - name: Chromium 설치
+        run: npx playwright install --with-deps --only-shell chromium
+
       - name: Run standings crawl
         run: npm run crawl:standings
+        env:
+          NODE_OPTIONS: --import=./tools/naver-browser-preload.mjs
 
       - name: Commit & Push
         run: |

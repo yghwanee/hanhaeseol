@@ -11,7 +11,7 @@ export const dynamic = "force-dynamic";
 
 export async function GET(): Promise<Response> {
   try {
-    // 네이버가 Vercel 요청을 막고 있어 집 PC 가 올린 값을 먼저 쓴다(lib/live-relay.ts).
+    // 네이버가 Vercel 요청을 막고 있어 GH 중계기가 올린 값을 먼저 쓴다(lib/live-relay.ts).
     const data = (await readRelayedLive()) ?? (await crawlLiveResults());
     return new Response(JSON.stringify(data), {
       headers: {

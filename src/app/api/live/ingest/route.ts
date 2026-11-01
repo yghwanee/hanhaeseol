@@ -1,7 +1,7 @@
 import { writeRelayedLive } from "@/lib/live-relay";
 import type { ResultsData } from "@/types/results";
 
-// 집 PC 라이브 중계기(src/scripts/live-relay.ts)가 스코어를 올리는 곳. 인증은 dispatch 와 같은 키.
+// GH 라이브 중계기(src/scripts/live-relay.ts)가 스코어를 올리는 곳. 인증은 dispatch 와 같은 키.
 export const dynamic = "force-dynamic";
 
 export async function POST(request: Request): Promise<Response> {

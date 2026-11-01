@@ -541,7 +541,7 @@ npm run test:sitemap-consistency  # 🔴 사이트맵 포함 여부 ↔ 페이�
 npm run test:team-name-hygiene  # 팀명에 날짜·시간·괄호 조각 유입 차단 + 데이터 전수 스캔
 npm run test:autolink  # 가이드 자동 내부링크(한국어 조사 처리 포함)
 npm run test:workflow-push  # 🔴 스케줄러 push 재시도 루프가 소진 시 실패하는지(무성 실패 차단)
-npm run push:live  # 실시간 득점 폴러(로컬 확인용. PUSH_TEST_KEY 필요, .env.local 은 안 읽는다)
+npm run live:relay  # 라이브 중계기(PUSH_TEST_KEY 필요)
 npm run test:push-live  # 🔴 분 단위 cron 금지 · 폴링은 GH · 리그 좁히기 · 겹침 방지
 npm run fonts:subset:ui  # 🔴 본문 Pretendard 서브셋 재생성(pyftsubset 필요). 새 팀·선수 유입 후 실행
 npm run test:font-mixing  # 🔴 font-mono 자리에 한글 금지(한 문자열에 두 폰트) + 서브셋 존재·크기
@@ -586,7 +586,7 @@ ISSUE_BODY="$(gh issue view N --json body -q .body)" npm run check:idea-dupes  #
 
 ## 운영 함정 (2026-09-04 에 실제로 겪은 것)
 
-- 🔴 **네이버 스포츠 API 가 클라우드 IP 를 막는다 (2026-10-26~).** GH·Vercel 은 무응답·연결 끊김(서울 리전도 동일), 집 PC 는 `naverFetch`(TLS 1.2)로만 된다. 그래서 이 PC 스케줄러(`한해설 네이버 수집`·`한해설 라이브 중계`)가 수집한다. PC 가 꺼지면 멈춘다. 우회 프록시 금지. 상세 worklog.
+- 🔴 **네이버 스포츠 API 는 2026-10-26 부터 실제 브라우저 요청에만 응답한다.** GH 수집은 `tools/naver-browser-preload.mjs`(Chromium), 실시간은 GH `push-live.yml` → `/api/live/ingest` → Runtime Cache. 호출은 `naverFetch` 로만. 상세 worklog.
 
 - 🔴 **데이터 파일 충돌을 커밋하지 말 것 (2026-10-22 실사고).** CI 가 `src/data/*.json` 을 매시 커밋해 rebase 가 자주 충돌한다. `UU` 인 채로 `git add` 하면 충돌 표시가 JSON 에 박혀 배포까지 나간다. 데이터 충돌은 CI 수집본을 고르고, `src/data` 만 바꾼 커밋은 `gh workflow run test.yml` 로 CI 를 직접 돌린다.
 - 🔴 **로컬에서 프로덕션에 반복 curl 하면 Vercel 방화벽 챌린지가 걸린다.**

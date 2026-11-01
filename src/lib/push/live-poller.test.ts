@@ -16,12 +16,12 @@ import path from "node:path";
 
 const ROOT = process.cwd();
 const WF = path.join(ROOT, ".github/workflows/push-live.yml");
-const POLLER = path.join(ROOT, "src/scripts/push-live-poller.ts");
+const POLLER = path.join(ROOT, "src/scripts/live-relay.ts");
 const read = (p: string) => fs.readFileSync(p, "utf-8");
 
 test("워크플로와 폴러 스크립트가 존재한다", () => {
   assert.ok(fs.existsSync(WF), "push-live.yml 이 없다");
-  assert.ok(fs.existsSync(POLLER), "push-live-poller.ts 가 없다");
+  assert.ok(fs.existsSync(POLLER), "live-relay.ts 가 없다");
 });
 
 test("🔴 분 단위 cron 금지 — 고빈도 cron 은 GH 가 먼저 버린다", () => {
@@ -77,27 +77,27 @@ test("🔴 폴링은 GH 에서 돈다 — Vercel 을 주기적으로 때리면 �
   const loop = src.slice(src.indexOf("while (Date.now() < deadline)"));
   assert.match(
     loop,
-    /if \(reasons\.length > 0\)[\s\S]{0,200}callDispatch\(true\)/,
+    /if \(changed\)[\s\S]{0,120}dispatch\?live=1/,
     "루프가 변화 여부와 무관하게 dispatch 를 부른다 — Hobby Fluid Active CPU(4h) 를 태운다",
   );
 });
 
 test("🔴 리그를 좁혀 크롤한다 — 전 리그를 60초마다 훑으면 네이버가 막는다", () => {
   const src = read(POLLER);
-  assert.match(src, /categoriesForLeague/, "대상 리그를 계산하지 않는다");
+  assert.match(src, /activeCategories\(/, "대상 리그를 계산하지 않는다");
   assert.match(src, /crawlLiveResults\(cats\)/, "crawlLiveResults 에 리그 목록을 넘기지 않는다");
 });
 
-test("찜한 팀이 없으면 폴링하지 않고 끝낸다", () => {
+test("경기가 없으면 폴링하지 않고 끝낸다", () => {
   const src = read(POLLER);
-  assert.match(src, /watch\.size === 0/, "감시 목록이 빈 경우를 안 걸러낸다");
+  assert.match(src, /hasHotGame\(/, "경기 시간대를 안 본다");
   assert.match(src, /IDLE_EXIT_POLLS/, "진행 중 경기가 없을 때 조기 종료하지 않는다");
 });
 
 test("🔴 첫 관측만으로는 알리지 않는다 — 경기 중간에 켜지면 지난 점수를 방금 난 것으로 알린다", () => {
   assert.match(
     read(POLLER),
-    /if \(prev !== undefined\) reasons\.push/,
+    /prev !== undefined && prev !== state/,
     "기준선(prev)이 없는 첫 관측에서도 알림을 트리거한다",
   );
 });
