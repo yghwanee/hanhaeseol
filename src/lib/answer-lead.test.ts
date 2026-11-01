@@ -37,7 +37,8 @@ const TODAY = getTodayString();
 function josaErrors(text: string): string[] {
   const bad: string[] = [];
   // 한글 음절 + 조사 조합만 검사한다(영문·숫자 뒤는 소리로 판단할 수 없어 제외).
-  const re = /([가-힣])(와|과|은|는)/g;
+  // 뒤에 한글이 이어지면 조사가 아니라 단어 일부다(「하나은행」의 「나은」).
+  const re = /([가-힣])(와|과|은|는)(?![가-힣])/g;
   let m: RegExpExecArray | null;
   while ((m = re.exec(text)) !== null) {
     const code = m[1].charCodeAt(0) - 0xac00;

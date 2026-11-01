@@ -1,3 +1,4 @@
+import { naverFetch } from "@/lib/naver-fetch";
 import { TeamRecord } from "@/types/team-record";
 import { NAVER_TO_SCHEDULE_TEAM_NAME } from "./team-name-aliases";
 
@@ -69,7 +70,7 @@ export const CATEGORY_ID: Record<string, string> = {
 };
 
 async function naverGet<T>(path: string): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, { headers: HEADERS });
+  const res = await naverFetch(`${BASE}${path}`, { headers: HEADERS });
   if (!res.ok) throw new Error(`Naver HTTP ${res.status}: ${path}`);
   const json = (await res.json()) as NaverApiResponse<T>;
   if (!json.success || !json.result) throw new Error(`Naver API failed: ${path}`);

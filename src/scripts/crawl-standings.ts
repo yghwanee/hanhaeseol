@@ -119,6 +119,12 @@ async function main() {
       : `  🔴 로고 없는 팀 ${empty.length}: ${empty.map((r) => `${r.league}/${r.team}`).join(", ")}`,
   );
 
+  // 🔴 전 리그 실패면 덮어쓰지 않는다. 2026-10-26 네이버 장애 때 빈 순위가 그대로 커밋됐다.
+  if (data.soccer.length + data.baseball.length + data.basketball.length + (data.volleyball?.length ?? 0) === 0) {
+    console.error("순위 0건 — 기존 standings.json을 유지하고 종료.");
+    process.exit(1);
+  }
+
   const jsonStr = JSON.stringify(data, null, 2);
   const srcPath = path.join(process.cwd(), "src/data/standings.json");
   // public 카피본은 더 이상 만들지 않음 — 모든 페이지가 @/data/standings.json만 import.

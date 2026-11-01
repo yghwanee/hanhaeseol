@@ -1,3 +1,4 @@
+import { naverFetch } from "@/lib/naver-fetch";
 import type { GameStatus, GoalEvent, MatchResult, ResultsData } from "@/types/results";
 import { NAVER_TO_SCHEDULE_TEAM_NAME } from "@/lib/team-records/team-name-aliases";
 import { resultKey } from "./lookup";
@@ -88,6 +89,9 @@ const CATEGORY_TO_LEAGUE_KEYS: Record<string, string[]> = {
   mlb: ["MLB"],
   kbl: ["KBL"],
   nba: ["NBA"],
+  wkbl: ["WKBL"],
+  kovo: ["V리그"],
+  wkovo: ["V리그"],
   epl: ["프리미어리그"],
   england2: ["EFL 챔피언십"],
   facup: ["잉글랜드 FA컵"],
@@ -128,15 +132,11 @@ function findAliasMapByCategory(categoryId: string): Record<string, string | str
 
 async function naverGet<T>(path: string): Promise<T | null> {
   // 업스트림(네이버)이 응답하지 않을 때 무한 대기 방지(특히 /api/live 핫패스).
-  const res = await fetch(`${BASE}${path}`, {
+  // 🔴 전역 fetch 로 되돌리면 안 된다. TLS 1.3 타임아웃(naver-fetch.ts)에 더해 Next.js Data Cache 가
+  // 응답을 붙잡아, /api/live 가 그날 첫 폴링 스냅샷에 얼어붙는다(2026-07-15 발견).
+  const res = await naverFetch(`${BASE}${path}`, {
     headers: HEADERS,
     signal: AbortSignal.timeout(8000),
-    // 🔴 필수. 이거 없으면 Next.js Data Cache 가 응답을 붙잡는다.
-    // dateRange() 의 from/to 는 toYmd(KST) 라 URL 이 KST 하루 내내 고정이고,
-    // 라우트에 dynamic="force-dynamic" 이 있어도 라이브러리 내부 fetch 까지는
-    // 막지 못했다. 그 결과 /api/live 가 "그날 첫 폴링 시점" 스냅샷에 얼어붙어
-    // 끝난 경기를 계속 진행중으로 내보냈다(2026-07-15 발견).
-    cache: "no-store",
   });
   if (!res.ok) throw new Error(`Naver HTTP ${res.status}: ${path}`);
   const json = (await res.json()) as NaverApiResponse<T>;
@@ -240,8 +240,10 @@ function dateRange(): { from: string; to: string } {
  * 2026년경 네이버 API 변경으로 upperCategoryId의 baseball/football/basketball/volleyball 값이
  * 빈 응답을 주게 되어 리그별 categoryId 단위로 조회한다.
  */
-async function fetchLeagueGames(categoryId: string): Promise<NaverGame[]> {
-  const { from, to } = dateRange();
+async function fetchLeagueGames(categoryId: string, fromDate?: string): Promise<NaverGame[]> {
+  const range = dateRange();
+  const from = fromDate ?? range.from;
+  const to = range.to;
   const path =
     `/schedule/games?categoryId=${categoryId}` +
     `&fromDate=${from}&toDate=${to}&size=500`;
@@ -266,6 +268,9 @@ export const LEAGUES: Array<{ categoryId: string; label: string }> = [
   { categoryId: "mlb", label: "MLB" },
   { categoryId: "kbl", label: "KBL" },
   { categoryId: "nba", label: "NBA" },
+  { categoryId: "wkbl", label: "WKBL" },
+  { categoryId: "kovo", label: "V리그 남자" },
+  { categoryId: "wkovo", label: "V리그 여자" },
   { categoryId: "epl", label: "EPL" },
   { categoryId: "england2", label: "EFL 챔피언십" },
   { categoryId: "facup", label: "FA컵" },
@@ -407,11 +412,12 @@ export async function crawlLiveResults(categoryIds?: string[]): Promise<ResultsD
   };
 }
 
-export async function crawlAllResults(): Promise<ResultsData> {
+/** `fromDate`(YYYY-MM-DD)를 주면 그날부터 받는다. 수집이 멈췄던 기간을 메울 때 쓴다. */
+export async function crawlAllResults(fromDate?: string): Promise<ResultsData> {
   // 리그를 병렬 호출(기존 직렬 → 30분 주기 크롤 시간 단축). 라이브 크롤과 동일 방식.
   const lists = await Promise.all(
     LEAGUES.map((lg) =>
-      fetchLeagueGames(lg.categoryId)
+      fetchLeagueGames(lg.categoryId, fromDate)
         .then((games) => {
           console.log(`  [${lg.label}] ${games.length}건`);
           return games;

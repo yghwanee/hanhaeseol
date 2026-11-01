@@ -9,6 +9,7 @@
  * 🔴 메달 목록이 비면 파일을 **덮어쓰지 않고** 실패한다. 네이버가 잠깐 빈 응답을 주면
  * 순위표가 통째로 사라진 채 커밋되기 때문이다.
  */
+import { naverFetch } from "@/lib/naver-fetch";
 import fs from "fs";
 import path from "path";
 import {
@@ -31,7 +32,7 @@ const HEADERS = {
 };
 
 async function get<T>(pathname: string): Promise<T> {
-  const res = await fetch(`${API}${pathname}`, { headers: HEADERS, signal: AbortSignal.timeout(20_000) });
+  const res = await naverFetch(`${API}${pathname}`, { headers: HEADERS, signal: AbortSignal.timeout(20_000) });
   if (!res.ok) throw new Error(`${pathname} → HTTP ${res.status}`);
   const json = (await res.json()) as { success?: boolean; result?: T };
   if (!json.success || !json.result) throw new Error(`${pathname} → success=false`);

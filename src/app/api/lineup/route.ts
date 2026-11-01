@@ -1,3 +1,4 @@
+import { naverFetch } from "@/lib/naver-fetch";
 // 네이버 경기 라인업 프록시. gameId로 선발 라인업(포메이션+선발 XI)을 가져와 정규화.
 // 라인업은 킥오프 ~1시간 전 확정 후 교체 외엔 거의 안 바뀌므로 길게 캐시.
 const BASE = "https://api-gw.sports.naver.com";
@@ -80,12 +81,9 @@ export async function GET(request: Request): Promise<Response> {
   }
 
   try {
-    const res = await fetch(`${BASE}/schedule/games/${gameId}/lineup`, {
+    const res = await naverFetch(`${BASE}/schedule/games/${gameId}/lineup`, {
       headers: HEADERS,
       signal: AbortSignal.timeout(8000),
-      // Next.js Data Cache 가 붙잡으면 라인업 미발표 상태가 고정된다.
-      // 신선도는 아래 s-maxage(엣지 캐시)로만 제어한다. /api/live 와 동일 사유.
-      cache: "no-store",
     });
     if (!res.ok) throw new Error(`Naver HTTP ${res.status}`);
     const json = (await res.json()) as NaverApiResponse<NaverLineupResult>;

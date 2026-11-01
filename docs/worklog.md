@@ -1369,3 +1369,10 @@ AI Assistant 8일 30세션(28일 471 → 거의 소멸) · Vercel 30일 FOT 11.7
 - `/league/kbo` 제목 `오늘 한국 프로야구 LIVE 일정` → `오늘 프로야구 중계·한국어 해설` (`프로야구 중계` 7일 노출 25,574 · 11위).
 - 빈 상태 「전체 편성표 확인하기」 링크 20px → `after:-inset-y-3`. design:audit 경로에 kbs-n-sports·v-league·nba 추가.
 - (작업137 후속) `/standings/kbl`·`/standings/nba` 단독 페이지. `/standings` 허브 탭은 한 URL 이라 `KBL 순위`·`NBA 순위` 쿼리를 받을 페이지가 없었다(30일 농구 순위 노출 0). NBA 는 컨퍼런스 분리 표, 리드 문구 「컨퍼런스별」. V리그는 10/31 개막 뒤 데이터가 생기면 연다.
+
+### 네이버 API TLS 1.3 장애 복구 (2026-11-01)
+
+- 증상: 2026-10-26 15:05 KST 이후 스코어 갱신 없음 · `/api/live` 0건 · `standings.json` 전 리그 0건 커밋.
+- 원인: `api-gw.sports.naver.com` 이 TLS 1.3 에서 요청을 받고 응답하지 않는다. curl·Node 모두 TLS 1.2 로 제한하면 0.1초에 200. 네이버 쪽 변경 이유는 모른다.
+- 수정: `naverFetch`(TLS 1.2 고정)로 호출 일원화 · 순위·전적·선발 전부 실패 시 기존 파일 유지 후 exit 1 · `uptime.yml` 수집 멈춤 감시 · `crawl-results.yml` 에 `from` 입력 추가.
+- 같이 고친 것: WKBL·V리그(남녀) 스코어 수집 추가 · `2026 KBO 플레이오프 4차전 삼성:KIA` 파싱 버그와 아카이브 행 복구 · 테스트 오탐 2건(`하나은행`, 밀란 더비).

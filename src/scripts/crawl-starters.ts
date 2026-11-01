@@ -33,13 +33,17 @@ async function main() {
   const from = new Date(Date.UTC(ty, tm - 1, td - BACK_DAYS)).toISOString().slice(0, 10);
   const dates = rangeDates(from, BACK_DAYS + DAYS);
   const starters: Record<string, MatchStarters> = {};
+  let listTried = 0;
+  let listFailed = 0;
 
   for (const { categoryId, league } of LEAGUES) {
     for (const date of dates) {
       let games;
+      listTried++;
       try {
         games = await fetchGameList(categoryId, date, date);
       } catch (e) {
+        listFailed++;
         console.warn(`[starters] list fail ${categoryId} ${date}: ${(e as Error).message}`);
         continue;
       }
@@ -62,6 +66,12 @@ async function main() {
         };
       }
     }
+  }
+
+  // 🔴 전부 실패인데 초록으로 끝나면 장애가 안 보인다(2026-10-26 네이버 장애).
+  if (listTried > 0 && listFailed === listTried) {
+    console.error("[starters] 경기 목록 조회 전부 실패 — 기존 파일을 유지하고 종료.");
+    process.exit(1);
   }
 
   const out = path.join(process.cwd(), "src/data/starters.json");

@@ -80,6 +80,12 @@ async function main() {
     records,
   };
 
+  // 🔴 전 리그 실패면 덮어쓰지 않는다. 빈 전적이 커밋되면 카드의 최근 5경기가 통째로 사라진다.
+  if (Object.values(records).every((m) => Object.keys(m).length === 0)) {
+    console.error("전적 0건 — 기존 team-records.json을 유지하고 종료.");
+    process.exit(1);
+  }
+
   reportMissingMappings(records);
 
   const jsonStr = JSON.stringify(data, null, 2);

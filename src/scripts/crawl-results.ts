@@ -48,9 +48,15 @@ async function enrichHighlights(
 }
 
 async function main() {
-  console.log("결과 크롤링 시작 (네이버 스포츠, 어제~내일 3일치)");
+  // RESULTS_FROM: 수집이 멈췄던 기간을 메우는 수동 실행용(crawl-results.yml 입력값).
+  const from = process.env.RESULTS_FROM?.trim() || undefined;
+  if (from && !/^\d{4}-\d{2}-\d{2}$/.test(from)) {
+    console.error(`RESULTS_FROM 형식 오류: ${from}`);
+    process.exit(1);
+  }
+  console.log(`결과 크롤링 시작 (네이버 스포츠, ${from ? `${from}~내일` : "어제~내일 3일치"})`);
 
-  const data = await crawlAllResults();
+  const data = await crawlAllResults(from);
 
   // 안전장치: 모든 호출이 실패해 0건이면 기존 파일을 덮어쓰지 않는다.
   // 네이버가 일시적으로 5xx/403 응답하는 경우 기존 데이터 유지가 빈 데이터로 덮는 것보다 낫다.

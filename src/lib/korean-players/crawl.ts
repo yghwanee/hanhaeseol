@@ -1,3 +1,4 @@
+import { naverFetch } from "@/lib/naver-fetch";
 import { NAVER_TO_SCHEDULE_TEAM_NAME } from "@/lib/team-records/team-name-aliases";
 import {
   KR_COUNTRY_NAMES,
@@ -29,7 +30,7 @@ interface NaverPlayerStat {
 }
 
 async function naverGet<T>(path: string): Promise<T> {
-  const res = await fetch(`${NAVER}${path}`, {
+  const res = await naverFetch(`${NAVER}${path}`, {
     headers: NAVER_HEADERS,
     signal: AbortSignal.timeout(15000),
   });

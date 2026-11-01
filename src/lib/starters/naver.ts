@@ -1,3 +1,4 @@
+import { naverFetch } from "@/lib/naver-fetch";
 import type { StarterStat } from "@/types/starter";
 import { formatInnings } from "./format";
 
@@ -9,7 +10,7 @@ const HEADERS = {
 };
 
 async function naverGet<T>(path: string): Promise<T> {
-  const res = await fetch(`${BASE}${path}`, { headers: HEADERS });
+  const res = await naverFetch(`${BASE}${path}`, { headers: HEADERS });
   if (!res.ok) throw new Error(`Naver HTTP ${res.status}: ${path}`);
   const json = (await res.json()) as { result?: T };
   if (!json.result) throw new Error(`Naver empty result: ${path}`);

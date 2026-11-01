@@ -41,7 +41,13 @@ const KNOWN_UNSUPPORTED = new Set([
   "아세안 클럽 챔피언십",
   "분데스리가 2",
   "트로페 데 샹피옹",
-  "V리그",
+  // 2026-11-01 실측. 경기가 있는 창(11/01~11/09)으로 /schedule/games 에 후보를 던졌다.
+  // 여자 ACL: afcwcl·awcl·wacl·acwl·afcwomen·afcwomens·afcw·aclw·womenacl 전부 400.
+  // U-23 야구: wbsc·u23·u23baseball·u23worldcup·wbscu23 는 400, premier12·wbc 는 200 인데 0건(다른 대회).
+  // 노브랜드배(고교·독립야구): kbaseball 은 200 인데 0건, amateurbaseball·independent·koreabaseball 은 400.
+  "AFC 여자 챔피언스리그",
+  "U-23 야구 월드컵",
+  "이마트 노브랜드배 챔피언십",
   // 아시아대학농구리그(쿠팡플레이 중계, 예: 국립정치대 vs 상하이교통대).
   // 네이버 후보 id 5개(aubl/asiabasketball/abl/eabl/asialeague) 중 abl 만 200 인데
   // 3개월 조회에 경기가 0건이라 다른 대회다 — 추측으로 붙이면 영영 안 맞는 키를 만든다.

@@ -17,6 +17,9 @@ export const LEAGUE_TO_CATEGORY: Record<string, string | string[]> = {
   KBL: "kbl",
   NBA: "nba",
   프로농구: "kbl",
+  WKBL: "wkbl",
+  // 배구 (남·여가 한 리그명으로 편성된다)
+  V리그: ["kovo", "wkovo"],
   // 축구 (해외)
   프리미어리그: "epl",
   "EFL 챔피언십": "england2",

@@ -259,7 +259,7 @@ export function parseMatchTitle(title: string): {
     const right = cleanTeam(colonMatch[3]);
     // "2026" + "KBO리그 한화" → league="KBO", 좌측에서 리그명 제거 → "한화"
     const fullText = `${league} ${left}`;
-    const leagueInHome = fullText.match(/^.*?((?:\S+-)?KBO\s*폴리그|퓨처스리그|KBO리그\d?|K리그\d?|MLB|MLS|NBA|NPB|메이저리그|프로농구|여자프로농구|(?:\S*·)?(?:KOVO|NH농협)컵(?:\s*프로배구\s*대회)?|프로배구|V-?리그|신한\s*SOL\s*KBO리그|AFC\s+[\w\-]+(?:\s+여자)?\s+아시안컵|AFC\s+챔피언스리그|ACL|고교야구)\s+(.+)$/);
+    const leagueInHome = fullText.match(/^.*?((?:\S+-)?KBO\s*폴리그|퓨처스리그|KBO리그\d?|KBO(?=\s)|K리그\d?|MLB|MLS|NBA|NPB|메이저리그|프로농구|여자프로농구|(?:\S*·)?(?:KOVO|NH농협)컵(?:\s*프로배구\s*대회)?|프로배구|V-?리그|신한\s*SOL\s*KBO리그|AFC\s+[\w\-]+(?:\s+여자)?\s+아시안컵|AFC\s+챔피언스리그|ACL|고교야구)\s+(.+)$/);
     if (leagueInHome) {
       const leftTeam = cleanTeam(leagueInHome[2].trim()
         .replace(/^(?:포스트시즌\s*)?(?:남자부\s*|여자부\s*)?(?:[A-Z]조\s*)?(?:챔피언결정전\s*)?(?:플레이오프\s*)?(?:\d+차전\s*)?(?:\d+차\s*)?/, "").trim());

@@ -38,6 +38,9 @@ const schedules = [
 const teams = eligibleTeams(index, schedules);
 const today = getTodayString();
 
+// 이름이 포함 관계여도 실제로 다른 팀인 더비. 「밀란 vs 인터 밀란」은 2026-11-01 편성의 실제 경기다.
+const DERBY_NAMES = new Set(["밀란|인터 밀란", "인터 밀란|밀란"]);
+
 test("팀 페이지가 자기 자신을 상대로 찍지 않는다", () => {
   const bad: string[] = [];
   for (const team of teams) {
@@ -45,6 +48,7 @@ test("팀 페이지가 자기 자신을 상대로 찍지 않는다", () => {
     if (!next) continue;
     const opp = opponentOf(next, team);
     // 축약 표기끼리도, 정식 표기끼리도 같으면 안 된다.
+    if (DERBY_NAMES.has(`${team.name}|${opp.name}`)) continue;
     if (opp.name === team.name || opp.name.includes(team.name) || team.name.includes(opp.name)) {
       bad.push(`${team.slug}: ${team.name} vs ${opp.name}`);
     }

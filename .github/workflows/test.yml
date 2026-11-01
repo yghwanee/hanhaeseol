@@ -82,6 +82,8 @@ jobs:
       - name: 유닛 테스트
         run: |
           npm run test:starters
+          npm run test:naver-fetch
+          npm run test:league-coverage
           npm run test:highlights
           npm run test:tiktok-caption
           npm run test:tiktok-policy

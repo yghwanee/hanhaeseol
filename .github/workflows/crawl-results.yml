@@ -11,7 +11,12 @@ on:
     # 크롤해도 사이트에 반영되는 시점은 같다. 반대로 고빈도 cron 은 GH 가 먼저 버려서
     # 레포 전체 예약 발화를 깎아먹고 있었다(하루 48회 요구에 실측 4~6회 발화).
     - cron: '13 * * * *'
-  workflow_dispatch: {}
+  workflow_dispatch:
+    inputs:
+      from:
+        description: '이 날짜(YYYY-MM-DD)부터 다시 수집. 비우면 평소대로 어제~내일'
+        required: false
+        default: ''
 
 # 동시 실행 방지: 이전 잡이 끝나기 전에 다음 cron이 트리거되면 큐에 쌓지 않고 스킵.
 concurrency:
@@ -48,6 +53,7 @@ jobs:
       - name: Run results crawl
         run: npm run crawl:results
         env:
+          RESULTS_FROM: ${{ inputs.from }}
           # 종료된 축구 경기 하이라이트 영상ID 검색용(YouTube Data API v3).
           # 미설정 시 하이라이트 검색은 조용히 건너뜀.
           YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}

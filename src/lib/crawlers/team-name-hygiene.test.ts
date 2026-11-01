@@ -200,3 +200,10 @@ test("폴리그 제목은 리그 「KBO 폴리그」로, 팀명에 대회명이 
   assert.equal(p?.league, "KBO 폴리그");
   assert.deepEqual([p?.homeTeam, p?.awayTeam].sort(), ["LG", "울산"]);
 });
+
+test("「2026 KBO 플레이오프 4차전 삼성:KIA」 — 리그가 연도로, 라운드가 팀명으로 새지 않는다 (2026-10-30)", () => {
+  const p = parseMatchTitle("2026 KBO 플레이오프 4차전 삼성:KIA");
+  assert.equal(p.league, "KBO");
+  assert.equal(p.homeTeam, "KIA");
+  assert.equal(p.awayTeam, "삼성");
+});

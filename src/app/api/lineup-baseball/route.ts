@@ -1,3 +1,4 @@
+import { naverFetch } from "@/lib/naver-fetch";
 // 네이버 야구 라인업(타순+선발투수) 프록시. KBO와 MLB의 preview 구조가 서로 달라
 // 각각 파싱해 공통 형태로 정규화한다. gameId로 식별, 페이지 진입 시 클라가 호출.
 const BASE = "https://api-gw.sports.naver.com";
@@ -116,12 +117,9 @@ export async function GET(request: Request): Promise<Response> {
     });
   }
   try {
-    const res = await fetch(`${BASE}/schedule/games/${gameId}/preview`, {
+    const res = await naverFetch(`${BASE}/schedule/games/${gameId}/preview`, {
       headers: HEADERS,
       signal: AbortSignal.timeout(8000),
-      // Next.js Data Cache 가 붙잡으면 선발 미발표 상태가 고정된다.
-      // 신선도는 아래 s-maxage(엣지 캐시)로만 제어한다. /api/live 와 동일 사유.
-      cache: "no-store",
     });
     if (!res.ok) throw new Error(`Naver HTTP ${res.status}`);
     const json = (await res.json()) as ApiResponse;

@@ -115,3 +115,38 @@ jobs:
               echo "정상 — 알릴 것 없음"
             fi
           fi
+
+      # 🔴 2026-11-01 신설. 네이버 장애로 스코어 수집이 6일 멈췄는데 사이트는 200 이라 아무 알림도
+      # 없었다. 결과 수집은 lastUpdated 때문에 성공하면 매번 커밋되므로, 커밋 시각으로 멈춤을 잰다.
+      # GH 가 예약 발화를 자주 버려(실측 간격 5~7시간) 12시간을 기준으로 삼는다.
+      - name: 스코어 수집 멈춤 감시
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+
+          tg() {
+            curl -sS -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
+              -d chat_id="${TELEGRAM_CHAT_ID}" --data-urlencode "text=$1" >/dev/null
+          }
+
+          LAST=$(gh api "repos/$REPO/commits?path=src/data/results.json&per_page=1" -q '.[0].commit.committer.date')
+          if [ -z "$LAST" ]; then echo "커밋 시각 조회 실패 — 판단 보류"; exit 0; fi
+          AGE_H=$(( ($(date +%s) - $(date -d "$LAST" +%s)) / 3600 ))
+          echo "결과 마지막 갱신 $LAST (${AGE_H}시간 전)"
+          OPEN=$(gh issue list --repo "$REPO" --label data-stale --state open --limit 1 --json number -q '.[0].number' 2>/dev/null || true)
+
+          if [ "$AGE_H" -ge 12 ]; then
+            if [ -n "$OPEN" ]; then echo "이미 알린 멈춤(이슈 #$OPEN)"; exit 0; fi
+            gh label create data-stale --repo "$REPO" --color B60205 --description "데이터 수집 멈춤" 2>/dev/null || true
+            NUM=$(gh issue create --repo "$REPO" --label data-stale \
+              --title "🚨 스코어 수집 멈춤" --body "results.json 마지막 갱신 $LAST (${AGE_H}시간 전)" | grep -o '[0-9]*$')
+            tg "$(printf '%s\n' "🚨 스코어 수집이 ${AGE_H}시간째 멈췄습니다" "" "https://github.com/${REPO}/issues/${NUM}")"
+          elif [ -n "$OPEN" ]; then
+            gh issue close "$OPEN" --repo "$REPO" --comment "복구 확인 — 결과 수집 재개" >/dev/null
+            tg "✅ 스코어 수집이 복구됐습니다"
+          fi

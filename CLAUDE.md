@@ -78,7 +78,7 @@ src/
 ## 크롤링
 
 - `npm run crawl` → 오늘부터 7일치 크롤링 → `schedule.json` 갱신
-- GitHub Actions 워크플로우: 편성(`crawl.yml`, KST 08:18 + 백업 10:48·13:48) / 결과·기록(`crawl-results.yml`, 매시 13·43분) / 순위(`crawl-standings.yml`) / 선발투수 / 인사이트 생성·알림 / 소셜 오전(`instagram-morning.yml`)·저녁(`instagram.yml`) — 각각 인스타(캐러셀+릴스+스토리)+유튜브 쇼츠+틱톡 게시. 편성 갱신 시 텔레그램 알림
+- GitHub Actions 워크플로우: 편성(`crawl.yml`, KST 08:18 + 백업 10:48·13:48) / 결과·기록(`crawl-results.yml`, 매시 13분) / 순위(`crawl-standings.yml`) / 선발투수 / 인사이트 생성·알림 / 소셜 오전(`instagram-morning.yml`)·저녁(`instagram.yml`) — 각각 인스타(캐러셀+릴스+스토리)+유튜브 쇼츠+틱톡 게시. 편성 갱신 시 텔레그램 알림
 - 결과(`results.json`)는 어제~내일 3일 윈도우로 통째 덮어쓰기, 과거 종료경기는 `results-archive.json`에 영구 누적
 - 비경기 콘텐츠(하이라이트, 시상식, 스포타임 등) 자동 제외
 - SPOTV TV는 LIVE만 수집 (녹화 본방송 제외)
@@ -585,6 +585,8 @@ ISSUE_BODY="$(gh issue view N --json body -q .body)" npm run check:idea-dupes  #
 ```
 
 ## 운영 함정 (2026-09-04 에 실제로 겪은 것)
+
+- 🔴 **네이버 스포츠 API 는 `naverFetch`(TLS 1.2 고정)로만 부른다.** 멈춘 기간 복구 = `crawl-results.yml -f from=날짜`. 상세 worklog.
 
 - 🔴 **데이터 파일 충돌을 커밋하지 말 것 (2026-10-22 실사고).** CI 가 `src/data/*.json` 을 매시 커밋해 rebase 가 자주 충돌한다. `UU` 인 채로 `git add` 하면 충돌 표시가 JSON 에 박혀 배포까지 나간다. 데이터 충돌은 CI 수집본을 고르고, `src/data` 만 바꾼 커밋은 `gh workflow run test.yml` 로 CI 를 직접 돌린다.
 - 🔴 **로컬에서 프로덕션에 반복 curl 하면 Vercel 방화벽 챌린지가 걸린다.**
