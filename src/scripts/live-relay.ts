@@ -3,7 +3,7 @@ import fs from "node:fs";
 import type { Schedule, ScheduleData } from "@/types/schedule";
 import type { ResultsData } from "@/types/results";
 import { crawlLiveResults, SOCCER_CATEGORIES } from "@/lib/results/naver";
-import { naverFetch } from "@/lib/naver-fetch";
+import { NAVER_HEADERS, naverFetch } from "@/lib/naver-fetch";
 import { findResult } from "@/lib/results/lookup";
 import { activeCategories, hasHotGame } from "@/lib/results/active-categories";
 import { isFollowedGame } from "@/lib/follows";
@@ -48,10 +48,6 @@ async function post(path: string, body?: unknown): Promise<Response> {
 const LINEUP_EVERY_MS = 10 * 60_000;
 /** 몇 일 전 경기까지 라인업을 채울지. 지난 경기를 메울 때만 늘린다(매치 페이지 수명 14일). */
 const LINEUP_DAYS = Number(process.env.LINEUP_DAYS || 2);
-const NAVER_HEADERS = {
-  Referer: "https://m.sports.naver.com/",
-  "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1",
-};
 
 type LineupKind = "lineup" | "preview";
 type GameRef = { date: string; categoryId: string; gameId?: string; status?: string };

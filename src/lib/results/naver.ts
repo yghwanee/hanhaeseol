@@ -1,15 +1,11 @@
-import { naverFetch } from "@/lib/naver-fetch";
+import { NAVER_API, NAVER_HEADERS, naverFetch } from "@/lib/naver-fetch";
 import type { GameStatus, GoalEvent, MatchResult, ResultsData } from "@/types/results";
 import { NAVER_TO_SCHEDULE_TEAM_NAME } from "@/lib/team-records/team-name-aliases";
 import { resultKey } from "./lookup";
 import { pLimit } from "@/lib/crawlers/_utils";
 
-const BASE = "https://api-gw.sports.naver.com";
-const HEADERS = {
-  Referer: "https://m.sports.naver.com/",
-  "User-Agent":
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1",
-};
+const BASE = NAVER_API;
+const HEADERS = NAVER_HEADERS;
 
 /** 네이버 schedule API 응답 한 건. 종목/리그마다 누락 필드가 있을 수 있으므로 모두 optional. */
 interface NaverGame {

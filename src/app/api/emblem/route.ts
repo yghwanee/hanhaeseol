@@ -33,7 +33,11 @@ export async function GET(request: Request): Promise<Response> {
     return new Response("upstream fetch failed", { status: 502 });
   }
   if (!upstream.ok) {
-    return new Response(`upstream ${upstream.status}`, { status: 502 });
+    // 없는 로고를 요청마다 다시 묻지 않는다. 일시 장애여도 1시간이면 풀린다.
+    return new Response(`upstream ${upstream.status}`, {
+      status: 502,
+      headers: { "Cache-Control": "public, s-maxage=3600" },
+    });
   }
   const contentType = upstream.headers.get("content-type") ?? "image/png";
   if (!contentType.startsWith("image/")) {

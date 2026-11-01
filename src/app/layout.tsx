@@ -14,12 +14,6 @@ import { SiteFooter } from "./_components/SiteFooter";
 import { BRAND_DEFINITION, BRAND_SOCIALS } from "@/lib/brand";
 import "./globals.css";
 
-const geistSans = localFont({
-  src: "./fonts/GeistVF.woff",
-  variable: "--font-geist-sans",
-  weight: "100 900",
-});
-
 /**
  * 화면 전역 본문 폰트.
  *
@@ -304,7 +298,7 @@ gtag('config', 'G-F1MX6S0SGW');`}
         />
       </head>
       <body
-        className={`${geistSans.variable} ${pretendardUi.variable} ${pretendard.variable} bg-subtle text-fg antialiased`}
+        className={`${pretendardUi.variable} ${pretendard.variable} bg-subtle text-fg antialiased`}
         style={{ backgroundColor: "#1B1C20" }}
       >
         <SideBanners />

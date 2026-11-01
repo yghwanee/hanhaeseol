@@ -10,6 +10,11 @@ test("ESPN 원본 로고는 축소본으로 바꾼다", () => {
   assert.match(proxyLogo("https://a.espncdn.com/i/teamlogos/nba/500/lal.png"), /combiner/);
 });
 
+test("thesportsdb 원본 로고는 /small 로 바꾼다", () => {
+  const u = "https://r2.thesportsdb.com/images/media/team/badge/abc.png";
+  assert.equal(proxyLogo(u), `${u}/small`);
+});
+
 test("다른 로고는 기존 경로를 지킨다", () => {
   assert.equal(proxyLogo("/logos/kbo/SS.webp"), "/logos/kbo/SS.webp");
   assert.match(proxyLogo("https://sports-phinf.pstatic.net/a.png"), /^\/api\/emblem\?u=/);

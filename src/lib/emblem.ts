@@ -12,6 +12,8 @@ const PROXY_HOSTS = new Set(["sports-phinf.pstatic.net"]);
 // 소셜 이미지·OG 는 이 함수를 안 거치므로 원본 해상도를 그대로 쓴다.
 const ESPN_LOGO = /^\/i\/teamlogos\/[a-z]+\/500\/[^/]+\.png$/;
 const ESPN_LOGO_PX = 160;
+// thesportsdb 원본도 크다(실측 240KB → /small 67KB).
+const SPORTSDB_LOGO = /^\/images\/media\/team\/badge\/[^/]+\.png$/;
 
 /** pstatic 로고는 same-origin 프록시로, ESPN 로고는 축소본으로, 그 외(로컬/상대경로)는 그대로 반환. */
 export function proxyLogo(url: string): string {
@@ -22,6 +24,9 @@ export function proxyLogo(url: string): string {
     }
     if (u.hostname === "a.espncdn.com" && ESPN_LOGO.test(u.pathname)) {
       return `https://a.espncdn.com/combiner/i?img=${u.pathname}&w=${ESPN_LOGO_PX}&h=${ESPN_LOGO_PX}&transparent=true`;
+    }
+    if (u.hostname === "r2.thesportsdb.com" && SPORTSDB_LOGO.test(u.pathname)) {
+      return `${url}/small`;
     }
   } catch {
     // 상대경로(/icon.png 등)는 URL 파싱 실패 → 그대로 사용

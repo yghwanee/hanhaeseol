@@ -1,13 +1,9 @@
-import { naverFetch } from "@/lib/naver-fetch";
+import { NAVER_API, NAVER_HEADERS, naverFetch } from "@/lib/naver-fetch";
 import type { StarterStat } from "@/types/starter";
 import { formatInnings } from "./format";
 
-const BASE = "https://api-gw.sports.naver.com";
-const HEADERS = {
-  Referer: "https://m.sports.naver.com/",
-  "User-Agent":
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1",
-};
+const BASE = NAVER_API;
+const HEADERS = NAVER_HEADERS;
 
 async function naverGet<T>(path: string): Promise<T> {
   const res = await naverFetch(`${BASE}${path}`, { headers: HEADERS });

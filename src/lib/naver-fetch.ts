@@ -12,6 +12,13 @@ import https from "node:https";
  *
  * Next.js Data Cache 를 거치지 않으므로 `cache: "no-store"` 도 필요 없다.
  */
+export const NAVER_API = "https://api-gw.sports.naver.com";
+export const NAVER_HEADERS = {
+  Referer: "https://m.sports.naver.com/",
+  "User-Agent":
+    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1",
+};
+
 const DEFAULT_TIMEOUT_MS = 15_000;
 
 type BrowserFetch = (url: string) => Promise<{ status: number; body: string }>;

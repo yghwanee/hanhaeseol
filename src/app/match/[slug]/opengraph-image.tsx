@@ -62,6 +62,12 @@ function findCurrentMatch(slug: string): Schedule | undefined {
   return findMatchBySlug(data.schedules, slug) ?? findMatchBySlug(worldcup.schedules, slug);
 }
 
+function isNearToday(date: string): boolean {
+  const kst = (offsetDays: number) =>
+    new Date(Date.now() + offsetDays * 86_400_000).toLocaleDateString("en-CA", { timeZone: "Asia/Seoul" });
+  return date >= kst(-1) && date <= kst(1);
+}
+
 // "2026-07-03" → "7월 3일"
 function formatDate(iso: string): string {
   const m = /^\d{4}-(\d{2})-(\d{2})/.exec(iso);
@@ -84,6 +90,14 @@ export default async function Image({ params }: { params: { slug: string } }) {
   // 아카이브 경기·해석 불가 슬러그는 정적 PNG 로 보낸다. 여기서 끊어야 폰트·로고 fetch 와
   // satori 렌더가 아예 안 돈다(위 주석 참조).
   if (!match) return Response.redirect(`${BASE}/og-default.png`, 308);
+  // 🔴 맞춤 카드는 경기 전후 하루만 굽는다. 2026-11-01 실측: 12시간 Active CPU 1위(63회 49초),
+  // 렌더 1회 143KB·콜드 2.5초에 폰트 3MB 를 받는다. 날짜가 지나면 다시 구워야 하니 307 + 1시간 캐시다.
+  if (!isNearToday(match.date)) {
+    return new Response(null, {
+      status: 307,
+      headers: { Location: `${BASE}/og-default.png`, "Cache-Control": "public, s-maxage=3600" },
+    });
+  }
 
   const { bold, regular, logo } = await loadAssets();
   const badge = commentaryBadge(match);

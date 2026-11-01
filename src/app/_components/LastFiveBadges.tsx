@@ -80,9 +80,10 @@ function LastFiveBadgesInner({
             : isLose
             ? "bg-[oklch(0.298_0.10_22_/_0.32)] text-fg-danger ring-[oklch(0.715_0.220_27_/_0.35)]"
             : "bg-muted text-fg-secondary ring-line";
+          // 🔴 반복 class 는 globals.css 의 .w-l5-* 에 있다. 카드 40장이면 칩 400개라 HTML 원본 크기를 그대로 먹는다.
           // 최근 경기 강조 바: 키 컬러 정책에 맞춰 W=파랑, L=빨강, 그 외=중립.
           const barCls = !isLatest
-            ? "bg-transparent"
+            ? ""
             : isWin
             ? "bg-fg-brand"
             : isLose
@@ -93,15 +94,15 @@ function LastFiveBadgesInner({
             <span
               key={i}
               title={`${isLatest ? "가장 최근" : `${i + 1}경기 전`}: ${label}`}
-              className="flex flex-col items-center gap-1 sm:gap-1.5"
+              className="w-l5-cell"
             >
               <span
-                className={`inline-flex h-[13px] w-[13px] items-center justify-center rounded-[3px] text-caption2 font-bold leading-none ring-1 sm:h-4 sm:w-4 ${cls}`}
+                className={`w-l5-chip ${cls}`}
               >
                 {c}
               </span>
               <span
-                className={`h-[2px] w-2 sm:w-3 rounded-full ${barCls}`}
+                className={`w-l5-bar ${barCls}`}
                 aria-hidden
               />
             </span>
