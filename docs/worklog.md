@@ -1381,3 +1381,5 @@ AI Assistant 8일 30세션(28일 471 → 거의 소멸) · Vercel 30일 FOT 11.7
 - GH 러너(미국 Microsoft): TLS 1.2·1.3 모두 12초 무응답. 같은 러너에서 `www.naver.com`·`m.sports.naver.com`·`apis.naver.com` 은 정상.
 - Vercel(`icn1` 서울로 옮겨 시험): TLS 1.2 는 약 1초에 ECONNRESET, 기본 fetch 는 타임아웃. 리전 변경은 효과가 없어 되돌렸다.
 - 그래서 코드 수정만으로는 `/api/live` 와 매시 수집이 살아나지 않는다. 10/25~11/01 데이터는 집 PC 에서 한 번 채운 스냅샷이다. 이후 수집 방식은 화니 결정 대기.
+
+**2026-11-01 복구 방식.** 집 PC 작업 스케줄러 2개. `tools/naver-crawl-hourly.ps1`(매시 13분, 전용 복제본 `%LOCALAPPDATA%hanhaeseol-crawl`) · `tools/live-relay.ps1`(5분마다 깨움, 경기 있을 때만 60초 폴링 → `/api/live/ingest` → Runtime Cache TTL 30분 → `/api/live`·알림). 재등록 = `tools/register-naver-tasks.ps1`. GH 크롤은 지우지 않았다. 로컬에 `YOUTUBE_API_KEY` 가 없어 집 PC 수집분은 하이라이트 검색을 건너뛴다.
