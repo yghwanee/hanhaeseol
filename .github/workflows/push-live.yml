@@ -35,7 +35,7 @@ on:
       minutes:
         description: '이 실행의 수명(분). 기본 300'
         required: false
-        default: '300'
+        default: ''
       lineup_days:
         description: '며칠 전 경기까지 라인업을 채울지. 기본 2, 최대 14'
         required: false
