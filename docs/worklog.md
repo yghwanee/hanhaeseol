@@ -1376,3 +1376,8 @@ AI Assistant 8일 30세션(28일 471 → 거의 소멸) · Vercel 30일 FOT 11.7
 - 원인: `api-gw.sports.naver.com` 이 TLS 1.3 에서 요청을 받고 응답하지 않는다. curl·Node 모두 TLS 1.2 로 제한하면 0.1초에 200. 네이버 쪽 변경 이유는 모른다.
 - 수정: `naverFetch`(TLS 1.2 고정)로 호출 일원화 · 순위·전적·선발 전부 실패 시 기존 파일 유지 후 exit 1 · `uptime.yml` 수집 멈춤 감시 · `crawl-results.yml` 에 `from` 입력 추가.
 - 같이 고친 것: WKBL·V리그(남녀) 스코어 수집 추가 · `2026 KBO 플레이오프 4차전 삼성:KIA` 파싱 버그와 아카이브 행 복구 · 테스트 오탐 2건(`하나은행`, 밀란 더비).
+
+**2026-11-01 추가 실측 — 위 「원인」은 절반만 맞다.** TLS 1.2 로 되는 건 집 PC 뿐이다.
+- GH 러너(미국 Microsoft): TLS 1.2·1.3 모두 12초 무응답. 같은 러너에서 `www.naver.com`·`m.sports.naver.com`·`apis.naver.com` 은 정상.
+- Vercel(`icn1` 서울로 옮겨 시험): TLS 1.2 는 약 1초에 ECONNRESET, 기본 fetch 는 타임아웃. 리전 변경은 효과가 없어 되돌렸다.
+- 그래서 코드 수정만으로는 `/api/live` 와 매시 수집이 살아나지 않는다. 10/25~11/01 데이터는 집 PC 에서 한 번 채운 스냅샷이다. 이후 수집 방식은 화니 결정 대기.

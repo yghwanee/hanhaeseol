@@ -586,7 +586,7 @@ ISSUE_BODY="$(gh issue view N --json body -q .body)" npm run check:idea-dupes  #
 
 ## 운영 함정 (2026-09-04 에 실제로 겪은 것)
 
-- 🔴 **네이버 스포츠 API 는 `naverFetch`(TLS 1.2 고정)로만 부른다.** 멈춘 기간 복구 = `crawl-results.yml -f from=날짜`. 상세 worklog.
+- 🔴 **네이버 스포츠 API 가 클라우드 IP 를 막는다 (2026-10-26~).** GH·Vercel 은 무응답·연결 끊김(서울 리전도 동일), 집 PC 는 `naverFetch`(TLS 1.2)로만 된다. 우회 프록시 금지. 상세 worklog.
 
 - 🔴 **데이터 파일 충돌을 커밋하지 말 것 (2026-10-22 실사고).** CI 가 `src/data/*.json` 을 매시 커밋해 rebase 가 자주 충돌한다. `UU` 인 채로 `git add` 하면 충돌 표시가 JSON 에 박혀 배포까지 나간다. 데이터 충돌은 CI 수집본을 고르고, `src/data` 만 바꾼 커밋은 `gh workflow run test.yml` 로 CI 를 직접 돌린다.
 - 🔴 **로컬에서 프로덕션에 반복 curl 하면 Vercel 방화벽 챌린지가 걸린다.**
