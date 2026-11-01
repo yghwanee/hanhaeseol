@@ -1,4 +1,4 @@
-import { NAVER_API, NAVER_HEADERS, naverFetch } from "@/lib/naver-fetch";
+import { naverGet } from "@/lib/naver-fetch";
 import { NAVER_TO_SCHEDULE_TEAM_NAME } from "@/lib/team-records/team-name-aliases";
 import {
   KR_COUNTRY_NAMES,
@@ -7,8 +7,6 @@ import {
   SOCCER_SOURCES,
 } from "./sources";
 import type { KoreanPlayer, KoreanPlayersData } from "./types";
-
-const NAVER = NAVER_API;
 
 // 네이버 선수 목록은 페이지 파라미터가 안 먹는다(page=1·2 응답이 동일). pageSize 는 먹는데
 // 1000 을 주면 빈 배열이 온다 — 500 이면 리그 전원이 한 번에 온다(EPL 478명 실측).
@@ -22,17 +20,6 @@ interface NaverPlayerStat {
   playerName?: string;
   teamName?: string;
   countryName?: string;
-}
-
-async function naverGet<T>(path: string): Promise<T> {
-  const res = await naverFetch(`${NAVER}${path}`, {
-    headers: NAVER_HEADERS,
-    signal: AbortSignal.timeout(15000),
-  });
-  if (!res.ok) throw new Error(`Naver HTTP ${res.status}: ${path}`);
-  const json = (await res.json()) as { success: boolean; result?: T };
-  if (!json.success || !json.result) throw new Error(`Naver API failed: ${path}`);
-  return json.result;
 }
 
 async function currentSeasonCode(categoryId: string): Promise<string | null> {

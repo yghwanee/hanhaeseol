@@ -612,4 +612,7 @@ body {
   .w-l5-cell { @apply flex flex-col items-center gap-1 sm:gap-1.5; }
   .w-l5-chip { @apply inline-flex h-[13px] w-[13px] items-center justify-center rounded-[3px] text-caption2 font-bold leading-none ring-1 sm:h-4 sm:w-4; }
   .w-l5-bar { @apply h-[2px] w-2 sm:w-3 rounded-full; }
+  .w-l5-win { @apply bg-brand-subtle text-fg-brand-bright; }
+  .w-l5-lose { @apply bg-[oklch(0.298_0.10_22_/_0.32)] text-fg-danger ring-[oklch(0.715_0.220_27_/_0.35)]; }
+  .w-l5-draw { @apply bg-muted text-fg-secondary ring-line; }
 }

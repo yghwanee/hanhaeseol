@@ -262,7 +262,6 @@ export const TEAM_LOGOS: Record<string, string> = {
   "마치다": SOC(22167),
   "고베": SOC(7477),
   "부리람": SOC(7138),
-  "샤바브 알 아흘리": SOC(790),
 
   // K리그1
   "서울": SDB("31z1zf1579473186"),

@@ -75,11 +75,7 @@ function LastFiveBadgesInner({
           const isWin = c === "W";
           const isLose = c === "L";
           const isLatest = i === latestIdx;
-          const cls = isWin
-            ? "bg-brand-subtle text-fg-brand-bright ring-brand/40"
-            : isLose
-            ? "bg-[oklch(0.298_0.10_22_/_0.32)] text-fg-danger ring-[oklch(0.715_0.220_27_/_0.35)]"
-            : "bg-muted text-fg-secondary ring-line";
+          const cls = isWin ? "w-l5-win" : isLose ? "w-l5-lose" : "w-l5-draw";
           // 🔴 반복 class 는 globals.css 의 .w-l5-* 에 있다. 카드 40장이면 칩 400개라 HTML 원본 크기를 그대로 먹는다.
           // 최근 경기 강조 바: 키 컬러 정책에 맞춰 W=파랑, L=빨강, 그 외=중립.
           const barCls = !isLatest

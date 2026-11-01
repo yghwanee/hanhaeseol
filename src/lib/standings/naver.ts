@@ -1,4 +1,4 @@
-import { NAVER_API, NAVER_HEADERS, naverFetch } from "@/lib/naver-fetch";
+import { naverGet as naverGetResult } from "@/lib/naver-fetch";
 import type {
   BaseballLeagueId,
   BaseballLeagueStandings,
@@ -16,27 +16,12 @@ import type {
 } from "@/types/standings";
 import { MLS_CONFERENCE } from "./mls-conferences";
 
-const BASE = NAVER_API;
-const HEADERS = NAVER_HEADERS;
-
-interface NaverApiResponse<T> {
-  code: number;
-  success: boolean;
-  result?: T;
-}
+// 타임아웃이 없으면 네이버가 응답을 끌 때 순위 크롤이 무한 대기한다.
+const naverGet = <T,>(path: string) => naverGetResult<T>(path, 8000);
 
 interface NaverSeason {
   seasonCode: string;
   isSeason: "Y" | "N";
-}
-
-async function naverGet<T>(path: string): Promise<T> {
-  // 타임아웃이 없으면 네이버가 응답을 끌 때 순위 크롤이 무한 대기한다(results 쪽과 동일하게 8초).
-  const res = await naverFetch(`${BASE}${path}`, { headers: HEADERS, signal: AbortSignal.timeout(8000) });
-  if (!res.ok) throw new Error(`Naver HTTP ${res.status}: ${path}`);
-  const json = (await res.json()) as NaverApiResponse<T>;
-  if (!json.success || !json.result) throw new Error(`Naver API failed: ${path}`);
-  return json.result;
 }
 
 async function fetchCurrentSeasonCode(categoryId: string): Promise<string | null> {

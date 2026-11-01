@@ -1,4 +1,4 @@
-import { NAVER_API, NAVER_HEADERS, naverFetch } from "@/lib/naver-fetch";
+import { naverGet } from "@/lib/naver-fetch";
 import { TeamRecord } from "@/types/team-record";
 import { NAVER_TO_SCHEDULE_TEAM_NAME } from "./team-name-aliases";
 
@@ -31,19 +31,10 @@ function parseContinuousGameResult(
   return { count: parseInt(m[1], 10), type };
 }
 
-interface NaverApiResponse<T> {
-  code: number;
-  success: boolean;
-  result?: T;
-}
-
 interface NaverSeason {
   seasonCode: string;
   isSeason: "Y" | "N";
 }
-
-const BASE = NAVER_API;
-const HEADERS = NAVER_HEADERS;
 
 /** schedule.json의 league 문자열 → 네이버 categoryId. */
 export const CATEGORY_ID: Record<string, string> = {
@@ -64,14 +55,6 @@ export const CATEGORY_ID: Record<string, string> = {
   NBA: "nba",
   V리그: "kovo",
 };
-
-async function naverGet<T>(path: string): Promise<T> {
-  const res = await naverFetch(`${BASE}${path}`, { headers: HEADERS });
-  if (!res.ok) throw new Error(`Naver HTTP ${res.status}: ${path}`);
-  const json = (await res.json()) as NaverApiResponse<T>;
-  if (!json.success || !json.result) throw new Error(`Naver API failed: ${path}`);
-  return json.result;
-}
 
 /** /seasons에서 isSeason="Y"인 현재 시즌 코드를 가져온다. 없으면 가장 최근 시즌. */
 async function fetchCurrentSeasonCode(categoryId: string): Promise<string | null> {

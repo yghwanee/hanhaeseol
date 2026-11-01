@@ -51,3 +51,15 @@ export function naverFetch(
     req.on("error", reject);
   });
 }
+
+/** 네이버 API 의 `result` 를 돌려준다. HTTP 오류·`success: false`·빈 결과는 던진다. */
+export async function naverGet<T>(path: string, timeoutMs = DEFAULT_TIMEOUT_MS): Promise<T> {
+  const res = await naverFetch(`${NAVER_API}${path}`, {
+    headers: NAVER_HEADERS,
+    signal: AbortSignal.timeout(timeoutMs),
+  });
+  if (!res.ok) throw new Error(`Naver HTTP ${res.status}: ${path}`);
+  const json = (await res.json()) as { success?: boolean; result?: T };
+  if (!json.success || !json.result) throw new Error(`Naver API failed: ${path}`);
+  return json.result;
+}
