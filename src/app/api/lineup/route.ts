@@ -1,4 +1,5 @@
 import { naverFetch } from "@/lib/naver-fetch";
+import { readRelayedLineup } from "@/lib/live-relay";
 // 네이버 경기 라인업 프록시. gameId로 선발 라인업(포메이션+선발 XI)을 가져와 정규화.
 // 라인업은 킥오프 ~1시간 전 확정 후 교체 외엔 거의 안 바뀌므로 길게 캐시.
 const BASE = "https://api-gw.sports.naver.com";
@@ -81,12 +82,19 @@ export async function GET(request: Request): Promise<Response> {
   }
 
   try {
-    const res = await naverFetch(`${BASE}/schedule/games/${gameId}/lineup`, {
-      headers: HEADERS,
-      signal: AbortSignal.timeout(8000),
-    });
-    if (!res.ok) throw new Error(`Naver HTTP ${res.status}`);
-    const json = (await res.json()) as NaverApiResponse<NaverLineupResult>;
+    // 네이버가 Vercel 요청에 응답하지 않아 GH 중계기가 올린 값을 먼저 쓴다(lib/live-relay.ts).
+    const relayed = await readRelayedLineup("lineup", gameId);
+    let json: NaverApiResponse<NaverLineupResult>;
+    if (relayed) {
+      json = JSON.parse(relayed) as NaverApiResponse<NaverLineupResult>;
+    } else {
+      const res = await naverFetch(`${BASE}/schedule/games/${gameId}/lineup`, {
+        headers: HEADERS,
+        signal: AbortSignal.timeout(8000),
+      });
+      if (!res.ok) throw new Error(`Naver HTTP ${res.status}`);
+      json = (await res.json()) as NaverApiResponse<NaverLineupResult>;
+    }
     const lu = json.result?.lineUpData?.lineup;
     const body = {
       home: normalizeTeam(lu?.home),

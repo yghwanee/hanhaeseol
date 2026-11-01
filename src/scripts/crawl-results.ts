@@ -15,6 +15,9 @@ import { searchHighlightVideoId, highlightChannelFor } from "@/lib/highlights/yo
  * YOUTUBE_API_KEY 미설정 시 전부 건너뜀(no-op).
  */
 const HIGHLIGHT_SEARCH_CAP_PER_RUN = 25;
+/** 그중 최근 14일 아카이브의 빈 경기에 쓰는 몫. 수집이 멈춘 기간도 이걸로 저절로 메워진다. */
+const HIGHLIGHT_ARCHIVE_SHARE = 10;
+const HIGHLIGHT_ARCHIVE_DAYS = 14;
 
 async function enrichHighlights(
   results: MatchResult[],
@@ -36,7 +39,28 @@ async function enrichHighlights(
       r.highlightVideoId = existing;
       continue;
     }
-    if (searched >= HIGHLIGHT_SEARCH_CAP_PER_RUN) continue;
+    if (searched >= HIGHLIGHT_SEARCH_CAP_PER_RUN - HIGHLIGHT_ARCHIVE_SHARE) continue;
+    searched++;
+    const id = await searchHighlightVideoId(r.homeTeam, r.awayTeam, r.categoryId, r.date);
+    if (id) {
+      r.highlightVideoId = id;
+      found++;
+    }
+  }
+  // 못 찾은 경기가 앞자리를 계속 차지하지 않게 시각으로 돌아가며 고른다.
+  const since = new Date(Date.now() - HIGHLIGHT_ARCHIVE_DAYS * 86_400_000).toISOString().slice(0, 10);
+  const inWindow = new Set(results.map(dedupKey));
+  const holes = archive.results.filter(
+    (r) =>
+      r.date >= since &&
+      r.status === "finished" &&
+      !r.highlightVideoId &&
+      !inWindow.has(dedupKey(r)) &&
+      (SOCCER_CATEGORIES.has(r.categoryId) || !!highlightChannelFor(r.categoryId)),
+  );
+  const offset = holes.length ? Math.floor(Date.now() / 3_600_000) * HIGHLIGHT_ARCHIVE_SHARE % holes.length : 0;
+  for (let i = 0; i < Math.min(HIGHLIGHT_ARCHIVE_SHARE, holes.length); i++) {
+    const r = holes[(offset + i) % holes.length];
     searched++;
     const id = await searchHighlightVideoId(r.homeTeam, r.awayTeam, r.categoryId, r.date);
     if (id) {

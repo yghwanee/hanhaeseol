@@ -24,3 +24,19 @@ export async function readRelayedLive(): Promise<ResultsData | null> {
 export async function writeRelayedLive(data: ResultsData): Promise<void> {
   await getCache().set(KEY, data, { ttl: TTL_SECONDS, name: "live-relay" });
 }
+
+/** 라인업 원문 보관. lineup=축구, preview=야구. 매치 페이지 수명(14일)만큼 둔다. */
+export type LineupKind = "lineup" | "preview";
+const LINEUP_TTL_SECONDS = 14 * 24 * 60 * 60;
+
+export async function readRelayedLineup(kind: LineupKind, gameId: string): Promise<string | null> {
+  try {
+    return ((await getCache().get(`live-relay:${kind}:${gameId}`)) as string | undefined) ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export async function writeRelayedLineup(kind: LineupKind, gameId: string, json: string): Promise<void> {
+  await getCache().set(`live-relay:${kind}:${gameId}`, json, { ttl: LINEUP_TTL_SECONDS, name: "live-relay-lineup" });
+}

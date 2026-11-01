@@ -2,7 +2,8 @@ import "dotenv/config";
 import fs from "node:fs";
 import type { Schedule, ScheduleData } from "@/types/schedule";
 import type { ResultsData } from "@/types/results";
-import { crawlLiveResults } from "@/lib/results/naver";
+import { crawlLiveResults, SOCCER_CATEGORIES } from "@/lib/results/naver";
+import { naverFetch } from "@/lib/naver-fetch";
 import { findResult } from "@/lib/results/lookup";
 import { activeCategories, hasHotGame } from "@/lib/results/active-categories";
 import { isFollowedGame } from "@/lib/follows";
@@ -43,6 +44,75 @@ async function post(path: string, body?: unknown): Promise<Response> {
   });
 }
 
+/** 라인업을 다시 확인하는 간격. 킥오프 1시간 전쯤 뜨고 그 뒤로 거의 안 바뀐다. */
+const LINEUP_EVERY_MS = 10 * 60_000;
+/** 몇 일 전 경기까지 라인업을 채울지. 지난 경기를 메울 때만 늘린다(매치 페이지 수명 14일). */
+const LINEUP_DAYS = Number(process.env.LINEUP_DAYS || 2);
+const NAVER_HEADERS = {
+  Referer: "https://m.sports.naver.com/",
+  "User-Agent": "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1",
+};
+
+type LineupKind = "lineup" | "preview";
+type GameRef = { date: string; categoryId: string; gameId?: string; status?: string };
+
+function lineupKind(categoryId: string): LineupKind | null {
+  if (categoryId === "kbo" || categoryId === "mlb") return "preview";
+  return SOCCER_CATEGORIES.has(categoryId) ? "lineup" : null;
+}
+
+function hasLineup(kind: LineupKind, text: string): boolean {
+  const r = (JSON.parse(text) as { result?: Record<string, Record<string, unknown> | undefined> }).result;
+  return kind === "lineup" ? !!r?.lineUpData?.lineup : !!r?.previewData?.homeTeamLineUp;
+}
+
+/** 끝난 경기는 한 번만 받고, 그 전 경기는 바뀌었을 때만 올린다. */
+const lineupSeen = new Map<string, string>();
+const lineupDone = new Set<string>();
+
+async function syncLineups(): Promise<void> {
+  const base = RAW.replace("schedule.json", "");
+  const [recent, archive] = await Promise.all(
+    ["results.json", "results-archive.json"].map(async (f) => {
+      const res = await fetch(base + f, { signal: AbortSignal.timeout(60_000) });
+      return ((await res.json()) as { results?: GameRef[] }).results ?? [];
+    }),
+  );
+  const from = new Date(Date.now() - LINEUP_DAYS * 86_400_000).toLocaleDateString("en-CA", { timeZone: "Asia/Seoul" });
+  const to = new Date(Date.now() + 9 * 3_600_000).toISOString().slice(0, 10);
+  const games = new Map<string, GameRef>();
+  for (const g of [...archive, ...recent]) {
+    if (g.gameId && g.date >= from && g.date <= to && lineupKind(g.categoryId)) games.set(g.gameId, g);
+  }
+  const todo = [...games.values()].filter((g) => !lineupDone.has(g.gameId!));
+  let uploaded = 0;
+  for (let i = 0; i < todo.length; i += 8) {
+    const batch = await Promise.all(
+      todo.slice(i, i + 8).map(async (g) => {
+        const kind = lineupKind(g.categoryId)!;
+        try {
+          const res = await naverFetch(`https://api-gw.sports.naver.com/schedule/games/${g.gameId}/${kind}`, { headers: NAVER_HEADERS });
+          if (!res.ok) return null;
+          const json = await res.text();
+          if (g.status === "finished") lineupDone.add(g.gameId!);
+          if (!hasLineup(kind, json) || lineupSeen.get(g.gameId!) === json) return null;
+          lineupSeen.set(g.gameId!, json);
+          return { kind, gameId: g.gameId!, json };
+        } catch {
+          return null;
+        }
+      }),
+    );
+    const lineups = batch.filter((b) => b !== null);
+    if (lineups.length > 0) {
+      const res = await post("/api/live/ingest", { lineups });
+      if (res.ok) uploaded += lineups.length;
+      else log(`라인업 업로드 HTTP ${res.status}`);
+    }
+  }
+  log(`라인업 확인 ${todo.length}경기 · 업로드 ${uploaded}건`);
+}
+
 /** lastUpdated 를 뺀 내용 비교용. */
 const fingerprint = (d: ResultsData) => JSON.stringify(d.results);
 
@@ -59,6 +129,7 @@ async function main() {
   let lastUpload = 0;
   const lastState = new Map<string, string>();
   let idle = 0;
+  let lineupAt = 0;
 
   while (Date.now() < deadline) {
     try {
@@ -68,6 +139,11 @@ async function main() {
         if (res.ok) watch = new Set(((await res.json()) as { watch?: string[] }).watch ?? []);
         scheduleAt = Date.now();
         log(`편성 ${schedules.length}건 · 찜 ${watch.size}팀`);
+      }
+
+      if (Date.now() - lineupAt > LINEUP_EVERY_MS && (lineupAt === 0 || hasHotGame(schedules, Date.now()))) {
+        lineupAt = Date.now();
+        await syncLineups();
       }
 
       const cats = activeCategories(schedules, Date.now());

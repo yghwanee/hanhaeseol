@@ -12,6 +12,7 @@ import {
   isSameTeam,
   type StandingsData,
   type TeamEntry,
+  findTeamSchedules,
 } from "@/lib/teams";
 import type { Schedule, ScheduleData } from "@/types/schedule";
 import type { KoreanPlayer, KoreanPlayersData } from "@/lib/korean-players/types";
@@ -116,18 +117,9 @@ test("페이지가 되는 선수는 편성이 실제로 있다", () => {
   // 🔴 공백은 지우고 비교한다. 2026-10-01 에 순위표는 `LA다저스`, 편성은 `LA 다저스` 라
   // 김혜성 페이지(게이트 기준 편성 116건)가 "편성 0건"으로 잘못 걸렸다 — 페이지가 아니라
   // 이 검사가 틀린 것이었다.
-  const sq = (n: string) => n.replace(/\s+/g, "");
+  // 🔴 페이지가 쓰는 함수로 잰다. 순위표 `보루시아 글라트바흐`, 편성 `묀헨글라트바흐` 처럼 별칭으로만 이어지는 팀이 있다.
   for (const p of playerIndexFor(schedules, standings, allPlayers)) {
-    const name = sq(p.team.name);
-    const games = schedules.filter((s) => {
-      const home = sq(s.homeTeam);
-      const away = sq(s.awayTeam);
-      return (
-        s.sport === p.team.sport &&
-        name.length > 0 &&
-        (home.startsWith(name) || away.startsWith(name) || name.startsWith(home) || name.startsWith(away))
-      );
-    });
+    const games = findTeamSchedules(schedules, p.team);
     assert.ok(games.length > 0, `${p.name}(${p.team.slug}) 페이지에 편성이 하나도 없다`);
   }
 });

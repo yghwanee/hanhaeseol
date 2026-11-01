@@ -36,6 +36,10 @@ on:
         description: '이 실행의 수명(분). 기본 300'
         required: false
         default: '300'
+      lineup_days:
+        description: '며칠 전 경기까지 라인업을 채울지. 기본 2, 최대 14'
+        required: false
+        default: ''
 
 # 🔴 겹치면 같은 득점을 두 프로세스가 감지해 dispatch 를 두 번 부른다. 발송 자체는
 # dispatch 의 dedupKey 가 막지만 호출이 낭비되고 로그가 읽기 어려워진다.
@@ -68,6 +72,7 @@ jobs:
           PUSH_TEST_KEY: ${{ secrets.PUSH_TEST_KEY }}
           MAX_MINUTES: ${{ inputs.minutes || '300' }}
           POLL_MS: '60000'
+          LINEUP_DAYS: ${{ inputs.lineup_days }}
         run: npm run live:relay
       # 수명이 끝났는데 경기가 남아 있을 수 있다. 예약 발화를 기다리지 않고 이어 간다.
       - name: 다음 실행 잇기
