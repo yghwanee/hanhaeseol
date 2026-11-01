@@ -158,7 +158,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, allSchedul
           <div className="rounded-xl border border-line-subtle bg-surface p-6 text-center text-label1 text-fg-secondary">
             이번 주 예정된 경기가 없습니다.
             <br />
-            <Link
+            <Link prefetch={false}
               href="/"
               className="relative mt-2 inline-block text-fg underline underline-offset-2 after:absolute after:inset-x-0 after:-inset-y-3 after:content-['']"
             >
@@ -261,7 +261,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, allSchedul
             {related
               .filter((r) => r.slug !== meta.slug)
               .map((r) => (
-                <Link
+                <Link prefetch={false}
                   key={r.slug}
                   href={`/${kind}/${r.slug}`}
                   className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-flex items-center rounded-lg border border-line bg-muted px-2.5 py-1 text-caption1 text-fg hover:bg-muted hover:text-fg-strong"
@@ -278,7 +278,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, allSchedul
           </h2>
           <div className="flex flex-wrap gap-1.5">
             {crossList.map((r) => (
-              <Link
+              <Link prefetch={false}
                 key={r.slug}
                 href={`/${crossKind}/${r.slug}`}
                 className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-flex items-center rounded-lg border border-line bg-muted px-2.5 py-1 text-caption1 text-fg hover:bg-muted hover:text-fg-strong"
@@ -293,7 +293,7 @@ export default function FilteredScheduleView({ meta, kind, schedules, allSchedul
             <h2 className="mb-3 text-label1 font-semibold text-fg-strong">종목별 편성표 보기</h2>
             <div className="flex flex-wrap gap-1.5">
               {sportLinks.map((r) => (
-                <Link
+                <Link prefetch={false}
                   key={r.slug}
                   href={`/sport/${r.slug}`}
                   className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-flex items-center rounded-lg border border-line bg-muted px-2.5 py-1 text-caption1 text-fg hover:bg-muted hover:text-fg-strong"

@@ -171,7 +171,7 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
       <div className="mx-auto max-w-[1100px] px-5 pb-8 text-[14px] sm:px-6 sm:pb-12">
 
         <nav className="mt-4 flex items-center gap-2 text-caption1 text-fg-tertiary sm:mt-6">
-          <Link href="/standings" className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block transition-colors hover:text-fg">
+          <Link prefetch={false} href="/standings" className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block transition-colors hover:text-fg">
             팀 순위
           </Link>
           <span>›</span>
@@ -189,7 +189,7 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
               {meta.seasonLabel} 시즌 · {teamCount}개 팀
             </p>
           </div>
-          <Link
+          <Link prefetch={false}
             href={scheduleHref}
             className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-flex items-center gap-1.5 rounded-lg border border-brand/40 bg-brand-subtle px-3 py-2 text-label1 font-semibold text-fg-brand-bright transition-colors hover:border-brand/40 hover:bg-brand-subtle"
           >
@@ -204,7 +204,7 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
         {meta.slug === "kbo" && (
           <p className="mt-1.5 text-label1 leading-relaxed text-fg-secondary">
             가을야구 대진과 경기 일정·중계는{" "}
-            <Link href="/postseason/kbo" className="text-fg underline underline-offset-2 hover:text-fg-strong">
+            <Link prefetch={false} href="/postseason/kbo" className="text-fg underline underline-offset-2 hover:text-fg-strong">
               KBO 포스트시즌 일정·중계
             </Link>
             에서 볼 수 있습니다.
@@ -262,7 +262,7 @@ export default function StandingsBySlugPage({ params }: { params: Params }) {
           <h2 className="text-label1 font-semibold text-fg">다른 리그 순위</h2>
           <div className="mt-3 flex flex-wrap gap-1.5">
             {STANDINGS_LEAGUES.filter((l) => l.slug !== meta.slug).map((l) => (
-              <Link
+              <Link prefetch={false}
                 key={l.slug}
                 href={`/standings/${l.slug}`}
                 className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block rounded-md border border-line bg-surface px-2.5 py-1 text-caption1 text-fg transition-colors hover:border-line-strong hover:text-fg-strong"

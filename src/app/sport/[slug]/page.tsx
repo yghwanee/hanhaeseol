@@ -197,7 +197,7 @@ export default function SportPage({ params }: { params: { slug: string } }) {
               <p className="mt-1.5 text-label1 text-fg-secondary">
                 중계: {preseason.broadcasters.join(", ")}. 개막 주간부터 경기별 채널이 이 페이지에 올라옵니다.
               </p>
-              <Link
+              <Link prefetch={false}
                 href={`/league/${preseason.leagueSlug}`}
                 className="-my-2 inline-block py-2 mt-2 inline-block text-caption1 text-fg-brand-bright underline underline-offset-2 hover:text-fg-brand-bright"
               >
@@ -217,7 +217,7 @@ export default function SportPage({ params }: { params: { slug: string } }) {
                       <li key={b.league} className="flex items-center gap-2 text-label1">
                         <span className="flex-1 truncate text-fg">
                           {l ? (
-                            <Link href={`/league/${l}`} className="-my-2 inline-block py-2 hover:text-fg-strong hover:underline">
+                            <Link prefetch={false} href={`/league/${l}`} className="-my-2 inline-block py-2 hover:text-fg-strong hover:underline">
                               {b.league}
                             </Link>
                           ) : (
@@ -225,7 +225,7 @@ export default function SportPage({ params }: { params: { slug: string } }) {
                           )}
                         </span>
                         {s && (
-                          <Link
+                          <Link prefetch={false}
                             href={`/standings/${s}`}
                             className="-my-2 inline-block py-2 shrink-0 text-caption1 text-fg-tertiary hover:text-fg hover:underline"
                           >

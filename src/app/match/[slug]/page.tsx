@@ -305,7 +305,7 @@ function TeamSide({
   if (!team) return <div className="text-center">{body}</div>;
 
   return (
-    <Link
+    <Link prefetch={false}
       href={`/team/${encodeURIComponent(team.slug)}`}
       className="group text-center transition-opacity hover:opacity-80"
       aria-label={`${name} 팀 상세정보`}
@@ -528,13 +528,13 @@ export default function MatchPage({ params }: { params: Params }) {
       <div className="mx-auto max-w-[1100px] px-5 pb-8 text-[14px] sm:px-6 sm:pb-12">
 
         <nav className="mt-4 flex flex-wrap items-center gap-2 text-caption1 text-fg-tertiary sm:mt-6">
-          <Link href="/" className="-my-2 inline-block py-2 transition-colors hover:text-fg">
+          <Link prefetch={false} href="/" className="-my-2 inline-block py-2 transition-colors hover:text-fg">
             편성표
           </Link>
           {leagueSlug && (
             <>
               <span>›</span>
-              <Link
+              <Link prefetch={false}
                 href={`/league/${leagueSlug}`}
                 className="-my-2 inline-block py-2 transition-colors hover:text-fg"
               >
@@ -718,7 +718,7 @@ export default function MatchPage({ params }: { params: Params }) {
         {unplayed && (
           <p className="mt-4 rounded-xl border border-line-subtle bg-subtle p-5 text-center text-label1 text-fg-secondary sm:p-6">
             시리즈가 앞 경기에서 끝나 <span className="font-semibold text-fg-strong">열리지 않은 경기</span>입니다.
-            일정은 <Link href="/postseason/kbo" className="text-fg underline underline-offset-2 hover:text-fg-strong">KBO 포스트시즌</Link>에서 확인하세요.
+            일정은 <Link prefetch={false} href="/postseason/kbo" className="text-fg underline underline-offset-2 hover:text-fg-strong">KBO 포스트시즌</Link>에서 확인하세요.
           </p>
         )}
 
@@ -781,7 +781,7 @@ export default function MatchPage({ params }: { params: Params }) {
             <ul className="mt-3 space-y-1.5 text-label1">
               {relatedByLeague.map((s) => (
                 <li key={s.id}>
-                  <Link
+                  <Link prefetch={false}
                     href={`/match/${matchToSlug(s)}`}
                     className="-my-2 inline-block py-2 text-fg transition-colors hover:text-fg-strong hover:underline underline-offset-2"
                   >
@@ -804,7 +804,7 @@ export default function MatchPage({ params }: { params: Params }) {
             <ul className="mt-3 space-y-1.5 text-label1">
               {relatedByPlatform.map((s) => (
                 <li key={s.id}>
-                  <Link
+                  <Link prefetch={false}
                     href={`/match/${matchToSlug(s)}`}
                     className="-my-2 inline-block py-2 text-fg transition-colors hover:text-fg-strong hover:underline underline-offset-2"
                   >
@@ -828,7 +828,7 @@ export default function MatchPage({ params }: { params: Params }) {
             {leagueSlug && (
               <>
                 {match.league}의 더 많은 한국어 해설 일정은{" "}
-                <Link
+                <Link prefetch={false}
                   href={`/league/${leagueSlug}`}
                   className="-my-2 inline-block py-2 text-fg-brand-bright hover:underline underline-offset-2"
                 >

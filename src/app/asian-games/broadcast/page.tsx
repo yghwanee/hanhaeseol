@@ -115,7 +115,7 @@ export default function AsianGamesBroadcastPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <nav aria-label="경로" className="mt-4 text-caption1 text-fg-tertiary sm:mt-6">
-        <Link href="/asian-games" className="relative underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
+        <Link prefetch={false} href="/asian-games" className="relative underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
           아시안게임
         </Link>
         {" › "}
@@ -127,7 +127,7 @@ export default function AsianGamesBroadcastPage() {
         <p className="mt-2 text-label1 leading-relaxed text-fg-strong">{lead}</p>
         <p className="mt-1.5 text-label1 leading-relaxed text-fg-secondary">
           경기 시간은 모두 한국 시각입니다. 종목별 전 경기 일정은 아래 종목 버튼에서, 대한민국 메달과 전 종목 한국 경기는{" "}
-          <Link href="/asian-games" className="relative text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
+          <Link prefetch={false} href="/asian-games" className="relative text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
             아시안게임 허브
           </Link>
           에서 볼 수 있습니다.
@@ -200,7 +200,7 @@ export default function AsianGamesBroadcastPage() {
         </dl>
         <p className="mt-4 text-label1 text-fg-secondary">
           다른 나라 경기의 한국어 해설 중계까지 보려면{" "}
-          <Link href="/" className="relative text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
+          <Link prefetch={false} href="/" className="relative text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
             {withJosa("메인 편성표", "을/를")}
           </Link>{" "}
           확인하세요.

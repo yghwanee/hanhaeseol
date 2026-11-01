@@ -58,7 +58,7 @@ function MiniMatchCard({ schedule: s }: { schedule: Schedule }) {
         ? "text-fg-brand"
         : "text-fg-secondary";
   return (
-    <Link
+    <Link prefetch={false}
       href={`/match/${matchToSlug(s)}`}
       className="flex h-full flex-col rounded-lg border border-line-subtle border-l-2 border-l-brand bg-surface p-3 transition-colors hover:border-line hover:border-l-brand-hover hover:bg-surface sm:p-3.5"
     >

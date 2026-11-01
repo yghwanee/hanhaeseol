@@ -13,10 +13,10 @@ export default function NotFound() {
         주소가 바뀌었거나, 지금은 열려 있지 않은 페이지입니다(비시즌 종목 등).
       </p>
       <div className="mt-6 flex flex-wrap justify-center gap-2">
-        <Link href="/" className="inline-flex items-center rounded-lg bg-fg-strong px-4 py-2 text-label1 font-semibold text-canvas">
+        <Link prefetch={false} href="/" className="inline-flex items-center rounded-lg bg-fg-strong px-4 py-2 text-label1 font-semibold text-canvas">
           오늘 편성표 보기
         </Link>
-        <Link href="/standings" className="inline-flex items-center rounded-lg border border-line bg-muted px-4 py-2 text-label1 text-fg">
+        <Link prefetch={false} href="/standings" className="inline-flex items-center rounded-lg border border-line bg-muted px-4 py-2 text-label1 text-fg">
           팀 순위
         </Link>
       </div>

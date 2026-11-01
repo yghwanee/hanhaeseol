@@ -203,7 +203,7 @@ export default function CommentaryStatsPage() {
               >
                 <h3 className="mb-2 text-label1 font-semibold text-fg-strong">
                   {slug ? (
-                    <Link href={`/platform/${slug}`} className="-my-1.5 inline-block py-1.5 hover:underline">
+                    <Link prefetch={false} href={`/platform/${slug}`} className="-my-1.5 inline-block py-1.5 hover:underline">
                       {s.name}
                     </Link>
                   ) : (
@@ -254,7 +254,7 @@ export default function CommentaryStatsPage() {
           <h2 className="mb-3 text-label1 font-semibold text-fg-strong">플랫폼별 편성표 보기</h2>
           <div className="flex flex-wrap gap-1.5">
             {PLATFORM_SEO.map((p) => (
-              <Link
+              <Link prefetch={false}
                 key={p.slug}
                 href={`/platform/${p.slug}`}
                 className="w-chip w-chip--sm"
@@ -264,7 +264,7 @@ export default function CommentaryStatsPage() {
             ))}
           </div>
           <p className="mt-3 text-caption1 text-fg-tertiary">
-            <Link href="/commentary" className="-my-2 inline-block py-2 text-fg-secondary hover:text-fg-strong hover:underline">
+            <Link prefetch={false} href="/commentary" className="-my-2 inline-block py-2 text-fg-secondary hover:text-fg-strong hover:underline">
               오늘부터 7일간 한국어 해설 경기 보기 →
             </Link>
           </p>

@@ -149,7 +149,7 @@ export default function AsianGamesPage() {
         <p className="mt-2 text-label1 leading-relaxed text-fg-strong">{answerLead(today, koreaGamesToday, data)}</p>
         <p className="mt-1.5 text-label1 leading-relaxed text-fg-secondary">
           아이치·나고야 아시안게임({AG_OPEN} ~ {AG_CLOSE}) 대한민국 전 종목 경기 일정과 메달, 국가별 메달 순위를 모았습니다. 다른 나라 경기의 한국어 해설 중계는{" "}
-          <Link href="/" className="-my-2 inline-block py-2 text-fg underline underline-offset-2 hover:text-fg-strong">메인 편성표</Link>에서 볼 수 있습니다.
+          <Link prefetch={false} href="/" className="-my-2 inline-block py-2 text-fg underline underline-offset-2 hover:text-fg-strong">메인 편성표</Link>에서 볼 수 있습니다.
         </p>
       </div>
 

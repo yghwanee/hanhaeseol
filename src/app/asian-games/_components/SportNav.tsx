@@ -6,7 +6,7 @@ export function SportNav({ current }: { current?: string }) {
   return (
     <nav aria-label="아시안게임 종목별 일정" className="mb-6 flex flex-wrap gap-2">
       {/* 🔴 「아시안게임 중계」(월 34,710) 착지 페이지로 가는 유일한 길. */}
-      <Link
+      <Link prefetch={false}
         href="/asian-games/broadcast"
         aria-current={current === "broadcast" ? "page" : undefined}
         className={`inline-flex h-9 items-center rounded-full border px-3.5 text-label1 ${
@@ -16,7 +16,7 @@ export function SportNav({ current }: { current?: string }) {
         중계 채널
       </Link>
       {/* 🔴 「아시안게임 롤」 73,200 · 「롤 국가대표」 6,820 · 「아시안게임 페이커」 1,080 의 착지 페이지. */}
-      <Link
+      <Link prefetch={false}
         href="/asian-games/lol"
         aria-current={current === "lol" ? "page" : undefined}
         className={`inline-flex h-9 items-center rounded-full border px-3.5 text-label1 ${
@@ -26,7 +26,7 @@ export function SportNav({ current }: { current?: string }) {
         롤 일정·국가대표
       </Link>
       {/* 🔴 「아시안게임 선수단」 2,000 · 선수 이름 검색(김도영 8,920 · 안세영 2,790)의 착지 페이지. */}
-      <Link
+      <Link prefetch={false}
         href="/asian-games/players"
         aria-current={current === "players" ? "page" : undefined}
         className={`inline-flex h-9 items-center rounded-full border px-3.5 text-label1 ${
@@ -38,7 +38,7 @@ export function SportNav({ current }: { current?: string }) {
       {AG_SPORTS.map((s) => {
         const active = s.slug === current;
         return (
-          <Link
+          <Link prefetch={false}
             key={s.slug}
             href={`/asian-games/${s.slug}`}
             aria-current={active ? "page" : undefined}

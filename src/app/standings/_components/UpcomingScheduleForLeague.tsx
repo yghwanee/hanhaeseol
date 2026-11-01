@@ -57,7 +57,7 @@ export default function UpcomingScheduleForLeague({
         <h2 className="text-headline1 font-semibold text-fg-strong sm:text-heading2">
           이번 주 {display} 한국어 해설 중계 일정
         </h2>
-        <Link
+        <Link prefetch={false}
           href={`/league/${scheduleSlug}`}
           className="-my-2 inline-block py-2 shrink-0 whitespace-nowrap text-caption1 font-semibold text-fg-brand-bright hover:text-fg-brand-bright sm:text-label1"
         >
@@ -79,7 +79,7 @@ export default function UpcomingScheduleForLeague({
               <ul className="space-y-1.5">
                 {grouped[date].map((s) => (
                   <li key={s.id}>
-                    <Link
+                    <Link prefetch={false}
                       href={`/match/${matchToSlug(s)}`}
                       className="flex items-center justify-between gap-2 rounded-lg border border-line-subtle bg-surface px-3 py-2 transition-colors hover:border-line hover:bg-surface"
                     >

@@ -16,7 +16,7 @@ export default function OfflinePage() {
         <br />
         편성표는 실시간 데이터라 연결이 필요합니다.
       </p>
-      <Link
+      <Link prefetch={false}
         href="/"
         className="mt-6 rounded-lg bg-brand px-4 py-2 text-label1 font-semibold text-fg-onbrand transition-colors hover:bg-brand-hover"
       >

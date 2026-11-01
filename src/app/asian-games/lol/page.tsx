@@ -148,11 +148,11 @@ export default function AsianGamesLolPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <nav aria-label="경로" className="mt-4 text-caption1 text-fg-tertiary sm:mt-6">
-        <Link href="/asian-games" className="relative underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
+        <Link prefetch={false} href="/asian-games" className="relative underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
           아시안게임
         </Link>
         {" › "}
-        <Link href="/asian-games/esports" className="relative underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
+        <Link prefetch={false} href="/asian-games/esports" className="relative underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
           e스포츠
         </Link>
         {" › "}롤
@@ -220,11 +220,11 @@ export default function AsianGamesLolPage() {
         </dl>
         <p className="mt-4 text-label1 text-fg-secondary">
           배틀그라운드·e풋볼 등 다른 e스포츠 종목 일정은{" "}
-          <Link href="/asian-games/esports" className="relative text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
+          <Link prefetch={false} href="/asian-games/esports" className="relative text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
             아시안게임 e스포츠 종목·일정
           </Link>
           , 중계 편성은{" "}
-          <Link href="/asian-games/broadcast" className="relative text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
+          <Link prefetch={false} href="/asian-games/broadcast" className="relative text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
             아시안게임 중계 채널
           </Link>
           에서 볼 수 있습니다.

@@ -140,7 +140,7 @@ function GameRow({ g, seedOf, today }: { g: Omit<PostseasonGame, "round" | "game
   return (
     <li className="py-2">
       {linkable ? (
-        <Link href={`/match/${matchToSlug(g.schedule)}`} className="hover:underline underline-offset-2">
+        <Link prefetch={false} href={`/match/${matchToSlug(g.schedule)}`} className="hover:underline underline-offset-2">
           {body}
         </Link>
       ) : (
@@ -212,8 +212,8 @@ export default function KboPostseasonPage() {
         <p className="mt-2 text-label1 leading-relaxed text-fg-strong">{answerLead(today, games, seedOf)}</p>
         <p className="mt-1.5 text-label1 leading-relaxed text-fg-secondary">
           가을야구 대진과 라운드별 방식, 경기 일정과 중계 채널을 모았습니다. 정규시즌 전 경기 편성은{" "}
-          <Link href="/league/kbo" className="text-fg underline underline-offset-2 hover:text-fg-strong">KBO 중계 편성표</Link>, 순위는{" "}
-          <Link href="/standings/kbo" className="text-fg underline underline-offset-2 hover:text-fg-strong">KBO 순위</Link>에서 볼 수 있습니다.
+          <Link prefetch={false} href="/league/kbo" className="text-fg underline underline-offset-2 hover:text-fg-strong">KBO 중계 편성표</Link>, 순위는{" "}
+          <Link prefetch={false} href="/standings/kbo" className="text-fg underline underline-offset-2 hover:text-fg-strong">KBO 순위</Link>에서 볼 수 있습니다.
         </p>
       </div>
 

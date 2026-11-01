@@ -22,8 +22,8 @@ const POLL_MS = Number(process.env.POLL_MS ?? 60_000);
 const MAX_MINUTES = Number(process.env.MAX_MINUTES ?? 300);
 /** 움직일 경기가 없는 상태가 이만큼 이어지면 끝낸다. */
 const IDLE_EXIT_POLLS = 10;
-/** 스코어가 그대로여도 이 간격으로 다시 올린다. 보관소 TTL(30분)보다 짧아야 한다. */
-const HEARTBEAT_MS = 10 * 60_000;
+/** 스코어·상태가 그대로면 이 간격으로만 올린다. 경기 시간 표시(전반 40')가 이만큼 늦을 수 있다. Vercel 호출을 줄이려는 값이다. */
+const HEARTBEAT_MS = 3 * 60_000;
 const KEY = process.env.PUSH_TEST_KEY ?? "";
 
 const log = (...a: unknown[]) => console.log(new Date().toISOString(), ...a);
@@ -113,8 +113,9 @@ async function syncLineups(): Promise<void> {
   log(`라인업 확인 ${todo.length}경기 · 업로드 ${uploaded}건`);
 }
 
-/** lastUpdated 를 뺀 내용 비교용. */
-const fingerprint = (d: ResultsData) => JSON.stringify(d.results);
+/** 스코어·상태만 비교한다. 경기 시간(period)은 매분 바뀌어 넣으면 매분 올리게 된다. */
+const fingerprint = (d: ResultsData) =>
+  JSON.stringify(d.results.map((r) => [r.date, r.categoryId, r.homeTeam, r.awayTeam, r.status, r.homeScore, r.awayScore]));
 
 async function main() {
   if (!KEY) {

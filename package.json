@@ -140,6 +140,7 @@
     "test:match-retention": "tsx --test src/lib/match-retention.test.ts",
     "live:relay": "tsx src/scripts/live-relay.ts",
     "test:active-categories": "tsx --test src/lib/results/active-categories.test.ts",
+    "test:link-prefetch": "tsx --test src/lib/link-prefetch-guard.test.ts",
     "test:naver-fetch": "tsx --test src/lib/naver-fetch.test.ts",
     "test:kbo-postseason": "tsx --test src/lib/kbo-postseason.test.ts"
   },

@@ -248,7 +248,7 @@ export function MatchContextSection({
             </ul>
           )}
           <p className="mt-3 text-caption1 text-fg-tertiary">
-            <Link
+            <Link prefetch={false}
               href={`/league/${leagueGuide.slug}`}
               className="-my-2 inline-block py-2 hover:text-fg-brand-bright underline-offset-2 hover:underline"
             >
@@ -284,7 +284,7 @@ export function MatchContextSection({
             </ul>
           )}
           <p className="mt-3 text-caption1 text-fg-tertiary">
-            <Link
+            <Link prefetch={false}
               href={`/platform/${platformGuide.slug}`}
               className="-my-2 inline-block py-2 hover:text-fg-brand-bright underline-offset-2 hover:underline"
             >

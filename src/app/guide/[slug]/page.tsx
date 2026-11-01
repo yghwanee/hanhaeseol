@@ -122,7 +122,7 @@ export default function GuidePage({ params }: { params: Params }) {
       </article>
 
       <div className="mt-12 border-t border-line-subtle pt-6 text-label1">
-        <Link href="/guide" className="-my-2 inline-block py-2 text-fg-brand-bright hover:underline">
+        <Link prefetch={false} href="/guide" className="-my-2 inline-block py-2 text-fg-brand-bright hover:underline">
           ← 다른 글 더 보기
         </Link>
       </div>

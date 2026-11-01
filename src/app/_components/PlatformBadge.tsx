@@ -43,7 +43,7 @@ function PlatformBadgeInner({
     return <span className={BASE}>{content}</span>;
   }
   return (
-    <Link
+    <Link prefetch={false}
       href={`/platform/${slug}`}
       className={`pointer-events-auto ${BASE} transition-colors hover:border-line hover:text-fg`}
     >

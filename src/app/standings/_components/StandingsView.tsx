@@ -307,7 +307,7 @@ export function StandingsView({
               </p>
             </div>
             {current.scheduleSlug && (
-              <Link
+              <Link prefetch={false}
                 href={`/league/${current.scheduleSlug}`}
                 className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-flex items-center gap-1.5 rounded-lg border border-brand/40 bg-brand-subtle px-3 py-2 text-caption1 font-semibold text-fg-brand-bright transition-colors hover:border-brand/40 hover:bg-brand-subtle sm:text-label1"
               >

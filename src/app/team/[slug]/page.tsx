@@ -291,11 +291,11 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
 
       <main className="mx-auto w-full max-w-[1100px] px-5 sm:px-6 py-6 sm:py-8">
         <nav className="mb-4 text-caption1 text-fg-tertiary sm:text-label1">
-          <Link href="/" className="-my-2 inline-block py-2 hover:text-fg">
+          <Link prefetch={false} href="/" className="-my-2 inline-block py-2 hover:text-fg">
             편성표
           </Link>
           <span className="px-1.5">›</span>
-          <Link href={leagueHubHref(team.leagueSlug)} className="-my-2 inline-block py-2 hover:text-fg">
+          <Link prefetch={false} href={leagueHubHref(team.leagueSlug)} className="-my-2 inline-block py-2 hover:text-fg">
             {team.leagueName}
           </Link>
           <span className="px-1.5">›</span>
@@ -446,7 +446,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
                         ) : !eligibleSlugs.has(t.slug) ? (
                           t.name
                         ) : (
-                          <Link
+                          <Link prefetch={false}
                             href={`/team/${encodeURIComponent(t.slug)}`}
                             className="-mx-1.5 -my-2 inline-block min-w-[28px] px-1.5 py-2 hover:text-fg-strong"
                           >
@@ -471,7 +471,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
               </tbody>
             </table>
             <p className="mt-2 text-caption1 text-fg-tertiary">
-              <Link href={`/standings/${team.leagueSlug}`} className="-my-2 inline-block py-2 hover:text-fg">
+              <Link prefetch={false} href={`/standings/${team.leagueSlug}`} className="-my-2 inline-block py-2 hover:text-fg">
                 {team.leagueName} 전체 순위 보기
               </Link>
             </p>
@@ -503,7 +503,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
             </h2>
             <div className="mt-3 flex flex-wrap gap-2">
               {teamPlayers.map((p) => (
-                <Link
+                <Link prefetch={false}
                   key={p.slug}
                   href={`/player/${encodeURIComponent(p.slug)}`}
                   className="w-chip w-chip--sm"
@@ -522,7 +522,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
             </h2>
             <div className="mt-3 flex flex-wrap gap-2">
               {siblings.map((t) => (
-                <Link
+                <Link prefetch={false}
                   key={t.slug}
                   href={`/team/${encodeURIComponent(t.slug)}`}
                   className="w-chip w-chip--sm"
@@ -533,7 +533,7 @@ export default function TeamPage({ params }: { params: { slug: string } }) {
             </div>
             {findLeagueBySlug(team.leagueSlug) && (
               <p className="mt-3 text-caption1 text-fg-tertiary">
-                <Link href={`/league/${team.leagueSlug}`} className="-my-2 inline-block py-2 hover:text-fg">
+                <Link prefetch={false} href={`/league/${team.leagueSlug}`} className="-my-2 inline-block py-2 hover:text-fg">
                   {team.leagueName} 전체 편성표 보기
                 </Link>
               </p>

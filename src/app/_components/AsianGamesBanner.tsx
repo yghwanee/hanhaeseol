@@ -46,7 +46,7 @@ const OPEN_LABEL = `${OPEN_M}월 ${OPEN_D}일 개막`;
 function CountdownBanner({ today, href }: { today: string; href: string }) {
   const dday = daysToOpen(today);
   return (
-    <Link
+    <Link prefetch={false}
       href={href}
       aria-label={`아시안게임 한국 경기 일정과 메달 순위 보기 · ${OPEN_LABEL} D-${dday}`}
       className="w-card mb-5 sm:mb-6 flex items-center gap-3 px-3.5 py-3.5 sm:gap-4 sm:px-5 sm:py-4"
@@ -116,7 +116,7 @@ function MedalBanner({ today, href, closed }: { today: string; href: string; clo
   const n = (v: number | undefined) => (tally ? String(v) : "–");
 
   return (
-    <Link
+    <Link prefetch={false}
       href={href}
       aria-label={`아시안게임 메달 순위와 한국 경기 일정 보기 · ${headline}`}
       className="w-card mb-5 sm:mb-6 flex flex-col gap-3 px-3.5 py-3.5 sm:flex-row sm:items-center sm:gap-5 sm:px-5 sm:py-4"

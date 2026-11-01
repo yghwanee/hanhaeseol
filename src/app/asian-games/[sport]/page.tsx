@@ -299,7 +299,7 @@ export default function AsianGamesSportPage({ params }: { params: { sport: strin
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <nav aria-label="경로" className="mt-4 text-caption1 text-fg-tertiary sm:mt-6">
-        <Link href="/asian-games" className="relative underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
+        <Link prefetch={false} href="/asian-games" className="relative underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
           아시안게임
         </Link>
         {" › "}
@@ -311,7 +311,7 @@ export default function AsianGamesSportPage({ params }: { params: { sport: strin
         <p className="mt-2 text-label1 leading-relaxed text-fg-strong">{answerLead(sp, games, today)}</p>
         <p className="mt-1.5 text-label1 leading-relaxed text-fg-secondary">
           경기 시간은 모두 한국 시각입니다. 대한민국 메달과 전 종목 한국 경기는{" "}
-          <Link href="/asian-games" className="relative text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
+          <Link prefetch={false} href="/asian-games" className="relative text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
             아시안게임 한국 경기 일정·메달 순위
           </Link>
           에서 볼 수 있습니다.
@@ -341,7 +341,7 @@ export default function AsianGamesSportPage({ params }: { params: { sport: strin
           </h2>
           <p className="mt-1 text-caption1 text-fg-tertiary">네이버 대회 데이터 기준 · 경기에 배정되는 대로 늘어납니다</p>
           <p className="mt-3 text-label1 leading-relaxed text-fg break-keep">{players.join(" · ")}</p>
-          <Link href="/asian-games/players" className="relative mt-2 inline-block text-label1 text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
+          <Link prefetch={false} href="/asian-games/players" className="relative mt-2 inline-block text-label1 text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
             전 종목 한국 선수단 보기
           </Link>
         </section>

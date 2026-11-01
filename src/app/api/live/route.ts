@@ -1,4 +1,3 @@
-import { crawlLiveResults } from "@/lib/results/naver";
 import { readRelayedLive } from "@/lib/live-relay";
 
 // 라이브 스코어 핫패스. 매 요청 실행하되 엣지 CDN에서 캐시 →
@@ -11,8 +10,8 @@ export const dynamic = "force-dynamic";
 
 export async function GET(): Promise<Response> {
   try {
-    // 네이버가 Vercel 요청을 막고 있어 GH 중계기가 올린 값을 먼저 쓴다(lib/live-relay.ts).
-    const data = (await readRelayedLive()) ?? (await crawlLiveResults());
+    // 🔴 네이버는 Vercel 요청에 응답하지 않는다. GH 중계기가 올린 값만 읽는다(lib/live-relay.ts).
+    const data = (await readRelayedLive()) ?? { lastUpdated: new Date().toISOString(), byKey: {}, results: [] };
     return new Response(JSON.stringify(data), {
       headers: {
         "Content-Type": "application/json",
@@ -20,7 +19,7 @@ export async function GET(): Promise<Response> {
       },
     });
   } catch {
-    // 네이버 장애 시에도 클라가 깨지지 않도록 빈 결과 + 짧은 캐시로 폴백.
+    // 보관소 장애 시에도 클라가 깨지지 않도록 빈 결과 + 짧은 캐시로 폴백.
     return new Response(
       JSON.stringify({ lastUpdated: new Date().toISOString(), byKey: {}, results: [] }),
       {

@@ -148,7 +148,7 @@ export default function PlatformPage({ params }: { params: { slug: string } }) {
                   </p>
                 )}
                 <p className="mt-2 text-caption1 text-fg-tertiary">
-                  <Link
+                  <Link prefetch={false}
                     href="/commentary/stats"
                     className="-my-2 inline-block py-2 text-fg-secondary hover:text-fg-strong hover:underline"
                   >

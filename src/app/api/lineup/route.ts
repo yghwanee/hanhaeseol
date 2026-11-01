@@ -1,14 +1,6 @@
-import { naverFetch } from "@/lib/naver-fetch";
 import { readRelayedLineup } from "@/lib/live-relay";
 // 네이버 경기 라인업 프록시. gameId로 선발 라인업(포메이션+선발 XI)을 가져와 정규화.
 // 라인업은 킥오프 ~1시간 전 확정 후 교체 외엔 거의 안 바뀌므로 길게 캐시.
-const BASE = "https://api-gw.sports.naver.com";
-const HEADERS = {
-  Referer: "https://m.sports.naver.com/",
-  "User-Agent":
-    "Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1",
-};
-
 export const dynamic = "force-dynamic";
 
 interface NaverLineupPlayer {
@@ -82,19 +74,10 @@ export async function GET(request: Request): Promise<Response> {
   }
 
   try {
-    // 네이버가 Vercel 요청에 응답하지 않아 GH 중계기가 올린 값을 먼저 쓴다(lib/live-relay.ts).
+    // 🔴 네이버는 Vercel 요청에 응답하지 않는다. GH 중계기가 올린 값만 읽는다(lib/live-relay.ts).
     const relayed = await readRelayedLineup("lineup", gameId);
-    let json: NaverApiResponse<NaverLineupResult>;
-    if (relayed) {
-      json = JSON.parse(relayed) as NaverApiResponse<NaverLineupResult>;
-    } else {
-      const res = await naverFetch(`${BASE}/schedule/games/${gameId}/lineup`, {
-        headers: HEADERS,
-        signal: AbortSignal.timeout(8000),
-      });
-      if (!res.ok) throw new Error(`Naver HTTP ${res.status}`);
-      json = (await res.json()) as NaverApiResponse<NaverLineupResult>;
-    }
+    if (!relayed) return emptyLineup();
+    const json = JSON.parse(relayed) as NaverApiResponse<NaverLineupResult>;
     const lu = json.result?.lineUpData?.lineup;
     const body = {
       home: normalizeTeam(lu?.home),
@@ -103,15 +86,17 @@ export async function GET(request: Request): Promise<Response> {
     return new Response(JSON.stringify(body), {
       headers: {
         "Content-Type": "application/json",
-        "Cache-Control": "public, s-maxage=120, stale-while-revalidate=600",
+        "Cache-Control": "public, s-maxage=600, stale-while-revalidate=86400",
       },
     });
   } catch {
-    return new Response(JSON.stringify({ home: null, away: null }), {
-      headers: {
-        "Content-Type": "application/json",
-        "Cache-Control": "public, s-maxage=30",
-      },
-    });
+    return emptyLineup();
   }
+}
+
+/** 아직 라인업이 없다. 중계기가 10분마다 확인하므로 그 안에서 다시 묻지 않게 캐시한다. */
+function emptyLineup(): Response {
+  return new Response(JSON.stringify({ home: null, away: null }), {
+    headers: { "Content-Type": "application/json", "Cache-Control": "public, s-maxage=300" },
+  });
 }

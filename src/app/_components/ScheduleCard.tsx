@@ -180,7 +180,7 @@ function ScheduleCardInner({
       className={`w-card relative p-3.5 sm:p-4 ${linkMatch ? "w-card-hover cursor-pointer" : ""}`}
     >
       {linkMatch && (
-        <Link
+        <Link prefetch={false}
           href={`/match/${matchToSlug(schedule)}`}
           className="absolute inset-0 z-0 rounded-[12px]"
           aria-label={`${schedule.homeTeam} ${schedule.awayTeam ? `vs ${schedule.awayTeam}` : ""} 경기 상세 보기`}

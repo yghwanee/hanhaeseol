@@ -17,10 +17,7 @@ import {
 } from "@/lib/push/log-store";
 import { matchToSlug } from "@/lib/match-slug";
 import { getTodayString } from "@/lib/schedule-utils";
-import { crawlLiveResults } from "@/lib/results/naver";
 import { readRelayedLive } from "@/lib/live-relay";
-import { categoriesForLeague } from "@/lib/results/lookup";
-import { isFollowedGame } from "@/lib/follows";
 
 /**
  * ⭐찜한 팀 경기 알림 발송.
@@ -121,7 +118,7 @@ export async function POST(request: Request): Promise<Response> {
   const watch = [...new Set(subs.flatMap((t) => t.follows))].sort();
 
   const results = live
-    ? mergeLive(rawResults, await crawlLiveScoped(schedules, watch))
+    ? mergeLive(rawResults, watch.length > 0 ? await readRelayedLive() : null)
     : rawResults;
 
   const notices = buildNotices({
@@ -234,35 +231,6 @@ async function fetchSchedules(): Promise<Schedule[]> {
 
 async function fetchResults(): Promise<ResultsData | null> {
   return fetchJson<ResultsData>("results.json");
-}
-
-/**
- * 찜한 팀이 걸린 경기의 리그만 골라 라이브 크롤한다.
- *
- * 전 리그(30여 개)를 훑을 이유가 없다 — 알림은 찜한 팀 경기에만 나가므로 그 리그만 보면
- * 되고, 폴러가 60초마다 부르는 경로라 요청 수가 그대로 네이버 부하가 된다.
- * 감시 목록이 비었으면(구독자 0명) 크롤 자체를 건너뛴다.
- */
-async function crawlLiveScoped(
-  schedules: Schedule[],
-  watch: string[],
-): Promise<ResultsData | null> {
-  if (watch.length === 0) return null;
-  const relayed = await readRelayedLive();
-  if (relayed) return relayed;
-  const followed = new Set(watch);
-  const cats = new Set<string>();
-  for (const s of schedules) {
-    if (!isFollowedGame(s, followed)) continue;
-    for (const c of categoriesForLeague(s.league)) cats.add(c);
-  }
-  if (cats.size === 0) return null;
-  try {
-    return await crawlLiveResults([...cats]);
-  } catch {
-    // 네이버가 흔들리면 raw 로 판정한다. 늦을 뿐이지 틀리지는 않는다.
-    return null;
-  }
 }
 
 /**

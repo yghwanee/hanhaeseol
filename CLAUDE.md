@@ -586,7 +586,7 @@ ISSUE_BODY="$(gh issue view N --json body -q .body)" npm run check:idea-dupes  #
 
 ## 운영 함정 (2026-09-04 에 실제로 겪은 것)
 
-- 🔴 **네이버 스포츠 API 는 2026-10-26 부터 실제 브라우저 요청에만 응답한다.** GH 수집은 `tools/naver-browser-preload.mjs`(Chromium), 실시간은 GH `push-live.yml` → `/api/live/ingest` → Runtime Cache. 호출은 `naverFetch` 로만. 상세 worklog.
+- 🔴 **네이버 스포츠 API 는 2026-10-26 부터 실제 브라우저 요청에만 응답한다.** GH 수집은 `tools/naver-browser-preload.mjs`(Chromium), 실시간은 GH `push-live.yml` → `/api/live/ingest` → Runtime Cache. 호출은 `naverFetch` 로만. Vercel 라우트에서 네이버를 부르지 말 것. `next/link` 는 `prefetch={false}`(`test:link-prefetch`). 상세 worklog.
 
 - 🔴 **데이터 파일 충돌을 커밋하지 말 것 (2026-10-22 실사고).** CI 가 `src/data/*.json` 을 매시 커밋해 rebase 가 자주 충돌한다. `UU` 인 채로 `git add` 하면 충돌 표시가 JSON 에 박혀 배포까지 나간다. 데이터 충돌은 CI 수집본을 고르고, `src/data` 만 바꾼 커밋은 `gh workflow run test.yml` 로 CI 를 직접 돌린다.
 - 🔴 **로컬에서 프로덕션에 반복 curl 하면 Vercel 방화벽 챌린지가 걸린다.**

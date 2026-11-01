@@ -146,7 +146,7 @@ export default function AboutPage() {
             정확한 시청 정보는 각 플랫폼 공지를 함께 확인하시길 권장합니다.
           </p>
           <p className="text-fg-secondary leading-relaxed">
-            <Link href="/faq" className="-my-2 inline-block py-2 text-fg-brand-bright hover:underline">자주 묻는 질문</Link>에서
+            <Link prefetch={false} href="/faq" className="-my-2 inline-block py-2 text-fg-brand-bright hover:underline">자주 묻는 질문</Link>에서
             한국어 해설 중계와 한국어 중계 편성표 이용에 대한 더 자세한 안내를 확인할 수 있습니다.
           </p>
         </section>
@@ -168,7 +168,7 @@ export default function AboutPage() {
             않습니다. 해당 섹션에 생성 시점과 함께 표시됩니다.
           </p>
           <p className="text-fg-secondary leading-relaxed">
-            <Link href="/guide" className="-my-2 inline-block py-2 text-fg-brand-bright hover:underline">한해설 Topic</Link>{" "}
+            <Link prefetch={false} href="/guide" className="-my-2 inline-block py-2 text-fg-brand-bright hover:underline">한해설 Topic</Link>{" "}
             글은 사람이 쓴 글과 AI가 초안을 작성한 글이 함께 있습니다. 어느 쪽이든 발행 전
             자동 검사(빌드·문체 검사)를 통과해야 하며, 사실관계가 확인되지 않은 내용은
             본문에 그렇게 표기합니다. 오류를 발견하면 아래로 알려주시면 고칩니다.

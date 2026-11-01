@@ -106,7 +106,7 @@ export default function CommentaryPage() {
 
       <main className="mx-auto w-full max-w-[1100px] px-5 sm:px-6 py-6 sm:py-8">
         <nav className="mb-4 text-caption1 text-fg-tertiary sm:text-label1">
-          <Link href="/" className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block hover:text-fg">
+          <Link prefetch={false} href="/" className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block hover:text-fg">
             편성표
           </Link>
           <span className="px-1.5">›</span>
@@ -154,7 +154,7 @@ export default function CommentaryPage() {
                 const slug = findPlatformSlugByName(platform);
                 const label = `${platform} ${count}경기`;
                 return slug ? (
-                  <Link
+                  <Link prefetch={false}
                     key={platform}
                     href={`/platform/${slug}`}
                     className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block rounded-full border border-line-subtle px-3 py-1.5 text-caption1 text-fg transition-colors hover:border-line hover:text-fg-strong"
@@ -212,7 +212,7 @@ export default function CommentaryPage() {
           <h2 className="text-label1 font-semibold text-fg-strong sm:text-headline1">채널별 해설 편성 보기</h2>
           <div className="mt-3 flex flex-wrap gap-2">
             {PLATFORM_SEO.map((p) => (
-              <Link
+              <Link prefetch={false}
                 key={p.slug}
                 href={`/platform/${p.slug}`}
                 className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block rounded-lg border border-line bg-muted px-2.5 py-1 text-caption1 text-fg transition-colors hover:bg-muted hover:text-fg-strong"

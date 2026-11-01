@@ -94,7 +94,7 @@ export default function AsianGamesPlayersPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <nav aria-label="경로" className="mt-4 text-caption1 text-fg-tertiary sm:mt-6">
-        <Link href="/asian-games" className="relative underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
+        <Link prefetch={false} href="/asian-games" className="relative underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong">
           아시안게임
         </Link>
         {" › "}선수단
@@ -115,7 +115,7 @@ export default function AsianGamesPlayersPage() {
           </h2>
           <p className="mt-2 text-label1 leading-relaxed text-fg break-keep">{gr.players.join(" · ")}</p>
           {gr.slug && (
-            <Link
+            <Link prefetch={false}
               href={`/asian-games/${gr.slug}`}
               className="relative mt-2 inline-block text-label1 text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong"
             >

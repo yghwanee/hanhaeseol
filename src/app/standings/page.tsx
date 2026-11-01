@@ -125,7 +125,7 @@ export default function StandingsPage() {
           </p>
           <div className="mt-3 grid grid-cols-2 gap-2 sm:grid-cols-3">
             {STANDINGS_LEAGUES.map((l) => (
-              <Link
+              <Link prefetch={false}
                 key={l.slug}
                 href={`/standings/${l.slug}`}
                 className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block rounded-lg border border-line bg-surface px-3 py-2 text-caption1 text-fg transition-colors hover:border-line-strong hover:text-fg-strong sm:text-label1"

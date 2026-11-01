@@ -1387,3 +1387,5 @@ AI Assistant 8일 30세션(28일 471 → 거의 소멸) · Vercel 30일 FOT 11.7
 **2026-11-01 진짜 원인과 최종 복구.** 위 「클라우드 IP 차단」과 「집 PC 복구」는 틀렸거나 임시였다. 같은 GH 러너에서 실제 Chromium 은 200, 브라우저 헤더·HTTP/2 를 넣은 curl·Node 는 무응답이다. IP 가 아니라 요청 방식(지문으로 추정)으로 거른다. 화니 승인으로 GH 수집을 Chromium 경유로 옮기고(`tools/naver-browser-preload.mjs`, 끄려면 워크플로의 NODE_OPTIONS 만 뺀다), 폴러를 `live-relay.ts` 로 바꿨다. 집 PC 스케줄러 2개는 삭제했다. 네이버 공식 API 가 아니라 필터가 강화되면 다시 멈출 수 있다.
 
 **같은 날 라인업·하이라이트 복구.** `/api/lineup`·`/api/lineup-baseball` 도 Vercel 에서 막혀 있어 중계기가 원문을 받아 Runtime Cache(14일)에 올리고 라우트가 먼저 읽는다. 지난 경기 채우기 = `gh workflow run push-live.yml -f lineup_days=14`. 하이라이트는 매시 수집이 최근 14일 빈 경기를 10건씩 돌아가며 메운다.
+
+**2026-11-01 Vercel 사용량 절감(실측 기반).** 홈 방문 1회 prefetch RSC 12건·1.2MB(압축 해제) → 전 Link `prefetch={false}`. Vercel 에서 실패가 확정된 네이버 호출 4곳 제거. 라인업 CDN 캐시 120초→600초(없을 때 30초→300초). 중계 업로드는 매분 → 스코어·상태 변화 시 + 3분 간격. 실제 한도 수치는 대시보드에서 확인해야 한다(Hobby 는 API 로 못 잰다).

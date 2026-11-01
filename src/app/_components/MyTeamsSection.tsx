@@ -168,7 +168,7 @@ export function MyTeamsSection({
 
             {r.game ? (
               <>
-                <Link
+                <Link prefetch={false}
                   href={`/match/${matchToSlug(r.game)}`}
                   className="absolute inset-0 z-0 rounded-lg"
                   aria-label={`${r.teamName} 다음 경기 상세 보기`}

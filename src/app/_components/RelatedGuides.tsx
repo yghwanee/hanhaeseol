@@ -21,7 +21,7 @@ export default function RelatedGuides({
       <ul className="mt-2 divide-y divide-line-subtle">
         {guides.map((g) => (
           <li key={g.slug}>
-            <Link href={`/guide/${g.slug}`} className="group block py-3">
+            <Link prefetch={false} href={`/guide/${g.slug}`} className="group block py-3">
               <span className="block text-caption1 text-fg-tertiary tabular-nums">
                 {g.category ? `${g.category} · ` : ""}
                 {g.date.slice(5).replace("-", ".")}
@@ -34,7 +34,7 @@ export default function RelatedGuides({
         ))}
       </ul>
       <p className="mt-1 text-right text-caption1 text-fg-tertiary">
-        <Link href="/guide" className="-my-2 inline-block py-2 hover:text-fg">
+        <Link prefetch={false} href="/guide" className="-my-2 inline-block py-2 hover:text-fg">
           Topic 전체 보기 ›
         </Link>
       </p>

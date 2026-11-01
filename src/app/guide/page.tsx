@@ -38,7 +38,7 @@ export default function GuideIndexPage() {
         <ul className="mt-6 divide-y divide-line-subtle">
           {guides.map((g) => (
             <li key={g.slug} className="py-5">
-              <Link href={`/guide/${g.slug}`} className="group block">
+              <Link prefetch={false} href={`/guide/${g.slug}`} className="group block">
                 <div className="flex items-center gap-2">
                   {g.category ? (
                     <span className="rounded-full bg-muted px-2 py-0.5 text-caption1 font-medium text-fg">

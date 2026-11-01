@@ -202,7 +202,7 @@ export function SportScheduleLive({
             </div>
             {/* e스포츠 페이지의 롤 묶음 → 롤 전용 페이지(국가대표 명단). 롤 페이지 자신에서는 안 단다. */}
             {!onlyEvent && title.startsWith("리그 오브 레전드") && (
-              <Link
+              <Link prefetch={false}
                 href="/asian-games/lol"
                 className="relative mt-1 inline-block text-label1 text-fg underline underline-offset-2 after:absolute after:-inset-y-2 after:content-[''] hover:text-fg-strong"
               >

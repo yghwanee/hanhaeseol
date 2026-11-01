@@ -144,7 +144,7 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
           <>
             {/* 가을야구 허브로 가는 유일한 상시 링크. KBO 에서 최다 클릭 페이지가 여기다. */}
             {meta.slug === "kbo" && (
-              <Link
+              <Link prefetch={false}
                 href="/postseason/kbo"
                 className="mb-4 block rounded-xl border border-line-subtle bg-subtle px-4 py-3 text-label1 text-fg hover:border-line hover:text-fg-strong"
               >
@@ -177,7 +177,7 @@ export default function LeaguePage({ params }: { params: { slug: string } }) {
             </h2>
             <div className="mt-3 flex flex-wrap gap-2">
               {teams.map((t) => (
-                <Link
+                <Link prefetch={false}
                   key={t.slug}
                   href={`/team/${encodeURIComponent(t.slug)}`}
                   className="relative after:absolute after:inset-x-0 after:-inset-y-1.5 after:content-[''] inline-block rounded-full border border-line-subtle px-3 py-1.5 text-caption1 text-fg hover:border-line hover:text-fg-strong"

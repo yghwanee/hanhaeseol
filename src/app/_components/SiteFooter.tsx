@@ -45,7 +45,7 @@ export function SiteFooter() {
           className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 text-label1 text-fg-secondary"
         >
           {MENU.map((m) => (
-            <Link key={m.href} href={m.href} className="-my-2 inline-block py-2 hover:text-fg-strong">
+            <Link prefetch={false} key={m.href} href={m.href} className="-my-2 inline-block py-2 hover:text-fg-strong">
               {m.label}
             </Link>
           ))}

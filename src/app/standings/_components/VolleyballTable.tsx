@@ -45,7 +45,7 @@ export function VolleyballTable({ teams, teamLinks }: { teams: VolleyballStandin
                     <span className="inline-block h-[18px] w-[18px] shrink-0 rounded-full bg-muted sm:h-[22px] sm:w-[22px]" />
                   )}
                   {teamLinks?.[t.teamName] ? (
-                    <Link href={teamLinks[t.teamName]} className="truncate font-medium text-fg-strong hover:text-fg-brand-bright hover:underline underline-offset-2">
+                    <Link prefetch={false} href={teamLinks[t.teamName]} className="truncate font-medium text-fg-strong hover:text-fg-brand-bright hover:underline underline-offset-2">
                       {t.teamName}
                     </Link>
                   ) : (

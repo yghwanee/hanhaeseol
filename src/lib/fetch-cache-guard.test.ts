@@ -125,8 +125,8 @@ test("Next 런타임에서 도달 가능한 GET fetch 는 캐시 의도를 명�
   // 스캐너가 조용히 0개를 훑는 회귀 방지(경로/해석이 깨지면 여기서 잡힌다).
   assert.ok(files.length > 50, `도달 파일이 ${files.length}개뿐 — 스캐너가 깨졌다`);
   assert.ok(
-    files.some((f) => f.endsWith(path.join("lib", "results", "naver.ts"))),
-    "src/lib/results/naver.ts 가 도달 목록에 없다 — import 해석이 깨졌다",
+    files.some((f) => f.endsWith(path.join("lib", "live-relay.ts"))),
+    "src/lib/live-relay.ts 가 도달 목록에 없다 — import 해석이 깨졌다",
   );
 
   const violations = files.flatMap(scan);

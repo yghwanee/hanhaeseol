@@ -961,7 +961,7 @@ export default function ScheduleClient({
           해설 경기만 모아서 보려면{" "}
           {/* `/commentary` 로 가는 유일한 문맥 링크. 푸터 메뉴 링크는 전 페이지 공통이라
               문맥 가중치가 없다. 앵커를 키워드 그대로 둘 것 — 이 페이지가 노리는 쿼리다. */}
-          <Link href="/commentary" className="-my-2 inline-block py-2 text-fg underline underline-offset-2 hover:text-fg-strong">
+          <Link prefetch={false} href="/commentary" className="-my-2 inline-block py-2 text-fg underline underline-offset-2 hover:text-fg-strong">
             한국어 해설 중계 일정
           </Link>
           을 확인하세요.

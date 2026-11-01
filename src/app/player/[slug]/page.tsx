@@ -250,11 +250,11 @@ export default function PlayerPage({ params }: { params: { slug: string } }) {
 
       <main className="mx-auto w-full max-w-[1100px] px-5 sm:px-6 py-6 sm:py-8">
         <nav className="mb-4 text-caption1 text-fg-tertiary sm:text-label1">
-          <Link href="/" className="-my-2 inline-block py-2 hover:text-fg">
+          <Link prefetch={false} href="/" className="-my-2 inline-block py-2 hover:text-fg">
             편성표
           </Link>
           <span className="px-1.5">›</span>
-          <Link
+          <Link prefetch={false}
             href={leagueHubHref(team.leagueSlug)}
             className="-my-2 inline-block py-2 hover:text-fg"
           >
@@ -326,7 +326,7 @@ export default function PlayerPage({ params }: { params: { slug: string } }) {
             )}
           </p>
           <p className="mt-3 text-caption1 text-fg-tertiary">
-            <Link
+            <Link prefetch={false}
               href={`/team/${encodeURIComponent(team.slug)}`}
               className="-my-2 inline-block py-2 hover:text-fg"
             >
@@ -360,7 +360,7 @@ export default function PlayerPage({ params }: { params: { slug: string } }) {
             </h2>
             <div className="mt-3 flex flex-wrap gap-2">
               {siblings.map((s) => (
-                <Link
+                <Link prefetch={false}
                   key={s.slug}
                   href={`/player/${encodeURIComponent(s.slug)}`}
                   className="w-chip w-chip--sm"
@@ -401,7 +401,7 @@ export default function PlayerPage({ params }: { params: { slug: string } }) {
         <p className="mt-6 text-caption1 text-fg-tertiary">
           {player.name}
           {josa(player.name, "이/가")} 뛰는 {team.leagueName} 전체 편성은{" "}
-          <Link
+          <Link prefetch={false}
             href={`/league/${team.leagueSlug}`}
             className="-my-2 inline-block py-2 underline hover:text-fg"
           >
