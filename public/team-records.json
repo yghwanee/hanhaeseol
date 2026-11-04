@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-04T06:07:21.145Z",
+  "lastUpdated": "2026-11-04T14:24:10.468Z",
   "records": {
     "KBO": {
       "KT": {
@@ -1910,8 +1910,8 @@
         "lose": 7,
         "draw": 7,
         "streak": {
-          "count": 1,
-          "type": "L"
+          "count": 2,
+          "type": "D"
         }
       },
       "울산": {
@@ -1921,7 +1921,7 @@
         "draw": 6,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "D"
         }
       },
       "대전": {
@@ -1940,7 +1940,7 @@
         "lose": 11,
         "draw": 10,
         "streak": {
-          "count": 2,
+          "count": 1,
           "type": "W"
         }
       },
@@ -1960,8 +1960,8 @@
         "lose": 8,
         "draw": 15,
         "streak": {
-          "count": 1,
-          "type": "L"
+          "count": 2,
+          "type": "D"
         }
       },
       "제주": {
@@ -1970,8 +1970,8 @@
         "lose": 11,
         "draw": 11,
         "streak": {
-          "count": 1,
-          "type": "D"
+          "count": 3,
+          "type": "L"
         }
       },
       "안양": {
@@ -1980,8 +1980,8 @@
         "lose": 10,
         "draw": 13,
         "streak": {
-          "count": 1,
-          "type": "W"
+          "count": 2,
+          "type": "D"
         }
       },
       "포항": {
@@ -1990,7 +1990,7 @@
         "lose": 13,
         "draw": 10,
         "streak": {
-          "count": 3,
+          "count": 2,
           "type": "D"
         }
       },
@@ -2010,7 +2010,7 @@
         "lose": 16,
         "draw": 11,
         "streak": {
-          "count": 5,
+          "count": 4,
           "type": "L"
         }
       },
@@ -2043,7 +2043,7 @@
         "draw": 9,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "L"
         }
       },
       "서울E": {
@@ -2119,7 +2119,7 @@
         "draw": 7,
         "streak": {
           "count": 1,
-          "type": "W"
+          "type": "D"
         }
       },
       "용인": {
@@ -2138,7 +2138,7 @@
         "lose": 10,
         "draw": 14,
         "streak": {
-          "count": 3,
+          "count": 2,
           "type": "L"
         }
       },
@@ -2148,8 +2148,8 @@
         "lose": 11,
         "draw": 11,
         "streak": {
-          "count": 1,
-          "type": "D"
+          "count": 3,
+          "type": "L"
         }
       },
       "천안": {
@@ -2158,8 +2158,8 @@
         "lose": 11,
         "draw": 12,
         "streak": {
-          "count": 1,
-          "type": "D"
+          "count": 2,
+          "type": "W"
         }
       },
       "전남": {
@@ -2168,8 +2168,8 @@
         "lose": 14,
         "draw": 10,
         "streak": {
-          "count": 1,
-          "type": "D"
+          "count": 2,
+          "type": "L"
         }
       },
       "안산": {
@@ -2178,7 +2178,7 @@
         "lose": 19,
         "draw": 4,
         "streak": {
-          "count": 2,
+          "count": 1,
           "type": "L"
         }
       },
@@ -2189,7 +2189,7 @@
         "draw": 9,
         "streak": {
           "count": 1,
-          "type": "D"
+          "type": "W"
         }
       }
     },
@@ -2909,10 +2909,10 @@
         "wra": 0.9
       },
       "서울 SK": {
-        "last5": "WWWWW",
+        "last5": "LWWWW",
         "win": 5,
-        "lose": 1,
-        "wra": 0.83333333
+        "lose": 2,
+        "wra": 0.71428571
       },
       "안양 정관장": {
         "last5": "WLLLW",
@@ -2926,14 +2926,14 @@
         "lose": 5,
         "wra": 0.54545455
       },
+      "대구 한국가스공사": {
+        "last5": "WLWWL",
+        "win": 6,
+        "lose": 6,
+        "wra": 0.5
+      },
       "수원 KT": {
         "last5": "WWLLL",
-        "win": 5,
-        "lose": 6,
-        "wra": 0.45454545
-      },
-      "대구 한국가스공사": {
-        "last5": "LWWLL",
         "win": 5,
         "lose": 6,
         "wra": 0.45454545
@@ -3192,15 +3192,20 @@
         "win": 1,
         "lose": 0
       },
+      "OK저축은행": {
+        "last5": "W",
+        "win": 1,
+        "lose": 0
+      },
       "삼성화재": {
         "last5": "W",
         "win": 1,
         "lose": 0
       },
       "KB손해보험": {
-        "last5": "L",
+        "last5": "LL",
         "win": 0,
-        "lose": 1
+        "lose": 2
       },
       "현대캐피탈": {
         "last5": "L",
