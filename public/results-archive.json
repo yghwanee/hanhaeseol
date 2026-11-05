@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-05T10:46:07.354Z",
+  "lastUpdated": "2026-11-05T18:42:25.337Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -79072,7 +79072,8 @@
           "player": "사전트",
           "minute": 86
         }
-      ]
+      ],
+      "highlightVideoId": "oW0xbGgqrH0"
     },
     "2026-10-29|mls|뉴욕 시티 FC|애틀란타": {
       "date": "2026-10-29",
@@ -79101,7 +79102,8 @@
           "minute": 90,
           "addedTime": 5
         }
-      ]
+      ],
+      "highlightVideoId": "GFJ2DIVzo-E"
     },
     "2026-10-29|mls|샬럿 FC|몬트리얼": {
       "date": "2026-10-29",
@@ -85307,6 +85309,28 @@
       "status": "finished",
       "period": "경기종료"
     },
+    "2026-11-05|kbl|울산 현대모비스|서울 삼성": {
+      "date": "2026-11-05",
+      "categoryId": "kbl",
+      "gameId": "202611051035490154",
+      "homeTeam": "울산 현대모비스",
+      "awayTeam": "서울 삼성",
+      "homeScore": 76,
+      "awayScore": 81,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-05|kovo|삼성화재|현대캐피탈": {
+      "date": "2026-11-05",
+      "categoryId": "kovo",
+      "gameId": "20261105023M9",
+      "homeTeam": "삼성화재",
+      "awayTeam": "현대캐피탈",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
+    },
     "2026-11-05|nba|디트로이트|필라델피아": {
       "date": "2026-11-05",
       "categoryId": "nba",
@@ -85460,6 +85484,17 @@
       "awayScore": 117,
       "status": "finished",
       "period": "1차 연장"
+    },
+    "2026-11-05|wkovo|SOOP|한국도로공사": {
+      "date": "2026-11-05",
+      "categoryId": "wkovo",
+      "gameId": "20261105023F10",
+      "homeTeam": "SOOP",
+      "awayTeam": "한국도로공사",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
     }
   },
   "results": [
@@ -164534,7 +164569,8 @@
           "player": "사전트",
           "minute": 86
         }
-      ]
+      ],
+      "highlightVideoId": "oW0xbGgqrH0"
     },
     {
       "date": "2026-10-29",
@@ -164563,7 +164599,8 @@
           "minute": 90,
           "addedTime": 5
         }
-      ]
+      ],
+      "highlightVideoId": "GFJ2DIVzo-E"
     },
     {
       "date": "2026-10-29",
@@ -170771,6 +170808,28 @@
     },
     {
       "date": "2026-11-05",
+      "categoryId": "kbl",
+      "gameId": "202611051035490154",
+      "homeTeam": "울산 현대모비스",
+      "awayTeam": "서울 삼성",
+      "homeScore": 76,
+      "awayScore": 81,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-05",
+      "categoryId": "kovo",
+      "gameId": "20261105023M9",
+      "homeTeam": "삼성화재",
+      "awayTeam": "현대캐피탈",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
+    },
+    {
+      "date": "2026-11-05",
       "categoryId": "nba",
       "gameId": "2026110408",
       "homeTeam": "디트로이트",
@@ -170922,6 +170981,17 @@
       "awayScore": 117,
       "status": "finished",
       "period": "1차 연장"
+    },
+    {
+      "date": "2026-11-05",
+      "categoryId": "wkovo",
+      "gameId": "20261105023F10",
+      "homeTeam": "SOOP",
+      "awayTeam": "한국도로공사",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
     }
   ]
 }
