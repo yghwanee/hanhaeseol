@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-07T00:53:15.870Z",
+  "lastUpdated": "2026-11-07T07:03:24.036Z",
   "byKey": {
     "2026-11-06|kbo|삼성|KT": {
       "date": "2026-11-06",
@@ -19,10 +19,10 @@
       "gameId": "77771107KTSS02026",
       "homeTeam": "삼성",
       "awayTeam": "KT",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 7,
+      "awayScore": 4,
+      "status": "live",
+      "period": "5회말"
     },
     "2026-11-08|kbo|삼성|KT": {
       "date": "2026-11-08",
@@ -46,27 +46,16 @@
       "status": "finished",
       "period": "4쿼터"
     },
-    "2026-11-07|kbl|원주 DB|서울 삼성": {
-      "date": "2026-11-07",
-      "categoryId": "kbl",
-      "gameId": "202611071635490157",
-      "homeTeam": "원주 DB",
-      "awayTeam": "서울 삼성",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
-    },
     "2026-11-07|kbl|창원 LG|고양 소노": {
       "date": "2026-11-07",
       "categoryId": "kbl",
       "gameId": "202611075066490156",
       "homeTeam": "창원 LG",
       "awayTeam": "소노",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 84,
+      "awayScore": 85,
+      "status": "live",
+      "period": "4쿼터"
     },
     "2026-11-07|kbl|창원 LG|소노": {
       "date": "2026-11-07",
@@ -74,10 +63,21 @@
       "gameId": "202611075066490156",
       "homeTeam": "창원 LG",
       "awayTeam": "소노",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 84,
+      "awayScore": 85,
+      "status": "live",
+      "period": "4쿼터"
+    },
+    "2026-11-07|kbl|원주 DB|서울 삼성": {
+      "date": "2026-11-07",
+      "categoryId": "kbl",
+      "gameId": "202611071635490157",
+      "homeTeam": "원주 DB",
+      "awayTeam": "서울 삼성",
+      "homeScore": 84,
+      "awayScore": 76,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-07|kbl|수원 KT|대구 한국가스공사": {
       "date": "2026-11-07",
@@ -162,10 +162,10 @@
       "gameId": "2026110601",
       "homeTeam": "애틀랜타",
       "awayTeam": "워싱턴",
-      "homeScore": 54,
-      "awayScore": 49,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 139,
+      "awayScore": 132,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-07|nba|샬럿|보스턴": {
       "date": "2026-11-07",
@@ -173,10 +173,10 @@
       "gameId": "2026110630",
       "homeTeam": "샬럿",
       "awayTeam": "보스턴",
-      "homeScore": 20,
-      "awayScore": 42,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 80,
+      "awayScore": 119,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-07|nba|클리블랜드|필라델피아": {
       "date": "2026-11-07",
@@ -184,10 +184,10 @@
       "gameId": "2026110605",
       "homeTeam": "클리블랜드",
       "awayTeam": "필라델피아",
-      "homeScore": 11,
-      "awayScore": 2,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 119,
+      "awayScore": 95,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-07|nba|뉴올리언즈|미네소타": {
       "date": "2026-11-07",
@@ -195,10 +195,10 @@
       "gameId": "2026110603",
       "homeTeam": "뉴올리언스",
       "awayTeam": "미네소타",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 109,
+      "awayScore": 115,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-07|nba|뉴올리언스|미네소타": {
       "date": "2026-11-07",
@@ -206,10 +206,10 @@
       "gameId": "2026110603",
       "homeTeam": "뉴올리언스",
       "awayTeam": "미네소타",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 109,
+      "awayScore": 115,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-07|nba|댈러스|유타": {
       "date": "2026-11-07",
@@ -217,10 +217,10 @@
       "gameId": "2026110606",
       "homeTeam": "댈러스",
       "awayTeam": "유타",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 112,
+      "awayScore": 100,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-07|nba|밀워키|토론토": {
       "date": "2026-11-07",
@@ -228,10 +228,10 @@
       "gameId": "2026110615",
       "homeTeam": "밀워키",
       "awayTeam": "토론토",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 107,
+      "awayScore": 121,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-07|nba|멤피스|오클라호마": {
       "date": "2026-11-07",
@@ -239,10 +239,10 @@
       "gameId": "2026110629",
       "homeTeam": "멤피스",
       "awayTeam": "오클라호마",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 97,
+      "awayScore": 128,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-07|nba|LA레이커스|포틀랜드": {
       "date": "2026-11-07",
@@ -250,10 +250,10 @@
       "gameId": "2026110613",
       "homeTeam": "LA 레이커스",
       "awayTeam": "포틀랜드",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 124,
+      "awayScore": 118,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-07|nba|LA 레이커스|포틀랜드": {
       "date": "2026-11-07",
@@ -261,10 +261,10 @@
       "gameId": "2026110613",
       "homeTeam": "LA 레이커스",
       "awayTeam": "포틀랜드",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 124,
+      "awayScore": 118,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-07|nba|새크라멘토|샌안토니오": {
       "date": "2026-11-07",
@@ -272,10 +272,10 @@
       "gameId": "2026110623",
       "homeTeam": "새크라멘토",
       "awayTeam": "샌안토니오",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 109,
+      "awayScore": 124,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-08|nba|인디애나|덴버": {
       "date": "2026-11-08",
@@ -364,10 +364,10 @@
       "gameId": "20261107047015",
       "homeTeam": "BNK 썸",
       "awayTeam": "신한은행",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 59,
+      "awayScore": 68,
+      "status": "live",
+      "period": "4쿼터"
     },
     "2026-11-07|wkbl|우리은행|삼성생명": {
       "date": "2026-11-07",
@@ -408,10 +408,10 @@
       "gameId": "20261107023M13",
       "homeTeam": "OK저축은행",
       "awayTeam": "우리카드",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "live",
+      "period": "4세트"
     },
     "2026-11-08|kovo|현대캐피탈|KB손해보험": {
       "date": "2026-11-08",
@@ -443,8 +443,8 @@
       "awayTeam": "현대건설",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1세트"
     },
     "2026-11-08|wkovo|한국도로공사|흥국생명": {
       "date": "2026-11-08",
@@ -1714,10 +1714,22 @@
       "gameId": "202611070422205",
       "homeTeam": "제주",
       "awayTeam": "광주",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "하승운",
+          "minute": 1
+        },
+        {
+          "team": "home",
+          "player": "박창준",
+          "minute": 45
+        }
+      ]
     },
     "2026-11-07|kleague|김천|안양": {
       "date": "2026-11-07",
@@ -1781,9 +1793,16 @@
       "homeTeam": "성남",
       "awayTeam": "대구",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에드가",
+          "minute": 83
+        }
+      ]
     },
     "2026-11-07|kleague2|수원FC|경남": {
       "date": "2026-11-07",
@@ -1791,10 +1810,27 @@
       "gameId": "202611072920250",
       "homeTeam": "수원FC",
       "awayTeam": "경남",
-      "homeScore": 0,
+      "homeScore": 3,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김도윤",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "이현용",
+          "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "하정우",
+          "minute": 65
+        }
+      ]
     },
     "2026-11-07|kleague2|서울E|전남": {
       "date": "2026-11-07",
@@ -3364,10 +3400,10 @@
       "gameId": "77771107KTSS02026",
       "homeTeam": "삼성",
       "awayTeam": "KT",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 7,
+      "awayScore": 4,
+      "status": "live",
+      "period": "5회말"
     },
     {
       "date": "2026-11-08",
@@ -3394,24 +3430,24 @@
     {
       "date": "2026-11-07",
       "categoryId": "kbl",
-      "gameId": "202611071635490157",
-      "homeTeam": "원주 DB",
-      "awayTeam": "서울 삼성",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "gameId": "202611075066490156",
+      "homeTeam": "창원 LG",
+      "awayTeam": "소노",
+      "homeScore": 84,
+      "awayScore": 85,
+      "status": "live",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-07",
       "categoryId": "kbl",
-      "gameId": "202611075066490156",
-      "homeTeam": "창원 LG",
-      "awayTeam": "소노",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "gameId": "202611071635490157",
+      "homeTeam": "원주 DB",
+      "awayTeam": "서울 삼성",
+      "homeScore": 84,
+      "awayScore": 76,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-07",
@@ -3485,10 +3521,10 @@
       "gameId": "2026110601",
       "homeTeam": "애틀랜타",
       "awayTeam": "워싱턴",
-      "homeScore": 54,
-      "awayScore": 49,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 139,
+      "awayScore": 132,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-07",
@@ -3496,10 +3532,10 @@
       "gameId": "2026110630",
       "homeTeam": "샬럿",
       "awayTeam": "보스턴",
-      "homeScore": 20,
-      "awayScore": 42,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 80,
+      "awayScore": 119,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-07",
@@ -3507,10 +3543,10 @@
       "gameId": "2026110605",
       "homeTeam": "클리블랜드",
       "awayTeam": "필라델피아",
-      "homeScore": 11,
-      "awayScore": 2,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 119,
+      "awayScore": 95,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-07",
@@ -3518,10 +3554,10 @@
       "gameId": "2026110603",
       "homeTeam": "뉴올리언스",
       "awayTeam": "미네소타",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 109,
+      "awayScore": 115,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-07",
@@ -3529,10 +3565,10 @@
       "gameId": "2026110606",
       "homeTeam": "댈러스",
       "awayTeam": "유타",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 112,
+      "awayScore": 100,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-07",
@@ -3540,10 +3576,10 @@
       "gameId": "2026110615",
       "homeTeam": "밀워키",
       "awayTeam": "토론토",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 107,
+      "awayScore": 121,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-07",
@@ -3551,10 +3587,10 @@
       "gameId": "2026110629",
       "homeTeam": "멤피스",
       "awayTeam": "오클라호마",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 97,
+      "awayScore": 128,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-07",
@@ -3562,10 +3598,10 @@
       "gameId": "2026110613",
       "homeTeam": "LA 레이커스",
       "awayTeam": "포틀랜드",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 124,
+      "awayScore": 118,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-07",
@@ -3573,10 +3609,10 @@
       "gameId": "2026110623",
       "homeTeam": "새크라멘토",
       "awayTeam": "샌안토니오",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 109,
+      "awayScore": 124,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-08",
@@ -3665,10 +3701,10 @@
       "gameId": "20261107047015",
       "homeTeam": "BNK 썸",
       "awayTeam": "신한은행",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 59,
+      "awayScore": 68,
+      "status": "live",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-07",
@@ -3709,10 +3745,10 @@
       "gameId": "20261107023M13",
       "homeTeam": "OK저축은행",
       "awayTeam": "우리카드",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "live",
+      "period": "4세트"
     },
     {
       "date": "2026-11-08",
@@ -3744,8 +3780,8 @@
       "awayTeam": "현대건설",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "1세트"
     },
     {
       "date": "2026-11-08",
@@ -4546,10 +4582,22 @@
       "gameId": "202611070422205",
       "homeTeam": "제주",
       "awayTeam": "광주",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "하승운",
+          "minute": 1
+        },
+        {
+          "team": "home",
+          "player": "박창준",
+          "minute": 45
+        }
+      ]
     },
     {
       "date": "2026-11-07",
@@ -4613,9 +4661,16 @@
       "homeTeam": "성남",
       "awayTeam": "대구",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에드가",
+          "minute": 83
+        }
+      ]
     },
     {
       "date": "2026-11-07",
@@ -4623,10 +4678,27 @@
       "gameId": "202611072920250",
       "homeTeam": "수원FC",
       "awayTeam": "경남",
-      "homeScore": 0,
+      "homeScore": 3,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "시작전"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "김도윤",
+          "minute": 21
+        },
+        {
+          "team": "home",
+          "player": "이현용",
+          "minute": 31
+        },
+        {
+          "team": "home",
+          "player": "하정우",
+          "minute": 65
+        }
+      ]
     },
     {
       "date": "2026-11-07",
