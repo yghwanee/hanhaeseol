@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-11T10:47:29.190Z",
+  "lastUpdated": "2026-11-11T18:39:23.275Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -90212,6 +90212,28 @@
       "status": "finished",
       "period": "종료"
     },
+    "2026-11-11|kbl|창원 LG|서울 SK": {
+      "date": "2026-11-11",
+      "categoryId": "kbl",
+      "gameId": "202611115055490164",
+      "homeTeam": "창원 LG",
+      "awayTeam": "서울 SK",
+      "homeScore": 101,
+      "awayScore": 72,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-11|kovo|우리카드|대한항공": {
+      "date": "2026-11-11",
+      "categoryId": "kovo",
+      "gameId": "20261111023M19",
+      "homeTeam": "우리카드",
+      "awayTeam": "대한항공",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "종료"
+    },
     "2026-11-11|nba|뉴욕|밀워키": {
       "date": "2026-11-11",
       "categoryId": "nba",
@@ -90277,6 +90299,39 @@
       "awayScore": 103,
       "status": "finished",
       "period": "4쿼터"
+    },
+    "2026-11-11|wkbl|신한은행|삼성생명": {
+      "date": "2026-11-11",
+      "categoryId": "wkbl",
+      "gameId": "20261111047019",
+      "homeTeam": "신한은행",
+      "awayTeam": "삼성생명",
+      "homeScore": 51,
+      "awayScore": 54,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-11|wkovo|현대건설|GS칼텍스": {
+      "date": "2026-11-11",
+      "categoryId": "wkovo",
+      "gameId": "20261111023F20",
+      "homeTeam": "현대건설",
+      "awayTeam": "GS칼텍스",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
+    },
+    "2026-11-13|amatchfriendly|요르단|인도네시아": {
+      "date": "2026-11-13",
+      "categoryId": "amatchfriendly",
+      "gameId": "TjuDxSUUeSpNmiU",
+      "homeTeam": "요르단",
+      "awayTeam": "인도네시아",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
     }
   },
   "results": [
@@ -180493,6 +180548,28 @@
     },
     {
       "date": "2026-11-11",
+      "categoryId": "kbl",
+      "gameId": "202611115055490164",
+      "homeTeam": "창원 LG",
+      "awayTeam": "서울 SK",
+      "homeScore": 101,
+      "awayScore": 72,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-11",
+      "categoryId": "kovo",
+      "gameId": "20261111023M19",
+      "homeTeam": "우리카드",
+      "awayTeam": "대한항공",
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "종료"
+    },
+    {
+      "date": "2026-11-11",
       "categoryId": "nba",
       "gameId": "2026111018",
       "homeTeam": "뉴욕",
@@ -180556,6 +180633,39 @@
       "awayScore": 103,
       "status": "finished",
       "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-11",
+      "categoryId": "wkbl",
+      "gameId": "20261111047019",
+      "homeTeam": "신한은행",
+      "awayTeam": "삼성생명",
+      "homeScore": 51,
+      "awayScore": 54,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-11",
+      "categoryId": "wkovo",
+      "gameId": "20261111023F20",
+      "homeTeam": "현대건설",
+      "awayTeam": "GS칼텍스",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
+    },
+    {
+      "date": "2026-11-13",
+      "categoryId": "amatchfriendly",
+      "gameId": "TjuDxSUUeSpNmiU",
+      "homeTeam": "요르단",
+      "awayTeam": "인도네시아",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "canceled",
+      "period": "경기취소"
     }
   ]
 }
