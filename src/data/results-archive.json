@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-12T09:44:54.017Z",
+  "lastUpdated": "2026-11-12T18:13:11.604Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -79165,7 +79165,8 @@
           "player": "아바다",
           "minute": 83
         }
-      ]
+      ],
+      "highlightVideoId": "nP10ByAFim0"
     },
     "2026-10-29|mls|오스틴|레알 솔트레이크": {
       "date": "2026-10-29",
@@ -90371,6 +90372,28 @@
       ],
       "highlightVideoId": "zmK7nNFTh5Q"
     },
+    "2026-11-12|kbl|대구 한국가스공사|소노": {
+      "date": "2026-11-12",
+      "categoryId": "kbl",
+      "gameId": "202611126466490165",
+      "homeTeam": "대구 한국가스공사",
+      "awayTeam": "소노",
+      "homeScore": 87,
+      "awayScore": 88,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-12|kovo|OK저축은행|현대캐피탈": {
+      "date": "2026-11-12",
+      "categoryId": "kovo",
+      "gameId": "20261112023M21",
+      "homeTeam": "OK저축은행",
+      "awayTeam": "현대캐피탈",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
+    },
     "2026-11-12|nba|인디애나|워싱턴": {
       "date": "2026-11-12",
       "categoryId": "nba",
@@ -90481,6 +90504,17 @@
       "status": "finished",
       "period": "4쿼터"
     },
+    "2026-11-12|wkovo|정관장|한국도로공사": {
+      "date": "2026-11-12",
+      "categoryId": "wkovo",
+      "gameId": "20261112023F22",
+      "homeTeam": "정관장",
+      "awayTeam": "한국도로공사",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
+    },
     "2026-11-13|amatchfriendly|요르단|인도네시아": {
       "date": "2026-11-13",
       "categoryId": "amatchfriendly",
@@ -90491,6 +90525,46 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기취소"
+    },
+    "2026-11-13|amatchfriendly|우즈베키스탄|러시아": {
+      "date": "2026-11-13",
+      "categoryId": "amatchfriendly",
+      "gameId": "KWgNxU14ZsxQrLI",
+      "homeTeam": "우즈베키스탄",
+      "awayTeam": "러시아",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "멜레킨",
+          "minute": 5,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "카리모프",
+          "minute": 46
+        },
+        {
+          "team": "away",
+          "player": "코믈리첸코",
+          "minute": 70
+        },
+        {
+          "team": "away",
+          "player": "코믈리첸코",
+          "minute": 75
+        },
+        {
+          "team": "away",
+          "player": "알렉세이 미란추크",
+          "minute": 79
+        }
+      ],
+      "highlightVideoId": "r0Oy76tMjZs"
     }
   },
   "results": [
@@ -169658,7 +169732,8 @@
           "player": "아바다",
           "minute": 83
         }
-      ]
+      ],
+      "highlightVideoId": "nP10ByAFim0"
     },
     {
       "date": "2026-10-29",
@@ -180866,6 +180941,28 @@
     },
     {
       "date": "2026-11-12",
+      "categoryId": "kbl",
+      "gameId": "202611126466490165",
+      "homeTeam": "대구 한국가스공사",
+      "awayTeam": "소노",
+      "homeScore": 87,
+      "awayScore": 88,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-12",
+      "categoryId": "kovo",
+      "gameId": "20261112023M21",
+      "homeTeam": "OK저축은행",
+      "awayTeam": "현대캐피탈",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
+    },
+    {
+      "date": "2026-11-12",
       "categoryId": "nba",
       "gameId": "2026111111",
       "homeTeam": "인디애나",
@@ -180975,6 +181072,17 @@
       "period": "4쿼터"
     },
     {
+      "date": "2026-11-12",
+      "categoryId": "wkovo",
+      "gameId": "20261112023F22",
+      "homeTeam": "정관장",
+      "awayTeam": "한국도로공사",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
+    },
+    {
       "date": "2026-11-13",
       "categoryId": "amatchfriendly",
       "gameId": "TjuDxSUUeSpNmiU",
@@ -180984,6 +181092,46 @@
       "awayScore": 0,
       "status": "canceled",
       "period": "경기취소"
+    },
+    {
+      "date": "2026-11-13",
+      "categoryId": "amatchfriendly",
+      "gameId": "KWgNxU14ZsxQrLI",
+      "homeTeam": "우즈베키스탄",
+      "awayTeam": "러시아",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "멜레킨",
+          "minute": 5,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "카리모프",
+          "minute": 46
+        },
+        {
+          "team": "away",
+          "player": "코믈리첸코",
+          "minute": 70
+        },
+        {
+          "team": "away",
+          "player": "코믈리첸코",
+          "minute": 75
+        },
+        {
+          "team": "away",
+          "player": "알렉세이 미란추크",
+          "minute": 79
+        }
+      ],
+      "highlightVideoId": "r0Oy76tMjZs"
     }
   ]
 }
