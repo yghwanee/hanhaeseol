@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-13T15:19:20.982Z",
+  "lastUpdated": "2026-11-13T21:57:23.629Z",
   "byKey": {
     "2026-11-13|kbl|원주 DB|수원 KT": {
       "date": "2026-11-13",
@@ -163,7 +163,8 @@
       "awayTeam": "뉴욕",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1쿼터"
     },
     "2026-11-14|nba|올랜도|밀워키": {
       "date": "2026-11-14",
@@ -173,7 +174,8 @@
       "awayTeam": "밀워키",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1쿼터"
     },
     "2026-11-14|nba|뉴올리언즈|멤피스": {
       "date": "2026-11-14",
@@ -441,10 +443,39 @@
       "gameId": "PzfU6tBNfC9cMz3",
       "homeTeam": "사우디아라비아",
       "awayTeam": "대한민국",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 44'"
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "마르완 알 사하피",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "away",
+          "player": "오현규",
+          "minute": 47
+        },
+        {
+          "team": "home",
+          "player": "모하메드 칸노",
+          "minute": 56
+        },
+        {
+          "team": "home",
+          "player": "압둘레라 알 암리",
+          "minute": 59
+        },
+        {
+          "team": "away",
+          "player": "이재성",
+          "minute": 68
+        }
+      ],
+      "highlightVideoId": "TPDLDLIE3po"
     },
     "2026-11-13|amatchfriendly|요르단|인도네시아": {
       "date": "2026-11-13",
@@ -575,10 +606,10 @@
       "gameId": "RWyOPTbDAViNPLk",
       "homeTeam": "아랍에미리트",
       "awayTeam": "온두라스",
-      "homeScore": 1,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 4'",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -589,6 +620,16 @@
           "team": "home",
           "player": "브루노",
           "minute": 48
+        },
+        {
+          "team": "away",
+          "player": "토로",
+          "minute": 52
+        },
+        {
+          "team": "home",
+          "player": "모하마드 주마 알 만수리",
+          "minute": 87
         }
       ]
     },
@@ -599,9 +640,9 @@
       "homeTeam": "카타르",
       "awayTeam": "호주",
       "homeScore": 0,
-      "awayScore": 2,
-      "status": "live",
-      "period": "전반 34'",
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -612,6 +653,11 @@
           "team": "away",
           "player": "옝기",
           "minute": 32
+        },
+        {
+          "team": "away",
+          "player": "이란쿤다",
+          "minute": 40
         }
       ]
     },
@@ -950,10 +996,27 @@
       "gameId": "mUlOaj3g1CHKV9A",
       "homeTeam": "몰도바",
       "awayTeam": "카자흐스탄",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "포페스쿠",
+          "minute": 39
+        },
+        {
+          "team": "away",
+          "player": "체스노코프",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "포페스쿠",
+          "minute": 77
+        }
+      ]
     },
     "2026-11-14|unl|불가리아|아이슬란드": {
       "date": "2026-11-14",
@@ -962,9 +1025,37 @@
       "homeTeam": "불가리아",
       "awayTeam": "아이슬란드",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "그뷔드욘센",
+          "minute": 17
+        },
+        {
+          "team": "away",
+          "player": "오스카르손",
+          "minute": 21
+        },
+        {
+          "team": "away",
+          "player": "체노프",
+          "minute": 52,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "그뷔드욘센",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "그뷔드욘센",
+          "minute": 79
+        }
+      ]
     },
     "2026-11-14|unl|안도라|지브롤터": {
       "date": "2026-11-14",
@@ -972,10 +1063,23 @@
       "gameId": "5nZTkTrN07wNa2l",
       "homeTeam": "안도라",
       "awayTeam": "지브롤터",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "로페즈",
+          "minute": 24
+        },
+        {
+          "team": "home",
+          "player": "베르토 로사스",
+          "minute": 35
+        }
+      ],
+      "highlightVideoId": "rWl3snAZyHE"
     },
     "2026-11-14|unl|네덜란드|그리스": {
       "date": "2026-11-14",
@@ -983,10 +1087,48 @@
       "gameId": "bymk8hCgjjiqyXC",
       "homeTeam": "네덜란드",
       "awayTeam": "그리스",
-      "homeScore": 0,
+      "homeScore": 7,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "서머빌",
+          "minute": 6
+        },
+        {
+          "team": "home",
+          "player": "라인더르스",
+          "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "라인더르스",
+          "minute": 18
+        },
+        {
+          "team": "home",
+          "player": "라인더르스",
+          "minute": 33
+        },
+        {
+          "team": "home",
+          "player": "위리엔 팀버르",
+          "minute": 40
+        },
+        {
+          "team": "home",
+          "player": "위리엔 팀버르",
+          "minute": 59
+        },
+        {
+          "team": "home",
+          "player": "말런",
+          "minute": 61
+        }
+      ],
+      "highlightVideoId": "2wWab0azaoI"
     },
     "2026-11-14|unl|세르비아|독일": {
       "date": "2026-11-14",
@@ -994,10 +1136,34 @@
       "gameId": "eBMlZBYiU3bL3RJ",
       "homeTeam": "세르비아",
       "awayTeam": "독일",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "바비치",
+          "minute": 3,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "비르츠",
+          "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "그루다",
+          "minute": 50
+        },
+        {
+          "team": "home",
+          "player": "바비치",
+          "minute": 56
+        }
+      ],
+      "highlightVideoId": "EvM9W8FiYww"
     },
     "2026-11-14|unl|슬로바키아|페로 제도": {
       "date": "2026-11-14",
@@ -1005,10 +1171,32 @@
       "gameId": "KxYl2hiHc85moJE",
       "homeTeam": "슬로바키아",
       "awayTeam": "페로 제도",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "프레콥",
+          "minute": 17
+        },
+        {
+          "team": "away",
+          "player": "데이빗슨",
+          "minute": 30
+        },
+        {
+          "team": "away",
+          "player": "사무엘센",
+          "minute": 47
+        },
+        {
+          "team": "home",
+          "player": "하라슬린",
+          "minute": 74
+        }
+      ]
     },
     "2026-11-14|unl|룩셈부르크|에스토니아": {
       "date": "2026-11-14",
@@ -1017,9 +1205,16 @@
       "homeTeam": "룩셈부르크",
       "awayTeam": "에스토니아",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "파스코치",
+          "minute": 42
+        }
+      ]
     },
     "2026-11-14|unl|리히텐슈타인|아제르바이잔": {
       "date": "2026-11-14",
@@ -1028,9 +1223,16 @@
       "homeTeam": "리히텐슈타인",
       "awayTeam": "아제르바이잔",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에므렐리",
+          "minute": 26
+        }
+      ]
     },
     "2026-11-14|unl|스코틀랜드|북마케도니아": {
       "date": "2026-11-14",
@@ -1038,10 +1240,28 @@
       "gameId": "R70Tn0TEfnx2gr4",
       "homeTeam": "스코틀랜드",
       "awayTeam": "북마케도니아",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "맥긴",
+          "minute": 54
+        },
+        {
+          "team": "away",
+          "player": "라스토더",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "맥긴",
+          "minute": 74
+        }
+      ],
+      "highlightVideoId": "rwvjcjZ248g"
     },
     "2026-11-14|unl|슬로베니아|스위스": {
       "date": "2026-11-14",
@@ -1051,8 +1271,8 @@
       "awayTeam": "스위스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료"
     },
     "2026-11-14|unl|코소보|이스라엘": {
       "date": "2026-11-14",
@@ -1295,7 +1515,8 @@
       "awayTeam": "뉴욕",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1쿼터"
     },
     {
       "date": "2026-11-14",
@@ -1305,7 +1526,8 @@
       "awayTeam": "밀워키",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1쿼터"
     },
     {
       "date": "2026-11-14",
@@ -1543,10 +1765,39 @@
       "gameId": "PzfU6tBNfC9cMz3",
       "homeTeam": "사우디아라비아",
       "awayTeam": "대한민국",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 44'"
+      "homeScore": 3,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "마르완 알 사하피",
+          "minute": 45,
+          "addedTime": 1
+        },
+        {
+          "team": "away",
+          "player": "오현규",
+          "minute": 47
+        },
+        {
+          "team": "home",
+          "player": "모하메드 칸노",
+          "minute": 56
+        },
+        {
+          "team": "home",
+          "player": "압둘레라 알 암리",
+          "minute": 59
+        },
+        {
+          "team": "away",
+          "player": "이재성",
+          "minute": 68
+        }
+      ],
+      "highlightVideoId": "TPDLDLIE3po"
     },
     {
       "date": "2026-11-13",
@@ -1677,10 +1928,10 @@
       "gameId": "RWyOPTbDAViNPLk",
       "homeTeam": "아랍에미리트",
       "awayTeam": "온두라스",
-      "homeScore": 1,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 4'",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -1691,6 +1942,16 @@
           "team": "home",
           "player": "브루노",
           "minute": 48
+        },
+        {
+          "team": "away",
+          "player": "토로",
+          "minute": 52
+        },
+        {
+          "team": "home",
+          "player": "모하마드 주마 알 만수리",
+          "minute": 87
         }
       ]
     },
@@ -1701,9 +1962,9 @@
       "homeTeam": "카타르",
       "awayTeam": "호주",
       "homeScore": 0,
-      "awayScore": 2,
-      "status": "live",
-      "period": "전반 34'",
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -1714,6 +1975,11 @@
           "team": "away",
           "player": "옝기",
           "minute": 32
+        },
+        {
+          "team": "away",
+          "player": "이란쿤다",
+          "minute": 40
         }
       ]
     },
@@ -2052,10 +2318,27 @@
       "gameId": "mUlOaj3g1CHKV9A",
       "homeTeam": "몰도바",
       "awayTeam": "카자흐스탄",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "포페스쿠",
+          "minute": 39
+        },
+        {
+          "team": "away",
+          "player": "체스노코프",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "포페스쿠",
+          "minute": 77
+        }
+      ]
     },
     {
       "date": "2026-11-14",
@@ -2064,9 +2347,37 @@
       "homeTeam": "불가리아",
       "awayTeam": "아이슬란드",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "그뷔드욘센",
+          "minute": 17
+        },
+        {
+          "team": "away",
+          "player": "오스카르손",
+          "minute": 21
+        },
+        {
+          "team": "away",
+          "player": "체노프",
+          "minute": 52,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "그뷔드욘센",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "그뷔드욘센",
+          "minute": 79
+        }
+      ]
     },
     {
       "date": "2026-11-14",
@@ -2074,10 +2385,23 @@
       "gameId": "5nZTkTrN07wNa2l",
       "homeTeam": "안도라",
       "awayTeam": "지브롤터",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "로페즈",
+          "minute": 24
+        },
+        {
+          "team": "home",
+          "player": "베르토 로사스",
+          "minute": 35
+        }
+      ],
+      "highlightVideoId": "rWl3snAZyHE"
     },
     {
       "date": "2026-11-14",
@@ -2085,10 +2409,48 @@
       "gameId": "bymk8hCgjjiqyXC",
       "homeTeam": "네덜란드",
       "awayTeam": "그리스",
-      "homeScore": 0,
+      "homeScore": 7,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "서머빌",
+          "minute": 6
+        },
+        {
+          "team": "home",
+          "player": "라인더르스",
+          "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "라인더르스",
+          "minute": 18
+        },
+        {
+          "team": "home",
+          "player": "라인더르스",
+          "minute": 33
+        },
+        {
+          "team": "home",
+          "player": "위리엔 팀버르",
+          "minute": 40
+        },
+        {
+          "team": "home",
+          "player": "위리엔 팀버르",
+          "minute": 59
+        },
+        {
+          "team": "home",
+          "player": "말런",
+          "minute": 61
+        }
+      ],
+      "highlightVideoId": "2wWab0azaoI"
     },
     {
       "date": "2026-11-14",
@@ -2096,10 +2458,34 @@
       "gameId": "eBMlZBYiU3bL3RJ",
       "homeTeam": "세르비아",
       "awayTeam": "독일",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "바비치",
+          "minute": 3,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "비르츠",
+          "minute": 14
+        },
+        {
+          "team": "away",
+          "player": "그루다",
+          "minute": 50
+        },
+        {
+          "team": "home",
+          "player": "바비치",
+          "minute": 56
+        }
+      ],
+      "highlightVideoId": "EvM9W8FiYww"
     },
     {
       "date": "2026-11-14",
@@ -2107,10 +2493,32 @@
       "gameId": "KxYl2hiHc85moJE",
       "homeTeam": "슬로바키아",
       "awayTeam": "페로 제도",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "프레콥",
+          "minute": 17
+        },
+        {
+          "team": "away",
+          "player": "데이빗슨",
+          "minute": 30
+        },
+        {
+          "team": "away",
+          "player": "사무엘센",
+          "minute": 47
+        },
+        {
+          "team": "home",
+          "player": "하라슬린",
+          "minute": 74
+        }
+      ]
     },
     {
       "date": "2026-11-14",
@@ -2119,9 +2527,16 @@
       "homeTeam": "룩셈부르크",
       "awayTeam": "에스토니아",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "파스코치",
+          "minute": 42
+        }
+      ]
     },
     {
       "date": "2026-11-14",
@@ -2130,9 +2545,16 @@
       "homeTeam": "리히텐슈타인",
       "awayTeam": "아제르바이잔",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "에므렐리",
+          "minute": 26
+        }
+      ]
     },
     {
       "date": "2026-11-14",
@@ -2140,10 +2562,28 @@
       "gameId": "R70Tn0TEfnx2gr4",
       "homeTeam": "스코틀랜드",
       "awayTeam": "북마케도니아",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "맥긴",
+          "minute": 54
+        },
+        {
+          "team": "away",
+          "player": "라스토더",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "맥긴",
+          "minute": 74
+        }
+      ],
+      "highlightVideoId": "rwvjcjZ248g"
     },
     {
       "date": "2026-11-14",
@@ -2153,8 +2593,8 @@
       "awayTeam": "스위스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료"
     },
     {
       "date": "2026-11-14",
