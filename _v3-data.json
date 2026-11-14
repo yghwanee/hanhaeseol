@@ -1,0 +1,113 @@
+{
+  "mast": "TOMORROW",
+  "dateLong": "11월 15일 일요일",
+  "dateShort": "11.15",
+  "hero": {
+    "home": "푸에르토리코",
+    "away": "대한민국",
+    "league": "U-23 야구 월드컵",
+    "when": "새벽 3시, SPOTV NOW"
+  },
+  "slides": [
+    {
+      "kind": "hero",
+      "ball": "baseball"
+    },
+    {
+      "kind": "match",
+      "title": "경기 정보",
+      "ball": "baseball",
+      "matchup": "푸에르토리코 vs 대한민국",
+      "time": "03:00",
+      "platform": "SPOTV NOW"
+    },
+    {
+      "kind": "list",
+      "title": "KBL 3경기",
+      "ball": "basketball",
+      "rows": [
+        {
+          "time": "14:00",
+          "home": "고양 소노",
+          "away": "원주 DB",
+          "matchup": "고양 소노 vs 원주 DB",
+          "platform": "tvN SPORTS"
+        },
+        {
+          "time": "16:30",
+          "home": "부산 KCC",
+          "away": "대구 한국가스공사",
+          "matchup": "부산 KCC vs 대구 한국가스공사",
+          "platform": "tvN SPORTS"
+        },
+        {
+          "time": "16:30",
+          "home": "창원 LG",
+          "away": "수원 KT",
+          "matchup": "창원 LG vs 수원 KT",
+          "platform": "티빙"
+        }
+      ],
+      "more": 0
+    },
+    {
+      "kind": "list",
+      "title": "V리그 2경기",
+      "ball": "volleyball",
+      "rows": [
+        {
+          "time": "13:55",
+          "home": "우리카드",
+          "away": "현대캐피탈",
+          "matchup": "우리카드 vs 현대캐피탈",
+          "platform": "KBS N SPORTS"
+        },
+        {
+          "time": "15:45",
+          "home": "현대건설",
+          "away": "한국도로공사",
+          "matchup": "현대건설 vs 한국도로공사",
+          "platform": "SBS Sports"
+        }
+      ],
+      "more": 0
+    },
+    {
+      "kind": "summary",
+      "title": "내일 한눈에",
+      "ball": "baseball",
+      "rows": [
+        {
+          "time": "02:00",
+          "sport": "축구",
+          "label": "노르웨이 vs 웨일스"
+        },
+        {
+          "time": "03:00",
+          "sport": "야구",
+          "label": "푸에르토리코 vs 대한민국"
+        },
+        {
+          "time": "09:30",
+          "sport": "농구",
+          "label": "댈러스 vs 클리블랜드"
+        },
+        {
+          "time": "13:55",
+          "sport": "배구",
+          "label": "V리그 2경기"
+        }
+      ]
+    }
+  ],
+  "color": {
+    "stub": "#1F5BFF",
+    "acc": "#1A4FE0",
+    "hero": "#8FB2FF",
+    "bgA": "#0b1a45",
+    "bgB": "#0c0d10"
+  },
+  "photo": "file:///home/runner/work/hanhaeseol/hanhaeseol/templates/instagram/hooks/tai00080004329_l.jpg",
+  "logo": "file:///home/runner/work/hanhaeseol/hanhaeseol/assets/logo.png",
+  "noUrl": false
+}
