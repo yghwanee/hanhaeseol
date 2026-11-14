@@ -95,6 +95,13 @@ const KNOWN_UNSUPPORTED = new Set([
   // /schedule/games 에 asiangames·asiangame·asian·aichinagoya2026·2026asiangames·agames 전부 400.
   // 네이버는 종합대회를 일반 리그 API 가 아니라 별도 이벤트 앱(/asiangames2026/*)으로 다룬다.
   "아이치·나고야 아시안게임",
+  // 2026-11-14 실측(쿠팡플레이 — NBA G리그 립시티 vs 스탁턴 11/14·11/16, 연령별 대표팀 대한민국 vs 멕시코 11/17).
+  // 11/13~11/18 창으로 /schedule/games 에 브라우저 경유(naver-browser-preload) 조회.
+  //   G리그: gleague·nbagleague·nbag·nbadl·dleague·g-league·gl 전부 400. `nba` 는 200·40경기인데 G리그 경기 없음.
+  //   연령별: u23·u22·u20·u21·u17·olympic·youth·afcu23·amatchu 전부 400. `amatch` 는 200 이지만 성인 대표팀
+  //   2경기(사우디·카타르전)뿐이고 멕시코전이 없다. `u23asiancup` 은 200·0건(다른 대회).
+  "NBA G리그",
+  "연령별 남자축구 국가대표팀",
 ]);
 
 const schedules = (scheduleData as unknown as ScheduleData).schedules;
