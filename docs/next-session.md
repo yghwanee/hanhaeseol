@@ -1,10 +1,23 @@
-# 다음 세션에서 바로 시작할 것 (2026-10-23 갱신 · 실측 기반 SEO/AEO 정비 후)
+# 다음 세션에서 바로 시작할 것 (2026-11-14 갱신 · Vercel 계정 잠김 대응 후)
 
 > 다른 PC 로 옮겨서 이어할 때 **이 파일부터 읽는다.**
 >
 > 🔴 이 파일은 **오래되면 거짓말이 된다.** 2026-09-03 버전은 "첫 할 일 = ⭐찜 시안 고르기"로
 > 11일간 멈춰 있었는데 정작 찜·알림은 그 다음 날들에 다 적용돼 있었다(작업110·111).
 > 세션을 끝낼 때 여기부터 맞출 것.
+
+## 🔴 2026-11-14 — Vercel 계정 잠김(이슈 #96, 작업138) · 사이트 3곳 12/14 까지 다운
+
+- **원인 확정**: Team API `softBlock` = `FAIR_USE_LIMITS_EXCEEDED` · `fluidCpuDuration`(Active CPU 4h/30일 초과).
+  **`unpauseAt` 2026-12-14 04:27 KST.** 화니 결정 = Pro 안 감(돈 0 원칙) → 해제 대기.
+- **이미 한 것**: 요청 시점 렌더를 빌드로(매치 448장·매치 OG 66·가이드 OG 85) · revalidate 32400 · CI Linux 빌드 잡 ·
+  잠금 동안 402 소음 정리. 커밋 `febcd768`·`04eafad7`·`411db8bb`. 잠긴 동안 배포 훅은 201 인데 배포가 안 생긴다(정상).
+- **12/14 해제 직후 할 일(순서대로)**
+  1. 세 사이트 200 · 첫 예약 배포 READY(빌드 시간 실측) · #96 자동 닫힘.
+  2. 한글 경기 페이지 `og:image` 가 `/og/match/<단일 인코딩>` 이고 PNG 200 인지(카톡 공유 미리보기 1건 육안).
+  3. **`/player/<한글>` 이 200 인지** → 200 이면 `team`/`league`/`platform`/`standings` 에 `dynamicParams=false`(worklog 작업138 후속 「보류」).
+  4. 2~4주 뒤 대시보드 Usage 30일: Active CPU < 4h · FOT < 10GB · ISR Writes < 200K. 넘으면 다음 레버 = 배포 4→2회(화니 결정).
+- 상태 확인 = `vercel login` 토큰으로 `GET https://api.vercel.com/v2/teams/team_nPF3curWDtmBYzfVw4KgrTFa` 의 `softBlock`.
 
 ## 🔴 2026-10-23 에 생긴 할 일 (작업136·137 — 실측 기반 SEO/AEO)
 
