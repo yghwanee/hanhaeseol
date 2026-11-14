@@ -1,40 +1,22 @@
 import { ImageResponse } from "next/og";
-import { getGuide } from "@/lib/guides";
+import { getAllGuideSlugs, getGuide } from "@/lib/guides";
+import { loadOgAssets } from "@/lib/og-assets";
 
 export const runtime = "nodejs";
 export const alt = "한해설 Topic";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const BASE = "https://haeseol.com";
-
-// 폰트·로고를 fs로 읽으면 Vercel 서버리스 번들에서 파일이 빠져 500이 난다.
-// 배포된 public 자산을 HTTPS로 가져오는 게 match/[slug]/opengraph-image.tsx와 같은 패턴이다.
-// Data Cache는 배포 간에도 유지되므로 force-cache 대신 하루로 묶는다(로고 교체가 영구히 안 먹는 걸 방지).
-let assetsPromise: Promise<{ bold: ArrayBuffer; regular: ArrayBuffer; logo: string }> | null = null;
-
-function loadAssets() {
-  if (!assetsPromise) {
-    assetsPromise = (async () => {
-      const [bold, regular, logoBuf] = await Promise.all([
-        fetch(`${BASE}/fonts/Pretendard-Bold.otf`, { next: { revalidate: 86400 } }).then((r) =>
-          r.arrayBuffer(),
-        ),
-        fetch(`${BASE}/fonts/Pretendard-Regular.otf`, { next: { revalidate: 86400 } }).then((r) =>
-          r.arrayBuffer(),
-        ),
-        // 원본(1.26MB) 대신 1200px 축소본(199KB).
-        fetch(`${BASE}/logo-1200.png`, { next: { revalidate: 86400 } }).then((r) => r.arrayBuffer()),
-      ]);
-      return {
-        bold,
-        regular,
-        logo: `data:image/png;base64,${Buffer.from(logoBuf).toString("base64")}`,
-      };
-    })();
-  }
-  return assetsPromise;
+/**
+ * 🔴 빌드 때 전부 굽는다 (2026-11-14, 이슈 #96). 종전엔 날짜 게이트도 정적 생성도 없어
+ * 공유·크롤 요청마다 satori 렌더가 돌았다(Hobby Active CPU 초과로 계정 잠김).
+ * 가이드는 파일로 관리하는 고정 집합이라 페이지와 같은 목록을 쓰고 나머지는 404 다.
+ */
+export function generateStaticParams(): { slug: string }[] {
+  return getAllGuideSlugs().map((slug) => ({ slug }));
 }
+
+export const dynamicParams = false;
 
 /** "2026-07-16" → "2026년 7월 16일" */
 function formatDate(iso: string): string {
@@ -44,7 +26,7 @@ function formatDate(iso: string): string {
 }
 
 export default async function Image({ params }: { params: { slug: string } }) {
-  const { bold, regular, logo } = await loadAssets();
+  const { bold, regular, logo } = await loadOgAssets();
   const guide = getGuide(params.slug);
 
   const title = guide?.title ?? "한해설 Topic";

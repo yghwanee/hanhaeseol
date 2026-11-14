@@ -61,8 +61,12 @@ test("보존 모듈은 엣지에서 돈다 — node 모듈·데이터 import 금
 
 test("매치 페이지도 같은 판정을 쓴다 (미들웨어 우회 안전망 + 프리렌더 제외)", () => {
   const page = readFileSync("src/app/match/[slug]/page.tsx", "utf8");
-  const uses = page.match(/isRetiredMatchDate\(/g) ?? [];
-  assert.ok(uses.length >= 2, "generateStaticParams 와 본문 둘 다에서 써야 한다");
+  // 본문(미들웨어 우회 안전망)
+  assert.match(page, /isRetiredMatchDate\(match\.date\)\) notFound\(\)/);
+  // 프리렌더 제외 — 2026-11-14 부터 generateStaticParams 는 `match-prebuild.ts` 로 옮겼다.
+  assert.match(page, /prebuildMatchParams\(slugLookup\)/);
+  const prebuild = readFileSync("src/lib/match-prebuild.ts", "utf8");
+  assert.ok((prebuild.match(/isRetiredMatchDate\(/g) ?? []).length >= 2, "프리렌더 목록이 은퇴 경기를 걸러야 한다");
 });
 
 test("서버 페이지의 지난 경기 카드는 은퇴 경기를 링크하지 않는다", () => {

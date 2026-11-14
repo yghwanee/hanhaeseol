@@ -101,8 +101,12 @@ src/
 
 ### 다음 작업 (예정)
 
-- 🔴 **Vercel 은 이제 Hobby 다 (2026-09-14 강등 완료).** 강등 직후 사이트 3곳 200 ·
-  푸시 dry `ok:true`(Blob 정상) · Deploy Hook `201`. **잠기면 3사이트 동시 정지**, 복구는 Pro 재승격뿐.
+- 🔴 **2026-11-14 04:27 KST 계정 잠김(이슈 #96, 작업138).** `softBlock` = `fluidCpuDuration`(Active CPU 4h 초과),
+  **`unpauseAt` 2026-12-14 04:27 KST**. 화니 결정 = Pro 안 감, 해제 대기. 잠긴 동안 Deploy Hook 은 2xx 지만 배포가 안 생긴다.
+  상태 확인 = Team API `softBlock`(`vercel login` 토큰). 해제 뒤: 세 사이트 200 · 첫 배포 READY · #96 닫힘 · 2~4주 뒤 CPU.
+  🔴 **요청 시점 렌더를 만들지 말 것** — 매치 페이지는 보존 14일 전부 빌드(`match-prebuild.ts`), 매치 OG 는
+  `/og/match/[slug]` 빌드 전용(`match-og.ts`, 파일 컨벤션 금지: 한글 이중 인코딩), 가이드 OG 도 빌드. 가드 `test:match-prebuild`.
+- 🔴 **Vercel 은 이제 Hobby 다 (2026-09-14 강등 완료).** **잠기면 3사이트 동시 정지**(위 11/14 실제로 남).
   - 🔴 **FOT(한도 10GB)가 잠금 계량기인데 Hobby 에선 API 로 못 잰다.** `npm run usage` 는
     Observability 402 로 멈춘다. **대시보드 30일(2026-10-22): FOT 11.74/10GB · ISR Writes 202K/200K ·
     CPU 5h04m/4h — 셋 다 한도.** 화니 결정 = 돈 안 냄, 잠기면 그때 처리.
@@ -110,7 +114,7 @@ src/
   - ✅ **ISR Writes 원인 규명·처방 완료 (2026-09-16, 작업124).** 색인 대상 페이지가 **전부**
     `revalidate = 3600` 이었다. 데이터는 배포 번들 안 파일이라 재생성해도 **같은 HTML** 이
     나오는데(`server-data.ts` 주석) 623페이지 × 시간당 = 이론상 월 44.8만 회였다.
-    → 날짜 의존 페이지 **21600**(= `deploy.yml` 하루 4회 간격, 거의 발화 안 하는 안전망) ·
+    → 날짜 의존 페이지 **32400**(2026-11-14 21600 에서 올림 — 실측 배포 간격 최장 8.7h) ·
     날짜 무관 페이지 **false**. 매치 OG 는 아카이브 경기에 satori 렌더 대신 `og-default.png` 로 308.
     🔴 **새 페이지를 만들 때 둘 중 하나를 고른다 — 규칙과 근거는 `src/app/page.tsx` 의
     「revalidate 정책 정본」 주석.** 되돌림은 `npm run test:revalidate-budget` 가 막는다.
@@ -550,7 +554,8 @@ npm run test:result-lookup  # 🔴 결과 룩업 한쪽 일치 안전망 — 유
 npm run test:workflow-yaml  # 🔴 워크플로 22개 전수 파싱. 문자열 검사로는 못 잡는다(아래 참조)
 npm run test:workflow-pipe  # 🔴 파이프가 종료코드를 삼키는지(npm|tee). 실패한 크롤이 초록으로 끝난다
 npm run test:card-layout  # 🔴 카드 뱃지 자리(PC 상단·모바일 하단·상태는 상단 유지) + 흰 판 토큰 반전
-npm run test:revalidate-budget  # 🔴 revalidate 하한 21600(배포 주기) · 날짜 무관이면 false. 되돌리면 한도가 잠긴다
+npm run test:revalidate-budget  # 🔴 revalidate 하한 32400(최장 배포 간격) · 날짜 무관이면 false. 되돌리면 한도가 잠긴다
+npm run test:match-prebuild  # 🔴 매치 페이지·OG 를 빌드로(이슈 #96). 런타임 satori·파일 컨벤션 OG·dynamicParams=false 회귀 차단
 npm run test:players  # 🔴 선수→팀을 종목으로 자르는지(안 자르면 MLS 선수가 MLB 팀에 붙거나 사라진다) + 게이트 일치
 npm run test:robots-match  # 🔴 /match/ 를 어느 봇에게 열었는지 + 비용 상한 셋(OG 정적폴백·아카이브 fetch 없음·사이트맵 제외)
 npm run test:head-script  # 🔴 head 인라인에 location 계열 금지(넣으면 네이버가 홈 메타를 통째로 버린다)

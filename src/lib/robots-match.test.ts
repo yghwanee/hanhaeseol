@@ -85,9 +85,10 @@ test("열어 준 봇도 관리·단축 경로는 계속 막힌다", () => {
 
 test("매치를 열어 둔 동안 비용 상한이 살아 있다", () => {
   // ① 아카이브 매치 OG 는 satori 렌더를 하지 않는다(Active CPU 최상위였던 17분 항목).
-  const og = stripComments(readFileSync("src/app/match/[slug]/opengraph-image.tsx", "utf8"));
+  const og = stripComments(readFileSync("src/app/og/match/[slug]/route.tsx", "utf8") + readFileSync("src/lib/match-og.ts", "utf8"));
   assert.ok(
-    /og-default\.png/.test(og) && /Response\.redirect/.test(og),
+    // 2026-11-14: 런타임 요청은 전부 렌더 없이 307(toDefault)로 빠진다(이슈 #96).
+    /og-default\.png/.test(og) && /!isBuildPhase\(\)\) return toDefault\(\)/.test(og),
     "아카이브 매치 OG 가 정적 이미지로 안 빠진다. 3,166건 각각에 satori 렌더가 붙으면 " +
       "Active CPU 최상위 항목이 되살아난다(실측 17분).",
   );

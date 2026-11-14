@@ -45,7 +45,7 @@ import { isRetiredMatchDate } from "@/lib/match-retention";
 import { findLeagueBySlug, leagueHubHref } from "@/lib/slugs";
 
 // 날짜 의존 허브 — `revalidate` 정책 정본은 `src/app/page.tsx` 주석. 값은 배포 주기(6h)와 같다.
-export const revalidate = 21600;
+export const revalidate = 32400;
 
 /**
  * 🔴 로스터가 낡으면(`ROSTER_MAX_AGE_DAYS`) `getKoreanPlayers()` 가 빈 배열을 준다.

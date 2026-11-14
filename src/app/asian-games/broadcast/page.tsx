@@ -16,7 +16,7 @@ import type { Schedule } from "@/types/schedule";
  *
  * 🔴 날짜 의존 페이지 — `revalidate` 정책 정본은 `src/app/page.tsx` 주석. 배포 주기와 같다.
  */
-export const revalidate = 21600;
+export const revalidate = 32400;
 
 const URL = "https://haeseol.com/asian-games/broadcast";
 const TITLE = "아시안게임 중계 채널·편성표 — 2026 나고야 | 한해설";

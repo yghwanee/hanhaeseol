@@ -17,7 +17,7 @@ import {
 
 // 다른 허브와 같다. 데이터는 배포 번들 안에 있고 최신값은 브라우저가 GitHub raw 에서 받는다.
 // 🔴 날짜 의존 허브 — `revalidate` 정책 정본은 `src/app/page.tsx` 주석. 값은 배포 주기(6h)와 같다.
-export const revalidate = 21600;
+export const revalidate = 32400;
 
 const URL = "https://haeseol.com/asian-games";
 // 🔴 `나고야아시안게임` 이 월 725,500 이다(2026-09-21 검색광고 실측). 제목에 `나고야` 를 넣는다.

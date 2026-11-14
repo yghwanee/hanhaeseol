@@ -143,7 +143,8 @@
     "test:emblem": "tsx --test src/lib/emblem.test.ts",
     "test:link-prefetch": "tsx --test src/lib/link-prefetch-guard.test.ts",
     "test:naver-fetch": "tsx --test src/lib/naver-fetch.test.ts",
-    "test:kbo-postseason": "tsx --test src/lib/kbo-postseason.test.ts"
+    "test:kbo-postseason": "tsx --test src/lib/kbo-postseason.test.ts",
+    "test:match-prebuild": "tsx --test src/lib/match-prebuild.test.ts"
   },
   "dependencies": {
     "@vercel/blob": "^2.5.0",

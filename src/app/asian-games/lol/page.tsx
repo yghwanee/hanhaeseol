@@ -28,7 +28,7 @@ import {
  *
  * 🔴 날짜 의존 페이지 — `revalidate` 정책 정본은 `src/app/page.tsx` 주석. 배포 주기와 같다.
  */
-export const revalidate = 21600;
+export const revalidate = 32400;
 
 const URL = "https://haeseol.com/asian-games/lol";
 const TITLE = "아시안게임 롤 일정·국가대표 명단 — 페이커 출전 | 한해설";

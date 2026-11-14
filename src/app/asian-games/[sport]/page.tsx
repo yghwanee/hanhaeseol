@@ -33,7 +33,7 @@ import {
  * 🔴 날짜 의존 페이지 — `revalidate` 정책 정본은 `src/app/page.tsx` 주석. 배포 주기(6h)와 같다.
  * 🔴 종목은 `AG_SPORTS` 에 있는 것만 연다(`dynamicParams=false`). 경기별 페이지는 만들지 않는다.
  */
-export const revalidate = 21600;
+export const revalidate = 32400;
 export const dynamicParams = false;
 
 export function generateStaticParams() {

@@ -18,7 +18,7 @@ import { AG_SPORTS, koreanPlayersOf, type AgGame } from "@/lib/asian-games/data"
  *
  * 🔴 날짜 의존 페이지 — `revalidate` 정책 정본은 `src/app/page.tsx` 주석. 배포 주기와 같다.
  */
-export const revalidate = 21600;
+export const revalidate = 32400;
 
 const URL = "https://haeseol.com/asian-games/players";
 const TITLE = "아시안게임 한국 선수단 명단 — 2026 나고야 종목별 선수 | 한해설";

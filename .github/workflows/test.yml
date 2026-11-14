@@ -156,7 +156,49 @@ jobs:
           npm run test:card-layout
           # 🔴 revalidate 를 짧게 되돌리면 빌드도 화면도 멀쩡하고 한도가 잠길 때만 드러난다.
           npm run test:revalidate-budget
+          # 🔴 요청 때 렌더하던 매치 페이지·OG 를 빌드로 옮겼다(2026-11-14, 이슈 #96 계정 잠김).
+          npm run test:match-prebuild
           # 🔴 선수→팀 매칭은 종목으로 안 자르면 MLS 선수가 MLB 팀에 붙거나 조용히 사라진다.
           npm run test:players
           # 🔴 매치를 어느 봇에게 열었는지 + 비용 상한 셋이 같이 살아 있는지.
           npm run test:robots-match
+
+  # 🔴 Linux 프로덕션 빌드 (2026-11-14, 이슈 #96).
+  # 매치·가이드 OG 를 빌드 때 굽는다. `next/og` 는 Windows 로컬에서 경로 버그로 렌더가 안 돼
+  # (`@vercel/og` 가 path.join 으로 file URL 을 만든다) 로컬 빌드로는 확인할 수 없다.
+  # Vercel 빌드가 처음 깨지는 걸 보는 곳이 되면 안 되므로, 같은 OS 에서 미리 굽고 산출물을 센다.
+  # 테스트 잡과 분리한 이유: 테스트 스텝이 빨가면(데이터 가드 등) 뒤 스텝이 안 돈다.
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - name: next build
+        run: npm run build
+      - name: 빌드 산출물 검사 (OG 가 PNG 로 구워졌는지)
+        run: |
+          set -euo pipefail
+          node -e "
+            const m = require('./.next/prerender-manifest.json');
+            const r = Object.keys(m.routes);
+            const og = r.filter((x) => x.startsWith('/og/match/')).length;
+            const guideOg = r.filter((x) => /^\/guide\/.+\/opengraph-image$/.test(x)).length;
+            const match = r.filter((x) => /^\/match\/[^/]+$/.test(x)).length;
+            console.log({ routes: r.length, match, og, guideOg });
+            if (match < 50 || guideOg < 10) { console.error('프리렌더 수가 비정상'); process.exit(1); }
+          "
+          bad=0; n=0
+          while IFS= read -r f; do
+            n=$((n+1))
+            sig=$(head -c 4 "$f" | od -An -tx1 | tr -d ' \n')
+            if [ "$sig" != "89504e47" ]; then echo "::error::PNG 아님: $f"; bad=$((bad+1)); fi
+          done < <(find .next/server/app/og .next/server/app/guide -name '*.body')
+          echo "OG 파일 $n 개, 비정상 $bad 개"
+          [ "$n" -gt 0 ] && [ "$bad" -eq 0 ]
+

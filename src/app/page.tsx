@@ -126,8 +126,18 @@ function pruneSchedulesForClient(data: ScheduleData): ScheduleData {
  *   · 안 쓴다 → **false** (commentary/stats. 배포 전까지 바이트가 안 변한다)
  *   · guide·faq·about·standings 는 애초에 `revalidate` 선언이 없다 = 이미 완전 정적.
  *
+ *  ═══ 2026-11-14 개정: 21600 → 32400(9h) (이슈 #96) ═══
+ *  🔴 "6h = 배포 간격이라 거의 발화하지 않는다" 는 전제가 실측과 달랐다. 예약 배포는 GH 가
+ *  30분~2시간 늦게 깨우고, 최근 프로덕션 배포 100건(16.7일)에서 간격이 6h 를 넘은 게
+ *  **28번(하루 1.7번), 평균 1.2시간 초과, 최장 8.7h** 였다. 그 초과 구간마다 요청된 허브
+ *  페이지가 전부 다시 구워졌다 — ISR 쓰기 하루 ~4,800건이 함수 호출 수와 거의 같았다.
+ *  그 뒤 계정이 Hobby Active CPU 초과로 잠겼다(softBlock fluidCpuDuration, 2026-11-14).
+ *  9h 는 최장 간격보다 길어 배포가 정상인 동안엔 발화하지 않는다. 배포가 아예 죽으면
+ *  날짜 넘김·종료 뱃지가 최대 9h 늦는다(데이터는 어차피 번들이라 재생성으로도 안 바뀐다).
+ *  위 분류 규칙의 "21600" 은 이제 "32400" 으로 읽는다.
+ *
  *  🔴 값을 다시 짧게 돌리지 말 것. `npm run test:revalidate-budget` 가 막는다. */
-export const revalidate = 21600;
+export const revalidate = 32400;
 
 export default function Home() {
   const data = loadScheduleData();

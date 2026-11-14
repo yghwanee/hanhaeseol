@@ -12,7 +12,7 @@ const FEED_DESC =
 // RSS 는 캐시 가능. 값은 배포 주기(6h)와 같다 — 글 발행은 하루 1편이라 이보다 촘촘할
 // 이유가 없고, 30분마다 굽던 것은 ISR Writes 를 그냥 태우는 것이었다.
 // 정책 정본은 `src/app/page.tsx` 주석.
-export const revalidate = 21600;
+export const revalidate = 32400;
 
 function xmlEscape(s: string): string {
   return s
@@ -173,7 +173,7 @@ ${itemsXml}
   return new Response(xml, {
     headers: {
       "Content-Type": "application/rss+xml; charset=utf-8",
-      "Cache-Control": "public, s-maxage=21600, stale-while-revalidate=43200",
+      "Cache-Control": "public, s-maxage=32400, stale-while-revalidate=43200",
     },
   });
 }

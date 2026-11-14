@@ -1393,3 +1393,52 @@ AI Assistant 8일 30세션(28일 471 → 거의 소멸) · Vercel 30일 FOT 11.7
 **2026-11-02 홈 전송량 실측.** 실제 전송 기준 PC 4.9MB 중 ESPN 원본 로고가 3.0MB(62%), 홈 HTML 은 53KB. 긴 class 를 다 줄여도 압축 후 1KB 라 마크업은 손대지 않았다. `proxyLogo` 가 ESPN 로고를 160px 축소본으로 받는다(228개 평균 59KB → 14KB). `SOC(790)`(샤바브 알 아흘리)는 원본부터 404.
 
 **2026-11-02 대시보드 실측 후 추가 절감.** 30일(10/02~11/01) FOT 11.41/10GB · ISR Writes 145K/200K · Active CPU 5h/4h. 12시간 Active CPU 1위가 OG 이미지(63회 49초). 맞춤 OG 는 경기 전후 하루만. ISR 읽기 바이트는 HTML 원본 크기로 잡혀(최대 734KB) 칩 class 를 CSS 로 옮겼다. 안 쓰던 Geist 폰트 제거.
+
+## 작업138 — 🔴 Vercel 계정 잠김(이슈 #96) · 요청 시점 렌더를 빌드로 옮김 (2026-11-14)
+
+### 사실 (실측)
+
+- 2026-11-14 07:33 KST `uptime.yml` 이 세 사이트 `402 DEPLOYMENT_DISABLED` 를 감지해 이슈 #96 을 열었다.
+- Team API `softBlock`: `reason: FAIR_USE_LIMITS_EXCEEDED` · **`blockedDueToOverageType: fluidCpuDuration`** ·
+  `blockedAt` 2026-11-14 04:27 KST · **`unpauseAt` 2026-12-14 04:27 KST**. 플랜 `hobby`, `blocked: null`.
+  잠긴 동안 Deploy Hook 은 2xx 를 주지만 **배포가 안 생긴다**(마지막 READY = 02:09 KST).
+- 화니 결정: **Pro 안 감(돈 0 원칙). 12/14 자동 해제를 기다리고, 다시 안 넘게 줄인다.**
+- Hobby 에서 읽히는 사용량 = `GET /v2/usage?type=requests&from=<ISO .000Z>&to=…` (팀 토큰).
+  함수 호출 하루 2.6~5.8천 건, 프로젝트 99~100% hanhaeseol. Observability 쿼리는 402(Pro 전용).
+- 근거로 쓴 두 숫자: ①11/02 대시보드 ISR Writes 145K/30일 ≈ 하루 4,800 ≈ 함수 호출 수 → **함수 호출의
+  대부분이 페이지 렌더**. ②최근 프로덕션 배포 100건(16.7일)에서 간격이 6h 를 넘은 게 28번(하루 1.7번),
+  평균 1.2h 초과, 최장 8.7h — GH 가 예약 배포를 30분~2시간 늦게 깨운다. `revalidate = 21600` 이
+  "거의 발화 안 하는 안전망" 이라던 전제가 틀렸다.
+
+### 한 것
+
+1. **`/match/[slug]` 보존 기간(14일) 안 전부 빌드** — `src/lib/match-prebuild.ts`. 189 → 448장.
+   종전엔 지난 경기를 요청 때 SSR 했고 배포마다 캐시가 비워져 봇이 다시 굽게 했다(12h CPU ~75% 이던 항목).
+   🔴 `dynamicParams` 는 **true 유지** — 2026-05-13 `false` 에서 Linux 빌드 한글 슬러그 전부 404 사고(커밋 40127e02·401e54c4).
+2. **매치 OG 를 파일 컨벤션에서 `/og/match/[slug]` 라우트로** — 빌드 때 경기 전후 하루(66장)만 굽고 런타임은 렌더 없이 307.
+   🔴 **컨벤션이 주입하던 og:image 는 한글 슬러그를 이중 인코딩**(`%25EB…`)해 구운 PNG 경로와 안 맞았다 —
+   종전엔 런타임 렌더가 흡수해 보이지 않았다. 이제 페이지가 `matchOgImageUrl()` 로 단일 인코딩 주소를 직접 건다
+   (전후 하루 밖은 `og-default.png`, 함수를 안 깨운다). 근거 주석 `src/lib/match-og.ts`.
+3. **가이드 OG 빌드 생성**(85장, `dynamicParams=false`). 종전엔 요청마다 satori.
+4. **OG 폰트·로고는 빌드 중 `public/` 을 fs 로**(`src/lib/og-assets.ts`). 종전처럼 haeseol.com 에서 받으면
+   잠긴 동안(402) 빌드가 깨진다.
+5. **`revalidate` 21600 → 32400(9h)** 전 페이지 + rss·llms-full. 최장 배포 간격보다 길게. 정본 주석 `src/app/page.tsx`.
+6. 가드: `test:match-prebuild` 신설(CI) · `test:revalidate-budget` 하한 32400 · `robots-match`·`match-retention` 갱신.
+   **`test.yml` 에 `build` 잡 신설** — Linux `next build` + OG 가 PNG 로 구워졌는지 센다.
+
+### 검증
+
+- 로컬 `next build` 성공(66초). 프리렌더 616 → 1,037(매치 448 · 매치 OG 66 · 가이드 OG 85), PNG 151장 전수 시그니처 확인,
+  카드 1장 눈으로 확인(한글 폰트·로고 정상). `next start` 실측: 지난 경기 페이지 HIT · 한글 경기 og:image → PNG HIT ·
+  목록 밖 OG 307(s-maxage 86400) · 없는 매치 404 · 14일 밖 410 · 홈·리그 `s-maxage=32400`.
+- 🔴 **Windows 로컬에서 `next/og` 빌드 렌더는 안 된다** — `@vercel/og` 가 `path.join(import.meta.url, …)` 로
+  file URL 을 만들어 `Invalid URL`. 로컬 확인 때만 `node_modules` 를 임시로 고쳤다가 원복했다. Linux 확인은 CI `build` 잡.
+- CI 테스트 71/72 통과. `test:league-coverage` 는 변경 전에도 빨갛다(`NBA G리그`·`연령별 남자축구 국가대표팀` 매핑 없음, 데이터 쪽).
+- 리뷰 에이전트 지적 반영: 빌드 중 날짜 재검사 제거(KST 자정을 넘기는 빌드가 전날 경기를 307 로 굽는 문제).
+
+### 남은 것 · 판정
+
+- **12/14 04:27 KST 해제 뒤** 첫 배포가 READY 인지, 세 사이트 200, #96 자동 닫힘 확인.
+- 해제 후 2~4주 대시보드 Usage(30일): Active CPU 4h 아래로 들어오는지가 판정. 안 들어오면 다음 레버 =
+  배포 4→2회(화니 결정) · `/api/push/dispatch` 호출(하루 ~100, 추정 월 CPU 4%) · 404 슬러그 렌더(team/league 등 `dynamicParams` true).
+- 빌드 시간이 늘었다(로컬 60초대 → Vercel 실측은 해제 뒤). 빌드 시간은 Active CPU 한도 밖이다.

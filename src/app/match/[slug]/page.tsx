@@ -21,6 +21,8 @@ import type { StandingsData } from "@/types/standings";
 import { LEAGUE_SEO } from "@/lib/slugs";
 import { matchToSlug, findMatchBySlug } from "@/lib/match-slug";
 import { isRetiredMatchDate } from "@/lib/match-retention";
+import { prebuildMatchParams } from "@/lib/match-prebuild";
+import { matchOgImageUrl } from "@/lib/match-og";
 import { findResult } from "@/lib/results/lookup";
 import {
   formatDateHeader,
@@ -133,26 +135,27 @@ function teamIndexCached(): TeamEntry[] {
 type Params = { slug: string };
 
 /**
- * 빌드 시점에 schedule.json(7일치)만 정적 생성. archive(영구 누적)는 런타임 SSR로 처리.
- * archive가 수천 건으로 커지면 빌드 폭발하므로, 정적 생성은 트래픽이 몰리는 현재 7일치에만.
+ * 🔴 보존 기간 안의 매치를 **전부** 빌드 때 굽고, 나머지는 렌더하지 않는다 (2026-11-14, 이슈 #96).
+ *
+ * 종전엔 현재 편성 7일치만 굽고 아카이브(어제~14일 전)는 `dynamicParams=true` 로 요청 때 SSR 했다.
+ * 배포가 하루 4번이라 그 캐시가 6시간마다 비워지고, 네이버·AI 봇이 다시 훑으면 다시 렌더한다.
+ * 그 렌더가 계정 Active CPU 의 최상위였고(2026-10-07 12h 실측 ~75%), 결국 Hobby 한도 초과로
+ * 계정이 잠겼다(`softBlock.blockedDueToOverageType = fluidCpuDuration`, 2026-11-14 04:27 KST).
+ *
+ * 데이터가 전부 배포 번들 안이라 런타임 SSR 이 빌드 결과와 다른 HTML 을 낼 이유가 없다.
+ * 그래서 렌더 비용을 빌드(한도 밖)로 옮긴다. 보존 기간 밖은 미들웨어가 410 으로 끊는다.
+ *
+ * 목록은 페이지가 슬러그를 해석하는 `slugLookup` 과 **같은 목록·같은 순서**로 만든다 —
+ * 그래야 슬러그 충돌·반전 중복에서 "구워진 슬러그 = 해석되는 슬러그" 가 성립한다.
+ * 가드 `npm run test:match-prebuild`.
  */
 export function generateStaticParams(): Params[] {
-  const seen = new Set<string>();
-  const params: Params[] = [];
-  // 반전 중복에서 접힌 슬러그를 그대로 넣으면 그 URL 을 프리렌더했다가 notFound 로
-  // 떨어진다. slugLookup 과 같은 규칙을 태워 실제로 해석되는 슬러그만 생성한다.
-  for (const s of dedupeReversedFixtures([...data.schedules, ...worldcup.schedules])) {
-    // 보존 기간 밖 경기(지난 월드컵 등)는 미들웨어가 410 으로 끊으므로 굽지 않는다.
-    if (isRetiredMatchDate(s.date)) continue;
-    const slug = matchToSlug(s);
-    if (seen.has(slug)) continue;
-    seen.add(slug);
-    params.push({ slug });
-  }
-  return params;
+  return prebuildMatchParams(slugLookup);
 }
 
-// dynamicParams=true: archive에 있는 과거 경기는 런타임에 SSR로 렌더링.
+// 🔴 true 를 유지한다. 2026-05-13 `false` 로 두었다가 Linux(Vercel) 빌드에서 한글 슬러그가
+// 전부 404 로 프리렌더된 사고가 있었다(커밋 40127e02 → 401e54c4 NFC 정규화). 이제 보존 기간
+// 안 슬러그는 전부 구워지므로 런타임 SSR 은 목록 밖 슬러그(오타·접힌 반전 중복)의 404 뿐이다.
 export const dynamicParams = true;
 
 function matchKoreanLabel(s: Schedule): string {
@@ -232,6 +235,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
 
   const url = `https://haeseol.com/match/${params.slug}`;
   const keywords = buildMatchKeywords(match);
+  const ogImage = matchOgImageUrl(match);
 
   // 얇은 매치(지난 경기인데 스코어가 없는 것)는 noindex. sitemap 제외와 일치시킨다.
   // follow는 유지해 내부 링크 equity가 허브(리그·플랫폼) 페이지로 흐르게 한다.
@@ -258,8 +262,10 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
       siteName: "한해설",
       locale: "ko_KR",
       type: "website",
-      // og:image 는 매치별 동적 OG(opengraph-image.tsx)가 파일 컨벤션으로 자동 주입.
-      // 여기서 images 를 명시하면 파일 컨벤션을 덮어써 정적 og-default 로 고정되므로 비워둔다.
+      // 🔴 2026-11-14: 파일 컨벤션(opengraph-image.tsx)을 버리고 주소를 직접 건다.
+      // 컨벤션이 주입하던 주소는 한글 슬러그를 이중 인코딩해 빌드 때 구운 PNG 와 안 맞았다.
+      // 경기 전후 하루는 `/og/match/<slug>` 맞춤 카드, 나머지는 기본 이미지. 근거 `@/lib/match-og`.
+      images: [{ url: ogImage, width: 1200, height: 630, alt: "한해설 경기 중계 카드" }],
     },
     twitter: {
       card: "summary_large_image",
@@ -267,7 +273,7 @@ export function generateMetadata({ params }: { params: Params }): Metadata {
         ? `${insight.sections.headline}`
         : `${match.homeTeam} vs ${match.awayTeam} - ${ko}`,
       description,
-      // twitter:image 미지정 → 트위터/X는 og:image(동적 OG)로 폴백.
+      images: [ogImage],
     },
   };
 }

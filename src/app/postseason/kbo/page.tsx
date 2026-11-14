@@ -26,7 +26,7 @@ import {
 } from "@/lib/kbo-postseason";
 
 // 🔴 날짜 의존 허브(오늘 기준 리드·남은 경기) — `revalidate` 정책 정본은 `src/app/page.tsx` 주석.
-export const revalidate = 21600;
+export const revalidate = 32400;
 
 const URL = "https://haeseol.com/postseason/kbo";
 // 🔴 네이버 제목 상한 40자. `가을야구`(40,890) · `포스트시즌`(8,820) 이 둘 다 제목에 있어야 한다.
