@@ -92,6 +92,15 @@ jobs:
           code=$(printf '%s' "$body" | tail -n1)
           payload=$(printf '%s' "$body" | sed '$d')
           echo "$payload"
+          # 🔴 계정 차단(402 DEPLOYMENT_DISABLED, 2026-11-14 이슈 #96)은 재시도로 안 풀리고 uptime.yml 이
+          # 이슈로 추적한다. 여기서까지 빨갛게 끝나면 해제일(12/14)까지 하루 3~4건씩 같은 실패가 쌓인다.
+          if [ "$code" = "402" ]; then
+            case "$payload" in
+              *DEPLOYMENT_DISABLED*)
+                echo "::warning::Vercel 계정 차단 중(402) — 발송 불가. 차단 추적은 uptime 이슈가 한다."
+                exit 0 ;;
+            esac
+          fi
           if [ "$code" != "200" ]; then
             echo "::error::발송 요청 실패 (HTTP $code)"
             exit 1

@@ -44,6 +44,15 @@ async function post(path: string, body?: unknown): Promise<Response> {
   });
 }
 
+/**
+ * 🔴 Vercel 계정이 잠기면(402 + `x-vercel-error: DEPLOYMENT_DISABLED`) 사이트가 아무것도 못 받는다.
+ * 2026-11-14 잠김(이슈 #96) 직후 이 루프가 `ingest HTTP 402` 를 3시간에 162번 삼키고 초록으로 끝났다.
+ * 재시도해도 풀리지 않으니(해제는 Vercel 이 정한 날) 알아보는 즉시 끝낸다. 차단 감시는 uptime.yml(#96)이 한다.
+ */
+function isAccountBlocked(res: Response): boolean {
+  return res.status === 402 && res.headers.get("x-vercel-error") === "DEPLOYMENT_DISABLED";
+}
+
 /** 라인업을 다시 확인하는 간격. 킥오프 1시간 전쯤 뜨고 그 뒤로 거의 안 바뀐다. */
 const LINEUP_EVERY_MS = 10 * 60_000;
 /** 몇 일 전 경기까지 라인업을 채울지. 지난 경기를 메울 때만 늘린다(매치 페이지 수명 14일). */
@@ -133,6 +142,10 @@ async function main() {
       if (Date.now() - scheduleAt > 30 * 60_000) {
         schedules = await fetchSchedules();
         const res = await post("/api/push/dispatch");
+        if (isAccountBlocked(res)) {
+          log("Vercel 계정 차단(402 DEPLOYMENT_DISABLED) — 사이트가 받을 수 없다. 끝낸다(감시는 uptime #96).");
+          return;
+        }
         if (res.ok) watch = new Set(((await res.json()) as { watch?: string[] }).watch ?? []);
         scheduleAt = Date.now();
         log(`편성 ${schedules.length}건 · 찜 ${watch.size}팀`);
@@ -157,6 +170,10 @@ async function main() {
         // 전부 실패해 0건이면 올리지 않는다. 직전 스코어가 보관소에 남는 쪽이 낫다.
         if (live.results.length > 0 && (print !== lastPrint || Date.now() - lastUpload > HEARTBEAT_MS)) {
           const res = await post("/api/live/ingest", live);
+          if (isAccountBlocked(res)) {
+            log("Vercel 계정 차단(402 DEPLOYMENT_DISABLED) — 업로드할 곳이 없다. 끝낸다(감시는 uptime #96).");
+            return;
+          }
           if (!res.ok) throw new Error(`ingest HTTP ${res.status}`);
           lastPrint = print;
           lastUpload = Date.now();

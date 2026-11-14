@@ -260,10 +260,13 @@ jobs:
               ERR=$(site_error)
               echo "사이트 x-vercel-error: ${ERR:-(없음)}"
               if [ "$ERR" = "DEPLOYMENT_DISABLED" ]; then
-                echo "::error::Vercel 계정이 차단돼 배포가 생성되지 않습니다(402). 사용량·결제 확인 필요."
+                # 🔴 경고로 끝낸다(2026-11-14, 이슈 #96). 편성 커밋은 이미 끝났고 해제 뒤 첫 배포가 싣는다.
+                # 차단은 uptime.yml 이 이슈 하나로 추적한다 — 여기서 빨간 실행 + 텔레그램을 내면
+                # 해제일까지 편성이 바뀔 때마다 같은 알림이 반복된다.
+                echo "::warning::Vercel 계정이 차단돼 배포가 생성되지 않습니다(402). 추적은 uptime 이슈."
                 echo "retried=false" >> $GITHUB_OUTPUT
                 echo "final=ACCOUNT_BLOCKED" >> $GITHUB_OUTPUT
-                exit 1
+                exit 0
               fi
               ;;
             TIMEOUT_*)
@@ -296,8 +299,9 @@ jobs:
             TIMEOUT_NO_NEW|TIMEOUT_NOT_FOUND|TIMEOUT_API_ERR|TIMEOUT_NONE)
               ERR=$(site_error)
               if [ "$ERR" = "DEPLOYMENT_DISABLED" ]; then
+                echo "::warning::Vercel 계정 차단(402) — 재시도 후에도 배포 없음. 추적은 uptime 이슈."
                 echo "final=ACCOUNT_BLOCKED" >> $GITHUB_OUTPUT
-                exit 1
+                exit 0
               fi
               ;;
             TIMEOUT_*)
@@ -341,7 +345,7 @@ jobs:
       - name: Telegram 알림 (Vercel 배포 실패)
         # 🔴 BUILDING 은 제외한다 — 폴링 창 안에 안 끝났을 뿐 대개 몇 분 뒤 스스로 READY 가 된다.
         # 여기 오는 건 진짜 실패뿐이다.
-        if: always() && steps.commit.outputs.updated == 'true' && steps.vercel.outputs.final != 'READY' && steps.vercel.outputs.final != 'BUILDING' && steps.vercel.outputs.final != ''
+        if: always() && steps.commit.outputs.updated == 'true' && steps.vercel.outputs.final != 'READY' && steps.vercel.outputs.final != 'BUILDING' && steps.vercel.outputs.final != 'ACCOUNT_BLOCKED' && steps.vercel.outputs.final != ''
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
