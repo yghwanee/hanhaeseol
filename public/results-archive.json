@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-14T16:36:23.904Z",
+  "lastUpdated": "2026-11-14T21:25:29.779Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -91700,6 +91700,88 @@
       "awayScore": 0,
       "status": "finished",
       "period": "종료"
+    },
+    "2026-11-15|amatchfriendly|팔레스타인|이란": {
+      "date": "2026-11-15",
+      "categoryId": "amatchfriendly",
+      "gameId": "IHOmrNpIvbMXBrG",
+      "homeTeam": "팔레스타인",
+      "awayTeam": "이란",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아즈문",
+          "minute": 76
+        },
+        {
+          "team": "away",
+          "player": "하르다니",
+          "minute": 84
+        }
+      ]
+    },
+    "2026-11-15|unl|노르웨이|웨일스": {
+      "date": "2026-11-15",
+      "categoryId": "unl",
+      "gameId": "0sVz6YDVzpz6vth",
+      "homeTeam": "노르웨이",
+      "awayTeam": "웨일스",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "누사",
+          "minute": 59
+        },
+        {
+          "team": "home",
+          "player": "시엘데루프",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "브룩스",
+          "minute": 79
+        },
+        {
+          "team": "home",
+          "player": "홀란",
+          "minute": 88
+        }
+      ],
+      "highlightVideoId": "6tyysAxUK1M"
+    },
+    "2026-11-15|unl|조지아|헝가리": {
+      "date": "2026-11-15",
+      "categoryId": "unl",
+      "gameId": "JTsbb5YAR5cWdpm",
+      "homeTeam": "조지아",
+      "awayTeam": "헝가리",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "드발리",
+          "minute": 73,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "바르가",
+          "minute": 85
+        }
+      ],
+      "highlightVideoId": "VrGY9K2JgGg"
     }
   },
   "results": [
@@ -183402,6 +183484,88 @@
       "awayScore": 0,
       "status": "finished",
       "period": "종료"
+    },
+    {
+      "date": "2026-11-15",
+      "categoryId": "amatchfriendly",
+      "gameId": "IHOmrNpIvbMXBrG",
+      "homeTeam": "팔레스타인",
+      "awayTeam": "이란",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아즈문",
+          "minute": 76
+        },
+        {
+          "team": "away",
+          "player": "하르다니",
+          "minute": 84
+        }
+      ]
+    },
+    {
+      "date": "2026-11-15",
+      "categoryId": "unl",
+      "gameId": "0sVz6YDVzpz6vth",
+      "homeTeam": "노르웨이",
+      "awayTeam": "웨일스",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "누사",
+          "minute": 59
+        },
+        {
+          "team": "home",
+          "player": "시엘데루프",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "브룩스",
+          "minute": 79
+        },
+        {
+          "team": "home",
+          "player": "홀란",
+          "minute": 88
+        }
+      ],
+      "highlightVideoId": "6tyysAxUK1M"
+    },
+    {
+      "date": "2026-11-15",
+      "categoryId": "unl",
+      "gameId": "JTsbb5YAR5cWdpm",
+      "homeTeam": "조지아",
+      "awayTeam": "헝가리",
+      "homeScore": 0,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "드발리",
+          "minute": 73,
+          "ownGoal": true
+        },
+        {
+          "team": "away",
+          "player": "바르가",
+          "minute": 85
+        }
+      ],
+      "highlightVideoId": "VrGY9K2JgGg"
     }
   ]
 }
