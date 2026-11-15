@@ -5529,21 +5529,6 @@
         },
         {
           "rank": 3,
-          "teamName": "원주 DB",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/16.png?type=f92_88",
-          "gameCount": 14,
-          "win": 8,
-          "lose": 6,
-          "winRate": 0.57142857,
-          "gameBehind": 3,
-          "lastFive": "WLWWL",
-          "streak": {
-            "type": "W",
-            "count": 1
-          }
-        },
-        {
-          "rank": 4,
           "teamName": "서울 SK",
           "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/55.png?type=f92_88",
           "gameCount": 11,
@@ -5558,30 +5543,15 @@
           }
         },
         {
-          "rank": 5,
-          "teamName": "수원 KT",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/06.png?type=f92_88",
-          "gameCount": 14,
-          "win": 6,
-          "lose": 8,
-          "winRate": 0.42857143,
-          "gameBehind": 5,
-          "lastFive": "LLWWW",
-          "streak": {
-            "type": "L",
-            "count": 2
-          }
-        },
-        {
-          "rank": 5,
-          "teamName": "창원 LG",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/50.png?type=f92_88",
-          "gameCount": 14,
-          "win": 6,
-          "lose": 8,
-          "winRate": 0.42857143,
-          "gameBehind": 5,
-          "lastFive": "LWLWL",
+          "rank": 4,
+          "teamName": "원주 DB",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/16.png?type=f92_88",
+          "gameCount": 15,
+          "win": 8,
+          "lose": 7,
+          "winRate": 0.53333333,
+          "gameBehind": 3.5,
+          "lastFive": "LWLWW",
           "streak": {
             "type": "L",
             "count": 1
@@ -5589,47 +5559,77 @@
         },
         {
           "rank": 5,
-          "teamName": "부산 KCC",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/60.png?type=f92_88",
-          "gameCount": 14,
-          "win": 6,
+          "teamName": "창원 LG",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/50.png?type=f92_88",
+          "gameCount": 15,
+          "win": 7,
           "lose": 8,
-          "winRate": 0.42857143,
-          "gameBehind": 5,
-          "lastFive": "WWWWL",
+          "winRate": 0.46666667,
+          "gameBehind": 4.5,
+          "lastFive": "WLWLW",
           "streak": {
             "type": "W",
-            "count": 4
+            "count": 1
           }
         },
         {
           "rank": 5,
-          "teamName": "대구 한국가스공사",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/64.png?type=f92_88",
-          "gameCount": 14,
-          "win": 6,
+          "teamName": "부산 KCC",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/60.png?type=f92_88",
+          "gameCount": 15,
+          "win": 7,
           "lose": 8,
-          "winRate": 0.42857143,
-          "gameBehind": 5,
-          "lastFive": "LLWLW",
+          "winRate": 0.46666667,
+          "gameBehind": 4.5,
+          "lastFive": "WWWWW",
           "streak": {
-            "type": "L",
-            "count": 2
+            "type": "W",
+            "count": 5
           }
         },
         {
-          "rank": 9,
+          "rank": 7,
           "teamName": "고양 소노",
           "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/66.png?type=f92_88",
+          "gameCount": 16,
+          "win": 7,
+          "lose": 9,
+          "winRate": 0.4375,
+          "gameBehind": 5,
+          "lastFive": "WWWLL",
+          "streak": {
+            "type": "W",
+            "count": 3
+          }
+        },
+        {
+          "rank": 8,
+          "teamName": "수원 KT",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/06.png?type=f92_88",
           "gameCount": 15,
           "win": 6,
           "lose": 9,
           "winRate": 0.4,
           "gameBehind": 5.5,
-          "lastFive": "WWLLL",
+          "lastFive": "LLLWW",
           "streak": {
-            "type": "W",
-            "count": 2
+            "type": "L",
+            "count": 3
+          }
+        },
+        {
+          "rank": 8,
+          "teamName": "대구 한국가스공사",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/64.png?type=f92_88",
+          "gameCount": 15,
+          "win": 6,
+          "lose": 9,
+          "winRate": 0.4,
+          "gameBehind": 5.5,
+          "lastFive": "LLLWL",
+          "streak": {
+            "type": "L",
+            "count": 3
           }
         },
         {
@@ -5722,11 +5722,11 @@
           "rank": 3,
           "teamName": "디트로이트",
           "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/DET.png?type=f92_88",
-          "gameCount": 11,
+          "gameCount": 12,
           "win": 8,
-          "lose": 3,
-          "winRate": 0.727,
-          "gameBehind": 1.5,
+          "lose": 4,
+          "winRate": 0.667,
+          "gameBehind": 2,
           "lastFive": "",
           "streak": {
             "type": "W",
@@ -5752,8 +5752,8 @@
         },
         {
           "rank": 4,
-          "teamName": "애틀랜타",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/ATL.png?type=f92_88",
+          "teamName": "마이애미",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/MIA.png?type=f92_88",
           "gameCount": 13,
           "win": 7,
           "lose": 6,
@@ -5784,13 +5784,13 @@
         },
         {
           "rank": 5,
-          "teamName": "마이애미",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/MIA.png?type=f92_88",
-          "gameCount": 12,
-          "win": 6,
+          "teamName": "애틀랜타",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/ATL.png?type=f92_88",
+          "gameCount": 13,
+          "win": 7,
           "lose": 6,
-          "winRate": 0.5,
-          "gameBehind": 4,
+          "winRate": 0.538,
+          "gameBehind": 3.5,
           "lastFive": "",
           "streak": {
             "type": "W",
@@ -5802,27 +5802,43 @@
           "rank": 5,
           "teamName": "미네소타",
           "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/MIN.png?type=f92_88",
-          "gameCount": 12,
+          "gameCount": 13,
           "win": 9,
-          "lose": 3,
-          "winRate": 0.75,
-          "gameBehind": 1.5,
+          "lose": 4,
+          "winRate": 0.692,
+          "gameBehind": 2,
           "lastFive": "",
           "streak": {
             "type": "W",
             "count": 0
           },
           "conference": "서부"
+        },
+        {
+          "rank": 6,
+          "teamName": "클리블랜드",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/CLE.png?type=f92_88",
+          "gameCount": 14,
+          "win": 7,
+          "lose": 7,
+          "winRate": 0.5,
+          "gameBehind": 4,
+          "lastFive": "",
+          "streak": {
+            "type": "W",
+            "count": 0
+          },
+          "conference": "동부"
         },
         {
           "rank": 6,
           "teamName": "멤피스",
           "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/MEM.png?type=f92_88",
-          "gameCount": 12,
-          "win": 8,
+          "gameCount": 13,
+          "win": 9,
           "lose": 4,
-          "winRate": 0.667,
-          "gameBehind": 2.5,
+          "winRate": 0.692,
+          "gameBehind": 2,
           "lastFive": "",
           "streak": {
             "type": "W",
@@ -5831,7 +5847,23 @@
           "conference": "서부"
         },
         {
-          "rank": 6,
+          "rank": 7,
+          "teamName": "덴버",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/DEN.png?type=f92_88",
+          "gameCount": 11,
+          "win": 7,
+          "lose": 4,
+          "winRate": 0.636,
+          "gameBehind": 3,
+          "lastFive": "",
+          "streak": {
+            "type": "W",
+            "count": 0
+          },
+          "conference": "서부"
+        },
+        {
+          "rank": 7,
           "teamName": "뉴욕",
           "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/NY.png?type=f92_88",
           "gameCount": 12,
@@ -5847,41 +5879,9 @@
           "conference": "동부"
         },
         {
-          "rank": 7,
-          "teamName": "클리블랜드",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/CLE.png?type=f92_88",
-          "gameCount": 13,
-          "win": 6,
-          "lose": 7,
-          "winRate": 0.462,
-          "gameBehind": 4.5,
-          "lastFive": "",
-          "streak": {
-            "type": "W",
-            "count": 0
-          },
-          "conference": "동부"
-        },
-        {
-          "rank": 7,
+          "rank": 8,
           "teamName": "골든스테이트",
           "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/GS.png?type=f92_88",
-          "gameCount": 13,
-          "win": 8,
-          "lose": 5,
-          "winRate": 0.615,
-          "gameBehind": 3,
-          "lastFive": "",
-          "streak": {
-            "type": "W",
-            "count": 0
-          },
-          "conference": "서부"
-        },
-        {
-          "rank": 8,
-          "teamName": "오클라호마 시티",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/OKC.png?type=f92_88",
           "gameCount": 13,
           "win": 8,
           "lose": 5,
@@ -5912,13 +5912,13 @@
         },
         {
           "rank": 9,
-          "teamName": "덴버",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/DEN.png?type=f92_88",
-          "gameCount": 10,
-          "win": 6,
-          "lose": 4,
-          "winRate": 0.6,
-          "gameBehind": 3.5,
+          "teamName": "오클라호마 시티",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/OKC.png?type=f92_88",
+          "gameCount": 13,
+          "win": 8,
+          "lose": 5,
+          "winRate": 0.615,
+          "gameBehind": 3,
           "lastFive": "",
           "streak": {
             "type": "W",
@@ -5946,11 +5946,11 @@
           "rank": 10,
           "teamName": "댈러스",
           "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/DAL.png?type=f92_88",
-          "gameCount": 12,
+          "gameCount": 13,
           "win": 7,
-          "lose": 5,
-          "winRate": 0.583,
-          "gameBehind": 3.5,
+          "lose": 6,
+          "winRate": 0.538,
+          "gameBehind": 4,
           "lastFive": "",
           "streak": {
             "type": "W",
@@ -6010,11 +6010,11 @@
           "rank": 12,
           "teamName": "뉴올리언즈",
           "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/NO.png?type=f92_88",
-          "gameCount": 13,
+          "gameCount": 14,
           "win": 4,
-          "lose": 9,
-          "winRate": 0.308,
-          "gameBehind": 7,
+          "lose": 10,
+          "winRate": 0.286,
+          "gameBehind": 7.5,
           "lastFive": "",
           "streak": {
             "type": "W",
@@ -6042,11 +6042,11 @@
           "rank": 13,
           "teamName": "브루클린",
           "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/BKN.png?type=f92_88",
-          "gameCount": 11,
+          "gameCount": 12,
           "win": 3,
-          "lose": 8,
-          "winRate": 0.273,
-          "gameBehind": 6.5,
+          "lose": 9,
+          "winRate": 0.25,
+          "gameBehind": 7,
           "lastFive": "",
           "streak": {
             "type": "W",
@@ -6074,11 +6074,11 @@
           "rank": 14,
           "teamName": "시카고",
           "teamLogo": "https://sports-phinf.pstatic.net/team/nba/default/CHI.png?type=f92_88",
-          "gameCount": 11,
-          "win": 2,
+          "gameCount": 12,
+          "win": 3,
           "lose": 9,
-          "winRate": 0.182,
-          "gameBehind": 7.5,
+          "winRate": 0.25,
+          "gameBehind": 7,
           "lastFive": "",
           "streak": {
             "type": "W",
@@ -6146,6 +6146,21 @@
       "teams": [
         {
           "rank": 1,
+          "teamName": "현대캐피탈",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kovo/default/1005.png?type=f92_88",
+          "gameCount": 5,
+          "win": 4,
+          "lose": 1,
+          "points": 12,
+          "setRatio": 2,
+          "lastFive": "WWWWL",
+          "streak": {
+            "type": "W",
+            "count": 4
+          }
+        },
+        {
+          "rank": 2,
           "teamName": "한국전력",
           "teamLogo": "https://sports-phinf.pstatic.net/team/kovo/default/1006.png?type=f92_88",
           "gameCount": 4,
@@ -6160,33 +6175,18 @@
           }
         },
         {
-          "rank": 2,
-          "teamName": "현대캐피탈",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kovo/default/1005.png?type=f92_88",
-          "gameCount": 4,
-          "win": 3,
-          "lose": 1,
-          "points": 9,
-          "setRatio": 1.5,
-          "lastFive": "WWWL",
-          "streak": {
-            "type": "W",
-            "count": 3
-          }
-        },
-        {
           "rank": 3,
           "teamName": "우리카드",
           "teamLogo": "https://sports-phinf.pstatic.net/team/kovo/default/1009.png?type=f92_88",
-          "gameCount": 3,
+          "gameCount": 4,
           "win": 3,
-          "lose": 0,
+          "lose": 1,
           "points": 8,
-          "setRatio": 3,
-          "lastFive": "WWW",
+          "setRatio": 1.5,
+          "lastFive": "LWWW",
           "streak": {
-            "type": "W",
-            "count": 3
+            "type": "L",
+            "count": 1
           }
         },
         {
@@ -6274,6 +6274,21 @@
         },
         {
           "rank": 2,
+          "teamName": "한국도로공사",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/wkovo/default/2002.png?type=f92_88",
+          "gameCount": 5,
+          "win": 4,
+          "lose": 1,
+          "points": 12,
+          "setRatio": 2.4,
+          "lastFive": "WWWWL",
+          "streak": {
+            "type": "W",
+            "count": 4
+          }
+        },
+        {
+          "rank": 3,
           "teamName": "GS칼텍스",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wkovo/default/2005.png?type=f92_88",
           "gameCount": 4,
@@ -6285,21 +6300,6 @@
           "streak": {
             "type": "W",
             "count": 2
-          }
-        },
-        {
-          "rank": 3,
-          "teamName": "한국도로공사",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/wkovo/default/2002.png?type=f92_88",
-          "gameCount": 4,
-          "win": 3,
-          "lose": 1,
-          "points": 9,
-          "setRatio": 1.8,
-          "lastFive": "WWWL",
-          "streak": {
-            "type": "W",
-            "count": 3
           }
         },
         {
@@ -6351,19 +6351,19 @@
           "rank": 7,
           "teamName": "현대건설",
           "teamLogo": "https://sports-phinf.pstatic.net/team/wkovo/default/2001.png?type=f92_88",
-          "gameCount": 3,
+          "gameCount": 4,
           "win": 0,
-          "lose": 3,
+          "lose": 4,
           "points": 0,
-          "setRatio": 0.111111,
-          "lastFive": "LLL",
+          "setRatio": 0.0833333,
+          "lastFive": "LLLL",
           "streak": {
             "type": "L",
-            "count": 3
+            "count": 4
           }
         }
       ]
     }
   ],
-  "lastUpdated": "2026-11-15T02:40:20.267Z"
+  "lastUpdated": "2026-11-15T21:04:52.569Z"
 }
