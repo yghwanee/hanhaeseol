@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-15T09:16:14.650Z",
+  "lastUpdated": "2026-11-15T17:02:04.697Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -89417,7 +89417,8 @@
           "player": "아다무",
           "minute": 81
         }
-      ]
+      ],
+      "highlightVideoId": "EZqNl13QxIk"
     },
     "2026-11-09|denmark|라네르스|노르셸란": {
       "date": "2026-11-09",
@@ -91755,6 +91756,35 @@
       ],
       "highlightVideoId": "aUTkk1QfFKs"
     },
+    "2026-11-15|clubfriendly|제니트|트라브존": {
+      "date": "2026-11-15",
+      "categoryId": "clubfriendly",
+      "gameId": "wJXxuxwyL46m2fo",
+      "homeTeam": "제니트",
+      "awayTeam": "트라브존",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "펠리페 아우구스토",
+          "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "일디름",
+          "minute": 58,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "소볼레프",
+          "minute": 75
+        }
+      ]
+    },
     "2026-11-15|kbl|소노|원주 DB": {
       "date": "2026-11-15",
       "categoryId": "kbl",
@@ -91763,6 +91793,28 @@
       "awayTeam": "원주 DB",
       "homeScore": 89,
       "awayScore": 83,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-15|kbl|창원 LG|수원 KT": {
+      "date": "2026-11-15",
+      "categoryId": "kbl",
+      "gameId": "202611155006490171",
+      "homeTeam": "창원 LG",
+      "awayTeam": "수원 KT",
+      "homeScore": 83,
+      "awayScore": 81,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-15|kbl|KCC|대구 한국가스공사": {
+      "date": "2026-11-15",
+      "categoryId": "kbl",
+      "gameId": "202611156064490172",
+      "homeTeam": "KCC",
+      "awayTeam": "대구 한국가스공사",
+      "homeScore": 80,
+      "awayScore": 77,
       "status": "finished",
       "period": "4쿼터"
     },
@@ -92037,6 +92089,67 @@
         }
       ],
       "highlightVideoId": "jlJj8ivItAQ"
+    },
+    "2026-11-15|unl|라트비아|아르메니아": {
+      "date": "2026-11-15",
+      "categoryId": "unl",
+      "gameId": "claovyxDZa5E4La",
+      "homeTeam": "라트비아",
+      "awayTeam": "아르메니아",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    "2026-11-15|unl|키프로스|몬테네그로": {
+      "date": "2026-11-15",
+      "categoryId": "unl",
+      "gameId": "OeYpicE8WE99MjE",
+      "homeTeam": "키프로스",
+      "awayTeam": "몬테네그로",
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "오스마이치",
+          "minute": 5
+        },
+        {
+          "team": "home",
+          "player": "피타스",
+          "minute": 52
+        },
+        {
+          "team": "away",
+          "player": "부코티치",
+          "minute": 58
+        },
+        {
+          "team": "away",
+          "player": "크르스토비치",
+          "minute": 67
+        },
+        {
+          "team": "away",
+          "player": "크르스토비치",
+          "minute": 83
+        }
+      ],
+      "highlightVideoId": "t7ojn3dE5bc"
+    },
+    "2026-11-15|wkbl|삼성생명|BNK 썸": {
+      "date": "2026-11-15",
+      "categoryId": "wkbl",
+      "gameId": "202611150470113",
+      "homeTeam": "삼성생명",
+      "awayTeam": "BNK 썸",
+      "homeScore": 69,
+      "awayScore": 63,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-15|wkovo|현대건설|한국도로공사": {
       "date": "2026-11-15",
@@ -181467,7 +181580,8 @@
           "player": "아다무",
           "minute": 81
         }
-      ]
+      ],
+      "highlightVideoId": "EZqNl13QxIk"
     },
     {
       "date": "2026-11-09",
@@ -183807,12 +183921,63 @@
     },
     {
       "date": "2026-11-15",
+      "categoryId": "clubfriendly",
+      "gameId": "wJXxuxwyL46m2fo",
+      "homeTeam": "제니트",
+      "awayTeam": "트라브존",
+      "homeScore": 3,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "펠리페 아우구스토",
+          "minute": 13
+        },
+        {
+          "team": "home",
+          "player": "일디름",
+          "minute": 58,
+          "ownGoal": true
+        },
+        {
+          "team": "home",
+          "player": "소볼레프",
+          "minute": 75
+        }
+      ]
+    },
+    {
+      "date": "2026-11-15",
       "categoryId": "kbl",
       "gameId": "202611156616490170",
       "homeTeam": "소노",
       "awayTeam": "원주 DB",
       "homeScore": 89,
       "awayScore": 83,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-15",
+      "categoryId": "kbl",
+      "gameId": "202611155006490171",
+      "homeTeam": "창원 LG",
+      "awayTeam": "수원 KT",
+      "homeScore": 83,
+      "awayScore": 81,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-15",
+      "categoryId": "kbl",
+      "gameId": "202611156064490172",
+      "homeTeam": "KCC",
+      "awayTeam": "대구 한국가스공사",
+      "homeScore": 80,
+      "awayScore": 77,
       "status": "finished",
       "period": "4쿼터"
     },
@@ -184087,6 +184252,67 @@
         }
       ],
       "highlightVideoId": "jlJj8ivItAQ"
+    },
+    {
+      "date": "2026-11-15",
+      "categoryId": "unl",
+      "gameId": "claovyxDZa5E4La",
+      "homeTeam": "라트비아",
+      "awayTeam": "아르메니아",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료"
+    },
+    {
+      "date": "2026-11-15",
+      "categoryId": "unl",
+      "gameId": "OeYpicE8WE99MjE",
+      "homeTeam": "키프로스",
+      "awayTeam": "몬테네그로",
+      "homeScore": 1,
+      "awayScore": 4,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "오스마이치",
+          "minute": 5
+        },
+        {
+          "team": "home",
+          "player": "피타스",
+          "minute": 52
+        },
+        {
+          "team": "away",
+          "player": "부코티치",
+          "minute": 58
+        },
+        {
+          "team": "away",
+          "player": "크르스토비치",
+          "minute": 67
+        },
+        {
+          "team": "away",
+          "player": "크르스토비치",
+          "minute": 83
+        }
+      ],
+      "highlightVideoId": "t7ojn3dE5bc"
+    },
+    {
+      "date": "2026-11-15",
+      "categoryId": "wkbl",
+      "gameId": "202611150470113",
+      "homeTeam": "삼성생명",
+      "awayTeam": "BNK 썸",
+      "homeScore": 69,
+      "awayScore": 63,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-15",
