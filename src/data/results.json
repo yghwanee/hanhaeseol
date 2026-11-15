@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-14T21:25:22.191Z",
+  "lastUpdated": "2026-11-15T01:50:52.829Z",
   "byKey": {
     "2026-11-14|kbl|창원 LG|울산 현대모비스": {
       "date": "2026-11-14",
@@ -238,10 +238,10 @@
       "gameId": "2026111403",
       "homeTeam": "뉴올리언스",
       "awayTeam": "덴버",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 79,
+      "awayScore": 84,
+      "status": "live",
+      "period": "3쿼터"
     },
     "2026-11-15|nba|뉴올리언스|덴버": {
       "date": "2026-11-15",
@@ -249,10 +249,10 @@
       "gameId": "2026111403",
       "homeTeam": "뉴올리언스",
       "awayTeam": "덴버",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 79,
+      "awayScore": 84,
+      "status": "live",
+      "period": "3쿼터"
     },
     "2026-11-15|nba|클리블랜드|댈러스": {
       "date": "2026-11-15",
@@ -260,9 +260,10 @@
       "gameId": "2026111405",
       "homeTeam": "클리블랜드",
       "awayTeam": "댈러스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
+      "homeScore": 71,
+      "awayScore": 53,
+      "status": "live",
+      "period": "2쿼터"
     },
     "2026-11-15|nba|마이애미|디트로이트": {
       "date": "2026-11-15",
@@ -270,9 +271,10 @@
       "gameId": "2026111414",
       "homeTeam": "마이애미",
       "awayTeam": "디트로이트",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
+      "homeScore": 39,
+      "awayScore": 43,
+      "status": "live",
+      "period": "2쿼터"
     },
     "2026-11-15|nba|미네소타|시카고": {
       "date": "2026-11-15",
@@ -280,9 +282,10 @@
       "gameId": "2026111416",
       "homeTeam": "미네소타",
       "awayTeam": "시카고",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
+      "homeScore": 28,
+      "awayScore": 38,
+      "status": "live",
+      "period": "2쿼터"
     },
     "2026-11-15|nba|멤피스|브루클린": {
       "date": "2026-11-15",
@@ -290,9 +293,10 @@
       "gameId": "2026111429",
       "homeTeam": "멤피스",
       "awayTeam": "브루클린",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
+      "homeScore": 49,
+      "awayScore": 34,
+      "status": "live",
+      "period": "2쿼터"
     },
     "2026-11-16|nba|필라델피아|인디애나": {
       "date": "2026-11-16",
@@ -1071,15 +1075,16 @@
       "awayTeam": "우크라이나",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 37'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "데블린",
           "minute": 68
         }
-      ]
+      ],
+      "highlightVideoId": "C3uG4kJTP58"
     },
     "2026-11-15|unl|루마니아|폴란드": {
       "date": "2026-11-15",
@@ -1088,9 +1093,9 @@
       "homeTeam": "루마니아",
       "awayTeam": "폴란드",
       "homeScore": 2,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 35'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -1101,8 +1106,14 @@
           "team": "home",
           "player": "맨",
           "minute": 72
+        },
+        {
+          "team": "away",
+          "player": "레구와",
+          "minute": 82
         }
-      ]
+      ],
+      "highlightVideoId": "kHf_g0OjWIA"
     },
     "2026-11-15|unl|오스트리아|아일랜드": {
       "date": "2026-11-15",
@@ -1112,15 +1123,16 @@
       "awayTeam": "아일랜드",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 37'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "칼라이지치",
           "minute": 78
         }
-      ]
+      ],
+      "highlightVideoId": "Juuxwl2wHcY"
     },
     "2026-11-15|unl|포르투갈|덴마크": {
       "date": "2026-11-15",
@@ -1128,10 +1140,10 @@
       "gameId": "TUBndhZknQOcvY2",
       "homeTeam": "포르투갈",
       "awayTeam": "덴마크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 4,
-      "status": "live",
-      "period": "후반 36'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -1152,8 +1164,15 @@
           "team": "away",
           "player": "안데르센",
           "minute": 75
+        },
+        {
+          "team": "home",
+          "player": "베르나르두 실바",
+          "minute": 90,
+          "addedTime": 3
         }
-      ]
+      ],
+      "highlightVideoId": "JteVmQsW7yM"
     },
     "2026-11-15|unl|스웨덴|보스니아 헤르체고비나": {
       "date": "2026-11-15",
@@ -1163,8 +1182,8 @@
       "awayTeam": "보스니아 헤르체고비나",
       "homeScore": 3,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 37'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -1192,7 +1211,8 @@
           "player": "콜라시나츠",
           "minute": 62
         }
-      ]
+      ],
+      "highlightVideoId": "jlJj8ivItAQ"
     },
     "2026-11-15|unl|라트비아|아르메니아": {
       "date": "2026-11-15",
@@ -1466,10 +1486,10 @@
       "gameId": "2026111403",
       "homeTeam": "뉴올리언스",
       "awayTeam": "덴버",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 79,
+      "awayScore": 84,
+      "status": "live",
+      "period": "3쿼터"
     },
     {
       "date": "2026-11-15",
@@ -1477,9 +1497,10 @@
       "gameId": "2026111405",
       "homeTeam": "클리블랜드",
       "awayTeam": "댈러스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
+      "homeScore": 71,
+      "awayScore": 53,
+      "status": "live",
+      "period": "2쿼터"
     },
     {
       "date": "2026-11-15",
@@ -1487,9 +1508,10 @@
       "gameId": "2026111414",
       "homeTeam": "마이애미",
       "awayTeam": "디트로이트",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
+      "homeScore": 39,
+      "awayScore": 43,
+      "status": "live",
+      "period": "2쿼터"
     },
     {
       "date": "2026-11-15",
@@ -1497,9 +1519,10 @@
       "gameId": "2026111416",
       "homeTeam": "미네소타",
       "awayTeam": "시카고",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
+      "homeScore": 28,
+      "awayScore": 38,
+      "status": "live",
+      "period": "2쿼터"
     },
     {
       "date": "2026-11-15",
@@ -1507,9 +1530,10 @@
       "gameId": "2026111429",
       "homeTeam": "멤피스",
       "awayTeam": "브루클린",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
+      "homeScore": 49,
+      "awayScore": 34,
+      "status": "live",
+      "period": "2쿼터"
     },
     {
       "date": "2026-11-16",
@@ -2268,15 +2292,16 @@
       "awayTeam": "우크라이나",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 37'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "데블린",
           "minute": 68
         }
-      ]
+      ],
+      "highlightVideoId": "C3uG4kJTP58"
     },
     {
       "date": "2026-11-15",
@@ -2285,9 +2310,9 @@
       "homeTeam": "루마니아",
       "awayTeam": "폴란드",
       "homeScore": 2,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 35'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2298,8 +2323,14 @@
           "team": "home",
           "player": "맨",
           "minute": 72
+        },
+        {
+          "team": "away",
+          "player": "레구와",
+          "minute": 82
         }
-      ]
+      ],
+      "highlightVideoId": "kHf_g0OjWIA"
     },
     {
       "date": "2026-11-15",
@@ -2309,15 +2340,16 @@
       "awayTeam": "아일랜드",
       "homeScore": 1,
       "awayScore": 0,
-      "status": "live",
-      "period": "후반 37'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
           "player": "칼라이지치",
           "minute": 78
         }
-      ]
+      ],
+      "highlightVideoId": "Juuxwl2wHcY"
     },
     {
       "date": "2026-11-15",
@@ -2325,10 +2357,10 @@
       "gameId": "TUBndhZknQOcvY2",
       "homeTeam": "포르투갈",
       "awayTeam": "덴마크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 4,
-      "status": "live",
-      "period": "후반 36'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2349,8 +2381,15 @@
           "team": "away",
           "player": "안데르센",
           "minute": 75
+        },
+        {
+          "team": "home",
+          "player": "베르나르두 실바",
+          "minute": 90,
+          "addedTime": 3
         }
-      ]
+      ],
+      "highlightVideoId": "JteVmQsW7yM"
     },
     {
       "date": "2026-11-15",
@@ -2360,8 +2399,8 @@
       "awayTeam": "보스니아 헤르체고비나",
       "homeScore": 3,
       "awayScore": 2,
-      "status": "live",
-      "period": "후반 37'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2389,7 +2428,8 @@
           "player": "콜라시나츠",
           "minute": 62
         }
-      ]
+      ],
+      "highlightVideoId": "jlJj8ivItAQ"
     },
     {
       "date": "2026-11-15",
