@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-15T21:44:07.514Z",
+  "lastUpdated": "2026-11-16T01:57:58.246Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -92196,6 +92196,39 @@
         }
       ]
     },
+    "2026-11-16|amatchfriendly|수리남|에스와티니": {
+      "date": "2026-11-16",
+      "categoryId": "amatchfriendly",
+      "gameId": "EurXlzi6OgoYnQY",
+      "homeTeam": "수리남",
+      "awayTeam": "에스와티니",
+      "homeScore": 4,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "커크",
+          "minute": 6
+        },
+        {
+          "team": "home",
+          "player": "마가렛",
+          "minute": 59
+        },
+        {
+          "team": "home",
+          "player": "피로에",
+          "minute": 68
+        },
+        {
+          "team": "home",
+          "player": "피로에",
+          "minute": 80
+        }
+      ]
+    },
     "2026-11-16|nba|필라델피아|인디애나": {
       "date": "2026-11-16",
       "categoryId": "nba",
@@ -92204,6 +92237,50 @@
       "awayTeam": "인디애나",
       "homeScore": 131,
       "awayScore": 124,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-16|nba|피닉스|LA 레이커스": {
+      "date": "2026-11-16",
+      "categoryId": "nba",
+      "gameId": "2026111521",
+      "homeTeam": "피닉스",
+      "awayTeam": "LA 레이커스",
+      "homeScore": 123,
+      "awayScore": 131,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-16|nba|LA 클리퍼스|샬럿": {
+      "date": "2026-11-16",
+      "categoryId": "nba",
+      "gameId": "2026111512",
+      "homeTeam": "LA 클리퍼스",
+      "awayTeam": "샬럿",
+      "homeScore": 113,
+      "awayScore": 105,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-16|nba|유타|샌안토니오": {
+      "date": "2026-11-16",
+      "categoryId": "nba",
+      "gameId": "2026111526",
+      "homeTeam": "유타",
+      "awayTeam": "샌안토니오",
+      "homeScore": 102,
+      "awayScore": 110,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-16|nba|보스턴|댈러스": {
+      "date": "2026-11-16",
+      "categoryId": "nba",
+      "gameId": "2026111502",
+      "homeTeam": "보스턴",
+      "awayTeam": "댈러스",
+      "homeScore": 131,
+      "awayScore": 94,
       "status": "finished",
       "period": "4쿼터"
     },
@@ -92387,6 +92464,45 @@
         }
       ],
       "highlightVideoId": "z-X8gj2DvFE"
+    },
+    "2026-11-16|unl|스페인|잉글랜드": {
+      "date": "2026-11-16",
+      "categoryId": "unl",
+      "gameId": "C4dHczB3ICG2wdc",
+      "homeTeam": "스페인",
+      "awayTeam": "잉글랜드",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "케인",
+          "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "콘사",
+          "minute": 53
+        },
+        {
+          "team": "away",
+          "player": "화이트",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "미켈 오야르사발",
+          "minute": 65
+        },
+        {
+          "team": "home",
+          "player": "니코 윌리엄스",
+          "minute": 75
+        }
+      ],
+      "highlightVideoId": "-DaCVAhQHI4"
     }
   },
   "results": [
@@ -184587,12 +184703,89 @@
     },
     {
       "date": "2026-11-16",
+      "categoryId": "amatchfriendly",
+      "gameId": "EurXlzi6OgoYnQY",
+      "homeTeam": "수리남",
+      "awayTeam": "에스와티니",
+      "homeScore": 4,
+      "awayScore": 0,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "커크",
+          "minute": 6
+        },
+        {
+          "team": "home",
+          "player": "마가렛",
+          "minute": 59
+        },
+        {
+          "team": "home",
+          "player": "피로에",
+          "minute": 68
+        },
+        {
+          "team": "home",
+          "player": "피로에",
+          "minute": 80
+        }
+      ]
+    },
+    {
+      "date": "2026-11-16",
       "categoryId": "nba",
       "gameId": "2026111520",
       "homeTeam": "필라델피아",
       "awayTeam": "인디애나",
       "homeScore": 131,
       "awayScore": 124,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-16",
+      "categoryId": "nba",
+      "gameId": "2026111521",
+      "homeTeam": "피닉스",
+      "awayTeam": "LA 레이커스",
+      "homeScore": 123,
+      "awayScore": 131,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-16",
+      "categoryId": "nba",
+      "gameId": "2026111512",
+      "homeTeam": "LA 클리퍼스",
+      "awayTeam": "샬럿",
+      "homeScore": 113,
+      "awayScore": 105,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-16",
+      "categoryId": "nba",
+      "gameId": "2026111526",
+      "homeTeam": "유타",
+      "awayTeam": "샌안토니오",
+      "homeScore": 102,
+      "awayScore": 110,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-16",
+      "categoryId": "nba",
+      "gameId": "2026111502",
+      "homeTeam": "보스턴",
+      "awayTeam": "댈러스",
+      "homeScore": 131,
+      "awayScore": 94,
       "status": "finished",
       "period": "4쿼터"
     },
@@ -184776,6 +184969,45 @@
         }
       ],
       "highlightVideoId": "z-X8gj2DvFE"
+    },
+    {
+      "date": "2026-11-16",
+      "categoryId": "unl",
+      "gameId": "C4dHczB3ICG2wdc",
+      "homeTeam": "스페인",
+      "awayTeam": "잉글랜드",
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "케인",
+          "minute": 45
+        },
+        {
+          "team": "away",
+          "player": "콘사",
+          "minute": 53
+        },
+        {
+          "team": "away",
+          "player": "화이트",
+          "minute": 57
+        },
+        {
+          "team": "home",
+          "player": "미켈 오야르사발",
+          "minute": 65
+        },
+        {
+          "team": "home",
+          "player": "니코 윌리엄스",
+          "minute": 75
+        }
+      ],
+      "highlightVideoId": "-DaCVAhQHI4"
     }
   ]
 }

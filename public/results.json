@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-15T21:43:59.388Z",
+  "lastUpdated": "2026-11-16T01:57:50.825Z",
   "byKey": {
     "2026-11-15|kbl|고양 소노|원주 DB": {
       "date": "2026-11-15",
@@ -161,10 +161,10 @@
       "gameId": "2026111521",
       "homeTeam": "피닉스",
       "awayTeam": "LA 레이커스",
-      "homeScore": 21,
-      "awayScore": 29,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 123,
+      "awayScore": 131,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-16|nba|피닉스|LA 레이커스": {
       "date": "2026-11-16",
@@ -172,10 +172,10 @@
       "gameId": "2026111521",
       "homeTeam": "피닉스",
       "awayTeam": "LA 레이커스",
-      "homeScore": 21,
-      "awayScore": 29,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 123,
+      "awayScore": 131,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-16|nba|LA클리퍼스|샬럿": {
       "date": "2026-11-16",
@@ -183,10 +183,10 @@
       "gameId": "2026111512",
       "homeTeam": "LA 클리퍼스",
       "awayTeam": "샬럿",
-      "homeScore": 5,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 113,
+      "awayScore": 105,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-16|nba|LA 클리퍼스|샬럿": {
       "date": "2026-11-16",
@@ -194,10 +194,10 @@
       "gameId": "2026111512",
       "homeTeam": "LA 클리퍼스",
       "awayTeam": "샬럿",
-      "homeScore": 5,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 113,
+      "awayScore": 105,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-16|nba|유타|샌안토니오": {
       "date": "2026-11-16",
@@ -205,21 +205,10 @@
       "gameId": "2026111526",
       "homeTeam": "유타",
       "awayTeam": "샌안토니오",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
-    },
-    "2026-11-16|nba|보스턴|댈러스": {
-      "date": "2026-11-16",
-      "categoryId": "nba",
-      "gameId": "2026111502",
-      "homeTeam": "보스턴",
-      "awayTeam": "댈러스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 102,
+      "awayScore": 110,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-16|nba|토론토|뉴욕": {
       "date": "2026-11-16",
@@ -227,10 +216,21 @@
       "gameId": "2026111528",
       "homeTeam": "토론토",
       "awayTeam": "뉴욕",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 108,
+      "awayScore": 112,
+      "status": "live",
+      "period": "1차 연장"
+    },
+    "2026-11-16|nba|보스턴|댈러스": {
+      "date": "2026-11-16",
+      "categoryId": "nba",
+      "gameId": "2026111502",
+      "homeTeam": "보스턴",
+      "awayTeam": "댈러스",
+      "homeScore": 131,
+      "awayScore": 94,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-16|nba|워싱턴|휴스턴": {
       "date": "2026-11-16",
@@ -238,10 +238,10 @@
       "gameId": "2026111527",
       "homeTeam": "워싱턴",
       "awayTeam": "휴스턴",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 81,
+      "awayScore": 112,
+      "status": "live",
+      "period": "3쿼터"
     },
     "2026-11-16|nba|밀워키|애틀랜타": {
       "date": "2026-11-16",
@@ -249,9 +249,10 @@
       "gameId": "2026111515",
       "homeTeam": "밀워키",
       "awayTeam": "애틀랜타",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
+      "homeScore": 51,
+      "awayScore": 44,
+      "status": "live",
+      "period": "2쿼터"
     },
     "2026-11-16|nba|새크라멘토|오클라호마": {
       "date": "2026-11-16",
@@ -261,7 +262,8 @@
       "awayTeam": "오클라호마",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1쿼터"
     },
     "2026-11-17|nba|보스턴|올랜도": {
       "date": "2026-11-17",
@@ -482,12 +484,12 @@
       ],
       "highlightVideoId": "aUTkk1QfFKs"
     },
-    "2026-11-16|amatchfriendly|수리남|스와질랜드": {
+    "2026-11-16|amatchfriendly|수리남|에스와티니": {
       "date": "2026-11-16",
       "categoryId": "amatchfriendly",
       "gameId": "EurXlzi6OgoYnQY",
       "homeTeam": "수리남",
-      "awayTeam": "스와질랜드",
+      "awayTeam": "에스와티니",
       "homeScore": 4,
       "awayScore": 0,
       "status": "finished",
@@ -947,8 +949,8 @@
       "awayTeam": "잉글랜드",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 48'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -975,7 +977,8 @@
           "player": "니코 윌리엄스",
           "minute": 75
         }
-      ]
+      ],
+      "highlightVideoId": "-DaCVAhQHI4"
     },
     "2026-11-16|unl|크로아티아|체코": {
       "date": "2026-11-16",
@@ -1314,10 +1317,10 @@
       "gameId": "2026111521",
       "homeTeam": "피닉스",
       "awayTeam": "LA 레이커스",
-      "homeScore": 21,
-      "awayScore": 29,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 123,
+      "awayScore": 131,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-16",
@@ -1325,10 +1328,10 @@
       "gameId": "2026111512",
       "homeTeam": "LA 클리퍼스",
       "awayTeam": "샬럿",
-      "homeScore": 5,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 113,
+      "awayScore": 105,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-16",
@@ -1336,21 +1339,10 @@
       "gameId": "2026111526",
       "homeTeam": "유타",
       "awayTeam": "샌안토니오",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
-    },
-    {
-      "date": "2026-11-16",
-      "categoryId": "nba",
-      "gameId": "2026111502",
-      "homeTeam": "보스턴",
-      "awayTeam": "댈러스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 102,
+      "awayScore": 110,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-16",
@@ -1358,10 +1350,21 @@
       "gameId": "2026111528",
       "homeTeam": "토론토",
       "awayTeam": "뉴욕",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 108,
+      "awayScore": 112,
+      "status": "live",
+      "period": "1차 연장"
+    },
+    {
+      "date": "2026-11-16",
+      "categoryId": "nba",
+      "gameId": "2026111502",
+      "homeTeam": "보스턴",
+      "awayTeam": "댈러스",
+      "homeScore": 131,
+      "awayScore": 94,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-16",
@@ -1369,10 +1372,10 @@
       "gameId": "2026111527",
       "homeTeam": "워싱턴",
       "awayTeam": "휴스턴",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 81,
+      "awayScore": 112,
+      "status": "live",
+      "period": "3쿼터"
     },
     {
       "date": "2026-11-16",
@@ -1380,9 +1383,10 @@
       "gameId": "2026111515",
       "homeTeam": "밀워키",
       "awayTeam": "애틀랜타",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled"
+      "homeScore": 51,
+      "awayScore": 44,
+      "status": "live",
+      "period": "2쿼터"
     },
     {
       "date": "2026-11-16",
@@ -1392,7 +1396,8 @@
       "awayTeam": "오클라호마",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1쿼터"
     },
     {
       "date": "2026-11-17",
@@ -1608,7 +1613,7 @@
       "categoryId": "amatchfriendly",
       "gameId": "EurXlzi6OgoYnQY",
       "homeTeam": "수리남",
-      "awayTeam": "스와질랜드",
+      "awayTeam": "에스와티니",
       "homeScore": 4,
       "awayScore": 0,
       "status": "finished",
@@ -2068,8 +2073,8 @@
       "awayTeam": "잉글랜드",
       "homeScore": 2,
       "awayScore": 3,
-      "status": "live",
-      "period": "후반 48'",
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2096,7 +2101,8 @@
           "player": "니코 윌리엄스",
           "minute": 75
         }
-      ]
+      ],
+      "highlightVideoId": "-DaCVAhQHI4"
     },
     {
       "date": "2026-11-16",
