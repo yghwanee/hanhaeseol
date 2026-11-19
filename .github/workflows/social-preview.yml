@@ -70,6 +70,14 @@ jobs:
           npx playwright install --with-deps chromium
           npm run social:v3
 
+      # 게시 워크플로와 같은 선수 받기 → 이번에 나갈 후킹 문장 출력(게시 없음)
+      - name: 히어로 대표 선수 + 후킹 문장 미리보기
+        continue-on-error: true
+        run: |
+          npx playwright install chromium
+          NODE_OPTIONS=--import=./tools/naver-browser-preload.mjs npm run hero:star
+          npx tsx src/scripts/hook-preview.ts
+
       - name: 카드 생성
         if: ${{ inputs.design == 'old' }}
         run: npm run post:all -- --no-send
