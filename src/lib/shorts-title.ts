@@ -119,6 +119,67 @@ export const NATIONAL_EVENING_HOOKS: Array<(c: NationalHookCtx) => string> = [
   (c) => `${c.matchup} ${c.event} ${c.emoji} ${c.dayWord} ${c.time} ${c.ko} 어디서 하나`,
 ];
 
+// ── 팀 대표 선수 전용 (2026-11-20) ────────────────────────────────────
+// 코리안리거가 없는 클럽 경기는 주어가 팀명 하나였다 — `LA 레이커스 내일 어디서 보나`.
+// 팀명만 갈아 끼운 문장이라 후킹이 약했다(화니 지적). 이제 네이버 시즌 기록에서 받은
+// 팀 대표 선수(`hero-star.ts`)를 주어로 세우고, 근거 수치(`평균 32.1점`·`시즌 9골`)를
+// 붙여 "왜 이 선수인가"를 문장 안에서 말한다. 팀명·매치업은 검색어라 같이 남긴다.
+// 🔴 "에이스"·"득점왕" 같은 수식은 쓰지 않는다 — 근거 수치가 `팀 공헌도 1위` 일 수도 있다.
+interface StarHookCtx {
+  /** "엘링 홀란" */
+  name: string;
+  /** "맨시티" */
+  team: string;
+  /** "시즌 9골" */
+  stat: string;
+  /** "맨시티 vs 풀럼" */
+  matchup: string;
+  time: string;
+  platform: string;
+  emoji: string;
+  dayWord: "오늘" | "내일";
+}
+
+export const STAR_MORNING_HOOKS: Array<(c: StarHookCtx) => string> = [
+  (c) => `${c.name} ${c.dayWord} ${c.time} 출격 ${c.emoji} ${c.team} 한국어 중계 채널`,
+  (c) => `${c.stat} ${c.name} ${c.emoji} ${c.dayWord} ${c.time} ${c.matchup} 한국어 중계`,
+  (c) => `${c.dayWord} ${c.name} 보려면 ${c.emoji} ${c.time} ${c.matchup} 한국어 중계는 ${c.platform}`,
+  (c) => `${c.team} ${c.name} ${c.dayWord} 뜹니다 ${c.emoji} ${c.time} 한국어 해설 어디서 봐요?`,
+  (c) => `${c.name} ${c.stat} ${c.emoji} ${c.dayWord} ${c.time} ${c.team} 경기 한국어 해설`,
+  (c) => `${c.dayWord} 뭐 볼지 고민이면 ${c.name} ${c.emoji} ${c.matchup} ${c.time} 한국어 중계`,
+  (c) => `${c.matchup} ${c.emoji} ${c.dayWord} 주인공은 ${c.name} · ${c.time} 한국어 중계`,
+  (c) => `${c.name} 경기 ${c.dayWord} ${c.time} ${c.emoji} 한국어 중계 되는 곳 정리 · ${c.team}`,
+];
+
+export const STAR_EVENING_HOOKS: Array<(c: StarHookCtx) => string> = [
+  (c) => `${c.dayWord} ${c.time} ${c.name} 나옵니다 ${c.emoji} ${c.team} 한국어 중계 미리 확인`,
+  (c) => `${c.stat} ${c.name} ${c.emoji} ${c.dayWord} ${c.matchup} ${c.time} 한국어 중계`,
+  (c) => `${c.name} 보실 분 ${c.dayWord} ${c.time} 알람 ${c.emoji} ${c.team} 한국어 해설 채널`,
+  (c) => `${c.dayWord} ${c.matchup} ${c.emoji} 키는 ${c.name} · ${c.time} 한국어 중계는 ${c.platform}`,
+  (c) => `${c.team} ${c.name} ${c.dayWord} 출격 ${c.emoji} ${c.stat} · ${c.time} 한국어 중계`,
+  (c) => `${c.dayWord} 놓치면 아까운 ${c.name} ${c.emoji} ${c.matchup} ${c.time} 한국어 해설`,
+  (c) => `${c.name} ${c.dayWord} 어디서 보나 ${c.emoji} ${c.time} ${c.platform} 한국어 중계 · ${c.team}`,
+  (c) => `${c.dayWord} ${c.time}, ${c.name} 경기 ${c.emoji} ${c.matchup} 한국어 중계 채널 정리`,
+];
+
+/** 히어로에 팀 대표 선수가 잡혔으면 전용 재료. 아니면 null(대표팀·코리안리거·데이터 없음). */
+function starHookContext(today: string, now: Date = new Date()): StarHookCtx | null {
+  const c = coverHookContext(today, now);
+  if (!c?.star) return null;
+  const hero = pickHeroForDate(today);
+  if (!hero) return null;
+  return {
+    name: c.star.name,
+    team: c.star.team,
+    stat: c.star.stat,
+    matchup: c.matchup ?? `${hero.homeTeam} vs ${hero.awayTeam ?? ""}`,
+    time: c.time,
+    platform: c.platform,
+    emoji: SPORT_EMOJI[hero.sport],
+    dayWord: c.dayWord,
+  };
+}
+
 /** 그날 히어로가 대표팀 경기면 전용 재료를 만든다. 아니면 null. */
 function nationalHookContext(today: string, now: Date = new Date()): NationalHookCtx | null {
   const c = coverHookContext(today, now);
@@ -211,6 +272,14 @@ export function buildHookLine(
     return natPool[natIdx](nat);
   }
 
+  const star = starHookContext(today, now);
+  if (star) {
+    const starPool = slot === "morning" ? STAR_MORNING_HOOKS : STAR_EVENING_HOOKS;
+    const starIdx =
+      (rotateIndex(today, slot, starPool.length) + SURFACE_OFFSET[surface]) % starPool.length;
+    return starPool[starIdx](star);
+  }
+
   const ctx = hookContext(today, now);
   if (!ctx) return FALLBACK_HOOKS[surface][slot](inferDayLabel(today, now));
 
@@ -247,6 +316,13 @@ export function buildShortsTitle(
     const natPool = slot === "morning" ? NATIONAL_MORNING_HOOKS : NATIONAL_EVENING_HOOKS;
     const natTitle = `${natPool[rotateIndex(today, slot, natPool.length)](nat)} ${dateTag}`;
     if (natTitle.length <= TITLE_MAX) return natTitle;
+  }
+
+  const star = starHookContext(today, now);
+  if (star) {
+    const starPool = slot === "morning" ? STAR_MORNING_HOOKS : STAR_EVENING_HOOKS;
+    const starTitle = `${starPool[rotateIndex(today, slot, starPool.length)](star)} ${dateTag}`;
+    if (starTitle.length <= TITLE_MAX) return starTitle;
   }
 
   const ctx = hookContext(today, now);

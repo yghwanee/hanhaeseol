@@ -16,7 +16,13 @@ import fs from "node:fs";
 import path from "node:path";
 import type { Schedule } from "@/types/schedule";
 import { isAgScheduleLeague } from "./asian-games/data";
-import { isNationalTeamMatch, nationalOpponent, NATIONAL_TEAM } from "./hero-pick";
+import {
+  ageGroupLabel,
+  isAgeGroupNational,
+  isNationalTeamMatch,
+  nationalOpponent,
+  NATIONAL_TEAM,
+} from "./hero-pick";
 
 export interface NationalEvent {
   /** "일본" */
@@ -88,6 +94,12 @@ export function nationalEventFor(m: Schedule | null): NationalEvent | null {
   if (isAgScheduleLeague(m.league)) {
     base = `아시안게임 ${agRoundLabel(m) ?? m.sport}`;
     eventTag = "아시안게임";
+  } else if (isAgeGroupNational(m)) {
+    // 🔴 연령별 대표를 "A매치" 로 부르지 않는다(2026-11-17 U-21 멕시코전이 "축구 A매치" 로 나갔다).
+    // 연령은 리그·팀명에 적혀 있을 때만 쓴다 — 편성엔 대개 "연령별" 뿐이라 지어내지 않는다.
+    const age = ageGroupLabel(m);
+    base = age ? `${age} 대표팀 ${m.sport}` : `연령별 대표팀 ${m.sport}`;
+    eventTag = age ? `${age.replace("-", "")}대표팀` : "연령별대표팀";
   } else if (m.sport === "축구" && /국가대표/.test(m.league)) {
     // 남자 대표팀 경기는 친선·예선 가리지 않고 A매치로 부른다(검색어가 그렇다).
     base = /여자/.test(m.league) ? "여자축구 A매치" : "축구 A매치";

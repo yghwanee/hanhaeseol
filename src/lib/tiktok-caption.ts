@@ -10,8 +10,8 @@
 // 날짜 기반으로 순환시켜 문장 박제를 피한다.
 
 import { getHeroMatchLines, getHierarchicalTags } from "./hashtags";
-import { inferDayLabel, loadKoreanMatchesAll } from "./instagram";
-import { pickHeroMatch } from "./hero-pick";
+import { inferDayLabel, loadKoreanMatchesAll, pickHeroForDate } from "./instagram";
+import { coverHookContext } from "./cover-hook";
 
 /** "04:00" → "새벽 4시", "18:30" → "저녁 6시 30분" — 말맛 있는 시간 표기 */
 export function speakTime(hhmm: string): string {
@@ -25,7 +25,11 @@ export function speakTime(hhmm: string): string {
 }
 
 interface HookCtx {
-  matchup: string;   // "스페인 vs 아르헨티나"
+  /**
+   * 첫머리 — 매치업에 주인공을 얹는다(2026-11-20). 다른 게시면(제목·인스타 캡션)과 같은 분기:
+   * 대표팀 = "축구 A매치 카타르 vs 대한민국" · 선수 = "엘링 홀란 나오는 맨시티 vs 풀럼" · 그 외 = 매치업.
+   */
+  matchup: string;
   time: string;      // "새벽 4시"
   platform: string;  // "JTBC"
   day: "오늘" | "내일";
@@ -53,12 +57,21 @@ export function buildTiktokCaption(today: string): string {
 
   const body: string[] = [];
 
-  const hero = games.length ? pickHeroMatch(games) : null;
+  // 🔴 히어로는 다른 게시면과 같은 함수로 고른다. 종전엔 pickHeroMatch 를 직접 불러
+  // 연속 방지 감점이 빠졌고, 틱톡만 다른 경기를 주인공으로 세울 수 있었다.
+  const hero = games.length ? pickHeroForDate(today) : null;
   const heroHome = hero && hero.homeTeam !== "미정" ? hero.homeTeam : null;
   const heroAway = hero && hero.awayTeam && hero.awayTeam !== "미정" ? hero.awayTeam : null;
   if (hero && heroHome) {
+    const base = heroAway ? `${heroHome} vs ${heroAway}` : heroHome;
+    const c = coverHookContext(today);
+    const lead = c?.national
+      ? `${c.national.event} ${c.national.matchup}`
+      : c?.isPlayer
+        ? `${c.who} 나오는 ${base}`
+        : base;
     const ctx: HookCtx = {
-      matchup: heroAway ? `${heroHome} vs ${heroAway}` : heroHome,
+      matchup: lead,
       time: speakTime(hero.time),
       platform: hero.platform,
       day,

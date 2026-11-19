@@ -39,7 +39,7 @@ permissions:
 
 jobs:
   preview:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # 🔴 Playwright 1.59 는 ubuntu-latest(=26.04, 2026-11-16~)를 지원 안 한다
     timeout-minutes: 15
     env:
       KST_OFFSET_DAYS: ${{ inputs.offset }}

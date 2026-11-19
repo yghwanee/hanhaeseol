@@ -107,3 +107,20 @@ test("🔴 run: 블록이 열 0 으로 튀어나오지 않는다 — 블록 스�
     "run 블록 안의 줄이 열 0 으로 튀어나왔다(개행이 잘못 들어간 신호):\n  " + bad.join("\n  "),
   );
 });
+
+/**
+ * 🔴 2026-11-16 GitHub 이 `ubuntu-latest` 를 Ubuntu 26.04 로 올렸다. Playwright 1.59 는
+ * `ERROR: Playwright does not support chromium on ubuntu26.04-x64` 로 설치부터 죽는다.
+ * 그 뒤 나흘간 결과·순위·선발·로스터·라이브 크롤이 전부 실패했고, 소셜 v3 렌더가
+ * 죽어 옛 디자인(옛 후킹 문구·옛 카드)으로 8회 연속 대신 게시됐다.
+ * 크로미움을 쓰는 워크플로는 러너 버전을 고정한다. 올릴 때는 Playwright 지원 여부부터.
+ */
+test("🔴 크로미움을 쓰는 워크플로는 ubuntu-latest 를 쓰지 않는다", () => {
+  const bad: string[] = [];
+  for (const f of files) {
+    const src = fs.readFileSync(path.join(WF_DIR, f), "utf-8");
+    if (!/playwright|chromium|naver-browser-preload/i.test(src)) continue;
+    if (/runs-on:\s*ubuntu-latest/.test(src)) bad.push(f);
+  }
+  assert.deepEqual(bad, [], "ubuntu-latest(26.04)에선 Playwright 가 안 깔린다 → ubuntu-24.04 로 고정:\n  " + bad.join("\n  "));
+});

@@ -39,7 +39,7 @@ concurrency:
 
 jobs:
   morning:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # 🔴 Playwright 1.59 는 ubuntu-latest(=26.04, 2026-11-16~)를 지원 안 한다
     # 직렬화(concurrency)를 걸었으므로 한 실행이 매달리면 다음 사이클까지 막힌다.
     timeout-minutes: 30
     env:
@@ -127,6 +127,16 @@ jobs:
         run: |
           npx playwright install --with-deps chromium
           npm run social:v3
+
+      # 🔴 후킹 주어 = 히어로 경기의 팀 대표 선수(네이버 시즌 기록, src/lib/hero-star.ts).
+      # 제목·캡션이 이 파일을 읽는다. 실패해도 게시는 그대로 — 파일이 없으면 팀명 주어로 돌아간다.
+      - name: 히어로 대표 선수 받기 (후킹 주어)
+        if: ${{ steps.dup.outputs.skip != 'true' && steps.plan.outputs.skip_all != 'true' }}
+        continue-on-error: true
+        timeout-minutes: 4
+        run: |
+          npx playwright install chromium
+          NODE_OPTIONS=--import=./tools/naver-browser-preload.mjs npm run hero:star
 
       - name: v3 실패 알림 (옛 디자인으로 대신 게시)
         if: ${{ steps.v3.outcome == 'failure' }}

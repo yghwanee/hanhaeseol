@@ -340,3 +340,34 @@ test("🔴 실데이터 — 대표팀 경기가 있는 날은 히어로가 그 �
   }
   if (checked === 0) t.skip("7일 안에 대표팀 경기가 없다");
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 🔴 연령별 대표 vs A대표 (2026-11-20)
+//   11/17 U-21 `대한민국 vs 멕시코`(19:00)가 A대표 `카타르 vs 대한민국`(22:30)을 이기고
+//   히어로가 됐고, 라벨이 "축구 A매치" 로 붙어 그날 국대 상대가 멕시코인 것처럼 나갔다.
+// ─────────────────────────────────────────────────────────────────────────────
+
+test("🔴 같은 날 A대표와 연령별 대표가 겹치면 A대표가 히어로다 (11/17 실데이터)", () => {
+  const u21 = national("대한민국", "멕시코", "연령별 남자축구 국가대표팀", "19:00");
+  const senior = national("카타르", "대한민국", "남자축구 국가대표팀", "22:30");
+  assert.equal(pickHeroMatch([u21, senior])?.id, senior.id);
+  assert.equal(pickHeroMatch([senior, u21])?.id, senior.id);
+});
+
+test("🔴 연령별 대표 경기를 'A매치' 로 부르지 않는다", () => {
+  const u21 = nationalEventFor(national("대한민국", "멕시코", "연령별 남자축구 국가대표팀", "19:00"));
+  assert.ok(u21);
+  assert.doesNotMatch(u21!.event, /A매치/);
+  assert.equal(u21!.event, "연령별 대표팀 축구");
+  // 연령이 적혀 있으면 쓴다
+  const u23 = nationalEventFor(national("대한민국 U23", "중국", "친선"));
+  assert.equal(u23?.event, "U-23 대표팀 축구");
+  // A대표는 그대로 A매치
+  assert.equal(nationalEventFor(national("카타르", "대한민국", "남자축구 국가대표팀"))?.event, "축구 A매치");
+});
+
+test("연령별 대표도 클럽 경기보다는 앞선다(국가대표 티어 유지)", () => {
+  const epl = club("리버풀", "아스날", "프리미어리그", "20:30");
+  const u21 = national("대한민국", "멕시코", "연령별 남자축구 국가대표팀", "19:00");
+  assert.equal(pickHeroMatch([epl, u21])?.id, u21.id);
+});

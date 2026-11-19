@@ -86,6 +86,27 @@ export function isNationalTeamMatch(m: Schedule): boolean {
   return isNationalSide(m.homeTeam) || isNationalSide(m.awayTeam);
 }
 
+/**
+ * 🔴 연령별 대표(U-21·U-23 등) 경기인가 (2026-11-20).
+ *
+ * 2026-11-17 은 대표팀 경기가 둘이었다 — U-21 `대한민국 vs 멕시코`(19:00, 쿠팡플레이 리그명
+ * `연령별 남자축구 국가대표팀`)와 A대표 `카타르 vs 대한민국`(22:30). 둘 다 국가대표 티어라
+ * heroScore(둘 다 프라임 저녁)로 비기고 **시각이 빠른 U-21 경기가 히어로**가 됐다. 게다가
+ * 라벨이 "축구 A매치" 로 붙어 그날 A대표 상대가 멕시코인 것처럼 나갔다.
+ * 사람들이 "오늘 축구 국대" 로 찾는 건 A대표다 — 같은 티어 안에서 A대표가 먼저다.
+ */
+export function isAgeGroupNational(m: Schedule): boolean {
+  if (!isNationalTeamMatch(m)) return false;
+  if (/연령별|U-?\d{2}|올림픽/i.test(m.league)) return true;
+  return [m.homeTeam, m.awayTeam].some((t) => /U-?\d{2}/i.test(t ?? ""));
+}
+
+/** "U-21" — 리그명·팀명에 연령이 적혀 있을 때만. 없으면 null(지어내지 않는다). */
+export function ageGroupLabel(m: Schedule): string | null {
+  const hit = /U-?(\d{2})/i.exec(`${m.league} ${m.homeTeam} ${m.awayTeam ?? ""}`);
+  return hit ? `U-${hit[1]}` : null;
+}
+
 /** 대표팀 경기의 상대. 대표팀 경기가 아니거나 상대 미정이면 null. */
 export function nationalOpponent(m: Schedule): string | null {
   if (!isNationalTeamMatch(m)) return null;
@@ -462,6 +483,11 @@ export function compareHero(
   const na = isNationalTeamMatch(a);
   const nb = isNationalTeamMatch(b);
   if (na !== nb) return na ? -1 : 1;
+  if (na && nb) {
+    const ya = isAgeGroupNational(a);
+    const yb = isAgeGroupNational(b);
+    if (ya !== yb) return ya ? 1 : -1; // A대표가 연령별 대표보다 먼저
+  }
 
   const pa = isTopPriority(a);
   const pb = isTopPriority(b);

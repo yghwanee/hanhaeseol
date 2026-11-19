@@ -17,6 +17,7 @@ import {
 } from "./instagram";
 import { GLOBAL_BIG_CLUBS, NATIONAL_TEAM } from "./hero-pick";
 import { nationalEventFor } from "./national-event";
+import { loadHeroStar } from "./hero-star";
 import { withJosa } from "./josa";
 import { getPostSlot, rotateIndex, type PostSlot } from "./post-slot";
 import { speakTime } from "./tiktok-caption";
@@ -50,6 +51,13 @@ export interface CoverHookCtx {
    * `베네수엘라` 가 됐다(2026-10-02 시뮬레이션).
    */
   national?: { matchup: string; opponent: string; event: string };
+  /**
+   * 코리안리거가 없는 클럽 경기에서 네이버 시즌 기록으로 받은 팀 대표 선수(`hero-star.ts`).
+   * 있으면 `who` 가 이 선수 이름이 된다 — 팀명만 갈아 끼운 `LA 레이커스 내일 어디서 보나` 대신.
+   */
+  star?: { name: string; team: string; stat: string };
+  /** "맨시티 vs 풀럼" — 편성 표기 순서 그대로 */
+  matchup?: string;
 }
 
 export interface CoverHook {
@@ -251,7 +259,7 @@ const norm = (s: string) => s.replace(/\s+/g, "");
  * 매치업 전체("A vs B")는 큰 글자에 안 들어가므로 하나만 고른다 — 이름값이 큰 쪽이 후킹이다.
  * 빅클럽이 없으면 원정팀(보통 방문팀이 화제)을 쓴다.
  */
-function pickHeadliner(home: string | null, away: string | null): string {
+export function pickHeadliner(home: string | null, away: string | null): string {
   if (away && GLOBAL_BIG_CLUBS.has(norm(away))) return away;
   if (home && GLOBAL_BIG_CLUBS.has(norm(home))) return home;
   return (away ?? home)!;
@@ -269,10 +277,14 @@ export function coverHookContext(today: string, now: Date = new Date()): CoverHo
   const national = nationalEventFor(hero);
   // 대표팀 경기에서 클럽 소속 코리안리거 이름을 주어로 세우지 않는다 — 주어는 대한민국이다.
   const player = national ? null : findKoreanPlayerOnMatch(hero.homeTeam, hero.awayTeam);
+  // 주어 우선순위: 대표팀(대한민국) > 코리안리거 > 팀 대표 선수(네이버 시즌 기록) > 팀명.
+  const star = national || player ? null : loadHeroStar(hero);
 
   return {
-    who: national ? NATIONAL_TEAM : player ? player.name : pickHeadliner(home, away),
-    isPlayer: Boolean(player),
+    who: national ? NATIONAL_TEAM : player ? player.name : star ? star.name : pickHeadliner(home, away),
+    isPlayer: Boolean(player || star),
+    star: star ? { name: star.name, team: star.team, stat: star.stat } : undefined,
+    matchup: home && away ? `${home} vs ${away}` : (home ?? away)!,
     national: national
       ? { matchup: national.matchup, opponent: national.opponent, event: national.event }
       : undefined,

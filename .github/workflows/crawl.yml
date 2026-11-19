@@ -23,7 +23,7 @@ jobs:
   # 오늘(KST) 이미 schedule.json이 갱신됐는지 확인. 갱신됐으면 crawl job 전체 스킵.
   # 수동 실행은 무조건 통과. lastUpdated를 못 읽으면 fail-open(안전하게 실행).
   guard:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # 🔴 Playwright 1.59 는 ubuntu-latest(=26.04, 2026-11-16~)를 지원 안 한다
     outputs:
       should_run: ${{ steps.check.outputs.should_run }}
     steps:
@@ -55,7 +55,7 @@ jobs:
   crawl:
     needs: guard
     if: needs.guard.outputs.should_run == 'true'
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04  # 🔴 Playwright 1.59 는 ubuntu-latest(=26.04, 2026-11-16~)를 지원 안 한다
     steps:
       - uses: actions/checkout@v6
 
