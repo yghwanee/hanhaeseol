@@ -18,6 +18,7 @@ import {
 import { GLOBAL_BIG_CLUBS, NATIONAL_TEAM } from "./hero-pick";
 import { nationalEventFor } from "./national-event";
 import { loadHeroStar } from "./hero-star";
+import { teamFactFor } from "./team-fact";
 import { withJosa } from "./josa";
 import { getPostSlot, rotateIndex, type PostSlot } from "./post-slot";
 import { speakTime } from "./tiktok-caption";
@@ -56,6 +57,8 @@ export interface CoverHookCtx {
    * 있으면 `who` 가 이 선수 이름이 된다 — 팀명만 갈아 끼운 `LA 레이커스 내일 어디서 보나` 대신.
    */
   star?: { name: string; team: string; stat: string };
+  /** 선수 주어가 없을 때 순위표에서 뽑은 사실 한 조각(`team-fact.ts`). 예: 하나은행 5연승 */
+  teamFact?: { team: string; fact: string };
   /** "맨시티 vs 풀럼" — 편성 표기 순서 그대로 */
   matchup?: string;
 }
@@ -279,11 +282,14 @@ export function coverHookContext(today: string, now: Date = new Date()): CoverHo
   const player = national ? null : findKoreanPlayerOnMatch(hero.homeTeam, hero.awayTeam);
   // 주어 우선순위: 대표팀(대한민국) > 코리안리거 > 팀 대표 선수(네이버 시즌 기록) > 팀명.
   const star = national || player ? null : loadHeroStar(hero);
+  const headliner = pickHeadliner(home, away);
+  const teamFact = national || player || star ? null : teamFactFor(hero, headliner);
 
   return {
-    who: national ? NATIONAL_TEAM : player ? player.name : star ? star.name : pickHeadliner(home, away),
+    who: national ? NATIONAL_TEAM : player ? player.name : star ? star.name : headliner,
     isPlayer: Boolean(player || star),
     star: star ? { name: star.name, team: star.team, stat: star.stat } : undefined,
+    teamFact: teamFact ?? undefined,
     matchup: home && away ? `${home} vs ${away}` : (home ?? away)!,
     national: national
       ? { matchup: national.matchup, opponent: national.opponent, event: national.event }

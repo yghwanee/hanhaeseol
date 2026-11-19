@@ -53,7 +53,7 @@ type Side = "home" | "away";
 export function isPlausibleName(name: unknown): name is string {
   if (typeof name !== "string") return false;
   const t = name.trim();
-  return t.length >= 1 && t.length <= 20 && !/[\d()[\]{}|/]/.test(t);
+  return t.length >= 2 && t.length <= 20 && !/[\d()[\]{}|/]/.test(t);
 }
 
 /** 네이버 경기 프리뷰(`previewData`)에서 한쪽 팀의 대표 선수를 뽑는다. 없으면 null. */
@@ -76,10 +76,18 @@ export function starFromPreview(sport: string, preview: any, side: Side): StarPi
   if (sport === "배구") {
     const top = preview.topPlayer?.[side]?.POINT;
     const pt = Number(top?.point);
-    if (isPlausibleName(top?.playerName) && pt > 0) {
-      return { name: top.playerName.trim(), stat: `시즌 ${pt}득점` };
+    if (!(pt > 0)) return null;
+    // 🔴 V리그 외국인 선수는 등록명이 한 글자다(`쇼`). `쇼 오늘 저녁 7시 출격` 은 이름으로 안 읽힌다
+    // (2026-11-20 화니 지적). 같은 응답의 `playerList` 에 정식 이름(`쉐론 베논 에반스`)이 있다.
+    let name: unknown = top?.playerName;
+    if (typeof name === "string" && name.trim().length < 2) {
+      const full = (preview.playerList?.[side] ?? []).find(
+        (p: any) => p && String(p.playerCode) === String(top?.playerId),
+      );
+      name = full?.playerName;
     }
-    return null;
+    if (!isPlausibleName(name)) return null;
+    return { name: name.trim(), stat: `시즌 ${pt}득점` };
   }
 
   return null;

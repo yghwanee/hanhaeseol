@@ -22,8 +22,12 @@ const KBL_PREVIEW = {
 };
 const KOVO_PREVIEW = {
   topPlayer: {
-    home: { POINT: { playerName: "쇼", point: 86 }, SET_SUCCESS: { playerName: "이민규", point: 9 } },
-    away: { POINT: { playerName: "러셀", point: 53 } },
+    home: { POINT: { playerId: "1000534", playerName: "쇼", point: 86 }, SET_SUCCESS: { playerName: "이민규", point: 9 } },
+    away: { POINT: { playerId: "1000999", playerName: "러셀", point: 53 } },
+  },
+  playerList: {
+    home: [{ playerCode: "1000534", playerName: "쉐론 베논 에반스", playerShortName: "쇼" }],
+    away: [],
   },
 };
 
@@ -36,7 +40,13 @@ test("농구 KBL — 프리뷰에 평균 득점이 없으면 공헌도 1위", ()
 });
 
 test("배구 — POINT(득점 1위)만 쓴다. 세터의 point 를 고르지 않는다", () => {
-  assert.deepEqual(starFromPreview("배구", KOVO_PREVIEW, "home"), { name: "쇼", stat: "시즌 86득점" });
+  assert.deepEqual(starFromPreview("배구", KOVO_PREVIEW, "away"), { name: "러셀", stat: "시즌 53득점" });
+});
+
+test("🔴 배구 한 글자 등록명(`쇼`)은 정식 이름으로 바꾼다 — 못 찾으면 선수 주어를 포기한다", () => {
+  assert.deepEqual(starFromPreview("배구", KOVO_PREVIEW, "home"), { name: "쉐론 베논 에반스", stat: "시즌 86득점" });
+  const noList = { topPlayer: KOVO_PREVIEW.topPlayer };
+  assert.equal(starFromPreview("배구", noList, "home"), null);
 });
 
 test("WKBL 처럼 프리뷰가 비면 null — 팀명 주어로 돌아간다", () => {
@@ -57,7 +67,7 @@ test("축구 — 그 팀 최다 득점자, 0골이면 세우지 않는다", () =
 });
 
 test("이름이 아닌 값은 주어로 못 들어간다", () => {
-  for (const bad of ["", " ", "1", "홀란(부상)", null, undefined, 3]) assert.equal(isPlausibleName(bad), false);
+  for (const bad of ["", " ", "쇼", "1", "홀란(부상)", null, undefined, 3]) assert.equal(isPlausibleName(bad), false);
   assert.equal(isPlausibleName("엘링 홀란"), true);
 });
 
@@ -99,4 +109,38 @@ test("🔴 선수 후킹은 근거 없는 수식(에이스·득점왕·MVP)을 �
   }
   // 아침·저녁 같은 칸이 같은 문장이 되면 안 된다(피드 배포 중단 재발 방지)
   STAR_MORNING_HOOKS.forEach((h, i) => assert.notEqual(h(c), STAR_EVENING_HOOKS[i](c)));
+});
+
+// ── 팀 경기(선수 주어 없음) — 2026-11-20 ──────────────────────────────
+import { factForTeam } from "./team-fact";
+import { TEAM_EVENING_HOOKS, TEAM_MORNING_HOOKS } from "./shorts-title";
+
+test("팀 사실 — 3연승·3연패 이상, 아니면 3위 이내. NBA·MLB 는 순위를 안 쓴다", () => {
+  assert.equal(factForTeam({ rank: 7, gameCount: 10, streak: { type: "W", count: 5 } }, "kbl"), "5연승");
+  assert.equal(factForTeam({ rank: 7, gameCount: 10, streak: { type: "L", count: 3 } }, "kovo"), "3연패");
+  assert.equal(factForTeam({ rank: 1, gameCount: 10, streak: { type: "W", count: 1 } }, "epl"), "1위");
+  assert.equal(factForTeam({ rank: 1, gameCount: 10, streak: { type: "W", count: 1 } }, "nba"), null);
+  assert.equal(factForTeam({ rank: 4, gameCount: 10, streak: { type: "W", count: 2 } }, "epl"), null);
+  // 시즌 초(2경기 이하)는 순위·연승이 의미 없다
+  assert.equal(factForTeam({ rank: 1, gameCount: 2, streak: { type: "W", count: 2 } }, "epl"), null);
+});
+
+test("🔴 팀 후킹은 팀명 하나가 아니라 매치업을 담는다 — 사실이 있든 없든", () => {
+  const base = { matchup: "하나은행 vs 삼성생명 블루밍스", time: "저녁 7시", platform: "티빙", emoji: "🏀" };
+  const facts = [null, { team: "하나은행", fact: "5연승" }, { team: "하나은행", fact: "3연패" }];
+  for (const fact of facts) {
+    for (const [pool, dayWord] of [[TEAM_MORNING_HOOKS, "오늘"], [TEAM_EVENING_HOOKS, "내일"]] as const) {
+      for (const h of pool) {
+        const s = h({ ...base, fact, dayWord });
+        assert.match(s, /하나은행 vs 삼성생명 블루밍스/, s);
+        assert.match(s, /저녁 7시/, s);
+        assert.match(s, /한국어 (중계|해설)/, s);
+        assert.doesNotMatch(s, /연패 이어갈까/, s);
+        assert.ok(s.length <= 80, `${s.length}: ${s}`);
+      }
+    }
+    TEAM_MORNING_HOOKS.forEach((h, i) =>
+      assert.notEqual(h({ ...base, fact, dayWord: "오늘" }), TEAM_EVENING_HOOKS[i]({ ...base, fact, dayWord: "오늘" })),
+    );
+  }
 });

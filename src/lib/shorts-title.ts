@@ -162,6 +162,84 @@ export const STAR_EVENING_HOOKS: Array<(c: StarHookCtx) => string> = [
   (c) => `${c.dayWord} ${c.time}, ${c.name} 경기 ${c.emoji} ${c.matchup} 한국어 중계 채널 정리`,
 ];
 
+// ── 팀 경기(선수 주어 없음) 전용 (2026-11-20) ─────────────────────────
+// 종전엔 아래 MORNING_HOOKS/EVENING_HOOKS 에 팀명 하나를 꽂아 `삼성생명 블루밍스 오늘 한국어 중계`
+// 가 나갔다 — 팀명만 갈아 끼운 문장이다(화니 지적). 이제 주어는 **매치업**(검색어 그대로)이고,
+// 순위표에 사실이 있으면(`5연승`·`1위`, `team-fact.ts`) 그 팀 앞에 붙인다. 없으면 안 붙인다.
+// 같은 칸이 사실 유무로 두 갈래라 어느 쪽이든 문장이 성립한다.
+interface TeamHookCtx {
+  matchup: string;
+  /** 사실이 붙은 팀과 사실. 없으면 null */
+  fact: { team: string; fact: string } | null;
+  time: string;
+  platform: string;
+  emoji: string;
+  dayWord: "오늘" | "내일";
+}
+
+/** 연패는 "끊을까", 연승·순위는 "이어갈까" — 연패를 이어가냐고 묻는 건 비꼬는 말이 된다. */
+const keepOrBreak = (fact: string) => (fact.endsWith("연패") ? "끊을까" : "이어갈까");
+
+const withFact = (
+  c: TeamHookCtx,
+  yes: (team: string, fact: string) => string,
+  no: () => string,
+) => (c.fact ? yes(c.fact.team, c.fact.fact) : no());
+
+export const TEAM_MORNING_HOOKS: Array<(c: TeamHookCtx) => string> = [
+  (c) => `${c.matchup} ${c.emoji} ${c.dayWord} ${c.time} 한국어 중계 어디서 봐요?`,
+  (c) => withFact(c,
+    (t, f) => `${f} ${t} ${c.emoji} ${c.dayWord} ${c.time} ${c.matchup} 한국어 중계`,
+    () => `${c.dayWord} ${c.time} ${c.matchup} ${c.emoji} 한국어 중계는 ${c.platform}`),
+  (c) => `${c.dayWord} ${c.time} ${c.matchup} ${c.emoji} 한국어 해설 채널 정리`,
+  (c) => withFact(c,
+    (t, f) => `${t} ${f} ${keepOrBreak(f)} ${c.emoji} ${c.dayWord} ${c.matchup} ${c.time} 한국어 해설`,
+    () => `${c.matchup} ${c.dayWord} ${c.time} ${c.emoji} 한국어 중계 되는 곳`),
+  (c) => `${c.dayWord} 볼 경기 ${c.emoji} ${c.matchup} ${c.time} · ${c.platform} 한국어 중계`,
+  (c) => withFact(c,
+    (t, f) => `${c.dayWord} ${c.matchup} ${c.emoji} ${f} ${t} · ${c.time} 한국어 중계`,
+    () => `${c.matchup} ${c.emoji} ${c.dayWord} ${c.time} 시작 · 한국어 중계 ${c.platform}`),
+  (c) => `${c.matchup} 몇 시? ${c.emoji} ${c.dayWord} ${c.time} ${c.platform} 한국어 해설`,
+  (c) => withFact(c,
+    (t, f) => `${f} ${t} 경기 ${c.dayWord} ${c.time} ${c.emoji} ${c.matchup} 한국어 중계 채널`,
+    () => `${c.dayWord} ${c.time} ${c.emoji} ${c.matchup} 한국어 중계 채널은 ${c.platform}`),
+];
+
+export const TEAM_EVENING_HOOKS: Array<(c: TeamHookCtx) => string> = [
+  (c) => `${c.dayWord} ${c.time} ${c.matchup} ${c.emoji} 한국어 중계 미리 확인`,
+  (c) => withFact(c,
+    (t, f) => `${c.matchup} ${c.emoji} ${f} ${t} ${c.dayWord} ${c.time} 한국어 중계`,
+    () => `${c.matchup} ${c.emoji} ${c.dayWord} ${c.time} 한국어 중계는 ${c.platform}`),
+  (c) => `${c.matchup} ${c.dayWord} ${c.time} 알람 ${c.emoji} 한국어 해설 채널 정리`,
+  (c) => withFact(c,
+    (t, f) => `${c.dayWord} ${t} ${f} ${keepOrBreak(f)} ${c.emoji} ${c.matchup} ${c.time} 한국어 해설`,
+    () => `${c.dayWord} ${c.matchup} ${c.emoji} ${c.time} 한국어 중계 되는 곳 미리 정리`),
+  (c) => `${c.dayWord} 놓치면 아까운 ${c.matchup} ${c.emoji} ${c.time} ${c.platform} 한국어 중계`,
+  (c) => withFact(c,
+    (t, f) => `${f} ${t} ${c.emoji} ${c.dayWord} ${c.matchup} ${c.time} 한국어 중계 미리 확인`,
+    () => `${c.dayWord}치 편성 ${c.emoji} ${c.matchup} ${c.time} 한국어 중계 ${c.platform}`),
+  (c) => `${c.dayWord} ${c.matchup} 몇 시? ${c.emoji} ${c.time} ${c.platform} 한국어 해설 미리 확인`,
+  (c) => withFact(c,
+    (t, f) => `${c.dayWord} ${c.time} ${f} ${t} 경기 ${c.emoji} ${c.matchup} 한국어 중계 채널`,
+    () => `${c.matchup} ${c.emoji} ${c.dayWord} ${c.time} 알람 맞추세요 · 한국어 중계 ${c.platform}`),
+];
+
+/** 선수 주어가 없는 클럽 경기면 팀 전용 재료. 대표팀·선수 경기·경기 없음이면 null. */
+function teamHookContext(today: string, now: Date = new Date()): TeamHookCtx | null {
+  const c = coverHookContext(today, now);
+  if (!c || c.national || c.isPlayer || !c.matchup || !c.matchup.includes(" vs ")) return null;
+  const hero = pickHeroForDate(today);
+  if (!hero) return null;
+  return {
+    matchup: c.matchup,
+    fact: c.teamFact ?? null,
+    time: c.time,
+    platform: c.platform,
+    emoji: SPORT_EMOJI[hero.sport],
+    dayWord: c.dayWord,
+  };
+}
+
 /** 히어로에 팀 대표 선수가 잡혔으면 전용 재료. 아니면 null(대표팀·코리안리거·데이터 없음). */
 function starHookContext(today: string, now: Date = new Date()): StarHookCtx | null {
   const c = coverHookContext(today, now);
@@ -280,6 +358,14 @@ export function buildHookLine(
     return starPool[starIdx](star);
   }
 
+  const team = teamHookContext(today, now);
+  if (team) {
+    const teamPool = slot === "morning" ? TEAM_MORNING_HOOKS : TEAM_EVENING_HOOKS;
+    const teamIdx =
+      (rotateIndex(today, slot, teamPool.length) + SURFACE_OFFSET[surface]) % teamPool.length;
+    return teamPool[teamIdx](team);
+  }
+
   const ctx = hookContext(today, now);
   if (!ctx) return FALLBACK_HOOKS[surface][slot](inferDayLabel(today, now));
 
@@ -323,6 +409,13 @@ export function buildShortsTitle(
     const starPool = slot === "morning" ? STAR_MORNING_HOOKS : STAR_EVENING_HOOKS;
     const starTitle = `${starPool[rotateIndex(today, slot, starPool.length)](star)} ${dateTag}`;
     if (starTitle.length <= TITLE_MAX) return starTitle;
+  }
+
+  const team = teamHookContext(today, now);
+  if (team) {
+    const teamPool = slot === "morning" ? TEAM_MORNING_HOOKS : TEAM_EVENING_HOOKS;
+    const teamTitle = `${teamPool[rotateIndex(today, slot, teamPool.length)](team)} ${dateTag}`;
+    if (teamTitle.length <= TITLE_MAX) return teamTitle;
   }
 
   const ctx = hookContext(today, now);
