@@ -250,8 +250,9 @@ export interface BasketballLeagueMeta {
 }
 
 export const BASKETBALL_LEAGUES: BasketballLeagueMeta[] = [
-  { id: "kbl", categoryId: "kbl", name: "KBL", scheduleSlug: "kbl" },
+  // 🔴 순서 = /standings 농구 탭 순서(첫 칸이 기본 선택). NBA 를 맨 앞에(2026-11-20 화니 지시).
   { id: "nba", categoryId: "nba", name: "NBA" },
+  { id: "kbl", categoryId: "kbl", name: "KBL", scheduleSlug: "kbl" },
   // 2026-11-20 추가. 소셜 후킹(`team-fact.ts`)이 WKBL 경기에 붙일 사실(연승·순위)이 없었다.
   // 응답 모양이 KBL 과 같다(`/statistics/categories/wkbl/seasons/047/teams` 실측: 6팀, lastFiveGames).
   // `/standings` 허브 탭만 생긴다 — 단독 순위 페이지·팀 페이지는 만들지 않았다(Hobby 한도).
