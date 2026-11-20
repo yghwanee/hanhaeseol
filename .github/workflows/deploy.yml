@@ -42,9 +42,9 @@ concurrency:
 
 
 jobs:
-  # 🔴 소셜 게시 따라잡기 (2026-09-01). 이 워크플로가 도는 김에, 놓친 게시가 있으면
-  # 대신 걸어 준다. GH Actions 가 예약 발화를 대량으로 버리기 때문에, 게시 cron 하나에
-  # 하루를 걸지 않고 **그날 살아남은 실행 아무거나**에 구제를 얹는다.
+  # 🔴 소셜 게시 따라잡기 (2026-09-01). 이 워크플로가 도는 김에, 놓친 게시가 있으면 대신 걸어 준다.
+  # 아래 results 가 부르는 crawl-results.yml 도 같은 걸 부르지만 post-catchup 은 잡 concurrency 로
+  # 직렬화되고 post-log 가 중복 게시를 막는다. 호출처 하나를 잃는 쪽이 더 나쁘다(test:post-catchup).
   catchup:
     permissions:
       actions: write
@@ -52,7 +52,19 @@ jobs:
     uses: ./.github/workflows/post-catchup.yml
     secrets: inherit
 
+  # 🔴 배포 직전에 결과·전적을 새로 받는다 (2026-11-20). 매시 결과 크롤이 GH 예약 누락으로
+  # 하루 ~4번만 돌아, 그대로 배포하면 몇 시간 묵은 스코어가 다음 배포(최대 14h)까지 남는다.
+  results:
+    permissions:
+      contents: write
+      actions: write
+    uses: ./.github/workflows/crawl-results.yml
+    secrets: inherit
+
   deploy:
+    # 크롤이 실패해도 배포는 한다 — 결과가 묵는 것보다 배포를 놓치는 게 더 나쁘다.
+    needs: results
+    if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6

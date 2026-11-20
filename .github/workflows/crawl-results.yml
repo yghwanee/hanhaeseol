@@ -17,6 +17,14 @@ on:
         description: '이 날짜(YYYY-MM-DD)부터 다시 수집. 비우면 평소대로 어제~내일'
         required: false
         default: ''
+  # 🔴 예약 배포(deploy.yml)가 배포 직전에 부른다 (2026-11-20). 매시 cron 이 GH 에서 하루 ~4번만
+  # 발화해 결과가 몇 시간씩 묵는데, 배포가 하루 2번뿐이라 그 묵은 결과가 반나절 동안 사이트에 남는다.
+  workflow_call:
+    inputs:
+      from:
+        type: string
+        required: false
+        default: ''
 
 # 동시 실행 방지: 이전 잡이 끝나기 전에 다음 cron이 트리거되면 큐에 쌓지 않고 스킵.
 concurrency:
