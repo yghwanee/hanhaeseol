@@ -5492,164 +5492,6 @@
   ],
   "basketball": [
     {
-      "id": "kbl",
-      "name": "KBL",
-      "scheduleSlug": "kbl",
-      "season": "49",
-      "teams": [
-        {
-          "rank": 1,
-          "teamName": "서울 삼성",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/35.png?type=f92_88",
-          "gameCount": 15,
-          "win": 12,
-          "lose": 3,
-          "winRate": 0.8,
-          "gameBehind": 0,
-          "lastFive": "WLWLW",
-          "streak": {
-            "type": "W",
-            "count": 1
-          }
-        },
-        {
-          "rank": 2,
-          "teamName": "안양 정관장",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/70.png?type=f92_88",
-          "gameCount": 16,
-          "win": 12,
-          "lose": 4,
-          "winRate": 0.75,
-          "gameBehind": 0.5,
-          "lastFive": "WWWWW",
-          "streak": {
-            "type": "W",
-            "count": 5
-          }
-        },
-        {
-          "rank": 3,
-          "teamName": "서울 SK",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/55.png?type=f92_88",
-          "gameCount": 13,
-          "win": 7,
-          "lose": 6,
-          "winRate": 0.53846154,
-          "gameBehind": 4,
-          "lastFive": "LWLLW",
-          "streak": {
-            "type": "L",
-            "count": 1
-          }
-        },
-        {
-          "rank": 4,
-          "teamName": "원주 DB",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/16.png?type=f92_88",
-          "gameCount": 16,
-          "win": 8,
-          "lose": 8,
-          "winRate": 0.5,
-          "gameBehind": 4.5,
-          "lastFive": "LLWLW",
-          "streak": {
-            "type": "L",
-            "count": 2
-          }
-        },
-        {
-          "rank": 5,
-          "teamName": "수원 KT",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/06.png?type=f92_88",
-          "gameCount": 16,
-          "win": 7,
-          "lose": 9,
-          "winRate": 0.4375,
-          "gameBehind": 5.5,
-          "lastFive": "WLLLW",
-          "streak": {
-            "type": "W",
-            "count": 1
-          }
-        },
-        {
-          "rank": 5,
-          "teamName": "창원 LG",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/50.png?type=f92_88",
-          "gameCount": 16,
-          "win": 7,
-          "lose": 9,
-          "winRate": 0.4375,
-          "gameBehind": 5.5,
-          "lastFive": "LWLWL",
-          "streak": {
-            "type": "L",
-            "count": 1
-          }
-        },
-        {
-          "rank": 5,
-          "teamName": "부산 KCC",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/60.png?type=f92_88",
-          "gameCount": 16,
-          "win": 7,
-          "lose": 9,
-          "winRate": 0.4375,
-          "gameBehind": 5.5,
-          "lastFive": "LWWWW",
-          "streak": {
-            "type": "L",
-            "count": 1
-          }
-        },
-        {
-          "rank": 5,
-          "teamName": "고양 소노",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/66.png?type=f92_88",
-          "gameCount": 16,
-          "win": 7,
-          "lose": 9,
-          "winRate": 0.4375,
-          "gameBehind": 5.5,
-          "lastFive": "WWWLL",
-          "streak": {
-            "type": "W",
-            "count": 3
-          }
-        },
-        {
-          "rank": 9,
-          "teamName": "대구 한국가스공사",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/64.png?type=f92_88",
-          "gameCount": 15,
-          "win": 6,
-          "lose": 9,
-          "winRate": 0.4,
-          "gameBehind": 6,
-          "lastFive": "LLLWL",
-          "streak": {
-            "type": "L",
-            "count": 3
-          }
-        },
-        {
-          "rank": 10,
-          "teamName": "울산 현대모비스",
-          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/10.png?type=f92_88",
-          "gameCount": 15,
-          "win": 4,
-          "lose": 11,
-          "winRate": 0.26666667,
-          "gameBehind": 8,
-          "lastFive": "LWLLL",
-          "streak": {
-            "type": "L",
-            "count": 1
-          }
-        }
-      ]
-    },
-    {
       "id": "nba",
       "name": "NBA",
       "season": "2026",
@@ -6137,6 +5979,164 @@
       ]
     },
     {
+      "id": "kbl",
+      "name": "KBL",
+      "scheduleSlug": "kbl",
+      "season": "49",
+      "teams": [
+        {
+          "rank": 1,
+          "teamName": "서울 삼성",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/35.png?type=f92_88",
+          "gameCount": 15,
+          "win": 12,
+          "lose": 3,
+          "winRate": 0.8,
+          "gameBehind": 0,
+          "lastFive": "WLWLW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          }
+        },
+        {
+          "rank": 2,
+          "teamName": "안양 정관장",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/70.png?type=f92_88",
+          "gameCount": 16,
+          "win": 12,
+          "lose": 4,
+          "winRate": 0.75,
+          "gameBehind": 0.5,
+          "lastFive": "WWWWW",
+          "streak": {
+            "type": "W",
+            "count": 5
+          }
+        },
+        {
+          "rank": 3,
+          "teamName": "서울 SK",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/55.png?type=f92_88",
+          "gameCount": 13,
+          "win": 7,
+          "lose": 6,
+          "winRate": 0.53846154,
+          "gameBehind": 4,
+          "lastFive": "LWLLW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          }
+        },
+        {
+          "rank": 4,
+          "teamName": "원주 DB",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/16.png?type=f92_88",
+          "gameCount": 16,
+          "win": 8,
+          "lose": 8,
+          "winRate": 0.5,
+          "gameBehind": 4.5,
+          "lastFive": "LLWLW",
+          "streak": {
+            "type": "L",
+            "count": 2
+          }
+        },
+        {
+          "rank": 5,
+          "teamName": "수원 KT",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/06.png?type=f92_88",
+          "gameCount": 16,
+          "win": 7,
+          "lose": 9,
+          "winRate": 0.4375,
+          "gameBehind": 5.5,
+          "lastFive": "WLLLW",
+          "streak": {
+            "type": "W",
+            "count": 1
+          }
+        },
+        {
+          "rank": 5,
+          "teamName": "창원 LG",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/50.png?type=f92_88",
+          "gameCount": 16,
+          "win": 7,
+          "lose": 9,
+          "winRate": 0.4375,
+          "gameBehind": 5.5,
+          "lastFive": "LWLWL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          }
+        },
+        {
+          "rank": 5,
+          "teamName": "부산 KCC",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/60.png?type=f92_88",
+          "gameCount": 16,
+          "win": 7,
+          "lose": 9,
+          "winRate": 0.4375,
+          "gameBehind": 5.5,
+          "lastFive": "LWWWW",
+          "streak": {
+            "type": "L",
+            "count": 1
+          }
+        },
+        {
+          "rank": 5,
+          "teamName": "고양 소노",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/66.png?type=f92_88",
+          "gameCount": 16,
+          "win": 7,
+          "lose": 9,
+          "winRate": 0.4375,
+          "gameBehind": 5.5,
+          "lastFive": "WWWLL",
+          "streak": {
+            "type": "W",
+            "count": 3
+          }
+        },
+        {
+          "rank": 9,
+          "teamName": "대구 한국가스공사",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/64.png?type=f92_88",
+          "gameCount": 15,
+          "win": 6,
+          "lose": 9,
+          "winRate": 0.4,
+          "gameBehind": 6,
+          "lastFive": "LLLWL",
+          "streak": {
+            "type": "L",
+            "count": 3
+          }
+        },
+        {
+          "rank": 10,
+          "teamName": "울산 현대모비스",
+          "teamLogo": "https://sports-phinf.pstatic.net/team/kbl/default/10.png?type=f92_88",
+          "gameCount": 15,
+          "win": 4,
+          "lose": 11,
+          "winRate": 0.26666667,
+          "gameBehind": 8,
+          "lastFive": "LWLLL",
+          "streak": {
+            "type": "L",
+            "count": 1
+          }
+        }
+      ]
+    },
+    {
       "id": "wkbl",
       "name": "WKBL",
       "season": "047",
@@ -6462,5 +6462,5 @@
       ]
     }
   ],
-  "lastUpdated": "2026-11-20T00:05:40.705Z"
+  "lastUpdated": "2026-11-20T00:30:00.328Z"
 }
