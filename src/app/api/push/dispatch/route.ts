@@ -93,10 +93,21 @@ export async function POST(request: Request): Promise<Response> {
     return json({ ok: true, skipped: "Blob 스토어 미설정" });
   }
 
-  const [schedules, rawResults, allSubs, log] = await Promise.all([
+  /**
+   * 🔴 구독자부터 본다 (2026-11-20, Active CPU 절감). 이 라우트는 하루 ~100번 불린다
+   * (`crawl-results` 매시 · `push-notify` 매시 · 실시간 폴러 30분마다). 종전엔 구독자가 0명이어도
+   * 매번 편성·결과 JSON 두 개를 받아 파싱하고 발송 기록 Blob 까지 읽었다 — 보낼 사람이 없는데.
+   * 계정이 Active CPU 초과로 잠긴 뒤(이슈 #96) 줄인 자리다. dry-run 은 문구 확인용이라 끝까지 돈다.
+   */
+  const allSubs = hasStore ? await listSubscriptions().catch(() => []) : [];
+  const nowMs = Date.now();
+  if (!dryRun && !allSubs.some((s) => !isStaleSubscription(s.createdAt, nowMs))) {
+    return json({ ok: true, subscribers: 0, stale: allSubs.length, notices: 0, sent: 0, watch: [] });
+  }
+
+  const [schedules, rawResults, log] = await Promise.all([
     fetchSchedules(),
     fetchResults(),
-    hasStore ? listSubscriptions().catch(() => []) : Promise.resolve([]),
     hasStore ? loadPushLog() : Promise.resolve({ sent: {}, scores: {} }),
   ]);
 
@@ -110,7 +121,6 @@ export async function POST(request: Request): Promise<Response> {
    *
    * 지우지 않고 **거르기만** 한다 — 지웠다가는 잠깐 안 들어온 사람의 알림이 영영 끊긴다.
    */
-  const nowMs = Date.now();
   const subs = allSubs.filter((s) => !isStaleSubscription(s.createdAt, nowMs));
   const stale = allSubs.length - subs.length;
 

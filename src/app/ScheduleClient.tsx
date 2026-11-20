@@ -167,7 +167,7 @@ export default function ScheduleClient({
 
   // 라이브 스코어 폴링: 진행 중(킥오프~예상종료+여유)인 경기가 있고 탭이 보일 때만
   // /api/live를 45초 간격으로 가져와 카드 스코어를 새로고침 없이 갱신한다.
-  // 엔드포인트는 엣지 30초 캐시라 시청자가 늘어도 원본 부하는 상수(비용 가드).
+  // 엔드포인트는 엣지 60초 캐시라 시청자가 늘어도 원본 부하는 상수(비용 가드).
   useEffect(() => {
     if (isArchiveDate) return;
     let stopped = false;
