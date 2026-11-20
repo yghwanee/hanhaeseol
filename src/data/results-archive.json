@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-19T22:35:48.521Z",
+  "lastUpdated": "2026-11-20T03:09:20.420Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -92679,6 +92679,39 @@
       "awayScore": 3,
       "status": "finished",
       "period": "종료"
+    },
+    "2026-11-20|mls|올랜도 시티 SC|FC 신시내티": {
+      "date": "2026-11-20",
+      "categoryId": "mls",
+      "gameId": "6Y95jVWhhzoApF2",
+      "homeTeam": "올랜도 시티 SC",
+      "awayTeam": "FC 신시내티",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오제다",
+          "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "에반데르",
+          "minute": 43
+        },
+        {
+          "team": "away",
+          "player": "에반데르",
+          "minute": 49
+        },
+        {
+          "team": "away",
+          "player": "기디",
+          "minute": 85
+        }
+      ]
     }
   },
   "results": [
@@ -185360,6 +185393,39 @@
       "awayScore": 3,
       "status": "finished",
       "period": "종료"
+    },
+    {
+      "date": "2026-11-20",
+      "categoryId": "mls",
+      "gameId": "6Y95jVWhhzoApF2",
+      "homeTeam": "올랜도 시티 SC",
+      "awayTeam": "FC 신시내티",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오제다",
+          "minute": 26
+        },
+        {
+          "team": "away",
+          "player": "에반데르",
+          "minute": 43
+        },
+        {
+          "team": "away",
+          "player": "에반데르",
+          "minute": 49
+        },
+        {
+          "team": "away",
+          "player": "기디",
+          "minute": 85
+        }
+      ]
     }
   ]
 }
