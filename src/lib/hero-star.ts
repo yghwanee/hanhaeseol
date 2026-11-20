@@ -94,6 +94,25 @@ export function starFromPreview(sport: string, preview: any, side: Side): StarPi
 }
 
 /**
+ * 끝난 경기 기록(`/schedule/games/{id}/record` 의 `recordData`)에서 한쪽 팀 득점 1위.
+ * WKBL 처럼 프리뷰가 비어 있는 농구 리그의 대체 경로 — 그 팀의 **직전 경기** 기록을 쓴다.
+ * 필드가 리그마다 다르다: WKBL `playerName`·`scoreTot` / NBA `firstName`+`lastName`·`pts`.
+ * 10점 미만이면 세우지 않는다(`지난 경기 4점` 은 후킹이 아니다).
+ */
+export function starFromRecord(record: any, side: Side): StarPick | null {
+  const players: any[] = record?.[`${side}PlayerStats`] ?? [];
+  let best: { name: string; pts: number } | null = null;
+  for (const p of players) {
+    const name = p?.playerName ?? [p?.firstName, p?.lastName].filter(Boolean).join(" ");
+    const pts = Number(p?.scoreTot ?? p?.pts);
+    if (!isPlausibleName(name) || !Number.isFinite(pts)) continue;
+    if (!best || pts > best.pts) best = { name: name.trim(), pts };
+  }
+  if (!best || best.pts < 10) return null;
+  return { name: best.name, stat: `지난 경기 ${best.pts}점` };
+}
+
+/**
  * 축구 시즌 선수 기록(`seasonPlayerStats`)에서 그 팀 최다 득점자.
  * `isTeam` 은 네이버 팀명이 우리 팀인지 판정한다(별칭 표를 거치는 건 호출 쪽 몫).
  * 1골 이상만 — 0골 선수를 "대표 선수"로 세우지 않는다. 동률이면 공격포인트, 그다음 이름순(결정적).

@@ -64,12 +64,23 @@ export function factForTeam(row: StandingRow, leagueId: string): string | null {
   return null;
 }
 
+/**
+ * 편성 팀명과 네이버 팀명이 같은 팀인가. 별칭 표가 먼저고, 없으면 편성 표기가 네이버 표기로
+ * **시작**하면 같은 팀으로 본다 — WKBL 은 편성이 `삼성생명 블루밍스`·`신한은행 에스버드` 인데
+ * 네이버는 `삼성생명`·`신한은행` 이고 별칭 표가 없다(2026-11-20 실측). 3글자 미만은 접두 비교 안 한다.
+ */
+export function sameTeam(scheduleLeague: string, scheduleName: string, naverName: string): boolean {
+  if (resolveTeamNames(scheduleLeague, naverName).some((n) => norm(n) === norm(scheduleName))) return true;
+  const nv = norm(naverName);
+  return nv.length >= 3 && norm(scheduleName).startsWith(nv);
+}
+
 function findRow(leagues: LeagueStandings[], ids: string[], scheduleLeague: string, team: string): [StandingRow, string] | null {
   for (const id of ids) {
     const lg = leagues.find((l) => l.id === id);
     for (const row of lg?.teams ?? []) {
       if (!row.teamName) continue;
-      if (resolveTeamNames(scheduleLeague, row.teamName).some((n) => norm(n) === norm(team))) return [row, id];
+      if (sameTeam(scheduleLeague, team, row.teamName)) return [row, id];
     }
   }
   return null;

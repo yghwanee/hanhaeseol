@@ -74,7 +74,7 @@ export type SoccerLeagueId =
 
 export type BaseballLeagueId = "kbo" | "mlb";
 
-export type BasketballLeagueId = "nba" | "kbl";
+export type BasketballLeagueId = "nba" | "kbl" | "wkbl";
 
 export type VolleyballLeagueId = "kovo" | "wkovo";
 

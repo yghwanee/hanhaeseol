@@ -252,6 +252,10 @@ export interface BasketballLeagueMeta {
 export const BASKETBALL_LEAGUES: BasketballLeagueMeta[] = [
   { id: "kbl", categoryId: "kbl", name: "KBL", scheduleSlug: "kbl" },
   { id: "nba", categoryId: "nba", name: "NBA" },
+  // 2026-11-20 추가. 소셜 후킹(`team-fact.ts`)이 WKBL 경기에 붙일 사실(연승·순위)이 없었다.
+  // 응답 모양이 KBL 과 같다(`/statistics/categories/wkbl/seasons/047/teams` 실측: 6팀, lastFiveGames).
+  // `/standings` 허브 탭만 생긴다 — 단독 순위 페이지·팀 페이지는 만들지 않았다(Hobby 한도).
+  { id: "wkbl", categoryId: "wkbl", name: "WKBL" },
 ];
 
 const NBA_EAST = new Set(["ATLANTIC", "CENTRAL", "SOUTHEAST"]);

@@ -16,22 +16,47 @@ import { pickHeadliner } from "@/lib/cover-hook";
 import { categoriesForLeague, findResult, resultKey } from "@/lib/results/lookup";
 import { naverGet } from "@/lib/naver-fetch";
 import { resolveTeamNames } from "@/lib/korean-players/crawl";
+import { sameTeam } from "@/lib/team-fact";
 import {
   HERO_STAR_PATH,
   soccerStarFromSeason,
   starFromPreview,
+  starFromRecord,
   type HeroStar,
   type StarPick,
 } from "@/lib/hero-star";
 
 const norm = (s: string) => s.replace(/\s+/g, "");
 
-function readResults(): ResultsData | null {
+function readResults(file = "src/data/results.json"): ResultsData | null {
   try {
-    return JSON.parse(fs.readFileSync(path.resolve("src/data/results.json"), "utf-8")) as ResultsData;
+    return JSON.parse(fs.readFileSync(path.resolve(file), "utf-8")) as ResultsData;
   } catch {
     return null;
   }
+}
+
+/**
+ * 그 팀의 직전 종료 경기(히어로 날짜보다 앞). 결과 창(어제~내일) + 아카이브를 같이 본다.
+ * 반환 side 는 네이버 기준(결과 키의 홈/원정 순서가 네이버 순서다).
+ */
+function lastFinishedGame(
+  cats: string[],
+  league: string,
+  team: string,
+  before: string,
+): { gameId: string; side: "home" | "away"; date: string } | null {
+  let best: { gameId: string; side: "home" | "away"; date: string } | null = null;
+  for (const data of [readResults(), readResults("src/data/results-archive.json")]) {
+    for (const [key, r] of Object.entries(data?.byKey ?? {})) {
+      const [date, cat, home, away] = key.split("|");
+      if (!cats.includes(cat) || date >= before || r.status !== "finished" || !r.gameId) continue;
+      const side = sameTeam(league, team, home) ? "home" : sameTeam(league, team, away) ? "away" : null;
+      if (!side) continue;
+      if (!best || date > best.date) best = { gameId: r.gameId, side, date };
+    }
+  }
+  return best;
 }
 
 async function currentSeasonCode(categoryId: string): Promise<string | null> {
@@ -81,15 +106,25 @@ async function main() {
   } else {
     const results = readResults();
     const r = findResult(results, hero);
-    if (!r?.gameId) return console.log(`ℹ️ ${tag} — 네이버 경기 ID 없음(결과 크롤 창 밖), 팀명 주어로`);
-    // 네이버의 홈/원정이 편성과 반대인 리그가 있다(findResult 가 뒤집어 돌려준다).
-    const flipped =
-      !cats.some((c) => results?.byKey[resultKey(hero.date, c, hero.homeTeam, hero.awayTeam!)]) &&
-      cats.some((c) => results?.byKey[resultKey(hero.date, c, hero.awayTeam!, hero.homeTeam)]);
-    const naverSide = flipped ? (teamSide === "home" ? "away" : "home") : teamSide;
-    const p = await naverGet<{ previewData?: unknown }>(`/schedule/games/${r.gameId}/preview`);
-    pick = starFromPreview(hero.sport, p.previewData, naverSide);
-    source = `naver preview ${r.gameId} ${naverSide}`;
+    if (r?.gameId) {
+      // 네이버의 홈/원정이 편성과 반대인 리그가 있다(findResult 가 뒤집어 돌려준다).
+      const flipped =
+        !cats.some((c) => results?.byKey[resultKey(hero.date, c, hero.homeTeam, hero.awayTeam!)]) &&
+        cats.some((c) => results?.byKey[resultKey(hero.date, c, hero.awayTeam!, hero.homeTeam)]);
+      const naverSide = flipped ? (teamSide === "home" ? "away" : "home") : teamSide;
+      const p = await naverGet<{ previewData?: unknown }>(`/schedule/games/${r.gameId}/preview`);
+      pick = starFromPreview(hero.sport, p.previewData, naverSide);
+      source = `naver preview ${r.gameId} ${naverSide}`;
+    }
+    // 🔴 WKBL 은 프리뷰가 비어 있다(previewData: null, 2026-11-20 실측) → 그 팀 직전 경기 득점 1위.
+    if (!pick && hero.sport === "농구") {
+      const last = lastFinishedGame(cats, hero.league, team, hero.date);
+      if (last) {
+        const rec = await naverGet<{ recordData?: unknown }>(`/schedule/games/${last.gameId}/record`);
+        pick = starFromRecord(rec.recordData, last.side);
+        source = `naver record ${last.gameId}(${last.date}) ${last.side}`;
+      }
+    }
   }
 
   if (!pick) return console.log(`ℹ️ ${tag} — ${team} 대표 선수 기록 없음(${source || "n/a"}), 팀명 주어로`);

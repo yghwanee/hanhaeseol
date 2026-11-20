@@ -144,3 +144,36 @@ test("🔴 팀 후킹은 팀명 하나가 아니라 매치업을 담는다 — �
     );
   }
 });
+
+// ── WKBL: 프리뷰가 비어 직전 경기 기록을 쓴다 — 2026-11-20 ─────────────
+import { starFromRecord } from "./hero-star";
+import { sameTeam } from "./team-fact";
+
+test("🔴 WKBL 직전 경기 득점 1위 (11/15 삼성생명 실기록)", () => {
+  const rec = {
+    homePlayerStats: [
+      { playerName: "강유림", scoreTot: 21 },
+      { playerName: "미야사카 모모나", scoreTot: 20 },
+      { playerName: "최예슬", scoreTot: 8 },
+    ],
+    awayPlayerStats: [{ playerName: "안혜지", scoreTot: 20 }],
+  };
+  assert.deepEqual(starFromRecord(rec, "home"), { name: "강유림", stat: "지난 경기 21점" });
+  assert.deepEqual(starFromRecord(rec, "away"), { name: "안혜지", stat: "지난 경기 20점" });
+  // NBA 기록 필드도 읽는다
+  assert.deepEqual(
+    starFromRecord({ homePlayerStats: [{ firstName: "자이언", lastName: "윌리엄슨", pts: 26 }] }, "home"),
+    { name: "자이언 윌리엄슨", stat: "지난 경기 26점" },
+  );
+  // 10점 미만이면 세우지 않는다
+  assert.equal(starFromRecord({ homePlayerStats: [{ playerName: "김아름", scoreTot: 9 }] }, "home"), null);
+  assert.equal(starFromRecord(null, "home"), null);
+});
+
+test("편성 `삼성생명 블루밍스` ↔ 네이버 `삼성생명` 은 같은 팀, 남의 팀은 아니다", () => {
+  assert.equal(sameTeam("WKBL", "삼성생명 블루밍스", "삼성생명"), true);
+  assert.equal(sameTeam("WKBL", "신한은행 에스버드", "신한은행"), true);
+  assert.equal(sameTeam("WKBL", "하나은행", "하나은행"), true);
+  assert.equal(sameTeam("WKBL", "하나은행", "삼성생명"), false);
+  assert.equal(sameTeam("KBL", "서울 SK", "SK"), false); // 3글자 미만은 접두 비교 안 함
+});

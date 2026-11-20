@@ -44,6 +44,7 @@ const LEAGUE_SHORT: Record<string, string> = {
   mlb: "MLB",
   kbl: "KBL",
   nba: "NBA",
+  wkbl: "WKBL",
   kovo: "남자부",
   wkovo: "여자부",
 };
