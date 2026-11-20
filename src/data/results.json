@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-20T03:09:14.486Z",
+  "lastUpdated": "2026-11-20T09:40:11.042Z",
   "byKey": {
     "2026-11-19|kbl|수원 KT|서울 SK": {
       "date": "2026-11-19",
@@ -137,7 +137,18 @@
       "date": "2026-11-19",
       "categoryId": "nba",
       "gameId": "2026111825",
-      "homeTeam": "오클라호마",
+      "homeTeam": "오클라호마시티",
+      "awayTeam": "애틀랜타",
+      "homeScore": 112,
+      "awayScore": 117,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-19|nba|오클라호마시티|애틀랜타": {
+      "date": "2026-11-19",
+      "categoryId": "nba",
+      "gameId": "2026111825",
+      "homeTeam": "오클라호마시티",
       "awayTeam": "애틀랜타",
       "homeScore": 112,
       "awayScore": 117,
@@ -194,9 +205,9 @@
       "gameId": "2026111915",
       "homeTeam": "밀워키",
       "awayTeam": "포틀랜드",
-      "homeScore": 95,
-      "awayScore": 98,
-      "status": "live",
+      "homeScore": 114,
+      "awayScore": 124,
+      "status": "finished",
       "period": "4쿼터"
     },
     "2026-11-20|nba|미네소타|뉴욕": {
@@ -205,9 +216,9 @@
       "gameId": "2026111916",
       "homeTeam": "미네소타",
       "awayTeam": "뉴욕",
-      "homeScore": 91,
-      "awayScore": 97,
-      "status": "live",
+      "homeScore": 99,
+      "awayScore": 102,
+      "status": "finished",
       "period": "4쿼터"
     },
     "2026-11-20|nba|샌안토니오|LA클리퍼스": {
@@ -216,9 +227,9 @@
       "gameId": "2026111924",
       "homeTeam": "샌안토니오",
       "awayTeam": "LA 클리퍼스",
-      "homeScore": 105,
-      "awayScore": 97,
-      "status": "live",
+      "homeScore": 124,
+      "awayScore": 112,
+      "status": "finished",
       "period": "4쿼터"
     },
     "2026-11-20|nba|샌안토니오|LA 클리퍼스": {
@@ -227,9 +238,9 @@
       "gameId": "2026111924",
       "homeTeam": "샌안토니오",
       "awayTeam": "LA 클리퍼스",
-      "homeScore": 105,
-      "awayScore": 97,
-      "status": "live",
+      "homeScore": 124,
+      "awayScore": 112,
+      "status": "finished",
       "period": "4쿼터"
     },
     "2026-11-20|nba|멤피스|골든스테이트": {
@@ -238,9 +249,9 @@
       "gameId": "2026111929",
       "homeTeam": "멤피스",
       "awayTeam": "골든스테이트",
-      "homeScore": 104,
-      "awayScore": 80,
-      "status": "live",
+      "homeScore": 126,
+      "awayScore": 98,
+      "status": "finished",
       "period": "4쿼터"
     },
     "2026-11-21|nba|애틀랜타|샬럿": {
@@ -297,7 +308,7 @@
       "date": "2026-11-21",
       "categoryId": "nba",
       "gameId": "2026112025",
-      "homeTeam": "오클라호마",
+      "homeTeam": "오클라호마시티",
       "awayTeam": "뉴올리언스",
       "homeScore": 0,
       "awayScore": 0,
@@ -307,7 +318,27 @@
       "date": "2026-11-21",
       "categoryId": "nba",
       "gameId": "2026112025",
-      "homeTeam": "오클라호마",
+      "homeTeam": "오클라호마시티",
+      "awayTeam": "뉴올리언스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-11-21|nba|오클라호마시티|뉴올리언즈": {
+      "date": "2026-11-21",
+      "categoryId": "nba",
+      "gameId": "2026112025",
+      "homeTeam": "오클라호마시티",
+      "awayTeam": "뉴올리언스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled"
+    },
+    "2026-11-21|nba|오클라호마시티|뉴올리언스": {
+      "date": "2026-11-21",
+      "categoryId": "nba",
+      "gameId": "2026112025",
+      "homeTeam": "오클라호마시티",
       "awayTeam": "뉴올리언스",
       "homeScore": 0,
       "awayScore": 0,
@@ -358,7 +389,18 @@
       "categoryId": "wkbl",
       "gameId": "202611200470116",
       "homeTeam": "하나은행",
-      "awayTeam": "삼성생명",
+      "awayTeam": "삼성생명 블루밍스",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-11-20|wkbl|하나은행|삼성생명 블루밍스": {
+      "date": "2026-11-20",
+      "categoryId": "wkbl",
+      "gameId": "202611200470116",
+      "homeTeam": "하나은행",
+      "awayTeam": "삼성생명 블루밍스",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -369,7 +411,18 @@
       "categoryId": "wkbl",
       "gameId": "202611210470117",
       "homeTeam": "KB스타즈",
-      "awayTeam": "신한은행",
+      "awayTeam": "신한은행 에스버드",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-11-21|wkbl|KB스타즈|신한은행 에스버드": {
+      "date": "2026-11-21",
+      "categoryId": "wkbl",
+      "gameId": "202611210470117",
+      "homeTeam": "KB스타즈",
+      "awayTeam": "신한은행 에스버드",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -380,7 +433,18 @@
       "categoryId": "wkbl",
       "gameId": "202611210470118",
       "homeTeam": "BNK 썸",
-      "awayTeam": "우리은행",
+      "awayTeam": "우리은행 우리WON",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-11-21|wkbl|BNK 썸|우리은행 우리WON": {
+      "date": "2026-11-21",
+      "categoryId": "wkbl",
+      "gameId": "202611210470118",
+      "homeTeam": "BNK 썸",
+      "awayTeam": "우리은행 우리WON",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -610,7 +674,18 @@
       "date": "2026-11-21",
       "categoryId": "bundesliga",
       "gameId": "39ANP85MlvmVhVw",
-      "homeTeam": "글라트바흐",
+      "homeTeam": "묀헨글라트바흐",
+      "awayTeam": "도르트문트",
+      "homeScore": 0,
+      "awayScore": 0,
+      "status": "scheduled",
+      "period": "경기전"
+    },
+    "2026-11-21|bundesliga|묀헨글라트바흐|도르트문트": {
+      "date": "2026-11-21",
+      "categoryId": "bundesliga",
+      "gameId": "39ANP85MlvmVhVw",
+      "homeTeam": "묀헨글라트바흐",
       "awayTeam": "도르트문트",
       "homeScore": 0,
       "awayScore": 0,
@@ -810,10 +885,25 @@
       "gameId": "ZJASXllIRuIW0Bm",
       "homeTeam": "시애틀 사운더스 FC",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루스낙",
+          "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 63
+        }
+      ],
+      "homePtScore": 2,
+      "awayPtScore": 4
     },
     "2026-11-20|mls|시애틀|레알 솔트레이크": {
       "date": "2026-11-20",
@@ -821,10 +911,25 @@
       "gameId": "ZJASXllIRuIW0Bm",
       "homeTeam": "시애틀 사운더스 FC",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루스낙",
+          "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 63
+        }
+      ],
+      "homePtScore": 2,
+      "awayPtScore": 4
     },
     "2026-11-20|mls|시애틀|솔트레이크": {
       "date": "2026-11-20",
@@ -832,10 +937,25 @@
       "gameId": "ZJASXllIRuIW0Bm",
       "homeTeam": "시애틀 사운더스 FC",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루스낙",
+          "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 63
+        }
+      ],
+      "homePtScore": 2,
+      "awayPtScore": 4
     },
     "2026-11-20|mls|시애틀 사운더스 FC|솔트 레이크": {
       "date": "2026-11-20",
@@ -843,10 +963,25 @@
       "gameId": "ZJASXllIRuIW0Bm",
       "homeTeam": "시애틀 사운더스 FC",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루스낙",
+          "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 63
+        }
+      ],
+      "homePtScore": 2,
+      "awayPtScore": 4
     },
     "2026-11-20|mls|시애틀 사운더스 FC|레알 솔트레이크": {
       "date": "2026-11-20",
@@ -854,10 +989,25 @@
       "gameId": "ZJASXllIRuIW0Bm",
       "homeTeam": "시애틀 사운더스 FC",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루스낙",
+          "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 63
+        }
+      ],
+      "homePtScore": 2,
+      "awayPtScore": 4
     },
     "2026-11-20|mls|시애틀 사운더스 FC|솔트레이크": {
       "date": "2026-11-20",
@@ -865,10 +1015,25 @@
       "gameId": "ZJASXllIRuIW0Bm",
       "homeTeam": "시애틀 사운더스 FC",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루스낙",
+          "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 63
+        }
+      ],
+      "homePtScore": 2,
+      "awayPtScore": 4
     },
     "2026-11-21|kleague|포항|안양": {
       "date": "2026-11-21",
@@ -1085,7 +1250,7 @@
       "date": "2026-11-19",
       "categoryId": "nba",
       "gameId": "2026111825",
-      "homeTeam": "오클라호마",
+      "homeTeam": "오클라호마시티",
       "awayTeam": "애틀랜타",
       "homeScore": 112,
       "awayScore": 117,
@@ -1131,9 +1296,9 @@
       "gameId": "2026111915",
       "homeTeam": "밀워키",
       "awayTeam": "포틀랜드",
-      "homeScore": 95,
-      "awayScore": 98,
-      "status": "live",
+      "homeScore": 114,
+      "awayScore": 124,
+      "status": "finished",
       "period": "4쿼터"
     },
     {
@@ -1142,9 +1307,9 @@
       "gameId": "2026111916",
       "homeTeam": "미네소타",
       "awayTeam": "뉴욕",
-      "homeScore": 91,
-      "awayScore": 97,
-      "status": "live",
+      "homeScore": 99,
+      "awayScore": 102,
+      "status": "finished",
       "period": "4쿼터"
     },
     {
@@ -1153,9 +1318,9 @@
       "gameId": "2026111924",
       "homeTeam": "샌안토니오",
       "awayTeam": "LA 클리퍼스",
-      "homeScore": 105,
-      "awayScore": 97,
-      "status": "live",
+      "homeScore": 124,
+      "awayScore": 112,
+      "status": "finished",
       "period": "4쿼터"
     },
     {
@@ -1164,9 +1329,9 @@
       "gameId": "2026111929",
       "homeTeam": "멤피스",
       "awayTeam": "골든스테이트",
-      "homeScore": 104,
-      "awayScore": 80,
-      "status": "live",
+      "homeScore": 126,
+      "awayScore": 98,
+      "status": "finished",
       "period": "4쿼터"
     },
     {
@@ -1223,7 +1388,7 @@
       "date": "2026-11-21",
       "categoryId": "nba",
       "gameId": "2026112025",
-      "homeTeam": "오클라호마",
+      "homeTeam": "오클라호마시티",
       "awayTeam": "뉴올리언스",
       "homeScore": 0,
       "awayScore": 0,
@@ -1264,7 +1429,7 @@
       "categoryId": "wkbl",
       "gameId": "202611200470116",
       "homeTeam": "하나은행",
-      "awayTeam": "삼성생명",
+      "awayTeam": "삼성생명 블루밍스",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -1275,7 +1440,7 @@
       "categoryId": "wkbl",
       "gameId": "202611210470117",
       "homeTeam": "KB스타즈",
-      "awayTeam": "신한은행",
+      "awayTeam": "신한은행 에스버드",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -1286,7 +1451,7 @@
       "categoryId": "wkbl",
       "gameId": "202611210470118",
       "homeTeam": "BNK 썸",
-      "awayTeam": "우리은행",
+      "awayTeam": "우리은행 우리WON",
       "homeScore": 0,
       "awayScore": 0,
       "status": "scheduled",
@@ -1461,7 +1626,7 @@
       "date": "2026-11-21",
       "categoryId": "bundesliga",
       "gameId": "39ANP85MlvmVhVw",
-      "homeTeam": "글라트바흐",
+      "homeTeam": "묀헨글라트바흐",
       "awayTeam": "도르트문트",
       "homeScore": 0,
       "awayScore": 0,
@@ -1562,10 +1727,25 @@
       "gameId": "ZJASXllIRuIW0Bm",
       "homeTeam": "시애틀 사운더스 FC",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "winner": "away",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루스낙",
+          "minute": 36
+        },
+        {
+          "team": "away",
+          "player": "길라보기",
+          "minute": 63
+        }
+      ],
+      "homePtScore": 2,
+      "awayPtScore": 4
     },
     {
       "date": "2026-11-21",

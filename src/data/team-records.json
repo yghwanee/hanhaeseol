@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-20T03:09:33.662Z",
+  "lastUpdated": "2026-11-20T09:40:29.993Z",
   "records": {
     "KBO": {
       "삼성": {
@@ -2404,6 +2404,12 @@
         "lose": 2,
         "draw": 1
       },
+      "PSV 에인트호번": {
+        "last5": "LWLD",
+        "win": 1,
+        "lose": 2,
+        "draw": 1
+      },
       "보되 / 글림트": {
         "last5": "DLWL",
         "win": 1,
@@ -2446,6 +2452,12 @@
         "lose": 3,
         "draw": 0
       },
+      "사바 FK": {
+        "last5": "LLWL",
+        "win": 1,
+        "lose": 3,
+        "draw": 0
+      },
       "페예노르트": {
         "last5": "LLWL",
         "win": 1,
@@ -2471,6 +2483,12 @@
         "draw": 1
       },
       "슬로반": {
+        "last5": "LLLL",
+        "win": 0,
+        "lose": 4,
+        "draw": 0
+      },
+      "슬로반 브라티슬라바": {
         "last5": "LLLL",
         "win": 0,
         "lose": 4,
@@ -2888,6 +2906,12 @@
         "lose": 7,
         "draw": 3
       },
+      "덴하흐": {
+        "last5": "WLLWD",
+        "win": 2,
+        "lose": 7,
+        "draw": 3
+      },
       "빌럼 II": {
         "last5": "DLLLL",
         "win": 0,
@@ -2976,6 +3000,24 @@
       }
     },
     "NBA": {
+      "필라델피아": {
+        "last5": "LWWWW",
+        "win": 13,
+        "lose": 3,
+        "wra": 0.8125
+      },
+      "샌안토니오": {
+        "last5": "WWWLW",
+        "win": 13,
+        "lose": 3,
+        "wra": 0.8125
+      },
+      "보스턴": {
+        "last5": "WWWLL",
+        "win": 11,
+        "lose": 4,
+        "wra": 0.7333333333333333
+      },
       "LA레이커스": {
         "last5": "",
         "win": 13,
@@ -2987,24 +3029,6 @@
         "win": 13,
         "lose": 3,
         "wra": 0.8125
-      },
-      "필라델피아": {
-        "last5": "LWWWW",
-        "win": 13,
-        "lose": 3,
-        "wra": 0.8125
-      },
-      "보스턴": {
-        "last5": "WWWLL",
-        "win": 11,
-        "lose": 4,
-        "wra": 0.7333333333333333
-      },
-      "샌안토니오": {
-        "last5": "WWWWL",
-        "win": 12,
-        "lose": 3,
-        "wra": 0.8
       },
       "디트로이트": {
         "last5": "WWLWW",
@@ -3018,17 +3042,17 @@
         "lose": 4,
         "wra": 0.75
       },
+      "멤피스": {
+        "last5": "WWWWW",
+        "win": 12,
+        "lose": 4,
+        "wra": 0.75
+      },
       "마이애미": {
         "last5": "WWWWW",
         "win": 9,
         "lose": 6,
         "wra": 0.6
-      },
-      "미네소타": {
-        "last5": "WWLWW",
-        "win": 11,
-        "lose": 4,
-        "wra": 0.7333333333333333
       },
       "애틀랜타": {
         "last5": "WLLWW",
@@ -3036,23 +3060,23 @@
         "lose": 6,
         "wra": 0.6
       },
-      "멤피스": {
-        "last5": "LWWWW",
+      "미네소타": {
+        "last5": "WLWWL",
         "win": 11,
-        "lose": 4,
-        "wra": 0.7333333333333333
+        "lose": 5,
+        "wra": 0.6875
       },
       "뉴욕": {
-        "last5": "WLLWW",
-        "win": 8,
+        "last5": "LLWWW",
+        "win": 9,
         "lose": 6,
-        "wra": 0.5714285714285714
+        "wra": 0.6
       },
       "포틀랜드": {
-        "last5": "WWWLL",
-        "win": 9,
+        "last5": "WWLLW",
+        "win": 10,
         "lose": 5,
-        "wra": 0.6428571428571429
+        "wra": 0.6666666666666666
       },
       "클리블랜드": {
         "last5": "WLWWL",
@@ -3097,10 +3121,10 @@
         "wra": 0.3333333333333333
       },
       "골든스테이트": {
-        "last5": "WLLLL",
+        "last5": "LLLLL",
         "win": 8,
-        "lose": 7,
-        "wra": 0.5333333333333333
+        "lose": 8,
+        "wra": 0.5
       },
       "인디애나": {
         "last5": "LWWLL",
@@ -3147,14 +3171,14 @@
       "LA클리퍼스": {
         "last5": "",
         "win": 4,
-        "lose": 9,
-        "wra": 0.308
+        "lose": 10,
+        "wra": 0.286
       },
       "LA 클리퍼스": {
-        "last5": "WLWWL",
+        "last5": "LWWLL",
         "win": 4,
-        "lose": 9,
-        "wra": 0.3076923076923077
+        "lose": 10,
+        "wra": 0.2857142857142857
       },
       "브루클린": {
         "last5": "LWLLL",
@@ -3171,8 +3195,8 @@
       "밀워키": {
         "last5": "LLLLL",
         "win": 1,
-        "lose": 14,
-        "wra": 0.06666666666666667
+        "lose": 15,
+        "wra": 0.0625
       },
       "새크라멘토": {
         "last5": "LLLLL",
@@ -3216,6 +3240,97 @@
         "last5": "LLLLL",
         "win": 0,
         "lose": 5
+      },
+      "GS칼텍스": {
+        "last5": "WWWLW",
+        "win": 4,
+        "lose": 1
+      },
+      "IBK기업은행": {
+        "last5": "LWWWW",
+        "win": 4,
+        "lose": 1
+      },
+      "한국도로공사": {
+        "last5": "WWWWL",
+        "win": 4,
+        "lose": 1
+      },
+      "흥국생명": {
+        "last5": "LLLWW",
+        "win": 2,
+        "lose": 3
+      },
+      "정관장": {
+        "last5": "WLWL",
+        "win": 2,
+        "lose": 2
+      },
+      "현대건설": {
+        "last5": "WLLLL",
+        "win": 1,
+        "lose": 4
+      },
+      "SOOP": {
+        "last5": "LLLLL",
+        "win": 0,
+        "lose": 5
+      }
+    },
+    "WKBL": {
+      "삼성생명": {
+        "last5": "WWWLW",
+        "win": 4,
+        "lose": 1,
+        "wra": 0.8
+      },
+      "삼성생명 블루밍스": {
+        "last5": "WWWLW",
+        "win": 4,
+        "lose": 1,
+        "wra": 0.8
+      },
+      "신한은행": {
+        "last5": "WWLWW",
+        "win": 4,
+        "lose": 1,
+        "wra": 0.8
+      },
+      "신한은행 에스버드": {
+        "last5": "WWLWW",
+        "win": 4,
+        "lose": 1,
+        "wra": 0.8
+      },
+      "우리은행": {
+        "last5": "LWWWL",
+        "win": 3,
+        "lose": 2,
+        "wra": 0.6
+      },
+      "우리은행 우리WON": {
+        "last5": "LWWWL",
+        "win": 3,
+        "lose": 2,
+        "wra": 0.6
+      },
+      "BNK 썸": {
+        "last5": "LLWLW",
+        "win": 2,
+        "lose": 3,
+        "wra": 0.4
+      },
+      "KB스타즈": {
+        "last5": "LLLWL",
+        "win": 1,
+        "lose": 4,
+        "wra": 0.2
+      },
+      "하나은행": {
+        "last5": "WLLLL",
+        "win": 1,
+        "lose": 4,
+        "wra": 0.2
       }
     }
   }
