@@ -1477,3 +1477,13 @@ AI Assistant 8일 30세션(28일 471 → 거의 소멸) · Vercel 30일 FOT 11.7
   배구 `topPlayer.POINT`, 축구 시즌 기록 최다 득점자. WKBL 프리뷰는 비어 있어 팀명으로 돌아간다. 야구 미구현(비시즌).
   🔴 농구·배구는 `results.json` 의 gameId 가 있어야 한다 — 결과 크롤이 죽으면 조용히 팀명 주어로 떨어진다.
 - 틱톡 캡션이 `pickHeroMatch` 를 직접 불러 연속 방지 감점이 빠져 있었다 → `pickHeroForDate` + 같은 분기.
+- **후속(같은 날, 화니와 하나씩 확인)**:
+  - 후킹 주어 분기 = 대표팀 > 코리안리거 > 팀 대표 선수(`hero:star`) > 야구 선발 맞대결(`starters.json`) > 매치업 + 순위 사실(`team-fact.ts`, 3연승·3연패↑ 또는 3위 이내) > 매치업.
+    V리그 한 글자 등록명(`쇼`)은 프리뷰 `playerList` 정식 이름으로. WKBL 은 프리뷰가 비어 **직전 경기 득점 1위**(`/record`, 10점↑).
+    결과 크롤이 죽어도 `/schedule/games` 로 gameId 를 직접 찾는다.
+  - 히어로 서열 = 한국어 해설만 · 대표팀 > 주요 축구 = KBO·MLB 포스트시즌 > 주요 야구 > NBA > KBL = V리그 > 비주류 > WKBL.
+    포스트시즌 판정 KBO = 네이버 gameId 비연도 접두(`5555…`), MLB = StatsAPI 시즌 날짜(`standings.json` `mlbSeason`).
+    8/1~11/25 시뮬레이션 117일 중 20일 변경, 가을야구 날은 그대로 야구.
+  - 순위 크롤에 WKBL 추가, `/standings` 농구 탭 순서 NBA·KBL·WKBL(사이트 반영은 Vercel 해제 후).
+  - `social-preview.yml` 이 `hero:star` + `hook-preview.ts` 로 나갈 문장을 찍는다(게시 없음).
+  - 11월 텔레그램 알림 역추적·조치는 `docs/next-session.md` 2026-11-20 절.
