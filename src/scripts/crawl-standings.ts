@@ -86,11 +86,17 @@ async function main() {
     }
   }
 
+  // MLB 포스트시즌 날짜(무료·키 불필요). 히어로 선정이 가을야구를 축구와 같은 서열로 올리는 데 쓴다.
+  console.log("[MLB 시즌 날짜]");
+  const mlbSeason = await safe("MLB season", () => fetchMlbSeason(new Date().getUTCFullYear()));
+  console.log(mlbSeason ? `  ${mlbSeason.season}: 정규 ~${mlbSeason.regularSeasonEndDate} · PS ${mlbSeason.postSeasonStartDate}~${mlbSeason.postSeasonEndDate}` : "  실패 — 생략");
+
   const data: StandingsData = {
     soccer,
     baseball,
     basketball,
     volleyball,
+    ...(mlbSeason ? { mlbSeason } : {}),
     lastUpdated: new Date().toISOString(),
   };
 
@@ -131,6 +137,22 @@ async function main() {
   await fs.writeFile(srcPath, jsonStr, "utf-8");
 
   console.log(`완료 → ${srcPath}`);
+}
+
+async function fetchMlbSeason(year: number): Promise<NonNullable<StandingsData["mlbSeason"]> | null> {
+  const res = await fetch(`https://statsapi.mlb.com/api/v1/seasons/${year}?sportId=1`, {
+    signal: AbortSignal.timeout(10_000),
+  });
+  if (!res.ok) throw new Error(`MLB StatsAPI ${res.status}`);
+  const j = (await res.json()) as { seasons?: Record<string, string>[] };
+  const s = j.seasons?.[0];
+  if (!s?.regularSeasonEndDate || !s.postSeasonStartDate || !s.postSeasonEndDate) return null;
+  return {
+    season: String(s.seasonId ?? year),
+    regularSeasonEndDate: s.regularSeasonEndDate,
+    postSeasonStartDate: s.postSeasonStartDate,
+    postSeasonEndDate: s.postSeasonEndDate,
+  };
 }
 
 main().catch((err) => {

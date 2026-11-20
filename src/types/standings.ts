@@ -132,5 +132,10 @@ export interface StandingsData {
   basketball: BasketballLeagueStandings[];
   /** V리그. 시즌 중(네이버 isSeason=Y)일 때만 채운다 — 비시즌엔 비거나 없다. */
   volleyball?: VolleyballLeagueStandings[];
+  /**
+   * MLB 시즌 날짜(미국 날짜, MLB StatsAPI `/seasons/{year}`). 히어로 선정이 포스트시즌을 가르는 데 쓴다
+   * (`baseball-postseason.ts`). 받기 실패면 없다.
+   */
+  mlbSeason?: { season: string; regularSeasonEndDate: string; postSeasonStartDate: string; postSeasonEndDate: string };
   lastUpdated: string;
 }

@@ -297,13 +297,13 @@ export function recentHeroTeams(today: string): Set<string> {
   return teams;
 }
 
-/** 그날 히어로 매치: 한국어해설 경기 우선, 없으면 그날 전체 경기에서 폴백. (카드 렌더러 공용) */
+/**
+ * 그날 히어로 매치 — **한국어 해설 경기에서만** 고른다(카드 렌더러 공용).
+ * 🔴 2026-11-20 화니 지시: 한국어 해설은 기본 조건이다. 종전엔 한국어 해설 경기가 0 이면
+ * 현지 해설 경기로 폴백했다. 이제 그날은 null → 제목·캡션이 편성 정리 폴백 문구로 나간다.
+ */
 export function pickHeroForDate(today: string): Schedule | null {
-  const recent = recentHeroTeams(today);
-  return (
-    pickHeroMatch(loadKoreanMatchesAll(today), recent) ??
-    pickHeroMatch(loadAllMatchesForDate(today), recent)
-  );
+  return pickHeroMatch(loadKoreanMatchesAll(today), recentHeroTeams(today));
 }
 
 export function fitText(

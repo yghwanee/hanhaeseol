@@ -405,3 +405,57 @@ test("🔴 WKBL 은 최후순위 — 다른 리그 경기가 하나라도 있으
   assert.equal(pickHeroMatch([wkbl, minor])?.id, minor.id);
   assert.equal(pickHeroMatch([wkbl])?.id, wkbl.id);
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 🔴 종목 서열 축구 > 야구 > 농구·배구 — 주요 리그끼리만 (2026-11-20 화니 지시)
+// ─────────────────────────────────────────────────────────────────────────────
+
+function game(league: string, sport: "축구" | "야구" | "농구" | "배구", home: string, away: string, time: string): Schedule {
+  return { id: `${league}-${home}-${time}`, date: "2026-11-20", time, sport, league, homeTeam: home, awayTeam: away, platform: "SPOTV NOW", koreanCommentary: true };
+}
+
+test("🔴 주요 축구 > 주요 야구 — 코리안리거 프라임타임 MLB 도 코리안리거 없는 리그1 에 밀린다", () => {
+  const mlbKorean = koreanPrime("20:00"); // 코리안리거 + 저녁
+  const ligue1 = game("리그 1", "축구", "랑스", "낭트", "04:00");
+  assert.equal(pickHeroMatch([mlbKorean, ligue1])?.id, ligue1.id);
+});
+
+test("주요 야구 > 주요 농구·배구", () => {
+  const kbo = game("KBO", "야구", "KIA", "LG", "14:00");
+  const nba = game("NBA", "농구", "LA 레이커스", "보스턴", "10:00");
+  assert.equal(pickHeroMatch([nba, kbo])?.id, kbo.id);
+});
+
+test("🔴 비주류 축구는 주요 야구·농구를 못 이긴다", () => {
+  const minor = game("W코리아컵", "축구", "수원FC W", "세종스포츠토토", "19:00");
+  const college = game("대학 축구", "축구", "고려대", "연세대", "19:00");
+  const nba = game("NBA", "농구", "골든스테이트", "멤피스", "10:00");
+  const futures = game("퓨처스리그", "야구", "상무", "LG", "13:00");
+  assert.equal(pickHeroMatch([minor, college, nba])?.id, nba.id);
+  // 비주류끼리는 종목 서열 없이 점수로
+  assert.equal(pickHeroMatch([minor, futures])?.id, minor.id);
+});
+
+test("대표팀은 종목 서열보다 위 — 야구 대표팀 경기가 EPL 을 이긴다", () => {
+  const epl = game("프리미어리그", "축구", "리버풀", "아스날", "20:30");
+  const wbc = game("WBC", "야구", "대한민국", "일본", "19:00");
+  assert.equal(pickHeroMatch([epl, wbc])?.id, wbc.id);
+});
+
+// 🔴 가을야구는 축구와 같은 서열 (2026-11-20 화니 승인)
+import { isKboPostseasonGameId, isMlbPostseasonDate } from "./baseball-postseason";
+
+test("KBO 포스트시즌 판정 — 네이버 gameId 가 연도로 시작하지 않으면 포스트시즌 (실측 ID)", () => {
+  assert.equal(isKboPostseasonGameId("20261009SSSK02026", "2026-10-09"), false);
+  assert.equal(isKboPostseasonGameId("55551030SSHT02026", "2026-10-30"), true);
+  assert.equal(isKboPostseasonGameId(undefined, "2026-10-30"), false);
+});
+
+test("MLB 포스트시즌 판정 — StatsAPI 미국 날짜를 KST 로 하루 당겨 본다", () => {
+  const s = { postSeasonStartDate: "2026-09-28", postSeasonEndDate: "2026-10-28" };
+  assert.equal(isMlbPostseasonDate("2026-09-28", s), false); // KST 9/28 = 미국 9/27 정규 마지막 날
+  assert.equal(isMlbPostseasonDate("2026-09-29", s), true);
+  assert.equal(isMlbPostseasonDate("2026-10-29", s), true); // 미국 10/28 월드시리즈
+  assert.equal(isMlbPostseasonDate("2026-10-30", s), false);
+  assert.equal(isMlbPostseasonDate("2026-10-10", null), false);
+});

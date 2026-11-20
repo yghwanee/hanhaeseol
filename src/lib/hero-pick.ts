@@ -1,6 +1,7 @@
 import type { Schedule, Sport } from "@/types/schedule";
 import { getKoreanPlayers } from "./korean-players/load";
 import type { KoreanPlayer as KoreanPlayerEntry } from "./korean-players/types";
+import { isBaseballPostseason } from "./baseball-postseason";
 
 // 코리안리거 로스터는 `src/data/korean-players.json`(매일 크롤)에서 온다.
 // 🔴 여기에 선수→팀을 다시 하드코딩하지 말 것. 손으로 적은 표는 이적 때마다 낡고,
@@ -130,6 +131,52 @@ const COURT_RANK: Record<string, number> = {
   프로배구: 2,
   WKBL: 1,
 };
+
+/**
+ * 🔴 종목 서열 — 축구 > 야구 > 농구·배구 (2026-11-20 화니 지시).
+ *
+ * 점수(코리안리거 +26 · 시간대 +15)가 종목을 뒤집지 못하게 서열로 비교한다. 코리안리거는
+ * 같은 종목 안에서만 앞선다(이정후 MLB 보다 코리안리거 없는 EPL 이 먼저).
+ * 🔴 **주요 리그끼리만** 이 서열을 쓴다 — 안 그러면 W코리아컵·대학 축구가 KBO·NBA 를 이긴다.
+ * 주요 리그가 아닌 경기는 종목과 무관하게 주요 리그 아래, WKBL 은 그보다도 아래.
+ * 대표팀 경기는 이 서열보다 위다(국가대표 티어).
+ */
+const SPORT_RANK: Record<string, number> = { 축구: 3, 야구: 2, 농구: 1, 배구: 1 };
+
+/** 등급표(S/A/B)·이벤트 표 밖이지만 주요로 보는 대회. */
+const MAJOR_EXTRA = new Set([
+  "코리아컵",
+  "코파 이탈리아",
+  "DFB-포칼",
+  "UEFA 슈퍼컵",
+  "FA 커뮤니티 실드",
+  "네이션스리그",
+  "프로농구",
+  "V리그",
+  "프로배구",
+]);
+
+export function isMajorLeague(m: Schedule): boolean {
+  if (LAST_RESORT_LEAGUES.has(m.league)) return false;
+  return (
+    LEAGUE_TIER_S.has(m.league) ||
+    LEAGUE_TIER_A.has(m.league) ||
+    LEAGUE_TIER_B.has(m.league) ||
+    EVENT_LEAGUE_TIER[m.league] !== undefined ||
+    MAJOR_EXTRA.has(m.league)
+  );
+}
+
+/**
+ * 주요 축구 3 · 주요 야구 2 · 주요 농구·배구 1 · 비주류 0 · WKBL -1.
+ * 🔴 KBO·MLB 포스트시즌은 3(축구와 같은 칸) — 한국시리즈가 ACL 정규전에 밀리면 안 된다.
+ */
+export function sportTier(m: Schedule): number {
+  if (LAST_RESORT_LEAGUES.has(m.league)) return -1;
+  if (!isMajorLeague(m)) return 0;
+  if (isBaseballPostseason(m)) return SPORT_RANK["축구"];
+  return SPORT_RANK[m.sport] ?? 0;
+}
 
 /**
  * 🔴 최후순위 리그 — 다른 리그 경기가 하나라도 있으면 점수와 무관하게 밀린다(화니: "정 없을 때만").
@@ -511,13 +558,14 @@ export function compareHero(
     if (ya !== yb) return ya ? 1 : -1; // A대표가 연령별 대표보다 먼저
   }
 
+  const ta = sportTier(a);
+  const tb = sportTier(b);
+  if (ta !== tb) return tb - ta;
+
   const pa = isTopPriority(a);
   const pb = isTopPriority(b);
   if (pa !== pb) return pa ? -1 : 1;
 
-  const la = LAST_RESORT_LEAGUES.has(a.league);
-  const lb = LAST_RESORT_LEAGUES.has(b.league);
-  if (la !== lb) return la ? 1 : -1;
 
   const ca = COURT_RANK[a.league];
   const cb = COURT_RANK[b.league];
