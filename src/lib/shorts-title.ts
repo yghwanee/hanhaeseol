@@ -162,6 +162,60 @@ export const STAR_EVENING_HOOKS: Array<(c: StarHookCtx) => string> = [
   (c) => `${c.dayWord} ${c.time}, ${c.name} 경기 ${c.emoji} ${c.matchup} 한국어 중계 채널 정리`,
 ];
 
+// ── 야구 선발 맞대결 전용 (2026-11-20) ─────────────────────────────────
+// 코리안리거가 없는 야구 경기는 선발투수 맞대결이 주어다(`starters.json`). 두 팀 다 발표됐을
+// 때만 쓴다. ERA 는 숫자로 읽힐 때만 붙인다(시즌 첫 등판 "-" 등은 생략).
+interface PitcherHookCtx {
+  home: { name: string; era: string };
+  away: { name: string; era: string };
+  matchup: string;
+  time: string;
+  platform: string;
+  dayWord: "오늘" | "내일";
+}
+
+const eraOk = (e: string) => /^\d+\.\d+$/.test(e);
+const duel = (c: PitcherHookCtx) => `${c.home.name} vs ${c.away.name}`;
+const duelEra = (c: PitcherHookCtx) =>
+  eraOk(c.home.era) && eraOk(c.away.era)
+    ? `${c.home.name}(ERA ${c.home.era}) vs ${c.away.name}(ERA ${c.away.era})`
+    : `${duel(c)} 선발 맞대결`;
+
+export const PITCHER_MORNING_HOOKS: Array<(c: PitcherHookCtx) => string> = [
+  (c) => `${duel(c)} 선발 맞대결 ⚾ ${c.dayWord} ${c.time} ${c.matchup} 한국어 중계`,
+  (c) => `${c.dayWord} ${c.time} ${c.matchup} ⚾ 선발 ${c.home.name}·${c.away.name} 한국어 중계 어디서 봐요?`,
+  (c) => `${c.matchup} 선발 확정 ⚾ ${duel(c)} · ${c.dayWord} ${c.time} 한국어 해설`,
+  (c) => `${c.dayWord} 선발 ${duel(c)} ⚾ ${c.matchup} ${c.time} 한국어 중계는 ${c.platform}`,
+  (c) => `${duelEra(c)} ⚾ ${c.dayWord} ${c.time} ${c.matchup} 한국어 중계`,
+  (c) => `${c.dayWord} ${c.matchup} 마운드는 ${duel(c)} ⚾ ${c.time} 한국어 해설`,
+  (c) => `${duel(c)} ${c.dayWord} ${c.time} ⚾ ${c.matchup} 한국어 중계 채널 정리`,
+  (c) => `${c.dayWord} ${c.time} 선발 맞대결 ${duel(c)} ⚾ ${c.matchup} 한국어 중계 되는 곳`,
+];
+
+export const PITCHER_EVENING_HOOKS: Array<(c: PitcherHookCtx) => string> = [
+  (c) => `${c.dayWord} ${c.time} ${duel(c)} 선발 맞대결 ⚾ ${c.matchup} 한국어 중계 미리 확인`,
+  (c) => `${c.matchup} ${c.dayWord} 선발 ${duel(c)} ⚾ ${c.time} 한국어 중계는 ${c.platform}`,
+  (c) => `${c.dayWord} 마운드 ${duel(c)} ⚾ ${c.matchup} ${c.time} 알람 맞추세요 · 한국어 해설`,
+  (c) => `${duelEra(c)} ⚾ ${c.dayWord} ${c.matchup} ${c.time} 한국어 중계 미리 확인`,
+  (c) => `${c.dayWord} 선발 발표 ⚾ ${duel(c)} · ${c.matchup} ${c.time} 한국어 중계`,
+  (c) => `${c.dayWord} 놓치면 아까운 선발 맞대결 ${duel(c)} ⚾ ${c.matchup} ${c.time} 한국어 해설`,
+  (c) => `${c.matchup} ${c.dayWord} ${c.time} ⚾ 선발 ${c.home.name}·${c.away.name} 한국어 중계 채널`,
+  (c) => `${c.dayWord} ${c.time}, ${duel(c)} ⚾ ${c.matchup} 한국어 중계 채널 정리`,
+];
+
+function pitcherHookContext(today: string, now: Date = new Date()): PitcherHookCtx | null {
+  const c = coverHookContext(today, now);
+  if (!c?.starters || c.national || c.isPlayer || !c.matchup) return null;
+  return {
+    home: c.starters.home,
+    away: c.starters.away,
+    matchup: c.matchup,
+    time: c.time,
+    platform: c.platform,
+    dayWord: c.dayWord,
+  };
+}
+
 // ── 팀 경기(선수 주어 없음) 전용 (2026-11-20) ─────────────────────────
 // 종전엔 아래 MORNING_HOOKS/EVENING_HOOKS 에 팀명 하나를 꽂아 `삼성생명 블루밍스 오늘 한국어 중계`
 // 가 나갔다 — 팀명만 갈아 끼운 문장이다(화니 지적). 이제 주어는 **매치업**(검색어 그대로)이고,
@@ -358,6 +412,13 @@ export function buildHookLine(
     return starPool[starIdx](star);
   }
 
+  const pitch = pitcherHookContext(today, now);
+  if (pitch) {
+    const pPool = slot === "morning" ? PITCHER_MORNING_HOOKS : PITCHER_EVENING_HOOKS;
+    const pIdx = (rotateIndex(today, slot, pPool.length) + SURFACE_OFFSET[surface]) % pPool.length;
+    return pPool[pIdx](pitch);
+  }
+
   const team = teamHookContext(today, now);
   if (team) {
     const teamPool = slot === "morning" ? TEAM_MORNING_HOOKS : TEAM_EVENING_HOOKS;
@@ -409,6 +470,13 @@ export function buildShortsTitle(
     const starPool = slot === "morning" ? STAR_MORNING_HOOKS : STAR_EVENING_HOOKS;
     const starTitle = `${starPool[rotateIndex(today, slot, starPool.length)](star)} ${dateTag}`;
     if (starTitle.length <= TITLE_MAX) return starTitle;
+  }
+
+  const pitch = pitcherHookContext(today, now);
+  if (pitch) {
+    const pPool = slot === "morning" ? PITCHER_MORNING_HOOKS : PITCHER_EVENING_HOOKS;
+    const pTitle = `${pPool[rotateIndex(today, slot, pPool.length)](pitch)} ${dateTag}`;
+    if (pTitle.length <= TITLE_MAX) return pTitle;
   }
 
   const team = teamHookContext(today, now);

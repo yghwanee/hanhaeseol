@@ -19,6 +19,10 @@ import { GLOBAL_BIG_CLUBS, NATIONAL_TEAM } from "./hero-pick";
 import { nationalEventFor } from "./national-event";
 import { loadHeroStar } from "./hero-star";
 import { teamFactFor } from "./team-fact";
+import fs from "node:fs";
+import path from "node:path";
+import { getStartersForMatch } from "./starters/lookup";
+import type { StartersData } from "@/types/starter";
 import { withJosa } from "./josa";
 import { getPostSlot, rotateIndex, type PostSlot } from "./post-slot";
 import { speakTime } from "./tiktok-caption";
@@ -57,6 +61,11 @@ export interface CoverHookCtx {
    * 있으면 `who` 가 이 선수 이름이 된다 — 팀명만 갈아 끼운 `LA 레이커스 내일 어디서 보나` 대신.
    */
   star?: { name: string; team: string; stat: string };
+  /**
+   * 야구 경기에 코리안리거가 없을 때의 선발 맞대결(`starters.json`, 선발 크롤이 채운다).
+   * 두 팀 다 발표됐을 때만. 제목·캡션이 `원태인 vs 대니엘 선발 맞대결` 로 쓴다.
+   */
+  starters?: { home: { name: string; era: string }; away: { name: string; era: string } };
   /** 선수 주어가 없을 때 순위표에서 뽑은 사실 한 조각(`team-fact.ts`). 예: 하나은행 5연승 */
   teamFact?: { team: string; fact: string };
   /** "맨시티 vs 풀럼" — 편성 표기 순서 그대로 */
@@ -268,6 +277,23 @@ export function pickHeadliner(home: string | null, away: string | null): string 
   return (away ?? home)!;
 }
 
+let startersCache: StartersData | null | undefined;
+/** 히어로가 야구면 두 팀 선발. 한쪽이라도 미발표면 null(한쪽만 이름을 대면 맞대결이 아니다). */
+function startersFor(hero: { date: string; homeTeam: string; awayTeam?: string; sport: string; league: string }) {
+  if (hero.sport !== "야구" || !hero.awayTeam) return null;
+  if (startersCache === undefined) {
+    try {
+      startersCache = JSON.parse(fs.readFileSync(path.resolve("src/data/starters.json"), "utf-8")) as StartersData;
+    } catch {
+      startersCache = null;
+    }
+  }
+  if (!startersCache) return null;
+  const v = getStartersForMatch(startersCache, { ...hero, awayTeam: hero.awayTeam });
+  if (!v?.home?.name || !v.away?.name) return null;
+  return { home: { name: v.home.name, era: v.home.era }, away: { name: v.away.name, era: v.away.era } };
+}
+
 /** 히어로에서 후킹 재료를 뽑는다. 경기가 없으면 null. */
 export function coverHookContext(today: string, now: Date = new Date()): CoverHookCtx | null {
   const hero = pickHeroForDate(today);
@@ -283,6 +309,7 @@ export function coverHookContext(today: string, now: Date = new Date()): CoverHo
   // 주어 우선순위: 대표팀(대한민국) > 코리안리거 > 팀 대표 선수(네이버 시즌 기록) > 팀명.
   const star = national || player ? null : loadHeroStar(hero);
   const headliner = pickHeadliner(home, away);
+  const starters = national || player ? null : startersFor(hero);
   const teamFact = national || player || star ? null : teamFactFor(hero, headliner);
 
   return {
@@ -290,6 +317,7 @@ export function coverHookContext(today: string, now: Date = new Date()): CoverHo
     isPlayer: Boolean(player || star),
     star: star ? { name: star.name, team: star.team, stat: star.stat } : undefined,
     teamFact: teamFact ?? undefined,
+    starters: starters ?? undefined,
     matchup: home && away ? `${home} vs ${away}` : (home ?? away)!,
     national: national
       ? { matchup: national.matchup, opponent: national.opponent, event: national.event }

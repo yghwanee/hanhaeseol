@@ -177,3 +177,33 @@ test("편성 `삼성생명 블루밍스` ↔ 네이버 `삼성생명` 은 같은
   assert.equal(sameTeam("WKBL", "하나은행", "삼성생명"), false);
   assert.equal(sameTeam("KBL", "서울 SK", "SK"), false); // 3글자 미만은 접두 비교 안 함
 });
+
+// ── 야구 선발 맞대결 — 2026-11-20 ───────────────────────────────────
+import { PITCHER_EVENING_HOOKS, PITCHER_MORNING_HOOKS } from "./shorts-title";
+
+test("🔴 선발 맞대결 후킹 — 두 선발·매치업·시각·한국어 중계를 다 담고, ERA 는 숫자일 때만 (11/08 실데이터)", () => {
+  const base = {
+    home: { name: "대니엘", era: "2.13" },
+    away: { name: "원태인", era: "4.52" },
+    matchup: "KT vs 삼성",
+    time: "오후 2시",
+    platform: "티빙",
+  };
+  for (const [pool, dayWord] of [[PITCHER_MORNING_HOOKS, "오늘"], [PITCHER_EVENING_HOOKS, "내일"]] as const) {
+    for (const h of pool) {
+      const s = h({ ...base, dayWord });
+      assert.match(s, /대니엘/, s);
+      assert.match(s, /원태인/, s);
+      assert.match(s, /KT vs 삼성/, s);
+      assert.match(s, /오후 2시/, s);
+      assert.match(s, /한국어 (중계|해설)/, s);
+      assert.ok(s.length <= 80, `${s.length}: ${s}`);
+    }
+  }
+  assert.match(PITCHER_MORNING_HOOKS[4]({ ...base, dayWord: "오늘" }), /대니엘\(ERA 2\.13\) vs 원태인\(ERA 4\.52\)/);
+  const noEra = { ...base, away: { name: "원태인", era: "-" } };
+  assert.doesNotMatch(PITCHER_MORNING_HOOKS[4]({ ...noEra, dayWord: "오늘" }), /ERA/);
+  PITCHER_MORNING_HOOKS.forEach((h, i) =>
+    assert.notEqual(h({ ...base, dayWord: "오늘" }), PITCHER_EVENING_HOOKS[i]({ ...base, dayWord: "오늘" })),
+  );
+});

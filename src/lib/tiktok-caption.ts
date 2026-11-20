@@ -69,7 +69,9 @@ export function buildTiktokCaption(today: string): string {
       ? `${c.national.event} ${c.national.matchup}`
       : c?.isPlayer
         ? `${c.who} 나오는 ${base}`
-        : c?.teamFact
+        : c?.starters
+          ? `${c.starters.home.name} vs ${c.starters.away.name} 선발 맞대결 ${base}`
+          : c?.teamFact
           ? `${c.teamFact.fact} ${c.teamFact.team} · ${base}`
           : base;
     const ctx: HookCtx = {
