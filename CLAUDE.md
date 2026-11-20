@@ -395,7 +395,7 @@ src/
   실패하면 옛 생성 스텝이 대신 돈다. 🔴 글자·카드는 9:16 안 **4:5 띠(y 285~1635)·좌우 110** 안에만(썸네일 잘림 방지).
   사진은 셔플백(`hookBagIndex`, 풀 245장). 🔴 풀에 사진 넣고 빼면 `HOOK_BAG_START`·`HOOK_BAG_RECENT` 같이 갱신(안 하면 최근 사진 재등장). 확인 = `social-preview.yml -f design=v3`. 10/02 커버 A/B(작업128)는 무효.
   🔴 **주제가 조회수의 제일 큰 변수**(히어로가 그날 가장 뜨거운 경기인지부터). 저녁이 아침보다 2~5배.
-  🔴 **쇼츠 세로 썸네일은 API 로 못 정한다** — PC 자동 교정(작업131)·`thumb-check.yml` 은 2026-11-20 화니 결정으로 폐기(워크플로 비활성).
+  🔴 **쇼츠 세로 썸네일은 API 로 못 정한다** — PC 자동 교정(작업131)·`thumb-check.yml` 은 2026-11-20 화니 결정으로 폐기(코드 삭제).
 - 실패한 게시분만 재실행 = `gh workflow run instagram-morning.yml -f only=<채널>`. 아침 cron 지연은 2026-08-15 에 해결됨(작업84·91).
 - **인스타 조회수 측정 — 사용자 승인 필요** — `instagram_manage_insights` 권한이 없어 `social-stats` 가 좋아요·댓글만 뽑는다(`(#10) Application does not have permission`). 하루 4개씩 186개를 올리면서 조회수를 한 번도 못 봤다. Meta 앱에서 권한 추가·재승인이 필요하고, 그전까지 인스타 판단은 팔로워(4)·좋아요(0~1)뿐이다.
 - 🔴 **선수 페이지 `/player/[slug]` — 라이브 (2026-09-16, 작업125).** 코리안리거 12장.
@@ -549,7 +549,7 @@ npm run fonts:subset:ui  # 🔴 본문 Pretendard 서브셋 재생성(pyftsubset
 npm run test:font-mixing  # 🔴 font-mono 자리에 한글 금지(한 문자열에 두 폰트) + 서브셋 존재·크기
 npm run test:push-toggle  # 🔴 해제 순서(서버→로컬) · 컨트롤 유지 · ⭐히트영역 44px · 미지원 환경 안내 · 구독 주소 교체 유령
 npm run test:result-lookup  # 🔴 결과 룩업 한쪽 일치 안전망 — 유일 후보만 붙이고 헷갈리면 버리는지
-npm run test:workflow-yaml  # 🔴 워크플로 22개 전수 파싱. 문자열 검사로는 못 잡는다(아래 참조)
+npm run test:workflow-yaml  # 🔴 워크플로 전수 파싱. 문자열 검사로는 못 잡는다(아래 참조)
 npm run test:workflow-pipe  # 🔴 파이프가 종료코드를 삼키는지(npm|tee). 실패한 크롤이 초록으로 끝난다
 npm run test:card-layout  # 🔴 카드 뱃지 자리(PC 상단·모바일 하단·상태는 상단 유지) + 흰 판 토큰 반전
 npm run test:revalidate-budget  # 🔴 revalidate 하한 72000(최장 배포 간격) · 날짜 무관이면 false. 되돌리면 한도가 잠긴다

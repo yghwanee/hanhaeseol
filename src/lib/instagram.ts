@@ -59,13 +59,6 @@ export const LAYOUT = {
   matchesPerCard: 5,
 };
 
-export const MAIN_DATE_CONFIG = {
-  fontSize: 260,
-  x: 85,
-  y: 1015,
-  color: "#ffffff",
-};
-
 export const MAIN_CARD_SIZE = { width: 1080, height: 1350 };
 
 // hero 매치 선정 로직은 src/lib/hero-pick.ts로 분리 (RSC에서 canvas/fs 의존 없이 import 가능하도록).

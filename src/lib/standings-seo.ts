@@ -349,7 +349,3 @@ export const STANDINGS_LEAGUES: StandingsSeoMeta[] = [
 export function findStandingsBySlug(slug: string): StandingsSeoMeta | undefined {
   return STANDINGS_LEAGUES.find((l) => l.slug === slug);
 }
-
-export function findStandingsByDataId(id: string): StandingsSeoMeta | undefined {
-  return STANDINGS_LEAGUES.find((l) => l.dataId === id);
-}

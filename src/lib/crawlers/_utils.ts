@@ -1,8 +1,5 @@
 import type { Schedule } from "@/types/schedule";
 
-export const CRAWLER_UA =
-  "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36";
-
 /** 타임스탬프/ISO 문자열/Date를 KST 기준 {date: "YYYY-MM-DD", time: "HH:mm"} 으로 변환 */
 export function toKstDateTime(input: number | string | Date): { date: string; time: string } {
   const d = input instanceof Date ? input : new Date(input);

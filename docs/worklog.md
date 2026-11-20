@@ -1504,3 +1504,12 @@ AI Assistant 8일 30세션(28일 471 → 거의 소멸) · Vercel 30일 FOT 11.7
 ### 남은 것
 - 12/14 해제 뒤: 첫 예약 배포 로그에 READY 폴링이 찍히는지, 하루 함수 호출 수(위 API)가 11/14 이전 대비 얼마나 줄었는지.
 - 편성 변경은 다음 예약 배포까지 최대 ~14h 늦게 뜬다(화니 수용).
+
+### 작업140 후속 — 2단계 버그 감사 · 3단계 정리 (2026-11-20)
+
+- **버그(audit:aliases 실측)**: 스코어 MISS 5(WKBL 3팀 · NBA `오클라호마` · 분데스 `글라트바흐`) + 전적 MISS 8(UCL 3 · 에레디비시 `덴하흐` · V리그 여자부 4).
+  V리그 전적이 `kovo`(남자부)만 받고 있었다 → `CATEGORY_ID` 배열 지원, V리그=kovo+wkovo, WKBL 신규. 재크롤·재감사 MISS 0.
+- **배포 직전 결과 크롤**: 매시 결과 크롤이 GH 예약 누락으로 하루 ~4회만 발화 → `deploy.yml` 이 `crawl-results.yml` 을 workflow_call 로 먼저 부른다(실패해도 배포).
+- 워크플로 실패(11/16~19)는 전부 ubuntu-26.04 러너 건이고 11/19 고친 뒤 전부 초록. lint·tsc·전체 테스트 통과(로컬 `claude-md-size` 는 CRLF 탓, CI 정상).
+- **정리**: 썸네일 PC 교정 묶음 삭제(`thumb-check.yml` · `shorts-thumb.ts` · `social-thumb-check.ts` · `yt-shorts-thumb-fix.ts` · `.ps1`) · 죽은 export 5개 삭제.
+  🔴 남긴 것: `coupang-products.json`·`fetch-coupang-meta.ts`(재개 대비 결정, 작업65) · `coupang-login.ts`(수동 토큰 도구) · 토스 갱신 ps1(CLAUDE.md 재개 경로).

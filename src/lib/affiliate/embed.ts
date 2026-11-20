@@ -24,8 +24,6 @@ import { DISCLOSURE_SHORT, formatWon, getPick, toView } from "./toss-picks";
  * 일단 전부 잡아내고, 저장소에 없는 키면 아래에서 조용히 빈 문자열로 지운다.
  */
 const MARKER = /<p>\s*:::toss\s+([^:\s]+)\s*:::\s*<\/p>/g;
-/** 마크다운 원문에서 찾을 때 쓰는 것(가드·린트용). */
-export const MARKER_SOURCE = /^:::toss\s+([a-z0-9][a-z0-9-]*)\s*:::$/m;
 
 function esc(s: string): string {
   return s

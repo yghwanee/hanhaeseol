@@ -200,11 +200,6 @@ export async function fetchGameDetail(gameId: string): Promise<GameDetail> {
   return { goals, ...pt };
 }
 
-/** 득점자만 필요한 곳(백필 등)용 얇은 래퍼. */
-export async function fetchGoals(gameId: string): Promise<GoalEvent[]> {
-  return (await fetchGameDetail(gameId)).goals;
-}
-
 /** 네이버 winner("HOME"/"AWAY") → 우리 방향. 무승부·미정은 undefined. */
 function mapWinner(winner: string | undefined): "home" | "away" | undefined {
   const w = (winner ?? "").toUpperCase();
