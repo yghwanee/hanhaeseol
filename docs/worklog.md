@@ -1496,11 +1496,11 @@ AI Assistant 8일 30세션(28일 471 → 거의 소멸) · Vercel 30일 FOT 11.7
 - 배포가 예약 4회 + **편성 크롤(crawl.yml) 하루 3회 갱신마다 훅** = 실제 하루 ~7회였다(crawl 실발화 KST ~13·18·23시).
 
 ### 한 것
-1. `deploy.yml` cron 4 → 2(KST 00:10·16:10). crawl.yml 의 배포 트리거·폴링·빌드 실패 텔레그램·IndexNow 를 `deploy.yml` 로 옮겼다. 훅 호출처 = deploy·auto-publish-draft 둘.
-2. 날짜 의존 페이지 `revalidate` 32400 → **72000**(최장 간격 16h + GH 지연 2h). rss·llms-full s-maxage 도 같이. 홈 "오늘"은 클라이언트 계산이라 자정 넘김과 무관.
+1. `deploy.yml` cron 4 → 2(KST 07:20·17:10, 출근·저녁 피크 전 — 화니 지시). crawl.yml 의 배포 트리거·폴링·빌드 실패 텔레그램·IndexNow 를 `deploy.yml` 로 옮겼다. 훅 호출처 = deploy·auto-publish-draft 둘.
+2. 날짜 의존 페이지 `revalidate` 32400 → **72000**(최장 간격 14h + GH 지연 2h). rss·llms-full s-maxage 도 같이. 홈 "오늘"은 클라이언트 계산이라 자정 넘김과 무관.
 3. `/api/push/dispatch` 가 구독자부터 보고 0명이면 편성·결과 JSON·발송기록을 안 읽고 끝낸다(커밋 27b4061e).
 4. 가드: `deploy-budget`(2회 · crawl 은 훅 금지 · deploy 가 폴링·알림 보유) · `revalidate-budget` 하한 72000.
 
 ### 남은 것
 - 12/14 해제 뒤: 첫 예약 배포 로그에 READY 폴링이 찍히는지, 하루 함수 호출 수(위 API)가 11/14 이전 대비 얼마나 줄었는지.
-- 편성 변경은 다음 예약 배포까지 최대 ~16h 늦게 뜬다(화니 수용).
+- 편성 변경은 다음 예약 배포까지 최대 ~14h 늦게 뜬다(화니 수용).

@@ -114,7 +114,7 @@ src/
   - ✅ **ISR Writes 원인 규명·처방 완료 (2026-09-16, 작업124).** 색인 대상 페이지가 **전부**
     `revalidate = 3600` 이었다. 데이터는 배포 번들 안 파일이라 재생성해도 **같은 HTML** 이
     나오는데(`server-data.ts` 주석) 623페이지 × 시간당 = 이론상 월 44.8만 회였다.
-    → 날짜 의존 페이지 **72000**(2026-11-20, 배포 간격 최장 16h+지연) ·
+    → 날짜 의존 페이지 **72000**(2026-11-20, 배포 간격 최장 14h+지연) ·
     날짜 무관 페이지 **false**. 매치 OG 는 아카이브 경기에 satori 렌더 대신 `og-default.png` 로 308.
     🔴 **새 페이지를 만들 때 둘 중 하나를 고른다 — 규칙과 근거는 `src/app/page.tsx` 의
     「revalidate 정책 정본」 주석.** 되돌림은 `npm run test:revalidate-budget` 가 막는다.
@@ -619,6 +619,6 @@ ISSUE_BODY="$(gh issue view N --json body -q .body)" npm run check:idea-dupes  #
 
 ## 배포
 
-- 🔴 **`main` 푸시로는 배포가 안 나간다.** `vercel.json` 이 `git.deploymentEnabled: false` 라 Vercel Git 자동 배포가 꺼져 있고, **`deploy.yml` 이 Deploy Hook 으로만** 배포한다(**KST 00:10·16:10 하루 2번**, 2026-11-20 4→2 · 편성 크롤 배포 폐지 — 화니 결정). 배포 확인·실패 알림도 `deploy.yml`. 지금 바로 내보내려면 `gh workflow run deploy.yml`.
+- 🔴 **`main` 푸시로는 배포가 안 나간다.** `vercel.json` 이 `git.deploymentEnabled: false` 라 Vercel Git 자동 배포가 꺼져 있고, **`deploy.yml` 이 Deploy Hook 으로만** 배포한다(**KST 07:20·17:10 하루 2번**(피크 전), 2026-11-20 4→2 · 편성 크롤 배포 폐지 — 화니 결정). 배포 확인·실패 알림도 `deploy.yml`. 지금 바로 내보내려면 `gh workflow run deploy.yml`.
   - 2026-09-03 에 이 문서가 "main 푸시 시 자동 배포"라고 적혀 있어 푸시해 놓고 라이브에 안 뜨는 걸 한참 확인했다. 가이드 등 콘텐츠도 **푸시만으로는 안 뜬다.**
 - 데이터 JSON의 `lastUpdated`는 **UTC(Z)** 표기(KST=+9). 로컬 "현재 기준"은 위 crawl 명령으로 재크롤(src/data·public 양쪽 기록).

@@ -97,7 +97,7 @@ test("가이드 발행은 훅을 직접 부른다", () => {
       y.includes('-X POST "$VERCEL_DEPLOY_HOOK_URL"'),
       `${f} 이 Deploy Hook 을 부르지 않는다.\n` +
         "git push 로는 배포가 안 되므로, 훅을 안 부르면 편성/새 글이 다음 예약 배포까지\n" +
-        "다음 예약 배포(최대 ~16시간)까지 사이트에 안 뜬다.",
+        "다음 예약 배포(최대 ~14시간)까지 사이트에 안 뜬다.",
     );
     assert.ok(
       y.includes("VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"),
