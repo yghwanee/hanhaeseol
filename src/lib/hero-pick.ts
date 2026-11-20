@@ -114,6 +114,28 @@ export function nationalOpponent(m: Schedule): string | null {
   return opp && opp !== "미정" ? opp : null;
 }
 
+/**
+ * 🔴 농구·배구 리그 서열 (2026-11-20 화니 지시): NBA > KBL = V리그 > WKBL.
+ *
+ * 종전엔 넷이 점수(리그 등급 + 시간대)로만 갈려, 11/20 WKBL 하나은행 vs 삼성생명(19:00, 25점)이
+ * NBA 골든스테이트 vs 멤피스(10:00, 20점)를 이기고 히어로가 됐다. 시간대 가점(최대 15)이
+ * 리그 차이를 뒤집는다 — 그래서 점수가 아니라 서열로 비교한다(두 경기가 다 이 표에 있을 때만).
+ * 축구·야구와의 비교는 종전처럼 점수다.
+ */
+const COURT_RANK: Record<string, number> = {
+  NBA: 3,
+  KBL: 2,
+  프로농구: 2, // tvN SPORTS 가 KBL 을 이 이름으로 준다
+  V리그: 2,
+  프로배구: 2,
+  WKBL: 1,
+};
+
+/**
+ * 🔴 최후순위 리그 — 다른 리그 경기가 하나라도 있으면 점수와 무관하게 밀린다(화니: "정 없을 때만").
+ */
+const LAST_RESORT_LEAGUES = new Set(["WKBL"]);
+
 /** 등급표에 없어 최하 5점을 받던 이벤트성 대회 */
 const EVENT_LEAGUE_TIER: Record<string, number> = {
   "쿠팡플레이 시리즈": 15,
@@ -492,6 +514,14 @@ export function compareHero(
   const pa = isTopPriority(a);
   const pb = isTopPriority(b);
   if (pa !== pb) return pa ? -1 : 1;
+
+  const la = LAST_RESORT_LEAGUES.has(a.league);
+  const lb = LAST_RESORT_LEAGUES.has(b.league);
+  if (la !== lb) return la ? 1 : -1;
+
+  const ca = COURT_RANK[a.league];
+  const cb = COURT_RANK[b.league];
+  if (ca && cb && ca !== cb) return cb - ca;
 
   const sa = heroScore(a, recentTeams);
   const sb = heroScore(b, recentTeams);

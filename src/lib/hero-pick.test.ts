@@ -371,3 +371,37 @@ test("연령별 대표도 클럽 경기보다는 앞선다(국가대표 티어 �
   const u21 = national("대한민국", "멕시코", "연령별 남자축구 국가대표팀", "19:00");
   assert.equal(pickHeroMatch([epl, u21])?.id, u21.id);
 });
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 🔴 농구·배구 서열 NBA > KBL = V리그 > WKBL (2026-11-20 화니 지시)
+//   11/20 WKBL 19:00(25점)이 NBA 10:00(20점)을 이기고 히어로가 됐다.
+// ─────────────────────────────────────────────────────────────────────────────
+
+function court(league: string, home: string, away: string, time: string, sport: "농구" | "배구" = "농구"): Schedule {
+  return {
+    id: `${league}-${home}`, date: "2026-11-20", time, sport, league,
+    homeTeam: home, awayTeam: away, platform: "티빙", koreanCommentary: true,
+  };
+}
+
+test("🔴 11/20 실데이터 — NBA 아침 경기가 WKBL·V리그 저녁 경기를 이긴다", () => {
+  const wkbl = court("WKBL", "하나은행", "삼성생명 블루밍스", "19:00");
+  const nba = court("NBA", "골든스테이트", "멤피스", "10:00");
+  const v = court("V리그", "현대캐피탈", "한국전력", "18:45", "배구");
+  assert.equal(pickHeroMatch([wkbl, v, nba])?.id, nba.id);
+});
+
+test("KBL 과 V리그는 같은 서열 — 점수(시간대)로 갈린다", () => {
+  const kbl = court("KBL", "원주 DB", "안양 정관장", "19:00");
+  const v = court("V리그", "현대캐피탈", "한국전력", "14:00", "배구");
+  assert.equal(pickHeroMatch([v, kbl])?.id, kbl.id);
+});
+
+test("🔴 WKBL 은 최후순위 — 다른 리그 경기가 하나라도 있으면 밀리고, 혼자면 히어로다", () => {
+  const wkbl = court("WKBL", "하나은행", "삼성생명 블루밍스", "19:00");
+  const v = court("V리그", "현대캐피탈", "한국전력", "18:45", "배구");
+  const minor = club("수원FC W", "세종스포츠토토", "W코리아컵", "03:00");
+  assert.equal(pickHeroMatch([wkbl, v])?.id, v.id);
+  assert.equal(pickHeroMatch([wkbl, minor])?.id, minor.id);
+  assert.equal(pickHeroMatch([wkbl])?.id, wkbl.id);
+});
