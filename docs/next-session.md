@@ -29,10 +29,12 @@
 - **이미 한 것**: 요청 시점 렌더를 빌드로(매치 448장·매치 OG 66·가이드 OG 85) · revalidate 32400 · CI Linux 빌드 잡 ·
   잠금 동안 402 소음 정리. 커밋 `febcd768`·`04eafad7`·`411db8bb`. 잠긴 동안 배포 훅은 201 인데 배포가 안 생긴다(정상).
 - **12/14 해제 직후 할 일(순서대로)**
-  1. 세 사이트 200 · 첫 예약 배포 READY(빌드 시간 실측) · #96 자동 닫힘.
+  1. 세 사이트 200 · 첫 예약 배포 READY(빌드 시간 실측) · #96 자동 닫힘. 🔴 배포는 이제 **하루 2회 KST 07:20·17:10**
+     (작업140, 편성 크롤 배포 폐지). `deploy.yml` 로그에 `results / crawl` 성공 → `1차 결과: READY` 순서가 찍히는지.
   2. 한글 경기 페이지 `og:image` 가 `/og/match/<단일 인코딩>` 이고 PNG 200 인지(카톡 공유 미리보기 1건 육안).
   3. **`/player/<한글>` 이 200 인지** → 200 이면 `team`/`league`/`platform`/`standings` 에 `dynamicParams=false`(worklog 작업138 후속 「보류」).
-  4. 2~4주 뒤 대시보드 Usage 30일: Active CPU < 4h · FOT < 10GB · ISR Writes < 200K. 넘으면 다음 레버 = 배포 4→2회(화니 결정).
+  4. 2~4주 뒤 대시보드 Usage 30일: Active CPU < 4h · FOT < 10GB · ISR Writes < 200K. 배포 4→2회는 11/20 적용 완료.
+     하루 함수 호출 = `v2/usage?type=requests&projectId=prj_77lgQBpQRxInSahqgX0UMep7bWYN`(잠기기 전 하루 2.6~5.8천).
 - 상태 확인 = `vercel login` 토큰으로 `GET https://api.vercel.com/v2/teams/team_nPF3curWDtmBYzfVw4KgrTFa` 의 `softBlock`.
 
 ## 🔴 2026-10-23 에 생긴 할 일 (작업136·137 — 실측 기반 SEO/AEO)
