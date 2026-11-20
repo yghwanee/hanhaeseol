@@ -393,9 +393,7 @@ src/
   - 최다 클릭 페이지는 `/standings/kbo` 가 아니라 **`/league/kbo`**(352,021노출 450클릭). 플랫폼 페이지가 클릭 효율 최강(웹문서 TOP10 에 5개, `coupang-play` 6% · `kbs-n-sports` 3.1%).
   - **투자 금지 확인**: `spotv 편성표` 17,642노출 → 22클릭(0.1%). 같은 페이지 타입인 `kbs 스포츠 편성표` 는 1,308노출에 4.6% — SPOTV 는 공식 편성 페이지가 있어 제목으로 못 이긴다.
   - **다음 관측(2~4주)**: 작업85 제목 수정 후 **매치 쿼리 CTR 0.03% 가 움직이는지** 하나만 본다. 움직이면 병목이 제목이었고, 안 움직이면 순위라 제목으로는 끝이다.
-- 🔴 **소셜 히어로·후킹 (2026-11-20, 작업139).** 서열·주어 규칙 정본 = auto-memory `project-hero-sport-order`(코드 `hero-pick.ts` `compareHero`).
-  주어 선수는 게시 직전 `npm run hero:star`(네이버)가 받는다 — **선수→팀을 코드에 적지 말 것**. 나갈 문장 확인 = `social-preview.yml`.
-  🔴 크로미움 워크플로는 `ubuntu-24.04` 고정(`ubuntu-latest`=26.04 에선 Playwright 설치 실패, 11/16~20 장애). 가드 `test:workflow-yaml`.
+- 🔴 **소셜 히어로·후킹(작업139)** 규칙 = memory `project-hero-sport-order`. 선수명은 `hero:star` 가 받는다. 크로미움 워크플로는 `ubuntu-24.04`.
 - 🔴 **소셜 v3 — 2026-10-06 저녁분부터 (화니 확정).** `npm run social:v3`(Playwright → ffmpeg)가 manifest 를 채우고,
   실패하면 옛 생성 스텝이 대신 돈다. 🔴 글자·카드는 9:16 안 **4:5 띠(y 285~1635)·좌우 110** 안에만(썸네일 잘림 방지).
   사진은 셔플백(`hookBagIndex`, 풀 245장). 🔴 풀에 사진 넣고 빼면 `HOOK_BAG_START`·`HOOK_BAG_RECENT` 같이 갱신(안 하면 최근 사진 재등장). 확인 = `social-preview.yml -f design=v3`. 10/02 커버 A/B(작업128)는 무효.
