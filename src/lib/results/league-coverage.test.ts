@@ -30,8 +30,9 @@ const KNOWN_UNSUPPORTED = new Set([
   "리그컵", // Leagues Cup (MLS x 리가 MX)
   "KBO 폴리그", // 교육리그(울산). 네이버 리그 API 에 없다(2026-10-22).
   "WNBA",
-  // 여자 코리아컵(쿠팡플레이 2026-11-21~). 후보 wkoreacup·koreacupw·womenkoreacup·wfacup 은 400,
-  // wkleague·koreacup 은 그날 0건(2026-11-20 실측). 찾으면 LEAGUE_TO_CATEGORY 로 옮길 것.
+  // 여자 코리아컵(쿠팡플레이 2026-11-21~). 🔴 네이버에 대회 자체가 없다 — 축구 전체 일정
+  // (superCategoryId=football 120경기·kfootball·wfootball)에 경기가 없고 후보 ID 11개 전부 400/0건
+  // (2026-11-20 실측). 화니 결정: 버린다, 재조사 금지.
   "W코리아컵",
   // 2026-10-06 실측: KOVO컵(NH농협컵)은 schedule/games 의 kovo 가 200 이지만 대회 기간(10/04~10/14) 0건.
   // kovocup·kovo_cup·kvl·vleague 등은 400. 컵대회는 네이버 일반 리그 API 에 안 올라온다.
