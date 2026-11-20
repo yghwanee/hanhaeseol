@@ -36,8 +36,12 @@ interface NaverSeason {
   isSeason: "Y" | "N";
 }
 
-/** schedule.json의 league 문자열 → 네이버 categoryId. */
-export const CATEGORY_ID: Record<string, string> = {
+/**
+ * schedule.json의 league 문자열 → 네이버 categoryId. 배열이면 여러 카테고리를 합친다.
+ * 🔴 V리그는 남녀부가 편성에서 한 리그명("V리그")인데 네이버는 kovo·wkovo 로 갈린다.
+ *    kovo 만 받아 여자부 팀(한국도로공사·IBK기업은행 등)은 최근 전적 뱃지가 비어 있었다(2026-11-20 audit:aliases).
+ */
+export const CATEGORY_ID: Record<string, string | string[]> = {
   KBO: "kbo",
   MLB: "mlb",
   프리미어리그: "epl",
@@ -53,7 +57,8 @@ export const CATEGORY_ID: Record<string, string> = {
   에레디비시: "eredivisie",
   KBL: "kbl",
   NBA: "nba",
-  V리그: "kovo",
+  V리그: ["kovo", "wkovo"],
+  WKBL: "wkbl",
 };
 
 /** /seasons에서 isSeason="Y"인 현재 시즌 코드를 가져온다. 없으면 가장 최근 시즌. */
@@ -71,16 +76,18 @@ async function fetchCurrentSeasonCode(categoryId: string): Promise<string | null
 export async function fetchNaverTeamRecords(
   league: string,
 ): Promise<Record<string, TeamRecord>> {
-  const categoryId = CATEGORY_ID[league];
-  if (!categoryId) throw new Error(`Unsupported league: ${league}`);
+  const ids = CATEGORY_ID[league];
+  if (!ids) throw new Error(`Unsupported league: ${league}`);
 
-  const seasonCode = await fetchCurrentSeasonCode(categoryId);
-  if (!seasonCode) return {};
-
-  const r = await naverGet<{ seasonTeamStats?: NaverSeasonTeamStat[] }>(
-    `/statistics/categories/${categoryId}/seasons/${seasonCode}/teams`,
-  );
-  const stats = r.seasonTeamStats ?? [];
+  const stats: NaverSeasonTeamStat[] = [];
+  for (const categoryId of Array.isArray(ids) ? ids : [ids]) {
+    const seasonCode = await fetchCurrentSeasonCode(categoryId);
+    if (!seasonCode) continue;
+    const r = await naverGet<{ seasonTeamStats?: NaverSeasonTeamStat[] }>(
+      `/statistics/categories/${categoryId}/seasons/${seasonCode}/teams`,
+    );
+    stats.push(...(r.seasonTeamStats ?? []));
+  }
 
   const aliasMap = NAVER_TO_SCHEDULE_TEAM_NAME[league] ?? {};
   // 네이버 lastFiveGames 방향: 야구(KBO/MLB)는 [오래된→최근], 그 외는 [최근→오래된].

@@ -143,6 +143,8 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     "마인츠 05": "마인츠",
     "바이엘 레버쿠젠": "레버쿠젠",
     "보루시아 글라트바흐": "묀헨글라트바흐",
+    // 2026-11-20 감사: 네이버 결과가 접두사 없이 "글라트바흐" 로 준다(11/21 도르트문트전).
+    글라트바흐: "묀헨글라트바흐",
     "보루시아 도르트문트": "도르트문트",
     "상 파울리": "장크트파울리",
     "함부르크 SV": "함부르크",
@@ -231,6 +233,10 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     샤흐타르: "샤흐타르 도네츠크",
     "애스턴 빌라": "아스톤 빌라",
     바이킹: "비킹 FK",
+    // 2026-11-20 audit:aliases 전적 감사(최근 5경기 API 는 짧게 부른다). 셋 다 이번 리그 페이즈의 유일한 동명 클럽.
+    슬로반: "슬로반 브라티슬라바",
+    아인트호벤: "PSV 에인트호번",
+    사바하: "사바 FK",
   },
 
   유로파리그: {
@@ -268,6 +274,8 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     "PEC 즈볼레": "즈볼러",
     // 2026-09-15 감사. 네이버 "빌럼 II" / 편성(쿠팡플레이) "빌럼".
     "빌럼 II": "빌럼",
+    // 2026-11-20 전적 감사. 편성(쿠팡플레이) "덴하흐".
+    "ADO 덴 하그": "덴하흐",
   },
 
   KBL: {
@@ -323,6 +331,15 @@ export const NAVER_TO_SCHEDULE_TEAM_NAME: Record<string, Record<string, string |
     "LA클리퍼스": "LA 클리퍼스",
     "뉴올리언즈": "뉴올리언스",
     "오클라호마 시티": "오클라호마시티",
+    // 2026-11-20 감사: 결과 API 가 "오클라호마" 로만 준다(11/21 뉴올리언스전).
+    오클라호마: "오클라호마시티",
+  },
+
+  // 2026-11-20 audit:aliases — 네이버는 기업명만, 편성(SPOTV NOW)은 구단 애칭까지 붙인다.
+  WKBL: {
+    삼성생명: "삼성생명 블루밍스",
+    신한은행: "신한은행 에스버드",
+    우리은행: "우리은행 우리WON",
   },
 
   V리그: {},
