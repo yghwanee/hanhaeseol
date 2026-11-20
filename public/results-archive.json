@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-20T11:26:40.864Z",
+  "lastUpdated": "2026-11-20T20:04:29.303Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -92699,6 +92699,17 @@
       "status": "finished",
       "period": "종료"
     },
+    "2026-11-20|kovo|현대캐피탈|한국전력": {
+      "date": "2026-11-20",
+      "categoryId": "kovo",
+      "gameId": "20261120023M35",
+      "homeTeam": "현대캐피탈",
+      "awayTeam": "한국전력",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
+    },
     "2026-11-20|mls|올랜도 시티 SC|FC 신시내티": {
       "date": "2026-11-20",
       "categoryId": "mls",
@@ -92801,6 +92812,56 @@
       "awayScore": 98,
       "status": "finished",
       "period": "4쿼터"
+    },
+    "2026-11-20|wkbl|하나은행|삼성생명 블루밍스": {
+      "date": "2026-11-20",
+      "categoryId": "wkbl",
+      "gameId": "202611200470116",
+      "homeTeam": "하나은행",
+      "awayTeam": "삼성생명 블루밍스",
+      "homeScore": 57,
+      "awayScore": 75,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-20|wkovo|한국도로공사|IBK기업은행": {
+      "date": "2026-11-20",
+      "categoryId": "wkovo",
+      "gameId": "20261120023F36",
+      "homeTeam": "한국도로공사",
+      "awayTeam": "IBK기업은행",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "종료"
+    },
+    "2026-11-21|denmark|AGF|링비": {
+      "date": "2026-11-21",
+      "categoryId": "denmark",
+      "gameId": "Vu4dH2OjnsKpgtI",
+      "homeTeam": "AGF",
+      "awayTeam": "링비",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "에머리",
+          "minute": 13
+        },
+        {
+          "team": "away",
+          "player": "콜린",
+          "minute": 17
+        },
+        {
+          "team": "home",
+          "player": "안데르센",
+          "minute": 26
+        }
+      ]
     }
   },
   "results": [
@@ -185504,6 +185565,17 @@
     },
     {
       "date": "2026-11-20",
+      "categoryId": "kovo",
+      "gameId": "20261120023M35",
+      "homeTeam": "현대캐피탈",
+      "awayTeam": "한국전력",
+      "homeScore": 1,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
+    },
+    {
+      "date": "2026-11-20",
       "categoryId": "mls",
       "gameId": "6Y95jVWhhzoApF2",
       "homeTeam": "올랜도 시티 SC",
@@ -185604,6 +185676,56 @@
       "awayScore": 98,
       "status": "finished",
       "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-20",
+      "categoryId": "wkbl",
+      "gameId": "202611200470116",
+      "homeTeam": "하나은행",
+      "awayTeam": "삼성생명 블루밍스",
+      "homeScore": 57,
+      "awayScore": 75,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-20",
+      "categoryId": "wkovo",
+      "gameId": "20261120023F36",
+      "homeTeam": "한국도로공사",
+      "awayTeam": "IBK기업은행",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "종료"
+    },
+    {
+      "date": "2026-11-21",
+      "categoryId": "denmark",
+      "gameId": "Vu4dH2OjnsKpgtI",
+      "homeTeam": "AGF",
+      "awayTeam": "링비",
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "에머리",
+          "minute": 13
+        },
+        {
+          "team": "away",
+          "player": "콜린",
+          "minute": 17
+        },
+        {
+          "team": "home",
+          "player": "안데르센",
+          "minute": 26
+        }
+      ]
     }
   ]
 }
