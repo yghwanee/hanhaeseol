@@ -136,8 +136,14 @@ function pruneSchedulesForClient(data: ScheduleData): ScheduleData {
  *  날짜 넘김·종료 뱃지가 최대 9h 늦는다(데이터는 어차피 번들이라 재생성으로도 안 바뀐다).
  *  위 분류 규칙의 "21600" 은 이제 "32400" 으로 읽는다.
  *
+ *  ═══ 2026-11-20 개정: 32400 → 72000(20h) (화니 결정, 이슈 #96) ═══
+ *  배포를 하루 2회(KST 00:10·16:10)로 줄이고 편성 크롤 배포를 없앴다(`deploy.yml` 머리 주석).
+ *  최장 간격 16h + GH 지연 ~2h = 18h 보다 길어야 배포가 정상인 동안 발화하지 않는다.
+ *  홈의 "오늘" 은 클라이언트가 계산하므로 자정 넘김은 이 값과 무관하다.
+ *  위 분류 규칙의 숫자는 이제 "72000" 으로 읽는다.
+ *
  *  🔴 값을 다시 짧게 돌리지 말 것. `npm run test:revalidate-budget` 가 막는다. */
-export const revalidate = 32400;
+export const revalidate = 72000;
 
 export default function Home() {
   const data = loadScheduleData();

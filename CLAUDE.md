@@ -114,7 +114,7 @@ src/
   - ✅ **ISR Writes 원인 규명·처방 완료 (2026-09-16, 작업124).** 색인 대상 페이지가 **전부**
     `revalidate = 3600` 이었다. 데이터는 배포 번들 안 파일이라 재생성해도 **같은 HTML** 이
     나오는데(`server-data.ts` 주석) 623페이지 × 시간당 = 이론상 월 44.8만 회였다.
-    → 날짜 의존 페이지 **32400**(2026-11-14 21600 에서 올림 — 실측 배포 간격 최장 8.7h) ·
+    → 날짜 의존 페이지 **72000**(2026-11-20, 배포 간격 최장 16h+지연) ·
     날짜 무관 페이지 **false**. 매치 OG 는 아카이브 경기에 satori 렌더 대신 `og-default.png` 로 308.
     🔴 **새 페이지를 만들 때 둘 중 하나를 고른다 — 규칙과 근거는 `src/app/page.tsx` 의
     「revalidate 정책 정본」 주석.** 되돌림은 `npm run test:revalidate-budget` 가 막는다.
@@ -202,7 +202,7 @@ src/
   - 발송은 Vercel 라우트 `/api/push/dispatch`, GH Actions 는 깨우기만. 깨우는 곳 둘 =
     `push-notify.yml`(매시 27분) + `crawl-results.yml` 마지막 스텝.
   - 🔴 **알림 데이터는 레포 raw 에서 읽는다.** `haeseol.com/results.json` 은 배포 때 구워진
-    사본이라 하루 4번 배포까지 얼어붙는다 — 득점 알림이 영영 안 맞는다.
+    사본이라 하루 2번 배포까지 얼어붙는다 — 득점 알림이 영영 안 맞는다.
   - 🔴 **발송 기록은 보내기 전에 저장하고 저장 직전 다시 읽어 병합한다.** 워크플로가 둘이라
     GH concurrency 로 겹침을 못 막는다.
   - 🔴 **실시간 득점 폴러 — 코드는 정상, 예약 발화가 0 이다 (2026-09-04 실측).**
@@ -552,7 +552,7 @@ npm run test:result-lookup  # 🔴 결과 룩업 한쪽 일치 안전망 — 유
 npm run test:workflow-yaml  # 🔴 워크플로 22개 전수 파싱. 문자열 검사로는 못 잡는다(아래 참조)
 npm run test:workflow-pipe  # 🔴 파이프가 종료코드를 삼키는지(npm|tee). 실패한 크롤이 초록으로 끝난다
 npm run test:card-layout  # 🔴 카드 뱃지 자리(PC 상단·모바일 하단·상태는 상단 유지) + 흰 판 토큰 반전
-npm run test:revalidate-budget  # 🔴 revalidate 하한 32400(최장 배포 간격) · 날짜 무관이면 false. 되돌리면 한도가 잠긴다
+npm run test:revalidate-budget  # 🔴 revalidate 하한 72000(최장 배포 간격) · 날짜 무관이면 false. 되돌리면 한도가 잠긴다
 npm run test:match-prebuild  # 🔴 매치 페이지·OG 를 빌드로(이슈 #96). 런타임 satori·파일 컨벤션 OG·dynamicParams=false 회귀 차단
 npm run test:players  # 🔴 선수→팀을 종목으로 자르는지(안 자르면 MLS 선수가 MLB 팀에 붙거나 사라진다) + 게이트 일치
 npm run test:robots-match  # 🔴 /match/ 를 어느 봇에게 열었는지 + 비용 상한 셋(OG 정적폴백·아카이브 fetch 없음·사이트맵 제외)
@@ -619,6 +619,6 @@ ISSUE_BODY="$(gh issue view N --json body -q .body)" npm run check:idea-dupes  #
 
 ## 배포
 
-- 🔴 **`main` 푸시로는 배포가 안 나간다.** `vercel.json` 이 `git.deploymentEnabled: false` 라 Vercel Git 자동 배포가 꺼져 있고, **`deploy.yml` 이 Deploy Hook 으로만** 배포한다(KST 00:10·06:10·12:10·18:10 하루 4번). 지금 바로 내보내려면 `gh workflow run deploy.yml`.
+- 🔴 **`main` 푸시로는 배포가 안 나간다.** `vercel.json` 이 `git.deploymentEnabled: false` 라 Vercel Git 자동 배포가 꺼져 있고, **`deploy.yml` 이 Deploy Hook 으로만** 배포한다(**KST 00:10·16:10 하루 2번**, 2026-11-20 4→2 · 편성 크롤 배포 폐지 — 화니 결정). 배포 확인·실패 알림도 `deploy.yml`. 지금 바로 내보내려면 `gh workflow run deploy.yml`.
   - 2026-09-03 에 이 문서가 "main 푸시 시 자동 배포"라고 적혀 있어 푸시해 놓고 라이브에 안 뜨는 걸 한참 확인했다. 가이드 등 콘텐츠도 **푸시만으로는 안 뜬다.**
 - 데이터 JSON의 `lastUpdated`는 **UTC(Z)** 표기(KST=+9). 로컬 "현재 기준"은 위 crawl 명령으로 재크롤(src/data·public 양쪽 기록).

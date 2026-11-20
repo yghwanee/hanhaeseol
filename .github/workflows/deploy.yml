@@ -15,19 +15,23 @@ name: Scheduled Deploy
 # 배포는 Deploy Hook 으로만 일어나게 했다. 배포 횟수가 커밋 메시지가 아니라
 # 우리가 훅을 부르는 횟수로 결정된다.
 #
-# 훅을 부르는 곳은 셋뿐이다: 여기(하루 4회) · crawl.yml(편성 갱신 시) ·
-# auto-publish-draft.yml(가이드 발행 시). 하루 약 6회 = 종전 30~46회의 1/6~1/8.
+# 훅을 부르는 곳은 둘뿐이다: 여기(하루 2회) · auto-publish-draft.yml(가이드 발행 시, 평일 1회 안팎).
+#
+# 🔴 2026-11-20 하루 4회 → 2회 + 편성 크롤(crawl.yml) 배포 폐지 (화니 결정, 이슈 #96).
+#   실측: 예약 4회 + 편성 크롤 하루 3회가 전부 갱신·배포해 실제로는 하루 ~7회였다.
+#   배포마다 CDN·ISR 이 비어 전 페이지를 다시 내보낸다(FOT). 그래서 횟수 자체를 줄인다.
+#   편성 크롤은 커밋만 하고, 그 커밋은 다음 예약 배포가 싣는다(최대 ~16시간 늦음).
+#   배포 확인(폴링)·실패 텔레그램·IndexNow 는 crawl.yml 에서 여기로 옮겼다.
 #
 # 데이터 신선도 손실은 이렇게 메운다:
 #  - 진행 중·직후 스코어는 /api/live 가 클라이언트에서 덮어쓴다(정적 HTML 무관)
-#  - 그 외 결과는 최대 6시간 뒤 배포에 반영된다
-#  - KST 00:10 배포가 자정 날짜 넘김을 담당한다(홈 revalidate 를 3600 으로 올린 근거)
+#  - 그 외 결과·편성 변경은 다음 예약 배포(KST 00:10 · 16:10)에 반영된다
+#  - 홈의 "오늘" 은 클라이언트가 계산한다(getTodayString) — 자정 날짜 넘김은 배포를 안 기다린다
+#  - 16:10 은 저녁 피크(18~23시) 직전이고, 실측 편성 크롤(KST 13시 전후) 뒤다
 on:
   schedule:
-    - cron: '10 15 * * *'  # KST 00:10 — 자정 날짜 넘김 + 밤경기 결과
-    - cron: '10 21 * * *'  # KST 06:10
-    - cron: '10 3 * * *'   # KST 12:10 — MLB 오전 경기 결과
-    - cron: '10 9 * * *'   # KST 18:10 — 낮경기 결과
+    - cron: '10 15 * * *'  # KST 00:10 — 밤경기 결과 + 저녁 편성 크롤분
+    - cron: '10 7 * * *'   # KST 16:10 — 저녁 피크 직전. 해외 새벽 경기·MLB·낮 편성 크롤분
   workflow_dispatch: {}
 
 concurrency:
@@ -50,38 +54,215 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Vercel Deploy Hook 호출
+      - uses: actions/checkout@v6
+
+      - name: Vercel 배포 트리거 & 확인
+        id: vercel
+        timeout-minutes: 25
         env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}
+          PROJECT: hanhaeseol
+          SITE_URL: https://haeseol.com/
         run: |
-          set -euo pipefail
+          set -uo pipefail
           if [ -z "${VERCEL_DEPLOY_HOOK_URL:-}" ]; then
             echo "::error::VERCEL_DEPLOY_HOOK_URL 시크릿이 비어 있습니다."
-            exit 1
-          fi
-          # 🔴 curl 실패를 삼키지 않는다. 종전에 `curl -s` 로 호출하고 종료코드를 안 봐서
-          #    알림이 안 가도 워크플로가 초록이던 사례가 여러 번 있었다(작업61·78).
-          code=$(curl -sS -o /tmp/hook.json -w '%{http_code}' -X POST "$VERCEL_DEPLOY_HOOK_URL")
-          echo "deploy hook http=$code"
-          cat /tmp/hook.json || true
-          echo
-          if [ "$code" -lt 200 ] || [ "$code" -ge 300 ]; then
-            echo "::error::Deploy Hook 호출 실패(http=$code)"
+            echo "final=HOOK_FAILED" >> $GITHUB_OUTPUT
             exit 1
           fi
 
-      - name: Telegram 알림 (배포 트리거 실패)
+          # 🔴 2026-08-18: git push 로는 더 이상 배포가 안 된다(vercel.json
+          #    git.deploymentEnabled=false). 커밋 메시지 [vercel skip] 이 실제로는
+          #    안 먹는 걸 실측으로 확인해서, 배포를 커밋이 아니라 **우리가 부르는
+          #    횟수**로 결정하도록 바꿨기 때문이다. 그래서 배포는
+          #    이 워크플로가 Deploy Hook 을 불러야만 생긴다.
+
+          # 최신 프로덕션 배포의 id/state 를 돌려준다.
+          # 반환 예: "dpl_abc READY" / "NONE NOT_FOUND" / "NONE API_ERR"
+          latest() {
+            curl -sS -H "Authorization: Bearer $VERCEL_TOKEN" \
+              "https://api.vercel.com/v6/deployments?limit=1&target=production&projectId=$PROJECT" \
+              | node -e "
+                let s='';process.stdin.on('data',d=>s+=d);process.stdin.on('end',()=>{
+                  let j; try{ j=JSON.parse(s); }catch(e){ return process.stdout.write('NONE API_ERR'); }
+                  if(j.error || !Array.isArray(j.deployments)) return process.stdout.write('NONE API_ERR');
+                  const d=j.deployments[0];
+                  process.stdout.write(d ? (d.uid||d.id)+' '+d.state : 'NONE NOT_FOUND');
+                });"
+          }
+
+          # 계정 차단(402 DEPLOYMENT_DISABLED) 판별. 사용량 초과·결제 문제로 계정이
+          # 잠기면 배포가 **아예 생기지 않아** 폴링이 영원히 헛돈다. 이때는 Redeploy 도
+          # Deploy Hook 도 무의미하므로 안내 문구가 달라야 한다(2026-08-17 실제 사례).
+          site_error() {
+            curl -sS -o /dev/null -D - "$SITE_URL" 2>/dev/null \
+              | tr -d '\r' | awk -F': ' 'tolower($1)=="x-vercel-error"{print $2}' | head -1
+          }
+
+          # 🔴 훅을 부르기 **전에** 현재 최신 배포 id 를 기억한다. 이게 없으면
+          #    훅 배포가 생기기 전에 폴링이 직전 배포(이미 READY)를 보고 곧바로
+          #    "성공"이라 판정한다.
+          BASE_ID=$(latest | cut -d' ' -f1)
+          echo "기준 배포 id: $BASE_ID"
+
+          # 새 배포가 생겨서 종료 상태가 될 때까지 폴링. 인자: timeout(분)
+          # 반환 0=READY, 1=ERROR/CANCELED, 2=TIMEOUT(stdout 에 TIMEOUT_<state>)
+          poll() {
+            local timeout_min=$1
+            local end=$(( $(date +%s) + timeout_min*60 ))
+            local state="NONE"
+            while [ "$(date +%s)" -lt "$end" ]; do
+              local row id
+              row=$(latest); id=${row%% *}; state=${row##* }
+              if [ "$id" = "$BASE_ID" ]; then
+                echo "[$(date -u +%H:%M:%S)] 새 배포 아직 없음(id=$id)" >&2
+                state="NO_NEW"
+              else
+                echo "[$(date -u +%H:%M:%S)] id=$id state=$state" >&2
+                case "$state" in
+                  READY) echo "$state"; return 0 ;;
+                  ERROR|CANCELED) echo "$state"; return 1 ;;
+                esac
+              fi
+              sleep 20
+            done
+            echo "TIMEOUT_$state"
+            return 2
+          }
+
+          trigger() {
+            code=$(curl -sS -o /tmp/hook.json -w '%{http_code}' -X POST "$VERCEL_DEPLOY_HOOK_URL")
+            echo "Deploy Hook http=$code $(cat /tmp/hook.json 2>/dev/null)"
+            [ "$code" -ge 200 ] && [ "$code" -lt 300 ]
+          }
+
+          if ! trigger; then
+            echo "::error::Deploy Hook 호출 실패 — 사이트 데이터가 갱신되지 않습니다."
+            echo "retried=false" >> $GITHUB_OUTPUT
+            echo "final=HOOK_FAILED" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+          sleep 10
+
+          set +e
+          FIRST=$(poll 8)
+          rc=$?
+          set -e
+          echo "1차 결과: $FIRST (rc=$rc)"
+
+          if [ $rc -eq 0 ]; then
+            echo "retried=false" >> $GITHUB_OUTPUT
+            echo "final=READY" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          case "$FIRST" in
+            TIMEOUT_NO_NEW|TIMEOUT_NOT_FOUND|TIMEOUT_API_ERR|TIMEOUT_NONE)
+              # 훅은 201 을 줬는데 배포가 안 생겼다 → 계정 차단부터 가른다.
+              ERR=$(site_error)
+              echo "사이트 x-vercel-error: ${ERR:-(없음)}"
+              if [ "$ERR" = "DEPLOYMENT_DISABLED" ]; then
+                # 🔴 경고로 끝낸다(2026-11-14, 이슈 #96). 해제 뒤 첫 배포가 싣는다.
+                # 차단은 uptime.yml 이 이슈 하나로 추적한다 — 여기서 빨간 실행 + 텔레그램을 내면
+                # 해제일까지 배포 때마다 같은 알림이 반복된다.
+                echo "::warning::Vercel 계정이 차단돼 배포가 생성되지 않습니다(402). 추적은 uptime 이슈."
+                echo "retried=false" >> $GITHUB_OUTPUT
+                echo "final=ACCOUNT_BLOCKED" >> $GITHUB_OUTPUT
+                exit 0
+              fi
+              ;;
+            TIMEOUT_*)
+              # BUILDING/QUEUED 인 채로 창이 끝났다 = 느린 것뿐. 실패로 보고하지 않는다.
+              echo "빌드가 아직 진행 중(${FIRST#TIMEOUT_}) — 실패 아님."
+              echo "retried=false" >> $GITHUB_OUTPUT
+              echo "final=BUILDING" >> $GITHUB_OUTPUT
+              exit 0
+              ;;
+          esac
+
+          echo "1차 결과 $FIRST → Deploy Hook 재호출."
+          BASE_ID=$(latest | cut -d' ' -f1)
+          trigger || true
+          sleep 20
+
+          set +e
+          SECOND=$(poll 10)
+          rc=$?
+          set -e
+          echo "2차 결과: $SECOND (rc=$rc)"
+          echo "retried=true" >> $GITHUB_OUTPUT
+
+          if [ $rc -eq 0 ]; then
+            echo "final=READY" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          case "$SECOND" in
+            TIMEOUT_NO_NEW|TIMEOUT_NOT_FOUND|TIMEOUT_API_ERR|TIMEOUT_NONE)
+              ERR=$(site_error)
+              if [ "$ERR" = "DEPLOYMENT_DISABLED" ]; then
+                echo "::warning::Vercel 계정 차단(402) — 재시도 후에도 배포 없음. 추적은 uptime 이슈."
+                echo "final=ACCOUNT_BLOCKED" >> $GITHUB_OUTPUT
+                exit 0
+              fi
+              ;;
+            TIMEOUT_*)
+              echo "재시도 빌드가 아직 진행 중(${SECOND#TIMEOUT_}) — 실패 아님."
+              echo "final=BUILDING" >> $GITHUB_OUTPUT
+              exit 0
+              ;;
+          esac
+
+          echo "final=$SECOND" >> $GITHUB_OUTPUT
+          exit 1
+
+      # 🔴 편성 크롤(crawl.yml)이 하던 IndexNow 를 여기로 옮겼다 (2026-11-20). READY 뒤에만.
+      - uses: actions/setup-node@v6
+        if: steps.vercel.outputs.final == 'READY'
+        with:
+          node-version: '20'
+      - name: IndexNow 핵심 페이지 ping
+        if: steps.vercel.outputs.final == 'READY'
+        continue-on-error: true
+        run: |
+          npm ci
+          npm run seo:indexnow
+
+      # 실패(훅 실패·빌드 ERROR)만 온다. BUILDING·ACCOUNT_BLOCKED 는 exit 0 이라 안 온다.
+      - name: Telegram 알림 (Vercel 배포 실패)
         if: failure()
         env:
           TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
           TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          FINAL: ${{ steps.vercel.outputs.final }}
+          RETRIED: ${{ steps.vercel.outputs.retried }}
         run: |
-          MSG=$(printf '%s\n' \
-            "🚨 예약 배포 트리거 실패" \
-            "" \
-            "git push 로는 배포가 안 되므로 이 워크플로가 안 돌면" \
-            "사이트 데이터가 갱신되지 않습니다." \
-            "https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}")
+          # 🔴 계정 차단은 빌드 실패가 아니다. Redeploy 를 눌러도 똑같이 막히므로
+          #    안내 문구가 달라야 한다(2026-08-17 실제로 이 상태를 "빌드 실패,
+          #    Redeploy 필요"로 잘못 알렸고, 8시간 동안 사이트 전체가 402 였다).
+          if [ "$FINAL" = "ACCOUNT_BLOCKED" ]; then
+            MSG=$(printf '%s\n' \
+              "🚨 Vercel 계정이 차단됐습니다 (402 DEPLOYMENT_DISABLED)" \
+              "" \
+              "사이트 전체가 내려가 있고 새 배포가 아예 생성되지 않습니다." \
+              "haeseol.com · chaeun · fadeby 모두 같은 계정이라 함께 멈춥니다." \
+              "" \
+              "Redeploy 로는 풀리지 않습니다. 대시보드에서 확인할 것:" \
+              "1) Usage — 무료 한도 초과 여부" \
+              "2) Settings > Billing — 결제 수단·미납" \
+              "https://vercel.com/yghwanees-projects/~/usage")
+          else
+            MSG=$(printf '%s\n' \
+              "🚨 Vercel 빌드 실패" \
+              "" \
+              "예약 배포가 사이트에 반영되지 못했습니다." \
+              "최종 상태: ${FINAL}" \
+              "재시도 여부: ${RETRIED}" \
+              "" \
+              "Vercel 대시보드에서 수동 Redeploy 필요" \
+              "https://vercel.com/yghwanees-projects/hanhaeseol/deployments")
+          fi
           curl -s -X POST "https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage" \
             -d chat_id="${TELEGRAM_CHAT_ID}" \
             --data-urlencode "text=${MSG}"

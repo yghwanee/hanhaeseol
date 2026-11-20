@@ -16,7 +16,7 @@ import { join, relative } from "node:path";
  * 실제로는 거의 발화하지 않는 안전망이다.
  *
  * 규칙(정책 정본은 `src/app/page.tsx` 주석):
- *   · 서버 렌더가 날짜를 읽는다 → `32400` 이상
+ *   · 서버 렌더가 날짜를 읽는다 → `72000` 이상
  *   · 안 읽는다 → `false`
  *
  * 🔴 이 가드가 막는 것은 **되돌림**이다. 짧은 값은 빌드도 타입체크도 통과하고
@@ -27,9 +27,9 @@ const APP_DIR = join(process.cwd(), "src", "app");
 
 /**
  * 최장 배포 간격(실측 8.7h)보다 긴 값. 이보다 짧으면 배포가 늦을 때마다 허브 페이지를
- * 전부 또 굽는다. 2026-11-14 21600 → 32400 근거는 `src/app/page.tsx` 정책 정본 주석.
+ * 전부 또 굽는다. 2026-11-14 21600 → 32400, 2026-11-20 → 72000(배포 하루 2회) 근거는 `src/app/page.tsx` 정책 정본 주석.
  */
-const MIN_REVALIDATE_SECONDS = 32_400;
+const MIN_REVALIDATE_SECONDS = 72_000;
 
 /** API 라우트는 페이지가 아니다 — 응답이 매번 달라야 하는 곳이라 예산 규칙 밖이다. */
 function isApiRoute(file: string): boolean {

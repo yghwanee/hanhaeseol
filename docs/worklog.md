@@ -1487,3 +1487,20 @@ AI Assistant 8일 30세션(28일 471 → 거의 소멸) · Vercel 30일 FOT 11.7
   - 순위 크롤에 WKBL 추가, `/standings` 농구 탭 순서 NBA·KBL·WKBL(사이트 반영은 Vercel 해제 후).
   - `social-preview.yml` 이 `hero:star` + `hook-preview.ts` 로 나갈 문장을 찍는다(게시 없음).
   - 11월 텔레그램 알림 역추적·조치는 `docs/next-session.md` 2026-11-20 절.
+
+## 작업140 — Vercel 한도 2차 절감: 배포 하루 2회 · dispatch 조기 종료 (2026-11-20)
+
+### 사실 (실측)
+- `v2/usage?type=requests` 잠기기 전 30일: 함수 호출 하루 2.6~5.8천 · 0.5~1.1 GB-h, 99% hanhaeseol(채운 하루 ~8회).
+  Hobby 는 경로별 분해가 없다(`v1/billing/charges` = `costs_not_found`). 토큰 = `vercel login` 의 `auth.json`(만료 시 기기 승인 링크로 재로그인 가능).
+- 배포가 예약 4회 + **편성 크롤(crawl.yml) 하루 3회 갱신마다 훅** = 실제 하루 ~7회였다(crawl 실발화 KST ~13·18·23시).
+
+### 한 것
+1. `deploy.yml` cron 4 → 2(KST 00:10·16:10). crawl.yml 의 배포 트리거·폴링·빌드 실패 텔레그램·IndexNow 를 `deploy.yml` 로 옮겼다. 훅 호출처 = deploy·auto-publish-draft 둘.
+2. 날짜 의존 페이지 `revalidate` 32400 → **72000**(최장 간격 16h + GH 지연 2h). rss·llms-full s-maxage 도 같이. 홈 "오늘"은 클라이언트 계산이라 자정 넘김과 무관.
+3. `/api/push/dispatch` 가 구독자부터 보고 0명이면 편성·결과 JSON·발송기록을 안 읽고 끝낸다(커밋 27b4061e).
+4. 가드: `deploy-budget`(2회 · crawl 은 훅 금지 · deploy 가 폴링·알림 보유) · `revalidate-budget` 하한 72000.
+
+### 남은 것
+- 12/14 해제 뒤: 첫 예약 배포 로그에 READY 폴링이 찍히는지, 하루 함수 호출 수(위 API)가 11/14 이전 대비 얼마나 줄었는지.
+- 편성 변경은 다음 예약 배포까지 최대 ~16h 늦게 뜬다(화니 수용).

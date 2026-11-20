@@ -29,13 +29,12 @@ const read = (p: string) => readFileSync(p, "utf8");
 
 /** 훅을 부르도록 **의도된** 곳. 여기 없는 워크플로가 훅을 부르면 배포 예산이 샌다. */
 const HOOK_CALLERS = [
-  "deploy.yml", // 예약 배포(하루 4회)
-  "crawl.yml", // 편성 갱신 시 즉시
+  "deploy.yml", // 예약 배포(하루 2회)
   "auto-publish-draft.yml", // 가이드 발행 시 즉시
 ];
 
 /** 하루 예약 배포 횟수. 늘리면 ISR Writes·Origin Transfer 가 비례해서 늘어난다. */
-const SCHEDULED_DEPLOYS_PER_DAY = 4;
+const SCHEDULED_DEPLOYS_PER_DAY = 2;
 
 test("git push 로는 배포되지 않는다 (vercel.json)", () => {
   const cfg = JSON.parse(read("vercel.json"));
@@ -61,7 +60,7 @@ test("Deploy Hook 을 부르는 곳은 정해진 셋뿐이다", () => {
   );
 });
 
-test("예약 배포는 하루 4회다", () => {
+test("예약 배포는 하루 2회다", () => {
   const y = read(join(WF_DIR, "deploy.yml"));
   const crons = [...y.matchAll(/^\s*-\s*cron:\s*'([^']+)'/gm)].map((m) => m[1]);
   assert.equal(
@@ -70,7 +69,7 @@ test("예약 배포는 하루 4회다", () => {
     `deploy.yml 의 cron 이 ${crons.length}개다(기대 ${SCHEDULED_DEPLOYS_PER_DAY}).\n` +
       "늘리면 ISR Writes·Fast Origin Transfer 가 비례해 늘어 Hobby 한도에 다시 닿는다.",
   );
-  // 매시/매분 도는 표현이 섞이면 4개처럼 보여도 실제로는 수십 번 돈다.
+  // 매시/매분 도는 표현이 섞이면 2개처럼 보여도 실제로는 수십 번 돈다.
   for (const c of crons) {
     assert.ok(
       !c.includes("*/") && !/^\S+\s+\*/.test(c),
@@ -79,14 +78,26 @@ test("예약 배포는 하루 4회다", () => {
   }
 });
 
-test("편성 크롤과 가이드 발행은 훅을 직접 부른다 (6시간 지연 금지)", () => {
-  for (const f of ["crawl.yml", "auto-publish-draft.yml"]) {
+/**
+ * 🔴 편성 크롤(crawl.yml)은 2026-11-20 부터 배포하지 않는다(화니 결정, 이슈 #96).
+ * 예약 4회 + 편성 크롤 3회로 실제 하루 ~7회였다. 편성 커밋은 다음 예약 배포가 싣는다.
+ * 배포 확인·실패 알림은 deploy.yml 이 맡는다 — 거기서 폴링이 빠지면 빌드 실패를 아무도 모른다.
+ */
+test("편성 크롤은 배포하지 않고, 예약 배포가 결과를 확인한다", () => {
+  assert.ok(!read(join(WF_DIR, "crawl.yml")).includes("VERCEL_DEPLOY_HOOK_URL"), "crawl.yml 이 다시 배포를 건다");
+  const d = read(join(WF_DIR, "deploy.yml"));
+  assert.match(d, /v6\/deployments\?limit=1&target=production/, "deploy.yml 이 배포 결과를 폴링하지 않는다");
+  assert.match(d, /Telegram 알림 \(Vercel 배포 실패\)/, "deploy.yml 에 빌드 실패 알림이 없다");
+});
+
+test("가이드 발행은 훅을 직접 부른다", () => {
+  for (const f of ["auto-publish-draft.yml"]) {
     const y = read(join(WF_DIR, f));
     assert.ok(
       y.includes('-X POST "$VERCEL_DEPLOY_HOOK_URL"'),
       `${f} 이 Deploy Hook 을 부르지 않는다.\n` +
         "git push 로는 배포가 안 되므로, 훅을 안 부르면 편성/새 글이 다음 예약 배포까지\n" +
-        "최대 6시간 사이트에 안 뜬다.",
+        "다음 예약 배포(최대 ~16시간)까지 사이트에 안 뜬다.",
     );
     assert.ok(
       y.includes("VERCEL_DEPLOY_HOOK_URL: ${{ secrets.VERCEL_DEPLOY_HOOK_URL }}"),
