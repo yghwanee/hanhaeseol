@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-20T20:04:29.303Z",
+  "lastUpdated": "2026-11-21T01:27:13.308Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -90765,7 +90765,8 @@
           "player": "이란쿤다",
           "minute": 40
         }
-      ]
+      ],
+      "highlightVideoId": "XMhJxfgePCM"
     },
     "2026-11-13|kbl|원주 DB|수원 KT": {
       "date": "2026-11-13",
@@ -91125,7 +91126,8 @@
           "player": "모이세스 카이세도",
           "minute": 83
         }
-      ]
+      ],
+      "highlightVideoId": "tZX91fVB1R4"
     },
     "2026-11-14|amatchfriendly|콜롬비아|칠레": {
       "date": "2026-11-14",
@@ -92835,6 +92837,30 @@
       "status": "finished",
       "period": "종료"
     },
+    "2026-11-21|bundesliga|바이에른 뮌헨|쾰른": {
+      "date": "2026-11-21",
+      "categoryId": "bundesliga",
+      "gameId": "NjzXVDshmupdg7T",
+      "homeTeam": "바이에른 뮌헨",
+      "awayTeam": "쾰른",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "무어",
+          "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "브라운",
+          "minute": 37
+        }
+      ],
+      "highlightVideoId": "W-0exT1ny8U"
+    },
     "2026-11-21|denmark|AGF|링비": {
       "date": "2026-11-21",
       "categoryId": "denmark",
@@ -92862,6 +92888,60 @@
           "minute": 26
         }
       ]
+    },
+    "2026-11-21|ligue1|트루아|르 아브르": {
+      "date": "2026-11-21",
+      "categoryId": "ligue1",
+      "gameId": "GNosRWqxTZRyq6U",
+      "homeTeam": "트루아",
+      "awayTeam": "르 아브르",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "마자",
+          "minute": 3
+        },
+        {
+          "team": "home",
+          "player": "밀레",
+          "minute": 19
+        },
+        {
+          "team": "home",
+          "player": "밀레",
+          "minute": 69
+        },
+        {
+          "team": "home",
+          "player": "리파르",
+          "minute": 90,
+          "addedTime": 8
+        }
+      ],
+      "highlightVideoId": "CIQx0u0seak"
+    },
+    "2026-11-21|primera|아틀레틱|에스파뇰": {
+      "date": "2026-11-21",
+      "categoryId": "primera",
+      "gameId": "ieBVgSLLwaA5NR2",
+      "homeTeam": "아틀레틱",
+      "awayTeam": "에스파뇰",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "로베르토 페르난데스",
+          "minute": 66
+        }
+      ],
+      "highlightVideoId": "Au787r5XArA"
     }
   },
   "results": [
@@ -183629,7 +183709,8 @@
           "player": "이란쿤다",
           "minute": 40
         }
-      ]
+      ],
+      "highlightVideoId": "XMhJxfgePCM"
     },
     {
       "date": "2026-11-13",
@@ -183989,7 +184070,8 @@
           "player": "모이세스 카이세도",
           "minute": 83
         }
-      ]
+      ],
+      "highlightVideoId": "tZX91fVB1R4"
     },
     {
       "date": "2026-11-14",
@@ -185701,6 +185783,30 @@
     },
     {
       "date": "2026-11-21",
+      "categoryId": "bundesliga",
+      "gameId": "NjzXVDshmupdg7T",
+      "homeTeam": "바이에른 뮌헨",
+      "awayTeam": "쾰른",
+      "homeScore": 1,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "무어",
+          "minute": 12
+        },
+        {
+          "team": "home",
+          "player": "브라운",
+          "minute": 37
+        }
+      ],
+      "highlightVideoId": "W-0exT1ny8U"
+    },
+    {
+      "date": "2026-11-21",
       "categoryId": "denmark",
       "gameId": "Vu4dH2OjnsKpgtI",
       "homeTeam": "AGF",
@@ -185726,6 +185832,60 @@
           "minute": 26
         }
       ]
+    },
+    {
+      "date": "2026-11-21",
+      "categoryId": "ligue1",
+      "gameId": "GNosRWqxTZRyq6U",
+      "homeTeam": "트루아",
+      "awayTeam": "르 아브르",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "마자",
+          "minute": 3
+        },
+        {
+          "team": "home",
+          "player": "밀레",
+          "minute": 19
+        },
+        {
+          "team": "home",
+          "player": "밀레",
+          "minute": 69
+        },
+        {
+          "team": "home",
+          "player": "리파르",
+          "minute": 90,
+          "addedTime": 8
+        }
+      ],
+      "highlightVideoId": "CIQx0u0seak"
+    },
+    {
+      "date": "2026-11-21",
+      "categoryId": "primera",
+      "gameId": "ieBVgSLLwaA5NR2",
+      "homeTeam": "아틀레틱",
+      "awayTeam": "에스파뇰",
+      "homeScore": 0,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "로베르토 페르난데스",
+          "minute": 66
+        }
+      ],
+      "highlightVideoId": "Au787r5XArA"
     }
   ]
 }
