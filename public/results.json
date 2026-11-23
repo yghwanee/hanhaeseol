@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-23T00:14:30.390Z",
+  "lastUpdated": "2026-11-23T02:53:55.017Z",
   "byKey": {
     "2026-11-22|nba|필라델피아|밀워키": {
       "date": "2026-11-22",
@@ -106,10 +106,10 @@
       "gameId": "2026112214",
       "homeTeam": "마이애미",
       "awayTeam": "오클라호마시티",
-      "homeScore": 67,
-      "awayScore": 54,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 123,
+      "awayScore": 113,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-23|nba|마이애미|오클라호마시티": {
       "date": "2026-11-23",
@@ -117,10 +117,10 @@
       "gameId": "2026112214",
       "homeTeam": "마이애미",
       "awayTeam": "오클라호마시티",
-      "homeScore": 67,
-      "awayScore": 54,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 123,
+      "awayScore": 113,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-23|nba|시카고|덴버": {
       "date": "2026-11-23",
@@ -128,10 +128,10 @@
       "gameId": "2026112204",
       "homeTeam": "시카고",
       "awayTeam": "덴버",
-      "homeScore": 7,
-      "awayScore": 8,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 145,
+      "awayScore": 151,
+      "status": "finished",
+      "period": "1차 연장"
     },
     "2026-11-23|nba|유타|댈러스": {
       "date": "2026-11-23",
@@ -139,10 +139,10 @@
       "gameId": "2026112226",
       "homeTeam": "유타",
       "awayTeam": "댈러스",
-      "homeScore": 4,
-      "awayScore": 2,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 114,
+      "awayScore": 116,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-23|nba|워싱턴|올랜도": {
       "date": "2026-11-23",
@@ -150,10 +150,10 @@
       "gameId": "2026112227",
       "homeTeam": "워싱턴",
       "awayTeam": "올랜도",
-      "homeScore": 7,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 116,
+      "awayScore": 96,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-23|nba|뉴욕|인디애나": {
       "date": "2026-11-23",
@@ -161,10 +161,10 @@
       "gameId": "2026112218",
       "homeTeam": "뉴욕",
       "awayTeam": "인디애나",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 76,
+      "awayScore": 69,
+      "status": "live",
+      "period": "3쿼터"
     },
     "2026-11-23|nba|골든스테이트|보스턴": {
       "date": "2026-11-23",
@@ -172,10 +172,10 @@
       "gameId": "2026112209",
       "homeTeam": "골든스테이트",
       "awayTeam": "보스턴",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 44,
+      "awayScore": 45,
+      "status": "live",
+      "period": "3쿼터"
     },
     "2026-11-24|nba|필라델피아|포틀랜드": {
       "date": "2026-11-24",
@@ -2506,10 +2506,28 @@
       "gameId": "5LXSfy53drIxxHV",
       "homeTeam": "시카고 파이어 FC",
       "awayTeam": "샬럿 FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 34'"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아바다",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "레반도프스키",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "펩 비엘",
+          "minute": 90,
+          "addedTime": 12
+        }
+      ]
     },
     "2026-11-23|mls|시카고|샬럿 FC": {
       "date": "2026-11-23",
@@ -2517,10 +2535,28 @@
       "gameId": "5LXSfy53drIxxHV",
       "homeTeam": "시카고 파이어 FC",
       "awayTeam": "샬럿 FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 34'"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아바다",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "레반도프스키",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "펩 비엘",
+          "minute": 90,
+          "addedTime": 12
+        }
+      ]
     },
     "2026-11-23|mls|시카고 파이어 FC|샬럿": {
       "date": "2026-11-23",
@@ -2528,10 +2564,28 @@
       "gameId": "5LXSfy53drIxxHV",
       "homeTeam": "시카고 파이어 FC",
       "awayTeam": "샬럿 FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 34'"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아바다",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "레반도프스키",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "펩 비엘",
+          "minute": 90,
+          "addedTime": 12
+        }
+      ]
     },
     "2026-11-23|mls|시카고 파이어 FC|샬럿 FC": {
       "date": "2026-11-23",
@@ -2539,10 +2593,28 @@
       "gameId": "5LXSfy53drIxxHV",
       "homeTeam": "시카고 파이어 FC",
       "awayTeam": "샬럿 FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 34'"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아바다",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "레반도프스키",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "펩 비엘",
+          "minute": 90,
+          "addedTime": 12
+        }
+      ]
     },
     "2026-11-23|mls|화이트캡스|솔트 레이크": {
       "date": "2026-11-23",
@@ -2550,10 +2622,17 @@
       "gameId": "aOi0n7WeVbyQpzv",
       "homeTeam": "밴쿠버 화이트캡스 FC",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 10'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오캄포",
+          "minute": 44
+        }
+      ]
     },
     "2026-11-23|mls|화이트캡스|레알 솔트레이크": {
       "date": "2026-11-23",
@@ -2561,10 +2640,17 @@
       "gameId": "aOi0n7WeVbyQpzv",
       "homeTeam": "밴쿠버 화이트캡스 FC",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 10'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오캄포",
+          "minute": 44
+        }
+      ]
     },
     "2026-11-23|mls|화이트캡스|솔트레이크": {
       "date": "2026-11-23",
@@ -2572,10 +2658,17 @@
       "gameId": "aOi0n7WeVbyQpzv",
       "homeTeam": "밴쿠버 화이트캡스 FC",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 10'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오캄포",
+          "minute": 44
+        }
+      ]
     },
     "2026-11-23|mls|밴쿠버 화이트캡스 FC|솔트 레이크": {
       "date": "2026-11-23",
@@ -2583,10 +2676,17 @@
       "gameId": "aOi0n7WeVbyQpzv",
       "homeTeam": "밴쿠버 화이트캡스 FC",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 10'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오캄포",
+          "minute": 44
+        }
+      ]
     },
     "2026-11-23|mls|밴쿠버 화이트캡스 FC|레알 솔트레이크": {
       "date": "2026-11-23",
@@ -2594,10 +2694,17 @@
       "gameId": "aOi0n7WeVbyQpzv",
       "homeTeam": "밴쿠버 화이트캡스 FC",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 10'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오캄포",
+          "minute": 44
+        }
+      ]
     },
     "2026-11-23|mls|밴쿠버 화이트캡스 FC|솔트레이크": {
       "date": "2026-11-23",
@@ -2605,10 +2712,17 @@
       "gameId": "aOi0n7WeVbyQpzv",
       "homeTeam": "밴쿠버 화이트캡스 FC",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 10'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오캄포",
+          "minute": 44
+        }
+      ]
     },
     "2026-11-24|mls|세인트루이스|LAFC": {
       "date": "2026-11-24",
@@ -4023,10 +4137,10 @@
       "gameId": "2026112214",
       "homeTeam": "마이애미",
       "awayTeam": "오클라호마시티",
-      "homeScore": 67,
-      "awayScore": 54,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 123,
+      "awayScore": 113,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-23",
@@ -4034,10 +4148,10 @@
       "gameId": "2026112204",
       "homeTeam": "시카고",
       "awayTeam": "덴버",
-      "homeScore": 7,
-      "awayScore": 8,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 145,
+      "awayScore": 151,
+      "status": "finished",
+      "period": "1차 연장"
     },
     {
       "date": "2026-11-23",
@@ -4045,10 +4159,10 @@
       "gameId": "2026112226",
       "homeTeam": "유타",
       "awayTeam": "댈러스",
-      "homeScore": 4,
-      "awayScore": 2,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 114,
+      "awayScore": 116,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-23",
@@ -4056,10 +4170,10 @@
       "gameId": "2026112227",
       "homeTeam": "워싱턴",
       "awayTeam": "올랜도",
-      "homeScore": 7,
-      "awayScore": 0,
-      "status": "live",
-      "period": "1쿼터"
+      "homeScore": 116,
+      "awayScore": 96,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-23",
@@ -4067,10 +4181,10 @@
       "gameId": "2026112218",
       "homeTeam": "뉴욕",
       "awayTeam": "인디애나",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 76,
+      "awayScore": 69,
+      "status": "live",
+      "period": "3쿼터"
     },
     {
       "date": "2026-11-23",
@@ -4078,10 +4192,10 @@
       "gameId": "2026112209",
       "homeTeam": "골든스테이트",
       "awayTeam": "보스턴",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 44,
+      "awayScore": 45,
+      "status": "live",
+      "period": "3쿼터"
     },
     {
       "date": "2026-11-24",
@@ -5592,10 +5706,28 @@
       "gameId": "5LXSfy53drIxxHV",
       "homeTeam": "시카고 파이어 FC",
       "awayTeam": "샬럿 FC",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "live",
-      "period": "전반 34'"
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아바다",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "레반도프스키",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "펩 비엘",
+          "minute": 90,
+          "addedTime": 12
+        }
+      ]
     },
     {
       "date": "2026-11-23",
@@ -5603,10 +5735,17 @@
       "gameId": "aOi0n7WeVbyQpzv",
       "homeTeam": "밴쿠버 화이트캡스 FC",
       "awayTeam": "레알 솔트레이크",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 10'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오캄포",
+          "minute": 44
+        }
+      ]
     },
     {
       "date": "2026-11-24",

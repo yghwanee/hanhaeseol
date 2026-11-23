@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-23T00:14:43.965Z",
+  "lastUpdated": "2026-11-23T02:53:58.710Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -95642,6 +95642,35 @@
         }
       ]
     },
+    "2026-11-23|mls|시카고 파이어 FC|샬럿 FC": {
+      "date": "2026-11-23",
+      "categoryId": "mls",
+      "gameId": "5LXSfy53drIxxHV",
+      "homeTeam": "시카고 파이어 FC",
+      "awayTeam": "샬럿 FC",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아바다",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "레반도프스키",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "펩 비엘",
+          "minute": 90,
+          "addedTime": 12
+        }
+      ]
+    },
     "2026-11-23|nba|애틀랜타|디트로이트": {
       "date": "2026-11-23",
       "categoryId": "nba",
@@ -95650,6 +95679,50 @@
       "awayTeam": "디트로이트",
       "homeScore": 107,
       "awayScore": 97,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-23|nba|마이애미|오클라호마시티": {
+      "date": "2026-11-23",
+      "categoryId": "nba",
+      "gameId": "2026112214",
+      "homeTeam": "마이애미",
+      "awayTeam": "오클라호마시티",
+      "homeScore": 123,
+      "awayScore": 113,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-23|nba|시카고|덴버": {
+      "date": "2026-11-23",
+      "categoryId": "nba",
+      "gameId": "2026112204",
+      "homeTeam": "시카고",
+      "awayTeam": "덴버",
+      "homeScore": 145,
+      "awayScore": 151,
+      "status": "finished",
+      "period": "1차 연장"
+    },
+    "2026-11-23|nba|유타|댈러스": {
+      "date": "2026-11-23",
+      "categoryId": "nba",
+      "gameId": "2026112226",
+      "homeTeam": "유타",
+      "awayTeam": "댈러스",
+      "homeScore": 114,
+      "awayScore": 116,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-23|nba|워싱턴|올랜도": {
+      "date": "2026-11-23",
+      "categoryId": "nba",
+      "gameId": "2026112227",
+      "homeTeam": "워싱턴",
+      "awayTeam": "올랜도",
+      "homeScore": 116,
+      "awayScore": 96,
       "status": "finished",
       "period": "4쿼터"
     },
@@ -191483,12 +191556,85 @@
     },
     {
       "date": "2026-11-23",
+      "categoryId": "mls",
+      "gameId": "5LXSfy53drIxxHV",
+      "homeTeam": "시카고 파이어 FC",
+      "awayTeam": "샬럿 FC",
+      "homeScore": 1,
+      "awayScore": 2,
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "away",
+          "player": "아바다",
+          "minute": 48
+        },
+        {
+          "team": "home",
+          "player": "레반도프스키",
+          "minute": 68
+        },
+        {
+          "team": "away",
+          "player": "펩 비엘",
+          "minute": 90,
+          "addedTime": 12
+        }
+      ]
+    },
+    {
+      "date": "2026-11-23",
       "categoryId": "nba",
       "gameId": "2026112201",
       "homeTeam": "애틀랜타",
       "awayTeam": "디트로이트",
       "homeScore": 107,
       "awayScore": 97,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-23",
+      "categoryId": "nba",
+      "gameId": "2026112214",
+      "homeTeam": "마이애미",
+      "awayTeam": "오클라호마시티",
+      "homeScore": 123,
+      "awayScore": 113,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-23",
+      "categoryId": "nba",
+      "gameId": "2026112204",
+      "homeTeam": "시카고",
+      "awayTeam": "덴버",
+      "homeScore": 145,
+      "awayScore": 151,
+      "status": "finished",
+      "period": "1차 연장"
+    },
+    {
+      "date": "2026-11-23",
+      "categoryId": "nba",
+      "gameId": "2026112226",
+      "homeTeam": "유타",
+      "awayTeam": "댈러스",
+      "homeScore": 114,
+      "awayScore": 116,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-23",
+      "categoryId": "nba",
+      "gameId": "2026112227",
+      "homeTeam": "워싱턴",
+      "awayTeam": "올랜도",
+      "homeScore": 116,
+      "awayScore": 96,
       "status": "finished",
       "period": "4쿼터"
     },
