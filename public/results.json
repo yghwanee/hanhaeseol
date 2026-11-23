@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-23T20:12:37.369Z",
+  "lastUpdated": "2026-11-23T21:24:14.158Z",
   "byKey": {
     "2026-11-23|nba|애틀랜타|디트로이트": {
       "date": "2026-11-23",
@@ -97,7 +97,8 @@
       "awayTeam": "포틀랜드",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1쿼터"
     },
     "2026-11-24|nba|샬럿|멤피스": {
       "date": "2026-11-24",
@@ -107,7 +108,8 @@
       "awayTeam": "멤피스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1쿼터"
     },
     "2026-11-24|nba|인디애나|오클라호마": {
       "date": "2026-11-24",
@@ -387,10 +389,22 @@
       "gameId": "KvdzaSRCma1EaJb",
       "homeTeam": "브렌트포드",
       "awayTeam": "에버턴",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 12'"
+      "period": "후반 12'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루이스-포터",
+          "minute": 23
+        },
+        {
+          "team": "home",
+          "player": "루이스-포터",
+          "minute": 25
+        }
+      ]
     },
     "2026-11-24|epl|브렌트포드|에버턴": {
       "date": "2026-11-24",
@@ -398,10 +412,22 @@
       "gameId": "KvdzaSRCma1EaJb",
       "homeTeam": "브렌트포드",
       "awayTeam": "에버턴",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 12'"
+      "period": "후반 12'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루이스-포터",
+          "minute": 23
+        },
+        {
+          "team": "home",
+          "player": "루이스-포터",
+          "minute": 25
+        }
+      ]
     },
     "2026-11-25|england2|카디프|프레스턴": {
       "date": "2026-11-25",
@@ -698,9 +724,16 @@
       "homeTeam": "레반테",
       "awayTeam": "엘체",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 11'"
+      "period": "후반 21'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "레비보",
+          "minute": 62
+        }
+      ]
     },
     "2026-11-23|seria|밀란|프로시노네": {
       "date": "2026-11-23",
@@ -994,10 +1027,27 @@
       "gameId": "xY2w2T2Cy47d1G5",
       "homeTeam": "몬차",
       "awayTeam": "피오렌티나",
-      "homeScore": 0,
+      "homeScore": 3,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 27'"
+      "period": "후반 35'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "구스타보 바렐라",
+          "minute": 45
+        },
+        {
+          "team": "home",
+          "player": "구스타보 바렐라",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "로빈슨",
+          "minute": 59
+        }
+      ]
     },
     "2026-11-23|bundesliga|브레멘|함부르크": {
       "date": "2026-11-23",
@@ -2344,7 +2394,8 @@
       "awayTeam": "포틀랜드",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1쿼터"
     },
     {
       "date": "2026-11-24",
@@ -2354,7 +2405,8 @@
       "awayTeam": "멤피스",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled"
+      "status": "scheduled",
+      "period": "1쿼터"
     },
     {
       "date": "2026-11-24",
@@ -2572,10 +2624,22 @@
       "gameId": "KvdzaSRCma1EaJb",
       "homeTeam": "브렌트포드",
       "awayTeam": "에버턴",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 12'"
+      "period": "후반 12'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "루이스-포터",
+          "minute": 23
+        },
+        {
+          "team": "home",
+          "player": "루이스-포터",
+          "minute": 25
+        }
+      ]
     },
     {
       "date": "2026-11-25",
@@ -2761,9 +2825,16 @@
       "homeTeam": "레반테",
       "awayTeam": "엘체",
       "homeScore": 0,
-      "awayScore": 0,
+      "awayScore": 1,
       "status": "live",
-      "period": "전반 11'"
+      "period": "후반 21'",
+      "goals": [
+        {
+          "team": "away",
+          "player": "레비보",
+          "minute": 62
+        }
+      ]
     },
     {
       "date": "2026-11-23",
@@ -2870,10 +2941,27 @@
       "gameId": "xY2w2T2Cy47d1G5",
       "homeTeam": "몬차",
       "awayTeam": "피오렌티나",
-      "homeScore": 0,
+      "homeScore": 3,
       "awayScore": 0,
       "status": "live",
-      "period": "전반 27'"
+      "period": "후반 35'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "구스타보 바렐라",
+          "minute": 45
+        },
+        {
+          "team": "home",
+          "player": "구스타보 바렐라",
+          "minute": 51
+        },
+        {
+          "team": "home",
+          "player": "로빈슨",
+          "minute": 59
+        }
+      ]
     },
     {
       "date": "2026-11-23",
