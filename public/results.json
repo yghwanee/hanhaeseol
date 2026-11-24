@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-24T17:34:17.541Z",
+  "lastUpdated": "2026-11-24T19:30:07.207Z",
   "byKey": {
     "2026-11-24|nba|필라델피아|포틀랜드": {
       "date": "2026-11-24",
@@ -775,10 +775,17 @@
       "gameId": "SrskhCBS5qGKdQH",
       "homeTeam": "갈라타사라이",
       "awayTeam": "아스톤 빌라",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 42'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "귈",
+          "minute": 77
+        }
+      ]
     },
     "2026-11-25|champs|갈라타사라이|아스톤 빌라": {
       "date": "2026-11-25",
@@ -786,10 +793,17 @@
       "gameId": "SrskhCBS5qGKdQH",
       "homeTeam": "갈라타사라이",
       "awayTeam": "아스톤 빌라",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 42'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "귈",
+          "minute": 77
+        }
+      ]
     },
     "2026-11-25|champs|보되 / 글림트|LASK": {
       "date": "2026-11-25",
@@ -799,8 +813,8 @@
       "awayTeam": "LASK",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 42'"
     },
     "2026-11-25|champs|라이프치히|랑스": {
       "date": "2026-11-25",
@@ -1618,9 +1632,9 @@
       "homeTeam": "샤바브 알 아흘리",
       "awayTeam": "알 카디시야",
       "homeScore": 1,
-      "awayScore": 3,
-      "status": "live",
-      "period": "후반 30'",
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -1641,6 +1655,16 @@
           "team": "home",
           "player": "마테우스",
           "minute": 71
+        },
+        {
+          "team": "away",
+          "player": "라인더르스",
+          "minute": 77
+        },
+        {
+          "team": "away",
+          "player": "압둘라",
+          "minute": 86
         }
       ]
     },
@@ -1650,10 +1674,27 @@
       "gameId": "MW2lCrpZWuMTRkd",
       "homeTeam": "알 나스르",
       "awayTeam": "알 사드",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 9'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "크리스티아누 호날두",
+          "minute": 13
+        },
+        {
+          "team": "away",
+          "player": "모하메드 와드",
+          "minute": 22
+        },
+        {
+          "team": "home",
+          "player": "주앙 펠릭스",
+          "minute": 52
+        }
+      ]
     },
     "2026-11-25|acl|가시마|전북": {
       "date": "2026-11-25",
@@ -2327,10 +2368,17 @@
       "gameId": "SrskhCBS5qGKdQH",
       "homeTeam": "갈라타사라이",
       "awayTeam": "아스톤 빌라",
-      "homeScore": 0,
+      "homeScore": 1,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 42'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "귈",
+          "minute": 77
+        }
+      ]
     },
     {
       "date": "2026-11-25",
@@ -2340,8 +2388,8 @@
       "awayTeam": "LASK",
       "homeScore": 0,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 42'"
     },
     {
       "date": "2026-11-25",
@@ -2883,9 +2931,9 @@
       "homeTeam": "샤바브 알 아흘리",
       "awayTeam": "알 카디시야",
       "homeScore": 1,
-      "awayScore": 3,
-      "status": "live",
-      "period": "후반 30'",
+      "awayScore": 5,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "away",
@@ -2906,6 +2954,16 @@
           "team": "home",
           "player": "마테우스",
           "minute": 71
+        },
+        {
+          "team": "away",
+          "player": "라인더르스",
+          "minute": 77
+        },
+        {
+          "team": "away",
+          "player": "압둘라",
+          "minute": 86
         }
       ]
     },
@@ -2915,10 +2973,27 @@
       "gameId": "MW2lCrpZWuMTRkd",
       "homeTeam": "알 나스르",
       "awayTeam": "알 사드",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 1,
+      "status": "live",
+      "period": "후반 9'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "크리스티아누 호날두",
+          "minute": 13
+        },
+        {
+          "team": "away",
+          "player": "모하메드 와드",
+          "minute": 22
+        },
+        {
+          "team": "home",
+          "player": "주앙 펠릭스",
+          "minute": 52
+        }
+      ]
     },
     {
       "date": "2026-11-25",
