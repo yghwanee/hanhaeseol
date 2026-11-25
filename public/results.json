@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-25T02:21:16.794Z",
+  "lastUpdated": "2026-11-25T04:57:30.776Z",
   "byKey": {
     "2026-11-24|nba|필라델피아|포틀랜드": {
       "date": "2026-11-24",
@@ -172,10 +172,10 @@
       "gameId": "2026112427",
       "homeTeam": "워싱턴",
       "awayTeam": "보스턴",
-      "homeScore": 49,
-      "awayScore": 80,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 116,
+      "awayScore": 131,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-25|nba|덴버|댈러스": {
       "date": "2026-11-25",
@@ -183,10 +183,10 @@
       "gameId": "2026112407",
       "homeTeam": "덴버",
       "awayTeam": "댈러스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 77,
+      "awayScore": 84,
+      "status": "live",
+      "period": "3쿼터"
     },
     "2026-11-26|nba|필라델피아|마이애미": {
       "date": "2026-11-26",
@@ -868,10 +868,22 @@
       "gameId": "1UduxlxjxVk28Pl",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "휴스턴 다이너모 FC",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 23'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "비에이라",
+          "minute": 11
+        },
+        {
+          "team": "home",
+          "player": "뢰벤",
+          "minute": 24
+        }
+      ]
     },
     "2026-11-25|mls|어스퀘이크|휴스턴 다이너모 FC": {
       "date": "2026-11-25",
@@ -879,10 +891,22 @@
       "gameId": "1UduxlxjxVk28Pl",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "휴스턴 다이너모 FC",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 23'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "비에이라",
+          "minute": 11
+        },
+        {
+          "team": "home",
+          "player": "뢰벤",
+          "minute": 24
+        }
+      ]
     },
     "2026-11-25|mls|산호세 어스퀘이크스|휴스턴": {
       "date": "2026-11-25",
@@ -890,10 +914,22 @@
       "gameId": "1UduxlxjxVk28Pl",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "휴스턴 다이너모 FC",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 23'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "비에이라",
+          "minute": 11
+        },
+        {
+          "team": "home",
+          "player": "뢰벤",
+          "minute": 24
+        }
+      ]
     },
     "2026-11-25|mls|산호세 어스퀘이크스|휴스턴 다이너모 FC": {
       "date": "2026-11-25",
@@ -901,10 +937,22 @@
       "gameId": "1UduxlxjxVk28Pl",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "휴스턴 다이너모 FC",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 23'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "비에이라",
+          "minute": 11
+        },
+        {
+          "team": "home",
+          "player": "뢰벤",
+          "minute": 24
+        }
+      ]
     },
     "2026-11-25|champs|갈라타사라이|애스턴 빌라": {
       "date": "2026-11-25",
@@ -1190,7 +1238,8 @@
           "player": "루이스 미야",
           "minute": 57
         }
-      ]
+      ],
+      "highlightVideoId": "r0Vc4OJrtTk"
     },
     "2026-11-25|champs|코모 1907|AEK 아테네": {
       "date": "2026-11-25",
@@ -1208,7 +1257,8 @@
           "player": "루이스 미야",
           "minute": 57
         }
-      ]
+      ],
+      "highlightVideoId": "r0Vc4OJrtTk"
     },
     "2026-11-25|champs|페예노르트|포르투": {
       "date": "2026-11-25",
@@ -1227,7 +1277,8 @@
           "minute": 2,
           "ownGoal": true
         }
-      ]
+      ],
+      "highlightVideoId": "9lh0hL-LW4Y"
     },
     "2026-11-26|champs|사바하|바르셀로나": {
       "date": "2026-11-26",
@@ -2358,10 +2409,10 @@
       "gameId": "2026112427",
       "homeTeam": "워싱턴",
       "awayTeam": "보스턴",
-      "homeScore": 49,
-      "awayScore": 80,
-      "status": "live",
-      "period": "2쿼터"
+      "homeScore": 116,
+      "awayScore": 131,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-25",
@@ -2369,10 +2420,10 @@
       "gameId": "2026112407",
       "homeTeam": "덴버",
       "awayTeam": "댈러스",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "1쿼터"
+      "homeScore": 77,
+      "awayScore": 84,
+      "status": "live",
+      "period": "3쿼터"
     },
     {
       "date": "2026-11-26",
@@ -2927,10 +2978,22 @@
       "gameId": "1UduxlxjxVk28Pl",
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "휴스턴 다이너모 FC",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "live",
+      "period": "후반 23'",
+      "goals": [
+        {
+          "team": "home",
+          "player": "비에이라",
+          "minute": 11
+        },
+        {
+          "team": "home",
+          "player": "뢰벤",
+          "minute": 24
+        }
+      ]
     },
     {
       "date": "2026-11-25",
@@ -3149,7 +3212,8 @@
           "player": "루이스 미야",
           "minute": 57
         }
-      ]
+      ],
+      "highlightVideoId": "r0Vc4OJrtTk"
     },
     {
       "date": "2026-11-25",
@@ -3168,7 +3232,8 @@
           "minute": 2,
           "ownGoal": true
         }
-      ]
+      ],
+      "highlightVideoId": "9lh0hL-LW4Y"
     },
     {
       "date": "2026-11-26",
