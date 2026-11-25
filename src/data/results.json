@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-25T04:57:30.776Z",
+  "lastUpdated": "2026-11-25T12:43:29.714Z",
   "byKey": {
     "2026-11-24|nba|필라델피아|포틀랜드": {
       "date": "2026-11-24",
@@ -183,10 +183,10 @@
       "gameId": "2026112407",
       "homeTeam": "덴버",
       "awayTeam": "댈러스",
-      "homeScore": 77,
-      "awayScore": 84,
-      "status": "live",
-      "period": "3쿼터"
+      "homeScore": 101,
+      "awayScore": 120,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-26|nba|필라델피아|마이애미": {
       "date": "2026-11-26",
@@ -304,10 +304,10 @@
       "gameId": "202611250470121",
       "homeTeam": "우리은행 우리WON",
       "awayTeam": "KB스타즈",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 51,
+      "awayScore": 62,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-25|wkbl|우리은행 우리WON|KB스타즈": {
       "date": "2026-11-25",
@@ -315,10 +315,10 @@
       "gameId": "202611250470121",
       "homeTeam": "우리은행 우리WON",
       "awayTeam": "KB스타즈",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 51,
+      "awayScore": 62,
+      "status": "finished",
+      "period": "4쿼터"
     },
     "2026-11-24|kovo|OK저축은행|대한항공": {
       "date": "2026-11-24",
@@ -337,10 +337,10 @@
       "gameId": "20261125023M43",
       "homeTeam": "한국전력",
       "awayTeam": "현대캐피탈",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
     },
     "2026-11-26|kovo|우리카드|삼성화재": {
       "date": "2026-11-26",
@@ -371,9 +371,9 @@
       "homeTeam": "IBK기업은행",
       "awayTeam": "한국도로공사",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
     },
     "2026-11-26|wkovo|현대건설|SOOP": {
       "date": "2026-11-26",
@@ -588,7 +588,8 @@
           "minute": 90,
           "addedTime": 4
         }
-      ]
+      ],
+      "highlightVideoId": "RTOEX20QdAc"
     },
     "2026-11-25|england2|노리치|QPR": {
       "date": "2026-11-25",
@@ -869,9 +870,9 @@
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "휴스턴 다이너모 FC",
       "homeScore": 2,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 23'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -882,6 +883,11 @@
           "team": "home",
           "player": "뢰벤",
           "minute": 24
+        },
+        {
+          "team": "away",
+          "player": "맥과이어",
+          "minute": 80
         }
       ]
     },
@@ -892,9 +898,9 @@
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "휴스턴 다이너모 FC",
       "homeScore": 2,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 23'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -905,6 +911,11 @@
           "team": "home",
           "player": "뢰벤",
           "minute": 24
+        },
+        {
+          "team": "away",
+          "player": "맥과이어",
+          "minute": 80
         }
       ]
     },
@@ -915,9 +926,9 @@
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "휴스턴 다이너모 FC",
       "homeScore": 2,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 23'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -928,6 +939,11 @@
           "team": "home",
           "player": "뢰벤",
           "minute": 24
+        },
+        {
+          "team": "away",
+          "player": "맥과이어",
+          "minute": 80
         }
       ]
     },
@@ -938,9 +954,9 @@
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "휴스턴 다이너모 FC",
       "homeScore": 2,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 23'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -951,6 +967,11 @@
           "team": "home",
           "player": "뢰벤",
           "minute": 24
+        },
+        {
+          "team": "away",
+          "player": "맥과이어",
+          "minute": 80
         }
       ]
     },
@@ -2056,10 +2077,27 @@
       "gameId": "mCuPiGChAu4HWEx",
       "homeTeam": "가시마",
       "awayTeam": "전북",
-      "homeScore": 0,
+      "homeScore": 3,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오가와",
+          "minute": 17
+        },
+        {
+          "team": "home",
+          "player": "치다",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "스즈키",
+          "minute": 73
+        }
+      ]
     },
     "2026-11-25|acl|감바 오사카|포트": {
       "date": "2026-11-25",
@@ -2067,10 +2105,23 @@
       "gameId": "U4dXJnLWkr0E5UV",
       "homeTeam": "감바 오사카",
       "awayTeam": "포트",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "토시다",
+          "minute": 71
+        },
+        {
+          "team": "home",
+          "player": "툼멧",
+          "minute": 90,
+          "addedTime": 6
+        }
+      ]
     },
     "2026-11-25|spl|하이버니언|던디": {
       "date": "2026-11-25",
@@ -2420,10 +2471,10 @@
       "gameId": "2026112407",
       "homeTeam": "덴버",
       "awayTeam": "댈러스",
-      "homeScore": 77,
-      "awayScore": 84,
-      "status": "live",
-      "period": "3쿼터"
+      "homeScore": 101,
+      "awayScore": 120,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-26",
@@ -2521,10 +2572,10 @@
       "gameId": "202611250470121",
       "homeTeam": "우리은행 우리WON",
       "awayTeam": "KB스타즈",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 51,
+      "awayScore": 62,
+      "status": "finished",
+      "period": "4쿼터"
     },
     {
       "date": "2026-11-24",
@@ -2543,10 +2594,10 @@
       "gameId": "20261125023M43",
       "homeTeam": "한국전력",
       "awayTeam": "현대캐피탈",
-      "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "homeScore": 2,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
     },
     {
       "date": "2026-11-26",
@@ -2577,9 +2628,9 @@
       "homeTeam": "IBK기업은행",
       "awayTeam": "한국도로공사",
       "homeScore": 0,
-      "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
     },
     {
       "date": "2026-11-26",
@@ -2737,7 +2788,8 @@
           "minute": 90,
           "addedTime": 4
         }
-      ]
+      ],
+      "highlightVideoId": "RTOEX20QdAc"
     },
     {
       "date": "2026-11-25",
@@ -2979,9 +3031,9 @@
       "homeTeam": "산호세 어스퀘이크스",
       "awayTeam": "휴스턴 다이너모 FC",
       "homeScore": 2,
-      "awayScore": 0,
-      "status": "live",
-      "period": "후반 23'",
+      "awayScore": 1,
+      "status": "finished",
+      "period": "경기종료",
       "goals": [
         {
           "team": "home",
@@ -2992,6 +3044,11 @@
           "team": "home",
           "player": "뢰벤",
           "minute": 24
+        },
+        {
+          "team": "away",
+          "player": "맥과이어",
+          "minute": 80
         }
       ]
     },
@@ -3768,10 +3825,27 @@
       "gameId": "mCuPiGChAu4HWEx",
       "homeTeam": "가시마",
       "awayTeam": "전북",
-      "homeScore": 0,
+      "homeScore": 3,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "오가와",
+          "minute": 17
+        },
+        {
+          "team": "home",
+          "player": "치다",
+          "minute": 60
+        },
+        {
+          "team": "home",
+          "player": "스즈키",
+          "minute": 73
+        }
+      ]
     },
     {
       "date": "2026-11-25",
@@ -3779,10 +3853,23 @@
       "gameId": "U4dXJnLWkr0E5UV",
       "homeTeam": "감바 오사카",
       "awayTeam": "포트",
-      "homeScore": 0,
+      "homeScore": 2,
       "awayScore": 0,
-      "status": "scheduled",
-      "period": "경기전"
+      "status": "finished",
+      "period": "경기종료",
+      "goals": [
+        {
+          "team": "home",
+          "player": "토시다",
+          "minute": 71
+        },
+        {
+          "team": "home",
+          "player": "툼멧",
+          "minute": 90,
+          "addedTime": 6
+        }
+      ]
     },
     {
       "date": "2026-11-25",
