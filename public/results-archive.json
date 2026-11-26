@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-26T04:59:13.490Z",
+  "lastUpdated": "2026-11-26T15:05:02.335Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -97568,7 +97568,8 @@
           "player": "알바레스",
           "minute": 24
         }
-      ]
+      ],
+      "highlightVideoId": "yQWm1Zxu8Kg"
     },
     "2026-11-26|champs|인터 밀란|슈투트가르트": {
       "date": "2026-11-26",
@@ -97591,7 +97592,8 @@
           "player": "라우타로 마르티네스",
           "minute": 74
         }
-      ]
+      ],
+      "highlightVideoId": "kYFgY_aYohs"
     },
     "2026-11-26|champs|스포르팅 CP|맨체스터 유나이티드": {
       "date": "2026-11-26",
@@ -97624,7 +97626,8 @@
           "player": "수아레스",
           "minute": 80
         }
-      ]
+      ],
+      "highlightVideoId": "67rZheuiybE"
     },
     "2026-11-26|england2|왓퍼드|블랙번": {
       "date": "2026-11-26",
@@ -97731,6 +97734,17 @@
         }
       ]
     },
+    "2026-11-26|kovo|우리카드|삼성화재": {
+      "date": "2026-11-26",
+      "categoryId": "kovo",
+      "gameId": "20261126023M45",
+      "homeTeam": "우리카드",
+      "awayTeam": "삼성화재",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
+    },
     "2026-11-26|nba|필라델피아|마이애미": {
       "date": "2026-11-26",
       "categoryId": "nba",
@@ -97807,6 +97821,39 @@
       "awayScore": 104,
       "status": "finished",
       "period": "4쿼터"
+    },
+    "2026-11-26|nba|골든스테이트|새크라멘토": {
+      "date": "2026-11-26",
+      "categoryId": "nba",
+      "gameId": "2026112509",
+      "homeTeam": "골든스테이트",
+      "awayTeam": "새크라멘토",
+      "homeScore": 129,
+      "awayScore": 110,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-26|nba|포틀랜드|샌안토니오": {
+      "date": "2026-11-26",
+      "categoryId": "nba",
+      "gameId": "2026112522",
+      "homeTeam": "포틀랜드",
+      "awayTeam": "샌안토니오",
+      "homeScore": 116,
+      "awayScore": 111,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-26|wkovo|현대건설|SOOP": {
+      "date": "2026-11-26",
+      "categoryId": "wkovo",
+      "gameId": "20261126023F46",
+      "homeTeam": "현대건설",
+      "awayTeam": "SOOP",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "종료"
     }
   },
   "results": [
@@ -195377,7 +195424,8 @@
           "player": "알바레스",
           "minute": 24
         }
-      ]
+      ],
+      "highlightVideoId": "yQWm1Zxu8Kg"
     },
     {
       "date": "2026-11-26",
@@ -195400,7 +195448,8 @@
           "player": "라우타로 마르티네스",
           "minute": 74
         }
-      ]
+      ],
+      "highlightVideoId": "kYFgY_aYohs"
     },
     {
       "date": "2026-11-26",
@@ -195433,7 +195482,8 @@
           "player": "수아레스",
           "minute": 80
         }
-      ]
+      ],
+      "highlightVideoId": "67rZheuiybE"
     },
     {
       "date": "2026-11-26",
@@ -195542,6 +195592,17 @@
     },
     {
       "date": "2026-11-26",
+      "categoryId": "kovo",
+      "gameId": "20261126023M45",
+      "homeTeam": "우리카드",
+      "awayTeam": "삼성화재",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
+    },
+    {
+      "date": "2026-11-26",
       "categoryId": "nba",
       "gameId": "2026112520",
       "homeTeam": "필라델피아",
@@ -195616,6 +195677,39 @@
       "awayScore": 104,
       "status": "finished",
       "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-26",
+      "categoryId": "nba",
+      "gameId": "2026112509",
+      "homeTeam": "골든스테이트",
+      "awayTeam": "새크라멘토",
+      "homeScore": 129,
+      "awayScore": 110,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-26",
+      "categoryId": "nba",
+      "gameId": "2026112522",
+      "homeTeam": "포틀랜드",
+      "awayTeam": "샌안토니오",
+      "homeScore": 116,
+      "awayScore": 111,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-26",
+      "categoryId": "wkovo",
+      "gameId": "20261126023F46",
+      "homeTeam": "현대건설",
+      "awayTeam": "SOOP",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "종료"
     }
   ]
 }
