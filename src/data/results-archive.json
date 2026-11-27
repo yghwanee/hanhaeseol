@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-11-27T08:16:16.746Z",
+  "lastUpdated": "2026-11-27T18:10:03.181Z",
   "byKey": {
     "2026-05-18|denmark|쇠네르위스케|노르셸란": {
       "date": "2026-05-18",
@@ -97922,8 +97922,9 @@
         },
         {
           "team": "home",
-          "player": "마주렉",
-          "minute": 51
+          "player": "칼리에",
+          "minute": 51,
+          "ownGoal": true
         }
       ]
     },
@@ -98379,6 +98380,17 @@
         }
       ],
       "highlightVideoId": "Np1EonU3c4k"
+    },
+    "2026-11-27|kovo|대한항공|KB손해보험": {
+      "date": "2026-11-27",
+      "categoryId": "kovo",
+      "gameId": "20261127023M47",
+      "homeTeam": "대한항공",
+      "awayTeam": "KB손해보험",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "종료"
     },
     "2026-11-27|uecl|카이라트|미얄비": {
       "date": "2026-11-27",
@@ -98895,6 +98907,28 @@
           "minute": 82
         }
       ]
+    },
+    "2026-11-27|wkbl|삼성생명 블루밍스|신한은행 에스버드": {
+      "date": "2026-11-27",
+      "categoryId": "wkbl",
+      "gameId": "202611270470122",
+      "homeTeam": "삼성생명 블루밍스",
+      "awayTeam": "신한은행 에스버드",
+      "homeScore": 74,
+      "awayScore": 64,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    "2026-11-27|wkovo|흥국생명|GS칼텍스": {
+      "date": "2026-11-27",
+      "categoryId": "wkovo",
+      "gameId": "20261127023F48",
+      "homeTeam": "흥국생명",
+      "awayTeam": "GS칼텍스",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
     }
   },
   "results": [
@@ -196819,8 +196853,9 @@
         },
         {
           "team": "home",
-          "player": "마주렉",
-          "minute": 51
+          "player": "칼리에",
+          "minute": 51,
+          "ownGoal": true
         }
       ]
     },
@@ -197276,6 +197311,17 @@
         }
       ],
       "highlightVideoId": "Np1EonU3c4k"
+    },
+    {
+      "date": "2026-11-27",
+      "categoryId": "kovo",
+      "gameId": "20261127023M47",
+      "homeTeam": "대한항공",
+      "awayTeam": "KB손해보험",
+      "homeScore": 3,
+      "awayScore": 1,
+      "status": "finished",
+      "period": "종료"
     },
     {
       "date": "2026-11-27",
@@ -197792,6 +197838,28 @@
           "minute": 82
         }
       ]
+    },
+    {
+      "date": "2026-11-27",
+      "categoryId": "wkbl",
+      "gameId": "202611270470122",
+      "homeTeam": "삼성생명 블루밍스",
+      "awayTeam": "신한은행 에스버드",
+      "homeScore": 74,
+      "awayScore": 64,
+      "status": "finished",
+      "period": "4쿼터"
+    },
+    {
+      "date": "2026-11-27",
+      "categoryId": "wkovo",
+      "gameId": "20261127023F48",
+      "homeTeam": "흥국생명",
+      "awayTeam": "GS칼텍스",
+      "homeScore": 0,
+      "awayScore": 3,
+      "status": "finished",
+      "period": "종료"
     }
   ]
 }
